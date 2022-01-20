@@ -78,16 +78,25 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency> 
-			<groupId>javax.servlet</groupId> 
-			<artifactId>jstl</artifactId> 
-			<version>1.2</version> 
-		</dependency> 
-		<dependency> 
 			<groupId>taglibs</groupId> 
 			<artifactId>standard</artifactId> 
 			<version>1.1.2</version> 
 		</dependency>
-
+		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>lodash</artifactId>
+		    <version>4.17.21</version>
+		</dependency>
+		<dependency> 
+			<groupId>jstl</groupId> 
+			<artifactId>jstl</artifactId> 
+			<version>1.2</version> 
+		</dependency> 
+		<dependency> 
+			<groupId>org.apache.tomcat.embed</groupId> 
+			<artifactId>tomcat-embed-jasper</artifactId> 
+			<scope>provided</scope> 
+		</dependency>
 	</dependencies>
 
 	<build>
