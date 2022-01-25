@@ -1,4 +1,4 @@
-package com.da.common;
+package com.da.sample.controller;
 
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,20 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
-public class TestController {
+public class SampleController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@RequestMapping("/")
-	public String index() {
-		logger.info("index");
-		return "index";
-	}
 	
 	@RequestMapping("/sample")
 	public String sample() {
 		logger.info("sample");
-		return "sample/sample";
+		return "sample";
 	}
 }
-
