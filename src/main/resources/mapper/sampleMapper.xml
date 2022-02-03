@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.sample.dao.SampleMapper">
+	<select id="sampleLogin" resultType="int">
+        SELECT count(*) FROM tb_sample_member WHERE MEM_ID = #{memId} and MEM_ID = #{memPw} 
+    </select>
+</mapper>

@@ -15,11 +15,5 @@ public class TestController {
 		logger.info("index");
 		return "index";
 	}
-	
-	@RequestMapping("/sample")
-	public String sample() {
-		logger.info("sample");
-		return "sample/sample";
-	}
 }
 
