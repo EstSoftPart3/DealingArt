@@ -26,7 +26,8 @@ import lombok.Data;
 @DynamicInsert
 @DynamicUpdate
 public class SampleBoard {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="BNO", nullable=false)
 	private int bNo;
 	

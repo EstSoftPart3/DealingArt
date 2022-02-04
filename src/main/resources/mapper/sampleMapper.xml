@@ -14,7 +14,15 @@
         AND 
         	member.mem_pwd= #{memPw}
     </select>
-    <select id="" resultType="com.da.model.SampleBoard">
+    <insert id="insertMem" parameterType="com.da.model.MemberEntity">
+    	INSERT 
+        INTO
+            tb_sample_member
+            (mem_id, mem_nm, mem_pwd, mem_email) 
+        VALUES
+            (#{memId}, #{memNm}, #{memPw}, #{memEmail})
+    </insert>
+    <select id="searchBoard" resultType="com.da.model.SampleBoard">
     	SELECT
             board.bno 
             board.content 
@@ -33,4 +41,18 @@
         VALUES
             (#{bContent}, #{bRegDate}, #{bTitle}, #{bViewCnt}, #{bWriter})
     </insert>
+    <insert id="selectBoard" parameterType="com.da.model.SampleBoard">
+    	SELECT
+            sampleboard.bno
+            sampleboard.content
+            sampleboard.regdate
+            sampleboard.title
+            sampleboard.viewcnt
+            sampleboard.writer
+        FROM
+            tb_sample_borad sampleboard
+        WHERE
+            sampleboard.bno = #{bNo}
+    </insert>
+    
 </mapper>

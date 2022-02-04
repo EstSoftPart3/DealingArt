@@ -20,19 +20,19 @@ import lombok.Data;
 @Table(name="tb_sample_member")
 public class MemberEntity {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="MEM_SQ")
+	@Column(name="MEM_SQ", nullable=false)
 	private int memNo;
 	
-	@Column(name="MEM_ID")
+	@Column(name="MEM_ID", nullable=false)
 	private String memId;
 	
-	@Column(name="MEM_PWD")
+	@Column(name="MEM_PWD", nullable=false)
 	private String memPw;
 	
-	@Column(name="MEM_NM")
+	@Column(name="MEM_NM", nullable=false)
 	private String memNm;
 	
-	@Column(name="MEM_EMAIL")
+	@Column(name="MEM_EMAIL", nullable=false)
 	private String memEmail;
 	
 }
