@@ -43,12 +43,11 @@ public class SampleDao{
 						.and(model.memPw.eq(memPw)))
 				.fetchOne();
 		int count = (int) result;
-			/*
-			 * int result = -1; try { result = sampleMapper.sampleLogin(memId, memPw);
-			 * }catch (Exception e) { e.printStackTrace(); return -1; }
-			 */
 		System.out.println("result ========" + result);
-		 
+		
+		//MyBais 사용시
+		//int count = sampleMapper.sampleLogin(memId, memPw);
+		
 		return count;
 	}
 	
@@ -56,6 +55,9 @@ public class SampleDao{
 		QSampleBoard sampleBoard = QSampleBoard.sampleBoard;
 		List<SampleBoard> result = queryFactory.selectFrom(sampleBoard)
 												.fetch();
+		
+		//MyBatis 사용시
+		//List<SampleBoard> result = sampleMapper.searchBoard();
 		if(result.size() > 0) {
 			return result;
 		}
@@ -79,6 +81,7 @@ public class SampleDao{
 				return 2;
 			}
 		}
+		//MyBatis 사용시
 	}
 	
 	public SampleBoard inserBoard(SampleBoard sampleBoard) {
@@ -89,6 +92,8 @@ public class SampleDao{
 		}else {
 			return null;
 		}
+		//MyBatis 사용시
+		
 	}
 	
 	public SampleBoard selectBoard(SampleBoard sampleBoard) {

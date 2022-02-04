@@ -5,6 +5,32 @@
     
 <mapper namespace="com.da.sample.dao.SampleMapper">
 	<select id="sampleLogin" resultType="int">
-        SELECT count(*) FROM tb_sample_member WHERE MEM_ID = #{memId} and MEM_ID = #{memPw} 
+        SELECT
+            count(member.mem_sq)
+        FROM
+            tb_sample_member member 
+        WHERE
+            member.mem_id= #{memId}
+        AND 
+        	member.mem_pwd= #{memPw}
     </select>
+    <select id="" resultType="com.da.model.SampleBoard">
+    	SELECT
+            board.bno 
+            board.content 
+            board.regdate 
+            board.title 
+            board.viewcnt 
+            board.writer
+        FROM
+            tb_sample_borad board
+    </select>
+    <insert id="insertBoard" parameterType="com.da.model.SampleBoard">
+    	INSERT 
+        INTO
+            tb_sample_borad
+            (content, regdate, title, viewcnt, writer) 
+        VALUES
+            (#{bContent}, #{bRegDate}, #{bTitle}, #{bViewCnt}, #{bWriter})
+    </insert>
 </mapper>
