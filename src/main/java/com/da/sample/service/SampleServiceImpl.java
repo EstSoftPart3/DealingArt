@@ -1,9 +1,11 @@
 package com.da.sample.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import lombok.AllArgsConstructor;
 
@@ -38,8 +40,8 @@ public class SampleServiceImpl implements SampleService{
 	 * return : 전체 게시물이 조회된 List
 	 */
 	@Override
-	public List<SampleBoard> searchBoard() {
-		return sampleDao.searchBoard();
+	public Map<String, Object> searchBoard(Map<String, Object> param) {
+		return sampleDao.searchBoard(param);
 	}
 	
 	/*
@@ -70,5 +72,10 @@ public class SampleServiceImpl implements SampleService{
 	@Override
 	public SampleBoard selectBoard(SampleBoard sampleBoard) {
 		return sampleDao.selectBoard(sampleBoard);
+	}
+	
+	@Override
+	public int deleteBoard(String bNo) {
+		return sampleDao.deleteBoard(bNo);
 	}
 }

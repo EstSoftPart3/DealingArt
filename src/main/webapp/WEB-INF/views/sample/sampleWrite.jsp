@@ -35,16 +35,15 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui teal image header">
-                게시글 작성하기
             </h2>
             <form class="ui large form">
                 <div class="ui stacked segment">
                     <div class="field">
-                        <input type="text" id="b_title" placeholder="게시글 제목" autocomplete="off" autofocus="autofocus">
+                        <input type="text" id="b_title" placeholder="게시글 제목" autocomplete="off" autofocus="autofocus" value=${bTitle}>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
-                            <textarea style="resize: vertical;" id="b_content" placeholder="게시글 내용" rows="8"></textarea>
+                            <textarea style="resize: vertical;" id="b_content" placeholder="게시글 내용" rows="8">${bContent}</textarea>
                         </div>
                     </div>
                     <div class="ui fluid large teal submit button" id="write_bbs">게시글 작성하기</div>
@@ -58,6 +57,16 @@
         </div>
     </div>
     <script>
+   	var bTitle = "${bTitle}";
+    var bContent = "${bContent}";
+    var bWriter = "${bWriter}";
+    var bNo = "${bNo}";
+   	debugger;
+    if(bNo != ""){
+    	$('h2').contents().unwrap().wrap('<h2 class="ui teal image header">게시글 수정하기</h2>');
+    }else{
+    	$('h2').contents().unwrap().wrap('<h2 class="ui teal image header">게시글 작성하기</h2>');
+    }
         $(document).ready(function() {
             $("#write_bbs").click(function() {
                 var json = {
@@ -71,6 +80,9 @@
                         $("#" + str).focus();
                         return;
                     }
+                }
+                if(bNo != null && bNo != ""){
+                	json.bNo = bNo;
                 }
 
                 $.ajax({
@@ -94,7 +106,7 @@
                 });
             });
         });
-
+        
     </script>
 </body>
 

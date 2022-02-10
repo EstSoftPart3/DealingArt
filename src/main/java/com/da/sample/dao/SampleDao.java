@@ -1,11 +1,15 @@
 package com.da.sample.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import com.da.mapper.SampleMapper;
 import com.da.model.MemberEntity;
@@ -14,6 +18,7 @@ import com.da.model.QSampleBoard;
 import com.da.model.SampleBoard;
 import com.da.repository.MemberEntityRepository;
 import com.da.repository.SampleBoardRepository;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -69,13 +74,30 @@ public class SampleDao{
 	 * param : null
 	 * return : List (전체 게시판의 목록)
 	 */
-	public List<SampleBoard> searchBoard() {
+	public Map<String, Object> searchBoard(Map<String, Object> param) {
 		//QClass에 저장된 sampleBoard Model을 꺼내온다 
 		QSampleBoard sampleBoard = QSampleBoard.sampleBoard;
+		Map<String, Object> result = new HashMap<String, Object>();
+		System.out.println("request!!!!!!!!!!!!!!!!!! = " + param);
+		int page = Integer.parseInt(String.valueOf(param.get("page")));
+		int pageSize = Integer.parseInt(String.valueOf(param.get("pageSize")));
 		//리스트 형식으로 결과값을 받아온다
-		List<SampleBoard> result = queryFactory.selectFrom(sampleBoard) //select + from을 한줄로 표현하는 표현식
+		List<SampleBoard> board = queryFactory.selectFrom(sampleBoard) //select + from을 한줄로 표현하는 표현식
+												.orderBy(sampleBoard.bNo.asc())
+												.offset((page-1) * pageSize)
+												.limit(pageSize)
 												.fetch();
 		
+		Long total = queryFactory.select(sampleBoard.count())
+								.from(sampleBoard)
+								.fetchOne();
+		
+		Long totalPage = (total - 1) / pageSize + 1;
+		
+		result.put("list", board);
+		result.put("totalCount", total);
+		result.put("totalPage", totalPage);
+								
 		/*
 		 * MyBatis 사용시
 		 * List<SampleBoard> result = sampleMapper.searchBoard();
@@ -160,5 +182,20 @@ public class SampleDao{
 		 * SampleBoard result = sampleMapper.selectBoard(sampleBoard);
 		 */
 		return result;
+	}
+	
+	public int deleteBoard(String bNo) {
+		sampleBoardRepository.deleteById(Integer.parseInt(bNo));
+		QSampleBoard model = QSampleBoard.sampleBoard;
+		SampleBoard sampleBoard = queryFactory.selectFrom(model)
+												//화면에서 받아온 Model 객채 안에 있는 bNo와 기존에 저장되있는 bNo를 비교한다
+												.where(model.bNo.eq(Integer.parseInt(bNo)))
+												.fetchOne();
+		System.out.println("************sampleBoard : " + sampleBoard);
+		if(sampleBoard == null) {
+			return 0;
+		}else {
+			return 1;
+		}
 	}
 }

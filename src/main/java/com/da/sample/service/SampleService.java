@@ -1,6 +1,9 @@
 package com.da.sample.service;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.ui.Model;
 
 import com.da.model.MemberEntity;
 import com.da.model.SampleBoard;
@@ -18,7 +21,7 @@ public interface  SampleService{
 	 * param : null
 	 * return : 전체 게시물이 조회된 List
 	 */
-	List<SampleBoard> searchBoard();
+	Map<String, Object> searchBoard(Map<String, Object> param);
 	
 	/*
 	 * 새로운 회원 정보 저장 기능
@@ -40,4 +43,6 @@ public interface  SampleService{
 	 * return : 조회된 게시물의 정보가 들어있는 VO
 	 */
 	SampleBoard selectBoard(SampleBoard sampleBoard);
+	
+	int deleteBoard(String bNo);
 }

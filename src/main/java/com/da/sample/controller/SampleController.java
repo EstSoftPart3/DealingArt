@@ -2,16 +2,22 @@ package com.da.sample.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
-import org.springframework.stereotype.Controller; 
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.da.model.MemberEntity;
 import com.da.model.SampleBoard;
 import com.da.sample.service.SampleService;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,17 +98,31 @@ public class SampleController {
 	 */
 	@RequestMapping("/sample/searchBoard")
 	@ResponseBody
-	public List<SampleBoard> searchBoard() {
+	public Map<String, Object> searchBoard(@RequestParam Map<String, Object> param) {
 		//게시물 목록을 조회하는 서비스를 호출한다
-		return sampleService.searchBoard();
+		return sampleService.searchBoard(param);
 	}
 	/*
 	 * 게시판 화면에서 게시물 작성 클릭 시 게시판 작성 화면으로 이동한다 
 	 */
 	@RequestMapping("/sample/sampleWrite")
-	public String sampleWrite() {
+	@ResponseBody
+	public ModelAndView sampleWrite(@RequestParam(value="key", required = false) @Nullable String bNo) {
 		//게시판 작성 페이지 경로를 리턴한다
-		return "sample/sampleWrite";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/sample/sampleWrite");
+		if(bNo != null && bNo != "") {
+			SampleBoard sampleBoard = new SampleBoard();
+			sampleBoard.setBNo(Integer.parseInt(bNo));
+			SampleBoard result = sampleService.selectBoard(sampleBoard);
+			mv.addObject("bTitle", result.getBTitle());
+			mv.addObject("bWriter", result.getBWriter());
+			mv.addObject("bContent", result.getBContent());
+			mv.addObject("bNo", result.getBNo());
+			mv.addObject("sampleBoard", result);
+		}
+		System.out.println("***********Writer MV : " + mv);
+		return mv;
 	}
 	/*
 	 * 게시판 작성 화면에서 게시물 등록 버튼을 눌렀을 때 실행된다
@@ -132,8 +152,38 @@ public class SampleController {
 	 */
 	@RequestMapping("/sample/selectBoard")
 	@ResponseBody
-	public SampleBoard selectBoard(SampleBoard sampleBoard) {
+	public ModelAndView selectBoard(HttpSession session, SampleBoard sampleBoard) {
+		ModelAndView mv = new ModelAndView();
+		sampleBoard.setBWriter((String) session.getAttribute("memId"));
+		if(session.getAttribute("memId") != sampleBoard.getBWriter()) {
+			mv.addObject("fix", "none");
+		}
 		//선택한 게시물을 조회하는 서비스를 호출한다
-		return sampleService.selectBoard(sampleBoard);
+		SampleBoard result = sampleService.selectBoard(sampleBoard);
+		mv.setViewName("jsonView");
+		mv.addObject("sampleBoard", result);
+		
+		System.out.println("***********mv : " + mv);
+		
+		return mv;
+	}
+	
+	/*
+	 * 게시판 상세화면에서 삭제버튼을 클릭했을 때 실행된다
+	 * param : JSON 방식으로 클릭한 해당 row의 정보를 VO 형태로 받아온다
+	 * return : 해당 row 정보로 조회를 하여 다시 VO로 보내준다
+	 */
+	@RequestMapping("/sample/deleteBoard")
+	@ResponseBody
+	public ModelAndView updateBoard(@RequestParam(value="key") String bNo) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("sample/sampleBoard");
+		int result = sampleService.deleteBoard(bNo);
+		if(result == 0) {
+			mv.addObject("massage", "성공적으로 삭제되었습니다.");
+		}else {
+			mv.addObject("massage", "삭제 중 오류가 발생했습니다.");
+		}
+		return mv;
 	}
 }
