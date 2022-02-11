@@ -99,8 +99,8 @@
             </div>
         </div>
         <div class="actions">
-            <button class="ui submit button" onclick="updateBoard()">수정</button>
-            <button class="ui submit button" onclick="deleteBoard()">삭제</button>
+            <button class="ui submit button" onclick="updateBoard()" id="updateButton">수정</button>
+            <button class="ui submit button" onclick="deleteBoard()" id="deleteButton">삭제</button>
             <div class="ui black deny button">닫기</div>
         </div>
     </div>
@@ -144,6 +144,10 @@
                     	$("#b_review").text(selectBoard.bwriter + " - " +  bRegDate);
                     	$("#b_content").text(selectBoard.bcontent);
                     	$('#view_modal').modal('show');
+                    	if(data.fix != null || data.fix != ""){
+                    		$("#updateButton").hide();
+                    		$("#deleteButton").hide();
+                    	}
                     },
                     error: function(error) {
                         alert("오류 발생" + error);

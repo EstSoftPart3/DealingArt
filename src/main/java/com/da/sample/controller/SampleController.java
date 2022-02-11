@@ -154,12 +154,14 @@ public class SampleController {
 	@ResponseBody
 	public ModelAndView selectBoard(HttpSession session, SampleBoard sampleBoard) {
 		ModelAndView mv = new ModelAndView();
-		sampleBoard.setBWriter((String) session.getAttribute("memId"));
-		if(session.getAttribute("memId") != sampleBoard.getBWriter()) {
-			mv.addObject("fix", "none");
-		}
 		//선택한 게시물을 조회하는 서비스를 호출한다
 		SampleBoard result = sampleService.selectBoard(sampleBoard);
+		
+		sampleBoard.setBWriter((String) session.getAttribute("memId"));
+		if(session.getAttribute("memId") != result.getBWriter()) {
+			mv.addObject("fix", "none");
+		}
+		
 		mv.setViewName("jsonView");
 		mv.addObject("sampleBoard", result);
 		
