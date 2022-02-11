@@ -76,6 +76,7 @@
                     <div class="description">
             			<p style = "text-align: right" id = "b_count"></p>
             		</div>
+            		<button class="ui submit blue button" id="moreButton" onclick="moreButton_onClick()">더보기</button>
                     <div class="paging-div"> 
                 		<ul class="pagination" id="pagination"></ul> 
                 	</div>
@@ -107,9 +108,10 @@
     if("${massage}" != ""){
     	alert("${massage}");
     }
-    	var selectBoard = {};
-    	var bRegData = "";
-    	var bNo = "";
+   	var selectBoard = {};
+   	var bRegData = "";
+   	var bNo = "";
+   	var more = 1;
         $(document).ready(function() {
         	$('#pagination').twbsPagination({ 
             	totalPages: 10, // 전체 페이지 
@@ -150,7 +152,9 @@
             });
             
         });
+        
         var flag = true;
+        
         function searchDataList(page) {
         	if(flag){
         		flag = false;
@@ -182,6 +186,39 @@
 	                }
 	    		})
         	}
+		}
+        
+        function moreButton_onClick(){
+        	more += 1;
+        	$("#pagination").hide();
+        	searchMoreList(more);
+        }
+        
+        function searchMoreList(more) {
+        	
+    		$.ajax({
+                type: "post",
+                url: "/sample/searchBoard",
+                data: {
+                	page : more,
+                	pageSize : 10
+                },
+                success: function(data) {
+                	var dataList = data.list;
+                    for (var str in dataList) {
+                        var tr = $("<tr></tr>").attr("data-id", dataList[str].bno).appendTo("#list");
+                        $("<td></td>").text(dataList[str].bno).addClass("view_btn").appendTo(tr);
+                        $("<td></td>").text(dataList[str].btitle).addClass("view_btn").appendTo(tr);
+                        $("<td></td>").text(dataList[str].bwriter).addClass("view_btn").appendTo(tr);
+                        $("<td></td>").text(dataList[str].bregDate).addClass("view_btn").appendTo(tr);
+                    }
+                    $("#b_count").text("전체 게시물 갯수 : " + data.totalCount);
+                },
+                error: function(error) {
+                    alert("오류 발생" + error);
+                }
+    		})
+        	
 		}
         
         function updateBoard(){
