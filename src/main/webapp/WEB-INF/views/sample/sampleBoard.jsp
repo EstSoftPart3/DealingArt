@@ -14,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/resources/js/semantic.min.js"></script>
     <script src="/resources/js/pagination.js"></script>
-	<script src="/resources/js/common.js"></script>
+	<script src="/resources/js/common.js"></script> 
     <style type="text/css">
         body {
             background-color: #DADADA;

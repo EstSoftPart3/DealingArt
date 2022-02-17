@@ -32,6 +32,7 @@ public class MemberEntity {
 	@Column(name="MEM_NM", nullable=false)
 	private String memNm;
 	
+	
 	@Column(name="MEM_EMAIL", nullable=false)
 	private String memEmail;
 	
