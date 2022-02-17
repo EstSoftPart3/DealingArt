@@ -106,6 +106,7 @@
     </div>
     <script>
     if("${massage}" != ""){
+    	//삭제시 삭제 메세지를 바로 서버에서 보내준다.
     	alert("${massage}");
     }
    	var selectBoard = {};
