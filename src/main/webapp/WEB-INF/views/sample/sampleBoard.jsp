@@ -230,9 +230,9 @@
         	window.location.href="/sample/sampleWrite?key=" + bNo;
         }
         
-        function deleteBoard(){
+        /* function deleteBoard(){
         	window.location.href="/sample/deleteBoard?key=" + bNo;
-        }
+        } */
     </script>
 </body>
 
