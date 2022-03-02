@@ -1,81 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="theme-color" content="#000000">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title>µô¸µ¾ÆÆ®</title>
-	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
-	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
-	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css">
-	<link type="text/css"rel="stylesheet" href="resources/css/common_pc.css">
-	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
-	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
-	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
-
-	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
+
 
 <body>
 	<div class="wrap">
-		<div class="head-wrap">
-			<div class="head">
-				<div class="h-logo"><a href="#"><img src="resources/img/logo.png" /></a></div>
-				<div class="h-gnb">
-					<div class="navbox">
-						<nav>
-							<li><a href="#">Deal</a></li>
-							<li><a href="#">Megazine</a></li>
-							<li><a href="#">Artist Library</a></li>
-							<li><a href="#">About</a></li>
-						</nav>
-					</div>
-					
-					<!-- ·Î±×ÀÎÀü -->
-					<div class="login-hide h-text"  style="display:none;">
-						<span>LOGIN</span>
-						<span>JOIN</span>
-					</div>
-					
-					<!-- ·Î±×ÀÎÈÄ -->
-					<div class="login-show h-img">
-						<span class="sog-1"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
-						<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
-						<div class="s-hov">
-							<ul>
-								<li><a href="#"><img src="resources/img/ic-1.jpg" /><span>¸¶ÀÌ ÆäÀÌÁö</span></a></li>
-								<li><a href="#"><img src="resources/img/ic-2.jpg" /><span>°æ¸Å / °Å·¡ ³»¿ª</span></a></li>
-								<li><a href="#"><img src="resources/img/ic-3.jpg" /><span>¸¶ÀÌ ÄÝ·º¼Ç</span></a></li>
-								<li><a href="#"><img src="resources/img/ic-4.jpg" /><span>ÁÁ¾Æ¿ä</span></a></li>
-								<li><a href="#"><img src="resources/img/ic-5.jpg" /><span>°í°´¼¾ÅÍ</span></a></li>
-							</ul>
-							<button type="button" class="btn-1">·Î±×¾Æ¿ô</button>
-						</div>
-					</div>
-					
-					
-					<!-- °Ë»ö -->
-					<a href="" class="icon-search" data-toggle="modal" data-target="#myModal"><img src="resources/img/icon-3.png"></a>
-					
-					
-				</div>
-			</div>
-			
-		</div>
+		<jsp:include page="header.jsp"></jsp:include>
 		
-		<div class="body-wrap">
-		
-			<!-- ¸ÞÀÎ ¹è³Ê -->
+			<!-- ë©”ì¸ ë°°ë„ˆ -->
 			<div class="contents">
 				<div class="bg-sh"></div>
 				<div class="main-banner">						
@@ -85,7 +21,7 @@
 								<img src="resources/img/banner-1.jpg" />
 								<div class="mab-text">
 									<div class="mb-box">
-										<div class="mab-title">ÀÛ°¡</div>
+										<div class="mab-title">ìž‘ê°€</div>
 										<h2>MeME (b. 1983)</h2>
 										<p class="mab-p1">WITH LOVE #4 (edition10),</p>
 										<p class="mab-p2">35x35cm,  Lenticular & mixed media, 2021</p>
@@ -121,16 +57,16 @@
 						<div class="mab-rb">
 							<a href="#" class="mab-a"><span>Guide</span></a>
 							<ul class="mab-ul">
-								<li><a href="#"><img src="resources/img/icon-4.png" /> <span>°Å·¡¹æ¹ý</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-5.png" /> <span>ÀÛ°¡µî·Ï</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-6.png" /> <span>ÀÛÇ°µî·Ï</span></a></li>
+								<li><a href="#"><img src="resources/img/icon-4.png" /> <span>ê±°ëž˜ë°©ë²•</span></a></li>
+								<li><a href="#"><img src="resources/img/icon-5.png" /> <span>ìž‘ê°€ë“±ë¡</span></a></li>
+								<li><a href="#"><img src="resources/img/icon-6.png" /> <span>ìž‘í’ˆë“±ë¡</span></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<!-- ¸ð¹ÙÀÏÀÏ¶§ -->
+			<!-- ëª¨ë°”ì¼ì¼ë•Œ -->
 			<div class="contents mo-nav">
 				<nav>
 					<li><a href="#">Deal</a></li>
@@ -140,45 +76,45 @@
 				</nav>
 			</div>
 			
-			<!-- ÁøÇà ¼ø¼­ -->
+			<!-- ì§„í–‰ ìˆœì„œ -->
 			<div class="contents bg-1">
 				<div class="da-snm">
 					<ul class="">
 						<li>
 							<img src="resources/img/img-1.png" />
-							<p class="da-p1">¾ÈÀüÇÑ °Å·¡</p>
-							<p class="da-p2 pc-on">µô¸µ¾ÆÆ®¸¦ ÅëÇÑ °Å·¡´Â<br/>¾ÈÀüÇÕ´Ï´Ù.</p>
-							<p class="da-p2 ta-on">µô¸µ¾ÆÆ®¸¦ ÅëÇÑ<br/>°Å·¡´Â ¾ÈÀüÇÕ´Ï´Ù.</p>
+							<p class="da-p1">ì•ˆì „í•œ ê±°ëž˜</p>
+							<p class="da-p2 pc-on">ë”œë§ì•„íŠ¸ë¥¼ í†µí•œ ê±°ëž˜ëŠ”<br/>ì•ˆì „í•©ë‹ˆë‹¤.</p>
+							<p class="da-p2 ta-on">ë”œë§ì•„íŠ¸ë¥¼ í†µí•œ<br/>ê±°ëž˜ëŠ” ì•ˆì „í•©ë‹ˆë‹¤.</p>
 						</li>
 						<li>
 							<img src="resources/img/img-2.png" />
-							<p class="da-p1">°ø°³°æ¸Å</p>
-							<p class="da-p2 pc-on">°æ¸Å ÁøÇà ÇöÈ²À»<br/>½Ç½Ã°£À¸·Î È®ÀÎÇÏ¼¼¿ä.</p>
-							<p class="da-p2 ta-on">°æ¸Å ÁøÇà ÇöÈ²À»<br/>½Ç½Ã°£À¸·Î È®ÀÎÇÏ¼¼¿ä.</p>
+							<p class="da-p1">ê³µê°œê²½ë§¤</p>
+							<p class="da-p2 pc-on">ê²½ë§¤ ì§„í–‰ í˜„í™©ì„<br/>ì‹¤ì‹œê°„ìœ¼ë¡œ í™•ì¸í•˜ì„¸ìš”.</p>
+							<p class="da-p2 ta-on">ê²½ë§¤ ì§„í–‰ í˜„í™©ì„<br/>ì‹¤ì‹œê°„ìœ¼ë¡œ í™•ì¸í•˜ì„¸ìš”.</p>
 						</li>
 						<li>
 							<img src="resources/img/img-3.png" />
-							<p class="da-p1">¿Â¶óÀÎ °áÁ¦</p>
-							<p class="da-p2 pc-on">¹ø°Å·Î¿î ÀÛÇ° °Å·¡. ´õ ÀÌ»ó<br/>Á÷Á¢ ¿òÁ÷ÀÏ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.</p>
-							<p class="da-p2 ta-on">¹ø°Å·Î¿î ÀÛÇ° °Å·¡<br/>°£ÆíÇÏ°Ô °áÀçÇÏ½Ã¿ä.</p>
+							<p class="da-p1">ì˜¨ë¼ì¸ ê²°ì œ</p>
+							<p class="da-p2 pc-on">ë²ˆê±°ë¡œìš´ ìž‘í’ˆ ê±°ëž˜. ë” ì´ìƒ<br/>ì§ì ‘ ì›€ì§ì¼ í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤.</p>
+							<p class="da-p2 ta-on">ë²ˆê±°ë¡œìš´ ìž‘í’ˆ ê±°ëž˜<br/>ê°„íŽ¸í•˜ê²Œ ê²°ìž¬í•˜ì‹œìš”.</p>
 						</li>
 						<li>
 							<img src="resources/img/img-4.png" />
-							<p class="da-p1">Àú·ÅÇÑ ¼ö¼ö·á</p>
-							<p class="da-p2 pc-on">ºñ»ó½ÄÀûÀÎ ¹Ì¼úÇ° °Å·¡ ¼ö¼ö·á<br/>°ÅÇ°À» Á¦°ÅÇß½À´Ï´Ù.</p>
-							<p class="da-p2 ta-on">ºñ»ó½ÄÀûÀÎ ¹Ì¼úÇ° °Å·¡<br/>°ÅÇ°À» Á¦°ÅÇß½À´Ï´Ù.</p>
+							<p class="da-p1">ì €ë ´í•œ ìˆ˜ìˆ˜ë£Œ</p>
+							<p class="da-p2 pc-on">ë¹„ìƒì‹ì ì¸ ë¯¸ìˆ í’ˆ ê±°ëž˜ ìˆ˜ìˆ˜ë£Œ<br/>ê±°í’ˆì„ ì œê±°í–ˆìŠµë‹ˆë‹¤.</p>
+							<p class="da-p2 ta-on">ë¹„ìƒì‹ì ì¸ ë¯¸ìˆ í’ˆ ê±°ëž˜<br/>ê±°í’ˆì„ ì œê±°í–ˆìŠµë‹ˆë‹¤.</p>
 						</li>
 						<li>
 							<img src="resources/img/img-5.png" />
-							<p class="da-p1">°£Æí¸Å¹° µî·Ï</p>
-							<p class="da-p2 pc-on">º¸Áõ¼­¸¸ ¾÷·Îµå ÇÏ¸é<br/>µô¸µ¾ÆÆ®¿¡¼­ ÀÔ·ÂÇØ µå¸³´Ï´Ù.</p>
-							<p class="da-p2 ta-on">º¸Áõ¼­¸¸ ¾÷·Îµå ÇÏ¸é<br/>Á¤º¸¸¦ ÀÔ·ÂÇØ µå¸³´Ï´Ù.</p>
+							<p class="da-p1">ê°„íŽ¸ë§¤ë¬¼ ë“±ë¡</p>
+							<p class="da-p2 pc-on">ë³´ì¦ì„œë§Œ ì—…ë¡œë“œ í•˜ë©´<br/>ë”œë§ì•„íŠ¸ì—ì„œ ìž…ë ¥í•´ ë“œë¦½ë‹ˆë‹¤.</p>
+							<p class="da-p2 ta-on">ë³´ì¦ì„œë§Œ ì—…ë¡œë“œ í•˜ë©´<br/>ì •ë³´ë¥¼ ìž…ë ¥í•´ ë“œë¦½ë‹ˆë‹¤.</p>
 						</li>
 					</ul>
 				</div>
 			</div>
 			
-			<!-- hotest deal ½º¿ÍÀÌÆÛ -->
+			<!-- hotest deal ìŠ¤ì™€ì´í¼ -->
 			<div class="contents max-1500">
 				<div class="cont-title">
 					<h3>hotest deal</h3>
@@ -191,9 +127,9 @@
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
 									<div class="hd-text">
-										<h4>ÀÛ°¡¸í</h4>
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<h4>ìž‘ê°€ëª…</h4>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</a>
 							</div>
@@ -202,9 +138,9 @@
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
 									<div class="hd-text">
-										<h4>ÀÛ°¡¸í</h4>
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<h4>ìž‘ê°€ëª…</h4>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</a>
 							</div>
@@ -213,9 +149,9 @@
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
 									<div class="hd-text">
-										<h4>ÀÛ°¡¸í</h4>
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<h4>ìž‘ê°€ëª…</h4>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</a>
 							</div>
@@ -224,9 +160,9 @@
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
 									<div class="hd-text">
-										<h4>ÀÛ°¡¸í</h4>
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<h4>ìž‘ê°€ëª…</h4>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</a>
 							</div>
@@ -235,9 +171,9 @@
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
 									<div class="hd-text">
-										<h4>ÀÛ°¡¸í</h4>
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<h4>ìž‘ê°€ëª…</h4>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</a>
 							</div>
@@ -380,10 +316,10 @@
 				</div>
 			</div>
 			
-			<!-- °¡Àå ¸¹Àº ÀÔÂû / ¿À´ÃÀÇ ³«Âû -->
+			<!-- ê°€ìž¥ ë§Žì€ ìž…ì°° / ì˜¤ëŠ˜ì˜ ë‚™ì°° -->
 			<div class="contents max-1500">
 				<div class="cont-title">
-					<h3>°¡Àå ¸¹Àº ÀÔÂû / ¿À´ÃÀÇ ³«Âû</h3>
+					<h3>ê°€ìž¥ ë§Žì€ ìž…ì°° / ì˜¤ëŠ˜ì˜ ë‚™ì°°</h3>
 					<!-- <a href="#" class="ct-more mo-no"><img src="img/icon-p.jpg" /><span>more</span></a> -->
 				</div>
 				<div class="cns-div">
@@ -392,10 +328,10 @@
 							<img src="resources/img/img-1.jpg">
 							<a class="hd-div2">								
 								<div class="hd-text">
-									<h4>ÀÛ°¡¸í</h4>
+									<h4>ìž‘ê°€ëª…</h4>
 									<div class="hd-tc">
-										<div class="hd-d1">ÀÛÇ°¸í(2021)<br/>¼ÒÀç Oil & Canvas, 72.7x90.9cm</div>
-										<div class="hd-d2">³«Âû°¡ 3,700,000 ¿ø</div>
+										<div class="hd-d1">ìž‘í’ˆëª…(2021)<br/>ì†Œìž¬ Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">ë‚™ì°°ê°€ 3,700,000 ì›</div>
 									</div>
 								</div>
 							</a>
@@ -417,137 +353,11 @@
 			
 		</div>
 		
-		<div class="footer-wrap">
-			<div class="footer-box">
-				<div class="footer-nav">
-					<ul class="">
-						<li><a href="#">°æ¸Å¾à°ü</a></li>
-						<li><a href="#">¿Â¶óÀÎ°æ¸Å¾à°ü</a></li>
-						<li><a href="#">°³ÀÎÁ¤º¸Ã³¸²¹æÄ§</a></li>
-						<li><a href="#">³»ºÎÁ¤º¸°ü¸®±ÔÁ¤</a></li>
-					</ul>
-					<div class="footer-icon">
-						<a href="#"><img src="resources/img/sns-f.jpg" /></a>
-						<a href="#"><img src="resources/img/sns-t.jpg" /></a>
-						<a href="#"><img src="resources/img/sns-i.jpg" /></a>
-					</div>
-				</div>
-				
-				<div class="pc-on">
-					<div class="footer-text">»óÈ£ : MANSION9  ´ëÇ¥ : ÀÌ¿µ¼±  »ç¾÷ÀÚµî·Î¹øÈ£ : 473-81-01206[»ç¾÷ÀÚÁ¤º¸È®ÀÎ]</div>
-					<div class="footer-text">
-						<ol>
-							<li>ÁÖ¼Ò : 04075 ¼­¿ïÆ¯º°½Ã ¸¶Æ÷±¸ ÅäÁ¤·Î 11±æ 60(»ó¼öµ¿)1F</li>
-							<li>´ëÇ¥¹øÈ£ : 070-4267-7371</li>
-							<li>ÆÑ½º¹øÈ£ : 02-336-2920</li>
-						</ol>
-					</div>
-					<div class="footer-text">
-						<ol>
-							<li>Åë½ÅÆÇ¸Å¾÷ ½Å°í : Á¦ 2019-¼­¿ï¸¶Æ÷-1063È£</li>
-							<li>°³ÀÎÁ¤º¸°ü¸®Ã¥ÀÓÀÚ : ÀÌ¿µ¼±(privacy@mainsion9.co.kr</li>
-							<li>ÀÌ¸ÞÀÏ : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-				
-				
-				<div class="tb-on max-100">
-					<div class="footer-text">»óÈ£ : MANSION9<br/>´ëÇ¥ : ÀÌ¿µ¼±  »ç¾÷ÀÚµî·Î¹øÈ£ : 473-81-01206[»ç¾÷ÀÚÁ¤º¸È®ÀÎ]</div>
-					<div class="footer-text">
-						<ol>
-							<li class="dib af-dn">ÁÖ¼Ò : 04075 ¼­¿ïÆ¯º°½Ã ¸¶Æ÷±¸ ÅäÁ¤·Î 11±æ 60(»ó¼öµ¿)1F</li>
-							<li class="">´ëÇ¥¹øÈ£ : 070-4267-7371</li>
-							<li class="af-dn">ÆÑ½º¹øÈ£ : 02-336-2920</li>
-						</ol>
-					</div>
-					<div class="footer-text">
-						<ol>
-							<li class="af-dn">Åë½ÅÆÇ¸Å¾÷ ½Å°í : Á¦ 2019-¼­¿ï¸¶Æ÷-1063È£</li>
-							<li>°³ÀÎÁ¤º¸°ü¸®Ã¥ÀÓÀÚ : ÀÌ¿µ¼±(privacy@mainsion9.co.kr ÀÌ¸ÞÀÏ : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-				
-				<div class="mo-on max-100">
-					<div class="footer-text">»óÈ£ : MANSION9<br/>´ëÇ¥ : ÀÌ¿µ¼±</div>
-					<div class="footer-text">
-						<ol>
-							<li class="dib af-dn">ÁÖ¼Ò : 04075 ¼­¿ïÆ¯º°½Ã ¸¶Æ÷±¸ ÅäÁ¤·Î 11±æ 60(»ó¼öµ¿)1F</li>
-							<li class="dib af-dn">´ëÇ¥¹øÈ£ : 070-4267-7371</li>
-							<li class="af-dn">ÆÑ½º¹øÈ£ : 02-336-2920</li>
-							<li class="af-dn">ÀÌ¸ÞÀÏ : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 
 
-<!-- ¸ð´Þ°Ë»ö -->
-<!-- Modal -->
-<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sech">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="conts">
-				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
-				</div>
 
-			</div>
-			<div class="modal-body">				
-				<!-- °Ë»ö¹öÆ° Å¬¸¯½Ã -->
-				<div class="search-show">
-					<div class="sea-box">
-						<img src="resources/img/w-logo.jpg" class="sea-img" />
-						
-						<div class="sea-won">
-							<!-- <div class="select-box">
-								<select>
-									<option>ÀÛ°¡¸í</option>
-								</select>
-							</div> -->
-							<input type="text" class="" />
-							<a href="#"><img src="resources/img/icon-2.jpg" /></a>
-						</div>
-						<div class="ta-h3">
-							<h3 class="sea-h3">ÀÛÇ°</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">ÀÛ°¡</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">ÄÁÅÙÃ÷</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script type="text/javascript">
 	  var myArray = ["01","02","03","04","05","06","07","08","09"];
@@ -698,10 +508,10 @@
       
       
       
-      /* ¸Þ´º¹Ù FIXED */
+      /* ë©”ë‰´ë°” FIXED */
       if (jQuery(window).width() > 0) {
           jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* ÇØ´ç ³ôÀÌ¸¦ ¹þ¾î³ª¸é fixed Å¬·¡½º Ãß°¡ */
+              if(jQuery(window).scrollTop() > 80 ) { /* í•´ë‹¹ ë†’ì´ë¥¼ ë²—ì–´ë‚˜ë©´ fixed í´ëž˜ìŠ¤ ì¶”ê°€ */
                   jQuery('.head-wrap').addClass('fixed');
               }
               else{
