@@ -23,6 +23,7 @@
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="resources/js/common.js"></script>
 </head>
 <body>
 	<div class="head-wrap">

@@ -121,8 +121,8 @@
 				</div>
 				<div class="swi-box">
 					<div class="swiper mySwiper2">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
+						<div class="swiper-wrapper" id="mainHotestContent">
+							<!-- <div class="swiper-slide">
 								<a class="hd-div">
 									<img src="resources/img/imgs.png" class="hd-img" />
 									
@@ -176,7 +176,7 @@
 										<div class="hd-d2">낙찰가 3,700,000 원</div>
 									</div>
 								</a>
-							</div>
+							</div> -->
 						</div>
 						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
@@ -260,7 +260,7 @@
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
-									<img src="img/img-test.jpg" />
+									<img src="resources/img/img-test.jpg" />
 									<div class="cns-sb">
 										<p class="cns-p1">LIV -ing ART : New year</p>
 										<p class="cns-p2">Lorem Ipsum is simply dummy text<br/>of the printing and typesetting<br/>industry. Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
@@ -271,7 +271,7 @@
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
-									<img src="img/img-test.jpg" />
+									<img src="resources/img/img-test.jpg" />
 									<div class="cns-sb">
 										<p class="cns-p1">LIV -ing ART : New year</p>
 										<p class="cns-p2">Lorem Ipsum is simply dummy text<br/>of the printing and typesetting<br/>industry. Lorem Ipsum</p>
@@ -282,7 +282,7 @@
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
-									<img src="img/img-test.jpg" />
+									<img src="resources/img/img-test.jpg" />
 									<div class="cns-sb">
 										<p class="cns-p1">LIV -ing ART : New year</p>
 										<p class="cns-p2">Lorem Ipsum is simply dummy text<br/>of the printing and typesetting<br/>industry. Lorem Ipsum</p>
@@ -293,7 +293,7 @@
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
-									<img src="img/img-test.jpg" />
+									<img src="resources/img/img-test.jpg" />
 									<div class="cns-sb">
 										<p class="cns-p1">LIV -ing ART : New year</p>
 										<p class="cns-p2">Lorem Ipsum is simply dummy text<br/>of the printing and typesetting<br/>industry. Lorem Ipsum</p>
@@ -304,7 +304,7 @@
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
-									<img src="img/img-test.jpg" />
+									<img src="resources/img/img-test.jpg" />
 									<div class="cns-sb">
 										<p class="cns-p1">LIV -ing ART : New year</p>
 										<p class="cns-p2">Lorem Ipsum is simply dummy text<br/>of the printing and typesetting<br/>industry. Lorem Ipsum</p>
@@ -312,7 +312,10 @@
 								</div>
 							</a>
 						</li>
-					</ul> -->
+					</ul>  -->
+					<div class="text-center">
+						<button type="button" class="btn-more"><span>more</span></button>
+					</div>
 				</div>
 			</div>
 			
@@ -338,21 +341,46 @@
 						</figure>
 						<figure class="item">
 							<img src="resources/img/img-2.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
 						</figure>
 						<figure class="item">
 							<img src="resources/img/img-3.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
 						</figure>
 						<figure class="item">
 							<img src="resources/img/img-4.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
 						</figure>
 					</div>
 				</div>
 				<div class="text-center">
 					<button type="button" class="btn-more"><span>more</span></button>
 				</div>
-			
 		</div>
-		
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 
@@ -360,6 +388,33 @@
 
 
 <script type="text/javascript">
+	var mainHotest = {};
+	var mainTodayBid = {};
+	var more = 1;
+	$(document).ready(function() {
+	    $(".elm").hover(
+	  	function(){ $(this).addClass('hover') },
+	 	    function(){ $(this).removeClass('hover') }
+	 	  )
+	 	$(".cn-b").hover(
+	  	function(){ $(this).addClass('gis') },
+	 	    function(){ $(this).removeClass('gis') }
+	 	  )
+	 	searchMainData();
+	});
+	
+	$(function() {                      
+		  $(".bab-bo").click(function() { 
+		    $(this).toggleClass("bashow");     
+		  });
+		  
+		  $(".lg-my").click(function() { 
+		    $('.bg-sh').toggleClass('bg-show');     
+		 	 $('.s-hov').toggleClass('s-hov-show');     
+		  });
+		  
+		});
+
 	  var myArray = ["01","02","03","04","05","06","07","08","09"];
       var swiper = new Swiper(".mySwiper", {
     	  autoplay: {
@@ -481,33 +536,6 @@
 	   	     };
 	   	}).resize();
       
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
       /* 메뉴바 FIXED */
       if (jQuery(window).width() > 0) {
           jQuery(window).on("scroll",function(ev){
@@ -549,6 +577,41 @@
       		document.location.reload();
       	}, delay);
       });
+      
+  	function searchMainData(page) {
+		$.ajax({
+	           type: "post",
+	           url: "main/mainData",
+	           data: {
+	        	   page : page,
+	        	   pageSize : 10
+	           },
+	           success: function(data) {
+	        	   mainHotest = data.mainData.mainHotest;
+	        	   mainTodayBid = data.mainData.todayBid;
+	        	   var strHtml = '';
+	        	   for(i=0; i<mainHotest.length; i++){
+		        	   strHtml += '<div class="swiper-slide">';
+		        	   strHtml += '<a class="hd-div">';
+		        	   strHtml += '<img src="'+ mainHotest[i].workMainImgUrl +'" class="hd-img" />';
+		        	   strHtml += '		<div class="hd-text">';
+		        	   strHtml += '			<h4>'+ mainHotest[i].artstActvtyNm +'</h4>';
+		        	   strHtml += '			<div class="hd-d1">'+ mainHotest[i].workNm +'('+ mainHotest[i].workProdcYear +')';
+		        	   strHtml += '				<br/>소재 '+ mainHotest[i].workMatrl +', '+ mainHotest[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
+		        	   strHtml += '			<div class="hd-d2">응찰가 '+ formatComma(mainHotest[i].maxBidPrc) +'</div>';
+		        	   strHtml += '		</div>';
+		        	   strHtml += '	</a>';
+		        	   strHtml += '</div>';
+	        	   }
+	        	   $("#mainHotestContent").append(strHtml).trigger("create");
+			
+	           },
+	           error: function(error) {
+	               alert("오류 발생" + error);
+	           }
+		})
+	}
+	
       
     </script>
 	

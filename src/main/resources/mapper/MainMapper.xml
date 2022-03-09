@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.da.mapper.MainMapper">
+	<select id="mainHotest" resultType="hashMap">
+		SELECT	A.WORK_SQ AS workSq, <!-- 작품_순번 --> 
+				A.MBR_SQ AS mbrSq, <!-- 멤버_순번 -->
+				B.DEAL_SQ AS dealSq, <!-- 거래_순번 -->
+				C.BID_CNT AS bidCnt, <!-- 응찰_횟수 -->
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, <!-- 작품_대표_이미지 -->
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, <!-- 작가_활동명 -->
+				A.ARTST_ENGLS_NM AS artstEnglsNm, <!-- 작가_영문명 --> 
+				A.WORK_MATRL AS workMatrl, <!-- 작품_소재 --> 
+				A.WORK_NM AS workNm, <!-- 작품_명 --> 
+				A.WORK_SIZE_WIDTH AS workSizeWidth, <!-- 작품_사이즈_가로 --> 
+				A.WORK_SIZE_DEPTH AS workSizeDepth, <!-- 작품_사이즈_세로 -->
+				A.WORK_SIZE_HEIGHT AS workSizeHeight, <!--  작품_사이즈_높이 -->
+				A.WORK_PRODC_YEAR AS workProdcYear, <!-- 작품_제작년도 -->
+				D.MAX_BID_PRC AS maxBidPrc<!-- 작품_최고_응찰금액 -->
+		FROM	TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B, 
+				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+				FROM TBL_DA_AUCTN_BID_H 
+				GROUP BY DEAL_SQ 
+				ORDER BY BID_CNT DESC
+				LIMIT 20) AS C, <!-- 작품_응찰_횟수 -->
+				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				FROM TBL_DA_AUCTN_BID_H
+				GROUP BY DEAL_SQ
+				LIMIT 20) AS D <!-- 작품_최고_응찰금액 -->
+		WHERE	B.DEAL_SQ = C.DEAL_SQ 
+		AND 	A.WORK_SQ = B.WORK_SQ 
+		AND 	D.DEAL_SQ = B.DEAL_SQ
+		AND 	A.MBR_SQ = B.MBR_SQ
+		AND 	B.DEAL_STTS_CD = 'AUCTN_DEAL_STTS_01'
+		ORDER BY C.BID_CNT DESC;
+	</select>
+	
+	<select id="mainTodayBid" resultType="hashMap" parameterType="String">
+		SELECT 	A.WORK_SQ AS workSq, <!-- 작품_순번 --> 
+				A.MBR_SQ AS mbrSq, <!-- 멤버_순번 -->
+				B.DEAL_SQ AS dealSq, <!-- 거래_순번 -->
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, <!-- 작품_대표_이미지 -->
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, <!-- 작가_활동명 -->
+				A.ARTST_ENGLS_NM AS artstEnglsNm, <!-- 작가_영문명 --> 
+				A.WORK_MATRL AS workMatrl, <!-- 작품_소재 --> 
+				A.WORK_NM AS workNm, <!-- 작품_명 --> 
+				A.WORK_SIZE_WIDTH AS workSizeWidth, <!-- 작품_사이즈_가로 --> 
+				A.WORK_SIZE_DEPTH AS workSizeDepth, <!-- 작품_사이즈_세로 -->
+				A.WORK_SIZE_HEIGHT AS workSizeHeight, <!--  작품_사이즈_높이 -->
+				A.WORK_PRODC_YEAR AS workProdcYear, <!-- 작품_제작년도 --> 
+				B.DEAL_SBID_PRC AS dealSbidPrc, <!-- 작품_낙찰_금액 --> 
+				B.DEAL_ENDNG_DATE AS dealEndngDate <!-- 작품_낙찰_일시 -->
+		FROM 	TBL_DA_WORK_M A,
+				TBL_DA_DEAL_M B
+		WHERE 	B.DEAL_STTS_CD IN ('AUCTN_DEAL_STTS_02', 'AUCTN_DEAL_STTS_03', 'AUCTN_DEAL_STTS_04')
+		<!-- 테스트를 위해 임시 주석처리 -->
+		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y-%M-%D') = #{now} --> 
+		AND 	B.WORK_SQ = A.WORK_SQ;
+	</select>
+
+</mapper>
