@@ -7,7 +7,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 
@@ -28,9 +27,4 @@ public class DealingArtApplication extends SpringBootServletInitializer{
     MappingJackson2JsonView jsonView(){
         return new MappingJackson2JsonView();
     }
-	
-	@Bean
-	public RestTemplate getRestTemplate(){
-	    return new RestTemplate();
-	}
 }
