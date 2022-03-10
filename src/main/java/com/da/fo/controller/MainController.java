@@ -6,8 +6,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,17 +25,16 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String openMain() {
-		logger.info("gogogogogogogogogogogo Main!!!!!");
 		return "fo/main/main";
 	}
 	
 	@RequestMapping("/main/mainData")
 	@ResponseBody
-	public ModelAndView mainData() {
+	public ModelAndView mainData(@RequestParam @Nullable Map<String, Object>  param) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
 		Map<String, Object> result = new HashMap<>();
-		result = mainService.openMain();
+		result = mainService.openMain(param);
 		mv.addObject("mainData", result);
 		
 		return mv;

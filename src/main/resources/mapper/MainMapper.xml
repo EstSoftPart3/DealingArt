@@ -37,7 +37,7 @@
 		ORDER BY C.BID_CNT DESC;
 	</select>
 	
-	<select id="mainTodayBid" resultType="hashMap" parameterType="String">
+	<select id="mainTodayBid" resultType="hashMap" parameterType="hashMap">
 		SELECT 	A.WORK_SQ AS workSq, <!-- 작품_순번 --> 
 				A.MBR_SQ AS mbrSq, <!-- 멤버_순번 -->
 				B.DEAL_SQ AS dealSq, <!-- 거래_순번 -->
@@ -56,8 +56,11 @@
 				TBL_DA_DEAL_M B
 		WHERE 	B.DEAL_STTS_CD IN ('AUCTN_DEAL_STTS_02', 'AUCTN_DEAL_STTS_03', 'AUCTN_DEAL_STTS_04')
 		<!-- 테스트를 위해 임시 주석처리 -->
-		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y-%M-%D') = #{now} --> 
-		AND 	B.WORK_SQ = A.WORK_SQ;
+		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y-%m-%d') = #{now} --> 
+		AND 	B.WORK_SQ = A.WORK_SQ
+		LIMIT #{pageSize}
+		OFFSET #{page};
+		
 	</select>
 
 </mapper>

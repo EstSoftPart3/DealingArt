@@ -1294,7 +1294,7 @@ container.width = myframe.document.body.scrollWidth;
 ***************************************************************************************
 */
 
-function getCookie( name )
+/*function getCookie( name )
 {
 var nameOfCookie = name + "=";
 var x = 0;
@@ -1318,7 +1318,7 @@ if ( getCookie( "Notice1" ) != "done" )
 noticeWindow  =  window.open('newwin/pop.htm','Notice1','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=363,height=733,left=30,top=120');
 noticeWindow.opener = self;
 
-}
+}*/
 
 
 

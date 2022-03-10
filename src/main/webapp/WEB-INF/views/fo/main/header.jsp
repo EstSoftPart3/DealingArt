@@ -32,7 +32,7 @@
 			<div class="h-gnb">
 				<div class="navbox">
 					<nav>
-						<li><a href="#">Deal</a></li>
+						<li><a href="/deal">Deal</a></li>
 						<li><a href="#">Megazine</a></li>
 						<li><a href="#">Artist Library</a></li>
 						<li><a href="#">About</a></li>
