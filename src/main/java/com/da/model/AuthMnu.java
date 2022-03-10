@@ -18,7 +18,7 @@ import lombok.Data;
 @DynamicUpdate
 @Table(name="TBL_DA_AUTH_MNU_R")
 public class AuthMnu {
-	
+	@Id
 	@Column(name="AUTH_SQ", nullable=false)
 	private Long authSq;	//권한_순번
 	
