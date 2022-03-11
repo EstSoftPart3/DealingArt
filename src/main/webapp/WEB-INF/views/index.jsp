@@ -31,5 +31,8 @@
 		<div class="ui message">
         	<a href="/sample">샘플페이지로 이동</a>
         </div>
+        <div class="ui message">
+        	<a href="/main">메인페이지로 이동</a>
+        </div>
 	</body>
 </html>

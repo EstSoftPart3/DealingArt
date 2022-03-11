@@ -20,9 +20,9 @@ public class MainServiceImpl implements MainService{
 	 * param : null
 	 * return : 화면에 보여줄 데이터
 	 */
-	public Map<String, Object> openMain(){
+	public Map<String, Object> openMain(Map<String, Object> param){
 		Map<String, Object> result = new HashMap<>();
-		result = mainDao.openMain();
+		result = mainDao.openMain(param);
 		return result;
 	}
 }

@@ -32,12 +32,16 @@ public class MainDao {
 	 * param : null
 	 * return : 화면에 보여줄 데이터
 	 */
-	public Map<String, Object> openMain(){
+	public Map<String, Object> openMain(Map<String, Object> param){
 		Map<String, Object> result = new HashMap<>();
 		List mainHotest = mainMapper.mainHotest();
 		result.put("mainHotest", mainHotest);
+		
 		LocalDate now = LocalDate.now();
-		List todayBid = mainMapper.mainTodayBid(now);
+		param.put("now", now);
+		param.put("page", (Integer.parseInt(String.valueOf(param.get("page")))-1)*4);
+		param.put("pageSize", Integer.parseInt(String.valueOf(param.get("pageSize"))));
+		List todayBid = mainMapper.mainTodayBid(param);
 		result.put("todayBid", todayBid);
 		
 		return result;

@@ -1,5 +1,7 @@
 package com.da.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,5 +39,14 @@ public class Deal {
 	
 	@Column(name="DEAL_STTS_CD", nullable=false, length=100)
 	private String dealSttsCd;	//거래_상태_코드
+	
+	@Column(name="DEAL_STRT_PRC", nullable=false)
+	private BigDecimal dealStrtPrc;	//거래_시작_가격
+	
+	@Column(name="DEAL_AUCTN_PRC", nullable=false)
+	private BigDecimal dealAuctnPrc;	//거래_응찰_가격
+	
+	@Column(name="DEAL_SBID_PRC", nullable=false)
+	private BigDecimal dealSbidPrc;	//거래_낙찰_가격
 	
 }

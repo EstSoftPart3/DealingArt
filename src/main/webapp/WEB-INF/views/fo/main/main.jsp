@@ -314,7 +314,7 @@
 						</li>
 					</ul>  -->
 					<div class="text-center">
-						<button type="button" class="btn-more"><span>more</span></button>
+						<button type="button" class="btn-more" onclick=""><span>more</span></button>
 					</div>
 				</div>
 			</div>
@@ -322,12 +322,12 @@
 			<!-- 가장 많은 입찰 / 오늘의 낙찰 -->
 			<div class="contents max-1500">
 				<div class="cont-title">
-					<h3>가장 많은 입찰 / 오늘의 낙찰</h3>
+					<h3>오늘의 낙찰</h3>
 					<!-- <a href="#" class="ct-more mo-no"><img src="img/icon-p.jpg" /><span>more</span></a> -->
 				</div>
 				<div class="cns-div">
 					<div class="columns-wrap" id="columns">
-						<figure class="item">
+						<!-- <figure class="item">
 							<img src="resources/img/img-1.jpg">
 							<a class="hd-div2">								
 								<div class="hd-text">
@@ -374,11 +374,11 @@
 									</div>
 								</div>
 							</a>
-						</figure>
+						</figure> -->
 					</div>
 				</div>
 				<div class="text-center">
-					<button type="button" class="btn-more"><span>more</span></button>
+					<button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button>
 				</div>
 		</div>
 		<jsp:include page="footer.jsp"></jsp:include>
@@ -390,7 +390,7 @@
 <script type="text/javascript">
 	var mainHotest = {};
 	var mainTodayBid = {};
-	var more = 1;
+	var page = 1;
 	$(document).ready(function() {
 	    $(".elm").hover(
 	  	function(){ $(this).addClass('hover') },
@@ -400,7 +400,7 @@
 	  	function(){ $(this).addClass('gis') },
 	 	    function(){ $(this).removeClass('gis') }
 	 	  )
-	 	searchMainData();
+	 	searchMainData(page);
 	});
 	
 	$(function() {                      
@@ -584,33 +584,57 @@
 	           url: "main/mainData",
 	           data: {
 	        	   page : page,
-	        	   pageSize : 10
+	        	   pageSize : 4
 	           },
 	           success: function(data) {
 	        	   mainHotest = data.mainData.mainHotest;
 	        	   mainTodayBid = data.mainData.todayBid;
-	        	   var strHtml = '';
+	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
-		        	   strHtml += '<div class="swiper-slide">';
-		        	   strHtml += '<a class="hd-div">';
-		        	   strHtml += '<img src="'+ mainHotest[i].workMainImgUrl +'" class="hd-img" />';
-		        	   strHtml += '		<div class="hd-text">';
-		        	   strHtml += '			<h4>'+ mainHotest[i].artstActvtyNm +'</h4>';
-		        	   strHtml += '			<div class="hd-d1">'+ mainHotest[i].workNm +'('+ mainHotest[i].workProdcYear +')';
-		        	   strHtml += '				<br/>소재 '+ mainHotest[i].workMatrl +', '+ mainHotest[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
-		        	   strHtml += '			<div class="hd-d2">응찰가 '+ formatComma(mainHotest[i].maxBidPrc) +'</div>';
-		        	   strHtml += '		</div>';
-		        	   strHtml += '	</a>';
-		        	   strHtml += '</div>';
+		        	   hotestHtml += '<div class="swiper-slide">';
+		        	   hotestHtml += '<a class="hd-div">';
+		        	   hotestHtml += '<img src="'+ mainHotest[i].workMainImgUrl +'" class="hd-img" />';
+		        	   hotestHtml += '		<div class="hd-text">';
+		        	   hotestHtml += '			<h4>'+ mainHotest[i].artstActvtyNm +'</h4>';
+		        	   hotestHtml += '			<div class="hd-d1">'+ mainHotest[i].workNm +'('+ mainHotest[i].workProdcYear +')';
+		        	   hotestHtml += '			<br/>소재 '+ mainHotest[i].workMatrl +', '+ mainHotest[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
+		        	   hotestHtml += '			<div class="hd-d2">응찰가 '+ formatComma(mainHotest[i].maxBidPrc) +'</div>';
+		        	   hotestHtml += '		</div>';
+		        	   hotestHtml += '	</a>';
+		        	   hotestHtml += '</div>';
 	        	   }
-	        	   $("#mainHotestContent").append(strHtml).trigger("create");
-			
+	        	   $("#mainHotestContent").append(hotestHtml).trigger("create");
+	        	   
+	        	   var todayBidHtml = '';
+	        	   for(i=0; i<mainTodayBid.length; i++){
+	        		   todayBidHtml += '<figure class="item">';
+	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'">';
+	        		   todayBidHtml += '	<a class="hd-div2">';								
+	        		   todayBidHtml += '		<div class="hd-text">';
+	        		   todayBidHtml += '			<h4>'+ mainTodayBid[i].artstActvtyNm +'</h4>';
+	        		   todayBidHtml += '			<div class="hd-tc">';
+	        		   todayBidHtml += '				<div class="hd-d1">'+ mainTodayBid[i].workNm +'('+ mainTodayBid[i].workProdcYear +')';
+	        		   todayBidHtml += '				<br/>'+ mainTodayBid[i].workMatrl +', '+ mainTodayBid[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
+	        		   todayBidHtml += '				<div class="hd-d2">낙찰가 '+ formatComma(mainTodayBid[i].dealSbidPrc) +'</div>';
+	        		   todayBidHtml += '			</div>';
+	        		   todayBidHtml += '		</div>';
+	        		   todayBidHtml += '	</a>';
+	        		   todayBidHtml += '</figure>';
+	        	   }
+	        	   $("#columns").append(todayBidHtml).trigger("create");
+	        	   
 	           },
 	           error: function(error) {
 	               alert("오류 발생" + error);
 	           }
 		})
 	}
+  	
+  	function more_onCilck(){
+  		debugger;
+  		page += 1;
+  		searchMainData(page);
+  	}
 	
       
     </script>

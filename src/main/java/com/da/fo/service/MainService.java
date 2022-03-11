@@ -8,5 +8,5 @@ public interface MainService {
 	 * param : null
 	 * return : 화면에 보여줄 데이터
 	 */
-	Map<String, Object> openMain();
+	Map<String, Object> openMain(Map<String, Object> param);
 }
