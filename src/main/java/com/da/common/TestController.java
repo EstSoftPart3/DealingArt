@@ -13,6 +13,25 @@ public class TestController {
 	@RequestMapping("/")
 	public String index() {
 		logger.info("index");
+		
+		try {
+			
+		String reStr = commonService.encrypt("¡¾e¢¯¥ì¡íi");
+		
+		String deStr = commonService.decrypt("68160dc64efc04a5a68dce5320b433b3");
+		
+		Map<String, Object> reMap = commonService.getJusoDetail("¥ì¥ì¨¡o¢¬¢ç", 1, 10);
+		
+		logger.info("------------------------------------------");
+		System.out.println(reStr);
+		System.out.println(deStr);
+		System.out.println(reMap);
+		logger.info("------------------------------------------");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "index";
 	}
 }

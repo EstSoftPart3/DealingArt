@@ -27,4 +27,9 @@ public class DealingArtApplication extends SpringBootServletInitializer{
     MappingJackson2JsonView jsonView(){
         return new MappingJackson2JsonView();
     }
+	
+	@Bean
+	public RestTemplate getRestTemplate(){
+	    return new RestTemplate();
+	}
 }
