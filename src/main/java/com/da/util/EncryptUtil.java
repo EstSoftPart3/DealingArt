@@ -1,4 +1,4 @@
-package com.da.common.util;
+package com.da.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -49,7 +49,7 @@ public class EncryptUtil {
     }
 
     /**
-     * AES ¹æ½ÄÀÇ ¾ÏÈ£È­
+     * AES ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­
      *
      * @param message
      * @return
@@ -67,7 +67,7 @@ public class EncryptUtil {
      }
 
      /**
-      * AES ¹æ½ÄÀÇ º¹È£È­
+      * AES ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­
       *
       * @param message
       * @return

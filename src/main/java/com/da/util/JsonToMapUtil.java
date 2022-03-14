@@ -1,4 +1,4 @@
-package com.da.common.util;
+package com.da.util;
 
 import java.util.HashMap;
 import java.util.List;
