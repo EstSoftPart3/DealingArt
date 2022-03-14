@@ -38,7 +38,7 @@ public class RestTemplateUtil {
 //		return result;
 //	}
 	
-	public Map<String, Object> senPostApi(String url, String type, MultiValueMap<String, Object> params) {
+	public Map<String, Object> sendPostApi(String url, String type, MultiValueMap<String, Object> params) {
 		Map<String, Object> results = new HashMap<String, Object>();
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -54,6 +54,24 @@ public class RestTemplateUtil {
 		}else {
 			results = jsonToMapUtil.stringToJson(reString);
 		}
+		
+		return results;
+	}
+	
+	public Map<String, Object> sendNCloudPostApi(String url, Map<String, Object> params) {
+		Map<String, Object> results = new HashMap<String, Object>();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "application/json; charset=utf-8");
+		headers.set("x-ncp-apigw-timestamp", params.get("timestamp").toString());
+		headers.set("x-ncp-iam-access-key", params.get("access_key").toString());
+		headers.set("x-ncp-apigw-signature-v2", params.get("signature").toString());
+		
+		HttpEntity<Map<String, Object>> request = new HttpEntity<Map<String, Object>>(params, headers);
+		ResponseEntity<String> result = restTemplate.postForEntity(url, request, String.class);
+		
+		String reString = result.getBody();
+		results = jsonToMapUtil.stringToJson(reString);
 		
 		return results;
 	}

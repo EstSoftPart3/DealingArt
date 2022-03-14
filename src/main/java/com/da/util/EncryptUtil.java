@@ -1,6 +1,12 @@
 package com.da.util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 import javax.crypto.Cipher;
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +55,7 @@ public class EncryptUtil {
     }
 
     /**
-     * AES ����� ��ȣȭ
+     * AES 방식 암호화
      *
      * @param message
      * @return
@@ -67,7 +73,7 @@ public class EncryptUtil {
      }
 
      /**
-      * AES ����� ��ȣȭ
+      * AES 방식 복호화
       *
       * @param message
       * @return
@@ -83,4 +89,47 @@ public class EncryptUtil {
 
         return originalString;
      }
+     
+     /**
+      * ncloud make signature
+      * @param url
+      * @param timestamp
+      * @param method
+      * @param accessKey
+      * @param secretKey
+      * @return
+      * @throws NoSuchAlgorithmException
+      * @throws InvalidKeyException
+      */
+     public String nCloudMakeSignature(String url, String timestamp, String method, String accessKey, String secretKey) throws NoSuchAlgorithmException, InvalidKeyException {
+ 	    String space = " ";                    // one space
+ 	    String newLine = "\n";                 // new line
+ 	    
+
+ 	    String message = new StringBuilder()
+ 	        .append(method)
+ 	        .append(space)
+ 	        .append(url)
+ 	        .append(newLine)
+ 	        .append(timestamp)
+ 	        .append(newLine)
+ 	        .append(accessKey)
+ 	        .toString();
+
+ 	    SecretKeySpec signingKey;
+ 	    String encodeBase64String;
+ 		try {
+ 			
+ 			signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
+ 			Mac mac = Mac.getInstance("HmacSHA256");
+ 			mac.init(signingKey);
+ 			byte[] rawHmac = mac.doFinal(message.getBytes("UTF-8"));
+ 		    encodeBase64String = Base64.getEncoder().encodeToString(rawHmac);
+ 		} catch (UnsupportedEncodingException e) {
+ 			// TODO Auto-generated catch block
+ 			encodeBase64String = e.toString();
+ 		}
+
+ 	  return encodeBase64String;
+ 	}
 }

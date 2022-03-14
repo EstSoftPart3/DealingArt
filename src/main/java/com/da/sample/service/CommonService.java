@@ -78,7 +78,7 @@ public class CommonService {
 			params.add("keyword", keyword);
 			params.add("resultType", "json");
 			
-			results = restTemplate.senPostApi(jusoUrl, "juso", params);
+			results = restTemplate.sendPostApi(jusoUrl, "juso", params);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
