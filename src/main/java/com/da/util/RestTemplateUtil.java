@@ -41,18 +41,22 @@ public class RestTemplateUtil {
 	public Map<String, Object> sendPostApi(String url, String type, MultiValueMap<String, Object> params) {
 		Map<String, Object> results = new HashMap<String, Object>();
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		
-		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
-		ResponseEntity<String> result = restTemplate.postForEntity(url, request, String.class);
-		
-		String reString = result.getBody();
-		if(type.equals("juso")) {
-			String conStr = reString.substring(1).replaceFirst(".$","");
-			results = jsonToMapUtil.stringToJson(conStr);
-		}else {
-			results = jsonToMapUtil.stringToJson(reString);
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			
+			HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
+			ResponseEntity<String> result = restTemplate.postForEntity(url, request, String.class);
+			
+			String reString = result.getBody();
+			if(type.equals("juso")) {
+				String conStr = reString.substring(1).replaceFirst(".$","");
+				results = jsonToMapUtil.stringToJson(conStr);
+			}else {
+				results = jsonToMapUtil.stringToJson(reString);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		return results;
@@ -61,17 +65,21 @@ public class RestTemplateUtil {
 	public Map<String, Object> sendNCloudPostApi(String url, Map<String, Object> params) {
 		Map<String, Object> results = new HashMap<String, Object>();
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json; charset=utf-8");
-		headers.set("x-ncp-apigw-timestamp", params.get("timestamp").toString());
-		headers.set("x-ncp-iam-access-key", params.get("access_key").toString());
-		headers.set("x-ncp-apigw-signature-v2", params.get("signature").toString());
-		
-		HttpEntity<Map<String, Object>> request = new HttpEntity<Map<String, Object>>(params, headers);
-		ResponseEntity<String> result = restTemplate.postForEntity(url, request, String.class);
-		
-		String reString = result.getBody();
-		results = jsonToMapUtil.stringToJson(reString);
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Content-Type", "application/json; charset=utf-8");
+			headers.set("x-ncp-apigw-timestamp", params.get("timestamp").toString());
+			headers.set("x-ncp-iam-access-key", params.get("access_key").toString());
+			headers.set("x-ncp-apigw-signature-v2", params.get("signature").toString());
+			
+			HttpEntity<Map<String, Object>> request = new HttpEntity<Map<String, Object>>(params, headers);
+			ResponseEntity<String> result = restTemplate.postForEntity(url, request, String.class);
+			
+			String reString = result.getBody();
+			results = jsonToMapUtil.stringToJson(reString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		return results;
 	}
