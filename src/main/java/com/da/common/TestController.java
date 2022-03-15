@@ -134,7 +134,7 @@ public class TestController {
 		
 		rtnMap = sendMailUtil.sendMail(params);
 		
-		if((Integer.valueOf(rtnMap.get("count").toString()) < 0){
+		if((Integer.valueOf(rtnMap.get("count").toString()) < 0)){
 			result = "error";
 		}else {
 			result = "OK";
