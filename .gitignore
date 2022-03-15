@@ -127,4 +127,7 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+#AWS S3
+application-s3.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,git,eclipse
