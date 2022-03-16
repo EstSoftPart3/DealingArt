@@ -31,6 +31,15 @@
 <script src="/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/resources/dist/js/demo.js"></script>
+
+
+<script src="/resources/plugins/moment/moment.min.js"></script>
+<script src="/resources/plugins/daterangepicker/daterangepicker.js"></script>
+
+
+ <link rel="stylesheet" href="/resources/plugins/daterangepicker/daterangepicker.css">
+
+
 <!-- page script -->
 <script>
   $(function () {

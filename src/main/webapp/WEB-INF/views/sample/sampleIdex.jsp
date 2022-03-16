@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>로그인 페이지</title>
+    <title>로그인 페이지!!</title>
     <!-- css 가져오기 -->
     <link rel="stylesheet" type="text/css" href="/resources/css/semantic.min.css">
 

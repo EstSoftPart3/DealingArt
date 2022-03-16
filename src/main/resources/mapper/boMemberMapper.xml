@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.da.mapper.boMemberMapper">
-
+	<!-- 회원 목록 -->
 	<select id="memberList" resultType="hashMap">
         SELECT
             AUTH_SQ               AS authSq
@@ -30,7 +30,7 @@
 			,REG_MBR_SQ           AS regMbrSq
 			,DATE_FORMAT(REG_DT,'%Y-%m-%d')  AS regDt
 			,UPDT_MBR_SQ          AS updtMbrSq
-			,UPDT_DT              AS updtDt
+			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
 			,USE_YN               AS useYn
 			,DEL_YN				  AS delYn
 
@@ -47,9 +47,136 @@
           <if test="searchGubun == 'mbrNcknm' and searchWord != null">
           	AND A.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
           </if>
+          <if test="mbrSq != null">
+          	AND A.MBR_SQ = #{mbrSq}
+          </if>
+          
                    
       	ORDER BY MBR_SQ DESC
     </select>
+    <!-- 회원 상세 -->
+    <select id="memberContent" resultType="hashMap">
+        SELECT
+            AUTH_SQ               AS authSq
+			,MBR_SQ               AS mbrSq
+			,MBR_ID               AS mbrId
+			,MBR_EMAIL            AS mbrEmail
+			,MBR_PASSWRD          AS mbrPasswrd
+			,MBR_NM               AS mbrNm
+			,MBR_NCKNM            AS mbrNcknm
+			,MBR_NATN_CD          AS mbrNatnCd
+			,MBR_BIRTH            AS mbrBirth
+			,(
+				CASE 
+					WHEN MBR_SEX_CD = 'MALE' THEN '남'
+					WHEN MBR_SEX_CD = 'FEMALE' THEN '여' 
+				END
+			 ) AS mbrSexCd
+			,MBR_SEX_CD AS mbrSexCdChk
+			,MBR_HOME_ADDR        AS mbrHomeAddr
+			,MBR_DELIVRY_ADDR     AS mbrDelivryAddr
+			,MBR_CP_NUM           AS mbrCpNum
+			,MBR_CP_CERT_YN       AS mbrCpCertYn
+			,MBR_CP_CERT_DATE     AS mbrCpCertDate
+			,REG_MBR_SQ           AS regMbrSq
+			,DATE_FORMAT(REG_DT,'%Y-%m-%d')  AS regDt
+			,UPDT_MBR_SQ          AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
+			,USE_YN               AS useYn
+			,DEL_YN				  AS delYn
+
+        FROM
+            TBL_DA_MBR_M A 
+        WHERE 1=1
+         AND A.MBR_SQ = #{mbrSq}
+  </select>
+  
+  <!-- 회원 아이디중복 / 닉네임 종복 체크  -->
+  <select id="memberCheck" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            TBL_DA_MBR_M A
+        WHERE 1=1
+        <if test="mbrId != null">
+           		AND MBR_ID = #{mbrId}
+        </if>
+        <if test="mbrNcknm != null">
+           		AND MBR_NCKNM = #{mbrNcknm}
+        </if>
+   </select>
+   
+   <!-- 회원등록 -->
+   <insert id="memberInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_MBR_M
+        (
+        	AUTH_SQ
+			,MBR_SQ
+			,MBR_ID
+			,MBR_EMAIL
+			,MBR_PASSWRD
+			,MBR_NM
+			,MBR_NCKNM
+			,MBR_NATN_CD
+			,MBR_BIRTH
+			,MBR_SEX_CD
+			,MBR_HOME_ADDR
+			,MBR_DELIVRY_ADDR
+			,MBR_CP_NUM
+			,MBR_CP_CERT_YN
+			,MBR_CP_CERT_DATE
+			,REG_MBR_SQ
+			,REG_DT
+			,UPDT_MBR_SQ
+			,UPDT_DT
+			,USE_YN
+			,DEL_YN
+       	) 
+        VALUES
+        (
+        	'1'
+			,#{mbrSq}
+			,#{mbrId}
+			,#{mbrEmail}
+			,#{mbrPasswrd}
+			,#{mbrNm}
+			,#{mbrNcknm}
+			,'KR'
+			,#{mbrBirth}
+			,#{mbrSexCd}
+			,#{mbrHomeAddr}
+			,#{mbrDelivryAddr}
+			,#{mbrCpNum}
+			,#{mbrCpCertYn}
+			,#{mbrCpCertDate}
+			,'1'
+			,NOW()
+			,'1'
+			,NOW()
+			,#{useYn}
+			,'N'
+        )
+    </insert>
+    
+    <update id="memberUpdate" parameterType="hashMap">
+   		UPDATE TBL_DA_MBR_M
+   		<trim prefix="SET" suffixOverrides=",">
+      		<if test="authSq         != null">AUTH_SQ =#{authSq},</if>
+			<if test="mbrEmail       != null">MBR_EMAIL =#{mbrEmail},</if>
+			<if test="mbrPasswrd     != null">MBR_PASSWRD =#{mbrPasswrd},</if>
+			<if test="mbrNatnCd      != null">MBR_NATN_CD = #{mbrNatnCd},</if>
+			<if test="mbrBirth       != null">MBR_BIRTH = #{mbrBirth},</if>
+			<if test="mbrSexCd       != null">MBR_SEX_CD = #{mbrSexCd},</if>
+			<if test="mbrHomeAddr    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
+			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR =#{mbrDelivryAddr},</if>
+			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
+			UPDT_DT = NOW(),
+			<if test="useYn          != null">USE_YN = #{useYn},</if>
+			<if test="delYn          != null">DEL_YN = #{delYn},</if>
+   		</trim>
+   		WHERE MBR_SQ = #{mbrSq}
+	</update>
+   
     
     
 </mapper>

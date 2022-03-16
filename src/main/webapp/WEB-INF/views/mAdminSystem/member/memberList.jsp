@@ -14,9 +14,9 @@
     		<section class="content">
     			
     			<div class="card">
-    			
+    				
 	    			<div class="card-header">
-	                	<h3 class="card-title bTitle">일반회원 관리</h3>
+	                	<h3 class="card-title bTitle">회원 목록</h3>
 	
 		                <div class="card-tools">
 		                  <div class="input-group input-group-sm" style="width: 350px;">
@@ -34,9 +34,10 @@
 		                    
 		                  </div>
 		                </div>
+	              	
 	              	</div>
 	              	
-	              	 <div class="card-body table-responsive p-0" style="height: 800px;">
+	              	 <div class="card-body table-responsive p-0" style="height: 900px;">
 	              	 
 		                <table class="table table-head-fixed text-nowrap sTitle">
 		                  <thead>
@@ -55,17 +56,20 @@
 		                   		                    
 		                  </tbody>
 		                </table>
-		                
-              		</div>
+		            </div>
     			
     			</div>
     			
     		</section>
 		 </div>
+		 
+		  <!--card-footer -->
+         <div class="card-footer" >
+               <button type="button" class="btn btn-info sTitle" style="float:right" onclick="goMemberInput();">회원가입</button>
+         </div>
 		
 	</div>
-
-   
+	
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
     <script>
@@ -73,7 +77,6 @@
    
    		$(document).ready(function(){
    			searchMemberData();
-   			
    		});
    		
    		//회원 리스트 호출
@@ -96,7 +99,7 @@
    		        	   var strHtml = '';
    		        	   for(i=0; i<dataList.length; i++){
    			        	   	strHtml += '<tr align="center">';
-   			        		strHtml += '<td>'+ dataList[i].mbrNm +'</td>'
+   			        		strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>'
    			        		strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
    			        		strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>'
@@ -112,7 +115,8 @@
    		           },
    		           error: function(error) {
    		        	   var errorJson = JSON.stringify(error);
-   		               alert("오류 발생" + errorJson);
+   		               //alert("오류 발생" + errorJson);
+   		               console.log(errorJson);
    		           }
    			})
    		}
@@ -147,6 +151,45 @@
 			 }
 			 
 		});
+   		
+   		//회원 상세정보 이동
+   		function memberContent(mbrSq) {
+   			
+   			let param = {
+   				mbrSqParam : mbrSq
+   			}
+   		
+   			var contentUrl = "/admin/member/memberContent";
+   			postForm(contentUrl, param);
+   			
+   		}
+   		   		
+   		function postForm(path, params, method) {
+   		    method = method || 'post';
+
+   		    var form = document.createElement('form');
+   		    form.setAttribute('method', method);
+   		    form.setAttribute('action', path);
+
+   		    for (var key in params) {
+   		        if (params.hasOwnProperty(key)) {
+   		            var hiddenField = document.createElement('input');
+   		            hiddenField.setAttribute('type', 'hidden');
+   		            hiddenField.setAttribute('name', key);
+   		            hiddenField.setAttribute('value', params[key]);
+
+   		            form.appendChild(hiddenField);
+   		        }
+   		    }
+
+   		    document.body.appendChild(form);
+   		    form.submit();
+   		}
+   		
+   		//회원입력 이동
+   		function goMemberInput() {
+   			location.href = '/admin/member/memberInput';	
+   		}
 	</script>
 	 
 </body>

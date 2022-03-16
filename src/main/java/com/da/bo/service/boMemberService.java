@@ -4,6 +4,19 @@ import java.util.Map;
 
 public interface boMemberService {
 	
-	Map<String, Object> memberList(Map<String, Object> param);
+	//회원정보 목록
+	public Map<String, Object> memberList(Map<String, Object> param);
+	
+	//회원정보 상세	
+	public Map<String, Object> memberContent(Map<String, Object> param);
+	
+	//회원정보 아이디.닉네임 조회
+	public Map<String, Object> memberCheck(Map<String, Object> param);
+	
+	//회원정보 등록
+	public void memberInsert(Map<String, Object> param);
+	
+	//회원정보 수정
+	public void memberUpdate(Map<String, Object> param);
 
 }
