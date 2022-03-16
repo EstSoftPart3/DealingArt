@@ -39,4 +39,9 @@ public class MainController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/fileUpload")
+	public String openfileUpload() {
+		return "fo/main/fileUpload";
+	}
 }

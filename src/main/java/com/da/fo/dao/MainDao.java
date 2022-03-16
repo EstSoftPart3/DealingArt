@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.da.mapper.MainMapper;
-import com.da.model.QAuctnBid;
-import com.da.model.QWork;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository

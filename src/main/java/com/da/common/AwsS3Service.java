@@ -14,6 +14,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.da.vo.FileVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,33 +31,32 @@ public class AwsS3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-        File file = convertMultipartFileToFile(multipartFile)
-                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
-
+    public FileVo upload(MultipartFile multipartFile, String dirName) throws IOException {
+		File file = convertMultipartFileToFile(multipartFile) .orElseThrow(() -> new
+		IllegalArgumentException("MultipartFile -> File convert fail"));
         return upload(file, dirName);
     }
 
-    private String upload(File file, String dirName) {
-        String key = randomFileName(file, dirName);
-        String path = putS3(file, key);
+    private FileVo upload(File file, String dirName) {
+        String fileNm = randomFileName(file, dirName);
+        String fileUrl = putFile(file, fileNm);
         removeFile(file);
 
-        return path;
+        return FileVo.builder().fileNm(fileNm).fileUrl(fileUrl).build();
     }
 
     private String randomFileName(File file, String dirName) {
         return dirName + "/" + UUID.randomUUID() + file.getName();
     }
 
-    private String putS3(File uploadFile, String fileName) {
-        amazonS3.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
+    private String putFile(File uploadFile, String fileNm) {
+        amazonS3.putObject(new PutObjectRequest(bucket, fileNm, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return getS3(bucket, fileName);
+        return getFile(bucket, fileNm);
     }
 
-    private String getS3(String bucket, String fileName) {
-        return amazonS3.getUrl(bucket, fileName).toString();
+    private String getFile(String bucket, String fileNm) {
+        return amazonS3.getUrl(bucket, fileNm).toString();
     }
 
     private void removeFile(File file) {
@@ -65,21 +65,20 @@ public class AwsS3Service {
 
     public Optional<File> convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
-
-        if (file.createNewFile()) {
-            try (FileOutputStream fos = new FileOutputStream(file)){
-                fos.write(multipartFile.getBytes());
-            }
+        try (FileOutputStream fos = new FileOutputStream(file)){
+            fos.write(multipartFile.getBytes());
             return Optional.of(file);
-        }
-        return Optional.empty();
+        }catch (Exception e) {
+        	return Optional.empty();
+		}
     }
 
-    public void remove(String key) {
-        if (!amazonS3.doesObjectExist(bucket, key)) {
-            throw new AmazonS3Exception("Object " +key+ " does not exist!");
+    public void remove(FileVo fileVo) {
+    	System.out.println("####### Delete File : "+fileVo);
+        if (!amazonS3.doesObjectExist(bucket, fileVo.getFileNm())) {
+            throw new AmazonS3Exception("Object " +fileVo.getFileNm()+ " does not exist!");
         }
-        amazonS3.deleteObject(bucket, key);
+        amazonS3.deleteObject(bucket, fileVo.getFileNm());
     }
 }
 
