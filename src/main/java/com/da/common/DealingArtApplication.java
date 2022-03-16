@@ -15,6 +15,10 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @ComponentScan(basePackages = {"com.da"})
 public class DealingArtApplication extends SpringBootServletInitializer{
 	
+	static {
+        System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
+    }
+	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(DealingArtApplication.class);

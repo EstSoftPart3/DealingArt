@@ -4,13 +4,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
+import javax.annotation.PostConstruct;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -19,17 +26,33 @@ import com.da.vo.FileVo;
 import lombok.RequiredArgsConstructor;
 
 
-
-
 @Service
 @RequiredArgsConstructor
 public class AwsS3Service {
+	
+	private AmazonS3 s3Client;
 
+    @Value("${cloud.aws.credentials.accessKey}")
+    private String accessKey;
 
-    private final AmazonS3 amazonS3;
+    @Value("${cloud.aws.credentials.secretKey}")
+    private String secretKey;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
+    @PostConstruct
+    public void setS3Client() {
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+
+        s3Client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(this.region)
+                .build();
+    }
 
     public FileVo upload(MultipartFile multipartFile, String dirName) throws IOException {
 		File file = convertMultipartFileToFile(multipartFile) .orElseThrow(() -> new
@@ -50,13 +73,13 @@ public class AwsS3Service {
     }
 
     private String putFile(File uploadFile, String fileNm) {
-        amazonS3.putObject(new PutObjectRequest(bucket, fileNm, uploadFile)
+    	s3Client.putObject(new PutObjectRequest(bucket, fileNm, uploadFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return getFile(bucket, fileNm);
     }
 
     private String getFile(String bucket, String fileNm) {
-        return amazonS3.getUrl(bucket, fileNm).toString();
+        return s3Client.getUrl(bucket, fileNm).toString();
     }
 
     private void removeFile(File file) {
@@ -75,10 +98,10 @@ public class AwsS3Service {
 
     public void remove(FileVo fileVo) {
     	System.out.println("####### Delete File : "+fileVo);
-        if (!amazonS3.doesObjectExist(bucket, fileVo.getFileNm())) {
+        if (!s3Client.doesObjectExist(bucket, fileVo.getFileNm())) {
             throw new AmazonS3Exception("Object " +fileVo.getFileNm()+ " does not exist!");
         }
-        amazonS3.deleteObject(bucket, fileVo.getFileNm());
+        s3Client.deleteObject(bucket, fileVo.getFileNm());
     }
 }
 
