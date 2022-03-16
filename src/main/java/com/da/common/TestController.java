@@ -49,25 +49,14 @@ public class TestController {
 		 * ----------------------------------------------------------
 		 */
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
-		Map<String, Object> tomap = new HashMap<String, Object>();
+		testSms();
 		
-		tomap.put("address", "dudtka37@naver.com");
-		tomap.put("type", "R");
-		mList.add(tomap);
-		
-		params.put("title", "테스트에용 title");
-		params.put("body", "테스트에용 content");
-		params.put("recipients", mList);
-		
-		rtnMap = sendMailUtil.sendMail(params);
+		testMail();
 		
 		logger.info("------------------------------------------");
 		System.out.println(reStr);
 		System.out.println(deStr);
 		System.out.println(reMap);
-		System.out.println(rtnMap);
 		logger.info("------------------------------------------");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -100,6 +89,8 @@ public class TestController {
 		params.put("messages", mList);
 		
 		rtnMap = sendSmsUtil.sendSms(params);
+		
+		System.out.println(rtnMap);
 		
 		return rtnMap.get("statusCode").toString();
 	}
@@ -134,7 +125,7 @@ public class TestController {
 		
 		rtnMap = sendMailUtil.sendMail(params);
 		
-		if((Integer.valueOf(rtnMap.get("count").toString()) < 0)){
+		if(((int) Double.parseDouble(rtnMap.get("count").toString()) < 0)){
 			result = "error";
 		}else {
 			result = "OK";

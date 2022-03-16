@@ -25,8 +25,8 @@ public class SendSmsUtil {
 	@Value("${est.dealing.ncloud.accesskey}")
 	String access_key;
 	
-//	@Value("${est.dealing.ncloud.secretkey}")
-//	String secret_key;
+	@Value("${est.dealing.ncloud.secretkey}")
+	String secret_key;
 	
 	@Value("${est.dealing.ncloud.sms.url}")
 	String url;
@@ -37,8 +37,8 @@ public class SendSmsUtil {
 	@Value("${est.dealing.ncloud.sms.serviceid}")
 	String service_id;
 	
-	@Value("${est.dealing.ncloud.sms.secretkey}")
-	String secret_key;
+//	@Value("${est.dealing.ncloud.sms.secretkey}")
+//	String secret_key;
 	
 	@Value("${est.dealing.ncloud.sms.type}")
 	String type;
@@ -52,10 +52,9 @@ public class SendSmsUtil {
 	public Map<String, Object> sendSms(Map<String, Object> params){
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		
-		String uri = sms_uri + service_id + "/messages";
+		String uri = sms_uri + "/" + service_id + "/messages";
 		String timestamp = Long.toString(System.currentTimeMillis());
 
-		url = url + uri;
 		try {
 			/**
 			 * url, timestamp, method, accessKey, secretKey
