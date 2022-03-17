@@ -113,14 +113,22 @@ public class MemberController {
 	@ResponseBody
 	public void memberInsertData(@RequestParam Map<String, Object> param) {
 		
-		//암호화
-		//회원 이름
+		//회원 이름 암호화
 		String mbrNmEncrypt = commonService.encrypt((String) param.get("mbrNm"));
-		///회원 비밀번호
+		///회원 비밀번호 암호화
 		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
+		//이메일 암호화
+		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrEmail"));
+		//휴대전화번호 암호화
+		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+		//집주소 암호화
+		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
 		
 		param.put("mbrNm", mbrNmEncrypt);
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
+		param.put("mbrEmail", mbrEmailEncrypt);
+		param.put("mbrCpNum", mbrCpNumEncrypt);
+		param.put("mbrHomeAddr", mbrHomeAddrEncrypt);
 
 		
 		boMemberService.memberInsert(param);
