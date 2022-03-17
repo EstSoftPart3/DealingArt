@@ -60,6 +60,30 @@ public class MemberController {
 		return mv;
 	}
 	
+	//회원 목록 검색
+	@RequestMapping("/admin/member/memberSearch")
+	@ResponseBody
+	public ModelAndView memberSearch(@RequestParam Map<String, Object> param) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		String searchGubun = (String) param.get("searchGubun");
+		
+		if(searchGubun.equals("mbrNm")) {
+			String searchWordEncrypt = commonService.encrypt((String) param.get("searchWord"));
+			param.put("searchWord", searchWordEncrypt);
+		}
+				
+		result = boMemberService.memberList(param);
+									
+		mv.addObject("memberData", result);
+		
+		return mv;
+	}
+	
 	//회원 상세 보기
 	@RequestMapping("/admin/member/memberContent")
 	public String openMemberContent() {
@@ -141,10 +165,23 @@ public class MemberController {
 		return "mAdminSystem/member/memberUpdate";
 	}
 	
-	//회원 등록
+	//회원 수정
 	@RequestMapping("/admin/member/memberUpdateData")
 	@ResponseBody
 	public void memberUpdateData(@RequestParam Map<String, Object> param) {
+		
+		
+		//이메일 암호화
+		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrEmail"));
+		//휴대전화번호 암호화
+		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+		//집주소 암호화
+		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
+		
+		
+		param.put("mbrEmail", mbrEmailEncrypt);
+		param.put("mbrCpNum", mbrCpNumEncrypt);
+		param.put("mbrHomeAddr", mbrHomeAddrEncrypt);
 		
 		boMemberService.memberUpdate(param);
 		

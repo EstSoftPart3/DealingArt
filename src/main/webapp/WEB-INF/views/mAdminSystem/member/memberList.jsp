@@ -83,7 +83,7 @@
    		function searchMemberData(page) {
    			$.ajax({
    		           type: "post",
-   		           url: "memberData",
+   		           url: "memberSearch",
    		           data: {
    		        	   page : page,
    		        	   pageSize : 10,
@@ -93,8 +93,6 @@
    		           success: function(data) {
    		        	   
    		        	dataList = data.memberData.memberList;
-   		        	
-   		        	 
    		        	 
    		        	   var strHtml = '';
    		        	   for(i=0; i<dataList.length; i++){
@@ -171,8 +169,7 @@
 				     } });
 				 return;
 			 } else {
-			 	 console.log(searchGubun);
-			 	console.log(searchWord);
+			 	
 				 searchMemberData();
 			 }
 			 

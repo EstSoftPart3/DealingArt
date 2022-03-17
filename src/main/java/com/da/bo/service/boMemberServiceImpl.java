@@ -27,7 +27,7 @@ public class boMemberServiceImpl implements boMemberService {
 		
 		return result;
 	}
-	
+		
 	//회원정보 상세
 	@Override
 	public Map<String, Object> memberContent(Map<String, Object> param){
