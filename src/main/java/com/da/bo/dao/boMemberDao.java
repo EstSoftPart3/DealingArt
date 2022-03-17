@@ -13,10 +13,15 @@ import org.springframework.stereotype.Repository;
 import com.da.mapper.boMemberMapper;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import com.da.sample.service.CommonService;
+
 @Repository
 public class boMemberDao {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	JPAQueryFactory queryFactory; //QueryDsl을 사용하기 위해
@@ -28,10 +33,18 @@ public class boMemberDao {
 	public Map<String, Object> memberList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
-		
+				
 		System.out.println("MEMBER_LIST_REQUEST = " + param);
 		
-		List memberList = boMemberMapper.memberList(param);
+		List<Map<String, Object>> memberList = boMemberMapper.memberList(param);
+		
+		 for(int z=0; z<memberList.size(); z++){
+			 	
+			 //암복호화
+			 String mbrNmDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrNm"));
+			 
+			 memberList.get(z).put("mbrNm", mbrNmDecrypt);
+		  }
 		
 		result.put("memberList", memberList);
 		
@@ -45,7 +58,15 @@ public class boMemberDao {
 		
 		System.out.println("MEMBER_CONTENT_REQUEST = " + param);
 		
-		List memberContent = boMemberMapper.memberContent(param);
+		List<Map<String, Object>> memberContent = boMemberMapper.memberContent(param);
+		
+		for(int z=0; z<memberContent.size(); z++){
+		 	
+			 //암복호화
+			 String mbrNmDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrNm"));
+			 
+			 memberContent.get(z).put("mbrNm", mbrNmDecrypt);
+		  }
 		
 		result.put("memberContent", memberContent);
 		

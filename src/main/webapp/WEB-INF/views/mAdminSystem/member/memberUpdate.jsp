@@ -256,8 +256,6 @@
         	var useYn = $('input[name="useYn"]:checked').val();
         	//주소
         	var mbrHomeAddr = $("#mbrHomeAddr").val();
-        	        	
-        	
         	
         	//이메일
         	if(isEmpty(mbrEmail)) {

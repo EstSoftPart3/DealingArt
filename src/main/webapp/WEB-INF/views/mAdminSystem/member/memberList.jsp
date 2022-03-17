@@ -37,7 +37,7 @@
 	              	
 	              	</div>
 	              	
-	              	 <div class="card-body table-responsive p-0" style="height: 900px;">
+	              	 <div class="card-body table-responsive p-0" style="height: 850px;">
 	              	 
 		                <table class="table table-head-fixed text-nowrap sTitle">
 		                  <thead>
@@ -94,12 +94,14 @@
    		        	   
    		        	dataList = data.memberData.memberList;
    		        	
-   		        	console.log(dataList.length); 
+   		        	 
    		        	 
    		        	   var strHtml = '';
    		        	   for(i=0; i<dataList.length; i++){
+   		        			memberDecrypt(dataList[i].mbrNm);
    			        	   	strHtml += '<tr align="center">';
-   			        		strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>'
+   			        	 	strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>'
+   			        	   	//strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ memberDecrypt(dataList[i].mbrNm2) +'</td>'
    			        		strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
    			        		strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>'
@@ -121,6 +123,30 @@
    			})
    		}
    		
+   		//복호화
+   		function memberDecrypt(str) {
+   		 	var result ="";
+   		 
+   			$.ajax({
+		           type: "post",
+		           url: "memberDecrypt",
+		           async: false,
+		           data: {
+		        	   Decryptstr : str
+		           },
+		           success: function(data) {
+		        	 result = data;
+		        	},
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+   		               console.log(errorJson);
+		           }
+			});
+   			
+   			return result;
+		}
+   		
+   		//검색
    		$("#searchBtn").on('click', function(){
 			 var searchGubun = $("#searchGubun").val();
 			 var searchWord = $("#searchWord").val();

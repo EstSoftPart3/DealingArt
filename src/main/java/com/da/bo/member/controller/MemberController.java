@@ -1,10 +1,12 @@
 package com.da.bo.member.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.boMemberService;
+import com.da.sample.service.CommonService;
+
 
 @Controller
 public class MemberController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	private boMemberService boMemberService;
@@ -40,15 +47,16 @@ public class MemberController {
 	@RequestMapping("/admin/member/memberData")
 	@ResponseBody
 	public ModelAndView memberData(@RequestParam Map<String, Object> param) {
-		ModelAndView mv = new ModelAndView();
 		
+		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
 		
 		Map<String, Object> result = new HashMap<>();
 		
 		result = boMemberService.memberList(param);
-		
+									
 		mv.addObject("memberData", result);
+		
 		return mv;
 	}
 	
@@ -105,6 +113,16 @@ public class MemberController {
 	@ResponseBody
 	public void memberInsertData(@RequestParam Map<String, Object> param) {
 		
+		//암호화
+		//회원 이름
+		String mbrNmEncrypt = commonService.encrypt((String) param.get("mbrNm"));
+		///회원 비밀번호
+		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
+		
+		param.put("mbrNm", mbrNmEncrypt);
+		param.put("mbrPasswrd", mbrPasswrdEncrypt);
+
+		
 		boMemberService.memberInsert(param);
 		
 	}
@@ -123,6 +141,16 @@ public class MemberController {
 		boMemberService.memberUpdate(param);
 		
 	}
-	
+	//복호화
+	@RequestMapping("/admin/member/memberDecrypt")
+	@ResponseBody
+	public String memberDecrypt(@RequestParam Map<String, Object> param) {
+		
+		String Decryptstr = (String) param.get("Decryptstr");
+		
+		String deStr = commonService.decrypt(Decryptstr);
+		
+		return deStr;
+	}
 	
 }

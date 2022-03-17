@@ -13,6 +13,7 @@
 			,MBR_EMAIL            AS mbrEmail
 			,MBR_PASSWRD          AS mbrPasswrd
 			,MBR_NM               AS mbrNm
+			,MBR_NM               AS mbrNm2
 			,MBR_NCKNM            AS mbrNcknm
 			,MBR_NATN_CD          AS mbrNatnCd
 			,MBR_BIRTH            AS mbrBirth

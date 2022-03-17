@@ -47,7 +47,7 @@
 		               <div class="form-group row">
 		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
                     		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname" id="mbrId" name="mbrId">
+                      			<input type="text" class="form-control sTitle classname" id="mbrId" name="mbrId" autocomplete="false">
                       		</div>
                     		<div class="col-sm-1">
                       			<button type="button" class="btn btn-primary sTitle" id="member_id_chk_btn" onclick="member_id_chk();">아이디 중복확인</button>
@@ -61,7 +61,7 @@
                       			<input type="password" class="form-control sTitle classname" id="mbrPasswrd" name="mbrPasswrd" autocomplete="false">
                       		</div>
                       		<div class="col-sm-1" style=" vertical-align: middle;">
-                      			<button type="button" class="btn btn-primary sTitle" id="keyShow" style="float:left;">SHOW</button>
+                      			<button type="button" class="btn btn-primary sTitle" id="keyShow" style="float:left;display:none">SHOW</button>
                       		</div>
                       	</div>
                       	<hr>
@@ -71,7 +71,7 @@
                       			<input type="password" class="form-control sTitle classname" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" autocomplete="false">
                     		</div>
                     		<div class="col-sm-1" style=" vertical-align: middle;">
-                      			<button type="button" class="btn btn-primary sTitle" id="keyShowConfirm" style="float:left;">SHOW</button>
+                      			<button type="button" class="btn btn-primary sTitle" id="keyShowConfirm" style="float:left;display:none">SHOW</button>
                       		</div>
                     	</div>
                   		<hr>
