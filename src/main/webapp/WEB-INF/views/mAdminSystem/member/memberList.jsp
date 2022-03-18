@@ -96,11 +96,10 @@
    		        	 
    		        	   var strHtml = '';
    		        	   for(i=0; i<dataList.length; i++){
-   		        			memberDecrypt(dataList[i].mbrNm);
+   		        			
    			        	   	strHtml += '<tr align="center">';
    			        	 	strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>'
-   			        	   	//strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ memberDecrypt(dataList[i].mbrNm2) +'</td>'
-   			        		strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
+   			        	   	strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
    			        		strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrEmail +'</td>'

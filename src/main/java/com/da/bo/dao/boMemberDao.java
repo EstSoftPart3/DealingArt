@@ -36,12 +36,13 @@ public class boMemberDao {
 				
 		System.out.println("MEMBER_LIST_REQUEST = " + param);
 		
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> memberList = boMemberMapper.memberList(param);
 		
 		 for(int z=0; z<memberList.size(); z++){
 			 	
 			 //성명 복호화
-			 String mbrNmDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrNm"));
+			 //String mbrNmDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrNm"));
 			 //비밀번호 복호화
 			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrPasswrd"));
 			 //이메일 복호화
@@ -51,7 +52,7 @@ public class boMemberDao {
 			 //집주소 복호화
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrHomeAddr"));
 			 
-			 memberList.get(z).put("mbrNm", mbrNmDecrypt);
+			 //memberList.get(z).put("mbrNm", mbrNmDecrypt);
 			 memberList.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberList.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberList.get(z).put("mbrCpNum", mbrCpNumDecrypt);
@@ -70,12 +71,13 @@ public class boMemberDao {
 		
 		System.out.println("MEMBER_CONTENT_REQUEST = " + param);
 		
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> memberContent = boMemberMapper.memberContent(param);
 		
 		for(int z=0; z<memberContent.size(); z++){
 		 	
 			//성명 복호화
-			 String mbrNmDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrNm"));
+			 //String mbrNmDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrNm"));
 			 //비밀번호 복호화
 			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrPasswrd"));
 			 //이메일 복호화
@@ -85,7 +87,7 @@ public class boMemberDao {
 			 //집주소 복호화
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
 			 
-			 memberContent.get(z).put("mbrNm", mbrNmDecrypt);
+			 //memberContent.get(z).put("mbrNm", mbrNmDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);

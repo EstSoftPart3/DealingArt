@@ -70,12 +70,13 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
 		
-		String searchGubun = (String) param.get("searchGubun");
-		
-		if(searchGubun.equals("mbrNm")) {
-			String searchWordEncrypt = commonService.encrypt((String) param.get("searchWord"));
-			param.put("searchWord", searchWordEncrypt);
-		}
+		/*
+		 * String searchGubun = (String) param.get("searchGubun");
+		 * 
+		 * if(searchGubun.equals("mbrNm")) { String searchWordEncrypt =
+		 * commonService.encrypt((String) param.get("searchWord"));
+		 * param.put("searchWord", searchWordEncrypt); }
+		 */
 				
 		result = boMemberService.memberList(param);
 									
@@ -138,7 +139,7 @@ public class MemberController {
 	public void memberInsertData(@RequestParam Map<String, Object> param) {
 		
 		//회원 이름 암호화
-		String mbrNmEncrypt = commonService.encrypt((String) param.get("mbrNm"));
+		//sString mbrNmEncrypt = commonService.encrypt((String) param.get("mbrNm"));
 		///회원 비밀번호 암호화
 		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
 		//이메일 암호화
@@ -148,7 +149,7 @@ public class MemberController {
 		//집주소 암호화
 		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
 		
-		param.put("mbrNm", mbrNmEncrypt);
+		//param.put("mbrNm", mbrNmEncrypt);
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
