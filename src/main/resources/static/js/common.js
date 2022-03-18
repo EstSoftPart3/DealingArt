@@ -13,6 +13,22 @@ function buttonStyleFix() {
   }
  }
 } 
+/*
+*********************************************************************************************************
+* 함수설명	: 입력된 한글의 마지막글자에 받침이 있는지 없는지 검사해준다.
+* str	: 문자열
+***********************************************************************************************************
+*/
+function checkBatchimEnding(str) {
+  if (typeof str !== 'string') return null;
+ 
+  var lastLetter = str[str.length - 1];
+  var uni = lastLetter.charCodeAt(0);
+ 
+  if (uni < 44032 || uni > 55203) return null;
+ 
+  return (uni - 44032) % 28 != 0;
+}
 
 function delChar(str, ch){
     /*
@@ -1341,6 +1357,7 @@ noticeWindow.opener = self;
 *특정 키를 누르면 지정한 곳으로 이동하게 해주는 소스입니다.
 ***************************************************************************************
 */
+/*
 var key = new Array();
 key['n'] = "http://phpschool.com/bbs2/inc_board.html?code=news2";
 key['q'] = "http://phpschool.com/v2/html/q_a_board.html";
@@ -1354,6 +1371,7 @@ function getKey(keyStroke) {
      if (which == i) window.location = key[i];
 }
 document.onkeypress = getKey;
+*/
 
  
 

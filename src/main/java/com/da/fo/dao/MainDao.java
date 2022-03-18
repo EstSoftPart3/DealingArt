@@ -44,4 +44,22 @@ public class MainDao {
 		
 		return result;
 	}
+	
+	/*
+	 * 메인 화면에서 통합검색시 작품 정보를 자동완성으로 가져온다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public Map<String,Object> totalSearchAutocomplete(String searchKeyword){
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		//작품에 관한 정보를 가져온다.
+		List work = mainMapper.totalSearchAutocomplete_work(param);
+		result.put("work", work);
+		//작가에 관한 정보를 가져온다.
+		List artist = mainMapper.totalSearchAutocomplete_artist(param);
+		result.put("artist", artist);
+		return result;
+	}
 }

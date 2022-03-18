@@ -44,4 +44,22 @@ public class MainController {
 	public String openfileUpload() {
 		return "fo/main/fileUpload";
 	}
+	
+	@RequestMapping("/totalSearch")
+	@ResponseBody
+	public ModelAndView totalSearch(@RequestParam String searchKeyword) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		return null;
+	}
+	
+	@RequestMapping("/totalSearchAutocomplete")
+	@ResponseBody
+	public ModelAndView totalSearchAutocomplete(@RequestParam String searchKeyword) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String,Object> result = mainService.totalSearchAutocomplete(searchKeyword);
+		mv.addObject("result", result);
+		return mv;
+		
+	}
 }

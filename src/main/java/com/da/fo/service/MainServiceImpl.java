@@ -25,4 +25,16 @@ public class MainServiceImpl implements MainService{
 		result = mainDao.openMain(param);
 		return result;
 	}
+	
+	/*
+	 * 메인 화면에서 통합검색시 작품, 작가 정보를 자동완성으로 가져온다.
+	 * param : searchKeyword
+	 * return : 작품, 작가에 관한 정보
+	 */
+	public Map<String, Object> totalSearchAutocomplete(String searchKeyword){
+		Map<String, Object> result = new HashMap<>();
+		result = mainDao.totalSearchAutocomplete(searchKeyword);
+		return result;
+	}
+	
 }

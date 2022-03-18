@@ -19,7 +19,7 @@
 	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
 	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
 	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
-
+	
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -94,44 +94,131 @@
 										<option>작가명</option>
 									</select>
 								</div> -->
-								<input type="text" class="" />
-								<a href="#"><img src="resources/img/icon-2.jpg" /></a>
+								<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);"/>
+								<a href="javascript:void(0);" onclick="btn_search_onclick();"><img src="resources/img/icon-2.jpg" /></a>
 							</div>
-							<div class="ta-h3">
-								<h3 class="sea-h3">작품</h3>
-								<a href="#"><span>more</span></a>
+							<div id="autocomplete">
+								<div class="ta-h3">
+									<h3 class="sea-h3">작품</h3>
+									<a href="javascript:void(0);" class="workMore"><span>more</span></a>
+								</div>
+								<ul class="sea-text" id="work">
+									<!-- <li><a href="#">text</a></li>
+									<li><a href="#">text</a></li>
+									<li><a href="#">text</a></li>
+									<li><a href="#">text</a></li> -->
+								</ul>
+								<div class="ta-h3">
+									<h3 class="sea-h3">작가</h3>
+									<a href="javascript:void(0);" class="artistMore"><span>more</span></a>
+								</div>
+								<ul class="sea-text" id="artst">
+									<!-- <li><a href="#">text</a></li>
+									<li><a href="#">text</a></li>
+									<li><a href="#">text</a></li>
+									<li><a href="#">text</a></li> -->
+								</ul>
+								<div class="ta-h3">
+									<h3 class="sea-h3">컨텐츠</h3>
+									<a href="javascript:void(0);" class="contentMore"><span>more</span></a>
+								</div>
+								<ul class="sea-text">
+									<li><a href="#">컨텐츠 제목입니다.</a></li>
+									<li><a href="#">컨텐츠 제목입니다.</a></li>
+									<li><a href="#">컨텐츠 제목입니다.</a></li>
+									<li><a href="#">컨텐츠 제목입니다.</a></li>
+								</ul>
 							</div>
-							<ul class="sea-text">
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-							</ul>
-							<div class="ta-h3">
-								<h3 class="sea-h3">작가</h3>
-								<a href="#"><span>more</span></a>
-							</div>
-							<ul class="sea-text">
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-							</ul>
-							<div class="ta-h3">
-								<h3 class="sea-h3">컨텐츠</h3>
-								<a href="#"><span>more</span></a>
-							</div>
-							<ul class="sea-text">
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-								<li><a href="#">text</a></li>
-							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 </div>
+
+<script type="text/javascript">
+$("#autocomplete").hide();
+//검색어의 길이가 바뀔 때마다 호출
+function ibx_search_onkeyup(e){
+	var wordLength = $("#ibx_search").val().trim().length;
+	if(wordLength > 1){
+		$.ajax({
+			url:"/totalSearchAutocomplete",
+			type:"post",
+			data:{"searchKeyword": $("#ibx_search").val()+'*' },
+			dataType:"json",
+			success:function(data){
+				$("#work").empty();
+				$("#artst").empty();
+				var work = data.result.work;
+				var artist = data.result.artist;
+				var workHtml = '';
+				var artstHtml = '';
+				
+				for(i=0; i<work.length; i++){
+					workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
+				}
+				$("#work").append(workHtml).trigger("create");
+				
+				for(i=0; i<artist.length; i++){
+					artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artistBirthYear+')</a></li>';
+				}
+				$("#artst").append(artstHtml).trigger("create");
+				$("#autocomplete").show();
+				
+				
+			},
+			error: function(request, status, error){
+                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
+			
+		});
+
+	}
+}
+     
+$(document).on("click",".work",function(){
+	var workSq= $(this).attr("sq");
+	alert(workSq); 
+});
+
+$(document).on("click",".artst",function(){
+	var artistSq= $(this).attr("sq");
+	alert(artistSq); 
+});
+
+$(document).on("click",".workMore",function(){
+	alert("작품 검색 결과 페이지로 이동합니다"); 
+});
+
+$(document).on("click",".artistMore",function(){
+	alert("작가 검색 결과 페이지로 이동합니다"); 
+});
+
+$(document).on("click",".contentMore",function(){
+	alert("컨텐츠 검색 결과 페이지로 이동합니다"); 
+});
+
+function btn_search_onclick(){
+	debugger;
+	var searchKeyword = $("#ibx_search").val();
+	$.ajax({
+        type: "post",
+        url: "main/mainData",
+        data: {
+     	   page : page,
+     	   pageSize : 4
+        },
+        success: function(data) {
+     	   
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	})
+	
+}
+</script>
+
 </body>
 </html>
