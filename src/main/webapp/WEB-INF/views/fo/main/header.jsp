@@ -40,13 +40,13 @@
 				</div>
 				
 				<!-- 로그인전 -->
-				<div class="login-hide h-text"  style="display:none;">
-					<span>LOGIN</span>
-					<span>JOIN</span>
+				<div class="login-hide h-text" >
+					<span data-toggle="modal" data-target="#loginModal">LOGIN</span>
+					<span data-toggle="modal" data-target="#memberModal">JOIN</span>
 				</div>
 				
 				<!-- 로그인후 -->
-				<div class="login-show h-img">
+				<div class="login-show h-img" style="display:none;">
 					<span class="sog-1"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
 					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
@@ -71,69 +71,167 @@
 		
 	</div>
 		
-	<!-- 모달검색 -->
-	<!-- Modal -->
-	<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sech">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="conts">
-					    <div class="close" data-dismiss="modal" aria-label="Close"></div>
-					</div>
-	
+<!-- 모달검색 -->
+<!-- Modal -->
+<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sech">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
 				</div>
-				<div class="modal-body">				
-					<!-- 검색버튼 클릭시 -->
-					<div class="search-show">
-						<div class="sea-box">
-							<img src="resources/img/w-logo.jpg" class="sea-img" />
-							
-							<div class="sea-won">
-								<!-- <div class="select-box">
-									<select>
-										<option>작가명</option>
-									</select>
-								</div> -->
-								<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);"/>
-								<a href="javascript:void(0);" onclick="btn_search_onclick();"><img src="resources/img/icon-2.jpg" /></a>
+
+			</div>
+			<div class="modal-body">				
+				<!-- 검색버튼 클릭시 -->
+				<div class="search-show">
+					<div class="sea-box">
+						<img src="resources/img/w-logo.jpg" class="sea-img" />
+						
+						<div class="sea-won">
+							<!-- <div class="select-box">
+								<select>
+									<option>작가명</option>
+								</select>
+							</div> -->
+							<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);"/>
+							<a href="javascript:void(0);" onclick="btn_search_onclick();"><img src="resources/img/icon-2.jpg" /></a>
+						</div>
+						<div id="autocomplete">
+							<div class="ta-h3">
+								<h3 class="sea-h3">작품</h3>
+								<a href="javascript:void(0);" class="workMore"><span>more</span></a>
 							</div>
-							<div id="autocomplete">
-								<div class="ta-h3">
-									<h3 class="sea-h3">작품</h3>
-									<a href="javascript:void(0);" class="workMore"><span>more</span></a>
-								</div>
-								<ul class="sea-text" id="work">
-									<!-- <li><a href="#">text</a></li>
-									<li><a href="#">text</a></li>
-									<li><a href="#">text</a></li>
-									<li><a href="#">text</a></li> -->
-								</ul>
-								<div class="ta-h3">
-									<h3 class="sea-h3">작가</h3>
-									<a href="javascript:void(0);" class="artistMore"><span>more</span></a>
-								</div>
-								<ul class="sea-text" id="artst">
-									<!-- <li><a href="#">text</a></li>
-									<li><a href="#">text</a></li>
-									<li><a href="#">text</a></li>
-									<li><a href="#">text</a></li> -->
-								</ul>
-								<div class="ta-h3">
-									<h3 class="sea-h3">컨텐츠</h3>
-									<a href="javascript:void(0);" class="contentMore"><span>more</span></a>
-								</div>
-								<ul class="sea-text">
-									<li><a href="#">컨텐츠 제목입니다.</a></li>
-									<li><a href="#">컨텐츠 제목입니다.</a></li>
-									<li><a href="#">컨텐츠 제목입니다.</a></li>
-									<li><a href="#">컨텐츠 제목입니다.</a></li>
-								</ul>
+							<ul class="sea-text" id="work">
+								<!-- <li><a href="#">text</a></li>
+								<li><a href="#">text</a></li>
+								<li><a href="#">text</a></li>
+								<li><a href="#">text</a></li> -->
+							</ul>
+							<div class="ta-h3">
+								<h3 class="sea-h3">작가</h3>
+								<a href="javascript:void(0);" class="artistMore"><span>more</span></a>
 							</div>
+							<ul class="sea-text" id="artst">
+								<!-- <li><a href="#">text</a></li>
+								<li><a href="#">text</a></li>
+								<li><a href="#">text</a></li>
+								<li><a href="#">text</a></li> -->
+							</ul>
+							<div class="ta-h3">
+								<h3 class="sea-h3">컨텐츠</h3>
+								<a href="javascript:void(0);" class="contentMore"><span>more</span></a>
+							</div>
+							<ul class="sea-text">
+								<li><a href="#">컨텐츠 제목입니다.</a></li>
+								<li><a href="#">컨텐츠 제목입니다.</a></li>
+								<li><a href="#">컨텐츠 제목입니다.</a></li>
+								<li><a href="#">컨텐츠 제목입니다.</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<!-- login -->
+<div class="modal fade modal-s" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w480 login-modal">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
+				<img src="resources/img/icon/login-logo.png"  class="login-logo"/>
+				<div class="login-box">
+					<p class="lb-p1">LOGIN</p>
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="아이디/이메일" />
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="비밀번호" />
+					</div>
+					<div class="radio-3 rad-mg">
+						<input type="radio" id="r1" name="rr">
+						<label for="r1" class="wd-105"><span></span>자동로그인</label>
+						<input type="radio" id="r2" name="rr">
+						<label for="r2"><span></span>아이디(이메일) / 비밀번호 찾기</label>
+					</div>
+					<div class="bat-box3">
+						<button type="button" class="ba-btn1"><span>Login</span></button>
+					</div>
+					<p class="lb-p2"><a href="#"><span>회원가입</span></a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 회원가입 -->
+<div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w800 momber-modal">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body member-body">
+				<img src="resources/img/icon/login-logo.png"  class="member-logo"/>
+				<div class="member-box">
+					<img src="resources/img/icon/icon-bg.png" class="member-icon" />
+					<h3 class="me-h3">회원가입</h3>
+					<h4 class="me-h4">Dealing art  가입을 환영합니다. <span>회원 정보를 입력해 주세요.</span></h4>
+				
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="아이디/이메일" />
+						<p class="inp-p">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="비밀번호" />
+						<p class="inp-p">
+							영문/숫자/특수문자 2가지 이상 조합 (8~20자)<br/>
+							3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외
+						</p>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="비밀번호 확인" />
+						<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
+					</div>					
+					<div class="input-box">
+						<input type="text" class="input-3" placeholder="이름" />
+					</div>
+					<div class="input-box input-group">
+						<input type="text" class="input-3" placeholder="휴대폰 번호" />
+						<button type="button" class="group-btn">인증하기</button>
+					</div>
+					
+					<div class="me-text">
+						딜링아트 이용 약관에 동의해 주세요. <br/>
+						경매 / 판매 알림 수신을 원하실 경우 모두 동의해 주세요.  <span class="text-line">모두 동의</span>						
+					</div>
+					<div class="radio-3 rad-mg">
+						<input type="checkbox" id="s1" name="rr">
+						<label for="s1"><span></span>(필수) 만 18세 이상입니다.</label><br/>
+						<input type="checkbox" id="s2" name="rr">
+						<label for="s2"><span></span>(필수) 이용 약관</label><br/>
+						<input type="checkbox" id="s3" name="rr">
+						<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label><br/>
+						<input type="checkbox" id="s4" name="rr">
+						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>
+					</div>
+					<div class="bat-box3">
+						<button type="button" class="ba-btn1"><span>회원 가입하기</span></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
