@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.MemberMapper">
+	
+   <!-- 회원등록 -->
+   <insert id="memberInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_MBR_M
+        (
+        	AUTH_SQ
+			,MBR_SQ
+			,MBR_ID
+			,MBR_EMAIL
+			,MBR_PASSWRD
+			,MBR_NM
+			,MBR_NCKNM
+			,MBR_NATN_CD
+			,MBR_BIRTH
+			,MBR_SEX_CD
+			,MBR_HOME_ADDR
+			,MBR_DELIVRY_ADDR
+			,MBR_CP_NUM
+			,MBR_CP_CERT_YN
+			,MBR_CP_CERT_DATE
+			,REG_MBR_SQ
+			,REG_DT
+			,UPDT_MBR_SQ
+			,UPDT_DT
+			,USE_YN
+			,DEL_YN
+       	) 
+        VALUES
+        (
+        	'1'
+			,#{mbrSq}
+			,#{mbrId}
+			,#{mbrEmail}
+			,#{mbrPasswrd}
+			,#{mbrNm}
+			,#{mbrNcknm}
+			,'KR'
+			,#{mbrBirth}
+			,#{mbrSexCd}
+			,#{mbrHomeAddr}
+			,#{mbrDelivryAddr}
+			,#{mbrCpNum}
+			,#{mbrCpCertYn}
+			,#{mbrCpCertDate}
+			,'1'
+			,NOW()
+			,'1'
+			,NOW()
+			,#{useYn}
+			,'N'
+        )
+    </insert>
+    
+    <update id="memberUpdate" parameterType="hashMap">
+   		UPDATE TBL_DA_MBR_M
+   		<trim prefix="SET" suffixOverrides=",">
+      		<if test="authSq         != null">AUTH_SQ =#{authSq},</if>
+			<if test="mbrEmail       != null">MBR_EMAIL =#{mbrEmail},</if>
+			<if test="mbrPasswrd     != null">MBR_PASSWRD =#{mbrPasswrd},</if>
+			<if test="mbrNatnCd      != null">MBR_NATN_CD = #{mbrNatnCd},</if>
+			<if test="mbrBirth       != null">MBR_BIRTH = #{mbrBirth},</if>
+			<if test="mbrSexCd       != null">MBR_SEX_CD = #{mbrSexCd},</if>
+			<if test="mbrHomeAddr    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
+			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR =#{mbrDelivryAddr},</if>
+			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
+			UPDT_DT = NOW(),
+			<if test="useYn          != null">USE_YN = #{useYn},</if>
+			<if test="delYn          != null">DEL_YN = #{delYn},</if>
+   		</trim>
+   		WHERE MBR_SQ = #{mbrSq}
+	</update>
+   
+    
+    
+</mapper>

@@ -174,11 +174,12 @@
 
 <!-- 회원가입 -->
 <div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+	<form id="memberInput">
 	<div class="modal-dialog modal-baeg max-w800 momber-modal">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 			</div>
 			<div class="modal-body member-body">
@@ -189,25 +190,25 @@
 					<h4 class="me-h4">Dealing art  가입을 환영합니다. <span>회원 정보를 입력해 주세요.</span></h4>
 				
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="아이디/이메일" />
+						<input type="text" class="input-3" placeholder="아이디/이메일" id="mbrId" name="mbrId" autocomplete="false"/>
 						<p class="inp-p">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
 					</div>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="비밀번호" />
+						<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd"/>
 						<p class="inp-p">
 							영문/숫자/특수문자 2가지 이상 조합 (8~20자)<br/>
 							3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외
 						</p>
 					</div>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="비밀번호 확인" />
+						<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm"/>
 						<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 					</div>					
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="이름" />
+						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="false"/>
 					</div>
 					<div class="input-box input-group">
-						<input type="text" class="input-3" placeholder="휴대폰 번호" />
+						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="false"/>
 						<button type="button" class="group-btn">인증하기</button>
 					</div>
 					
@@ -226,15 +227,210 @@
 						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>
 					</div>
 					<div class="bat-box3">
-						<button type="button" class="ba-btn1"><span>회원 가입하기</span></button>
+						<button type="button" class="ba-btn1" ><span>회원 가입하기</span></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
 </div>
 
+<div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
+
 <script type="text/javascript">
+
+function modalForm(msg,obj) {
+	var Html = "";
+	Html +=	'<div class="modal-dialog modal-baeg max-w530">';
+	Html +=	'<div class="modal-content">';
+	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	Html +=	'<div class="baegs">';
+	//Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'<div class="modal-body">';
+	Html +=	'<div class="md-box-1">';
+	Html +=	'<div class="md-ds" style="color:#333;">';
+	Html +=	msg;
+	Html +=	'</div>';
+	Html +=	'<div class="baeg-btn mg_t30">';  //onclick="testing(\'' + text  + '\')"
+	Html +=	'<button type="button" class="baeg-b1" onclick="modalAlertClose(\''+obj+'\');">확인</button>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	$("#ModalAlert").empty();
+	$("#ModalAlert").append(Html).trigger("create");
+}
+
+
+//회원가입
+$(".ba-btn1").on('click', function(event){
+	
+
+	//회원아이디
+	var mbrId = $("#mbrId").val();
+	//비밀번호
+	var mbrPasswrd = $("#mbrPasswrd").val();
+	//비밀번호 확인
+	var mbrPasswrdConfirm = $("#mbrPasswrdConfirm").val();
+	//성명
+	var mbrNm = $("#mbrNm").val();
+	//휴대번호
+	var mbrCpNum = $("#mbrCpNum").val();
+	
+	if(isEmpty(mbrId)) {
+		modalAlertShow("아이디를 입력해 주세요.","mbrId");
+		return;
+	}
+	//비밀번호
+	if(isEmpty(mbrPasswrd)) {
+		modalAlertShow("비밀번호를 입력해 주세요.","mbrPasswrd");
+		return;
+	}
+	//비밀번호
+	if(isEmpty(mbrPasswrdConfirm)) {
+		modalAlertShow("비밀번호 확인을 입력해 주세요.","mbrPasswrdConfirm");
+		return;
+	}
+	//비밀번호.비밀번호확인 일치 체크
+	if(mbrPasswrd != mbrPasswrdConfirm) {
+		modalAlertShow("비밀번호가 일치 하지 않습니다. <br> 비밀번호 확인을 다시 입력해 주세요.","mbrPasswrdConfirm");
+		return;
+	}
+	
+	if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
+	{
+		modalAlertShow("비밀번호는 숫자, 영문, 특수문자 조합으로 <br> 8~20자리를 사용해야 합니다.","mbrPasswrd");
+	  	return;
+	}
+	var chk = 0;
+	 if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
+	 if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
+	 if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
+	 if(chk < 2)
+	 {
+	 	modalAlertShow("비밀번호는 숫자, 영문, 특수문자를 <br> 두가지이상 혼용하여야 합니다.","mbrPasswrd");
+	  	return;
+	 }
+	 
+	 var SamePass_0 = 0; //동일문자 카운트
+	 var SamePass_1 = 0; //연속성(+) 카운드
+	 var SamePass_2 = 0; //연속성(-) 카운드
+	 
+	 var chr_pass_0;
+	 var chr_pass_1;
+	 
+	 for(var i=0; i < mbrPasswrd.length; i++) {
+	  chr_pass_0 = mbrPasswrd.charAt(i);
+	  chr_pass_1 = mbrPasswrd.charAt(i+1);
+	 
+	  //동일문자 카운트
+	  if(chr_pass_0 == chr_pass_1) {
+	   SamePass_0 = SamePass_0 + 1
+	  } // if
+	 
+	 
+	  //연속성(+) 카운드
+	  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == 1) {
+	   SamePass_1 = SamePass_1 + 1
+	  } // if
+	 
+	  //연속성(-) 카운드
+	  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == -1) {
+	  	SamePass_2 = SamePass_2 + 1
+	  } // if
+	 } // for
+	 
+	 if(SamePass_0 > 1) {
+	   	modalAlertShow("동일문자를 3번 이상 사용할 수 없습니다.","mbrPasswrd");
+	  	return false;
+	 } // if
+	 
+	 if(SamePass_1 > 1 || SamePass_2 > 1 )  {
+	    modalAlertShow("연속된 문자열(123 또는 321, abc, cba 등)을<br> 3자 이상 사용 할 수 없습니다.","mbrPasswrd");
+	  	return false;
+	 }
+
+	
+	 // 비밀번호 아이디 포함 여부
+	 if(mbrPasswrd.search(mbrId)>-1)
+	 {
+	  	modalAlertShow("ID가 포함된 비밀번호는 사용하실 수 없습니다.","mbrPasswrd");
+	  	return;
+	 }
+	 //비밀번호
+	
+	 //이름
+	 if(isEmpty(mbrNm)) {
+		modalAlertShow("이름을 입력해 주세요.","mbrNm");
+		return;
+	 }
+	 //휴대폰번호
+	 if(isEmpty(mbrCpNum)) {
+		modalAlertShow("휴대폰 번호를 입력해 주세요.","mbrCpNum");
+		return;
+	 }
+	 
+	 let memParams = {
+		  "mbrId" : mbrId,
+		  "mbrPasswrd" : mbrPasswrd,
+		  "mbrNm" : mbrNm,
+		  "mbrCpNum" : mbrCpNum
+	 }
+	 
+	 
+	 $.ajax({
+         type: "post",
+         url: "main/memberInsertData",
+         data: memParams,
+         success: function(data) {
+        	 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
+       	 },
+         error: function(error) {
+      	   var errorJson = JSON.stringify(error);
+             console.log(errorJson);
+         }
+	})
+	 
+	
+});
+
+function modalAlertShow(msg,obj) {
+	 //Modal Form Call
+	 modalForm(msg,obj)
+	 
+	$("#ModalAlert").modal("show");
+}
+
+function modalAlertClose(obj) {
+	
+	
+	$('#ModalAlert').modal('hide');
+	
+	if(obj == "memberInput") {
+		//회원가입 모달
+		$('#memberModal').modal('hide');
+		//로그인 모달
+		$('#loginModal').modal('show');
+		//회원가이 Form reset
+		$("#memberInput")[0].reset(); 
+		
+		return;
+	}
+	
+	if(obj) {
+		$('#'+obj).focus();
+		return;
+	}
+}
+
+
+ 
+
+
 $("#autocomplete").hide();
 //검색어의 길이가 바뀔 때마다 호출
 function ibx_search_onkeyup(e){
@@ -315,6 +511,15 @@ function btn_search_onclick(){
         }
 	})
 	
+}
+
+//Input Box Null Check
+function isEmpty(str){
+    
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
 }
 </script>
 

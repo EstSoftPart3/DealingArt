@@ -105,7 +105,7 @@
    			        	 	strHtml += '<td>'+ dataList[i].mbrEmail +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].regDt +'</td>'
-   			        	 	strHtml += '<td><button>등록</button></td>'
+   			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">등록</button></td>'
    			        	   	strHtml += '</tr>';
    			           }
    		        	   $("#dataList").empty();
@@ -184,6 +184,15 @@
    			var contentUrl = "/admin/member/memberContent";
    			postForm(contentUrl, param);
    			
+   		}
+   		
+   		//작가등록
+   		function artistMemberContent(mbrSq) {
+   			let param = {
+   	   				mbrSqParam : mbrSq
+   	   			}
+   			var contentUrl = "/admin/member/artistMemberInput";
+   			postForm(contentUrl, param);
    		}
    		   		
    		function postForm(path, params, method) {
