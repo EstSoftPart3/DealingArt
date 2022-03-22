@@ -174,7 +174,7 @@
 
 <!-- 회원가입 -->
 <div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
-	<form id="memberInput">
+	<form id="memberInput" autocomplete="off">
 	<div class="modal-dialog modal-baeg max-w800 momber-modal">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
@@ -190,26 +190,28 @@
 					<h4 class="me-h4">Dealing art  가입을 환영합니다. <span>회원 정보를 입력해 주세요.</span></h4>
 				
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="아이디/이메일" id="mbrId" name="mbrId" autocomplete="false"/>
-						<p class="inp-p">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+						<input type="text" class="input-3 form-control" placeholder="아이디/이메일" id="mbrId" name="mbrId" autocomplete="off" required/>
+						<p class="inp-p" id="mbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
 					</div>
 					<div class="input-box">
 						<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd"/>
-						<p class="inp-p">
-							영문/숫자/특수문자 2가지 이상 조합 (8~20자)<br/>
-							3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외
-						</p>
+						<p class="inp-p" id="mbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
+						<p class="inp-p" id="mbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
 					</div>
 					<div class="input-box">
 						<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm"/>
-						<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
+						<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 					</div>					
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="false"/>
+						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off"/>
+						<p class="inp-p" id="mbrNmCheck"></p>
 					</div>
 					<div class="input-box input-group">
-						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="false"/>
+						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off"/>
 						<button type="button" class="group-btn">인증하기</button>
+					</div>
+					<div class="input-box">
+						<p class="inp-p" id="mbrCpNumCheck"></p>
 					</div>
 					
 					<div class="me-text">
@@ -227,19 +229,34 @@
 						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>
 					</div>
 					<div class="bat-box3">
-						<button type="button" class="ba-btn1" ><span>회원 가입하기</span></button>
+						<button type="button" class="ba-btn1" id="memberInputBtn"><span>회원 가입하기</span></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<asp:textbox autocomplete="off">
 	</form>
-</div>
+</div>s
 
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script type="text/javascript">
 
+//Modal Call Form Reset
+$('#memberModal').on('show.bs.modal', function (e) {
+	
+	$("#memberInput")[0].reset();
+	
+	fn_validation('mbrIdCheck','주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.', 'B');
+	fn_validation('mbrPwdCheck','', 'B');
+	fn_validation('mbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+	fn_validation('mbrNmCheck','', 'B');
+	
+});
+
+//Modal Alert Form
 function modalForm(msg,obj) {
 	var Html = "";
 	Html +=	'<div class="modal-dialog modal-baeg max-w530">';
@@ -267,8 +284,7 @@ function modalForm(msg,obj) {
 
 
 //회원가입
-$(".ba-btn1").on('click', function(event){
-	
+$("#memberInputBtn").on('click', function(event){
 
 	//회원아이디
 	var mbrId = $("#mbrId").val();
@@ -282,39 +298,35 @@ $(".ba-btn1").on('click', function(event){
 	var mbrCpNum = $("#mbrCpNum").val();
 	
 	if(isEmpty(mbrId)) {
-		modalAlertShow("아이디를 입력해 주세요.","mbrId");
+		fn_validation('mbrIdCheck','이메일을 입력해주세요.', 'R');
+		return;
+	} 
+	if(!CheckEmail(mbrId)) {
+		fn_validation('mbrIdCheck','이메일을 올바르게 입력해주세요.', 'R');
 		return;
 	}
-	//비밀번호
+	//비밀번호--------------------------------------------------------------------//
 	if(isEmpty(mbrPasswrd)) {
-		modalAlertShow("비밀번호를 입력해 주세요.","mbrPasswrd");
+		$('#mbrPwdCheckU').css('color','red');
+		$('#mbrPwdCheckD').css('color','#999999');
 		return;
-	}
-	//비밀번호
-	if(isEmpty(mbrPasswrdConfirm)) {
-		modalAlertShow("비밀번호 확인을 입력해 주세요.","mbrPasswrdConfirm");
-		return;
-	}
-	//비밀번호.비밀번호확인 일치 체크
-	if(mbrPasswrd != mbrPasswrdConfirm) {
-		modalAlertShow("비밀번호가 일치 하지 않습니다. <br> 비밀번호 확인을 다시 입력해 주세요.","mbrPasswrdConfirm");
-		return;
-	}
-	
+	} 
 	if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
 	{
-		modalAlertShow("비밀번호는 숫자, 영문, 특수문자 조합으로 <br> 8~20자리를 사용해야 합니다.","mbrPasswrd");
-	  	return;
+		$('#mbrPwdCheckU').css('color','red');
+		$('#mbrPwdCheckD').css('color','#999999');
+		return;
 	}
 	var chk = 0;
-	 if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
-	 if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
-	 if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
-	 if(chk < 2)
-	 {
-	 	modalAlertShow("비밀번호는 숫자, 영문, 특수문자를 <br> 두가지이상 혼용하여야 합니다.","mbrPasswrd");
-	  	return;
-	 }
+	if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
+	if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
+	if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
+	if(chk < 2)
+	{
+		$('#mbrPwdCheckU').css('color','#999999');
+		$('#mbrPwdCheckD').css('color','red');
+		return;
+	}
 	 
 	 var SamePass_0 = 0; //동일문자 카운트
 	 var SamePass_1 = 0; //연속성(+) 카운드
@@ -345,34 +357,52 @@ $(".ba-btn1").on('click', function(event){
 	 } // for
 	 
 	 if(SamePass_0 > 1) {
-	   	modalAlertShow("동일문자를 3번 이상 사용할 수 없습니다.","mbrPasswrd");
-	  	return false;
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		 return;
 	 } // if
 	 
 	 if(SamePass_1 > 1 || SamePass_2 > 1 )  {
-	    modalAlertShow("연속된 문자열(123 또는 321, abc, cba 등)을<br> 3자 이상 사용 할 수 없습니다.","mbrPasswrd");
-	  	return false;
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		 return;
 	 }
-
 	
 	 // 비밀번호 아이디 포함 여부
 	 if(mbrPasswrd.search(mbrId)>-1)
 	 {
-	  	modalAlertShow("ID가 포함된 비밀번호는 사용하실 수 없습니다.","mbrPasswrd");
-	  	return;
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		  return;
 	 }
-	 //비밀번호
 	
-	 //이름
+	 $('#mbrPwdCheckU').css('color','#999999');
+	 $('#mbrPwdCheckD').css('color','#999999');
+	 
+	 
+	//비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
+	if(mbrPasswrd != mbrPasswrdConfirm) {
+		fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
+		return;
+	}
+	
+	fn_validation('mbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+	
+	//비밀번호--------------------------------------------------------------------//
+	
 	 if(isEmpty(mbrNm)) {
-		modalAlertShow("이름을 입력해 주세요.","mbrNm");
-		return;
+		 fn_validation('mbrNmCheck','이름을 정확히 입력하세요', 'R');
+		 return;
 	 }
-	 //휴대폰번호
+	 fn_validation('mbrNmCheck','', 'B');
+	
+	//휴대폰번호
 	 if(isEmpty(mbrCpNum)) {
-		modalAlertShow("휴대폰 번호를 입력해 주세요.","mbrCpNum");
-		return;
+		 fn_validation('mbrCpNumCheck','휴대폰번호를 정확히 입력하세요.', 'R');
+		 return;
 	 }
+	 
+	fn_validation('mbrCpNumCheck','', 'B');
 	 
 	 let memParams = {
 		  "mbrId" : mbrId,
@@ -383,20 +413,33 @@ $(".ba-btn1").on('click', function(event){
 	 
 	 
 	 $.ajax({
-         type: "post",
-         url: "main/memberInsertData",
-         data: memParams,
-         success: function(data) {
-        	 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
-       	 },
-         error: function(error) {
-      	   var errorJson = JSON.stringify(error);
-             console.log(errorJson);
-         }
+	     type: "post",
+	     url: "main/memberInsertData",
+	     data: memParams,
+	     success: function(data) {
+	    	 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
+	   	 },
+	     error: function(error) {
+	  	   var errorJson = JSON.stringify(error);
+	         console.log(errorJson);
+	     }
 	})
-	 
+	
 	
 });
+
+//이메일 형식 체크
+function CheckEmail(str) {                                                 
+	var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+     if(!reg_email.test(str)) {                            
+		return false;         
+	} else {                       
+        return true;         
+    }                            
+}                         
+
+
 
 function modalAlertShow(msg,obj) {
 	 //Modal Form Call
@@ -407,7 +450,6 @@ function modalAlertShow(msg,obj) {
 
 function modalAlertClose(obj) {
 	
-	
 	$('#ModalAlert').modal('hide');
 	
 	if(obj == "memberInput") {
@@ -415,7 +457,7 @@ function modalAlertClose(obj) {
 		$('#memberModal').modal('hide');
 		//로그인 모달
 		$('#loginModal').modal('show');
-		//회원가이 Form reset
+		//회원가입 Form reset
 		$("#memberInput")[0].reset(); 
 		
 		return;
@@ -427,8 +469,81 @@ function modalAlertClose(obj) {
 	}
 }
 
+//아이디 중복 체크
+$("#mbrId").blur(function() {
+	var dataCheckCount = {};
+	
+	var mbrIdParam = $("#mbrId").val();
+	
+	if(mbrIdParam) {
+	
+		let param = {
+			mbrId : mbrIdParam
+		}
+		
+		$.ajax({
+			   type: "post",
+			   url: "/admin/member/memberChkData",
+			   data: param,
+			   success: function(data) {
+				   
+				dataCheckCount = data.memberCheck.memberCheck[0];
+				
+				console.log("dataCheckCount :"+dataCheckCount);
+				
+				if(dataCheckCount > 0) {
+								
+					var msg = "이미 가입된 이메일 주소입니다. 다른 이메일을 입력해 주세요.";
+					
+					fn_validation('mbrIdCheck',msg, 'R');
+					
+					return;
+				
+				} else {
+					
+					if(!CheckEmail(mbrIdParam)) {
+						$('#mbrIdCheck').html('이메일을 올바르게 입력해주세요.');
+						$('#mbrIdCheck').css('color','red');
+					} else {
+						var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+						fn_validation('mbrIdCheck',msg, 'B');	
+					}
+					
+					return;
+				}
+			   },
+			   error: function(error) {
+				   var errorJson = JSON.stringify(error);
+			       //alert("오류 발생" + errorJson);
+			       console.log(errorJson);
+			   }
+			})
+	} else {
+		
+		var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+		
+		fn_validation('mbrIdCheck',msg, 'B');
+		
+		return;
+		
+	}
+});
 
- 
+
+function fn_validation(inputId,msg,color) {
+		
+	$('#'+inputId).empty();
+	
+	$('#'+inputId).html(msg);
+	
+	if(color == 'R') {
+		$('#'+inputId).css('color','red');	
+	} else {
+		$('#'+inputId).css('color','#999999');
+	} 
+	
+	
+}
 
 
 $("#autocomplete").hide();

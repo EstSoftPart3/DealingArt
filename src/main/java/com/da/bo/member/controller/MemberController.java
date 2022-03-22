@@ -120,10 +120,13 @@ public class MemberController {
 	public ModelAndView memberCheck(@RequestParam Map<String, Object> param) {
 		
 		ModelAndView mv = new ModelAndView();
-		
 		mv.setViewName("jsonView");
 		
 		Map<String, Object> result = new HashMap<>();
+		
+		//이메일 암호화
+		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		param.put("mbrId", mbrIdEncrypt);
 		
 		result = boMemberService.memberCheck(param);
 		
