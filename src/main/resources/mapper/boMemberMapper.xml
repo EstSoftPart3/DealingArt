@@ -13,13 +13,14 @@
 			,MBR_EMAIL            AS mbrEmail
 			,MBR_PASSWRD          AS mbrPasswrd
 			,MBR_NM               AS mbrNm
-			,MBR_NCKNM            AS mbrNcknm
+			,IFNULL(MBR_NCKNM,'-') AS mbrNcknm
 			,MBR_NATN_CD          AS mbrNatnCd
 			,MBR_BIRTH            AS mbrBirth
 			,(
 				CASE 
 					WHEN MBR_SEX_CD = 'MALE' THEN '남'
 					WHEN MBR_SEX_CD = 'FEMALE' THEN '여' 
+					WHEN MBR_SEX_CD IS NULL THEN '-'
 				END
 			 ) AS mbrSexCd
 			,MBR_HOME_ADDR        AS mbrHomeAddr
