@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
-<html lang="ko">
+<html>
 
 <head>
     <style>
@@ -33,10 +33,10 @@
 								</div>
 								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
-										<input type="radio" id="r1" name="rr" />
-										<label for="r1"><span></span>Collector</label><br/>
-										<input type="radio" id="r2" name="rr" />
-										<label for="r2"><span></span> Artist</label>
+										<input type="radio" id="r3" name="mbrSprtn" value="MG" class="searchOption" onclick="dealSearch()"/>
+										<label for="r3"><span></span>Collector</label><br/>
+										<input type="radio" id="r4" name="mbrSprtn" value="MW" class="searchOption" onclick="dealSearch()"/>
+										<label for="r4"><span></span>Artist</label>
 									</div>
 								</div>
 							</div>
@@ -50,13 +50,13 @@
 								</div>
 								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
-										<input type="checkbox" id="a1" name="cc" />
+										<input type="checkbox" id="a1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption" onclick="dealSearch()"/>
 										<label for="a1"><span></span>진행 중인 거래</label><br/>
-										<input type="checkbox" id="a2" name="cc" />
+										<input type="checkbox" id="a2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption" onclick="dealSearch()"/>
 										<label for="a2"><span></span>종료된 거래</label><br/>
-										<input type="checkbox" id="a3" name="cc" />
+										<input type="checkbox" id="a3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption" onclick="dealSearch()"/>
 										<label for="a3"><span></span>경매</label><br/>
-										<input type="checkbox" id="a4" name="cc" />
+										<input type="checkbox" id="a4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption" onclick="dealSearch()"/>
 										<label for="a4"><span></span>정찰가</label>
 									</div>
 								</div>
@@ -71,11 +71,11 @@
 								</div>
 								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 									<div class="panel-body">
-										<input type="checkbox" id="b1" name="cc" />
+										<input type="checkbox" id="b1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption" onclick="dealSearch()"/>
 										<label for="b1"><span></span>평면</label><br/>
-										<input type="checkbox" id="b2" name="cc" />
+										<input type="checkbox" id="b2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption" onclick="dealSearch()"/>
 										<label for="b2"><span></span>입체</label><br/>
-										<input type="checkbox" id="b3" name="cc" />
+										<input type="checkbox" id="b3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption" onclick="dealSearch()"/>
 										<label for="b3"><span></span>NFT</label>
 									</div>
 								</div>
@@ -90,15 +90,15 @@
 								</div>
 								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 									<div class="panel-body">
-										<input type="checkbox" id="c1" name="cc" />
+										<input type="checkbox" id="c1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c1"><span></span>동양화</label><br/>
-										<input type="checkbox" id="c2" name="cc" />
+										<input type="checkbox" id="c2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c2"><span></span>서양화</label><br/>
-										<input type="checkbox" id="c3" name="cc" />
+										<input type="checkbox" id="c3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c3"><span></span>팝아트</label>
-										<input type="checkbox" id="c4" name="cc" />
+										<input type="checkbox" id="c4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c4"><span></span>현대미술</label><br/>
-										<input type="checkbox" id="c5" name="cc" />
+										<input type="checkbox" id="c5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c5"><span></span>고미술</label>
 									</div>
 								</div>
@@ -132,7 +132,7 @@
 								</div>
 							</div>
 						</div>
-						<button type="button" class="btn-more2"><span>reset</span></button>
+						<button type="button" class="btn-more2" onclick="searchOptionReset()"><span>reset</span></button>
 					</div>
 					
 					<div class="con-right">
@@ -208,10 +208,10 @@
 													<span>Deal wtith</span>
 												</div>
 												<div class="drop-body">
-													<input type="radio" id="m1" name="rr" />
-													<label for="m1"><span></span>Collector</label><br/>
-													<input type="radio" id="m2" name="rr" />
-													<label for="m2"><span></span> Artist</label>
+													<input type="radio" id="m3" name="mbrSprtn" value="MG" class="searchOption"/>
+													<label for="m3"><span></span>Collector</label><br/>
+													<input type="radio" id="m4" name="mbrSprtn" value="MW" class="searchOption"/>
+													<label for="m4"><span></span>Artist</label>
 												</div>
 											</li>
 											<li role="presentation">
@@ -219,13 +219,13 @@
 													<span>거래</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="p1" name="cc" />
+													<input type="checkbox" id="p1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption"/>
 													<label for="p1"><span></span>진행 중인 거래</label><br/>
-													<input type="checkbox" id="p2" name="cc" />
+													<input type="checkbox" id="p2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption"/>
 													<label for="p2"><span></span>종료된 거래</label><br/>
-													<input type="checkbox" id="p3" name="cc" />
+													<input type="checkbox" id="p3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption"/>
 													<label for="p3"><span></span>경매</label><br/>
-													<input type="checkbox" id="p4" name="cc" />
+													<input type="checkbox" id="p4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption"/>
 													<label for="p4"><span></span>정찰가</label>
 												</div>
 											</li>
@@ -234,11 +234,11 @@
 													<span>형태</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="o1" name="cc" />
+													<input type="checkbox" id="o1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption"/>
 													<label for="o1"><span></span>평면</label><br/>
-													<input type="checkbox" id="o2" name="cc" />
+													<input type="checkbox" id="o2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption"/>
 													<label for="o2"><span></span>입체</label><br/>
-													<input type="checkbox" id="o3" name="cc" />
+													<input type="checkbox" id="o3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption"/>
 													<label for="o3"><span></span>NFT</label>
 												</div>
 											</li>
@@ -247,15 +247,15 @@
 													<span>분류</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="i1" name="cc" />
+													<input type="checkbox" id="i1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption"/>
 													<label for="i1"><span></span>동양화</label><br/>
-													<input type="checkbox" id="i2" name="cc" />
+													<input type="checkbox" id="i2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption"/>
 													<label for="i2"><span></span>서양화</label><br/>
-													<input type="checkbox" id="i3" name="cc" />
+													<input type="checkbox" id="i3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption"/>
 													<label for="i3"><span></span>팝아트</label><br/>
-													<input type="checkbox" id="i4" name="cc" />
+													<input type="checkbox" id="i4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption"/>
 													<label for="i4"><span></span>현대미술</label><br/>
-													<input type="checkbox" id="i5" name="cc" />
+													<input type="checkbox" id="i5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption"/>
 													<label for="i5"><span></span>고미술</label>
 												</div>
 											</li>
@@ -276,8 +276,8 @@
 												</div>
 											</li>
 											<div class="drop-btnb">
-												<button type="button" class="dbtn-1">선택</button>
-												<button type="button" class="dbtn-2">rereset</button>
+												<button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
+												<button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
 											</div>
 										</ul>
 									</div>
@@ -475,13 +475,13 @@
 							<span>Deal wtith</span>
 						</div>
 						<div class="drop-body">
-							<div class="db-div">
-								<input type="radio" id="s1" name="ss" />
-								<label for="s1"><span></span>Collector</label>
+						<div class="db-div">
+								<input type="radio" id="s5" name ="mbrSprtn" value="MG" class="searchOption"/>
+								<label for="s5"><span></span>Collector</label>
 							</div>
 							<div class="db-div">
-								<input type="radio" id="s2" name="ss" />
-								<label for="s2"><span></span> Artist</label>
+								<input type="radio" id="s6" name="mbrSprtn" value="MW" class="searchOption"/>
+								<label for="s6"><span></span>Artist</label>
 							</div>
 						</div>
 					</li>
@@ -489,21 +489,22 @@
 						<div class="drop-title">
 							<span>거래</span>
 						</div>
+						
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="z1" name="cc" />
+								<input type="checkbox" id="z1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption"/>
 								<label for="z1"><span></span>진행 중인 거래</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z2" name="cc" />
+								<input type="checkbox" id="z2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption"/>
 								<label for="z2"><span></span>종료된 거래</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z3" name="cc" />
+								<input type="checkbox" id="z3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption"/>
 								<label for="z3"><span></span>경매</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z4" name="cc" />
+								<input type="checkbox" id="z4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption"/>
 								<label for="z4"><span></span>정찰가</label>
 							</div>
 						</div>
@@ -514,15 +515,15 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="x1" name="cc" />
+								<input type="checkbox" id="x1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption"/>
 								<label for="x1"><span></span>평면</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="x2" name="cc" />
+								<input type="checkbox" id="x2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption"/>
 								<label for="x2"><span></span>입체</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="x3" name="cc" />
+								<input type="checkbox" id="x3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption"/>
 								<label for="x3"><span></span>NFT</label>
 							</div>
 						</div>
@@ -533,23 +534,23 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="v1" name="cc" />
+								<input type="checkbox" id="v1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption"/>
 								<label for="v1"><span></span>동양화</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v2" name="cc" />
+								<input type="checkbox" id="v2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption"/>
 								<label for="v2"><span></span>서양화</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v3" name="cc" />
+								<input type="checkbox" id="v3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption"/>
 								<label for="v3"><span></span>팝아트</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v4" name="cc" />
+								<input type="checkbox" id="v4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption"/>
 								<label for="v4"><span></span>현대미술</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v5" name="cc" />
+								<input type="checkbox" id="v5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption"/>
 								<label for="v5"><span></span>고미술</label>
 							</div>
 						</div>
@@ -571,8 +572,8 @@
 						</div>
 					</li>
 					<div class="drop-btnb">
-						<button type="button" class="dbtn-1">선택</button>
-						<button type="button" class="dbtn-2">rereset</button>
+						<button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
+						<button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
 					</div>
 				</ul>
 			</div>
@@ -582,142 +583,217 @@
 
 
 <script type="text/javascript">      
-      
-      $(window).on("resize", function () {
-	   	    if(window.matchMedia('(min-width: 1537px)').matches)
-	   	    {
-		   	    document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	  
-		       	  
-	   	    	
-	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	
-	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 1,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
-	   	    	
-	   	    	document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
-		       	  wrap.style.gridAutoRows = "1px";
-	   	    	
-	       	  
-	   	     };
-	   	}).resize();
-      
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
-
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
-
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
-
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-      
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-    </script>
     
-	
-	
-	
-</body>
+    $(window).on("resize", function () {
+  	    if(window.matchMedia('(min-width: 1537px)').matches)
+  	    {
+   	    document.querySelectorAll(".item").forEach((item) => {
+       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+       	  });
+       	  const wrap = document.querySelector(".columns-wrap2");
+       	  wrap.style.display = "grid";
+       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
+       	  wrap.style.gridAutoRows = "1px";
+       	  
+       	  
+  	    	
+  	    	
+  	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+  	    	
+   	      document.querySelectorAll(".item").forEach((item) => {
+       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+       	  });
+       	  const wrap = document.querySelector(".columns-wrap2");
+       	  wrap.style.display = "grid";
+       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
+       	  wrap.style.gridAutoRows = "1px";
+       	
+  	    	
+  	     } else {
+  	    	var swiper = new Swiper(".mySwiper2", {
+  	          slidesPerView: 1,
+  	          slidesPerGroup: 1,
+  	          loop: true,
+  	          loopFillGroupWithBlank: true,
+  	          pagination: {
+  	            el: ".swiper-pagination",
+  	            clickable: true,
+  	          },
+  	          navigation: {
+  	            nextEl: ".swiper-button-next",
+  	            prevEl: ".swiper-button-prev",
+  	          },
+  	     });
+  	    	
+  	    	document.querySelectorAll(".item").forEach((item) => {
+       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+       	  });
+       	  const wrap = document.querySelector(".columns-wrap2");
+       	  wrap.style.display = "grid";
+       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
+       	  wrap.style.gridAutoRows = "1px";
+  	    	
+      	  
+  	     };
+  	}).resize();
+    
+    
+    
+    $(document).ready(function () {
+     $(".elm").hover(
+   	function(){ $(this).addClass('hover') },
+  	    function(){ $(this).removeClass('hover') }
+  	  )
+  	  $(".cn-b").hover(
+   	function(){ $(this).addClass('gis') },
+  	    function(){ $(this).removeClass('gis') }
+  	  )
+    });
+    
+    $(function() {                      
+  	  $(".bab-bo").click(function() { 
+  	    $(this).toggleClass("bashow");     
+  	  });
+  	  
+  	  $(".lg-my").click(function() { 
+    	    $('.bg-sh').toggleClass('bg-show');     
+    	 	 $('.s-hov').toggleClass('s-hov-show');     
+    	  });
+  	  
+  	});
+    
+    
+    /* 메뉴바 FIXED */
+    if (jQuery(window).width() > 0) {
+        jQuery(window).on("scroll",function(ev){
+            if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                jQuery('.head-wrap').addClass('fixed');
+            }
+            else{
+                jQuery('.head-wrap').removeClass('fixed');
+            }
+            return false;
+        });
+    }
+    
+    /* jQuery(function($) {
 
+  	    window.onresize = function(){
+  	      document.location.reload();
+  	    };
+
+  	}); */
+    
+    var delay = 300;
+    var timer = null;
+
+    //Javascript
+    window.addEventListener('resize', function(){
+    	clearTimeout(timer);
+    	timer = setTimeout(function(){
+    		document.location.reload();
+    	}, delay);
+    });
+
+    //jQuery
+    $(window).on('resize', function(){
+    	clearTimeout(timer);
+    	timer = setTimeout(function(){
+    		document.location.reload();
+    	}, delay);
+    });
+    
+    $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+  	    // The event won't be propagated up to the document NODE and 
+  	    // therefore delegated events won't be fired
+  	    event.stopPropagation();
+  	});
+  
+	function dealSearch(){
+		debugger;
+		//검색옵션이 담긴 JSON
+		var searchOptions = new Object();
+		searchOptions.mbrSprtn = $('input[name=mbrSprtn]:checked').val();
+		//거래유형코드
+		var dealTypCds = new Array();
+		document.querySelectorAll('input[name=dealTypCd]:checked').forEach((el) => {
+			dealTypCds.push(el.value);
+		});
+		if(dealTypCds.length > 0){
+			searchOptions.dealTypCds = dealTypCds;
+		}
+		//거래상태코드
+		var dealSttsCds = new Array();
+		document.querySelectorAll('input[name=dealSttsCd]:checked').forEach((el) => {
+			dealSttsCds.push(el.value);
+		});
+		if(dealSttsCds.length > 0){
+			searchOptions.dealSttsCds = dealSttsCds;
+		}
+		//작품형태코드
+		var workShpCds = new Array();
+		document.querySelectorAll('input[name=workShpCd]:checked').forEach((el) => {
+			workShpCds.push(el.value);
+		});
+		if(workShpCds.length > 0){
+			searchOptions.workShpCds = workShpCds;
+		}
+		//작품분류코드
+		var workClsfcCds = new Array();
+		document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
+			workClsfcCds.push(el.value);
+		});
+		if(workClsfcCds.length > 0){
+			searchOptions.workClsfcCds = workClsfcCds;
+		}
+		$.ajax({
+	        type: "post",
+	        url: "/dealSearch",
+	        data: JSON.stringify(searchOptions),
+	        success: function(data) {
+	     	   
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		})
+	}
+	
+	function searchOptionReset(){
+		document.querySelectorAll(".searchOption").forEach(function(v, i) {
+			v.checked = false;
+		});
+	}
+	
+	function radioValue(){
+		debugger;
+		var radioValue = $('input[name=mbrSprtn]:checked').val();
+	}
+	
+	function searchOpction_onclick(){
+        // 리스트 생성
+        var testList = new Array() ;
+         
+ 
+        for(var i=1; i<=2; i++){
+             
+            // 객체 생성
+            var data = new Object() ;
+             
+            data.number = i ;
+            data.name = "Tester #" + i ;
+             
+             
+            // 리스트에 생성된 객체 삽입
+            testList.push(data) ;
+        }
+         
+        // String 형태로 변환
+        var jsonData = JSON.stringify(testList) ;
+         
+        alert(jsonData) ;
+
+	}
+</script>
+</body>
 </html>

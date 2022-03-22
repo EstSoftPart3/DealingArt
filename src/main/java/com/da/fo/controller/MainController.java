@@ -49,8 +49,9 @@ public class MainController {
 	@ResponseBody
 	public ModelAndView totalSearch(@RequestParam String searchKeyword) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		
-		return null;
+		Map<String, Object> result = mainService.totalSearch(searchKeyword);
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	@RequestMapping("/totalSearchAutocomplete")
@@ -60,6 +61,10 @@ public class MainController {
 		Map<String,Object> result = mainService.totalSearchAutocomplete(searchKeyword);
 		mv.addObject("result", result);
 		return mv;
-		
+	}
+	
+	@RequestMapping("/artist")
+	public String openArtist() {
+		return "fo/artistLibrary/artist";
 	}
 }
