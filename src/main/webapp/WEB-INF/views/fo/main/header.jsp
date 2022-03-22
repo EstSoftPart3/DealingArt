@@ -28,21 +28,21 @@
 <body>
 	<div class="head-wrap">
 		<div class="head">
-			<div class="h-logo"><a href="#"><img src="resources/img/logo.png" /></a></div>
+			<div class="h-logo"><a href="/main"><img src="resources/img/logo.png" /></a></div>
 			<div class="h-gnb">
 				<div class="navbox">
 					<nav>
 						<li><a href="/deal">Deal</a></li>
 						<li><a href="#">Megazine</a></li>
-						<li><a href="#">Artist Library</a></li>
+						<li><a href="/artist">Artist Library</a></li>
 						<li><a href="#">About</a></li>
 					</nav>
 				</div>
 				
 				<!-- 로그인전 -->
 				<div class="login-hide h-text" >
-					<span data-toggle="modal" data-target="#loginModal">LOGIN</span>
-					<span data-toggle="modal" data-target="#memberModal">JOIN</span>
+					<span style="cursor:pointer;" data-toggle="modal" data-target="#loginModal">LOGIN</span>
+					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span>
 				</div>
 				
 				<!-- 로그인후 -->
@@ -236,14 +236,15 @@
 
 <script type="text/javascript">
 $("#autocomplete").hide();
-//검색어의 길이가 바뀔 때마다 호출
 function ibx_search_onkeyup(e){
 	var wordLength = $("#ibx_search").val().trim().length;
 	if(wordLength > 1){
 		$.ajax({
 			url:"/totalSearchAutocomplete",
 			type:"post",
-			data:{"searchKeyword": $("#ibx_search").val()+'*' },
+			data: {
+				"searchKeyword": "*"+$("#ibx_search").val()+"*" 
+			},
 			dataType:"json",
 			success:function(data){
 				$("#work").empty();
@@ -300,20 +301,23 @@ $(document).on("click",".contentMore",function(){
 function btn_search_onclick(){
 	debugger;
 	var searchKeyword = $("#ibx_search").val();
-	$.ajax({
-        type: "post",
-        url: "main/mainData",
-        data: {
-     	   page : page,
-     	   pageSize : 4
-        },
-        success: function(data) {
-     	   
-        },
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-	})
+	if(searchKeyword == null || searchKeyword == ""){
+		alert("검색어가 입력되지 않았습니다");
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/totalSearch",
+	        data: {
+	     	   	"searchKeyword" : "*"+$("#ibx_search").val()+"*"
+	        },
+	        success: function(data) {
+	     	   
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		})
+	}
 	
 }
 </script>
