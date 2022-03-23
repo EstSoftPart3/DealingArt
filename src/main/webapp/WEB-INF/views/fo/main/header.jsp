@@ -194,20 +194,20 @@
 						<p class="inp-p" id="mbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
 					</div>
 					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd"/>
+						<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd" required/>
 						<p class="inp-p" id="mbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
 						<p class="inp-p" id="mbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
 					</div>
 					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm"/>
+						<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/>
 						<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 					</div>					
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off"/>
+						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" required/>
 						<p class="inp-p" id="mbrNmCheck"></p>
 					</div>
 					<div class="input-box input-group">
-						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off"/>
+						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" required/>
 						<button type="button" class="group-btn">인증하기</button>
 					</div>
 					<div class="input-box">
@@ -236,7 +236,6 @@
 		</div>
 	</div>
 	
-	<asp:textbox autocomplete="off">
 	</form>
 </div>s
 
@@ -496,6 +495,11 @@ $("#mbrId").blur(function() {
 					var msg = "이미 가입된 이메일 주소입니다. 다른 이메일을 입력해 주세요.";
 					
 					fn_validation('mbrIdCheck',msg, 'R');
+					fn_validation('mbrPwdCheck','', 'B');
+					fn_validation('mbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+					fn_validation('mbrNmCheck','', 'B');
+					$('#mbrPwdCheckU').css('color','#999999');
+					$('#mbrPwdCheckD').css('color','#999999');
 					
 					return;
 				

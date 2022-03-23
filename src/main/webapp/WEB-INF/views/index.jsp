@@ -34,5 +34,8 @@
         <div class="ui message">
         	<a href="/main">메인페이지로 이동</a>
         </div>
+         <div class="ui message">
+        	<a href="/admin/member/memberList" target="_blank">관리자 페이지로 이동</a>
+        </div>
 	</body>
 </html>
