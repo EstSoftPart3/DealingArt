@@ -626,7 +626,7 @@
   	     });
   	    	
   	    	document.querySelectorAll(".item").forEach((item) => {
-       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+       	    item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
        	  });
        	  const wrap = document.querySelector(".columns-wrap2");
        	  wrap.style.display = "grid";

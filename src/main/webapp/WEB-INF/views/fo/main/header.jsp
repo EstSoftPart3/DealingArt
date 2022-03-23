@@ -40,7 +40,7 @@
 				</div>
 				
 				<!-- 로그인전 -->
-				<div class="login-hide h-text" id="loginBf">
+				<div class="login-hide h-text" id="loginBf" style="display:none;">
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#loginModal">LOGIN</span>
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span>
 				</div>
@@ -57,7 +57,7 @@
 							<li><a href="#"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
 							<li><a href="#"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
-						<button type="button" class="btn-1">로그아웃</button>
+						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
 					</div>
 				</div>
 				
@@ -242,6 +242,88 @@
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script type="text/javascript">
+var loginSessionId = "";
+var loginBf = document.getElementById("loginBf");
+var loginAf = document.getElementById("loginAf");
+$(document).ready(function(){ 
+	//로그인 세션 체크
+	$.ajax({
+	    type: "post",
+	    url: "/loginCheck",
+	    success: function(data) {
+	    	if(data != null && data != ""){
+	    		loginSessionId = data;
+				loginBf.setAttribute("style", "display:none;");
+				loginAf.setAttribute("style", "");
+	    	}else{
+	    		loginSessionId = "";
+				loginBf.setAttribute("style", "");
+				loginAf.setAttribute("style", "display:none;");
+	    	}
+		},
+	    error: function(request, status, error){
+        	alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+       	}
+	})
+});
+
+//로그인 기능
+function login(){
+	var loginId = $("#txt_Id").val();
+	var loginPw = $("#txt_Pw").val();
+	if(loginId == null || loginId == "" || loginId == undefined){
+		modalAlertShow("아이디가 입력되지 않았습니다.", "txt_Id");
+	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
+		modalAlertShow("비밀번호가 입력되지 않았습니다.", "txt_Pw");
+	}else{
+		$.ajax({
+			url:"/login",
+			type:"post",
+			data: {
+				loginId : loginId,
+				loginPw : loginPw
+			},
+			dataType:"json",
+			success:function(data){
+				if(data != 1){
+					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
+				}else{
+					modalAlertShow("성공적으로 로그인이 되었습니다.", "");
+					$('#loginModal').modal("hide");
+					loginBf.setAttribute("style", "display:none;");
+					loginAf.setAttribute("style", "");
+				}
+			},
+			error: function(request, status, error){
+                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
+			
+		});
+		
+	}
+}
+//로그아웃
+function logout(){
+	$.ajax({
+		url:"/logout",
+		type:"post",
+		success:function(data){
+			if(data != null && data != ""){
+				modalAlertShow("로그아웃 되었습니다.", "");
+			 	loginSessionId = "";
+				loginBf.setAttribute("style", "");
+				loginAf.setAttribute("style", "display:none;");
+	    	}
+		},
+		error: function(request, status, error){
+        	alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+        }
+		
+	});
+}
+
 
 //Modal Call Form Reset
 $('#memberModal').on('show.bs.modal', function (e) {
@@ -547,42 +629,6 @@ function fn_validation(inputId,msg,color) {
 	} 
 	
 	
-}
-//로그인 기능
-function login(){
-	var loginId = $("#txt_Id").val();
-	var loginPw = $("#txt_Pw").val();
-	if(loginId == null || loginId == "" || loginId == undefined){
-		modalAlertShow("아이디가 입력되지 않았습니다.", "txt_Id");
-	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
-		modalAlertShow("비밀번호가 입력되지 않았습니다.", "txt_Pw");
-	}else{
-		$.ajax({
-			url:"/login",
-			type:"post",
-			data: {
-				loginId : loginId,
-				loginPw : loginPw
-			},
-			dataType:"json",
-			success:function(data){
-				if(data != 1){
-					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
-				}else{
-					$('#loginModal').modal("hide");
-					var loginBf = document.getElementById("loginBf");
-					var loginAf = document.getElementById("loginAf");
-					loginBf.setAttribute("style", "display:none;");
-					loginAf.setAttribute("style", "");
-				}
-			},
-			error: function(request, status, error){
-                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-            }
-			
-		});
-		
-	}
 }
 
 $("#autocomplete").hide();

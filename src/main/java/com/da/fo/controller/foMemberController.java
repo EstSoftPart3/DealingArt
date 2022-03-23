@@ -2,6 +2,9 @@ package com.da.fo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +55,40 @@ public class foMemberController {
 	}
 	@RequestMapping("/login")
 	@ResponseBody
-	public int login(@RequestParam Map<String, Object> param) {
+	public int login(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		String loginId = commonService.encrypt((String) param.get("loginId"));
 		String loginPw = commonService.encrypt((String) param.get("loginPw"));
 		param.put("loginId", loginId);
 		param.put("loginPw", loginPw);
-		return MemberService.login(param);
+		int result = MemberService.login(param);
+		if(result == 1) {
+			session.setAttribute("loginId", loginId);
+		}
+		return result;
 	}
 
+	@RequestMapping("/loginCheck")
+	@ResponseBody
+	public String loginCheck(HttpSession session) {
+		System.out.println("############# loginSessionId : " + (String) session.getAttribute("loginId"));
+		if((String) session.getAttribute("loginId") != null && (String) session.getAttribute("loginId") != "") {
+			System.out.println("############# loginSessionId : " + (String) session.getAttribute("loginId"));
+			return (String) session.getAttribute("loginId");
+		}else {
+			return null;
+		}
+	}
+	
+	@RequestMapping("/logout")
+	@ResponseBody
+	public String logout(HttpSession session) {
+		if((String) session.getAttribute("loginId") != null && (String) session.getAttribute("loginId") != "") {
+			session.invalidate();
+			return "success";
+		}else {
+			return null;
+		}
+	}
+	
 }
