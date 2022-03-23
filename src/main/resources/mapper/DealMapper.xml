@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.da.mapper.DealMapper">
+	<select id="dealSerach" resultType="hashMap" parameterType="hashMap">
+		/*딜 검색*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.MBR_SPRTN AS mbrSprtn, /*작가구분*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로/
+				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
+				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
+				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				B.BID_CNT AS bidCnt, /*응찰수*/ 
+				F.DEAL_STRT_DATE AS dealStrtDate, /*거래시작일시*/
+				F.DEAL_ENDNG_DATE AS dealEndngDate, /*거래종료일시*/
+				TIMEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDate /*거래남은시간*/ 
+		FROM 
+				TBL_DA_WORK_M AS A,
+				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+				FROM TBL_DA_AUCTN_BID_H 
+				GROUP BY DEAL_SQ) AS B,
+				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				FROM TBL_DA_AUCTN_BID_H
+				GROUP BY DEAL_SQ) AS C,
+				TBL_DA_MBR_M AS D,
+				TBL_DA_ARTST_M AS E,
+				TBL_DA_DEAL_M AS F
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.ARTST_SQ = E.ARTST_SQ
+				AND A.WORK_SQ = F.WORK_SQ
+				AND B.DEAL_SQ = F.DEAL_SQ
+				AND C.DEAL_SQ = F.DEAL_SQ
+			<if test="mbrSprtn != null and mbrSprtn != ''">
+				AND D.MBR_SPRTN = #{mbrSprtn}
+        	</if>	
+			<if test="dealTypCds.size != 0 and dealTypCds != null">
+				AND F.DEAL_TYP_CD IN
+				<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+        	<if test="dealSttsCds.size != 0 and dealSttsCds != null">
+				AND F.DEAL_STTS_CD IN
+				<foreach collection="dealSttsCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+			<if test="workShpCds.size != 0 and workShpCds != null">
+				AND A.WORK_SHP_CD IN
+				<foreach collection="workShpCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+	        <if test="workClsfcCds.size != 0 and workClsfcCds != null">
+				AND A.WORK_CLSFC_CD IN
+				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+	        </if>
+	</select>
+</mapper>

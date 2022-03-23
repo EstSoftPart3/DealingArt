@@ -719,7 +719,7 @@
 			dealTypCds.push(el.value);
 		});
 		if(dealTypCds.length > 0){
-			searchOptions.dealTypCds = dealTypCds;
+			searchOptions.dealTypCds = JSON.stringify(dealTypCds);
 		}
 		//거래상태코드
 		var dealSttsCds = new Array();
@@ -727,7 +727,7 @@
 			dealSttsCds.push(el.value);
 		});
 		if(dealSttsCds.length > 0){
-			searchOptions.dealSttsCds = dealSttsCds;
+			searchOptions.dealSttsCds = JSON.stringify(dealSttsCds);
 		}
 		//작품형태코드
 		var workShpCds = new Array();
@@ -735,7 +735,7 @@
 			workShpCds.push(el.value);
 		});
 		if(workShpCds.length > 0){
-			searchOptions.workShpCds = workShpCds;
+			searchOptions.workShpCds = JSON.stringify(workShpCds);
 		}
 		//작품분류코드
 		var workClsfcCds = new Array();
@@ -743,12 +743,12 @@
 			workClsfcCds.push(el.value);
 		});
 		if(workClsfcCds.length > 0){
-			searchOptions.workClsfcCds = workClsfcCds;
+			searchOptions.workClsfcCds = JSON.stringify(workClsfcCds);
 		}
 		$.ajax({
 	        type: "post",
 	        url: "/dealSearch",
-	        data: JSON.stringify(searchOptions),
+	        data: searchOptions,
 	        success: function(data) {
 	     	   
 	        },

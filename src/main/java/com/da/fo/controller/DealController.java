@@ -1,7 +1,12 @@
 package com.da.fo.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +41,32 @@ public class DealController {
 	
 	@RequestMapping("/dealSearch")
 	@ResponseBody
-	public ModelAndView dealSerach(@RequestParam Map<String, Object> searchOptions) {
+	public ModelAndView dealSerach(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		System.out.println("################# dealSearchOption : " + searchOptions);
+		System.out.println("################# param : " + param);
+		Map<String, Object> searchOptions = new HashMap<>();
+		List<String> dealTypCds = new ArrayList<>();
+		List<String> dealSttsCds = new ArrayList<>();
+		List<String> workShpCds = new ArrayList<>();
+		List<String> workClsfcCds = new ArrayList<>();
+		if(param.get("dealTypCds") != null) {
+			dealTypCds = Arrays.asList(param.get("dealTypCds").toString().replaceAll("\\[|\\]|\"", "").split(","));
+		}
+		if(param.get("dealSttsCds") != null) {
+			dealSttsCds = Arrays.asList(param.get("dealSttsCds").toString().replaceAll("\\[|\\]|\"", "").split(","));
+		}
+		if(param.get("workShpCds") != null) {
+			workShpCds = Arrays.asList(param.get("workShpCds").toString().replaceAll("\\[|\\]|\"", "").split(","));
+		}
+		if(param.get("workClsfcCds") != null) {
+			workClsfcCds = Arrays.asList(param.get("workClsfcCds").toString().replaceAll("\\[|\\]|\"", "").split(","));
+		}
+		searchOptions.put("mbrSprtn", param.get("mbrSprtn"));
+		searchOptions.put("dealTypCds", dealTypCds);
+		searchOptions.put("dealSttsCds", dealSttsCds);
+		searchOptions.put("workShpCds", workShpCds);
+		searchOptions.put("workClsfcCds", workClsfcCds);
+		System.out.println("################# searchOptions : " + searchOptions);
 		Map<String, Object> result = dealService.dealSerach(searchOptions);
 		mv.addObject("result", result);
 		return mv;

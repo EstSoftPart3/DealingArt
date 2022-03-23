@@ -31,11 +31,7 @@ public class DealDao {
 	 * return : 검색 결과
 	 */
 	public Map<String, Object> dealSerach(Map<String, Object> searchOptions){
-		Map<String, Object> param = new HashMap<>();
-		String dealTypCds = (String) searchOptions.get("searchOptions");
-		param.put("dealTypCds", dealTypCds);
-		System.out.println("################ param : " + param);
-		Map<String, Object> result = dealMapper.dealSerach(param);
+		Map<String, Object> result = dealMapper.dealSerach(searchOptions);
 		return result;
 	}
 }
