@@ -710,7 +710,6 @@
   	});
   
 	function dealSearch(){
-		debugger;
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
 		searchOptions.mbrSprtn = $('input[name=mbrSprtn]:checked').val();
@@ -765,35 +764,6 @@
 		});
 	}
 	
-	function radioValue(){
-		debugger;
-		var radioValue = $('input[name=mbrSprtn]:checked').val();
-	}
-	
-	function searchOpction_onclick(){
-        // 리스트 생성
-        var testList = new Array() ;
-         
- 
-        for(var i=1; i<=2; i++){
-             
-            // 객체 생성
-            var data = new Object() ;
-             
-            data.number = i ;
-            data.name = "Tester #" + i ;
-             
-             
-            // 리스트에 생성된 객체 삽입
-            testList.push(data) ;
-        }
-         
-        // String 형태로 변환
-        var jsonData = JSON.stringify(testList) ;
-         
-        alert(jsonData) ;
-
-	}
 </script>
 </body>
 </html>

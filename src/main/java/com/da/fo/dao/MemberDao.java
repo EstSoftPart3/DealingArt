@@ -34,5 +34,14 @@ public class MemberDao {
 		MemberMapper.memberInsert(param);
 		
 	}
+	
+	/*
+	 * 로그인 기능
+	 * param : loginId, loginPw
+	 * return : int
+	 */
+	public int login(Map<String, Object> param) {
+		return MemberMapper.login(param);
+	}
 
 }

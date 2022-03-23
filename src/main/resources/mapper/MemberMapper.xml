@@ -76,6 +76,16 @@
    		WHERE MBR_SQ = #{mbrSq}
 	</update>
    
+   <select id="login" resultType="int" parameterType="hashMap">
+		SELECT 	
+				COUNT(MBR_SQ)
+		FROM 	
+				TBL_DA_MBR_M
+		WHERE 	
+				MBR_ID = #{loginId}
+			AND	MBR_EMAIL = #{loginId}
+			AND	MBR_PASSWRD = #{loginPw}   
+   </select>
     
     
 </mapper>

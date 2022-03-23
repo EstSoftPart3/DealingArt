@@ -50,5 +50,14 @@ public class foMemberController {
 		
 		MemberService.memberInsert(param);
 	}
+	@RequestMapping("/login")
+	@ResponseBody
+	public int login(@RequestParam Map<String, Object> param) {
+		String loginId = commonService.encrypt((String) param.get("loginId"));
+		String loginPw = commonService.encrypt((String) param.get("loginPw"));
+		param.put("loginId", loginId);
+		param.put("loginPw", loginPw);
+		return MemberService.login(param);
+	}
 
 }

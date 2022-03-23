@@ -40,13 +40,13 @@
 				</div>
 				
 				<!-- 로그인전 -->
-				<div class="login-hide h-text" >
+				<div class="login-hide h-text" id="loginBf">
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#loginModal">LOGIN</span>
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span>
 				</div>
 				
 				<!-- 로그인후 -->
-				<div class="login-show h-img" style="display:none;">
+				<div class="login-show h-img" id="loginAf" style="display:none;">
 					<span class="sog-1"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
 					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
@@ -151,10 +151,10 @@
 				<div class="login-box">
 					<p class="lb-p1">LOGIN</p>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="아이디/이메일" />
+						<input type="text" class="input-3" placeholder="아이디/이메일" id="txt_Id"/>
 					</div>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="비밀번호" />
+						<input type="text" class="input-3" placeholder="비밀번호" id="txt_Pw"/>
 					</div>
 					<div class="radio-3 rad-mg">
 						<input type="radio" id="r1" name="rr">
@@ -163,7 +163,7 @@
 						<label for="r2"><span></span>아이디(이메일) / 비밀번호 찾기</label>
 					</div>
 					<div class="bat-box3">
-						<button type="button" class="ba-btn1"><span>Login</span></button>
+						<button type="button" class="ba-btn1" onclick="login()"><span>Login</span></button>
 					</div>
 					<p class="lb-p2"><a href="#"><span>회원가입</span></a></p>
 				</div>
@@ -544,7 +544,42 @@ function fn_validation(inputId,msg,color) {
 	
 	
 }
-
+//로그인 기능
+function login(){
+	var loginId = $("#txt_Id").val();
+	var loginPw = $("#txt_Pw").val();
+	if(loginId == null || loginId == "" || loginId == undefined){
+		modalAlertShow("아이디가 입력되지 않았습니다.", "txt_Id");
+	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
+		modalAlertShow("비밀번호가 입력되지 않았습니다.", "txt_Pw");
+	}else{
+		$.ajax({
+			url:"/login",
+			type:"post",
+			data: {
+				loginId : loginId,
+				loginPw : loginPw
+			},
+			dataType:"json",
+			success:function(data){
+				if(data != 1){
+					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
+				}else{
+					$('#loginModal').modal("hide");
+					var loginBf = document.getElementById("loginBf");
+					var loginAf = document.getElementById("loginAf");
+					loginBf.setAttribute("style", "display:none;");
+					loginAf.setAttribute("style", "");
+				}
+			},
+			error: function(request, status, error){
+                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
+			
+		});
+		
+	}
+}
 
 $("#autocomplete").hide();
 function ibx_search_onkeyup(e){
@@ -554,7 +589,7 @@ function ibx_search_onkeyup(e){
 			url:"/totalSearchAutocomplete",
 			type:"post",
 			data: {
-				"searchKeyword": "*"+$("#ibx_search").val()+"*" 
+				searchKeyword : "*"+$("#ibx_search").val()+"*" 
 			},
 			dataType:"json",
 			success:function(data){

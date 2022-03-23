@@ -1,5 +1,8 @@
 package com.da.fo.dao;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -28,7 +31,11 @@ public class DealDao {
 	 * return : 검색 결과
 	 */
 	public Map<String, Object> dealSerach(Map<String, Object> searchOptions){
-		Map<String, Object> result = dealMapper.dealSerach(searchOptions);
+		Map<String, Object> param = new HashMap<>();
+		String dealTypCds = (String) searchOptions.get("searchOptions");
+		param.put("dealTypCds", dealTypCds);
+		System.out.println("################ param : " + param);
+		Map<String, Object> result = dealMapper.dealSerach(param);
 		return result;
 	}
 }

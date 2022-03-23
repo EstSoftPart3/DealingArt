@@ -18,5 +18,14 @@ public class MemberServiceImpl implements MemberService  {
 	public void memberInsert(Map<String, Object> param){
 		MemberDao.memberInsert(param);
 	}
+	
+	/*
+	 * 로그인 기능
+	 * param : loginId, loginPw
+	 * return : int
+	 */
+	public int login(Map<String, Object> param) {
+		return MemberDao.login(param);
+	}
 
 }
