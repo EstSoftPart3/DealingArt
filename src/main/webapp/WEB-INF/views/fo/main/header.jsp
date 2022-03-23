@@ -154,7 +154,7 @@
 						<input type="text" class="input-3" placeholder="아이디/이메일" id="txt_Id"/>
 					</div>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="비밀번호" id="txt_Pw"/>
+						<input type="password" class="input-3" placeholder="비밀번호" id="txt_Pw"/>
 					</div>
 					<div class="radio-3 rad-mg">
 						<input type="radio" id="r1" name="rr">
