@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.artistMemberMapper">
+	<!-- 작가 회원 정보 -->
+	<select id="memberList" resultType="hashMap">
+        SELECT
+          	 MBR_SQ			AS mbrSq              
+			,ARTST_SQ		AS artstSq           
+			,ARTST_ACTVTY_NM	AS artstActvtyNm      
+			,ARTST_ENGLS_NM		AS artstEnglsNm       
+			,ARTST_ACTVTY_PART_CD	AS artstActvtyPartCd  
+			,ARTST_ACTVTY_CD	AS artstActvtyCd      
+			,ARTST_SELF_INTRO	AS artstSelfIntro     
+			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
+			,ARTST_HMPG_URL		AS artstHmpgUrl       
+			,ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
+			,ARTST_FACEBOOK_ID	AS artstFacebookId    
+			,ARTST_INSTAGRAM_ID	AS artstInstagramId   
+			,REG_MBR_SQ		AS regMbrSq           
+			,REG_DT			AS regDt              
+			,UPDT_MBR_SQ		AS updtMbrSq          
+			,UPDT_DT		AS updtDt             
+			,USE_YN			AS useYn              
+			,DEL_YN			AS delYn  
+
+        FROM
+            TBL_DA_ARTST_M
+        WHERE 1=1 AND MBR_SQ = #{mbrSq}
+     </select>
+  
+   
+   <!-- 회원등록 -->
+   <insert id="artistMemberInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_ARTST_M
+        (
+        	MBR_SQ
+			,ARTST_SQ
+			,ARTST_ACTVTY_NM
+			,ARTST_ENGLS_NM
+			,ARTST_ACTVTY_PART_CD
+			,ARTST_ACTVTY_CD
+			,ARTST_SELF_INTRO
+			,ARTST_PROFILE_IMG_URL
+			,ARTST_HMPG_URL
+			,ARTST_PROMTN_VIDEO_URL
+			,ARTST_FACEBOOK_ID
+			,ARTST_INSTAGRAM_ID
+			,REG_MBR_SQ
+			,REG_DT
+			,UPDT_MBR_SQ
+			,UPDT_DT
+			,USE_YN
+			,DEL_YN
+
+       	) 
+        VALUES
+        (
+        	#{mbrSq}
+			,#{artstSq}
+			,#{artstActvtyNm}
+			,#{artstEnglsNm}
+			,#{artstActvtyPartCd}
+			,#{artstActvtyCd}
+			,#{artstSelfIntro}
+			,#{artstProfileImgUrl}
+			,#{artstHmpgUrl}
+			,#{artstPromtnVideoUrl}
+			,#{artstFacebookId}
+			,#{artstInstagramId}
+			,'1'
+			,NOW()
+			,'1'
+			,NOW()
+			,#{useYn}
+			,#{delYn}
+
+        )
+    </insert>
+    
+    <update id="artistMemberUpdate" parameterType="hashMap">
+   		UPDATE TBL_DA_ARTST_M
+   		<trim prefix="SET" suffixOverrides=",">
+      		<if test="artstActvtyNm  != null">AUTH_SQ =#{authSq},</if>
+			<if test="artstEnglsNm       != null">MBR_EMAIL =#{mbrEmail},</if>
+			<if test="artstActvtyPartCd     != null">MBR_PASSWRD =#{mbrPasswrd},</if>
+			<if test="artstActvtyCd      != null">MBR_NATN_CD = #{mbrNatnCd},</if>
+			<if test="artstSelfIntro       != null">MBR_BIRTH = #{mbrBirth},</if>
+			<if test="artstProfileImgUrl       != null">MBR_SEX_CD = #{mbrSexCd},</if>
+			<if test="artstHmpgUrl    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
+			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR =#{mbrDelivryAddr},</if>
+			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
+			UPDT_DT = NOW(),
+			<if test="useYn          != null">USE_YN = #{useYn},</if>
+			<if test="delYn          != null">DEL_YN = #{delYn},</if>
+   		</trim>
+   		WHERE MBR_SQ = #{mbrSq}
+	</update>
+   
+    
+    
+</mapper>

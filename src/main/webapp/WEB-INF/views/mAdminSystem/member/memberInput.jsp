@@ -120,7 +120,7 @@
 		               		
                     		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">이메일</label>
                     		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname" id="mbrEmail" name="mbrEmail" autocomplete="false">
+                      			<input type="text" class="form-control sTitle classname" id="mbrEmail" name="mbrEmail" autocomplete="false" readonly>
                     		</div>
                     		
                   		</div>
@@ -575,6 +575,14 @@
 	    $($(this)).text("SHOW");
 	  }
 	});
+	
+	//아이디, 이메일 동기화
+	$("#mbrId").keyup(function() { 
+		var mbrId = $("#mbrId").val();
+		$("#mbrEmail").val(mbrId);
+	});
+
+
 
 	</script>
  

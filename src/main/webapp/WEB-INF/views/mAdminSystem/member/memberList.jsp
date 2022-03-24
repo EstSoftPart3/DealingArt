@@ -43,10 +43,10 @@
 		                  <thead>
 		                    <tr align="center">
 		                      <th>이름</th>
-		                      <th>닉네임</th>
-		                      <th>성별</th>
-		                      <th>아이디</th>
-		                      <th>이메일</th>
+		                      <!-- <th>닉네임</th>
+		                      <th>성별</th> -->
+		                      <th>아이디(이메일)</th>
+		                      <!-- <th>이메일</th> -->
 		                      <th>휴대전화</th>
 		                      <th>등록일</th>
 		                      <th>작가등록</th>
@@ -99,10 +99,10 @@
    		        			
    			        	   	strHtml += '<tr align="center">';
    			        	 	strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>'
-   			        	   	strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
-   			        		strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
+   			        	   	//strHtml += '<td>'+ dataList[i].mbrNcknm +'</td>'
+   			        		//strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>'
-   			        	 	strHtml += '<td>'+ dataList[i].mbrEmail +'</td>'
+   			        	 	//strHtml += '<td>'+ dataList[i].mbrEmail +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].regDt +'</td>'
    			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">등록</button></td>'

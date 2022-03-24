@@ -319,13 +319,26 @@
 				</div>
 			</div>
 			
+			  <style type="text/css">
+				.columns-wrap {
+					display: grid;
+					/* grid-template-columns: 150px 50px; */
+					grid-template-columns: 1fr 1fr 1fr;
+					grid-template-rows: 300px 50px;
+					gap: 40px 10px; 
+					row-gap:30px; column-gap:10px;
+				}
+  			</style>
+			
+			
 			<!-- 가장 많은 입찰 / 오늘의 낙찰 -->
-			<div class="contents max-1500">
-				<div class="cont-title">
+			<div class="contents max-1500 gridContent" style="border: 0px solid red; height: 700px;">
+				<div class="cont-title" style="margin-top:0px;">
 					<h3>오늘의 낙찰</h3>
 					<!-- <a href="#" class="ct-more mo-no"><img src="img/icon-p.jpg" /><span>more</span></a> -->
 				</div>
 				<div class="cns-div">
+				
 					<div class="columns-wrap" id="columns">
 						<!-- <figure class="item">
 							<img src="resources/img/img-1.jpg">
@@ -375,13 +388,18 @@
 								</div>
 							</a>
 						</figure> -->
+					
 					</div>
+					
 				</div>
-				<div class="text-center">
-					<button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button>
-				</div>
+				
 		</div>
+		<div class="text-center">
+			<button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button>
+		</div>
+		
 		<jsp:include page="footer.jsp"></jsp:include>
+		
 	</div>
 
 
@@ -450,7 +468,7 @@
 	   	            prevEl: ".swiper-button-prev",
 	   	          },
 	   	        });
-	   	    	
+	   	    
 		   	    document.querySelectorAll(".item").forEach((item) => {
 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
 		       	  });
@@ -486,7 +504,8 @@
 	   	          },
 	   	     });
 	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
+		  
+	   	    	 document.querySelectorAll(".item").forEach((item) => {
 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
 		       	  });
 		       	  const wrap = document.querySelector(".columns-wrap");
@@ -579,6 +598,7 @@
       });
       
   	function searchMainData(page) {
+  		
 		$.ajax({
 	           type: "post",
 	           url: "main/mainData",
@@ -607,12 +627,14 @@
 	        	   
 	        	   var todayBidHtml = '';
 	        	   for(i=0; i<mainTodayBid.length; i++){
+	        		   var cid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+	        		  
 	        		   todayBidHtml += '<figure class="item">';
-	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'">';
+	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'" id="img_'+cid+'" onmouseover="imageInfo(\''+cid+'\')" style="height: 300px; width:100%;  object-fit: contain">';
 	        		   todayBidHtml += '	<a class="hd-div2">';								
 	        		   todayBidHtml += '		<div class="hd-text">';
 	        		   todayBidHtml += '			<h4>'+ mainTodayBid[i].artstActvtyNm +'</h4>';
-	        		   todayBidHtml += '			<div class="hd-tc">';
+	        		   todayBidHtml += '			<div class="hd-tc" id="imgInfo_'+cid+'">';
 	        		   todayBidHtml += '				<div class="hd-d1">'+ mainTodayBid[i].workNm +'('+ mainTodayBid[i].workProdcYear +')';
 	        		   todayBidHtml += '				<br/>'+ mainTodayBid[i].workMatrl +', '+ mainTodayBid[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
 	        		   todayBidHtml += '				<div class="hd-d2">낙찰가 '+ formatComma(mainTodayBid[i].dealSbidPrc) +'</div>';
@@ -620,8 +642,14 @@
 	        		   todayBidHtml += '		</div>';
 	        		   todayBidHtml += '	</a>';
 	        		   todayBidHtml += '</figure>';
-	        	   }
-	        	   $("#columns").append(todayBidHtml).trigger("create");
+	        		  
+	        		 }
+	        	  
+	        	   	$("#columns").append(todayBidHtml).trigger("create");
+	        	  
+	        		
+	        	  
+	        	   
 	        	   
 	           },
 	           error: function(error) {
@@ -631,11 +659,28 @@
 	}
   	
   	function more_onCilck(){
-  		debugger;
+  		//debugger;
   		page += 1;
   		searchMainData(page);
+  		
+  		/* var gh = $('.gridContent').height();
+  		
+  		$('.gridContent').height(gh+700); */
+  		
   	}
 	
+  	function imageInfo(i) {
+  		
+  		var imgId = "img_"+i; 
+  		var w = $("#" + imgId).width();//width 구하기 
+  		var h = $("#" + imgId).height();//height 구하기 
+
+  		var imgInfo = "imgInfo_"+i;
+  		 $('#'+imgInfo).width(w);
+         $('#'+imgInfo).height(h-50);
+	}
+  	
+  	
       
     </script>
 	

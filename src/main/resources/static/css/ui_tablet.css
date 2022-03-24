@@ -884,6 +884,7 @@ html, body{font-size: calc(100vw / 152);}
 .hd-div2 {
     width: 100%;
     height: 100%;
+  
     cursor: pointer;
     border-width: 1px;
     border-style: solid;

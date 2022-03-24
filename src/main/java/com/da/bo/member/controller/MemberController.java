@@ -141,8 +141,8 @@ public class MemberController {
 	@ResponseBody
 	public void memberInsertData(@RequestParam Map<String, Object> param) {
 		
-		//회원 이름 암호화
-		//sString mbrNmEncrypt = commonService.encrypt((String) param.get("mbrNm"));
+		//아이디 암호화
+		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
 		///회원 비밀번호 암호화
 		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
 		//이메일 암호화
@@ -152,7 +152,7 @@ public class MemberController {
 		//집주소 암호화
 		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
 		
-		//param.put("mbrNm", mbrNmEncrypt);
+		param.put("mbrId", mbrIdEncrypt);
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
@@ -175,6 +175,8 @@ public class MemberController {
 	public void memberUpdateData(@RequestParam Map<String, Object> param) {
 		
 		
+		//아이디 암호화
+		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
 		//이메일 암호화
 		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrEmail"));
 		//휴대전화번호 암호화
@@ -182,7 +184,7 @@ public class MemberController {
 		//집주소 암호화
 		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
 		
-		
+		param.put("mbrId", mbrIdEncrypt);
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("mbrHomeAddr", mbrHomeAddrEncrypt);

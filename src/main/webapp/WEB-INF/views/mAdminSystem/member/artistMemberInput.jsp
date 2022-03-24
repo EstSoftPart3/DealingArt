@@ -28,12 +28,14 @@
 		     <!-- Main content -->
     		<section class="content">
     			 <div class="card-header">
-	               	<h3 class="card-title bTitle">작가회원 등록</h3>
+	               	<h3 class="card-title bTitle">작가회원</h3>
 				</div>
 				
 				<form class="form-horizontal">
 				
                 <div class="card-body" style="background-color:#ffffff;">
+                	
+                	<h3 class="card-title bTitle">회원기본정보</h3>
                 	
                 	<div class="card-body table-responsive p-0" style="overflow:hidden;">
 	              	   <hr>
@@ -46,14 +48,86 @@
                     		<div class="col-sm-3">
                       			<input type="text" class="form-control sTitle classname"  id="mbrNm" disabled>
                     		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">닉네임</label>
+                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">휴대폰번호</label>
                     		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrNcknm" disabled>
+                      			<input type="text" class="form-control sTitle classname"  id="mbrCpNum" disabled>
                     		</div>
                     		
                   		</div>
-                  </div>
-                  
+                  	</div>
+                  	
+                  	<h3 class="card-title bTitle">작가기본정보</h3>
+                  	
+                  	<div class="card-body table-responsive p-0" style="overflow:hidden;">
+                  		<hr>
+                  		 <section class="content">
+      						<div class="container-fluid">
+        						<div class="row">
+        							
+            						<div class="card card-primary card-outline">
+              							<div class="card-body box-profile">
+                							<div class="text-center">
+                								<div style="height:152px;width:150px;background-color:#efefef"></div>
+                  								<!-- <img class="profile-user-img img-fluid img-circle" src=""> -->
+                							</div>
+											<a href="#" class="btn btn-info btn-block" style="font-size:11px;"><b>등록</b></a>
+              							</div>
+              						</div>
+              						
+              						<div class="col-md-9" style="padding-left:50px;">
+              							 <div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">활동명</label>
+                    						<div class="col-sm-3">
+                      							<input type="text" class="form-control sTitle classname"  id="artstActvtyNm" >
+                    						</div>
+                    						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">영문명</label>
+                    						<div class="col-sm-3">
+                      							<input type="text" class="form-control sTitle classname"  id="artstEnglsNm" >
+                    						</div>
+		               		   			</div>
+		               		   			
+		               		   			<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">활동지역</label>
+                    						<div class="col-sm-3">
+                      							<input type="text" class="form-control sTitle classname"  id="artstActvtyCd" >
+                    						</div>
+                    						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">활동분야</label>
+                    						<div class="col-sm-3">
+                      							<input type="text" class="form-control sTitle classname"  id="artstActvtyPartCd" >
+                    						</div>
+		               		   			</div>
+		               		   			
+		               		   			<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">자기소개</label>
+                    						<div class="col-sm-7">
+                      							<input type="text" class="form-control sTitle classname"  id="artstSelfIntro" style="height:150px;" >
+                    						</div>
+                    					</div>
+                    					
+                    					<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">홈페이지</label>
+                    						<div class="col-sm-7">
+                      							<input type="text" class="form-control sTitle classname"  id="artstHmpgUrl" >
+                    						</div>
+                    					</div>
+                    					<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">페이스북</label>
+                    						<div class="col-sm-7">
+                      							<input type="text" class="form-control sTitle classname"  id="artstFacebookId" >
+                    						</div>
+                    					</div>
+                    					<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">인스타그램</label>
+                    						<div class="col-sm-7">
+                      							<input type="text" class="form-control sTitle classname"  id="artstInstagramId" >
+                    						</div>
+                    					</div>
+              						</div>
+              						
+                    							
+                  				</div>
+                  			</div>
+                  		</section>
                 </div>
                 <!--card-body -->
                 
@@ -104,11 +178,11 @@
 		        	 //console.log(dataContent);
 		        	 var mbrNm = dataContent.mbrNm						//이름
 		        	 var mbrId = dataContent.mbrId						//아이디
-		        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
+		        	 var mbrCpNum = dataContent.mbrCpNum				//닉네임
 		        	 
 		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrId").val(mbrId);
-		        	 $("#mbrNcknm").val(mbrNcknm);
+		        	 $("#mbrCpNum").val(mbrCpNum);
 		        	
 		           },
 		           error: function(error) {
