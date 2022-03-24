@@ -245,7 +245,7 @@
 var loginSessionId = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
-$(document).ready(function(){ 
+$(function(){
 	//로그인 세션 체크
 	$.ajax({
 	    type: "post",

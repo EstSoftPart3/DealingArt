@@ -33,9 +33,9 @@
 								</div>
 								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
-										<input type="radio" id="r3" name="mbrSprtn" value="MG" class="searchOption" onclick="dealSearch()"/>
+										<input type="radio" id="r3" name="authSq" value="1" class="searchOption" onclick="dealSearch()"/>
 										<label for="r3"><span></span>Collector</label><br/>
-										<input type="radio" id="r4" name="mbrSprtn" value="MW" class="searchOption" onclick="dealSearch()"/>
+										<input type="radio" id="r4" name="authSq" value="2" class="searchOption" onclick="dealSearch()"/>
 										<label for="r4"><span></span>Artist</label>
 									</div>
 								</div>
@@ -50,13 +50,13 @@
 								</div>
 								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
-										<input type="checkbox" id="a1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="a1" name="dealSttsCd" value="IP" class="searchOption" onclick="dealSearch()"/>
 										<label for="a1"><span></span>진행 중인 거래</label><br/>
-										<input type="checkbox" id="a2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="a2" name="dealSttsCd" value="EN" class="searchOption" onclick="dealSearch()"/>
 										<label for="a2"><span></span>종료된 거래</label><br/>
-										<input type="checkbox" id="a3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="a3" name="dealTypCd" value="AUCT" class="searchOption" onclick="dealSearch()"/>
 										<label for="a3"><span></span>경매</label><br/>
-										<input type="checkbox" id="a4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="a4" name="dealTypCd" value="SALE" class="searchOption" onclick="dealSearch()"/>
 										<label for="a4"><span></span>정찰가</label>
 									</div>
 								</div>
@@ -71,11 +71,11 @@
 								</div>
 								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 									<div class="panel-body">
-										<input type="checkbox" id="b1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="b1" name="workShpCd" value="PLN" class="searchOption" onclick="dealSearch()"/>
 										<label for="b1"><span></span>평면</label><br/>
-										<input type="checkbox" id="b2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="b2" name="workShpCd" value="SLD" class="searchOption" onclick="dealSearch()"/>
 										<label for="b2"><span></span>입체</label><br/>
-										<input type="checkbox" id="b3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="b3" name="workShpCd" value="NFT" class="searchOption" onclick="dealSearch()"/>
 										<label for="b3"><span></span>NFT</label>
 									</div>
 								</div>
@@ -90,15 +90,15 @@
 								</div>
 								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 									<div class="panel-body">
-										<input type="checkbox" id="c1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="c1" name="workClsfcCd" value="ORNTPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c1"><span></span>동양화</label><br/>
-										<input type="checkbox" id="c2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="c2" name="workClsfcCd" value="WSTNPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c2"><span></span>서양화</label><br/>
-										<input type="checkbox" id="c3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="c3" name="workClsfcCd" value="POPART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c3"><span></span>팝아트</label>
-										<input type="checkbox" id="c4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="c4" name="workClsfcCd" value="MDRNART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c4"><span></span>현대미술</label><br/>
-										<input type="checkbox" id="c5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="c5" name="workClsfcCd" value="ANTQART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c5"><span></span>고미술</label>
 									</div>
 								</div>
@@ -208,9 +208,9 @@
 													<span>Deal wtith</span>
 												</div>
 												<div class="drop-body">
-													<input type="radio" id="m3" name="mbrSprtn" value="MG" class="searchOption"/>
+													<input type="radio" id="m3" name="authSq" value="1" class="searchOption"/>
 													<label for="m3"><span></span>Collector</label><br/>
-													<input type="radio" id="m4" name="mbrSprtn" value="MW" class="searchOption"/>
+													<input type="radio" id="m4" name="authSq" value="2" class="searchOption"/>
 													<label for="m4"><span></span>Artist</label>
 												</div>
 											</li>
@@ -219,13 +219,13 @@
 													<span>거래</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="p1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption"/>
+													<input type="checkbox" id="p1" name="dealSttsCd" value="IP" class="searchOption"/>
 													<label for="p1"><span></span>진행 중인 거래</label><br/>
-													<input type="checkbox" id="p2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption"/>
+													<input type="checkbox" id="p2" name="dealSttsCd" value="EN" class="searchOption"/>
 													<label for="p2"><span></span>종료된 거래</label><br/>
-													<input type="checkbox" id="p3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption"/>
+													<input type="checkbox" id="p3" name="dealTypCd" value="AUCT" class="searchOption"/>
 													<label for="p3"><span></span>경매</label><br/>
-													<input type="checkbox" id="p4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption"/>
+													<input type="checkbox" id="p4" name="dealTypCd" value="SALE" class="searchOption"/>
 													<label for="p4"><span></span>정찰가</label>
 												</div>
 											</li>
@@ -234,11 +234,11 @@
 													<span>형태</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="o1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption"/>
+													<input type="checkbox" id="o1" name="workShpCd" value="PLN" class="searchOption"/>
 													<label for="o1"><span></span>평면</label><br/>
-													<input type="checkbox" id="o2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption"/>
+													<input type="checkbox" id="o2" name="workShpCd" value="SLD" class="searchOption"/>
 													<label for="o2"><span></span>입체</label><br/>
-													<input type="checkbox" id="o3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption"/>
+													<input type="checkbox" id="o3" name="workShpCd" value="NFT" class="searchOption"/>
 													<label for="o3"><span></span>NFT</label>
 												</div>
 											</li>
@@ -247,15 +247,15 @@
 													<span>분류</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="i1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption"/>
+													<input type="checkbox" id="i1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 													<label for="i1"><span></span>동양화</label><br/>
-													<input type="checkbox" id="i2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption"/>
+													<input type="checkbox" id="i2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
 													<label for="i2"><span></span>서양화</label><br/>
-													<input type="checkbox" id="i3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption"/>
+													<input type="checkbox" id="i3" name="workClsfcCd" value="POPART" class="searchOption"/>
 													<label for="i3"><span></span>팝아트</label><br/>
-													<input type="checkbox" id="i4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption"/>
+													<input type="checkbox" id="i4" name="workClsfcCd" value="MDRNART" class="searchOption"/>
 													<label for="i4"><span></span>현대미술</label><br/>
-													<input type="checkbox" id="i5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption"/>
+													<input type="checkbox" id="i5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
 													<label for="i5"><span></span>고미술</label>
 												</div>
 											</li>
@@ -294,7 +294,6 @@
 									<!-- 하트 on하면 색상 -->
 									<div class="heart on"></div>
 									
-									<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->
 									<div class="item-div-img active">
 										<img src="resources/img/de/be-bg1.png">
 										
@@ -310,7 +309,6 @@
 											<h4>시작가  3,700,000 원</h4>
 										</div>
 										
-										<div class="item-ho2 sale-div">
 											<h3>판매중</h3>
 											<ul>
 												<li>03<span>day</span></li>
@@ -320,7 +318,6 @@
 											</ul>
 										</div>
 										
-										<div class="item-ho2 auction-div">
 											<h3>경매중</h3>
 											<ul>
 												<li>03<span>day</span></li>
@@ -391,7 +388,6 @@
 									<!-- 하트 on하면 색상 -->
 									<div class="heart"></div>
 									
-									<div class="item-div-img sale">
 										<img src="resources/img/de/be-bg3.png">										
 									</div>
 									
@@ -417,7 +413,6 @@
 							</div>
 						</div>
 						
-						<div class="text-center mg_t50">
 							<button type="button" class="btn-more"><span>more</span></button>
 						</div>
 						
@@ -476,11 +471,11 @@
 						</div>
 						<div class="drop-body">
 						<div class="db-div">
-								<input type="radio" id="s5" name ="mbrSprtn" value="MG" class="searchOption"/>
+								<input type="radio" id="s5" name ="authSq" value="1" class="searchOption"/>
 								<label for="s5"><span></span>Collector</label>
 							</div>
 							<div class="db-div">
-								<input type="radio" id="s6" name="mbrSprtn" value="MW" class="searchOption"/>
+								<input type="radio" id="s6" name="authSq" value="2" class="searchOption"/>
 								<label for="s6"><span></span>Artist</label>
 							</div>
 						</div>
@@ -492,19 +487,19 @@
 						
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="z1" name="dealSttsCd" value="DEAL_STTS_01" class="searchOption"/>
+								<input type="checkbox" id="z1" name="dealSttsCd" value="IP" class="searchOption"/>
 								<label for="z1"><span></span>진행 중인 거래</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z2" name="dealSttsCd" value="DEAL_STTS_02" class="searchOption"/>
+								<input type="checkbox" id="z2" name="dealSttsCd" value="EN" class="searchOption"/>
 								<label for="z2"><span></span>종료된 거래</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z3" name="dealTypCd" value="DEAL_TYP_01" class="searchOption"/>
+								<input type="checkbox" id="z3" name="dealTypCd" value="AUCT" class="searchOption"/>
 								<label for="z3"><span></span>경매</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="z4" name="dealTypCd" value="DEAL_TYP_02" class="searchOption"/>
+								<input type="checkbox" id="z4" name="dealTypCd" value="SALE" class="searchOption"/>
 								<label for="z4"><span></span>정찰가</label>
 							</div>
 						</div>
@@ -515,15 +510,15 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="x1" name="workShpCd" value="WORK_SHP_PLN" class="searchOption"/>
+								<input type="checkbox" id="x1" name="workShpCd" value="PLN" class="searchOption"/>
 								<label for="x1"><span></span>평면</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="x2" name="workShpCd" value="WORK_SHP_SLD" class="searchOption"/>
+								<input type="checkbox" id="x2" name="workShpCd" value="SLD" class="searchOption"/>
 								<label for="x2"><span></span>입체</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="x3" name="workShpCd" value="WORK_SHP_NFT" class="searchOption"/>
+								<input type="checkbox" id="x3" name="workShpCd" value="NFT" class="searchOption"/>
 								<label for="x3"><span></span>NFT</label>
 							</div>
 						</div>
@@ -534,23 +529,23 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-								<input type="checkbox" id="v1" name="workClsfcCd" value="WORK_CLSFC_ORNTPAI" class="searchOption"/>
+								<input type="checkbox" id="v1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 								<label for="v1"><span></span>동양화</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v2" name="workClsfcCd" value="WORK_CLSFC_WSTNPAI" class="searchOption"/>
+								<input type="checkbox" id="v2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
 								<label for="v2"><span></span>서양화</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v3" name="workClsfcCd" value="WORK_CLSFC_POPART" class="searchOption"/>
+								<input type="checkbox" id="v3" name="workClsfcCd" value="POPART" class="searchOption"/>
 								<label for="v3"><span></span>팝아트</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v4" name="workClsfcCd" value="WORK_CLSFC_MDRNART" class="searchOption"/>
+								<input type="checkbox" id="v4" name="workClsfcCd" value="MDRNART" class="searchOption"/>
 								<label for="v4"><span></span>현대미술</label>
 							</div>
 							<div class="db-div">
-								<input type="checkbox" id="v5" name="workClsfcCd" value="WORK_CLSFC_ANTQART" class="searchOption"/>
+								<input type="checkbox" id="v5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
 								<label for="v5"><span></span>고미술</label>
 							</div>
 						</div>
@@ -712,7 +707,7 @@
 	function dealSearch(){
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
-		searchOptions.mbrSprtn = $('input[name=mbrSprtn]:checked').val();
+		searchOptions.authSq = $('input[name=authSq]:checked').val();
 		//거래유형코드
 		var dealTypCds = new Array();
 		document.querySelectorAll('input[name=dealTypCd]:checked').forEach((el) => {
