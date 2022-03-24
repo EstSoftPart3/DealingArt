@@ -92,20 +92,6 @@
 						</div>
 						<div class="swiper-pagination swpa-1"></div>
 					</div>
-					
-					<div class="bab-bo">
-						<div class="ta-sho">
-							<a href="#"><span>Guide</span></a>
-						</div>
-						<div class="mab-rb">
-							<a href="#" class="mab-a"><span>Guide</span></a>
-							<ul class="mab-ul">
-								<li><a href="#"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 			
@@ -809,6 +795,50 @@
 	  });
 	  
 		function searchMainData(page) {
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+  	function searchMainData(page) {
 		$.ajax({
 	           type: "post",
 	           url: "main/mainData",
@@ -869,6 +899,13 @@
     
 	
 	
+  	
+  	function more_onCilck(){
+  		debugger;
+  		page += 1;
+  		searchMainData(page);
+  	}
+</script>
 	
 	
 </body>
