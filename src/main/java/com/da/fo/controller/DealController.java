@@ -33,6 +33,12 @@ public class DealController {
 		return "fo/deal/deal";
 	}
 	
+	@RequestMapping("/deal2")
+	public String goDeal2() {
+		logger.info("gogogogogogogogogogogo Deal!!!!!");
+		return "thymeleaf/deal";
+	}
+	
 	@RequestMapping("/dealConfirmed")
 	public String goDealConfirmed() {
 		logger.info("gogogogogogogogogogogo Confrimed!!!!!");

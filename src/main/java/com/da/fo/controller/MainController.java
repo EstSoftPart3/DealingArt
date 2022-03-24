@@ -28,6 +28,11 @@ public class MainController {
 		return "fo/main/main";
 	}
 	
+	@RequestMapping("/main2")
+	public String openMain2() {
+		return "thymeleaf/index";
+	}
+	
 	@RequestMapping("/main/mainData")
 	@ResponseBody
 	public ModelAndView mainData(@RequestParam @Nullable Map<String, Object>  param) {
