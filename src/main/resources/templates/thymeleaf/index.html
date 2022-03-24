@@ -48,20 +48,6 @@
 						</div>
 						<div class="swiper-pagination swpa-1"></div>
 					</div>
-					
-					<div class="bab-bo">
-						<div class="ta-sho">
-							<a href="#"><span>Guide</span></a>
-						</div>
-						<div class="mab-rb">
-							<a href="#" class="mab-a"><span>Guide</span></a>
-							<ul class="mab-ul">
-								<li><a href="#"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
-								<li><a href="#"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 			
@@ -467,7 +453,7 @@
 	   	            prevEl: ".swiper-button-prev",
 	   	          },
 	   	        });
-	   	    
+	   	    	
 		   	    document.querySelectorAll(".item").forEach((item) => {
 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
 		       	  });
@@ -503,8 +489,7 @@
 	   	          },
 	   	     });
 	   	    	
-		  
-	   	    	 document.querySelectorAll(".item").forEach((item) => {
+		   	      document.querySelectorAll(".item").forEach((item) => {
 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
 		       	  });
 		       	  const wrap = document.querySelector(".columns-wrap");
@@ -597,7 +582,6 @@
       });
       
   	function searchMainData(page) {
-  		
 		$.ajax({
 	           type: "post",
 	           url: "main/mainData",
@@ -626,14 +610,12 @@
 	        	   
 	        	   var todayBidHtml = '';
 	        	   for(i=0; i<mainTodayBid.length; i++){
-	        		   var cid = Date.now().toString(36) + Math.random().toString(36).substr(2);
-	        		  
 	        		   todayBidHtml += '<figure class="item">';
-	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'" id="img_'+cid+'" onmouseover="imageInfo(\''+cid+'\')" style="height: 300px; width:100%;  object-fit: contain">';
+	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'">';
 	        		   todayBidHtml += '	<a class="hd-div2">';								
 	        		   todayBidHtml += '		<div class="hd-text">';
 	        		   todayBidHtml += '			<h4>'+ mainTodayBid[i].artstActvtyNm +'</h4>';
-	        		   todayBidHtml += '			<div class="hd-tc" id="imgInfo_'+cid+'">';
+	        		   todayBidHtml += '			<div class="hd-tc">';
 	        		   todayBidHtml += '				<div class="hd-d1">'+ mainTodayBid[i].workNm +'('+ mainTodayBid[i].workProdcYear +')';
 	        		   todayBidHtml += '				<br/>'+ mainTodayBid[i].workMatrl +', '+ mainTodayBid[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
 	        		   todayBidHtml += '				<div class="hd-d2">낙찰가 '+ formatComma(mainTodayBid[i].dealSbidPrc) +'</div>';
@@ -641,14 +623,8 @@
 	        		   todayBidHtml += '		</div>';
 	        		   todayBidHtml += '	</a>';
 	        		   todayBidHtml += '</figure>';
-	        		  
-	        		 }
-	        	  
-	        	   	$("#columns").append(todayBidHtml).trigger("create");
-	        	  
-	        		
-	        	  
-	        	   
+	        	   }
+	        	   $("#columns").append(todayBidHtml).trigger("create");
 	        	   
 	           },
 	           error: function(error) {
@@ -658,30 +634,11 @@
 	}
   	
   	function more_onCilck(){
-  		//debugger;
+  		debugger;
   		page += 1;
   		searchMainData(page);
-  		
-  		/* var gh = $('.gridContent').height();
-  		
-  		$('.gridContent').height(gh+700); */
-  		
   	}
-	
-  	function imageInfo(i) {
-  		
-  		var imgId = "img_"+i; 
-  		var w = $("#" + imgId).width();//width 구하기 
-  		var h = $("#" + imgId).height();//height 구하기 
-
-  		var imgInfo = "imgInfo_"+i;
-  		 $('#'+imgInfo).width(w);
-         $('#'+imgInfo).height(h-50);
-	}
-  	
-  	
-      
-    </script>
+</script>
 	
 	
 </body>
