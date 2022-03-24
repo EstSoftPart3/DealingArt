@@ -294,6 +294,7 @@
 									<!-- 하트 on하면 색상 -->
 									<div class="heart on"></div>
 									
+									<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->
 									<div class="item-div-img active">
 										<img src="resources/img/de/be-bg1.png">
 										
@@ -309,6 +310,7 @@
 											<h4>시작가  3,700,000 원</h4>
 										</div>
 										
+										<div class="item-ho2 sale-div">
 											<h3>판매중</h3>
 											<ul>
 												<li>03<span>day</span></li>
@@ -318,6 +320,7 @@
 											</ul>
 										</div>
 										
+										<div class="item-ho2 auction-div">
 											<h3>경매중</h3>
 											<ul>
 												<li>03<span>day</span></li>
@@ -388,6 +391,7 @@
 									<!-- 하트 on하면 색상 -->
 									<div class="heart"></div>
 									
+									<div class="item-div-img sale">
 										<img src="resources/img/de/be-bg3.png">										
 									</div>
 									
