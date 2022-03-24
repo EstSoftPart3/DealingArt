@@ -22,8 +22,8 @@
 				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
 				B.BID_CNT AS bidCnt, /*응찰수*/ 
 				F.DEAL_STRT_DATE AS dealStrtDate, /*거래시작일시*/
-				F.DEAL_ENDNG_DATE AS dealEndngDate, /*거래종료일시*/
-				TIMEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDate /*거래남은시간*/ 
+				F.DEAL_ENDNG_DATE AS dealEndngDate /*거래종료일시*/
+				<!--TIMEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDate /*거래남은시간*/-->
 		FROM 
 				TBL_DA_WORK_M AS A,
 				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT

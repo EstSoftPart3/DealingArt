@@ -27,22 +27,22 @@ public class DealController {
 	@Autowired
 	private DealService dealService;
 	
-	@RequestMapping("/deal")
-	public String goDeal() {
+	@RequestMapping("/deal2")
+	public String goDeal2() {
 		logger.info("gogogogogogogogogogogo Deal!!!!!");
 		return "fo/deal/deal";
 	}
 	
-	@RequestMapping("/deal2")
-	public String goDeal2() {
+	@RequestMapping("/deal")
+	public String goDeal() {
 		logger.info("gogogogogogogogogogogo Deal!!!!!");
-		return "thymeleaf/deal";
+		return "thymeleaf/fo/deal/deal";
 	}
 	
 	@RequestMapping("/dealConfirmed")
 	public String goDealConfirmed() {
 		logger.info("gogogogogogogogogogogo Confrimed!!!!!");
-		return "fo/deal/dealConfirmed";
+		return "thymeleaf/fo/deal/dealConfirmed";
 	}
 	
 	@RequestMapping("/dealSearch")
@@ -67,7 +67,7 @@ public class DealController {
 		if(param.get("workClsfcCds") != null) {
 			workClsfcCds = Arrays.asList(param.get("workClsfcCds").toString().replaceAll("\\[|\\]|\"", "").split(","));
 		}
-		searchOptions.put("mbrSprtn", param.get("mbrSprtn"));
+		searchOptions.put("authSq", Integer.parseInt((String) param.get("authSq")));
 		searchOptions.put("dealTypCds", dealTypCds);
 		searchOptions.put("dealSttsCds", dealSttsCds);
 		searchOptions.put("workShpCds", workShpCds);
