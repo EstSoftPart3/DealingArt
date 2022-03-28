@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    		.con-left{display:none}
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap">
+					<div class="con-left">
+						<div class="cont-title4">
+							<h3>회원정보 수정</h3>
+						</div>
+					
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading1">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+											My Deal
+										</a>
+									</h4>
+								</div>
+								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li class="active"><a href="#">거래 내역</a></li>
+											<li><a href="#">등급 / 쿠폰 / 포인트</a></li>
+											<li><a href="#">문의 내역</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading2">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+											포트폴리오
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">작가 정보</a></li>
+											<li><a href="#">나의작품</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+											My Gallery
+										</a>
+									</h4>
+								</div>
+								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">소장품</a></li>
+											<li><a href="#">스크랩</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+											설정
+										</a>
+									</h4>
+								</div>
+								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">회원 정보 수정</a></li>
+											<li><a href="#">알림 설정</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="con-right m-max1300">
+					
+						<div class="me-left">
+						
+							<div class="med">
+								<h2 class="">판매방식</h2>
+								<div class="med-ic">
+									<div class="por">
+										<div class="tootip-4">거래 계약 안내</div>
+										<img src="resources/img/mypage/icon-1.png" class="med-me" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="myd-box">
+								<div class="myd-img">
+									<img src="resources/img/mypage/img_bg.png"  class="" />
+								</div>
+								<div class="myd-2">
+									<div class="myd-te1">
+										<h4>작가명</h4>
+										<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										<button type="button" class="btns-1">응찰 히스토리</button>
+									</div>
+									<div class="myd-te2">
+										<dl class="myd-dl1">
+											<dt>경매기간</dt>
+											<dd>2021.10.31 – 2021.11.31</dd>
+											<dt>시작가</dt>
+											<dd>1,700,000 원</dd>
+											<dt>현재입찰가</dt>
+											<dd>2,300,000 원</dd>
+											<dt>응찰가</dt>
+											<dd>2,200,000 원</dd>
+										</dl>
+										<dl class="myd-dl2">
+											<dt>남은시간</dt>
+											<dd>21:27:35</dd>
+											<dt>응찰수</dt>
+											<dd>12</dd>
+											<dt>예상수수료</dt>
+											<dd>250,000원</dd>
+											<dt>예상배송비</dt>
+											<dd></dd>
+										</dl>
+									</div>
+								</div>
+								<div class="myd-te3">
+									<div class="myd-table">
+										<div class="myd-won">
+											<p class="won-p">
+												현재 가장 높은 입찰가로  입찰 중 입니다.
+												<span>경매 진행 중</span>
+											</p>
+											<button type="button" class="btns-2">구매확정</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="med">
+								<h2 class="h2-con">보내는 사람 정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-1">
+									<div class="mtext">
+										<p>회원의 주소와 배송지의 주소가 동일해야 합니다. 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
+										<button type="button" class="btns-1">받는사람 정보 수정하기</button>
+									</div>
+									
+									<div class="mg_t40">
+										<table class="mstyle-1">
+											<tr>
+												<th>받는 사람</th>
+												<td>성명</td>
+											</tr>
+											<tr>
+												<th>연락처</th>
+												<td>010-0000-0000</td>
+											</tr>
+											<tr>
+												<th>주소</th>
+												<td>(06172) 서울특별시 OO구 OOO로OO길 OO 상세주소</td>
+											</tr>
+											<tr>
+												<th>배송 요청 사항</th>
+												<td>배송 요청 사항</td>
+											</tr>
+											<tr>
+												<th>배송예정일</th>
+												<td>2021. 10. 31</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">정산 정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-1">
+								
+									<div class="mbox-1">
+										<table class="mstyle-1">
+											<tr>
+												<th>지급 수단</th>
+												<td>신한은행 000-000-0000</td>
+											</tr>
+											<tr>
+												<th>정산 내역</th>
+												<td>
+													<div class="tbx-1">
+														<dl class="tbx-dl1">
+															<dt>작품</dt>
+															<dd>2,300,000 원</dd>
+															<dt>거래 수수료</dt>
+															<dd>2,300,000 원</dd>
+															<dt>배송비</dt>
+															<dd>2,300,000 원</dd>
+														</dl>
+														<dl class="tbx-dl2">
+															<dt>총 결제금액</dt>
+															<dd>2,300,000 원</dd>
+														</dl>
+													</div>
+												
+												</td>
+											</tr>
+											<tr>
+												<th>정산 예정일</th>
+												<td>
+													2021,10.11
+												</td>
+											</tr>
+										</table>
+									</div>
+									
+									<div class="mbtn-box">
+										<a href="#" class="btns-3">카드영수증</a>
+										<a href="#" class="btns-3">거래명세서</a>
+										<a href="#" class="btns-3">현금영수증</a>
+										<a href="#" class="btns-3">거래계약서</a>
+									</div>
+								</div>
+							</div>
+							
+							
+					
+							<div class="bat-box4">
+								<a href="#" class="ba-btn2"><span>거래 내역 돌아가기</span></a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+<script type="text/javascript">      
+      
+      $(window).on("resize", function () {
+	   	    if(window.matchMedia('(min-width: 1537px)').matches)
+	   	    {
+		   	    document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	  
+		       	  
+	   	    	
+	   	    	
+	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+	   	    	
+		   	      document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	
+	   	    	
+	   	     } else {
+	   	    	var swiper = new Swiper(".mySwiper2", {
+	   	          slidesPerView: 1,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swiper-button-next",
+	   	            prevEl: ".swiper-button-prev",
+	   	          },
+	   	     });
+	   	    	
+	   	    	document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
+		       	  wrap.style.gridAutoRows = "1px";
+	   	    	
+	       	  
+	   	     };
+	   	}).resize();
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

@@ -10,6 +10,12 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				D.AUTH_SQ AS authSq, /*작가구분*/
+				E.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				E.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				YEAR (D.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				E.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
@@ -21,9 +27,12 @@
 				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
 				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
 				B.BID_CNT AS bidCnt, /*응찰수*/ 
-				F.DEAL_STRT_DATE AS dealStrtDate, /*거래시작일시*/
-				F.DEAL_ENDNG_DATE AS dealEndngDate /*거래종료일시*/
-				<!--TIMEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDate /*거래남은시간*/-->
+				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y-%m-%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y-%m-%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT

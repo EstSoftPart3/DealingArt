@@ -1,6 +1,7 @@
 package com.da.fo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,8 @@ public class DealServiceImpl implements DealService{
 	 * param : searchOption
 	 * return : 검색 결과
 	 */
-	public Map<String, Object> dealSerach(Map<String, Object> searchOptions){
-		Map<String, Object> result = new HashMap<>();
-		result = dealDao.dealSerach(searchOptions);
+	public List dealSerach(Map<String, Object> searchOptions){
+		List result = dealDao.dealSerach(searchOptions);
 		return result;
 	}
 	

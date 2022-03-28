@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    	.con-left{display:none}
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap">
+					<div class="con-left">
+						<div class="cont-title4">
+							<h3>회원정보 수정</h3>
+						</div>
+					
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading1">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+											My Deal
+										</a>
+									</h4>
+								</div>
+								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">거래 내역</a></li>
+											<li><a href="#">등급 / 쿠폰 / 포인트</a></li>
+											<li><a href="#">문의 내역</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading2">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+											포트폴리오
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">작가 정보</a></li>
+											<li><a href="#">나의작품</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+											My Gallery
+										</a>
+									</h4>
+								</div>
+								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">소장품</a></li>
+											<li><a href="#">스크랩</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+											설정
+										</a>
+									</h4>
+								</div>
+								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li class="active"><a href="#">회원 정보 수정</a></li>
+											<li><a href="#">알림 설정</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="con-right">
+					
+						<div class="me-center">
+							<h4 class="mec-h4">이벤트 및 혜택 알림</h4>
+							<p class="mec-p">경매, 판매 등 거래알림 및 이벤트 정보를 알려드립니다.</p>
+							<div class="me-redia">
+								<dl class="me-dl">
+									<dt>이메일</dt>
+									<dd>
+										<p class="btn-switch">					
+											<input type="radio" id="yes" name="switch" class="btn-switch__radio btn-switch__radio_yes" />
+											<input type="radio" checked id="no" name="switch" class="btn-switch__radio btn-switch__radio_no" />		
+											<label for="yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
+											<label for="no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
+										</p>
+									</dd>
+									<dt>문자 메세지</dt>
+									<dd>
+										<p class="btn-switch">					
+											<input type="radio" id="yes" name="switch" class="btn-switch__radio btn-switch__radio_yes" />
+											<input type="radio" checked id="no" name="switch" class="btn-switch__radio btn-switch__radio_no" />		
+											<label for="yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
+											<label for="no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
+										</p>
+									</dd>
+								</dl>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+
+<script type="text/javascript">      
+      
+      $(window).on("resize", function () {
+	   	    if(window.matchMedia('(min-width: 1537px)').matches)
+	   	    {
+		   	    document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	  
+		       	  
+	   	    	
+	   	    	
+	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+	   	    	
+		   	      document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	
+	   	    	
+	   	     } else {
+	   	    	var swiper = new Swiper(".mySwiper2", {
+	   	          slidesPerView: 1,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swiper-button-next",
+	   	            prevEl: ".swiper-button-prev",
+	   	          },
+	   	     });
+	   	    	
+	   	    	document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
+		       	  wrap.style.gridAutoRows = "1px";
+	   	    	
+	       	  
+	   	     };
+	   	}).resize();
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>
