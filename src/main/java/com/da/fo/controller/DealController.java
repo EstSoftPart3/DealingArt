@@ -28,12 +28,6 @@ public class DealController {
 	@Autowired
 	private DealService dealService;
 	
-	@RequestMapping("/deal2")
-	public String goDeal2() {
-		logger.info("gogogogogogogogogogogo Deal!!!!!");
-		return "fo/deal/deal";
-	}
-	
 	@RequestMapping("/deal")
 	public String goDeal() {
 		logger.info("gogogogogogogogogogogo Deal!!!!!");

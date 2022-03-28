@@ -254,6 +254,9 @@
 	</form>
 </div>
 
+<!-- ModalConfirm-->
+<div class="modal fade modal-s" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
+
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script type="text/javascript">
@@ -300,15 +303,19 @@ function login(){
 			},
 			dataType:"json",
 			success:function(data){
-				if(data != 1){
-					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
-					loginBf.setAttribute("style", "");
-					loginAf.setAttribute("style", "display:none;");
-				}else{
+				if(data == 1){
 					modalAlertShow("성공적으로 로그인이 되었습니다.", "");
 					$('#loginModal').modal("hide");
 					loginBf.setAttribute("style", "display:none;");
 					loginAf.setAttribute("style", "");
+				}else if (data == 2){
+					modalAlertShow("탈퇴한 회원입니다.", "txt_Id");
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
+				}else{
+					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
 				}
 			},
 			error: function(request, status, error){
@@ -351,6 +358,51 @@ $('#memberModal').on('show.bs.modal', function (e) {
 	fn_validation('mbrNmCheck','', 'B');
 	
 });
+
+//Modal Confirm Form
+function modalConfirm(title, msg, callback){
+	var Html = '';
+	Html += '<div class="modal-dialog modal-baeg max-w530">';
+	Html += '	<div class="modal-content">';
+	Html += '		<div class="modal-header">';
+	Html += '			<div class="baegs">';
+	Html += '				<h2>'+ title +'</h2>';
+	Html += '		    	<img src="resources/img/ba/icon-1.png" class="con-img" />';
+	Html += '		    	<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html += '			</div>';
+	Html += '		</div>';
+	Html += '		<div class="modal-body">';
+	Html += '			<div class="md-box-1">';
+	Html += '				<p class="min-h240">';
+	Html += msg;
+	Html += '				</p>';
+	Html += '				<div class="baeg-btn mg_t30">';
+	Html += '					<a href="#"><button type="button" class="baeg-b1" id="ModalConfirm_Ok">확인</button></a>';
+	Html += '					<a href="#" data-dismiss="modal" aria-label="Close" id="ModalConfirm_Cancel"><button type="button" class="baeg-b2">취소</button></a>';
+	Html += '				</div>';
+	Html += '			</div>';
+	Html += '		</div>';
+	Html += '	</div>';
+	Html += '</div>';
+	$("#ModalConfirm").empty();
+	$("#ModalConfirm").append(Html).trigger("create");
+	$("#ModalConfirm").modal("show");
+	
+
+	$("#ModalConfirm_Ok").on("click", function(){
+		$("#ModalConfirm").modal("hide");
+		callback(true);
+	});
+
+	$("#ModalConfirm_Cancel").on("click", function(){
+		$("#ModalConfirm").modal("hide");
+		callback(false);
+	});
+
+}
+
+
+
 
 //Modal Alert Form
 function modalForm(msg,obj) {
@@ -698,7 +750,11 @@ $(document).on("click",".artst",function(){
 });
 
 $(document).on("click",".workMore",function(){
-	alert("작품 검색 결과 페이지로 이동합니다"); 
+	modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+		if(confrim){
+			alert("작품 검색 결과 페이지로 이동합니다");
+		}
+	})
 });
 
 $(document).on("click",".artistMore",function(){
@@ -710,7 +766,6 @@ $(document).on("click",".contentMore",function(){
 });
 
 function btn_search_onclick(){
-	debugger;
 	var searchKeyword = $("#ibx_search").val();
 	if(searchKeyword == null || searchKeyword == ""){
 		alert("검색어가 입력되지 않았습니다");

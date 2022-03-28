@@ -18,7 +18,7 @@ import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
 
 @Controller
-public class foMemberController {
+public class MemberController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -26,7 +26,7 @@ public class foMemberController {
 	private CommonService commonService;
 	
 	@Autowired
-	private MemberService MemberService;
+	private MemberService memberService;
 	
 	@RequestMapping("/main/memberInsertData")
 	@ResponseBody
@@ -51,7 +51,7 @@ public class foMemberController {
 		param.put("useYn", "Y"); 
 		
 		
-		MemberService.memberInsert(param);
+		memberService.memberInsert(param);
 	}
 	@RequestMapping("/login")
 	@ResponseBody
@@ -61,11 +61,20 @@ public class foMemberController {
 		String loginPw = commonService.encrypt((String) param.get("loginPw"));
 		param.put("loginId", loginId);
 		param.put("loginPw", loginPw);
-		int result = MemberService.login(param);
-		if(result == 1) {
-			session.setAttribute("loginId", loginId);
+		param.put("email", loginId);
+		param.put("email", loginId);
+		param.put("password", loginPw);
+		int chk = memberService.memberWithdrawalCheck(param);
+		if(chk > 0) {
+			return 2;
+		}else{
+			int result = memberService.login(param);
+			
+			if(result == 1) {
+				session.setAttribute("loginId", loginId);
+			}
+			return result;
 		}
-		return result;
 	}
 
 	@RequestMapping("/loginCheck")
