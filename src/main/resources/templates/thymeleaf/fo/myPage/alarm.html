@@ -133,140 +133,115 @@
 
 
 <script type="text/javascript">      
-      
-      $(window).on("resize", function () {
-	   	    if(window.matchMedia('(min-width: 1537px)').matches)
-	   	    {
-		   	    document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	  
-		       	  
-	   	    	
-	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	
-	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 1,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
-	   	    	
-	   	    	document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
-		       	  wrap.style.gridAutoRows = "1px";
-	   	    	
-	       	  
-	   	     };
-	   	}).resize();
-      
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
+$(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches){
+  	    document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
       	  });
-    	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
+  	    
+    }else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+  	      document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+      	  });
+    	
+    }else{
+    	var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+     });
+    	
+    	document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+      	  });
+  	  
+     }
+}).resize();
 
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
 
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
 
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+$(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+	    function(){ $(this).removeClass('hover') }
+	  )
+	  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+	    function(){ $(this).removeClass('gis') }
+	  )
+});
 
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-      
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-      
-      
-    </script>
+$(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+	    $('.bg-sh').toggleClass('bg-show');     
+	 	$('.s-hov').toggleClass('s-hov-show');     
+	  });
+  
+});
+
+$(function() {
+	/* 메뉴바 FIXED */
+	if (jQuery(window).width() > 0) {
+	  jQuery(window).on("scroll",function(ev){
+	      if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+	          jQuery('.head-wrap').addClass('fixed');
+	      }else{
+	          jQuery('.head-wrap').removeClass('fixed');
+	      }
+	      return false;
+	  });
+	}
+});
+
+/* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+
+
+
+var delay = 300;
+var timer = null;
+
+//Javascript
+window.addEventListener('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+//jQuery
+$(window).on('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+$('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+</script>
     
 	
 	
