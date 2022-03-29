@@ -70,11 +70,14 @@ public class MemberController {
 		}else{
 			Map<String, Object> result = memberService.login(param);
 			
-			if(result.get("mbrSq").toString().equals(null) && result.get("mbrSq").toString().equals("")) {
+			if(result != null) {
 				String mbrSq = result.get("mbrSq").toString();
 				session.setAttribute("mbrSq", mbrSq);
+				return 1;
+			}else{
+				return 0;
 			}
-			return 1;
+			
 		}
 	}
 
@@ -91,7 +94,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session) {
-		if((String) session.getAttribute("mbrSq") != null && (String) session.getAttribute("mbrSq") != "") {
+		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
 			session.invalidate();
 			return "success";
 		}else {
