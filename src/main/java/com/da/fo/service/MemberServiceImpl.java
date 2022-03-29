@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,16 @@ public class MemberServiceImpl implements MemberService  {
 	 */
 	public int memberWithdrawalCheck(Map<String, Object> param){
 		return memberDao.memberWithdrawalCheck(param);
+	}
+	
+	//회원정보 상세
+	@Override
+	public Map<String, Object> memberContent(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberDao.memberContent(param);
+		
+		return result;
 	}
 }

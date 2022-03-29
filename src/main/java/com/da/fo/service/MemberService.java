@@ -28,5 +28,9 @@ public interface MemberService {
 	 * return : Map
 	 */
 	int memberWithdrawalCheck(Map<String, Object> param);
+	
+	
+	//회원정보 상세	
+	public Map<String, Object> memberContent(Map<String, Object> param);
 
 }

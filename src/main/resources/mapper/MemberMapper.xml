@@ -57,6 +57,44 @@
         )
     </insert>
     
+    <!-- 회원 상세 -->
+    <select id="memberContent" resultType="hashMap">
+        SELECT
+            AUTH_SQ               AS authSq
+			,MBR_SQ               AS mbrSq
+			,MBR_ID               AS mbrId
+			,MBR_EMAIL            AS mbrEmail
+			,MBR_PASSWRD          AS mbrPasswrd
+			,MBR_NM               AS mbrNm
+			,MBR_NCKNM            AS mbrNcknm
+			,MBR_NATN_CD          AS mbrNatnCd
+			,MBR_BIRTH            AS mbrBirth
+			,(
+				CASE 
+					WHEN MBR_SEX_CD = 'MALE' THEN '남'
+					WHEN MBR_SEX_CD = 'FEMALE' THEN '여' 
+				END
+			 ) AS mbrSexCd
+			,MBR_SEX_CD AS mbrSexCdChk
+			,MBR_HOME_ADDR        AS mbrHomeAddr
+			,MBR_DELIVRY_ADDR     AS mbrDelivryAddr
+			,MBR_CP_NUM           AS mbrCpNum
+			,MBR_CP_CERT_YN       AS mbrCpCertYn
+			,MBR_CP_CERT_DATE     AS mbrCpCertDate
+			,REG_MBR_SQ           AS regMbrSq
+			,DATE_FORMAT(REG_DT,'%Y-%m-%d')  AS regDt
+			,UPDT_MBR_SQ          AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
+			,USE_YN               AS useYn
+			,DEL_YN				  AS delYn
+
+        FROM
+            TBL_DA_MBR_M A 
+        WHERE 1=1
+         AND A.MBR_SQ = #{mbrSq}
+  </select>
+    
+    
     <update id="memberUpdate" parameterType="hashMap">
    		UPDATE TBL_DA_MBR_M
    		<trim prefix="SET" suffixOverrides=",">

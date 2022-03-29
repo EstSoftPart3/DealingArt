@@ -1,0 +1,81 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="myPageLeftFragment" class="con-left2">
+
+	<div class="cont-title4">
+		<h3>회원정보 수정</h3>
+	</div>
+
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading1">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+						My Deal
+					</a>
+				</h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+				<div class="panel-body">
+					<ul class="mypage-ul">
+						<li><a href="#">거래 내역</a></li>
+						<li><a href="#">등급 / 쿠폰 / 포인트</a></li>
+						<li><a href="#">문의 내역</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading2">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+						포트폴리오
+					</a>
+				</h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+				<div class="panel-body">
+					<ul class="mypage-ul">
+						<li><a href="#">작가 정보</a></li>
+						<li><a href="#">나의작품</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading3">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+						My Gallery
+					</a>
+				</h4>
+			</div>
+			<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+				<div class="panel-body">
+					<ul class="mypage-ul">
+						<li><a href="#">소장품</a></li>
+						<li><a href="#">스크랩</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading3">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+						설정
+					</a>
+				</h4>
+			</div>
+			<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
+				<div class="panel-body">
+					<ul class="mypage-ul">
+						<li class="active"><a href="#">회원 정보 수정</a></li>
+						<li><a href="#">알림 설정</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		

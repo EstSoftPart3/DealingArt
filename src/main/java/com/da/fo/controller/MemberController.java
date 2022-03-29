@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
@@ -28,6 +29,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	//회원가입
 	@RequestMapping("/main/memberInsertData")
 	@ResponseBody
 	public void memberInsertData(@RequestParam Map<String, Object> param) {
@@ -53,6 +55,25 @@ public class MemberController {
 		
 		memberService.memberInsert(param);
 	}
+	//회원상세
+	@RequestMapping("/myPage/memberContentData")
+	@ResponseBody
+	public ModelAndView memberContentData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberService.memberContent(param);
+		
+		mv.addObject("memberContentData", result);
+		
+		return mv;
+	}
+	
+	
 	@RequestMapping("/login")
 	@ResponseBody
 	public int login(@RequestParam Map<String, Object> param, HttpServletRequest request) {

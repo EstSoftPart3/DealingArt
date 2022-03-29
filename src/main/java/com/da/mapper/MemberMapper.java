@@ -1,5 +1,6 @@
 package com.da.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberMapper {
@@ -27,5 +28,8 @@ public interface MemberMapper {
 	 * return : Map
 	 */
 	int memberWithdrawalCheck(Map<String, Object> param);
+	
+	//회원 상세
+	public List memberContent(Map<String, Object> param);
 
 }

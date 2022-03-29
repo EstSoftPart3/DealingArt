@@ -30,6 +30,11 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/secession";
 	}
 	
+	@RequestMapping("/memberEdit")
+	public String memberEdit() {
+		return "thymeleaf/fo/myPage/memberEdit";
+	}
+	
 	@RequestMapping("/withdrawalSubmit")
 	@ResponseBody
 	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param) {
