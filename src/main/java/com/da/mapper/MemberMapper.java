@@ -13,7 +13,7 @@ public interface MemberMapper {
 	 * param : loginId, loginPw
 	 * return : int
 	 */
-	public int login(Map<String, Object> param);
+	public Map<String, Object> login(Map<String, Object> param);
 	
 	/*
 	 * 회원탈퇴

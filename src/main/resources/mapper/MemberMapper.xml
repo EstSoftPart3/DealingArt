@@ -114,9 +114,9 @@
    		WHERE MBR_SQ = #{mbrSq}
 	</update>
    
-   <select id="login" resultType="int" parameterType="hashMap">
+   <select id="login" resultType="hashMap" parameterType="hashMap">
 		SELECT 	
-				COUNT(MBR_SQ)
+				MBR_SQ AS mbrSq
 		FROM 	
 				TBL_DA_MBR_M
 		WHERE 	

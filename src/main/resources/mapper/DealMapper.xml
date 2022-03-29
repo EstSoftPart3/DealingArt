@@ -19,16 +19,16 @@
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로/
-				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
 				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
 				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
 				B.BID_CNT AS bidCnt, /*응찰수*/ 
-				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y-%m-%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y-%m-%d') AS dealEndngDate, /*거래종료일시*/
+				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
 				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/

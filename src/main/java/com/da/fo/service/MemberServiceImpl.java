@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService  {
 	 * param : loginId, loginPw
 	 * return : int
 	 */
-	public int login(Map<String, Object> param) {
+	public Map<String, Object> login(Map<String, Object> param) {
 		return memberDao.login(param);
 	}
 

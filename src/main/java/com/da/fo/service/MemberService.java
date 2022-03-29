@@ -13,7 +13,7 @@ public interface MemberService {
 	 * param : loginId, loginPw
 	 * return : int
 	 */
-	int login(Map<String, Object> param);
+	Map<String, Object> login(Map<String, Object> param);
 	
 	/*
 	 * 회원탈퇴
