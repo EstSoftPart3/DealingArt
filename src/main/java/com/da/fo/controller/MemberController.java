@@ -88,7 +88,6 @@ public class MemberController {
 			return null;
 		}
 	}
-	
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session) {
