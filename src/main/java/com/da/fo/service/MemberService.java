@@ -14,5 +14,19 @@ public interface MemberService {
 	 * return : int
 	 */
 	int login(Map<String, Object> param);
+	
+	/*
+	 * 회원탈퇴
+	 * param : name, email, password
+	 * return : int
+	 */
+	int memberWithdrawal(Map<String, Object> param);
+	
+	/*
+	 * 회원탈퇴 체크
+	 * param : name, email, password
+	 * return : Map
+	 */
+	int memberWithdrawalCheck(Map<String, Object> param);
 
 }

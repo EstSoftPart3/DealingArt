@@ -13,5 +13,19 @@ public interface MemberMapper {
 	 * return : int
 	 */
 	public int login(Map<String, Object> param);
+	
+	/*
+	 * 회원탈퇴
+	 * param : name, email, password
+	 * return : int
+	 */
+	public int memberWithdrawal(Map<String, Object> param);
+
+	/*
+	 * 회원탈퇴 체크
+	 * param : name, email, password
+	 * return : Map
+	 */
+	int memberWithdrawalCheck(Map<String, Object> param);
 
 }

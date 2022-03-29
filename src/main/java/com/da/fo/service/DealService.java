@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface DealService {
@@ -8,5 +9,5 @@ public interface DealService {
 	 * param : searchOption
 	 * return : 검색 결과
 	 */
-	Map<String, Object> dealSerach(Map<String, Object> searchOptions);
+	List dealSerach(Map<String, Object> searchOptions);
 }

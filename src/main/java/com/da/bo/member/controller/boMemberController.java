@@ -22,7 +22,7 @@ import com.da.sample.service.CommonService;
 
 
 @Controller
-public class MemberController {
+public class boMemberController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <style>
@@ -13,7 +13,7 @@
 
 <body>
 	<div class="wrap">
-		<th:block th:replace="thymeleaf/header_menu :: headerFragment"></th:block>  
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  
 		
 		<div class="body-wrap">
 			
@@ -135,7 +135,7 @@
 			
 			
 		</div>
-		<!-- <jsp:include page="/WEB-INF/views/fo/main/footer.jsp"></jsp:include> -->
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
 <!-- 모달검색 -->

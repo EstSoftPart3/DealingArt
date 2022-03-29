@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <style>
@@ -9,7 +9,7 @@
 
 <body>
 	<div class="wrap">
-		<th:block th:replace="thymeleaf/header_menu :: headerFragment"></th:block>  
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  
 		
 		<div class="body-wrap">
 			<div class="contents">
@@ -361,8 +361,23 @@
 									<div class="heart"></div>
 									
 									<!-- sold-1 ~ 4 넣으면 나옵니다 -->
-									<div class="item-div-img sold-2">
+									
+									
+									<div class="item-div-img active">
+									<div class="item-div-img sold-3">
 										<img src="resources/img/de/be-bg2.png">
+										<div class="item-ho">
+											<p>2022. 01. 01 – 2022. 01.30</p>
+											<p>응찰수 : 12</p>
+											<ul>
+												<li>03<span>day</span></li>
+												<li>03<span>hrs</span></li>
+												<li>03<span>min</span></li>
+												<li>03<span>sec</span></li>
+											</ul>
+											<h4>시작가  3,700,000 원</h4>
+										</div>
+									</div>
 									</div>
 									
 									<!-- 하단텍스트 -->
@@ -424,71 +439,7 @@
 				
 			</div>
 		</div>
-		<div class="footer-wrap">
-			<div class="footer-box">
-				<div class="footer-nav">
-					<ul class="">
-						<li><a href="#">경매약관</a></li>
-						<li><a href="#">온라인경매약관</a></li>
-						<li><a href="#">개인정보처림방침</a></li>
-						<li><a href="#">내부정보관리규정</a></li>
-					</ul>
-					<div class="footer-icon">
-						<a href="#"><img src="resources/img/sns-f.jpg" /></a>
-						<a href="#"><img src="resources/img/sns-t.jpg" /></a>
-						<a href="#"><img src="resources/img/sns-i.jpg" /></a>
-					</div>
-				</div>
-				
-				<div class="pc-on">
-					<div class="footer-text">상호 : MANSION9  대표 : 이영선  사업자등로번호 : 473-81-01206[사업자정보확인]</div>
-					<div class="footer-text">
-						<ol>
-							<li>주소 : 04075 서울특별시 마포구 토정로 11길 60(상수동)1F</li>
-							<li>대표번호 : 070-4267-7371</li>
-							<li>팩스번호 : 02-336-2920</li>
-						</ol>
-					</div>
-					<div class="footer-text">
-						<ol>
-							<li>통신판매업 신고 : 제 2019-서울마포-1063호</li>
-							<li>개인정보관리책임자 : 이영선(privacy@mainsion9.co.kr</li>
-							<li>이메일 : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-				
-				
-				<div class="tb-on max-100">
-					<div class="footer-text">상호 : MANSION9<br/>대표 : 이영선  사업자등로번호 : 473-81-01206[사업자정보확인]</div>
-					<div class="footer-text">
-						<ol>
-							<li class="dib af-dn">주소 : 04075 서울특별시 마포구 토정로 11길 60(상수동)1F</li>
-							<li class="">대표번호 : 070-4267-7371</li>
-							<li class="af-dn">팩스번호 : 02-336-2920</li>
-						</ol>
-					</div>
-					<div class="footer-text">
-						<ol>
-							<li class="af-dn">통신판매업 신고 : 제 2019-서울마포-1063호</li>
-							<li>개인정보관리책임자 : 이영선(privacy@mainsion9.co.kr 이메일 : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-				
-				<div class="mo-on max-100">
-					<div class="footer-text">상호 : MANSION9<br/>대표 : 이영선</div>
-					<div class="footer-text">
-						<ol>
-							<li class="dib af-dn">주소 : 04075 서울특별시 마포구 토정로 11길 60(상수동)1F</li>
-							<li class="dib af-dn">대표번호 : 070-4267-7371</li>
-							<li class="af-dn">팩스번호 : 02-336-2920</li>
-							<li class="af-dn">이메일 : cafe24@mainsion9.co,kr</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
 <!-- 모달검색 -->
@@ -723,8 +674,7 @@ $(function() {
 	  jQuery(window).on("scroll",function(ev){
 	      if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
 	          jQuery('.head-wrap').addClass('fixed');
-	      }
-	      else{
+	      }else{
 	          jQuery('.head-wrap').removeClass('fixed');
 	      }
 	      return false;
@@ -766,61 +716,122 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
-  
-	function dealSearch(){
-		//검색옵션이 담긴 JSON
-		var searchOptions = new Object();
+
+$(function () {
+	dealSearch();
+});
+ 
+function dealSearch(){
+	//검색옵션이 담긴 JSON
+	var searchOptions = new Object();
+	//회원구분
+	if($('input[name=authSq]:checked').val() != null && $('input[name=authSq]:checked').val() != ""){
 		searchOptions.authSq = $('input[name=authSq]:checked').val();
-		//거래유형코드
-		var dealTypCds = new Array();
-		document.querySelectorAll('input[name=dealTypCd]:checked').forEach((el) => {
-			dealTypCds.push(el.value);
-		});
-		if(dealTypCds.length > 0){
-			searchOptions.dealTypCds = JSON.stringify(dealTypCds);
-		}
-		//거래상태코드
-		var dealSttsCds = new Array();
-		document.querySelectorAll('input[name=dealSttsCd]:checked').forEach((el) => {
-			dealSttsCds.push(el.value);
-		});
-		if(dealSttsCds.length > 0){
-			searchOptions.dealSttsCds = JSON.stringify(dealSttsCds);
-		}
-		//작품형태코드
-		var workShpCds = new Array();
-		document.querySelectorAll('input[name=workShpCd]:checked').forEach((el) => {
-			workShpCds.push(el.value);
-		});
-		if(workShpCds.length > 0){
-			searchOptions.workShpCds = JSON.stringify(workShpCds);
-		}
-		//작품분류코드
-		var workClsfcCds = new Array();
-		document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
-			workClsfcCds.push(el.value);
-		});
-		if(workClsfcCds.length > 0){
-			searchOptions.workClsfcCds = JSON.stringify(workClsfcCds);
-		}
-		$.ajax({
-	        type: "post",
-	        url: "/dealSearch",
-	        data: searchOptions,
-	        success: function(data) {
-	     	   
-	        },
-	        error: function(error) {
-	            alert("오류 발생" + error);
-	        }
-		})
 	}
-	
-	function searchOptionReset(){
-		document.querySelectorAll(".searchOption").forEach(function(v, i) {
-			v.checked = false;
-		});
+	//거래유형코드
+	var dealTypCds = new Array();
+	document.querySelectorAll('input[name=dealTypCd]:checked').forEach((el) => {
+		dealTypCds.push(el.value);
+	});
+	if(dealTypCds.length > 0){
+		searchOptions.dealTypCds = JSON.stringify(dealTypCds);
 	}
+	//거래상태코드
+	var dealSttsCds = new Array();
+	document.querySelectorAll('input[name=dealSttsCd]:checked').forEach((el) => {
+		dealSttsCds.push(el.value);
+	});
+	if(dealSttsCds.length > 0){
+		searchOptions.dealSttsCds = JSON.stringify(dealSttsCds);
+	}
+	//작품형태코드
+	var workShpCds = new Array();
+	document.querySelectorAll('input[name=workShpCd]:checked').forEach((el) => {
+		workShpCds.push(el.value);
+	});
+	if(workShpCds.length > 0){
+		searchOptions.workShpCds = JSON.stringify(workShpCds);
+	}
+	//작품분류코드
+	var workClsfcCds = new Array();
+	document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
+		workClsfcCds.push(el.value);
+	});
+	if(workClsfcCds.length > 0){
+		searchOptions.workClsfcCds = JSON.stringify(workClsfcCds);
+	}
+	$.ajax({
+        type: "post",
+        url: "/dealSearch",
+        data: searchOptions,
+        success: function(data) {
+        	var dealList;
+        	var dealListHtml = "";
+     		if(data == null){
+     			alert("검색 결과가 없습니다.");
+     		}else{
+     			$("columns2").empty();
+     			dealList = data.result;
+     		}
+     		for(var i=0; i<dealList.length; i++){
+     			dealListHtml += '<figure class="item" id="'+ dealList[i].workSq +'">';
+     			dealListHtml += '	<div class="heart on"></div>';
+     			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
+     				dealListHtml += '	<div class="item-div-img active">';
+     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+     				dealListHtml += '		<div class="item-ho">';
+     				dealListHtml += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
+     				dealListHtml += '			<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
+     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+     				dealListHtml += '				<h4>시작가 : '+ formatComma(dealList[i].dealStrtPrc) +'</h4>';
+     				dealListHtml += '	</div>';
+     			}
+     			if(dealList[i].dealTypCd == "SALE" && dealList[i].dealTypCd == "IP"){
+     				dealListHtml += '	<div class="item-div-img sale">';
+     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+     				dealListHtml += '		<div class="item-ho2 sale-div">';
+     				dealListHtml += '			<h3>판매중</h3>';
+     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+     				dealListHtml += '	</div>';
+     			}
+     			if(dealList[i].dealTypCd == "EN"){
+     				dealListHtml += '	<div class="item-div-img sold-3">';
+     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+     				dealListHtml += '	</div>';
+     			}
+     			dealListHtml += '	<div class="item-body">';
+     			dealListHtml += '		<div class="uesr-s">';
+     			if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+     				dealListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+     			}else{
+     				dealListHtml += '		<img src="'+ dealList[i].artstProfileImgUrl +'"/>';
+     			}
+     			dealListHtml += '		</div>';
+     			dealListHtml += '		<div class="text-s">';
+     			dealListHtml += '			<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+     			dealListHtml += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+     			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
+     			dealListHtml += '';
+     		}
+     		
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	})
+}
+
+function searchOptionReset(){
+	document.querySelectorAll(".searchOption").forEach(function(v, i) {
+		v.checked = false;
+	});
+}
 	
 </script>
     

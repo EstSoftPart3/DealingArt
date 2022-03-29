@@ -1,5 +1,6 @@
 package com.da.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 public interface DealMapper {
@@ -8,6 +9,6 @@ public interface DealMapper {
 	 * param : searchOption
 	 * return : 검색 결과
 	 */
-	public Map<String, Object> dealSerach(Object param);
+	public List dealSerach(Object param);
 
 }

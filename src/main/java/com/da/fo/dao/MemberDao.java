@@ -25,13 +25,13 @@ public class MemberDao {
 	JPAQueryFactory queryFactory; //QueryDsl을 사용하기 위해
 	
 	@Autowired
-	MemberMapper MemberMapper;
+	MemberMapper memberMapper;
 	
 	//회원정보 입력
 	public void memberInsert(Map<String, Object> param){
 		
 		System.out.println("FO_MEMBER_INSERT_REQUEST = " + param);
-		MemberMapper.memberInsert(param);
+		memberMapper.memberInsert(param);
 		
 	}
 	
@@ -41,7 +41,25 @@ public class MemberDao {
 	 * return : int
 	 */
 	public int login(Map<String, Object> param) {
-		return MemberMapper.login(param);
+		return memberMapper.login(param);
+	}
+	
+	/*
+	 * 회원탈퇴
+	 * param : name, email, password
+	 * return : int
+	 */
+	public int memberWithdrawal(Map<String, Object> param) {
+		return memberMapper.memberWithdrawal(param);
+	}
+	
+	/*
+	 * 회원탈퇴 체크
+	 * param : name, email, password
+	 * return : Map
+	 */
+	public int memberWithdrawalCheck(Map<String, Object> param){
+		return memberMapper.memberWithdrawalCheck(param);
 	}
 
 }

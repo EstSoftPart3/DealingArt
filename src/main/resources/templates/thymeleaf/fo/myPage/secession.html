@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  		
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap2">
+					<div class="con-left2">
+						<div class="cont-title4">
+							<h3>회원정보 수정</h3>
+						</div>
+					
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading1">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+											My Deal
+										</a>
+									</h4>
+								</div>
+								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">거래 내역</a></li>
+											<li><a href="#">등급 / 쿠폰 / 포인트</a></li>
+											<li><a href="#">문의 내역</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading2">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+											포트폴리오
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">작가 정보</a></li>
+											<li><a href="#">나의작품</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+											My Gallery
+										</a>
+									</h4>
+								</div>
+								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="#">소장품</a></li>
+											<li><a href="#">스크랩</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+											설정
+										</a>
+									</h4>
+								</div>
+								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li class="active"><a href="#">회원 정보 수정</a></li>
+											<li><a href="#">알림 설정</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="con-right2">
+					
+						<div class="me-left">
+						
+							<div class="sec-box">
+								<div class="sec-title">회원님 서비스를 이용하시는데 불편함이 있으셨나요?</div>
+								<div class="sec-hd">
+									<p class="sd-1">1.  발송하는 메일 수신거부는 '마이페이지 > 설정'에서 확인하세요</p>
+									<p class="sd-1">2.  이용 불편 및 각종 문의 사항은 고객센터로 문의 주시면 성심 성의껏 답변 </p>
+									<div class="sd-link">
+										<a href="" class="sdl-a">자주 묻는 질문</a>
+										<a href="" class="sdl-a">1:1 온라인 문의</a>
+										<a href="" class="sdl-a">전화 문의: OOO-OOO-OOOO (365일 오전 9시~오후6시)</a>
+									</div>
+								</div>
+								
+								<div class="sec-title">회원탈퇴 전, 유의사항을 확인해 주시기 바랍니다.</div>
+								<div class="bg-box">
+									<p class="bg-p">
+										회원탈퇴 시 서비스 이용이 불가합니다.<br/>
+										거래정보가 있는 경우, 전자상거래 등에서의 소비자 보호에 관한 법률에 따라 계약 또는 청약철회에 관한 기록, 대금결제 및 재화 등의 공급에 관한 기록은 5년동안 보존됩니다.<br/>
+										유효기간이 경과되지 않은 미사용 쿠폰관련 정보는 유효기간 만료일까지 보관되며, 탈퇴 후에도 유효기간 내 사용하실 수 있습니다.<br/>
+										유효기간 내 사용하지 못한 미사용 쿠폰은 소멸되며, 탈퇴시 적립 받을 수 없습니다.<br/>
+										보유하셨던 포인트는 탈퇴와 함께 삭제되며 환불되지 않습니다.<br/>
+										회원탈퇴 후 서비스에 입력하신 작품정보, 문의 및 후기, 댓글은 삭제되지 않으며, 회원정보 삭제로 인해 작성자 본인을 확인할 수 없어 편집 및 삭제처리가 원천적으로 불가능 합니다.<br/>
+										상품문의 및 후기, 댓글 삭제를 원하시는 경우에는 먼저 해당 게시물을 삭제하신 후 탈퇴를 신청하시기 바랍니다.<br/>
+										이미 결제가 완료된 건은 탈퇴로 취소되지 않습니다.
+									</p>
+								</div>
+							</div>
+							
+							<div class="member-box sec-chk">
+								<input type="checkbox" id="chk_agree" name="cc" />
+								<label for="chk_agree" class="sec-lav"><span></span>
+									상기 딜링아트 회원탈퇴 시 처리사항 안내를 확인하였음에 동의합니다.
+									<div class="cehck-div">보안을 위해 회원님의 이름과 계정 이메일 및 비밀번호를 확인 합니다.</div>
+								</label>							
+							
+								<!-- <div class="input-box">
+									<input type="text" class="input-3" id="txt_name" placeholder="이름" />
+								</div> -->
+								<div class="input-box">
+									<input type="text" class="input-3" id="txt_email" placeholder="이메일" />
+								</div>					
+								<div class="input-box">
+									<input type="password" class="input-3" id="txt_password" placeholder="비밀번호" />
+								</div>
+					
+								<div class="bat-box3 mg_t65">
+									<button type="button" class="ba-btn1" onclick="submit()"><span>확인</span></button>
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+<script type="text/javascript">      
+$(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches){
+  	    document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+      	  });
+  	    
+    }else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+  	      document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+      	  });
+    	
+    }else{
+    	var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+     });
+    	
+    	document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+      	  });
+  	  
+     }
+}).resize();
+
+
+
+$(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+	    function(){ $(this).removeClass('hover') }
+	  )
+	  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+	    function(){ $(this).removeClass('gis') }
+	  )
+});
+
+$(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+	    $('.bg-sh').toggleClass('bg-show');     
+	 	$('.s-hov').toggleClass('s-hov-show');     
+	  });
+  
+});
+
+$(function() {
+	/* 메뉴바 FIXED */
+	if (jQuery(window).width() > 0) {
+	  jQuery(window).on("scroll",function(ev){
+	      if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+	          jQuery('.head-wrap').addClass('fixed');
+	      }else{
+	          jQuery('.head-wrap').removeClass('fixed');
+	      }
+	      return false;
+	  });
+	}
+});
+
+/* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+
+
+
+var delay = 300;
+var timer = null;
+
+//Javascript
+window.addEventListener('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+//jQuery
+$(window).on('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+$('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+
+
+	
+	function submit(){
+		var param = new Object();
+		
+		//var name = $("#txt_name").val();
+    	var email = $("#txt_email").val();
+    	var password = $("#txt_password").val();
+    	//if(name == null || name == "" || name == undefined){
+    		//modalAlertShow("이름을 입력해주세요.", "txt_name");
+    	if(!document.getElementById('chk_agree').checked){
+			modalAlertShow("회원탈퇴에 동의해주세요.", "chk_agree");
+			//alert("동의해주세요.");
+		}else if(email == null || email == "" || email == undefined){
+    		modalAlertShow("이메일을 입력해주세요.", "txt_email");
+    	}else if(password == null || password == "" || password == undefined){
+    		modalAlertShow("비밀번호를 입력해주세요.", "txt_password");
+    	}else{
+    		//param.name = name;
+    		param.email = email;
+    		param.password = password;
+    		modalConfirm("알림", "정말 회원탈퇴를 하시겠습니까?", function(callback){
+    			if(callback){
+    				$.ajax({
+    		    		type: "post",
+    		    	    url: "/withdrawalSubmit",
+    		    	    data: param,
+    		    	    success: function(data) {
+    		    	    	if(data == 1){
+    		    	    		modalAlertShow("회원탈퇴를 완료되었습니다.", "");
+    		    	    	}else if(data == 2){
+    		    	    		modalAlertShow("이미 회원탈퇴된 회원입니다.", "");
+    		    	    	}
+    		    	    },
+    		    	    error: function(error) {
+    		    	    	alert("오류 발생" + error);
+    		    		}
+    				});
+    			}
+    		});
+    	}
+    	
+	}
+      
+      
+</script>
+</body>
+</html>

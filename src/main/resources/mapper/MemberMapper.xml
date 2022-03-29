@@ -86,6 +86,31 @@
 			AND	MBR_EMAIL = #{loginId}
 			AND	MBR_PASSWRD = #{loginPw}   
    </select>
+   
+   <update id="memberWithdrawal" parameterType="hashMap">
+   		UPDATE 	TBL_DA_MBR_M
+   		
+   		SET		USE_YN = 'N',
+   				DEL_YN = 'Y'
+   		
+   		WHERE 	MBR_ID = #{email}
+   			AND	MBR_EMAIL = #{email}
+   			AND MBR_PASSWRD = #{password}	
+   		
+   </update>
+   
+   <select id="memberWithdrawalCheck" resultType="int" parameterType="hashMap">
+   		SELECT 	
+   				COUNT(MBR_SQ)
+   		FROM 
+   				TBL_DA_MBR_M
+   		WHERE 	
+   				MBR_ID = #{email}
+   			AND	MBR_EMAIL = #{email}
+   			AND MBR_PASSWRD = #{password}
+   			AND USE_YN = 'N'
+   			AND DEL_YN = 'Y'	
+   </select>
     
     
 </mapper>

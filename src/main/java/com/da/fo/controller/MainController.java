@@ -25,11 +25,6 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String openMain() {
-		return "fo/main/main";
-	}
-	
-	@RequestMapping("/main2")
-	public String openMain2() {
 		return "thymeleaf/index";
 	}
 	
@@ -70,6 +65,6 @@ public class MainController {
 	
 	@RequestMapping("/artist")
 	public String openArtist() {
-		return "fo/artistLibrary/artist";
+		return "thymeleaf/fo/artistLibrary/artist";
 	}
 }

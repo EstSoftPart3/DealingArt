@@ -11,12 +11,12 @@ import lombok.AllArgsConstructor;
 public class MemberServiceImpl implements MemberService  {
 	
 	@Autowired
-	MemberDao MemberDao;
+	MemberDao memberDao;
 	
 	//회원정보 입력
 	@Override
 	public void memberInsert(Map<String, Object> param){
-		MemberDao.memberInsert(param);
+		memberDao.memberInsert(param);
 	}
 	
 	/*
@@ -25,7 +25,24 @@ public class MemberServiceImpl implements MemberService  {
 	 * return : int
 	 */
 	public int login(Map<String, Object> param) {
-		return MemberDao.login(param);
+		return memberDao.login(param);
 	}
 
+	/*
+	 * 회원탈퇴
+	 * param : name, email, password
+	 * return : int
+	 */
+	public int memberWithdrawal(Map<String, Object> param) {
+		return memberDao.memberWithdrawal(param);
+	}
+	
+	/*
+	 * 회원탈퇴 체크
+	 * param : name, email, password
+	 * return : Map
+	 */
+	public int memberWithdrawalCheck(Map<String, Object> param){
+		return memberDao.memberWithdrawalCheck(param);
+	}
 }
