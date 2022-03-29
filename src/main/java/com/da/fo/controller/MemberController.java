@@ -55,10 +55,11 @@ public class MemberController {
 		
 		memberService.memberInsert(param);
 	}
+		
 	//회원상세
 	@RequestMapping("/myPage/memberContentData")
 	@ResponseBody
-	public ModelAndView memberContentData(@RequestParam Map<String, Object> param) {
+	public ModelAndView memberContentData(@RequestParam Map<String, Object> param,HttpServletRequest request) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -68,6 +69,12 @@ public class MemberController {
 		
 		result = memberService.memberContent(param);
 		
+//		HttpSession session = request.getSession();
+//	
+//	    String sessionMbrSq = (String) session.getAttribute("mbrSq");
+//
+//	    session.setAttribute("ssVar", sessionMbrSq);
+	    
 		mv.addObject("memberContentData", result);
 		
 		return mv;
@@ -122,5 +129,30 @@ public class MemberController {
 			return null;
 		}
 	}
+	
+	//Session GET
+	@RequestMapping(value = "/loginSession")
+	public ModelAndView loginSession(HttpServletRequest request) throws Exception {
+	  	        
+	    HttpSession session = request.getSession();
+	    
+	    ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+	    
+	    String mbrSq = (String) session.getAttribute("mbrSq");
+	    
+	    session.setAttribute("sMbrSqVal", mbrSq);
+	    
+	    
+	    mv.addObject("sMbrSqVal", mbrSq);
+		
+		return mv;
+	  
+	}
+
+
 	
 }

@@ -1,7 +1,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
 	
 <div th:fragment="headerFragment">
-	
+
+
 
 <!DOCTYPE html>
 <html>
@@ -27,9 +30,14 @@
 	<script src="resources/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="resources/js/common.js"></script>
+    
 </head>
 <body>
 	<div class="head-wrap">
+	<!-- Session GET -->
+	<div th:text="${session.sMbrSqVal}" style="display:none"></div>
+	<input type="text" id="sMbrSqVal">
+		
 		<div class="head">
 			<div class="h-logo"><a href="/main"><img src="resources/img/logo.png" /></a></div>
 			<div class="h-gnb">
@@ -795,10 +803,31 @@ function isEmpty(str){
     else
         return false ;
 }
+
+//Session GET
+window.onload = function() {
+	$.ajax({
+        type: "post",
+        url: "/loginSession",
+        async: false,
+        success: function(data) {
+        	
+        	console.log(data.sessionMbrSq);
+        	
+        	if (typeof data != "undefined") {
+        		$("#sMbrSqVal").val(data.sMbrSqVal);	
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	})
+}
+
 </script>
+
+
 
 </body>
 </html>
-
-    
  </div>
