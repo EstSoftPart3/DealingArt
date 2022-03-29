@@ -26,7 +26,7 @@
   <style type="text/css">
   	
   	.bTitle{ font-size:15px; }
-  	.sTitle{ font-size:12px; }
+  	.sTitle{ font-size:12px; height:30px; }
 	
   </style>
   

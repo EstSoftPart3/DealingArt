@@ -35,9 +35,12 @@
 
 <script src="/resources/plugins/moment/moment.min.js"></script>
 <script src="/resources/plugins/daterangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" href="/resources/plugins/daterangepicker/daterangepicker.css">
 
+<script src="/resources/plugins/jsgrid/jsgrid.min.js"></script>
 
- <link rel="stylesheet" href="/resources/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="/resources/plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="/resources/plugins/jsgrid/jsgrid-theme.min.css">
 
 
 <!-- page script -->

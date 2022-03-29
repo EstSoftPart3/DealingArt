@@ -85,5 +85,10 @@ public class CommonService {
 		
 		return results;
 	}
+	
+	//Null Check
+	public static boolean isEmpty(CharSequence cs) {
+		return cs == null || cs.length() == 0;
+	}
 
 }
