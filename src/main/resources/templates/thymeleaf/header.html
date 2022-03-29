@@ -278,10 +278,7 @@ window.onload = function() {
         url: "/loginSession",
         async: false,
         success: function(data) {
-        	
-        	console.log(data.sessionMbrSq);
-        	
-        	if (typeof data != "undefined") {
+        	if (typeof data != "undefined" && data.length > 0) {
         		loginBf.setAttribute("style", "display:none;");
 				loginAf.setAttribute("style", "");
 				sMbrSqVal = data.sMbrSqVal;
@@ -316,6 +313,7 @@ function login(){
 			},
 			dataType:"json",
 			success:function(data){
+				debugger;
 				if(data == 1){
 					modalAlertShow("성공적으로 로그인이 되었습니다.", "");
 					$('#loginModal').modal("hide");
@@ -325,7 +323,7 @@ function login(){
 					modalAlertShow("탈퇴한 회원입니다.", "txt_Id");
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
-				}else{
+				}else if (data == 0){
 					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
@@ -336,7 +334,6 @@ function login(){
             }
 			
 		});
-		
 	}
 }
 //로그아웃
