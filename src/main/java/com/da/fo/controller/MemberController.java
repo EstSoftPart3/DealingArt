@@ -68,22 +68,22 @@ public class MemberController {
 		if(chk > 0) {
 			return 2;
 		}else{
-			int result = memberService.login(param);
+			Map<String, Object> result = memberService.login(param);
 			
-			if(result == 1) {
-				session.setAttribute("loginId", loginId);
+			if(result.get("mbrSq").toString().equals(null) && result.get("mbrSq").toString().equals("")) {
+				String mbrSq = result.get("mbrSq").toString();
+				session.setAttribute("mbrSq", mbrSq);
 			}
-			return result;
+			return 1;
 		}
 	}
 
 	@RequestMapping("/loginCheck")
 	@ResponseBody
 	public String loginCheck(HttpSession session) {
-		System.out.println("############# loginSessionId : " + (String) session.getAttribute("loginId"));
-		if((String) session.getAttribute("loginId") != null && (String) session.getAttribute("loginId") != "") {
-			System.out.println("############# loginSessionId : " + (String) session.getAttribute("loginId"));
-			return (String) session.getAttribute("loginId");
+		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
+			System.out.println("############# Session MbrSq : " + session.getAttribute("mbrSq"));
+			return session.getAttribute("mbrSq").toString();
 		}else {
 			return null;
 		}
@@ -91,7 +91,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session) {
-		if((String) session.getAttribute("loginId") != null && (String) session.getAttribute("loginId") != "") {
+		if((String) session.getAttribute("mbrSq") != null && (String) session.getAttribute("mbrSq") != "") {
 			session.invalidate();
 			return "success";
 		}else {

@@ -260,7 +260,7 @@
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script type="text/javascript">
-var loginSessionId = "";
+var mbrSq = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
 $(function(){
@@ -270,11 +270,11 @@ $(function(){
 	    url: "/loginCheck",
 	    success: function(data) {
 	    	if(data != null && data != ""){
-	    		loginSessionId = data;
+	    		mbrSq = data;
 				loginBf.setAttribute("style", "display:none;");
 				loginAf.setAttribute("style", "");
 	    	}else{
-	    		loginSessionId = "";
+	    		mbrSq = "";
 				loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
 	    	}
@@ -334,7 +334,7 @@ function logout(){
 		success:function(data){
 			if(data != null && data != ""){
 				modalAlertShow("로그아웃 되었습니다.", "");
-			 	loginSessionId = "";
+				mbrSq = "";
 				loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
 	    	}

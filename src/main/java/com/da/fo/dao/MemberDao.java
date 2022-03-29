@@ -40,7 +40,7 @@ public class MemberDao {
 	 * param : loginId, loginPw
 	 * return : int
 	 */
-	public int login(Map<String, Object> param) {
+	public Map<String, Object> login(Map<String, Object> param) {
 		return memberMapper.login(param);
 	}
 	

@@ -770,7 +770,7 @@ function dealSearch(){
      		if(data == null){
      			alert("검색 결과가 없습니다.");
      		}else{
-     			$("columns2").empty();
+     			$("#columns2").empty();
      			dealList = data.result;
      		}
      		for(var i=0; i<dealList.length; i++){
@@ -817,8 +817,29 @@ function dealSearch(){
      			dealListHtml += '			<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
      			dealListHtml += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
      			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
-     			dealListHtml += '';
+     			dealListHtml += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+     			if(dealList[i].dealTypCd == "AUCT"){
+     				dealListHtml += '			<h4>입찰가 '+ dealList[i].maxBidPrc +'</h4>';
+     				dealListHtml += '			<p class="ts-2">';
+     				dealListHtml += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+     				dealListHtml += '			응찰수 : '+ dealList[i].bidCnt +'<br/>';
+     				dealListHtml += '			'+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+     				dealListHtml += '			</p>';
+     			}
+     			if(dealList[i].dealTypCd == "SALE"){
+     				dealListHtml += '			<h4>판매가 '+ dealList[i].maxBidPrc +'</h4>';
+     			}
+     			dealListHtml += '		</div>';
+     			if(dealList[i].authSq == 2){
+     				dealListHtml += '	<div class="artist active"><span>Artist</span></div>';
+     			}
+     			if(dealList[i].authSq == 1){
+     				dealListHtml += '	<div class="artist"><span>Artist</span></div>';
+     			}
+     			dealListHtml += '	</div>';
+     			dealListHtml += '</figure>';
      		}
+     		$("#columns2").append(dealListHtml).trigger("create");
      		
         },
         error: function(error) {
