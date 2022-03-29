@@ -108,17 +108,7 @@ public class MemberController {
 			
 		}
 	}
-
-	@RequestMapping("/loginCheck")
-	@ResponseBody
-	public String loginCheck(HttpSession session) {
-		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
-			System.out.println("############# Session MbrSq : " + session.getAttribute("mbrSq"));
-			return session.getAttribute("mbrSq").toString();
-		}else {
-			return null;
-		}
-	}
+	
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session) {
@@ -133,24 +123,19 @@ public class MemberController {
 	//Session GET
 	@RequestMapping(value = "/loginSession")
 	public ModelAndView loginSession(HttpServletRequest request) throws Exception {
-	  	        
-	    HttpSession session = request.getSession();
-	    
-	    ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("jsonView");
-		
-		Map<String, Object> result = new HashMap<>();
-	    
-	    String mbrSq = (String) session.getAttribute("mbrSq");
-	    
-	    session.setAttribute("sMbrSqVal", mbrSq);
-	    
-	    
-	    mv.addObject("sMbrSqVal", mbrSq);
+		HttpSession session = request.getSession();
+		ModelAndView mv = new ModelAndView("jsonView");
+		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        
+			
+		    String mbrSq = (String) session.getAttribute("mbrSq");
+		    session.setAttribute("sMbrSqVal", mbrSq);
+		    mv.addObject("sMbrSqVal", mbrSq);
+			
+		}else{
+			mv.addObject("sMbrSqVal", null);
+		}
 		
 		return mv;
-	  
 	}
 
 

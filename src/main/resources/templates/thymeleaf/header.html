@@ -268,30 +268,35 @@
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script type="text/javascript">
-var mbrSq = "";
+var sMbrSqVal = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
-$(function(){
-	//로그인 세션 체크
+//Session GET
+window.onload = function() {
 	$.ajax({
-	    type: "post",
-	    url: "/loginCheck",
-	    success: function(data) {
-	    	if(data != null && data != ""){
-	    		mbrSq = data;
-				loginBf.setAttribute("style", "display:none;");
+        type: "post",
+        url: "/loginSession",
+        async: false,
+        success: function(data) {
+        	
+        	console.log(data.sessionMbrSq);
+        	
+        	if (typeof data != "undefined") {
+        		loginBf.setAttribute("style", "display:none;");
 				loginAf.setAttribute("style", "");
-	    	}else{
-	    		mbrSq = "";
-				loginBf.setAttribute("style", "");
+				sMbrSqVal = data.sMbrSqVal;
+        		$("#sMbrSqVal").val(data.sMbrSqVal);	
+        	}else{
+        		loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
-	    	}
-		},
-	    error: function(request, status, error){
-        	alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-       	}
+				sMbrSqVal = "";
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
 	})
-});
+}
 
 //로그인 기능
 function login(){
@@ -802,26 +807,6 @@ function isEmpty(str){
         return true;
     else
         return false ;
-}
-
-//Session GET
-window.onload = function() {
-	$.ajax({
-        type: "post",
-        url: "/loginSession",
-        async: false,
-        success: function(data) {
-        	
-        	console.log(data.sessionMbrSq);
-        	
-        	if (typeof data != "undefined") {
-        		$("#sMbrSqVal").val(data.sMbrSqVal);	
-        	}
-        },
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-	})
 }
 
 </script>
