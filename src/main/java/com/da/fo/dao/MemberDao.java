@@ -30,6 +30,14 @@ public class MemberDao {
 	MemberMapper memberMapper;
 	
 	//회원정보 입력
+	public void memberUpdate(Map<String, Object> param){
+		
+		System.out.println("FO_MEMBER_UPDATE_REQUEST = " + param);
+		memberMapper.memberUpdate(param);
+		
+	}
+	
+	//회원정보 입력
 	public void memberInsert(Map<String, Object> param){
 		
 		System.out.println("FO_MEMBER_INSERT_REQUEST = " + param);
