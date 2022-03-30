@@ -55,6 +55,38 @@ public class MemberController {
 		
 		memberService.memberInsert(param);
 	}
+	
+	
+	//회원가입
+		@RequestMapping("/myPage/memberUpdateData")
+		@ResponseBody
+		public void memberUpdateData(@RequestParam Map<String, Object> param) {
+			
+			//회원 아이디.이메일
+			String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+			//회원 이메일
+			String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrId"));
+			//회원 비밀번호 암호화
+			String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
+			//회원 이름
+			String mbrNm = (String) param.get("mbrNm");
+			//휴대전화번호 암호화
+			String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+			
+			//회원 이름
+			String mbrSq = (String) param.get("mbrSq");
+			
+			param.put("mbrSq", mbrSq);
+			param.put("mbrId", mbrIdEncrypt);
+			param.put("mbrEmail", mbrEmailEncrypt);
+			param.put("mbrPasswrd", mbrPasswrdEncrypt);
+			param.put("mbrNm", mbrNm);
+			param.put("mbrCpNum", mbrCpNumEncrypt);
+			param.put("useYn", "Y"); 
+			
+			
+			memberService.memberUpdate(param);
+		}
 		
 	//회원상세
 	@RequestMapping("/myPage/memberContentData")
@@ -70,9 +102,7 @@ public class MemberController {
 		result = memberService.memberContent(param);
 		
 //		HttpSession session = request.getSession();
-//	
 //	    String sessionMbrSq = (String) session.getAttribute("mbrSq");
-//
 //	    session.setAttribute("ssVar", sessionMbrSq);
 	    
 		mv.addObject("memberContentData", result);

@@ -20,6 +20,12 @@ public class MemberServiceImpl implements MemberService  {
 		memberDao.memberInsert(param);
 	}
 	
+	//회원정보 입력
+	@Override
+	public void memberUpdate(Map<String, Object> param){
+		memberDao.memberUpdate(param);
+	}
+	
 	/*
 	 * 로그인 기능
 	 * param : loginId, loginPw

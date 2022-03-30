@@ -12,7 +12,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap">
 			<div class="contents">
-			 	
+			 	<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				<div class="con-wrap2">
 				    <!-- left Include  -->
 					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
@@ -22,32 +22,34 @@
 						<div class="me-center">
 							<div class="member-box">
 								<div class="input-box input-group">
+									<input type="hidden" id="uMbrSq" name="uMbrSq">
 									<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" />
 									<button type="button" class="group-btn">인증하기</button>
 								</div>
-								<p class="inp-p">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+								<p class="inp-p" id="uMbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
 								
 								<div class="input-box">
-									<input type="text" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
-									<p class="inp-p">
-										영문/숫자/특수문자 2가지 이상 조합 (8~20자)<br/>
-										3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외
-									</p>
+									<input type="password" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
+									<p class="inp-p" id="uMbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
+									<p class="inp-p" id="uMbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
 								</div>
 								<div class="input-box">
-									<input type="text" class="input-3" placeholder="비밀번호 확인" id="uMbrPasswrdConfirm" name="uMbrPasswrdConfirm"/>
+									<input type="password" class="input-3" placeholder="비밀번호 확인" id="uMbrPasswrdConfirm" name="uMbrPasswrdConfirm"/>
 									<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 								</div>					
 								<div class="input-box">
 									<input type="text" class="input-3" placeholder="이름" id="uMbrNm" name="uMbrNm"/>
+									<p class="inp-p" id="uMbrNmCheck"></p>
 								</div>
 								<div class="input-box input-group">
 									<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum"/>
 									<button type="button" class="group-btn">인증하기</button>
 								</div>
-					
+								<div class="input-box">
+									<p class="inp-p" id="uMbrCpNumCheck"></p>
+								</div>
 								<div class="bat-box3 mg_t65">
-									<button type="button" class="ba-btn1"><span>회원 정보 수정하기</span></button>
+									<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
 								</div>
 								
 								<!-- <div class="mypage-btn">
@@ -64,7 +66,219 @@
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
-<script type="text/javascript">      
+<script type="text/javascript">   
+
+//회원가입
+$("#memberUpdateBtn").on('click', function(event){
+	
+	//회원번호
+	var mbrSq = $("#uMbrSq").val();
+	
+	//회원아이디
+	var mbrId = $("#uMbrId").val();
+	//비밀번호
+	var mbrPasswrd = $("#uMbrPasswrd").val();
+	//비밀번호 확인
+	var mbrPasswrdConfirm = $("#uMbrPasswrdConfirm").val();
+	//성명
+	var mbrNm = $("#uMbrNm").val();
+	//휴대번호
+	var mbrCpNum = $("#uMbrCpNum").val();
+	
+	if(isEmpty(mbrId)) {
+		fn_validation('uMbrIdCheck','이메일을 입력해주세요.', 'R');
+		return;
+	} 
+	if(!CheckEmail(mbrId)) {
+		fn_validation('uMbrIdCheck','이메일을 올바르게 입력해주세요.', 'R');
+		return;
+	}
+	fn_validation('uMbrIdCheck','주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.', 'B');
+	//비밀번호--------------------------------------------------------------------//
+	if(isEmpty(mbrPasswrd)) {
+		$('#uMbrPwdCheckU').css('color','red');
+		$('#uMbrPwdCheckD').css('color','#999999');
+		return;
+	} 
+	if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
+	{
+		$('#uMbrPwdCheckU').css('color','red');
+		$('#uMbrPwdCheckD').css('color','#999999');
+		return;
+	}
+	var chk = 0;
+	if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
+	if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
+	if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
+	if(chk < 2)
+	{
+		$('#mbrPwdCheckU').css('color','#999999');
+		$('#mbrPwdCheckD').css('color','red');
+		return;
+	}
+	 var SamePass_0 = 0; //동일문자 카운트
+	 var SamePass_1 = 0; //연속성(+) 카운드
+	 var SamePass_2 = 0; //연속성(-) 카운드
+	 
+	 var chr_pass_0;
+	 var chr_pass_1;
+	 
+	 for(var i=0; i < mbrPasswrd.length; i++) {
+	  chr_pass_0 = mbrPasswrd.charAt(i);
+	  chr_pass_1 = mbrPasswrd.charAt(i+1);
+	 
+	  //동일문자 카운트
+	  if(chr_pass_0 == chr_pass_1) {
+	   SamePass_0 = SamePass_0 + 1
+	  } // if
+	 
+	 
+	  //연속성(+) 카운드
+	  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == 1) {
+	   SamePass_1 = SamePass_1 + 1
+	  } // if
+	 
+	  //연속성(-) 카운드
+	  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == -1) {
+	  	SamePass_2 = SamePass_2 + 1
+	  } // if
+	 } // for
+	 
+	 if(SamePass_0 > 1) {
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		 return;
+	 } // if
+	 
+	 if(SamePass_1 > 1 || SamePass_2 > 1 )  {
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		 return;
+	 }
+	
+	 // 비밀번호 아이디 포함 여부
+	 if(mbrPasswrd.search(mbrId)>-1)
+	 {
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','red');
+		  return;
+	 }
+	
+	 $('#mbrPwdCheckU').css('color','#999999');
+	 $('#mbrPwdCheckD').css('color','#999999');
+	 
+	 //비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
+	 if(mbrPasswrd != mbrPasswrdConfirm) {
+		fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
+		return;
+	 }
+	
+	 fn_validation('mbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+	//비밀번호--------------------------------------------------------------------//
+	
+	if(isEmpty(mbrNm)) {
+		 fn_validation('uMbrNmCheck','이름을 정확히 입력하세요', 'R');
+		 return;
+	 }
+	fn_validation('uMbrNmCheck','', 'B')
+	
+	//휴대폰번호
+	 if(isEmpty(uMbrCpNum)) {
+		 fn_validation('uMbrCpNumCheck','휴대폰번호를 정확히 입력하세요.', 'R');
+		 return;
+	 }
+	 
+	fn_validation('uMbrCpNumCheck','', 'B');
+	
+	let memParams = {
+	  "mbrSq" : mbrSq,
+	  "mbrId" : mbrId,
+	  "mbrPasswrd" : mbrPasswrd,
+	  "mbrNm" : mbrNm,
+	  "mbrCpNum" : mbrCpNum
+	}
+	
+	 $.ajax({
+	     type: "post",
+	     url: "/myPage/memberUpdateData",
+	     data: memParams,
+	     success: function(data) {
+	    	 modalAlertShow("회원수정이 완료 되었습니다.","");
+	   	 },
+	     error: function(error) {
+	  	   var errorJson = JSON.stringify(error);
+	         console.log(errorJson);
+	     }
+	})
+	
+});
+
+
+//아이디 중복 체크 2022-03-29
+$("#uMbrId").blur(function() {
+	var dataCheckCount = {};
+	
+	var mbrIdParam = $("#uMbrId").val();
+	
+	if(mbrIdParam) {
+	
+		let param = {
+			mbrId : mbrIdParam
+		}
+		
+		$.ajax({
+			   type: "post",
+			   url: "/admin/member/memberChkData",
+			   data: param,
+			   success: function(data) {
+				   
+				dataCheckCount = data.memberCheck.memberCheck[0];
+				
+				console.log("dataCheckCount :"+dataCheckCount);
+				
+				if(dataCheckCount > 0) {
+								
+					var msg = "이미 가입된 이메일 주소입니다. 다른 이메일을 입력해 주세요.";
+					
+					fn_validation('uMbrIdCheck',msg, 'R');
+					fn_validation('uMbrPwdCheck','', 'B');
+					fn_validation('uMbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+					fn_validation('uMbrNmCheck','', 'B');
+					$('#uMbrPwdCheckU').css('color','#999999');
+					$('#uMbrPwdCheckD').css('color','#999999');
+					
+					return;
+				
+				} else {
+					
+					if(!CheckEmail(mbrIdParam)) {
+						$('#uMbrIdCheck').html('이메일을 올바르게 입력해주세요.');
+						$('#uMbrIdCheck').css('color','red');
+					} else {
+						var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+						fn_validation('uMbrIdCheck',msg, 'B');	
+					}
+					
+					return;
+				}
+			   },
+			   error: function(error) {
+				   var errorJson = JSON.stringify(error);
+			       //alert("오류 발생" + errorJson);
+			       console.log(errorJson);
+			   }
+			})
+	} else {
+		
+		var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+		
+		fn_validation('mbrIdCheck',msg, 'B');
+		
+		return;
+		
+	}
+});
+
 $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches){
   	    document.querySelectorAll(".item").forEach((item) => {
@@ -186,30 +400,33 @@ function memberContentData(mbrSq) {
         	   mbrSq : mbrSq
             },
            success: function(data) {
-        	   
-        	    
-        	 dataContent = data.memberContentData.memberContent[0];
         	 
-        	 console.log(dataContent);
-        	 var mbrNm = dataContent.mbrNm						//이름
-        	 var mbrId = dataContent.mbrId						//아이디
-        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
-        	 var mbrEmail = dataContent.mbrEmail				//이메일
-        	 var mbrBirth = dataContent.mbrBirth				//생년월일
-        	 var mbrSexCd = dataContent.mbrSexCd				//성별
-        	 var mbrCpNum = dataContent.mbrCpNum				//휴대폰번호
-        	 var regDt = dataContent.regDt						//회원등록일시
-        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
-        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
-        	 var useYn = dataContent.useYn						//사용여부
+        	 if (typeof data != "undefined") {
         	 
+        		console.log(data);   
+        	 	dataContent = data.memberContentData.memberContent[0];
         	 
-        	 $("#uMbrNm").val(mbrNm);
-        	 $("#uMbrId").val(mbrId);
-        	 $("#mbrNcknm").val(mbrNcknm);
-        	 $("#uMbrCpNum").val(mbrCpNum);
+        	 	console.log(dataContent);
+        	 	var mbrSq = dataContent.mbrSq						//이름
+        	 	var mbrNm = dataContent.mbrNm						//이름
+        	 	var mbrId = dataContent.mbrId						//아이디
+        	 	var mbrNcknm = dataContent.mbrNcknm				//닉네임
+        	 	var mbrEmail = dataContent.mbrEmail				//이메일
+        	 	var mbrBirth = dataContent.mbrBirth				//생년월일
+        	 	var mbrSexCd = dataContent.mbrSexCd				//성별
+        	 	var mbrCpNum = dataContent.mbrCpNum				//휴대폰번호
+        	 	var regDt = dataContent.regDt						//회원등록일시
+        	 	var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
+        	 	var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
+        	 	var useYn = dataContent.useYn						//사용여부
         	 
-		
+        	 	$("#uMbrSq").val(mbrSq);
+        	 	$("#uMbrNm").val(mbrNm);
+        	 	$("#uMbrId").val(mbrId);
+        	 	$("#mbrNcknm").val(mbrNcknm);
+        	 	$("#uMbrCpNum").val(mbrCpNum);
+        	 
+        	 }
            },
            error: function(error) {
         	   var errorJson = JSON.stringify(error);
@@ -219,17 +436,13 @@ function memberContentData(mbrSq) {
 }
 
 
-
 $( document ).ready(function() {
-	memberContentData(39);
+ 	var sMbrSql = $("#mbrSq").html();
+ 	
+	 memberContentData(sMbrSql);
 });
- 
 
 </script>
-    
-	
-	
-	
 	
 </body>
 
