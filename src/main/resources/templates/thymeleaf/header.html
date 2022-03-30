@@ -278,7 +278,7 @@ window.onload = function() {
         url: "/loginSession",
         async: false,
         success: function(data) {
-        	if (typeof data != "undefined" && data.length > 0) {
+        	if (typeof data != "undefined" && data.sMbrSqVal != null) {
         		loginBf.setAttribute("style", "display:none;");
 				loginAf.setAttribute("style", "");
 				sMbrSqVal = data.sMbrSqVal;
@@ -313,7 +313,6 @@ function login(){
 			},
 			dataType:"json",
 			success:function(data){
-				debugger;
 				var login = data.login;
 				sMbrSqVal = data.sMbrSqVal;
 				if(login == 1){
