@@ -83,8 +83,9 @@ public class MemberController {
 	
 	@RequestMapping("/login")
 	@ResponseBody
-	public int login(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+	public ModelAndView login(@RequestParam Map<String, Object> param, HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		ModelAndView mv = new ModelAndView("jsonView");
 		String loginId = commonService.encrypt((String) param.get("loginId"));
 		String loginPw = commonService.encrypt((String) param.get("loginPw"));
 		param.put("loginId", loginId);
@@ -94,16 +95,22 @@ public class MemberController {
 		param.put("password", loginPw);
 		int chk = memberService.memberWithdrawalCheck(param);
 		if(chk > 0) {
-			return 2;
+			mv.addObject("login", "2");
+			mv.addObject("sMbrSqVal", "");
+			return mv;
 		}else{
 			Map<String, Object> result = memberService.login(param);
 			
 			if(result != null) {
 				String mbrSq = result.get("mbrSq").toString();
 				session.setAttribute("mbrSq", mbrSq);
-				return 1;
+				mv.addObject("login", "1");
+				mv.addObject("sMbrSqVal", mbrSq);
+				return mv;
 			}else{
-				return 0;
+				mv.addObject("login", "0");
+				mv.addObject("sMbrSqVal", "");
+				return mv;
 			}
 			
 		}

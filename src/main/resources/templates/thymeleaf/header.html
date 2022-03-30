@@ -314,16 +314,19 @@ function login(){
 			dataType:"json",
 			success:function(data){
 				debugger;
-				if(data == 1){
+				var login = data.login;
+				sMbrSqVal = data.sMbrSqVal;
+				if(login == 1){
 					modalAlertShow("성공적으로 로그인이 되었습니다.", "");
 					$('#loginModal').modal("hide");
+					$("#sMbrSqVal").val(data.sMbrSqVal);
 					loginBf.setAttribute("style", "display:none;");
 					loginAf.setAttribute("style", "");
-				}else if (data == 2){
+				}else if (login == 2){
 					modalAlertShow("탈퇴한 회원입니다.", "txt_Id");
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
-				}else if (data == 0){
+				}else if (login == 0){
 					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
