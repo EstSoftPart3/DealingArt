@@ -808,9 +808,11 @@ columns figure {
 }
 
 #columns figure {
-	display: inline-block;
-	margin: 0px 0px 15px;
-	position: relative;
+	/* display: inline-block; */
+	/* margin: 0px 0px 15px; */
+	
+	position: relative; 
+	
 }
 
 #columns figure:hover .hd-div2 {
@@ -1320,6 +1322,7 @@ div {
 
 .columns-wrap>.item {
 	width: 360px;
+	padding: 5px;
 	/* background-color: #000; */
 	/* color: #fff; */
 	/* padding: 10px; */
