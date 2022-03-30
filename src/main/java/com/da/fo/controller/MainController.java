@@ -63,8 +63,4 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/artist")
-	public String openArtist() {
-		return "thymeleaf/fo/artistLibrary/artist";
-	}
 }
