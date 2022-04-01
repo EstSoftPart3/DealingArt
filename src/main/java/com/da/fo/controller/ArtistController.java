@@ -33,4 +33,5 @@ public class ArtistController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
 }
