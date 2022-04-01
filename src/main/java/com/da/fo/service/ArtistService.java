@@ -11,4 +11,11 @@ public interface ArtistService {
 	 * return : 검색 결과
 	 */
 	Map<String, Object> openArtistLibrary();
+	
+	/*
+	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트 정보를 불러온다.
+	 * param : artstSq
+	 * return : 검색 결과
+	 */
+	Map<String, Object> artistDetail(int artstSq);
 }

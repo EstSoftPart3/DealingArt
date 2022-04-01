@@ -58,5 +58,36 @@
 		/*WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'*/
 	</select>
+	
+	<select id="artistInfo" resultType="hashMap" parameterType="hashMap">
+		SELECT 
+				A.ARTST_SQ  AS artstSq, /*작가 순번*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가 활동명*/
+				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가 영문명*/
+				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 자기소개*/
+				A.ARTST_FACEBOOK_URL AS artstfacebookUrl, /*작가 페이스북 주소*/
+				A.ARTST_INSTAGRAM_URL AS artstInstagramUrl, /*작가 인스타그램 주소*/
+				A.ARTST_HMPG_URL AS artstHmpgUrl, /*작가 홈페이지 주소*/
+				C.EDUCTN_NM AS eductnNm, /*작가 학력 명*/
+				C.EDUCTN_MAJOR AS eductnMajor, /*작가 학력 전공*/
+				C.EDUCTN_ENDNG_DATE AS eductnEndngDate, /*작가 학력 종료 일자*/
+				B.CAREER_NM AS careerNm, /*작가 경력 명*/
+				B.CAREER_ENDNG_DATE AS careerEndngDate, /*작가 경력 종료 일자*/
+				D.EXHBTN_NM AS exhbtnNm, /*작가 전시 명*/
+				D.EXHBTN_ENDNG_DATE AS exhbtnEndngDate, /*작가 전시 종료 일자*/
+				A.ARTST_PROMTN_VIDEO_URL AS artstPromtnVideoUrl /*작가 홍보 비디오 주소*/
+		FROM 
+				TBL_DA_ARTST_M AS A
+		INNER JOIN 
+				TBL_DA_ARTST_CAREER_S AS B
+			ON 	A.ARTST_SQ = B.ARTST_SQ
+		INNER JOIN 
+				TBL_DA_ARTST_EDUCTN_S AS C
+			ON	A.ARTST_SQ = C.ARTST_SQ 
+		INNER JOIN 
+				TBL_DA_ARTST_EXHBTN_S AS D
+			ON	A.ARTST_SQ = D.ARTST_SQ 
+		WHERE 	A.ARTST_SQ  = #{artstSq}
+	</select>
 
 </mapper>

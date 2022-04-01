@@ -443,6 +443,7 @@ function artistLibraryList(){
 $(document).on("click", ".swiper-slide", function(){
 	var artstSq= $(this).attr("artstSq");
 	alert(artstSq); 
+    window.location.href="/artistDetail?artstSq=" + artstSq;
 });
       
 </script>

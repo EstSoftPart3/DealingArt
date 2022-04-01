@@ -24,4 +24,13 @@ public class ArtistServiceImpl implements ArtistService{
 	public Map<String, Object> openArtistLibrary(){
 		return artistDao.openArtistLibrary();
 	}
+	
+	/*
+	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트 정보를 불러온다.
+	 * param : artstSq
+	 * return : 검색 결과
+	 */
+	public Map<String, Object> artistDetail(int artstSq){
+		return artistDao.artistDetail(artstSq);
+	}
 }
