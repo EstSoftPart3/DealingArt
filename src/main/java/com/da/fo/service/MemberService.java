@@ -35,5 +35,8 @@ public interface MemberService {
 	
 	//회원정보 상세	
 	public Map<String, Object> memberContent(Map<String, Object> param);
+	
+	//회원정보 아이디 중복 체크
+	public Map<String, Object> memberIdCheck(Map<String, Object> param);
 
 }

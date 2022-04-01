@@ -106,5 +106,18 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	//회원정보 아이디.닉네임 중복 체크
+	public Map<String, Object> memberIdCheck(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("MEMBER_CHECK_REQUEST = " + param);
+		List memberIdCheck = memberMapper.memberIdCheck(param);
+		
+		result.put("memberIdCheck", memberIdCheck);
+		
+		return result;
+	}
 
 }

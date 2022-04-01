@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="ko">
+
+<head>
+	<style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    		.con-left{display:none}
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap">
+					
+					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					<div class="con-right m-max1300">
+					
+						<div class="me-left me-move">
+							<div class="me-sech">
+								<div class="is-bos">
+									<div class="is-sum">
+										<input type="text" class="" placeholder="쿠폰입력" />
+										<button type="button" class="">등록</button>
+									</div>
+								</div>
+							</div>
+						
+							<div class="">
+								<ul class="nav nav-pills nav-coupon" id="pills-tab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">사용 가능</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">사용함 / 기간만료</button>
+									</li>
+								</ul>
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									
+										<ul class="coupon-ul">
+											<li>
+												<div class="coupon-div">
+													<div class="cou-left">
+														<h3>쿠폰명입니다.</h3>
+														<h4>거래 수수료 1% 할인</h4>
+														<div class="cou-lis">
+															<span class="">2022. 1. 27 ~ 2023. 1. 27</span>
+															<span class="cou-red">사용기간 3일 남음</span>
+														</div>
+													</div>
+													<div class="cou-right">
+														<p>
+															거래 수수료
+															<span>1% 할인</span>
+														</p>
+													</div>
+												</div>
+											</li>
+										</ul>
+									
+									</div>
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+<!-- 모달검색 -->
+
+
+
+<div class="modal fade modal-s" id="paintModal" tabindex="-1" role="dialog" aria-labelledby="paintModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sech2">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="modal-bs">
+					<div class="mb-img-1"><a href="#" alt="작가 본인 선택"></a></div>
+					<div class="mb-img-2"><a href="#" alt="소장중인 작품"></a></div>
+					<a href="#" class="mb-a" data-dismiss="modal" aria-label="Close"><img src="resources/img/de/end-btn.png" /></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sech">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+
+			</div>
+			<div class="modal-body">				
+				<!-- 검색버튼 클릭시 -->
+				<div class="search-show">
+					<div class="sea-box">
+						<img src="resources/img/w-logo.jpg" class="sea-img" />
+						
+						<div class="sea-won">
+							<!-- <div class="select-box">
+								<select>
+									<option>작가명</option>
+								</select>
+							</div> -->
+							<input type="text" class="" />
+							<a href="#"><img src="resources/img/icon-2.jpg" /></a>
+						</div>
+						<div class="ta-h3">
+							<h3 class="sea-h3">작품</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+						<div class="ta-h3">
+							<h3 class="sea-h3">작가</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+						<div class="ta-h3">
+							<h3 class="sea-h3">컨텐츠</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade modal-s" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
+	<div class="modal-dialog modal-sech3">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="pons-div">
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+				</div>
+				<ul class="drop-ul">
+					<li role="presentation">
+						<div class="drop-title">
+							<span>Deal wtith</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="radio" id="s1" name="ss" />
+								<label for="s1"><span></span>Collector</label>
+							</div>
+							<div class="db-div">
+								<input type="radio" id="s2" name="ss" />
+								<label for="s2"><span></span> Artist</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>거래</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="z1" name="cc" />
+								<label for="z1"><span></span>진행 중인 거래</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z2" name="cc" />
+								<label for="z2"><span></span>종료된 거래</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z3" name="cc" />
+								<label for="z3"><span></span>경매</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z4" name="cc" />
+								<label for="z4"><span></span>정찰가</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>형태</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="x1" name="cc" />
+								<label for="x1"><span></span>평면</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="x2" name="cc" />
+								<label for="x2"><span></span>입체</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="x3" name="cc" />
+								<label for="x3"><span></span>NFT</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>분류</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="v1" name="cc" />
+								<label for="v1"><span></span>동양화</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v2" name="cc" />
+								<label for="v2"><span></span>서양화</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v3" name="cc" />
+								<label for="v3"><span></span>팝아트</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v4" name="cc" />
+								<label for="v4"><span></span>현대미술</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v5" name="cc" />
+								<label for="v5"><span></span>고미술</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>유형</span>
+						</div>
+						<div class="drop-body">
+						
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>종류</span>
+						</div>
+						<div class="drop-body">
+						
+						</div>
+					</li>
+					<div class="drop-btnb">
+						<button type="button" class="dbtn-1">선택</button>
+						<button type="button" class="dbtn-2">rereset</button>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">      
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      //$('.selectpicker').selectpicker();
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

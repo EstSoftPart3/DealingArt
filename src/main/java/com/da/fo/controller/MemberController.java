@@ -58,35 +58,35 @@ public class MemberController {
 	
 	
 	//회원가입
-		@RequestMapping("/myPage/memberUpdateData")
-		@ResponseBody
-		public void memberUpdateData(@RequestParam Map<String, Object> param) {
-			
-			//회원 아이디.이메일
-			String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
-			//회원 이메일
-			String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrId"));
-			//회원 비밀번호 암호화
-			String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
-			//회원 이름
-			String mbrNm = (String) param.get("mbrNm");
-			//휴대전화번호 암호화
-			String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
-			
-			//회원 이름
-			String mbrSq = (String) param.get("mbrSq");
-			
-			param.put("mbrSq", mbrSq);
-			param.put("mbrId", mbrIdEncrypt);
-			param.put("mbrEmail", mbrEmailEncrypt);
-			param.put("mbrPasswrd", mbrPasswrdEncrypt);
-			param.put("mbrNm", mbrNm);
-			param.put("mbrCpNum", mbrCpNumEncrypt);
-			param.put("useYn", "Y"); 
-			
-			
-			memberService.memberUpdate(param);
-		}
+	@RequestMapping("/myPage/memberUpdateData")
+	@ResponseBody
+	public void memberUpdateData(@RequestParam Map<String, Object> param) {
+		
+		//회원 아이디.이메일
+		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		//회원 이메일
+		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		//회원 비밀번호 암호화
+		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
+		//회원 이름
+		String mbrNm = (String) param.get("mbrNm");
+		//휴대전화번호 암호화
+		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+		
+		//회원 이름
+		String mbrSq = (String) param.get("mbrSq");
+		
+		param.put("mbrSq", mbrSq);
+		param.put("mbrId", mbrIdEncrypt);
+		param.put("mbrEmail", mbrEmailEncrypt);
+		param.put("mbrPasswrd", mbrPasswrdEncrypt);
+		param.put("mbrNm", mbrNm);
+		param.put("mbrCpNum", mbrCpNumEncrypt);
+		param.put("useYn", "Y"); 
+		
+		
+		memberService.memberUpdate(param);
+	}
 		
 	//회원상세
 	@RequestMapping("/myPage/memberContentData")
@@ -175,6 +175,25 @@ public class MemberController {
 		return mv;
 	}
 
-
+	//회원 아이디중복.닉네임 중복체크
+		@RequestMapping("/myPage/memberIdChkData")
+		@ResponseBody
+		public ModelAndView memberIdCheck(@RequestParam Map<String, Object> param) {
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("jsonView");
+			
+			Map<String, Object> result = new HashMap<>();
+			
+			//이메일 암호화
+			String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+			param.put("mbrId", mbrIdEncrypt);
+			
+			result = memberService.memberIdCheck(param);
+			
+			mv.addObject("memberCheck", result);
+			
+			return mv;
+		}
 	
 }

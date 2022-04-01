@@ -643,11 +643,11 @@ $("#mbrId").blur(function() {
 		
 		$.ajax({
 			   type: "post",
-			   url: "/admin/member/memberChkData",
+			   url: "/myPage/memberIdChkData",
 			   data: param,
 			   success: function(data) {
 				   
-				dataCheckCount = data.memberCheck.memberCheck[0];
+				dataCheckCount = data.memberCheck.memberIdCheck[0];
 				
 				console.log("dataCheckCount :"+dataCheckCount);
 				

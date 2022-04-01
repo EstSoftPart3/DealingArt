@@ -151,6 +151,16 @@
    			AND USE_YN = 'N'
    			AND DEL_YN = 'Y'	
    </select>
+   
+   <!-- 회원 아이디 검색 -->
+   <select id="memberIdCheck" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            TBL_DA_MBR_M A
+        WHERE 
+        	MBR_ID = #{mbrId}
+  </select>     
     
     
 </mapper>

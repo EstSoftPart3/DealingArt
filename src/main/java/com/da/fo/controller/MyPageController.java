@@ -47,6 +47,24 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/memberEdit";
 	}
 	
+	//소장품
+	@RequestMapping("/collectible")
+	public String collectible() {
+		return "thymeleaf/fo/myPage/collectible";
+	}
+	
+	//알림
+	@RequestMapping("/alarm")
+	public String alarm() {
+		return "thymeleaf/fo/myPage/alarm";
+	}
+	
+	//알림
+	@RequestMapping("/coupon")
+	public String coupon() {
+		return "thymeleaf/fo/myPage/coupon";
+	}
+	
 	@RequestMapping("/withdrawalSubmit")
 	@ResponseBody
 	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param) {
