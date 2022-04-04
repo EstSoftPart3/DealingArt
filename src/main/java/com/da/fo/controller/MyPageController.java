@@ -47,10 +47,16 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/memberEdit";
 	}
 	
-	//소장품
-	@RequestMapping("/collectible")
-	public String collectible() {
-		return "thymeleaf/fo/myPage/collectible";
+	//소장품 등록
+	@RequestMapping("/collection_reg")
+	public String collectionReg() {
+		return "thymeleaf/fo/myPage/collection_reg";
+	}
+	
+	//소장품 수정
+	@RequestMapping("/collection_cor")
+	public String collectionCor() {
+		return "thymeleaf/fo/myPage/collection_cor";
 	}
 	
 	//알림
@@ -63,6 +69,11 @@ public class MyPageController {
 	@RequestMapping("/coupon")
 	public String coupon() {
 		return "thymeleaf/fo/myPage/coupon";
+	}
+	
+	@RequestMapping("/myCollection")
+	public String myCollection() {
+		return "thymeleaf/fo/myPage/myCollection";
 	}
 	
 	@RequestMapping("/withdrawalSubmit")
