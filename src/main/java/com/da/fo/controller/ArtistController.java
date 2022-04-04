@@ -42,7 +42,7 @@ public class ArtistController {
 		System.out.println("################## artstSq : "+artstSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetail");
 		Map<String, Object> result = artistService.artistDetail(artstSq);
-		mv.addObject("result", "1");
+		mv.addObject("result", result);
 		return mv;
 		
 	}

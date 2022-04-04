@@ -42,10 +42,18 @@ public class ArtistDao {
 	 */
 	public Map<String, Object> artistDetail(int artstSq){
 		Map<String, Object> result = new HashMap<>();
-		Map<String, Object> artistInfo = artistMapper.artistInfo(artstSq);
-		List artistWorkList = artistMapper.artistWorkList(artstSq);
+		Map<String, Object> param = new HashMap<>();
+		param.put("artstSq", artstSq);
+		Map<String, Object> artistInfo = artistMapper.artistInfo(param);
+		List eductn = artistMapper.artistInfoEductn(param);
+		List career = artistMapper.artistInfoCareer(param);
+		List exhbtn = artistMapper.artistInfoExhbtn(param);
+		List workList = artistMapper.artistWorkList(param);
 		result.put("artistInfo", artistInfo);
-		result.put("artistWorkList", artistWorkList);
+		result.put("eductn", eductn);
+		result.put("career", career);
+		result.put("exhbtn", exhbtn);
+		result.put("workList", workList);
 		return result;
 	}
 }

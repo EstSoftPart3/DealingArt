@@ -22,8 +22,8 @@
 			<div class="tab-content ait-tab" id="pills-tabContent">
 				<div class="tab-pane fade active in tab-pane1" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 				
-					<div class="contents max-1500">
-						<div class="cont-title3 mg-at">
+					<div class="contents max-1500" id="artstInfo">
+						<!-- <div class="cont-title3 mg-at">
 							<h3>Artist library</h3>
 						</div>
 						
@@ -130,9 +130,8 @@
 									<p>2013 블라블라, 인사토포하우스</p>
 								</dd>
 							</dl>
-							
-							<button type="button" class="the-more2 mg_t60" data-toggle="modal" data-target="#myModal">더보기</button>
-						</div>
+							<button type="button" class="the-more2 mg_t60" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
+						</div> -->
 					</div>
 				
 				</div>
@@ -155,49 +154,44 @@
 					
 					<div>
 						<div class="columns-wrap2" id="columns2">
-							
 							<figure class="item">
-								<div class="item-div-img">
-									<img src="resources/img/icon/bg-2.png" class="items">
-								</div>
-							</figure>
-							<figure class="item">
-								<div class="item-div-img">
-									<img src="resources/img/icon/bg-3.png" class="items">
-								</div>
-							</figure>
-							<figure class="item">
-								<div class="item-div-img">
-									<img src="resources/img/icon/bg-3.png" class="items">
-								</div>
-							</figure>
-							<figure class="item">
-								<div class="item-div-img">
-									<img src="resources/img/icon/bg-2.png" class="items">
-								</div>
-							</figure>
-							
+									<div class="item-div-img">
+										<img src="resources/img/icon/bg-2.png" class="items">
+									</div>
+								</figure>
+								<figure class="item">
+									<div class="item-div-img">
+										<img src="resources/img/icon/bg-3.png" class="items">
+									</div>
+								</figure>
+								<figure class="item">
+									<div class="item-div-img">
+										<img src="resources/img/icon/bg-3.png" class="items">
+									</div>
+								</figure>
+								<figure class="item">
+									<div class="item-div-img">
+										<img src="resources/img/icon/bg-2.png" class="items">
+									</div>
+								</figure>
 						</div>
 					</div>
 					
-					<div class="text-center mg_t50">
-						<button type="button" class="btn-more"><span>more</span></button>
+					<div class="text-center mg_t50" id="moreButton">
 					</div>
 					
 				</div>
 			</div>
 			
 		</div>
-		
-		<jsp:include page="/WEB-INF/views/fo/main/header.jsp"></jsp:include>
-		
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
 
 <!-- 모달검색 -->
 <!-- Modal -->
 <!-- 거래 등록 전 꼭! 확인하세요 -->
-<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-baeg max-w1200">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
@@ -206,8 +200,8 @@
 				</div>
 
 			</div>
-			<div class="modal-body pd60 h850-o">
-				<div class="ad-text">
+			<div class="modal-body pd60 h850-o" id="artstInfoModal">
+				<!-- <div class="ad-text">
 					<h3>이 용은</h3>
 					<h4>Lee Yongeun</h4>
 					<p>
@@ -307,18 +301,13 @@
 						<p>2013 가미갤러리 초대작가전, 가미갤러리</p>
 						<p>2013 블라블라, 인사토포하우스</p>
 					</dd>
-				</dl>
+				</dl> -->
 			</div>
 		</div>
 	</div>
-	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </div>
 
-<script type="text/javascript">
-      
-
-
-      
+<script th:inline="javascript">
       $(window).on("resize", function () {
 	   	    if(window.matchMedia('(min-width: 1537px)').matches)
 	   	    {
@@ -437,12 +426,181 @@
       	}, delay);
       	
       });
+var artstInfo = [[${result}]];
+$(function() {    
+	var workList = artstInfo.workList;
+	var career = artstInfo.career;
+	var eductn = artstInfo.eductn;
+	var exhbtn = artstInfo.exhbtn;
+	var workListHtml = "";
+	var artstInfoHtml = "";
+	var artstInfoHtml2 = "";
+	if(artstInfo == null){
+		alert("검색 결과가 없습니다.");
+	}else{
+		$("#columns2").empty();
+	}
+	for(var i=0; i<workList.length; i++){
+		workListHtml += '<figure class="item" id="'+ workList[i].workSq +'">';
+		workListHtml += '	<div class="heart on"></div>';
+		if(workList[i].dealTypCd == "AUCT" && workList[i].dealSttsCd == "IP"){
+			workListHtml += '	<div class="item-div-img active">';
+			workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+			workListHtml += '		<div class="item-ho">';
+			workListHtml += '			<p>'+ workList[i].dealStrtDate +' - '+ workList[i].dealEndngDate +'</p>';
+			workListHtml += '			<p> 응찰수 : '+ workList[i].bidCnt +'</p>';
+			workListHtml += '				<ul><li>'+ workList[i].dealRemainingDay +'<span>day</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingHour +'<span>hrs</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingMin +'<span>min</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			workListHtml += '				<h4>시작가 : '+ formatComma(workList[i].dealStrtPrc) +'</h4>';
+			workListHtml += '	</div>';
+		}
+		if(workList[i].dealTypCd == "SALE" && workList[i].dealTypCd == "IP"){
+			workListHtml += '	<div class="item-div-img sale">';
+			workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+			workListHtml += '		<div class="item-ho2 sale-div">';
+			workListHtml += '			<h3>판매중</h3>';
+			workListHtml += '				<ul><li>'+ workList[i].dealRemainingDay +'<span>day</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingHour +'<span>hrs</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingMin +'<span>min</span></li>';
+			workListHtml += '				<li>'+ workList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			workListHtml += '	</div>';
+		}
+		if(workList[i].dealTypCd == "EN"){
+			workListHtml += '	<div class="item-div-img sold-3">';
+			workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+			workListHtml += '	</div>';
+		}
+		workListHtml += '	<div class="item-body">';
+		workListHtml += '		<div class="uesr-s">';
+		if(workList[i].artstProfileImgUrl == null || workList[i].artstProfileImgUrl == ""){
+			workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+		}else{
+			workListHtml += '		<img src="'+ workList[i].artstProfileImgUrl +'"/>';
+		}
+		workListHtml += '		</div>';
+		workListHtml += '		<div class="text-s">';
+		workListHtml += '			<h3>'+ workList[i].artstActvtyNm +' ('+ workList[i].artstBirthYear +')</h3>';
+		workListHtml += '			<p class="ts-1">'+ workList[i].workNm +' ('+ workList[i].workProdcYear +')</p>';
+		workListHtml += '			<p>'+ workList[i].workMatrl +'</p>';
+		workListHtml += '			<p>'+ workList[i].workSizeDepth +'x'+ workList[i].workSizeWidth +'</p>';
+		if(workList[i].dealTypCd == "AUCT"){
+			workListHtml += '			<h4>입찰가 '+ workList[i].maxBidPrc +'</h4>';
+			workListHtml += '			<p class="ts-2">';
+			workListHtml += '			'+ workList[i].dealStrtDate +' – '+ workList[i].dealEndngDate +'<br/>';
+			workListHtml += '			응찰수 : '+ workList[i].bidCnt +'<br/>';
+			workListHtml += '			'+ workList[i].dealRemainingDay +'일 '+ workList[i].dealRemainingHour +'시 '+ workList[i].dealRemainingMin +'분 '+ workList[i].dealRemainingSec +'초';
+			workListHtml += '			</p>';
+		}
+		if(workList[i].dealTypCd == "SALE"){
+			workListHtml += '			<h4>판매가 '+ workList[i].maxBidPrc +'</h4>';
+		}
+		workListHtml += '		</div>';
+		if(workList[i].authSq == 2){
+			workListHtml += '	<div class="artist active"><span>Artist</span></div>';
+		}
+		if(workList[i].authSq == 1){
+			workListHtml += '	<div class="artist"><span>Artist</span></div>';
+		}
+		workListHtml += '	</div>';
+		workListHtml += '</figure>';
+	}
+	$("#columns2").append(workListHtml).trigger("create");
+	
+	$("#artstInfo").empty();
+	$("#artstInfoModal").empty();
+	artstInfoHtml2 += '<div class="cont-title3 mg-at">';
+	artstInfoHtml2 += '<h3>Artist library</h3>';
+	artstInfoHtml2 += '</div>';
+	artstInfoHtml2 += '<div class="ad-sty">';
+	artstInfoHtml2 += '<div class="ad-user"><img src="resources/img/icon/user-2.png" /></div>';
+	//artstInfo += '<div class="ad-user"><img src="'+ artstInfo.artstProfileImgUrl +'" /></div>';
+	artstInfoHtml += '<div class="ad-text">';
+	artstInfoHtml += '	<h3>'+ artstInfo.artistInfo.artstActvtyNm +'</h3>';
+	artstInfoHtml += '	<h4>'+ artstInfo.artistInfo.artstEnglsNm +'</h4>';
+	artstInfoHtml += '	<p>'+ artstInfo.artistInfo.artstSelfIntro +'</p>';
+	artstInfoHtml += '</div>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '<dt>SNS</dt>';
+	artstInfoHtml += '<dd>';
+	artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" class="if-img"><img src="resources/img/icon/i-1.png" /></a>';
+	artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" class="if-img"><img src="resources/img/icon/i-2.png" /></a>';
+	artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>';
+	artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>';
+	artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>';
+	artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>';
+	artstInfoHtml += '</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>홈페이지</dt>';
+	artstInfoHtml += '	<dd>';
+	artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '	<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>학력</dt>';
+	artstInfoHtml += '	<dd>';
+	for(var i=0; i<eductn.length; i++){
+		artstInfoHtml += '		<p>'+ eductn[i].eductnEndngDate +' '+ eductn[i].eductnNm +'</p>';
+	}
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>경력</dt>';
+	artstInfoHtml += '	<dd>';
+	for(var i=0; i<career.length; i++){
+		artstInfoHtml += '		<p>'+ career[i].careerEndngDate +' '+ career[i].careerNm +'</p>';
+	}
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>전시 정보</dt>';
+	artstInfoHtml += '	<dd>';
+	for(var i=0; i<exhbtn.length; i++){
+		artstInfoHtml += '		<p>'+ exhbtn[i].exhbtnEndngDate +' '+ exhbtn[i].exhbtnNm +'</p>';
+	}
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>수상</dt>';
+	artstInfoHtml += '	<dd>';
+	artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
+	artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
+	artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
+	artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
+	artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
+	artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>인터뷰영상</dt>';
+	artstInfoHtml += '	<dd>';
+	artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstPromtnVideoUrl +'</p>';
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	artstInfoHtml += '<dl class="ad-dl">';
+	artstInfoHtml += '	<dt>논문, 평론, 기사</dt>';
+	artstInfoHtml += '	<dd>';
+	artstInfoHtml += '		<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p>';
+	artstInfoHtml += '		<p>2013 50만원 전, 경민미술관</p>';
+	artstInfoHtml += '		<p>2013 가미갤러리 초대작가전, 가미갤러리</p>';
+	artstInfoHtml += '		<p>2013 블라블라, 인사토포하우스</p>';
+	artstInfoHtml += '	</dd>';
+	artstInfoHtml += '</dl>';
+	$("#artstInfo").append(artstInfoHtml2).trigger("create");
+	$("#artstInfo").append(artstInfoHtml).trigger("create");
+	var artstInfoButton = '<button type="button" class="the-more2 mg_t60" data-toggle="modal" data-target="#artstInfoMore">더보기</button>';
+	$("#artstInfo").append(artstInfoButton).trigger("create");
+	$("#artstInfoModal").append(artstInfoHtml).trigger("create");
+	var moreButton = '<button type="button" class="btn-more"><span>more</span></button>';
+	$("#moreButton").append(moreButton).trigger("create");
+});
+
       
       
       
-      
-      
-    </script>
+</script>
     
 	
 	
