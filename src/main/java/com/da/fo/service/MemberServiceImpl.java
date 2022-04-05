@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService  {
 	//회원정보 입력
 	@Override
 	public void memberUpdate(Map<String, Object> param){
-		memberDao.memberUpdate(param);
+		memberDao.memberUpdate(param); 
 	}
 	
 	/*

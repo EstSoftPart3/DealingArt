@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap pop-wrap">
+					<div class="con-left">
+					
+						<div class="cont-title4">
+							<h3>My Gallery</h3>
+						</div>
+						
+						<div class="con-btn">
+							<a href="/collectible"><img src="/resources/img/mypage/mycon-3.png" /></a>
+						</div>
+					
+						<!-- left Include  -->
+						<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					</div>
+					
+					<div class="con-right">
+					
+						<div class="reds-box mg_t150 por">
+							<ul class="pc-on">
+								<li>
+									<a href="#" class="up-on">
+										최신 순
+									</a>
+								</li>
+								<li>
+									<a href="#" class="down-on">
+										제작년도
+									</a>
+								</li>
+								<li>
+									<a href="#" class="">
+										작가명 <span>ㄱ</span> - <span>ㅎ</span>
+									</a>
+								</li>
+								<li>
+									<a href="#" class="">
+										작가명 <span>A</span> - <span>Z</span>
+									</a>
+								</li>
+							</ul>
+							<div class="med-ic">
+								<div class="por">
+									<div class="tootip-5">설정/공유</div>
+									<img src="/resources/img/mypage/icon-8.png" class="med-me">
+								</div>
+							</div>
+						</div>
+						
+						<div>
+							<div class="columns-wrap2" id="columns2">
+								
+								<figure class="item">
+								
+									<!-- 하트 on하면 색상 -->
+									<div class="heart on"></div>
+									
+									<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->
+									<div class="item-div-img reg">
+										<img src="/resources/img/de/be-bg1.png">
+										
+										<div class="item-ho">
+											<p>2022. 01. 01 – 2022. 01.30</p>
+											<p>응찰수 : 12</p>
+											<ul>
+												<li>03<span>day</span></li>
+												<li>03<span>hrs</span></li>
+												<li>03<span>min</span></li>
+												<li>03<span>sec</span></li>
+											</ul>
+											<h4>시작가  3,700,000 원</h4>
+										</div>
+										
+										<div class="item-ho2 sale-div">
+											<h3>판매중</h3>
+											<ul>
+												<li>03<span>day</span></li>
+												<li>03<span>hrs</span></li>
+												<li>03<span>min</span></li>
+												<li>03<span>sec</span></li>
+											</ul>
+										</div>
+										
+										<div class="item-ho2 auction-div">
+											<h3>경매중</h3>
+											<ul>
+												<li>03<span>day</span></li>
+												<li>03<span>hrs</span></li>
+												<li>03<span>min</span></li>
+												<li>03<span>sec</span></li>
+											</ul>
+										</div>
+										
+										<!-- 임시저장 -->
+										<div class="item-ho3 save-div">
+											<div class="saves">
+												<img src="/resources/img/mypage/icon-7.png" />
+												<span class="saves-text">임시저장</span>
+											</div>
+										</div>	
+										
+										<!-- 등록수정버튼 -->
+										<div class="item-ho3 reg-div">
+											<div class="regs">
+												<a href="#" class="reg-a"><span>거래 등록</span></a>
+												<a href="#" class="cor-a"><span>작품 수정</span></a>
+											</div>
+										</div>
+									</div>
+									
+									<!-- 하단텍스트 -->
+									<div class="item-body">
+										<div class="uesr-s">
+											<img src="/resources/img/de/ues-icon.png" />
+										</div>
+										<div class="text-s">
+											<h3>작가명 (1983년생)</h3>
+											<p class="ts-1">작품명 입니다작품명입니다작품명입니다(2021...</p>
+											<p>Oil & Canvas</p>
+											<p>72.7x90.9cm</p>
+											
+											<h4>판매가 3,700,000</h4>
+											
+											<!-- <p class="ts-2">
+												2022. 01. 01 – 2022. 01.30<br/>
+												응찰수 : 12<br/>
+												03일   07시    10분   30초 
+											</p> -->
+										</div>
+										
+										<!-- artist active넣어야지나옴 -->
+										<div class="artist active"><span>Artist</span></div>
+									</div>
+									
+								</figure>
+						
+								<figure class="item">
+									<!-- 하트 on하면 색상 -->
+									<div class="heart"></div>
+									
+									<!-- sold-1 ~ 4 넣으면 나옵니다 -->
+									<div class="item-div-img sold-2">
+										<img src="/resources/img/de/be-bg2.png">
+									</div>
+									
+									<!-- 하단텍스트 -->
+									<div class="item-body">
+										<div class="uesr-s">
+											<img src="/resources/img/de/ues-icon.png" />
+										</div>
+										<div class="text-s">
+											<h3>작가명 (1983년생)</h3>
+											<p class="ts-1">작품명 입니다작품명입니다작품명입니다(2021...</p>
+											<p>Oil & Canvas</p>
+											<p>72.7x90.9cm</p>
+											
+											<h4>판매가 3,700,000</h4>
+											
+										</div>
+										
+										<!-- artist -->
+										<div class="artist"><span>Artist</span></div>
+									</div>
+								</figure>
+								
+								<figure class="item">
+									<!-- 하트 on하면 색상 -->
+									<div class="heart"></div>
+									
+									<div class="item-div-img sale">
+										<img src="/resources/img/de/be-bg3.png">										
+									</div>
+									
+									<!-- 하단텍스트 -->
+									<div class="item-body">
+										<div class="uesr-s">
+											<img src="/resources/img/de/ues-icon.png" />
+										</div>
+										<div class="text-s">
+											<h3>작가명 (1983년생)</h3>
+											<p class="ts-1">작품명 입니다작품명입니다작품명입니다(2021...</p>
+											<p>Oil & Canvas</p>
+											<p>72.7x90.9cm</p>
+											
+											<h4>판매가 3,700,000</h4>
+										</div>
+										
+										<!-- artist -->
+										<div class="artist"><span>Artist</span></div>
+									</div>
+								</figure>
+								
+							</div>
+						</div>
+						
+						<div class="text-center mg_t50">
+							<button type="button" class="btn-more"><span>more</span></button>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		
+	</div>
+
+<!-- 모달검색 -->
+
+
+
+<script type="text/javascript">      
+      
+      $(window).on("resize", function () {
+	   	    if(window.matchMedia('(min-width: 1537px)').matches)
+	   	    {
+		   	    document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	  
+		       	  
+	   	    	
+	   	    	
+	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+	   	    	
+		   	      document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
+		       	  wrap.style.gridAutoRows = "1px";
+		       	
+	   	    	
+	   	     } else {
+	   	    	var swiper = new Swiper(".mySwiper2", {
+	   	          slidesPerView: 1,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swiper-button-next",
+	   	            prevEl: ".swiper-button-prev",
+	   	          },
+	   	     });
+	   	    	
+	   	    	document.querySelectorAll(".item").forEach((item) => {
+		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+		       	  });
+		       	  const wrap = document.querySelector(".columns-wrap2");
+		       	  wrap.style.display = "grid";
+		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
+		       	  wrap.style.gridAutoRows = "1px";
+	   	    	
+	       	  
+	   	     };
+	   	}).resize();
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

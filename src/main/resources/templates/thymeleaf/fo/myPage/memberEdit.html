@@ -14,8 +14,16 @@
 			<div class="contents">
 			 	<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				<div class="con-wrap2">
-				    <!-- left Include  -->
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+				    
+				    <div class="con-left2">
+					
+						<div class="cont-title4">
+							<h3>회원정보 수정</h3>
+						</div>
+						
+						<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					</div>
 					
 					<div class="con-right2">
 					
