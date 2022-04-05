@@ -123,8 +123,9 @@ public class MemberController {
 		param.put("email", loginId);
 		param.put("email", loginId);
 		param.put("password", loginPw);
+		//탈퇴된 회원인지 체크
 		int chk = memberService.memberWithdrawalCheck(param);
-		if(chk > 0) {
+		if(chk > 0) { //탈퇴된 회원이면 2를 반환
 			mv.addObject("login", "2");
 			mv.addObject("sMbrSqVal", "");
 			return mv;
@@ -133,13 +134,17 @@ public class MemberController {
 			
 			if(result != null) {
 				String mbrSq = result.get("mbrSq").toString();
+				String authSq = result.get("authSq").toString();
 				session.setAttribute("mbrSq", mbrSq);
+				session.setAttribute("authSq", authSq);
 				mv.addObject("login", "1");
 				mv.addObject("sMbrSqVal", mbrSq);
+				mv.addObject("sAuthSqVal", authSq);
 				return mv;
 			}else{
 				mv.addObject("login", "0");
-				mv.addObject("sMbrSqVal", "");
+				mv.addObject("sMbrSqVal", null);
+				mv.addObject("sAuthSqVal", null);
 				return mv;
 			}
 			
@@ -163,13 +168,15 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("jsonView");
 		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        
-			
 		    String mbrSq = (String) session.getAttribute("mbrSq");
+		    String authSq = (String) session.getAttribute("authSq");
 		    session.setAttribute("sMbrSqVal", mbrSq);
+		    session.setAttribute("authSq", authSq);
 		    mv.addObject("sMbrSqVal", mbrSq);
-			
+		    mv.addObject("sAuthSqVal", authSq);
 		}else{
 			mv.addObject("sMbrSqVal", null);
+			mv.addObject("sAuthSqVal", null);
 		}
 		
 		return mv;

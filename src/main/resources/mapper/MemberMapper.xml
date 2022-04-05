@@ -117,8 +117,10 @@
 	</update>
    
    <select id="login" resultType="hashMap" parameterType="hashMap">
+   /* 회원 로그인 */
 		SELECT 	
-				MBR_SQ AS mbrSq
+				MBR_SQ AS mbrSq,
+				AUTH_SQ AS authSq
 		FROM 	
 				TBL_DA_MBR_M
 		WHERE 	
@@ -128,6 +130,7 @@
    </select>
    
    <update id="memberWithdrawal" parameterType="hashMap">
+   /* 회원 탈퇴 */
    		UPDATE 	TBL_DA_MBR_M
    		
    		SET		USE_YN = 'N',
@@ -140,6 +143,7 @@
    </update>
    
    <select id="memberWithdrawalCheck" resultType="int" parameterType="hashMap">
+   /* 회원 탈퇴 여부 */
    		SELECT 	
    				COUNT(MBR_SQ)
    		FROM 

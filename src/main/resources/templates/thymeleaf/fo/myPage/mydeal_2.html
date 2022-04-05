@@ -368,6 +368,12 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
+
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+});
 </script>
     
 	

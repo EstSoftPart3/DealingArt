@@ -36,6 +36,7 @@
 	<div class="head-wrap">
 	<!-- Session GET -->
 	<div th:text="${session.sMbrSqVal}" style="display:none"></div>
+	<div th:text="${session.sAuthSqVal}" style="display:none"></div>
 	<input type="hidden" id="sMbrSqVal">
 		
 		<div class="head">
@@ -62,10 +63,10 @@
 					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
-							<li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-2.jpg" /><span>경매 / 거래 내역</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-3.jpg" /><span>마이 콜렉션</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
+							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>경매 / 거래 내역</span></a></li>
+							<li><a href="/myCollection"><img src="resources/img/ic-3.jpg" /><span>마이 콜렉션</span></a></li>
+							<li><a href="/scrap"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
 							<li><a href="#"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
 						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
@@ -269,10 +270,11 @@
 
 <script th:inline="javascript">
 var sMbrSqVal = "";
+var sAuthSqVal = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
 //Session GET
-window.onload = function() {
+jQuery(document).ready(function() {
 	$.ajax({
         type: "post",
         url: "/loginSession",
@@ -282,18 +284,20 @@ window.onload = function() {
         		loginBf.setAttribute("style", "display:none;");
 				loginAf.setAttribute("style", "");
 				sMbrSqVal = data.sMbrSqVal;
+				sAuthSqVal = data.sAuthSqVal;
         		$("#sMbrSqVal").val(data.sMbrSqVal);	
         	}else{
+        		sMbrSqVal = data.sMbrSqVal;
+				sAuthSqVal = data.sAuthSqVal;
         		loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
-				sMbrSqVal = "";
         	}
         },
         error: function(error) {
             alert("오류 발생" + error);
         }
 	})
-}
+});
 
 //로그인 기능
 function login(){
@@ -316,17 +320,23 @@ function login(){
 				var login = data.login;
 				sMbrSqVal = data.sMbrSqVal;
 				if(login == 1){
-					modalAlertShow("성공적으로 로그인이 되었습니다.", "");
+					modalAlertShow("성공적으로 로그인이 되었습니다.", "reload");
 					$('#loginModal').modal("hide");
 					$("#sMbrSqVal").val(data.sMbrSqVal);
+					sMbrSqVal = data.sMbrSqVal;
+					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "display:none;");
 					loginAf.setAttribute("style", "");
 				}else if (login == 2){
-					modalAlertShow("탈퇴한 회원입니다.", "txt_Id");
+					modalAlertShow("탈퇴한 회원입니다.", "reload");
+					sMbrSqVal = data.sMbrSqVal;
+					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
 				}else if (login == 0){
-					modalAlertShow("회원정보가 존재하지 않습니다.", "txt_Id");
+					modalAlertShow("회원정보가 존재하지 않습니다.", "reload");
+					sMbrSqVal = data.sMbrSqVal;
+					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
 				}
@@ -345,10 +355,10 @@ function logout(){
 		type:"post",
 		success:function(data){
 			if(data != null && data != ""){
-				modalAlertShow("로그아웃 되었습니다.", "");
-				mbrSq = "";
+				sMbrSqVal = null;
 				loginBf.setAttribute("style", "");
-				loginAf.setAttribute("style", "display:none;");
+				loginAf.setAttribute("style", "display:none;");3
+				modalAlertShow("로그아웃 되었습니다.", "reload");
 	    	}
 		},
 		error: function(request, status, error){
@@ -385,9 +395,9 @@ function modalConfirm(title, msg, callback){
 	Html += '		</div>';
 	Html += '		<div class="modal-body">';
 	Html += '			<div class="md-box-1">';
-	Html += '				<p class="min-h240">';
+	Html += '				<h4 class="min-h240">';
 	Html += msg;
-	Html += '				</p>';
+	Html += '				<h4>';
 	Html += '				<div class="baeg-btn mg_t30">';
 	Html += '					<a href="#"><button type="button" class="baeg-b1" id="ModalConfirm_Ok">확인</button></a>';
 	Html += '					<a href="#" data-dismiss="modal" aria-label="Close" id="ModalConfirm_Cancel"><button type="button" class="baeg-b2">취소</button></a>';
@@ -612,6 +622,10 @@ function modalAlertClose(obj) {
 	
 	$('#ModalAlert').modal('hide');
 	
+	if(obj == "reload"){
+		location.reload();
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');
@@ -627,6 +641,8 @@ function modalAlertClose(obj) {
 		$('#'+obj).focus();
 		return;
 	}
+	
+	
 }
 
 //아이디 중복 체크

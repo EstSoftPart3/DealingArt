@@ -513,15 +513,17 @@
     	});
       
       
-$(function() { 
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
 	$("#conTitle").empty();
 	$("#conBtn").empty();
 	var conBtn = document.getElementById("conBtn");
 	conBtn.style.display = "";
 	var conTitleHtml = "";
-	var conBtnHtml = "";
-	conBtnHtml += '<h3>My Gallery</h3>';
-	$("#conTitle").append(conBtnHtml).trigger("create");
+	conTitleHtml += '<h3>My Gallery</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
 	conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
 });
 

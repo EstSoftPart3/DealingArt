@@ -295,86 +295,87 @@
 
 <script type="text/javascript">      
       
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ 
+ $(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ 
+ /* jQuery(function($) {
 
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
+    window.onresize = function(){
+      document.location.reload();
+    };
 
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
+}); */
+ 
+ 
+ 
+ var delay = 300;
+ var timer = null;
 
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+ //Javascript
+ window.addEventListener('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
 
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+ //jQuery
+ $(window).on('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
       
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-      //$('.selectpicker').selectpicker();
-      
-    </script>
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+});
+</script>
     
 	
 	
