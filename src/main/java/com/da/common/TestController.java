@@ -66,6 +66,16 @@ public class TestController {
 		return "index";
 	}
 	
+	@RequestMapping("/checkplus_success")
+	public String checkplusSuccess() {
+		return "checkplus_success";
+	}
+	
+	@RequestMapping("/checkplus_fail")
+	public String checkplusFail() {
+		return "checkplus_fail";
+	}
+	
 	@RequestMapping("/test-sms")
 	public String testSms() {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();

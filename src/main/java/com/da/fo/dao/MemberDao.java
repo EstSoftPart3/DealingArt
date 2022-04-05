@@ -94,12 +94,19 @@ public class MemberDao {
 			 String mbrCpNumDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrCpNum"));
 			 //집주소 복호화
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
+			 //이메일 이벤트 알림
+			 String mbrEmlAlarm = (String) memberContent.get(z).get("mbrEmlAlarm");
+			 //휴대폰 이벤트 알림
+			 String mbrCpAlarm = (String) memberContent.get(z).get("mbrCpAlarm");
 						
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);
 			 memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
+			 memberContent.get(z).put("mbrEmlAlarm", mbrEmlAlarm);
+			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
+			 
 		  }
 		
 		result.put("memberContent", memberContent);

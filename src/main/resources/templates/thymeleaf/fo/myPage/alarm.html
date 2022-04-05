@@ -14,10 +14,19 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
 		<div class="body-wrap">
 			<div class="contents">
-				
+				<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				<div class="con-wrap">
-					 <!-- left Include  -->
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+				
+					<div class="con-left2">
+					
+						
+						<div class="cont-title4">
+							<h3>회원정보 수정</h3>
+						</div>
+						
+						<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					</div>
 					
 					<div class="con-right">
 					
@@ -29,19 +38,19 @@
 									<dt>이메일</dt>
 									<dd>
 										<p class="btn-switch">					
-											<input type="radio" id="yes" name="switch" class="btn-switch__radio btn-switch__radio_yes" />
-											<input type="radio" checked id="no" name="switch" class="btn-switch__radio btn-switch__radio_no" />		
-											<label for="yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
-											<label for="no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
+											<input type="radio" id="eml_yes" name="eml_switch" class="mbrEmlAlarm btn-switch__radio btn-switch__radio_yes" value="Y"/>
+											<input type="radio" checked id="eml_no" name="eml_switch" class="mbrEmlAlarm btn-switch__radio btn-switch__radio_no" value="N"/>		
+											<label for="eml_yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
+											<label for="eml_no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
 										</p>
 									</dd>
 									<dt>문자 메세지</dt>
 									<dd>
 										<p class="btn-switch">					
-											<input type="radio" id="yes" name="switch" class="btn-switch__radio btn-switch__radio_yes" />
-											<input type="radio" checked id="no" name="switch" class="btn-switch__radio btn-switch__radio_no" />		
-											<label for="yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
-											<label for="no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
+											<input type="radio" id="cp_yes" name="cp_switch" class="mbrCpAlarm btn-switch__radio btn-switch__radio_yes" value="Y"/>
+											<input type="radio" checked id="cp_no" name="cp_switch" class="mbrCpAlarm btn-switch__radio btn-switch__radio_no" value="N"/>		
+											<label for="cp_yes" class="btn-switch__label btn-switch__label_yes"><span class="btn-switch__txt"></span></label>
+											<label for="cp_no" class="btn-switch__label btn-switch__label_no"><span class="btn-switch__txt"></span></label>							
 										</p>
 									</dd>
 								</dl>
@@ -57,7 +66,112 @@
 	</div>
 
 
-<script type="text/javascript">      
+<script type="text/javascript"> 
+
+//회원 정보 호출
+function memberContentData(mbrSq) {
+	
+	console.log("memberContentData : "+ mbrSq);
+	
+	$.ajax({
+           type: "post",
+           url: "/myPage/memberContentData",
+           data: {
+        	   mbrSq : mbrSq
+            },
+           success: function(data) {
+        	 
+        	 if (typeof data != "undefined") {
+        	 
+        		console.log(data);   
+        	 	dataContent = data.memberContentData.memberContent[0];
+        	 
+        	 	
+        	 	var mbrEmlAlarm = dataContent.mbrEmlAlarm	//이메일 설정 알람
+        	 	var mbrCpAlarm = dataContent.mbrCpAlarm		//휴대폰 설정 알람
+        	 	
+        	 	$(".mbrEmlAlarm:input[value='"+mbrEmlAlarm+"']").prop("checked", true);
+        	 	$(".mbrCpAlarm:input[value='"+mbrCpAlarm+"']").prop("checked", true);
+        	 	 
+        	 	
+        	 	console.log("mbrEmlAlarm :"+mbrEmlAlarm);
+        	 	console.log("mbrCpAlarm :"+mbrCpAlarm);
+        	 
+        	 }
+           },
+           error: function(error) {
+        	   var errorJson = JSON.stringify(error);
+               console.log(errorJson);
+           }
+	})
+}
+
+$( document ).ready(function() {
+	
+ 	var sMbrSq = $("#mbrSq").html();
+ 	
+	 memberContentData(sMbrSq);
+	 
+	 $("input[name='eml_switch']:radio").change(function () {
+	        
+	        var sMbrSq = $("#mbrSq").html();
+	        var emlSwitchValue = this.value;
+	        
+	        let params = {
+	        	mbrSq : sMbrSq,
+	        	mbrEmlAlarm : emlSwitchValue
+	        }
+	       
+	        $.ajax({
+	            type: "post",
+	            url: "/myPage/memberUpdateData",
+	            data: params,
+	            success: function(data) {
+	         	 
+	         	 if (typeof data != "undefined") {
+	         	 
+	         		console.log(data);   
+	         	 }
+	            },
+	            error: function(error) {
+	         	   var errorJson = JSON.stringify(error);
+	                console.log(errorJson);
+	            }
+	 	})
+	});
+	 
+	 $("input[name='cp_switch']:radio").change(function () {
+	        
+	        var sMbrSq = $("#mbrSq").html();
+	        var cpSwitchValue = this.value;
+	        
+	        let params = {
+	        	mbrSq : sMbrSq,
+	        	mbrCpAlarm : cpSwitchValue
+	        }
+	       
+	        $.ajax({
+	            type: "post",
+	            url: "/myPage/memberUpdateData",
+	            data: params,
+	            success: function(data) {
+	         	 
+	         	 if (typeof data != "undefined") {
+	         	 
+	         		console.log(data);   
+	         	 }
+	            },
+	            error: function(error) {
+	         	   var errorJson = JSON.stringify(error);
+	                console.log(errorJson);
+	            }
+	 	})
+	});
+	 
+});
+
+
+
 $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches){
   	    document.querySelectorAll(".item").forEach((item) => {

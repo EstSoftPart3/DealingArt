@@ -87,6 +87,8 @@
 			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
 			,USE_YN               AS useYn
 			,DEL_YN				  AS delYn
+			,MBR_EML_ALARM		  AS mbrEmlAlarm
+			,MBR_CP_ALARM		  AS mbrCpAlarm
 
         FROM
             TBL_DA_MBR_M A 
@@ -112,6 +114,8 @@
 			UPDT_DT = NOW(),
 			<if test="useYn          != null">USE_YN = #{useYn},</if>
 			<if test="delYn          != null">DEL_YN = #{delYn},</if>
+			<if test="mbrEmlAlarm    != null">MBR_EML_ALARM = #{mbrEmlAlarm},</if>
+			<if test="mbrCpAlarm    != null">MBR_CP_ALARM = #{mbrCpAlarm},</if>
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}
 	</update>
