@@ -177,7 +177,7 @@
 						<input type="text" class="input-3" placeholder="아이디/이메일" id="txt_Id"/>
 					</div>
 					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호" id="txt_Pw"/>
+						<input type="password" class="input-3" placeholder="비밀번호" onkeydown="javascript: if (event.keyCode == 13) {login();}"id="txt_Pw"/>
 					</div>
 					<div class="radio-3 rad-mg">
 						<input type="radio" id="r1" name="rr">
@@ -267,7 +267,7 @@
 
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
-<script type="text/javascript">
+<script th:inline="javascript">
 var sMbrSqVal = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
@@ -643,11 +643,11 @@ $("#mbrId").blur(function() {
 		
 		$.ajax({
 			   type: "post",
-			   url: "/admin/member/memberChkData",
+			   url: "/myPage/memberIdChkData",
 			   data: param,
 			   success: function(data) {
 				   
-				dataCheckCount = data.memberCheck.memberCheck[0];
+				dataCheckCount = data.memberCheck.memberIdCheck[0];
 				
 				console.log("dataCheckCount :"+dataCheckCount);
 				

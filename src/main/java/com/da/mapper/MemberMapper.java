@@ -8,10 +8,15 @@ public interface MemberMapper {
 	//회원 가입
 	public void memberInsert(Map<String, Object> param);
 	
-	
 	//회원 수정
 	public void memberUpdate(Map<String, Object> param);
 	
+	//회원 아이디 중복 체크
+	public List memberIdCheck(Map<String, Object> param);
+	
+	//회원 상세
+	public List memberContent(Map<String, Object> param);
+		
 	/*
 	 * 로그인 기능
 	 * param : loginId, loginPw
@@ -33,7 +38,6 @@ public interface MemberMapper {
 	 */
 	int memberWithdrawalCheck(Map<String, Object> param);
 	
-	//회원 상세
-	public List memberContent(Map<String, Object> param);
+	
 
 }

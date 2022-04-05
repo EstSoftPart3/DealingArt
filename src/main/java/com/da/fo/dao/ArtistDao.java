@@ -34,4 +34,26 @@ public class ArtistDao {
 		result.put("seniorArtist", seniorArtist);
 		return result;
 	}
+	
+	/*
+	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트 정보를 불러온다.
+	 * param : artstSq
+	 * return : 검색 결과
+	 */
+	public Map<String, Object> artistDetail(int artstSq){
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> param = new HashMap<>();
+		param.put("artstSq", artstSq);
+		Map<String, Object> artistInfo = artistMapper.artistInfo(param);
+		List eductn = artistMapper.artistInfoEductn(param);
+		List career = artistMapper.artistInfoCareer(param);
+		List exhbtn = artistMapper.artistInfoExhbtn(param);
+		List workList = artistMapper.artistWorkList(param);
+		result.put("artistInfo", artistInfo);
+		result.put("eductn", eductn);
+		result.put("career", career);
+		result.put("exhbtn", exhbtn);
+		result.put("workList", workList);
+		return result;
+	}
 }

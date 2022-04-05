@@ -5,8 +5,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,5 +34,16 @@ public class ArtistController {
 		Map<String, Object> result = artistService.openArtistLibrary();
 		mv.addObject("result", result);
 		return mv;
+	}
+	
+	@RequestMapping("/artistDetail")
+	@ResponseBody
+	public ModelAndView artistDetail(@RequestParam(value="artstSq", required = false) @Nullable int artstSq) {
+		System.out.println("################## artstSq : "+artstSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetail");
+		Map<String, Object> result = artistService.artistDetail(artstSq);
+		mv.addObject("result", result);
+		return mv;
+		
 	}
 }

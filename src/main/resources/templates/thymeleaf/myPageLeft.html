@@ -2,8 +2,10 @@
 
 <div th:fragment="myPageLeftFragment" class="con-left2">
 
-	<div class="cont-title4">
+	<div class="cont-title4" id="conTitle">
 		<h3>회원정보 수정</h3>
+	</div>
+	<div class="con-btn" id="conBtn">
 	</div>
 
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -19,7 +21,7 @@
 				<div class="panel-body">
 					<ul class="mypage-ul">
 						<li class=""><a href="#">거래 내역</a></li>
-						<li class=""><a href="#">등급 / 쿠폰 / 포인트</a></li>
+						<li class=""><a href="/coupon">등급 / 쿠폰 / 포인트</a></li>
 						<li class=""><a href="#">문의 내역</a></li>
 					</ul>
 				</div>
@@ -53,7 +55,7 @@
 			<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class=""><a href="#">소장품</a></li>
+						<li class=""><a href="/myCollection">소장품</a></li>
 						<li class=""><a href="#">스크랩</a></li>
 					</ul>
 				</div>
@@ -72,11 +74,15 @@
 					<ul class="mypage-ul"><!--class="active"-->
 						<li class=""><a href="/memberEdit">회원 정보 수정</a></li>
 						<li class=""><a href="/withdrawal">회원탈퇴</a></li>
-						<li class=""><a href="#">알림 설정</a></li>
+						<li class=""><a href="/alarm">알림 설정</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script th:inline="javascript">
+
+</script>
 		

@@ -21,17 +21,25 @@
 					
 						<div class="me-center">
 							<div class="member-box">
+								<div class=" inp-p radio-3">
+									<!-- 사용자 등뢴 이메일 변경 하지 않음 : 1 , 이메일변경 : 2 -->
+									<input type="checkbox" id="userInputEmailUsing" value="1" checked>
+									<label for="userInputEmailUsing"><span></span>등록된 아이디(이메일) 사용</label>
+									
+								</div>
 								<div class="input-box input-group">
 									<input type="hidden" id="uMbrSq" name="uMbrSq">
-									<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" />
-									<button type="button" class="group-btn" id="EmailCertification">인증하기</button>
+									<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly/>
+									<button type="button" class="group-btn" id="EmailCertification_tbd">인증하기</button>
 								</div>
 								<div class="input-box" style="text-align:center;display:none" id="emailCertCode">
-									<input  type="text" id="emailCert" name="emailCert" title="인증번호 입력" disabled required style="height:25px;"/>
+									<input  type="text" id="emailCert" name="emailCert" title="인증번호 입력" style="height:25px;"/>
 									<button type="button" class="ba-btn1" id="emailCertBtn" style="height:25px;padding-left:5px;padding-right:5px;"><span>이메일인증</span></button>
 									<input type="hidden" id="emailCertChk"/>
 								</div>
-								<p class="inp-p" id="uMbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+								
+								<p class="inp-p" id="emailCertificationCheck" style="display:none">이메일 인증 완료</p>
+								<p class="inp-p" id="uMbrIdCheck" style="display:none">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
 								
 								<div class="input-box">
 									<input type="password" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
@@ -48,10 +56,15 @@
 								</div>
 								<div class="input-box input-group">
 									<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum"/>
-									<button type="button" class="group-btn">인증하기</button>
+									<button type="button" class="group-btn" id="SmsCertification tbd">인증하기</button>
+								</div>
+								<div class="input-box" style="text-align:center;display:none" id="smsCertCode">
+									<input  type="text" id="smsCert" name="smsCert" title="인증번호 입력" style="height:25px;"/>
+									<button type="button" class="ba-btn1" id="smsCertBtn" style="height:25px;padding-left:5px;padding-right:5px;"><span>휴대폰인증</span></button>
+									<input type="hidden" id="smsCertChk"/>
 								</div>
 								<div class="input-box">
-									<p class="inp-p" id="uMbrCpNumCheck"></p>
+									<p class="inp-p" id="smsCertificationCheck" style="display:none">휴대폰 인증완료</p>
 								</div>
 								<div class="bat-box3 mg_t65">
 									<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
@@ -73,17 +86,33 @@
 
 <script type="text/javascript"> 
 
+//등록된 이메일 사용 여부
+$("#userInputEmailUsing").change(function(){
+	
+	 if($("#userInputEmailUsing").is(":checked")){
+         //체크박스 체크
+         $("#uMbrId").attr("readonly",true);
+         //설명 문구
+         $("#uMbrIdCheck").hide();
+	}else{
+    	//체크박스 체크 해제
+		$("#uMbrId").attr("readonly",false);
+    	//설명 문구
+    	$("#uMbrIdCheck").show();
+    	$("#uMbrIdCheck").html("주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.");
+    	$("#uMbrIdCheck").css("color","#999999");
+     }
+});
+
+
 //이메일 인증
 $("#EmailCertification").on('click', function(event){
-	
+
 	var mbrId = $("#uMbrId").val()
 	
 	var params = {
 		mbrId : mbrId	
 	}
-	
-	console.log("mbrId :"+mbrId);
-	
 	$.ajax({
 	     type: "post",
 	     url: "/myPage/memberUpdatEmailCertification",
@@ -91,7 +120,6 @@ $("#EmailCertification").on('click', function(event){
 	     success: function(data) {
 	    	 console.log(data);
 	    	 modalAlertShow("인증번호 발송이 완료되었습니다.<br>입력한 이메일에서 인증번호 확인을 해주십시오.","");
-	    	 $("#emailCert").attr("disabled",false);
 	    	 $("#emailCertCode").show();
 	    	 $("#emailCertChk").val(data);
 	   	 },
@@ -121,12 +149,57 @@ $("#emailCertBtn").click(function(){
 	}
 });
 
-//회원가입
+//휴대폰 인증
+$("#SmsCertification").click(function(){
+	var uMbrCpNum = $("#uMbrCpNum").val();
+	uMbrCpNum = uMbrCpNum.replaceAll('-', '');
+	
+	var params = {
+		uMbrCpNum : uMbrCpNum	
+	}
+	
+	$.ajax({
+	     type: "post",
+	     url: "/myPage/memberUpdatSMSCertification",
+	     data: params,
+	     success: function(data) {
+	    	 modalAlertShow("인증번호 발송이 완료되었습니다.<br>입력한 휴대폰에서 인증번호 확인을 해주십시오.",""); 
+	    	 $("#smsCertCode").show();
+	    	 $("#smsCertChk").val(data);
+	    	
+	   	 },
+	     error: function(error) {
+	  	   var errorJson = JSON.stringify(error);
+	         console.log(errorJson);
+	     }
+	})
+	
+});
+
+//휴대폰 인증 대조
+$("#smsCertBtn").click(function(){
+	
+	var smsCertChk = $("#smsCertChk").val();
+	var smsCert	= $("#smsCert").val();
+	
+	console.log("smsCertChk :"+smsCertChk);
+	console.log("smsCert :"+smsCert);
+	
+	if(smsCert == smsCertChk){
+		modalAlertShow("인증번호가 일치 합니다.",""); 
+		$("#smsCertCode").hide();
+		fn_validation('emailCertificationCheck',msg, 'R');
+		
+	}else{
+		modalAlertShow("인증번호가 일치하지 않습니다.","");
+	}
+});
+
+//회원수정
 $("#memberUpdateBtn").on('click', function(event){
 	
 	//회원번호
 	var mbrSq = $("#uMbrSq").val();
-	
 	//회원아이디
 	var mbrId = $("#uMbrId").val();
 	//비밀번호
@@ -146,6 +219,9 @@ $("#memberUpdateBtn").on('click', function(event){
 		fn_validation('uMbrIdCheck','이메일을 올바르게 입력해주세요.', 'R');
 		return;
 	}
+	 
+	$("#uMbrId").blur();
+	 
 	fn_validation('uMbrIdCheck','주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.', 'B');
 	//비밀번호--------------------------------------------------------------------//
 	if(isEmpty(mbrPasswrd)) {
@@ -269,66 +345,78 @@ $("#memberUpdateBtn").on('click', function(event){
 
 //아이디 중복 체크 2022-03-29
 $("#uMbrId").blur(function() {
-	var dataCheckCount = {};
 	
-	var mbrIdParam = $("#uMbrId").val();
+	var userInputEmailUsingChecked = $('#userInputEmailUsing').is(':checked');
+	console.log(userInputEmailUsingChecked);
 	
-	if(mbrIdParam) {
-	
-		let param = {
-			mbrId : mbrIdParam
+	if(userInputEmailUsingChecked != true) {
+		var dataCheckCount = {};
+		
+		var mbrIdParam = $("#uMbrId").val();
+		
+		if(isEmpty(mbrIdParam)) {
+			fn_validation('mbrIdCheck','이메일을 입력해주세요.', 'R');
+			return;
 		}
 		
-		$.ajax({
-			   type: "post",
-			   url: "/admin/member/memberChkData",
-			   data: param,
-			   success: function(data) {
-				   
-				dataCheckCount = data.memberCheck.memberCheck[0];
-				
-				console.log("dataCheckCount :"+dataCheckCount);
-				
-				if(dataCheckCount > 0) {
-								
-					var msg = "이미 가입된 이메일 주소입니다. 다른 이메일을 입력해 주세요.";
+		if(mbrIdParam) {
+		
+			let param = {
+				mbrId : mbrIdParam
+			}
+			
+			$.ajax({
+				   type: "post",
+				   url: "/myPage/memberIdChkData",
+				   data: param,
+				   success: function(data) {
+					   
+					dataCheckCount = data.memberCheck.memberIdCheck[0];
 					
-					fn_validation('uMbrIdCheck',msg, 'R');
-					fn_validation('uMbrPwdCheck','', 'B');
-					fn_validation('uMbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
-					fn_validation('uMbrNmCheck','', 'B');
-					$('#uMbrPwdCheckU').css('color','#999999');
-					$('#uMbrPwdCheckD').css('color','#999999');
+					console.log("dataCheckCount :"+dataCheckCount);
 					
-					return;
-				
-				} else {
+					if(dataCheckCount > 0) {
+									
+						var msg = "이미 가입된 이메일 주소입니다. 다른 이메일을 입력해 주세요.";
+						
+						fn_validation('uMbrIdCheck',msg, 'R');
+						fn_validation('uMbrPwdCheck','', 'B');
+						fn_validation('uMbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+						fn_validation('uMbrNmCheck','', 'B');
+						$('#uMbrPwdCheckU').css('color','#999999');
+						$('#uMbrPwdCheckD').css('color','#999999');
+						
+						return;
 					
-					if(!CheckEmail(mbrIdParam)) {
-						$('#uMbrIdCheck').html('이메일을 올바르게 입력해주세요.');
-						$('#uMbrIdCheck').css('color','red');
 					} else {
-						var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
-						fn_validation('uMbrIdCheck',msg, 'B');	
+						
+						if(!CheckEmail(mbrIdParam)) {
+							$('#uMbrIdCheck').html('이메일을 올바르게 입력해주세요.');
+							$('#uMbrIdCheck').css('color','red');
+						} else {
+							var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+							fn_validation('uMbrIdCheck',msg, 'B');	
+						}
+						
+						return;
 					}
-					
-					return;
-				}
-			   },
-			   error: function(error) {
-				   var errorJson = JSON.stringify(error);
-			       //alert("오류 발생" + errorJson);
-			       console.log(errorJson);
-			   }
-			})
-	} else {
-		
-		var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
-		
-		fn_validation('mbrIdCheck',msg, 'B');
-		
-		return;
-		
+				   },
+				   error: function(error) {
+					   var errorJson = JSON.stringify(error);
+				       //alert("오류 발생" + errorJson);
+				       console.log(errorJson);
+				   }
+				})
+		} else {
+			
+			var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
+			
+			fn_validation('mbrIdCheck',msg, 'B');
+			
+			return;
+			
+		}
+	
 	}
 });
 

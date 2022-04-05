@@ -47,6 +47,35 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/memberEdit";
 	}
 	
+	//소장품 등록
+	@RequestMapping("/collection_reg")
+	public String collectionReg() {
+		return "thymeleaf/fo/myPage/collection_reg";
+	}
+	
+	//소장품 수정
+	@RequestMapping("/collection_cor")
+	public String collectionCor() {
+		return "thymeleaf/fo/myPage/collection_cor";
+	}
+	
+	//알림
+	@RequestMapping("/alarm")
+	public String alarm() {
+		return "thymeleaf/fo/myPage/alarm";
+	}
+	
+	//알림
+	@RequestMapping("/coupon")
+	public String coupon() {
+		return "thymeleaf/fo/myPage/coupon";
+	}
+	
+	@RequestMapping("/myCollection")
+	public String myCollection() {
+		return "thymeleaf/fo/myPage/myCollection";
+	}
+	
 	@RequestMapping("/withdrawalSubmit")
 	@ResponseBody
 	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param) {

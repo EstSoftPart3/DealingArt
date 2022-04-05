@@ -63,4 +63,15 @@ public class MemberServiceImpl implements MemberService  {
 		
 		return result;
 	}
+	
+	//회원정보 아이디 중복 체크
+	@Override
+	public Map<String, Object> memberIdCheck(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberDao.memberIdCheck(param);
+		
+		return result;
+	}
 }
