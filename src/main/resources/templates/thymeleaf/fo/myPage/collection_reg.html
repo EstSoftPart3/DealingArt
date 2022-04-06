@@ -226,182 +226,178 @@
 
 <script type="text/javascript">      
 
+/* 파일업로드 */
+$(document).ready(function(){
+  var fileTarget = $('.filebox .upload-hidden');
+
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            var filename = $(this)[0].files[0].name;
+        } else {
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+}); 
 
 
-
-	/* 파일업로드 */
-	$(document).ready(function(){
-	  var fileTarget = $('.filebox .upload-hidden');
-	
-	    fileTarget.on('change', function(){
-	        if(window.FileReader){
-	            var filename = $(this)[0].files[0].name;
-	        } else {
-	            var filename = $(this).val().split('/').pop().split('\\').pop();
-	        }
-	
-	        $(this).siblings('.upload-name').val(filename);
-	    });
-	}); 
-
-
-      
-      $(window).on("resize", function () {
-	   	    if(window.matchMedia('(min-width: 1537px)').matches)
-	   	    {
-	   	    	
-	   	    	var swiper = new Swiper(".mySwiper2", {
-		   	          slidesPerView: 4,
-		   	          spaceBetween: 30,
-		   	          slidesPerGroup: 1,
-		   	          loop: true,
-		   	          loopFillGroupWithBlank: true,
-		   	       	  /* autoplay: {
-		               delay: 3000,
-		               disableOnInteraction: false,
-		             }, */
-		   	          pagination: {
-		   	            el: ".swiper-pagination",
-		   	            clickable: true,
-		   	          },
-		   	          navigation: {
-		   	            nextEl: ".swiper-button-next",
-		   	            prevEl: ".swiper-button-prev",
-		   	          },
-		   	        });
-	   	    	
-		       	  
-		       	  
-	   	    	
-	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	
-	   	    	var swiper = new Swiper(".mySwiper2", {
-		   	          slidesPerView: 3,
-		   	          spaceBetween: 30,
-		   	          slidesPerGroup: 1,
-		   	          loop: true,
-		   	          loopFillGroupWithBlank: true,
-		   	       /* autoplay: {
-		               delay: 3000,
-		               disableOnInteraction: false,
-		             }, */
-		   	          pagination: {
-		   	            el: ".swiper-pagination",
-		   	            clickable: true,
-		   	          },
-		   	          navigation: {
-		   	            nextEl: ".swiper-button-next",
-		   	            prevEl: ".swiper-button-prev",
-		   	          },
-		   	     });
-	   	    	
-		       	
-	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-		   	          slidesPerView: 2,
-		   	       	  spaceBetween: 30,
-		   	          slidesPerGroup: 1,
-		   	          loop: true,
-		   	          loopFillGroupWithBlank: true,
-		   	       /* autoplay: {
-		               delay: 3000,
-		               disableOnInteraction: false,
-		             }, */
-		   	          pagination: {
-		   	            el: ".swiper-pagination",
-		   	            clickable: true,
-		   	          },
-		   	          navigation: {
-		   	            nextEl: ".swiper-button-next",
-		   	            prevEl: ".swiper-button-prev",
-		   	          },
-		   	     });
-	   	    	
-	   	     };
-	   	}).resize();
-      
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
+     
+ $(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches)
+    {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 4,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       	  /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	        });
+    	
     	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
     	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
+    	
+    	
+    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 3,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+    	
+    	
+     } else {
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 2,
+	       	  spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+     };
+}).resize();
+ 
+ 
+ 
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ 
+ $(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ 
+ /* jQuery(function($) {
 
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
+    window.onresize = function(){
+      document.location.reload();
+    };
 
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
+}); */
+ 
+ 
+ 
+ var delay = 300;
+ var timer = null;
 
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+ //Javascript
+ window.addEventListener('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
 
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+ //jQuery
+ $(window).on('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+     
       
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-      $('.selectpicker').selectpicker();
-      
-    </script>
+</script>
     
 	
 	

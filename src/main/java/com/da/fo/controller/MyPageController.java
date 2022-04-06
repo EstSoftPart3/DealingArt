@@ -71,9 +71,28 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/coupon";
 	}
 	
+	//소장품
 	@RequestMapping("/myCollection")
 	public String myCollection() {
-		return "thymeleaf/fo/myPage/myCollection";
+		return "thymeleaf/fo/myPage/myGallery_myCollection";
+	}
+	
+	//스크랩
+	@RequestMapping("/scrap")
+	public String scrap() {
+		return "thymeleaf/fo/myPage/myGallery_scrap";
+	}
+	
+	//나의 작품
+	@RequestMapping("/myWork")
+	public String myWork() {
+		return "thymeleaf/fo/myPage/portfolio_myWork";
+	}
+	
+	//거래내역
+	@RequestMapping("/myDeal")
+	public String myDeal() {
+		return "thymeleaf/fo/myPage/myDeal_list";
 	}
 	
 	@RequestMapping("/withdrawalSubmit")

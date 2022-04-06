@@ -243,7 +243,17 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     	
 	}
       
-      
+	jQuery(document).ready(function() {
+		if(sAuthSqVal == 2){
+			document.getElementById("portfolio").style.display="";
+		}
+		$("#conTitle").empty();
+		const conBtn = document.getElementById("conBtn");
+		conBtn.remove();
+		var conTitleHtml = "";
+		conTitleHtml += '<h3>설정</h3>';
+		$("#conTitle").append(conTitleHtml).trigger("create");
+	});         
 </script>
 </body>
 </html>
