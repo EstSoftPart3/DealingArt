@@ -73,8 +73,12 @@ public class MemberController {
 		//휴대전화번호 암호화
 		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
 		
-		//회원 이름
+		//회원 순번
 		String mbrSq = (String) param.get("mbrSq");
+		//휴대폰 인증 여부
+		String mbrCpCertYn = (String) param.get("mbrCpCertYn");
+		//휴대폰 인증 일자
+		String mbrCpCertDate = (String) param.get("mbrCpCertDate");
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);
@@ -83,7 +87,8 @@ public class MemberController {
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
-		
+		param.put("mbrCpCertYn", mbrCpCertYn);
+		param.put("mbrCpCertDate", mbrCpCertDate);
 		
 		memberService.memberUpdate(param);
 	}

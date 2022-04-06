@@ -115,7 +115,9 @@
 			<if test="useYn          != null">USE_YN = #{useYn},</if>
 			<if test="delYn          != null">DEL_YN = #{delYn},</if>
 			<if test="mbrEmlAlarm    != null">MBR_EML_ALARM = #{mbrEmlAlarm},</if>
-			<if test="mbrCpAlarm    != null">MBR_CP_ALARM = #{mbrCpAlarm},</if>
+			<if test="mbrCpAlarm     != null">MBR_CP_ALARM = #{mbrCpAlarm},</if>
+			<if test="mbrCpCertYn    != null">MBR_CP_CERT_YN = #{mbrCpCertYn},</if>
+			<if test="mbrCpCertDate  != null">MBR_CP_CERT_DATE = #{mbrCpCertDate},</if>
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}
 	</update>

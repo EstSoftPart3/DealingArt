@@ -107,7 +107,7 @@ public String requestReplace (String paramValue, String gubun) {
 <body>
 	<script>
 		
-		opener.mobileAuthFail();
+		opener.mainMobileAuthFail();
 		
 		window.close();
   	</script>
