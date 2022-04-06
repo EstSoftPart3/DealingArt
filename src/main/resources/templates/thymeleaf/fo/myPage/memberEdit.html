@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
+
+
 <head>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
@@ -12,6 +14,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap">
 			<div class="contents">
+				
 			 	<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				<div class="con-wrap2">
 				    
@@ -27,72 +30,100 @@
 					
 					<div class="con-right2">
 					
-						<div class="me-center">
-							<div class="member-box">
-								<div class=" inp-p radio-3">
-									<!-- 사용자 등뢴 이메일 변경 하지 않음 : 1 , 이메일변경 : 2 -->
-									<input type="checkbox" id="userInputEmailUsing" value="1" checked>
-									<label for="userInputEmailUsing"><span></span>등록된 아이디(이메일) 사용</label>
+						<form name="form_chk" method="post">
+							
+							<div class="me-center">
+								<div class="member-box">
+									<div class=" inp-p radio-3">
+										<!-- 사용자 등뢴 이메일 변경 하지 않음 : 1 , 이메일변경 : 2 -->
+										<input type="checkbox" id="userInputEmailUsing" value="1" checked>
+										<label for="userInputEmailUsing"><span></span>등록된 아이디(이메일) 사용</label>
+										
+									</div>
+									<div class="input-box input-group">
+										<input type="hidden" id="uMbrSq" name="uMbrSq">
+										<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly/>
+										<button type="button" class="group-btn" id="EmailCertification_tbd">인증하기</button>
+									</div>
+									<div class="input-box" style="text-align:center;display:none" id="emailCertCode">
+										<input  type="text" id="emailCert" name="emailCert" title="인증번호 입력" style="height:25px;"/>
+										<button type="button" class="ba-btn1" id="emailCertBtn" style="height:25px;padding-left:5px;padding-right:5px;"><span>이메일인증</span></button>
+										<input type="hidden" id="emailCertChk"/>
+									</div>
 									
+									<p class="inp-p" id="emailCertificationCheck" style="display:none">이메일 인증 완료</p>
+									<p class="inp-p" id="uMbrIdCheck" style="display:none">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+									
+									<div class="input-box">
+										<input type="password" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
+										<p class="inp-p" id="uMbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
+										<p class="inp-p" id="uMbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
+									</div>
+									<div class="input-box">
+										<input type="password" class="input-3" placeholder="비밀번호 확인" id="uMbrPasswrdConfirm" name="uMbrPasswrdConfirm"/>
+										<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
+									</div>					
+									<div class="input-box">
+										<input type="text" class="input-3" placeholder="이름" id="uMbrNm" name="uMbrNm" readonly/>
+										<p class="inp-p" id="uMbrNmCheck"></p>
+									</div>
+									<div class="input-box input-group">
+										<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum" readonly/>
+										<button type="button" class="group-btn phone" id="SmsCertification">인증하기</button>
+										<input type="hidden" id="mbrCpCertYn" name="mbrCpCertYn" value="N">
+									</div>
+									
+									<div class="input-box">
+										<p class="inp-p" id="smsCertificationCheck" style="display:none;color:red">휴대폰 인증완료</p>
+									</div>
+									<div class="bat-box3 mg_t65">
+										<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
+									</div>
+									
+									<!-- <div class="mypage-btn">
+										<a href="#" class="my-btn">회원탈퇴</a>
+									</div> -->
 								</div>
-								<div class="input-box input-group">
-									<input type="hidden" id="uMbrSq" name="uMbrSq">
-									<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly/>
-									<button type="button" class="group-btn" id="EmailCertification_tbd">인증하기</button>
-								</div>
-								<div class="input-box" style="text-align:center;display:none" id="emailCertCode">
-									<input  type="text" id="emailCert" name="emailCert" title="인증번호 입력" style="height:25px;"/>
-									<button type="button" class="ba-btn1" id="emailCertBtn" style="height:25px;padding-left:5px;padding-right:5px;"><span>이메일인증</span></button>
-									<input type="hidden" id="emailCertChk"/>
-								</div>
-								
-								<p class="inp-p" id="emailCertificationCheck" style="display:none">이메일 인증 완료</p>
-								<p class="inp-p" id="uMbrIdCheck" style="display:none">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
-								
-								<div class="input-box">
-									<input type="password" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
-									<p class="inp-p" id="uMbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
-									<p class="inp-p" id="uMbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
-								</div>
-								<div class="input-box">
-									<input type="password" class="input-3" placeholder="비밀번호 확인" id="uMbrPasswrdConfirm" name="uMbrPasswrdConfirm"/>
-									<p class="inp-p">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
-								</div>					
-								<div class="input-box">
-									<input type="text" class="input-3" placeholder="이름" id="uMbrNm" name="uMbrNm"/>
-									<p class="inp-p" id="uMbrNmCheck"></p>
-								</div>
-								<div class="input-box input-group">
-									<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum"/>
-									<button type="button" class="group-btn" id="SmsCertification tbd">인증하기</button>
-								</div>
-								<div class="input-box" style="text-align:center;display:none" id="smsCertCode">
-									<input  type="text" id="smsCert" name="smsCert" title="인증번호 입력" style="height:25px;"/>
-									<button type="button" class="ba-btn1" id="smsCertBtn" style="height:25px;padding-left:5px;padding-right:5px;"><span>휴대폰인증</span></button>
-									<input type="hidden" id="smsCertChk"/>
-								</div>
-								<div class="input-box">
-									<p class="inp-p" id="smsCertificationCheck" style="display:none">휴대폰 인증완료</p>
-								</div>
-								<div class="bat-box3 mg_t65">
-									<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
-								</div>
-								
-								<!-- <div class="mypage-btn">
-									<a href="#" class="my-btn">회원탈퇴</a>
-								</div> -->
 							</div>
 						</div>
 						
-					</div>
+						<input type="text" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+						<input type="text" name="EncodeData">					<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+			
+					</form>
 				</div>
 				
 			</div>
 		</div>
-	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		
+		
+			
+		
+									
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
 <script type="text/javascript"> 
+
+$(document).ready(function() {
+	
+	$('#SmsCertification').click(function() {
+		
+		$.ajax({
+			method: "POST",
+			url: "/auth/phone"
+		}).done(function(data) {
+			document.form_chk.EncodeData.value = data;
+			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+			document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+			document.form_chk.target = "popupChk";
+			document.form_chk.submit();
+		});
+	});
+
+});
+
+
 
 //등록된 이메일 사용 여부
 $("#userInputEmailUsing").change(function(){
@@ -157,51 +188,21 @@ $("#emailCertBtn").click(function(){
 	}
 });
 
-//휴대폰 인증
-$("#SmsCertification").click(function(){
-	var uMbrCpNum = $("#uMbrCpNum").val();
-	uMbrCpNum = uMbrCpNum.replaceAll('-', '');
-	
-	var params = {
-		uMbrCpNum : uMbrCpNum	
-	}
-	
-	$.ajax({
-	     type: "post",
-	     url: "/myPage/memberUpdatSMSCertification",
-	     data: params,
-	     success: function(data) {
-	    	 modalAlertShow("인증번호 발송이 완료되었습니다.<br>입력한 휴대폰에서 인증번호 확인을 해주십시오.",""); 
-	    	 $("#smsCertCode").show();
-	    	 $("#smsCertChk").val(data);
-	    	
-	   	 },
-	     error: function(error) {
-	  	   var errorJson = JSON.stringify(error);
-	         console.log(errorJson);
-	     }
-	})
-	
-});
-
-//휴대폰 인증 대조
-$("#smsCertBtn").click(function(){
-	
-	var smsCertChk = $("#smsCertChk").val();
-	var smsCert	= $("#smsCert").val();
-	
-	console.log("smsCertChk :"+smsCertChk);
-	console.log("smsCert :"+smsCert);
-	
-	if(smsCert == smsCertChk){
-		modalAlertShow("인증번호가 일치 합니다.",""); 
-		$("#smsCertCode").hide();
-		fn_validation('emailCertificationCheck',msg, 'R');
+//휴대폰 인증 성공
+function mobileAuthSuccess()
+{
 		
-	}else{
-		modalAlertShow("인증번호가 일치하지 않습니다.","");
-	}
-});
+	$("#smsCertificationCheck").css('display',"block");
+}
+
+
+//휴대폰 인증 실패
+function mobileAuthFail()
+{
+	modalAlertShow("인증에 실패했습니다.","");
+	
+}
+
 
 //회원수정
 $("#memberUpdateBtn").on('click', function(event){
