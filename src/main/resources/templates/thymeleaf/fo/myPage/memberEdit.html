@@ -82,7 +82,7 @@
 									</div>
 									
 									<div class="mypage-btn">
-										<a href="#" class="my-btn">회원탈퇴</a>
+										<a href="/withdrawal" class="my-btn">회원탈퇴</a>
 									</div>
 								</div>
 							</div>
@@ -338,9 +338,10 @@ $("#memberUpdateBtn").on('click', function(event){
 	let memParams = {
 	  "mbrSq" : mbrSq,
 	  "mbrId" : mbrId,
+	  "mbrEmail" : mbrId,
 	  "mbrPasswrd" : mbrPasswrd,
 	  "mbrNm" : mbrNm,
-	  "mbrCpNum" : mbrCpNum,
+	  "mbrCpNum" : mbrCpNum, 
 	  "mbrCpCertYn" : mbrCpCertYn,
 	  "mbrCpCertDate" : mbrCpCertDate
 	}
