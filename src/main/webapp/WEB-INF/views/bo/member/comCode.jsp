@@ -8,8 +8,6 @@
 	#gridCodeList, #subGridCodeList {
 		font-size : 11px;
 	}
-	
-	
 	.jsgrid-table {overflow-x: hidden;}
 	.jsgrid-grid-header {overflow-x: hidden;}
 	.jsgrid-grid-body {overflow-x: hidden;}
@@ -141,7 +139,7 @@
  
   let fields = [
 	  { name: "cdSq"	,title:"코드 순번", type: "text", width: 150,align:"center" ,width:100, visible: false, width: 0},
-	  { name: "cd"	,title:"코드", type: "text", width: 150,align:"center" ,width:100},
+	  { name: "cd"		,title:"코드", type: "text", width: 150,align:"center" ,width:100},
       { name: "cdNm"	,title:"코드명", type: "text", width: 200,align:"center",width:100}
 	]
   
@@ -205,8 +203,6 @@ function codeListSearch(str) {
 }
   
 
-  
-  
   let subfields = [
 	  { name: "cdSq"	,title:"코드순번", type: "text", width: 150,align:"center" ,width:100},
 	  { name: "dtlCdSq"	,title:"상세코드순번", type: "text", width: 150,align:"center" ,width:100},
@@ -244,7 +240,7 @@ function codeListSearch(str) {
   
    
  $( document ).ready(function() {
-	 codeListSearch(3)
+	 codeListSearch()
  });
    
 </script>

@@ -1,0 +1,634 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    		.con-left{display:none}
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		
+		<div class="body-wrap">
+			<div class="contents">
+				
+				<div class="con-wrap">
+					
+					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					<div class="con-right m-max1300 info-right">
+					
+						<div class="me-left">
+						
+							<div class="med">
+								<h2 class="">작가 정보 <span class="c-reds">* 필수 정보</span></h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-3">
+									
+									<table class="mstyle-2">
+										<tr>
+											<th><span class="my-red">프로필 이미지</span></th>
+											<td>
+												<div class="cont-box">
+													<div class="content"></div>
+													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th><span class="my-red">활동명</span></th>
+											<td>
+												<input type="text" class="input-5" placeholder="활동명을 기재해 주세요." />
+												<p class="inp-p">※ 활동명은 작가님만 사용할 수 있어요.<br/>본인 실명으로 활동하신다면 실명을 기재해 주세요.</p>
+											</td>
+										</tr>
+										<tr>
+											<th>영문명</th>
+											<td><input type="text" class="input-5" placeholder="영문 활동명을 기재해 주세요." /></td>
+										</tr>
+										<tr>
+											<th>학력</th>
+											<td><input type="text" class="input-5" placeholder="학교 / 전공 등" /></td>
+										</tr>
+										<tr>
+											<th><span class="my-red">활동 분야</span></th>
+											<td>
+												<div class="pay-check dib mg-r50">
+													<input type="checkbox" id="a1" name="cc">
+													<label for="a1"><span></span>회화</label>
+												</div>
+												<div class="pay-check dib mg-r50">
+													<input type="checkbox" id="a2" name="cc">
+													<label for="a2"><span></span>조형</label>
+												</div>
+												<div class="pay-check dib mg-r50">
+													<input type="checkbox" id="a3" name="cc">
+													<label for="a3"><span></span>영상/미디어</label>
+												</div>
+												<div class="pay-check dib mg-r50">
+													<input type="checkbox" id="a4" name="cc">
+													<label for="a4"><span></span>설치</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>활동 지역</th>
+											<td>
+												<div class="selec-flex">
+													<div class="selec-box">
+														<select class="selectpicker">
+															<option>Mustard</option>
+															<option>Ketchup</option>
+															<option>Relish</option>
+														</select>
+													</div>
+													<div class="selec-box">
+														<select class="selectpicker">
+															<option>Mustard</option>
+															<option>Ketchup</option>
+															<option>Relish</option>
+														</select>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>자기 소개</th>
+											<td><textarea rows="7" class="textarea-3" placeholder="자기소개를 입력해 주세요 (2,000자 제한)"></textarea></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">부가 정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-3">
+									<div>
+										<table class="mstyle-2">
+											<tr>
+												<th>홈페이지</th>
+												<td><input type="text" class="input-5" placeholder="URL" /></td>
+											</tr>
+											<tr>
+												<th>페이스북</th>
+												<td><input type="text" class="input-5" placeholder="페이스북 아이디" /></td>
+											</tr>
+											<tr>
+												<th>인스타그램</th>
+												<td><input type="text" class="input-5" placeholder="인스타그램 아이디" /></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">경력정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-3">
+									<div>
+										<table class="mstyle-2">
+											<tr>
+												<th>경력</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 - 교육, 연구이력 등" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-d.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+											<tr>
+												<th>소속</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 - 교육, 연구이력 등" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-d.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+											<tr>
+												<th></th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 - 교육, 연구이력 등" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-d.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">전시정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-3">
+									<div>
+										<table class="mstyle-2">
+											<tr>
+												<th>개인전/단체전</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-p.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+											<tr>
+												<th>아트페어</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-p.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+											<tr>
+												<th>레지던시</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-p.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+											<tr>
+												<th>수상</th>
+												<td>
+													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<a href="#" class="mg_l10"><img src="/resources/img/mypage/icon-p.png" class="ic-dp" /></a>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							
+					
+							<div class="bat-box5">
+								<a href="#" class="ba-btn1"><span>등록하기</span></a>
+								<a href="#" class="ba-btn2"><span>임시저장</span></a>
+								<a href="#" class="ba-btn2"><span>취소</span></a>
+								<a href="#" class="ba-btn2"><span>미리보기</span></a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>	
+	</div>
+
+
+<!-- 모달1 -->
+<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="min-height: 0; padding: 0; height:0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p class="text-center">
+					작성중인 작가 정보가 있습니다.<br />
+					이어서 작성하시겠습니까?
+					</p>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 모달2 -->
+<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="min-height: 0; padding: 0; height:0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p class="ov-hy">
+						1. 경매물품이 거래체결이 된 시점에 회사는 판매자와 구매자에게 회사가 통신망으로 제공하는 배송서비스의 이용동의서를 요청합니다.<br />
+						2. 판매자와 구매자는 회사가 공지사항 또는 별도 안내 사항 등으로 고지한 시간 이내에 이용동의서에 대한 동의여부를 회신해야 됩니다. <br />
+						3. 원칙적으로 회사가 제공하는 위탁배송서비스의 계약체결은 판매자와 구매자의 동의가 모두 승인되는 경우에만 적용됩니다. <br />
+						4. 판매자는 구매자와 배송 전 일정 조율이 필요하며 이에 따른 정확한 배송일정과 배송지를 기입합니다. <br />
+						5. 배송비는 판매자와 구매자가 합리적인 방면으로 모두 부담합니다. <br />
+						6. 배송예정일은 배송업체의 사정에 따라 유동적으로 정해집니다. <br />
+						7. 공휴일 및 기타 휴무일 또는 천재지변, 명절 기간, 배송업체 파업 등 불가항력적인 사유가 발생한 경우 그 해당기간은 배송 소요기간에서 제외됩니다. <br />
+						8. 해외배송은 원칙적으로 불가능 하며 대한민국 내의 주소지로만 배송이 가능합니다. <br />
+						9. 도서산간 지방은 배송이 불가능합니다. <br />
+						10. 회사는 판매자와 구매자에게 배송진행과정에 있어서 문제가 생기는 것을 방지하기 위해 경매물품의 포장, 인도 및 운송보험의 가입을 위한 조치를 취할 수 있습니다. <br />
+						11. 경매물품이 배송중인 경우 배송지를 변경하는 것은 불가능합니다. 배송진행과정에 있어서의 정보변경은 회사가 도움을 드릴 수 없으며 배송완료 후 발생되는 경매물품의 분실에 대한 모든 책임은 구매자에게 있습니다. 
+					</p>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 모달3 -->
+<div class="modal fade modal-s" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModal5Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w960">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>거래 등록 전에 꼭 확인 해주세요.</h2>
+				    <img src="/resources/img/ba/icon-3.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="modal-demo-1">
+						<div class="modmo-left"><img src="/resources/img/mypage/img-bg-2.png" class="" /></div>
+						<div class="modmo-right">
+							<h3>작가명 (1983년생)</h3>
+							<p class="mrp1">
+								작품명 입니다작품명입니다작품명입니다(2021)<br />
+								Oil & Canvas<br />
+								72.7x90.9cm
+							</p>
+							<p class="mrp2">구매가 3,700,000</p>
+						</div>
+					</div>
+					
+					<div class="wrapper center-block">
+						<div class="wrapper-title">확인 사항을 체크해 주세요</div>
+							<div class="panel-group2" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default2">
+									<div class="panel-heading2 active" role="tab" id="headingOne">
+										<h4 class="panel-title2">
+											<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+												<div class="db-div">
+													<input type="checkbox" id="s1" name="ss" />
+													<label for="s1"><span></span>
+														<div class="check-info">
+															<p>판매하려는 작품이 맞습니다.</p>
+															작품명, 사이즈, 제작연도, 액자유무, 작품보증서를 한 번 더 확인했습니다.
+														</div>
+													</label>
+												</div>
+											
+											<div class="collapsdiv">작품보증서 유의사항 닫기</div>
+											</a>
+										</h4>
+									</div>
+								<div id="collapseOne" class="panel-collapse2 collapse in" role="tabpanel" aria-labelledby="headingOne">
+									<div class="panel-body">
+										<div class="coll-text">
+											1. 경매물품이 거래체결이 된 시점에 회사는 판매자와 구매자에게 회사가 통신망으로 제공하는 배송서비스의 이용동의서를 요청합니다.<br/>
+											2. 판매자와 구매자는 회사가 공지사항 또는 별도 안내 사항 등으로 고지한 시간 이내에 이용동의서에 대한 동의여부를 회신해야 됩니다. <br/>
+											3. 원칙적으로 회사가 제공하는 위탁배송서비스의 계약체결은 판매자와 구매자의 동의가 모두 승인되는 경우에만 적용됩니다. <br/>
+											4. 판매자는 구매자와 배송 전 일정 조율이 필요하며 이에 따른 정확한 배송일정과 배송지를 기입합니다. <br/>
+											5. 배송비는 판매자와 구매자가 합리적인 방면으로 모두 부담합니다. <br/>
+											6. 배송예정일은 배송업체의 사정에 따라 유동적으로 정해집니다. <br/>
+											7. 공휴일 및 기타 휴무일 또는 천재지변, 명절 기간, 배송업체 파업 등 불가항력적인 사유가 발생한 경우 그 해당기간은 배송 소요기간에서 제외됩니다. <br/>
+											8. 해외배송은 원칙적으로 불가능 하며 대한민국 내의 주소지로만 배송이 가능합니다. <br/>
+											9. 도서산간 지방은 배송이 불가능합니다. <br/>
+											10. 회사는 판매자와 구매자에게 배송진행과정에 있어서 문제가 생기는 것을 방지하기 위해 경매물품의 포장, 인도 및 운송보험의 가입을 위한 조치를 취할 수 있습니다. <br/>
+											11. 경매물품이 배송중인 경우 배송지를 변경하는 것은 불가능합니다. 배송진행과정에 있어서의 정보변경은 회사가 도움을 드릴 수 없으며 배송완료 후 발생되는 경매물품의 분실에 대한 모든 책임은 구매자에게 있습니다. 
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default2">
+								<div class="panel-heading2" role="tab" id="headingTwo">
+									<h4 class="panel-title2">
+										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											<div class="db-div">
+												<input type="checkbox" id="s2" name="ss" />
+												<label for="s2"><span></span>
+													<div class="check-info">
+														<p>거래 체결시 수수료가 부과됩니다.</p>
+														판매수수료 2.5%, 구매수수료 5% (최종낙찰가, 배송서비스, 부가세 제외)
+													</div>
+												</label>
+											</div>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingTwo">
+									<div class="panel-body">
+								        <div class="coll-text">
+											1. 경매물품이 거래체결이 된 시점에 회사는 판매자와 구매자에게 회사가 통신망으로 제공하는 배송서비스의 이용동의서를 요청합니다.<br/>
+											2. 판매자와 구매자는 회사가 공지사항 또는 별도 안내 사항 등으로 고지한 시간 이내에 이용동의서에 대한 동의여부를 회신해야 됩니다. <br/>
+											3. 원칙적으로 회사가 제공하는 위탁배송서비스의 계약체결은 판매자와 구매자의 동의가 모두 승인되는 경우에만 적용됩니다. <br/>
+											4. 판매자는 구매자와 배송 전 일정 조율이 필요하며 이에 따른 정확한 배송일정과 배송지를 기입합니다. <br/>
+											5. 배송비는 판매자와 구매자가 합리적인 방면으로 모두 부담합니다. <br/>
+											6. 배송예정일은 배송업체의 사정에 따라 유동적으로 정해집니다. <br/>
+											7. 공휴일 및 기타 휴무일 또는 천재지변, 명절 기간, 배송업체 파업 등 불가항력적인 사유가 발생한 경우 그 해당기간은 배송 소요기간에서 제외됩니다. <br/>
+											8. 해외배송은 원칙적으로 불가능 하며 대한민국 내의 주소지로만 배송이 가능합니다. <br/>
+											9. 도서산간 지방은 배송이 불가능합니다. <br/>
+											10. 회사는 판매자와 구매자에게 배송진행과정에 있어서 문제가 생기는 것을 방지하기 위해 경매물품의 포장, 인도 및 운송보험의 가입을 위한 조치를 취할 수 있습니다. <br/>
+											11. 경매물품이 배송중인 경우 배송지를 변경하는 것은 불가능합니다. 배송진행과정에 있어서의 정보변경은 회사가 도움을 드릴 수 없으며 배송완료 후 발생되는 경매물품의 분실에 대한 모든 책임은 구매자에게 있습니다. 
+										</div>
+									</div>
+								</div>
+							</div>
+							  <div class="panel panel-default2">
+							    <div class="panel-heading2" role="tab" id="headingThree">
+							      <h4 class="panel-title2">
+							        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							         <div class="db-div">
+										<input type="checkbox" id="s32" name="ss" />
+										<label for="s3"><span></span>
+											<div class="check-info">
+												<p>모든 경매물품의 배송은 직접거래가 불가능합니다.</p>
+												안전한 거래를 위해 판매자는 딜링아트 배송서비스를 이용해야 합니다.
+											</div>
+										</label>
+									</div>
+									<div class="collapsdiv">배송 유의사항 보기</div>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThree" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingThree">
+							      <div class="panel-body">
+							       <div class="coll-text">
+										1. 경매물품이 거래체결이 된 시점에 회사는 판매자와 구매자에게 회사가 통신망으로 제공하는 배송서비스의 이용동의서를 요청합니다.<br/>
+										2. 판매자와 구매자는 회사가 공지사항 또는 별도 안내 사항 등으로 고지한 시간 이내에 이용동의서에 대한 동의여부를 회신해야 됩니다. <br/>
+										3. 원칙적으로 회사가 제공하는 위탁배송서비스의 계약체결은 판매자와 구매자의 동의가 모두 승인되는 경우에만 적용됩니다. <br/>
+										4. 판매자는 구매자와 배송 전 일정 조율이 필요하며 이에 따른 정확한 배송일정과 배송지를 기입합니다. <br/>
+										5. 배송비는 판매자와 구매자가 합리적인 방면으로 모두 부담합니다. <br/>
+										6. 배송예정일은 배송업체의 사정에 따라 유동적으로 정해집니다. <br/>
+										7. 공휴일 및 기타 휴무일 또는 천재지변, 명절 기간, 배송업체 파업 등 불가항력적인 사유가 발생한 경우 그 해당기간은 배송 소요기간에서 제외됩니다. <br/>
+										8. 해외배송은 원칙적으로 불가능 하며 대한민국 내의 주소지로만 배송이 가능합니다. <br/>
+										9. 도서산간 지방은 배송이 불가능합니다. <br/>
+										10. 회사는 판매자와 구매자에게 배송진행과정에 있어서 문제가 생기는 것을 방지하기 위해 경매물품의 포장, 인도 및 운송보험의 가입을 위한 조치를 취할 수 있습니다. <br/>
+										11. 경매물품이 배송중인 경우 배송지를 변경하는 것은 불가능합니다. 배송진행과정에 있어서의 정보변경은 회사가 도움을 드릴 수 없으며 배송완료 후 발생되는 경매물품의 분실에 대한 모든 책임은 구매자에게 있습니다. 
+									</div>
+							      </div>
+							    </div>
+							  </div>
+							  
+							  <div class="panel panel-default2">
+							    <div class="panel-heading2" role="tab" id="headingfor">
+							      <h4 class="panel-title2">
+							        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefor" aria-expanded="false" aria-controls="collapseThree">
+							         <div class="db-div">
+										<input type="checkbox" id="s32" name="ss" />
+										<label for="s3"><span></span>
+											<div class="check-info">
+												<p>모든 경매물품의 배송은 직접거래가 불가능합니다.</p>
+												안전한 거래를 위해 판매자는 딜링아트 배송서비스를 이용해야 합니다.
+											</div>
+										</label>
+									</div>
+									<div class="collapsdiv">이용정책 안내 보기</div>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapsefor" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingfor">
+							      <div class="panel-body">
+							       <div class="coll-text">
+										1. 경매물품이 거래체결이 된 시점에 회사는 판매자와 구매자에게 회사가 통신망으로 제공하는 배송서비스의 이용동의서를 요청합니다.<br/>
+										2. 판매자와 구매자는 회사가 공지사항 또는 별도 안내 사항 등으로 고지한 시간 이내에 이용동의서에 대한 동의여부를 회신해야 됩니다. <br/>
+										3. 원칙적으로 회사가 제공하는 위탁배송서비스의 계약체결은 판매자와 구매자의 동의가 모두 승인되는 경우에만 적용됩니다. <br/>
+										4. 판매자는 구매자와 배송 전 일정 조율이 필요하며 이에 따른 정확한 배송일정과 배송지를 기입합니다. <br/>
+										5. 배송비는 판매자와 구매자가 합리적인 방면으로 모두 부담합니다. <br/>
+										6. 배송예정일은 배송업체의 사정에 따라 유동적으로 정해집니다. <br/>
+										7. 공휴일 및 기타 휴무일 또는 천재지변, 명절 기간, 배송업체 파업 등 불가항력적인 사유가 발생한 경우 그 해당기간은 배송 소요기간에서 제외됩니다. <br/>
+										8. 해외배송은 원칙적으로 불가능 하며 대한민국 내의 주소지로만 배송이 가능합니다. <br/>
+										9. 도서산간 지방은 배송이 불가능합니다. <br/>
+										10. 회사는 판매자와 구매자에게 배송진행과정에 있어서 문제가 생기는 것을 방지하기 위해 경매물품의 포장, 인도 및 운송보험의 가입을 위한 조치를 취할 수 있습니다. <br/>
+										11. 경매물품이 배송중인 경우 배송지를 변경하는 것은 불가능합니다. 배송진행과정에 있어서의 정보변경은 회사가 도움을 드릴 수 없으며 배송완료 후 발생되는 경매물품의 분실에 대한 모든 책임은 구매자에게 있습니다. 
+									</div>
+							      </div>
+							    </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1">동의</button></a>
+						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">      
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+	   	 //$("#myModal5").modal("show");
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      
+      
+      $('.content')
+      .on("dragover", dragOver)
+      .on("dragleave", dragOver)
+      .on("drop", uploadFiles);
+
+    function dragOver(e){
+    	e.stopPropagation();
+    	e.preventDefault();
+    	if (e.type == "dragover") {
+    		$(e.target).css({
+    			"background-color": "black",
+    			"outline-offset": "-20px"
+    		});
+    	} else {
+        	$(e.target).css({
+    			"background-color": "gray",
+    			"outline-offset": "-10px"
+    		});
+        }
+    }
+
+    function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dragOver(e);
+      
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        var files = e.target.files || e.dataTransfer.files;
+        if (files.length > 1) {
+            alert('하나만 올려라.');
+            return;
+        }
+        if (files[0].type.match(/image.*/)) {
+                    $(e.target).css({
+                "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+                "outline": "none",
+                "background-size": "100% 100%"
+            });
+        }else{
+          alert('이미지가 아닙니다.');
+          return;
+        }
+    }
+      
+    
+    //$('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker({
+    });
+    
+    $('.panel-collapse').on('show.bs.collapse', function () {
+        $(this).siblings('.panel-heading').addClass('active');
+      });
+
+      $('.panel-collapse').on('hide.bs.collapse', function () {
+        $(this).siblings('.panel-heading').removeClass('active');
+      });
+      
+      
+      jQuery(document).ready(function() {
+    		if(sAuthSqVal == 2){
+    			document.getElementById("portfolio").style.display="";
+    		}
+    		$("#conTitle").empty();
+    		const conBtn = document.getElementById("conBtn");
+    		conBtn.remove();
+    		var conTitleHtml = "";
+    		conTitleHtml += '<h3>포트폴리오</h3>';
+    		$("#conTitle").append(conTitleHtml).trigger("create");
+    	});
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>
