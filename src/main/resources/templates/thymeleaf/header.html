@@ -17,16 +17,19 @@
 	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="resources/css/common_pc.css">
+		<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.css">
 	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
 	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
 	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.css">
 	
-	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="resources/js/common.js"></script>
     <script src="resources/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
     
 </head>
 <body>
@@ -195,7 +198,7 @@
 
 <!-- 회원가입 -->
 <div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
-	<form id="memberInput" autocomplete="off">
+	<form id="memberInput" name="memberInput" method="post">
 	<div class="modal-dialog modal-baeg max-w800 momber-modal">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
@@ -209,31 +212,38 @@
 					<img src="resources/img/icon/icon-bg.png" class="member-icon" />
 					<h3 class="me-h3">회원가입</h3>
 					<h4 class="me-h4">Dealing art  가입을 환영합니다. <span>회원 정보를 입력해 주세요.</span></h4>
-				
-					<div class="input-box">
-						<input type="text" class="input-3 form-control" placeholder="아이디/이메일" id="mbrId" name="mbrId" autocomplete="off" required/>
-						<p class="inp-p" id="mbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
-					</div>
-					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd" required/>
-						<p class="inp-p" id="mbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
-						<p class="inp-p" id="mbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
-					</div>
-					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/>
-						<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
-					</div>					
-					<div class="input-box">
-						<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" required/>
-						<p class="inp-p" id="mbrNmCheck"></p>
-					</div>
-					<div class="input-box input-group">
-						<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" required/>
-						<button type="button" class="group-btn">인증하기</button>
-					</div>
-					<div class="input-box">
-						<p class="inp-p" id="mbrCpNumCheck"></p>
-					</div>
+					
+						<div class="input-box">
+							<input type="text" class="input-3 form-control" placeholder="아이디/이메일" id="mbrId" name="mbrId" autocomplete="off" required/>
+							<p class="inp-p" id="mbrIdCheck">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+						</div>
+						<div class="input-box">
+							<input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd" required/>
+							<p class="inp-p" id="mbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
+							<p class="inp-p" id="mbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
+						</div>
+						<div class="input-box">
+							<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/>
+							<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
+						</div>					
+						<div class="input-box">
+							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" readonly/>
+							<p class="inp-p" id="mbrNmCheck"></p>
+						</div>
+						<div class="input-box input-group">
+							<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" readonly/>
+							<button type="button" class="group-btn" id="mbrCpNumBtn">인증하기</button>
+							<input type="hidden" id="mbrCpCertYn" name="mbrCpCertYn" value="N">
+							<input type="hidden" id="mbrCpCertDate" name="mbrCpCertDate" value="">
+						</div>
+						<div class="input-box">
+							<p class="inp-p" id="mainSmsCertificationCheck" style="display:none;color:red">휴대폰 인증완료</p>
+						</div>
+						
+						<input type="hidden" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+						<input type="hidden" name="EncodeData">					<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+					
+					
 					
 					<div class="me-text">
 						딜링아트 이용 약관에 동의해 주세요. <br/>
@@ -266,6 +276,41 @@
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script th:inline="javascript">
+
+$(document).ready(function() {
+	
+	$('#mbrCpNumBtn').click(function() {
+		
+		console.log("mbrCpNumBtn");
+		
+		$.ajax({
+			method: "POST",
+			url: "/main/auth/phone"
+		}).done(function(data) {
+			document.memberInput.EncodeData.value = data;
+			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+			document.memberInput.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+			document.memberInput.target = "popupChk";
+			document.memberInput.submit();
+		});
+	});
+
+});
+
+//휴대폰 인증 성공
+function mainMobileAuthSuccess() {
+		
+	$("#mainSmsCertificationCheck").css('display',"block");
+	fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'B');
+	$("#mbrNmCheck").css('display',"none");
+	fn_validation('mbrNmCheck','', 'B');
+	
+}
+//휴대폰 인증 실패
+function mainMobileAuthFail() {
+	 modalAlertShow("휴대폰 인증에 실패 하였습니다.","");
+}
+
 var sMbrSqVal = "";
 var sAuthSqVal = "";
 var loginBf = document.getElementById("loginBf");
@@ -463,6 +508,10 @@ $("#memberInputBtn").on('click', function(event){
 	var mbrNm = $("#mbrNm").val();
 	//휴대번호
 	var mbrCpNum = $("#mbrCpNum").val();
+	//휴대폰 본인인증 여부
+	var mbrCpCertYn = $("#mbrCpCertYn").val();
+	//휴대폰 본인인증 날짜
+	var mbrCpCertDate = $("#mbrCpCertDate").val();
 	
 	if(isEmpty(mbrId)) {
 		fn_validation('mbrIdCheck','이메일을 입력해주세요.', 'R');
@@ -570,12 +619,21 @@ $("#memberInputBtn").on('click', function(event){
 	 }
 	 
 	fn_validation('mbrCpNumCheck','', 'B');
+	
+	//휴대폰본인인증 여부
+	if(mbrCpCertYn == 'N') {
+		$("#mainSmsCertificationCheck").show();
+		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
+		return;
+	}
 	 
 	 let memParams = {
 		  "mbrId" : mbrId,
 		  "mbrPasswrd" : mbrPasswrd,
 		  "mbrNm" : mbrNm,
-		  "mbrCpNum" : mbrCpNum
+		  "mbrCpNum" : mbrCpNum,
+		  "mbrCpCertYn" : mbrCpCertYn,
+		  "mbrCpCertDate" : mbrCpCertDate
 	 }
 	 
 	 

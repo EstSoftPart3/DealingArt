@@ -70,7 +70,7 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/alarm";
 	}
 	
-	//알림
+	//쿠폰
 	@RequestMapping("/coupon")
 	public String coupon() {
 		return "thymeleaf/fo/myPage/coupon";
@@ -109,6 +109,13 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	//작가정보등록
+	@RequestMapping("/information")
+	public String information() {
+		return "thymeleaf/fo/myPage/information";
+	}
+	
 	
 	@RequestMapping("/withdrawalSubmit")
 	@ResponseBody

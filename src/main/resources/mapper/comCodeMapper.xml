@@ -11,7 +11,7 @@
 			,CD_NM AS cdNm
 			
         FROM TBL_DA_COMN_CD_M
-        where CD_SQ = #{cdSq}
+        <!-- where CD_SQ = #{cdSq} -->
         
     </select>
     
@@ -44,5 +44,18 @@
 			,'N'
 		)
     </insert>
+    
+    
+    <!-- 코드 검색 -->
+    <select id="comCodeSearchList" resultType="hashMap">
+        SELECT 
+        	B.DTL_CD,B.DTL_CD_NM 
+        FROM 
+        TBL_DA_COMN_CD_M A
+		INNER JOIN TBL_DA_COMN_DTL_CD_S B 
+			ON A.CD_SQ = B.CD_SQ
+		WHERE A.CD = 'USR_NTNLT_TCD'
+    </select>
+    
     
 </mapper>
