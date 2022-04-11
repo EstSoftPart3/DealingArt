@@ -25,134 +25,335 @@
 							<div class="me-sech">
 								<div class="is-bos">
 									<div class="is-sum">
-										<input type="text" class="" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
-										<button type="button" class="">검색</button>
+										<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
+										<button type="button" class="" onclick="myDealSearchList()">검색</button>
 									</div>
-									<button type="button" class="sech-btn">전체</button>
-									<button type="button" class="sech-btn">최근 6개월</button>
-									<button type="button" class="sech-btn">최근 1년</button>
-									<button type="button" class="sech-btn">최근 2년</button>
-									<button type="button" class="sech-btn">최근 3년</button>
+									<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
+									<button type="button" class="sech-btn" id="searchOption_6M" onclick="searchOption_onclick(this.id)">최근 6개월</button>
+									<button type="button" class="sech-btn" id="searchOption_1Y" onclick="searchOption_onclick(this.id)">최근 1년</button>
+									<button type="button" class="sech-btn" id="searchOption_2Y" onclick="searchOption_onclick(this.id)">최근 2년</button>
+									<button type="button" class="sech-btn" id="searchOption_3Y" onclick="searchOption_onclick(this.id)">최근 3년</button>
 								</div>
 								<div class="is-la">
 									<div class="is-label">
 										<label>기간선택</label>
-										<div class="input-cand"><input type="text" class="" /></div>
+										<div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
 										<span class="is-span">~</span> 
-										<div class="input-cand"><input type="text" class="" /></div>
-										<button type="button" class="sech-btn">조회</button>
+										<div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
+										<button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
 									</div>
 									
-									<div class="selec-box select-s1">
+									<!-- <div class="selec-box select-s1">
 										<select class="selectpicker">
 											<option>Mustard</option>
 											<option>Ketchup</option>
 											<option>Relish</option>
 										</select>
-									</div>
+									</div> -->
 								</div>
 							</div>
-						
-							<div class="myd-box myd-mobile">
-								<div class="myd-img">
-									<img src="resources/img/mypage/img_bg.png"  class="" />
-									<button type="button" class="btns-4">응찰 히스토리</button>
-									<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
-								</div>
-								<div class="myd-2">
-									<div class="myd-te1">
-										<h4>작가명</h4>
-										<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+							<div id="myDealList">
+								<div class="myd-box myd-mobile" id="myDealList">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
 									</div>
-									<div class="myd-te2">
-										<dl class="myd-dl3">
-											<dt>경매기간</dt>
-											<dd>2021.10.31 – 2021.11.31</dd>
-											<dt>시작가</dt>
-											<dd>1,700,000 원</dd>
-											<dt>현재입찰가</dt>
-											<dd>2,300,000 원</dd>
-											<dt>응찰가</dt>
-											<dd>
-												<div class="is-sum2">
-													<div class="is-won"><input type="text" class="" placeholder="" /></div>
-													<button type="button" class="">응찰하기</button>
-												</div>
-											</dd>
-											<dt>남은시간</dt>
-											<dd>21:27:35</dd>
-											<dt>응찰수</dt>
-											<dd>12</dd>
-											<dt>예상수수료</dt>
-											<dd>250,000원</dd>
-											<dt>예상배송비</dt>
-											<dd></dd>
-										</dl>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="myd-te3">
-									<div class="myd-table">
-										<div class="myd-won">
-											<p class="won-p">
-												현재 가장 높은 입찰가로  입찰 중 입니다.
-												<span>경매 진행 중</span>
-											</p>
-											<button type="button" class="btns-2">구매확정</button>
+								
+								
+								<div class="myd-box myd-mobile">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
+									</div>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="myd-box myd-mobile">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
+									</div>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="myd-box myd-mobile">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
+									</div>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="myd-box myd-mobile">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
+									</div>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="myd-box myd-mobile">
+									<div class="myd-img">
+										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<button type="button" class="btns-4">응찰 히스토리</button>
+										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
+									</div>
+									<div class="myd-2">
+										<div class="myd-te1">
+											<h4>작가명</h4>
+											<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										</div>
+										<div class="myd-te2">
+											<dl class="myd-dl3">
+												<dt>경매기간</dt>
+												<dd>2021.10.31 – 2021.11.31</dd>
+												<dt>시작가</dt>
+												<dd>1,700,000 원</dd>
+												<dt>현재입찰가</dt>
+												<dd>2,300,000 원</dd>
+												<dt>응찰가</dt>
+												<dd>
+													<div class="is-sum2">
+														<div class="is-won"><input type="text" class="" placeholder="" /></div>
+														<button type="button" class="">응찰하기</button>
+													</div>
+												</dd>
+												<dt>남은시간</dt>
+												<dd>21:27:35</dd>
+												<dt>응찰수</dt>
+												<dd>12</dd>
+												<dt>예상수수료</dt>
+												<dd>250,000원</dd>
+												<dt>예상배송비</dt>
+												<dd></dd>
+											</dl>
+										</div>
+									</div>
+									<div class="myd-te3">
+										<div class="myd-table">
+											<div class="myd-won">
+												<p class="won-p">
+													현재 가장 높은 입찰가로  입찰 중 입니다.
+													<span>경매 진행 중</span>
+												</p>
+												<button type="button" class="btns-2">구매확정</button>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							
-							<div class="myd-box myd-mobile">
-								<div class="myd-img">
-									<img src="resources/img/mypage/img_bg.png"  class="" />
-									<button type="button" class="btns-4">응찰 히스토리</button>
-									<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
-								</div>
-								<div class="myd-2">
-									<div class="myd-te1">
-										<h4>작가명</h4>
-										<h5>작품명 입니다작품명입니다작품명입니다(2021)</h5>
-									</div>
-									<div class="myd-te2">
-										<dl class="myd-dl3">
-											<dt>경매기간</dt>
-											<dd>2021.10.31 – 2021.11.31</dd>
-											<dt>시작가</dt>
-											<dd>1,700,000 원</dd>
-											<dt>현재입찰가</dt>
-											<dd>2,300,000 원</dd>
-											<dt>응찰가</dt>
-											<dd>
-												<div class="is-sum2">
-													<div class="is-won"><input type="text" class="" placeholder="" /></div>
-													<button type="button" class="">응찰하기</button>
-												</div>
-											</dd>
-											<dt>남은시간</dt>
-											<dd>21:27:35</dd>
-											<dt>응찰수</dt>
-											<dd>12</dd>
-											<dt>예상수수료</dt>
-											<dd>250,000원</dd>
-											<dt>예상배송비</dt>
-											<dd></dd>
-										</dl>
-									</div>
-								</div>
-								<div class="myd-te3">
-									<div class="myd-table">
-										<div class="myd-won">
-											<p class="won-p">
-												현재 가장 높은 입찰가로  입찰 중 입니다.
-												<span>경매 진행 중</span>
-											</p>
-											<button type="button" class="btns-2">구매확정</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							
 							
 							
 						</div>
@@ -170,86 +371,98 @@
 
 <script type="text/javascript">      
       
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ 
+ $(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ 
+ /* jQuery(function($) {
 
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
+    window.onresize = function(){
+      document.location.reload();
+    };
 
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
+}); */
+ 
+ 
+ 
+ var delay = 300;
+ var timer = null;
 
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
+ //Javascript
+ window.addEventListener('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
 
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-      
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-      //$('.selectpicker').selectpicker();
+ //jQuery
+ $(window).on('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+ 
+ //$('.selectpicker').selectpicker();
+$.datepicker.setDefaults({
+	dateFormat: 'yy.mm.dd',
+	prevText: '이전 달',
+	nextText: '다음 달',
+	monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	showMonthAfterYear: true,
+	yearSuffix: '년'
+});
       
 jQuery(document).ready(function() {
+	$('.datepicker').datepicker();
+	$("#searchStrtDate").calendar( $("#searchEndngDate") );
 	if(sAuthSqVal == 2){
 		document.getElementById("portfolio").style.display="";
 	}
@@ -259,8 +472,150 @@ jQuery(document).ready(function() {
 	var conTitleHtml = "";
 	conTitleHtml += '<h3>My Deal</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
+	
+	myDealSearchList();
 });   
-    </script>
+
+var searchOptions = new Object();
+
+function myDealSearchList(){
+	//searchOptions.mbrSq = sMbrSqVal;
+	searchOptions.mbrSq = 1;
+	if($("#searchKeyword").val() != "" && $("#searchKeyword").val() != null){
+		searchOptions.searchKeyword = "*"+$("#searchKeyword").val()+"*";
+	}
+	if(searchDateCheck()){
+		searchOptions.searchStrtDate = $("#searchStrtDate").val();
+		searchOptions.searchEndngDate = $("#searchEndngDate").val();
+	}
+	$.ajax({
+        type: "post",
+        url: "/myDealSearchList",
+        data: searchOptions,
+        success: function(data) {
+        	var myDealList = null;
+        	var myDealListHtml = "";
+        	if(data.result != null && data.result.length > 0){
+        		myDealList = data.result;	
+        		for(var i=0; i<myDealList.length; i++){
+    	        	myDealListHtml += '<div class="myd-box myd-mobile">';
+    				myDealListHtml += '	<div class="myd-img">';
+    				myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'"  class="" />';
+    				myDealListHtml += '		<button type="button" class="btns-4">응찰 히스토리</button>';
+    				myDealListHtml += '		<button type="button" class="btns-4">거래 계약 안내 및 상세</button>';
+    				myDealListHtml += '	</div>';
+    				myDealListHtml += '	<div class="myd-2">';
+    				myDealListHtml += '		<div class="myd-te1">';
+    				myDealListHtml += '			<h4>'+ myDealList[i].artstActvtyNm +'</h4>';
+    				myDealListHtml += '			<h5>'+ myDealList[i].workNm +'('+ myDealList[i].workProdcYear +')</h5>';
+    				myDealListHtml += '		</div>';
+    				if(myDealList[i].dealTypCd == "AUCT"){
+    				myDealListHtml += '		<div class="myd-te2">';
+    				myDealListHtml += '			<dl class="myd-dl3">';
+    				myDealListHtml += '				<dt>경매기간</dt>';
+    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
+    				myDealListHtml += '				<dt>시작가</dt>';
+    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].dealStrtPrc) +' 원</dd>';
+    				myDealListHtml += '				<dt>현재입찰가</dt>';
+    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].maxBidPrc) +' 원</dd>';
+    				myDealListHtml += '				<dt>응찰가</dt>';
+    				myDealListHtml += '				<dd>';
+    				myDealListHtml += '					<div class="is-sum2">';
+    				myDealListHtml += '						<div class="is-won"><input type="text" class="" placeholder="" /></div>';
+    				myDealListHtml += '						<button type="button" class="">응찰하기</button>';
+    				myDealListHtml += '					</div>';
+    				myDealListHtml += '				</dd>';
+    				myDealListHtml += '				<dt>남은시간</dt>';
+    				myDealListHtml += '				<dd>'+ myDealList[i].dealRemainingDay +'일 '+ myDealList[i].dealRemainingHour +'시 '+ myDealList[i].dealRemainingMin +'분 '+ myDealList[i].dealRemainingSec +'초</dd>';
+    				myDealListHtml += '				<dt>응찰수</dt>';
+    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
+    				myDealListHtml += '				<dt>예상수수료</dt>';
+    				myDealListHtml += '				<dd>250,000원</dd>';
+    				myDealListHtml += '				<dt>예상배송비</dt>';
+    				myDealListHtml += '				<dd></dd>';
+    				myDealListHtml += '			</dl>';
+    				myDealListHtml += '		</div>';
+    				}
+    				myDealListHtml += '	</div>';
+    				myDealListHtml += '	<div class="myd-te3">';
+    				myDealListHtml += '		<div class="myd-table">';
+    				myDealListHtml += '			<div class="myd-won">';
+    				if(myDealList[i].dealTypCd == "AUCT"){
+    				myDealListHtml += '				<p class="won-p">';
+    				myDealListHtml += '					현재 가장 높은 입찰가로  입찰 중 입니다.';
+    				myDealListHtml += '					<span>경매 진행 중</span>';
+    				myDealListHtml += '				</p>';
+    				myDealListHtml += '				<button type="button" class="btns-2">구매확정</button>';
+    				}
+    				myDealListHtml += '			</div>';
+    				myDealListHtml += '		</div>';
+    				myDealListHtml += '	</div>';
+    				myDealListHtml += '</div>';
+            	}
+            	$("#myDealList").empty();
+            	$("#myDealList").append(myDealListHtml).trigger("create");
+        	}else{
+        		modalAlertShow("검색 결과가 없습니다."); 
+        	}
+        },           
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+}
+
+function searchOption_onclick(clickId){
+	var today = new Date();
+	var searchEndngDate = document.getElementById('searchEndngDate');
+	var searchStrtDate = document.getElementById('searchStrtDate');
+	switch(clickId.replace("searchOption_", "")){
+		case "ALL" :
+			searchEndngDate.value = "";
+			searchStrtDate.value = "";
+			searchEndngDate.disabled = false;
+			searchStrtDate.disabled = false;
+			break;
+		case "6M" :
+			searchEndngDate.value = dateFormat(today, ".");
+			searchStrtDate.value = dateFormat(getNextDate(-180), ".");
+			searchEndngDate.disabled = true;
+			searchStrtDate.disabled = true;
+			break;
+		case "1Y" :
+			searchEndngDate.value = dateFormat(today, ".");
+			searchStrtDate.value = dateFormat(getNextDate(-365), ".");
+			searchEndngDate.disabled = true;
+			searchStrtDate.disabled = true;
+			break;
+		case "2Y" :
+			searchEndngDate.value = dateFormat(today, ".");
+			searchStrtDate.value = dateFormat(getNextDate(-730), ".");
+			searchEndngDate.disabled = true;
+			searchStrtDate.disabled = true;
+			break;
+		case "3Y" :
+			searchEndngDate.value = dateFormat(today, ".");
+			searchStrtDate.value = dateFormat(getNextDate(-1095), ".");
+			searchEndngDate.disabled = true;
+			searchStrtDate.disabled = true;
+	}
+}
+function searchDateCheck(){
+	var strtDate = document.getElementById('searchStrtDate');
+	var endngDate = document.getElementById('searchEndngDate');
+	if(endngDate.disabled == false && strtDate.disabled == false){
+		if(strtDate.value == "" && endngDate.value != ""){
+			modalAlertShow("검색 시작 날짜가 입력되지 않았습니다.", "searchStrtDate");
+			return false;
+		}
+		if(endngDate.value == "" && strtDate.value != ""){
+			modalAlertShow("검색 종료 날짜가 입력되지 않았습니다.", "searchEndngDate");
+			return false;
+		}
+	}
+	return true;
+}
+</script>
     
 	
 	

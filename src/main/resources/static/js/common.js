@@ -15,6 +15,183 @@ function buttonStyleFix() {
   }
  }
 } 
+
+/*
+ * -----------------------------------------------------------------------------
+ * 여기서부터 jquery.calendar.js 파일로 저장해서 링크하셔도 됩니다.
+ * -----------------------------------------------------------------------------
+ * inputbox에 달력이 있는 곳에서 사용한다.
+ *
+ * # 사용법
+ *  1. 달력이 하나일 경우
+ *   - $(달력 inputbox).calendar();
+ *   - $("#searchStDtFrom").calendar();
+ *
+ *  2. 달력이 2개인데 from ~ to인 경우
+ *   - $(from 달력 inputbox).calendar( $(to 달력 inputbox) );
+ *   - $("#searchStDtFrom").calendar( $("#searchStDtTo") );
+ *
+ *  3. 서로 무관한 달력이 2개인 경우
+ *   - $(달력1 inputbox).calendar(); $(달력2 inputbox).calendar();
+ *   - $("#searchStDt1").calendar(); $("#searchStDt2").calendar();
+ *
+ *  4. 예제 소스
+ *   - /jsp/wf/wfMonList.jsp 참조하시면 됩니다.
+ */
+(function($)
+{
+    $.fn.calendar = function( toObj )
+    {
+    	var opts = {
+    		id : {from:null, to:null},
+    		flag : "."
+    	}    	
+
+    	var funcDate = {    			
+
+    		// 날짜포맷에 맞는지 검사
+    		isDateFormat : function( d ) {
+    			var df;
+    			if( opts.flag == "-" ) {
+    				df = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+    			} else if( opts.flag == "." ) {
+    				df = /[0-9]{4}.[0-9]{2}.[0-9]{2}/;
+    			}
+			    return d.match(df);
+			},
+
+			// 윤년여부 검사
+			isLeaf : function( year )
+			{
+			    var leaf = false;
+			    if(year % 4 == 0) {
+			        leaf = true;
+			        if(year % 100 == 0) leaf = false;
+			        if(year % 400 == 0) leaf = true;
+			    }
+
+			    return leaf;
+			},
+
+			// 날짜가 유효한지 검사
+			isValidDate : function(d)
+			{
+			    // 포맷에 안맞으면 false리턴
+			    if( !funcDate.isDateFormat(d) ) return false;
+			    var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			    var dateToken = d.split( opts.flag );
+			    var year = Number(dateToken[0]);
+			    var month = Number(dateToken[1]);
+			    var day = Number(dateToken[2]);			    
+
+			    // 날짜가 0이면 false
+			    if(day == 0) return false;
+			    var isValid = false;
+
+			    // 윤년일때
+			    if( funcDate.isLeaf( year ) ) {
+			        if(month == 2) {
+			            if(day <= month_day[month-1] + 1) isValid = true;
+			        } else {
+			            if(day <= month_day[month-1]) isValid = true;
+			        }
+			    } else {
+			        if(day <= month_day[month-1]) isValid = true;
+			    }
+
+			    return isValid;
+			}
+    	}    	
+
+    	var funcEvent = {   			
+
+			change : function()
+			{
+				var $fromObj = opts.id.from;
+				var $toObj = opts.id.to;
+				debugger;
+				if( $fromObj ) {
+					if( $fromObj.val().length >= 8 ) {
+						if( funcDate.isValidDate( $fromObj.val() ) ) {
+							if( $toObj ) {
+								$toObj.datepicker('option', 'minDate', $fromObj.val());
+							}
+						} else {
+							modalAlertShow("유효하지 않은 날짜입니다.", $fromObj[0].id);
+							$fromObj.val("");
+							return;
+						}
+					} else {
+						modalAlertShow("유효하지 않은 날짜입니다.", $fromObj[0].id);
+						$fromObj.val("");
+						return;
+					}
+				}				
+
+				if( $toObj ) {
+					if( $toObj.val().length >= 8 ) {
+						if( funcDate.isValidDate( $toObj.val() ) ) {
+							if( $fromObj ) {
+								$fromObj.datepicker('option', 'maxDate', $toObj.val());
+							}
+						} else {
+							modalAlertShow("유효하지 않은 날짜입니다.", $toObj[0].id);
+							$toObj.val("");
+							return;
+						}
+					} else {
+						modalAlertShow("유효하지 않은 날짜입니다.", $toObj[0].id);
+						$toObj.val("");
+						return;
+					}
+				}
+			}
+    	}     	
+
+    	var setCalendar = function( fromObj )
+    	{
+    		opts.id.from = $(fromObj);
+    		$(fromObj).attr("maxlength", 10);
+    		$(fromObj).change( funcEvent.change );    		
+
+    		// from 달력 세팅
+    		$(fromObj).datepicker({
+                showOn: "button",
+                dateFormat: "yy.mm.dd",
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                onSelect: function() {
+                	funcEvent.change();
+                }
+            });    		
+
+    		// to 달력 세팅
+    		if( toObj )
+    		{
+        		opts.id.to = $(toObj);
+        		$(toObj).attr("maxlength", 10);
+        		$(toObj).change( funcEvent.change );    			
+
+        		$(toObj).datepicker({
+					showOn: "button",
+					dateFormat: "yy.mm.dd",
+					changeMonth: true,
+					changeYear: true,
+					showButtonPanel: true,
+					onSelect: function() {
+						funcEvent.change();
+					}
+				});
+    		}
+    	}    	
+
+    	return this.each(function(){
+    		setCalendar( this );
+    	});
+    }
+})
+(jQuery);
 /*
 *********************************************************************************************************
 * 함수설명	: 입력된 한글의 마지막글자에 받침이 있는지 없는지 검사해준다.
@@ -237,7 +414,7 @@ function formatDate(str,mark){
  }
 }
 
-function setToday(field){
+function setToday(){
     /* 
     ****************************************************************************************************
     *  함수설명: 입력란을 오늘날짜로 채워준다.
@@ -248,12 +425,66 @@ function setToday(field){
     ****************************************************************************************************
     */
  var cDate=new Date();
- var year=cDate.getYear();
+ var year=cDate.getFullYear().toString();
  var month=(cDate.getMonth()+1).toString();
  month=month.length==1?"0"+month:month;
  var day=cDate.getDate().toString();
  day=day.length==1?"0"+day:day;
- field.value="" +year+month+day;
+ return year+month+day;
+}
+
+/**
+ * 주어진 값 다음의 날짜 구하기(과거는 - 마이너스)
+ * @param nextDateInt   날짜에 더하거나 빼야할 값
+ * @param nowDate       현재 날짜 및 기준날짜( new Date(), 없을 경우 new Date(), yyyymmdd 8자리)
+ * @return Date
+ */
+function getNextDate(nextDateInt, standardDate){
+ 
+    var oneDate = 1000 * 3600 * 24; // 하루
+ 
+    var nowDate;
+    if( standardDate == undefined )                 nowDate = new Date();
+    else if( standardDate.getTime != undefined )    nowDate = standardDate;
+    else if( standardDate.length == 8 )             nowDate = new Date(standardDate.substring(0, 4), parseInt(standardDate.substring(4, 6))-1, standardDate.substring(6, 8));
+     
+    return new Date(nowDate.getTime() + (oneDate * nextDateInt));
+}
+
+/**
+ * 날짜 형식 포맷 변경
+ * @param Date
+ * @return String
+ */
+function dateFormat(date, mark) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+
+        return date.getFullYear() + mark + month + mark + day;
+}
+
+/**
+ * 날짜 유효성 체크
+ * @param yyyy.mm.dd로 구성된 문자열
+ * @return boolean
+ */
+function checkValidDate(date) {
+	var result = true;
+	try {
+	    var date = value.split(".");
+	    var y = parseInt(date[0], 10),
+	        m = parseInt(date[1], 10),
+	        d = parseInt(date[2], 10);
+	    
+	    var dateRegex = /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+	    result = dateRegex.test(d+'-'+m+'-'+y);
+	} catch (err) {
+		result = false;
+	}    
+    return result;
 }
 
 function setMonthFirstDay(field){

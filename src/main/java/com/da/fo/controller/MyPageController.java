@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.MemberService;
+import com.da.fo.service.MyPageService;
 import com.da.sample.service.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
@@ -33,6 +35,9 @@ public class MyPageController {
 	
 	@Autowired
 	private SendMailUtil sendMailUtil;
+	
+	@Autowired
+	private MyPageService myPageService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -93,6 +98,16 @@ public class MyPageController {
 	@RequestMapping("/myDeal")
 	public String myDeal() {
 		return "thymeleaf/fo/myPage/myDeal_list";
+	}
+	
+	@RequestMapping("/myDealSearchList")
+	@ResponseBody
+	public ModelAndView myDealSearchList(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println("############# param : " + param);
+		List result = myPageService.myDealSearchList(param);
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	@RequestMapping("/withdrawalSubmit")
