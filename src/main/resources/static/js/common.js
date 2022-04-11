@@ -122,14 +122,16 @@ function buttonStyleFix() {
 							return;
 						}
 					} else {
-						modalAlertShow("유효하지 않은 날짜입니다.", $fromObj[0].id);
-						$fromObj.val("");
-						return;
+						if($toObj.val() == ""){
+							modalAlertShow("유효하지 않은 날짜입니다.", $fromObj[0].id);
+							$fromObj.val("");
+							return;
+						}
 					}
 				}				
 
 				if( $toObj ) {
-					if( $toObj.val().length >= 8 ) {
+					if( $toObj.val().length >= 8) {
 						if( funcDate.isValidDate( $toObj.val() ) ) {
 							if( $fromObj ) {
 								$fromObj.datepicker('option', 'maxDate', $toObj.val());
@@ -140,9 +142,11 @@ function buttonStyleFix() {
 							return;
 						}
 					} else {
-						modalAlertShow("유효하지 않은 날짜입니다.", $toObj[0].id);
-						$toObj.val("");
-						return;
+						if($fromObj.val() == ""){
+							modalAlertShow("유효하지 않은 날짜입니다.", $toObj[0].id);
+							$toObj.val("");
+							return;
+						}
 					}
 				}
 			}
