@@ -29,7 +29,7 @@ public class MemberDao {
 	@Autowired
 	MemberMapper memberMapper;
 	
-	//회원정보 입력
+	//회원정보 수정
 	public void memberUpdate(Map<String, Object> param){
 		
 		System.out.println("FO_MEMBER_UPDATE_REQUEST = " + param);
@@ -125,6 +125,51 @@ public class MemberDao {
 		result.put("memberIdCheck", memberIdCheck);
 		
 		return result;
+	}
+	
+	//작가정보 등록
+	public int authorInfoBaseSave(Map<String, Object> param){
+		
+		int saveState = -1;
+		
+		System.out.println("FO_AUTHOR_INFO_BASE_SAVE_REQUEST = " + param);
+		
+		
+		int authorInfoBaseCount = memberMapper.authorBaseInfoCount(param);
+		
+		if(authorInfoBaseCount == 0) {
+			saveState = memberMapper.authorInfoBaseInsert(param);
+		} else {
+			saveState = memberMapper.authorInfoBaseUpdate(param);
+		}
+				 
+		return saveState;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> authorBaseInfoView(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("AUTHOR_BASE_INFO_VIEW = " + param);
+		
+		List<Map<String, Object>> baseInfo = memberMapper.authorBaseInfo(param);
+		
+		result.put("baseInfo", baseInfo);
+				
+		return result;
+	}
+	
+	//작가학력정보 등록
+	public int authorEduInfoSaveData(Map<String, Object> param){
+		
+		int saveState = -1;
+		
+		System.out.println("FO_AUTHOR_INFO_BASE_SAVE_REQUEST = " + param);
+		
+		saveState = memberMapper.authorEduInfoInsert(param);
+			 
+		return saveState;
 	}
 
 }

@@ -11,7 +11,8 @@
 			,ARTST_ACTVTY_NM		AS artstActvtyNm      
 			,ARTST_ENGLS_NM			AS artstEnglsNm       
 			,ARTST_ACTVTY_PART_CD	AS artstActvtyPartCd  
-			,ARTST_ACTVTY_CD		AS artstActvtyCd      
+			,ARTST_ACTVTY_NATN_CD	AS artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD	AS artstActvtyCityCd      
 			,ARTST_SELF_INTRO		AS artstSelfIntro     
 			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
 			,ARTST_HMPG_URL			AS artstHmpgUrl       

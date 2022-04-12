@@ -209,4 +209,58 @@ public class MemberController {
 	}
 	
 	
+	//작가기본정보 입력
+	@RequestMapping("/myPage/authorInfoBaseSaveData")
+	@ResponseBody
+	public int authorInfoBaseSaveData(@RequestParam Map<String, Object> param) {
+		
+		int saveState = -1;
+		
+		saveState = memberService.authorInfoBaseSave(param);
+		
+		return saveState;
+	}
+	
+	//작가기본정보 VIEW
+	@RequestMapping("/myPage/authorInfoBaseViewData")
+	@ResponseBody
+	public ModelAndView authorBaseInfoView(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberService.authorBaseInfoView(param);
+		
+		mv.addObject("authorBase", result);
+		
+		return mv;
+	}
+	
+	//작가학력정보 입력
+	@RequestMapping("/myPage/authorEduInfoSaveData")
+	@ResponseBody
+	public int authoreduInfoSaveData(@RequestParam Map<String, Object> param) {
+		
+		int saveState = -1;
+		
+		//회원 순번
+		String mbrSq = (String) param.get("mbrSq");
+		//작가 순번
+		String artstSq = (String) param.get("artstSq");
+		//학력 명
+		String eductnNm = (String) param.get("eductnNm");
+				
+			
+		param.put("mbrSq", mbrSq);
+		param.put("artstSq", artstSq);
+		param.put("eductnNm", eductnNm);
+				
+		
+		saveState = memberService.authorEduInfoSaveData(param);
+		
+		return saveState;
+	}
+	
 }

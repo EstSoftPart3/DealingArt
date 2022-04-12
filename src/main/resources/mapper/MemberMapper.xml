@@ -170,7 +170,121 @@
             TBL_DA_MBR_M A
         WHERE 
         	MBR_ID = #{mbrId}
-  </select>     
+  </select>   
+  
+  <!-- 작가기본정보 입력 -->
+  <insert id="authorInfoBaseInsert" parameterType="hashMap">
+  		INSERT INTO TBL_DA_ARTST_M
+  		(
+  			MBR_SQ
+			,ARTST_ACTVTY_NM
+			,ARTST_ENGLS_NM
+			,ARTST_ACTVTY_PART_CD
+			,ARTST_ACTVTY_NATN_CD
+			,ARTST_ACTVTY_CITY_CD
+			,ARTST_SELF_INTRO
+			,ARTST_PROFILE_IMG_URL
+			,ARTST_HMPG_URL
+			,ARTST_PROMTN_VIDEO_URL
+			,ARTST_FACEBOOK_URL
+			,ARTST_INSTAGRAM_URL
+			,REG_MBR_SQ
+			,REG_DT
+			,UPDT_MBR_SQ
+			,UPDT_DT
+			,USE_YN
+			,DEL_YN
+			
+		) VALUES (
+			
+        	#{mbrSq}
+			,#{artstActvtyNm}
+			,#{artstEnglsNm}
+			,#{artstActvtyPartCd}
+			,#{artstActvtyNatnCd}
+			,#{artstActvtyCityCd}
+			,#{artstSelfIntro}
+			,#{artstProfileImgUrl}
+			,#{artstHmpgUrl}
+			,#{artstPromtnVideoUrl}
+			,#{artstFacebookId}
+			,#{artstInstagramId}
+			,'1'
+			,NOW()
+			,'1'
+			,NOW()
+			,#{useYn}
+			,'N'
+        )
+  </insert>
+  <!-- 작가기본정보 수정 -->
+  <update id="authorInfoBaseUpdate" parameterType="hashMap">
+   		UPDATE TBL_DA_ARTST_M 
+   		<trim prefix="SET" suffixOverrides=",">
+      		<if test="artstActvtyNm">ARTST_ACTVTY_NM = #{artstActvtyNm},</if>
+			<if test="artstEnglsNm">ARTST_ENGLS_NM = #{artstEnglsNm},</if>
+			<if test="artstActvtyPartCd">ARTST_ACTVTY_PART_CD = #{artstActvtyPartCd},</if>
+			<if test="artstActvtyNatnCd">ARTST_ACTVTY_NATN_CD = #{artstActvtyNatnCd},</if>
+			<if test="artstActvtyCityCd">ARTST_ACTVTY_CITY_CD = #{artstActvtyCityCd},</if>
+			<if test="artstSelfIntro">ARTST_SELF_INTRO = #{artstSelfIntro},</if>
+			<if test="artstProfileImgUrl">ARTST_PROFILE_IMG_URL = #{artstProfileImgUrl},</if>
+			<if test="artstHmpgUrl">ARTST_HMPG_URL = #{artstHmpgUrl},</if>
+			<if test="artstPromtnVideoUrl">ARTST_PROMTN_VIDEO_URL = #{artstPromtnVideoUrl},</if>
+			<if test="artstFacebookUrl">ARTST_FACEBOOK_URL = #{artstFacebookUrl},</if>
+			<if test="artstInstagramUrl">ARTST_INSTAGRAM_URL = #{artstInstagramUrl},</if>
+			UPDT_DT = NOW(),
+			<if test="useYn">USE_YN = #{useYn},</if>
+   		</trim>
+   		WHERE MBR_SQ = #{mbrSq}
+	</update>
+	
+  <!-- 작가기본정보 내용보기 -->
+  <select id="authorBaseInfo" resultType="hashMap">
+        SELECT
+          	 MBR_SQ					AS mbrSq              
+			,ARTST_SQ				AS artstSq           
+			,ARTST_ACTVTY_NM		AS artstActvtyNm      
+			,ARTST_ENGLS_NM			AS artstEnglsNm       
+			,ARTST_ACTVTY_PART_CD	AS artstActvtyPartCd  
+			,ARTST_ACTVTY_NATN_CD	AS artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD	AS artstActvtyCityCd      
+			,ARTST_SELF_INTRO		AS artstSelfIntro     
+			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
+			,ARTST_HMPG_URL			AS artstHmpgUrl       
+			,ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
+			,ARTST_FACEBOOK_URL		AS artstFacebookUrl    
+			,ARTST_INSTAGRAM_URL	AS artstInstagramUrl   
+			,REG_MBR_SQ				AS regMbrSq           
+			,REG_DT					AS regDt              
+			,UPDT_MBR_SQ			AS updtMbrSq          
+			,UPDT_DT				AS updtDt             
+			,USE_YN					AS useYn              
+			,DEL_YN					AS delYn  
+
+        FROM TBL_DA_ARTST_M
+        WHERE MBR_SQ = #{mbrSq}
+  </select>
+  <!-- 작가기본정보 카운터 -->
+  <select id="authorBaseInfoCount" resultType="int">
+  	SELECT
+    	COUNT(*) AS CNT      
+	FROM TBL_DA_ARTST_M
+    WHERE MBR_SQ = #{mbrSq}
+  </select>
     
+  <!-- 작가학력정보 등록 -->
+  <insert id="authorEduInfoInsert" parameterType="hashMap">
+  		INSERT INTO TBL_DA_ARTST_EDUCTN_S
+  		(
+  			ARTST_SQ
+			,MBR_SQ
+			,EDUCTN_NM
+			
+  		) VALUES (
+  			#{artstSq}
+  			,#{mbrSq}
+  			,#{eductnNm}
+  		}
+  </insert>   
     
 </mapper>

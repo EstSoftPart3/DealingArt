@@ -16,6 +16,8 @@
 		
 		<div class="body-wrap">
 			<div class="contents">
+			
+			<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				
 				<div class="con-wrap">
 					
@@ -30,13 +32,108 @@
 							</div>
 							<div class="myd-box">
 								<div class="myd-box-3">
+								
+									<script type="text/javascript">
+									
+									$(document).ready(function() {
+										$("#file").bind('change', function() {
+											uploadResource(this.files);
+										});
+										
+										$(function() {
+											// 파일 드롭 다운
+											fileDropDown();
+										});
+										
+										// 파일 드롭 다운
+										function fileDropDown() {
+											var dropZone = $("#dropZone");
+											//Drag기능 
+											dropZone.on('dragenter', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#E3F2FC');
+											});
+											dropZone.on('dragleave', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#FFFFFF');
+											});
+											dropZone.on('dragover', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#E3F2FC');
+											});
+											dropZone.on('drop', function(e) {
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#FFFFFF');
+								
+												var fileObject = e.originalEvent.dataTransfer.files;
+											
+												if (fileObject != null) {
+													if (fileObject.length < 1) {
+														/* alert("폴더 업로드 불가"); */
+														console.log("폴더 업로드 불가");
+														return;
+													} else {
+														uploadResource(fileObject);
+													}
+												} else {
+													alert("ERROR");
+												}
+											});
+										}
+										
+										function uploadResource(fileObject) {
+											
+											var file = null;
+											
+											const formData = new FormData();
+											
+											if (fileObject != null) {
+												// 파일 Drag 이용하여 등록시
+												file = fileObject[0];
+												formData.append("file", file);
+												console.log(file);
+											} else {
+												file = document.getElementById("file");
+												formData.append("file", file.files[0]);
+											}
+											
+
+									        fetch("/file/upload", {
+									            method : "POST"
+									            , body : formData
+									        })
+									        .then(result => result.json())
+									        .then(data => {
+									            document.getElementById("dropZone").setAttribute("src", data.fileUrl);
+									            $('#artstProfileImgUrl').val(data.fileUrl);
+									            //document.getElementById("remove").setAttribute("fileNm", data.fileNm)
+									        })
+									        .catch(error => console.log(`error => ${error}`));
+									    }
+										
+										$("#dropZone").click(function(){
+									       $('#file').click();
+									    });
+									});
+									
+									</script>
 									
 									<table class="mstyle-2">
 										<tr>
 											<th><span class="my-red">프로필 이미지</span></th>
 											<td>
 												<div class="cont-box">
-													<div class="content"></div>
+													<input type="hidden" name="artstProfileImgUrl" id="artstProfileImgUrl">
+													<input type="file" id="file" style="display:none">
+													<img class="content" id="dropZone" style="cursor:pointer"/>
+													<!-- <div class="content" id="dropZone"></div> -->
 													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
 												</div>
 											</td>
@@ -52,27 +149,27 @@
 											<th>영문명</th>
 											<td><input type="text" class="input-5" placeholder="영문 활동명을 기재해 주세요." id="artstEnglsNm" name="artstEnglsNm"/></td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<th>학력</th>
 											<td><input type="text" class="input-5" placeholder="학교 / 전공 등" id="artstEductn" name="artstEductn"/></td>
-										</tr>
+										</tr> -->
 										<tr>
 											<th><span class="my-red">활동 분야</span></th>
 											<td>
 												<div class="pay-check dib mg-r50">
-													<input type="checkbox" id="a1" name="artstActvtyPartCd" class="artstActvtyPartCd">
+													<input type="radio" id="a1" name="artstActvtyPartCd" class="artstActvtyPartCd" value="PNTNG" checked>
 													<label for="a1"><span></span>회화</label>
 												</div>
 												<div class="pay-check dib mg-r50">
-													<input type="checkbox" id="a2" name="artstActvtyPartCd" class="artstActvtyPartCd">
+													<input type="radio" id="a2" name="artstActvtyPartCd" class="artstActvtyPartCd" value="MLDNG">
 													<label for="a2"><span></span>조형</label>
 												</div>
 												<div class="pay-check dib mg-r50">
-													<input type="checkbox" id="a3" name="artstActvtyPartCd" class="artstActvtyPartCd">
+													<input type="radio" id="a3" name="artstActvtyPartCd" class="artstActvtyPartCd" value="VDMD">
 													<label for="a3"><span></span>영상/미디어</label>
 												</div>
 												<div class="pay-check dib mg-r50">
-													<input type="checkbox" id="a4" name="artstActvtyPartCd" class="artstActvtyPartCd">
+													<input type="radio" id="a4" name="artstActvtyPartCd" class="artstActvtyPartCd" value="INSTL">
 													<label for="a4"><span></span>설치</label>
 												</div>
 											</td>
@@ -82,13 +179,13 @@
 											<td>
 												<div class="selec-flex">
 													<div class="selec-box">
-														<select class="selectpicker" name="artstActvtyCd" id="artstActvtyCd">
+														<select class="selectpicker" name="artstActvtyNatnCd" id="artstActvtyNatnCd">
 															<option value="KR" selected>대한민국</option>
-															
+															<option value="GL">그린란드</option>
 														</select>
 													</div>
-													<div class="selec-box" style="display:none">
-														<select class="selectpicker" name="" id="">
+													<div class="selec-box">
+														<select class="selectpicker" name="artstActvtyCityCd" id="artstActvtyCityCd">
 															<option value="KR-11" selected>서울특별시</option>
 															<option value="KR-26">부산광역시</option>
 															<option value="KR-27">대구광역시</option>
@@ -113,7 +210,7 @@
 										</tr>
 										<tr>
 											<th>자기 소개</th>
-											<td><textarea rows="7" class="textarea-3" placeholder="자기소개를 입력해 주세요 (2,000자 제한)"></textarea></td>
+											<td><textarea rows="7" class="textarea-3" placeholder="자기소개를 입력해 주세요 (2,000자 제한)" name="artstSelfIntro" id="artstSelfIntro"></textarea></td>
 										</tr>
 									</table>
 								</div>
@@ -132,16 +229,61 @@
 											</tr>
 											<tr>
 												<th>페이스북</th>
-												<td><input type="text" class="input-5" placeholder="페이스북 아이디" id="artstFacebookId" name="artstFacebookId"/></td>
+												<td><input type="text" class="input-5" placeholder="페이스북 아이디" id="artstFacebookUrl" name="artstFacebookUrl"/></td>
 											</tr>
 											<tr>
 												<th>인스타그램</th>
-												<td><input type="text" class="input-5" placeholder="인스타그램 아이디" id="artstInstagramId" name="artstInstagramId"/></td>
+												<td><input type="text" class="input-5" placeholder="인스타그램 아이디" id="artstInstagramUrl" name="artstInstagramUrl"/></td>
 											</tr>
 										</table>
 									</div>
 								</div>
 							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">학력정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-3">
+									
+									<table class="mstyle-2 " id="eductnListTemp" style="display:none">
+										<tr>
+											<th></th>
+											<td>
+												<input type="text" class="input-5"  name="eductnNm[]"/>
+												<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>
+											</td>
+										</tr>
+									</table>
+									
+									<table class="mstyle-2 eductnGroup" id="eductnList">
+										<tr>
+											<th></th>
+											<td>
+												<input type="text" class="input-5"  name="eductnNm[]"/>
+												<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							
+							<script type="text/javascript">
+								
+								/* 학력정보 */
+								$(".eductnAddBtn").click(function(){
+									var newitem = $("#eductnListTemp tr:eq(0)").clone();
+									$("#eductnList").append(newitem);
+														
+							 	}); 
+								
+								$('table.eductnGroup').on('click', '.eductnMinusBtn', function() {
+									  const tr = this.parentElement.parentElement;
+									  tr.remove();
+								});
+								/* 학력정보 */
+								
+							</script>
 							
 							<div class="med">
 								<h2 class="h2-con">경력정보</h2>
@@ -381,7 +523,7 @@
 					
 							<div class="bat-box5">
 								<a href="#" class="ba-btn1"><span>등록하기</span></a>
-								<a href="#" class="ba-btn2"><span>임시저장</span></a>
+								<a href="javascript:AuthorInfoSave(2);" class="ba-btn2"><span>임시저장</span></a>
 								<a href="#" class="ba-btn2"><span>취소</span></a>
 								<a href="#" class="ba-btn2"><span>미리보기</span></a>
 							</div>
@@ -646,7 +788,152 @@
 	</div>
 </div>
 
-<script type="text/javascript">      
+<script type="text/javascript">  
+
+	//작가정보 VIEW
+	function AuthorInfoSaveView(proc) {
+		
+		//proc : 2 라면 입력,수정후 프로세서 이다.
+		
+		var mbrSq = $("#mbrSq").html(); //회원순번
+		
+		let viewBaseParams = {
+				mbrSq : mbrSq
+		}
+		
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorInfoBaseViewData",
+		     data: viewBaseParams,
+		     success: function(data) {
+		    	
+		    	
+		    	dataContent = data.authorBase.baseInfo[0];
+		    	
+		    	/* 프로필 이미지 */
+		    	$("#dropZone").prop("src",dataContent.artstProfileImgUrl)
+		    	$("#artstProfileImgUrl").val(dataContent.artstProfileImgUrl);
+		    	/* 활동명 */
+		    	$("#artstActvtyNm").val(dataContent.artstActvtyNm);
+		    	/* 영문명 */
+		    	$("#artstEnglsNm").val(dataContent.artstEnglsNm);
+		    	/* 활동분야 */
+		    	/* Form checked Clear */
+		    	$(".artstActvtyPartCd").prop('checked' , false);
+		    	$(".artstActvtyPartCd:input[value='"+dataContent.artstActvtyPartCd+"']").prop("checked", true);
+		    	/* 활동지역 : 국가 */
+		      	$('select[name=artstActvtyNatnCd]').val(dataContent.artstActvtyNatnCd);
+		    	/* 활동지역 : 도시 */
+		    	$('select[name=artstActvtyCityCd]').val(dataContent.artstActvtyCityCd);
+		    	$('.selectpicker').selectpicker('refresh');
+		    	/* 자기소개  */
+		    	$("#artstSelfIntro").val(dataContent.artstSelfIntro);
+		    	
+		    	/* 부가정보 */
+		    	/* 홈페이지 */
+		    	$("#artstHmpgUrl").val(dataContent.artstHmpgUrl);
+		    	/* 페이스북 */
+		    	$("#artstFacebookUrl").val(dataContent.artstFacebookUrl);
+		    	/* 인스타그램 */
+		    	$("#artstInstagramUrl").val(dataContent.artstInstagramUrl);
+		    	
+		    	var mbrSq = dataContent.mbrSq;
+		    	var artstSq = dataContent.artstSq;
+		    	
+		    	if(proc == 2){
+		    		//학력 저장
+		    		var eductnNm = $('[name="eductnNm[]"]').serialize();
+		    	 	
+		    		var params = {
+		    				mbrSq : mbrSq,
+		    				artstSq : artsTsq,
+		    				eductnNm : edutnNm
+		    		}
+		    		
+		    		console.log(params);
+		    	 	
+		    	 	
+		    	}
+		    	  	
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		})
+		
+	}
+
+	 //작가정보 저장
+	 function AuthorInfoSave(saveState) {
+		 
+		 //savaState : 1 (일반저장), 2(임시저장)
+		var mbrSq 				= $("#mbrSq").html();				//회원순번
+		var artstProfileImgUrl 	= $("#artstProfileImgUrl").val();	//☆ 프로필 이미지
+		var artstActvtyNm 		= $("#artstActvtyNm").val();		//☆ 활동명
+		var artstEnglsNm 		= $("#artstEnglsNm").val();			//영문명
+		var artstActvtyPartCd   = $("input:radio[name='artstActvtyPartCd']:checked").val(); //☆ 활동분야코드
+		var artstActvtyNatnCd 	= $("#artstActvtyNatnCd").val();		//활동지역 국가코드
+		var artstActvtyCityCd 	= $("#artstActvtyCityCd").val();		//활동지역 도시코드
+		var artstSelfIntro 		= $("#artstSelfIntro").val();		//자기소개
+		var artstHmpgUrl 		= $("#artstHmpgUrl").val();			//홈페이지 URL
+		var artstFacebookUrl 	= $("#artstFacebookUrl").val();		//페이스북 URL
+		var artstInstagramUrl 	= $("#artstInstagramUrl").val();		//인스타그램 URL
+		
+		if(saveState == 1) {
+			useYn = 'Y';
+		} else {
+			useYn = 'N';
+		}
+				
+		
+		if(isEmpty(artstProfileImgUrl)) {
+			modalAlertShow("프로필 이미지를 등록해 주세요.","");
+			 return;
+		}
+		
+		if(isEmpty(artstActvtyNm)) {
+			modalAlertShow("활동명을 등록해 주세요.","");
+			 return;
+		}
+		
+		let baseParams = {
+				mbrSq : mbrSq,
+				artstProfileImgUrl:artstProfileImgUrl,
+				artstActvtyNm:artstActvtyNm,
+				artstEnglsNm:artstEnglsNm,
+				artstActvtyPartCd:artstActvtyPartCd,
+				artstActvtyNatnCd:artstActvtyNatnCd,
+				artstActvtyCityCd:artstActvtyCityCd,
+				artstSelfIntro:artstSelfIntro,
+				artstHmpgUrl:artstHmpgUrl,
+				artstFacebookUrl:artstFacebookUrl,
+				artstInstagramUrl:artstInstagramUrl,
+				useYn:useYn
+		}
+		
+		console.log(baseParams);
+		
+		$.ajax({
+		     type: "post",
+		     url: "/myPage/authorInfoBaseSaveData",
+		     data: baseParams,
+		     success: function(data) {
+		    	console.log("saveData :"+data);
+		    	
+		    	if(data == 1) {
+		    		AuthorInfoSaveView(2);
+		    	}
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		
+		 
+	 }
             
       $(document).ready(function () {
 	      $(".elm").hover(
@@ -658,8 +945,9 @@
 	   	    function(){ $(this).removeClass('gis') }
 	   	  )
 	   	 //$("#myModal5").modal("show");
-      
-	   	
+      		
+	      //작가정보 VIEW
+	   	  AuthorInfoSaveView();
       });
       
       $(function() {                      

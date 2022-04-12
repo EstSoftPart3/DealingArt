@@ -39,5 +39,18 @@ public interface MemberMapper {
 	int memberWithdrawalCheck(Map<String, Object> param);
 	
 	
-
+	//작가기본정보 등록
+	public int authorInfoBaseInsert(Map<String, Object> param);
+	
+	//작가기본정보 수정
+	public int authorInfoBaseUpdate(Map<String, Object> param);
+	
+	//작가기본정보 View
+	public List authorBaseInfo(Map<String, Object> param);
+	
+	//작가기본정보 카운터
+	public int authorBaseInfoCount(Map<String, Object> param);
+	
+	//작가학력정보 등록
+	public int authorEduInfoInsert(Map<String, Object> param);
 }
