@@ -856,12 +856,14 @@ function btn_search_onclick(){
 	}else{
 		//var searchKeyword= "*"+$("#ibx_search").val()+"*";
 	    //window.location.href="/totalSearch?searchKeyword=" + searchKeyword;
-		var parameter = new Object();
-		parameter.url = "/totalSearch";
-		parameter.target = "_self";
-		parameter.vals = [["searchKeyword", "*"+$("#ibx_search").val()+"*"]];
 	    debugger;
-		pageGoPost(parameter);
+		pageGoPost({
+			url:"/totalSearch",
+			target:"_self",
+			vals:[
+				["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+			]
+		});
 	}
 	
 }
