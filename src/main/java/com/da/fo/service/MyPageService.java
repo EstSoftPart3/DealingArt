@@ -10,4 +10,5 @@ public interface MyPageService {
 	 * return : 거래내역
 	 */
 	List myDealSearchList(Map<String, Object> param);
+	
 }

@@ -9,4 +9,5 @@ public interface MyPageMapper {
 	 * return : 거래내역
 	 */
 	public List myDealSearchList(Object param);
+	
 }

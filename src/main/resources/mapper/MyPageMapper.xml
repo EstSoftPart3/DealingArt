@@ -75,4 +75,5 @@
 			</if>
 		GROUP BY F.DEAL_SQ;
 	</select>
+	
 </mapper>

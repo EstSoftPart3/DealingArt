@@ -25,5 +25,6 @@ public class MyPageDao {
 	public List myDealSearchList(Map<String, Object> param) {
 		return myPageMapper.myDealSearchList(param);
 	}
+	
 
 }
