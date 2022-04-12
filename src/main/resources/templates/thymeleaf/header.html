@@ -13,11 +13,11 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>딜링아트</title>
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.css">
 	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="resources/css/common_pc.css">
-	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.css">
 	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
 	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
 	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
@@ -825,24 +825,52 @@ function ibx_search_onkeyup(e){
      
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
-	alert(workSq); 
+	pageGoPost({
+		url:"/bidding",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
 });
 
 $(document).on("click",".artst",function(){
-	var artistSq= $(this).attr("sq");
-	alert(artistSq); 
+	var artstSq= $(this).attr("sq");
+	pageGoPost({
+		url:"/artistDetail",
+		target:"_self",
+		vals:[
+			["artstSq", artstSq]
+		]
+	});
 });
 
 $(document).on("click",".workMore",function(){
 	modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
 		if(confrim){
-			alert("작품 검색 결과 페이지로 이동합니다");
+			pageGoPost({
+				url:"/totalSearch_work",
+				target:"_self",
+				vals:[
+					["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+				]
+			});
 		}
-	})
+	});
 });
 
 $(document).on("click",".artistMore",function(){
-	alert("작가 검색 결과 페이지로 이동합니다"); 
+	modalConfirm("알림", "작가 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+		if(confrim){
+			pageGoPost({
+				url:"/totalSearch_artist",
+				target:"_self",
+				vals:[
+					["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+				]
+			});
+		}
+	});
 });
 
 $(document).on("click",".contentMore",function(){
@@ -854,11 +882,8 @@ function btn_search_onclick(){
 	if(searchKeyword == null || searchKeyword == ""){
 		alert("검색어가 입력되지 않았습니다");
 	}else{
-		//var searchKeyword= "*"+$("#ibx_search").val()+"*";
-	    //window.location.href="/totalSearch?searchKeyword=" + searchKeyword;
-	    debugger;
 		pageGoPost({
-			url:"/totalSearch",
+			url:"/totalSearch_artist",
 			target:"_self",
 			vals:[
 				["searchKeyword", "*"+$("#ibx_search").val()+"*"]

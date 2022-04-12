@@ -34,6 +34,13 @@ public class DealController {
 		return "thymeleaf/fo/deal/deal";
 	}
 	
+	@RequestMapping("/bidding")
+	@ResponseBody
+	public ModelAndView bidding(@RequestParam(value="workSq", required = false) int workSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
+		return mv;
+	}
+	
 	@RequestMapping("/dealConfirmed")
 	public String goDealConfirmed() {
 		logger.info("gogogogogogogogogogogo Confrimed!!!!!");

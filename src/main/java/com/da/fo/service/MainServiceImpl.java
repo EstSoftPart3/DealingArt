@@ -1,6 +1,7 @@
 package com.da.fo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,21 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	/*
-	 * 메인 화면에서 통합검색으로 작품, 작가, 컨텐츠를 조회환다.
+	 * 메인 화면에서 통합검색으로 작품을 조회환다.
 	 * param : searchKeyword
-	 * return : 작품, 작가에 관한 정보
+	 * return : 작품에 관한 정보
 	 */
-	public Map<String, Object> totalSearch(String searchKeyword){
-		Map<String, Object> result = new HashMap<>();
-		result = mainDao.totalSearch(searchKeyword);
-		return result;
+	public List totalSearchWork(String searchKeyword){
+		return mainDao.totalSearchWork(searchKeyword);
+	}
+	
+	/*
+	 * 메인 화면에서 통합검색으로 작가을 조회환다.
+	 * param : searchKeyword
+	 * return : 작가에 관한 정보
+	 */
+	public List totalSearchArtist(String searchKeyword){
+		return mainDao.totalSearchArtist(searchKeyword);
 	}
 	
 	/*
