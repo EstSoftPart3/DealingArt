@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:fragment="headerFragment">
+<th:block th:fragment="headerFragment">
 
 <head>
 <meta charset="utf-8">
@@ -25,11 +25,12 @@
 	
 	<!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="resources/js/common.js"></script>
-    <script src="resources/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="resources/js/common.js"></script>
+    <script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
+    
     
 </head>
 <body>
@@ -47,7 +48,7 @@
 						<li><a href="/deal">Deal</a></li>
 						<li><a href="#">Megazine</a></li>
 						<li><a href="/artist">Artist Library</a></li>
-						<li><a href="#">About</a></li>
+						<li><a href="/serviceIntro">About</a></li>
 					</nav>
 				</div>
 				
@@ -853,19 +854,14 @@ function btn_search_onclick(){
 	if(searchKeyword == null || searchKeyword == ""){
 		alert("검색어가 입력되지 않았습니다");
 	}else{
-		$.ajax({
-	        type: "post",
-	        url: "/totalSearch",
-	        data: {
-	     	   	"searchKeyword" : "*"+$("#ibx_search").val()+"*"
-	        },
-	        success: function(data) {
-	     	   
-	        },
-	        error: function(error) {
-	            alert("오류 발생" + error);
-	        }
-		})
+		//var searchKeyword= "*"+$("#ibx_search").val()+"*";
+	    //window.location.href="/totalSearch?searchKeyword=" + searchKeyword;
+		var parameter = new Object();
+		parameter.url = "/totalSearch";
+		parameter.target = "_self";
+		parameter.vals = [["searchKeyword", "*"+$("#ibx_search").val()+"*"]];
+	    debugger;
+		pageGoPost(parameter);
 	}
 	
 }
@@ -881,8 +877,6 @@ function isEmpty(str){
 
 </script>
 
-
-
 </body>
+</th:block>
 </html>
- </div>

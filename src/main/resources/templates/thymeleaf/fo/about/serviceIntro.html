@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		<div class="body-wrap coll-mobile">
+			
+			<div class="contents">
+				<div class="about-wrap">
+					<div class="aobut-top">
+						<div class="mgz-link">
+							<ul class="mgz-ul2">
+								<li class="active"><a href="/serviceIntro">서비스 소개</a></li>
+								<li><a href="/notice">공지사항</a></li>
+								<li><a href="/customerService">고객센터</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="about-body">
+						<div class="top-san1">
+							<div class="ts-mo"><img src="resources/img/about/mo-bg.jpg" /></div>
+							<div class="about-div max-1200">
+								<div class="about-st1">
+									<h3>국내 최초<br/>개인간 미술품 거래 플랫폼</h3>
+									<h4>간편한 거래   /   투명한 거래    /   안전한 거래</h4>
+									<p>
+										국내 미술 시장은 고속 성장 중임에도 불구하고<br/>
+										제한된 채널, 일방향의 거래 방식, 높은 수수료 등 <br/>
+										현행의 미술품 거래 방식은 <br/>
+										시장 성장의 제약으로 작용하고 있습니다. <br/><br/><br/>
+										
+										전통적인 미술품 거래 방식의 선호는 유지하되, <br/>
+										투명하고 상식적인, 불편을 제거한 <br/>
+										온라인 미술품 거래 구조 개선을 통해 <br/>
+										누구나 미술을 접하고 나눌 수 있는 <br/>
+										서비스 제공을 목표로 합니다.
+									</p>
+								</div>
+								<div class="about-st2">
+									<div><img src="resources/img/about/banner-bg1.png" /></div>
+								</div>
+							</div>
+							
+							<div class="top-san2">
+								<div class="max-1200">
+									<ul class="wei-ul">
+										<li class="wei-li">
+											<div>
+												<h3>For Collectors</h3>
+												<p>딜링아트는 미술품 소비 환경을 개선하고, 누구나 쉽게 작품을 소장할 수 있는 미술품 거래 플랫폼을 지향합니다.  편리한 거래, 투명한 거래, 안전한 거래  서비스를 제공함으로써 콜랙터를 위한 자유롭고 공정한 미술시장을 구축하고자 합니다. </p>
+											</div>
+										</li>
+										<li class="wei-li">
+											<div>
+												<h3>For Artists</h3>
+												<p>딜링아트는 아티스트의 적극적인 작품 활동을 지원하며 체계적인 아카이브 서비스를 제공합니다. 아티스트는 작품을 직접 판매함으로써 안정적인 수익을 확보할 수 있으며 간편하게 입력한 작품 정보를 외부로 공유해 포트폴리오로 활용할 수 있습니다.</p>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+						</div>
+						<div class="max-1200">
+							<ul class="wei-ul2">
+								<li>
+									<div class="wei-list">
+										<img src="resources/img/about/icon-1.png"  class="wei-img" />
+										<div class="wl-div">
+											<h3>간편한 거래</h3>
+											<p>딜링아트는 판매자 5%, 구매자 10%의 낮은 수수료로 누구나 쉽게 작품을 구매하고 판매할 수 있습니다. 판매자는 작품 정보를 입력 후 원하는 방식(경매 또는 바로 판매)에 따라 손쉽게 작품을 판매할 수 있습니다. 구매자는 클릭 한 번으로 간편하게 경매에 응찰하거나 바로 작품을 구매할 수 있습니다. 또한 딜링아트에서는 아티스트 역시 직접 자신의 작품을 홍보하고 판매할 수 있습니다.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="wei-list">
+										<img src="resources/img/about/icon-2.png"  class="wei-img" />
+										<div class="wl-div">
+											<h3>투명한 거래</h3>
+											<p>딜링아트는 경매 과정과 결과를 투명하게 공개합니다. 이를 통해 기존 미술 시장의 폐쇄성을 해결하고 미술시장의 투명성과 신뢰성을 높이고자 합니다. 딜링아트를 통해 누적된 미술품 거래 정보는 국내 미술시장 현황과 작품가 변동추이를 측정할 수 있는 기준으로 작용할 것입니다.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="wei-list">
+										<img src="resources/img/about/icon-3.png"  class="wei-img" />
+										<div class="wl-div">
+											<h3>안전한 거래</h3>
+											<p>딜링아트에서는 작품 보증서를 통해 공인된 작품만을 거래할 수 있으며, 모든 결제는 딜링아트의 결제 시스템을 통해 안전하게 이루어집니다. 거래가 성사되는 즉시 판매자와 구매자간 거래계약서가 생성되며 작품의 컨디션 체크부터 운송, 설치까지 미술작품 전문 운송기사가 안전하게 작품을 전달해드립니다.</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+			
+		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+
+
+<script type="text/javascript">      
+
+/* 파일업로드 */
+$(document).ready(function(){
+  var fileTarget = $('.filebox .upload-hidden');
+
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            var filename = $(this)[0].files[0].name;
+        } else {
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+}); 
+
+
+     
+ $(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches)
+    {
+    	
+    	var swiper = new Swiper(".mySwiper", {
+	          slidesPerView: 3,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       	  /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	        });
+    	
+    	  
+    	  
+    	
+    	
+    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+    	var swiper = new Swiper(".mySwiper", {
+	          slidesPerView: 3,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+    	
+    	
+     } else {
+    	var swiper = new Swiper(".mySwiper", {
+	          slidesPerView: 2,
+	       	  spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+     };
+}).resize();
+ 
+ 
+ 
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ 
+ $(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ 
+ /* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+ 
+ 
+ 
+ var delay = 300;
+ var timer = null;
+
+ //Javascript
+ window.addEventListener('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+
+ //jQuery
+ $(window).on('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+ 
+ $('.selectpicker').selectpicker();
+      
+ </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

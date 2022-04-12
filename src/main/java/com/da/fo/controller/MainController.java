@@ -47,8 +47,8 @@ public class MainController {
 	
 	@RequestMapping("/totalSearch")
 	@ResponseBody
-	public ModelAndView totalSearch(@RequestParam String searchKeyword) {
-		ModelAndView mv = new ModelAndView("jsonView");
+	public ModelAndView totalSearch(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
+		ModelAndView mv = new ModelAndView("thymeleaf/result_artist");
 		Map<String, Object> result = mainService.totalSearch(searchKeyword);
 		mv.addObject("result", result);
 		return mv;

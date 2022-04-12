@@ -15,6 +15,20 @@ function buttonStyleFix() {
   }
  }
 } 
+function pageGoPost(d){ 
+	var insdoc = ""; 
+	for (var i = 0; i < d.vals.length; i++) { 
+		insdoc+= "<input type='hidden' name='"+ d.vals[i][0] +"' value='"+ d.vals[i][1] +"'>"; 
+	} 
+	var goform = $("<form>", { 
+		method: "post", 
+		action: d.url, 
+		target: d.target, 
+		html: insdoc 
+		}).appendTo("body"); 
+	
+	goform.submit(); 
+}
 
 /*
  * -----------------------------------------------------------------------------
