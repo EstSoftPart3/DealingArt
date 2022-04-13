@@ -245,17 +245,22 @@ public class MemberController {
 		
 		int saveState = -1;
 		
-		//회원 순번
-		String mbrSq = (String) param.get("mbrSq");
-		//작가 순번
-		String artstSq = (String) param.get("artstSq");
-		//학력 명
-		String eductnNm = (String) param.get("eductnNm");
-				
-			
-		param.put("mbrSq", mbrSq);
-		param.put("artstSq", artstSq);
-		param.put("eductnNm", eductnNm);
+//		//회원 순번
+//		String mbrSq = (String) param.get("mbrSq");
+//		//작가 순번
+//		String artstSq = (String) param.get("artstSq");
+//		//학력 명
+//		String eductnNm = (String) param.get("eductnNm");
+//				
+//			
+//		param.put("mbrSq", mbrSq);
+//		param.put("artstSq", artstSq);
+//		param.put("eductnNm", eductnNm);
+		
+		
+
+		
+		
 				
 		
 		saveState = memberService.authorEduInfoSaveData(param);

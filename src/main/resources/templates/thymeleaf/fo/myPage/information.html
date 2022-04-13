@@ -250,7 +250,7 @@
 										<tr>
 											<th></th>
 											<td>
-												<input type="text" class="input-5"  name="eductnNm[]"/>
+												<input type="text" class="input-5"  name="eductnNm"/>
 												<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>
 											</td>
 										</tr>
@@ -260,7 +260,7 @@
 										<tr>
 											<th></th>
 											<td>
-												<input type="text" class="input-5"  name="eductnNm[]"/>
+												<input type="text" class="input-5"  name="eductnNm"/>
 												<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>
 											</td>
 										</tr>
@@ -842,15 +842,42 @@
 		    	
 		    	if(proc == 2){
 		    		//학력 저장
-		    		var eductnNm = $('[name="eductnNm[]"]').serialize();
-		    	 	
-		    		var params = {
-		    				mbrSq : mbrSq,
-		    				artstSq : artsTsq,
-		    				eductnNm : edutnNm
-		    		}
 		    		
-		    		console.log(params);
+		    		var edulist = new Array();
+		    			    		
+   					$("input[name=eductnNm]").each(function(index, item){
+   						
+	   					if($(item).val() != "") {
+	   						
+	   						var eduData = new Object() ;
+	   						
+	   						eduData.mbrSq = mbrSq;
+	   						eduData.artstSq = artstSq;
+	   						eduData.eductnNm = $(item).val();
+	   						
+	   						edulist.push(eduData);
+	   					}	
+   					});
+   					
+   					console.log(edulist);
+   					
+   				 	$.ajax({
+   				     	type: "post",
+   				     	url: "/myPage/authorEduInfoSaveData",
+   				     	data: edulist,
+   				  		dataType: "json",
+   				     	success: function(data) {
+   				    	 	//modalAlertShow("회원수정이 완료 되었습니다.","");
+   				   	 	},
+   				     	error: function(error) {
+   				  	   		var errorJson = JSON.stringify(error);
+   				         	console.log(errorJson);
+   				     	}
+   					});
+   					
+	   				
+		    				    		
+		    		
 		    	 	
 		    	 	
 		    	}
@@ -923,7 +950,8 @@
 		    	console.log("saveData :"+data);
 		    	
 		    	if(data == 1) {
-		    		AuthorInfoSaveView(2);
+		    		//AuthorInfoSaveView(2);
+		    		modalAlertShow("작가기본정보 등록 완료","");
 		    	}
 		   	 },
 		     error: function(error) {
