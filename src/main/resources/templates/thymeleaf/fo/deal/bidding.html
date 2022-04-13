@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
+		<div class="body-wrap">
+			
+			<div class="contents max-1500">
+				<div class="sub-title">
+					<h3 class="mo-no">응찰하기</h3>
+					<button type="button" class="btn-on">판매중</button>
+					<button type="button" class="btn-off">거래완료</button>
+				</div>
+				
+				<div class="baeg-wrap">
+					<div class="baeg-left">
+						<img src="resources/img/de/sub-img.jpg" />
+					</div>
+					<div class="baeg-right">
+						<div class="be-title">
+							<h2>Lee Miso</h2>
+							<h3>감정나무 #21</h3>
+							
+							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">
+								<div class="tootip-1">신고하기</div>
+								<img src="resources/img/de/popo-1.png" />
+							</a>
+						</div>
+						
+						<table class="tstyle1">
+							<tr>
+								<th>제작년도</th>
+								<td>2021</td>
+							</tr>
+							<tr>
+								<th>소재/기법</th>
+								<td>canvas</td>
+							</tr>
+							<tr>
+								<th>보증서</th>
+								<td>있음 <a href="#" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg" /></a></td>
+							</tr>
+							<tr>
+								<th>액자</th>
+								<td>있음</td>
+							</tr>
+							<tr>
+								<th>사이즈</th>
+								<td>100 x 82.6cm</td>
+							</tr>
+							<tr>
+								<th>닉네임</th>
+								<td>그림팔이소년 <img src="resources/img/de/user-1.jpg" class="mg_l5" /></td>
+							</tr>
+						</table>
+						
+						<ul class="baeg-ul">
+							<li class="">
+								<table class="tstyle2">
+									<tr>
+										<th>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>시작가</span></div>
+										</th>
+										<td>1,000,000 KRW</td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>호가단위</span></div>
+										</th>
+										<td>100,000</td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>경매기간</span></div>
+										</th>
+										<td>2021.10.31 ~ 2021.11.31</td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>남은시간</span></div>
+										</th>
+										<td>21 : 27 : 35</td>
+									</tr>
+								</table>
+							</li>
+							<li class="">
+								<table class="tstyle2">
+									<tr class="t-red">
+										<th>
+											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span></div>
+										</th>
+										<td>1,000,000 KRW</td>
+									</tr>
+									<tr class="t-red">
+										<th>
+											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
+										</th>
+										<td>100,000</td>
+									</tr>
+									<tr class="t-red">
+										<th>
+											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>응찰가</span></div>
+										</th>
+										<td></td>
+									</tr>
+								</table>
+								
+								<div class="selec-box">
+									<select class="selectpicker">
+										<option>Mustard</option>
+										<option>Ketchup</option>
+										<option>Relish</option>
+									</select>
+								</div>
+							</li>
+						</ul>
+						
+						<div class="bat-box">
+							<button type="button" class="ba-btn1 por"><div class="tootip-3">현재 가장 높은 응찰자 입니다 </div><span>응찰하기</span></button>
+							<button type="button" class="ba-btn2"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
+							<button type="button" class="ba-btn3" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
+							<div class="clearboth"></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+				
+				
+			<div class="artist-wrap">
+				<div class="artist-box max-1500">
+					<div class="sub-title mg_t77">
+						<h3>Artist Introduce</h3>
+					</div>
+					<div class="sub-user">
+						<div class="su-l">
+							<span><img src="resources/img/de/user-2.jpg" /></span>
+						</div>
+						<div class="su-r">
+							<p class="sup-1">이 용은</p>
+							<p class="sup-2">Lee Yongeun</p>
+							<div class="sup-3">이용은 작가는 사람들이 가진 고유의 향기를 매화 꽃으로 비유한다. 깨달은 사람을 뜻하는 ‘향 코끼리’는 작가만의 “꽃끼리(flowerphant)”로 새롭게 표현된다. 동양화를 전공한 작가는 코끼리의 ‘겹’을 구겨진 한지에 먹을 묻혀 표현하여 인생을 담아내고, 배경에 금을 많이 사용하여 ‘복’의 뜻을 더하는 등 의미를 더욱 풍부하게 담는다. 다채로운 배경의 팝적인 요소가 가미된 작품들은 올바른 깨달음을 나누고 원하는 색채의 삶을 만드는 긍정적 효과를 기대하였다면, 금박이 배경이 된 작품은 더 나아가 원하는 소망을 이룰 수 있다는 믿음이 더해진다. 작가는 꽃과 코끼리를 대조되는 친숙한 두 소재를 동서양의 물감을 다르게 바르는 등 조화롭게 풀어내어 독창적인 ‘꽃끼리’를 만들어 냈으며, 인간이 살면서 목표하는 진리에 더 가깝게 다가갈 수 있도록 도와준다. 다양한 방법으로 이상향을 담는 이용은 작가의 작품은 지속적인 발전을 통해 단단해지고 있어 앞으로의 성장이 더꽃끼리’를 만들어 냈으며, 인간이 살면서 목표하는 진리에 더 가깝게 다가갈 수 있도록 도와준다. 다양한 방법으로 이상향을 담는 이용은 작가의 작품은 지속적인 발전을 통해 단단해지고 있어 앞으로의 성장이 더. ....</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="contents conbg">
+				<div class="cont-title2 max-1500">
+					<h3>이 용은작가의 다른 작품</h3>
+					<a href="#" class="the-more">더보기</a>
+				</div>
+				<div class="swi-box max-1500">
+					<div class="swiper mySwiper2">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<a class="hd-div hd-tablet">
+									<img src="resources/img/imgs.png" class="hd-img" />
+									
+									<div class="hd-text">
+										<h4>작가명</h4>
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</a>
+							</div>
+							<div class="swiper-slide">
+								<a class="hd-div hd-tablet">
+									<img src="resources/img/imgs.png" class="hd-img" />
+									
+									<div class="hd-text">
+										<h4>작가명</h4>
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</a>
+							</div>
+							<div class="swiper-slide">
+								<a class="hd-div hd-tablet">
+									<img src="resources/img/imgs.png" class="hd-img" />
+									
+									<div class="hd-text">
+										<h4>작가명</h4>
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</a>
+							</div>
+							<div class="swiper-slide">
+								<a class="hd-div hd-tablet">
+									<img src="resources/img/imgs.png" class="hd-img" />
+									
+									<div class="hd-text">
+										<h4>작가명</h4>
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</a>
+							</div>
+							<div class="swiper-slide">
+								<a class="hd-div hd-tablet">
+									<img src="resources/img/imgs.png" class="hd-img" />
+									
+									<div class="hd-text">
+										<h4>작가명</h4>
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
+					</div>
+					<!-- <div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div> -->
+				</div>
+			</div>
+			
+		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+
+<!-- 차트 -->
+<div class="modal fade modal-s" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1023">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>응찰 히스토리</h2>
+				    <img src="resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="text-right mg_t25">
+					<input type="checkbox" id="a1" name="cc">
+					<label for="a1"><span></span>내 응찰만 보기</label>
+				</div>
+				<img src="resources/img/ba/chart-img.png" class="mdimg" />
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 신고하기 -->
+<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>신고하기</h2>
+				    <img src="resources/img/ba/icon-2.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p>
+					위작, 허위판매 등 신고 사유를 가능한 상세히 작성해 주시기 바랍니다.<br />
+					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
+					</p>
+					
+					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요."></textarea>
+					
+					<!-- <div class="text-center  mg_b40">
+						<input type="checkbox" id="w1" name="cc">
+						<label for="w1" style="color:#e9625c;"><span></span> 경매약관 주요 사항 팝업 및 약관 동의 사실 확인</label>
+					</div> -->
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#" data-toggle="modal" data-target="#myModal4"><button type="button" class="baeg-b1">제출하기</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 신고하기 완료 -->
+<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="md-ds">
+						신고가 완료되었습니다.
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">      
+      
+      $(window).on("resize", function () {
+	   	    if(window.matchMedia('(min-width: 1537px)').matches)
+	   	    {
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 4,
+		   	          spaceBetween: 30,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	       	  /* autoplay: {
+		               delay: 3000,
+		               disableOnInteraction: false,
+		             }, */
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swiper-button-next",
+		   	            prevEl: ".swiper-button-prev",
+		   	          },
+		   	        });
+	   	    	
+		       	  
+		       	  
+	   	    	
+	   	    	
+	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 3,
+		   	          spaceBetween: 30,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	       /* autoplay: {
+		               delay: 3000,
+		               disableOnInteraction: false,
+		             }, */
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swiper-button-next",
+		   	            prevEl: ".swiper-button-prev",
+		   	          },
+		   	     });
+	   	    	
+		       	
+	   	    	
+	   	     } else {
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 2,
+		   	       	  spaceBetween: 30,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	       /* autoplay: {
+		               delay: 3000,
+		               disableOnInteraction: false,
+		             }, */
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swiper-button-next",
+		   	            prevEl: ".swiper-button-prev",
+		   	          },
+		   	     });
+	   	    	
+	   	     };
+	   	}).resize();
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      /* jQuery(function($) {
+
+    	    window.onresize = function(){
+    	      document.location.reload();
+    	    };
+
+    	}); */
+      
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+      window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+
+      //jQuery
+      $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      });
+      
+      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    	    // The event won't be propagated up to the document NODE and 
+    	    // therefore delegated events won't be fired
+    	    event.stopPropagation();
+    	});
+      
+      $('.selectpicker').selectpicker();
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

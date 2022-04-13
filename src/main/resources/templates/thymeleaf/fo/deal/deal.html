@@ -761,10 +761,10 @@ function dealSearch(){
      			dealList = data.result;
      		}
      		for(var i=0; i<dealList.length; i++){
-     			dealListHtml += '<figure class="item" id="'+ dealList[i].workSq +'">';
+     			dealListHtml += '<figure class="item">';
      			dealListHtml += '	<div class="heart on"></div>';
      			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
-     				dealListHtml += '	<div class="item-div-img active">';
+     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
      				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
      				dealListHtml += '		<div class="item-ho">';
      				dealListHtml += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
@@ -872,6 +872,16 @@ $("#myCollection").on("click", function(){
 		});
 	}
 });
+
+function workDetail(workSq){
+	pageGoPost({
+		url:"/bidding",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
+}
 
 
 	

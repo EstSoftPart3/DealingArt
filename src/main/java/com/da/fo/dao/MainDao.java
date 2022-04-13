@@ -46,19 +46,25 @@ public class MainDao {
 	}
 	
 	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회환다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public List totalSearchWork(String searchKeyword){
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		return mainMapper.totalSearch_work(param);
+	}
+	
+	/*
 	 * 메인 화면에서 통합검색으로 작품, 작가, 컨텐츠를 조회환다.
 	 * param : searchKeyword
 	 * return : 작품, 작가에 관한 정보
 	 */
-	public Map<String, Object> totalSearch(String searchKeyword){
-		Map<String, Object> result = new HashMap<>();
+	public List totalSearchArtist(String searchKeyword){
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchKeyword", searchKeyword);
-		List artist = mainMapper.totalSearch_artist(param);
-		result.put("artist", artist);
-		List work = mainMapper.totalSearch_work(param);
-		result.put("work", work);
-		return result;
+		return mainMapper.totalSearch_artist(param);
 	}
 	
 	/*

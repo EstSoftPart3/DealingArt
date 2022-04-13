@@ -77,16 +77,20 @@
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				B.ARTST_ACTVTY_NM AS artstActvtyNm,
-				B.ARTST_ENGLS_NM AS artstEnglsNm
+				B.ARTST_ENGLS_NM AS artstEnglsNm,
+				C.KEYWRD AS keywrd 
 		FROM	TBL_DA_WORK_M AS A
 		INNER JOIN 	TBL_DA_ARTST_M AS B
 		ON		A.ARTST_SQ = B.ARTST_SQ
-		AND 	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN  TBL_DA_KEYWRD_S AS C 
+		ON 		A.WORK_SQ = C.WORK_SQ 
 		WHERE 	MATCH (B.ARTST_ACTVTY_NM)
 				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		OR		MATCH (B.ARTST_ENGLS_NM)
 				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		OR		MATCH (A.WORK_NM)
+				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+		OR		MATCH (C.KEYWRD)
 				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		LIMIT 	4;
 	</select>
@@ -116,10 +120,8 @@
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
 				YEAR (B.MBR_BIRTH) AS artistBirthYear,
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, 
-				C.WORK_NM AS workNm,
-				D.EDUCTN_NM AS eductnNm,
-				E.CAREER_NM AS careerNm,
-				F.EXHBTN_NM AS exhbtnNm 
+				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+				A.ARTST_SELF_INTRO AS artstSelfIntro
 		FROM	TBL_DA_ARTST_M AS A
 		INNER JOIN 	TBL_DA_MBR_M AS B
 		ON 		A.MBR_SQ = B.MBR_SQ
@@ -166,7 +168,6 @@
 		FROM	TBL_DA_WORK_M AS A
 		INNER JOIN 	TBL_DA_ARTST_M AS B
 		ON		A.ARTST_SQ = B.ARTST_SQ
-		AND 	A.MBR_SQ = B.MBR_SQ
 		INNER JOIN  TBL_DA_KEYWRD_S AS C 
 		ON 		A.WORK_SQ = C.WORK_SQ 
 		WHERE 	MATCH (B.ARTST_ACTVTY_NM)

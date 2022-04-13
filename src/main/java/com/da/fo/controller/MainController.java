@@ -1,6 +1,7 @@
 package com.da.fo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.MainService;
+
 
 @Controller
 public class MainController {
@@ -45,12 +47,23 @@ public class MainController {
 		return "fo/main/fileUpload";
 	}
 	
-	@RequestMapping("/totalSearch")
+	@RequestMapping("/totalSearch_artist")
 	@ResponseBody
-	public ModelAndView totalSearch(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
+	public ModelAndView totalSearchArtist(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_artist");
-		Map<String, Object> result = mainService.totalSearch(searchKeyword);
+		List result = mainService.totalSearchArtist(searchKeyword);
 		mv.addObject("result", result);
+		mv.addObject("searchKeyword", searchKeyword.replaceAll("\\*", ""));
+		return mv;
+	}
+	
+	@RequestMapping("/totalSearch_work")
+	@ResponseBody
+	public ModelAndView totalSearchWork(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
+		ModelAndView mv = new ModelAndView("thymeleaf/result_work");
+		List result = mainService.totalSearchWork(searchKeyword);
+		mv.addObject("result", result);
+		mv.addObject("searchKeyword", searchKeyword.replaceAll("\\*", ""));
 		return mv;
 	}
 	

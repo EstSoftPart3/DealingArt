@@ -141,6 +141,7 @@
 				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/

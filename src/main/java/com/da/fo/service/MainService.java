@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MainService {
@@ -11,11 +12,18 @@ public interface MainService {
 	Map<String, Object> openMain(Map<String, Object> param);
 	
 	/*
-	 * 메인 화면에서 통합검색으로 작품, 작가, 컨텐츠를 조회환다.
+	 * 메인 화면에서 통합검색으로 작품을 조회환다.
 	 * param : searchKeyword
-	 * return : 작품, 작가에 관한 정보
+	 * return : 작품에 관한 정보
 	 */
-	Map<String, Object> totalSearch(String searchKeyword);
+	List totalSearchWork(String searchKeyword);
+	
+	/*
+	 * 메인 화면에서 통합검색으로 작가을 조회환다.
+	 * param : searchKeyword
+	 * return : 작가에 관한 정보
+	 */
+	List totalSearchArtist(String searchKeyword);
 	/*
 	 * 메인 화면에서 통합검색시 작품, 작가 정보를 자동완성으로 가져온다.
 	 * param : searchKeyword
