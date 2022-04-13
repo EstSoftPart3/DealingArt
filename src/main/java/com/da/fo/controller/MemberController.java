@@ -245,7 +245,7 @@ public class MemberController {
 		
 		int saveState = -1;
 		
-		param.put("mbrSq", mbrSq);
+		//param.put("mbrSq", mbrSq);
 //		//회원 순번
 //		String mbrSq = (String) param.get("mbrSq");
 //		//작가 순번
