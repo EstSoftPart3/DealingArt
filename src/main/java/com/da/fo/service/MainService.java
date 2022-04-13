@@ -24,6 +24,7 @@ public interface MainService {
 	 * return : 작가에 관한 정보
 	 */
 	List totalSearchArtist(String searchKeyword);
+	
 	/*
 	 * 메인 화면에서 통합검색시 작품, 작가 정보를 자동완성으로 가져온다.
 	 * param : searchKeyword

@@ -114,7 +114,9 @@
 	
 	<select id="totalSearch_artist" resultType="hashMap" parameterType="hashMap">
 		/*작가 통합검색*/
-		SELECT	A.ARTST_SQ AS artstSq,
+		SELECT	
+				COUNT(DISTINCT A.ARTST_SQ) AS totalCount,
+				A.ARTST_SQ AS artstSq,
 				A.MBR_SQ AS mbrSq,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
@@ -148,9 +150,12 @@
 		GROUP BY A.ARTST_SQ;
 	</select>
 	
+	
 	<select id="totalSearch_work" resultType="hashMap" parameterType="hashMap">
 		/*작품 통합검색*/
-		SELECT	A.MBR_SQ AS mbrSq,
+		SELECT	
+				COUNT(DISTINCT A.WORK_SQ) AS totalCount,
+				A.MBR_SQ AS mbrSq,
 				A.ARTST_SQ AS artstSq,
 				A.WORK_SQ AS workSq,
 				A.WORK_NM AS workNm,

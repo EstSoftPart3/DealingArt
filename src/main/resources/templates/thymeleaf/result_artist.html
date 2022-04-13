@@ -186,7 +186,7 @@ $(function() {
 		alert("검색 결과가 없습니다.");
 	}else{
 		$("#artstList").empty();
-		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과 총 <span class="c-red">134</span>개</h4>';
+		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과 총 <span class="c-red">'+ artstList[0].totalCount +'</span>개</h4>';
 		for(var i=0; i<artstList.length; i++){
 			artstListHtml += '<li>';
 			artstListHtml += '	<a class="hd-div3">';
