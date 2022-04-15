@@ -204,7 +204,7 @@ public class MemberDao {
 		return deleteState;
 	}
 	
-	//작가경력정보 등록
+	//작가경력정보 등록 / 수정
 	public int authorCareerInfoSaveData(Map<String, Object> param){
 		
 		int saveState = -1;
@@ -214,13 +214,13 @@ public class MemberDao {
 		String careerSq = (String) param.get("careerSq");
 		getParam.put("careerSq", careerSq);
 		
-		//int authorEudInfoCheckCount = memberMapper.authorEudInfoCheckCount(getParam);
+		int authorCarrerInfoCheckCount = memberMapper.authorCarrerInfoCheckCount(getParam);
 		
-		//if(authorEudInfoCheckCount == 0) {
+		if(authorCarrerInfoCheckCount == 0) {
 			saveState = memberMapper.authorCareerInfoInsert(param);
-		//} else {
-			//saveState = memberMapper.authorEduInfoUpdate(param);
-		//}
+		} else {
+			saveState = memberMapper.authorCarrerInfoUpdate(param);
+		}
 		
 	  return saveState;
 	}
@@ -236,5 +236,59 @@ public class MemberDao {
 		result.put("carrerInfo", carrerInfo);
 				
 		return result;
+	}
+	
+	//작가경력 - 경력 삭제
+	public int authorCarrerInfoDelete(Map<String, Object> param){
+		
+		int deleteState = -1;
+				
+		deleteState = memberMapper.authorCarrerInfoDelete(param);
+			 
+		return deleteState;
+	}
+	
+	//작가 전시정보 등록 / 수정
+	public int authorExhbtnInfoSaveData(Map<String, Object> param){
+		
+		int saveState = -1;
+		
+		Map<String, Object> getParam = new HashMap<>();
+		
+		String exhbtnSq = (String) param.get("exhbtnSq");
+		getParam.put("exhbtnSq", exhbtnSq);
+		
+		int authorExhbtnInfoCheckCount = memberMapper.authorExhbtnInfoCheckCount(getParam);
+		
+		if(authorExhbtnInfoCheckCount == 0) {
+			saveState = memberMapper.authorExhbtnInfoInsert(param);
+		} else {
+			saveState = memberMapper.authorExhbtnInfoUpdate(param);
+		}
+		
+	  return saveState;
+	}
+	
+	//작가 전시정보 개인전,단체전
+	public Map<String, Object> authorExhbtnInfoList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> exhbtnInfo = memberMapper.authorExhbtnInfoList(param);
+		
+		result.put("exhbtnInfo", exhbtnInfo);
+				
+		return result;
+	}
+	
+	//작가전시정보 삭제
+	public int authorExhbtnInfoDelete(Map<String, Object> param){
+		
+		int deleteState = -1;
+				
+		deleteState = memberMapper.authorExhbtnInfoDelete(param);
+			 
+		return deleteState;
 	}
 }

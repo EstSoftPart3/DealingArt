@@ -326,7 +326,7 @@
    </update>
    
    
-  <!-- 작가경력-경력 등록 -->
+  <!-- 작가경력-경력/소속 등록 -->
   <insert id="authorCareerInfoInsert" parameterType="hashMap">
   		INSERT INTO TBL_DA_CAREER_S
   		(
@@ -343,7 +343,7 @@
   		)
   </insert>
   
-  <!-- 작가경력-경력 리스트  --> 
+  <!-- 작가경력-경력/소속 리스트  --> 
   <select id="authorCarrerInfoList" resultType="hashMap">
    		SELECT
    			
@@ -358,6 +358,90 @@
    		WHERE 1=1 
    			AND ARTST_SQ = #{artstSq}
    			AND MBR_SQ = #{mbrSq}
+   			AND CAREER_TYP_CD = #{careerTypCd}
    </select>
+   
+   <!-- 작가경력-경력 삭제 -->
+   <delete id="authorCarrerInfoDelete"> 
+   		DELETE FROM TBL_DA_CAREER_S WHERE CAREER_SQ = #{careerSq} 
+   </delete>
+   
+   <!--  작가학경력-경력 수정 -->
+  <update id="authorCarrerInfoUpdate" parameterType="hashMap">
+   		UPDATE 	
+   			TBL_DA_CAREER_S
+   		SET		
+   			CAREER_NM = #{careerNm}
+   		WHERE 	
+   			CAREER_SQ = #{careerSq}
+   </update>
+   
+   
+  <!-- 작가학력정보 등록유무 체크를 위한 카운터 -->
+  <select id="authorCarrerInfoCheckCount" resultType="int">
+	  	SELECT
+	    	COUNT(*) AS CNT      
+		FROM TBL_DA_CAREER_S
+	    WHERE CAREER_SQ = #{careerSq}
+  </select>
+  
+  
+  <!-- 전시정보 등록 -->
+  <insert id="authorExhbtnInfoInsert" parameterType="hashMap">
+  		INSERT INTO TBL_DA_EXHBTN_S
+  		(
+  			ARTST_SQ
+			,MBR_SQ
+			,EXHBTN_NM
+			,EXHBTN_TYP_CD
+			
+  		) VALUES (
+  			#{artstSq}
+  		   ,#{mbrSq}
+  		   ,#{exhbtnNm}
+  		   ,#{exhbtnTypCd}
+  		)
+  </insert>
+  
+   <!-- 정시정보 리스트  --> 
+  <select id="authorExhbtnInfoList" resultType="hashMap">
+   		SELECT
+   			
+   			EXHBTN_SQ AS exhbtnSq
+   			,ARTST_SQ AS artstSq 
+			,MBR_SQ AS mbrSq 
+			,EXHBTN_NM AS exhbtnNm
+			,EXHBTN_TYP_CD AS exhbtnTypCd
+			
+   		FROM 
+   			TBL_DA_EXHBTN_S
+   		WHERE 1=1 
+   			AND ARTST_SQ = #{artstSq}
+   			AND MBR_SQ = #{mbrSq}
+   			AND EXHBTN_TYP_CD = #{exhbtnTypCd}
+  </select>
+  
+  <!-- 전시정보 삭제 -->
+  <delete id="authorExhbtnInfoDelete"> 
+  	DELETE FROM TBL_DA_EXHBTN_S WHERE EXHBTN_SQ = #{exhbtnSq} 
+  </delete>
+  
+  <!-- 전시정보 수정 -->
+  <update id="authorExhbtnInfoUpdate" parameterType="hashMap">
+   		UPDATE 	
+   			TBL_DA_EXHBTN_S
+   		SET		
+   			EXHBTN_NM = #{exhbtnNm}
+   		WHERE 	
+   			EXHBTN_SQ = #{exhbtnSq}
+  </update>
+  
+  <!-- 전시정보 등록유무 체크를 위한 카운터 -->
+  <select id="authorExhbtnInfoCheckCount" resultType="int">
+	  	SELECT
+	    	COUNT(*) AS CNT      
+		FROM TBL_DA_EXHBTN_S
+	    WHERE EXHBTN_SQ = #{exhbtnSq}
+  </select>
    
 </mapper>
