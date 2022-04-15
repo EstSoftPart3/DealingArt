@@ -160,16 +160,81 @@ public class MemberDao {
 		return result;
 	}
 	
-	//작가학력정보 등록
+	//작가학력정보 등록/수정
 	public int authorEduInfoSaveData(Map<String, Object> param){
 		
 		int saveState = -1;
 		
-		System.out.println("FO_AUTHOR_INFO_BASE_SAVE_REQUEST = " + param);
+		Map<String, Object> getParam = new HashMap<>();
 		
-		saveState = memberMapper.authorEduInfoInsert(param);
+		String eductnSq = (String) param.get("eductnSq");
+		getParam.put("eductnSq", eductnSq);
+		
+		int authorEudInfoCheckCount = memberMapper.authorEduInfoCheckCount(getParam);
+		
+		if(authorEudInfoCheckCount == 0) {
+			saveState = memberMapper.authorEduInfoInsert(param);
+		} else {
+			saveState = memberMapper.authorEduInfoUpdate(param);
+		}
 			 
 		return saveState;
 	}
+	
+	//작가학력정보 리스트
+	public Map<String, Object> authorEduInfoList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> eduInfo = memberMapper.authorEduInfoList(param);
+		
+		result.put("eduInfo", eduInfo);
+				
+		return result;
+	}
+	
+	//작가학력정보 삭제
+	public int authorEduInfoDelete(Map<String, Object> param){
+		
+		int deleteState = -1;
+				
+		deleteState = memberMapper.authorEduInfoDelete(param);
+			 
+		return deleteState;
+	}
+	
+	//작가경력정보 등록
+	public int authorCareerInfoSaveData(Map<String, Object> param){
+		
+		int saveState = -1;
+		
+		Map<String, Object> getParam = new HashMap<>();
+		
+		String careerSq = (String) param.get("careerSq");
+		getParam.put("careerSq", careerSq);
+		
+		//int authorEudInfoCheckCount = memberMapper.authorEudInfoCheckCount(getParam);
+		
+		//if(authorEudInfoCheckCount == 0) {
+			saveState = memberMapper.authorCareerInfoInsert(param);
+		//} else {
+			//saveState = memberMapper.authorEduInfoUpdate(param);
+		//}
+		
+	  return saveState;
+	}
 
+	//작가 경력 - 경력 리스트 authorCarrerInfoList
+	public Map<String, Object> authorCarrerInfoList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> carrerInfo = memberMapper.authorCarrerInfoList(param);
+		
+		result.put("carrerInfo", carrerInfo);
+				
+		return result;
+	}
 }

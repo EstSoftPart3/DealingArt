@@ -38,16 +38,26 @@ public interface MemberService {
 	
 	//회원정보 아이디 중복 체크
 	public Map<String, Object> memberIdCheck(Map<String, Object> param);
-	
-	
+		
 	//작가기본정보 등록
 	public int authorInfoBaseSave(Map<String, Object> param);
 	
 	//작가기본정보
 	public Map<String, Object> authorBaseInfoView(Map<String, Object> param);
-	
-	
+		
 	//작가학력정보 등록
 	public int authorEduInfoSaveData(Map<String, Object> param);
+	
+	//작가학력정보 리스트
+	public Map<String, Object> authorEduInfoList(Map<String, Object> param);
+	
+	//작가학력정보 삭제
+	public int authorEduInfoDelete(Map<String, Object> param);
+	
+	//작가경력 등록
+	public int authorCareerInfoSaveData(Map<String, Object> param);
+	
+	//작가 경력-경력 등록
+	public Map<String, Object> authorCarrerInfoList(Map<String, Object> param);
 
 }

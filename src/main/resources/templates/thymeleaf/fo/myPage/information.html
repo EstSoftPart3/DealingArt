@@ -24,7 +24,7 @@
 					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
 					
 					<div class="con-right m-max1300 info-right">
-					
+					    
 						<div class="me-left">
 						
 							<div class="med">
@@ -246,40 +246,82 @@
 							<div class="myd-box">
 								<div class="myd-box-3">
 									
-									<table class="mstyle-2 " id="eductnListTemp" style="display:none">
+									<table class="mstyle-2 eductnListTemp" id="eductnListTemp" style="display:none">
 										<tr>
 											<th></th>
 											<td>
-												<input type="text" class="input-5"  name="eductnNm"/>
+												<input type="hidden" name="eductnSq"/>
+												<input type="text" class="input-5" style="width: 480px" name="eductnNm"/>
 												<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>
 											</td>
 										</tr>
 									</table>
 									
-									<table class="mstyle-2 eductnGroup" id="eductnList">
-										<tr>
-											<th></th>
-											<td>
-												<input type="text" class="input-5"  name="eductnNm"/>
-												<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>
-											</td>
-										</tr>
-									</table>
+									<div>
+										<table class="mstyle-2 eductnGroup" id="eductnList">
+											<tr>
+												<th></th>
+												<td>
+													<input type="hidden" name="eductnSq" class="eductnSq"/>
+													<input type="text" class="input-5" style="width: 480px" name="eductnNm"/>
+													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>
+												</td>
+											</tr>
+										</table>
+									</div>
+									
 								</div>
 							</div>
 							
 							<script type="text/javascript">
 								
 								/* 학력정보 */
-								$(".eductnAddBtn").click(function(){
+								//추가
+								$('table.eductnGroup').on('click', '.eductnAddBtn', function() {
 									var newitem = $("#eductnListTemp tr:eq(0)").clone();
 									$("#eductnList").append(newitem);
-														
-							 	}); 
-								
+								});
+								//삭제
 								$('table.eductnGroup').on('click', '.eductnMinusBtn', function() {
+									 								
 									  const tr = this.parentElement.parentElement;
-									  tr.remove();
+									  var eductnSq = $(tr).eq(0).find('input[name="eductnSq"]').val();
+									  
+									  if(eductnSq == "") {
+										  tr.remove();
+									  } else {
+										console.log("eductnSq : "+eductnSq);
+										  modalConfirm("알림", "해당 작가학력정보를 삭제 하시겠습니까?", function(confrim){
+												if(confrim){
+													
+													let eduDeleteParam = {
+															eductnSq : eductnSq	
+													}
+													
+													$.ajax({
+													     type: "post",
+													     url: "/myPage/authorEudInfoDeleteData",
+													     data: eduDeleteParam,
+													     success: function(data) {
+													    	console.log("saveData :"+data);
+													    	
+													    	if(data == 1) {
+													    		
+													    		//modalAlertShow("작가학력정보 삭제 완료","");
+													    		
+													    		location.reload();
+													    	}
+													   	 },
+													     error: function(error) {
+													  	   var errorJson = JSON.stringify(error);
+													         console.log(errorJson);
+													     }
+													});
+												}
+											});
+									  }
+									  
+									  
 								});
 								/* 학력정보 */
 								
@@ -295,7 +337,9 @@
 											<tr>
 												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 - 교육, 연구이력 등" />
+													<input type="hidden" name="careerSq" class="careerSq"/>
+													<input type="hidden" name="careerTypCd" class="careerTypCd" value="CR"/>
+													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 교육, 연구이력 등" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 careerMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -305,7 +349,9 @@
 											<tr>
 												<th>경력</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 - 교육, 연구이력 등" />
+													<input type="hidden" name="careerSq" class="careerSq"/>
+													<input type="hidden" name="careerTypCd" class="careerTypCd" value="CR"/>
+													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 교육, 연구이력 등" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 careerAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -315,7 +361,9 @@
 											<tr>
 												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 - 갤러리, 협회" />
+													<input type="hidden" name="careerSq" class="careerSq"/>
+													<input type="hidden" name="careerTypCd" class="careerTypCd" value="BL"/>
+													<input type="text" class="input-5" name="careerNm"  placeholder="연도 - 갤러리, 협회" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 belongMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -325,7 +373,9 @@
 											<tr>
 												<th>소속</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 - 갤러리, 협회" />
+													<input type="hidden" name="careerSq" class="careerSq"/>
+													<input type="hidden" name="careerTypCd" class="careerTypCd" value="BL"/>
+													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 갤러리, 협회" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 belongAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -338,12 +388,12 @@
 							<script type="text/javascript">
 								
 								/* 경력정보 */
-								$(".careerAddBtn").click(function(){
+								//추가								
+								$('table.careerGroup').on('click', '.careerAddBtn', function() {
 									var newitem = $("#careerListTemp tr:eq(0)").clone();
 									$("#careerList").append(newitem);
-														
-							 	}); 
-								
+								});
+								//삭제
 								$('table.careerGroup').on('click', '.careerMinusBtn', function() {
 									  const tr = this.parentElement.parentElement;
 									  tr.remove();
@@ -351,11 +401,12 @@
 								/* 경력정보 */
 								
 								/* 소속 */
-								$(".belongAddBtn").click(function(){
-									var newitem = $("#belongListTemp tr:eq(0)").clone();
-									$("#belongList").append(newitem);
-														
-							 	}); 
+								//추가
+								$('table.belongGroup').on('click', '.belongAddBtn', function() {
+									var newitem = $("#careerListTemp tr:eq(0)").clone();
+									$("#careerList").append(newitem);
+								});
+								//삭제
 								$('table.belongGroup').on('click', '.belongMinusBtn', function() {
 									  const tr = this.parentElement.parentElement;
 									  tr.remove();
@@ -534,6 +585,7 @@
 				
 			</div>
 		</div>
+	
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>	
 	</div>
 
@@ -790,7 +842,7 @@
 
 <script type="text/javascript">  
 
-	//작가정보 VIEW
+	//작가기본정보 VIEW
 	function AuthorInfoSaveView(proc) {
 		
 		//proc : 2 라면 입력,수정후 프로세서 이다.
@@ -807,9 +859,10 @@
 		     data: viewBaseParams,
 		     success: function(data) {
 		    	
-		    	
 		    	dataContent = data.authorBase.baseInfo[0];
-		    	
+		    	console.log(dataContent);
+		    	/* 작가순번 */
+		    	$("#artstSq").val(dataContent.artstSq);
 		    	/* 프로필 이미지 */
 		    	$("#dropZone").prop("src",dataContent.artstProfileImgUrl)
 		    	$("#artstProfileImgUrl").val(dataContent.artstProfileImgUrl);
@@ -840,34 +893,91 @@
 		    	var mbrSq = dataContent.mbrSq;
 		    	var artstSq = dataContent.artstSq;
 		    	
+		    	 //작가학력정보 리스트 Call
+			      AuthorEduInfoList(mbrSq,artstSq);
+		    	
+		    	 //작가경력-경력 리스트 Call
+		    	 AuthorCarrerInfoList(mbrSq,artstSq);
+		    	
 		    	if(proc == 2){
-		    		//학력 저장
 		    		
+		    		//학력 저장
 		    		var edulist = new Array();
 		    			    		
    					$("input[name=eductnNm]").each(function(index, item){
    						
-	   					if($(item).val() != "") {
+   						if($(item).val() != "") {
+   							
+   						 	const tr = this.parentElement.parentElement;
+   						 	var eductnSq = $(tr).eq(0).find('input[name="eductnSq"]').val();
+   						    
+	   						var eduData = new Object();
 	   						
-	   						var eduData = new Object() ;
-	   						
+	   						eduData.eductnSq = eductnSq;
 	   						eduData.mbrSq = mbrSq;
 	   						eduData.artstSq = artstSq;
 	   						eduData.eductnNm = $(item).val();
-	   						
-	   						edulist.push(eduData);
+	   						eduData = JSON.stringify(eduData);
+	   						edulist.push(JSON.parse(eduData));
 	   					}	
+	   					
+	   					
    					});
-   					
-   					console.log(edulist);
    					
    				 	$.ajax({
    				     	type: "post",
    				     	url: "/myPage/authorEduInfoSaveData",
-   				     	data: edulist,
+   				     	data: JSON.stringify(edulist),
    				  		dataType: "json",
-   				     	success: function(data) {
+   				  	 	processData : true /*querySTring make false*/,
+   	                	contentType : "application/json; charset=UTF-8",  
+   				  		success: function(data) {
    				    	 	//modalAlertShow("회원수정이 완료 되었습니다.","");
+   				  			//location.reload();
+   				   	 	},
+   				     	error: function(error) {
+   				  	   		var errorJson = JSON.stringify(error);
+   				         	console.log(errorJson);
+   				     	}
+   					});
+   				 	
+   				 	//경력 - 경력저장
+   				   var careerlist = new Array();
+   				 	
+   					$("input[name=careerNm]").each(function(index, item){
+   						
+   						if($(item).val() != "") {
+   							
+   							const tr = this.parentElement.parentElement;
+   						 	var careerSq = $(tr).eq(0).find('input[name="careerSq"]').val();
+   						    var careerTypCd = $(tr).eq(0).find('input[name="careerTypCd"]').val();
+   							var careerNm = $(item).val();
+   							
+   							var careerData = new Object();
+   							
+   							careerData.careerSq = careerSq;
+   							careerData.mbrSq = mbrSq;
+   							careerData.artstSq = artstSq;
+   							careerData.careerTypCd = careerTypCd;
+   							careerData.careerNm = careerNm;
+	   													   							
+   						    
+   						 	careerData = JSON.stringify(careerData);
+   						 	careerlist.push(JSON.parse(careerData));
+   						}
+   				 	
+   					});
+   					console.log("careerlist :"+JSON.stringify(careerlist));
+   					$.ajax({
+   				     	type: "post",
+   				     	url: "/myPage/authorCareerInfoSaveData",
+   				     	data: JSON.stringify(careerlist),
+   				  		dataType: "json",
+   				  	 	processData : true /*querySTring make false*/,
+   	                	contentType : "application/json; charset=UTF-8",  
+   				  		success: function(data) {
+   				    	 	//modalAlertShow("회원수정이 완료 되었습니다.","");
+   				  			//location.reload();
    				   	 	},
    				     	error: function(error) {
    				  	   		var errorJson = JSON.stringify(error);
@@ -875,13 +985,9 @@
    				     	}
    					});
    					
-	   				
-		    				    		
-		    		
-		    	 	
-		    	 	
-		    	}
-		    	  	
+   					
+		    	
+		    	}	
 		    	
 		   	 },
 		     error: function(error) {
@@ -891,8 +997,8 @@
 		})
 		
 	}
-
-	 //작가정보 저장
+	
+	 //작가기본정보 저장
 	 function AuthorInfoSave(saveState) {
 		 
 		 //savaState : 1 (일반저장), 2(임시저장)
@@ -940,8 +1046,7 @@
 				useYn:useYn
 		}
 		
-		console.log(baseParams);
-		
+			
 		$.ajax({
 		     type: "post",
 		     url: "/myPage/authorInfoBaseSaveData",
@@ -950,8 +1055,8 @@
 		    	console.log("saveData :"+data);
 		    	
 		    	if(data == 1) {
-		    		//AuthorInfoSaveView(2);
-		    		modalAlertShow("작가기본정보 등록 완료","");
+		    		AuthorInfoSaveView(2);
+		    		//modalAlertShow("작가기본정보 등록 완료","");
 		    	}
 		   	 },
 		     error: function(error) {
@@ -959,9 +1064,119 @@
 		         console.log(errorJson);
 		     }
 		});
-		
+	}
+	 
+	 //작가 학력 정보 리스트
+	 function AuthorEduInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+				 mbrSq : mbrSq,
+				 artstSq : artstSq
+		 }
+		 
+		 console.log(params);
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorEduInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    
+		    	
+		    	 
+		    	dataList = data.authorEdu.eduInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		strHtml += '<th></th>';
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="eductnSq" value="'+dataList[x].eductnSq+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="eductnNm" value="'+dataList[x].eductnNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		
+			    		
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#eductnList').empty();
+			    	$("#eductnList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
 		 
 	 }
+	 
+	 //작가 경력 - 경력 리스트
+	 function AuthorCarrerInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+				 mbrSq : mbrSq,
+				 artstSq : artstSq
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorCarrerInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	dataList = data.authorCarrer.carrerInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		strHtml += '<th>경력</th>';
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="careerSq" value="'+dataList[x].careerSq+'"/>';
+			    		strHtml += '<input type="hidden" name="careerTypCd" value="'+dataList[x].careerTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="careerNm" value="'+dataList[x].careerNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#careerList').empty();
+			    	$("#careerList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	 
             
       $(document).ready(function () {
 	      $(".elm").hover(
@@ -974,8 +1189,10 @@
 	   	  )
 	   	 //$("#myModal5").modal("show");
       		
-	      //작가정보 VIEW
+	      //작가기본정보 VIEW
 	   	  AuthorInfoSaveView();
+	      
+	     
       });
       
       $(function() {                      
@@ -1112,6 +1329,9 @@
     		var conTitleHtml = "";
     		conTitleHtml += '<h3>포트폴리오</h3>';
     		$("#conTitle").append(conTitleHtml).trigger("create");
+    		
+    	
+    		
     	});
     </script>
     

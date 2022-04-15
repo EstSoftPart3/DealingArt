@@ -282,9 +282,82 @@
 			
   		) VALUES (
   			#{artstSq}
-  			,#{mbrSq}
-  			,#{eductnNm}
-  		}
-  </insert>   
-    
+  		   ,#{mbrSq}
+  		   ,#{eductnNm}
+  		)
+  </insert>
+  
+  <!-- 작가학력정보 리스트 -->   
+   <select id="authorEduInfoList" resultType="hashMap">
+   		SELECT
+   			
+   			EDUCTN_SQ AS eductnSq
+   			,ARTST_SQ AS artstSq 
+			,MBR_SQ AS mbrSq 
+			,EDUCTN_NM AS eductnNm
+			
+   		FROM 
+   			TBL_DA_ARTST_EDUCTN_S
+   		WHERE 1=1 
+   			AND ARTST_SQ = #{artstSq}
+   			AND MBR_SQ = #{mbrSq}
+   </select>
+   
+   <!-- 작가학력정보 삭제 -->
+   <delete id="authorEduInfoDelete"> 
+   		DELETE FROM TBL_DA_ARTST_EDUCTN_S WHERE EDUCTN_SQ = #{eductnSq} 
+   </delete>
+   
+   <!-- 작가학력정보 등록유무 체크를 위한 카운터 -->
+   <select id="authorEduInfoCheckCount" resultType="int">
+	  	SELECT
+	    	COUNT(*) AS CNT      
+		FROM TBL_DA_ARTST_EDUCTN_S
+	    WHERE EDUCTN_SQ = #{eductnSq}
+  </select>
+  
+  <!--  작가학력정보 수정 -->
+  <update id="authorEduInfoUpdate" parameterType="hashMap">
+   		UPDATE 	
+   			TBL_DA_ARTST_EDUCTN_S
+   		SET		
+   			EDUCTN_NM = #{eductnNm}
+   		WHERE 	EDUCTN_SQ = #{eductnSq}
+   </update>
+   
+   
+  <!-- 작가경력-경력 등록 -->
+  <insert id="authorCareerInfoInsert" parameterType="hashMap">
+  		INSERT INTO TBL_DA_CAREER_S
+  		(
+  			ARTST_SQ
+			,MBR_SQ
+			,CAREER_NM
+			,CAREER_TYP_CD
+			
+  		) VALUES (
+  			#{artstSq}
+  		   ,#{mbrSq}
+  		   ,#{careerNm}
+  		   ,#{careerTypCd}
+  		)
+  </insert>
+  
+  <!-- 작가경력-경력 리스트  --> 
+  <select id="authorCarrerInfoList" resultType="hashMap">
+   		SELECT
+   			
+   			CAREER_SQ AS careerSq
+   			,ARTST_SQ AS artstSq 
+			,MBR_SQ AS mbrSq 
+			,CAREER_NM AS careerNm
+			,CAREER_TYP_CD AS careerTypCd
+			
+   		FROM 
+   			TBL_DA_CAREER_S
+   		WHERE 1=1 
+   			AND ARTST_SQ = #{artstSq}
+   			AND MBR_SQ = #{mbrSq}
+   </select>
+   
 </mapper>

@@ -1,15 +1,18 @@
 package com.da.fo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 @Controller
 public class MemberController {
@@ -241,32 +248,103 @@ public class MemberController {
 	//작가학력정보 입력
 	@RequestMapping("/myPage/authorEduInfoSaveData")
 	@ResponseBody
-	public int authoreduInfoSaveData(@RequestParam Map<String, Object> param) {
+	public int authoreduInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
 		
 		int saveState = -1;
 		
-		//param.put("mbrSq", mbrSq);
-//		//회원 순번
-//		String mbrSq = (String) param.get("mbrSq");
-//		//작가 순번
-//		String artstSq = (String) param.get("artstSq");
-//		//학력 명
-//		String eductnNm = (String) param.get("eductnNm");
-//				
-//			
-//		param.put("mbrSq", mbrSq);
-//		param.put("artstSq", artstSq);
-//		param.put("eductnNm", eductnNm);
-		
-		
+		Map <String, Object> param =  new HashMap<String, Object>();
 
-		
-		
-				
-		
-		saveState = memberService.authorEduInfoSaveData(param);
+		for(Map<String, Object> tList : list) {
+			
+			String eductnSq = tList.get("eductnSq").toString();
+			String mbrSq = tList.get("mbrSq").toString();
+			String artstSq = tList.get("artstSq").toString();
+			String eductnNm = tList.get("eductnNm").toString();
+			
+			param.put("eductnSq", eductnSq);
+			param.put("mbrSq", mbrSq);
+			param.put("artstSq", artstSq);
+			param.put("eductnNm", eductnNm);
+			
+			saveState = memberService.authorEduInfoSaveData(param);
+		}
 		
 		return saveState;
+	}
+	
+	//작가학력정보 리스트
+	@RequestMapping("/myPage/authorEduInfoViewData")
+	@ResponseBody
+	public ModelAndView authorEduInfoList(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberService.authorEduInfoList(param);
+		
+		mv.addObject("authorEdu", result);
+		
+		return mv;
+	}
+	
+	//작가기본정보 입력
+	@RequestMapping("/myPage/authorEudInfoDeleteData")
+	@ResponseBody
+	public int authorEudInfoDelete(@RequestParam Map<String, Object> param) {
+		
+		int deleteState = -1;
+		
+		deleteState = memberService.authorEduInfoDelete(param);
+		
+		return deleteState;
+	}
+	
+	//작가경력정보 입력
+	@RequestMapping("/myPage/authorCareerInfoSaveData")
+	@ResponseBody
+	public int authorCareerInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
+		
+		int saveState = -1;
+		
+		Map <String, Object> param =  new HashMap<String, Object>();
+
+		for(Map<String, Object> tList : list) {
+			
+			String careerSq = tList.get("careerSq").toString();
+			String mbrSq = tList.get("mbrSq").toString();
+			String artstSq = tList.get("artstSq").toString();
+			String careerTypCd = tList.get("careerTypCd").toString();
+			String careerNm = tList.get("careerNm").toString();
+			
+			param.put("careerSq", careerSq);
+			param.put("mbrSq", mbrSq);
+			param.put("artstSq", artstSq);
+			param.put("careerTypCd", careerTypCd);
+			param.put("careerNm", careerNm);
+			
+			saveState = memberService.authorCareerInfoSaveData(param);
+		}
+		
+		return saveState;
+	}
+	
+	//작가경력 - 경력 리스트
+	@RequestMapping("/myPage/authorCarrerInfoViewData")
+	@ResponseBody
+	public ModelAndView authorCarrerInfoList(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberService.authorCarrerInfoList(param);
+		
+		mv.addObject("authorCarrer", result);
+		
+		return mv;
 	}
 	
 }

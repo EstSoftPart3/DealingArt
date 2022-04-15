@@ -103,4 +103,42 @@ public class MemberServiceImpl implements MemberService  {
 		saveState = memberDao.authorEduInfoSaveData(param);
 		return saveState; 
 	}
+	
+	//작가학력정보
+	@Override
+	public Map<String, Object> authorEduInfoList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberDao.authorEduInfoList(param);
+		
+		return result;
+	}
+	
+	//작가학력정보 삭제
+	@Override
+	public int authorEduInfoDelete(Map<String, Object> param){
+		int deleteState = -1;
+		deleteState = memberDao.authorEduInfoDelete(param);
+		return deleteState; 
+	}
+	
+	//작가경력정보 등록
+	@Override
+	public int authorCareerInfoSaveData(Map<String, Object> param){
+		int saveState = -1;
+		saveState = memberDao.authorCareerInfoSaveData(param);
+		return saveState; 
+	}
+	
+	//작가경력-경력 리스트
+	@Override
+	public Map<String, Object> authorCarrerInfoList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberDao.authorCarrerInfoList(param);
+		
+		return result;
+	}
 }
