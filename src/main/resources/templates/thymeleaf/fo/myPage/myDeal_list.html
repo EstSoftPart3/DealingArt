@@ -20,13 +20,16 @@
 				<div class="con-wrap">
 					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
 					<div class="con-right m-max1300">
-					
 						<div class="me-left me-move">
 							<div class="me-sech">
 								<div class="is-bos">
 									<div class="is-sum">
 										<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
-										<button type="button" class="" onclick="myDealSearchList()">검색</button>
+										<input type="radio" id="w1" name="aa">
+										<label for="w1"><span></span>구매내역</label>
+										<input type="radio" id="w2" name="aa">
+										<label for="w2"><span></span>판매내역</label>
+										<!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
 									</div>
 									<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
 									<button type="button" class="sech-btn" id="searchOption_6M" onclick="searchOption_onclick(this.id)">최근 6개월</button>
@@ -40,16 +43,21 @@
 										<div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
 										<span class="is-span">~</span> 
 										<div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
+									</div>
+									<div class="selec-box select-s1">
+										<select class="selectpicker">
+											<option value="ALL">전체</option>
+											<option value="IP">판매중</option>
+											<option value="EN">판매완료</option>
+											<option value="PD">결제대기</option>
+											<option value="PF">결제완료</option>
+											<option value="SS">배송시작</option>
+											<option value="DC">배송완료</option>
+											<option value="PC">취소</option>
+											<option value="RT">반품</option>
+										</select>
 										<button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
 									</div>
-									
-									<!-- <div class="selec-box select-s1">
-										<select class="selectpicker">
-											<option>Mustard</option>
-											<option>Ketchup</option>
-											<option>Relish</option>
-										</select>
-									</div> -->
 								</div>
 							</div>
 							<div id="myDealList">

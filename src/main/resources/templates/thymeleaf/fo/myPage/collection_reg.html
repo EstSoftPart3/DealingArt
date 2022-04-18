@@ -7,6 +7,9 @@
     	.swi-box::before{background-color:#f9f9f9;}
     	.footer-wrap{margin-top:0;}
     	.hd-div{background-color:#fff;}
+    	[name=workClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
     </style>
 </head>
 
@@ -37,11 +40,11 @@
 							<table class="mstyle-2">
 								<tr>
 									<th><span class="my-red">작가명</span></th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="artstNm"/></td>
 								</tr>
 								<tr>
 									<th>출생년도</th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="artstYear"/></td>
 								</tr>
 							</table>
 						</div>
@@ -68,39 +71,51 @@
 							<table class="mstyle-2">
 								<tr>
 									<th><span class="my-red">작품명</span></th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="workNm"/></td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품사진(전면)</span></th>
+									<th><span class="my-red">작품 대표 사진</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
+											<input class="upload-name" value="파일선택" disabled>
 											
-											<label for="ex_filename1">찾아보기</label> 
-											<input type="file" id="ex_filename1" class="upload-hidden"> 
+											<label for="workMainImg">찾아보기</label> 
+											<input type="file" id="workMainImg" class="upload-hidden"> 
+										</div>
+										<p class="table-p">※ 작품이 꽉 차게 나온 대표 사진 입니다. 관리자가 배경을 제거하고 다시 등록할 수 있습니다.</p>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="my-red">작품 사진(전면)</span></th>
+									<td>
+										<div class="filebox bs3-primary">
+											<input class="upload-name" value="파일선택" disabled>
+											
+											<label for="workImgFrt">찾아보기</label> 
+											<input type="file" id="workImgFrt" class="upload-hidden"> 
 										</div>
 										<p class="table-p">※ 작품이 꽉 차게 나온 전면 사진 입니다. 관리자가 배경을 제거하고 다시 등록할 수 있습니다.</p>
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품사진(후면)</span></th>
+									<th><span class="my-red">작품 사진(후면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
+											<input class="upload-name" value="파일선택" disabled>
 											
-											<label for="ex_filename2">찾아보기</label> 
-											<input type="file" id="ex_filename2" class="upload-hidden"> 
+											<label for="workImgRer">찾아보기</label> 
+											<input type="file" id="workImgRer" class="upload-hidden"> 
 										</div>
-										<p class="table-p">※ 작품이 꽉 차게 나온 전면 사진 입니다. 관리자가 배경을 제거하고 다시 등록할 수 있습니다.</p>
+										<p class="table-p">※ 작품이 꽉 차게 나온 후면 사진 입니다. 관리자가 배경을 제거하고 다시 등록할 수 있습니다.</p>
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">액자유무</span></th>
+									<th><span class="my-red">액자 유무</span></th>
 									<td>
 										<div class="radio-2">
-											<input type="radio" id="w1" name="aa">
+											<input type="radio" id="w1" name="workFrmYn" value="Y">
 											<label for="w1" class="wd-145"><span></span>있음</label>
-											<input type="radio" id="w2" name="aa">
+											<input type="radio" id="w2" name="workFrmYn" value="N">
 											<label for="w2"><span></span>없음</label>
 										</div>
 									</td>
@@ -109,17 +124,17 @@
 									<th><span class="my-red">메인 컬러</span></th>
 									<td>
 										<div class="color-box">
-											<a href="#" class="mc-1 active"></a>
-											<a href="#" class="mc-2"></a>
-											<a href="#" class="mc-3"></a>
-											<a href="#" class="mc-4"></a>
-											<a href="#" class="mc-5"></a>
-											<a href="#" class="mc-6"></a>
-											<a href="#" class="mc-7"></a>
-											<a href="#" class="mc-8"></a>
-											<a href="#" class="mc-9"></a>
-											<a href="#" class="mc-10"></a>
-											<a href="#" class="mc-11"></a>
+											<input type="radio" id="mc-1" name="workClrCd" value="MIX"><label for="mc-1" class="mc-1 active"></label>
+											<input type="radio" id="mc-2" name="workClrCd" value="RED"><label for="mc-2" class="mc-2"></label>
+											<input type="radio" id="mc-3" name="workClrCd" value="ORANGE"><label for="mc-3" class="mc-3"></label>
+											<input type="radio" id="mc-4" name="workClrCd" value="YELLOW"><label for="mc-4" class="mc-4"></label>
+											<input type="radio" id="mc-5" name="workClrCd" value="GREEN"><label for="mc-5" class="mc-5"></label>
+											<input type="radio" id="mc-6" name="workClrCd" value="SKY"><label for="mc-6" class="mc-6"></label>
+											<input type="radio" id="mc-7" name="workClrCd" value="BULE"><label for="mc-7" class="mc-7"></label>
+											<input type="radio" id="mc-8" name="workClrCd" value="PURPLE"><label for="mc-8" class="mc-8"></label>
+											<input type="radio" id="mc-9" name="workClrCd" value="BROWN"><label for="mc-9" class="mc-9"></label>
+											<input type="radio" id="mc-10" name="workClrCd" value="WHITE"><label for="mc-10" class="mc-10"></label>
+											<input type="radio" id="mc-11" name="workClrCd" value="GRAY"><label for="mc-11" class="mc-11"></label>
 										</div>
 									</td>
 								</tr>
@@ -140,8 +155,8 @@
 										<div class="filebox bs3-primary">
 											<input class="upload-name" value="파일선택" disabled="disabled">
 											
-											<label for="ex_filename3">찾아보기</label> 
-											<input type="file" id="ex_filename3" class="upload-hidden"> 
+											<label for="workGrtUrl">찾아보기</label> 
+											<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf"> 
 										</div>
 										<p class="table-p">
 											※ png, jpeg, pdf 형식으로 등록 해주세요<br/>
@@ -151,55 +166,88 @@
 								</tr>
 								<tr>
 									<th><span class="my-red">가격</span></th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="workPrc"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">사이즈</span></th>
 									<td>
 										<div class="coll-gr">
-											<input type="text" class="input-4" />
+											<input type="text" class="input-4" id="workSizeWidth"/>
 											<span class="cg-x">X</span> 
-											<input type="text" class="input-4" />
+											<input type="text" class="input-4" id="workSizeDepth"/>
 											<span class="cg-text">cm 37호 입니다</span>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th><span class="my-red">소재/기법</span></th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="workMatrl"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="text" class="input-4" /></td>
+									<td><input type="text" class="input-4" id="workProdcYear"/></td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품사진(좌/우/상/하)</span></th>
+									<th><span class="">작품 사진(좌)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
 											<input class="upload-name" value="파일선택" disabled="disabled">
 											
-											<label for="ex_filename5">찾아보기</label> 
-											<input type="file" id="ex_filename5" class="upload-hidden"> 
+											<label for="workImgLefUrl">찾아보기</label> 
+											<input type="file" id="workImgLefUrl" class="upload-hidden"> 
 										</div>
 										<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품영상</span></th>
-									<td><input type="text" class="input-4" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요" /></td>
-								</tr>
-								<tr>
-									<th><span class="my-red">가격</span></th>
-									<td><textarea class="textarea-2" placeholder="작품소개를 입력해주세요."></textarea></td>
-								</tr>
-								<tr>
-									<th><span class="my-red">가격</span></th>
+									<th><span class="">작품 사진(우)</span></th>
 									<td>
-										<input type="text" class="input-4" placeholder="키워드를 쉼표로 구분해 주세요." />
+										<div class="filebox bs3-primary">
+											<input class="upload-name" value="파일선택" disabled>
+											
+											<label for="workImgRitUrl">찾아보기</label> 
+											<input type="file" id="workImgRitUrl" class="upload-hidden" required> 
+										</div>
+										<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="">작품 사진(상)</span></th>
+									<td>
+										<div class="filebox bs3-primary">
+											<input class="upload-name" value="파일선택" disabled="disabled">
+											
+											<label for="workImgTopUrl">찾아보기</label> 
+											<input type="file" id="workImgTopUrl" class="upload-hidden"> 
+										</div>
+										<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="">작품 사진(하)</span></th>
+									<td>
+										<div class="filebox bs3-primary">
+											<input class="upload-name" value="파일선택" disabled="disabled">
+											
+											<label for="workImgBotUrl">찾아보기</label> 
+											<input type="file" id="workImgBotUrl" class="upload-hidden"> 
+										</div>
+										<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="">작품 영상</span></th>
+									<td><input type="text" class="input-4" id="workVdoUrl" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요" /></td>
+								</tr>
+								<tr>
+									<th><span class="">작품 소개</span></th>
+									<td><textarea class="textarea-2" id="workIntrdc" placeholder="작품소개를 입력해주세요."></textarea></td>
+								</tr>
+								<tr>
+									<th><span class="">작품 키워드</span></th>
+									<td>
+										<input type="text" class="input-4" id="keywrd" placeholder="키워드를 쉼표로 구분해 주세요." onblur="keywrdSet(this)"/>
 										<div class="key-box">
-											<div class=""><span>봄</span> <img src="resources/img/mypage/icon-x.png" /></div>
-											<div class=""><span>사슴</span> <img src="resources/img/mypage/icon-x.png" /></div>
-											<div class=""><span>한적한숲속길</span> <img src="resources/img/mypage/icon-x.png" /></div>
 										</div>
 									</td>
 								</tr>
@@ -208,9 +256,9 @@
 					</div>
 					
 					<div class="bat-box5">
-						<button type="button" class="ba-btn1"><span>등록하기</span></button>
-						<button type="button" class="ba-btn3"><span>임시저장</span></button>
-						<button type="button" class="ba-btn3"><span>취소</span></button>
+						<button type="button" class="ba-btn1" onclick="collectionReg()"><span>등록하기</span></button>
+						<button type="button" class="ba-btn3" onclick="collectionStorage()"><span>임시저장</span></button>
+						<button type="button" class="ba-btn3" onclick="javascript: window.history.back();"><span>취소</span></button>
 					</div>
 					
 					
@@ -395,8 +443,161 @@ $(document).ready(function(){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
-     
-      
+var work = new Object();
+work.workTypCd = 'COLL';
+$(function() {   
+	if(sessionStorage.getItem("work").length > 0){
+		var work1 = new Object();
+		work1 = JSON.parse(sessionStorage.getItem("work"));
+		$("#artstNm").val(work1.artstNm);
+		$("#artstYear").val(work1.artstYear);
+		$("#workNm").val(work1.workNm);
+		$('input:radio[name="workFrmYn"][value="'+work1.workFrmYn+'"]').prop('checked', true);
+		$('input:radio[name="workClrCd"][value="'+work1.workClrCd+'"]').prop('checked', true);
+		$("#workPrc").val(work1.workPrc);
+		$("#workSizeWidth").val(work1.workSizeWidth);
+		$("#workSizeDepth").val(work1.workSizeDepth);
+		$("#workMatrl").val(work1.workMatrl);
+		$("#workProdcYear").val(work1.workProdcYear);
+		$("#workVdoUrl").val(work1.workVdoUrl);
+		$("#workIntrdc").val(work1.workIntrdc);
+		$("#keywrd").val(work1.keywrd);
+	}
+});
+function collectionReg(){
+	work.artstYear = $("#artstYear").val();
+	work.workPrc = $("#workPrc").val();
+	work.workSizeWidth = $("#workSizeWidth").val();
+	work.workSizeDepth = $("#workSizeDepth").val();
+	work.workMatrl = $("#workMatrl").val();
+	work.workProdcYear = $("#workProdcYear").val();
+	work.workVdoUrl = $("#workVdoUrl").val();
+	work.workIntrdc = $("#workIntrdc").val();
+	work.keywrd = $("#keywrd").val();
+	
+	if(checkValid()){
+		$.ajax({
+	        type: "post",
+	        url: "/collectionReg",
+	        data: work,
+	        success: function(data) {
+	        	alert(data);
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	const file = document.getElementById("workMainImg");
+    const formData = new FormData();
+    formData.append("file", file.files[0]);
+
+    fetch("/file/upload", {
+        method : "POST"
+        , body : formData
+    })
+    .then(result => result.json())
+    .then(data => {
+        alert(data.fileUrl);
+       	alert(data.fileNm);
+    })
+    .catch(error => console.log(`error => ${error}`));
+}
+
+function checkValid(){
+	if($("#artstNm").val() != null && $("#artstNm").val() != ""){
+		work.artstNm = $("#artstNm").val();
+	}else{
+		modalAlertShow("작가명이 입력되지 않았습니다!", "artstNm");
+		return false;
+	}
+	
+	if($("#workNm").val() != null && $("#workNm").val() != ""){
+		work.workNm = $("#workNm").val();
+	}else{
+		modalAlertShow("작품명이 입력되지 않았습니다!", "workNm");
+		return false;
+	}
+	
+	/* if($("#workMainImg").val() == null || $("#workMainImg").val() == ""){
+		modalAlertShow("작품 대표 사진이 업로드되지 않았습니다!", "workMainImg");
+		return false;
+	}
+	
+	if($("#workImgFrt").val() == null || $("#workImgFrt").val() == ""){
+		modalAlertShow("작품 전면 사진이 업로드되지 않았습니다!", "workImgFrt");
+		return false;
+	}
+	
+	if($("#workImgRer").val() == null || $("#workImgRer").val() == ""){
+		modalAlertShow("작품 후면 사진이 업로드되지 않았습니다!", "workImgRer");
+		return false;
+	} */
+	
+	if($('input:radio[name=workFrmYn]').is(':checked')){
+		work.workFrmYn = $('input[name=workFrmYn]:checked').val();
+	}else{
+		modalAlertShow("액자 유무가 선택되지 않았습니다!", "w1");	
+		return false;
+	}
+	
+	if($('input:radio[name=workClrCd]').is(':checked')){
+		work.workClrCd = $('input[name=workClrCd]:checked').val();
+	}else{
+		modalAlertShow("메인 컬러가 선택되지 않았습니다!", "mc-1");	
+		return false;
+	}
+	
+	return true;
+}
+
+function collectionStorage(){
+	modalConfirm("알림", "임시저장시 파일은 저장되지 않습니다.", 
+		function(confirm){
+			if(confirm){
+				sessionStorage.setItem("work", JSON.stringify({artstNm : $("#artstNm").val(),
+																artstYear : $("#artstYear").val(),
+																workNm : $("#workNm").val(),
+																workFrmYn : $('input[name=workFrmYn]:checked').val(),
+																workClrCd : $('input[name=workClrCd]:checked').val(),
+																workPrc : $("#workPrc").val(),
+																workSizeWidth : $("#workSizeWidth").val(),
+																workSizeDepth : $("#workSizeDepth").val(),
+																workMatrl : $("#workMatrl").val(),
+																workProdcYear : $("#workProdcYear").val(),
+																workVdoUrl : $("#workVdoUrl").val(),
+																workIntrdc : $("#workIntrdc").val(),
+																keywrd : $("#keywrd").val(),
+																}));
+			}
+	});
+}
+
+function keywrdSet(obj){
+	var str_space = /\s/;           
+    if(str_space.exec(obj.value) || obj.value == null || obj.value == "") {   
+    	modalAlertShow("해당 항목에는 공백을 사용할 수 없습니다.\n\n공백 제거됩니다.", obj.id);
+        obj.value = obj.value.replace(' ',''); // 공백제거
+        return false;
+    }
+	var keywrdList = obj.value.split(',');
+	var keywrdHtml = '';
+	for(var i=0; i<keywrdList.length; i++){
+		keywrdHtml += '<div id="keywrd'+i+'"><span>'+keywrdList[i]+'</span><img src="resources/img/mypage/icon-x.png" class="keywrdList" keywrdSq="'+i+'" value="'+keywrdList[i]+'"/></div>';
+	}
+	$(".key-box").empty();
+	$(".key-box").append(keywrdHtml).trigger("create");
+}
+
+$(document).on("click", ".keywrdList", function(){
+	debugger;
+	var keywrdId = document.getElementById("keywrd"+$(this).attr("keywrdSq"));
+	keywrdId.remove();
+	var keywrdValue = $(this).attr("value");
+	var keywrd = $("#keywrd").val();
+	var keywrd2 = keywrd.replaceAll(keywrdValue, '');
+	$("#keywrd").val(keywrd2.substring(0, keywrd2.length - 1));
+});
 </script>
     
 	

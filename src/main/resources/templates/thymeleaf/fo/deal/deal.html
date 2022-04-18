@@ -759,74 +759,75 @@ function dealSearch(){
      		}else{
      			$("#columns2").empty();
      			dealList = data.result;
+     		
+	     		for(var i=0; i<dealList.length; i++){
+	     			dealListHtml += '<figure class="item">';
+	     			dealListHtml += '	<div class="heart on"></div>';
+	     			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
+	     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '		<div class="item-ho">';
+	     				dealListHtml += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
+	     				dealListHtml += '			<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
+	     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	     				dealListHtml += '				<h4>시작가 : '+ formatComma(dealList[i].dealStrtPrc) +'</h4>';
+	     				dealListHtml += '	</div>';
+	     			}
+	     			if(dealList[i].dealTypCd == "SALE" && dealList[i].dealTypCd == "IP"){
+	     				dealListHtml += '	<div class="item-div-img sale">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '		<div class="item-ho2 sale-div">';
+	     				dealListHtml += '			<h3>판매중</h3>';
+	     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	     				dealListHtml += '	</div>';
+	     			}
+	     			if(dealList[i].dealTypCd == "EN"){
+	     				dealListHtml += '	<div class="item-div-img sold-3">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '	</div>';
+	     			}
+	     			dealListHtml += '	<div class="item-body">';
+	     			dealListHtml += '		<div class="uesr-s">';
+	     			if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+	     				dealListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+	     			}else{
+	     				dealListHtml += '		<img src="'+ dealList[i].artstProfileImgUrl +'"/>';
+	     			}
+	     			dealListHtml += '		</div>';
+	     			dealListHtml += '		<div class="text-s">';
+	     			dealListHtml += '			<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+	     			dealListHtml += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+	     			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
+	     			dealListHtml += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+	     			if(dealList[i].dealTypCd == "AUCT"){
+	     				dealListHtml += '			<h4>입찰가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
+	     				dealListHtml += '			<p class="ts-2">';
+	     				dealListHtml += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+	     				dealListHtml += '			응찰수 : '+ dealList[i].bidCnt +'<br/>';
+	     				dealListHtml += '			'+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+	     				dealListHtml += '			</p>';
+	     			}
+	     			if(dealList[i].dealTypCd == "SALE"){
+	     				dealListHtml += '			<h4>판매가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
+	     			}
+	     			dealListHtml += '		</div>';
+	     			if(dealList[i].authSq == 2){
+	     				dealListHtml += '	<div class="artist active"><span>Artist</span></div>';
+	     			}
+	     			if(dealList[i].authSq == 1){
+	     				dealListHtml += '	<div class="artist"><span>Artist</span></div>';
+	     			}
+	     			dealListHtml += '	</div>';
+	     			dealListHtml += '</figure>';
+	     		}
+	     		$("#columns2").append(dealListHtml).trigger("create");
      		}
-     		for(var i=0; i<dealList.length; i++){
-     			dealListHtml += '<figure class="item">';
-     			dealListHtml += '	<div class="heart on"></div>';
-     			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
-     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
-     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
-     				dealListHtml += '		<div class="item-ho">';
-     				dealListHtml += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
-     				dealListHtml += '			<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
-     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-     				dealListHtml += '				<h4>시작가 : '+ formatComma(dealList[i].dealStrtPrc) +'</h4>';
-     				dealListHtml += '	</div>';
-     			}
-     			if(dealList[i].dealTypCd == "SALE" && dealList[i].dealTypCd == "IP"){
-     				dealListHtml += '	<div class="item-div-img sale">';
-     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
-     				dealListHtml += '		<div class="item-ho2 sale-div">';
-     				dealListHtml += '			<h3>판매중</h3>';
-     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-     				dealListHtml += '	</div>';
-     			}
-     			if(dealList[i].dealTypCd == "EN"){
-     				dealListHtml += '	<div class="item-div-img sold-3">';
-     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
-     				dealListHtml += '	</div>';
-     			}
-     			dealListHtml += '	<div class="item-body">';
-     			dealListHtml += '		<div class="uesr-s">';
-     			if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-     				dealListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
-     			}else{
-     				dealListHtml += '		<img src="'+ dealList[i].artstProfileImgUrl +'"/>';
-     			}
-     			dealListHtml += '		</div>';
-     			dealListHtml += '		<div class="text-s">';
-     			dealListHtml += '			<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
-     			dealListHtml += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-     			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
-     			dealListHtml += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-     			if(dealList[i].dealTypCd == "AUCT"){
-     				dealListHtml += '			<h4>입찰가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
-     				dealListHtml += '			<p class="ts-2">';
-     				dealListHtml += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
-     				dealListHtml += '			응찰수 : '+ dealList[i].bidCnt +'<br/>';
-     				dealListHtml += '			'+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
-     				dealListHtml += '			</p>';
-     			}
-     			if(dealList[i].dealTypCd == "SALE"){
-     				dealListHtml += '			<h4>판매가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
-     			}
-     			dealListHtml += '		</div>';
-     			if(dealList[i].authSq == 2){
-     				dealListHtml += '	<div class="artist active"><span>Artist</span></div>';
-     			}
-     			if(dealList[i].authSq == 1){
-     				dealListHtml += '	<div class="artist"><span>Artist</span></div>';
-     			}
-     			dealListHtml += '	</div>';
-     			dealListHtml += '</figure>';
-     		}
-     		$("#columns2").append(dealListHtml).trigger("create");
      		
         },
         error: function(error) {

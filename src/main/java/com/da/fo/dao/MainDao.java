@@ -46,18 +46,6 @@ public class MainDao {
 	}
 	
 	/*
-	 * 메인 화면에서 통합검색으로 작품을 조회환다.
-	 * param : searchKeyword
-	 * return : 작품에 관한 정보
-	 */
-	public List totalSearchWork(String searchKeyword){
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearch_work(param);
-	}
-	
-	
-	/*
 	 * 메인 화면에서 통합검색으로 작가를 조회환다.
 	 * param : searchKeyword
 	 * return : 작가에 관한 정보
@@ -65,9 +53,41 @@ public class MainDao {
 	public List totalSearchArtist(String searchKeyword){
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearch_artist(param);
+		return mainMapper.totalSearchArtist(param);
 	}
 	
+	/*
+	 * 작가 통합검색 결과 카운트
+	 * param : searchKeyword
+	 * return : 카운트
+	 */
+	public Map<String, Object> totalSearchArtistCount(String searchKeyword){
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		return mainMapper.totalSearchArtistCount(searchKeyword);
+	}
+	
+	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회환다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public List totalSearchWork(String searchKeyword){
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		return mainMapper.totalSearchWork(param);
+	}
+	
+	/*
+	 * 작품 통합검색 결과 카운트
+	 * param : searchKeyword
+	 * return : 카운트
+	 */
+	public Map<String, Object> totalSearchWorkCount(String searchKeyword){
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		return mainMapper.totalSearchWorkCount(searchKeyword);
+	}
 	
 	/*
 	 * 메인 화면에서 통합검색시 작품 정보를 자동완성으로 가져온다.
@@ -79,10 +99,10 @@ public class MainDao {
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchKeyword", searchKeyword);
 		//작품에 관한 정보를 가져온다.
-		List work = mainMapper.totalSearchAutocomplete_work(param);
+		List work = mainMapper.totalSearchAutocompleteWork(param);
 		result.put("work", work);
 		//작가에 관한 정보를 가져온다.
-		List artist = mainMapper.totalSearchAutocomplete_artist(param);
+		List artist = mainMapper.totalSearchAutocompleteArtist(param);
 		result.put("artist", artist);
 		return result;
 	}

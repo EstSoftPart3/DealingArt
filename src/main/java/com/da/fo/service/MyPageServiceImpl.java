@@ -26,5 +26,13 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.myDealSearchList(param);
 	}
 
+	/*
+	 * 소장품 등록
+	 * param : 소장품 정보가 들어있는 param
+	 * return : int
+	 */
+	public int collectionReg(Map<String, Object> param) {
+		return myPageDao.collectionReg(param);
+	}
 	
 }

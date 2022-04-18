@@ -1,5 +1,6 @@
 package com.da.fo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +27,18 @@ public class MyPageDao {
 		return myPageMapper.myDealSearchList(param);
 	}
 	
+	/*
+	 * 소장품 등록
+	 * param : 소장품 정보가 들어있는 param
+	 * return : int
+	 */
+	public int collectionReg(Map<String, Object> param) {
+		int regStatus = -1;
+		regStatus = myPageMapper.collectionReg(param);
+		if(regStatus == 1) {
+			regStatus = myPageMapper.keywrdReg(param);
+		}
+		return regStatus;
+	}
 
 }

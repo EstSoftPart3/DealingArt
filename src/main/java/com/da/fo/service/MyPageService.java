@@ -11,4 +11,11 @@ public interface MyPageService {
 	 */
 	List myDealSearchList(Map<String, Object> param);
 	
+	/*
+	 * 소장품 등록
+	 * param : 소장품 정보가 들어있는 param
+	 * return : int
+	 */
+	int collectionReg(Map<String, Object> param);
+	
 }

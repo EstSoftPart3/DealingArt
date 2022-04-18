@@ -69,7 +69,7 @@
 		
 	</select>
 	
-	<select id="totalSearchAutocomplete_work" resultType="hashMap" parameterType="hashMap">
+	<select id="totalSearchAutocompleteWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 자동완성*/
 		SELECT	A.MBR_SQ AS mbrSq,
 				A.ARTST_SQ AS artstSq,
@@ -95,7 +95,7 @@
 		LIMIT 	4;
 	</select>
 	
-	<select id="totalSearchAutocomplete_artist" resultType="hashMap" parameterType="hashMap">
+	<select id="totalSearchAutocompleteArtist" resultType="hashMap" parameterType="hashMap">
 		/*작가 자동완성*/
 		SELECT	A.ARTST_SQ AS artstSq,
 				A.MBR_SQ AS mbrSq,
@@ -112,7 +112,7 @@
 		LIMIT  4;
 	</select>
 	
-	<select id="totalSearch_artist" resultType="hashMap" parameterType="hashMap">
+	<select id="totalSearchArtist" resultType="hashMap" parameterType="hashMap">
 		/*작가 통합검색*/
 		SELECT	
 				COUNT(DISTINCT A.ARTST_SQ) AS totalCount,
@@ -150,33 +150,105 @@
 		GROUP BY A.ARTST_SQ;
 	</select>
 	
+	<select id="totalSearchArtistCount" resultType="hashMap" parameterType="hashMap">
+		/*작가 통합검색 카운트*/
+		SELECT 	
+				COUNT(*) AS totalCount
+		FROM 
+				(SELECT	
+						COUNT(DISTINCT A.ARTST_SQ) AS totalCount,
+						A.ARTST_SQ AS artstSq,
+						A.MBR_SQ AS mbrSq,
+						A.ARTST_ACTVTY_NM AS artstActvtyNm,
+						A.ARTST_ENGLS_NM AS artstEnglsNm,
+						YEAR (B.MBR_BIRTH) AS artistBirthYear,
+						A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, 
+						A.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+						A.ARTST_SELF_INTRO AS artstSelfIntro
+				FROM	TBL_DA_ARTST_M AS A
+				INNER JOIN 	TBL_DA_MBR_M AS B
+				ON 		A.MBR_SQ = B.MBR_SQ
+				INNER JOIN TBL_DA_WORK_M AS C
+				ON 		A.ARTST_SQ = C.ARTST_SQ
+				INNER JOIN TBL_DA_ARTST_EDUCTN_S AS D
+				ON		A.ARTST_SQ = D.ARTST_SQ 
+				INNER JOIN TBL_DA_ARTST_CAREER_S AS E 
+				ON 		A.ARTST_SQ = E.ARTST_SQ 
+				INNER JOIN TBL_DA_ARTST_EXHBTN_S AS F 
+				ON 		A.ARTST_SQ = F.ARTST_SQ 
+				WHERE 	MATCH (A.ARTST_ACTVTY_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				OR		MATCH (A.ARTST_ENGLS_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				OR 		MATCH (C.WORK_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				OR 		MATCH (D.EDUCTN_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				OR 		MATCH (E.CAREER_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				OR 		MATCH (F.EXHBTN_NM)
+						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				GROUP BY A.ARTST_SQ) AS A
+	</select>
 	
-	<select id="totalSearch_work" resultType="hashMap" parameterType="hashMap">
+	<select id="totalSearchWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 통합검색*/
 		SELECT	
-				COUNT(DISTINCT A.WORK_SQ) AS totalCount,
-				A.MBR_SQ AS mbrSq,
 				A.ARTST_SQ AS artstSq,
 				A.WORK_SQ AS workSq,
+				B.DEAL_SQ AS dealSq,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				B.ARTST_ACTVTY_NM AS artstActvtyNm,
-				B.ARTST_ENGLS_NM AS artstEnglsNm,
+				F.ARTST_ACTVTY_NM AS artstActvtyNm,
+				F.ARTST_ENGLS_NM AS artstEnglsNm,
+				YEAR (I.MBR_BIRTH) AS artistBirthYear,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_SIZE_WIDTH AS workSizeWidth, 
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
 				A.WORK_SIZE_HEIGHT AS workSizeHeight,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
 				A.WORK_SALE_YN AS workSaleYn,
-				A.WORK_PRC AS workPrc, 
-				C.KEYWRD AS keywrd 
-		FROM	TBL_DA_WORK_M AS A
-		INNER JOIN 	TBL_DA_ARTST_M AS B
-		ON		A.ARTST_SQ = B.ARTST_SQ
-		INNER JOIN  TBL_DA_KEYWRD_S AS C 
-		ON 		A.WORK_SQ = C.WORK_SQ 
-		WHERE 	MATCH (B.ARTST_ACTVTY_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				H.KEYWRD AS keywrd,
+				D.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
+				B.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
+				B.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				C.BID_CNT AS bidCnt, /*응찰수*/ 
+				DATE_FORMAT(B.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(B.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM	TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B,
+				(
+					SELECT 
+							DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+					FROM 
+							TBL_DA_AUCTN_BID_H 
+					GROUP BY DEAL_SQ 
+					ORDER BY BID_CNT DESC
+				) AS C, /* 작품 응찰 횟수 */
+				(
+					SELECT 
+							DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+					FROM 
+							TBL_DA_AUCTN_BID_H
+					GROUP BY DEAL_SQ
+				) AS D, /* 작품 최고 응찰금액 */
+				TBL_DA_AUCTN_BID_H AS E,
+				TBL_DA_ARTST_M AS F,
+				TBL_DA_KEYWRD_S AS H,
+				TBL_DA_MBR_M AS I 
+		WHERE 	A.WORK_SQ = B.WORK_SQ 
+		AND     B.DEAL_SQ = C.DEAL_SQ 
+		AND		B.DEAL_SQ = D.DEAL_SQ 
+		AND		B.DEAL_SQ = E.DEAL_SQ
+		AND 	A.ARTST_SQ = F.ARTST_SQ
+		AND     A.WORK_SQ = H.WORK_SQ 
+		AND 	A.MBR_SQ = I.MBR_SQ
+		AND		MATCH (B.ARTST_ACTVTY_NM)
+		AND		AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		OR		MATCH (B.ARTST_ENGLS_NM)
 				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		OR		MATCH (A.WORK_NM)
@@ -186,5 +258,43 @@
 		OR		MATCH (C.KEYWRD)
 				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
 		GROUP BY A.WORK_SQ;
+	</select>
+	<select id="totalSearchWorkCount" resultType="hashMap" parameterType="hashMap">
+		/*작품 통합검색 카운트*/
+		SELECT 	
+				COUNT(*) AS totalCount
+		FROM 
+				(SELECT	
+						A.MBR_SQ AS mbrSq,
+						A.ARTST_SQ AS artstSq,
+						A.WORK_SQ AS workSq,
+						A.WORK_NM AS workNm,
+						A.WORK_PRODC_YEAR AS workProdcYear,
+						B.ARTST_ACTVTY_NM AS artstActvtyNm,
+						B.ARTST_ENGLS_NM AS artstEnglsNm,
+						A.WORK_MATRL AS workMatrl,
+						A.WORK_SIZE_WIDTH AS workSizeWidth, 
+						A.WORK_SIZE_DEPTH AS workSizeDepth,
+						A.WORK_SIZE_HEIGHT AS workSizeHeight,
+						A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+						A.WORK_SALE_YN AS workSaleYn,
+						A.WORK_PRC AS workPrc, 
+						C.KEYWRD AS keywrd 
+				FROM	TBL_DA_WORK_M AS A
+				INNER JOIN 	TBL_DA_ARTST_M AS B
+				ON		A.ARTST_SQ = B.ARTST_SQ
+				INNER JOIN  TBL_DA_KEYWRD_S AS C 
+				ON 		A.WORK_SQ = C.WORK_SQ 
+				WHERE 	MATCH (B.ARTST_ACTVTY_NM)
+						AGAINST ('*작품*' IN BOOLEAN MODE)
+				OR		MATCH (B.ARTST_ENGLS_NM)
+						AGAINST ('*작품*' IN BOOLEAN MODE)
+				OR		MATCH (A.WORK_NM)
+						AGAINST ('*작품*' IN BOOLEAN MODE)
+				OR		MATCH (A.WORK_MATRL)
+						AGAINST ('*작품*' IN BOOLEAN MODE)
+				OR		MATCH (C.KEYWRD)
+						AGAINST ('*작품*' IN BOOLEAN MODE)
+				GROUP BY A.WORK_SQ) AS A
 	</select>
 </mapper>

@@ -76,4 +76,94 @@
 		GROUP BY F.DEAL_SQ;
 	</select>
 	
+	<insert id="collectionReg">
+		/*소장품 등록*/
+		INSERT INTO 
+					TBL_DA_WORK_M (
+						WORK_TYP_CD,
+						ARTST_ACTVTY_NM,
+						WORK_NM,
+						WORK_FRM_YN,
+						WORK_CLR_CD
+						<if test="artstYear != null and artstYear != ''">
+							,ARTST_BIRTH_YEAR
+						</if> 
+						<if test="workPrc != null and workPrc != ''">
+							,WORK_PRC
+						</if> 
+						<if test="workSizeWidth != null and workSizeWidth != ''">
+							,WORK_SIZE_WIDTH
+						</if> 
+						<if test="workSizeDepth != null and workSizeDepth != ''">
+							,WORK_SIZE_DEPTH
+						</if> 
+						<if test="workMatrl != null and workMatrl != ''">
+							,WORK_MATRL 
+						</if> 
+						<if test="workProdcYear != null and workProdcYear != ''">
+							,WORK_PRODC_YEAR 
+						</if> 
+						<if test="workVdoUrl  != null and workVdoUrl  != ''">
+							,WORK_VDO_URL
+						</if> 
+						<if test="workIntrdc != null and workIntrdc != ''">
+							,WORK_INTRDC
+						</if> 
+					)
+				VALUES (
+						#{workTypCd}, #{artstNm}, #{workNm}, #{workFrmYn}, #{workClrCd}
+						<if test="artstYear != null and artstYear != ''">
+							,#{artstYear}
+						</if> 
+						<if test="workPrc != null and workPrc != ''">
+							,#{workPrc}
+						</if> 
+						<if test="workSizeWidth != null and workSizeWidth != ''">
+							,#{workSizeWidth}
+						</if> 
+						<if test="workSizeDepth != null and workSizeDepth != ''">
+							,#{workSizeDepth}
+						</if> 
+						<if test="workMatrl != null and workMatrl != ''">
+							,#{workMatrl} 
+						</if> 
+						<if test="workProdcYear != null and workProdcYear != ''">
+							,#{workProdcYear} 
+						</if> 
+						<if test="workVdoUrl  != null and workVdoUrl  != ''">
+							,#{workVdoUrl}
+						</if> 
+						<if test="workIntrdc != null and workIntrdc != ''">
+							,#{workIntrdc}
+						</if> 
+				)
+				
+	</insert>
+	
+	<insert id="keywrdReg">
+		/*작품 키워드 등록*/
+		INSERT INTO
+					TBL_DA_KEYWRD_S (
+						KEYWRD,
+						WORK_SQ
+					)
+					VALUE(
+						#{keywrd},
+						(
+							SELECT
+									WORK_SQ
+							FROM
+									TBL_DA_WORK_M
+							WHERE
+									ARTST_ACTVTY_NM = #{artstNm}
+							AND 	WORK_NM = #{workNm}
+							AND		WORK_FRM_YN = #{workFrmYn}
+							AND 	WORK_CLR_CD = #{workClrCd}
+							AND 	WORK_TYP_CD = #{workTypCd}
+						)
+										
+					)
+					
+	</insert>
+	
 </mapper>

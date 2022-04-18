@@ -30,10 +30,10 @@
 								</div>
 								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
-										<input type="radio" id="r1" name="rr" />
-										<label for="r1"><span></span>Collector</label><br/>
-										<input type="radio" id="r2" name="rr" />
-										<label for="r2"><span></span> Artist</label>
+										<input type="radio" id="r3" name="authSq" value="1" class="searchOption" onclick="dealSearch()"/>
+										<label for="r3"><span></span>Collector</label><br/>
+										<input type="radio" id="r4" name="authSq" value="2" class="searchOption" onclick="dealSearch()"/>
+										<label for="r4"><span></span>Artist</label>
 									</div>
 								</div>
 							</div>
@@ -47,13 +47,13 @@
 								</div>
 								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
-										<input type="checkbox" id="a1" name="cc" />
+										<input type="checkbox" id="a1" name="dealSttsCd" value="IP" class="searchOption" onclick="dealSearch()"/>
 										<label for="a1"><span></span>진행 중인 거래</label><br/>
-										<input type="checkbox" id="a2" name="cc" />
+										<input type="checkbox" id="a2" name="dealSttsCd" value="EN" class="searchOption" onclick="dealSearch()"/>
 										<label for="a2"><span></span>종료된 거래</label><br/>
-										<input type="checkbox" id="a3" name="cc" />
+										<input type="checkbox" id="a3" name="dealTypCd" value="AUCT" class="searchOption" onclick="dealSearch()"/>
 										<label for="a3"><span></span>경매</label><br/>
-										<input type="checkbox" id="a4" name="cc" />
+										<input type="checkbox" id="a4" name="dealTypCd" value="SALE" class="searchOption" onclick="dealSearch()"/>
 										<label for="a4"><span></span>정찰가</label>
 									</div>
 								</div>
@@ -68,11 +68,11 @@
 								</div>
 								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 									<div class="panel-body">
-										<input type="checkbox" id="b1" name="cc" />
+										<input type="checkbox" id="b1" name="workShpCd" value="PLN" class="searchOption" onclick="dealSearch()"/>
 										<label for="b1"><span></span>평면</label><br/>
-										<input type="checkbox" id="b2" name="cc" />
+										<input type="checkbox" id="b2" name="workShpCd" value="SLD" class="searchOption" onclick="dealSearch()"/>
 										<label for="b2"><span></span>입체</label><br/>
-										<input type="checkbox" id="b3" name="cc" />
+										<input type="checkbox" id="b3" name="workShpCd" value="NFT" class="searchOption" onclick="dealSearch()"/>
 										<label for="b3"><span></span>NFT</label>
 									</div>
 								</div>
@@ -87,15 +87,15 @@
 								</div>
 								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 									<div class="panel-body">
-										<input type="checkbox" id="c1" name="cc" />
+										<input type="checkbox" id="c1" name="workClsfcCd" value="ORNTPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c1"><span></span>동양화</label><br/>
-										<input type="checkbox" id="c2" name="cc" />
+										<input type="checkbox" id="c2" name="workClsfcCd" value="WSTNPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c2"><span></span>서양화</label><br/>
-										<input type="checkbox" id="c3" name="cc" />
+										<input type="checkbox" id="c3" name="workClsfcCd" value="POPART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c3"><span></span>팝아트</label>
-										<input type="checkbox" id="c4" name="cc" />
+										<input type="checkbox" id="c4" name="workClsfcCd" value="MDRNART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c4"><span></span>현대미술</label><br/>
-										<input type="checkbox" id="c5" name="cc" />
+										<input type="checkbox" id="c5" name="workClsfcCd" value="ANTQART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c5"><span></span>고미술</label>
 									</div>
 								</div>
@@ -129,7 +129,7 @@
 								</div>
 							</div>
 						</div>
-						<button type="button" class="btn-more2"><span>reset</span></button>
+						<button type="button" class="btn-more2" onclick="searchOptionReset()"><span>reset</span></button>
 					</div>
 					
 					<div class="con-right">
@@ -140,7 +140,6 @@
 								<li><a href="#">작가</a></li>
 								<li><a href="#">컨텐트</a></li>
 							</ul>
-							<h4 class="aut-h4">1982년생 작가 검색결과 총 <span class="c-red">134</span>개</h4>
 						</div>
 						
 						<div class="reds-box aut-reds">
@@ -209,10 +208,10 @@
 													<span>Deal wtith</span>
 												</div>
 												<div class="drop-body">
-													<input type="radio" id="m1" name="rr" />
-													<label for="m1"><span></span>Collector</label><br/>
-													<input type="radio" id="m2" name="rr" />
-													<label for="m2"><span></span> Artist</label>
+													<input type="radio" id="m3" name="authSq" value="1" class="searchOption"/>
+													<label for="m3"><span></span>Collector</label><br/>
+													<input type="radio" id="m4" name="authSq" value="2" class="searchOption"/>
+													<label for="m4"><span></span>Artist</label>
 												</div>
 											</li>
 											<li role="presentation">
@@ -220,13 +219,13 @@
 													<span>거래</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="p1" name="cc" />
+													<input type="checkbox" id="p1" name="dealSttsCd" value="IP" class="searchOption"/>
 													<label for="p1"><span></span>진행 중인 거래</label><br/>
-													<input type="checkbox" id="p2" name="cc" />
+													<input type="checkbox" id="p2" name="dealSttsCd" value="EN" class="searchOption"/>
 													<label for="p2"><span></span>종료된 거래</label><br/>
-													<input type="checkbox" id="p3" name="cc" />
+													<input type="checkbox" id="p3" name="dealTypCd" value="AUCT" class="searchOption"/>
 													<label for="p3"><span></span>경매</label><br/>
-													<input type="checkbox" id="p4" name="cc" />
+													<input type="checkbox" id="p4" name="dealTypCd" value="SALE" class="searchOption"/>
 													<label for="p4"><span></span>정찰가</label>
 												</div>
 											</li>
@@ -235,11 +234,11 @@
 													<span>형태</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="o1" name="cc" />
+													<input type="checkbox" id="o1" name="workShpCd" value="PLN" class="searchOption"/>
 													<label for="o1"><span></span>평면</label><br/>
-													<input type="checkbox" id="o2" name="cc" />
+													<input type="checkbox" id="o2" name="workShpCd" value="SLD" class="searchOption"/>
 													<label for="o2"><span></span>입체</label><br/>
-													<input type="checkbox" id="o3" name="cc" />
+													<input type="checkbox" id="o3" name="workShpCd" value="NFT" class="searchOption"/>
 													<label for="o3"><span></span>NFT</label>
 												</div>
 											</li>
@@ -248,15 +247,15 @@
 													<span>분류</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="i1" name="cc" />
+													<input type="checkbox" id="i1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 													<label for="i1"><span></span>동양화</label><br/>
-													<input type="checkbox" id="i2" name="cc" />
+													<input type="checkbox" id="i2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
 													<label for="i2"><span></span>서양화</label><br/>
-													<input type="checkbox" id="i3" name="cc" />
+													<input type="checkbox" id="i3" name="workClsfcCd" value="POPART" class="searchOption"/>
 													<label for="i3"><span></span>팝아트</label><br/>
-													<input type="checkbox" id="i4" name="cc" />
+													<input type="checkbox" id="i4" name="workClsfcCd" value="MDRNART" class="searchOption"/>
 													<label for="i4"><span></span>현대미술</label><br/>
-													<input type="checkbox" id="i5" name="cc" />
+													<input type="checkbox" id="i5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
 													<label for="i5"><span></span>고미술</label>
 												</div>
 											</li>
@@ -277,8 +276,8 @@
 												</div>
 											</li>
 											<div class="drop-btnb">
-												<button type="button" class="dbtn-1">선택</button>
-												<button type="button" class="dbtn-2">rereset</button>
+												<button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
+												<button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
 											</div>
 										</ul>
 									</div>
@@ -384,27 +383,9 @@
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
-<!-- 모달검색 -->
-
-
-
-<div class="modal fade modal-s" id="paintModal" tabindex="-1" role="dialog" aria-labelledby="paintModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sech2">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="modal-bs">
-					<div class="mb-img-1"><a href="#" alt="작가 본인 선택"></a></div>
-					<div class="mb-img-2"><a href="#" alt="소장중인 작품"></a></div>
-					<a href="#" class="mb-a" data-dismiss="modal" aria-label="Close"><img src="resources/img/de/end-btn.png" /></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <!-- Modal -->
-<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sech">
+<div class="modal fade modal-s" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
+	<div class="modal-dialog modal-sech3">
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="conts">
@@ -412,59 +393,129 @@
 				</div>
 
 			</div>
-			<div class="modal-body">				
-				<!-- 검색버튼 클릭시 -->
-				<div class="search-show">
-					<div class="sea-box">
-						<img src="resources/img/w-logo.jpg" class="sea-img" />
-						
-						<div class="sea-won">
-							<!-- <div class="select-box">
-								<select>
-									<option>작가명</option>
-								</select>
-							</div> -->
-							<input type="text" class="" />
-							<a href="#"><img src="resources/img/icon-2.jpg" /></a>
-						</div>
-						<div class="ta-h3">
-							<h3 class="sea-h3">작품</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">작가</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">컨텐츠</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-					</div>
+			<div class="modal-body">
+				<div class="pons-div">
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
+					<button type="button" class="pons-btn">동양화</button>
 				</div>
+				<ul class="drop-ul">
+					<li role="presentation">
+						<div class="drop-title">
+							<span>Deal wtith</span>
+						</div>
+						<div class="drop-body">
+						<div class="db-div">
+								<input type="radio" id="s5" name ="authSq" value="1" class="searchOption"/>
+								<label for="s5"><span></span>Collector</label>
+							</div>
+							<div class="db-div">
+								<input type="radio" id="s6" name="authSq" value="2" class="searchOption"/>
+								<label for="s6"><span></span>Artist</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>거래</span>
+						</div>
+						
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="z1" name="dealSttsCd" value="IP" class="searchOption"/>
+								<label for="z1"><span></span>진행 중인 거래</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z2" name="dealSttsCd" value="EN" class="searchOption"/>
+								<label for="z2"><span></span>종료된 거래</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z3" name="dealTypCd" value="AUCT" class="searchOption"/>
+								<label for="z3"><span></span>경매</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="z4" name="dealTypCd" value="SALE" class="searchOption"/>
+								<label for="z4"><span></span>정찰가</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>형태</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="x1" name="workShpCd" value="PLN" class="searchOption"/>
+								<label for="x1"><span></span>평면</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="x2" name="workShpCd" value="SLD" class="searchOption"/>
+								<label for="x2"><span></span>입체</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="x3" name="workShpCd" value="NFT" class="searchOption"/>
+								<label for="x3"><span></span>NFT</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>분류</span>
+						</div>
+						<div class="drop-body">
+							<div class="db-div">
+								<input type="checkbox" id="v1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
+								<label for="v1"><span></span>동양화</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
+								<label for="v2"><span></span>서양화</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v3" name="workClsfcCd" value="POPART" class="searchOption"/>
+								<label for="v3"><span></span>팝아트</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v4" name="workClsfcCd" value="MDRNART" class="searchOption"/>
+								<label for="v4"><span></span>현대미술</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
+								<label for="v5"><span></span>고미술</label>
+							</div>
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>유형</span>
+						</div>
+						<div class="drop-body">
+						
+						</div>
+					</li>
+					<li role="presentation">
+						<div class="drop-title">
+							<span>종류</span>
+						</div>
+						<div class="drop-body">
+						
+						</div>
+					</li>
+					<div class="drop-btnb">
+						<button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
+						<button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
+					</div>
+				</ul>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script type="text/javascript">      
+<script th:inline="javascript"> 
       
 $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
@@ -595,7 +646,167 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
-      
+
+var workList = /*[[${result.workList}]]*/ 'default';
+var searchKeyword = /*[[${searchKeyword}]]*/ 'default';
+var totalCount = /*[[${result.totalCount.totalCount}]]*/ 'default';
+$(function() {
+	var workListHtml = '';
+	var totalCountHtml = '';
+	if(artstList == null){
+		modalAlertShow("검색 결과가 없습니다.");
+		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과가 <span class="c-red">없습니다.</span></h4>';
+	}else{
+		for(var i=0; i<artstList.length; i++){
+			/* workListHtml += '<li>';
+     		workListHtml += '	<div class="uli-list">';
+     		workListHtml += '		<div class="uli-img">';
+     		workListHtml += '			<img src="'+ workList[i].workMainImgUrl +'" />';
+     		workListHtml += '			<div class="uho"></div>';
+     		workListHtml += '		</div>';
+     		workListHtml += '		<div class="uli-text">';
+     		workListHtml += '			<h3 class="ut-h3">'+ workList[i].artstActvtyNm +' ('+ workList[i].artistBirthYear +'년생)</h3>';
+     		workListHtml += '			<div class="ut-div">'+ workList[i].workNm +' ('+ workList[i].workProdcYear +')</div>';
+     		workListHtml += '			<p class="ut-p">'+ workList[i].workMatrl +'<br/>'+ workList[i].workSizeWidth +'x'+ workList[i].workSizeDepth +'cm</p>';
+     		workListHtml += '		</div>';
+     		workListHtml += '		<div class="uli-ste">';
+     		workListHtml += '			<div class="ste-div">';
+     		workListHtml += '				<img src="resources/img/about/icon-s1.png" class="ste-img"/>';
+     		workListHtml += '				<p class="ste-p1">경매기간</p>';
+     		workListHtml += '				<p class="ste-p2">'+ workList[i]. +' ~ '+ workList[i]. +'</p>';
+     		workListHtml += '			</div>';
+     		workListHtml += '			<div class="ste-div">';
+     		workListHtml += '				<img src="resources/img/about/icon-s2.png" class="ste-img"/>';
+     		workListHtml += '				<p class="ste-p1">남은시간</p>';
+     		workListHtml += '				<p class="ste-p2">'+ workList[i]. +':'+ workList[i]. +':'+ workList[i]. +'</p>';
+     		workListHtml += '			</div>';
+     		workListHtml += '			<div class="ste-div">';
+     		workListHtml += '				<img src="resources/img/about/icon-s3.png" class="ste-img"/>';
+     		workListHtml += '				<p class="ste-p1">시작가</p>';
+     		workListHtml += '				<p class="ste-p2">'+ workList[i]. +'</p>';
+     		workListHtml += '			</div>';
+     		workListHtml += '			<div class="ste-div">';
+     		workListHtml += '				<img src="resources/img/about/icon-s4.png" class="ste-img"/>';
+     		workListHtml += '				<p class="ste-p1">입찰가</p>';
+     		workListHtml += '				<p class="ste-p2">'+ workList[i]. +'</p>';
+     		workListHtml += '			</div>';
+     		workListHtml += '			<div class="ste-div">';
+     		workListHtml += '				<img src="resources/img/about/icon-s5.png" class="ste-img"/>';
+     		workListHtml += '				<p class="ste-p1">응찰수</p>';
+     		workListHtml += '				<p class="ste-p2">'+ workList[i]. +'</p>';
+     		workListHtml += '			</div>';
+     		workListHtml += '		</div>';
+     		workListHtml += '	</div>';
+     		workListHtml += '</li>'; */
+		}
+	}
+});
+
+function dealSearch(){
+	//검색옵션이 담긴 JSON
+	var searchOptions = new Object();
+	searchOptions.searchKeyword = searchKeyword;
+	//회원구분
+	if($('input[name=authSq]:checked').val() != null && $('input[name=authSq]:checked').val() != ""){
+		searchOptions.authSq = $('input[name=authSq]:checked').val();
+	}
+	//거래유형코드
+	var dealTypCds = new Array();
+	document.querySelectorAll('input[name=dealTypCd]:checked').forEach((el) => {
+		dealTypCds.push(el.value);
+	});
+	if(dealTypCds.length > 0){
+		searchOptions.dealTypCds = JSON.stringify(dealTypCds);
+	}
+	//거래상태코드
+	var dealSttsCds = new Array();
+	document.querySelectorAll('input[name=dealSttsCd]:checked').forEach((el) => {
+		dealSttsCds.push(el.value);
+	});
+	if(dealSttsCds.length > 0){
+		searchOptions.dealSttsCds = JSON.stringify(dealSttsCds);
+	}
+	//작품형태코드
+	var workShpCds = new Array();
+	document.querySelectorAll('input[name=workShpCd]:checked').forEach((el) => {
+		workShpCds.push(el.value);
+	});
+	if(workShpCds.length > 0){
+		searchOptions.workShpCds = JSON.stringify(workShpCds);
+	}
+	//작품분류코드
+	var workClsfcCds = new Array();
+	document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
+		workClsfcCds.push(el.value);
+	});
+	if(workClsfcCds.length > 0){
+		searchOptions.workClsfcCds = JSON.stringify(workClsfcCds);
+	}
+	$.ajax({
+        type: "post",
+        url: "/dealSearch",
+        data: searchOptions,
+        success: function(data) {
+        	var dealList;
+        	var dealListHtml = "";
+     		if(data == null){
+     			modalAlertShow("검색 결과가 없습니다.");
+     		}else{
+     			for(var i=0; i<artstList.length; i++){
+     				workListHtml += '<li>';
+     	     		workListHtml += '	<div class="uli-list">';
+     	     		workListHtml += '		<div class="uli-img">';
+     	     		workListHtml += '			<img src="resources/img/about/bg-s.png" />';
+     	     		workListHtml += '			<div class="uho"></div>';
+     	     		workListHtml += '		</div>';
+     	     		workListHtml += '		<div class="uli-text">';
+     	     		workListHtml += '			<h3 class="ut-h3">작가명 (1983년생)</h3>';
+     	     		workListHtml += '			<div class="ut-div">작품명입니다작품명입니다(2021202120212021)</div>';
+     	     		workListHtml += '			<p class="ut-p">Oil & Canvas<br/>72.7x90.9cm</p>';
+     	     		workListHtml += '		</div>';
+     	     		workListHtml += '		<div class="uli-ste">';
+     	     		workListHtml += '			<div class="ste-div">';
+     	     		workListHtml += '				<img src="resources/img/about/icon-s1.png" class="ste-img"/>';
+     	     		workListHtml += '				<p class="ste-p1">경매기간</p>';
+     	     		workListHtml += '				<p class="ste-p2">2022.03.01 ~ 2011.03.10</p>';
+     	     		workListHtml += '			</div>';
+     	     		workListHtml += '			<div class="ste-div">';
+     	     		workListHtml += '				<img src="resources/img/about/icon-s2.png" class="ste-img"/>';
+     	     		workListHtml += '				<p class="ste-p1">남은시간</p>';
+     	     		workListHtml += '				<p class="ste-p2">72 : 17 : 20</p>';
+     	     		workListHtml += '			</div>';
+     	     		workListHtml += '			<div class="ste-div">';
+     	     		workListHtml += '				<img src="resources/img/about/icon-s3.png" class="ste-img"/>';
+     	     		workListHtml += '				<p class="ste-p1">시작가</p>';
+     	     		workListHtml += '				<p class="ste-p2">1,000,000</p>';
+     	     		workListHtml += '			</div>';
+     	     		workListHtml += '			<div class="ste-div">';
+     	     		workListHtml += '				<img src="resources/img/about/icon-s4.png" class="ste-img"/>';
+     	     		workListHtml += '				<p class="ste-p1">입찰가</p>';
+     	     		workListHtml += '				<p class="ste-p2">1,000,000</p>';
+     	     		workListHtml += '			</div>';
+     	     		workListHtml += '			<div class="ste-div">';
+     	     		workListHtml += '				<img src="resources/img/about/icon-s5.png" class="ste-img"/>';
+     	     		workListHtml += '				<p class="ste-p1">응찰수</p>';
+     	     		workListHtml += '				<p class="ste-p2">12</p>';
+     	     		workListHtml += '			</div>';
+     	     		workListHtml += '		</div>';
+     	     		workListHtml += '	</div>';
+     	     		workListHtml += '</li>';
+     			}
+     		}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	})
+}
+
+function searchOptionReset(){
+	document.querySelectorAll(".searchOption").forEach(function(v, i) {
+		v.checked = false;
+	});
+}      
       
       
 </script>

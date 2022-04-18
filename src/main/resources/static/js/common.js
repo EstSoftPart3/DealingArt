@@ -15,6 +15,18 @@ function buttonStyleFix() {
   }
  }
 } 
+/*
+*********************************************************************************************************
+* 함수설명	: post 방식으로 페이지 이동과 파라미터를 넘긴다
+* 예제	: pageGoPost({
+				url:"/artistDetail",
+				target:"_self",
+				vals:[
+					["artstSq", artstSq]
+				]
+			});
+***********************************************************************************************************
+*/
 function pageGoPost(d){ 
 	var insdoc = ""; 
 	for (var i = 0; i < d.vals.length; i++) { 
@@ -28,6 +40,150 @@ function pageGoPost(d){
 		}).appendTo("body"); 
 	
 	goform.submit(); 
+}
+
+//Modal Alert Form
+function modalForm(msg,obj) {
+	var Html = "";
+	Html +=	'<div class="modal-dialog modal-baeg max-w530">';
+	Html +=	'<div class="modal-content">';
+	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	Html +=	'<div class="baegs">';
+	//Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'<div class="modal-body">';
+	Html +=	'<div class="md-box-1">';
+	Html +=	'<div class="md-ds" style="color:#333;">';
+	Html +=	msg;
+	Html +=	'</div>';
+	Html +=	'<div class="baeg-btn mg_t30">';  //onclick="testing(\'' + text  + '\')"
+	Html +=	'<button type="button" class="baeg-b1" onclick="modalAlertClose(\''+obj+'\');">확인</button>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	$("#ModalAlert").empty();
+	$("#ModalAlert").append(Html).trigger("create");
+}
+
+/*
+*********************************************************************************************************
+* 함수설명	: 공통 alert 창
+* 예제	: modalAlertShow("메세지", "포커스이동할 컴포넌트 id")
+***********************************************************************************************************
+*/
+//Modal Alert Form
+function modalForm(msg,obj) {
+	var Html = "";
+	Html +=	'<div class="modal-dialog modal-baeg max-w530">';
+	Html +=	'<div class="modal-content">';
+	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	Html +=	'<div class="baegs">';
+	//Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'<div class="modal-body">';
+	Html +=	'<div class="md-box-1">';
+	Html +=	'<div class="md-ds" style="color:#333;">';
+	Html +=	msg;
+	Html +=	'</div>';
+	Html +=	'<div class="baeg-btn mg_t30">';  //onclick="testing(\'' + text  + '\')"
+	Html +=	'<button type="button" class="baeg-b1" onclick="modalAlertClose(\''+obj+'\');">확인</button>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	$("#ModalAlert").empty();
+	$("#ModalAlert").append(Html).trigger("create");
+}
+
+function modalAlertShow(msg,obj) {
+	 //Modal Form Call
+	 modalForm(msg,obj)
+	 
+	$("#ModalAlert").modal("show");
+}
+
+function modalAlertClose(obj) {
+	
+	$('#ModalAlert').modal('hide');
+	
+	if(obj == "reload"){
+		location.reload();
+	}
+	
+	if(obj == "memberInput") {
+		//회원가입 모달
+		$('#memberModal').modal('hide');
+		//로그인 모달
+		$('#loginModal').modal('show');
+		//회원가입 Form reset
+		$("#memberInput")[0].reset(); 
+		
+		return;
+	}
+	
+	if(obj) {
+		$('#'+obj).focus();
+		return;
+	}
+	
+	
+}
+
+/*
+*********************************************************************************************************
+* 함수설명	: 공통 confirm 창
+* 예제	: modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+				if(confrim){
+					return true;
+				}
+			});
+***********************************************************************************************************
+*/
+//Modal Confirm Form
+function modalConfirm(title, msg, callback){
+	var Html = '';
+	Html += '<div class="modal-dialog modal-baeg max-w530">';
+	Html += '	<div class="modal-content">';
+	Html += '		<div class="modal-header">';
+	Html += '			<div class="baegs">';
+	Html += '				<h2>'+ title +'</h2>';
+	Html += '		    	<img src="resources/img/ba/icon-1.png" class="con-img" />';
+	Html += '		    	<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html += '			</div>';
+	Html += '		</div>';
+	Html += '		<div class="modal-body">';
+	Html += '			<div class="md-box-1">';
+	Html += '				<h4 class="min-h240">';
+	Html += msg;
+	Html += '				<h4>';
+	Html += '				<div class="baeg-btn mg_t30">';
+	Html += '					<a href="#"><button type="button" class="baeg-b1" id="ModalConfirm_Ok">확인</button></a>';
+	Html += '					<a href="#" data-dismiss="modal" aria-label="Close" id="ModalConfirm_Cancel"><button type="button" class="baeg-b2">취소</button></a>';
+	Html += '				</div>';
+	Html += '			</div>';
+	Html += '		</div>';
+	Html += '	</div>';
+	Html += '</div>';
+	$("#ModalConfirm").empty();
+	$("#ModalConfirm").append(Html).trigger("create");
+	$("#ModalConfirm").modal("show");
+	
+
+	$("#ModalConfirm_Ok").on("click", function(){
+		$("#ModalConfirm").modal("hide");
+		callback(true);
+	});
+
+	$("#ModalConfirm_Cancel").on("click", function(){
+		$("#ModalConfirm").modal("hide");
+		callback(false);
+	});
+
 }
 
 /*

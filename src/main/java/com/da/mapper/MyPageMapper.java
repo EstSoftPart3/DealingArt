@@ -1,6 +1,7 @@
 package com.da.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MyPageMapper {
 	/*
@@ -9,5 +10,20 @@ public interface MyPageMapper {
 	 * return : 거래내역
 	 */
 	public List myDealSearchList(Object param);
+	
+	/*
+	 * 소장품 등록
+	 * param : 소장품 정보가 들어있는 param
+	 * return : int
+	 */
+	public int collectionReg(Map<String, Object> param);
+	
+	/*
+	 * 등록된 소장품의 키워드 등록
+	 * param : 소장품 정보가 들어있는 param
+	 * return : int
+	 */
+	public int keywrdReg(Map<String, Object> param);
+	
 	
 }

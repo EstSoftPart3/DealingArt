@@ -51,7 +51,11 @@ public class MainController {
 	@ResponseBody
 	public ModelAndView totalSearchArtist(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_artist");
-		List result = mainService.totalSearchArtist(searchKeyword);
+		Map<String, Object> result = new HashMap<>();
+		List artstList = mainService.totalSearchArtist(searchKeyword);
+		Map<String, Object> totalCount = mainService.totalSearchArtistCount(searchKeyword);
+		result.put("artstList", artstList);
+		result.put("totalCount", totalCount);
 		mv.addObject("result", result);
 		mv.addObject("searchKeyword", searchKeyword.replaceAll("\\*", ""));
 		return mv;
@@ -61,7 +65,11 @@ public class MainController {
 	@ResponseBody
 	public ModelAndView totalSearchWork(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_work");
-		List result = mainService.totalSearchWork(searchKeyword);
+		Map<String, Object> result = new HashMap<>();
+		List workList = mainService.totalSearchWork(searchKeyword);
+		Map<String, Object> totalCount = mainService.totalSearchWorkCount(searchKeyword);
+		result.put("workList", workList);
+		result.put("totalCount", totalCount);
 		mv.addObject("result", result);
 		mv.addObject("searchKeyword", searchKeyword.replaceAll("\\*", ""));
 		return mv;

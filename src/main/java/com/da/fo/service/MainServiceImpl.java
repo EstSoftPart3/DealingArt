@@ -28,6 +28,24 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	/*
+	 * 메인 화면에서 통합검색으로 작가을 조회환다.
+	 * param : searchKeyword
+	 * return : 작가에 관한 정보
+	 */
+	public List totalSearchArtist(String searchKeyword){
+		return mainDao.totalSearchArtist(searchKeyword);
+	}
+	
+	/*
+	 * 작가 통합검색 결과 카운트
+	 * param : searchKeyword
+	 * return : 카운트
+	 */
+	public Map<String, Object> totalSearchArtistCount(String searchKeyword){
+		return mainDao.totalSearchArtistCount(searchKeyword);
+	}
+	
+	/*
 	 * 메인 화면에서 통합검색으로 작품을 조회환다.
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
@@ -37,12 +55,12 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	/*
-	 * 메인 화면에서 통합검색으로 작가을 조회환다.
+	 * 작품 통합검색 결과 카운트
 	 * param : searchKeyword
-	 * return : 작가에 관한 정보
+	 * return : 카운트
 	 */
-	public List totalSearchArtist(String searchKeyword){
-		return mainDao.totalSearchArtist(searchKeyword);
+	public Map<String, Object> totalSearchWorkCount(String searchKeyword){
+		return mainDao.totalSearchWorkCount(searchKeyword);
 	}
 	
 	/*

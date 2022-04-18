@@ -177,16 +177,19 @@ $(window).on('resize', function(){
  	}, delay);
 });
 
-var artstList = /*[[${result}]]*/ 'default';
+var artstList = /*[[${result.artstList}]]*/ 'default';
 var searchKeyword = /*[[${searchKeyword}]]*/ 'default';
+var totalCount = /*[[${result.totalCount.totalCount}]]*/ 'default';
 $(function() {
 	var artstListHtml = '';
 	var totalCountHtml = '';
 	if(artstList == null){
-		alert("검색 결과가 없습니다.");
+		modalAlertShow("검색 결과가 없습니다.");
+		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과가 <span class="c-red">없습니다.</span></h4>';
+		$(".aut-top").append(totalCountHtml).trigger("create");
 	}else{
 		$("#artstList").empty();
-		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과 총 <span class="c-red">'+ artstList[0].totalCount +'</span>개</h4>';
+		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과 총 <span class="c-red">'+ totalCount +'</span>개</h4>';
 		for(var i=0; i<artstList.length; i++){
 			artstListHtml += '<li>';
 			artstListHtml += '	<a class="hd-div3">';

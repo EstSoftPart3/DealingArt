@@ -170,5 +170,13 @@ public class MyPageController {
 		return result;
 	}
 	
+	//소장품 등록
+	@RequestMapping("/collectionReg")
+	@ResponseBody
+	public int collectionReg(@RequestParam Map<String, Object> param) {
+		System.out.println("##################### collectionReg param : " + param);
+		int result = myPageService.collectionReg(param);
+		return result;
+	}
 	
 }
