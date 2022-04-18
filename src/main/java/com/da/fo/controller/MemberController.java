@@ -289,7 +289,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	//작가기본정보 입력
+	//작가학력정보 삭제
 	@RequestMapping("/myPage/authorEudInfoDeleteData")
 	@ResponseBody
 	public int authorEudInfoDelete(@RequestParam Map<String, Object> param) {
@@ -345,6 +345,76 @@ public class MemberController {
 		mv.addObject("authorCarrer", result);
 		
 		return mv;
+	}
+	
+	//작가경력 - 경력 삭제
+	@RequestMapping("/myPage/authorCarrerInfoDeleteData")
+	@ResponseBody
+	public int authorCarrerInfoDelete(@RequestParam Map<String, Object> param) {
+		
+		int deleteState = -1;
+		
+		deleteState = memberService.authorCarrerInfoDelete(param);
+		
+		return deleteState;
+	}
+	
+	//작가경력정보 입력
+	@RequestMapping("/myPage/authorExhbtnInfoSaveData")
+	@ResponseBody
+	public int authorExhbtnInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
+		
+		int saveState = -1;
+		
+		Map <String, Object> param =  new HashMap<String, Object>();
+
+		for(Map<String, Object> tList : list) {
+			
+			String exhbtnSq = tList.get("exhbtnSq").toString();
+			String mbrSq = tList.get("mbrSq").toString();
+			String artstSq = tList.get("artstSq").toString();
+			String exhbtnTypCd = tList.get("exhbtnTypCd").toString();
+			String exhbtnNm = tList.get("exhbtnNm").toString();
+			
+			param.put("exhbtnSq", exhbtnSq);
+			param.put("mbrSq", mbrSq);
+			param.put("artstSq", artstSq);
+			param.put("exhbtnTypCd", exhbtnTypCd);
+			param.put("exhbtnNm", exhbtnNm);
+			
+			saveState = memberService.authorExhbtnInfoSaveData(param);
+		}
+		
+		return saveState;
+	}
+	
+	//작가경력 - 경력 리스트
+	@RequestMapping("/myPage/authorExhbtnInfoViewData")
+	@ResponseBody
+	public ModelAndView authorExhbtnInfoList(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = memberService.authorExhbtnInfoList(param);
+		
+		mv.addObject("author", result);
+		
+		return mv;
+	}
+	
+	//작가경력 - 경력 삭제
+	@RequestMapping("/myPage/authorExhbtnInfoDeleteData")
+	@ResponseBody
+	public int authorExhbtnInfoDelete(@RequestParam Map<String, Object> param) {
+		
+		int deleteState = -1;
+		
+		deleteState = memberService.authorExhbtnInfoDelete(param);
+		
+		return deleteState;
 	}
 	
 }

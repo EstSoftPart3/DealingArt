@@ -66,8 +66,35 @@ public interface MemberMapper {
 	//작가학력정보 등록유무 체크를 위한 카운터
 	public int authorEduInfoCheckCount(Map<String, Object> param);
 		
-	//작가경력-경력등록
+	//작가경력-경력 등록
 	public int authorCareerInfoInsert(Map<String, Object> param);
+	
 	//작가경력 - 경력 리스트
 	public List authorCarrerInfoList(Map<String, Object> param);
+	
+	//작가경력 - 경력 삭제
+	public int authorCarrerInfoDelete(Map<String, Object> param);
+	
+	//작가경력 경력 수정
+	public int authorCarrerInfoUpdate(Map<String, Object> param);
+	
+	//작가경력 경력 카운터
+	public int authorCarrerInfoCheckCount(Map<String, Object> param);
+	
+	
+	//작가 전시정보 등록
+	public int authorExhbtnInfoInsert(Map<String, Object> param);
+	
+	//작가 전시정보 수정
+	public int authorExhbtnInfoUpdate(Map<String, Object> param);
+	
+	//작가 전시정보 리스트
+	public List authorExhbtnInfoList(Map<String, Object> param);
+	
+	//작가 전시정보 삭제
+	public int authorExhbtnInfoDelete(Map<String, Object> param);
+	
+	//작가전시정보 등록유무 체크를 위한 카운터
+	public int authorExhbtnInfoCheckCount(Map<String, Object> param);
+	
 }

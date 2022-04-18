@@ -59,5 +59,17 @@ public interface MemberService {
 	
 	//작가 경력-경력 등록
 	public Map<String, Object> authorCarrerInfoList(Map<String, Object> param);
+	
+	//작가 경력-경력 삭제
+	public int authorCarrerInfoDelete(Map<String, Object> param);
+	
+	//작가 전시정보 등록/수정
+	public int authorExhbtnInfoSaveData(Map<String, Object> param);
+	
+	//작가 전시정보 리스트
+	public Map<String, Object> authorExhbtnInfoList(Map<String, Object> param);
+	
+	//작가 전시정보 삭제
+	public int authorExhbtnInfoDelete(Map<String, Object> param);
 
 }

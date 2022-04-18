@@ -339,7 +339,7 @@
 												<td>
 													<input type="hidden" name="careerSq" class="careerSq"/>
 													<input type="hidden" name="careerTypCd" class="careerTypCd" value="CR"/>
-													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 교육, 연구이력 등" />
+													<input type="text" class="input-5" name="careerNm" style="width: 480px" placeholder="연도 - 교육, 연구이력 등" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 careerMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -351,7 +351,7 @@
 												<td>
 													<input type="hidden" name="careerSq" class="careerSq"/>
 													<input type="hidden" name="careerTypCd" class="careerTypCd" value="CR"/>
-													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 교육, 연구이력 등" />
+													<input type="text" class="input-5" name="careerNm" style="width: 480px" placeholder="연도 - 교육, 연구이력 등" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 careerAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -363,7 +363,7 @@
 												<td>
 													<input type="hidden" name="careerSq" class="careerSq"/>
 													<input type="hidden" name="careerTypCd" class="careerTypCd" value="BL"/>
-													<input type="text" class="input-5" name="careerNm"  placeholder="연도 - 갤러리, 협회" />
+													<input type="text" class="input-5" name="careerNm" style="width: 480px"  placeholder="연도 - 갤러리, 협회" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 belongMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -375,7 +375,7 @@
 												<td>
 													<input type="hidden" name="careerSq" class="careerSq"/>
 													<input type="hidden" name="careerTypCd" class="careerTypCd" value="BL"/>
-													<input type="text" class="input-5" name="careerNm" placeholder="연도 - 갤러리, 협회" />
+													<input type="text" class="input-5" name="careerNm" style="width: 480px" placeholder="연도 - 갤러리, 협회" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 belongAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -395,21 +395,93 @@
 								});
 								//삭제
 								$('table.careerGroup').on('click', '.careerMinusBtn', function() {
-									  const tr = this.parentElement.parentElement;
-									  tr.remove();
+									 const tr = this.parentElement.parentElement;
+									 var careerSq = $(tr).eq(0).find('input[name="careerSq"]').val();
+									 
+									 if(careerSq == "") {
+										 tr.remove();	 
+									 } else {
+										 console.log("careerSq : "+careerSq);
+										 
+										 modalConfirm("알림", "해당 작가경력정보를 삭제 하시겠습니까?", function(confrim){
+												if(confrim){
+													
+													let careerParam = {
+														careerSq : careerSq	
+													}
+													
+													$.ajax({
+													     type: "post",
+													     url: "/myPage/authorCarrerInfoDeleteData",
+													     data: careerParam,
+													     success: function(data) {
+													    	console.log("saveData :"+data);
+													    	
+													    	if(data == 1) {
+													    		
+													    		//modalAlertShow("작가학력정보 삭제 완료","");
+													    		
+													    		location.reload();
+													    	}
+													   	 },
+													     error: function(error) {
+													  	   var errorJson = JSON.stringify(error);
+													         console.log(errorJson);
+													     }
+													});
+												}
+											});
+									 }
+									 
+									 
 								});
 								/* 경력정보 */
 								
 								/* 소속 */
 								//추가
 								$('table.belongGroup').on('click', '.belongAddBtn', function() {
-									var newitem = $("#careerListTemp tr:eq(0)").clone();
-									$("#careerList").append(newitem);
+									var newitem = $("#belongListTemp tr:eq(0)").clone();
+									$("#belongList").append(newitem);
 								});
 								//삭제
 								$('table.belongGroup').on('click', '.belongMinusBtn', function() {
-									  const tr = this.parentElement.parentElement;
-									  tr.remove();
+									 const tr = this.parentElement.parentElement;
+									 var careerSq = $(tr).eq(0).find('input[name="careerSq"]').val();
+									 
+									 if(careerSq == "") {
+										 tr.remove();	 
+									 } else {
+										 console.log("careerSq : "+careerSq);
+										 
+										 modalConfirm("알림", "해당 작가경력-소속정보를 삭제 하시겠습니까?", function(confrim){
+												if(confrim){
+													
+													let careerParam = {
+														careerSq : careerSq	
+													}
+													
+													$.ajax({
+													     type: "post",
+													     url: "/myPage/authorCarrerInfoDeleteData",
+													     data: careerParam,
+													     success: function(data) {
+													    	console.log("saveData :"+data);
+													    	
+													    	if(data == 1) {
+													    		
+													    		//modalAlertShow("작가학력정보 삭제 완료","");
+													    		
+													    		location.reload();
+													    	}
+													   	 },
+													     error: function(error) {
+													  	   var errorJson = JSON.stringify(error);
+													         console.log(errorJson);
+													     }
+													});
+												}
+											});
+									 }
 								});
 								/* 소속 */
 							</script>
@@ -426,7 +498,9 @@
 											<tr>
 												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="SLXBT"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 perDonginMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -435,7 +509,9 @@
 											<tr>
 												<th>개인전/단체전</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="SLXBT"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 perDonginAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -444,15 +520,51 @@
 										<script type="text/javascript">
 											
 											/* 개인전, 단체전(동인전)   */
-											$(".perDonginAddBtn").click(function(){
+											$('table.perDoinGroup').on('click', '.perDonginAddBtn', function() {
 												var newitem = $("#perDonginListTemp tr:eq(0)").clone();
 												$("#perDonginList").append(newitem);
 																	
 										 	}); 
 											
 											$('table.perDoinGroup').on('click', '.perDonginMinusBtn', function() {
-												  const tr = this.parentElement.parentElement;
-												  tr.remove();
+												const tr = this.parentElement.parentElement;
+												 var exhbtnSq = $(tr).eq(0).find('input[name="exhbtnSq"]').val();
+												 
+												 if(exhbtnSq == "") {
+													 tr.remove();	 
+												 } else {
+												
+													console.log("exhbtnSq : "+exhbtnSq);
+																									 
+													 modalConfirm("알림", "해당 전시정보를 삭제 하시겠습니까?", function(confrim){
+															if(confrim){
+																
+																let exhbtnSqParam = {
+																		exhbtnSq : exhbtnSq	
+																}
+																
+																$.ajax({
+																     type: "post",
+																     url: "/myPage/authorExhbtnInfoDeleteData",
+																     data: exhbtnSqParam,
+																     success: function(data) {
+																    	console.log("saveData :"+data);
+																    	
+																    	if(data == 1) {
+																    		
+																    		//modalAlertShow("작가학력정보 삭제 완료","");
+																    		
+																    		location.reload();
+																    	}
+																   	 },
+																     error: function(error) {
+																  	   var errorJson = JSON.stringify(error);
+																         console.log(errorJson);
+																     }
+																});
+															}
+														});
+												 }
 											});
 											/* 개인전, 단체전(동인전)   */
 											
@@ -463,7 +575,9 @@
 											<tr>
 												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="ARTFR"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 artFairMinesBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -473,7 +587,9 @@
 											<tr>
 												<th>아트페어</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="ARTFR"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 artFairAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -482,15 +598,51 @@
 										<script type="text/javascript">
 											
 											/* 아트페어   */
-											$(".artFairAddBtn").click(function(){
+											$('table.artFairGroup').on('click', '.artFairAddBtn', function() {
 												var newitem = $("#artFairListTemp tr:eq(0)").clone();
 												$("#artFairList").append(newitem);
 																	
 										 	}); 
 											
 											$('table.artFairGroup').on('click', '.artFairMinesBtn', function() {
-												  const tr = this.parentElement.parentElement;
-												  tr.remove();
+												const tr = this.parentElement.parentElement;
+												 var exhbtnSq = $(tr).eq(0).find('input[name="exhbtnSq"]').val();
+												 
+												 if(exhbtnSq == "") {
+													 tr.remove();	 
+												 } else {
+												
+													console.log("exhbtnSq : "+exhbtnSq);
+																									 
+													 modalConfirm("알림", "해당 전시정보를 삭제 하시겠습니까?", function(confrim){
+															if(confrim){
+																
+																let exhbtnSqParam = {
+																	exhbtnSq : exhbtnSq	
+																}
+																
+																$.ajax({
+																     type: "post",
+																     url: "/myPage/authorExhbtnInfoDeleteData",
+																     data: exhbtnSqParam,
+																     success: function(data) {
+																    	console.log("saveData :"+data);
+																    	
+																    	if(data == 1) {
+																    		
+																    		//modalAlertShow("작가학력정보 삭제 완료","");
+																    		
+																    		location.reload();
+																    	}
+																   	 },
+																     error: function(error) {
+																  	   var errorJson = JSON.stringify(error);
+																         console.log(errorJson);
+																     }
+																});
+															}
+														});
+												 }
 											});
 											/* 아트페어   */
 											
@@ -500,7 +652,9 @@
 											<tr>
 												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="RSDNC"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 residencyMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -510,7 +664,9 @@
 											<tr>
 												<th>레지던시</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="RSDNC"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 residencyAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -518,24 +674,62 @@
 										
 										<script type="text/javascript">
 											/* 레지던시   */
-											$(".residencyAddBtn").click(function(){
+											$('table.residencyGroup').on('click', '.residencyAddBtn', function() {
 												var newitem = $("#residencyListTemp tr:eq(0)").clone();
 												$("#residencyList").append(newitem);
 																	
 										 	}); 
 											
 											$('table.residencyGroup').on('click', '.residencyMinusBtn', function() {
-												  const tr = this.parentElement.parentElement;
-												  tr.remove();
+												const tr = this.parentElement.parentElement;
+												 var exhbtnSq = $(tr).eq(0).find('input[name="exhbtnSq"]').val();
+												 
+												 if(exhbtnSq == "") {
+													 tr.remove();	 
+												 } else {
+												
+													console.log("exhbtnSq : "+exhbtnSq);
+																									 
+													 modalConfirm("알림", "해당 전시정보를 삭제 하시겠습니까?", function(confrim){
+															if(confrim){
+																
+																let exhbtnSqParam = {
+																	exhbtnSq : exhbtnSq	
+																}
+																
+																$.ajax({
+																     type: "post",
+																     url: "/myPage/authorExhbtnInfoDeleteData",
+																     data: exhbtnSqParam,
+																     success: function(data) {
+																    	console.log("saveData :"+data);
+																    	
+																    	if(data == 1) {
+																    		
+																    		//modalAlertShow("작가학력정보 삭제 완료","");
+																    		
+																    		location.reload();
+																    	}
+																   	 },
+																     error: function(error) {
+																  	   var errorJson = JSON.stringify(error);
+																         console.log(errorJson);
+																     }
+																});
+															}
+														});
+												 }
 											});
 											/* 레지던시   */
 										</script>
 										
 										<table class="mstyle-2" id="awardslistTemp" style="display:none">
 											<tr>
-												<th>수상</th>
+												<th></th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="AWRDS"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 awardsMinusBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -545,7 +739,9 @@
 											<tr>
 												<th>수상</th>
 												<td>
-													<input type="text" class="input-5" placeholder="연도 및 내역" />
+													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
+													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="AWRDS"/>
+													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 awardsAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -553,15 +749,51 @@
 										
 										<script type="text/javascript">
 											/* 레지던시   */
-											$(".awardsAddBtn").click(function(){
+											$('table.awardsGroup').on('click', '.awardsAddBtn', function() {
 												var newitem = $("#awardslistTemp tr:eq(0)").clone();
 												$("#awardslist").append(newitem);
 																	
 										 	}); 
 											
 											$('table.awardsGroup').on('click', '.awardsMinusBtn', function() {
-												  const tr = this.parentElement.parentElement;
-												  tr.remove();
+												 const tr = this.parentElement.parentElement;
+												 var exhbtnSq = $(tr).eq(0).find('input[name="exhbtnSq"]').val();
+												 
+												 if(exhbtnSq == "") {
+													 tr.remove();	 
+												 } else {
+												
+													console.log("exhbtnSq : "+exhbtnSq);
+																									 
+													 modalConfirm("알림", "해당 전시정보를 삭제 하시겠습니까?", function(confrim){
+															if(confrim){
+																
+																let exhbtnSqParam = {
+																	exhbtnSq : exhbtnSq	
+																}
+																
+																$.ajax({
+																     type: "post",
+																     url: "/myPage/authorExhbtnInfoDeleteData",
+																     data: exhbtnSqParam,
+																     success: function(data) {
+																    	console.log("saveData :"+data);
+																    	
+																    	if(data == 1) {
+																    		
+																    		//modalAlertShow("작가학력정보 삭제 완료","");
+																    		
+																    		location.reload();
+																    	}
+																   	 },
+																     error: function(error) {
+																  	   var errorJson = JSON.stringify(error);
+																         console.log(errorJson);
+																     }
+																});
+															}
+														});
+												 }
 											});
 											/* 레지던시   */
 										</script>
@@ -573,7 +805,7 @@
 							
 					
 							<div class="bat-box5">
-								<a href="#" class="ba-btn1"><span>등록하기</span></a>
+								<a href="javascript:AuthorInfoSave(1);" class="ba-btn1"><span>등록하기</span></a>
 								<a href="javascript:AuthorInfoSave(2);" class="ba-btn2"><span>임시저장</span></a>
 								<a href="#" class="ba-btn2"><span>취소</span></a>
 								<a href="#" class="ba-btn2"><span>미리보기</span></a>
@@ -898,6 +1130,22 @@
 		    	
 		    	 //작가경력-경력 리스트 Call
 		    	 AuthorCarrerInfoList(mbrSq,artstSq);
+		    	 
+		    	 //작가경력-소속 리스트 Call
+		    	 AuthorBelongInfoList(mbrSq,artstSq);
+		    	 
+		    	 //작가 전시정보
+		    	 //개인전.단체전 Call
+		    	 AuthorSlxbtInfoList(mbrSq,artstSq);
+		    	 
+		    	 //아트페어 Call
+		    	 AuthorArtfrInfoList(mbrSq,artstSq);
+		    	 
+		    	 //레지던시 Call
+		    	 AuthorRsdncInfoList(mbrSq,artstSq);
+		    	 
+		    	 //수상 Call
+		    	 AuthorAwrdsInfoList(mbrSq,artstSq);
 		    	
 		    	if(proc == 2){
 		    		
@@ -933,7 +1181,7 @@
    	                	contentType : "application/json; charset=UTF-8",  
    				  		success: function(data) {
    				    	 	//modalAlertShow("회원수정이 완료 되었습니다.","");
-   				  			//location.reload();
+   				  			location.reload();
    				   	 	},
    				     	error: function(error) {
    				  	   		var errorJson = JSON.stringify(error);
@@ -986,6 +1234,49 @@
    					});
    					
    					
+   					//전시정보 저장
+   					var exhbtnlist = new Array();
+
+   					$("input[name=exhbtnNm]").each(function(index, item){
+   						
+   						if($(item).val() != "") {
+   							
+   							const tr = this.parentElement.parentElement;
+   						 	var exhbtnSq = $(tr).eq(0).find('input[name="exhbtnSq"]').val();
+   						    var exhbtnTypCd = $(tr).eq(0).find('input[name="exhbtnTypCd"]').val();
+   							var exhbtnNm = $(item).val();
+   							
+   							var exhbtnData = new Object();
+   							
+   							exhbtnData.exhbtnSq = exhbtnSq;
+   							exhbtnData.mbrSq = mbrSq;
+   							exhbtnData.artstSq = artstSq;
+   							exhbtnData.exhbtnTypCd = exhbtnTypCd;
+   							exhbtnData.exhbtnNm = exhbtnNm;
+   														   							
+   						    
+   						 	exhbtnData = JSON.stringify(exhbtnData);
+   						 	exhbtnlist.push(JSON.parse(exhbtnData));
+   						}
+
+   					});
+   					console.log("exhbtnlist :"+JSON.stringify(exhbtnlist));
+   					$.ajax({
+   					type: "post",
+   					url: "/myPage/authorExhbtnInfoSaveData",
+   					data: JSON.stringify(exhbtnlist),
+   						dataType: "json",
+   					 	processData : true /*querySTring make false*/,
+   						contentType : "application/json; charset=UTF-8",  
+   						success: function(data) {
+   					 	//modalAlertShow("회원수정이 완료 되었습니다.","");
+   							//location.reload();
+   					 	},
+   					error: function(error) {
+   					   		var errorJson = JSON.stringify(error);
+   					console.log(errorJson);
+   					}
+   					});
 		    	
 		    	}	
 		    	
@@ -1015,8 +1306,10 @@
 		var artstInstagramUrl 	= $("#artstInstagramUrl").val();		//인스타그램 URL
 		
 		if(saveState == 1) {
+		    // 정상등록
 			useYn = 'Y';
 		} else {
+			// 임시저장
 			useYn = 'N';
 		}
 				
@@ -1070,11 +1363,9 @@
 	 function AuthorEduInfoList(mbrSq,artstSq){
 		 
 		 let params = {
-				 mbrSq : mbrSq,
-				 artstSq : artstSq
+			mbrSq : mbrSq,
+			artstSq : artstSq
 		 }
-		 
-		 console.log(params);
 		 
 		 $.ajax({
 		     type: "post",
@@ -1082,8 +1373,6 @@
 		     data: params,
 		     success: function(data) {
 		    
-		    	
-		    	 
 		    	dataList = data.authorEdu.eduInfo;
 		    	
 		    	console.log("dataListCount :"+dataList.length);
@@ -1128,8 +1417,9 @@
 	 function AuthorCarrerInfoList(mbrSq,artstSq){
 		 
 		 let params = {
-				 mbrSq : mbrSq,
-				 artstSq : artstSq
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  careerTypCd : 'CR'
 		 }
 		 
 		 $.ajax({
@@ -1148,16 +1438,20 @@
 			    	
 			    	for(x=0; x<dataList.length;x++) {
 			    		strHtml += '<tr>'; 
-			    		strHtml += '<th>경력</th>';
+			    		if(x == 0) {
+			    			strHtml += '<th>경력</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
 			    		strHtml += '<td>';
 			    		strHtml += '<input type="hidden" name="careerSq" value="'+dataList[x].careerSq+'"/>';
 			    		strHtml += '<input type="hidden" name="careerTypCd" value="'+dataList[x].careerTypCd+'"/>';
 			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="careerNm" value="'+dataList[x].careerNm+'"/>';
 			    		if(x == 0) {
-			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 eductnAddBtn" style="cursor:pointer"/>';	
-			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 careerAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 careerMinusBtn" style="cursor:pointer"/>';
 			    		} else {
-			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 eductnMinusBtn" style="cursor:pointer"/>';
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 careerMinusBtn" style="cursor:pointer"/>';
 			    		}
 			    		strHtml += '</td>';
 			    		strHtml += '</tr>';
@@ -1165,6 +1459,308 @@
 			    	
 			    	$('#careerList').empty();
 			    	$("#careerList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	 
+	 
+	 
+	//작가 경력 - 소속 리스트
+	 function AuthorBelongInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  careerTypCd : 'BL'
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorCarrerInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	dataList = data.authorCarrer.carrerInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		if(x == 0) {
+			    			strHtml += '<th>소속</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="careerSq" value="'+dataList[x].careerSq+'"/>';
+			    		strHtml += '<input type="hidden" name="careerTypCd" value="'+dataList[x].careerTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="careerNm" value="'+dataList[x].careerNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 belongAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 belongMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 belongMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#belongList').empty();
+			    	$("#belongList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	
+	 //작가 전시정보 - 개인전,단체전
+	 function AuthorSlxbtInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  exhbtnTypCd : 'SLXBT'
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorExhbtnInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	console.log(data);
+		    	 
+		    	dataList = data.author.exhbtnInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		if(x == 0) {
+			    			strHtml += '<th>개인전/단체전</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="exhbtnSq" value="'+dataList[x].exhbtnSq+'"/>';
+			    		strHtml += '<input type="hidden" name="exhbtnTypCd" value="'+dataList[x].exhbtnTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 perDonginAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 perDonginMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 perDonginMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#perDonginList').empty();
+			    	$("#perDonginList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	 
+	//작가 전시정보 - 아트페어
+	 function AuthorArtfrInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  exhbtnTypCd : 'ARTFR'
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorExhbtnInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	console.log(data);
+		    	 
+		    	dataList = data.author.exhbtnInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		if(x == 0) {
+			    			strHtml += '<th>아트페어</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="exhbtnSq" value="'+dataList[x].exhbtnSq+'"/>';
+			    		strHtml += '<input type="hidden" name="exhbtnTypCd" value="'+dataList[x].exhbtnTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 artFairAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 artFairMinesBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 artFairMinesBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#artFairList').empty();
+			    	$("#artFairList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	
+	
+	 //작가 전시정보 - 레지던시
+	 function AuthorRsdncInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  exhbtnTypCd : 'RSDNC'
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorExhbtnInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	console.log(data);
+		    	 
+		    	dataList = data.author.exhbtnInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		if(x == 0) {
+			    			strHtml += '<th>레지던시</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="exhbtnSq" value="'+dataList[x].exhbtnSq+'"/>';
+			    		strHtml += '<input type="hidden" name="exhbtnTypCd" value="'+dataList[x].exhbtnTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 residencyAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 residencyMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 residencyMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#residencyList').empty();
+			    	$("#residencyList").append(strHtml).trigger("create");
+		    	
+		    	}
+		    	
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+		 
+	 }
+	 
+	 
+	//작가 전시정보 - 수상
+	 function AuthorAwrdsInfoList(mbrSq,artstSq){
+		 
+		 let params = {
+			  mbrSq : mbrSq,
+			  artstSq : artstSq,
+			  exhbtnTypCd : 'AWRDS'
+		 }
+		 
+		 $.ajax({
+		     type: "post",
+		     url: "/myPage/authorExhbtnInfoViewData",
+		     data: params,
+		     success: function(data) {
+		    	 
+		    	console.log(data);
+		    	 
+		    	dataList = data.author.exhbtnInfo;
+		    	
+		    	console.log("dataListCount :"+dataList.length);
+		    	
+			    	if(dataList.length > 0) {
+			    	 
+			    	var strHtml = '';
+			    	
+			    	for(x=0; x<dataList.length;x++) {
+			    		strHtml += '<tr>'; 
+			    		if(x == 0) {
+			    			strHtml += '<th>수상</th>';
+			    		} else {
+			    			strHtml += '<th></th>';	
+			    		}
+			    		strHtml += '<td>';
+			    		strHtml += '<input type="hidden" name="exhbtnSq" value="'+dataList[x].exhbtnSq+'"/>';
+			    		strHtml += '<input type="hidden" name="exhbtnTypCd" value="'+dataList[x].exhbtnTypCd+'"/>';
+			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
+			    		if(x == 0) {
+			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 awardsAddBtn" style="cursor:pointer"/>';	
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 awardsMinusBtn" style="cursor:pointer"/>';
+			    		} else {
+			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 awardsMinusBtn" style="cursor:pointer"/>';
+			    		}
+			    		strHtml += '</td>';
+			    		strHtml += '</tr>';
+			    	}
+			    	
+			    	$('#awardslist').empty();
+			    	$("#awardslist").append(strHtml).trigger("create");
 		    	
 		    	}
 		    	
