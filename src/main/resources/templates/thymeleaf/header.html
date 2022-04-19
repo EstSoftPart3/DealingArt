@@ -31,6 +31,13 @@
     <script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
     
+    <style type="text/css">
+		.modal-open {
+		  overflow:hidden;
+		  overflow-y:scroll;
+		  padding-right:0 !important;
+		}
+   </style>
     
 </head>
 <body>
@@ -60,8 +67,8 @@
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
-					<span class="sog-1"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
-					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
+					<span class="sog-1"><a href="javascript:fnModalAlert();"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-2 lg-my"><a href="javascript:fnModalAlert();"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
 							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
@@ -86,11 +93,11 @@
 				<a href="#"><span>Guide</span></a>
 			</div>
 			<div class="mab-rb">
-				<a href="#" class="mab-a"><span>Guide</span></a>
+				<a href="javascript:fnModalAlert();" class="mab-a"><span>Guide</span></a>
 				<ul class="mab-ul">
-					<li><a href="#"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
-					<li><a href="#"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
-					<li><a href="#"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
+					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
+					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
+					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -176,10 +183,10 @@
 				<div class="login-box">
 					<p class="lb-p1">LOGIN</p>
 					<div class="input-box">
-						<input type="text" class="input-3" placeholder="아이디/이메일" id="txt_Id"/>
+						<input type="text" class="input-3" placeholder="아이디/이메일" id="txt_Id" value="swordbass.j10@gmail.com"/>
 					</div>
 					<div class="input-box">
-						<input type="password" class="input-3" placeholder="비밀번호" onkeydown="javascript: if (event.keyCode == 13) {login();}"id="txt_Pw"/>
+						<input type="password" class="input-3" placeholder="비밀번호" onkeydown="javascript: if (event.keyCode == 13) {login();}"id="txt_Pw" value="@install1684"/>
 					</div>
 					<div class="radio-3 rad-mg">
 						<input type="checkbox" id="a1" name="cc" />
@@ -190,17 +197,19 @@
 					</div>
 					<div class="login-chs">
 						<div class="login-tt">
-							<a href="#">아이디(이메일) / 비밀번호 찾기</a>
-							<p class="lb-p2"><a href="#"><span>회원가입</span></a></p>
+							<a href="javascript:fnModalAlert();">아이디(이메일) / 비밀번호 찾기</a>
+							
+							<p class="lb-p2"><a href="javascript:fnMemberJoin();" data-target="#memberModal"><span>회원가입</span></a></p>
+							<!-- <span style="cursor:pointer;" class="lb-p2" data-toggle="modal" data-target="#memberModal">회원가입</span> -->
 						</div>
 						
 					</div>
 					<div class="login-lk">
 						<p>소셜아이디로 간편하게 로그인할 수 있습니다.</p>
 						<div class="ll-img">
-							<a href="#"><img src="resources/img/icon-naver.png" /></a>
-							<a href="#"><img src="resources/img/icon-kaka.png" /></a>
-							<a href="#"><img src="resources/img/icon-google.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-naver.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-kaka.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-google.png" /></a>
 						</div>
 					</div>
 					
@@ -209,6 +218,15 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function fnMemberJoin(){
+		$('#memberModal').modal('show');
+		//로그인 모달
+		$('#loginModal').modal('hide');
+	}
+	
+</script>
 
 <!-- 회원가입 -->
 <div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
@@ -277,11 +295,11 @@
 						<button type="button" class="ba-btn1" id="memberInputBtn"><span>회원 가입하기</span></button>
 					</div>
 					<div class="login-lk">
-						<p>소셜아이디로 간편하게 로그인할 수 있습니다.</p>
+						<p>소셜아이디로 간편하게 로그인할 수 있습니다.</p> 
 						<div class="ll-img">
-							<a href="#"><img src="resources/img/icon-naver.png" /></a>
-							<a href="#"><img src="resources/img/icon-kaka.png" /></a>
-							<a href="#"><img src="resources/img/icon-google.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-naver.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-kaka.png" /></a>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/icon-google.png" /></a>
 						</div>
 					</div>
 				</div>
@@ -815,6 +833,11 @@ function isEmpty(str){
     else
         return false ;
 }
+
+function fnModalAlert() {
+	modalAlertShow("서비스 준비중 입니다.","");
+}
+
 
 </script>
 
