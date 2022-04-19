@@ -79,6 +79,7 @@
 		/*소장품 등록*/
 		INSERT INTO 
 					TBL_DA_WORK_M (
+						MBR_SQ,
 						WORK_TYP_CD,
 						ARTST_ACTVTY_NM,
 						WORK_NM,
@@ -110,7 +111,7 @@
 						</if> 
 					)
 				VALUES (
-						#{workTypCd}, #{artstNm}, #{workNm}, #{workFrmYn}, #{workClrCd}
+						#{mbrSq}, #{workTypCd}, #{artstNm}, #{workNm}, #{workFrmYn}, #{workClrCd}
 						<if test="artstYear != null and artstYear != ''">
 							,#{artstYear}
 						</if> 
