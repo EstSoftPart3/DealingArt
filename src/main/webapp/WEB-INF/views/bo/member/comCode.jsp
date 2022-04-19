@@ -37,31 +37,52 @@
 							<div class="container-fluid" style="padding-left:10px;">
 								<div class="row">
 									<div>
-										<div class="card-body" style="width:400px;">
+										<table border="0" cellpadding="0" cellspacing="1" style="width:200px;" align="center">
+											<tr>
+												<td>
+													<label class="col-form-label sTitle">코드</label>
+												</td>
+												<td>
+													<input type="text" class="form-control sTitle classname"  id="gCd" name="gCd" value="" style="width:150px;">
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label class="col-form-label sTitle">코드명</label>
+												</td>
+												<td>
+													<input type="text" class="form-control sTitle classname"  id="gCdNm" name="gCdNm" value="" style="width:150px;">
+												</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td align="left">
+													<a href="javascript:comnCodeInput();" class="btn btn-info btn-block" style="font-size:11px;width:150px;"><b>입력</b></a>	
+												</td>
+											</tr>
+										</table>
+										<div class="card-body" style="width:300px;">
 											<!-- 공통코드명 -->
 											<div id="gridCodeList"></div>
 										</div>
 									</div>
 									
-									<div class="col-md-9" style="padding-left:50px;padding-top:20px;">
-									<div class="form-group row">
-		               						
-		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">코드</label>
-                    						<div class="col-sm-3">
-                      							<input type="text" class="form-control sTitle classname"  id="gCd" name="gCd" value="">
-                    						</div>
-                    						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">코드명</label>
-                    						<div class="col-sm-3">
-                      							<input type="text" class="form-control sTitle classname"  id="gCdNm" name="gCdNm" value="">
-                    						</div>
-                    						<div class="col-sm-3">
-                      							<a href="#" class="btn btn-info btn-block" style="font-size:11px;width:100px;" onclick="comnCodeInput();"><b>입력</b></a>
-                    						</div>
-                    						
-                    						
-		               		   			</div>
-										<div id="subGridCodeList"></div>
-									</div>
+									<div class="col-md-8" style="padding-left:50px;padding-top:20px;">
+										
+										<table border="0" cellpadding="0" cellspacing="1" style="width:200px;" align="left">
+											<tr>
+												<td>
+													<label class="col-form-label sTitle">코드명</label>
+												</td>
+												<td>
+													<input type="text" class="form-control sTitle classname"  id="dtlCdNm" name="dtlCdNm" value="" style="width:150px;">
+												</td>
+											</tr>
+										</table>
+										
+										<div class="form-group row">
+			               					<div id="subGridCodeList"></div>
+										</div>
 								</div>
 							</div>
 							
@@ -221,7 +242,7 @@ function codeListSearch(str) {
       paging: false,
       autoload: true,
       inserting: false,
-      editing: true,
+      editing: false,
 	  fields: subfields
 	
  });
