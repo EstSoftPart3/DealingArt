@@ -78,6 +78,5 @@
 		        	#{item}
 		        </foreach>
 	        </if>
-		LIMIT 3;
 	</select>
 </mapper>
