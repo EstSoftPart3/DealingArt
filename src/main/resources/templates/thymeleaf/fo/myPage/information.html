@@ -20,7 +20,7 @@
 			<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				
 				<div class="con-wrap">
-					
+					<form name="formInfo" id="formInfo">	
 					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
 					
 					<div class="con-right m-max1300 info-right">
@@ -805,14 +805,15 @@
 							
 					
 							<div class="bat-box5">
-								<a href="javascript:AuthorInfoSave(1);" class="ba-btn1"><span>등록하기</span></a>
-								<a href="javascript:AuthorInfoSave(2);" class="ba-btn2"><span>임시저장</span></a>
-								<a href="#" class="ba-btn2"><span>취소</span></a>
-								<a href="#" class="ba-btn2"><span>미리보기</span></a>
+								<a href="javascript:AuthorInfoSave(1);" class="btnAction ba-btn2"><span>등록하기</span></a>
+								<a href="javascript:AuthorInfoSave(2);" class="btnAction ba-btn2"><span>임시저장</span></a>
+								<a href="javascript:formReset();" class="btnAction ba-btn2"><span>취소</span></a>
+								<a href="javascript:fn_alert();" class="btnAction ba-btn2"><span>미리보기</span></a>
 							</div>
 						</div>
 						
 					</div>
+					</form>
 				</div>
 				
 			</div>
@@ -1073,6 +1074,23 @@
 </div>
 
 <script type="text/javascript">  
+	
+	//Form Reset
+	function formReset() {
+		 $('#formInfo')[0].reset();
+	}
+	//
+	function fn_alert() {
+		modalAlertShow("서비스 준비중 입니다.","");
+	}
+	
+	$(".btnAction").mouseenter(function() {
+		$(this).removeClass('ba-btn2');
+		$(this).addClass("ba-btn1");
+	}).mouseleave(function() {
+		$(this).removeClass('ba-btn1');
+		$(this).addClass("ba-btn2");
+	});
 
 	//작가기본정보 VIEW
 	function AuthorInfoSaveView(proc) {
