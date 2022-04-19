@@ -197,7 +197,7 @@ $(function() {
 			//artstListHtml += '		<div class="hd-bg3"><img src="'+ artstList[i].artstWorkImgUrl +'" /></div>';
 			artstListHtml += '		<div class="user-1"><img src="'+ artstList[i].artstProfileImgUrl +'"></div>';
 			artstListHtml += '		<div class="hd-text">';
-			artstListHtml += '			<h4>'+ artstList[i].artstActvtyNm +' <span class="h4-span">'+ artstList[i].artistBirthYear +'년생</span></h4>';
+			artstListHtml += '			<h4 class="artstInfo" style="cursor:pointer;" artstSq="'+ artstList[i].artstSq +'">'+ artstList[i].artstActvtyNm +' <span class="h4-span">'+ artstList[i].artistBirthYear +'년생</span></h4>';
 			artstListHtml += '			<div class="ellipsis"><div class="hd-d1">'+ artstList[i].artstSelfIntro +'</div></div>';
 			artstListHtml += '		</div>';
 			artstListHtml += '	</a>';
@@ -206,6 +206,17 @@ $(function() {
 		$("#artstList").append(artstListHtml).trigger("create");
 		$(".aut-top").append(totalCountHtml).trigger("create");
 	}
+});
+
+$(document).on("click", ".artstInfo", function(){
+	var artstSq= $(this).attr("artstSq");
+    pageGoPost({
+		url:"/artistDetail",
+		target:"_self",
+		vals:[
+			["artstSq", artstSq]
+		]
+	});
 });
 </script>
     

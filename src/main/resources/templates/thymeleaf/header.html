@@ -760,31 +760,40 @@ $(document).on("click",".artst",function(){
 });
 
 $(document).on("click",".workMore",function(){
-	modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
-		if(confrim){
-			pageGoPost({
-				url:"/totalSearch_work",
-				target:"_self",
-				vals:[
-					["searchKeyword", "*"+$("#ibx_search").val()+"*"]
-				]
-			});
-		}
-	});
+	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
+		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
+	}else{
+		modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+			if(confrim){
+				pageGoPost({
+					url:"/totalSearch_work",
+					target:"_self",
+					vals:[
+						["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+					]
+				});
+			}
+		});
+	}
 });
 
 $(document).on("click",".artistMore",function(){
-	modalConfirm("알림", "작가 검색 결과 페이지로 이동하겠습니까?", function(confrim){
-		if(confrim){
-			pageGoPost({
-				url:"/totalSearch_artist",
-				target:"_self",
-				vals:[
-					["searchKeyword", "*"+$("#ibx_search").val()+"*"]
-				]
-			});
-		}
-	});
+	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
+		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
+	}else{
+		modalConfirm("알림", "작가 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+			if(confrim){
+				pageGoPost({
+					url:"/totalSearch_artist",
+					target:"_self",
+					vals:[
+						["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+					]
+				});
+			}
+		});
+	}
+	
 });
 
 $(document).on("click",".contentMore",function(){
