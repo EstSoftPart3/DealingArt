@@ -482,26 +482,26 @@ function collectionReg(){
 	        data: work,
 	        success: function(data) {
 	        	alert(data);
+	        	const file = document.getElementById("workMainImg");
+	            const formData = new FormData();
+	            formData.append("file", file.files[0]);
+
+	            fetch("/file/upload", {
+	                method : "POST"
+	                , body : formData
+	            })
+	            .then(result => result.json())
+	            .then(data => {
+	                alert(data.fileUrl);
+	               	alert(data.fileNm);
+	            })
+	            .catch(error => console.log(`error => ${error}`));
 	        },
 	        error: function(error) {
 	            alert("오류 발생" + error);
 	        }
 		});
 	}
-	const file = document.getElementById("workMainImg");
-    const formData = new FormData();
-    formData.append("file", file.files[0]);
-
-    fetch("/file/upload", {
-        method : "POST"
-        , body : formData
-    })
-    .then(result => result.json())
-    .then(data => {
-        alert(data.fileUrl);
-       	alert(data.fileNm);
-    })
-    .catch(error => console.log(`error => ${error}`));
 }
 
 function checkValid(){

@@ -7,7 +7,7 @@
 	/* 마이페이지 거래내역 리스트 */
 		SELECT 
 				B.DEAL_SQ AS dealSq,
-				B.MBR_SQ AS mbrSq,
+				A.MBR_SQ AS mbrSq,
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
@@ -56,8 +56,7 @@
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND A.MBR_SQ = B.MBR_SQ 
-			AND C.MBR_SQ = B.MBR_SQ 
+			AND A.MBR_SQ = C.MBR_SQ 
 			AND D.DEAL_SQ = B.DEAL_SQ 
 			AND E.DEAL_SQ = B.DEAL_SQ 
 			AND F.DEAL_SQ = B.DEAL_SQ 

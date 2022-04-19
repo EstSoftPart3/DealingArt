@@ -12,23 +12,22 @@
 <body>
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
-		
 		<div class="body-wrap coll-mobile">
 			
 			<div class="contents">
 				<div class="mgz-wrap">
-					<div class="mgz-top mgz-bg-3">
+					<div class="mgz-top mgz-bg-1">
 						<div class="mgz-title">
 							<img src="resources/img/mgz/title.png" />
-							<div class="mgz-text"><span>최신 전시 소식부터 가장 HOT한 전시 추천까지</span></div>
+							<div class="mgz-text mt-bgs"><span>미술을 읽는 아홉 가지 새로운 시각</span></div>
 						</div>
 					</div>
 					<div class="mgz-body max-1500">
 						<div class="mgz-link">
 							<ul class="mgz-ul">
-								<li><a href="/insights">Insights</a></li>
+								<li class="active"><a href="/insights">Insights</a></li>
 								<li><a href="/media">Media</a></li>
-								<li class="active"><li><a href="/exhibition">Exhibition</a></li>
+								<li><a href="/exhibition">Exhibition</a></li>
 							</ul>
 						</div>
 						
@@ -38,6 +37,9 @@
 									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
 									<div class="ml-div">
 										<h3 class="ml-h3">컨텐츠 제목</h3>
+										<div class="ml-p">
+											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
+										</div>
 										<span class="ml-time">2022.03.03</span>
 									</div>
 								</a>
@@ -47,6 +49,9 @@
 									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
 									<div class="ml-div">
 										<h3 class="ml-h3">컨텐츠 제목</h3>
+										<div class="ml-p">
+											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
+										</div>
 										<span class="ml-time">2022.03.03</span>
 									</div>
 								</a>
@@ -56,6 +61,9 @@
 									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
 									<div class="ml-div">
 										<h3 class="ml-h3">컨텐츠 제목</h3>
+										<div class="ml-p">
+											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
+										</div>
 										<span class="ml-time">2022.03.03</span>
 									</div>
 								</a>
@@ -65,6 +73,9 @@
 									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
 									<div class="ml-div">
 										<h3 class="ml-h3">컨텐츠 제목</h3>
+										<div class="ml-p">
+											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
+										</div>
 										<span class="ml-time">2022.03.03</span>
 									</div>
 								</a>
@@ -86,7 +97,10 @@
 	</div>
 
 
+
 <script type="text/javascript">      
+
+
 
 
 /* 파일업로드 */
@@ -105,7 +119,7 @@ $(document).ready(function(){
 }); 
 
 
-     
+      
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {

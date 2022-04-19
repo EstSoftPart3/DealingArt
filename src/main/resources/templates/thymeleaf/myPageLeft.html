@@ -81,5 +81,10 @@
 		</div>
 	</div>
 <script th:inline="javascript">
+$(function() {
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
+	}
+});
 </script>
 </th:blcok>	

@@ -111,6 +111,10 @@ function modalAlertClose(obj) {
 	
 	$('#ModalAlert').modal('hide');
 	
+	if(obj == "main"){
+		location.href='/main';
+	}
+	
 	if(obj == "reload"){
 		location.reload();
 	}
