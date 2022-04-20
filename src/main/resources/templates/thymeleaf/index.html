@@ -698,10 +698,13 @@
 	        	   
 	        	   var todayBidHtml = '';
 	        	   for(i=0; i<mainTodayBid.length; i++){
+	        		   
+	        		   var imgId = Math.random().toString(36).substr(2,11);
+	        		   
 	        		   todayBidHtml += '<figure class="item">';
-	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'">';
+	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'" id="'+imgId+'" onmouseover=imgSize("'+imgId+'") >';
 	        		   todayBidHtml += '	<a class="hd-div2">';								
-	        		   todayBidHtml += '		<div class="hd-text">';
+	        		   todayBidHtml += '		<div class="hd-text" id="hd-'+imgId+'">';
 	        		   todayBidHtml += '			<h4>'+ mainTodayBid[i].artstActvtyNm +'</h4>';
 	        		   todayBidHtml += '			<div class="hd-tc">';
 	        		   todayBidHtml += '				<div class="hd-d1">'+ mainTodayBid[i].workNm +'('+ mainTodayBid[i].workProdcYear +')';
@@ -711,6 +714,8 @@
 	        		   todayBidHtml += '		</div>';
 	        		   todayBidHtml += '	</a>';
 	        		   todayBidHtml += '</figure>';
+	        		
+ 	        		   //imgSize(imgId);
 	        	   }
 	        	   $("#columns").append(todayBidHtml).trigger("create");
 	        	   
@@ -725,6 +730,22 @@
 		page += 1;
 		searchMainData(page);
 	}
+	
+	
+	
+ 	function imgSize(imgId){
+ 		
+ 		var imgWidth = $('#'+imgId).width()-49;
+  		var imgHeight = $('#'+imgId).height()-49;
+  		
+  		console.log("imgWidth :"+imgWidth);
+  		console.log("imgHeight :"+imgHeight);
+  		
+  		$('#hd-'+imgId).width(imgWidth);
+  		$('#hd-'+imgId).height(imgHeight);
+ 		
+ 	}
+	
 </script>
 </body>
 
