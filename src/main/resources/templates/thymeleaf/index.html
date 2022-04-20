@@ -303,16 +303,16 @@
 				</div>
 			</div>
 			
-			<div class="columns-wrap"></div>
+		
 				
 			<!-- 가장 많은 입찰 / 오늘의 낙찰 -->
-			<div class="contents max-1500" style="height: 100%;">
+			<div class="contents max-1500">
 				<div class="cont-title">
 					<h3>오늘의 낙찰</h3>
 					<!-- <a href="#" class="ct-more mo-no"><img src="img/icon-p.jpg" /><span>more</span></a> -->
 				</div>
-				<div class="cns-div">
-					<div class="columns-wrap" id="columns">
+				
+					<div id="columns">
 						<!-- <figure class="item">
 							<img src="resources/img/img-1.jpg">
 							<a class="hd-div2">								
@@ -360,16 +360,65 @@
 									</div>
 								</div>
 							</a>
+						</figure>
+						
+						<figure class="item">
+							<img src="resources/img/img-4.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
+						</figure>
+						<figure class="item">
+							<img src="resources/img/img-2.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
+						</figure>
+						<figure class="item">
+							<img src="resources/img/img-3.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
+						</figure>
+						<figure class="item">
+							<img src="resources/img/img-4.jpg">
+							<a class="hd-div2">								
+								<div class="hd-text">
+									<h4>작가명</h4>
+									<div class="hd-tc">
+										<div class="hd-d1">작품명(2021)<br/>소재 Oil & Canvas, 72.7x90.9cm</div>
+										<div class="hd-d2">낙찰가 3,700,000 원</div>
+									</div>
+								</div>
+							</a>
 						</figure> -->
 					</div>
-				</div>
+			
 		</div>
 		<div class="text-center">
 			<button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button>
 		</div>
+		 
 		
-		
-		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block> 
 	</div>
 
 
@@ -500,75 +549,75 @@
 	   	          },
 	   	        });
 	   	    	
-		   	    document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 360px)";
-		       	  wrap.style.gridAutoRows = "1px";
+// 		   	    document.querySelectorAll(".item").forEach((item) => {
+// 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
+// 		       	  });
+// 		       	  const wrap = document.querySelector(".columns-wrap");
+// 		       	  wrap.style.display = "grid";
+// 		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 360px)";
+// 		       	  wrap.style.gridAutoRows = "1px";
 		       	  
 		       	  
-		       	var swiper = new Swiper(".mySwiper3", {
-		      	  slidesPerView: 5,
-		            spaceBetween: 20,
-		            slidesPerGroup: 1,
-		            loop: true,
-		            loopFillGroupWithBlank: true,
-		        });
+// 		       	var swiper = new Swiper(".mySwiper3", {
+// 		      	  slidesPerView: 5,
+// 		            spaceBetween: 20,
+// 		            slidesPerGroup: 1,
+// 		            loop: true,
+// 		            loopFillGroupWithBlank: true,
+// 		        });
 	   	    	
 	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 2,
-	   	          spaceBetween: 30,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
+// 	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+// 	   	    	var swiper = new Swiper(".mySwiper2", {
+// 	   	          slidesPerView: 2,
+// 	   	          spaceBetween: 30,
+// 	   	          slidesPerGroup: 1,
+// 	   	          loop: true,
+// 	   	          loopFillGroupWithBlank: true,
+// 	   	          pagination: {
+// 	   	            el: ".swiper-pagination",
+// 	   	            clickable: true,
+// 	   	          },
+// 	   	          navigation: {
+// 	   	            nextEl: ".swiper-button-next",
+// 	   	            prevEl: ".swiper-button-prev",
+// 	   	          },
+// 	   	     });
 	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 42rem)";
-		       	  wrap.style.gridAutoRows = "1px";
+// 		   	      document.querySelectorAll(".item").forEach((item) => {
+// 		       	     item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
+// 		       	  });
+// 		       	  const wrap = document.querySelector(".columns-wrap");
+// 		       	  wrap.style.display = "grid";
+// 		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 42rem)";
+// 		       	  wrap.style.gridAutoRows = "1px";
 		       	  
 		       	  
-		       	var swiper = new Swiper(".mySwiper3", {
-		      	  slidesPerView: 3,
-		            spaceBetween: 20,
-		            slidesPerGroup: 1,
-		            loop: true,
-		            loopFillGroupWithBlank: true,
-		        });
+// 		       	var swiper = new Swiper(".mySwiper3", {
+// 		      	  slidesPerView: 3,
+// 		            spaceBetween: 20,
+// 		            slidesPerGroup: 1,
+// 		            loop: true,
+// 		            loopFillGroupWithBlank: true,
+// 		        });
 		       	
 		       	
 	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 1,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
+// 	   	     } else {
+// 	   	    	var swiper = new Swiper(".mySwiper2", {
+// 	   	          slidesPerView: 1,
+// 	   	          slidesPerGroup: 1,
+// 	   	          loop: true,
+// 	   	          loopFillGroupWithBlank: true,
+// 	   	          pagination: {
+// 	   	            el: ".swiper-pagination",
+// 	   	            clickable: true,
+// 	   	          },
+// 	   	          navigation: {
+// 	   	            nextEl: ".swiper-button-next",
+// 	   	            prevEl: ".swiper-button-prev",
+// 	   	          },
+// 	   	     });
 	   	    	
 	       	  
 	       	var swiper = new Swiper(".mySwiper3", {
@@ -698,10 +747,13 @@
 	        	   
 	        	   var todayBidHtml = '';
 	        	   for(i=0; i<mainTodayBid.length; i++){
+	        		   
+	        		   var imgId = Math.random().toString(36).substr(2,11);
+	        		   
 	        		   todayBidHtml += '<figure class="item">';
-	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'">';
+	        		   todayBidHtml += '<img src="'+ mainTodayBid[i].workMainImgUrl +'" id="'+imgId+'" onmouseover=imgSize("'+imgId+'") >';
 	        		   todayBidHtml += '	<a class="hd-div2">';								
-	        		   todayBidHtml += '		<div class="hd-text">';
+	        		   todayBidHtml += '		<div class="hd-text" id="hd-'+imgId+'">';
 	        		   todayBidHtml += '			<h4>'+ mainTodayBid[i].artstActvtyNm +'</h4>';
 	        		   todayBidHtml += '			<div class="hd-tc">';
 	        		   todayBidHtml += '				<div class="hd-d1">'+ mainTodayBid[i].workNm +'('+ mainTodayBid[i].workProdcYear +')';
@@ -711,6 +763,8 @@
 	        		   todayBidHtml += '		</div>';
 	        		   todayBidHtml += '	</a>';
 	        		   todayBidHtml += '</figure>';
+	        		
+ 	        		   //imgSize(imgId);
 	        	   }
 	        	   $("#columns").append(todayBidHtml).trigger("create");
 	        	   
@@ -725,6 +779,22 @@
 		page += 1;
 		searchMainData(page);
 	}
+	
+	
+	
+ 	function imgSize(imgId){
+ 		
+ 		var imgWidth = $('#'+imgId).width()-49;
+  		var imgHeight = $('#'+imgId).height()-49;
+  		
+  		console.log("imgWidth :"+imgWidth);
+  		console.log("imgHeight :"+imgHeight);
+  		  		
+  		$('#hd-'+imgId).width(imgWidth);
+  		$('#hd-'+imgId).height(imgHeight);
+ 		
+ 	}
+	
 </script>
 </body>
 

@@ -82,10 +82,7 @@ public class MemberController {
 		
 		//회원 순번
 		String mbrSq = (String) param.get("mbrSq");
-		//휴대폰 인증 여부
-		String mbrCpCertYn = (String) param.get("mbrCpCertYn");
-		//휴대폰 인증 일자
-		String mbrCpCertDate = (String) param.get("mbrCpCertDate");
+		
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);
@@ -94,8 +91,31 @@ public class MemberController {
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
-		param.put("mbrCpCertYn", mbrCpCertYn);
-		param.put("mbrCpCertDate", mbrCpCertDate);
+		
+		memberService.memberUpdate(param);
+	}
+	
+	//회원 알림설정
+	@RequestMapping("/myPage/memberAlarmData")
+	@ResponseBody
+	public void memberAlarmData(@RequestParam Map<String, Object> param) {
+		//회원 아이디.이메일
+		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		
+		//휴대폰 인증 여부
+		String mbrCpCertYn = (String) param.get("mbrCpCertYn");
+		//휴대폰 인증 일자
+		String mbrCpCertDate = (String) param.get("mbrCpCertDate");
+		
+		param.put("mbrId", mbrIdEncrypt);
+				
+		if(!commonService.isEmpty(mbrCpCertYn)) {
+			param.put("mbrCpCertYn", mbrCpCertYn);
+		}
+		
+		if(!commonService.isEmpty(mbrCpCertDate)) {
+			param.put("mbrCpCertDate", mbrCpCertDate);
+		}
 		
 		memberService.memberUpdate(param);
 	}
