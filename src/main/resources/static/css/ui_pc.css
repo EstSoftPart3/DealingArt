@@ -760,8 +760,8 @@ columns figure {
 }
 
 #columns figure {
-    display: inline-block;
-    margin: 0px 0px 15px;
+/*     display: inline-block; */
+    margin: 5px 0px 0px 0px;
     position: relative;
 }
 #columns figure:hover .hd-div2{display:block;
@@ -1040,7 +1040,7 @@ transform:tarnslateY(-50%);
 
 
 .hd-div2 .hd-text {
-    display: table;
+/*     display: table; */
     position: relative;
     top: 0px;
     left: 0px;
