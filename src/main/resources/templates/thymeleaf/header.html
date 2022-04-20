@@ -353,6 +353,10 @@ function mainMobileAuthFail() {
 
 var sMbrSqVal = "";
 var sAuthSqVal = "";
+var artstSq = "";
+var artstActvtyNm = "";
+var artstEnglsNm = "";
+var artstBirthYear = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
 //Session GET
@@ -368,6 +372,12 @@ jQuery(document).ready(function() {
 				sMbrSqVal = data.sMbrSqVal;
 				sAuthSqVal = data.sAuthSqVal;
         		$("#sMbrSqVal").val(data.sMbrSqVal);	
+        		if(data.artstSq != null){
+        			artstSq = data.artstSq;
+        			artstActvtyNm = data.artstActvtyNm;
+        			artstEnglsNm = data.artstEnglsNm;
+        			artstBirthYear = data.artstBirthYear;
+        		}
         	}else{
         		sMbrSqVal = data.sMbrSqVal;
 				sAuthSqVal = data.sAuthSqVal;
@@ -400,7 +410,6 @@ function login(){
 			dataType:"json",
 			success:function(data){
 				var login = data.login;
-				sMbrSqVal = data.sMbrSqVal;
 				if(login == 1){
 					modalAlertShow("성공적으로 로그인이 되었습니다.", "reload");
 					$('#loginModal').modal("hide");
@@ -409,6 +418,12 @@ function login(){
 					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "display:none;");
 					loginAf.setAttribute("style", "");
+					if(data.artstSq != null){
+	        			artstSq = data.artstSq;
+	        			artstActvtyNm = data.artstActvtyNm;
+	        			artstEnglsNm = data.artstEnglsNm;
+	        			artstBirthYear = data.artstBirthYear;
+	        		}
 				}else if (login == 2){
 					modalAlertShow("탈퇴한 회원입니다.", "reload");
 					sMbrSqVal = data.sMbrSqVal;

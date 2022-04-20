@@ -34,6 +34,15 @@ public class MemberServiceImpl implements MemberService  {
 	public Map<String, Object> login(Map<String, Object> param) {
 		return memberDao.login(param);
 	}
+	
+	/*
+	 * 아티스트 정보를 불러온다
+	 * param : mbrSq
+	 * return : Map
+	 */
+	public Map<String, Object> getArtistInfo(String param){
+		return memberDao.getArtistInfo(param);
+	}
 
 	/*
 	 * 회원탈퇴

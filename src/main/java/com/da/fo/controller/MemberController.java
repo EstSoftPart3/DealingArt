@@ -133,7 +133,6 @@ public class MemberController {
 		param.put("loginId", loginId);
 		param.put("loginPw", loginPw);
 		param.put("email", loginId);
-		param.put("email", loginId);
 		param.put("password", loginPw);
 		//탈퇴된 회원인지 체크
 		int chk = memberService.memberWithdrawalCheck(param);
@@ -147,12 +146,25 @@ public class MemberController {
 			if(result != null) {
 				String mbrSq = result.get("mbrSq").toString();
 				String authSq = result.get("authSq").toString();
+				if(authSq.equals("2")) {
+					System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@authSQ : " + authSq);
+					Map<String, Object> artstInfo = memberService.getArtistInfo(mbrSq);
+					session.setAttribute("artstSq", artstInfo.get("artstSq").toString());
+					session.setAttribute("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
+					session.setAttribute("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
+					session.setAttribute("artstBirthYear", artstInfo.get("artstBirthYear").toString());
+					mv.addObject("artstSq", artstInfo.get("artstSq").toString());
+					mv.addObject("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
+					mv.addObject("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
+					mv.addObject("artstBirthYear", artstInfo.get("artstBirthYear").toString());
+				}
 				session.setAttribute("mbrSq", mbrSq);
 				session.setAttribute("authSq", authSq);
 				mv.addObject("login", "1");
 				mv.addObject("sMbrSqVal", mbrSq);
 				mv.addObject("sAuthSqVal", authSq);
 				return mv;
+				
 			}else{
 				mv.addObject("login", "0");
 				mv.addObject("sMbrSqVal", null);
@@ -182,6 +194,13 @@ public class MemberController {
 		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        
 		    String mbrSq = (String) session.getAttribute("mbrSq");
 		    String authSq = (String) session.getAttribute("authSq");
+		    if(session.getAttribute("artstSq") != null && session.getAttribute("artstSq") != "") {
+		    	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ artstSq : " + session.getAttribute("artstSq"));
+		    	mv.addObject("artstSq", session.getAttribute("artstSq").toString());
+		    	mv.addObject("artstActvtyNm", session.getAttribute("artstActvtyNm").toString());
+		    	mv.addObject("artstEnglsNm", session.getAttribute("artstEnglsNm").toString());
+		    	mv.addObject("artstBirthYear", session.getAttribute("artstBirthYear").toString());
+		    }
 		    session.setAttribute("sMbrSqVal", mbrSq);
 		    session.setAttribute("authSq", authSq);
 		    mv.addObject("sMbrSqVal", mbrSq);

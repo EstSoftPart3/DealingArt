@@ -19,6 +19,13 @@ public interface MemberService {
 	Map<String, Object> login(Map<String, Object> param);
 	
 	/*
+	 * 아티스트 정보를 불러온다
+	 * param : mbrSq
+	 * return : Map
+	 */
+	Map<String, Object> getArtistInfo(String param);
+	
+	/*
 	 * 회원탈퇴
 	 * param : name, email, password
 	 * return : int

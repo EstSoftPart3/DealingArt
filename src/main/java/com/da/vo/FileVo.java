@@ -8,6 +8,4 @@ import lombok.Data;
 public class FileVo {
 	private String fileNm;
 	private String fileUrl;
-	
-	
 }

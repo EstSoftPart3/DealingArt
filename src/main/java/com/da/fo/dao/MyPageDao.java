@@ -33,12 +33,29 @@ public class MyPageDao {
 	 * return : int
 	 */
 	public int collectionReg(Map<String, Object> param) {
-		int regStatus = -1;
-		regStatus = myPageMapper.collectionReg(param);
-		if(regStatus == 1) {
-			regStatus = myPageMapper.keywrdReg(param);
+		int result = -1;
+		result = myPageMapper.collectionReg(param);
+		if(result == 1) {
+			if(param.get("keywrd") != null && param.get("keywrd") != "") {
+				result = myPageMapper.keywrdReg(param);
+			}
 		}
-		return regStatus;
+		return result;
 	}
-
+	
+	/*
+	 * 나의 작품 등록
+	 * param : 나의 작품 정보가 들어있는 param
+	 * return : int
+	 */
+	public int myWorkReg(Map<String, Object> param) {
+		int result = -1;
+		result = myPageMapper.myWorkReg(param);
+		if(result == 1) {
+			if(param.get("keywrd") != null && param.get("keywrd") != "") {
+				result = myPageMapper.keywrdReg(param);
+			}
+		}
+		return result;	
+	}
 }

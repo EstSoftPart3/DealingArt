@@ -18,4 +18,12 @@ public interface MyPageService {
 	 */
 	int collectionReg(Map<String, Object> param);
 	
+	/*
+	 * 나의 작품 등록
+	 * param : 나의 작품 정보가 들어있는 param
+	 * return : int
+	 */
+	int myWorkReg(Map<String, Object> param);
+	
+	
 }
