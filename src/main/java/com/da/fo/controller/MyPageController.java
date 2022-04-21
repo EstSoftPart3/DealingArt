@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,19 +11,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.da.common.AwsS3Service;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
 import com.da.sample.service.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
+import com.da.vo.FileVo;
 
 @Controller
 public class MyPageController {
+	
+	@Autowired
+	private AwsS3Service awsS3Service;
 	
 	@Autowired
 	private MemberService memberService;
@@ -59,9 +68,9 @@ public class MyPageController {
 	}
 	
 	//소장품 수정
-	@RequestMapping("/collection_cor")
-	public String collectionCor() {
-		return "thymeleaf/fo/myPage/collection_cor";
+	@RequestMapping("/myWork_reg")
+	public String myWorkReg() {
+		return "thymeleaf/fo/myPage/myWork_reg";
 	}
 	
 	//알림
@@ -171,12 +180,66 @@ public class MyPageController {
 	}
 	
 	//소장품 등록
-	@RequestMapping("/collectionReg")
+	@PostMapping("/collectionReg")
 	@ResponseBody
-	public int collectionReg(@RequestParam Map<String, Object> param) {
+	public int collectionReg(@RequestPart(value="work") Map<String, Object> param, @RequestPart(value="file") List<MultipartFile> multipartFiles) {
 		System.out.println("##################### collectionReg param : " + param);
-		int result = myPageService.collectionReg(param);
+		System.out.println("##################### collectionReg file : " + multipartFiles);
+		System.out.println("######### file : " + multipartFiles);
+        List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
+        System.out.println("############## fileVO : " + fileVo);
+        param.put("workMainImg", fileVo.get(0).getFileUrl());
+        param.put("workImgFrt", fileVo.get(1).getFileUrl());
+        param.put("workImgRer", fileVo.get(2).getFileUrl());
+        if(fileVo.size() >= 4){
+        	param.put("workGrtUrl", fileVo.get(3).getFileUrl());
+        }
+        if(fileVo.size() >= 5){
+        	param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+        }
+        if(fileVo.size() >= 6){
+        	param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+        }
+        if(fileVo.size() >= 7){
+        	param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+        }
+        if(fileVo.size() >= 8){
+        	param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+        }
+        int result = myPageService.collectionReg(param);
 		return result;
 	}
+	
+	//나의 작품 등록
+	@PostMapping("/myWorkReg")
+	@ResponseBody
+	public int myWorkReg(@RequestPart(value="work") Map<String, Object> param, @RequestPart(value="file") List<MultipartFile> multipartFiles) {
+		System.out.println("##################### collectionReg param : " + param);
+		System.out.println("##################### collectionReg file : " + multipartFiles);
+		System.out.println("######### file : " + multipartFiles);
+        List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
+        System.out.println("############## fileVO : " + fileVo);
+        param.put("workMainImg", fileVo.get(0).getFileUrl());
+        param.put("workImgFrt", fileVo.get(1).getFileUrl());
+        param.put("workImgRer", fileVo.get(2).getFileUrl());
+        if(fileVo.size() >= 4){
+        	param.put("workGrtUrl", fileVo.get(3).getFileUrl());
+        }
+        if(fileVo.size() >= 5){
+        	param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+        }
+        if(fileVo.size() >= 6){
+        	param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+        }
+        if(fileVo.size() >= 7){
+        	param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+        }
+        if(fileVo.size() >= 8){
+        	param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+        }
+        int result = myPageService.myWorkReg(param);
+		return result;
+	}
+	
 	
 }

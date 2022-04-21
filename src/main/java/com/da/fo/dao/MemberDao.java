@@ -55,6 +55,15 @@ public class MemberDao {
 	}
 	
 	/*
+	 * 아티스트 정보를 불러온다
+	 * param : mbrSq
+	 * return : Map
+	 */
+	public Map<String, Object> getArtistInfo(String param){
+		return memberMapper.getArtistInfo(param);
+	}
+	
+	/*
 	 * 회원탈퇴
 	 * param : name, email, password
 	 * return : int

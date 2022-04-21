@@ -84,7 +84,14 @@
 						ARTST_ACTVTY_NM,
 						WORK_NM,
 						WORK_FRM_YN,
-						WORK_CLR_CD
+						WORK_CLR_CD,
+						WORK_MAIN_IMG_URL, 
+						WORK_IMG_FRT_URL, 
+						WORK_IMG_RER_URL,
+						REG_DT,
+						REG_MBR_SQ,
+						UPDT_DT,
+						UPDT_MBR_SQ
 						<if test="artstYear != null and artstYear != ''">
 							,ARTST_BIRTH_YEAR
 						</if> 
@@ -109,9 +116,36 @@
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,WORK_INTRDC
 						</if> 
+						<if test="workGrtUrl != null and workGrtUrl != ''">
+							,WORK_GRT_URL
+						</if>
+						<if test="workImgLefUrl != null and workImgLefUrl != ''">
+							,WORK_IMG_LEF_URL
+						</if>
+						<if test="workImgRitUrl != null and workImgRitUrl != ''">
+							,WORK_IMG_RIT_URL
+						</if>
+						<if test="workImgTopUrl != null and workImgTopUrl != ''">
+							,WORK_IMG_TOP_URL
+						</if>
+						<if test="workImgBotUrl != null and workImgBotUrl != ''">
+							,WORK_IMG_BOT_URL
+						</if>
 					)
 				VALUES (
-						#{mbrSq}, #{workTypCd}, #{artstNm}, #{workNm}, #{workFrmYn}, #{workClrCd}
+						#{mbrSq}, 
+						#{workTypCd}, 
+						#{artstNm}, 
+						#{workNm}, 
+						#{workFrmYn}, 
+						#{workClrCd},
+						#{workMainImg}, 
+						#{workImgFrt}, 
+						#{workImgRer},
+						NOW(),
+						#{mbrSq},
+						NOW(),
+						#{mbrSq}
 						<if test="artstYear != null and artstYear != ''">
 							,#{artstYear}
 						</if> 
@@ -136,6 +170,21 @@
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,#{workIntrdc}
 						</if> 
+						<if test="workGrtUrl != null and workGrtUrl != ''">
+							,#{workGrtUrl}
+						</if>
+						<if test="workImgLefUrl != null and workImgLefUrl != ''">
+							,#{workImgLefUrl}
+						</if>
+						<if test="workImgRitUrl != null and workImgRitUrl != ''">
+							,#{workImgRitUrl}
+						</if>
+						<if test="workImgTopUrl != null and workImgTopUrl != ''">
+							,#{workImgTopUrl}
+						</if>
+						<if test="workImgBotUrl != null and workImgBotUrl != ''">
+							,#{workImgBotUrl}
+						</if>
 				)
 				
 	</insert>
@@ -160,10 +209,112 @@
 							AND		WORK_FRM_YN = #{workFrmYn}
 							AND 	WORK_CLR_CD = #{workClrCd}
 							AND 	WORK_TYP_CD = #{workTypCd}
+							AND 	WORK_MAIN_IMG_URL = #{workMainImg}
+							AND		WORK_IMG_FRT_URL = #{workImgFrt}
+							AND		WORK_IMG_RER_URL = #{workImgRer}
 						)
 										
 					)
 					
+	</insert>
+	
+	<insert id="myWorkReg">
+		/*나의 작품 등록*/
+		INSERT INTO 
+					TBL_DA_WORK_M(
+									MBR_SQ,
+									ARTST_SQ,
+									ARTST_ACTVTY_NM,
+									ARTST_BIRTH_YEAR,
+									WORK_TYP_CD,
+									WORK_NM,
+									WORK_SIZE_WIDTH,
+									WORK_SIZE_DEPTH,
+									WORK_MATRL,
+									WORK_PRODC_YEAR,
+									WORK_MAIN_IMG_URL,
+									WORK_IMG_FRT_URL,
+									WORK_IMG_RER_URL,
+									WORK_FRM_YN,
+									WORK_SALE_YN,
+									WORK_CLR_CD,
+									REG_DT,
+									REG_MBR_SQ,
+									UPDT_DT,
+									UPDT_MBR_SQ
+									<if test="workGrtUrl != null and workGrtUrl != ''">
+										,WORK_GRT_URL
+									</if>
+									<if test="workPrc != null and workPrc != ''">
+										,WORK_PRC
+									</if>
+									<if test="workImgLefUrl != null and workImgLefUrl != ''">
+										,WORK_IMG_LEF_URL
+									</if>
+									<if test="workImgRitUrl != null and workImgRitUrl != ''">
+										,WORK_IMG_RIT_URL
+									</if>
+									<if test="workImgTopUrl != null and workImgTopUrl != ''">
+										,WORK_IMG_TOP_URL
+									</if>
+									<if test="workImgBotUrl != null and workImgBotUrl != ''">
+										,WORK_IMG_BOT_URL
+									</if>
+									<if test="workVdoUrl != null and workVdoUrl != ''">
+										,WORK_VIDEO_URL
+									</if>
+									<if test="workIntrdc != null and workIntrdc != ''">
+										,WORK_INTRDC
+									</if>
+					)
+					VALUE(
+							#{mbrSq},
+							#{artstSq},
+							#{artstNm},
+							#{artstBirthYear},
+							#{workTypCd},
+							#{workNm},
+							#{workSizeWidth},
+							#{workSizeDepth},
+							#{workMatrl},
+							#{workProdcYear},
+							#{workMainImg},
+							#{workImgFrt},
+							#{workImgRer},
+							#{workFrmYn},
+							#{workSaleYn},
+							#{workClrCd},
+							NOW(),
+							#{mbrSq},
+							NOW(),
+							#{mbrSq}
+							<if test="workGrtUrl != null and workGrtUrl != ''">
+								,#{workGrtUrl}
+							</if>
+							<if test="workPrc != null and workPrc != ''">
+								,#{workPrc}
+							</if>
+							<if test="workImgLefUrl != null and workImgLefUrl != ''">
+								,#{workImgLefUrl}
+							</if>
+							<if test="workImgRitUrl != null and workImgRitUrl != ''">
+								,#{workImgRitUrl}
+							</if>
+							<if test="workImgTopUrl != null and workImgTopUrl != ''">
+								,#{workImgTopUrl}
+							</if>
+							<if test="workImgBotUrl != null and workImgBotUrl != ''">
+								,#{workImgBotUrl}
+							</if>
+							<if test="workVdoUrl != null and workVdoUrl != ''">
+								,#{workVdoUrl}
+							</if>
+							<if test="workIntrdc != null and workIntrdc != ''">
+								,#{workIntrdc}
+							</if>
+					)
+					
+	
 	</insert>
 	
 </mapper>

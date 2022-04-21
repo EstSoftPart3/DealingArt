@@ -455,6 +455,7 @@ $(function() {
 				workListHtml += '				<li>'+ workList[i].dealRemainingMin +'<span>min</span></li>';
 				workListHtml += '				<li>'+ workList[i].dealRemainingSec +'<span>sec</span></li></ul>';
 				workListHtml += '				<h4>시작가 : '+ formatComma(workList[i].dealStrtPrc) +'</h4>';
+				workListHtml += '		</div>';
 				workListHtml += '	</div>';
 			}
 			if(workList[i].dealTypCd == "SALE" && workList[i].dealTypCd == "IP"){
@@ -466,6 +467,7 @@ $(function() {
 				workListHtml += '				<li>'+ workList[i].dealRemainingHour +'<span>hrs</span></li>';
 				workListHtml += '				<li>'+ workList[i].dealRemainingMin +'<span>min</span></li>';
 				workListHtml += '				<li>'+ workList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+				workListHtml += '		</div>';
 				workListHtml += '	</div>';
 			}
 			if(workList[i].dealTypCd == "EN"){

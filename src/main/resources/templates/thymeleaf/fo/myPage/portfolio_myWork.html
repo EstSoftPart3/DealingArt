@@ -517,17 +517,20 @@
     	    event.stopPropagation();
     	});
       
-      $(function() { 
-    		if(sAuthSqVal == 2){
-    			document.getElementById("portfolio").style.display="";
-    		}
-    		$("#conTitle").empty();
-    		const conBtn = document.getElementById("conBtn");
-    		conBtn.remove();
-    		var conTitleHtml = "";
-    		conTitleHtml += '<h3>설정</h3>';
-    		$("#conTitle").append(conTitleHtml).trigger("create");
-    	});   
+$(function() { 
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+	$("#conTitle").empty();
+	$("#conBtn").empty();
+	const conBtn = document.getElementById("conBtn");
+	conBtn.style.display = "";
+	var conTitleHtml = "";
+	conTitleHtml += '<h3>포트폴리오</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
+	conBtn.innerHTML += '<a href="/myWork_reg"><img src="resources/img/mypage/mycon-1.png" /></a>';
+	conBtn.innerHTML += '<a href="javascript:fnModalAlert();"><img src="resources/img/mypage/mycon-2.png" /></a>';
+});   
       
     </script>
     

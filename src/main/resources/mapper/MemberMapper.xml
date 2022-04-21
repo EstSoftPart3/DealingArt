@@ -135,6 +135,21 @@
 			AND	MBR_PASSWRD = #{loginPw}   
    </select>
    
+   <select id="getArtistInfo" resultType="hashMap" parameterType="String">
+	   /* 작가 정보 */
+	   SELECT 
+			B.ARTST_SQ AS artstSq,
+			B.ARTST_ACTVTY_NM AS artstActvtyNm,
+			B.ARTST_ENGLS_NM AS artstEnglsNm,
+			YEAR (A.MBR_BIRTH) AS artstBirthYear
+		FROM 
+				TBL_DA_MBR_M AS A,
+				TBL_DA_ARTST_M AS B
+		WHERE 
+				A.MBR_SQ = B.MBR_SQ 
+			AND A.MBR_SQ = #{value}
+   </select>
+   
    <update id="memberWithdrawal" parameterType="hashMap">
    /* 회원 탈퇴 */
    		UPDATE 	TBL_DA_MBR_M

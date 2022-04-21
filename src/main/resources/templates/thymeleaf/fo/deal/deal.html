@@ -286,7 +286,7 @@
 						
 						<div>
 							<div class="columns-wrap2" id="columns2">
-								<!-- <figure class="item">
+								<figure class="item">
 								
 									<div class="heart on"></div>
 									
@@ -413,7 +413,7 @@
 										
 										<div class="artist"><span>Artist</span></div>
 									</div>
-								</figure> -->
+								</figure>
 							</div>
 						</div>
 						
@@ -774,6 +774,7 @@ function dealSearch(){
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
 	     				dealListHtml += '				<h4>시작가 : '+ formatComma(dealList[i].dealStrtPrc) +'</h4>';
+	     				dealListHtml += '		</div>';
 	     				dealListHtml += '	</div>';
 	     			}
 	     			if(dealList[i].dealTypCd == "SALE" && dealList[i].dealTypCd == "IP"){
@@ -785,6 +786,7 @@ function dealSearch(){
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	     				dealListHtml += '		</div>';
 	     				dealListHtml += '	</div>';
 	     			}
 	     			if(dealList[i].dealTypCd == "EN"){
@@ -792,7 +794,7 @@ function dealSearch(){
 	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
 	     				dealListHtml += '	</div>';
 	     			}
-	     			dealListHtml += '	<div class="item-body">';
+	     			dealListHtml += '		<div class="item-body">';
 	     			dealListHtml += '		<div class="uesr-s">';
 	     			if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
 	     				dealListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
