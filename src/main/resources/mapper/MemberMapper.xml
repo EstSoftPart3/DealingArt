@@ -459,4 +459,24 @@
 	    WHERE EXHBTN_SQ = #{exhbtnSq}
   </select>
    
+   <insert id="scrapAdd">
+   		/*회원 스크랩 추가*/
+   		INSERT INTO 
+   					TBL_DA_MBR_SCRAP_R (
+						MBR_SQ,
+						WORK_SQ
+   					) VALUES (
+   						#{mbrSq},
+   						#{workSq}
+   					)
+   </insert>
+   
+   <delete id="scrapDel">
+   		/*회원 스크랩 삭제*/
+   		DELETE	FROM 
+ 					TBL_DA_MBR_SCRAP_R
+   				WHERE
+   					MBR_SQ = #{mbrSq}
+   				AND WORK_SQ = #{workSq}
+   </delete>
 </mapper>

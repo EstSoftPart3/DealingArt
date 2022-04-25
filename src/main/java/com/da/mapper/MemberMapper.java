@@ -104,4 +104,18 @@ public interface MemberMapper {
 	//작가전시정보 등록유무 체크를 위한 카운터
 	public int authorExhbtnInfoCheckCount(Map<String, Object> param);
 	
+	/*
+	 * 회원 스크랩 추가
+	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
+	 * return : int
+	 */
+	public int scrapAdd(Map<String, Object> param);
+	
+	/*
+	 * 회원 스크랩 삭제
+	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
+	 * return : int
+	 */
+	public int scrapDel(Map<String, Object> param);
+	
 }

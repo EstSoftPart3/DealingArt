@@ -225,9 +225,8 @@ function myWorkList(){
 	for(var i=0; i<result.length; i++){
 		
 		myWorkListHtml += '<figure class="item">';
-		myWorkListHtml += '	<div class="heart on"></div>';
 		if(result[i].dealTypCd == "AUCT" && result[i].dealSttsCd == "IP"){
-			myWorkListHtml += '	<div class="item-div-img active" onclick="workDetail('+ result[i].workSq +')">';
+			myWorkListHtml += '	<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
 			myWorkListHtml += '		<div class="item-ho">';
 			myWorkListHtml += '			<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
@@ -241,7 +240,7 @@ function myWorkList(){
 			myWorkListHtml += '	</div>';
 		}
 		if(result[i].dealTypCd == "SALE" && result[i].dealTypCd == "IP"){
-			myWorkListHtml += '	<div class="item-div-img sale">';
+			myWorkListHtml += '	<div class="item-div-img sale-on">';
 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
 			myWorkListHtml += '			<h3>판매중</h3>';
@@ -269,7 +268,8 @@ function myWorkList(){
 			myWorkListHtml += '</div>';
 			
 		}
-		myWorkListHtml += '		<div class="item-body">';
+		myWorkListHtml += '	<div class="item-body">';
+		myWorkListHtml += '		<div class="heart"></div>';
 		myWorkListHtml += '		<div class="uesr-s">';
 		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
 			myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
@@ -323,6 +323,42 @@ $(document).on("click", ".cor-a", function(){
 $(document).on("click", ".reg-a", function(){
 	var workSq= $(this).attr("workSq");
 	modalAlertShow("서비스 준비중 입니다.","");
+});
+
+$(document).on("click", ".heart", function(){
+	var param = new Object();
+	var element = $(this);
+	param.workSq= element.attr("workSq");
+	param.mbrSq = sMbrSqVal;
+	if($(this).hasClass("on")){
+		$.ajax({
+	        type: "post",
+	        url: "/scrapDel",
+	        data: param,
+	        success: function(data) {
+	        	element.removeClass("on");
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/scrapAdd",
+	        data: param,
+	        success: function(data) {
+	        	if(data == 1){
+	        		element.addClass("on");
+	        	}else{
+	        		modalAlertShow("스크랩 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
 });
       
  $(window).on("resize", function () {

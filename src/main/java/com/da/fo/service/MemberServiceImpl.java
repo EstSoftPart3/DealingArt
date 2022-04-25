@@ -185,4 +185,22 @@ public class MemberServiceImpl implements MemberService  {
 		deleteState = memberDao.authorExhbtnInfoDelete(param);
 		return deleteState; 
 	}
+	
+	/*
+	 * 회원 스크랩 추가
+	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
+	 * return : int
+	 */
+	public int scrapAdd(Map<String, Object> param) {
+		return memberDao.scrapAdd(param);
+	}
+	
+	/*
+	 * 회원 스크랩 삭제
+	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
+	 * return : int
+	 */
+	public int scrapDel(Map<String, Object> param) {
+		return memberDao.scrapDel(param);
+	}
 }

@@ -762,7 +762,6 @@ function dealSearch(){
      		
 	     		for(var i=0; i<dealList.length; i++){
 	     			dealListHtml += '<figure class="item">';
-	     			dealListHtml += '	<div class="heart on"></div>';
 	     			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
 	     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
 	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
@@ -794,7 +793,8 @@ function dealSearch(){
 	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
 	     				dealListHtml += '	</div>';
 	     			}
-	     			dealListHtml += '		<div class="item-body">';
+	     			dealListHtml += '	<div class="item-body">';
+	     			dealListHtml += '		<div class="heart" workSq="'+ dealList[i].workSq +'"></div>';
 	     			dealListHtml += '		<div class="uesr-s">';
 	     			if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
 	     				dealListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
@@ -885,6 +885,42 @@ function workDetail(workSq){
 		]
 	});
 }
+
+$(document).on("click", ".heart", function(){
+	var param = new Object();
+	var element = $(this);
+	param.workSq= element.attr("workSq");
+	param.mbrSq = sMbrSqVal;
+	if($(this).hasClass("on")){
+		$.ajax({
+	        type: "post",
+	        url: "/scrapDel",
+	        data: param,
+	        success: function(data) {
+	        	element.removeClass("on");
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/scrapAdd",
+	        data: param,
+	        success: function(data) {
+	        	if(data == 1){
+	        		element.addClass("on");
+	        	}else{
+	        		modalAlertShow("스크랩 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+});
 
 
 	

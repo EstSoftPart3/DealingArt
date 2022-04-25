@@ -456,4 +456,17 @@ public class MemberController {
 		return deleteState;
 	}
 	
+	@RequestMapping("/scrapAdd")
+	@ResponseBody
+	public int scrapAdd(@RequestParam Map<String, Object> param) {
+		int result = memberService.scrapAdd(param);
+		return result;
+	}
+	
+	@RequestMapping("/scrapDel")
+	@ResponseBody
+	public int scrapDel(@RequestParam Map<String, Object> param) {
+		int result = memberService.scrapDel(param);
+		return result;
+	}
 }
