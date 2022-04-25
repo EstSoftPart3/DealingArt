@@ -12,6 +12,20 @@ public interface MyPageMapper {
 	public List myDealSearchList(Object param);
 	
 	/*
+	 * 나의 소장품 목록
+	 * param : mbrSq
+	 * return : 소장품 목록이 들어있는 리스트
+	 */
+	public List myCollectionSale(String param);
+	
+	/*
+	 * 나의 소장품 목록
+	 * param : mbrSq
+	 * return : 소장품 목록이 들어있는 리스트
+	 */
+	public List myCollectionNonSale(String param);
+	
+	/*
 	 * 소장품 등록
 	 * param : 소장품 정보가 들어있는 param
 	 * return : int
@@ -31,5 +45,54 @@ public interface MyPageMapper {
 	 * return : int
 	 */
 	public int myWorkReg(Map<String, Object> param);
+	
+	/*
+	 * 나의 작품 리스트
+	 * param : 나의 작품 정보가 들어있는 param
+	 * return : List
+	 */
+	public List myWorkListSale(String param);
+	
+	/*
+	 * 나의 작품 리스트
+	 * param : 나의 작품 정보가 들어있는 param
+	 * return : List
+	 */
+	public List myWorkListNonSale(String param);
+	
+	/*
+	 * 나의 작품 수정
+	 * param : 나의 작품 정보가 들어있는 param
+	 * return : Map
+	 */
+	public Map<String, Object> myWorkMod(String param);
+	
+	/*
+	 * 나의 작품 수정 등록
+	 * param : 나의 작품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	public int myWorkCor(Map<String, Object> param);
+	
+	/*
+	 * 키워드 수정 등록
+	 * param : 키워드 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	public int keywrdCor(Map<String, Object> param);
+	
+	/*
+	 * 소장품 수정 페이지 오픈
+	 * param : workSq
+	 * return : Map
+	 */
+	public Map<String, Object> myCollectionMod(String param);
+	
+	/*
+	 * 나의 소장품 수정 등록
+	 * param : 나의 소장품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	public int collectionCor(Map<String, Object> param);
 	
 }

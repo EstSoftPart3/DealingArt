@@ -12,6 +12,13 @@ public interface MyPageService {
 	List myDealSearchList(Map<String, Object> param);
 	
 	/*
+	 * 나의 소장품 목록
+	 * param : mbrSq
+	 * return : 소장품 목록이 들어있는 리스트
+	 */
+	List myCollection(String param);
+	
+	/*
 	 * 소장품 등록
 	 * param : 소장품 정보가 들어있는 param
 	 * return : int
@@ -20,10 +27,44 @@ public interface MyPageService {
 	
 	/*
 	 * 나의 작품 등록
-	 * param : 나의 작품 정보가 들어있는 param
+	 * param : 나의 작품 등록 정보가 들어있는 param
 	 * return : int
 	 */
 	int myWorkReg(Map<String, Object> param);
 	
+	/*
+	 * 나의 작품 리스트
+	 * param : artstSq
+	 * return : List
+	 */
+	List myWork(String param);
+	
+	/*
+	 * 나의 작품 수정 페이지 오픈
+	 * param : workSq
+	 * return : Map
+	 */
+	Map<String, Object> myWorkMod(String param);
+	
+	/*
+	 * 나의 작품 수정 등록
+	 * param : 나의 작품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	int myWorkCor(Map<String, Object> param);
+	
+	/*
+	 * 소장품 수정 페이지 오픈
+	 * param : workSq
+	 * return : Map
+	 */
+	Map<String, Object> myCollectionMod(String param);
+	
+	/*
+	 * 나의 소장품 수정 등록
+	 * param : 나의 소장품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	int collectionCor(Map<String, Object> param);
 	
 }

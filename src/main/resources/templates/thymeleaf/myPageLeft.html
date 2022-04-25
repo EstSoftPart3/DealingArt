@@ -39,7 +39,7 @@
 				<div class="panel-body">
 					<ul class="mypage-ul">
 						<li class=""><a href="/information">작가 정보</a></li>
-						<li class=""><a href="/myWork">나의 작품</a></li>
+						<li class="myWork"><a href="#">나의 작품</a></li>
 					</ul>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 			<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class=""><a href="/myCollection">소장품</a></li>
+						<li class="myCollection"><a href="#">소장품</a></li>
 						<li class=""><a href="/scrap">스크랩</a></li>
 					</ul>
 				</div>
@@ -85,6 +85,24 @@ $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
 	}
+});
+$(document).on("click", ".myWork", function(){
+	pageGoPost({
+		url:"/myWork",
+		target:"_self",
+		vals:[
+			["artstSq", artstSq]
+		]
+	});
+});
+$(document).on("click", ".myCollection", function(){
+	pageGoPost({
+		url:"/myCollection",
+		target:"_self",
+		vals:[
+			["mbrSq", sMbrSqVal]
+		]
+	});
 });
 </script>
 </th:blcok>	
