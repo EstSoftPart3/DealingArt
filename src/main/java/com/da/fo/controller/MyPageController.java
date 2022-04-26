@@ -98,8 +98,12 @@ public class MyPageController {
 
 	// 스크랩
 	@RequestMapping("/scrap")
-	public String scrap() {
-		return "thymeleaf/fo/myPage/myGallery_scrap";
+	@ResponseBody
+	public ModelAndView scrap(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
+		List<String> result = myPageService.scrapList(mbrSq);
+		mv.addObject("result", result);
+		return mv;
 	}
 
 	// 나의 작품

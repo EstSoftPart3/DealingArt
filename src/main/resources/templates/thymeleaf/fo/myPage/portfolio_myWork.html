@@ -216,6 +216,8 @@ $(function() {
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	conBtn.innerHTML += '<a href="/myWork_reg"><img src="resources/img/mypage/mycon-1.png" /></a>';
 	conBtn.innerHTML += '<a href="javascript:fnModalAlert();"><img src="resources/img/mypage/mycon-2.png" /></a>';
+	
+	$("#myWork").addClass("active");
 	myWorkList();
 });   
 
@@ -269,7 +271,7 @@ function myWorkList(){
 			
 		}
 		myWorkListHtml += '	<div class="item-body">';
-		myWorkListHtml += '		<div class="heart"></div>';
+		myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 		myWorkListHtml += '		<div class="uesr-s">';
 		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
 			myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
@@ -337,6 +339,7 @@ $(document).on("click", ".heart", function(){
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
+	        	element.addClass("off");
 	        },
 	        error: function(error) {
 	            alert("오류 발생" + error);

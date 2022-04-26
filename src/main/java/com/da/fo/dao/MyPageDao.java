@@ -131,4 +131,18 @@ public class MyPageDao {
 		}
 		return result;	
 	}
+	
+	/*
+	 * 스크랩 목록
+	 * param : mbrSq
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapList(String param){
+		List<String> paramList = myPageMapper.scrapList(param);
+		System.out.println("@@@@@@@@@@@@@@@@@@@ List Pram : " + paramList);
+		List<String> resultNonSale = myPageMapper.scrapListNonSale(paramList);
+		List<String> resultSale = myPageMapper.scrapListSale(paramList);
+		List<String> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
+		return result;
+	}
 }

@@ -426,7 +426,6 @@
       	}, delay);
       	
       });
-debugger;
 var artstInfo = /*[[${result}]]*/ 'default';
 $(function() {    
 	var workList = artstInfo.workList;
@@ -475,7 +474,7 @@ $(function() {
 				workListHtml += '	</div>';
 			}
 			workListHtml += '	<div class="item-body">';
-			workListHtml += '		<div class="heart" workSq="'+ workList[i].workSq +'"></div>';
+			workListHtml += '		<div class="heart off" workSq="'+ workList[i].workSq +'" style="cursor:pointer;"></div>';
 			workListHtml += '		<div class="uesr-s">';
 			if(workList[i].artstProfileImgUrl == null || workList[i].artstProfileImgUrl == ""){
 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';

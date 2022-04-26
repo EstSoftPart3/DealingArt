@@ -486,8 +486,152 @@
 
 
 
-<script type="text/javascript">      
-      
+<script th:inline="javascript">
+var result = /*[[${result}]]*/ 'default';   
+
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+	$("#conTitle").empty();
+	const conBtn = document.getElementById("conBtn");
+	conBtn.remove();
+	var conTitleHtml = "";
+	conTitleHtml += '<h3>My Gallery</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
+	
+	$("#scrap").addClass("active");
+	
+	scrapList();
+});      
+
+function scrapList(){
+	var myCollectionHtml = '';
+	$("#columns2").empty();
+	for(var i=0; i<result.length; i++){
+		
+		myCollectionHtml += '<figure class="item">';
+		if(result[i].dealTypCd == "AUCT" && result[i].dealSttsCd == "IP"){
+			myCollectionHtml += '	<div class="item-div-img active" onclick="workDetail('+ result[i].workSq +')">';
+			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+			myCollectionHtml += '		<div class="item-ho">';
+			myCollectionHtml += '			<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
+			myCollectionHtml += '			<p> 응찰수 : '+ result[i].bidCnt +'</p>';
+			myCollectionHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			myCollectionHtml += '				<h4>시작가 : '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+			myCollectionHtml += '		</div>';
+			myCollectionHtml += '	</div>';
+		}
+		if(result[i].dealTypCd == "SALE" && result[i].dealTypCd == "IP"){
+			myCollectionHtml += '	<div class="item-div-img sale">';
+			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+			myCollectionHtml += '		<div class="item-ho2 sale-div">';
+			myCollectionHtml += '			<h3>판매중</h3>';
+			myCollectionHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+			myCollectionHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			myCollectionHtml += '		</div>';
+			myCollectionHtml += '	</div>';
+		}
+		if(result[i].dealTypCd == "EN"){
+			myCollectionHtml += '	<div class="item-div-img sold-3">';
+			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+			myCollectionHtml += '	</div>';
+		}
+		if(result[i].dealTypCd == null){
+			myCollectionHtml += '<div class="item-div-img reg">';
+			myCollectionHtml += '	<img src="'+ result[i].workMainImgUrl +'">';
+			/* myCollectionHtml += '	<div class="item-ho3 reg-div">';
+			myCollectionHtml += '		<div class="regs">';
+			myCollectionHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
+			myCollectionHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>작품 수정</span></a>';
+			myCollectionHtml += '		</div>';
+			myCollectionHtml += '	</div>'; */
+			myCollectionHtml += '</div>';
+			
+		}
+		myCollectionHtml += '	<div class="item-body">';
+		myCollectionHtml += '		<div class="heart on" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
+		myCollectionHtml += '		<div class="uesr-s">';
+		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+			myCollectionHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+		//}else{
+			//myCollectionHtml += '		<img src="'+ result[i].artstProfileImgUrl +'"/>';
+		//}
+		myCollectionHtml += '		</div>';
+		myCollectionHtml += '		<div class="text-s">';
+		myCollectionHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+		myCollectionHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
+		myCollectionHtml += '			<p>'+ result[i].workMatrl +'</p>';
+		myCollectionHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
+		if(result[i].dealTypCd == "AUCT"){
+			myCollectionHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+			myCollectionHtml += '			<p class="ts-2">';
+			myCollectionHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
+			myCollectionHtml += '			응찰수 : '+ result[i].bidCnt +'<br/>';
+			myCollectionHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
+			myCollectionHtml += '			</p>';
+		}
+		if(result[i].dealTypCd == "SALE"){
+			myCollectionHtml += '			<h4>판매가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+		}
+		if(result[i].dealTypCd == null){
+			myCollectionHtml += '			<h4>소장가 '+ formatComma(result[i].workPrc) +'</h4>';
+		}
+		myCollectionHtml += '		</div>';
+		if(result[i].authSq == 2){
+			myCollectionHtml += '	<div class="artist active"><span>Artist</span></div>';
+		}
+		if(result[i].authSq == 1){
+			myCollectionHtml += '	<div class="artist"><span>Artist</span></div>';
+		}
+		myCollectionHtml += '	</div>';
+		myCollectionHtml += '</figure>';
+	}
+	$("#columns2").append(myCollectionHtml).trigger("create");
+}
+
+$(document).on("click", ".heart", function(){
+	var param = new Object();
+	var element = $(this);
+	param.workSq= element.attr("workSq");
+	param.mbrSq = sMbrSqVal;
+	if($(this).hasClass("on")){
+		$.ajax({
+	        type: "post",
+	        url: "/scrapDel",
+	        data: param,
+	        success: function(data) {
+	        	element.removeClass("on");
+	        	element.addClass("off");
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/scrapAdd",
+	        data: param,
+	        success: function(data) {
+	        	if(data == 1){
+	        		element.addClass("on");
+	        	}else{
+	        		modalAlertShow("스크랩 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+});
+
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {
@@ -617,18 +761,6 @@
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
-      
-jQuery(document).ready(function() {
-	if(sAuthSqVal == 2){
-		document.getElementById("portfolio").style.display="";
-	}
-	$("#conTitle").empty();
-	const conBtn = document.getElementById("conBtn");
-	conBtn.remove();
-	var conTitleHtml = "";
-	conTitleHtml += '<h3>My Gallery</h3>';
-	$("#conTitle").append(conTitleHtml).trigger("create");
-});      
       
 </script>
     

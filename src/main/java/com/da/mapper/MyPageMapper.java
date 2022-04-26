@@ -95,4 +95,25 @@ public interface MyPageMapper {
 	 */
 	public int collectionCor(Map<String, Object> param);
 	
+	/*
+	 * 스크랩 목록 조회
+	 * param : mbrSq
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapList(String param);
+	
+	/*
+	 * 판매중이 아닌 스크랩 목록
+	 * param : 스크랩한 작품 번호가 들어있는 List
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapListNonSale(List<String> param);
+	
+	/*
+	 * 판매중인 스크랩 목록
+	 * param : 스크랩한 작품 번호가 들어있는 List
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapListSale(List<String> param);
+	
 }

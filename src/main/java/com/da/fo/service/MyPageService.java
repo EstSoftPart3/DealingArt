@@ -67,4 +67,10 @@ public interface MyPageService {
 	 */
 	int collectionCor(Map<String, Object> param);
 	
+	/*
+	 * 스크랩 목록
+	 * param : mbrSq
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	List<String> scrapList(String param);
 }

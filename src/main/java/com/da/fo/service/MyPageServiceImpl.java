@@ -98,4 +98,13 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.collectionCor(param);
 	}
 	
+	/*
+	 * 스크랩 목록
+	 * param : mbrSq
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapList(String param){
+		return myPageDao.scrapList(param);
+	}
+	
 }

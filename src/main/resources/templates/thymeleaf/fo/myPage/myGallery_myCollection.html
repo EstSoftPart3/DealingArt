@@ -86,6 +86,7 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>My Gallery</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
+	$("#myCollection").addClass("active");
 	myCollectionList();
 });   
 
@@ -95,7 +96,6 @@ function myCollectionList(){
 	for(var i=0; i<result.length; i++){
 		
 		myCollectionHtml += '<figure class="item">';
-		myCollectionHtml += '	<div class="heart"></div>';
 		if(result[i].dealTypCd == "AUCT" && result[i].dealSttsCd == "IP"){
 			myCollectionHtml += '	<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
 			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
@@ -133,14 +133,14 @@ function myCollectionList(){
 			myCollectionHtml += '	<div class="item-ho3 reg-div">';
 			myCollectionHtml += '		<div class="regs">';
 			myCollectionHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
-			myCollectionHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>작품 수정</span></a>';
+			myCollectionHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
 			myCollectionHtml += '		</div>';
 			myCollectionHtml += '	</div>';
 			myCollectionHtml += '</div>';
 			
 		}
 		myCollectionHtml += '	<div class="item-body">';
-		myCollectionHtml += '		<div class="heart"></div>';
+		myCollectionHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 		myCollectionHtml += '		<div class="uesr-s">';
 		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
 			myCollectionHtml += '		<img src="resources/img/de/ues-icon.png"/>';
@@ -208,6 +208,7 @@ $(document).on("click", ".heart", function(){
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
+	        	element.addClass("off");
 	        },
 	        error: function(error) {
 	            alert("오류 발생" + error);

@@ -88,8 +88,7 @@
 									<th><span class="my-red">작품 대표 사진</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled>
-											
+											<img class="content" id="workMainImgUrl1" style="cursor:pointer"/>
 											<label for="workMainImgUrl">찾아보기</label> 
 											<input type="file" id="workMainImgUrl" class="upload-hidden"> 
 										</div>
@@ -100,8 +99,7 @@
 									<th><span class="my-red">작품사진(전면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled>
-											
+											<img class="content" id="workImgFrtUrl1" style="cursor:pointer"/>
 											<label for="workImgFrtUrl">찾아보기</label> 
 											<input type="file" id="workImgFrtUrl" class="upload-hidden"> 
 										</div>
@@ -112,8 +110,7 @@
 									<th><span class="my-red">작품사진(후면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
-											
+											<img class="content" id="workImgRerUrl1" style="cursor:pointer"/>
 											<label for="workImgRerUrl">찾아보기</label> 
 											<input type="file" id="workImgRerUrl" class="upload-hidden"> 
 										</div>
@@ -175,8 +172,7 @@
 									<th><span class="my-red">보증서</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled>
-											
+											<img class="content" id="workGrtUrl1" style="cursor:pointer"/>
 											<label for="workGrtUrl">찾아보기</label> 
 											<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf"> 
 										</div>
@@ -194,8 +190,7 @@
 									<th><span class="">작품 사진(좌)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
-											
+											<img class="content" id="workImgLefUrl1" style="cursor:pointer"/>
 											<label for="workImgLefUrl">찾아보기</label> 
 											<input type="file" id="workImgLefUrl" class="upload-hidden"> 
 										</div>
@@ -206,8 +201,7 @@
 									<th><span class="">작품 사진(우)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled>
-											
+											<img class="content" id="workImgRitUrl1" style="cursor:pointer"/>
 											<label for="workImgRitUrl">찾아보기</label> 
 											<input type="file" id="workImgRitUrl" class="upload-hidden" required> 
 										</div>
@@ -218,8 +212,7 @@
 									<th><span class="">작품 사진(상)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
-											
+											<img class="content" id="workImgTopUrl1" style="cursor:pointer"/>
 											<label for="workImgTopUrl">찾아보기</label> 
 											<input type="file" id="workImgTopUrl" class="upload-hidden"> 
 										</div>
@@ -230,8 +223,7 @@
 									<th><span class="">작품 사진(하)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<input class="upload-name" value="파일선택" disabled="disabled">
-											
+											<img class="content" id="workImgBotUrl1" style="cursor:pointer"/>
 											<label for="workImgBotUrl">찾아보기</label> 
 											<input type="file" id="workImgBotUrl" class="upload-hidden"> 
 										</div>
@@ -281,6 +273,25 @@ $(function() {
 		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
 	}
 }); 
+
+$(document).on("change", ".upload-hidden", function(e){
+	readImg(e.target, e.target.id);
+});
+
+function readImg(input, imgId){
+    // 인풋 태그에 파일이 있는 경우
+    if(input.files && input.files[0]) {
+        // 이미지 파일인지 검사 (생략)
+        const reader = new FileReader()
+        // 이미지가 로드가 된 경우
+        reader.onload = function (e){
+            const previewImage = document.getElementById(imgId+1);
+            previewImage.src = e.target.result;
+        }
+        // reader가 이미지 읽도록 하기
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 var work = new Object();
 work.workTypCd = 'WORK';

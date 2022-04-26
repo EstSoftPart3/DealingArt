@@ -20,8 +20,8 @@
 			<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class=""><a href="/myDeal">거래 내역</a></li>
-						<li class=""><a href="/coupon">등급 / 쿠폰 / 포인트</a></li>
+						<li class="" id="myDeal"><a href="/myDeal">거래 내역</a></li>
+						<li class="" id="coupon"><a href="/coupon">등급 / 쿠폰 / 포인트</a></li>
 						<li class=""><a href="#">문의 내역</a></li>
 					</ul>
 				</div>
@@ -38,8 +38,8 @@
 			<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class=""><a href="/information">작가 정보</a></li>
-						<li class="myWork"><a href="#">나의 작품</a></li>
+						<li class="" id="information"><a href="/information">작가 정보</a></li>
+						<li class="myWork" id="myWork"><a href="#">나의 작품</a></li>
 					</ul>
 				</div>
 			</div>
@@ -55,8 +55,8 @@
 			<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class="myCollection"><a href="#">소장품</a></li>
-						<li class=""><a href="/scrap">스크랩</a></li>
+						<li class="myCollection" id="myCollection"><a href="#">소장품</a></li>
+						<li class="scrap" id="scrap"><a href="#">스크랩</a></li>
 					</ul>
 				</div>
 			</div>
@@ -72,9 +72,9 @@
 			<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 				<div class="panel-body">
 					<ul class="mypage-ul"><!--class="active"-->
-						<li class=""><a href="/memberEdit">회원 정보 수정</a></li>
-						<li class=""><a href="/withdrawal">회원탈퇴</a></li>
-						<li class=""><a href="/alarm">알림 설정</a></li>
+						<li class="" id="memberEdit"><a href="/memberEdit">회원 정보 수정</a></li>
+						<li class="" id="withdrawal"><a href="/withdrawal">회원탈퇴</a></li>
+						<li class="" id="alarm"><a href="/alarm">알림 설정</a></li>
 					</ul>
 				</div>
 			</div>
@@ -98,6 +98,15 @@ $(document).on("click", ".myWork", function(){
 $(document).on("click", ".myCollection", function(){
 	pageGoPost({
 		url:"/myCollection",
+		target:"_self",
+		vals:[
+			["mbrSq", sMbrSqVal]
+		]
+	});
+});
+$(document).on("click", ".scrap", function(){
+	pageGoPost({
+		url:"/scrap",
 		target:"_self",
 		vals:[
 			["mbrSq", sMbrSqVal]
