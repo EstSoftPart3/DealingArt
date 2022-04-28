@@ -23,6 +23,9 @@
 	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.css">
 	
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto Condensed" rel="stylesheet">
+	
 	<!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
@@ -189,8 +192,9 @@
 						<input type="password" class="input-3" placeholder="비밀번호" onkeydown="javascript: if (event.keyCode == 13) {login();}"id="txt_Pw" value="@install1684"/>
 					</div>
 					<div class="radio-3 rad-mg">
-						<input type="checkbox" id="a1" name="cc" />
-						<label for="a1"><span></span>자동로그인..</label>
+						<input type="checkbox" id="a1" name="autoLoginYn" value="Y"/>
+						<label for="a1"><span></span>자동로그인</label>
+						<span class="c-reds">※ 자동로그인은 7일만 유지됩니다.</span>
 					</div>
 					<div class="bat-box3">
 						<button type="button" class="ba-btn1" onclick="login()"><span>Login</span></button>
@@ -395,6 +399,7 @@ jQuery(document).ready(function() {
 function login(){
 	var loginId = $("#txt_Id").val();
 	var loginPw = $("#txt_Pw").val();
+	var autoLoginYn = $("input[name='autoLoginYn']:checked").val();
 	if(loginId == null || loginId == "" || loginId == undefined){
 		modalAlertShow("아이디가 입력되지 않았습니다.", "txt_Id");
 	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
@@ -405,7 +410,8 @@ function login(){
 			type:"post",
 			data: {
 				loginId : loginId,
-				loginPw : loginPw
+				loginPw : loginPw,
+				autoLoginYn : autoLoginYn
 			},
 			dataType:"json",
 			success:function(data){

@@ -479,4 +479,33 @@
    					MBR_SQ = #{mbrSq}
    				AND WORK_SQ = #{workSq}
    </delete>
+   
+   <insert id="autoLogin">
+   		/*자동 로그인 정보 수정 등록*/
+   		UPDATE TBL_DA_MBR_M 
+   				SET
+						AUTO_LOGIN_YN = #{autoLoginYn},
+						AUTO_LOGIN_SSN_ID = #{autoLoginSsnId},
+						AUTO_LOGIN_DATE = #{autoLoginDate}
+				WHERE
+						MBR_SQ = #{mbrSq}	
+   </insert>
+   
+   <select id="getSessionId" resultType="com.da.vo.AutoLoginVo" parameterType="String">
+   		/*자동로그인 세션 아이디 가져오기*/
+   		SELECT 
+   				B.ARTST_SQ AS artstSq,
+				B.ARTST_ACTVTY_NM AS artstActvtyNm,
+				B.ARTST_ENGLS_NM AS artstEnglsNm,
+				YEAR (A.MBR_BIRTH) AS artstBirthYear,
+				A.MBR_SQ AS mbrSq,
+				A.AUTH_SQ AS authSq
+   		FROM 
+   				TBL_DA_MBR_M AS A
+		INNER JOIN
+				TBL_DA_ARTST_M AS B 
+			ON	A.MBR_SQ = B.MBR_SQ 
+   		WHERE 
+   				A.AUTO_LOGIN_SSN_ID = #{value}
+   </select>
 </mapper>

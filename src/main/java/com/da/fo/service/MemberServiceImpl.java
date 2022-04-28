@@ -5,6 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.da.fo.dao.MemberDao;
+import com.da.vo.AutoLoginVo;
+
 import lombok.AllArgsConstructor;
 
 @Service
@@ -202,5 +204,23 @@ public class MemberServiceImpl implements MemberService  {
 	 */
 	public int scrapDel(Map<String, Object> param) {
 		return memberDao.scrapDel(param);
+	}
+	
+	/*
+	 * 회원 자동로그인 정보 수정
+	 * param : 회원정보가 들어있는 AutoLoginVo
+	 * return : null
+	 */
+	public void autoLogin(AutoLoginVo autoLoginVo) {
+		memberDao.autoLogin(autoLoginVo);
+	}
+	
+	/*
+	 * 자동로그인시 세션아이디로 회원 정보 가져오기
+	 * param : sessionId
+	 * return : null
+	 */
+	public AutoLoginVo getSessionId(String param) {
+		return memberDao.getSessionId(param);
 	}
 }

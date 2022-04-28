@@ -186,8 +186,6 @@
     		<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		
-		
-		
         <dependency>
 			<groupId>niceid</groupId>
 			<artifactId>NiceID</artifactId>

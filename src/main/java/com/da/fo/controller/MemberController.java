@@ -1,10 +1,13 @@
 package com.da.fo.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -17,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
+import com.da.vo.AutoLoginVo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
@@ -145,11 +150,12 @@ public class MemberController {
 	
 	@RequestMapping("/login")
 	@ResponseBody
-	public ModelAndView login(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+	public ModelAndView login(@RequestParam Map<String, Object> param, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("jsonView");
 		String loginId = commonService.encrypt((String) param.get("loginId"));
 		String loginPw = commonService.encrypt((String) param.get("loginPw"));
+		String autoLoginYn = (String) param.getOrDefault("autoLoginYn", "N");
 		param.put("loginId", loginId);
 		param.put("loginPw", loginPw);
 		param.put("email", loginId);
@@ -166,6 +172,24 @@ public class MemberController {
 			if(result != null) {
 				String mbrSq = result.get("mbrSq").toString();
 				String authSq = result.get("authSq").toString();
+				if(autoLoginYn.equals("Y")){
+					
+					long second = 60*60*24*7;
+					Cookie cookie = new Cookie("AutoLoginCookie", session.getId());
+					cookie.setPath("/");
+					cookie.setMaxAge((int)second);
+					response.addCookie(cookie);
+					long millis = System.currentTimeMillis() + (second*1000);
+					Date autoLoginDate = new Date(millis);
+					System.out.println("@@@@@@@@@@@@@@@ autoLoginDate : " + autoLoginDate);
+					AutoLoginVo autoLoginVo = new AutoLoginVo();
+					autoLoginVo.setAutoLoginDate(autoLoginDate);
+					autoLoginVo.setAutoLoginSsnId(session.getId());
+					autoLoginVo.setAutoLoginYn("Y");
+					autoLoginVo.setMbrSq(mbrSq);
+					
+					memberService.autoLogin(autoLoginVo);
+				}
 				if(authSq.equals("2")) {
 					System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@authSQ : " + authSq);
 					Map<String, Object> artstInfo = memberService.getArtistInfo(mbrSq);
@@ -197,8 +221,19 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	@ResponseBody
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
+			Cookie cookie = WebUtils.getCookie(request, "AutoLoginCookie");
+			if(cookie != null) {
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				AutoLoginVo autoLoginVo = new AutoLoginVo();
+				autoLoginVo.setAutoLoginDate(new Date());
+				autoLoginVo.setAutoLoginYn("N");
+				autoLoginVo.setAutoLoginSsnId("NONE");
+				autoLoginVo.setMbrSq((String) session.getAttribute("mbrSq"));
+				memberService.autoLogin(autoLoginVo);
+			}
 			session.invalidate();
 			return "success";
 		}else {
@@ -211,11 +246,24 @@ public class MemberController {
 	public ModelAndView loginSession(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("jsonView");
-		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        
+		Cookie cookie = WebUtils.getCookie(request, "AutoLoginCookie");
+		if(cookie != null) {
+			AutoLoginVo autoLoginVo = memberService.getSessionId(cookie.getValue());
+			session.setAttribute("mbrSq", autoLoginVo.getMbrSq());
+		    session.setAttribute("authSq", autoLoginVo.getAuthSq());
+		    mv.addObject("sMbrSqVal", autoLoginVo.getMbrSq());
+		    mv.addObject("sAuthSqVal", autoLoginVo.getAuthSq());
+			if(autoLoginVo.getArtstSq() != null && autoLoginVo.getArtstSq() != "") {
+		    	mv.addObject("artstSq", autoLoginVo.getArtstSq());
+		    	mv.addObject("artstActvtyNm", autoLoginVo.getArtstActvtyNm());
+		    	mv.addObject("artstEnglsNm", autoLoginVo.getArtstEnglsNm());
+		    	mv.addObject("artstBirthYear", autoLoginVo.getArtstBirthYear());
+		    }
+		}
+		if(cookie == null && session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        
 		    String mbrSq = (String) session.getAttribute("mbrSq");
 		    String authSq = (String) session.getAttribute("authSq");
 		    if(session.getAttribute("artstSq") != null && session.getAttribute("artstSq") != "") {
-		    	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ artstSq : " + session.getAttribute("artstSq"));
 		    	mv.addObject("artstSq", session.getAttribute("artstSq").toString());
 		    	mv.addObject("artstActvtyNm", session.getAttribute("artstActvtyNm").toString());
 		    	mv.addObject("artstEnglsNm", session.getAttribute("artstEnglsNm").toString());
@@ -225,11 +273,11 @@ public class MemberController {
 		    session.setAttribute("authSq", authSq);
 		    mv.addObject("sMbrSqVal", mbrSq);
 		    mv.addObject("sAuthSqVal", authSq);
-		}else{
+		}
+		if(cookie == null && session.getAttribute("mbrSq") == null){
 			mv.addObject("sMbrSqVal", null);
 			mv.addObject("sAuthSqVal", null);
 		}
-		
 		return mv;
 	}
 

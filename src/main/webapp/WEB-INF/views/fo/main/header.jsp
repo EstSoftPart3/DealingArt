@@ -12,6 +12,11 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>딜링아트</title>
+	
+	<!-- font 추가했습니다 -->
+	<link href=”https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap” rel=”stylesheet”>
+	<link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
+	
 	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css">

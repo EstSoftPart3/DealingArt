@@ -2,6 +2,8 @@ package com.da.fo.service;
 
 import java.util.Map;
 
+import com.da.vo.AutoLoginVo;
+
 
 public interface MemberService {
 	
@@ -92,5 +94,19 @@ public interface MemberService {
 	 * return : int
 	 */
 	int scrapDel(Map<String, Object> param);
+	
+	/*
+	 * 회원 자동로그인 정보 수정
+	 * param : 회원정보가 들어있는 AutoLoginVo
+	 * return : null
+	 */
+	public void autoLogin(AutoLoginVo autoLoginVo);
+	
+	/*
+	 * 자동로그인시 세션아이디로 회원 정보 가져오기
+	 * param : sessionId
+	 * return : null
+	 */
+	public AutoLoginVo getSessionId(String param);
 
 }
