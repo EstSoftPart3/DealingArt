@@ -30,6 +30,7 @@
 			,UPDT_DT
 			,USE_YN
 			,DEL_YN
+			,MBR_SOCIAL_SORT
        	) 
         VALUES
         (
@@ -54,6 +55,7 @@
 			,NOW()
 			,#{useYn}
 			,'N'
+			,#{mbrSocialSort}
         )
     </insert>
     
@@ -185,8 +187,17 @@
             TBL_DA_MBR_M A
         WHERE 
         	MBR_ID = #{mbrId}
-  </select>   
+  </select>  
   
+  <select id="memberInfoCount" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            TBL_DA_MBR_M A
+        WHERE 
+        	MBR_ID = #{mbrId}
+  </select>   
+ 
   <!-- 작가기본정보 입력 -->
   <insert id="authorInfoBaseInsert" parameterType="hashMap">
   		INSERT INTO TBL_DA_ARTST_M

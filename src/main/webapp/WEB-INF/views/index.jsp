@@ -104,6 +104,9 @@
          <div class="ui message">
         	<a href="/admin/member/memberList" target="_blank">관리자 페이지로 이동</a>
         </div>
+        <div class="ui message">
+        	<a href="/sample/payment" target="_blank">결제창</a>
+        </div>
 <%--         	<%= sMessage %><br><br> --%>
 <%-- 	업체정보 암호화 데이타 : [<%= sEncData %>]<br><br> --%>
 
