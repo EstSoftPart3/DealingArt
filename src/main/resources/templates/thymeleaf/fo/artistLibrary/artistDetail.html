@@ -426,7 +426,6 @@
       	}, delay);
       	
       });
-debugger;
 var artstInfo = /*[[${result}]]*/ 'default';
 $(function() {    
 	var workList = artstInfo.workList;
@@ -443,7 +442,6 @@ $(function() {
 	
 		for(var i=0; i<workList.length; i++){
 			workListHtml += '<figure class="item" id="'+ workList[i].workSq +'">';
-			workListHtml += '	<div class="heart on"></div>';
 			if(workList[i].dealTypCd == "AUCT" && workList[i].dealSttsCd == "IP"){
 				workListHtml += '	<div class="item-div-img active">';
 				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
@@ -476,6 +474,7 @@ $(function() {
 				workListHtml += '	</div>';
 			}
 			workListHtml += '	<div class="item-body">';
+			workListHtml += '		<div class="heart off" workSq="'+ workList[i].workSq +'" style="cursor:pointer;"></div>';
 			workListHtml += '		<div class="uesr-s">';
 			if(workList[i].artstProfileImgUrl == null || workList[i].artstProfileImgUrl == ""){
 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
@@ -598,6 +597,42 @@ $(function() {
 		$("#artstInfoModal").append(artstInfoHtml).trigger("create");
 		var moreButton = '<button type="button" class="btn-more"><span>more</span></button>';
 		$("#moreButton").append(moreButton).trigger("create");
+	}
+});
+
+$(document).on("click", ".heart", function(){
+	var param = new Object();
+	var element = $(this);
+	param.workSq= element.attr("workSq");
+	param.mbrSq = sMbrSqVal;
+	if($(this).hasClass("on")){
+		$.ajax({
+	        type: "post",
+	        url: "/scrapDel",
+	        data: param,
+	        success: function(data) {
+	        	element.removeClass("on");
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/scrapAdd",
+	        data: param,
+	        success: function(data) {
+	        	if(data == 1){
+	        		element.addClass("on");
+	        	}else{
+	        		modalAlertShow("스크랩 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
 	}
 });
 

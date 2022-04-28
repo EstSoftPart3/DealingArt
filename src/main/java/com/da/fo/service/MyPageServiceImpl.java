@@ -36,12 +36,75 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 	
 	/*
+	 * 나의 소장품 목록
+	 * param : mbrSq
+	 * return : 소장품 목록이 들어있는 리스트
+	 */
+	public List myCollection(String param) {
+		return myPageDao.myCollection(param);
+	}
+	
+	/*
 	 * 나의 작품 등록
 	 * param : 나의 작품 정보가 들어있는 param
 	 * return : int
 	 */
 	public int myWorkReg(Map<String, Object> param) {
 		return myPageDao.myWorkReg(param);
+	}
+	
+	/*
+	 * 나의 작품 리스트
+	 * param : artstSq
+	 * return : List
+	 */
+	public List myWork(String param) {
+		return myPageDao.myWork(param);
+	}
+	
+	/*
+	 * 나의 작품 수정 페이지 오픈
+	 * param : workSq
+	 * return : Map
+	 */
+	public Map<String, Object> myWorkMod(String param){
+		return myPageDao.myWorkMod(param);
+	}
+	
+	/*
+	 * 나의 작품 수정 등록
+	 * param : 나의 작품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	public int myWorkCor(Map<String, Object> param) {
+		return myPageDao.myWorkCor(param);
+	}
+	
+	/*
+	 * 소장품 수정 페이지 오픈
+	 * param : workSq
+	 * return : Map
+	 */
+	public Map<String, Object> myCollectionMod(String param){
+		return myPageDao.myCollectionMod(param);
+	}
+	
+	/*
+	 * 나의 소장품 수정 등록
+	 * param : 나의 소장품 등록 정보가 들어있는 param
+	 * return : int
+	 */
+	public int collectionCor(Map<String, Object> param) {
+		return myPageDao.collectionCor(param);
+	}
+	
+	/*
+	 * 스크랩 목록
+	 * param : mbrSq
+	 * return : 스크랩 목록이 들어있는 List
+	 */
+	public List<String> scrapList(String param){
+		return myPageDao.scrapList(param);
 	}
 	
 }

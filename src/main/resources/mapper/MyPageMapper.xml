@@ -92,6 +92,9 @@
 						REG_MBR_SQ,
 						UPDT_DT,
 						UPDT_MBR_SQ
+						<if test="artstSq != null and artstSq != ''">
+							,ARTST_SQ
+						</if>
 						<if test="artstYear != null and artstYear != ''">
 							,ARTST_BIRTH_YEAR
 						</if> 
@@ -110,8 +113,8 @@
 						<if test="workProdcYear != null and workProdcYear != ''">
 							,WORK_PRODC_YEAR 
 						</if> 
-						<if test="workVdoUrl  != null and workVdoUrl  != ''">
-							,WORK_VDO_URL
+						<if test="workVideoUrl != null and workVideoUrl != ''">
+							,WORK_VIDEO_URL
 						</if> 
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,WORK_INTRDC
@@ -139,9 +142,9 @@
 						#{workNm}, 
 						#{workFrmYn}, 
 						#{workClrCd},
-						#{workMainImg}, 
-						#{workImgFrt}, 
-						#{workImgRer},
+						#{workMainImgUrl}, 
+						#{workImgFrtUrl}, 
+						#{workImgRerUrl},
 						NOW(),
 						#{mbrSq},
 						NOW(),
@@ -164,8 +167,8 @@
 						<if test="workProdcYear != null and workProdcYear != ''">
 							,#{workProdcYear} 
 						</if> 
-						<if test="workVdoUrl  != null and workVdoUrl  != ''">
-							,#{workVdoUrl}
+						<if test="workVideoUrl != null and workVideoUrl != ''">
+							,#{workVideoUrl}
 						</if> 
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,#{workIntrdc}
@@ -209,9 +212,9 @@
 							AND		WORK_FRM_YN = #{workFrmYn}
 							AND 	WORK_CLR_CD = #{workClrCd}
 							AND 	WORK_TYP_CD = #{workTypCd}
-							AND 	WORK_MAIN_IMG_URL = #{workMainImg}
-							AND		WORK_IMG_FRT_URL = #{workImgFrt}
-							AND		WORK_IMG_RER_URL = #{workImgRer}
+							AND 	WORK_MAIN_IMG_URL = #{workMainImgUrl}
+							AND		WORK_IMG_FRT_URL = #{workImgFrtUrl}
+							AND		WORK_IMG_RER_URL = #{workImgRerUrl}
 						)
 										
 					)
@@ -260,7 +263,7 @@
 									<if test="workImgBotUrl != null and workImgBotUrl != ''">
 										,WORK_IMG_BOT_URL
 									</if>
-									<if test="workVdoUrl != null and workVdoUrl != ''">
+									<if test="workVideoUrl != null and workVideoUrl != ''">
 										,WORK_VIDEO_URL
 									</if>
 									<if test="workIntrdc != null and workIntrdc != ''">
@@ -278,9 +281,9 @@
 							#{workSizeDepth},
 							#{workMatrl},
 							#{workProdcYear},
-							#{workMainImg},
-							#{workImgFrt},
-							#{workImgRer},
+							#{workMainImgUrl},
+							#{workImgFrtUrl},
+							#{workImgRerUrl},
 							#{workFrmYn},
 							#{workSaleYn},
 							#{workClrCd},
@@ -306,15 +309,652 @@
 							<if test="workImgBotUrl != null and workImgBotUrl != ''">
 								,#{workImgBotUrl}
 							</if>
-							<if test="workVdoUrl != null and workVdoUrl != ''">
-								,#{workVdoUrl}
+							<if test="workVideoUrl != null and workVideoUrl != ''">
+								,#{workVideoUrl}
 							</if>
 							<if test="workIntrdc != null and workIntrdc != ''">
 								,#{workIntrdc}
 							</if>
 					)
 					
+	</insert>
+	<select id="myWorkListSale" resultType="hashMap" parameterType="String">
+		/*나의 작품 판매중 검색*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				E.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				E.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				YEAR (D.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				E.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
+				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
+				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				B.BID_CNT AS bidCnt, /*응찰수*/ 
+				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+				FROM TBL_DA_AUCTN_BID_H 
+				GROUP BY DEAL_SQ) AS B,
+				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				FROM TBL_DA_AUCTN_BID_H
+				GROUP BY DEAL_SQ) AS C,
+				TBL_DA_MBR_M AS D,
+				TBL_DA_ARTST_M AS E,
+				TBL_DA_DEAL_M AS F
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.ARTST_SQ = E.ARTST_SQ
+				AND A.WORK_SQ = F.WORK_SQ
+				AND B.DEAL_SQ = F.DEAL_SQ
+				AND C.DEAL_SQ = F.DEAL_SQ
+				AND A.WORK_TYP_CD = 'WORK'
+				AND A.ARTST_SQ = #{value}
+	</select>
+	<select id="myWorkListNonSale" resultType="hashMap" parameterType="String">
+		/*나의 작품 판매전 검색*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				E.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				E.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				YEAR (D.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				E.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRC AS workPrc, /*작품가격*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_MBR_M AS D,
+				TBL_DA_ARTST_M AS E
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.ARTST_SQ = E.ARTST_SQ
+				AND A.WORK_SALE_YN = 'N'
+				AND A.WORK_TYP_CD = 'WORK'
+				AND A.ARTST_SQ = #{value}
+	</select>
 	
+	<select id="myWorkMod" resultType="hashMap" parameterType="String">
+		/*나의 작품 정보*/
+		SELECT 
+				A.WORK_SQ AS workSq,
+				A.WORK_NM AS workNm,
+				A.WORK_TYP_CD AS workTypCd,
+				A.WORK_SIZE_WIDTH AS workSizeWidth,
+				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_MATRL AS workMatrl,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
+				A.WORK_IMG_RER_URL AS workImgRerUrl,
+				A.WORK_FRM_YN AS workFrmYn,
+				A.WORK_SALE_YN AS workSaleYn,
+				A.WORK_CLR_CD AS workClrCd,
+				A.WORK_GRT_URL AS workGrtUrl,
+				A.WORK_PRC AS workPrc,
+				A.WORK_IMG_LEF_URL AS workImgLefUrl,
+				A.WORK_IMG_RIT_URL AS workImgRitUrl,
+				A.WORK_IMG_TOP_URL AS workImgTopUrl,
+				A.WORK_IMG_BOT_URL AS workImgBotUrl,
+				A.WORK_VIDEO_URL AS workVideoUrl,
+				A.WORK_INTRDC AS workIntrdc,
+				(SELECT B.KEYWRD_SQ  
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
+				(SELECT B.KEYWRD
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+		FROM 
+				TBL_DA_WORK_M AS A
+				
+		WHERE 
+				A.WORK_SQ = #{value}
+			AND A.WORK_TYP_CD = 'WORK'
+	</select>
+	
+	<insert id="myWorkCor">
+		/*나의 작품 등록 수정*/
+		INSERT INTO 
+					TBL_DA_WORK_M(
+									WORK_SQ,
+									MBR_SQ,
+									ARTST_SQ,
+									ARTST_ACTVTY_NM,
+									ARTST_BIRTH_YEAR,
+									WORK_TYP_CD,
+									WORK_NM,
+									WORK_SIZE_WIDTH,
+									WORK_SIZE_DEPTH,
+									WORK_MATRL,
+									WORK_PRODC_YEAR,
+									WORK_MAIN_IMG_URL,
+									WORK_IMG_FRT_URL,
+									WORK_IMG_RER_URL,
+									WORK_FRM_YN,
+									WORK_SALE_YN,
+									WORK_CLR_CD,
+									UPDT_DT,
+									UPDT_MBR_SQ
+									<if test="workGrtUrl != null and workGrtUrl != ''">
+										,WORK_GRT_URL
+									</if>
+									<if test="workPrc != null and workPrc != ''">
+										,WORK_PRC
+									</if>
+									<if test="workImgLefUrl != null and workImgLefUrl != ''">
+										,WORK_IMG_LEF_URL
+									</if>
+									<if test="workImgRitUrl != null and workImgRitUrl != ''">
+										,WORK_IMG_RIT_URL
+									</if>
+									<if test="workImgTopUrl != null and workImgTopUrl != ''">
+										,WORK_IMG_TOP_URL
+									</if>
+									<if test="workImgBotUrl != null and workImgBotUrl != ''">
+										,WORK_IMG_BOT_URL
+									</if>
+									<if test="workVideoUrl != null and workVideoUrl != ''">
+										,WORK_VIDEO_URL
+									</if>
+									<if test="workIntrdc != null and workIntrdc != ''">
+										,WORK_INTRDC
+									</if>
+					) VALUES (
+								#{workSq},
+			     				#{mbrSq},
+								#{artstSq},
+								#{artstNm},
+								#{artstBirthYear},
+								#{workTypCd},
+								#{workNm},
+								#{workSizeWidth},
+								#{workSizeDepth},
+								#{workMatrl},
+								#{workProdcYear},
+								#{workMainImgUrl},
+								#{workImgFrtUrl},
+								#{workImgRerUrl},
+								#{workFrmYn},
+								#{workSaleYn},
+								#{workClrCd},
+								NOW(),
+								#{mbrSq}
+								<if test="workGrtUrl != null and workGrtUrl != ''">
+									,#{workGrtUrl}
+								</if>
+								<if test="workPrc != null and workPrc != ''">
+									,#{workPrc}
+								</if>
+								<if test="workImgLefUrl != null and workImgLefUrl != ''">
+									,#{workImgLefUrl}
+								</if>
+								<if test="workImgRitUrl != null and workImgRitUrl != ''">
+									,#{workImgRitUrl}
+								</if>
+								<if test="workImgTopUrl != null and workImgTopUrl != ''">
+									,#{workImgTopUrl}
+								</if>
+								<if test="workImgBotUrl != null and workImgBotUrl != ''">
+									,#{workImgBotUrl}
+								</if>
+								<if test="workVideoUrl != null and workVideoUrl != ''">
+									,#{workVideoUrl}
+								</if>
+								<if test="workIntrdc != null and workIntrdc != ''">
+									,#{workIntrdc}
+								</if>
+							)
+	ON DUPLICATE KEY UPDATE
+		    					MBR_SQ = #{mbrSq},
+								ARTST_SQ = #{artstSq},
+								ARTST_ACTVTY_NM = #{artstNm},
+								ARTST_BIRTH_YEAR = #{artstBirthYear},
+								WORK_TYP_CD = #{workTypCd},
+								WORK_NM = #{workNm},
+								WORK_SIZE_WIDTH = #{workSizeWidth},
+								WORK_SIZE_DEPTH = #{workSizeDepth},
+								WORK_MATRL = #{workMatrl},
+								WORK_PRODC_YEAR = #{workProdcYear},
+								WORK_MAIN_IMG_URL = #{workMainImgUrl},
+								WORK_IMG_FRT_URL = #{workImgFrtUrl},
+								WORK_IMG_RER_URL = #{workImgRerUrl},
+								WORK_FRM_YN = #{workFrmYn},
+								WORK_SALE_YN = #{workSaleYn},
+								WORK_CLR_CD = #{workClrCd},
+								UPDT_DT = NOW(),
+								UPDT_MBR_SQ = #{mbrSq}
+								<if test="workGrtUrl != null and workGrtUrl != ''">
+									,WORK_GRT_URL = #{workGrtUrl}
+								</if>
+								<if test="workPrc != null and workPrc != ''">
+									,WORK_PRC = #{workPrc}
+								</if>
+								<if test="workImgLefUrl != null and workImgLefUrl != ''">
+									,WORK_IMG_LEF_URL = #{workImgLefUrl}
+								</if>
+								<if test="workImgRitUrl != null and workImgRitUrl != ''">
+									,WORK_IMG_RIT_URL = #{workImgRitUrl}
+								</if>
+								<if test="workImgTopUrl != null and workImgTopUrl != ''">
+									,WORK_IMG_TOP_URL = #{workImgTopUrl}
+								</if>
+								<if test="workImgBotUrl != null and workImgBotUrl != ''">
+									,WORK_IMG_BOT_URL = #{workImgBotUrl}
+								</if>
+								<if test="workVideoUrl != null and workVideoUrl != ''">
+									,WORK_VIDEO_URL = #{workVideoUrl}
+								</if>
+								<if test="workIntrdc != null and workIntrdc != ''">
+									,WORK_INTRDC = #{workIntrdc}
+								</if>
 	</insert>
 	
+	<insert id="keywrdCor">
+		/*작품 키워드 등록*/
+		INSERT INTO
+					TBL_DA_KEYWRD_S (
+									KEYWRD_SQ,
+									KEYWRD,
+									WORK_SQ
+									)
+					VALUE(
+									#{keywrdSq},
+									#{keywrd},
+									#{workSq}	
+									)
+		ON DUPLICATE KEY UPDATE			
+									KEYWRD = #{keywrd}
+	</insert>
+	
+	<select id="myCollectionSale" resultType="hashMap" parameterType="String">
+		/*나의 소장품 판매중 검색*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
+				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
+				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				B.BID_CNT AS bidCnt, /*응찰수*/ 
+				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+				FROM TBL_DA_AUCTN_BID_H 
+				GROUP BY DEAL_SQ) AS B,
+				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				FROM TBL_DA_AUCTN_BID_H
+				GROUP BY DEAL_SQ) AS C,
+				TBL_DA_MBR_M AS D,
+				TBL_DA_DEAL_M AS F
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.WORK_SQ = F.WORK_SQ
+				AND B.DEAL_SQ = F.DEAL_SQ
+				AND C.DEAL_SQ = F.DEAL_SQ
+				AND A.WORK_TYP_CD = 'COLL'
+				AND A.MBR_SQ = #{value}
+	</select>
+	<select id="myCollectionNonSale" resultType="hashMap" parameterType="String">
+		/*나의 소장품 판매전 검색*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRC AS workPrc, /*작품가격*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_MBR_M AS D
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.WORK_TYP_CD = 'COLL'
+				AND A.WORK_SALE_YN = 'N'
+				AND A.MBR_SQ = #{value}
+	</select>
+	<select id="myCollectionMod" resultType="hashMap" parameterType="String">
+		/*나의 소장품 정보*/
+		SELECT 
+				A.WORK_SQ AS workSq,
+				A.WORK_NM AS workNm,
+				A.WORK_TYP_CD AS workTypCd,
+				A.ARTST_SQ AS artstSq,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.ARTST_BIRTH_YEAR AS artstBirthYear,
+				A.WORK_SIZE_WIDTH AS workSizeWidth,
+				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_MATRL AS workMatrl,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
+				A.WORK_IMG_RER_URL AS workImgRerUrl,
+				A.WORK_FRM_YN AS workFrmYn,
+				A.WORK_SALE_YN AS workSaleYn,
+				A.WORK_CLR_CD AS workClrCd,
+				A.WORK_GRT_URL AS workGrtUrl,
+				A.WORK_PRC AS workPrc,
+				A.WORK_IMG_LEF_URL AS workImgLefUrl,
+				A.WORK_IMG_RIT_URL AS workImgRitUrl,
+				A.WORK_IMG_TOP_URL AS workImgTopUrl,
+				A.WORK_IMG_BOT_URL AS workImgBotUrl,
+				A.WORK_VIDEO_URL AS workVideoUrl,
+				A.WORK_INTRDC AS workIntrdc,
+				(SELECT B.KEYWRD_SQ  
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
+				(SELECT B.KEYWRD
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+		FROM 
+				TBL_DA_WORK_M AS A
+				
+		WHERE 
+				A.WORK_SQ = #{value}
+			AND A.WORK_TYP_CD = 'COLL'
+	</select>
+	
+	<insert id="collectionCor">
+		/*소장품 수정*/
+		INSERT INTO 
+					TBL_DA_WORK_M (
+									WORK_SQ,
+									MBR_SQ,
+									WORK_TYP_CD,
+									ARTST_ACTVTY_NM,
+									WORK_NM,
+									WORK_FRM_YN,
+									WORK_CLR_CD,
+									WORK_MAIN_IMG_URL, 
+									WORK_IMG_FRT_URL, 
+									WORK_IMG_RER_URL,
+									UPDT_DT,
+									UPDT_MBR_SQ
+									<if test="artstSq != null and artstSq != ''">
+										,ARTST_SQ
+									</if>
+									<if test="artstYear != null and artstYear != ''">
+										,ARTST_BIRTH_YEAR
+									</if> 
+									<if test="workPrc != null and workPrc != ''">
+										,WORK_PRC
+									</if> 
+									<if test="workSizeWidth != null and workSizeWidth != ''">
+										,WORK_SIZE_WIDTH
+									</if> 
+									<if test="workSizeDepth != null and workSizeDepth != ''">
+										,WORK_SIZE_DEPTH
+									</if> 
+									<if test="workMatrl != null and workMatrl != ''">
+										,WORK_MATRL 
+									</if> 
+									<if test="workProdcYear != null and workProdcYear != ''">
+										,WORK_PRODC_YEAR 
+									</if> 
+									<if test="workVideoUrl != null and workVideoUrl != ''">
+										,WORK_VIDEO_URL
+									</if> 
+									<if test="workIntrdc != null and workIntrdc != ''">
+										,WORK_INTRDC
+									</if> 
+									<if test="workGrtUrl != null and workGrtUrl != ''">
+										,WORK_GRT_URL
+									</if>
+									<if test="workImgLefUrl != null and workImgLefUrl != ''">
+										,WORK_IMG_LEF_URL
+									</if>
+									<if test="workImgRitUrl != null and workImgRitUrl != ''">
+										,WORK_IMG_RIT_URL
+									</if>
+									<if test="workImgTopUrl != null and workImgTopUrl != ''">
+										,WORK_IMG_TOP_URL
+									</if>
+									<if test="workImgBotUrl != null and workImgBotUrl != ''">
+										,WORK_IMG_BOT_URL
+									</if>
+								)
+							VALUES (
+									#{workSq},
+									#{mbrSq}, 
+									#{workTypCd}, 
+									#{artstActvtyNm}, 
+									#{workNm}, 
+									#{workFrmYn}, 
+									#{workClrCd},
+									#{workMainImgUrl}, 
+									#{workImgFrtUrl}, 
+									#{workImgRerUrl},
+									NOW(),
+									#{mbrSq}
+									<if test="artstSq != null and artstSq != ''">
+										,#{artstSq}
+									</if>
+									<if test="artstYear != null and artstYear != ''">
+										,#{artstYear}
+									</if> 
+									<if test="workPrc != null and workPrc != ''">
+										,#{workPrc}
+									</if> 
+									<if test="workSizeWidth != null and workSizeWidth != ''">
+										,#{workSizeWidth}
+									</if> 
+									<if test="workSizeDepth != null and workSizeDepth != ''">
+										,#{workSizeDepth}
+									</if> 
+									<if test="workMatrl != null and workMatrl != ''">
+										,#{workMatrl} 
+									</if> 
+									<if test="workProdcYear != null and workProdcYear != ''">
+										,#{workProdcYear} 
+									</if> 
+									<if test="workVideoUrl  != null and workVideoUrl  != ''">
+										,#{workVideoUrl}
+									</if> 
+									<if test="workIntrdc != null and workIntrdc != ''">
+										,#{workIntrdc}
+									</if> 
+									<if test="workGrtUrl != null and workGrtUrl != ''">
+										,#{workGrtUrl}
+									</if>
+									<if test="workImgLefUrl != null and workImgLefUrl != ''">
+										,#{workImgLefUrl}
+									</if>
+									<if test="workImgRitUrl != null and workImgRitUrl != ''">
+										,#{workImgRitUrl}
+									</if>
+									<if test="workImgTopUrl != null and workImgTopUrl != ''">
+										,#{workImgTopUrl}
+									</if>
+									<if test="workImgBotUrl != null and workImgBotUrl != ''">
+										,#{workImgBotUrl}
+									</if>
+							)
+	ON DUPLICATE KEY UPDATE
+								WORK_TYP_CD = #{workTypCd}, 
+								ARTST_ACTVTY_NM = #{artstActvtyNm}, 
+								WORK_NM = #{workNm},
+								WORK_FRM_YN = #{workFrmYn},
+								WORK_CLR_CD = #{workClrCd},
+								WORK_MAIN_IMG_URL = #{workMainImgUrl},
+								WORK_IMG_FRT_URL = #{workImgFrtUrl},
+								WORK_IMG_RER_URL =#{workImgRerUrl},
+								UPDT_DT = NOW(),
+								UPDT_MBR_SQ = #{mbrSq}
+								<if test="artstSq != null and artstSq != ''">
+									,ARTST_SQ = #{artstSq}
+								</if>
+								<if test="artstYear != null and artstYear != ''">
+									,ARTST_BIRTH_YEAR = #{artstBirthYear}
+								</if> 
+								<if test="workPrc != null and workPrc != ''">
+									,WORK_PRC = #{workPrc}
+								</if> 
+								<if test="workSizeWidth != null and workSizeWidth != ''">
+									,WORK_SIZE_WIDTH = #{workSizeWidth}
+								</if> 
+								<if test="workSizeDepth != null and workSizeDepth != ''">
+									,WORK_SIZE_DEPTH = #{workSizeDepth}
+								</if> 
+								<if test="workMatrl != null and workMatrl != ''">
+									,WORK_MATRL = #{workMatrl}
+								</if> 
+								<if test="workProdcYear != null and workProdcYear != ''">
+									,WORK_PRODC_YEAR = #{workProdcYear}
+								</if> 
+								<if test="workVideoUrl  != null and workVideoUrl  != ''">
+									,WORK_VIDEO_URL = #{workVideoUrl}
+								</if> 
+								<if test="workIntrdc != null and workIntrdc != ''">
+									,WORK_INTRDC = #{workIntrdc}
+								</if> 
+								<if test="workGrtUrl != null and workGrtUrl != ''">
+									,WORK_GRT_URL = #{workGrtUrl}
+								</if>
+								<if test="workImgLefUrl != null and workImgLefUrl != ''">
+									,WORK_IMG_LEF_URL = #{workImgLefUrl}
+								</if>
+								<if test="workImgRitUrl != null and workImgRitUrl != ''">
+									,WORK_IMG_RIT_URL = #{workImgRitUrl}
+								</if>
+								<if test="workImgTopUrl != null and workImgTopUrl != ''">
+									,WORK_IMG_TOP_URL = #{workImgTopUrl}
+								</if>
+								<if test="workImgBotUrl != null and workImgBotUrl != ''">
+									,WORK_IMG_BOT_URL = #{workImgBotUrl}
+								</if>
+	</insert>
+	
+	<select id="scrapList" resultType="hashMap" parameterType="String">
+		/*스크랩한 작품 번호 조회*/
+		SELECT 
+				WORK_SQ AS workSq
+		FROM 
+				TBL_DA_MBR_SCRAP_R
+		WHERE 
+				MBR_SQ = #{value}
+	</select>
+		
+	<select id="scrapListSale" resultType="hashMap" parameterType="hashMap">
+		/*판매중인 스크랩 목록 조회*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
+				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
+				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				B.BID_CNT AS bidCnt, /*응찰수*/ 
+				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
+				FROM TBL_DA_AUCTN_BID_H 
+				GROUP BY DEAL_SQ) AS B,
+				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				FROM TBL_DA_AUCTN_BID_H
+				GROUP BY DEAL_SQ) AS C,
+				TBL_DA_MBR_M AS D,
+				TBL_DA_DEAL_M AS F
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.WORK_SQ = F.WORK_SQ
+				AND B.DEAL_SQ = F.DEAL_SQ
+				AND C.DEAL_SQ = F.DEAL_SQ
+				AND A.WORK_SQ IN
+				<foreach collection="list" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item.workSq}
+		        </foreach>
+	</select>
+	<select id="scrapListNonSale" resultType="hashMap" parameterType="hashMap">
+		/*판매중이 아닌 스크랩 목록 조회*/
+		SELECT 
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				D.AUTH_SQ AS authSq, /*작가구분*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRC AS workPrc, /*작품가격*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_MBR_M AS D
+		WHERE 
+				A.MBR_SQ = D.MBR_SQ 
+				AND A.WORK_SALE_YN = 'N'
+				AND A.WORK_SQ IN
+				<foreach collection="list" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item.workSq}
+		        </foreach>
+	</select>
 </mapper>
