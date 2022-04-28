@@ -136,6 +136,14 @@ public class MemberDao {
 		return result;
 	}
 	
+	//회원정보 아이디.닉네임 중복 체크
+	public int memberInfoCount(Map<String, Object> param){
+		
+		int memberInfoCount = memberMapper.memberInfoCount(param);
+		
+		return memberInfoCount;
+	}
+	
 	//작가정보 등록
 	public int authorInfoBaseSave(Map<String, Object> param){
 		

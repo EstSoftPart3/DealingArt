@@ -84,6 +84,13 @@ public class MemberServiceImpl implements MemberService  {
 		return result;
 	}
 	
+	public int memberInfoCount(Map<String, Object> param) {
+		int result = -1;
+		
+		result = memberDao.memberInfoCount(param);
+		
+		return result;
+	}
 	
 	//작가기본정보 등록
 	@Override

@@ -45,7 +45,10 @@ public interface MemberService {
 	
 	//회원정보 아이디 중복 체크
 	public Map<String, Object> memberIdCheck(Map<String, Object> param);
-		
+	
+	//회원정보 카운터
+	public int memberInfoCount(Map<String, Object> param);
+			
 	//작가기본정보 등록
 	public int authorInfoBaseSave(Map<String, Object> param);
 	

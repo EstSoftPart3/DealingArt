@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.da"})
 public class DealingArtApplication extends SpringBootServletInitializer{
@@ -37,4 +38,10 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	public RestTemplate getRestTemplate(){
 	    return new RestTemplate();
 	}
+	
+	
+	
+	
+
+
 }

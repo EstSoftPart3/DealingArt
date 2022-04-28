@@ -125,7 +125,8 @@ public class TestController {
 		List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
 		Map<String, Object> tomap = new HashMap<String, Object>();
 		
-		tomap.put("address", "dudtka37@naver.com");
+		//tomap.put("address", "dudtka37@naver.com");
+		tomap.put("address", "isonaki@naver.com");
 		tomap.put("type", "R");
 		mList.add(tomap);
 		
@@ -135,11 +136,11 @@ public class TestController {
 		
 		rtnMap = sendMailUtil.sendMail(params);
 		
-		if(((int) Double.parseDouble(rtnMap.get("count").toString()) < 0)){
-			result = "error";
-		}else {
-			result = "OK";
-		}
+//		if(((int) Double.parseDouble(rtnMap.get("count").toString()) < 0)){
+//			result = "error";
+//		}else {
+//			result = "OK";
+//		}
 		
 		return result;
 	}
