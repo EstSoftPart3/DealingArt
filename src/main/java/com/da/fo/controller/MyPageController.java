@@ -190,7 +190,6 @@ public class MyPageController {
 
 		return result;
 	}
-<<<<<<< HEAD
 	
 	//회원수정 이메일인증 메일보내기 테스트 
 		@RequestMapping("/emailTest")
@@ -495,11 +494,7 @@ public class MyPageController {
 			return result;
 		}
 	
-	//소장품 등록
-=======
-
 	// 소장품 등록
->>>>>>> 2f632496492c734e99c8023a02aadefecc4af32e
 	@PostMapping("/collectionReg")
 	@ResponseBody
 	public int collectionReg(@RequestPart(value = "work") Map<String, Object> param,
