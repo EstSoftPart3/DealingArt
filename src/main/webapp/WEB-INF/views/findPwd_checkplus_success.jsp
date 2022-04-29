@@ -132,21 +132,9 @@
 </head>
 <body>
 	<script>
+		var mbrNm = '<%=sName%>'
 		
-		var diValue = '<%=sDupInfo%>'
-		opener.mainMobileAuthSuccess(diValue);
-		
-		opener.document.memberInput.mbrNm.value ="<%=sName%>";
-		
-		var userHp = '<%=sMobileNo%>'
-		userHp = userHp.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-		opener.document.memberInput.mbrCpNum.value=userHp;
-		opener.document.memberInput.mbrCpCertYn.value='Y';
-		
-		var sCipherTime = "20<%=sCipherTime%>";
-		var dt = sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
-		
-		opener.document.memberInput.mbrCpCertDate.value=dt;
+		window.opener.findPwdReturnValue(mbrNm);
 		
 		window.close();
   	</script>

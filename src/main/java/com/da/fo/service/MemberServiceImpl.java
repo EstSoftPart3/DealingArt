@@ -230,4 +230,31 @@ public class MemberServiceImpl implements MemberService  {
 	public AutoLoginVo getSessionId(String param) {
 		return memberDao.getSessionId(param);
 	}
+	
+	/*
+	 * 회원 아이디 찾기
+	 * param : mbrCpCertDi
+	 * return : 회원 정보
+	 */
+	public Map<String, Object> findId(String param){
+		return memberDao.findId(param);
+	}
+	
+	/*
+	 * 회원 중복체크
+	 * param : mbrCpCertDi
+	 * return : 회원 카운트
+	 */
+	public int memberDuplicateCheck(String param) {
+		return memberDao.memberDuplicateCheck(param);
+	}
+	
+	/*
+	 * 회원 비밀번호 변경
+	 * param : mbrId, mbrPasswrd
+	 * return : int
+	 */
+	public int changePasswrd(Map<String, Object> param) {
+		return memberDao.changePasswrd(param);
+	}
 }

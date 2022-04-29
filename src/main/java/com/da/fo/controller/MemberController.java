@@ -517,4 +517,31 @@ public class MemberController {
 		int result = memberService.scrapDel(param);
 		return result;
 	}
+	
+	//회원 아이디 찾기
+	@RequestMapping("/findId")
+	@ResponseBody
+	public ModelAndView findId(@RequestParam String mbrCpCertDi) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = memberService.findId(mbrCpCertDi);
+		result.put("mbrId", commonService.decrypt(result.get("mbrId").toString()));
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//회원 중복체크
+	@RequestMapping("/memberDuplicateCheck")
+	@ResponseBody
+	public int memberDuplicateCheck(@RequestParam String mbrCpCertDi) {
+		return memberService.memberDuplicateCheck(mbrCpCertDi);
+	}
+	
+	//회원 비밀번호변경
+	@RequestMapping("/changePasswrd")
+	@ResponseBody
+	public int changePasswrd(@RequestParam Map<String, Object> param) {
+		param.put("mbrId", commonService.encrypt(param.get("mbrId").toString()));
+		param.put("mbrPasswrd", commonService.encrypt(param.get("mbrPasswrd").toString()));
+		return memberService.changePasswrd(param);
+	}
 }

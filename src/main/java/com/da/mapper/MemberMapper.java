@@ -136,4 +136,33 @@ public interface MemberMapper {
 	 * return : null
 	 */
 	public AutoLoginVo getSessionId(String param);
+	
+	/*
+	 * 회원 아이디 찾기
+	 * param : mbrCpCertDi
+	 * return : 회원 정보
+	 */
+	public Map<String, Object> findId(String param);
+	
+	/*
+	 * 회원 중복체크
+	 * param : mbrCpCertDi
+	 * return : 회원 카운트
+	 */
+	public int memberDuplicateCheck(String param);
+	
+	/*
+	 * 회원 비밀번호 변경전 중복체크
+	 * param : mbrId, mbrPasswrd
+	 * return : int
+	 */
+	public int changePasswrdCheck(Map<String, Object> param);
+	
+	/*
+	 * 회원 비밀번호 변경
+	 * param : mbrId, mbrPasswrd
+	 * return : int
+	 */
+	public int changePasswrd(Map<String, Object> param);
+
 }

@@ -53,14 +53,25 @@ public class mobileAuthServiceImpl implements mobileAuthService {
 		String sReturnUrl = "";
 		String sErrorUrl = "";
 		
-		if(getRequestURI.equals("/main/auth/phone")) {
+		switch(getRequestURI){
+		case "/main/auth/phone" :
 			sReturnUrl = domainName + "/auth/main_checkplus_success"; // 성공시 이동될 URL
-			sErrorUrl = domainName + "/auth/checkplus_fail"; // 실패시 이동될 URL
-		} else {
+			sErrorUrl = domainName + "/auth/main_checkplus_fail"; // 실패시 이동될 URL
+			break;
+		case "/auth/phone" :
 			sReturnUrl = domainName + "/auth/checkplus_success"; // 성공시 이동될 URL
 			sErrorUrl = domainName + "/auth/checkplus_fail"; // 실패시 이동될 URL
+			break;
+		case "/findId/auth/phone" :
+			sReturnUrl = domainName + "/auth/findId_checkplus_success"; // 성공시 이동될 URL
+			sErrorUrl = domainName + "/auth/findId_checkplus_fail"; // 실패시 이동될 URL
+			break;
+		case "/findPwd/auth/phone" :
+			sReturnUrl = domainName + "/auth/findPwd_checkplus_success"; // 성공시 이동될 URL
+			sErrorUrl = domainName + "/auth/findPwd_checkplus_fail"; // 실패시 이동될 URL
+			break;
 		}
-		
+			
 
 
 		// 입력될 plain 데이타를 만든다.

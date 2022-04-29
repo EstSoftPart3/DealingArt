@@ -44,7 +44,6 @@ public class MobileAuthController {
 	@RequestMapping(value = "/main/auth/phone", method = RequestMethod.POST) 
 	@ResponseBody
 	public String mainMobileAuth(HttpServletRequest request) throws ResponseException {
-		
 		return mobileAuthService.initMobileAuth(request);
 	}
 		
@@ -56,5 +55,37 @@ public class MobileAuthController {
 	@RequestMapping("/auth/main_checkplus_fail")
 	public String mainCheckplusFail() {
 		return "main_checkplus_fail";
+	}
+	
+	@RequestMapping(value = "/findId/auth/phone", method = RequestMethod.POST) 
+	@ResponseBody
+	public String findIdMobileAuth(HttpServletRequest request) throws ResponseException {
+		return mobileAuthService.initMobileAuth(request);
+	}
+		
+	@RequestMapping("/auth/findId_checkplus_success")
+	public String findIdCheckplusSuccess() {
+		return "findId_checkplus_success"; 
+	}
+	
+	@RequestMapping("/auth/findId_checkplus_fail")
+	public String findIdCheckplusFail() {
+		return "findId_checkplus_fail";
+	}
+	
+	@RequestMapping(value = "/findPwd/auth/phone", method = RequestMethod.POST) 
+	@ResponseBody
+	public String findPwdMobileAuth(HttpServletRequest request) throws ResponseException {
+		return mobileAuthService.initMobileAuth(request);
+	}
+		
+	@RequestMapping("/auth/findPwd_checkplus_success")
+	public String findPwdCheckplusSuccess() {
+		return "findPwd_checkplus_success"; 
+	}
+	
+	@RequestMapping("/auth/findPwd_checkplus_fail")
+	public String findPwdCheckplusFail() {
+		return "findPwd_checkplus_fail";
 	}
 }

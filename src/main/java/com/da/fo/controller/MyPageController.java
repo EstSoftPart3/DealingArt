@@ -614,36 +614,36 @@ public class MyPageController {
 	}
 	
 	// 소장품 등록
-		@PostMapping("/collectionCor")
-		@ResponseBody
-		public int collectionCor(@RequestPart(value = "work") Map<String, Object> param, @RequestPart(value = "file") @Nullable List<MultipartFile> multipartFiles) {
-			System.out.println("##################### collectionReg param : " + param);
-			System.out.println("##################### collectionReg file : " + multipartFiles);
-			System.out.println("######### file : " + multipartFiles);
-			if (multipartFiles != null) {
-				List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
-				System.out.println("############## fileVO : " + fileVo);
-				param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-				param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-				param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
-				if (fileVo.size() >= 4) {
-					param.put("workGrtUrl", fileVo.get(3).getFileUrl());
-				}
-				if (fileVo.size() >= 5) {
-					param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
-				}
-				if (fileVo.size() >= 6) {
-					param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
-				}
-				if (fileVo.size() >= 7) {
-					param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
-				}
-				if (fileVo.size() >= 8) {
-					param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
-				}
+	@PostMapping("/collectionCor")
+	@ResponseBody
+	public int collectionCor(@RequestPart(value = "work") Map<String, Object> param, @RequestPart(value = "file") @Nullable List<MultipartFile> multipartFiles) {
+		System.out.println("##################### collectionReg param : " + param);
+		System.out.println("##################### collectionReg file : " + multipartFiles);
+		System.out.println("######### file : " + multipartFiles);
+		if (multipartFiles != null) {
+			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
+			System.out.println("############## fileVO : " + fileVo);
+			param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
+			param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
+			param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
+			if (fileVo.size() >= 4) {
+				param.put("workGrtUrl", fileVo.get(3).getFileUrl());
 			}
-			int result = myPageService.collectionCor(param);
-			return result;
+			if (fileVo.size() >= 5) {
+				param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+			}
+			if (fileVo.size() >= 6) {
+				param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+			}
+			if (fileVo.size() >= 7) {
+				param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+			}
+			if (fileVo.size() >= 8) {
+				param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+			}
 		}
+		int result = myPageService.collectionCor(param);
+		return result;
+	}
 
 }
