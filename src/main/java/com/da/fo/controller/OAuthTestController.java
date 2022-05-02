@@ -28,7 +28,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,8 @@ import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
 
 @Controller 
+@Service
+@Component
 @RequestMapping("/auth")
 public class OAuthTestController {
 
