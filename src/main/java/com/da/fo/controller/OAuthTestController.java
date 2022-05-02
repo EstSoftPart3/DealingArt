@@ -17,10 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -43,8 +45,6 @@ import com.da.fo.service.MemberService;
 import com.da.sample.service.CommonService;
 
 @Controller 
-@Service
-@Component
 @RequestMapping("/auth")
 public class OAuthTestController {
 
@@ -106,15 +106,17 @@ public class OAuthTestController {
 	      JSONObject jObjectResponse = new JSONObject(responseBody);
 	      String resultcode = jObjectResponse.getString("resultcode");
 	      
+         
+	      
 	      Map<String, Object> param = new HashMap<>();
     	  int resultCount = -1;
     	        
 	      
 	      if(resultcode.equals("00")) {
-	      
-	    	  String response = jObjectResponse.getString("response");
-	    	  JSONObject jObjectUser = new JSONObject(response);
-		  
+	    	  
+	    	 
+	    	  JSONObject jObjectUser = jObjectResponse.getJSONObject("response");
+	    	
 	    	  //네이버 이메일
 	    	  String rEmail = jObjectUser.getString("email");
 	    	  String rName = jObjectUser.getString("name");
@@ -165,10 +167,12 @@ public class OAuthTestController {
 	    		  ScriptUtils.alert(httpResponse,"정상적으로 로그인되지 않았습니다. 관리자에 문의해 주세요.","reload");
 	    		  ScriptUtils.windowClose(httpResponse);
 	    	  }
+	    	  
+	    	  
 	    	    	 
 	    	}  
 		  
-		   return "responseBody: " + responseBody;
+		   return "resultcode: " + resultcode;
 	  }	
 	  
 	
@@ -275,16 +279,18 @@ public class OAuthTestController {
 			 
 			JSONObject jObjectResponse = new JSONObject(responseBody);
 			
-		    String resultcode = jObjectResponse.getString("kakao_account");
-		    String rId = jObjectResponse.getString("id");
+			//JSONObject rId = jObjectResponse.getJSONObject("id");
 			
-		    	JSONObject jObjectUser = new JSONObject(resultcode);
-		    	String email = jObjectUser.getString("email");
-		    	
-		    	String profile = jObjectUser.getString("profile");
-		    	
-		    		JSONObject jObjectUserProfile = new JSONObject(profile);
-		    		String nickname = jObjectUserProfile.getString("nickname");
+			int id = jObjectResponse.getInt("id");
+			String rId = Integer.toString(Math.abs(id));
+			
+			JSONObject jObjectUser = jObjectResponse.getJSONObject("kakao_account");
+			
+			String email = jObjectUser.getString("email");
+			
+			JSONObject jObjectUserProfile = jObjectUser.getJSONObject("profile");
+			
+			String nickname = jObjectUserProfile.getString("nickname");
 		    		
 		    		    
 		    Map<String, Object> param = new HashMap<>();
@@ -345,7 +351,7 @@ public class OAuthTestController {
 				
 			}
 		  
-		  return "resultcode : " + rId; 
+		  return "resultcode :" + nickname; 
 	  }
 
 	  @GetMapping("/google/callback") 
