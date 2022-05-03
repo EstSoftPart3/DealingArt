@@ -154,7 +154,7 @@
         loadMessage: "Please, wait...",
         loadShading: true,
 
-        invalidMessage: "Invalid data entered!",
+        invalidMessage: "Dealing art",
 
         invalidNotify: function(args) {
             var messages = $.map(args.errors, function(error) {

@@ -40,13 +40,53 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 		return result;
 	}
 	
-	//작가회원정보 입력
+	//공통코드 입력
 	public int comCodeInsert(Map<String, Object> param){
-		
-		System.out.println("COMMON_INSERT_REQUEST = " + param);
 		
 		return comCodeMapper.comCodeInsert(param);
 		
+	}
+	
+	
+	//공통코드 수정
+	public int comCodeUpdate(Map<String, Object> param){
+		
+		return comCodeMapper.comCodeUpdate(param);
+		
+	}
+	
+	//공통코드 삭제
+	public int comCodeDelete(Map<String, Object> param){
+		
+		return comCodeMapper.comCodeDelete(param);
+		
+	}
+		
+	//공통서브코드 리스트
+	public Map<String, Object> comSubCodeList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> comSubCodeListData = comCodeMapper.comSubCodeList(param);
+		
+		result.put("comSubCodeListData", comSubCodeListData);
+		
+		return result;
+	}
+	
+	//공통코드 입력
+	public int comSubCodeInsert(Map<String, Object> param){
+		
+		return comCodeMapper.comSubCodeInsert(param);
+		
+	}
+	
+	//공통코드 수정
+	public int comSubCodeUpdate(Map<String, Object> param){
+			
+		return comCodeMapper.comSubCodeUpdate(param);
+			
 	}
 	
 }

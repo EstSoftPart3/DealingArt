@@ -39,9 +39,5 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	    return new RestTemplate();
 	}
 	
-	
-	
-	
-
 
 }

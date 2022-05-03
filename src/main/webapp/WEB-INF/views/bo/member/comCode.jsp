@@ -15,6 +15,8 @@
 
 <body class="hold-transition sidebar-mini">
 
+<input type="text" name="cdSq" id="cdSq">
+
 <input type="hidden" id="rowClickCdSq">
 
 	<div class="wrapper">
@@ -34,55 +36,29 @@
 					<div class="card-body table-responsive p-0" style="overflow:hidden;">
 						<section class="content">
 						
-							<div class="container-fluid" style="padding-left:10px;">
+							<div class="container-fluid" style="padding-left:3px;">
 								<div class="row">
 									<div>
-										<table border="0" cellpadding="0" cellspacing="1" style="width:200px;" align="center">
-											<tr>
-												<td>
-													<label class="col-form-label sTitle">코드</label>
-												</td>
-												<td>
-													<input type="text" class="form-control sTitle classname"  id="gCd" name="gCd" value="" style="width:150px;">
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label class="col-form-label sTitle">코드명</label>
-												</td>
-												<td>
-													<input type="text" class="form-control sTitle classname"  id="gCdNm" name="gCdNm" value="" style="width:150px;">
-												</td>
-											</tr>
-											<tr>
-												<td></td>
-												<td align="left">
-													<a href="javascript:comnCodeInput();" class="btn btn-info btn-block" style="font-size:11px;width:150px;"><b>입력</b></a>	
-												</td>
-											</tr>
-										</table>
-										<div class="card-body" style="width:300px;">
+										<div class="card-body" style="width:100%;" align="right">
+											
 											<!-- 공통코드명 -->
-											<div id="gridCodeList"></div>
+											<div style="float:left">
+												<div style="padding:5px;">
+													<button id="BtnAddgridCodeList" type="button" onclick="AddClick('gridCodeList')" style="font-size:12px;">코드추가</button>
+												</div>
+											
+												<div id="gridCodeList"></div>
+											</div>
+											<div style="float:left;padding-left:10px;">
+												<div style="padding:5px;">
+													<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('subGridCodeList')" style="font-size:12px;">코드추가</button>
+												</div>
+												<div id="subGridCodeList"></div>
+											</div>
 										</div>
 									</div>
 									
-									<div class="col-md-8" style="padding-left:50px;padding-top:20px;">
-										
-										<table border="0" cellpadding="0" cellspacing="1" style="width:200px;" align="left">
-											<tr>
-												<td>
-													<label class="col-form-label sTitle">코드명</label>
-												</td>
-												<td>
-													<input type="text" class="form-control sTitle classname"  id="dtlCdNm" name="dtlCdNm" value="" style="width:150px;">
-												</td>
-											</tr>
-										</table>
-										
-										<div class="form-group row">
-			               					<div id="subGridCodeList"></div>
-										</div>
+									
 								</div>
 							</div>
 							
@@ -100,153 +76,248 @@
    
    
    <script>
-   function comnCodeInput() {
-	   var gCd 	 = $("#gCd").val();		//그룹코드
-	   var gCdNm = $("#gCdNm").val();	//그루코드명
+   /* TEST */
+   
+    function AddClick(gridId) {
+	    
+	    console.log("AddClick_"+gridId);
 	   
-	   //그룹코드
-   	   if(isEmpty(gCd)) {
-   			bootbox.alert({
-				 message: "그룹코드를 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#gCd").focus();
-			     } });
-			 return;
-   		}
-	   
-   		//그룹코드명
-   	   if(isEmpty(gCdNm)) {
-   			bootbox.alert({
-				 message: "그룹코드명을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#gCdNm").focus();
-			     } });
-			 return;
-   		}
+	    if ($('#'+gridId+' .jsgrid-insert-row').css('display') == "none") {
+	      //Add 버튼 보이기, Show Add Button
+	      $('#'+gridId+' .jsgrid-insert-row').css({ display: 'table-row' });
+	      $('#BtnAdd'+gridId).text('닫기');
+	      return false;
+	    }
+	    
+	    if ($('#'+gridId+' .jsgrid-insert-row').css('display') == "table-row") {
+	      //Add 버튼 숨기기, Hide Add Button 
+	      $('#'+gridId+' .jsgrid-insert-row').css({ display: 'none' });
+	      $('#BtnAdd'+gridId).text('코드추가');
+	      return false;
+	    }
+
+   }
+   
+   function fn_insertItem() {
+	  $("#gridCodeList").jsGrid("insertItem");
+   }
+   
+   function fn_subInsertItem() {
+	   console.log("fn_subInsertItem");
+		$("#subGridCodeList").jsGrid("insertItem");
+	}
+  
+   
+   function fn_GpCmCd(str) {
 	   
 	   let params = {
-			   cd : gCd,
-			   cdNm : gCdNm
+		  cdSq : str
 	   }
 	   
-	   $.ajax({
-           type: "post",
-           url: "/admin/comCodeInputData",
-           data: params,
-           success: function(data) {
-        	   console.log(data);
-        	   bootbox.alert({
-					 message: "그룹코드 등록완료.",
-					 locale: 'kr',
-					 callback: function() {
-						 
-						 $("#gCd").val('');
-						 $("#gCdNm").val('');
-						 
-						 $("#gridCodeList").jsGrid("loadData");
-				     } });
-		   },
-           error: function(error) {
-        	   var errorJson = JSON.stringify(error);
-               console.log(errorJson);
+	   $("#gridCodeList").jsGrid({
+		   locale:"ko",
+           height: "700px",
+           width: "400px",
+           inserting: false,
+           editing: true,
+           sorting: false,
+           paging: false,
+           autoload: true,
+           pageSize: 10,
+           deleteConfirm: "정말 삭제 하시겠습니까?",
+           controller: {
+               loadData: function (filter) {
+            	   var d = $.Deferred();
+                   $.ajax({
+          	    	 type: "post",
+        	    	 url: "/admin/comCodeListData",
+        	         data: params,
+        	         dataType: "json"
+        	      }).done(function(response) {
+        	    	 d.resolve(response.comCodeList.comCodeListData);
+        	      });
+                   return d.promise();
+               },
+               insertItem: function (item) {
+            	   console.log("insertItem");
+            	   console.log(item);
+            	               	   
+                   return $.ajax({
+                       type: "POST",
+                       url: "/admin/comCodeInputData",
+                       data: item
+                   }).done(function(response) {
+          	    	 	console.log("insertItem CallBack");
+          	    		$("#gridCodeList").jsGrid("loadData");
+          	      });
+                   
+               },
+               updateItem: function (item) {
+            	   console.log("updateItem");
+            	   console.log(item);
+            	   return $.ajax({
+                       type: "POST",
+                       url: "/admin/comCodeUpdateData",
+                       data: item
+                   }).done(function(response) {
+          	    	 	console.log("updateItem CallBack");
+          	    		$("#gridCodeList").jsGrid("loadData");
+          	      });
+               },
+               deleteItem: function (item) {
+            	   console.log("deleteItem");
+            	   return $.ajax({
+                       type: "POST",
+                       url: "/admin/comCodeDeleteData",
+                       data: item
+                   }).done(function(response) {
+          	    	 	console.log("insertItem CallBack");
+          	    		$("#gridCodeList").jsGrid("loadData");
+          	      });
+               }
+           },
+           fields: [
+        	   { name: "cdSq"	,title:"코드 순번1", type: "text", width: 150,align:"center" ,width:100, visible: false},
+        	   { name: "cd"		,title:"코드", type: "text", width: 150,align:"center" ,width:100, validate: "required" },
+        	   { name: "cdNm"	,title:"코드명", type: "text", width: 200,align:"center",width:100, validate: "required" },
+        	   { type: "control",deleteButton: true },
+        	   
+           ],
+           rowClick: function(args) {
+        	   //console.log(args)
+       	    var getData = args.item.cdSq;
+       	   	console.log("getData :"+getData);
+         	$('#cdSq').val(getData);
+         	
+         	
+         	fn_SubGpCmCd(getData);
+       	   	
+//        	    //$("#subGridCodeList").jsGrid("loadData");
+//        	    $("#subGridCodeList").jsGrid("option", "data", []);
+       		
+//        	   	var insert_item = {};
+//        	  	//데이터를 추가를 위해서 json object 생성
+//        	  	insert_item.cdSq = getData;
+//        	  	insert_item.dtlCdSq = '';
+//        	  	insert_item.dtlCd = '';
+//        	  	insert_item.dtlCdNm = '';
+//        	  	insert_item.dtlCdPrprtVal1 = '';
+//        	  	insert_item.dtlCdPrprtVal2 = '';
+//        	  	insert_item.dtlCdPrprtVal3 = '';
+//        	  	insert_item.note = '';
+//        	  	//grid에 넣을 데이터를 object의 만들기
+//        	  	$("#subGridCodeList").jsGrid("insertItem", insert_item);
+           
            }
-	});
+       });
+	   
    }
    
-  	   
-  var height = window.screen.height * 0.6;
  
-  let fields = [
-	  { name: "cdSq"	,title:"코드 순번", type: "text", width: 150,align:"center" ,width:100, visible: false, width: 0},
-	  { name: "cd"		,title:"코드", type: "text", width: 150,align:"center" ,width:100},
-      { name: "cdNm"	,title:"코드명", type: "text", width: 200,align:"center",width:100}
-	]
-  
-    
-function codeListSearch(str) {
-   
-   let params = {
-	   cdSq : str
-   }
-	
-  $("#gridCodeList").jsGrid({
-	  locale:"ko",
-  	  height: height,
-      width: "100%",
-      paging: false,
-      autoload: true,
-	  fields: fields,
-	  controller: {
-	       loadData: function(filter) {
-	       var d = $.Deferred();
-	      $.ajax({
-	    	 type: "post",
-	    	 url: "/admin/comCodeListData",
-	         data: params,
-	         dataType: "json"
-	      }).done(function(response) {
-	    	  //console.log(response);
-	         //조회 데이터 셋팅
-	         d.resolve(response.comCodeList.comCodeListData);
-	      });
-	      return d.promise();
-	   }
-	},
-	rowClick: function(args) {
-	    //console.log(args)
-	    var getData = args.item.cdSq;
-	   	console.log("getData :"+getData);
-  	
-
-	   	$('#rowClickCdSq').val(getData);
-	   	
-	    //$("#subGridCodeList").jsGrid("loadData");
-	    $("#subGridCodeList").jsGrid("option", "data", []);
-		
-	   	var insert_item = {};
-	  //데이터를 추가를 위해서 json object 생성
-	  insert_item.cdSq = getData;
-	  insert_item.dtlCdSq = '';
-	  insert_item.dtlCd = '';
-	  insert_item.dtlCdNm = '';
-	  insert_item.dtlCdPrprtVal1 = '';
-	  insert_item.dtlCdPrprtVal2 = '';
-	  insert_item.dtlCdPrprtVal3 = '';
-	  insert_item.note = '';
-	  //grid에 넣을 데이터를 object의 만들기
-	  $("#subGridCodeList").jsGrid("insertItem", insert_item);
-	
-	}
- });
-  
-}
-  
 
   let subfields = [
-	  { name: "cdSq"	,title:"코드순번", type: "text", width: 150,align:"center" ,width:100},
-	  { name: "dtlCdSq"	,title:"상세코드순번", type: "text", width: 150,align:"center" ,width:100},
-      { name: "dtlCd"	,title:"상세코드", type: "text", width: 200,align:"center",width:100},
-	  { name: "dtlCdNm"	,title:"상세코드명", type: "text", width: 200,align:"center",width:100},
-	  { name: "dtlCdPrprtVal1"	,title:"속성값1", type: "text", width: 200,align:"center",width:100},
-	  { name: "dtlCdPrprtVal2"	,title:"속성값2", type: "text", width: 200,align:"center",width:100},
-	  { name: "dtlCdPrprtVal3"	,title:"속성값3", type: "text", width: 200,align:"center",width:100},
-	  { name: "note"	,title:"비고", type: "text", width: 200,align:"center",width:100}
+	  { name: "cdSq"	,title:"코드순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	  { name: "dtlCdSq"	,title:"상세코드순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+      { name: "dtlCd"	,title:"상세코드", type: "text", width: 200,align:"center",width:100 ,validate: "required"},
+	  { name: "dtlCdNm"	,title:"상세코드명", type: "text", width: 200,align:"center",width:100 ,validate: "required"},
+	  { name: "note"	,title:"비고", type: "text", width: 200,align:"center",width:100},
+	  { type: "control",deleteButton: true }
   ]
   
-  $("#subGridCodeList").jsGrid({
-	  locale:"ko",
-  	  height: height,
-      width: "100%",
-      paging: false,
-      autoload: true,
-      inserting: false,
-      editing: false,
-	  fields: subfields
-	
- });
-
+  function fn_SubGpCmCd(str) {
+		  let subParams = {
+			 cdSq : str
+		  }
+		  
+		  $("#subGridCodeList").jsGrid({
+			  locale:"ko",
+		  	  height: "700px",
+		      width: "700px",
+		      paging: false,
+		      autoload: true,
+		      inserting: false,
+		      editing: true,
+		      fields : subfields,
+			  controller: {
+		          loadData: function (filter) {
+		       	   var d = $.Deferred();
+		              $.ajax({
+		     	    	 type: "post",
+		   	    	 url: "/admin/comSubCodeListData",
+		   	         data: subParams,
+		   	         dataType: "json"
+		   	      }).done(function(response) {
+		   	    	 console.log(response);
+		   	    	 d.resolve(response.comCodeList.comSubCodeListData);
+		   	      });
+		              return d.promise();
+		          },
+		          insertItem: function (item) {
+		       	   console.log("insertItem");
+		       	   //console.log(item);
+		       	   
+		       	   var cdSqValue =	$('#cdSq').val();
+		       	   
+		       	   console.log("cdSqValue :"+cdSqValue);
+		       	
+		       	   let iParam = {
+		       			cdSq : cdSqValue,   
+		       			dtlCd : item.dtlCd,
+		       			dtlCdNm : item.dtlCdNm,
+		       			note : item.note
+		       	   }
+		       	   
+		       	   console.log("iParam :"+iParam);
+		 
+		       	   return $.ajax({
+		                  type: "POST",
+		                  url: "/admin/comSubCodeInsert",
+		                  data: iParam
+		              }).done(function(response) {
+		     	    	 	console.log("insertItem CallBack");
+		     	    		$("#subGridCodeList").jsGrid("loadData");
+		     	    		
+		     	    		$('#cdSq').val(cdSqValue);
+		     	      });
+		              
+		          },
+		          updateItem: function (item) {
+		       	   console.log("updateItem");
+		       	
+		       	   let uParam = {
+		       			cdSq : cdSqValue,   
+		       			dtlCd : item.dtlCd,
+		       			dtlCdNm : item.dtlCdNm,
+		       			note : item.note
+		       	   }
+		       	
+		       	   return $.ajax({
+		                  type: "POST",
+		                  url: "/admin/comSubCodeUpdate",
+		                  data: uParam
+		              }).done(function(response) {
+		     	    	 	
+		            	  console.log("updateItem CallBack");
+		     	    	 	
+		     	    		$("#subGridCodeList").jsGrid("loadData");
+		     	      });
+		          },
+		          deleteItem: function (item) {
+		       	   console.log("deleteItem");
+		//        	   return $.ajax({
+		//                   type: "POST",
+		//                   url: "/admin/comCodeDeleteData",
+		//                   data: item
+		//               }).done(function(response) {
+		//      	    	 	console.log("insertItem CallBack");
+		//      	    		$("#gridCodeList").jsGrid("loadData");
+		//      	      });
+		//           }
+		      }
+		      
+		  }
+		 });
+  }
 	
   
   //Input Box Null Check
@@ -257,11 +328,12 @@ function codeListSearch(str) {
       else
           return false ;
   }
-  
+ 
   
    
  $( document ).ready(function() {
-	 codeListSearch()
+	 fn_GpCmCd();
+	 fn_SubGpCmCd(1);
  });
    
 </script>
