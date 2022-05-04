@@ -15,7 +15,8 @@
 
 <body class="hold-transition sidebar-mini">
 
-<input type="text" name="cdSq" id="cdSq">
+<input type="hidden" name="cdSq" id="cdSq">
+<inptt type="text" name="mainTitleData" id="mainTitleData">
 
 <input type="hidden" id="rowClickCdSq">
 
@@ -50,8 +51,13 @@
 												<div id="gridCodeList"></div>
 											</div>
 											<div style="float:left;padding-left:10px;">
-												<div style="padding:5px;">
-													<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('subGridCodeList')" style="font-size:12px;">코드추가</button>
+												<div style="padding:5px">
+													<div style="float:left;width:50%;text-align:left">
+														<span id="mainTitle" style="font-size:13px;font-weight: bold;" >Main Title</span>
+													</div>
+													<div style="float:right;width:50%;">
+														<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('subGridCodeList')" style="font-size:12px;">코드추가</button>
+													</div>
 												</div>
 												<div id="subGridCodeList"></div>
 											</div>
@@ -139,39 +145,32 @@
                    return d.promise();
                },
                insertItem: function (item) {
-            	   console.log("insertItem");
-            	   console.log(item);
-            	               	   
-                   return $.ajax({
+            	   return $.ajax({
                        type: "POST",
                        url: "/admin/comCodeInputData",
                        data: item
                    }).done(function(response) {
-          	    	 	console.log("insertItem CallBack");
+                	    AddClick('gridCodeList');
           	    		$("#gridCodeList").jsGrid("loadData");
           	      });
-                   
                },
                updateItem: function (item) {
-            	   console.log("updateItem");
-            	   console.log(item);
             	   return $.ajax({
                        type: "POST",
                        url: "/admin/comCodeUpdateData",
                        data: item
                    }).done(function(response) {
-          	    	 	console.log("updateItem CallBack");
+          	    	 	
           	    		$("#gridCodeList").jsGrid("loadData");
           	      });
                },
                deleteItem: function (item) {
-            	   console.log("deleteItem");
             	   return $.ajax({
                        type: "POST",
                        url: "/admin/comCodeDeleteData",
                        data: item
                    }).done(function(response) {
-          	    	 	console.log("insertItem CallBack");
+          	    	 	
           	    		$("#gridCodeList").jsGrid("loadData");
           	      });
                }
@@ -189,6 +188,9 @@
        	   	console.log("getData :"+getData);
          	$('#cdSq').val(getData);
          	
+         	
+         	$('#mainTitleData').val(args.item.cdNm);
+         	$('#mainTitle').html(args.item.cdNm);
          	
          	fn_SubGpCmCd(getData);
        	   	
@@ -225,6 +227,7 @@
   ]
   
   function fn_SubGpCmCd(str) {
+	      
 		  let subParams = {
 			 cdSq : str
 		  }
@@ -238,81 +241,103 @@
 		      inserting: false,
 		      editing: true,
 		      fields : subfields,
+		      deleteConfirm: "정말 삭제 하시겠습니까?",
 			  controller: {
-		          loadData: function (filter) {
-		       	   var d = $.Deferred();
+				  loadData: function (filter) {
+				   
+					var cdSqValue =	$('#cdSq').val();
+					  
+				   var d = $.Deferred();
 		              $.ajax({
 		     	    	 type: "post",
 		   	    	 url: "/admin/comSubCodeListData",
 		   	         data: subParams,
 		   	         dataType: "json"
 		   	      }).done(function(response) {
-		   	    	 console.log(response);
+		   	    	 
 		   	    	 d.resolve(response.comCodeList.comSubCodeListData);
+		   	    	 
+		   	    	$('#cdSq').val(cdSqValue);
+		   	    	var mainTitleData = $('#mainTitleData').val();
+     	         	$('#mainTitle').html(mainTitleData);
+		   	    	
 		   	      });
 		              return d.promise();
 		          },
 		          insertItem: function (item) {
-		       	   console.log("insertItem");
-		       	   //console.log(item);
 		       	   
-		       	   var cdSqValue =	$('#cdSq').val();
+		           var cdSqValue =	$('#cdSq').val();
 		       	   
-		       	   console.log("cdSqValue :"+cdSqValue);
-		       	
 		       	   let iParam = {
 		       			cdSq : cdSqValue,   
 		       			dtlCd : item.dtlCd,
 		       			dtlCdNm : item.dtlCdNm,
 		       			note : item.note
 		       	   }
-		       	   
-		       	   console.log("iParam :"+iParam);
-		 
+		       	  
 		       	   return $.ajax({
 		                  type: "POST",
 		                  url: "/admin/comSubCodeInsert",
 		                  data: iParam
 		              }).done(function(response) {
-		     	    	 	console.log("insertItem CallBack");
+		     	    	 	
 		     	    		$("#subGridCodeList").jsGrid("loadData");
-		     	    		
 		     	    		$('#cdSq').val(cdSqValue);
+		     	    		
+		     	    		var mainTitleData = $('#mainTitleData').val();
+		     	         	$('#mainTitle').html(mainTitleData);
 		     	      });
 		              
 		          },
 		          updateItem: function (item) {
-		       	   console.log("updateItem");
+		       	   
+		       	   var cdSqValue =	$('#cdSq').val();
 		       	
 		       	   let uParam = {
-		       			cdSq : cdSqValue,   
+		       			cdSq : cdSqValue,
+		       			dtlCdSq : item.dtlCdSq,
 		       			dtlCd : item.dtlCd,
 		       			dtlCdNm : item.dtlCdNm,
 		       			note : item.note
 		       	   }
-		       	
+		       	  
 		       	   return $.ajax({
 		                  type: "POST",
 		                  url: "/admin/comSubCodeUpdate",
 		                  data: uParam
 		              }).done(function(response) {
-		     	    	 	
-		            	  console.log("updateItem CallBack");
-		     	    	 	
-		     	    		$("#subGridCodeList").jsGrid("loadData");
+		            	  
+		     	    	 $("#subGridCodeList").jsGrid("loadData");
+		     	    	 $('#cdSq').val(cdSqValue);
+		     	    	 
+		     	    	var mainTitleData = $('#mainTitleData').val();
+	     	         	$('#mainTitle').html(mainTitleData);
 		     	      });
 		          },
 		          deleteItem: function (item) {
-		       	   console.log("deleteItem");
-		//        	   return $.ajax({
-		//                   type: "POST",
-		//                   url: "/admin/comCodeDeleteData",
-		//                   data: item
-		//               }).done(function(response) {
-		//      	    	 	console.log("insertItem CallBack");
-		//      	    		$("#gridCodeList").jsGrid("loadData");
-		//      	      });
-		//           }
+		        	  
+		        	var cdSqValue =	$('#cdSq').val();
+		       	  		       	    
+		       	  	let dParam = {
+		       			dtlCdSq : item.dtlCdSq,
+		       			dtlCd : item.dtlCd,
+		       			dtlCdNm : item.dtlCdNm,
+		       			note : item.note
+		       	    }
+		       	   
+		       	    return $.ajax({
+		                  type: "POST",
+		                  url: "/admin/comSubCodeDeleteData",
+		                  data: dParam
+		            }).done(function(response) {
+		            	  		     	    	 
+		     	    		$("#subGridCodeList").jsGrid("loadData");
+		     	    		$('#cdSq').val(cdSqValue);
+		     	    		
+		     	    		var mainTitleData = $('#mainTitleData').val();
+		     	         	$('#mainTitle').html(mainTitleData);
+		     	    });
+		          
 		      }
 		      
 		  }
@@ -333,7 +358,7 @@
    
  $( document ).ready(function() {
 	 fn_GpCmCd();
-	 fn_SubGpCmCd(1);
+	 fn_SubGpCmCd();
  });
    
 </script>

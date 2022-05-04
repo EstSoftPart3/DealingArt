@@ -52,6 +52,10 @@ public class boMemberDao {
 			 //집주소 복호화
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrHomeAddr"));
 			 
+			 //회원구분
+			 String mbrSocialSort = (String) memberList.get(z).get("mbrSocialSort");
+			 
+			 memberList.get(z).put("mbrSocialSort", mbrSocialSort);
 			 memberList.get(z).put("mbrId", mbrIdDecrypt);
 			 memberList.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberList.get(z).put("mbrEmail", mbrEmailDecrypt);
@@ -86,7 +90,10 @@ public class boMemberDao {
 			 String mbrCpNumDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrCpNum"));
 			 //집주소 복호화
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
-						
+			 
+			 String authSq = String.valueOf( memberContent.get(z).get("authSq"));
+			 			
+			 memberContent.get(z).put("authSq", authSq);
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);

@@ -17,7 +17,7 @@
     			<div class="card">
     				
 	    			<div class="card-header">
-	                	<h3 class="card-title bTitle">회원 목록</h3>
+	                	<h3 class="card-title bTitle">탈퇴 회원 목록</h3>
 	
 		                <div class="card-tools">
 		                  <div class="input-group input-group-sm" style="width: 350px;">
@@ -48,7 +48,6 @@
 		                      <th>아이디(이메일)</th>
 		                      <th>휴대전화</th>
 		                      <th>등록일</th>
-		                      <th>작가정보등록</th>
 		                    </tr>
 		                  </thead>
 		                  <tbody id="dataList">
@@ -86,7 +85,7 @@
    		           data: {
    		        	   page : page,
    		        	   pageSize : 100,
-   		        	   useYn : 'Y',
+   		        	   useYn : 'N',
    		        	   searchGubun : $("#searchGubun").val(),
    		        	   searchWord : $("#searchWord").val()
    		           },
@@ -108,17 +107,12 @@
    		        			
    			        	   	strHtml += '<tr align="center" style="height:20px;">';
    			        		strHtml += '<td>'+ authGubun + ' ' + dataList[i].mbrSocialSort +'</td>';
-   			        	   	strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>';
+   			        	   	strHtml += '<td>'+ dataList[i].mbrNm +'</td>';
    			        	   	//strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>';
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>';
    			        	 	strHtml += '<td>'+ dataList[i].regDt +'</td>';
    			        	 	
-   			        	 	if(dataList[i].authSq  == '2') {
-   			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">등록</button></td>';	
-   			        	 	} else {
-   			        	 	strHtml += '<td></td>';
-   			        	 	}
    			        	 	
    			        	   	strHtml += '</tr>';
    			        	   	

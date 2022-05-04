@@ -132,7 +132,7 @@ public class OAuthTestController {
 	    	  param.put("mbrCpNum", mbrCpNumEncrypt);
 	    	  param.put("mbrCpCertYn", "N");
 	    	  param.put("useYn", "Y"); 
-	    	  param.put("mbrSocialSort", "Naver");
+	    	  param.put("mbrSocialSort", "NAV");
 	    	  
 	    	  resultCount = memberService.memberInfoCount(param);
 	    	  
@@ -314,7 +314,7 @@ public class OAuthTestController {
 		    	  param.put("mbrCpNum", mbrCpNumEncrypt);
 		    	  param.put("mbrCpCertYn", "N");
 		    	  param.put("useYn", "Y"); 
-		    	  param.put("mbrSocialSort", "Kakao");
+		    	  param.put("mbrSocialSort", "KAO");
 		    	  
 		    	  resultCount = memberService.memberInfoCount(param);
 		    	  
@@ -420,7 +420,7 @@ public class OAuthTestController {
 		    	  param.put("mbrCpNum", mbrCpNumEncrypt);
 		    	  param.put("mbrCpCertYn", "N");
 		    	  param.put("useYn", "Y"); 
-		    	  param.put("mbrSocialSort", "Google");
+		    	  param.put("mbrSocialSort", "GOG");
 		    	  
 		    	  resultCount = memberService.memberInfoCount(param);
 		    	  

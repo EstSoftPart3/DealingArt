@@ -43,6 +43,12 @@ public class boMemberController {
 		return "bo/member/memberList";
 	}
 	
+	//탈퇴회원 목록 페이지 이동
+	@RequestMapping("/admin/member/outMemberList")
+	public String openOutMemberList() {
+		return "bo/member/outMemberList";
+	}
+	
 	//회원 목록 데이터
 	@RequestMapping("/admin/member/memberData")
 	@ResponseBody
@@ -183,7 +189,7 @@ public class boMemberController {
 		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
 		//집주소 암호화
 		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
-		
+				
 		param.put("mbrId", mbrIdEncrypt);
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrCpNum", mbrCpNumEncrypt);

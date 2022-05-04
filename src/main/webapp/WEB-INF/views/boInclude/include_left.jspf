@@ -66,7 +66,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p class="sTitle">
-                콜렉터
+                회원
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -74,23 +74,18 @@
               <li class="nav-item">
                 <a href="/admin/member/memberList" class="nav-link">
                   <i class="far fa-circle nav-icon sTitle"></i>
-                  <p class="sTitle">회원정보조회</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon sTitle"></i>
-                  <p class="sTitle">회원등급관리</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon sTitle"></i>
-                  <p class="sTitle">회원탈퇴관리</p>
+                  <p class="sTitle">정보조회</p>
                 </a>
               </li>
               
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item">
+                <a href="/admin/member/outMemberList" class="nav-link">
+                  <i class="far fa-circle nav-icon sTitle"></i>
+                  <p class="sTitle">탈퇴관리</p>
+                </a>
+              </li>
+              
+            <!--   <li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -125,8 +120,9 @@
 		              </li>
 		              
 		            </ul>
-          	</li>
-          	 <li class="nav-item has-treeview menu-open">
+          	</li> -->
+          	
+          	<!--  <li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">공통관리</li>
           	 		<li class="nav-item has-treeview">
           	 			<a href="/admin/comCode" class="nav-link" target="_blank">
@@ -137,7 +133,7 @@
 			              </p>
 			            </a>
           	 		</li>
-          	 </li>
+          	 </li> -->
          
           
         </ul>

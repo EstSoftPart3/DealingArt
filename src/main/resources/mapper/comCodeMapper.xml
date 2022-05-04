@@ -105,18 +105,23 @@
 		)
     </insert>
     
-     <!-- 곧통 서브코드 수정 -->
+    <!-- 곧통 서브코드 수정 -->
     <update id="comSubCodeUpdate" parameterType="hashMap">
    		UPDATE TBL_DA_COMN_DTL_CD_S 
    		<trim prefix="SET" suffixOverrides=",">
-      		<if test="DTL_CD  != null">DTL_CD =#{dtlCd},</if>
-      		<if test="DTL_CD_NM != null">DTL_CD_NM =#{dtlCdNm},</if>
-      		<if test="NOTE != null">NOTE =#{note},</if>
+      		<if test="dtlCd  != null">DTL_CD =#{dtlCd},</if>
+      		<if test="dtlCdNm != null">DTL_CD_NM =#{dtlCdNm},</if>
+      		<if test="note != null">NOTE =#{note},</if>
 			UPDT_DT = NOW()
   		</trim>
-   		WHERE CD_SQ = #{cdSq}
+   		WHERE DTL_CD_SQ = #{dtlCdSq}
 	</update>
-    
+	
+   <!-- 공통 서브코드 삭제 -->
+   <delete id="comSubCodeDelete"> 
+   		DELETE FROM TBL_DA_COMN_DTL_CD_S WHERE DTL_CD_SQ = #{dtlCdSq} 
+   </delete>
+   
     <!-- 코드 검색 -->
     <select id="comCodeSearchList" resultType="hashMap">
         SELECT 

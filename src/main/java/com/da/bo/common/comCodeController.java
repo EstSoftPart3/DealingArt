@@ -37,9 +37,7 @@ public class comCodeController {
 	@ResponseBody
 	public int comCodeInputData(@RequestParam Map<String, Object> param) {
 		int resultState = -1;
-		
 		resultState = comCodeService.comCodeInsert(param);
-		
 		return resultState;
 	}
 	
@@ -49,9 +47,7 @@ public class comCodeController {
 	@ResponseBody
 	public int comCodeUpdateData(@RequestParam Map<String, Object> param) {
 		int resultState = -1;
-		
 		resultState = comCodeService.comCodeUpdate(param);
-		
 		return resultState;
 	}
 	
@@ -60,9 +56,7 @@ public class comCodeController {
 	@ResponseBody
 	public int comCodeDeleteData(@RequestParam Map<String, Object> param) {
 		int resultState = -1;
-		
 		resultState = comCodeService.comCodeDelete(param);
-		
 		return resultState;
 	}
 	
@@ -114,7 +108,7 @@ public class comCodeController {
 	}
 	
 	
-	//공통코드 수정
+	//공통 서브코드 수정
 	@RequestMapping("/admin/comSubCodeUpdate")
 	@ResponseBody
 	public int comSubCodeUpdateData(@RequestParam Map<String, Object> param) {
@@ -122,6 +116,16 @@ public class comCodeController {
 		
 		resultState = comCodeService.comSubCodeUpdate(param);
 		
+		return resultState;
+	}
+	
+	
+	//공통 서브코드 삭제
+	@RequestMapping("/admin/comSubCodeDeleteData")
+	@ResponseBody
+	public int comSubCodeDeleteData(@RequestParam Map<String, Object> param) {
+		int resultState = -1;
+		resultState = comCodeService.comSubCodeDelete(param);
 		return resultState;
 	}
 }

@@ -37,15 +37,24 @@
                 	
                 	<div class="card-body table-responsive p-0" style="overflow:hidden;">
 	              	   <hr>
-		               <div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrId" readonly>
+	              	   <div class="form-group row">
+	              	   	 <label class="col-form-label sTitle LabelStyle" style="text-align: center;">회원구분</label>
+	              	   	 <div class="col-sm-3">
+                      			<input type="text" class="form-control sTitle classname"  id="authSqTxt" readonly>
                     		</div>
+	              	   </div>
+	              	   <hr>
+		               <div class="form-group row">
 		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
                     		<div class="col-sm-3">
                       			<input type="text" class="form-control sTitle classname"  id="mbrNm" readonly>
                     		</div>
+		               		
+		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
+                    		<div class="col-sm-3">
+                      			<input type="text" class="form-control sTitle classname"  id="mbrId" readonly>
+                    		</div>
+		               		
                     		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성별</label>
                     		<div class="col-sm-3">
                       			<input type="text" class="form-control sTitle classname"  id="mbrSexCd" readonly>
@@ -161,8 +170,16 @@
 		        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
 		        	 var useYn = dataContent.useYn						//사용여부
+		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
-		        	 
+		        	 var authSqTxt = '';
+		        	 if(authSq == '2') {
+		        		 authSqTxt = '작가' 
+		        	 } else {
+		        		 authSqTxt = '일반'
+		        	 }
+		        	 $("#authSqTxt").val(authSqTxt);
+		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrId").val(mbrId);
 		        	 $("#mbrNcknm").val(mbrNcknm);

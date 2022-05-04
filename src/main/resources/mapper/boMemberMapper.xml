@@ -34,6 +34,15 @@
 			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
 			,USE_YN               AS useYn
 			,DEL_YN				  AS delYn
+			,(
+				CASE 
+				 WHEN MBR_SOCIAL_SORT = 'GEN' THEN '일반'
+				 WHEN MBR_SOCIAL_SORT = 'KAO' THEN '카카오'
+				 WHEN MBR_SOCIAL_SORT = 'GOG' THEN '구글'
+				 WHEN MBR_SOCIAL_SORT = 'NAV' THEN '네이버'
+				END
+			 ) AS mbrSocialSort
+			
 
         FROM
             TBL_DA_MBR_M A 
@@ -51,7 +60,10 @@
           <if test="mbrSq != null">
           	AND A.MBR_SQ = #{mbrSq}
           </if>
-          
+          <if test="useYn != null">
+          	AND A.USE_YN = #{useYn}
+          </if>
+               
                    
       	ORDER BY MBR_SQ DESC
     </select>
@@ -90,7 +102,7 @@
             TBL_DA_MBR_M A 
         WHERE 1=1
          AND A.MBR_SQ = #{mbrSq}
-  </select>
+    </select>
   
   <!-- 회원 아이디중복 / 닉네임 종복 체크  -->
   <select id="memberCheck" resultType="int">

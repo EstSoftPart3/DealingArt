@@ -37,6 +37,20 @@
                 <div class="card-body" style="background-color:#ffffff;">
                 	
                 	<div class="card-body table-responsive p-0" style="overflow:hidden;">
+                		<hr>
+                    	<div class="form-group row">
+                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">회원구분</label>
+                    		<div class="col-sm-3">
+                    			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                   <label class="btn btn-secondary sTitle gSm">
+                    					<input type="radio" name="authSq"  class="authSq sTitle" autocomplete="off" value="1"> 일반
+                  					</label>
+                  					<label class="btn btn-secondary sTitle gSf">
+                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="2"> 작가
+                  					</label>
+                				</div>
+                    		</div>
+                  		</div>
 	              	   <hr>
 		               <div class="form-group row">
 		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
@@ -59,6 +73,7 @@
                       			
                       		</div>
                     	</div>
+                    	
                     	<hr>
                     	<div class="form-group row">
                     		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성별</label>
@@ -183,7 +198,7 @@
 		        	    
 		        	 dataContent = data.memberContentData.memberContent[0];
 		        	 
-		        	 console.log(dataContent);
+		        	 //console.log(dataContent);
 		        	 var mbrNm = dataContent.mbrNm						//이름
 		        	 var mbrId = dataContent.mbrId						//아이디
 		        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
@@ -195,6 +210,19 @@
 		        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
 		        	 var useYn = dataContent.useYn						//사용여부
+		        	 var authSq = dataContent.authSq					//회원구분
+		        	 
+		        	 
+		        	 if(authSq == '1') {
+		        		 
+		        		 $(":radio[name='authSq'][value='1']").attr('checked', true);
+		        		 $('.gSm').addClass('active');
+			        	 $('.gSf').removeClass('active');
+			         } else {
+			        	 $(":radio[name='authSq'][value='2']").attr('checked', true);
+			         	 $('.gSf').addClass('active');
+			        	 $('.gSm').removeClass('active');
+					 }
 		        	 
 		        	 
 		        	 $("#mbrNm").val(mbrNm);
@@ -202,7 +230,7 @@
 		        	 $("#mbrNcknm").val(mbrNcknm);
 		        	 $("#mbrEmail").val(mbrEmail);
 		        	 $("#mbrBirth").val(mbrBirth);
-		        	 console.log(mbrSexCdChk);
+		        	 
 		        	 if(mbrSexCdChk == 'MALE') {
 		        		 $(":radio[name='mbrSexCd'][value='MALE']").attr('checked', true);
 		        		 $('.sm').addClass('active');
@@ -242,6 +270,8 @@
         //회원가입 validation
         function memberUpdate() {
         	
+        	//회원구분
+        	var authSq = $("#authSq").val();
         	//성명
         	var mbrNm = $("#mbrNm").val();
         	//닉네임

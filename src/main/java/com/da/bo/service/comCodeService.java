@@ -25,5 +25,8 @@ public interface comCodeService {
 	
 	//공통 서브코드 수정
 	public int comSubCodeUpdate(Map<String, Object> param);
+	
+	//공통 서브코드 삭제
+	public int comSubCodeDelete(Map<String, Object> param);
 
 }
