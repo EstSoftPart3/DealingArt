@@ -42,14 +42,16 @@ public class artistMemberController {
 		int mbrSq 	  				= Integer.parseInt((String) param.get("mbrSq"));//작가순번
 		String artstActvtyNm 	  	= (String) param.get("artstActvtyNm");			//활동명
 		String artstEnglsNm 	  	= (String) param.get("artstEnglsNm");			//영문명
+		String artstActvtyNatnCd  	= (String) param.get("artstActvtyNatnCd");		//활동국가
+		String artstActvtyCityCd  	= (String) param.get("artstActvtyCityCd");		//활동도시
 		String artstActvtyPartCd  	= (String) param.get("artstActvtyPartCd");		//활동분야코드
 		String artstActvtyCd 	  	= (String) param.get("artstActvtyCd");			//활동지역코드
 		String artstSelfIntro 	  	= (String) param.get("artstSelfIntro");			//자기소개
 		String artstProfileImgUrl 	= (String) param.get("artstProfileImgUrl");		//프로필 이미지
 		String artstHmpgUrl 		= (String) param.get("artstHmpgUrl");			//홈페이지 URL
 		String artstPromtnVideoUrl 	= (String) param.get("artstPromtnVideoUrl");	//홍보영상 URL
-		String artstFacebookId 		= (String) param.get("artstFacebookId");		//페이스북 URL
-		String artstInstagramId 	= (String) param.get("artstInstagramId");		//인스타그램 URL
+		String artstFacebookUrl 	= (String) param.get("artstFacebookUrl");		//페이스북 URL
+		String artstInstagramUrl 	= (String) param.get("artstInstagramUrl");		//인스타그램 URL
 		
 		
 		Map<String, Object> requestData = new HashMap<>();
@@ -62,6 +64,12 @@ public class artistMemberController {
 		}
 		if(!CommonService.isEmpty(artstEnglsNm)) {
 			requestData.put("artstEnglsNm", artstEnglsNm);
+		}
+		if(!CommonService.isEmpty(artstActvtyNatnCd)) {
+			requestData.put("artstActvtyNatnCd", artstActvtyNatnCd);
+		}
+		if(!CommonService.isEmpty(artstActvtyCityCd)) {
+			requestData.put("artstActvtyCityCd", artstActvtyCityCd);
 		}
 		if(!CommonService.isEmpty(artstActvtyPartCd)) {
 			requestData.put("artstActvtyPartCd", artstActvtyPartCd);
@@ -81,11 +89,11 @@ public class artistMemberController {
 		if(!CommonService.isEmpty(artstPromtnVideoUrl)) {
 			requestData.put("artstPromtnVideoUrl", artstPromtnVideoUrl);
 		}
-		if(!CommonService.isEmpty(artstFacebookId)) {
-			requestData.put("artstFacebookId", artstFacebookId);
+		if(!CommonService.isEmpty(artstFacebookUrl)) {
+			requestData.put("artstFacebookUrl", artstFacebookUrl);
 		}
-		if(!CommonService.isEmpty(artstInstagramId)) {
-			requestData.put("artstInstagramId", artstInstagramId);
+		if(!CommonService.isEmpty(artstInstagramUrl)) {
+			requestData.put("artstInstagramUrl", artstInstagramUrl);
 		}
 		resultState = artistMemberService.artistMemberInsert(requestData);
 		return resultState;
