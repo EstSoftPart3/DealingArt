@@ -25,44 +25,51 @@
 		     
 		     <!-- Main content -->
     		<section class="content">
-    			 <div class="card-header">
-	               	<h3 class="card-title bTitle">작가회원</h3>
-				</div>
+    		
+    			<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
+                 	<ul class="nav nav-pills">
+	               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>회원기본정보</b></a></li>
+	               	</ul>
+				 </div>
 				
-				<form class="form-horizontal" name="formInfo" id="formInfo">
+				<div class="card">	
+					<form class="form-horizontal" name="formInfo" id="formInfo">
 				
-				<input type="hidden" name="mbrSq" id="mbrSq" value="<c:out value="${param.mbrSqParam}" />">
+					<input type="hidden" name="mbrSq" id="mbrSq" value="<c:out value="${param.mbrSqParam}" />">
 				
-                <div class="card-body" style="background-color:#ffffff;">
-                	
-                	<h3 class="card-title bTitle">기본정보</h3>
-                	
-                	<div class="card-body table-responsive p-0" style="overflow:hidden;">
-	              	   <hr>
-		               <div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
-                    		<div class="col-sm-2">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrId" readonly>
-                    		</div>
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
-                    		<div class="col-sm-2">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrNm" readonly>
-                    		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">휴대폰번호</label>
-                    		<div class="col-sm-2">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrCpNum" readonly>
-                    		</div>
-                    		
-                  		</div>
-                  	</div>
-                  	
-                  	<hr>
-                  	<h3 class="card-title bTitle">작가기본정보</h3>
-                  	
-                  	<div class="card-body table-responsive p-0" style="overflow:hidden;">
-                  		<hr>
-                  		 <section class="content">
-      						<div class="container-fluid" style="padding-left:100px;">
+	                <div class="card-body" style="background-color:#ffffff;">
+	                	                	              	
+	                	<div class="card-body table-responsive p-0" style="overflow:hidden;">
+		              	
+			               <div class="form-group row">
+			               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디/이메일</label>
+	                    		<div class="col-sm-2">
+	                      			<input type="text" class="form-control sTitle classname"  id="mbrId" readonly>
+	                    		</div>
+			               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
+	                    		<div class="col-sm-1">
+	                      			<input type="text" class="form-control sTitle classname"  id="mbrNm" readonly>
+	                    		</div>
+	                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">휴대폰번호</label>
+	                    		<div class="col-sm-1">
+	                      			<input type="text" class="form-control sTitle classname"  id="mbrCpNum" readonly>
+	                    		</div>
+	                    		
+	                  		</div>
+	                  	</div>
+	             	</div>
+                 </div> 
+                 
+                 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
+                 	<ul class="nav nav-pills">
+	               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>작가회원정보</b></a></li>
+	               	</ul>
+				 </div>
+				 
+				 <div class="card">	
+                  	<div class="card-body p-0" >
+                  		 
+      						<div class="container-fluid" style="padding-top:50px;padding-left:50px;">
         						<div class="row">
         							
             						<div class="card card-primary card-outline">
@@ -179,129 +186,197 @@
                       							<input type="text" class="form-control sTitle classname"  id="artstInstagramUrl" name="artstInstagramUrl" value="">
                     						</div>
                     					</div>
+                    					<div class="form-group row" >
+                    						<div class="col-sm-8" style="text-align:right;">
+                    							<button type="button" class="btn btn-info sTitle" onclick="goList();">목록</button>
+					                  			<button type="button" class="btn btn-info sTitle" onclick="artistMemberInput();">저장</button>
+					                  		</div>
+                    					</div>
               						</div>
               						
-                    							
+                    			</div>	
+                    				
                   				</div>
                   			</div>
-                  		</section>
+                  		
                 	</div>
                 	
                 	
                 
                 <!--card-body -->
                 
-                <!--card-footer -->
-                <div class="card-footer col-md-8" style="text-align:right;background-color:#ffffff">
-                	
-                  	<button type="button" class="btn btn-info sTitle" onclick="goList();">목록</button>
-                  	<button type="button" class="btn btn-info sTitle" onclick="artistMemberInput();">저장</button>
-                  	
-                </div>
+             
                 
               </form>
               
-               <hr>
-               <h3 class="card-title bTitle">작가학력정보</h3>
+              <div class="card">
               
-               <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
-                  	
-                  	<table border="0">
-                  		<tr>
-                  			<td align="right">
-								<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('eductnList')" style="font-size:12px;">코드추가</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-					       		<div id="eductnList" style="padding-left:100px;font-size:13px;"></div>
-					       	</td>
-                  		</tr>
-                  	</table>
-                  	
-               	</div>
+	              <div class="card-header p-2" style="border-top: 1px solid rgba(0,0,0,.125);background-color:#efefef">
+	                <ul class="nav nav-pills">
+	                  <li class="nav-item"><a class="nav-link active sTitle" href="#tab-1" data-toggle="tab"><b>작가학력정보</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-2" data-toggle="tab"><b>작가경력정보</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-3" data-toggle="tab"><b>작가소속정보</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-4" data-toggle="tab"><b>전시정보[개인전/단체전]</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-5" data-toggle="tab"><b>전시정보[아트페어]</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-6" data-toggle="tab"><b>전시정보[레지던시]</b></a></li>
+	                  <li class="nav-item"><a class="nav-link sTitle" href="#tab-7" data-toggle="tab"><b>전시정보[수상]</b></a></li>
+	                </ul>
+	              </div><!-- /.card-header -->
+	              
+	              <div class="card-body">
+	              
+	              	<div class="tab-content">
+	              	
+	              		<div class="active tab-pane" id="tab-1">
+              			   <!-- 작가학력정보 -->            
+			               <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('eductnList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="eductnList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	</div>
+			               	
+               			</div>
+               			
+               			<div class="tab-pane" id="tab-2">
                	
-               	
-               <hr>
-               <h3 class="card-title bTitle">작가경력정보</h3>
-              
-               <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
-                  	
-                  	<table border="0">
-                  		<tr>
-                  			<td align="right">
-								<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('careerList')" style="font-size:12px;">코드추가</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-					       		<div id="careerList" style="padding-left:100px;font-size:13px;"></div>
-					       	</td>
-                  		</tr>
-                  	</table>
-                  	
-               	</div>
-               	<hr>
-                <h3 class="card-title bTitle">작가소속정보</h3>
-              
-                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
-                  	
-                  	<table border="0">
-                  		<tr>
-                  			<td align="right">
-								<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('belongList')" style="font-size:12px;">코드추가</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-					       		<div id="belongList" style="padding-left:100px;font-size:13px;"></div>
-					       	</td>
-                  		</tr>
-                  	</table>
-                  	
-               	 </div>            
+               	           <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('careerList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="careerList" style="font-size:12px;" ></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	</div>
+	               		</div>
+	               		
+		               	<div class="tab-pane" id="tab-3">
+		              
+			                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('belongList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="belongList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	 </div>
+			               	             
+               	 		</div>
                	 
-               	 
-               	<hr>
-                <h3 class="card-title bTitle">전시정보 - 개인전/단체전</h3>
-              
-                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
-                  	
-                  	<table border="0">
-                  		<tr>
-                  			<td align="right">
-								<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('perDonginList')" style="font-size:12px;">코드추가</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-					       		<div id="perDonginList" style="padding-left:100px;font-size:13px;"></div>
-					       	</td>
-                  		</tr>
-                  	</table>
-                  	
-               	 </div>           
-               	 
-               	 
-               	 <hr>
-                <h3 class="card-title bTitle">전시정보 - 아트페어</h3>
-              
-                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
-                  	
-                  	<table border="0">
-                  		<tr>
-                  			<td align="right">
-								<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('artFairList')" style="font-size:12px;">코드추가</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-					       		<div id="artFairList" style="padding-left:100px;font-size:13px;"></div>
-					       	</td>
-                  		</tr>
-                  	</table>
-                  	
-               	 </div>              	
+		               <div class="tab-pane" id="tab-4">
+		              
+			                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('perDonginList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="perDonginList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	 </div>           
+               	 		</div>
+               	 		<div class="tab-pane" id="tab-5">
+		              
+		              
+			                <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('artFairList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="artFairList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	 </div> 
+		               	 
+		               	 </div>  
+		               	 
+		               	 
+		               	 <div class="tab-pane" id="tab-6">
+		              
+		                     <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('residencyList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="residencyList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	 </div> 
+		               	 
+		               	 </div>  
+		               	 
+		               	 
+		               	 <div class="tab-pane" id="tab-7">
+		              
+		                     <div class="card-body table-responsive p-0" style="overflow:hidden;padding-top:20px;">
+			                  	
+			                  	<table border="0">
+			                  		<tr>
+			                  			<td align="right">
+											<button id="btnAddsubGridCodeList" type="button" onclick="AddClick('awardsList')" style="font-size:12px;">코드추가</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+								       		<div id="awardsList" style="font-size:12px;"></div>
+								       	</td>
+			                  		</tr>
+			                  	</table>
+			                  	
+			               	 </div> 
+		               	 
+		               	 </div>  
+		               	 
+		           	 </div>
+	               	</div>
+	            </div>           	
 				
     		</section>
 		 </div>
@@ -344,7 +419,7 @@
 	   
 	   $("#eductnList").jsGrid({
 		   locale:"ko",
-	       height: "200px",
+	       height: "400px",
 	       width: "1000px",
 	       inserting: false,
 	       editing: true,
@@ -465,7 +540,7 @@
 	   
 	   $("#careerList").jsGrid({
 		   locale:"ko",
-	       height: "200px",
+	       height: "400px",
 	       width: "1000px",
 	       inserting: false,
 	       editing: true,
@@ -587,7 +662,7 @@
 		   
 		   $("#belongList").jsGrid({
 			   locale:"ko",
-		       height: "200px",
+		       height: "400px",
 		       width: "1000px",
 		       inserting: false,
 		       editing: true,
@@ -710,7 +785,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		   
 		   $("#perDonginList").jsGrid({
 			   locale:"ko",
-		       height: "200px",
+		       height: "400px",
 		       width: "1000px",
 		       inserting: false,
 		       editing: true,
@@ -828,7 +903,7 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	   
 	   $("#artFairList").jsGrid({
 		   locale:"ko",
-	       height: "200px",
+	       height: "400px",
 	       width: "1000px",
 	       inserting: false,
 	       editing: true,
@@ -924,6 +999,242 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	    	   { name: "mbrSq"		,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "exhbtnSq"	,title:"전시순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "exhbtnNm"	,title:"전시명", type: "text", width: 200,align:"center",width:100, validate: "required" },
+	    	   { type: "control",deleteButton: true },
+	    	   
+	       ]
+	   });
+	   
+	}
+	
+function AuthorResidencyInfoList(mbrSq,artstSq){
+	   
+	   var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+	   var artstSq = $('#artstSq').val();
+	   
+	   let params = {
+			mbrSq : mbrSq,
+			artstSq : artstSq,
+			exhbtnTypCd : 'RSDNC'
+		}
+	   
+	   console.log(params);
+	   
+	   $("#residencyList").jsGrid({
+		   locale:"ko",
+	       height: "400px",
+	       width: "1000px",
+	       inserting: false,
+	       editing: true,
+	       sorting: false,
+	       paging: false,
+	       autoload: true,
+	       pageSize: 10,
+	       deleteConfirm: "정말 삭제 하시겠습니까?",
+	       controller: {
+	           loadData: function (filter) {
+	        	   var d = $.Deferred();
+	               $.ajax({
+	      	    	 type: "post",
+	    	    	 url: "/myPage/authorExhbtnInfoViewData",
+	    	         data: params,
+	    	         dataType: "json"
+	    	      }).done(function(response) {
+	    	    	 d.resolve(response.author.exhbtnInfo);
+	    	      });
+	               return d.promise();
+	           },
+	           insertItem: function (item) {
+	        	   console.log("insertItem :"+item);
+	        	   
+	        	   var exhbtnlist = new Array();
+	        	   var exhbtnData = new Object();
+	        	   
+	        	   exhbtnData.exhbtnSq = '';
+	        	   exhbtnData.mbrSq = mbrSq;
+	        	   exhbtnData.artstSq = artstSq;
+	        	   exhbtnData.exhbtnNm = item.exhbtnNm;
+	        	   exhbtnData.exhbtnTypCd = 'RSDNC';
+				   
+	        	   exhbtnData = JSON.stringify(exhbtnData);
+	        	   exhbtnlist.push(JSON.parse(exhbtnData));
+	        	   
+	        	   return $.ajax({
+	                   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   data: JSON.stringify(exhbtnlist),
+	                   dataType: "json",
+	                   contentType : "application/json; charset=UTF-8"
+	               }).done(function(response) {
+	            	    AddClick('residencyList');
+	      	    		$("#residencyList").jsGrid("loadData");
+	      	      });
+	           },
+	           updateItem: function (item) {
+	      	   
+	        	   var exhbtnlist = new Array();
+	        	   var exhbtnData = new Object();
+	        	   
+	        	   exhbtnData.exhbtnSq = item.exhbtnSq;
+	        	   exhbtnData.mbrSq = mbrSq;
+	        	   exhbtnData.artstSq = artstSq;
+	        	   exhbtnData.exhbtnNm = item.exhbtnNm;
+	        	   exhbtnData.exhbtnTypCd = 'RSDNC';
+				   
+	        	   exhbtnData = JSON.stringify(exhbtnData);
+	        	   exhbtnlist.push(JSON.parse(exhbtnData));
+				   
+	        	   console.log(JSON.stringify(exhbtnlist));
+	        	   
+	        	   return $.ajax({
+	        		   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   data: JSON.stringify(exhbtnlist),
+	                   dataType: "json",
+	                   processData : true,
+	                   contentType : "application/json; charset=UTF-8"
+	               }).done(function(response) {
+	            	   AddClick('residencyList');
+	            	   $("#residencyList").jsGrid("loadData");
+	      	      });
+	           },
+	           deleteItem: function (item) {
+	        	    
+	        	   let perDonginDeleteParam = {
+	        			exhbtnSq : item.exhbtnSq	
+					}
+	        	    console.log(perDonginDeleteParam);
+	        	   return $.ajax({
+	                   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoDeleteData",
+	                   data: perDonginDeleteParam
+	               }).done(function(response) {
+	            	   $("#residencyList").jsGrid("loadData");
+	      	      });
+	           }
+	       },
+	       fields: [
+	    	   { name: "artstSq"	,title:"작가순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "mbrSq"		,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "exhbtnSq"	,title:"전시순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "exhbtnNm"	,title:"전시명", type: "text", width: 200,align:"center",width:100, validate: "required" },
+	    	   { type: "control",deleteButton: true },
+	    	   
+	       ]
+	   });
+	   
+	}
+	
+function AuthorAwardsInfoList(mbrSq,artstSq){
+	   
+	   var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+	   var artstSq = $('#artstSq').val();
+	   
+	   let params = {
+			mbrSq : mbrSq,
+			artstSq : artstSq,
+			exhbtnTypCd : 'AWRDS'
+		}
+	   
+	   console.log(params);
+	   
+	   $("#awardsList").jsGrid({
+		   locale:"ko",
+	       height: "400px",
+	       width: "1000px",
+	       inserting: false,
+	       editing: true,
+	       sorting: false,
+	       paging: false,
+	       autoload: true,
+	       pageSize: 10,
+	       deleteConfirm: "정말 삭제 하시겠습니까?",
+	       controller: {
+	           loadData: function (filter) {
+	        	   var d = $.Deferred();
+	               $.ajax({
+	      	    	 type: "post",
+	    	    	 url: "/myPage/authorExhbtnInfoViewData",
+	    	         data: params,
+	    	         dataType: "json"
+	    	      }).done(function(response) {
+	    	    	 d.resolve(response.author.exhbtnInfo);
+	    	      });
+	               return d.promise();
+	           },
+	           insertItem: function (item) {
+	        	   console.log("insertItem :"+item);
+	        	   
+	        	   var exhbtnlist = new Array();
+	        	   var exhbtnData = new Object();
+	        	   
+	        	   exhbtnData.exhbtnSq = '';
+	        	   exhbtnData.mbrSq = mbrSq;
+	        	   exhbtnData.artstSq = artstSq;
+	        	   exhbtnData.exhbtnNm = item.exhbtnNm;
+	        	   exhbtnData.exhbtnTypCd = 'AWRDS';
+				   
+	        	   exhbtnData = JSON.stringify(exhbtnData);
+	        	   exhbtnlist.push(JSON.parse(exhbtnData));
+	        	   
+	        	   return $.ajax({
+	                   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   data: JSON.stringify(exhbtnlist),
+	                   dataType: "json",
+	                   contentType : "application/json; charset=UTF-8"
+	               }).done(function(response) {
+	            	    AddClick('awardsList');
+	      	    		$("#awardsList").jsGrid("loadData");
+	      	      });
+	           },
+	           updateItem: function (item) {
+	      	   
+	        	   var exhbtnlist = new Array();
+	        	   var exhbtnData = new Object();
+	        	   
+	        	   exhbtnData.exhbtnSq = item.exhbtnSq;
+	        	   exhbtnData.mbrSq = mbrSq;
+	        	   exhbtnData.artstSq = artstSq;
+	        	   exhbtnData.exhbtnNm = item.exhbtnNm;
+	        	   exhbtnData.exhbtnTypCd = 'AWRDS';
+				   
+	        	   exhbtnData = JSON.stringify(exhbtnData);
+	        	   exhbtnlist.push(JSON.parse(exhbtnData));
+				   
+	        	   console.log(JSON.stringify(exhbtnlist));
+	        	   
+	        	   return $.ajax({
+	        		   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   data: JSON.stringify(exhbtnlist),
+	                   dataType: "json",
+	                   processData : true,
+	                   contentType : "application/json; charset=UTF-8"
+	               }).done(function(response) {
+	            	   AddClick('awardsList');
+	            	   $("#awardsList").jsGrid("loadData");
+	      	      });
+	           },
+	           deleteItem: function (item) {
+	        	    
+	        	   let perDonginDeleteParam = {
+	        			exhbtnSq : item.exhbtnSq	
+					}
+	        	    console.log(perDonginDeleteParam);
+	        	   return $.ajax({
+	                   type: "POST",
+	                   url: "/myPage/authorExhbtnInfoDeleteData",
+	                   data: perDonginDeleteParam
+	               }).done(function(response) {
+	            	   $("#awardsList").jsGrid("loadData");
+	      	      });
+	           }
+	       },
+	       fields: [
+	    	   { name: "artstSq"	,title:"작가순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "mbrSq"		,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "exhbtnSq"	,title:"전시순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "exhbtnNm"	,title:"수상명", type: "text", width: 200,align:"center",width:100, validate: "required" },
 	    	   { type: "control",deleteButton: true },
 	    	   
 	       ]
@@ -1115,6 +1426,12 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 				        	
 				        	//작가 전시 - 아트페어
 				        	AuthorArtFairInfoList(mbrSq,artstSq)
+				        	
+				        	//작가 전시 - 레지던시
+				        	AuthorResidencyInfoList(mbrSq,artstSq)
+				        	
+				        	//작가 전시 - 수상
+				        	AuthorAwardsInfoList(mbrSq,artstSq)
 			        	}
 		        	
 		           },
