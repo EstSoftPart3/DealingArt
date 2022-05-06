@@ -3,6 +3,7 @@ package com.da.fo.service;
 import java.util.Map;
 
 import com.da.vo.AutoLoginVo;
+import com.da.vo.MbrInfoVo;
 
 
 public interface MemberService {
@@ -132,5 +133,12 @@ public interface MemberService {
 	 * return : int
 	 */
 	public int changePasswrd(Map<String, Object> param);
+	
+	/*
+	 * 회원 정보 
+	 * param : mbrSq
+	 * return : MbrInfoVo
+	 */
+	public MbrInfoVo mbrInfo(String param);
 
 }

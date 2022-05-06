@@ -59,10 +59,11 @@
 				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'*/
 	</select>
 	
-	<select id="artistInfo" resultType="hashMap" parameterType="hashMap">
+	<select id="artistInfo" resultType="hashMap" parameterType="String">
 	/*작가 정보*/
 		SELECT 
 				ARTST_SQ  AS artstSq, /*작가 순번*/
+				ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
 				ARTST_ACTVTY_NM AS artstActvtyNm, /*작가 활동명*/
 				ARTST_ENGLS_NM AS artstEnglsNm, /*작가 영문명*/
 				ARTST_SELF_INTRO AS artstSelfIntro, /*작가 자기소개*/
@@ -76,7 +77,7 @@
 				ARTST_SQ = #{artstSq}
 	</select>
 	
-	<select id="artistInfoEductn" resultType="hashMap" parameterType="hashMap">
+	<select id="artistInfoEductn" resultType="hashMap" parameterType="String">
 	/*작가 학력 리스트*/
 		SELECT 
 				A.EDUCTN_SQ AS eductnSq, /*작가 학력 순번*/
@@ -93,7 +94,7 @@
 				A.EDUCTN_ENDNG_DATE DESC 
 	</select>
 	
-	<select id="artistInfoCareer" resultType="hashMap" parameterType="hashMap">
+	<select id="artistInfoCareer" resultType="hashMap" parameterType="String">
 	/*작가 경력 리스트*/
 		SELECT 
 				A.CAREER_SQ AS careerSq, /*경력 순번*/
@@ -110,7 +111,7 @@
 				A.CAREER_ENDNG_DATE DESC
 	</select>
 	
-	<select id="artistInfoExhbtn" resultType="hashMap" parameterType="hashMap">
+	<select id="artistInfoExhbtn" resultType="hashMap" parameterType="String">
 	/*작가 전시 리스트*/
 		SELECT 
 				A.EXHBTN_SQ AS exhbtnSq, /*전시 순번*/
@@ -127,55 +128,61 @@
 				A.EXHBTN_ENDNG_DATE DESC
 	</select>
 	
-	<select id="artistWorkList" resultType="hashMap" parameterType="hashMap">
-	/*작가 작품 리스트*/
+	<select id="artistWorkList" resultType="hashMap" parameterType="String">
+		/*작가 작품 리스트*/
 		SELECT 
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
-				D.AUTH_SQ AS authSq, /*작가구분*/
-				E.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
-				E.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (D.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
-				E.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
-				F.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
-				F.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				B.AUTH_SQ AS authSq, /*작가구분*/
+				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				B.MBR_NCKNM AS mbrNcknm, /*작가 닉네임*/
+				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
-				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				C.MAX_BID_PRC AS maxBidPrc, /*작품응찰가격*/
-				F.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
-				F.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
-				B.BID_CNT AS bidCnt, /*응찰수*/ 
-				DATE_FORMAT(F.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(F.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(F.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(F.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
-		FROM 
-				TBL_DA_WORK_M AS A,
-				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
-				FROM TBL_DA_AUCTN_BID_H 
-				GROUP BY DEAL_SQ) AS B,
-				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_GRT_URL AS workGrtUrl, /*작품보증서URL*/
+				A.WORK_FRM_YN AS workFrmYn, /*작품액자유무*/
+				(SELECT FORMAT(MAX(BID_PRC), 0)
 				FROM TBL_DA_AUCTN_BID_H
-				GROUP BY DEAL_SQ) AS C,
-				TBL_DA_MBR_M AS D,
-				TBL_DA_ARTST_M AS E,
-				TBL_DA_DEAL_M AS F
+				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+				FORMAT(D.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+				FORMAT(D.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
+				(SELECT COUNT(DEAL_SQ)
+				FROM TBL_DA_AUCTN_BID_H 
+				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+				(SELECT MBR_SQ 
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE D.DEAL_SQ = DEAL_SQ
+				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
+				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN
+				TBL_DA_ARTST_M AS C
+			ON 	A.ARTST_SQ = C.ARTST_SQ 
+		INNER JOIN 
+				TBL_DA_DEAL_M AS D
+			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE 
-				A.MBR_SQ = D.MBR_SQ 
-				AND A.ARTST_SQ = E.ARTST_SQ
-				AND A.WORK_SQ = F.WORK_SQ
-				AND B.DEAL_SQ = F.DEAL_SQ
-				AND C.DEAL_SQ = F.DEAL_SQ
-				AND E.ARTST_SQ = #{artstSq}
+				A.ARTST_SQ = #{artstSq}
 	</select>
 
 </mapper>

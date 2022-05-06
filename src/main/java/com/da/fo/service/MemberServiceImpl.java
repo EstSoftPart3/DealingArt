@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.da.fo.dao.MemberDao;
 import com.da.vo.AutoLoginVo;
+import com.da.vo.MbrInfoVo;
 
 import lombok.AllArgsConstructor;
 
@@ -256,5 +257,14 @@ public class MemberServiceImpl implements MemberService  {
 	 */
 	public int changePasswrd(Map<String, Object> param) {
 		return memberDao.changePasswrd(param);
+	}
+	
+	/*
+	 * 회원 정보 
+	 * param : mbrSq
+	 * return : MbrInfoVo
+	 */
+	public MbrInfoVo mbrInfo(String param) {
+		return memberDao.mbrInfo(param);
 	}
 }

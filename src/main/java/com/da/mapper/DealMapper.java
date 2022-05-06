@@ -10,5 +10,12 @@ public interface DealMapper {
 	 * return : 검색 결과
 	 */
 	public List dealSerach(Object param);
+	
+	/*
+	 * 딜 상세페이지 (응찰하기)
+	 * param : workSq
+	 * return : 딜 상세 정보
+	 */
+	public Map<String, Object> dealDetail(String param);
 
 }

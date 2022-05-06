@@ -139,10 +139,13 @@ public class MyPageDao {
 	 */
 	public List<String> scrapList(String param){
 		List<String> paramList = myPageMapper.scrapList(param);
+		List<String> result = null;
 		System.out.println("@@@@@@@@@@@@@@@@@@@ List Pram : " + paramList);
-		List<String> resultNonSale = myPageMapper.scrapListNonSale(paramList);
-		List<String> resultSale = myPageMapper.scrapListSale(paramList);
-		List<String> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
+		if(!paramList.isEmpty()) {
+			List<String> resultNonSale = myPageMapper.scrapListNonSale(paramList);
+			List<String> resultSale = myPageMapper.scrapListSale(paramList);
+			result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
+		}
 		return result;
 	}
 }

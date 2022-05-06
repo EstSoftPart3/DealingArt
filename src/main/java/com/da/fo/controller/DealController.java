@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.DealService;
+import com.da.fo.service.MemberService;
+import com.da.fo.service.MyPageService;
+import com.da.sample.service.CommonService;
+import com.da.vo.MbrInfoVo;
 
 
 @Controller
@@ -28,6 +35,15 @@ public class DealController {
 	@Autowired
 	private DealService dealService;
 	
+	@Autowired
+	private MyPageService myPageService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private CommonService commonService;
+	
 	@RequestMapping("/deal")
 	public String goDeal() {
 		logger.info("gogogogogogogogogogogo Deal!!!!!");
@@ -36,15 +52,25 @@ public class DealController {
 	
 	@RequestMapping("/bidding")
 	@ResponseBody
-	public ModelAndView bidding(@RequestParam(value="workSq", required = false) int workSq) {
+	public ModelAndView bidding(@RequestParam(value="workSq", required=false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
+		Map<String, Object> result = dealService.dealDetail(workSq);
+		mv.addObject("result", result);
 		return mv;
 	}
 	
-	@RequestMapping("/dealConfirmed")
-	public String goDealConfirmed() {
-		logger.info("gogogogogogogogogogogo Confrimed!!!!!");
-		return "thymeleaf/fo/deal/dealConfirmed";
+	//거래 등록
+	@RequestMapping("/dealReg")
+	@ResponseBody
+	public ModelAndView dealReg(@RequestParam(value="workSq", required=false) String workSq, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/dealReg");
+		Map<String, Object> result = myPageService.myWorkMod(workSq);
+		MbrInfoVo mbrInfo = memberService.mbrInfo(session.getAttribute("mbrSq").toString());
+		mbrInfo.setMbrCpNum(commonService.decrypt(mbrInfo.getMbrCpNum()));
+		result.put("mbrInfo", mbrInfo);
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	@RequestMapping("/dealSearch")

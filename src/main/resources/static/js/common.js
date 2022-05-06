@@ -257,7 +257,6 @@ function modalConfirm(title, msg, callback){
 			{
 				var $fromObj = opts.id.from;
 				var $toObj = opts.id.to;
-				debugger;
 				if( $fromObj ) {
 					if( $fromObj.val().length >= 8 ) {
 						if( funcDate.isValidDate( $fromObj.val() ) ) {

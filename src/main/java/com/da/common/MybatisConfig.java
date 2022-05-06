@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(basePackages = {"com.da.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory", sqlSessionTemplateRef = "sqlSessionTemplate")
+@MapperScan(basePackages = {"com.da.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class MybatisConfig {
 
     @Bean

@@ -356,7 +356,7 @@
    
   <!-- 작가경력-경력/소속 등록 -->
   <insert id="authorCareerInfoInsert" parameterType="hashMap">
-  		INSERT INTO TBL_DA_CAREER_S
+  		INSERT INTO TBL_DA_ARTST_CAREER_S
   		(
   			ARTST_SQ
 			,MBR_SQ
@@ -382,7 +382,7 @@
 			,CAREER_TYP_CD AS careerTypCd
 			
    		FROM 
-   			TBL_DA_CAREER_S
+   			TBL_DA_ARTST_CAREER_S
    		WHERE 1=1 
    			AND ARTST_SQ = #{artstSq}
    			AND MBR_SQ = #{mbrSq}
@@ -391,13 +391,13 @@
    
    <!-- 작가경력-경력 삭제 -->
    <delete id="authorCarrerInfoDelete"> 
-   		DELETE FROM TBL_DA_CAREER_S WHERE CAREER_SQ = #{careerSq} 
+   		DELETE FROM TBL_DA_ARTST_CAREER_S WHERE CAREER_SQ = #{careerSq} 
    </delete>
    
    <!--  작가학경력-경력 수정 -->
   <update id="authorCarrerInfoUpdate" parameterType="hashMap">
    		UPDATE 	
-   			TBL_DA_CAREER_S
+   			TBL_DA_ARTST_CAREER_S
    		SET		
    			CAREER_NM = #{careerNm}
    		WHERE 	
@@ -409,14 +409,14 @@
   <select id="authorCarrerInfoCheckCount" resultType="int">
 	  	SELECT
 	    	COUNT(*) AS CNT      
-		FROM TBL_DA_CAREER_S
+		FROM TBL_DA_ARTST_CAREER_S
 	    WHERE CAREER_SQ = #{careerSq}
   </select>
   
   
   <!-- 전시정보 등록 -->
   <insert id="authorExhbtnInfoInsert" parameterType="hashMap">
-  		INSERT INTO TBL_DA_EXHBTN_S
+  		INSERT INTO TBL_DA_ARTST_EXHBTN_S
   		(
   			ARTST_SQ
 			,MBR_SQ
@@ -442,7 +442,7 @@
 			,EXHBTN_TYP_CD AS exhbtnTypCd
 			
    		FROM 
-   			TBL_DA_EXHBTN_S
+   			TBL_DA_ARTST_EXHBTN_S
    		WHERE 1=1 
    			AND ARTST_SQ = #{artstSq}
    			AND MBR_SQ = #{mbrSq}
@@ -451,13 +451,13 @@
   
   <!-- 전시정보 삭제 -->
   <delete id="authorExhbtnInfoDelete"> 
-  	DELETE FROM TBL_DA_EXHBTN_S WHERE EXHBTN_SQ = #{exhbtnSq} 
+  	DELETE FROM TBL_DA_ARTST_EXHBTN_S WHERE EXHBTN_SQ = #{exhbtnSq} 
   </delete>
   
   <!-- 전시정보 수정 -->
   <update id="authorExhbtnInfoUpdate" parameterType="hashMap">
    		UPDATE 	
-   			TBL_DA_EXHBTN_S
+   			TBL_DA_ARTST_EXHBTN_S
    		SET		
    			EXHBTN_NM = #{exhbtnNm}
    		WHERE 	
@@ -468,7 +468,7 @@
   <select id="authorExhbtnInfoCheckCount" resultType="int">
 	  	SELECT
 	    	COUNT(*) AS CNT      
-		FROM TBL_DA_EXHBTN_S
+		FROM TBL_DA_ARTST_EXHBTN_S
 	    WHERE EXHBTN_SQ = #{exhbtnSq}
   </select>
    
@@ -507,17 +507,10 @@
    <select id="getSessionId" resultType="com.da.vo.AutoLoginVo" parameterType="String">
    		/*자동로그인 세션 아이디 가져오기*/
    		SELECT 
-   				B.ARTST_SQ AS artstSq,
-				B.ARTST_ACTVTY_NM AS artstActvtyNm,
-				B.ARTST_ENGLS_NM AS artstEnglsNm,
-				YEAR (A.MBR_BIRTH) AS artstBirthYear,
 				A.MBR_SQ AS mbrSq,
 				A.AUTH_SQ AS authSq
    		FROM 
    				TBL_DA_MBR_M AS A
-		INNER JOIN
-				TBL_DA_ARTST_M AS B 
-			ON	A.MBR_SQ = B.MBR_SQ 
    		WHERE 
    				A.AUTO_LOGIN_SSN_ID = #{value}
    </select>
@@ -564,4 +557,9 @@
 		WHERE 
 				MBR_ID = #{mbrId}
    </update>
+   
+   <select id="mbrInfo" parameterType="String" resultType="com.da.vo.MbrInfoVo">
+   		/*회원 정보*/
+   		SELECT * FROM TBL_DA_MBR_M WHERE MBR_SQ = #{mbrSq}
+   </select>
 </mapper>

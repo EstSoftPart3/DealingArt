@@ -99,7 +99,7 @@
 				<a href="javascript:fnModalAlert();" class="mab-a"><span>Guide</span></a>
 				<ul class="mab-ul">
 					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
-					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
 					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
 				</ul>
 			</div>
@@ -609,10 +609,11 @@ function changePasswrd(){
 							<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/>
 							<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 						</div>					
-						<div class="input-box">
+						<div class="input-box input-group">
 							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" readonly/>
-							<p class="inp-p" id="mbrNmCheck"></p>
+							<input type="text" class="input-3" placeholder="생년월일" id="mbrBirth" name="mbrBirth" autocomplete="off" readonly style="margin-right: 0px;"/>
 						</div>
+						<p class="inp-p" id="mbrNmCheck"></p>
 						<div class="input-box input-group">
 							<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" readonly/>
 							<button type="button" class="group-btn" id="mbrCpNumBtn">인증하기</button>
@@ -662,6 +663,52 @@ function changePasswrd(){
 	</form>
 </div>
 
+<!-- 작가등록 -->
+<div class="modal fade modal-s" id="authorModal1" tabindex="-1" role="dialog" aria-labelledby="authorModal1Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w500">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="md-ds2">
+						작가이신가요?<br/>딜링아트에 작가 정보를 등록해 주세요!
+					</div>
+					
+					<div class="auth-div">
+						<table width="100%" class="tstyle2">
+							<tr class="t-red">
+								<th>
+									<div class="tsc-2"><img src="resources/img/de/check-on.jpg"><span>손쉽게 포트폴리오를 관리하고 빠르게 공유 할 수 있습니다.</span></div>
+								</th>
+							</tr>
+							<tr class="t-red">
+								<th>
+									<div class="tsc-2"><img src="resources/img/de/check-on.jpg"><span>딜링아트의 다양한 프로모션 혜택을 제공해 드립니다.</span></div>
+								</th>
+							</tr>
+							<tr class="t-red">
+								<th>
+									<div class="tsc-2"><img src="resources/img/de/check-on.jpg"><span>작품을 직접 판매 할 수 있습니다.</span></div>
+								</th>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="/information"><button type="button" class="baeg-b1">등록하러 가기</button></a>
+						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- ModalConfirm-->
 <div class="modal fade modal-s" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
@@ -703,6 +750,7 @@ function mainMobileAuthSuccess(returnValue) {
         		document.memberInput.mbrCpNum.value="";
         		document.memberInput.mbrCpCertYn.value="N";
         		document.memberInput.mbrCpCertDate.value="";
+        		document.memberInput.mbrBirth.value="";
         		fn_validation('mbrNmCheck','이미 등록된 회원입니다.', 'R');
         	}else{
         		$("#mainSmsCertificationCheck").css('display',"block");
@@ -863,6 +911,8 @@ $("#memberInputBtn").on('click', function(event){
 	var mbrPasswrdConfirm = $("#mbrPasswrdConfirm").val();
 	//성명
 	var mbrNm = $("#mbrNm").val();
+	//생년월일
+	var mbrBirth = $("#mbrBirth").val();
 	//휴대번호
 	var mbrCpNum = $("#mbrCpNum").val();
 	//휴대폰 본인인증 여부
@@ -992,6 +1042,7 @@ $("#memberInputBtn").on('click', function(event){
 		  "mbrId" : mbrId,
 		  "mbrPasswrd" : mbrPasswrd,
 		  "mbrNm" : mbrNm,
+		  "mbrBirth" : mbrBirth,
 		  "mbrCpNum" : mbrCpNum,
 		  "mbrCpCertYn" : mbrCpCertYn,
 		  "mbrCpCertDate" : mbrCpCertDate,

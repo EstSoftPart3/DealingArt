@@ -324,7 +324,13 @@ $(document).on("click", ".cor-a", function(){
 
 $(document).on("click", ".reg-a", function(){
 	var workSq= $(this).attr("workSq");
-	modalAlertShow("서비스 준비중 입니다.","");
+	pageGoPost({
+		url:"/dealReg",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
 });
 
 $(document).on("click", ".heart", function(){
