@@ -307,11 +307,13 @@
   			ARTST_SQ
 			,MBR_SQ
 			,EDUCTN_NM
+			,EDUCTN_MAJOR
 			
   		) VALUES (
   			#{artstSq}
   		   ,#{mbrSq}
   		   ,#{eductnNm}
+  		   ,#{eductnMajor}
   		)
   </insert>
   
@@ -323,6 +325,7 @@
    			,ARTST_SQ AS artstSq 
 			,MBR_SQ AS mbrSq 
 			,EDUCTN_NM AS eductnNm
+			,EDUCTN_MAJOR AS eductnMajor
 			
    		FROM 
    			TBL_DA_ARTST_EDUCTN_S
@@ -349,7 +352,8 @@
    		UPDATE 	
    			TBL_DA_ARTST_EDUCTN_S
    		SET		
-   			EDUCTN_NM = #{eductnNm}
+   			EDUCTN_NM = #{eductnNm},
+   			EDUCTN_MAJOR = #{eductnMajor}
    		WHERE 	EDUCTN_SQ = #{eductnSq}
    </update>
    

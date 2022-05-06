@@ -347,11 +347,13 @@ public class MemberController {
 			String mbrSq = tList.get("mbrSq").toString();
 			String artstSq = tList.get("artstSq").toString();
 			String eductnNm = tList.get("eductnNm").toString();
+			String eductnMajor = tList.get("eductnMajor").toString();
 			
 			param.put("eductnSq", eductnSq);
 			param.put("mbrSq", mbrSq);
 			param.put("artstSq", artstSq);
 			param.put("eductnNm", eductnNm);
+			param.put("eductnMajor", eductnMajor);
 			
 			saveState = memberService.authorEduInfoSaveData(param);
 		}

@@ -17,8 +17,8 @@
 			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
 			,ARTST_HMPG_URL			AS artstHmpgUrl       
 			,ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
-			,ARTST_FACEBOOK_ID		AS artstFacebookId    
-			,ARTST_INSTAGRAM_ID		AS artstInstagramId   
+			,ARTST_FACEBOOK_URL		AS artstFacebookUrl  
+			,ARTST_INSTAGRAM_URL	AS artstInstagramUrl   
 			,REG_MBR_SQ				AS regMbrSq           
 			,REG_DT					AS regDt              
 			,UPDT_MBR_SQ			AS updtMbrSq          
@@ -47,14 +47,16 @@
 			,ARTST_SQ
 			,ARTST_ACTVTY_NM
 			,ARTST_ENGLS_NM
+			,ARTST_ACTVTY_NATN_CD
+			,ARTST_ACTVTY_CITY_CD
 			,ARTST_ACTVTY_PART_CD
 			,ARTST_ACTVTY_CD
 			,ARTST_SELF_INTRO
 			,ARTST_PROFILE_IMG_URL
 			,ARTST_HMPG_URL
 			,ARTST_PROMTN_VIDEO_URL
-			,ARTST_FACEBOOK_ID
-			,ARTST_INSTAGRAM_ID
+			,ARTST_FACEBOOK_URL
+			,ARTST_INSTAGRAM_URL
 			,REG_MBR_SQ
 			,REG_DT
 			,UPDT_MBR_SQ
@@ -69,14 +71,16 @@
 			,#{artstSq}
 			,#{artstActvtyNm}
 			,#{artstEnglsNm}
+			,#{artstActvtyNatnCd}
+			,#{artstActvtyCityCd}
 			,#{artstActvtyPartCd}
 			,#{artstActvtyCd}
 			,#{artstSelfIntro}
 			,#{artstProfileImgUrl}
 			,#{artstHmpgUrl}
 			,#{artstPromtnVideoUrl}
-			,#{artstFacebookId}
-			,#{artstInstagramId}
+			,#{artstFacebookUrl}
+			,#{artstInstagramUrl}
 			,'1'
 			,NOW()
 			,'1'
@@ -93,14 +97,16 @@
    		<trim prefix="SET" suffixOverrides=",">
       		<if test="artstActvtyNm  	  != null">ARTST_ACTVTY_NM		= #{artstActvtyNm},</if>
 			<if test="artstEnglsNm        != null">ARTST_ENGLS_NM		= #{artstEnglsNm},</if>
+			<if test="artstActvtyNatnCd   != null">ARTST_ACTVTY_NATN_CD	= #{artstActvtyNatnCd},</if>
+			<if test="artstActvtyCityCd   != null">ARTST_ACTVTY_CITY_CD	= #{artstActvtyCityCd},</if>
 			<if test="artstActvtyPartCd   != null">ARTST_ACTVTY_PART_CD	= #{artstActvtyPartCd},</if>
 			<if test="artstActvtyCd       != null">ARTST_ACTVTY_CD		= #{artstActvtyCd},</if>
 			<if test="artstSelfIntro      != null">ARTST_SELF_INTRO		= #{artstSelfIntro},</if>
 			<if test="artstProfileImgUrl  != null">ARTST_PROFILE_IMG_URL= #{artstProfileImgUrl},</if>
 			<if test="artstHmpgUrl    	  != null">ARTST_HMPG_URL		= #{artstHmpgUrl},</if>
 			<if test="artstPromtnVideoUrl != null">ARTST_PROMTN_VIDEO_URL= #{artstPromtnVideoUrl},</if>
-			<if test="artstFacebookId     != null">ARTST_FACEBOOK_ID	= #{artstFacebookId},</if>
-			<if test="artstInstagramId    != null">ARTST_INSTAGRAM_ID	= #{artstInstagramId},</if>
+			<if test="artstFacebookUrl     != null">ARTST_FACEBOOK_URL	= #{artstFacebookUrl},</if>
+			<if test="artstInstagramUrl    != null">ARTST_INSTAGRAM_URL	= #{artstInstagramUrl},</if>
 			UPDT_DT = NOW(),
 		</trim>
    		WHERE MBR_SQ = #{mbrSq}

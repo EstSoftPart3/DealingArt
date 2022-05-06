@@ -63,7 +63,7 @@
 		 
 		  <!--card-footer -->
          <div class="card-footer" >
-               <button type="button" class="btn btn-info sTitle" style="float:right" onclick="goMemberInput();">회원가입</button>
+               
          </div>
 		
 	</div>

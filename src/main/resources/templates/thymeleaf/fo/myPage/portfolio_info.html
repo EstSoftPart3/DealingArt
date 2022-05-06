@@ -181,7 +181,6 @@
 													<div class="selec-box">
 														<select class="selectpicker" name="artstActvtyNatnCd" id="artstActvtyNatnCd">
 															<option value="KR" selected>대한민국</option>
-															<option value="GL">그린란드</option>
 														</select>
 													</div>
 													<div class="selec-box">
@@ -1183,6 +1182,7 @@
 	   						eduData.mbrSq = mbrSq;
 	   						eduData.artstSq = artstSq;
 	   						eduData.eductnNm = $(item).val();
+	   						eduData.eductnMajor = '';
 	   						eduData = JSON.stringify(eduData);
 	   						edulist.push(JSON.parse(eduData));
 	   					}	
