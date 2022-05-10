@@ -267,4 +267,13 @@ public class MemberServiceImpl implements MemberService  {
 	public MbrInfoVo mbrInfo(String param) {
 		return memberDao.mbrInfo(param);
 	}
+	
+	/*
+	 * 회원 배송 정보 수정
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public int mbrDelivryAddrCor(Object param) {
+		return memberDao.mbrDelivryAddrCor(param);
+	}
 }

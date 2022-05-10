@@ -762,7 +762,7 @@ function dealSearch(){
      		
 	     		for(var i=0; i<dealList.length; i++){
 	     			dealListHtml += '<figure class="item">';
-	     			if(dealList[i].dealTypCd == "AUCT" && dealList[i].dealSttsCd == "IP"){
+	     			if(dealList[i].dealTypCd == "A" && dealList[i].dealSttsCd == "TP"){
 	     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
 	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
 	     				dealListHtml += '		<div class="item-ho">';
@@ -855,7 +855,13 @@ $("#myWork").on("click", function(){
 		$("#paintModal").modal("hide");
 		modalConfirm("알림", "포토폴리오 > 나의 작품 페이지로 이동합니다.", function(confrim){
 			if(confrim){
-				window.location.href="/myWork";
+				pageGoPost({
+					url:"/myWork",
+					target:"_self",
+					vals:[
+						["artstSq", artstSq]
+					]
+				});
 			}
 		});
 	}
@@ -870,7 +876,13 @@ $("#myCollection").on("click", function(){
 		modalConfirm("알림", "My Gallery > 소장품 페이지로 이동합니다.", function(confrim){
 			$("#paintModal").modal("hide");
 			if(confrim){
-				window.location.href="/myCollection";
+				pageGoPost({
+					url:"/myCollection",
+					target:"_self",
+					vals:[
+						["mbrSq", sMbrSqVal]
+					]
+				});
 			}
 		});
 	}

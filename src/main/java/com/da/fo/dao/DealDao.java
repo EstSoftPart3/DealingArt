@@ -61,4 +61,13 @@ public class DealDao {
 		}
 		return result;
 	}
+	
+	/*
+	 * 거래등록
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealReg(Object param) {
+		return dealMapper.dealReg(param);
+	}
 }

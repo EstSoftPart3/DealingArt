@@ -40,7 +40,7 @@
 							<table class="mstyle-2">
 								<tr>
 									<th><span class="my-red">작가명</span></th>
-									<td><input type="text" class="input-4" id="artstNm"/></td>
+									<td><input type="text" class="input-4" id="artstActvtyNm"/></td>
 								</tr>
 								<tr>
 									<th>출생년도</th>
@@ -450,7 +450,7 @@ $(function() {
 	if(sessionStorage.getItem("work") != null){
 		var work1 = new Object();
 		work1 = JSON.parse(sessionStorage.getItem("work"));
-		$("#artstNm").val(work1.artstNm);
+		$("#artstActvtyNm").val(work1.artstActvtyNm);
 		$("#artstYear").val(work1.artstYear);
 		$("#workNm").val(work1.workNm);
 		$('input:radio[name="workFrmYn"][value="'+work1.workFrmYn+'"]').prop('checked', true);
@@ -507,10 +507,10 @@ function collectionReg(){
 }
 
 function checkValid(){
-	if($("#artstNm").val() != null && $("#artstNm").val() != ""){
-		work.artstNm = $("#artstNm").val();
+	if($("#artstActvtyNm").val() != null && $("#artstActvtyNm").val() != ""){
+		work.artstActvtyNm = $("#artstActvtyNm").val();
 	}else{
-		modalAlertShow("작가명이 입력되지 않았습니다!", "artstNm");
+		modalAlertShow("작가명이 입력되지 않았습니다!", "artstActvtyNm");
 		return false;
 	}
 	
@@ -558,7 +558,7 @@ function collectionStorage(){
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({
-																artstNm : $("#artstNm").val(),
+																artstActvtyNm : $("#artstActvtyNm").val(),
 																artstYear : $("#artstYear").val(),
 																workNm : $("#workNm").val(),
 																workFrmYn : $('input[name=workFrmYn]:checked').val(),

@@ -40,7 +40,7 @@
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<img th:src="${result.workMainImgUrl}" />
+						<img th:src="${result.work.workMainImgUrl}" />
 					</div>
 					<div class="baeg-right">
 					
@@ -69,11 +69,11 @@
 								<label for="w2"><span></span>시작 시간 선택</label>
 								
 								<ul class="med-ul" id="startDate">
-									<li class="active"><a href="#">1주</a></li>
-									<li><a href="#">2주</a></li>
-									<li><a href="#">3주</a></li>
-									<li><a href="#">4주</a></li>
-									<li><a href="#">5주</a></li>
+									<li onclick="startDateSel(this)" value="7"><a href="#" >1주</a></li>
+									<li onclick="startDateSel(this)" value="14"><a href="#">2주</a></li>
+									<li onclick="startDateSel(this)" value="21"><a href="#">3주</a></li>
+									<li onclick="startDateSel(this)" value="28"><a href="#">4주</a></li>
+									<li onclick="startDateSel(this)" value="35"><a href="#">5주</a></li>
 								</ul>
 								<div class="input-box" id="choiceDate" style="display:none;">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
@@ -91,7 +91,7 @@
 							<div class="med-box radio-2">
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
-									<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA">2,240,000 원</div></label>
+									<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA"></div></label>
 									<span class="to-red" style="font-size:12px;">판매 희망가의 70%로 자동 설정 됩니다.</span>
 								</div>
 								<div class="input-box">
@@ -104,9 +104,9 @@
 						<div class="med">
 							<h2>배송 시작 주소</h2>
 							<div class="med-box radio-2">
-								<input type="radio" id="q1" name="vv" class="user-on" checked>
+								<input type="radio" id="q1" name="delivryAddr" class="user-on" value="O" checked>
 								<label for="q1" class="wd-185"><span></span>회원 정보와 동일</label>
-								<input type="radio" id="q2" name="vv" class="home-on">
+								<input type="radio" id="q2" name="delivryAddr" class="home-on" value="N">
 								<label for="q2"><span></span>새로운 주소</label>
 								
 								<div class="home-1">
@@ -117,7 +117,7 @@
 										</tr>
 										<tr>
 											<th>주 소</th>
-											<td th:value="${result.mbrInfo.mbrDelivryAddr}"></td>
+											<td th:text="${result.mbrInfo.mbrDelivryAddr}"></td>
 										</tr>
 										<tr>
 											<th>휴대전화</th>
@@ -163,9 +163,9 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled> -->
-												<img class="content" id="workGrtUrl1" style="cursor:pointer" th:src="${result.workGrtUrl}"/>
+												<img class="content" id="workGrtUrl1" style="cursor:pointer" th:src="${result.work.workGrtUrl}"/>
 												<label for="workGrtUrl">찾아보기</label> 
-												<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.workGrtUrl}"> 
+												<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.work.workGrtUrl}"> 
 											</div>
 											<p class="table-p">
 												※ png, jpeg, pdf 형식으로 등록 해주세요<br/>
@@ -176,7 +176,7 @@
 									<tr>
 										<th><span class="my-red">소장가</span></th>
 										<td>
-											<input type="text" class="input-4" id="workPrc" th:value="${result.workPrc}" onkeyup="comma(this)" style="font-size:15px;"/>
+											<input type="text" class="input-4" id="workPrc" th:value="${result.work.workPrc}" onkeyup="comma(this)" style="font-size:15px;"/>
 										</td>
 									</tr>
 									<tr>
@@ -184,9 +184,9 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled="disabled"> -->
-												<img class="content" id="workImgLefUrl1" style="cursor:pointer" th:src="${result.workImgLefUrl}"/>
+												<img class="content" id="workImgLefUrl1" style="cursor:pointer" th:src="${result.work.workImgLefUrl}"/>
 												<label for="workImgLefUrl">찾아보기</label> 
-												<input type="file" id="workImgLefUrl" class="upload-hidden" th:value="${result.workImgLefUrl}"> 
+												<input type="file" id="workImgLefUrl" class="upload-hidden" th:value="${result.work.workImgLefUrl}"> 
 											</div>
 											<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
 										</td>
@@ -196,9 +196,9 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled> -->
-												<img class="content" id="workImgRitUrl1" style="cursor:pointer" th:src="${result.workImgRitUrl}"/>
+												<img class="content" id="workImgRitUrl1" style="cursor:pointer" th:src="${result.work.workImgRitUrl}"/>
 												<label for="workImgRitUrl">찾아보기</label> 
-												<input type="file" id="workImgRitUrl" class="upload-hidden" th:value="${result.workImgRitUrl}"> 
+												<input type="file" id="workImgRitUrl" class="upload-hidden" th:value="${result.work.workImgRitUrl}"> 
 											</div>
 											<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
 										</td>
@@ -208,9 +208,9 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled="disabled"> -->
-												<img class="content" id="workImgTopUrl1" style="cursor:pointer" th:src="${result.workImgTopUrl}"/>
+												<img class="content" id="workImgTopUrl1" style="cursor:pointer" th:src="${result.work.workImgTopUrl}"/>
 												<label for="workImgTopUrl">찾아보기</label> 
-												<input type="file" id="workImgTopUrl" class="upload-hidden" th:value="${result.workImgTopUrl}"> 
+												<input type="file" id="workImgTopUrl" class="upload-hidden" th:value="${result.work.workImgTopUrl}"> 
 											</div>
 											<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
 										</td>
@@ -220,25 +220,25 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled="disabled"> -->
-												<img class="content" id="workImgBotUrl1" style="cursor:pointer" th:src="${result.workImgBotUrl}"/>
+												<img class="content" id="workImgBotUrl1" style="cursor:pointer" th:src="${result.work.workImgBotUrl}"/>
 												<label for="workImgBotUrl">찾아보기</label> 
-												<input type="file" id="workImgBotUrl" class="upload-hidden" th:value="${result.workImgBotUrl}"> 
+												<input type="file" id="workImgBotUrl" class="upload-hidden" th:value="${result.work.workImgBotUrl}"> 
 											</div>
 											<p class="table-p">※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.</p>
 										</td>
 									</tr>
 									<tr>
 										<th>작품영상</th>
-										<td><input type="text" class="input-4" id="workVideoUrl" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요" th:value="${result.workVideoUrl}"/></td>
+										<td><input type="text" class="input-4" id="workVideoUrl" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요" th:value="${result.work.workVideoUrl}"/></td>
 									</tr>
 									<tr>
 										<th>작품소개</th>
-										<td><textarea class="textarea-2" id="workIntrdc" placeholder="작품소개를 입력해주세요." th:value="${result.workIntrdc}" th:text="${result.workIntrdc}"></textarea></td>
+										<td><textarea class="textarea-2" id="workIntrdc" placeholder="작품소개를 입력해주세요." th:value="${result.work.workIntrdc}" th:text="${result.work.workIntrdc}"></textarea></td>
 									</tr>
 									<tr>
 										<th><span class="">작품 키워드</span></th>
 										<td>
-											<input type="text" class="input-4" id="keywrd" placeholder="키워드를 쉼표로 구분해 주세요." onblur="keywrdSet(this)" th:value="${result.keywrd}"/>
+											<input type="text" class="input-4" id="keywrd" placeholder="키워드를 쉼표로 구분해 주세요." onblur="keywrdSet(this)" th:value="${result.work.keywrd}"/>
 											<div class="key-box">
 											</div>
 										</td>
@@ -309,7 +309,7 @@
 					</div>
 					
 					<div class="baeg-btn mg_t30">
-						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+						<a href="#"><button type="button" class="baeg-b1" onclick="dealReg()">확인</button></a>
 						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
 					</div>
 					
@@ -323,9 +323,18 @@
 
 <script th:inline="javascript">
 var result = /*[[${result}]]*/ 'default';
+var deal = new Object();
+result.deal = deal;
 jQuery(document).ready(function() {
 	$('.datepicker').datepicker();
 	$("#dealStrtDt").calendar($("#dealEndngDt"));
+	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
+		$(".home-1").css("display", "none");
+		$(".home-2").css("display", "");
+		$("#q1").attr("disabled", true);
+		$(".user-on").css("display", "none");
+		$("#q2").prop("checked", "true");
+	}
 });
 
 $("input:radio[name='dealTypCd']").change(function(){
@@ -350,6 +359,7 @@ $("input:radio[name='dealPeriod']").change(function(){
 	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
 		$("#choiceDate").css("display", "");
 		$("#startDate").css("display", "none");
+		result.work.dealStrtDtAddDt = null;
 	}else{
 		$("#choiceDate").css("display", "none");
 		$("#startDate").css("display", "");
@@ -366,11 +376,7 @@ $.datepicker.setDefaults({
 	dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
 	dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 	showMonthAfterYear: true,
-	yearSuffix: '년',
-	// timepicker 설정
-	timeFormat:'HH:mm:ss',
-	controlType:'select',
-	oneLine:true,
+	yearSuffix: '년'
 });
 
 function searchAddr(){
@@ -382,10 +388,9 @@ function searchAddr(){
 }
 
 function dealStrtPrcCal(obj){
-	debugger;
 	var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
 	var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
-	$("#dealStrtPrcA").text(val2);
+	$("#dealStrtPrcA").text(val2+"원");
 }
 
 $(document).on("change", ".upload-hidden", function(e){
@@ -434,6 +439,117 @@ $(document).on("click", ".keywrdList", function(){
 	var keywrd = $("#keywrd").val().replaceAll(keywrdValue, '');
 	$("#keywrd").val(keywrd.substring(0, keywrd.length - 1));
 });
+
+function startDateSel(obj){
+	result.deal.dealStrtDt = setTodayTime();
+	result.deal.dealStrtDtAddDt = parseInt(obj.value);
+	if(document.querySelector(".active") != null){
+		document.querySelector(".active").className="";
+	}
+	obj.className = "active";
+}
+
+function vaild(){
+	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
+		if(result.deal.dealStrtDt == null || result.deal.dealStrtDt == "" ||
+			result.deal.dealEndngDt == null || result.deal.dealEndngDt == ""){
+			modalAlertShow("판매 기간이 입력되지 않았습니다.");
+			return false;
+		}
+	}else{
+		if(result.deal.dealStrtDtAddDt == null || result.deal.dealStrtDtAddDt == ""){
+			modalAlertShow("판매 기간을 선택해주세요.");
+			return false;
+		}
+	}
+	if(result.deal.dealStrtPrc == null || result.deal.dealStrtPrc == ""){
+		modalAlertShow("판매 가격이 입력되지 않았습니다.");
+		return false;
+	}
+	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
+		modalAlertShow("배송 시작 주소가 입력되지 않았습니다.");
+		return false;
+	}
+	if($("#workGrtUrl1").attr("src") == null || $("#workGrtUrl1").attr("src") == ""){
+		modalAlertShow("작품 보증서가 업로드되지 않았습니다.");
+		return false;
+	}
+	if(result.work.workPrc == null || result.work.workPrc == ""){
+		modalAlertShow("작품 소장가가 입력되지 않았습니다.");
+		return false;
+	}
+	return true;
+}
+
+function dealReg(){
+	$('#myModal4').modal('hide');
+	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
+	if(result.deal.dealTypCd = "A"){
+		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
+		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
+	}else{
+		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
+	}
+	if($("input:radio[name='delivryAddr']:checked").val() == "N"){
+		if($("#mbrDelivryAddr").val() != "" && $("#mbrDelivryAddr").val() != null){
+			if($("#mbrDelivryAddrDetail").val() != "" && $("#mbrDelivryAddrDetail").val() != null){
+				result.mbrInfo.mbrDelivryAddr = $("#mbrDelivryAddr").val() + " " + $("#mbrDelivryAddrDetail").val();				
+			}
+		}
+	}
+	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
+		result.deal.dealStrtDt = $("#dealStrtDt").val() + $("#dealStrtTime").val();
+		result.deal.dealEndngDt = $("#dealEndngDt").val() + $("#dealEndngTime").val();
+	}
+	result.work.keywrd = $("#keywrd").val();
+	result.work.mbrSq = sMbrSqVal;
+	result.work.artstSq = artstSq;
+	result.work.artstActvtyNm = artstActvtyNm;
+	result.work.artstBirthYear = artstBirthYear;
+	result.work.workVideoUrl = $("#workVideoUrl").val();
+	result.work.workIntrdc = $("#workIntrdc").val();
+	result.work.workPrc = $("#workPrc").val().replaceAll(/,/g,'');
+	result.deal.artstSq = artstSq;
+	result.deal.workSq = result.work.workSq;
+	result.deal.dealSttsCd = "TP";
+	if(vaild()){
+		const file = document.getElementsByClassName("upload-hidden");
+	    const formData = new FormData();
+	    for(var i=0; i<file.length; i++){
+	    	formData.append("file", file[i].files[0]);
+	    }
+	    formData.append("param", new Blob([JSON.stringify(result)], {type: "application/json"}));
+	    
+	    $.ajax({
+	        type: "post",
+	        url: "/dealReg/reg",
+	        data: formData,
+	        contentType : false,
+	        processData : false,
+	        success: function(data) {
+	        	debugger;
+	        	if(data != 0 || data != null || data != ""){
+	        		modalAlertShow("성공적으로 저장되었습니다.", "myWork");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	
+}
+
+function setTodayTime(){
+	var now = new Date();
+	var year = now.getFullYear().toString();
+	var month = (now.getMonth()+1).toString();
+	var date = now.getDay().toString();		
+	var hours = now.getHours().toString();
+	var minutes = now.getMinutes().toString();
+	
+	return year+'-'+month+'-'+date+' '+hours+':'+minutes;
+}
 
       
       $(window).on("resize", function () {

@@ -16,14 +16,14 @@
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				B.DEAL_TYP_CD AS dealTypCd,
-				DATE_FORMAT(B.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
 				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
 				FORMAT(E.MAX_BID_PRC, 0) AS maxBidPrc,
-				DATEDIFF(B.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec, /*거래남은초*/
+				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec, /*거래남은초*/
 				D.BID_CNT AS bidCnt,
 				G.MAX_BID_DATE AS maxBidDate
 		FROM 
@@ -138,7 +138,7 @@
 				VALUES (
 						#{mbrSq}, 
 						#{workTypCd}, 
-						#{artstNm}, 
+						#{artstActvtyNm}, 
 						#{workNm}, 
 						#{workFrmYn}, 
 						#{workClrCd},
@@ -207,7 +207,7 @@
 							FROM
 									TBL_DA_WORK_M
 							WHERE
-									ARTST_ACTVTY_NM = #{artstNm}
+									ARTST_ACTVTY_NM = #{artstActvtyNm}
 							AND 	WORK_NM = #{workNm}
 							AND		WORK_FRM_YN = #{workFrmYn}
 							AND 	WORK_CLR_CD = #{workClrCd}
@@ -273,7 +273,7 @@
 					VALUE(
 							#{mbrSq},
 							#{artstSq},
-							#{artstNm},
+							#{artstActvtyNm},
 							#{artstBirthYear},
 							#{workTypCd},
 							#{workNm},
@@ -347,12 +347,12 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN
@@ -488,7 +488,7 @@
 								#{workSq},
 			     				#{mbrSq},
 								#{artstSq},
-								#{artstNm},
+								#{artstActvtyNm},
 								#{artstBirthYear},
 								#{workTypCd},
 								#{workNm},
@@ -532,7 +532,7 @@
 	ON DUPLICATE KEY UPDATE
 		    					MBR_SQ = #{mbrSq},
 								ARTST_SQ = #{artstSq},
-								ARTST_ACTVTY_NM = #{artstNm},
+								ARTST_ACTVTY_NM = #{artstActvtyNm},
 								ARTST_BIRTH_YEAR = #{artstBirthYear},
 								WORK_TYP_CD = #{workTypCd},
 								WORK_NM = #{workNm},
@@ -620,12 +620,12 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN
@@ -917,12 +917,12 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN

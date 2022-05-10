@@ -103,7 +103,7 @@ public class MyPageDao {
 		int result = -1;
 		result = myPageMapper.myWorkCor(param);
 		System.out.println(" myWorkDao result : " + result);
-		if(param.get("keywrd") != null && param.get("keywrd") != "") {
+		if(!param.get("keywrd").toString().equals(null) && !param.get("keywrd").toString().equals("")) {
 			result = myPageMapper.keywrdCor(param);
 		}
 		return result;	
@@ -126,7 +126,7 @@ public class MyPageDao {
 	public int collectionCor(Map<String, Object> param) {
 		int result = -1;
 		result = myPageMapper.collectionCor(param);
-		if(param.get("keywrd") != null && param.get("keywrd") != "") {
+		if(!param.get("keywrd").toString().equals(null) && !param.get("keywrd").toString().equals("")) {
 			result = myPageMapper.keywrdCor(param);
 		}
 		return result;	

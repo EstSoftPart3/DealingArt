@@ -32,12 +32,12 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN
@@ -115,12 +115,12 @@
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ
 				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
-				DATE_FORMAT(D.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN
@@ -136,8 +136,48 @@
 				A.WORK_SQ = #{workSq}
 	</select>
 	
-	<select id="dealReg">
-		/*거래등록 페이지 오픈*/
-	</select>
+	<insert id="dealReg">
+		/*거래 등록*/
+		INSERT INTO
+					TBL_DA_DEAL_M (
+						WORK_SQ,
+						DEAL_TYP_CD,
+						DEAL_STTS_CD,
+						DEAL_STRT_PRC,
+						DEAL_STRT_DT,
+						DEAL_ENDNG_DT
+						<if test="artstSq != null and artst != ''">
+							,ARTST_SQ
+						</if>
+					) VALUES (
+						#{workSq},
+						#{dealTypCd},
+						#{dealSttsCd},
+						#{dealStrtPrc},
+						#{dealStrtDt}
+						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
+							,DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY)
+						</if>
+						<if test="dealEndngDt != null and dealEndngDt != ''">
+							,#{dealEndngDt}
+						</if>
+						<if test="artstSq != null and artst != ''">
+							,#{artstSq}
+						</if>
+					) ON DUPLICATE KEY UPDATE
+						DEAL_TYP_CD = #{dealTypCd},
+						DEAL_STTS_CD = #{dealSttsCd},
+						DEAL_STRT_PRC = #{dealStrtPrc},
+						DEAL_STRT_DT = #{dealStrtDt}
+						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
+							,DEAL_ENDNG_DT = DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY)
+						</if>
+						<if test="dealEndngDt != null and dealEndngDt != ''">
+							,DEAL_STRT_DT = #{dealEndngDt}
+						</if>
+						<if test="artstSq != null and artstSq != ''">
+							,ARTST_SQ = #{artstSq}
+						</if>
+	</insert>
 	
 </mapper>

@@ -18,4 +18,10 @@ public interface DealMapper {
 	 */
 	public Map<String, Object> dealDetail(String param);
 
+	/*
+	 * 거래등록
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealReg(Object param);
 }

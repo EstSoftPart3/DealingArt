@@ -35,4 +35,13 @@ public class DealServiceImpl implements DealService{
 		return dealDao.dealDetail(param);
 	}
 	
+	
+	/*
+	 * 거래등록
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealReg(Object param) {
+		return dealDao.dealReg(param);
+	}
 }

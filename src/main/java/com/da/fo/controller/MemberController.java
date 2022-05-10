@@ -253,11 +253,12 @@ public class MemberController {
 		    session.setAttribute("authSq", autoLoginVo.getAuthSq());
 		    mv.addObject("sMbrSqVal", autoLoginVo.getMbrSq());
 		    mv.addObject("sAuthSqVal", autoLoginVo.getAuthSq());
-			if(session.getAttribute("artstSq") != null && session.getAttribute("artstSq") != "") {
-		    	mv.addObject("artstSq", session.getAttribute("artstSq").toString());
-		    	mv.addObject("artstActvtyNm", session.getAttribute("artstActvtyNm").toString());
-		    	mv.addObject("artstEnglsNm", session.getAttribute("artstEnglsNm").toString());
-		    	mv.addObject("artstBirthYear", session.getAttribute("artstBirthYear").toString());
+			if(autoLoginVo.getAuthSq().equals("2")) {
+				Map<String, Object> artstInfo = memberService.getArtistInfo(autoLoginVo.getMbrSq());
+		    	mv.addObject("artstSq", artstInfo.get("artstSq").toString());
+		    	mv.addObject("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
+		    	mv.addObject("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
+		    	mv.addObject("artstBirthYear", artstInfo.get("artstBirthYear").toString());
 		    }
 		}
 		if(cookie == null && session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        

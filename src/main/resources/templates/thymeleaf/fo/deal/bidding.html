@@ -340,7 +340,7 @@
 					<dt>경력</dt>
 					<dd>
 					<th:block th:each="career: ${result.career}">
-						<p th:text="${career.eductnNm}"></p>
+						<p th:text="${career.careerNm}"></p>
 					</th:block>
 					</dd>
 				</dl>
@@ -348,7 +348,7 @@
 					<dt>전시 정보</dt>
 					<dd>
 					<th:block th:each="exhbtn: ${result.exhbtn}">
-						<p th:text="${exhbtn.eductnNm}"></p>
+						<p th:text="${exhbtn.exhbtnNm}"></p>
 					</th:block>
 					</dd>
 				</dl>

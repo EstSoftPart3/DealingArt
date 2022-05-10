@@ -93,6 +93,16 @@ function modalAlertClose(obj) {
 		location.reload();
 	}
 	
+	if(obj == "myWork"){
+		pageGoPost({
+			url:"/myWork",
+			target:"_self",
+			vals:[
+				["artstSq", artstSq]
+			]
+		});
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');

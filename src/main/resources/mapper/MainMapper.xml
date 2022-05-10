@@ -54,13 +54,13 @@
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, <!--  작품_사이즈_높이 -->
 				A.WORK_PRODC_YEAR AS workProdcYear, <!-- 작품_제작년도 --> 
 				B.DEAL_SBID_PRC AS dealSbidPrc, <!-- 작품_낙찰_금액 --> 
-				B.DEAL_ENDNG_DATE AS dealEndngDate <!-- 작품_낙찰_일시 -->
+				B.DEAL_ENDNG_DT AS dealEndngDate <!-- 작품_낙찰_일시 -->
 		FROM 	TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B,
 				TBL_DA_ARTST_M AS C
 		WHERE 	B.DEAL_STTS_CD NOT IN ('IP')
 		<!-- 테스트를 위해 임시 주석처리 -->
-		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y-%m-%d') = #{now} --> 
+		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y-%m-%d') = #{now} --> 
 		AND 	B.WORK_SQ = A.WORK_SQ
 		AND		A.ARTST_SQ = C.ARTST_SQ
 		LIMIT #{pageSize}
@@ -212,12 +212,12 @@
 				B.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
 				B.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
 				C.BID_CNT AS bidCnt, /*응찰수*/ 
-				DATE_FORMAT(B.DEAL_STRT_DATE, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(B.DEAL_ENDNG_DATE, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(B.DEAL_ENDNG_DATE, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DATE, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM	TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B,
 				(

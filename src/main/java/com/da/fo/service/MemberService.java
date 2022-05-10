@@ -140,5 +140,12 @@ public interface MemberService {
 	 * return : MbrInfoVo
 	 */
 	public MbrInfoVo mbrInfo(String param);
+	
+	/*
+	 * 회원 배송 정보 수정
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public int mbrDelivryAddrCor(Object param);
 
 }
