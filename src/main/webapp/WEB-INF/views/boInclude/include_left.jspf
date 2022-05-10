@@ -85,42 +85,31 @@
                 </a>
               </li>
               
-            <!--   <li class="nav-item has-treeview menu-open">
+            <li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
-	                작가
+	                게시판
 	                <i class="right fas fa-angle-left"></i>
 	              </p>
 	            </a>
 		            <ul class="nav nav-treeview">
 		              <li class="nav-item">
-		                <a href="#" class="nav-link">
+		                <a href="/admin/board/boardList?brdTypCd=NT" class="nav-link">
 		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">작가정보조회</p>
+		                  <p class="sTitle">공지사항</p>
 		                </a>
 		              </li>
 		              <li class="nav-item">
 		                <a href="#" class="nav-link">
 		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">작가등급관리</p>
-		                </a>
-		              </li>
-		              <li class="nav-item">
-		                <a href="#" class="nav-link">
-		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">작가탈퇴관리</p>
-		                </a>
-		              </li>
-		              <li class="nav-item">
-		                <a href="#" class="nav-link">
-		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">휴면탈퇴관리</p>
+		                  <p class="sTitle">FAQ</p>
 		                </a>
 		              </li>
 		              
+		              
 		            </ul>
-          	</li> -->
+          	</li>
           	
           	<!--  <li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">공통관리</li>
