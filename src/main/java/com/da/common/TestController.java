@@ -155,7 +155,7 @@ public class TestController {
 	
 	/**
 	 * MainPay 시작 화면
-	 * @return
+	 * @return 
 	 */
 	@RequestMapping("/sample/payment")
 	public String paymentTest() {
