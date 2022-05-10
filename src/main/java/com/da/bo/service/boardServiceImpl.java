@@ -28,4 +28,34 @@ public class boardServiceImpl implements boardService {
 		
 		return result;
 	}
+	
+	//게시판 입력
+	@Override
+	public void boardInsert(Map<String, Object> param){
+		boardDao.boardInsert(param);
+	}
+	
+	//게시판 상세
+		@Override
+		public Map<String, Object> boardDetail(Map<String, Object> param){
+			
+			Map<String, Object> result = new HashMap<>();
+			
+			result = boardDao.boardDetail(param);
+			
+			return result;
+		}
+		
+	//게시판 삭제
+	@Override
+	public void boardDelete(Map<String, Object> param){
+		boardDao.boardDelete(param);
+	}
+	
+	//게시판 삭제
+		@Override
+		public void boardUpdate(Map<String, Object> param){
+			boardDao.boardUpdate(param);
+		}
+	
 }

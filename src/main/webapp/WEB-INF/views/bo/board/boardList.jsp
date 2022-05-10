@@ -13,7 +13,7 @@
 	if(brdTypCd.equals("NT")) {
 		brdName = "공지사항"; 
 	} else {
-		brdName = "FAQ"; 
+		brdName = "FA"; 
 	}
 
 %>
@@ -111,8 +111,7 @@
 	       fields: [
 	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
 	    	   { name: "mbrSq"	,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
-	    	   { name: "brdTitle"	,title:"게시판제목", type: "text", width: 150,align:"center" ,width:100, visible: true},
-	    	   { name: "brdContent"	,title:"게시판내용", type: "text", width: 200,align:"center",width:100, validate: "required" },
+	    	   { name: "brdTitle"	,id:"brdTitle", title:"게시판제목", type: "text", width: 150,align:"center" ,width:100, visible: true, key:true},
 	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 },
 	    	   { name: "regMbrSq",title:"등록회원순번", type: "text", width: 200,align:"center",width:100 },
 	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 },
@@ -121,10 +120,23 @@
 	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 }
 	    	  
 	    	   
-	       ]
+	       ],
+	       rowClick: function(args) {
+	           //console.log(args)
+	       	   var getData = args.item.brdSq;
+	       	   console.log("getData :"+getData);
+	           fn_SubBrdPage(getData);
+
+           }
+
 	   });
    
    }
+   
+   function fn_SubBrdPage(getData) {
+	   var brdTypCd = $('#brdTypCd').val();
+	   location.href='/admin/board/boardDetail?brdSq='+getData+'&brdTypCd='+brdTypCd;
+	}
    
    </script>
  

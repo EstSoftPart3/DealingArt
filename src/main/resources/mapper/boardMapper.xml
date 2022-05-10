@@ -7,25 +7,92 @@
 	
   
     
-    <!-- 회원 상세 -->
+    <!-- 게시판 목록 -->
     <select id="boardList" resultType="hashMap">
         SELECT
-           	BRD_SQ             AS brdSq
-			,MBR_SQ            AS mbrSq
-			,BRD_TITLE         AS brdTitle
-			,BRD_CONTENT       AS brdContent
-			,BRD_TYP_CD        AS brdTypCd
-			,REG_MBR_SQ        AS regMbrSq
-			,REG_DT            AS regDt
-			,UPDT_MBR_SQ       AS updtMbrSq
-			,UPDT_DT           AS updtDt
-			,DEL_YN			   AS delYn
+           	BRD_SQ             				  AS brdSq
+			,MBR_SQ              			  AS mbrSq
+			,BRD_TITLE         				  AS brdTitle
+			,BRD_CONTENT      				  AS brdContent
+			,BRD_TYP_CD        				  AS brdTypCd
+			,REG_MBR_SQ        				  AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,DEL_YN			   				  AS delYn
 		FROM
             TBL_DA_BRD_M A 
         WHERE 1=1
-         AND A.BRD_TYP_CD = #{brdTypCd}
+         	AND A.BRD_TYP_CD = #{brdTypCd}
     </select>
- 
+    
+   <!-- 게시판 등록 -->
+   <insert id="boardInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_BRD_M
+        (
+			 MBR_SQ
+			,BRD_TITLE
+			,BRD_CONTENT
+			,BRD_TYP_CD
+			,REG_MBR_SQ
+			,REG_DT
+			,DEL_YN
+       	) 
+        VALUES
+        (
+			 #{mbrSq}
+			,#{brdTitle}
+			,#{brdContent}
+			,#{brdTypCd}
+			,#{mbrSq}
+			,NOW()
+			,default
+        )
+    </insert>
+    
+    <!-- 게시판 상세 -->
+    <select id="boardDetail" resultType="hashMap">
+        SELECT
+           	 BRD_SQ             		      AS brdSq
+			,MBR_SQ              			  AS mbrSq
+			,BRD_TITLE         				  AS brdTitle
+			,BRD_CONTENT      				  AS brdContent
+			,BRD_TYP_CD        				  AS brdTypCd
+			,REG_MBR_SQ        				  AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,DEL_YN			   				  AS delYn
+		FROM
+            TBL_DA_BRD_M A
+        WHERE 1=1
+         	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
+    </select>
+    
+    <!-- 게시판 삭제 -->
+    <update id="boardDelete" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_BRD_M A
+		SET
+			DEL_YN	= 'Y'
+   		WHERE 1=1
+         	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
+	</update>
+    
+    <!-- 게시판 수정 -->
+    <update id="boardUpdate" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_BRD_M A
+		SET
+			 BRD_TITLE   = 	#{brdTitle}
+			,BRD_CONTENT = 	#{brdContent}
+			,UPDT_MBR_SQ = 	#{mbrSq}
+			,UPDT_DT     = 	NOW()
+			,DEL_YN	     = 	'Y'
+
+   		WHERE 1=1
+         	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
+	</update>
    
   
 </mapper>

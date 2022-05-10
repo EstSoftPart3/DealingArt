@@ -512,9 +512,9 @@
 	           }
 	       },
 	       fields: [
-	    	   { name: "artstSq"	,title:"작가순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "mbrSq"		,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "eductnSq"	,title:"학력순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "artstSq"	,title:"작가순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
+	    	   { name: "mbrSq"		,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
+	    	   { name: "eductnSq"	,title:"학력순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
 	    	   { name: "eductnNm"	,title:"학력명", type: "text", width: 200,align:"center",width:100, validate: "required" },
 	    	   { name: "eductnMajor",title:"학력전공", type: "text", width: 200,align:"center",width:100 },
 	    	   { type: "control",deleteButton: true },

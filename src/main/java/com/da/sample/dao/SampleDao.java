@@ -171,17 +171,18 @@ public class SampleDao{
 	 * return : Map(SampleBoard)
 	 */
 	public SampleBoard selectBoard(SampleBoard sampleBoard) {
-		QSampleBoard model = QSampleBoard.sampleBoard;
-		SampleBoard result = queryFactory.selectFrom(model)
-											//화면에서 받아온 Model 객채 안에 있는 bNo와 기존에 저장되있는 bNo를 비교한다
-											.where(model.bNo.eq(sampleBoard.getBNo()))
-											.fetchOne();
-		System.out.println("********Result :" + result);
-		/*
-		 * MyBatis 사용시
-		 * SampleBoard result = sampleMapper.selectBoard(sampleBoard);
-		 */
-		return result;
+//		QSampleBoard model = QSampleBoard.sampleBoard;
+//		SampleBoard result = queryFactory.selectFrom(model)
+//											//화면에서 받아온 Model 객채 안에 있는 bNo와 기존에 저장되있는 bNo를 비교한다
+//											.where(model.bNo.eq(sampleBoard.getBNo()))
+//											.fetchOne();
+//		System.out.println("********Result :" + result);
+//		/*
+//		 * MyBatis 사용시
+//		 * SampleBoard result = sampleMapper.selectBoard(sampleBoard);
+//		 */
+//		return result;
+		return null;
 	}
 	
 	public int deleteBoard(String bNo) {

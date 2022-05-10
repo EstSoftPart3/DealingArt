@@ -78,9 +78,9 @@ public class AwsS3Service {
             } catch(IOException e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }
-            FileVo fileVo = FileVo.builder().fileNm(fileName).fileUrl(fileUrl).build();
+ //           FileVo fileVo = FileVo.builder().fileNm(fileName).fileUrl(fileUrl).build();
 
-            fileList.add(fileVo);
+            //fileList.add(fileVo);
         });
 
         return fileList;
@@ -101,8 +101,9 @@ public class AwsS3Service {
         String fileNm = randomFileName(file, dirName);
         String fileUrl = putFile(file, fileNm);
         removeFile(file);
+		return null;
 
-        return FileVo.builder().fileNm(fileNm).fileUrl(fileUrl).build();
+        //return FileVo.builder().fileNm(fileNm).fileUrl(fileUrl).build();
     }
 
     private String randomFileName(File file, String dirName) {
@@ -134,11 +135,11 @@ public class AwsS3Service {
     }
 
     public void remove(FileVo fileVo) {
-    	System.out.println("####### Delete File : "+fileVo);
-        if (!s3Client.doesObjectExist(bucket, fileVo.getFileNm())) {
-            throw new AmazonS3Exception("Object " +fileVo.getFileNm()+ " does not exist!");
-        }
-        s3Client.deleteObject(bucket, fileVo.getFileNm());
+//    	System.out.println("####### Delete File : "+fileVo);
+//        if (!s3Client.doesObjectExist(bucket, fileVo.getFileNm())) {
+//            throw new AmazonS3Exception("Object " +fileVo.getFileNm()+ " does not exist!");
+//        }
+//        s3Client.deleteObject(bucket, fileVo.getFileNm());
     }
 }
 

@@ -25,7 +25,7 @@ public class boardDao {
 	boardMapper boardMapper;
 	
 	
-	//게시판 리스트
+	//게시판 목록
 	public Map<String, Object> boardList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -38,4 +38,42 @@ public class boardDao {
 		return result;
 	}
 
+	//게시판 등록
+	public void boardInsert(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.boardInsert(param);
+		
+	}
+	
+	//게시판 상세
+	public Map<String, Object> boardDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("DATA = " + param);
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> boardDetailData = boardMapper.boardDetail(param);
+		
+		result.put("boardDetailData", boardDetailData);
+		
+		return result;
+	}
+	
+	//게시판 삭제
+	public void boardDelete(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.boardDelete(param);
+		
+	}
+	
+	//게시판 수정
+	public void boardUpdate(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.boardUpdate(param);
+		
+	}
 }
