@@ -45,7 +45,6 @@ public class artistMemberController {
 		String artstActvtyNatnCd  	= (String) param.get("artstActvtyNatnCd");		//활동국가
 		String artstActvtyCityCd  	= (String) param.get("artstActvtyCityCd");		//활동도시
 		String artstActvtyPartCd  	= (String) param.get("artstActvtyPartCd");		//활동분야코드
-		String artstActvtyCd 	  	= (String) param.get("artstActvtyCd");			//활동지역코드
 		String artstSelfIntro 	  	= (String) param.get("artstSelfIntro");			//자기소개
 		String artstProfileImgUrl 	= (String) param.get("artstProfileImgUrl");		//프로필 이미지
 		String artstHmpgUrl 		= (String) param.get("artstHmpgUrl");			//홈페이지 URL
@@ -73,9 +72,6 @@ public class artistMemberController {
 		}
 		if(!CommonService.isEmpty(artstActvtyPartCd)) {
 			requestData.put("artstActvtyPartCd", artstActvtyPartCd);
-		}
-		if(!CommonService.isEmpty(artstActvtyCd)) {
-			requestData.put("artstActvtyCd", artstActvtyCd);
 		}
 		if(!CommonService.isEmpty(artstSelfIntro)) {
 			requestData.put("artstSelfIntro", artstSelfIntro);

@@ -14,7 +14,7 @@ import com.mainpay.sdk.net.HttpSendTemplate;
 import com.mainpay.sdk.utils.ParseUtils;
 
 @Service
-public class MainPayUtil_BAK {
+public class MainPayUtil {
 	
 	@Autowired
 	private MainPayMapper mainPayMapper;
