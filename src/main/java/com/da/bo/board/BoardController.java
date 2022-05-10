@@ -42,7 +42,7 @@ public class BoardController {
 		return "bo/board/boardList";
 	}
 	
-	//게시판 목록 페이지 이동
+	//게시판 등록 페이지 이동
 	@RequestMapping("/admin/board/boardWrite")
 	public String openMemberWrite(HttpServletRequest req) {
 		

@@ -13,7 +13,7 @@
 	if(brdTypCd.equals("NT")) {
 		brdName = "공지사항"; 
 	} else {
-		brdName = "일반"; 
+		brdName = "FAQ"; 
 	}
 
 %>
