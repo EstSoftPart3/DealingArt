@@ -5,15 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.da.sample.service.CommonService;
+import com.da.util.MainPayUtil;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 
@@ -30,6 +35,9 @@ public class TestController {
 	
 	@Autowired
 	private SendMailUtil sendMailUtil;
+	
+	@Autowired
+	private MainPayUtil mainPayUtil;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -143,6 +151,174 @@ public class TestController {
 //		}
 		
 		return result;
+	}
+	
+	/**
+	 * MainPay 시작 화면
+	 * @return
+	 */
+	@RequestMapping("/sample/payment")
+	public String paymentTest() {
+		return "/payment/payment";
+	}
+	
+	/**
+	 * MainPay 인증 후 인증 popup 으로
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/readyApi")
+	public @ResponseBody Map<String, Object> mainPayReadyApi(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) {
+		
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.readyApi(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 결제승인
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/payment/approval")
+	public @ResponseBody Map<String, Object> mainPayApproval(HttpServletRequest request
+			,@RequestParam(required = false) String aid
+			,@RequestParam(required = false) String authToken
+			,@RequestParam(required = false) String merchantData
+			,@RequestParam(required = false) String payType) throws Exception {
+		
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("aid", aid);
+		paramMap.put("authToken", authToken);
+		paramMap.put("merchantData", merchantData);
+		paramMap.put("payType", payType);
+		
+		rsltMap = mainPayUtil.approval(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 결제 완료 된 데이터 가져오기
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/getPaymentSuccessDataList")
+	public @ResponseBody List<Map<String, Object>> getPaymentSuccessData(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		List<Map<String, Object>> rsltList = new ArrayList<Map<String, Object>>();
+		
+		rsltList = mainPayUtil.getPaymentSuccessDataList(paramMap);
+		
+		return rsltList;
+	}
+	
+	/**
+	 * 전체 결제 취소
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 */
+	@PostMapping("/payment/all-cancel")
+	public @ResponseBody Map<String, Object> mainPayAllCancel(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws Exception{
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayAllCancel(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 환불 등록
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/ref-register")
+	public @ResponseBody Map<String, Object> mainPayRefRegister(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayRefRegister(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 환불 상태 조회
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/ref-select")
+	public @ResponseBody Map<String, Object> mainPayRefSelect(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayRefSelect(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 환불 취소
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/ref-cancel")
+	public @ResponseBody Map<String, Object> mainPayRefCancel(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayRefCancel(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 현금영수증 발행
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/cash-receipt-trans")
+	public @ResponseBody Map<String, Object> mainPayCashReceiptTrans(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayCashReceiptTrans(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * 현금영수증 취소
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/cash-receipt-cancel")
+	public @ResponseBody Map<String, Object> mainPayCashReceiptCancel(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		Map<String, Object> rsltMap = new HashMap<String, Object>();
+		
+		rsltMap = mainPayUtil.mainPayCashReceiptCancel(paramMap);
+		
+		return rsltMap;
+	}
+	
+	/**
+	 * MainPay 시작 화면
+	 * @return
+	 */
+	@RequestMapping("/payment/close")
+	public String paymentClose() {
+		return "/payment/payment_close";
 	}
 }
 
