@@ -50,7 +50,6 @@
 			,ARTST_ACTVTY_NATN_CD
 			,ARTST_ACTVTY_CITY_CD
 			,ARTST_ACTVTY_PART_CD
-			,ARTST_ACTVTY_CD
 			,ARTST_SELF_INTRO
 			,ARTST_PROFILE_IMG_URL
 			,ARTST_HMPG_URL
@@ -74,7 +73,6 @@
 			,#{artstActvtyNatnCd}
 			,#{artstActvtyCityCd}
 			,#{artstActvtyPartCd}
-			,#{artstActvtyCd}
 			,#{artstSelfIntro}
 			,#{artstProfileImgUrl}
 			,#{artstHmpgUrl}
