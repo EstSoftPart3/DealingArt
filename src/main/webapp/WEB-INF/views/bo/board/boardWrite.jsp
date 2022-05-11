@@ -52,16 +52,19 @@
 					 			</div>
 					 			
 					 			<div class="form-group row">
-                    				<div class="col-sm-9">
+					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
+                    				<div class="col-sm-6">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
+                    					<textarea name="content" id="editor"></textarea>
                     				</div>
-                    				<textarea name="content" id="editor"></textarea>
+                    				
 
                     				
 					 			</div>
 					 			<div class="form-group row">
-                    				<div class="col-sm-12">
-                      						<button type="button" class="btn btn-info sTitle" onclick="boardInput();">입력</button>
+                    				<div class="col-sm-6" style="text-align:right">
+                      						<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
+                      						<button type="button" class="btn btn-info sTitle" onclick="boardInput();">저장</button>
                     				</div>
 
 					 			</div>
@@ -97,16 +100,28 @@
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
     var brdContent = editorContnet.getData();
    	
-   	//주소
-   	/* if(isEmpty(mbrHomeAddr)) {
+   	
+   	 //제목
+   	 if(isEmpty(brdTitle)) {
    		bootbox.alert({
-				 message: "주소를 입력해 주세요.",
+				 message: "제목을 입력해 주세요.",
 				 locale: 'kr',
 				 callback: function() {
-				 		$("#mbrHomeAddr").focus();
+				 		$("#brdTitle").focus();
 			     } });
 			 return;
-   	} */
+   	 }
+   	 
+     //내용
+   	 if(isEmpty(brdContent)) {
+   		bootbox.alert({
+				 message: "내용을 입력해 주세요.",
+				 locale: 'kr',
+				 callback: function() {
+				 		
+			     } });
+			 return;
+   	 }
    	        				
 		
 		$.ajax({
@@ -121,7 +136,7 @@
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({
-						 message: "공지사항이 저장되었습니다.",
+						 message: "게시글이 저장 되었습니다.",
 						 locale: 'kr',
 						 callback: function() {
 							 if(brdTypCd == 'NT'){
@@ -137,6 +152,19 @@
 	           }
 		})
 	}
+   
+   function boardList() {
+	   location.href='/admin/board/boardList?brdTypCd=<%=brdTypCd%>';
+   }
+   
+  //Input Box Null Check
+   function isEmpty(str){
+       
+       if(typeof str == "undefined" || str == null || str == "")
+           return true;
+       else
+           return false ;
+   }
    </script>
  
  

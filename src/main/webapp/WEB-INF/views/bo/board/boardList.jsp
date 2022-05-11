@@ -43,7 +43,7 @@
 					 	</div>
 					 	
 					 	<div class="form-group row" >
-                    		<div class="col-sm-11" style="text-align:right;width:100%">
+                    		<div style="text-align:right;width:900px;">
                     			<button type="button" class="btn btn-info sTitle" onclick="boardInput();">입력</button>
 					    	</div>
                     	</div>
@@ -86,13 +86,15 @@
 	   $("#boardList").jsGrid({
 		   locale:"ko",
 	       height: "400px",
-	       width: "100%",
+	       width: "900px",
 	       inserting: false,
 	       editing: false,
 	       sorting: false,
 	       paging: false,
 	       autoload: true,
 	       pageSize: 10,
+	       gridview : true,
+	      
 	       deleteConfirm: "정말 삭제 하시겠습니까?",
 	       controller: {
 	           loadData: function (filter) {
@@ -103,20 +105,26 @@
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
-	    	    	 d.resolve(response.boardData.boardInfo);
+	    	    	 //d.resolve(response.boardData.boardInfo);
+	    	    	 
+	    	    	 d.resolve($.map(response.boardData.boardInfo, function (item, itemIndex) {
+                         return $.extend(item, { "Index": itemIndex + 1 });
+                     }));
+	    	    	 
 	    	      });
 	               return d.promise();
 	           }
 	       },
 	       fields: [
-	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
-	    	   { name: "mbrSq"	,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: true},
-	    	   { name: "brdTitle"	,id:"brdTitle", title:"게시판제목", type: "text", width: 150,align:"center" ,width:100, visible: true, key:true},
-	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 },
-	    	   { name: "regMbrSq",title:"등록회원순번", type: "text", width: 200,align:"center",width:100 },
-	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 },
-	    	   { name: "updtMbrSq",title:"수정회원순번", type: "text", width: 200,align:"center",width:100 },
-	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 },
+	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
+	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "mbrSq"	,title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
+	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "regMbrSq",title:"등록회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 , visible: true},
+	    	   { name: "updtMbrSq",title:"수정회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 }
 	    	  
 	    	   
