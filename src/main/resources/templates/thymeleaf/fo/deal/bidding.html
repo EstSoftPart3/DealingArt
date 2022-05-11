@@ -26,7 +26,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no">응찰하기</h3>
+					<h3 class="mo-no" id="pageTitle">응찰하기</h3>
 					<button type="button" class="btn-on" >판매중</button>
 					<button type="button" class="btn-off">거래완료</button>
 				</div>
@@ -80,11 +80,11 @@
 								<table class="tstyle2">
 									<tr>
 										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>시작가</span></div>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_dealStrtPrc">시작가</span></div>
 										</th>
 										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
 									</tr>
-									<tr>
+									<tr id="tr_priceUnit">
 										<th>
 											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>호가단위</span></div>
 										</th>
@@ -92,7 +92,7 @@
 									</tr>
 									<tr>
 										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>경매기간</span></div>
+											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_period">경매기간</span></div>
 										</th>
 										<td th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
 									</tr>
@@ -106,7 +106,7 @@
 							</li>
 							<li class="">
 								<table class="tstyle2">
-									<tr class="t-red">
+									<tr class="t-red" id="tr_maxBidPrc">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span></div>
 										</th>
@@ -118,7 +118,7 @@
 										</th>
 										<td>100,000</td>
 									</tr>
-									<tr class="t-red">
+									<tr class="t-red" id="tr_bidPrc">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>응찰가</span></div>
 										</th>
@@ -126,7 +126,7 @@
 									</tr>
 								</table>
 								
-								<div class="selec-box">
+								<div class="selec-box" id="sbx_bidPrc">
 									<select class="selectpicker">
 										<option>Mustard</option>
 										<option>Ketchup</option>
@@ -137,9 +137,9 @@
 						</ul>
 						
 						<div class="bat-box">
-							<button type="button" class="ba-btn1 por"><span>응찰하기</span></button>
+							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"><span>응찰하기</span></button>
 							<button type="button" class="ba-btn2"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
-							<button type="button" class="ba-btn3" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
+							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<div class="clearboth"></div>
 						</div>
 						
@@ -395,6 +395,17 @@ $(function() {
 	}
 	if(result.deal.artstSq == null || result.deal.artstSq == ""){
 		$("#artstInfo").css("display", "none");
+	}
+	if(result.deal.dealTypCd == "S"){
+		$("#pageTitle").text("구매하기");
+		$("#spn_dealStrtPrc").text("판매가");
+		$("#tr_priceUnit").css("display", "none");
+		$("#spn_period").text("판매기간");
+		$("#tr_maxBidPrc").css("display", "none");
+		$("#tr_bidPrc").css("display", "none");
+		$("#sbx_bidPrc").css("display", "none");
+		$("#btn_purchaseOrBid").text("구매하기");
+		$("#btn_history").css("display", "none");
 	}
 });
 var dday = new Date(result.deal.dealEndngDate).getTime();

@@ -776,8 +776,8 @@ function dealSearch(){
 	     				dealListHtml += '		</div>';
 	     				dealListHtml += '	</div>';
 	     			}
-	     			if(dealList[i].dealTypCd == "SALE" && dealList[i].dealTypCd == "IP"){
-	     				dealListHtml += '	<div class="item-div-img sale">';
+	     			if(dealList[i].dealTypCd == "S" && dealList[i].dealSttsCd == "TP"){
+	     				dealListHtml += '	<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
 	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
 	     				dealListHtml += '		<div class="item-ho2 sale-div">';
 	     				dealListHtml += '			<h3>판매중</h3>';
@@ -807,7 +807,7 @@ function dealSearch(){
 	     			dealListHtml += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
 	     			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
 	     			dealListHtml += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-	     			if(dealList[i].dealTypCd == "AUCT"){
+	     			if(dealList[i].dealTypCd == "A"){
 	     				dealListHtml += '			<h4>입찰가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
 	     				dealListHtml += '			<p class="ts-2">';
 	     				dealListHtml += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
@@ -815,7 +815,7 @@ function dealSearch(){
 	     				dealListHtml += '			'+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
 	     				dealListHtml += '			</p>';
 	     			}
-	     			if(dealList[i].dealTypCd == "SALE"){
+	     			if(dealList[i].dealTypCd == "S"){
 	     				dealListHtml += '			<h4>판매가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
 	     			}
 	     			dealListHtml += '		</div>';
