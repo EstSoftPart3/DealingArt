@@ -251,8 +251,8 @@ public class MemberController {
 			AutoLoginVo autoLoginVo = memberService.getSessionId(cookie.getValue());
 			session.setAttribute("mbrSq", autoLoginVo.getMbrSq());
 		    session.setAttribute("authSq", autoLoginVo.getAuthSq());
-		    mv.addObject("sMbrSqVal", autoLoginVo.getMbrSq());
-		    mv.addObject("sAuthSqVal", autoLoginVo.getAuthSq());
+		    mv.addObject("sMbrSqVal", autoLoginVo.getMbrSq().toString());
+		    mv.addObject("sAuthSqVal", autoLoginVo.getAuthSq().toString());
 			if(autoLoginVo.getAuthSq().equals("2")) {
 				Map<String, Object> artstInfo = memberService.getArtistInfo(autoLoginVo.getMbrSq());
 		    	mv.addObject("artstSq", artstInfo.get("artstSq").toString());

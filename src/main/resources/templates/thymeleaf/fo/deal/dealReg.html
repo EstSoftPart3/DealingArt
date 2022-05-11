@@ -501,7 +501,7 @@ function dealReg(){
 		result.deal.dealEndngDt = $("#dealEndngDt").val() + $("#dealEndngTime").val();
 	}
 	result.work.keywrd = $("#keywrd").val();
-	result.work.mbrSq = sMbrSqVal;
+	result.work.mbrSq = sMbrSqVal.toString();
 	result.work.artstSq = artstSq;
 	result.work.artstActvtyNm = artstActvtyNm;
 	result.work.artstBirthYear = artstBirthYear;
@@ -509,7 +509,7 @@ function dealReg(){
 	result.work.workIntrdc = $("#workIntrdc").val();
 	result.work.workPrc = $("#workPrc").val().replaceAll(/,/g,'');
 	result.deal.artstSq = artstSq;
-	result.deal.workSq = result.work.workSq;
+	result.deal.workSq = result.work.workSq.toString();
 	result.deal.dealSttsCd = "TP";
 	if(vaild()){
 		const file = document.getElementsByClassName("upload-hidden");

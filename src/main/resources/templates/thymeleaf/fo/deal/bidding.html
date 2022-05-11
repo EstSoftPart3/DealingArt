@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script>
 <head>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
@@ -137,7 +138,7 @@
 						</ul>
 						
 						<div class="bat-box">
-							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"><span>응찰하기</span></button>
+							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
 							<button type="button" class="ba-btn2"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
 							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<div class="clearboth"></div>
@@ -420,7 +421,35 @@ setInterval(function() {
 
   document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 }, 1000);
-      
+
+function btn_purchaseOrBid_onclick(){
+	if($("#btn_purchaseOrBid").text() == "구매하기"){
+		debugger;
+		var data = {
+				paymethod : "CARD", //지불수단
+				amount : parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, '')), //결제금액
+				mbrRefNo : result.deal.dealOrderCd.toString(16), //주문번호
+				goods_name : result.deal.workNm, //상품명
+				mbr_sq : sMbrSqVal //회원 순번
+				}
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+	           url: "/payment/readyApi",
+	           dataType: 'json',
+	           data: JSON.stringify(data),
+	           async: false,
+			success:function(response){
+				console.log(response);
+				if (response.resultCode == '200') {
+					/* 결제창 호출 */
+					Mainpay.open(response.data.nextPcUrl); //*주의* PC와 Mobile은 URL이 상이합니다.
+					return false;
+				}
+			}
+		});
+	}
+}
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {

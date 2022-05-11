@@ -103,6 +103,7 @@
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_GRT_URL AS workGrtUrl, /*작품보증서URL*/
 				A.WORK_FRM_YN AS workFrmYn, /*작품액자유무*/
+				D.DEAL_ORDER_CD AS dealOrderCd, /*거래주문코드*/
 				(SELECT FORMAT(MAX(BID_PRC), 0)
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
@@ -141,6 +142,7 @@
 		INSERT INTO
 					TBL_DA_DEAL_M (
 						WORK_SQ,
+						DEAL_ORDER_CD,
 						DEAL_TYP_CD,
 						DEAL_STTS_CD,
 						DEAL_STRT_PRC,
@@ -151,6 +153,7 @@
 						</if>
 					) VALUES (
 						#{workSq},
+						CONCAT('P', LPAD(#{workSq}, 19, '0')),
 						#{dealTypCd},
 						#{dealSttsCd},
 						#{dealStrtPrc},

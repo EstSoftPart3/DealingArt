@@ -103,7 +103,7 @@
 		, aid
 		, goods_name
 		, goods_code
-		, mbr_no
+		, mbr_sq
   	)
   	values
   	(

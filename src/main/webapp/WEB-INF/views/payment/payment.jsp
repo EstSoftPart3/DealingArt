@@ -34,8 +34,8 @@ function payment() {
 			, customer_name : $("#customer_name").val()
 			, customer_email : $("#customer_email").val()
 			, mbr_sq : $("#mbr_sq").val()
+			, mbrRefNo : "1"
 	}
-	
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',

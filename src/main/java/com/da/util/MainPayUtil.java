@@ -90,7 +90,7 @@ public class MainPayUtil {
 		 - 생성 : http://cp.mainpay.co.kr 고객지원>기술지원>암호화키관리
 		 - 가맹점번호(mbrNo) 생성시 함께 만들어지는 key (테스트 완료후 real 서비스용 발급필요) */
 
-		Map<String, String> parameters = new HashMap<String, String>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		
 		/*=================================================================================================
 		 *	필수 파라미터 
@@ -99,7 +99,7 @@ public class MainPayUtil {
 		parameters.put("version", "V001");
 		parameters.put("mbrNo", mbrNo);
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/
-		parameters.put("mbrRefNo", mbrRefNo);
+		parameters.put("mbrRefNo", paramMap.get("mbrRefNo"));
 		parameters.put("paymethod", paramMap.get("paymethod").toString());
 		/* 결제금액 (공급가+부가세)
 		(#주의#) 페이지에서 전달 받은 값을 그대로 사용할 경우 금액위변조 시도가 가능합니다.
@@ -108,19 +108,19 @@ public class MainPayUtil {
 		/* 상품명 max 30byte*/
 		parameters.put("goodsName", paramMap.get("goods_name").toString());
 		/* 상품코드 max 8byte*/
-		parameters.put("goodsCode", paramMap.get("goods_code").toString());
+		//parameters.put("goodsCode", paramMap.get("goods_code").toString());
 		/*인증완료 시 호출 URL*/
 		parameters.put("approvalUrl", returnUrl + "/payment/approval");
 		/*결제창 close시 호출 URL*/
 		parameters.put("closeUrl", returnUrl);
 		
 		/*고객명  max 30byte*/
-		parameters.put("customerName", paramMap.get("customer_name").toString());
-		parameters.put("customerEmail", paramMap.get("customer_email").toString());
+		//parameters.put("customerName", paramMap.get("customer_name").toString());
+		//parameters.put("customerEmail", paramMap.get("customer_email").toString());
 		
 		resultMap.put("goods_name", paramMap.get("goods_name"));
-		resultMap.put("goods_code", paramMap.get("goods_code"));
-		resultMap.put("mbr_no", paramMap.get("mbr_sq"));
+		//resultMap.put("goods_code", paramMap.get("goods_code"));
+		resultMap.put("mbr_sq", paramMap.get("mbr_sq"));
 	    /*=================================================================================================
 	     *	READY API 호출 (**테스트 후 반드시 리얼-URL로 변경해야 합니다.**) 
 	     *=================================================================================================*/
@@ -257,7 +257,7 @@ public class MainPayUtil {
 			String tranDate = (String) dataMap.get("tranDate");
 			String mbrRefNo = (String) dataMap.get("mbrRefNo");
 			String applNo = (String) dataMap.get("applNo");
-			String amount = (String) dataMap.get("amount");
+			String amount = String.valueOf(dataMap.get("amount"));
 			String payType = (String) dataMap.get("payType");
 			String taxAmount = (String) dataMap.get("taxAmount");
 			String feeAmount = (String) dataMap.get("feeAmount");
@@ -456,7 +456,7 @@ public class MainPayUtil {
 			
 			paramMap.put("sid", getMap.get("sid"));
 			
-			paramMap.put("mbr_no", mbrNo);
+			paramMap.put("mbr_sq", mbrNo);
 			paramMap.put("mbr_ref_no", dataMap.get("mbrRefNo").toString()); 
 			paramMap.put("ref_no", dataMap.get("refNo").toString());
 			paramMap.put("tran_date", dataMap.get("tranDate").toString());
@@ -664,7 +664,7 @@ public class MainPayUtil {
 			
 			paramMap.put("sid", getMap.get("sid"));
 			
-			paramMap.put("mbr_no", mbrNo);
+			paramMap.put("mbr_sq", mbrNo);
 			paramMap.put("mbr_ref_no", dataMap.get("mbr_ref_no").toString()); 
 			paramMap.put("ref_no", dataMap.get("refNo").toString());
 			paramMap.put("tran_date", dataMap.get("tranDate").toString());
