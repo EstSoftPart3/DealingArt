@@ -342,14 +342,12 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$("#dealRegTitle").text("거래등록 (정찰가)");
 		$("#bidOrSale").text("판매가");
 		$("#bidOrSale2").css("display", "none");
-		$("#auctionInfo").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
 		$("#dealStrtPrcS").css("display", "");
 	}else{
 		$("#dealRegTitle").text("거래등록 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
 		$("#bidOrSale2").css("display", "");
-		$("#auctionInfo").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
 		$("#dealStrtPrcS").css("display", "none");
 	}
@@ -484,7 +482,8 @@ function vaild(){
 function dealReg(){
 	$('#myModal4').modal('hide');
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
-	if(result.deal.dealTypCd = "A"){
+	debugger;
+	if(result.deal.dealTypCd == "A"){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
 	}else{
@@ -544,7 +543,7 @@ function setTodayTime(){
 	var now = new Date();
 	var year = now.getFullYear().toString();
 	var month = (now.getMonth()+1).toString();
-	var date = now.getDay().toString();		
+	var date = now.getDate().toString();		
 	var hours = now.getHours().toString();
 	var minutes = now.getMinutes().toString();
 	

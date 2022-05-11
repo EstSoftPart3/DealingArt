@@ -227,7 +227,7 @@ function myWorkList(){
 	for(var i=0; i<result.length; i++){
 		
 		myWorkListHtml += '<figure class="item">';
-		if(result[i].dealTypCd == "AUCT" && result[i].dealSttsCd == "IP"){
+		if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
 			myWorkListHtml += '	<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
 			myWorkListHtml += '		<div class="item-ho">';
@@ -241,7 +241,7 @@ function myWorkList(){
 			myWorkListHtml += '		</div>';
 			myWorkListHtml += '	</div>';
 		}
-		if(result[i].dealTypCd == "A" && result[i].dealTypCd == "TP"){
+		if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
 			myWorkListHtml += '	<div class="item-div-img sale-on">';
 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
@@ -284,7 +284,7 @@ function myWorkList(){
 		myWorkListHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
 		myWorkListHtml += '			<p>'+ result[i].workMatrl +'</p>';
 		myWorkListHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
-		if(result[i].dealTypCd == "AUCT"){
+		if(result[i].dealTypCd == "A"){
 			myWorkListHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
 			myWorkListHtml += '			<p class="ts-2">';
 			myWorkListHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
@@ -292,8 +292,8 @@ function myWorkList(){
 			myWorkListHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
 			myWorkListHtml += '			</p>';
 		}
-		if(result[i].dealTypCd == "SALE"){
-			myWorkListHtml += '			<h4>판매가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+		if(result[i].dealTypCd == "S"){
+			myWorkListHtml += '			<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
 		}
 		if(result[i].dealTypCd == null){
 			myWorkListHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
