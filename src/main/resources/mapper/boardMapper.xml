@@ -24,6 +24,7 @@
             TBL_DA_BRD_M A 
         WHERE 1=1
          	AND A.BRD_TYP_CD = #{brdTypCd}
+         	ORDER BY BRD_SQ DESC
     </select>
     
    <!-- 게시판 등록 -->

@@ -46,23 +46,29 @@
 					 		<div class="col-md-9" style="padding-left:50px;">
 					 		
 					 			<div class="form-group row">
+					 				
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
                     				<div class="col-sm-6">
-                      						<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
+                      					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
                     				</div>
 					 			</div>
 					 			
 					 			<div class="form-group row">
-                    				<div class="col-sm-9">
-                      						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    				</div>
-                    				<textarea name="content" id="editor"></textarea>
+                    				
+                    				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
+                    				<div class="col-sm-6">
+                      					<textarea name="content" id="editor"></textarea>
+                      				</div>
+                    				
 					 			</div>
 					 			<div class="form-group row">
-                    				<div class="col-sm-12">
-                    				<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
-                    			<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
+                    				
+                    				<div class="col-sm-6" style="text-align:right">
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
                     				</div>
+                    				
                     			</div>
 					 		</div>
 					 	</div>
@@ -144,17 +150,27 @@
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
     var brdContent = editorContnet.getData();
    	
-   	
-   	//주소
-   	/* if(isEmpty(mbrHomeAddr)) {
-   		bootbox.alert({
-				 message: "주소를 입력해 주세요.",
+  	 //제목
+  	 if(isEmpty(brdTitle)) {
+  		bootbox.alert({
+				 message: "제목을 입력해 주세요.",
 				 locale: 'kr',
 				 callback: function() {
-				 		$("#mbrHomeAddr").focus();
+				 		$("#brdTitle").focus();
 			     } });
 			 return;
-   	} */
+  	 }
+  	 
+    //내용
+  	 if(isEmpty(brdContent)) {
+  		bootbox.alert({
+				 message: "내용을 입력해 주세요.",
+				 locale: 'kr',
+				 callback: function() {
+				 		
+			     } });
+			 return;
+  	 }
    	        				
 		
 		$.ajax({
@@ -169,7 +185,7 @@
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({
-						 message: "공지사항이 수정이완료됬습니다.",
+						 message: "게시글이 수정 되었습니다..",
 						 locale: 'kr',
 						 callback: function() {
 							 if(brdTypCd == 'NT'){
@@ -189,7 +205,7 @@
    function boardDelete() {
    
 	   
-	   if(confirm('정말 삭제하시겠습니까?')) {
+	   if(confirm('정말 삭제 하시겠습니까?')) {
 		   
 		   $.ajax({
 	           type: "post",
@@ -201,7 +217,7 @@
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({
-						 message: "삭제되었습니다.",
+						 message: "삭제 되었습니다.",
 						 locale: 'kr',
 						 callback: function() {
 							 
@@ -225,6 +241,19 @@
 	   }
 	   
 	  
+   }
+   
+   function boardList() {
+	   location.href='/admin/board/boardList?brdTypCd=<%=brdTypCd%>';
+   }
+   
+	 //Input Box Null Check
+   function isEmpty(str){
+       
+       if(typeof str == "undefined" || str == null || str == "")
+           return true;
+       else
+           return false ;
    }
    
    </script>
