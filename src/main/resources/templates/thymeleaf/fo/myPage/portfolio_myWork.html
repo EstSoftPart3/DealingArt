@@ -143,11 +143,11 @@ function myWorkList(){
 		myWorkListHtml += '	<div class="item-body">';
 		myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 		myWorkListHtml += '		<div class="uesr-s">';
-		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+		if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
 			myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
-		//}else{
-			//myWorkListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'"/>';
-		//}
+		}else{
+			myWorkListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:40px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+		}
 		myWorkListHtml += '		</div>';
 		myWorkListHtml += '		<div class="text-s" style="height:100px;">';
 		myWorkListHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
