@@ -157,8 +157,8 @@
 											<th><span class="my-red">활동 분야</span></th>
 											<td>
 												<div class="pay-check dib mg-r50">
-													<input type="radio" id="a1" name="artstActvtyPartCd" class="artstActvtyPartCd" value="PNTNG" checked>
-													<label for="a1"><span></span>회화</label>
+													<input type="radio" id="a0" name="artstActvtyPartCd" class="artstActvtyPartCd" value="PNTNG" checked>
+													<label for="a0"><span></span>회화</label>
 												</div>
 												<div class="pay-check dib mg-r50">
 													<input type="radio" id="a2" name="artstActvtyPartCd" class="artstActvtyPartCd" value="MLDNG">
@@ -1122,6 +1122,7 @@
 		    	/* 활동분야 */
 		    	/* Form checked Clear */
 		    	$(".artstActvtyPartCd").prop('checked' , false);
+		    	console.log("artstActvtyPartCd :"+dataContent.artstActvtyPartCd);
 		    	$(".artstActvtyPartCd:input[value='"+dataContent.artstActvtyPartCd+"']").prop("checked", true);
 		    	/* 활동지역 : 국가 */
 		      	$('select[name=artstActvtyNatnCd]').val(dataContent.artstActvtyNatnCd);
