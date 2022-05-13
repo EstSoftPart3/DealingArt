@@ -30,6 +30,29 @@ public class paymentServiceImpl implements paymentService {
 	}
 	
 	
+	//거래 상세 - 결제
+	@Override
+	public Map<String, Object> payDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentDao.payDetail(param);
+		
+		return result;
+	}
+	
+	
+	//작품 정보
+	@Override
+	public Map<String, Object> workInfo(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentDao.workInfo(param);
+		
+		return result;
+	}
+	
 	
 	//거래 운송 목록
 	@Override

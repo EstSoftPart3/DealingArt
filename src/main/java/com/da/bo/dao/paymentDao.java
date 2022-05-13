@@ -38,6 +38,33 @@ public class paymentDao {
 		return result;
 	}
 	
+	
+	//거래 상세 - 결제
+	public Map<String, Object> payDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> detailInfo = paymentMapper.payDetail(param);
+		
+		result.put("detailInfo", detailInfo);
+				
+		return result;
+	}
+	
+	//작품 정보
+	public Map<String, Object> workInfo(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> workInfo = paymentMapper.workInfo(param);
+		
+		result.put("workInfo", workInfo);
+				
+		return result;
+	}
+	
 	//거래 운송 목록
 	public Map<String, Object> trnsprtList(Map<String, Object> param){
 		

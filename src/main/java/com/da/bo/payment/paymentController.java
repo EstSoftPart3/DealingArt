@@ -29,12 +29,19 @@ public class paymentController {
 	@Autowired
 	private paymentService paymentService;
 	
+	//주문리스트
 	@RequestMapping("/admin/payment")
 	public String openPayment() {
 		return "bo/payment/payproc";
 	}
 	
+	//주문상세
+	@RequestMapping("/admin/paydetail")
+	public String openPaymentDetail() {
+		return "bo/payment/paydetail";
+	}
 	
+	//배송리스트
 	@RequestMapping("/admin/transit")
 	public String openTransit() {
 		return "bo/payment/transitproc";
@@ -52,6 +59,41 @@ public class paymentController {
 		Map<String, Object> result = new HashMap<>();
 		
 		result = paymentService.dealMainList(param);
+									
+		mv.addObject("data", result);
+		
+		return mv;
+	}
+	
+	
+	//거래 상세
+	@RequestMapping("/admin/payment/payDetailData")
+	@ResponseBody
+	public ModelAndView payDetailData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentService.payDetail(param);
+									
+		mv.addObject("data", result);
+		
+		return mv;
+	}
+	
+	//작품 정보
+	@RequestMapping("/admin/payment/workInfoData")
+	@ResponseBody
+	public ModelAndView workInfoData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentService.workInfo(param);
 									
 		mv.addObject("data", result);
 		

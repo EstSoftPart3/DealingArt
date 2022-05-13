@@ -36,15 +36,15 @@ public class boardServiceImpl implements boardService {
 	}
 	
 	//게시판 상세
-		@Override
-		public Map<String, Object> boardDetail(Map<String, Object> param){
-			
-			Map<String, Object> result = new HashMap<>();
-			
-			result = boardDao.boardDetail(param);
-			
-			return result;
-		}
+	@Override
+	public Map<String, Object> boardDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.boardDetail(param);
+		
+		return result;
+	}
 		
 	//게시판 삭제
 	@Override

@@ -18,9 +18,52 @@
 			,DEAL_FINAL_PRC      AS dealFinalPrc
 			,DATE_FORMAT(DEAL_STRT_DT, '%Y-%m-%d') AS dealStrtDt
 			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y-%m-%d') AS dealEndngDt
+			,WORK_SQ AS workSqNum
 		FROM
-            TBL_DA_DEAL_M TBL
+            TBL_DA_DEAL_M TBL 
+        WHERE 1=1
+             <if test="dealSq != null">
+             	AND DEAL_SQ =#{dealSq}
+             </if>
 	</select>
+	
+	 <!-- 거래 상세 - 결제 -->
+    <select id="payDetail" resultType="hashMap">
+        SELECT
+           	MBR_SQ					AS mbrSq
+           	,PAYMNT_SQ                AS paymntSq
+			,DEAL_SQ                 AS dealSq
+			,PAYMNT_TYP_CD           AS paymntTypCd
+			,MBR_REF_NO              AS mbrRefNo
+			,REF_NO                  AS refNo
+			,AUTH_TOKEN              AS authToken
+			,AID                     AS aid
+			,GOODS_NAME              AS goodsName
+			,PAYMETHOD               AS paymethod
+			,AMOUNT                  AS amount
+			,TRAN_DATE               AS tranDate
+			,TRAN_TIME               AS tranTime
+			,APPL_NO                 AS applNo
+			,CARD_NO                 AS cardNo
+			,INSTALLMENT             AS installment
+			,PAY_TYPE                AS payType
+			,ISSUE_COMPANY_NO        AS issueCompanyNo
+			,ISSUE_COMPANY_NAME      AS issueCompanyName
+			,ISSUE_CARD_NAME         AS issueCardName
+			,ACQ_COMPANY_NO          AS acqCompanyNo
+			,ACQ_COMPANY_NAME        AS acqCompanyName
+			,BANK_CODE               AS bankCode
+			,ACCOUNT_NO              AS accountNo
+			,ACCOUNT_CLOSE_DATE      AS accountCloseDate
+			,TAX_AMOUNT              AS taxAmount
+			,FEE_AMOUNT              AS feeAmount
+			,FORMAT(TAX_FREE_AMOUNT,0) AS taxFreeAmount
+			,(SELECT ARTST_SQ FROM TBL_DA_DEAL_M WHERE DEAL_SQ = A.DEAL_SQ) AS artstSq
+		FROM
+            TBL_DA_PAYMNT_H A
+        WHERE 1=1
+         	AND A.DEAL_SQ = #{dealSq}
+    </select>
 	  
     <!-- 거래 운송 목록 -->
     <select id="trnsprtList" resultType="hashMap">
@@ -40,5 +83,15 @@
          	AND A.DEAL_SQ = #{dealSq}
          	ORDER BY DEAL_SQ DESC
     </select>
+    
+    <!-- 작품정보 -->
+    <select id="workInfo" resultType="hashMap">
+    	SELECT 
+			WORK_SQ AS workSq
+			,WORK_MAIN_IMG_URL AS workMainImgUrl
+		FROM TBL_DA_WORK_M
+		WHERE 1=1
+		AND WORK_SQ = #{workSq}
+   </select>
    
 </mapper>

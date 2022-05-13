@@ -25,9 +25,15 @@
 			,UPDT_DT				AS updtDt             
 			,USE_YN					AS useYn              
 			,DEL_YN					AS delYn  
-
-        FROM TBL_DA_ARTST_M
-        WHERE MBR_SQ = #{mbrSq}
+			,(SELECT MBR_NM FROM TBL_DA_MBR_M WHERE MBR_SQ = TBL.MBR_SQ) AS mbrNm
+        FROM TBL_DA_ARTST_M TBL
+        WHERE 1=1
+        	<if test="mbrSq != null">
+        		AND MBR_SQ = #{mbrSq}
+        	</if>
+        	<if test="artstSq != null">
+        		AND ARTST_SQ = #{artstSq}
+        	</if>
      </select>
      
    <!-- 작가 회원 정보 카운터 -->
