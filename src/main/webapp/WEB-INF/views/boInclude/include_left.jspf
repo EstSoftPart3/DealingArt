@@ -84,8 +84,32 @@
                   <p class="sTitle">탈퇴관리</p>
                 </a>
               </li>
-              
-            <li class="nav-item has-treeview menu-open">
+                    	
+          	<li class="nav-item has-treeview menu-open">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-circle"></i>
+	              <p class="sTitle">
+	                결제
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+		            <ul class="nav nav-treeview">
+		              <li class="nav-item">
+		                <a href="/admin/payment" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">주문</p>
+		                </a>
+		              </li>
+		              <li class="nav-item">
+		                <a href="/admin/transit" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">배송</p>
+		                </a>
+		              </li>
+		           </ul>
+          	</li>
+          	
+          	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -106,9 +130,7 @@
 		                  <p class="sTitle">FAQ</p>
 		                </a>
 		              </li>
-		              
-		              
-		            </ul>
+		           </ul>
           	</li>
           	
           	<!--  <li class="nav-item has-treeview menu-open">

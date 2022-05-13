@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.paymentMapper">
+
+
+	<!-- 거래 메인 -->
+	<select id="dealMainList" resultType="hashMap">
+		SELECT
+           	DEAL_SQ             AS dealSq
+			,(SELECT WORK_NM FROM TBL_DA_WORK_M WHERE WORK_SQ = TBL.WORK_SQ) AS workSq
+			,(SELECT CONCAT(B.MBR_NM,'[',A.ARTST_ACTVTY_NM,']') FROM TBL_DA_ARTST_M A INNER JOIN TBL_DA_MBR_M B ON A.MBR_SQ = B.MBR_SQ WHERE ARTST_SQ = TBL.ARTST_SQ) AS artstSq
+			,MBR_REF_NO          AS mbrRefNo
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_TYP_CD' AND B.DTL_CD = TBL.DEAL_TYP_CD AND A.USE_YN = 'Y') AS dealTypCd
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_STTS_CD' AND B.DTL_CD = TBL.DEAL_STTS_CD AND A.USE_YN = 'Y') AS dealSttsCd
+			,FORMAT(DEAL_STRT_PRC,0)       AS dealStrtPrc
+			,DEAL_AUCTN_PRC      AS dealAuctnPrc
+			,DEAL_FINAL_PRC      AS dealFinalPrc
+			,DATE_FORMAT(DEAL_STRT_DT, '%Y-%m-%d') AS dealStrtDt
+			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y-%m-%d') AS dealEndngDt
+		FROM
+            TBL_DA_DEAL_M TBL
+	</select>
+	  
+    <!-- 거래 운송 목록 -->
+    <select id="trnsprtList" resultType="hashMap">
+        SELECT
+           	DEAL_SQ				AS dealSq
+			,SELL_MBR_SQ		AS sellMbrSq
+			,BUY_MBR_SQ			AS buyMbrSq
+			,ARTST_SQ			AS artstSq
+			,TRNSPRT_DIV_CD		AS trnsprtDivCd
+			,TRNSPRT_TYP_CD		AS trnsprtTypCd
+			,TRNSPRT_AREA_CD	AS	trnsprtAreaCd
+			,TRNSPRT_SERVICE_CD	AS trnsprtServiceCd
+			,TRNSPRT_PRC		AS trnsprtPrc
+		FROM
+            TBL_DA_DEAL_TRNSPRT_S A 
+        WHERE 1=1
+         	AND A.DEAL_SQ = #{dealSq}
+         	ORDER BY DEAL_SQ DESC
+    </select>
+   
+</mapper>
