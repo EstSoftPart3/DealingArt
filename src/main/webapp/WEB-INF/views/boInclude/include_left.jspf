@@ -100,12 +100,12 @@
 		                  <p class="sTitle">주문</p>
 		                </a>
 		              </li>
-		              <li class="nav-item">
-		                <a href="/admin/transit" class="nav-link">
-		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">배송</p>
-		                </a>
-		              </li>
+<!-- 		              <li class="nav-item"> -->
+<!-- 		                <a href="/admin/transit" class="nav-link"> -->
+<!-- 		                  <i class="far fa-circle nav-icon sTitle"></i> -->
+<!-- 		                  <p class="sTitle">배송</p> -->
+<!-- 		                </a> -->
+<!-- 		              </li> -->
 		           </ul>
           	</li>
           	
