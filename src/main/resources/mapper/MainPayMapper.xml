@@ -6,292 +6,318 @@
 <mapper namespace="com.da.mapper.MainPayMapper">
   
   <!-- readyapi 정보 등록 -->
-  <insert id="instMainPayReadyApi" parameterType="hashMap">
-  		INSERT INTO TBL_DA_MAINPAY_READY
-  		(
-			aid
-			, paymethod
-			, goods_code
-			, goods_name
-			, amount
-			, mbr_sq
-			, create_time
-			, expire_time
-			
-  		) VALUES (
-			#{aid}
-			, #{paymethod}
-			, #{goods_code}
-			, #{goods_name}
-			, #{amount}
-			, #{mbr_sq}
-			, #{create_time}
-			, #{expire_time}
-  		)
+  <insert id="insertMainPayRequest" parameterType="hashMap">
+  		/*메인페이 결제준비 응답 등록*/
+  		INSERT INTO
+			TBL_DA_MAINPAY_REQUEST_S(
+				MBR_SQ,
+				DEAL_SQ, 
+				PAYMNT_TYP_CD,
+				MBR_REF_NO,
+				PAYMETHOD,
+				AMOUNT,
+				GOODS_NAME,
+				AID,
+				RESULT_CODE,
+				RESULT_MESSAGE,
+				CREATE_TIME,
+				EXPIRE_TIME 
+			) VALUES (
+				#{mbrSq},
+				#{dealSq},
+				#{paymntTypCd},
+				#{mbrRefNo},
+				#{paymethod},
+				#{amount},
+				#{goodsName},
+				#{aid},
+				#{resultCode},
+				#{resultMessage},
+				#{createTime},
+				#{expireTime}
+			)
   </insert>
   
-  <select id="getReadyApiData" parameterType="hashmap" resultType="hashmap">
-  	select a.aid
-  		, a.paymethod
-  		, a.goods_code
-  		, a.goods_name
-  		, a.amount
-  		, b.mbr_sq
-  		, b.mbr_nm
-  		, b.mbr_email
-  		, a.create_time
-  	from TBL_DA_MAINPAY_READY a
-  		left outer join TBL_DA_MBR_M b
-  		on a.mbr_sq = b.mbr_sq
-  	where 1=1
-  		and aid = #{aid}
+  <select id="getMainPayRequest" parameterType="hashmap" resultType="hashmap">
+  		/*메인페이 결제준비 응답 가져오기*/
+	  	SELECT 
+				A.REQUEST_SQ AS requestSq,
+				A.DEAL_SQ AS dealSq,
+				A.MBR_SQ AS mbrSq,
+				A.PAYMNT_TYP_CD AS paymntTypCd,
+				A.MBR_REF_NO AS mbrRefNo,
+				A.PAYMETHOD AS paymethod,
+				A.AMOUNT AS amount,
+				A.GOODS_NAME AS goodsName,
+				A.AID AS aid
+		FROM 
+				TBL_DA_MAINPAY_REQUEST_S AS A
+		INNER JOIN 
+				TBL_DA_MBR_M AS B
+			ON A.MBR_SQ = B.MBR_SQ
+		INNER JOIN
+				TBL_DA_DEAL_M AS C
+			ON A.DEAL_SQ = C.DEAL_SQ 
+		WHERE 
+				A.AID = #{aid}
   </select>
   
   <!-- readyapi 정보 등록 -->
-  <insert id="instMainPayApprovalS" parameterType="hashMap">
-  		INSERT INTO TBL_DA_APPROVAL_S
-  		(
-			aid
-			, auth_token
-			, pay_type
-			, ref_no
-			, tran_date
-			, mbr_ref_no
-			, appl_no
-			, amount
-			, tax_amount
-			, fee_amount
-			, tax_free_amount
-			, card_no
-			, issue_company_no
-			, issue_company_name
-			, issue_card_name
-			, acq_company_no
-			, acq_company_name
-			, merchant
-			, installment
-  		) VALUES (
-			#{aid}
-			, #{auth_token}
-			, #{pay_type}
-			, #{ref_no}
-			, #{tran_date}
-			, #{mbr_ref_no}
-			, #{appl_no}
-			, #{amount}
-			, #{tax_amount}
-			, #{fee_amount}
-			, #{tax_free_amount}
-			, #{card_no}
-			, #{issue_company_no}
-			, #{issue_company_name}
-			, #{issue_card_name}
-			, #{acq_company_no}
-			, #{acq_company_name}
-			, #{merchant}
-			, #{installment}
-  		)
+  <insert id="insertPayMnt" parameterType="hashMap">
+  		INSERT INTO
+			TBL_DA_PAYMNT_H(
+				MBR_SQ,
+				DEAL_SQ,
+				PAYMNT_TYP_CD,
+				MBR_REF_NO,
+				REF_NO,
+				AUTH_TOKEN,
+				AID,
+				GOODS_NAME,
+				PAYMETHOD,
+				AMOUNT,
+				TRAN_DATE,
+				TRAN_TIME,
+				APPL_NO,
+				CARD_NO,
+				INSTALLMENT,
+				PAY_TYPE,
+				ISSUE_COMPANY_NO,
+				ISSUE_COMPANY_NAME,
+				ISSUE_CARD_NAME,
+				ACQ_COMPANY_NO,
+				ACQ_COMPANY_NAME,
+				BANK_CODE,
+				ACCOUNT_NO,
+				ACCOUNT_CLOSE_DATE,
+				TAX_AMOUNT,
+				FEE_AMOUNT,
+				TAX_FREE_AMOUNT
+			) VALUES (
+				#{mbrSq},
+				#{dealSq},
+				#{paymntTypCd},
+				#{mbrRefNo},
+				#{refNo},
+				#{authToken},
+				#{aid},
+				#{goodsName},
+				#{paymethod},
+				#{amount},
+				#{tranDate},
+				#{tranTime},
+				#{applNo},
+				#{cardNo},
+				#{installment},
+				#{payType},
+				#{issueCompanyNo},
+				#{issueCompanyName},
+				#{issueCardName},
+				#{acqCompanyNo},
+				#{acqCompanyName},
+				#{bankCode},
+				#{accountNo},
+				#{accountCloseDate},
+				#{taxAmount},
+				#{feeAmount},
+				#{taxFreeAmount}
+			)
   </insert>
   
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">
-  	insert into TBL_DA_MAINPAY_API_RESULT
+  	INSERT INTO TBL_DA_MAINPAY_API_RESULT
   	(
-  		method
-		, resultCode
-		, resultMessage
-		, aid
-		, goods_name
-		, goods_code
-		, mbr_sq
+  		METHOD
+		, RESULTCODE
+		, RESULTMESSAGE
+		, AID
+		, GOODS_NAME
+		, MBR_SQ
   	)
-  	values
+  	VALUES
   	(
   		#{method}
 		, #{resultCode}
 		, #{resultMessage}
 		, #{aid}
-		, #{goods_name}
-		, #{goods_code}
-		, #{mbr_no}
+		, #{goodsName}
+		, #{mbrSq}
   	)
   </insert>
   
   <select id="getPaymentSuccessDataList" parameterType="hashmap" resultType="hashmap">
-  	select 
-		a.sid
-		, a.amount
-		, b.paymethod
-		, b.goods_code
-		, b.goods_name 
-		, b.mbr_sq
-		, b.create_time
-		, a.cancel_yn
-		, a.cancel_tran_date
-		, a.merchant
-		, a.installment
-	from TBL_DA_APPROVAL_S a
-	, TBL_DA_MAINPAY_READY b
-	where a.aid = b.aid
-	and b.mbr_sq = #{mbr_sq}
+  	SELECT 
+		A.SID AS sid
+		, A.AMOUNT AS amount
+		, B.PAYMETHOD AS paymethod
+		, B.GOODS_NAME AS goodsName
+		, B.MBR_SQ AS mbrSq
+		, B.CREATE_TIME AS createTime
+		, A.CANCEL_YN AS cancelYn
+		, A.CANCEL_TRAN_DATE AS cancelTranDate
+		, A.MERCHANT AS merchant
+		, A.INSTALLMENT AS installment
+	FROM TBL_DA_APPROVAL_S A
+	, TBL_DA_MAINPAY_READY B
+	WHERE A.AID = B.AID
+	AND B.MBR_SQ = #{mbrSq}
   </select>
   
   <select id="getPaymentSuccessData" parameterType="hashmap" resultType="hashmap">
-  	select 
-		a.sid
-		, a.aid
-		, a.auth_token
-		, a.pay_type
-		, a.ref_no
-		, a.tran_date
-		, a.mbr_ref_no
-		, a.appl_no
-		, a.amount
-		, a.reg_dt
-		, a.tax_amount
-		, a.fee_amount
-		, a.tax_free_amount
-		, a.card_no
-		, a.issue_company_no
-		, a.issue_company_name
-		, a.issue_card_name
-		, a.acq_company_no
-		, a.acq_company_name
-		, b.goods_code 
-		, b.goods_name
-		, b.paymethod
-		, c.mbr_nm
-		, c.mbr_email
-		, a.merchant
-		, a.installment
-	from TBL_DA_APPROVAL_S a
-	, TBL_DA_MAINPAY_READY b
-	left outer join TBL_DA_MBR_M c
-	on b.mbr_sq = c.MBR_SQ 
-	where a.aid = b.aid
-	and sid = #{sid}
+  	SELECT 
+		A.SID AS sid
+		, A.AID AS aid
+		, A.AUTH_TOKEN AS authToken
+		, A.PAY_TYPE AS payType
+		, A.REF_NO AS refNo
+		, A.TRAN_DATE AS tranDate
+		, A.MBR_REF_NO AS mbrRefNo
+		, A.APPL_NO AS applNo
+		, A.AMOUNT AS amount
+		, A.REG_DT AS regDt
+		, A.TAX_AMOUNT AS taxAmount
+		, A.FEE_AMOUNT AS feeAmount
+		, A.TAX_FREE_AMOUNT AS taxFreeAmount
+		, A.CARD_NO AS cardNo
+		, A.ISSUE_COMPANY_NO AS issueCompanyNo
+		, A.ISSUE_COMPANY_NAME AS issueCompanyName
+		, A.ISSUE_CARD_NAME AS issueCardName
+		, A.ACQ_COMPANY_NO AS acqCompanyNo
+		, A.ACQ_COMPANY_NAME AS acqCompanyName
+		, B.GOODS_NAME AS goodsName
+		, B.PAYMETHOD AS paymethod
+		, C.MBR_NM AS mbrNm
+		, C.MBR_EMAIL AS mbrEmail
+		, A.MERCHANT AS merchant
+		, A.INSTALLMENT AS installment
+	FROM TBL_DA_APPROVAL_S A
+	, TBL_DA_MAINPAY_READY B
+	LEFT OUTER JOIN TBL_DA_MBR_M C
+	ON B.MBR_SQ = C.MBR_SQ 
+	WHERE A.AID = B.AID
+	AND SID = #{sid}
   </select>
   
   <select id="getPaymentAllCancelData" parameterType="hashmap" resultType="hashmap">
-  	select 
-		a.sid
-		, a.aid
-		, a.auth_token
-		, a.pay_type
-		, a.ref_no
-		, a.tran_date
-		, a.mbr_ref_no
-		, a.appl_no
-		, a.amount
-		, a.reg_dt
-		, a.tax_amount
-		, a.fee_amount
-		, a.tax_free_amount
-		, a.card_no
-		, a.issue_company_no
-		, a.issue_company_name
-		, a.issue_card_name
-		, a.acq_company_no
-		, a.acq_company_name
-		, b.goods_code 
-		, b.goods_name
-		, b.paymethod
-		, c.mbr_nm
-		, c.mbr_email
-		, a.installment
-	from TBL_DA_APPROVAL_S a
-	, TBL_DA_MAINPAY_READY b
-	left outer join TBL_DA_MBR_M c
-	on b.mbr_sq = c.MBR_SQ 
-	where a.aid = b.aid
-	and sid = #{sid}
+  	SELECT 
+		A.SID AS sid
+		, A.AID AS aid
+		, A.AUTH_TOKEN AS authToken
+		, A.PAY_TYPE AS payType
+		, A.REF_NO AS refNo
+		, A.TRAN_DATE AS tranDate
+		, A.MBR_REF_NO AS mbrRefNo
+		, A.APPL_NO AS applNo
+		, A.AMOUNT AS amount
+		, A.REG_DT AS regDt
+		, A.TAX_AMOUNT AS taxAmount
+		, A.FEE_AMOUNT AS feeAmount
+		, A.TAX_FREE_AMOUNT AS taxFreeAmount
+		, A.CARD_NO AS cardNo
+		, A.ISSUE_COMPANY_NO AS issueCompanyNo
+		, A.ISSUE_COMPANY_NAME AS issueCompanyName
+		, A.ISSUE_CARD_NAME AS issueCardName
+		, A.ACQ_COMPANY_NO AS acqCompanyNo
+		, A.ACQ_COMPANY_NAME AS acqCompanyName
+		, B.GOODS_NAME AS goodsName
+		, B.PAYMETHOD AS paymethod
+		, C.MBR_NM AS mbrNm
+		, C.MBR_EMAIL AS mbrEmail
+		, A.INSTALLMENT AS installment
+	FROM TBL_DA_APPROVAL_S A
+	, TBL_DA_MAINPAY_READY B
+	LEFT OUTER JOIN TBL_DA_MBR_M C
+	ON B.MBR_SQ = C.MBR_SQ 
+	WHERE A.AID = B.AID
+	AND SID = #{sid}
   </select>
   
   <update id="updateCancelApi" parameterType="hashmap">
-  	update set cancel_yn = 'Y'
-  		, cancel_ref_no = #{cancel_ref_no}
-  		, cancel_tran_date = #{cancel_tran_date}
-  		, cancel_tran_time = #{cancel_tran_time}
-  	from TBL_DA_APPROVAL_S
-  	where sid = #{sid}
+  	UPDATE SET CANCEL_YN = 'Y'
+  		, CANCEL_REF_NO = #{cancelRefNo}
+  		, CANCEL_TRAN_DATE = #{cancelTranDate}
+  		, CANCEL_TRAN_TIME = #{cancelTranTime}
+  	FROM TBL_DA_APPROVAL_S
+  	WHERE SID = #{sid}
   </update>
   
   <insert id="instRefRegisterApi" parameterType="hashmap">
-  	insert into TBL_DA_MAINPAY_REF_REG
+  	INSERT INTO TBL_DA_MAINPAY_REF_REG
   	(
-  		sid
-		, mbr_no
-		, mbr_ref_no
-		, ref_no
-		, tran_date
-		, paymethod
-		, request_user
-		, amount
-		, refund_yn
-		, cancel_yn
+  		SID
+		, MBR_SQ
+		, MBR_REF_NO
+		, REF_NO
+		, TRAN_DATE
+		, PAYMETHOD
+		, REQUEST_USER
+		, AMOUNT
+		, REFUND_YN
+		, CANCEL_YN
   	)
-  	values
+  	VALUES
   	(
   		#{sid}
-		, #{mbr_no}
-		, #{mbr_ref_no}
-		, #{ref_no}
-		, #{tran_date}
+		, #{mbrSq}
+		, #{mbrRefno}
+		, #{refNo}
+		, #{tranDate}
 		, #{paymethod}
 		, #{request_user}
 		, #{amount}
-		, #{refund_yn}
-		, #{cancel_yn}
+		, #{refundYn}
+		, #{cancelYn}
   	)
   </insert>
   
   <update id="updateRefundDataApi" parameterType="hashmap">
-  	update set refund_yn = #{refund_yn}
-  	from TBL_DA_MAINPAY_REF_REG
-  	where sid = #{sid}
+  	UPDATE SET REFUND_YN = #{refundYn}
+  	FROM TBL_DA_MAINPAY_REF_REG
+  	WHERE SID = #{sid}
   </update>
   
   <insert id="instCashReceiptTransApi" parameterType="hashmap">
-  	insert into TBL_DA_CASH_RECEIPT_TRANS
+  	INSERT INTO TBL_DA_CASH_RECEIPT_TRANS
   	(
-  		sid
-		, ref_no
-		, tran_date
-		, mbr_ref_no
-		, appl_no
-		, tax_amount
-		, fee_amount
-		, amount
+  		SID
+		, REF_NO
+		, TRAN_DATE
+		, MBR_REF_NO
+		, APPL_NO
+		, TAX_AMOUNT
+		, FEE_AMOUNT
+		, AMOUNT
   	)
-  	values
+  	VALUES
   	(
   		#{sid}
-		, #{ref_no}
-		, #{tran_date}
-		, #{mbr_ref_no}
-		, #{appl_no}
-		, #{tax_amount}
-		, #{fee_amount}
+		, #{refNo}
+		, #{tranDate}
+		, #{mbrRefno}
+		, #{applNo}
+		, #{taxAmount}
+		, #{feeAmount}
 		, #{amount}
   	)
   </insert>
   
   <select id="getCashReceiptTransData" parameterType="hashmap" resultType="hashmap">
-  	select sid
-		, ref_no
-		, tran_date
-		, mbr_ref_no
-		, appl_no
-		, tax_amount
-		, fee_amount
-		, amount
-	from TBL_DA_CASH_RECEIPT_TRANS
-	where sid = #{sid}
+  	SELECT SID AS sid
+		, REF_NO AS refNo
+		, TRAN_DATE AS tranDate
+		, MBR_REF_NO AS mbrRefNo
+		, APPL_NO AS applNo
+		, TAX_AMOUNT AS taxAmount
+		, FEE_AMOUNT AS feeAmount
+		, AMOUNT AS amount
+	FROM TBL_DA_CASH_RECEIPT_TRANS
+	WHERE SID = #{sid}
   </select>
   
   <update id="updateCashReceiptTransApi" parameterType="hashmap">
-  	update set cancel_yn = #{cancel_yn}
-  	from TBL_DA_CASH_RECEIPT_TRANS
-  	where sid = #{sid}
+  	UPDATE SET CANCEL_YN = #{cancelYn}
+  	FROM TBL_DA_CASH_RECEIPT_TRANS
+  	WHERE SID = #{sid}
   </update>
 </mapper>

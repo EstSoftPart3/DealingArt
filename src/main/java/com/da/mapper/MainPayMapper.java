@@ -15,20 +15,20 @@ public interface MainPayMapper {
 	 * MainPayReadyApi
 	 * @param dataMap
 	 */
-	void instMainPayReadyApi(Map dataMap);
+	void insertMainPayRequest(Map dataMap);
 
 	/**
 	 * select ReadyApi Data
 	 * @param paramMap
 	 * @return 
 	 */
-	Map<String, Object> getReadyApiData(Map<String, Object> paramMap);
+	Map<String, Object> getMainPayRequest(String param);
 
 	/**
 	 * approval s inst
 	 * @param paramMap
 	 */
-	void instMainPayApprovalS(Map<String, Object> paramMap);
+	void insertPayMnt(Map<String, Object> paramMap);
 
 	/**
 	 * api 결과 저장

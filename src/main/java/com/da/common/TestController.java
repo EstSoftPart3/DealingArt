@@ -187,20 +187,10 @@ public class TestController {
 	 */
 	@RequestMapping("/payment/approval")
 	public @ResponseBody Map<String, Object> mainPayApproval(HttpServletRequest request
-			,@RequestParam(required = false) String aid
-			,@RequestParam(required = false) String authToken
-			,@RequestParam(required = false) String merchantData
-			,@RequestParam(required = false) String payType) throws Exception {
+			,@RequestParam(required = false) Map<String, Object> paramMap) throws Exception {
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		
-		paramMap.put("aid", aid);
-		paramMap.put("authToken", authToken);
-		paramMap.put("merchantData", merchantData);
-		paramMap.put("payType", payType);
-		
 		rsltMap = mainPayUtil.approval(paramMap);
 		
 		return rsltMap;

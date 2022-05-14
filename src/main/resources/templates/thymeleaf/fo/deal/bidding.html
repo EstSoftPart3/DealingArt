@@ -424,13 +424,15 @@ setInterval(function() {
 
 function btn_purchaseOrBid_onclick(){
 	if($("#btn_purchaseOrBid").text() == "구매하기"){
-		debugger;
+		
 		var data = {
 				paymethod : "CARD", //지불수단
 				amount : parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, '')), //결제금액
-				mbrRefNo : result.deal.dealOrderCd.toString(16), //주문번호
-				goods_name : result.deal.workNm, //상품명
-				mbr_sq : sMbrSqVal //회원 순번
+				mbrRefNo : result.deal.mbrRefNo, //주문번호
+				goodsName : result.deal.workNm, //상품명
+				mbrSq : sMbrSqVal, //회원 순번
+				dealSq : result.deal.dealSq, //거래 순번
+				paymntTypCd : "1" //결제 유형 코드
 				}
 		$.ajax({
 			type: "POST",
