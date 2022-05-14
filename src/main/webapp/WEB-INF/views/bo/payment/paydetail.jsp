@@ -39,265 +39,229 @@
 	    	
 	    		<input type="hidden" name="dealSq" id="dealSq" value="<%=dealSq%>">
 	    		
-	    		 
-	    		  <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
+	    		<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
-		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>주문 상세 - 구매자 </b></a></li>
-		           		<li><a href="javascript:history.back();" class="sTitle"  style="padding-left:10px;"><b>[리스트로 돌아가기]</b></a></li>
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>결제진행단계</b></a></li>
+		           		<li><a href="javascript:history.back();" class="sTitle"  style="padding-left:10px;"><b>[결제 리스트로 돌아가기]</b></a></li>
+		           	</ul>
+				 </div>
+				 <div class="card">
+				 
+					<table class="table table-bordered" style="font-size:11px;" style="width:900px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>거래진행중</th>
+		                      <th>1차결제대기</th>
+		                      <th>1차결제완료</th>
+		                      <th>2차결제대기</th>
+		                      <th>2차결제완료</th>
+		                      <th>배송준비중</th>
+		                      <th>배송중</th>
+		                      <th>배송완료</th>
+		                    </tr>
+		                  </thead>
+		                  <tbody>
+		                  	<tr align="center">
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TP" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TP')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="PD" onclick="dealMainSttsCdUpdate('<%=dealSq%>','PD')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DS" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DS')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DC')">
+			                  	</td>
+			                  </tr>
+		                  </tbody>  
+				 	 </table>
+				 	 
+				 </div>
+	    		
+	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+	             	<ul class="nav nav-pills">
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>결제정보</b></a></li>
 		           	</ul>
 				 </div>
 				 
 				 <div class="card">
+	    			<div id="paymentList" style="font-size:12px;"></div>
+	    		 </div>
+	    		     		 
+	    		 
+	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+	             	<ul class="nav nav-pills">
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>판매자</b></a></li>
+		           		
+		            </ul>
+				 </div>
+				 <div class="card">
 				 
-				 	<div class="card-body" style="background-color:#ffffff;">
+				 	<table class="table table-bordered" style="font-size:11px;" style="width:900px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>구매자명</th>
+		                      <th>전화번호</th>
+		                      <th>이메일</th>
+		                      <th>주소</th>
+		                      <th>배송지주소</th>
+		                    </tr>
+		                  <thead>  
+		                  <tbody>
+		                      <tr align="center">
+		                    	<td style="width:100px;">
+		                    		<span id="sellMbrNm"></span>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		<span id="sellMbrCpNum"></span>
+		                    	</td>
+		                    	<td style="width:150px;">
+		                    		<span id="sellMbrEmail"></span>
+		                    	</td>
+		                    	<td style="width:500px;">
+		                    		<span id="sellMbrHomeAddr"></span>
+		                    	</td>
+		                    	<td style="width:500px;">
+		                    		<span id="sellMbrDelivryAddr"></span>
+		                    	</td>
+		                    	<td style="width:auto;">
+		                    		
+		                    	</td>	
+		                    </tr>
+		                  </tbody>
+		                 </table>
 				 	
-				 		<div class="col-md-9">
-				 			<div class="form-group row">
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;color:red">거래 진행상황</label>
-                    			<div class="col-sm-2" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" style="color:red" id="dealSttsCd"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-				 			</div>
-				 			
-				 			<div class="form-group row">
-				 				
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">구매자명</label>
-                    			<div class="col-sm-2" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="getMbrNm"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-                    			<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">전화번호</label>
-                    			<div class="col-sm-2" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="mbrCpNum"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-                    			<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">이메일</label>
-                    			<div class="col-sm-2" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="mbrEmail"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-				 			</div>
-				 		
-				 			<div class="form-group row">
-				 				
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">배송지주소</label>
-                    			<div class="col-sm-8" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="mbrDelivryAddr"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-				 			</div>
-				 			
-				 			
-				 			
-				 		</div>
+				 </div>
+	    		 
+	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+	             	<ul class="nav nav-pills">
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>구매자 </b></a></li>
+		           	</ul>
+				 </div>
+				 
+				 <div class="card">
 				 	
-				 	</div>
+				 		<table class="table table-bordered" style="font-size:11px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>구매자명</th>
+		                      <th>전화번호</th>
+		                      <th>이메일</th>
+		                      <th>주소</th>
+		                      <th>배송지주소</th>
+		                    </tr>
+		                  <thead>  
+		                  <tbody>
+		                      <tr align="center">
+		                    	<td style="width:100px;">
+		                    		<span id="buyMbrNm"></span>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		<span id="buyMbrCpNum"></span>
+		                    	</td>
+		                    	<td style="width:150px;">
+		                    		<span id="buyMbrEmail"></span>
+		                    	</td>
+		                    	<td style="width:500px;">
+		                    		<span id="buyMbrHomeAddr"></span>
+		                    	</td>
+		                    	<td style="width:500px;">
+		                    		<span id="buyMbrDelivryAddr"></span>
+		                    	</td>
+		                    	<td style="width:auto;">
+		                    		
+		                    	</td>	
+		                    </tr>
+		                  </tbody>
+		                 </table>
 				 	
 	    		 </div>
-	    		 
-	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
+	    		
+				 
+				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+		           	<ul class="nav nav-pills">
+			       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>구매 작가/작품</b></a></li>
+			       	</ul>
+				</div>
+				
+				<div class="card">
+				
+						<table class="table table-bordered" style="font-size:11px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                     <th></th>
+		                     <th>작가정보</th>
+		                     <th></th>
+		                     <th>작품정보</th>
+		                    </tr>
+		                  <thead>  
+			    		  <tbody>
+			    		  	<tr align="center">
+			    		  		<td style="width:150px;">
+			    		  			<img class="content" id="artstProfileImgUrl" style="cursor:pointer;height:152px;width:150px;"/>
+			    		  		</td>
+			    		  		<td style="width:500px;">
+			    		  			<span id="mbrNm"></span>
+			    		  			<br>
+			    		  			<span id="artstActvtyNm"></span>
+			    		  			<br>
+			    		  			<span id="artstActvtyPartCdTxt"></span>
+			    		  			
+			    		  		</td>
+			    		  		<td style="width:150px;">
+			    		  			<img class="content" id="workMainImgUrl" style="cursor:pointer;height:152px;width:150px;"/>
+			    		  		</td>
+			    		  		<td style="width:500px;">
+			    		  			<span id="workNm"></span>
+			    		  			<br>
+			    		  			<span id="workProdcYear"></span>
+			    		  			<br>
+			    		  			<span id="workPrc"></span>
+			    		  		</td>
+			    		  	</tr>
+			    		  </tbody>
+			         	</table>	
+			 
+				</div>
+				
+				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
-		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>주문 상세 - 결제정보</b></a></li>
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>결제 CS 메모</b></a></li>
 		           	</ul>
 				 </div>
-				 
-				 
-				 
-				 <div class="card">
-				 	
-				 	<div class="card-body" style="background-color:#ffffff;">
-				 	
-				 	
-				 		
-				 		<div class="col-md-9">
-				 		
-				 			<div class="form-group row">
-				 				
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">주문번호</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="refNo"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-                    			<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">주문상품</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="goodsName"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-				 			</div>
-				 			
-				 			
-				 			
-				 		</div>
-				 		
-				 		<div class="col-md-9">
-				 		
-				 			<div class="form-group row">
-				 			
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">결제수단</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="paymethod"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-		               			
-                    			
-                    			<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">결제금액</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="taxFreeAmount"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-		               		 </div>
-		               		   			
-				 		</div>	
-				 		
-				 		<div class="col-md-9">
-				 			<div class="form-group row">
-				 				
-				 				
-                    			
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">결제카드명</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="acqCompanyName"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-                    			<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">결제카드번호</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="cardNo"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-				 			 </div>
-				 		</div>		 		
-				 		
-				 		<div class="col-md-9">
-				 			
-				 			<div class="form-group row">
-				 				
-				 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:80px;">결제일자</label>
-                    			<div class="col-sm-3" >
-                      				<div class="infoBox bg-light">
-	                      				<div class="info-box-content">
-	                      					<span class="info-box-text text-center sTitle" id="tranDate"></span>
-	                      				</div>
-	                      			</div>
-                    			</div>
-                    			
-				 			</div>
-				 			
-				 		</div>
-			
-				 	</div>
-				 		
-				 </div>
-				 
-				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
-		           	<ul class="nav nav-pills">
-			       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>구매작품 작가</b></a></li>
-			       	</ul>
-				</div>
-				
-				<div class="card">
-				
-					<div class="card-body" style="background-color:#ffffff;">
-			    	
+	    		 <div class="card">
+	    		 	
+	    		 	<table border="0" cellpadding="0" cellspacing="0" align="center">
+	    		 		<tr>
+	    		 			<td style="width:900px;">
+				    		 	<textarea name="dealMemo" id="dealMemo" style="height:150px;width:900px;font-size:12px;"></textarea>
+	    		 			</td>
+	    		 			<td align="left" style="vertical-align:bottom;padding-bottom:10px;padding-left:10px;">
+	    		 				<button type="button" class="btn btn-info sTitle" onclick="dealMainMemoUpdateData()">저장</button>
+	    		 			</td>
+	    		 		</tr>
+	    		 	</table>
+	    		 	
+	    		 </div>
 			    		
-		               <div class="form-group row">
-		               		<div class="col-sm-1" >
-								<div style="height:152px;width:150px;background-color:#efefef">
-			           	             <img class="content" id="artstProfileImgUrl" style="cursor:pointer;height:152px;width:150px;"/>
-						        </div>
-		               		</div>
-		               								
-							
-			           		<div class="col-sm-3" style="padding-left:50px;">
-			           			<div class="infoBox bg-light">
-				         				<div class="info-box-content">
-				         					<label class="col-form-label sTitle LabelStyle" style="text-align: center;width:100px;">작가(활동)명</label>
-				         					<span class="info-box-text text-center sTitle" id="mbrNm" style="width:80px;"></span>
-				         					(<span class="info-box-text text-center sTitle" id="artstActvtyNm" style="width:80px;"></span>)
-				         				</div>
-				         			</div>
-			           		</div>
-		               </div>
-		                  		
-								
-		              	
-	              	</div>
-			
-				</div>
-				
-				
-				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
-		           	<ul class="nav nav-pills">
-			       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>구매작품</b></a></li>
-			       	</ul>
-				</div>
-				
-				<div class="card">
-					<div class="card-body" style="background-color:#ffffff;">
-						<div class="form-group row">
-						
-							<div class="col-sm-1" >
-								<div style="height:152px;width:150px;background-color:#efefef">
-			           	             <img class="content" id="workMainImgUrl" style="cursor:pointer;height:152px;width:150px;"/>
-						        </div>
-		               		</div>
-							
-						</div>
-					</div>
-				</div>
-	    		
 	    	</section>
-	    	
-	    	
-	    	
-		    	
-			
+	  	
 	</div>
-	
-	 
-
-   
+	   
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
@@ -306,66 +270,110 @@
 	 		
 	 		var dealSq = $("#dealSq").val();
 	 		
-	 		payDetailData(dealSq);
+	 		//payDetailData(dealSq);
 			
+	 		//작품 거래 내역
+	 		fn_workDealh(dealSq);
+	 		
 	    });
 	 	
-	 	function payDetailData(dealSq) {
+	 	//작품 거래 내역
+	 	function fn_workDealh(dealSq) {
 	 		
 	 		$.ajax({
 		           type: "post",
-		           url: "/admin/payment/payDetailData",
+		           url: "/admin/payment/workDealhListData",
 		           data: {
-		        	   dealSq : dealSq,
+		        	   dealSq : dealSq
 		           },
 		           success: function(ref) {
-		        	   
-		        	    
-		        	 dataContent = ref.data.detailInfo[0];
+		        	   	        	    
+		        	 dataContent = ref.data.workDealInfo[0];
 		        	 
-		        	 
-		        	 
-		        	 /* 회원번호 */
-		        	 artistMemberInfoData(dataContent.artstSq);
-		        	 
-		        	 /* 구매회원 */
-		        	 memberContentData(dataContent.mbrSq);
-		        	 
-		        	 /* 거래 메인 */
-		        	 workMainContent(dataContent.dealSq);
+		        	 var sellMbrSq 	= dataContent.sellMbrSq;//판매자_순번
+		        	 var buyMbrSq 	= dataContent.buyMbrSq;	//구매자_순번
+		        	 var artstSq 	= dataContent.artstSq;	//작가_순번
+		        	 var workSq 	= dataContent.workSq;	//작품_순번
 		        	
+		        	 //판매자 정보 호출
+		        	 fn_sellMbr(sellMbrSq);
 		        	 
-		        	 /* 주문상품 */
-		        	 $('#goodsName').html(dataContent.goodsName);
+		        	 //구매자 정보 호출
+		        	 fn_buyMbr(buyMbrSq);
 		        	 
-		        	 /* 결제수단 */
-		        	 $('#paymethod').html(dataContent.paymethod);
+		        	 //결제 내역
+		        	 paymentList(dealSq);
 		        	 
-					 /* 결제금액 */ 
-					 $('#taxFreeAmount').html(dataContent.taxFreeAmount);
-					 
-					 /* 결제카드명 */
-					 $('#acqCompanyName').html(dataContent.acqCompanyName);
-					 
-					 /* 주문번호 */
-					 $('#refNo').html(dataContent.refNo);
-					 					 
-					 /* 거래일자 */
-					 $('#tranDate').html(dataContent.tranDate);
-					 
-					 /* 카드번호 */
-					 $('#cardNo').html(dataContent.cardNo);
-					 
-					 
+		        	 //거래 메인
+		        	 workMainContent(dealSq)
+		        	 
+		        	 //작가 정보
+		        	 artistMemberInfoData(artstSq);
+		        	 
+		        	 //작품정보
+		        	 fn_workInfo(workSq);
+		        	 
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
 		               console.log(errorJson);
 		           }
-			})
+			});
 	 		
 	 	}
 	 	
+	 	//결제 내역 리스트
+	 	function paymentList(dealSq) {
+	 			 	   
+	 	   let params = {
+	 			dealSq : dealSq
+	 	   }
+	 	   
+	 	   console.log(params);
+	 	   
+	 	   $("#paymentList").jsGrid({
+	 		   locale:"ko",
+	 	       height: "200px",
+	 	       width: "100%",
+	 	       inserting: false,
+	 	       editing: false,
+	 	       sorting: false,
+	 	       paging: false,
+	 	       autoload: true,
+	 	       pageSize: 10,
+	 	       gridview : true,
+	 	       deleteConfirm: "정말 삭제 하시겠습니까?",
+	 	       controller: {
+	 	           loadData: function (filter) {
+	 	        	   var d = $.Deferred();
+	 	               $.ajax({
+	 	      	    	 type: "post",
+	 	    	    	 url: "/admin/payment/payDetailData",
+	 	    	         data: params,
+	 	    	         dataType: "json"
+	 	    	      }).done(function(response) {
+	 	    	   		 
+	 	    	    	 console.log(response);
+	 	    	    	  
+	 	    	    	 d.resolve(response.data.detailInfo);
+	 	    	    	
+	 	    	    	 
+	 	    	      });
+	 	               return d.promise();
+	 	           }
+	 	       },
+	 	       fields: [
+	 	    	 { name: "paymntTypCd"	,title:"결제유형코드"		,type: "text"	,align:"center" },
+	 	    	 { name: "refNo"		,title:"결제거래번호"		,type: "text"	,align:"center" },
+	 	    	 { name: "mbrRefNo"		,title:"거래주문번호"		,type: "text"	,align:"center" },
+	 	    	 { name: "goodsName"	,title:"결제상품명"		,type: "text"	,align:"center" },
+	 	    	 { name: "paymethod"	,title:"결제수단"			,type: "text"	,align:"center" },
+	 	    	 { name: "cardNo"		,title:"결제신용카드번호"	,type: "text"	,align:"center" },
+	 	    	 { name: "accountNo"	,title:"결제가상계좌번호"	,type: "text"	,align:"center" },  
+	 	       ]
+
+	 	   });
+	 	}
 	 	
 	 	//작가정보
 		function artistMemberInfoData(artstSq) {
@@ -386,34 +394,21 @@
 			           		var artstSq 				= dataInfo.artstSq;
 				        	var artstActvtyNm			= dataInfo.artstActvtyNm;
 				        	var artstEnglsNm			= dataInfo.artstEnglsNm;
+				        	var artstProfileImgUrl		= dataInfo.artstProfileImgUrl;
 				        	var artstActvtyNatnCd		= dataInfo.artstActvtyNatnCd;
 				        	var artstActvtyCityCd		= dataInfo.artstActvtyCityCd;
 				        	var artstActvtyPartCd		= dataInfo.artstActvtyPartCd;
 				        	
-				        	var artstActvtyCd			= dataInfo.artstActvtyCd;
-				        	var artstSelfIntro			= dataInfo.artstSelfIntro;
-				        	var artstProfileImgUrl		= dataInfo.artstProfileImgUrl;
-				        	var artstHmpgUrl			= dataInfo.artstHmpgUrl;
-				        	var artstPromtnVideoUrl		= dataInfo.artstPromtnVideoUrl;
-				        	var artstFacebookUrl		= dataInfo.artstFacebookUrl;
-				        	var artstInstagramUrl		= dataInfo.artstInstagramUrl;
-				        	
-				        	
-				        	
-				        	/* 작가영문명 */
-				        	//$("#artstEnglsNm").val(artstEnglsNm);
-				        	/* 활동지역 : 국가 */
-					      	//$('select[name=artstActvtyNatnCd]').val(artstActvtyNatnCd);
-					    	/* 활동지역 : 도시 */
-					    	//$('select[name=artstActvtyCityCd]').val(artstActvtyCityCd);
-					    	/* 활동분야 */
-					    	/* Form checked Clear */
-					    	//$(".artstActvtyPartCd").prop('checked' , false);
-					    	//$(".artstActvtyPartCd:input[value='"+artstActvtyPartCd+"']").prop("checked", true);
-					    	/* 자기소개 */				        	
-				        	//$("#artstSelfIntro").val(artstSelfIntro);
-					    	/* 프로필 이미지 */
-				        	//$("#artstProfileImgUrl").val(artstProfileImgUrl);
+				        	var artstActvtyPartCdTxt = "";
+				        	if(artstActvtyPartCd == "PNTNG") {
+				        		artstActvtyPartCdTxt = "회화";
+				        	} else if(artstActvtyPartCd == "MLDNG") {
+				        		artstActvtyPartCdTxt = "조형";
+				        	} else if(artstActvtyPartCd == "VDMD") {
+				        		artstActvtyPartCdTxt = "영상 미디어";
+				        	} else if(artstActvtyPartCd == "INSTL") {
+				        		artstActvtyPartCdTxt = "설치";
+				        	}
 				        	
 					    	/* 프로필사진 */
 					    	$("#artstProfileImgUrl").prop("src",artstProfileImgUrl);
@@ -421,8 +416,9 @@
 					        $("#mbrNm").html(mbrNm);
 					    	/* 작가횔동명 */
 				        	$("#artstActvtyNm").html(artstActvtyNm);
+					    	
+					    	$("#artstActvtyPartCdTxt").html(artstActvtyPartCdTxt)
 				        	
-				        
 			        	}
 		        	
 		           },
@@ -433,11 +429,9 @@
 			});
 		}
 	 	
-		//회원 정보 호출
-		function memberContentData(mbrSq) {
-			
-			console.log("memberContentData : "+ mbrSq);
-			
+	 	//판매자 정보
+	 	function fn_sellMbr(mbrSq){
+
 			$.ajax({
 		           type: "post",
 		           url: "/admin/member/memberContentData",
@@ -445,12 +439,9 @@
 		        	   mbrSq : mbrSq
 		            },
 		           success: function(data) {
-		        	   
 		        	    
 		        	 dataContent = data.memberContentData.memberContent[0];
 		        	 
-		        	 
-		        	
 		        	 var mbrNm = dataContent.mbrNm						//이름
 		        	 var mbrId = dataContent.mbrId						//아이디
 		        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
@@ -464,50 +455,61 @@
 		        	 var useYn = dataContent.useYn						//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
-		        	 $("#getMbrNm").html(mbrNm);
-					 $("#mbrCpNum").html(mbrCpNum);
-					 $("#mbrEmail").html(mbrEmail);
-					 $("#mbrHomeAddr").html(mbrHomeAddr);
-					 $("#mbrDelivryAddr").html(mbrDelivryAddr);
+		        	 $("#sellMbrNm").html(mbrNm);
+					 $("#sellMbrCpNum").html(mbrCpNum);
+					 $("#sellMbrEmail").html(mbrEmail);
+					 $("#sellMbrHomeAddr").html(mbrHomeAddr);
+					 $("#sellMbrDelivryAddr").html(mbrDelivryAddr);
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
 		               console.log(errorJson);
 		           }
-			})
-		}
-		
-		
-		//거래 메인 호출
-		function workMainContent(mbrSq) {
-			
-			console.log("memberContentData : "+ mbrSq);
-			
+			});
+	 	}
+	 	
+	 	
+	 	//구매자 정보
+	  	function fn_buyMbr(mbrSq){
+
 			$.ajax({
 		           type: "post",
-		           url: "/admin/payment/dealMainListData",
+		           url: "/admin/member/memberContentData",
 		           data: {
 		        	   mbrSq : mbrSq
 		            },
-		           success: function(ref) {
-		        	   
+		           success: function(data) {
 		        	    
-		        	 dataContent = ref.data.dealInfo[0];
+		        	 dataContent = data.memberContentData.memberContent[0];
 		        	 
-		        	 $("#dealSttsCd").html(dataContent.dealSttsCd);
+		        	 var mbrNm = dataContent.mbrNm						//이름
+		        	 var mbrId = dataContent.mbrId						//아이디
+		        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
+		        	 var mbrEmail = dataContent.mbrEmail				//이메일
+		        	 var mbrBirth = dataContent.mbrBirth				//생년월일
+		        	 var mbrSexCd = dataContent.mbrSexCd				//성별
+		        	 var mbrCpNum = dataContent.mbrCpNum				//휴대폰번호
+		        	 var regDt = dataContent.regDt						//회원등록일시
+		        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
+		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
+		        	 var useYn = dataContent.useYn						//사용여부
+		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
-		        	 fn_workInfo(dataContent.workSqNum)
+		        	 $("#buyMbrNm").html(mbrNm);
+					 $("#buyMbrCpNum").html(mbrCpNum);
+					 $("#buyMbrEmail").html(mbrEmail);
+					 $("#buyMbrHomeAddr").html(mbrHomeAddr);
+					 $("#buyMbrDelivryAddr").html(mbrDelivryAddr);
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
 		               console.log(errorJson);
 		           }
-			})
-		 }
-			
-			
-		  //거래 작품
-	     function fn_workInfo(workSqNum) {
+			});
+	 	}
+	 	
+	  	//거래 작품
+	    function fn_workInfo(workSqNum) {
 	    	 
 	    	 $.ajax({
 		           type: "post",
@@ -521,12 +523,124 @@
 		        	 dataContent = ref.data.workInfo[0];
 		        	 
 		        	 var workMainImgUrl = dataContent.workMainImgUrl;
+		        	 
 		        	 $("#workMainImgUrl").prop("src",workMainImgUrl);
 		        	 
+		        	 var workNm = dataContent.workNm;
+		        	 $("#workNm").html(workNm);
+		        	 
+		        	 var workProdcYear = dataContent.workProdcYear;
+		        	 $("#workProdcYear").html(workProdcYear);
+		        	 
+		        	 var workPrc = dataContent.workPrc;
+		        	 $("#workPrc").html(workPrc);
 		           }
 		        	
 			})
 	     }
+		
+	  	//거래 메인 - 거래 상태 수정
+	  	function dealMainSttsCdUpdate(dealSq,dealSttsCd){
+	  		
+	  		if(confirm('거래 상태를 수정하시겠습니까?')) {
+	  			
+	  			 $.ajax({
+	  	           type: "post",
+	  	           url: "/admin/payment/dealMainSttsCdUpdateData",
+	  	           data: {
+	  	        	 dealSq : dealSq,
+	  	        	 dealSttsCd : dealSttsCd
+	  	        },
+	  	           success: function(data) {
+	  	        	 bootbox.alert({
+						 message: "거래상태가 수정되었습니다.",
+						 locale: 'kr',
+						 callback: function() {
+						
+					     } });
+	  			   },
+	  	           error: function(error) {
+	  	        	   var errorJson = JSON.stringify(error);
+	  	               console.log(errorJson);
+	  	           }
+	  			})	
+	  		}else{
+	  			
+	  		   workMainContent(dealSq);	
+	 		   return false;
+	 		   
+	 	    }
+	  		
+	  	}
+	  	
+	  	//거래 메인 - 메모수정
+	  	function dealMainMemoUpdateData() {
+	  		var dealSq = '<%=dealSq%>';
+	  		var dealMemo = $('#dealMemo').val();
+	  		
+	  		if(dealMemo == ""){
+	  			alert("내용을 입력해 주세요!!");
+	  			$('#dealMemo').focus();
+	  			return;
+	  		} else {
+	  			 $.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealMainMemoUpdateData",
+		  	           data: {
+		  	        	 dealSq : dealSq,
+		  	        	dealMemo : dealMemo
+		  	        },
+		  	           success: function(data) {
+		  	        	 bootbox.alert({
+							 message: "결제 CS 메모 저장되었습니다.",
+							 locale: 'kr',
+							 callback: function() {
+							
+						     } });
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  			})	
+	  		}
+	  		
+	  	}
+	  	
+	  	
+		
+		//결제진행단계
+		function workMainContent(dealSq) {
+			
+			$.ajax({
+		           type: "post",
+		           url: "/admin/payment/dealMainListData",
+		           data: {
+		        	   dealSq : dealSq
+		            },
+		           success: function(ref) {
+		        	   
+		        	    
+		        	 dataContent = ref.data.dealInfo[0];
+		        	 
+		        	 var dealSttsCd = dataContent.dealSttsCd;
+		        	 
+		        	 $(".dealSttsCd").prop('checked' , false);
+				     $(".dealSttsCd[value='"+dealSttsCd+"']").prop("checked", true);
+		        	 
+		        	 var dealMemo = dataContent.dealMemo;
+		        	 $('#dealMemo').val(dealMemo);
+		        	 
+		           },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			})
+		 }
+			
+			
+		 
 	    	 
 	   
 

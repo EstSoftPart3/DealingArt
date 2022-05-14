@@ -83,6 +83,24 @@ public class paymentController {
 		return mv;
 	}
 	
+	//작품 거래 내역
+	@RequestMapping("/admin/payment/workDealhListData")
+	@ResponseBody
+	public ModelAndView workDealhListData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentService.workDealhList(param);
+									
+		mv.addObject("data", result);
+		
+		return mv;
+	}
+	
+	
 	//작품 정보
 	@RequestMapping("/admin/payment/workInfoData")
 	@ResponseBody
@@ -98,6 +116,35 @@ public class paymentController {
 		mv.addObject("data", result);
 		
 		return mv;
+	}
+	
+	//거래 메인 수정 : 거래_상태_코드
+	@RequestMapping("/admin/payment/dealMainSttsCdUpdateData")
+	@ResponseBody
+	public void dealMainSttsCdUpdateData(@RequestParam Map<String, Object> param) {
+		
+		int dealSq = Integer.parseInt((String) param.get("dealSq"));
+		String dealSttsCd = (String) param.get("dealSttsCd");
+		
+		param.put("dealSq", dealSq);
+		param.put("dealSttsCd", dealSttsCd);
+		
+		paymentService.dealMainSttsCdUpdate(param);
+	}
+	
+	
+	//거래 메인 수정 : 거래_메모_코드
+	@RequestMapping("/admin/payment/dealMainMemoUpdateData")
+	@ResponseBody
+	public void dealMainMemoUpdateData(@RequestParam Map<String, Object> param) {
+		
+		int dealSq = Integer.parseInt((String) param.get("dealSq"));
+		String dealMemo = (String) param.get("dealMemo");
+		
+		param.put("dealSq", dealSq);
+		param.put("dealMemo", dealMemo);
+		
+		paymentService.dealMainMemoUpdate(param);
 	}
 	
 	

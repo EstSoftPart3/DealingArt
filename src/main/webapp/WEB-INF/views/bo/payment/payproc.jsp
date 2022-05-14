@@ -89,7 +89,7 @@
 	    	   { name: "workSq"			,title:"작품명"			,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "artstSq"		,title:"작가명[활동명]"		,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealTypCd"		,title:"거래유형코드"		,type: "text"	,align:"center"  ,visible: true},
-	    	   { name: "dealSttsCd"		,title:"거래상태코드"		,type: "text"	,align:"center"  ,visible: true},
+	    	   { name: "dealTypCdTxt"	,title:"거래상태"			,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealStrtPrc"	,title:"거래시작가격(원)"	,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealAuctnPrc"	,title:"거래응찰가격(원)"	,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealFinalPrc"	,title:"거래최종가격(원)"	,type: "text"	,align:"center"  ,visible: true},

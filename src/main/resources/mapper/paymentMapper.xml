@@ -4,6 +4,19 @@
 <mapper namespace="com.da.mapper.paymentMapper">
 
 
+   <!-- 거래 메인/작품거래 내역  -->
+   <select id="workDealhList" resultType="hashMap">
+   		SELECT 
+		 	DEAL_SQ 		AS dealSq
+		 	,WORK_SQ		AS workSq
+		 	,SELL_MBR_SQ	AS sellMbrSq
+		 	,BUY_MBR_SQ		AS buyMbrSq
+		 	,ARTST_SQ		AS artstSq
+		FROM TBL_DA_WORK_DEAL_H
+		WHERE DEAL_SQ = #{dealSq}
+   </select>
+
+
 	<!-- 거래 메인 -->
 	<select id="dealMainList" resultType="hashMap">
 		SELECT
@@ -12,53 +25,77 @@
 			,(SELECT CONCAT(B.MBR_NM,'[',A.ARTST_ACTVTY_NM,']') FROM TBL_DA_ARTST_M A INNER JOIN TBL_DA_MBR_M B ON A.MBR_SQ = B.MBR_SQ WHERE ARTST_SQ = TBL.ARTST_SQ) AS artstSq
 			,MBR_REF_NO          AS mbrRefNo
 			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_TYP_CD' AND B.DTL_CD = TBL.DEAL_TYP_CD AND A.USE_YN = 'Y') AS dealTypCd
-			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_STTS_CD' AND B.DTL_CD = TBL.DEAL_STTS_CD AND A.USE_YN = 'Y') AS dealSttsCd
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_STTS_CD' AND B.DTL_CD = TBL.DEAL_STTS_CD AND A.USE_YN = 'Y') AS dealTypCdTxt
+			,DEAL_STTS_CD AS dealSttsCd
 			,FORMAT(DEAL_STRT_PRC,0)       AS dealStrtPrc
 			,DEAL_AUCTN_PRC      AS dealAuctnPrc
 			,DEAL_FINAL_PRC      AS dealFinalPrc
 			,DATE_FORMAT(DEAL_STRT_DT, '%Y-%m-%d') AS dealStrtDt
 			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y-%m-%d') AS dealEndngDt
 			,WORK_SQ AS workSqNum
+			,DEAL_MEMO AS dealMemo
 		FROM
             TBL_DA_DEAL_M TBL 
         WHERE 1=1
              <if test="dealSq != null">
-             	AND DEAL_SQ =#{dealSq}
+             	AND DEAL_SQ = #{dealSq}
              </if>
 	</select>
+	
+	<!--거래 메인 수정 : 거래_상태_코드-->
+	<update id="dealMainSttsCdUpdate" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_DEAL_M
+		SET
+			DEAL_STTS_CD = #{dealSttsCd}
+   		WHERE 1=1
+         	AND DEAL_SQ = #{dealSq}
+	</update>
+	
+	<!--거래 메인 수정 : 거래_메모-->
+	<update id="dealMainMemoUpdate" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_DEAL_M
+		SET
+			DEAL_MEMO = #{dealMemo}
+   		WHERE 1=1
+         	AND DEAL_SQ = #{dealSq}
+	</update>
 	
 	 <!-- 거래 상세 - 결제 -->
     <select id="payDetail" resultType="hashMap">
         SELECT
            	MBR_SQ					AS mbrSq
-           	,PAYMNT_SQ                AS paymntSq
-			,DEAL_SQ                 AS dealSq
-			,PAYMNT_TYP_CD           AS paymntTypCd
-			,MBR_REF_NO              AS mbrRefNo
-			,REF_NO                  AS refNo
-			,AUTH_TOKEN              AS authToken
-			,AID                     AS aid
-			,GOODS_NAME              AS goodsName
-			,PAYMETHOD               AS paymethod
-			,AMOUNT                  AS amount
-			,TRAN_DATE               AS tranDate
-			,TRAN_TIME               AS tranTime
-			,APPL_NO                 AS applNo
-			,CARD_NO                 AS cardNo
-			,INSTALLMENT             AS installment
-			,PAY_TYPE                AS payType
-			,ISSUE_COMPANY_NO        AS issueCompanyNo
-			,ISSUE_COMPANY_NAME      AS issueCompanyName
-			,ISSUE_CARD_NAME         AS issueCardName
-			,ACQ_COMPANY_NO          AS acqCompanyNo
-			,ACQ_COMPANY_NAME        AS acqCompanyName
-			,BANK_CODE               AS bankCode
-			,ACCOUNT_NO              AS accountNo
-			,ACCOUNT_CLOSE_DATE      AS accountCloseDate
-			,TAX_AMOUNT              AS taxAmount
-			,FEE_AMOUNT              AS feeAmount
+           	,PAYMNT_SQ              AS paymntSq
+			,DEAL_SQ                AS dealSq
+			,(CASE WHEN PAYMNT_TYP_CD = "1" THEN "1차 결제"
+			       WHEN PAYMNT_TYP_CD = "2" THEN "2차 결제"
+			  END			
+			  ) AS paymntTypCd
+			,MBR_REF_NO             AS mbrRefNo
+			,REF_NO                 AS refNo
+			,AUTH_TOKEN             AS authToken
+			,AID                    AS aid
+			,GOODS_NAME             AS goodsName
+			,PAYMETHOD              AS paymethod
+			,AMOUNT                 AS amount
+			,TRAN_DATE              AS tranDate
+			,TRAN_TIME              AS tranTime
+			,APPL_NO                AS applNo
+			,CARD_NO                AS cardNo
+			,INSTALLMENT            AS installment
+			,PAY_TYPE               AS payType
+			,ISSUE_COMPANY_NO       AS issueCompanyNo
+			,ISSUE_COMPANY_NAME     AS issueCompanyName
+			,ISSUE_CARD_NAME        AS issueCardName
+			,ACQ_COMPANY_NO         AS acqCompanyNo
+			,ACQ_COMPANY_NAME       AS acqCompanyName
+			,BANK_CODE              AS bankCode
+			,ACCOUNT_NO             AS accountNo
+			,ACCOUNT_CLOSE_DATE     AS accountCloseDate
+			,TAX_AMOUNT             AS taxAmount
+			,FEE_AMOUNT             AS feeAmount
 			,FORMAT(TAX_FREE_AMOUNT,0) AS taxFreeAmount
-			,(SELECT ARTST_SQ FROM TBL_DA_DEAL_M WHERE DEAL_SQ = A.DEAL_SQ) AS artstSq
 		FROM
             TBL_DA_PAYMNT_H A
         WHERE 1=1
@@ -89,6 +126,9 @@
     	SELECT 
 			WORK_SQ AS workSq
 			,WORK_MAIN_IMG_URL AS workMainImgUrl
+			,WORK_NM AS workNm
+			,WORK_PRODC_YEAR AS workProdcYear
+			,WORK_PRC AS workPrc
 		FROM TBL_DA_WORK_M
 		WHERE 1=1
 		AND WORK_SQ = #{workSq}
