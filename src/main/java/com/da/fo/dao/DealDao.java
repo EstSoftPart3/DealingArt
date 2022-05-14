@@ -47,7 +47,7 @@ public class DealDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> deal = dealMapper.dealDetail(param);
 		result.put("deal", deal);
-		if(deal.get("artstSq") != null) {
+		if(!deal.get("artstSq").equals(null)) {
 			Map<String, Object> artistInfo = artistMapper.artistInfo(deal.get("artstSq").toString());
 			List eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());

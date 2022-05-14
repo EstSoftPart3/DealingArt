@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,6 @@ public class MainPayUtil {
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-	     
 		/*
 		  API KEY (비밀키)
 		 - 생성 : http://cp.mainpay.co.kr 고객지원>기술지원>암호화키관리
@@ -96,31 +95,24 @@ public class MainPayUtil {
 		 *	필수 파라미터 
 		 *=================================================================================================*/
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
-		parameters.put("version", "V001");
-		parameters.put("mbrNo", mbrNo);
+		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
+		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/
-		parameters.put("mbrRefNo", paramMap.get("mbrRefNo"));
-		parameters.put("paymethod", paramMap.get("paymethod").toString());
+		parameters.put("mbrRefNo", paramMap.get("mbrRefNo")); //가맹점주문번호 (가맹점에서 생성한 중복되지 않는 번호)
+		parameters.put("paymethod", paramMap.get("paymethod").toString()); //지불수단 (CARD: 신용카드 | VACCT: 가상계좌 | ACCT: 계좌이체 | HPP: 휴대폰소액)(*)간편결제는 "CARD"에 포함되어 있음
 		/* 결제금액 (공급가+부가세)
 		(#주의#) 페이지에서 전달 받은 값을 그대로 사용할 경우 금액위변조 시도가 가능합니다.
 		 DB에서 조회한 값을 사용 바랍니다. */
-		parameters.put("amount", paramMap.get("amount").toString());
+		parameters.put("amount", paramMap.get("amount").toString()); //총결제금액
 		/* 상품명 max 30byte*/
-		parameters.put("goodsName", paramMap.get("goods_name").toString());
+		parameters.put("goodsName", paramMap.get("goodsName").toString()); //상품명 (일부 특수문자는 사용불가 합니다.)
 		/* 상품코드 max 8byte*/
 		//parameters.put("goodsCode", paramMap.get("goods_code").toString());
 		/*인증완료 시 호출 URL*/
-		parameters.put("approvalUrl", returnUrl + "/payment/approval");
+		parameters.put("approvalUrl", returnUrl + "/payment/approval"); //인증결과 수신페이지 예) https://상점도메인/approval (주의) URL내에 &,=등의 특수문자 허용안됨)
 		/*결제창 close시 호출 URL*/
-		parameters.put("closeUrl", returnUrl);
+		parameters.put("closeUrl", returnUrl); //결제종료 수신페이지 URL 예) https://상점도메인/close (주의) URL내에 &,=등의 특수문자 허용안됨)
 		
-		/*고객명  max 30byte*/
-		//parameters.put("customerName", paramMap.get("customer_name").toString());
-		//parameters.put("customerEmail", paramMap.get("customer_email").toString());
-		
-		resultMap.put("goods_name", paramMap.get("goods_name"));
-		//resultMap.put("goods_code", paramMap.get("goods_code"));
-		resultMap.put("mbr_sq", paramMap.get("mbr_sq"));
 	    /*=================================================================================================
 	     *	READY API 호출 (**테스트 후 반드시 리얼-URL로 변경해야 합니다.**) 
 	     *=================================================================================================*/
@@ -139,7 +131,7 @@ public class MainPayUtil {
 	    		 
 		System.out.println("responseJson:"+responseJson);
 				
-		Map responseMap = ParseUtils.fromJson(responseJson, Map.class);        
+		Map<String, Object> responseMap = ParseUtils.fromJson(responseJson, Map.class);        
 		String resultCode = (String) responseMap.get("resultCode");        
 		String resultMessage = (String) responseMap.get("resultMessage");
 
@@ -148,24 +140,21 @@ public class MainPayUtil {
 			System.err.println(errMessage);
 		}else {
 		
-			Map dataMap = (Map)responseMap.get("data");
+			Map<String, Object> dataMap = (Map<String, Object>) responseMap.get("data");
 			
 			rsltMap.put("data", dataMap);
 			rsltMap.put("resultCode", resultCode);
 			rsltMap.put("resultMessage", resultMessage);
 			
 			paramMap.put("aid", dataMap.get("aid").toString());
-			paramMap.put("create_time", dataMap.get("createTime").toString());
-			paramMap.put("expire_time", dataMap.get("expireTime").toString());
+			paramMap.put("createTime", dataMap.get("createTime").toString());
+			paramMap.put("expireTime", dataMap.get("expireTime").toString());
+			paramMap.put("resultCode", resultCode);
+			paramMap.put("resultMessage", resultMessage);
 			
-			mainPayMapper.instMainPayReadyApi(paramMap);
 		}
 		
-		resultMap.put("method", "readyApi");
-		resultMap.put("resultCode", resultCode);
-		resultMap.put("resultMessage", resultMessage);
-		
-		mainPayMapper.instApiResult(resultMap);
+		mainPayMapper.insertMainPayRequest(paramMap);
 		
 		return rsltMap;
 	}
@@ -179,44 +168,29 @@ public class MainPayUtil {
 	public Map<String, Object> approval(Map<String, Object> paramMap) throws Exception {
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
-		
-		Map<String, Object> getMap = mainPayMapper.getReadyApiData(paramMap);
-		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> parameters = mainPayMapper.getMainPayRequest(paramMap.get("aid").toString());
 		
 		String resultCode = "";
 	    String resultMessage = "";
-		Map<String, String> parameters = new HashMap<String, String>();
-		
-		parameters.put("version", "V001");
-		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", mbrRefNo);
-		parameters.put("paymethod", getMap.get("paymethod").toString()); /*DB 저장정보*/
-		parameters.put("amount", getMap.get("amount").toString()); /*DB 저장정보*/
-		parameters.put("goodsName", getMap.get("goods_name").toString()); /*DB 저장정보*/
-		parameters.put("goodsCode", getMap.get("goods_code").toString()); /*DB 저장정보*/
-		parameters.put("approvalUrl", returnUrl + "/payment/close");
-		parameters.put("closeUrl", returnUrl);
-		parameters.put("customerName", getMap.get("mbr_nm").toString()); /*DB 저장정보*/
-		parameters.put("customerEmail", encryptUtil.decrypt(getMap.get("mbr_email").toString())); /*DB 저장정보*/
-		
-		resultMap.put("aid", paramMap.get("aid"));
-		
-		if(parameters == null) {
+	    
+		if(MapUtils.isEmpty(paramMap)) {
 			System.err.println("이미 결제가 완료 되었거나, 만료된 요청입니다.");
 			
 			resultCode = "00";
 			resultMessage = "이미 결제가 완료 되었거나, 만료된 요청입니다.";
 		}
-	
+		
 		/*승인요청 파라미터 세팅*/
-		parameters.put("aid", paramMap.get("aid").toString());
-		parameters.put("authToken", paramMap.get("authToken").toString());
-		parameters.put("merchantData", paramMap.get("merchantData").toString());
-		parameters.put("payType", paramMap.get("payType").toString());
+		parameters.put("version", "V001"); //버전정보
+		parameters.put("mbrNo", mbrNo); //섹터나인에서 부여한 가맹점 번호(상점 아이디)
+		parameters.put("authToken", paramMap.get("authToken").toString()); //거래인증용 토큰, approvalUrl에서 수신한 값사용
+		parameters.put("amount", parameters.get("amount").toString());
+		
+		resultMap.put("aid", paramMap.get("aid"));
 	
 		String responseJson = "";
-		Map responseMap = null;
+		Map<String, Object> responseMap = new HashMap<>();
 	    try{
 	    	/* 결제준비 API 호출   */
 	    	String payUrl = stdApiBase + payUri;
@@ -232,12 +206,8 @@ public class MainPayUtil {
 			}
 	    	resultCode="C300";
 	    	resultMessage = String.format("승인 API 결과 수신 실패 : %s", e.getMessage());
-	    	
-			resultMap.put("method", "approvalApi");
-			resultMap.put("resultCode", resultCode);
-			resultMap.put("resultMessage", resultMessage);
-			
-			mainPayMapper.instApiResult(resultMap);
+	    	System.out.println(resultMessage + "resultCode : " + resultCode);
+			//mainPayMapper.instApiResult(resultMap);
 	    }
 		 
 		responseMap = ParseUtils.fromJson(responseJson, Map.class);
@@ -248,58 +218,45 @@ public class MainPayUtil {
 	    if( ! "200".equals(resultCode)) {
 	    	System.err.println(responseJson);
 	    }else {
-	   
-		    Map dataMap = (Map) responseMap.get("data");
+	    	Map dataMap = (Map) responseMap.get("data");
+		   
+	    	System.out.println(dataMap);
+	    	/*결제 준비 정보*/
+	    	resultMap.put("mbrSq", parameters.get("mbrSq"));
+	    	resultMap.put("dealSq", parameters.get("dealSq"));
+	    	resultMap.put("authToken", parameters.get("authToken"));
+	    	resultMap.put("aid", parameters.get("aid"));
+	    	resultMap.put("paymethod", parameters.get("paymethod"));
+	    	resultMap.put("paymntTypCd", parameters.get("paymntTypCd"));
+	    	/*결제 완료 기본 정보*/
+	    	resultMap.put("mbrRefNo", dataMap.get("mbrRefNo"));
+	    	resultMap.put("refNo", dataMap.get("refNo"));
+	    	resultMap.put("tranDate", dataMap.get("tranDate"));
+	    	resultMap.put("tranTime", dataMap.get("tranTime"));
+	    	resultMap.put("goodsName", dataMap.get("goodsName"));
+	    	resultMap.put("amount", dataMap.get("amount"));
+	    	resultMap.put("taxAmount", dataMap.get("taxAmount"));
+	    	resultMap.put("feeAmount", dataMap.get("feeAmount"));
+	    	resultMap.put("taxFreeAmount", dataMap.get("taxFreeAmount"));
+	    	/*신용카드 결제시*/
+		    resultMap.put("installment", dataMap.get("installment"));
+		    resultMap.put("applNo", dataMap.get("applNo"));
+		    resultMap.put("cardNo", dataMap.get("cardNo"));
+		    resultMap.put("issueCompanyNo", dataMap.get("issueCompanyNo"));
+		    resultMap.put("issueCompanyName", dataMap.get("issueCompanyName"));
+		    resultMap.put("issueCardName", dataMap.get("issueCardName"));
+		    resultMap.put("acqCompanyNo", dataMap.get("acqCompanyNo"));
+		    resultMap.put("acqCompanyName", dataMap.get("acqCompanyName"));
+		    resultMap.put("payType", dataMap.get("payType"));
+		    /*계좌이체 또는 가상계좌 거래시*/
+		    resultMap.put("bankCode", dataMap.get("bankCode"));
+		    resultMap.put("accountNo", dataMap.get("accountNo"));
+		    resultMap.put("accountCloseDate", dataMap.get("accountCloseDate"));
 		    
-		    System.out.println(dataMap);
-		    
-			String refNo = (String) dataMap.get("refNo");
-			String tranDate = (String) dataMap.get("tranDate");
-			String mbrRefNo = (String) dataMap.get("mbrRefNo");
-			String applNo = (String) dataMap.get("applNo");
-			String amount = String.valueOf(dataMap.get("amount"));
-			String payType = (String) dataMap.get("payType");
-			String taxAmount = (String) dataMap.get("taxAmount");
-			String feeAmount = (String) dataMap.get("feeAmount");
-			String taxFreeAmount = (String) dataMap.get("taxFreeAmount");
-			String cardNo = (String) dataMap.get("cardNo");
-			String issueCompanyNo = (String) dataMap.get("issueCompanyNo");
-			String issueCompanyName = (String) dataMap.get("issueCompanyName");
-			String issueCardName = (String) dataMap.get("issueCardName");
-			String acqCompanyNo = (String) dataMap.get("acqCompanyNo");
-			String acqCompanyName = (String) dataMap.get("acqCompanyName");
-			String merchant = (String) dataMap.get("merchantData");
-			String installment = (String) dataMap.get("installment");
-			
-			paramMap.put("auth_token", paramMap.get("authToken").toString());
-			paramMap.put("pay_type", payType);
-			paramMap.put("ref_no", refNo);
-			paramMap.put("tran_date", tranDate);
-			paramMap.put("mbr_ref_no", mbrRefNo);
-			paramMap.put("appl_no", applNo);
-			paramMap.put("amount", amount);
-			paramMap.put("tax_amount", taxAmount);
-			paramMap.put("fee_amount", feeAmount);
-			paramMap.put("tax_free_amount", taxFreeAmount);
-			paramMap.put("card_no", cardNo);
-			paramMap.put("issue_company_no", issueCompanyNo);
-			paramMap.put("issue_company_name", issueCompanyName);
-			paramMap.put("issue_card_name", issueCardName);
-			paramMap.put("acq_company_no", acqCompanyNo);
-			paramMap.put("acq_company_name", acqCompanyName);
-			paramMap.put("merchant", merchant);
-			paramMap.put("installment", installment);
-			
-			mainPayMapper.instMainPayApprovalS(paramMap);
-			
 	    }
-		
-	    resultMap.put("method", "approvalApi");
-		resultMap.put("resultCode", resultCode);
-		resultMap.put("resultMessage", resultMessage);
-		
-		mainPayMapper.instApiResult(resultMap);
-		
+	    
+	    mainPayMapper.insertPayMnt(resultMap);
+	    
 		rsltMap.put("resultCode", resultCode);
 		rsltMap.put("resultMessage", resultMessage);
 		
@@ -344,13 +301,13 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", getMap.get("mbr_ref_no").toString()); 
+		parameters.put("mbrRefNo", getMap.get("mbrRefNo").toString()); 
 		
-		parameters.put("orgRefNo", getMap.get("ref_no").toString());
-		parameters.put("orgTranDate", getMap.get("tran_date").toString());
+		parameters.put("orgRefNo", getMap.get("refNo").toString());
+		parameters.put("orgTranDate", getMap.get("tranDate").toString());
 		parameters.put("paymethod", getMap.get("paymethod").toString());
 		parameters.put("amount", getMap.get("amount").toString());
-		parameters.put("payType", getMap.get("pay_type").toString());
+		parameters.put("payType", getMap.get("payType").toString());
 		parameters.put("isNetCancel", "N");
 		parameters.put("customerName", getMap.get("mbr_nm").toString());
 		parameters.put("customerEmail", encryptUtil.decrypt(getMap.get("mbr_email").toString()));
@@ -377,10 +334,10 @@ public class MainPayUtil {
 			String tranDate = (String) dataMap.get("tranDate");
 			String tranTime = (String) dataMap.get("tranTime");
 			
-			paramMap.put("cancel_yn", "Y");
+			paramMap.put("cancelYn", "Y");
 			paramMap.put("sid", getMap.get("sid"));
-			paramMap.put("cancel_ref_no", dataMap.get("refNo"));
-			paramMap.put("cancel_tran_date", dataMap.get("tranDate"));
+			paramMap.put("cancel_refNo", dataMap.get("refNo"));
+			paramMap.put("cancel_tranDate", dataMap.get("tranDate"));
 			paramMap.put("cancel_tran_time", dataMap.get("tranTime"));
 			
 			mainPayMapper.updateCancelApi(paramMap);
@@ -422,15 +379,15 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", getMap.get("mbr_ref_no").toString()); 
-		parameters.put("objectRefNo", getMap.get("ref_no").toString());
-		parameters.put("objectTranDate", getMap.get("tran_date").toString());
+		parameters.put("mbrRefNo", getMap.get("mbrRefNo").toString()); 
+		parameters.put("objectRefNo", getMap.get("refNo").toString());
+		parameters.put("objectTranDate", getMap.get("tranDate").toString());
 		parameters.put("objectPaymethod", getMap.get("paymethod").toString());
 		
-		parameters.put("bankCode", paramMap.get("bank_code").toString());
-		parameters.put("accountNo", paramMap.get("account_no").toString());
-		parameters.put("accountOwner", paramMap.get("account_owner").toString());
-		parameters.put("birthDay", paramMap.get("birth_day").toString());
+		parameters.put("bankCode", paramMap.get("bankCode").toString());
+		parameters.put("accountNo", paramMap.get("accountNo").toString());
+		parameters.put("accountOwner", paramMap.get("accountOwner").toString());
+		parameters.put("birthDay", paramMap.get("birthDay").toString());
 		parameters.put("requestUser", mUserId);
 		
 		parameters.put("amount", getMap.get("amount").toString());
@@ -456,17 +413,17 @@ public class MainPayUtil {
 			
 			paramMap.put("sid", getMap.get("sid"));
 			
-			paramMap.put("mbr_sq", mbrNo);
-			paramMap.put("mbr_ref_no", dataMap.get("mbrRefNo").toString()); 
-			paramMap.put("ref_no", dataMap.get("refNo").toString());
-			paramMap.put("tran_date", dataMap.get("tranDate").toString());
+			paramMap.put("mbrSq", mbrNo);
+			paramMap.put("mbrRefNo", dataMap.get("mbrRefNo").toString()); 
+			paramMap.put("refNo", dataMap.get("refNo").toString());
+			paramMap.put("tranDate", dataMap.get("tranDate").toString());
 			paramMap.put("paymethod", getMap.get("paymethod").toString());
 			
 			paramMap.put("request_user", mUserId);
 			
 			paramMap.put("amount", getMap.get("amount").toString());
-			paramMap.put("refund_yn", "N");
-			paramMap.put("cancel_yn", "N");
+			paramMap.put("refundYn", "N");
+			paramMap.put("cancelYn", "N");
 			
 			mainPayMapper.instRefRegisterApi(paramMap);
 	
@@ -507,7 +464,7 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("orgRefNo", getMap.get("ref_no").toString());
+		parameters.put("orgRefNo", getMap.get("refNo").toString());
 		parameters.put("requestUser", mUserId);
 		parameters.put("requestSystem", getMap.get("merchant").toString());
 		
@@ -529,7 +486,7 @@ public class MainPayUtil {
 		}else {
 		
 			paramMap.put("sid", getMap.get("sid"));
-			paramMap.put("refund_yn", "Y");
+			paramMap.put("refundYn", "Y");
 			
 			mainPayMapper.updateRefundDataApi(paramMap);
 	
@@ -571,8 +528,8 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", getMap.get("mbr_ref_no").toString()); 
-		parameters.put("orgRefNo", getMap.get("ref_no").toString());
+		parameters.put("mbrRefNo", getMap.get("mbrRefNo").toString()); 
+		parameters.put("orgRefNo", getMap.get("refNo").toString());
 		parameters.put("requestUser", mUserId);
 		parameters.put("requestSystem", getMap.get("merchant").toString());
 		
@@ -630,18 +587,17 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", getMap.get("mbr_ref_no").toString());
+		parameters.put("mbrRefNo", getMap.get("mbrRefNo").toString());
 		
-		parameters.put("personType", paramMap.get("person_type").toString());
+		parameters.put("personType", paramMap.get("personType").toString());
 		
 		/*자진발급번호 01000001234 고정*/
-		parameters.put("customerPk", paramMap.get("customer_pk").toString());
+		parameters.put("customerPk", paramMap.get("customerPk").toString());
 		
 		parameters.put("amount", getMap.get("amount").toString());
-		parameters.put("taxAmt", getMap.get("tax_amount").toString());
-		parameters.put("feeAmt", getMap.get("fee_amount").toString());
-		parameters.put("goodsName", getMap.get("goods_name").toString());
-		parameters.put("customerName", getMap.get("mbr_nm").toString());
+		parameters.put("taxAmount", getMap.get("taxAmount").toString());
+		parameters.put("feeAmount", getMap.get("feeAmount").toString());
+		parameters.put("goodsName", getMap.get("goodsName").toString());
 		
 		String responseJson = "";
 		try{
@@ -664,14 +620,14 @@ public class MainPayUtil {
 			
 			paramMap.put("sid", getMap.get("sid"));
 			
-			paramMap.put("mbr_sq", mbrNo);
-			paramMap.put("mbr_ref_no", dataMap.get("mbr_ref_no").toString()); 
-			paramMap.put("ref_no", dataMap.get("refNo").toString());
-			paramMap.put("tran_date", dataMap.get("tranDate").toString());
+			paramMap.put("mbrSq", mbrNo);
+			paramMap.put("mbrRefNo", dataMap.get("mbrRefNo").toString()); 
+			paramMap.put("refNo", dataMap.get("refNo").toString());
+			paramMap.put("tranDate", dataMap.get("tranDate").toString());
 			paramMap.put("amount", dataMap.get("amount").toString());
-			paramMap.put("tax_amount", dataMap.get("taxAmount").toString());
+			paramMap.put("taxAmount", dataMap.get("taxAmount").toString());
 			paramMap.put("fee_amount", dataMap.get("feeAmount").toString());
-			paramMap.put("appl_no", dataMap.get("applNo").toString());
+			paramMap.put("applNo", dataMap.get("applNo").toString());
 			
 			mainPayMapper.instCashReceiptTransApi(paramMap);
 			
@@ -712,9 +668,9 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		parameters.put("version", "1.0");
 		parameters.put("mbrNo", mbrNo);
-		parameters.put("mbrRefNo", getMap.get("mbr_ref_no").toString());
-		parameters.put("orgRefNo", getMap.get("ref_no").toString());
-		parameters.put("orgTranDate", getMap.get("tran_date").toString());
+		parameters.put("mbrRefNo", getMap.get("mbrRefNo").toString());
+		parameters.put("orgRefNo", getMap.get("refNo").toString());
+		parameters.put("orgTranDate", getMap.get("tranDate").toString());
 		parameters.put("amount", getMap.get("amount").toString());
 		
 		String responseJson = "";
@@ -737,7 +693,7 @@ public class MainPayUtil {
 			Map dataMap = (Map)responseMap.get("data");
 			
 			paramMap.put("sid", getMap.get("sid"));
-			paramMap.put("cancel_yn", "Y");
+			paramMap.put("cancelYn", "Y");
 			
 			mainPayMapper.updateCashReceiptTransApi(paramMap);
 			
