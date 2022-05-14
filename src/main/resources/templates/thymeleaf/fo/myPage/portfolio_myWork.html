@@ -130,7 +130,7 @@ function myWorkList(){
 		}
 		if(result[i].dealTypCd == null){
 			myWorkListHtml += '<div class="item-div-img reg" style="height:320px;" >';
-			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;">';
+			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px">';
 			myWorkListHtml += '	<div class="item-ho3 reg-div">';
 			myWorkListHtml += '		<div class="regs" >';
 			myWorkListHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
@@ -208,7 +208,7 @@ function myWorkList(){
 		myWorkListHtml += '		</div>';
 		*/
 		if(result[i].authSq == 2){
-			myWorkListHtml += '	<div class="artist active"><span>Artist</span></div>';
+			//myWorkListHtml += '	<div class="artist active"><span>Artist</span></div>';
 		}
 		if(result[i].authSq == 1){
 			myWorkListHtml += '	<div class="artist"><span>Artist</span></div>';
