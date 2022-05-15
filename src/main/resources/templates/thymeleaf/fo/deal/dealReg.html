@@ -481,8 +481,8 @@ function vaild(){
 
 function dealReg(){
 	$('#myModal4').modal('hide');
+	result.deal.mbrSq = sMbrSqVal;
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
-	debugger;
 	if(result.deal.dealTypCd == "A"){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');

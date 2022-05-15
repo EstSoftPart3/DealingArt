@@ -119,11 +119,18 @@ public interface MyPageMapper {
 	public List<String> scrapListSale(List<String> param);
 	
 	/*
-	 * 결제 거래 상태 변경
+	 * 구매 결제 상태 변경
 	 * param : dealSq
 	 * return : int
 	 */
-	public int updateDealSttsCd(@Param("dealSq") String dealSq, @Param("dealSttsCd")String dealSttsCd);
+	public int updateBuyPaymntSttsCd(@Param("dealSq") String dealSq, @Param("dealSttsCd")String dealSttsCd);
+	
+	/*
+	 * 판매 결제 상태 변경
+	 * param : dealSq
+	 * return : int
+	 */
+	public int updateSellPaymntSttsCd(@Param("dealSq") String dealSq, @Param("dealSttsCd")String dealSttsCd);
 	
 	/*
 	 * 1차 결제 정보 조회

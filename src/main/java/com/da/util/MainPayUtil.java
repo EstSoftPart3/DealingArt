@@ -156,9 +156,8 @@ public class MainPayUtil {
 			paramMap.put("resultCode", resultCode);
 			paramMap.put("resultMessage", resultMessage);
 			
+			mainPayMapper.insertMainPayRequest(paramMap);
 		}
-		
-		mainPayMapper.insertMainPayRequest(paramMap);
 		
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ rsltMap : " + rsltMap);
 		
@@ -222,7 +221,9 @@ public class MainPayUtil {
 	    
 	    //승인API 호출 실패
 	    if( ! "200".equals(resultCode)) {
-	    	System.err.println(responseJson);
+	    	//System.err.println(responseMap);
+	    	
+	    	return responseMap;
 	    }else {
 	    	Map dataMap = (Map) responseMap.get("data");
 		   
@@ -265,21 +266,24 @@ public class MainPayUtil {
 		    resultMap.put("accountNo", dataMap.get("accountNo"));
 		    resultMap.put("accountCloseDate", dataMap.get("accountCloseDate"));
 		    
+		    mainPayMapper.insertPayMnt(resultMap);
+	    	mainPayMapper.insertWorkDeal(resultMap);
+	    	
+	    	//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
+		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
+		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString());
+		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
+		    }
+		    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
+		    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {
+		    	myPageMapper.updateSellPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
+		    }
+		    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
+		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("2")) {
+		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
+		    }
 	    }
-    	mainPayMapper.insertPayMnt(resultMap);
-    	mainPayMapper.insertWorkDeal(resultMap);
-	    //1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
-	    if(parameters.get("paymntDivCd").toString().equals("1") && parameters.get("paymntTypCd").toString().equals("B")) {
-	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "1PC");
-	    }
-	    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
-	    if(parameters.get("paymntDivCd").toString().equals("2") && parameters.get("paymntTypCd").toString().equals("S")) {
-	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "2PW");
-	    }
-	    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
-	    if(parameters.get("paymntDivCd").toString().equals("2") && parameters.get("paymntTypCd").toString().equals("B")) {
-	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "2PC");
-	    }
+    	
 		rsltMap.put("resultCode", resultCode);
 		rsltMap.put("resultMessage", resultMessage);
 		

@@ -30,6 +30,7 @@ import com.da.sample.service.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -664,11 +665,33 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//거래내역 상세 페이지 이동
-	@RequestMapping("/myDealDetail")
+	//구매내역 상세 페이지 이동
+	@RequestMapping("/myDealDetailBuy")
 	@ResponseBody
-	public ModelAndView openMyDealDetail(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail");
+	public ModelAndView openMyDealDetailBuy(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy");
+		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		mv.addObject("result", result);
+		mv.addObject("dealSq", dealSq);
+		mv.addObject("mbrSq", mbrSq);
+		return mv;
+	}
+	
+	//구매내역 상세 페이지 이동
+	@RequestMapping("/getDetailBuy")
+	@ResponseBody
+	public ModelAndView getDetailBuy(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//판매내역 상세 페이지 이동
+	@RequestMapping("/myDealDetailSell")
+	@ResponseBody
+	public ModelAndView openMyDealDetailSell(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell");
 		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
 		mv.addObject("result", result);
 		return mv;

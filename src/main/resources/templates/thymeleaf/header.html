@@ -832,7 +832,7 @@ function login(){
 			success:function(data){
 				var login = data.login;
 				if(login == 1){
-					modalAlertShow("성공적으로 로그인이 되었습니다.", "reload");
+					modalAlertShow("성공적으로 로그인이 되었습니다.", "main");
 					$('#loginModal').modal("hide");
 					$("#sMbrSqVal").val(data.sMbrSqVal);
 					sMbrSqVal = data.sMbrSqVal;
@@ -846,13 +846,13 @@ function login(){
 	        			artstBirthYear = data.artstBirthYear;
 	        		}
 				}else if (login == 2){
-					modalAlertShow("탈퇴한 회원입니다.", "reload");
+					modalAlertShow("탈퇴한 회원입니다.", "main");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
 				}else if (login == 0){
-					modalAlertShow("회원정보가 존재하지 않습니다.", "reload");
+					modalAlertShow("회원정보가 존재하지 않습니다.", "main");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
@@ -877,7 +877,7 @@ function logout(){
 				loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");3
 				sessionStorage.clear();
-				modalAlertShow("로그아웃 되었습니다.", "reload");
+				modalAlertShow("로그아웃 되었습니다.", "main");
 	    	}
 		},
 		error: function(request, status, error){

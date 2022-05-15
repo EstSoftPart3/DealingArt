@@ -328,17 +328,25 @@ function myDealSearchList(){
     				}
     				if(myDealList[i].dealTypCd == "S"){
 	    				myDealListHtml += '				<p class="won-p">';
-	    				if(myDealList[i].dealSttsCd == "1PC"){
-	    					myDealListHtml += '					현재 1차 결제를 완료 하였습니다';
+	    				if(myDealList[i].buyPaymntSttsCd == "1PC"){
+	    					myDealListHtml += '					현재 구매자 1차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>1차 결제 완료</span>';
 	    				}
-	    				if(myDealList[i].dealSttsCd == "2PW"){
-	    					myDealListHtml += '					현재 2차 결제 대기중입니다.';
+	    				if(myDealList[i].buyPaymntSttsCd == "2PW"){
+	    					myDealListHtml += '					구매자 2차 결제 대기중입니다.';
 		    				myDealListHtml += '					<span>2차 결제 대기</span>';
 	    				}
-	    				if(myDealList[i].dealSttsCd == "2PC"){
-	    					myDealListHtml += '					현재 2차 결제를 완료 하였습니다.';
+	    				if(myDealList[i].buyPaymntSttsCd == "2PC"){
+	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>2차 결제 완료</span>';
+	    				}
+	    				if(myDealList[i].sellPaymntSttsCd == "2PW"){
+	    					myDealListHtml += '					판매자 결제를 대기중입니다.';
+		    				myDealListHtml += '					<span>결제 대기</span>';
+	    				}
+	    				if(myDealList[i].sellPaymntSttsCd == "2PC"){
+	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
+		    				myDealListHtml += '					<span>결제 완료</span>';
 	    				}
 	    				myDealListHtml += '				</p>';
     				}
@@ -351,6 +359,7 @@ function myDealSearchList(){
             	$("#myDealList").append(myDealListHtml).trigger("create");
         	}else{
         		modalAlertShow("검색 결과가 없습니다."); 
+        		$("#myDealList").empty();
         	}
         },           
         error: function(error) {
@@ -361,14 +370,25 @@ function myDealSearchList(){
 
 function myDealDetail(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	pageGoPost({
-		url:"/myDealDetail",
-		target:"_self",
-		vals:[
-			["dealSq", dealSq],
-			["mbrSq", sMbrSqVal]
-		]
-	});
+	if($("input:radio[name='buyOrSell']:checked").val() == "BUY"){
+		pageGoPost({
+			url:"/myDealDetailBuy",
+			target:"_self",
+			vals:[
+				["dealSq", dealSq],
+				["mbrSq", sMbrSqVal]
+			]
+		});
+	}else{
+		pageGoPost({
+			url:"/myDealDetailSell",
+			target:"_self",
+			vals:[
+				["dealSq", dealSq],
+				["mbrSq", sMbrSqVal]
+			]
+		});
+	}
 }
 
 function searchOption_onclick(clickId){

@@ -25,13 +25,13 @@
 								<div class="med-ic">
 									<div class="por">
 										<div class="tootip-4">거래 계약 안내</div>
-										<img src="resources/img/mypage/icon-1.png" class="med-me" />
+										<img src="resources/img/mypage/icon-1.png" class="med-me"/>
 									</div>
 								</div>
 							</div>
 							<div class="myd-box">
 								<div class="myd-img">
-									<img src="resources/img/mypage/img_bg.png"  class="" />
+									<img src="resources/img/mypage/img_bg.png"/>
 								</div>
 								<div class="myd-2">
 									<div class="myd-te1">
@@ -79,19 +79,19 @@
 							</div>
 							
 							<div class="med">
-								<h2 class="h2-con">받는사람 정보</h2>
+								<h2 class="h2-con">보내는 사람 정보</h2>
 							</div>
 							<div class="myd-box">
 								<div class="myd-box-1">
 									<div class="mtext">
 										<p>회원의 주소와 배송지의 주소가 동일해야 합니다. 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
-										<button type="button" class="btns-1">받는사람 정보 수정하기</button>
+										<button type="button" class="btns-1">보내는 사람 정보 수정하기</button>
 									</div>
 									
 									<div class="mg_t40">
 										<table class="mstyle-1">
 											<tr>
-												<th>받는 사람</th>
+												<th>보내는 사람</th>
 												<td th:text="${result.mbrInfo.mbrNm}">성명</td>
 											</tr>
 											<tr>
@@ -119,35 +119,6 @@
 								</div>
 							</div>
 							
-							<!-- 1차 결제 -->
-							<div id="1PW" style="display:none;">
-								<div class="med">
-									<h2 class="h2-con">결제 정보</h2>
-								</div>
-								<div class="myd-box">
-									<div class="myd-box-1">
-										<div class="mg_t40">
-											<table class="mstyle-1">
-												<tr>
-													<th>작품가</th>
-													<td th:text="${result.dealInfo.dealFinalPrc} + '원'"></td>
-												</tr>
-												<tr>
-													<th>거래 수수료</th>
-													<td id="fee"></td>
-												</tr>
-											</table>
-											<table class="mstyle-3">
-												<tr>
-													<th>총금액</th>
-													<td id="amount"></td>
-												</tr>
-											</table>
-											<p class="msy-p">※ 작품 결제가 완료되면 운송 일정과 부가서비스(설치, 포장 등)확인을 위해 고객센터에서 연락 드립니다.</p>
-										</div>
-									</div>
-								</div>
-							</div>
 							
 							<!-- 2차 결제 -->		
 							<div id="2PW" style="display:none;">
@@ -163,15 +134,15 @@
 													<div class="selec-box bg-st">
 														<select class="selectpicker" id="sbx_trnsprt1" disabled>
 															<option value="null">-선택-</option>
-															<option value="134,000">프리미엄운송(수도권)</option>
-															<option value="299,000">프리미엄운송(비수도권)</option>
+															<option value="130,000">프리미엄운송(수도권)</option>
+															<option value="297,000">프리미엄운송(비수도권)</option>
 															<option value="0">직접운송</option>
 														</select>
 													</div>
 													<div id="div_trnsprt1">
 														<div class="comy-box">
 															<div class="cmy-text">프리미엄운송(수도권)</div>
-															<div class="cmy-won">&#8361; 134,000원</div>
+															<div class="cmy-won">&#8361; 130,000원</div>
 															<div class="cmy-end">X</div>
 														</div>
 													</div>
@@ -188,13 +159,13 @@
 													
 													<div id="div_trnsprt2">
 														<div class="comy-box">
-															<div class="cmy-text">작품 컨디션 체크</div>
-															<div class="cmy-won">&#8361; 17,500원</div>
+															<div class="cmy-text">포장비</div>
+															<div class="cmy-won">&#8361; 8,000원</div>
 															<div class="cmy-end">X</div>
 														</div>
 													</div>
 													<div class="comy-sum" id="div_trnsprt3">
-														총금액<span>&#8361; 151,500원</span>
+														총금액<span>&#8361; 138,000원</span>
 													</div>
 												</td>
 											</tr>
@@ -328,34 +299,23 @@ jQuery(document).ready(function() {
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#myDeal").addClass("active");
         
-	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
-		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
-		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
-		$("#1PW").css("display", "");
-		$("#paymethod").css("display", "");
-		$("#btn_payment").css("display", "")
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15);
-		$("#fee").text(formatComma(fee) + '원');
-		amount = parseInt($("#fee").text()) + parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, ''));
-		$("#amount").text('￦' + formatComma(amount) + '원');
-	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
-		$("#dealSttsCdDetail").text("구매자 2차 결제를 대기중입니다.");
-		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
+	if(result.dealInfo.sellPaymntSttsCd == "2PW"){
+		$("#dealSttsCdDetail").text("판매자 결제를 대기중입니다.");
+		$("#dealSttsCdDetail").append("<span>결제 대기</span>"); 
 		$("#2PW").css("display", "");
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "")
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PC"){
-		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
-		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
+	if(result.dealInfo.sellPaymntSttsCd == "2PC"){
+		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>결제 완료</span>"); 
 		$("#2PC").css("display", "");
 	}
 	
 	//하드코딩
- 	$("#sbx_trnsprt1").val("134,000");
-	$("#sbx_trnsprt2").html('<option value="null">-선택-</option><option value="17,500">작품 컨디션 체크</option>');
-	$("#sbx_trnsprt2").val("17,500");
+ 	$("#sbx_trnsprt1").val("130,000");
+	$("#sbx_trnsprt2").html('<option value="null">-선택-</option><option value="8,000">포장비</option>');
+	$("#sbx_trnsprt2").val("8,000");
 	$("#sbx_trnsprt2").selectpicker("refresh");
 });
 var dday = new Date(result.dealInfo.dealEndngDate).getTime();
@@ -385,7 +345,7 @@ function btn_payment(){
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			dealSq : result.dealInfo.dealSq, //거래 순번
 			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
-			paymntDivCd : "B", //결제 구분 코드 (B 구매자/S 판매자)
+			paymntDivCd : "S", //결제 구분 코드 (B 구매자/S 판매자)
 			paymntAmt : parseInt(amount), //총 결제 금액
 			paymntFeeAmt : parseInt(fee), //결제 수수료
 			workSq : result.dealInfo.workSq //작품 순번
@@ -393,30 +353,9 @@ function btn_payment(){
 	if(result.dealInfo.paymethod == null || result.dealInfo.paymethod == ""){
 		modalAlertShow("결제 수단이 선택되지 않았습니다.")
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
-		data.paymntTypCd = "1"; //거래 차수
-		data.mbrRefNo = result.dealInfo.mbrRefNo + "-1"; //거래 순번
-		debugger;
-		$.ajax({
-			type: "POST",
-			contentType: 'application/json',
-	           url: "/payment/readyApi",
-	           dataType: 'json',
-	           data: JSON.stringify(data),
-	           async: false,
-			success:function(response){
-				console.log(response);
-				if (response.resultCode == '200') {
-					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl); //PC와 Mobile은 URL이 상이합니다.
-					return false;
-				}
-			}
-		}); 
-	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
+	if(result.dealInfo.sellPaymntSttsCd == "2PW"){
 		data.paymntTypCd = "2"; //거래 차수
-		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
+		data.mbrRefNo = result.dealInfo.mbrRefNo + "-3"; //주문 번호
 		data.amount = 1004;
 		data.paymntAmt = 1004;
 		$.ajax({

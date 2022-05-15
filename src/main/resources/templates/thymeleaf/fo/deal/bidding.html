@@ -425,7 +425,7 @@ setInterval(function() {
 function btn_purchaseOrBid_onclick(){
 	if($("#btn_purchaseOrBid").text() == "구매하기"){
 		pageGoPost({
-			url:"/paymentBuyer",
+			url:"/myDealDetailBuy",
 			target:"_self",
 			vals:[
 				["dealSq", result.deal.dealSq],

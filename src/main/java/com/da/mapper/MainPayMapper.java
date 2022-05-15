@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -99,5 +100,11 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	void insertWorkDeal(Map<String, Object> paramMap);
+	
+	/**
+	 * 1차 결제 구매자 순번 등록
+	 * @param paramMap
+	 */
+	void updateDealBuyMbrSq(@Param("buyMbrSq") String buyMbrSq, @Param("dealSq") String deqlSq);
 
 }

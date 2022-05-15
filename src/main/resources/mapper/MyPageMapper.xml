@@ -79,7 +79,8 @@
 		/*거래내역 리스트*/
 		SELECT 
 				B.DEAL_SQ AS dealSq,
-				A.MBR_SQ AS mbrSq,
+				B.SELL_MBR_SQ AS sellMbrSq,
+				B.BUY_MBR_SQ AS buyMbrSq,
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
@@ -88,6 +89,8 @@
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				B.DEAL_TYP_CD AS dealTypCd,
 				B.DEAL_STTS_CD AS dealSttsCd,
+				B.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd,
+				B.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd,
 				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
 				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
@@ -98,17 +101,15 @@
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A,
-				TBL_DA_DEAL_M AS B, 
-				TBL_DA_WORK_DEAL_H AS C			
+				TBL_DA_DEAL_M AS B
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND C.DEAL_SQ = B.DEAL_SQ 
 			<if test="buyOrSell == 'BUY'">
-				AND C.BUY_MBR_SQ = #{mbrSq}
+				AND B.BUY_MBR_SQ = #{mbrSq}
 			</if>
 			<if test="buyOrSell == 'SELL'">
-				AND C.SELL_MBR_SQ = #{mbrSq}
+				AND B.SELL_MBR_SQ = #{mbrSq}
 			</if>
 		GROUP BY B.DEAL_SQ;
 	</select>
@@ -1008,12 +1009,21 @@
 		        	#{item.workSq}
 		        </foreach>
 	</select>
-	<update id="updateDealSttsCd" parameterType="String">
-		/*결제 거래상태 변경*/
+	<update id="updateBuyPaymntSttsCd" parameterType="String">
+		/*구매 결제상태 변경*/
 		UPDATE 
 				TBL_DA_DEAL_M 
-		SET
-				DEAL_STTS_CD = #{dealSttsCd}
+		SET		
+				BUY_PAYMNT_STTS_CD = #{dealSttsCd}
+		WHERE  
+				DEAL_SQ = #{dealSq}
+	</update>
+	<update id="updateSellPaymntSttsCd" parameterType="String">
+		/*판매 결제상태 변경*/
+		UPDATE 
+				TBL_DA_DEAL_M 
+		SET		
+				SELL_PAYMNT_STTS_CD = #{dealSttsCd}
 		WHERE  
 				DEAL_SQ = #{dealSq}
 	</update>
@@ -1036,7 +1046,7 @@
 				DEAL_SQ = #{dealSq}
 	</select>
 	<select id="getPaymentBuyerInfo" resultType="hashMap" parameterType="String">
-		/*결제 구매자, 배송지 조회*/
+		/*결제 구매자/판매자 배송지 조회*/
 		SELECT 
 				MBR_SQ AS buyMbrSq,
 				MBR_NM AS mbrNm,
@@ -1054,15 +1064,19 @@
 		/*결제 상세 페이지 상품 정보 조회*/
 		SELECT 
 				B.DEAL_SQ AS dealSq,
-				A.MBR_SQ AS mbrSq,
+				B.SELL_MBR_SQ AS sellMbrSq,
+				B.BUY_MBR_SQ AS buyMbrSq,
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
+				B.MBR_REF_NO AS mbrRefNo,
 				B.DEAL_TYP_CD AS dealTypCd,
 				B.DEAL_STTS_CD AS dealSttsCd,
+				B.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd,
+				B.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd,
 				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
 				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
@@ -1073,12 +1087,10 @@
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
 		FROM 
 				TBL_DA_WORK_M AS A,
-				TBL_DA_DEAL_M AS B, 
-				TBL_DA_WORK_DEAL_H AS C			
+				TBL_DA_DEAL_M AS B
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND C.DEAL_SQ = B.DEAL_SQ 
 			AND B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ;
 	</select>
