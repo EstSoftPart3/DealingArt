@@ -57,10 +57,10 @@
 					<div class="s-hov">
 						<ul>
 							<li><a href="#"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-2.jpg" /><span>경매 / 거래 내역</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-3.jpg" /><span>마이 콜렉션</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
-							<li><a href="#"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
+							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-2.jpg" /><span>경매 / 거래 내역</span></a></li>
+							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-3.jpg" /><span>마이 콜렉션</span></a></li>
+							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
+							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
 						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
 					</div>
