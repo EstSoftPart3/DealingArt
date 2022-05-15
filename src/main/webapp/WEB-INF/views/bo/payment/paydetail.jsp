@@ -409,6 +409,7 @@
 	 	       },
 	 	       fields: [
 	 	    	 { name: "paymntTypCd"	,title:"결제유형코드"		,type: "text"	,align:"center" },
+	 	    	 { name: "paymntDivCdTxt"	,title:"결제구분"		,type: "text"	,align:"center" },
 	 	    	 { name: "refNo"		,title:"결제거래번호"		,type: "text"	,align:"center" },
 	 	    	 { name: "mbrRefNo"		,title:"거래주문번호"		,type: "text"	,align:"center" },
 	 	    	 { name: "goodsName"	,title:"결제상품명"		,type: "text"	,align:"center" },

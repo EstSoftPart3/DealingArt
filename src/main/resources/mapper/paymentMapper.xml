@@ -75,6 +75,10 @@
 			       WHEN PAYMNT_TYP_CD = "2" THEN "2차 결제"
 			  END			
 			  ) AS paymntTypCd
+			 ,(CASE WHEN PAYMNT_DIV_CD = "B" THEN "구매자"
+			       WHEN PAYMNT_DIV_CD = "S" THEN "판매자"
+			  END			
+			  ) AS paymntDivCdTxt
 			,MBR_REF_NO             AS mbrRefNo
 			,REF_NO                 AS refNo
 			,AUTH_TOKEN             AS authToken
