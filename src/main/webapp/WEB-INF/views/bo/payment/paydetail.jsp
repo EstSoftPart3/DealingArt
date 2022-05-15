@@ -50,47 +50,107 @@
 					<table class="table table-bordered" style="font-size:11px;" style="width:900px;">
 		                  <thead>                  
 		                    <tr align="center" style="background-color:#efefef">
-		                      <th>거래진행중</th>
+		                      
+		                      <th>결제자구분</th>
 		                      <th>1차결제대기</th>
 		                      <th>1차결제완료</th>
 		                      <th>2차결제대기</th>
 		                      <th>2차결제완료</th>
-		                      <th>배송준비중</th>
-		                      <th>배송중</th>
-		                      <th>배송완료</th>
+		                      
 		                    </tr>
 		                  </thead>
 		                  <tbody>
 		                  	<tr align="center">
-			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TP" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TP')">
+		                  		<td>
+		                  			판매자
+		                  		</td>
+			       				<td>
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','buy')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','buy')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','buy')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','buy')">
+			                  	</td>
+			                  	
+			                  </tr>
+			                  <tr align="center">
+		                  		<td>
+		                  			구매자
+		                  		</td>
+			       				<td>
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','sell')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','sell')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="PD" onclick="dealMainSttsCdUpdate('<%=dealSq%>','PD')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','sell')">
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DS" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DS')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','sell')">
 			                  	</td>
-			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DC')">
-			                  	</td>
+			                  	
 			                  </tr>
 		                  </tbody>  
 				 	 </table>
 				 	 
 				 </div>
+				 
+				 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+	             	<ul class="nav nav-pills">
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>거래상태단계</b></a></li>
+		            </ul>
+				 </div>
+				 
+				 <div class="card">
+				 
+				 <table class="table table-bordered" style="font-size:11px;" style="width:900px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>거래진행중</th>
+		                      <th>거래종료</th>
+		                      <th>배송준비중</th>
+		                      <th>배송중</th>
+		                      <th>배송완료</th>
+		                      <th>구매확정</th>
+		                      <th>거래중지</th>
+		                    </tr>
+		                  </thead>
+		                  <tbody>
+		                  	<tr align="center">
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TP" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TP','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TC','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="PD" onclick="dealMainSttsCdUpdate('<%=dealSq%>','PD','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DS" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DS','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="DC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','DC','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','PC','deal')">
+			                  	</td>
+			                  	<td>
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="ST" onclick="dealMainSttsCdUpdate('<%=dealSq%>','ST','deal')">
+			                  	</td>
+			                  
+			                  </tr>
+		                  </tbody>  
+				 	 </table>
+				 	
+				 </div>
+				 
 	    		
 	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
@@ -586,17 +646,39 @@
 	     }
 		
 	  	//거래 메인 - 거래 상태 수정
-	  	function dealMainSttsCdUpdate(dealSq,dealSttsCd){
+	  	function dealMainSttsCdUpdate(dealSq,dealCode,gubun){
 	  		
-	  		if(confirm('거래 상태를 수정하시겠습니까?')) {
+	  		if(gubun == 'buy') {
+	  		
+	  			var params = {
+	  			   dealSq : dealSq,
+	  			   buyPaymntSttsCd : dealCode	
+	  			}
+	  		
+	  		} else if(gubun == 'sell') {
+	  			
+	  			var params = {
+	 	  			dealSq : dealSq,
+	 	  			sellPaymntSttsCd : dealCode	
+	 	  		}
+	  		
+	  		} else if(gubun == 'deal') {
+	  			
+	  			var params = {
+	 	  			dealSq : dealSq,
+	 		  	    dealSttsCd : dealCode	
+	 	  		}
+	  			
+	  		}
+	  		
+	  		console.log(params);
+	  		
+	  		if(confirm('상태를 수정하시겠습니까?')) {
 	  			
 	  			 $.ajax({
 	  	           type: "post",
 	  	           url: "/admin/payment/dealMainSttsCdUpdateData",
-	  	           data: {
-	  	        	 dealSq : dealSq,
-	  	        	 dealSttsCd : dealSttsCd
-	  	        },
+	  	           data: params,
 	  	           success: function(data) {
 	  	        	 bootbox.alert({
 						 message: "거래상태가 수정되었습니다.",
@@ -616,6 +698,7 @@
 	 		   return false;
 	 		   
 	 	    }
+	  		
 	  		
 	  	}
 	  	
@@ -670,9 +753,18 @@
 		        	 dataContent = ref.data.dealInfo[0];
 		        	 
 		        	 var dealSttsCd = dataContent.dealSttsCd;
+		        	 var sellPaymntSttsCd = dataContent.sellPaymntSttsCd;
+		        	 var buyPaymntSttsCd = dataContent.buyPaymntSttsCd;
+		        	 
 		        	 
 		        	 $(".dealSttsCd").prop('checked' , false);
 				     $(".dealSttsCd[value='"+dealSttsCd+"']").prop("checked", true);
+				     
+				     $(".sellPaymntSttsCd").prop('checked' , false);
+				     $(".sellPaymntSttsCd[value='"+sellPaymntSttsCd+"']").prop("checked", true);
+				     
+				     $(".buyPaymntSttsCd").prop('checked' , false);
+				     $(".buyPaymntSttsCd[value='"+buyPaymntSttsCd+"']").prop("checked", true);
 		        	 
 		        	 var dealMemo = dataContent.dealMemo;
 		        	 $('#dealMemo').val(dealMemo);
