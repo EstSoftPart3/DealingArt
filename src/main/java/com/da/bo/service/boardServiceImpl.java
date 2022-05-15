@@ -52,10 +52,10 @@ public class boardServiceImpl implements boardService {
 		boardDao.boardDelete(param);
 	}
 	
-	//게시판 삭제
-		@Override
-		public void boardUpdate(Map<String, Object> param){
-			boardDao.boardUpdate(param);
-		}
+	//게시판 수정
+	@Override
+	public void boardUpdate(Map<String, Object> param){
+		boardDao.boardUpdate(param);
+	}
 	
 }

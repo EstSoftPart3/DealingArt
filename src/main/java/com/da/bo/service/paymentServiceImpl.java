@@ -17,6 +17,17 @@ public class paymentServiceImpl implements paymentService {
 	@Autowired
 	paymentDao paymentDao;
 	
+	//작품 거래 내역
+	@Override
+	public Map<String, Object> workDealhList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = paymentDao.workDealhList(param);
+		
+		return result;
+	}
+	
 	
 	//거래 운송 목록
 	@Override
@@ -63,6 +74,18 @@ public class paymentServiceImpl implements paymentService {
 		result = paymentDao.trnsprtList(param);
 		
 		return result;
+	}
+	
+	//거래 메인 수정 : 거래_상태_코드
+	@Override
+	public void dealMainSttsCdUpdate(Map<String, Object> param){
+		paymentDao.dealMainSttsCdUpdate(param);
+	}
+	
+	//거래 메인 수정 : 거래_메모_코드
+	@Override
+	public void dealMainMemoUpdate(Map<String, Object> param){
+		paymentDao.dealMainMemoUpdate(param);
 	}
 
 }

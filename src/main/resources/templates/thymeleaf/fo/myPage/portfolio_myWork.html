@@ -20,7 +20,7 @@
 					
 					<div class="con-right">
 					
-						<div class="reds-box mg_t150 por">
+						<div class="reds-box mg_t150 por" style="display:none">
 							<ul class="pc-on">
 								<li>
 									<a href="#" class="up-on">
@@ -130,7 +130,7 @@ function myWorkList(){
 		}
 		if(result[i].dealTypCd == null){
 			myWorkListHtml += '<div class="item-div-img reg" style="height:320px;" >';
-			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;">';
+			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px">';
 			myWorkListHtml += '	<div class="item-ho3 reg-div">';
 			myWorkListHtml += '		<div class="regs" >';
 			myWorkListHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
@@ -139,7 +139,41 @@ function myWorkList(){
 			myWorkListHtml += '	</div>';
 			myWorkListHtml += '</div>';
 			
+			myWorkListHtml += '	<div class="item-body">';
+			myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
+			myWorkListHtml += '		<div class="uesr-s">';
+			if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+				myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+			}else{
+				myWorkListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:40px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+			}
+			myWorkListHtml += '		</div>';
+			myWorkListHtml += '		<div class="text-s" style="height:100px;">';
+			myWorkListHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+			myWorkListHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
+			myWorkListHtml += '			<p>'+ result[i].workMatrl +'</p>';
+			myWorkListHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
+			if(result[i].dealTypCd == "A"){
+				myWorkListHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+				myWorkListHtml += '			<p class="ts-2">';
+				myWorkListHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
+				myWorkListHtml += '			응찰수 : '+ result[i].bidCnt +'<br/>';
+				myWorkListHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
+				myWorkListHtml += '			</p>';
+			}
+			if(result[i].dealTypCd == "S"){
+				myWorkListHtml += '			<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+			}
+			if(result[i].dealTypCd == null){
+				
+				if (result[i].workPrc != null) {
+					myWorkListHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
+				}
+			}
+			myWorkListHtml += '		</div>';
+			
 		}
+		/*
 		myWorkListHtml += '	<div class="item-body">';
 		myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 		myWorkListHtml += '		<div class="uesr-s">';
@@ -172,13 +206,15 @@ function myWorkList(){
 			}
 		}
 		myWorkListHtml += '		</div>';
+		*/
 		if(result[i].authSq == 2){
-			myWorkListHtml += '	<div class="artist active"><span>Artist</span></div>';
+			//myWorkListHtml += '	<div class="artist active"><span>Artist</span></div>';
 		}
 		if(result[i].authSq == 1){
 			myWorkListHtml += '	<div class="artist"><span>Artist</span></div>';
 		}
 		myWorkListHtml += '	</div>';
+		
 		myWorkListHtml += '</figure>';
 	}
 	$("#columns2").append(myWorkListHtml).trigger("create");

@@ -24,6 +24,19 @@ public class paymentDao {
 	@Autowired
 	paymentMapper paymentMapper;
 	
+	//작품 거래 내역
+	public Map<String, Object> workDealhList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> workDealInfo = paymentMapper.workDealhList(param);
+		
+		result.put("workDealInfo", workDealInfo);
+				
+		return result;
+	}
+	
 	
 	//거래 운송 목록
 	public Map<String, Object> dealMainList(Map<String, Object> param){
@@ -76,6 +89,16 @@ public class paymentDao {
 		result.put("listInfo", listInfo);
 				
 		return result;
+	}
+	
+	//거래 메인 수정 : 거래_상태_코드
+	public void dealMainSttsCdUpdate(Map<String, Object> param){
+		paymentMapper.dealMainSttsCdUpdate(param);
+	}
+	
+	//거래 메인 수정 :거래_메모
+	public void dealMainMemoUpdate(Map<String, Object> param){
+		paymentMapper.dealMainMemoUpdate(param);
 	}
 
 }
