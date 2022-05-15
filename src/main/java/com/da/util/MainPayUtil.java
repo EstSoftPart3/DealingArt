@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.da.mapper.MainPayMapper;
+import com.da.mapper.MyPageMapper;
 import com.mainpay.sdk.net.HttpSendTemplate;
 import com.mainpay.sdk.utils.ParseUtils;
 
@@ -22,6 +23,9 @@ public class MainPayUtil {
 	
 	@Autowired
 	private EncryptUtil encryptUtil;
+	
+	@Autowired
+	private MyPageMapper myPageMapper;
 	
 	@Value("${est.dealing.mainpay.return.url}")
 	String returnUrl;
@@ -156,6 +160,8 @@ public class MainPayUtil {
 		
 		mainPayMapper.insertMainPayRequest(paramMap);
 		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ rsltMap : " + rsltMap);
+		
 		return rsltMap;
 	}
 	
@@ -222,12 +228,18 @@ public class MainPayUtil {
 		   
 	    	System.out.println(dataMap);
 	    	/*결제 준비 정보*/
-	    	resultMap.put("mbrSq", parameters.get("mbrSq"));
+	    	resultMap.put("sellMbrSq", parameters.get("sellMbrSq"));
+	    	resultMap.put("buyMbrSq", parameters.get("buyMbrSq"));
 	    	resultMap.put("dealSq", parameters.get("dealSq"));
+	    	resultMap.put("workSq", parameters.get("workSq"));
+	    	resultMap.put("couponSq", parameters.get("couponSq"));
+	    	resultMap.put("paymntDivCd", parameters.get("paymntDivCd"));
+	    	resultMap.put("paymntTypCd", parameters.get("paymntTypCd"));
+	    	resultMap.put("paymntAmt", parameters.get("paymntAmt"));
+	    	resultMap.put("paymntFeeAmt", parameters.get("paymntFeeAmt"));
+	    	resultMap.put("paymethod", parameters.get("paymethod"));
 	    	resultMap.put("authToken", parameters.get("authToken"));
 	    	resultMap.put("aid", parameters.get("aid"));
-	    	resultMap.put("paymethod", parameters.get("paymethod"));
-	    	resultMap.put("paymntTypCd", parameters.get("paymntTypCd"));
 	    	/*결제 완료 기본 정보*/
 	    	resultMap.put("mbrRefNo", dataMap.get("mbrRefNo"));
 	    	resultMap.put("refNo", dataMap.get("refNo"));
@@ -254,9 +266,20 @@ public class MainPayUtil {
 		    resultMap.put("accountCloseDate", dataMap.get("accountCloseDate"));
 		    
 	    }
-	    
-	    mainPayMapper.insertPayMnt(resultMap);
-	    
+    	mainPayMapper.insertPayMnt(resultMap);
+    	mainPayMapper.insertWorkDeal(resultMap);
+	    //1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
+	    if(parameters.get("paymntDivCd").toString().equals("1") && parameters.get("paymntTypCd").toString().equals("B")) {
+	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "1PC");
+	    }
+	    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
+	    if(parameters.get("paymntDivCd").toString().equals("2") && parameters.get("paymntTypCd").toString().equals("S")) {
+	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "2PW");
+	    }
+	    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
+	    if(parameters.get("paymntDivCd").toString().equals("2") && parameters.get("paymntTypCd").toString().equals("B")) {
+	    	myPageMapper.updateDealSttsCd(parameters.get("dealSq").toString(), "2PC");
+	    }
 		rsltMap.put("resultCode", resultCode);
 		rsltMap.put("resultMessage", resultMessage);
 		

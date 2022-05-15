@@ -152,6 +152,9 @@
 						<if test="artstSq != null and artst != ''">
 							,ARTST_SQ
 						</if>
+						<if test="dealFinalPrc != null and dealFinalPrc != ''">
+							,DEAL_FINAL_PRC
+						</if>
 					) VALUES (
 						#{workSq},
 						CONCAT('D', LPAD(#{workSq}, 19, '0')),
@@ -167,6 +170,9 @@
 						</if>
 						<if test="artstSq != null and artst != ''">
 							,#{artstSq}
+						</if>
+						<if test="dealFinalPrc != null and dealFinalPrc != ''">
+							,#{dealFinalPrc}
 						</if>
 					) ON DUPLICATE KEY UPDATE
 						DEAL_TYP_CD = #{dealTypCd},

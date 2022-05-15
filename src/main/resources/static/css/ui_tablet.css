@@ -5138,6 +5138,22 @@ position: relative;background-color: #fbfbfb;}
 
 
 
+/* 0511 */
+.mstyle-3{ width: auto; margin: 0;border-top: #000 1px solid;padding-top: 20px;margin-top: 20px;}
+.mstyle-3 tr:last-child th{padding-bottom:0;}
+.mstyle-3 th{ font-size: 2.6rem; font-weight: 600; color: #555555; width: 16rem; vertical-align: middle;text-align: center;padding-top: 2rem;opacity: 0.5;}
+.mstyle-3 td{ font-size: 4.8rem; color: #333333; font-weight: 500; opacity: 1; vertical-align: middle;padding-top: 2rem;font-weight: 600;padding-right: 4rem;}
+.msy-p{padding-top: 1.5rem;font-size: 1.9rem;color: #333;}
 
 
-
+/* 0513 */
+.comy-box{background-color: #f1f1f1;margin-top: 10px;position: relative;display: table;width: 78.4rem;}
+.comy-box .cmy-text{display: table-cell;font-size: 1.7rem;padding: 2rem;vertical-align: middle;width: 26rem;}
+.comy-box .cmy-won{display: table-cell;color: #000;font-size: 2.4rem;vertical-align: middle;font-weight: 500;text-align: right;padding-right: 50px;}
+.comy-box .cmy-end{position: absolute;right: 24px;top: 50%;font-size: 2rem;color: #838383;transform: translateY(-50%);line-height: 1;font-weight: 400;letter-spacing: 0;cursor: pointer;}
+.pd_t17{padding-top: 17px !important;}
+.bg-st{background-color:#fff;width: 78.4rem;}
+.bg-st .btn-group{margin-top: 0 !important;}
+.bg-st .btn-group button{background-color:#fff;}
+.comy-sum{text-align: right;width: 78.4rem;margin-top: 3rem;font-size: 2rem; font-weight: 600; color: #9f9f9f;vertical-align: middle;}
+.comy-sum span{padding-left: 2rem;font-size: 3.6rem; color: #000000; vertical-align: middle;font-weight: 600;}

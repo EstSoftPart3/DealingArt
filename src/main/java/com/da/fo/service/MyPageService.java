@@ -73,4 +73,18 @@ public interface MyPageService {
 	 * return : 스크랩 목록이 들어있는 List
 	 */
 	List<String> scrapList(String param);
+	
+	/*
+	 * 1차 결제 결제정보
+	 * param : dealSq, mbrSq
+	 * return : 결제에 필요한 정보
+	 */
+	public Map<String, Object> openPaymentBuyer(Map<String, Object> param);
+	
+	/*
+	 * 거래 상세 페이지
+	 * param : dealSq, mbrSq
+	 * return : 거래에 관한 데이터
+	 */
+	public Map<String, Object> openMyDealDetail(String dealSq, String mbrSq);
 }

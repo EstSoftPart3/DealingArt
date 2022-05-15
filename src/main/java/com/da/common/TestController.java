@@ -1,11 +1,13 @@
 package com.da.common;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -186,14 +188,22 @@ public class TestController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/payment/approval")
-	public @ResponseBody Map<String, Object> mainPayApproval(HttpServletRequest request
+	public @ResponseBody void mainPayApproval(HttpServletRequest request, HttpServletResponse response
 			,@RequestParam(required = false) Map<String, Object> paramMap) throws Exception {
 		
-		Map<String, Object> rsltMap = new HashMap<String, Object>();
-
-		rsltMap = mainPayUtil.approval(paramMap);
-		
-		return rsltMap;
+		Map<String, Object> rsltMap = mainPayUtil.approval(paramMap);
+		if(rsltMap.get("resultCode").toString().equals("200")) {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('결제가 완료되었습니다.'); window.close(); </script>");
+			out.flush();
+		}else{
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('결제를 실패하였습니다.'); window.close(); </script>");
+			out.flush();
+		}
 	}
 	
 	/**

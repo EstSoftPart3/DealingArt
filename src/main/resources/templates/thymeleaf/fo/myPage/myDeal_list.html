@@ -25,9 +25,9 @@
 								<div class="is-bos">
 									<div class="is-sum">
 										<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
-										<input type="radio" id="w1" name="aa">
+										<input type="radio" id="w1" name="buyOrSell" value="BUY">
 										<label for="w1"><span></span>구매내역</label>
-										<input type="radio" id="w2" name="aa">
+										<input type="radio" id="w2" name="buyOrSell" value="SELL">
 										<label for="w2"><span></span>판매내역</label>
 										<!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
 									</div>
@@ -228,6 +228,8 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>My Deal</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	
+	$("#w1").prop("checked", "true");
+	
 	$("#myDeal").addClass("active");
 	
 	myDealSearchList();
@@ -235,9 +237,12 @@ jQuery(document).ready(function() {
 
 var searchOptions = new Object();
 
+$("input:radio[name='buyOrSell']").change(function(){
+	myDealSearchList();
+});
+
 function myDealSearchList(){
-	//searchOptions.mbrSq = sMbrSqVal;
-	searchOptions.mbrSq = 1;
+	searchOptions.mbrSq = sMbrSqVal;
 	if($("#searchKeyword").val() != "" && $("#searchKeyword").val() != null){
 		searchOptions.searchKeyword = "*"+$("#searchKeyword").val()+"*";
 	}
@@ -245,6 +250,7 @@ function myDealSearchList(){
 		searchOptions.searchStrtDate = $("#searchStrtDate").val();
 		searchOptions.searchEndngDate = $("#searchEndngDate").val();
 	}
+	searchOptions.buyOrSell = $("input:radio[name='buyOrSell']:checked").val();
 	$.ajax({
         type: "post",
         url: "/myDealSearchList",
@@ -259,50 +265,82 @@ function myDealSearchList(){
     				myDealListHtml += '	<div class="myd-img">';
     				myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'"  class="" />';
     				myDealListHtml += '		<button type="button" class="btns-4">응찰 히스토리</button>';
-    				myDealListHtml += '		<button type="button" class="btns-4">거래 계약 안내 및 상세</button>';
+    				myDealListHtml += '		<button type="button" class="btns-4" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">거래 계약 안내 및 상세</button>';
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-2">';
     				myDealListHtml += '		<div class="myd-te1">';
     				myDealListHtml += '			<h4>'+ myDealList[i].artstActvtyNm +'</h4>';
     				myDealListHtml += '			<h5>'+ myDealList[i].workNm +'('+ myDealList[i].workProdcYear +')</h5>';
     				myDealListHtml += '		</div>';
-    				if(myDealList[i].dealTypCd == "AUCT"){
-    				myDealListHtml += '		<div class="myd-te2">';
-    				myDealListHtml += '			<dl class="myd-dl3">';
-    				myDealListHtml += '				<dt>경매기간</dt>';
-    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
-    				myDealListHtml += '				<dt>시작가</dt>';
-    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].dealStrtPrc) +' 원</dd>';
-    				myDealListHtml += '				<dt>현재입찰가</dt>';
-    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].maxBidPrc) +' 원</dd>';
-    				myDealListHtml += '				<dt>응찰가</dt>';
-    				myDealListHtml += '				<dd>';
-    				myDealListHtml += '					<div class="is-sum2">';
-    				myDealListHtml += '						<div class="is-won"><input type="text" class="" placeholder="" /></div>';
-    				myDealListHtml += '						<button type="button" class="">응찰하기</button>';
-    				myDealListHtml += '					</div>';
-    				myDealListHtml += '				</dd>';
-    				myDealListHtml += '				<dt>남은시간</dt>';
-    				myDealListHtml += '				<dd>'+ myDealList[i].dealRemainingDay +'일 '+ myDealList[i].dealRemainingHour +'시 '+ myDealList[i].dealRemainingMin +'분 '+ myDealList[i].dealRemainingSec +'초</dd>';
-    				myDealListHtml += '				<dt>응찰수</dt>';
-    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
-    				myDealListHtml += '				<dt>예상수수료</dt>';
-    				myDealListHtml += '				<dd>250,000원</dd>';
-    				myDealListHtml += '				<dt>예상배송비</dt>';
-    				myDealListHtml += '				<dd></dd>';
-    				myDealListHtml += '			</dl>';
-    				myDealListHtml += '		</div>';
+    				if(myDealList[i].dealTypCd == "A"){
+	    				myDealListHtml += '		<div class="myd-te2">';
+	    				myDealListHtml += '			<dl class="myd-dl3">';
+	    				myDealListHtml += '				<dt>경매기간</dt>';
+	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
+	    				myDealListHtml += '				<dt>시작가</dt>';
+	    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].dealStrtPrc) +' 원</dd>';
+	    				myDealListHtml += '				<dt>현재입찰가</dt>';
+	    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].maxBidPrc) +' 원</dd>';
+	    				myDealListHtml += '				<dt>응찰가</dt>';
+	    				myDealListHtml += '				<dd>';
+	    				myDealListHtml += '					<div class="is-sum2">';
+	    				myDealListHtml += '						<div class="is-won"><input type="text" class="" placeholder="" /></div>';
+	    				myDealListHtml += '						<button type="button" class="">응찰하기</button>';
+	    				myDealListHtml += '					</div>';
+	    				myDealListHtml += '				</dd>';
+	    				myDealListHtml += '				<dt>남은시간</dt>';
+	    				myDealListHtml += '				<dd>'+ myDealList[i].dealRemainingDay +'일 '+ myDealList[i].dealRemainingHour +'시 '+ myDealList[i].dealRemainingMin +'분 '+ myDealList[i].dealRemainingSec +'초</dd>';
+	    				myDealListHtml += '				<dt>응찰수</dt>';
+	    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
+	    				myDealListHtml += '				<dt>예상수수료</dt>';
+	    				myDealListHtml += '				<dd>250,000원</dd>';
+	    				myDealListHtml += '				<dt>예상배송비</dt>';
+	    				myDealListHtml += '				<dd></dd>';
+	    				myDealListHtml += '			</dl>';
+	    				myDealListHtml += '		</div>';
     				}
+    				if(myDealList[i].dealTypCd == "S"){
+        				myDealListHtml += '		<div class="myd-te2">';
+        				myDealListHtml += '			<dl class="myd-dl3">';
+        				myDealListHtml += '				<dt>경매기간</dt>';
+        				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
+        				myDealListHtml += '				<dt>판매가</dt>';
+        				myDealListHtml += '				<dd>'+ myDealList[i].dealFinalPrc +' 원</dd>';
+        				myDealListHtml += '				<dt>남은시간</dt>';
+        				myDealListHtml += '				<dd>'+ myDealList[i].dealRemainingDay +'일 '+ myDealList[i].dealRemainingHour +'시 '+ myDealList[i].dealRemainingMin +'분 '+ myDealList[i].dealRemainingSec +'초</dd>';
+        				myDealListHtml += '				<dt>예상수수료</dt>';
+        				myDealListHtml += '				<dd>250,000원</dd>';
+        				myDealListHtml += '				<dt>예상배송비</dt>';
+        				myDealListHtml += '				<dd></dd>';
+        				myDealListHtml += '			</dl>';
+        				myDealListHtml += '		</div>';
+        			}
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-te3">';
     				myDealListHtml += '		<div class="myd-table">';
     				myDealListHtml += '			<div class="myd-won">';
-    				if(myDealList[i].dealTypCd == "AUCT"){
-    				myDealListHtml += '				<p class="won-p">';
-    				myDealListHtml += '					현재 가장 높은 입찰가로  입찰 중 입니다.';
-    				myDealListHtml += '					<span>경매 진행 중</span>';
-    				myDealListHtml += '				</p>';
-    				myDealListHtml += '				<button type="button" class="btns-2">구매확정</button>';
+    				if(myDealList[i].dealTypCd == "A"){
+	    				myDealListHtml += '				<p class="won-p">';
+	    				myDealListHtml += '					현재 가장 높은 입찰가로  입찰 중 입니다.';
+	    				myDealListHtml += '					<span>경매 진행 중</span>';
+	    				myDealListHtml += '				</p>';
+	    				myDealListHtml += '				<button type="button" class="btns-2">구매확정</button>';
+    				}
+    				if(myDealList[i].dealTypCd == "S"){
+	    				myDealListHtml += '				<p class="won-p">';
+	    				if(myDealList[i].dealSttsCd == "1PC"){
+	    					myDealListHtml += '					현재 1차 결제를 완료 하였습니다';
+		    				myDealListHtml += '					<span>1차 결제 완료</span>';
+	    				}
+	    				if(myDealList[i].dealSttsCd == "2PW"){
+	    					myDealListHtml += '					현재 2차 결제 대기중입니다.';
+		    				myDealListHtml += '					<span>2차 결제 대기</span>';
+	    				}
+	    				if(myDealList[i].dealSttsCd == "2PC"){
+	    					myDealListHtml += '					현재 2차 결제를 완료 하였습니다.';
+		    				myDealListHtml += '					<span>2차 결제 완료</span>';
+	    				}
+	    				myDealListHtml += '				</p>';
     				}
     				myDealListHtml += '			</div>';
     				myDealListHtml += '		</div>';
@@ -318,6 +356,18 @@ function myDealSearchList(){
         error: function(error) {
             alert("오류 발생" + error);
         }
+	});
+}
+
+function myDealDetail(obj){
+	var dealSq = obj.getAttribute("dealSq");
+	pageGoPost({
+		url:"/myDealDetail",
+		target:"_self",
+		vals:[
+			["dealSq", dealSq],
+			["mbrSq", sMbrSqVal]
+		]
 	});
 }
 

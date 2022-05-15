@@ -93,7 +93,11 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	void updateCashReceiptTransApi(Map<String, Object> paramMap);
-
 	
+	/**
+	 * 현금영수증 발행 취소 업데이트
+	 * @param paramMap
+	 */
+	void insertWorkDeal(Map<String, Object> paramMap);
 
 }

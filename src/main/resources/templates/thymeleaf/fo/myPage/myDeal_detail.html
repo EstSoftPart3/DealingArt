@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    		.con-left{display:none}
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  		
+		<div class="body-wrap">
+			<div class="contents">
+				<div class="con-wrap">
+					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					<div class="con-right m-max1300">
+						<div class="me-left">
+							<div class="med">
+								<h2 class="">거래정보</h2>
+								<div class="med-ic">
+									<div class="por">
+										<div class="tootip-4">거래 계약 안내</div>
+										<img src="resources/img/mypage/icon-1.png" class="med-me" />
+									</div>
+								</div>
+							</div>
+							<div class="myd-box">
+								<div class="myd-img">
+									<img src="resources/img/mypage/img_bg.png"  class="" />
+								</div>
+								<div class="myd-2">
+									<div class="myd-te1">
+										<h4 th:text="${result.dealInfo.artstActvtyNm}">작가명</h4>
+										<h5 th:text="${result.dealInfo.workNm}">작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										<!-- <button type="button" class="btns-1">응찰 히스토리</button> -->
+									</div>
+									<div class="myd-te2">
+										<dl class="myd-dl1">
+											<dt>판매기간</dt>
+											<dd th:text="${result.dealInfo.dealStrtDate}+'~'+${result.dealInfo.dealEndngDate}">2021.10.31 – 2021.11.31</dd>
+											<dt>판매가</dt>
+											<dd th:text="${result.dealInfo.dealFinalPrc}">2,200,000 원</dd>
+											<!-- <dt>시작가</dt>
+											<dd th:text="${result.dealInfo.dealStrtPrc}">1,700,000 원</dd>
+											<dt>현재입찰가</dt>
+											<dd>2,300,000 원</dd>
+											<dt>응찰가</dt>
+											<dd>2,200,000 원</dd> -->
+											
+										</dl>
+										<dl class="myd-dl2">
+											<dt>남은시간</dt>
+											<dd id="dealCount"></dd>
+											<!-- <dt>응찰수</dt>
+											<dd>12</dd>
+											<dt>예상수수료</dt>
+											<dd>250,000원</dd>
+											<dt>예상배송비</dt>
+											<dd></dd> -->
+										</dl>
+									</div>
+								</div>
+								<div class="myd-te3">
+									<div class="myd-table">
+										<div class="myd-won">
+											<p class="won-p" id="dealSttsCdDetail">
+												현재 가장 높은 입찰가로  입찰 중 입니다.
+												<span>경매 진행 중</span>
+											</p>
+											<!-- <button type="button" class="btns-2">구매확정</button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="med">
+								<h2 class="h2-con">받는사람 정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-1">
+									<div class="mtext">
+										<p>회원의 주소와 배송지의 주소가 동일해야 합니다. 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
+										<button type="button" class="btns-1">받는사람 정보 수정하기</button>
+									</div>
+									
+									<div class="mg_t40">
+										<table class="mstyle-1">
+											<tr>
+												<th>받는 사람</th>
+												<td th:text="${result.mbrInfo.mbrNm}">성명</td>
+											</tr>
+											<tr>
+												<th>이메일</th>
+												<td th:text="${result.mbrInfo.mbrEmail}">010-0000-0000</td>
+											</tr>
+											<tr>
+												<th>핸드폰 번호</th>
+												<td th:text="${result.mbrInfo.mbrCpNum}">010-0000-0000</td>
+											</tr>
+											<tr>
+												<th>주소</th>
+												<td th:text="${result.mbrInfo.mbrDelivryAddr}">(06172) 서울특별시 OO구 OOO로OO길 OO 상세주소</td>
+											</tr>
+											<!-- <tr>
+												<th>배송 요청 사항</th>
+												<td>배송 요청 사항</td>
+											</tr>
+											<tr>
+												<th>배송예정일</th>
+												<td>2021. 10. 31</td>
+											</tr> -->
+										</table>
+									</div>
+								</div>
+							</div>
+							<div id="2PW" style="display:none;">
+								<div class="med col_t85">
+									<h2 class="">결제정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-2">
+										<table class="mstyle-2">
+											<tr>
+												<th><span class="my-red">부가서비스(필수)</span></th>
+												<td class="pd_t17">
+													<div class="selec-box bg-st">
+														<select class="selectpicker" id="sbx_trnsprt1">
+															<option value=null>-선택-</option>
+															<option value="134,000">프리미엄운송(수도권)</option>
+															<option value="299,000">프리미엄운송(비수도권)</option>
+															<option value="0">직접운송</option>
+														</select>
+													</div>
+													<div id="div_trnsprt1">
+														<div class="comy-box">
+															<div class="cmy-text">일반 운송(수도권만 가능)</div>
+															<div class="cmy-won">&#8361; 100,000원</div>
+															<div class="cmy-end">X</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th><span class="my-red">부가서비스(선택)</span></th>
+												<td class="pd_t17">
+													<div class="selec-box bg-st" id="sbx_trnsprt2">
+														<select class="selectpicker">
+															<option>Mustard</option>
+															<option>Ketchup</option>
+															<option>Relish</option>
+														</select>
+													</div>
+													
+													<div id="div_trnsprt2">
+														<div class="comy-box">
+															<div class="cmy-text">일반 운송(수도권만 가능)</div>
+															<div class="cmy-won">&#8361; 100,000원</div>
+															<div class="cmy-end">X</div>
+														</div>
+														<div class="comy-sum">
+															총금액<span>&#8361; 400,000원</span>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>					
+							
+							<div id="2PC" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">결제 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>지급 수단</th>
+													<td>신한은행 000-000-0000</td>
+												</tr>
+												<tr>
+													<th>정산 내역</th>
+													<td>
+														<div class="tbx-1">
+															<dl class="tbx-dl1">
+																<dt>작품</dt>
+																<dd>2,300,000 원</dd>
+																<dt>거래 수수료</dt>
+																<dd>2,300,000 원</dd>
+																<dt>배송비</dt>
+																<dd>2,300,000 원</dd>
+															</dl>
+															<dl class="tbx-dl2">
+																<dt>총 결제금액</dt>
+																<dd>2,300,000 원</dd>
+															</dl>
+														</div>
+													
+													</td>
+												</tr>
+												<tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr>
+											</table>
+										</div>
+										
+										<div class="mbtn-box">
+											<a href="#" class="btns-3">카드영수증</a>
+											<a href="#" class="btns-3">거래명세서</a>
+											<a href="#" class="btns-3">현금영수증</a>
+											<a href="#" class="btns-3">거래계약서</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+					
+							<div class="bat-box4">
+								<a href="#" class="ba-btn2"><span>거래 내역 돌아가기</span></a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+
+<script th:inline="javascript">
+var result = /*[[${result}]]*/ 'default';  
+jQuery(document).ready(function() {
+	$("#conTitle").empty();
+	const conBtn = document.getElementById("conBtn");
+	conBtn.remove();
+	var conTitleHtml = "";
+	conTitleHtml += '<h3>거래 계약 상세</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
+	$("#myDeal").addClass("active");
+	
+	if(result.dealInfo.dealSttsCd == "1PW"){
+		$("#dealSttsCdDetail").text("현재 1차 결제 대기 상태입니다");
+		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
+	}
+	if(result.dealInfo.dealSttsCd == "1PC"){
+		$("#dealSttsCdDetail").text("현재 1차 결제 완료 상태입니다");
+		$("#dealSttsCdDetail").append("<span>1차 결제 완료</span>");
+	}
+	if(result.dealInfo.dealSttsCd == "2PW"){
+		$("#dealSttsCdDetail").text("현재 2차 결제 대기 상태입니다");
+		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
+		$("#2PW").css("display", "");
+	}
+	if(result.dealInfo.dealSttsCd == "2PC"){
+		$("#dealSttsCdDetail").text("현재 2차 결제 완료 상태입니다");
+		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
+		$("#2PC").css("display", "");
+	}
+});
+var dday = new Date(result.dealInfo.dealEndngDate).getTime();
+
+setInterval(function() {
+  var today = new Date().getTime();
+  var gap = dday - today;
+  var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+
+  document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+}, 1000);
+
+$("#sbx_trnsprt1").on("change", function(){
+	debugger;
+	var selected = $("#sbx_trnsprt1 option:selected").val();
+	var selectedHtml = '';
+	if(selected != "null"){
+		selectedHtml += '<div class="comy-box">';
+		selectedHtml += '<div class="cmy-text">'+$("#sbx_trnsprt1 option:selected").text()+'</div>';
+		selectedHtml += '<div class="cmy-won">&#8361; '+selected+'원</div>';
+		$("#div_trnsprt1").empty();
+    	$("#div_trnsprt1").append(selectedHtml).trigger("create");
+	}else{
+		$("#div_trnsprt1").empty();
+	}
+});
+$(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches){
+  	    document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+      	  });
+  	    
+    }else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+  	      document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+      	  });
+    	
+    }else{
+    	var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+     });
+    	
+    	document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+      	  });
+  	  
+     }
+}).resize();
+
+
+
+$(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+	    function(){ $(this).removeClass('hover') }
+	  )
+	  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+	    function(){ $(this).removeClass('gis') }
+	  )
+});
+
+$(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+	    $('.bg-sh').toggleClass('bg-show');     
+	 	$('.s-hov').toggleClass('s-hov-show');     
+	  });
+  
+});
+
+$(function() {
+	/* 메뉴바 FIXED */
+	if (jQuery(window).width() > 0) {
+	  jQuery(window).on("scroll",function(ev){
+	      if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+	          jQuery('.head-wrap').addClass('fixed');
+	      }else{
+	          jQuery('.head-wrap').removeClass('fixed');
+	      }
+	      return false;
+	  });
+	}
+});
+
+/* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+
+
+
+var delay = 300;
+var timer = null;
+
+//Javascript
+window.addEventListener('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+//jQuery
+$(window).on('resize', function(){
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		document.location.reload();
+	}, delay);
+});
+
+$('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+});
+</script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

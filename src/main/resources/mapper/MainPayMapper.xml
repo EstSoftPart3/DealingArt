@@ -10,31 +10,47 @@
   		/*메인페이 결제준비 응답 등록*/
   		INSERT INTO
 			TBL_DA_MAINPAY_REQUEST_S(
-				MBR_SQ,
+				SELL_MBR_SQ,
+				BUY_MBR_SQ,
 				DEAL_SQ, 
+				WORK_SQ,
+				PAYMNT_DIV_CD,
 				PAYMNT_TYP_CD,
 				MBR_REF_NO,
 				PAYMETHOD,
 				AMOUNT,
+				PAYMNT_AMT,
+				PAYMNT_FEE_AMT,
 				GOODS_NAME,
 				AID,
 				RESULT_CODE,
 				RESULT_MESSAGE,
 				CREATE_TIME,
-				EXPIRE_TIME 
+				EXPIRE_TIME
+				<if test="couponSq != null and couponSq != ''">
+					,COUPON_SQ
+				</if> 
 			) VALUES (
-				#{mbrSq},
+				#{sellMbrSq},
+				#{buyMbrSq},
 				#{dealSq},
+				#{workSq},
+				#{paymntDivCd},
 				#{paymntTypCd},
 				#{mbrRefNo},
 				#{paymethod},
 				#{amount},
+				#{paymntAmt},
+				#{paymntFeeAmt},
 				#{goodsName},
 				#{aid},
 				#{resultCode},
 				#{resultMessage},
 				#{createTime},
 				#{expireTime}
+				<if test="couponSq != null and couponSq != ''">
+					,#{couponSq}
+				</if> 
 			)
   </insert>
   
@@ -43,8 +59,14 @@
 	  	SELECT 
 				A.REQUEST_SQ AS requestSq,
 				A.DEAL_SQ AS dealSq,
-				A.MBR_SQ AS mbrSq,
+				A.WORK_SQ AS workSq,
+				A.SELL_MBR_SQ AS sellMbrSq,
+				A.BUY_MBR_SQ AS buyMbrSq,
+				A.COUPON_SQ AS couponSq,
+				A.PAYMNT_DIV_CD AS paymntDivCd,
 				A.PAYMNT_TYP_CD AS paymntTypCd,
+				A.PAYMNT_AMT AS paymntAmt,
+				A.PAYMNT_FEE_AMT AS paymntFeeAmt,
 				A.MBR_REF_NO AS mbrRefNo,
 				A.PAYMETHOD AS paymethod,
 				A.AMOUNT AS amount,
@@ -52,12 +74,9 @@
 				A.AID AS aid
 		FROM 
 				TBL_DA_MAINPAY_REQUEST_S AS A
-		INNER JOIN 
-				TBL_DA_MBR_M AS B
-			ON A.MBR_SQ = B.MBR_SQ
 		INNER JOIN
-				TBL_DA_DEAL_M AS C
-			ON A.DEAL_SQ = C.DEAL_SQ 
+				TBL_DA_DEAL_M AS B
+			ON A.DEAL_SQ = B.DEAL_SQ 
 		WHERE 
 				A.AID = #{aid}
   </select>
@@ -68,6 +87,8 @@
 			TBL_DA_PAYMNT_H(
 				MBR_SQ,
 				DEAL_SQ,
+				WORK_SQ,
+				PAYMNT_DIV_CD,
 				PAYMNT_TYP_CD,
 				MBR_REF_NO,
 				REF_NO,
@@ -92,10 +113,17 @@
 				ACCOUNT_CLOSE_DATE,
 				TAX_AMOUNT,
 				FEE_AMOUNT,
-				TAX_FREE_AMOUNT
+				TAX_FREE_AMOUNT,
+				PAYMNT_AMT,
+				PAYMNT_FEE_AMT
+				<if test="couponSq != null and couponSq != ''">
+					,COUPON_SQ
+				</if> 
 			) VALUES (
-				#{mbrSq},
+				#{buyMbrSq},
 				#{dealSq},
+				#{workSq},
+				#{paymntDivCd},
 				#{paymntTypCd},
 				#{mbrRefNo},
 				#{refNo},
@@ -120,8 +148,39 @@
 				#{accountCloseDate},
 				#{taxAmount},
 				#{feeAmount},
-				#{taxFreeAmount}
+				#{taxFreeAmount},
+				#{paymntAmt},
+				#{paymntFeeAmt}
+				<if test="couponSq != null and couponSq != ''">
+					,#{couponSq}
+				</if> 
 			)
+  </insert>
+  
+  <insert id="insertWorkDeal">
+  	/*작품 거래 내역 추가*/
+  	INSERT INTO
+  				TBL_DA_WORK_DEAL_H(
+					DEAL_SQ,
+  					WORK_SQ,
+  					SELL_MBR_SQ,
+  					BUY_MBR_SQ,
+  					DEAL_ENDNG_DT
+  					<if test="artstSq != null and artstSq != ''">
+  						,ARTST_SQ
+  					</if>  				
+  				) VALUES (
+  					#{dealSq},
+  					#{workSq},
+  					#{sellMbrSq},
+  					#{buyMbrSq},
+  					NOW()
+  					<if test="artstSq != null and artstSq != ''">
+  						,#{artstSq}
+  					</if> 
+  				) 
+  				ON DUPLICATE KEY UPDATE
+  					DEAL_ENDNG_DT = NOW()
   </insert>
   
   <!-- api result -->
