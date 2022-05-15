@@ -270,10 +270,10 @@
 	 		
 	 		var dealSq = $("#dealSq").val();
 	 		
-	 		//payDetailData(dealSq);
+	 		fn_dealMainContent(dealSq);
 			
 	 		//작품 거래 내역
-	 		fn_workDealh(dealSq);
+	 		//fn_workDealh(dealSq);
 	 		
 	    });
 	 	
@@ -312,6 +312,51 @@
 		        	 
 		        	 //작품정보
 		        	 fn_workInfo(workSq);
+		        	 
+		           },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			});
+	 		
+	 	}
+	 	
+	 	//거래 메인
+	 	function fn_dealMainContent(dealSq) {
+	 		
+	 		$.ajax({
+		           type: "post",
+		           url: "/admin/payment/dealMainListData",
+		           data: {
+		        	   dealSq : dealSq
+		           },
+		           success: function(ref) {
+		        	   	        	    
+		        	 dataContent = ref.data.dealInfo[0];
+		        	 
+		        	 var sellMbrSq 	= dataContent.sellMbrSq;//판매자_순번
+		        	 var buyMbrSq 	= dataContent.buyMbrSq;	//구매자_순번
+		        	 var artstSq 	= dataContent.artstSq;	//작가_순번
+		        	 var workSqNum 	= dataContent.workSqNum;	//작품_순번
+		        	
+		        	//판매자 정보 호출
+		        	 fn_sellMbr(sellMbrSq);
+		        	 
+		        	 //구매자 정보 호출
+		        	 fn_buyMbr(buyMbrSq);
+		        	 
+		        	 //결제 내역
+		        	 paymentList(dealSq);
+		        	 
+		        	 //거래 메인
+		        	 workMainContent(dealSq)
+		        	 
+		        	 //작가 정보
+		        	 artistMemberInfoData(artstSq);
+		        	 
+		        	 //작품정보
+		        	 fn_workInfo(workSqNum);
 		        	 
 		           },
 		           error: function(error) {

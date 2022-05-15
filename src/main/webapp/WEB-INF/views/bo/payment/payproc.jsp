@@ -87,7 +87,7 @@
 	    	   { name: "mbrRefNo"		,title:"거래주문번호"		,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealSq"			,title:"거래순번"			,type: "text"	,align:"center"	 ,visible: false},
 	    	   { name: "workSq"			,title:"작품명"			,type: "text"	,align:"center"  ,visible: true},
-	    	   { name: "artstSq"		,title:"작가명[활동명]"		,type: "text"	,align:"center"  ,visible: true},
+	    	   { name: "artstSqNm"		,title:"작가명[활동명]"		,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealTypCd"		,title:"거래유형코드"		,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealTypCdTxt"	,title:"거래상태"			,type: "text"	,align:"center"  ,visible: true},
 	    	   { name: "dealStrtPrc"	,title:"거래시작가격(원)"	,type: "text"	,align:"center"  ,visible: true},

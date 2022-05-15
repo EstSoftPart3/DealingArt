@@ -38,12 +38,12 @@
 	              	
 	              	</div>
 	              	
-	              	 <div class="card-body table-responsive p-0" style="height: 850px;">
+	              	 <div class="card-body table-responsive p-0" style="height: 850px;font-size:11px;">
 	              	 
-		                <table class="table table-head-fixed text-nowrap sTitle">
+		                <table class="table table-bordered">
 		                  <thead>
-		                    <tr align="center">
-		                      <th background="#efefef">회원구분</th>
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>회원구분</th>
 		                      <th>이름</th>
 		                      <th>아이디(이메일)</th>
 		                      <th>휴대전화</th>
