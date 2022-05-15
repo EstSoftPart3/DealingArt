@@ -82,6 +82,10 @@
 	    <script src="resources/js/semantic.min.js"></script>
 	</head>
 	<script language='javascript'>
+	
+	location.href  = '/main';
+	
+	
 	window.name ="Parent_window";
 	
 	console.log($("EncodeData").val());

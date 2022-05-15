@@ -27,16 +27,18 @@
 			,MBR_REF_NO          AS mbrRefNo
 			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_TYP_CD' AND B.DTL_CD = TBL.DEAL_TYP_CD AND A.USE_YN = 'Y') AS dealTypCd
 			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_STTS_CD' AND B.DTL_CD = TBL.DEAL_STTS_CD AND A.USE_YN = 'Y') AS dealTypCdTxt
-			,DEAL_STTS_CD AS dealSttsCd
 			,FORMAT(DEAL_STRT_PRC,0)       AS dealStrtPrc
 			,DEAL_AUCTN_PRC      AS dealAuctnPrc
 			,DEAL_FINAL_PRC      AS dealFinalPrc
 			,DATE_FORMAT(DEAL_STRT_DT, '%Y-%m-%d') AS dealStrtDt
 			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y-%m-%d') AS dealEndngDt
-			,WORK_SQ AS workSqNum
-			,DEAL_MEMO AS dealMemo
+			,WORK_SQ        AS workSqNum
+			,DEAL_MEMO      AS dealMemo
 			,SELL_MBR_SQ	AS sellMbrSq
 		 	,BUY_MBR_SQ		AS buyMbrSq
+		 	,DEAL_STTS_CD   AS dealSttsCd
+		 	,BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd
+		 	,SELL_PAYMNT_STTS_CD as sellPaymntSttsCd
 		FROM
             TBL_DA_DEAL_M TBL 
         WHERE 1=1
@@ -49,11 +51,14 @@
 	<update id="dealMainSttsCdUpdate" parameterType="hashMap">
    		UPDATE 
    			TBL_DA_DEAL_M
-		SET
-			DEAL_STTS_CD = #{dealSttsCd}
-   		WHERE 1=1
-         	AND DEAL_SQ = #{dealSq}
-	</update>
+			<trim prefix="SET" suffixOverrides=",">
+      			<if test="dealSttsCd  	  != null">DEAL_STTS_CD = #{dealSttsCd},</if>
+				<if test="buyPaymntSttsCd != null">BUY_PAYMNT_STTS_CD = #{buyPaymntSttsCd},</if>
+				<if test="sellPaymntSttsCd!= null">SELL_PAYMNT_STTS_CD = #{sellPaymntSttsCd},</if>
+			</trim>
+			
+   		WHERE DEAL_SQ = #{dealSq}
+    </update>
 	
 	<!--거래 메인 수정 : 거래_메모-->
 	<update id="dealMainMemoUpdate" parameterType="hashMap">
@@ -75,6 +80,10 @@
 			       WHEN PAYMNT_TYP_CD = "2" THEN "2차 결제"
 			  END			
 			  ) AS paymntTypCd
+			 ,(CASE WHEN PAYMNT_DIV_CD = "B" THEN "구매자"
+			       WHEN PAYMNT_DIV_CD = "S" THEN "판매자"
+			  END			
+			  ) AS paymntDivCdTxt
 			,MBR_REF_NO             AS mbrRefNo
 			,REF_NO                 AS refNo
 			,AUTH_TOKEN             AS authToken

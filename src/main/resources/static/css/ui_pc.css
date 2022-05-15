@@ -760,7 +760,7 @@ columns figure {
 }
 
 #columns figure {
-    display: inline-block;
+    /* display: inline-block; */
     margin: 0px 0px 15px;
     position: relative;
 }

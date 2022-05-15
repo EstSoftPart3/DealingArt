@@ -55,7 +55,7 @@
 		               <div class="form-group row">
 		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
                     		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname" id="mbrId" name="mbrId" disabled>
+                      			<input type="text" class="form-control sTitle classname" id="mbrId" name="mbrId">
                       		</div>
                     	</div>
                     	<hr>
@@ -272,6 +272,9 @@
         	
         	//회원구분
         	var authSq = $("#authSq").val();
+        	
+        	//아이디
+        	var mbrId = $("#mbrId").val();
         	//성명
         	var mbrNm = $("#mbrNm").val();
         	//닉네임
@@ -311,7 +314,7 @@
         				
 			var queryString = $("form[name=form_member]").serialize();
 			
-			
+			console.log(queryString);
 			$.ajax({
 		           type: "post",
 		           url: "memberUpdateData",
