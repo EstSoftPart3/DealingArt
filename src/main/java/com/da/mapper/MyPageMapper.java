@@ -3,6 +3,8 @@ package com.da.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface MyPageMapper {
 	/*
 	 * 거래내역 화면 오픈 시, 검색 조건 입력 후 조회 시 로그인한 회원의 거래내역 리스트를 보여준다.
@@ -115,5 +117,33 @@ public interface MyPageMapper {
 	 * return : 스크랩 목록이 들어있는 List
 	 */
 	public List<String> scrapListSale(List<String> param);
+	
+	/*
+	 * 결제 거래 상태 변경
+	 * param : dealSq
+	 * return : int
+	 */
+	public int updateDealSttsCd(@Param("dealSq") String dealSq, @Param("dealSttsCd")String dealSttsCd);
+	
+	/*
+	 * 1차 결제 정보 조회
+	 * param : dealSq
+	 * return : 결재 정보
+	 */
+	public Map<String, Object> getPaymentDealInfo(String param);
+	
+	/*
+	 * 결제 구매자/배송정보 조회
+	 * param : mbrSq
+	 * return : 회원 정보
+	 */
+	public Map<String, Object> getPaymentBuyerInfo(String param);
+	
+	/*
+	 * 결제 상세페이지 상품 정보 조회
+	 * param : dealSq
+	 * return : 상품 정보 조회
+	 */
+	public Map<String, Object> getMyDealDetailDealInfo(String param);
 	
 }

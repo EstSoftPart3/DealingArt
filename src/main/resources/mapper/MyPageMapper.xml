@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MyPageMapper">
-	<select id="myDealSearchList" resultType="hashMap" parameterType="hashMap">
+	<select id="myDealSearchList123" resultType="hashMap" parameterType="hashMap">
 	/* 마이페이지 거래내역 리스트 */
 		SELECT 
 				B.DEAL_SQ AS dealSq,
@@ -73,6 +73,44 @@
 				AND G.MAX_BID_DATE BETWEEN #{searchStrtDate} AND #{searchEndngDate}
 			</if>
 		GROUP BY F.DEAL_SQ;
+	</select>
+	
+	<select id="myDealSearchList" resultType="hashMap" parameterType="hashMap">
+		/*거래내역 리스트*/
+		SELECT 
+				B.DEAL_SQ AS dealSq,
+				A.MBR_SQ AS mbrSq,
+				B.WORK_SQ AS workSq,
+				B.ARTST_SQ AS artstSq,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.WORK_NM AS workNm,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				B.DEAL_TYP_CD AS dealTypCd,
+				B.DEAL_STTS_CD AS dealSttsCd,
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
+				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B, 
+				TBL_DA_WORK_DEAL_H AS C			
+		WHERE 
+				A.WORK_SQ = B.WORK_SQ 
+			AND	A.ARTST_SQ = B.ARTST_SQ 
+			AND C.DEAL_SQ = B.DEAL_SQ 
+			<if test="buyOrSell == 'BUY'">
+				AND C.BUY_MBR_SQ = #{mbrSq}
+			</if>
+			<if test="buyOrSell == 'SELL'">
+				AND C.SELL_MBR_SQ = #{mbrSq}
+			</if>
+		GROUP BY B.DEAL_SQ;
 	</select>
 	
 	<insert id="collectionReg">
@@ -970,4 +1008,79 @@
 		        	#{item.workSq}
 		        </foreach>
 	</select>
+	<update id="updateDealSttsCd" parameterType="String">
+		/*결제 거래상태 변경*/
+		UPDATE 
+				TBL_DA_DEAL_M 
+		SET
+				DEAL_STTS_CD = #{dealSttsCd}
+		WHERE  
+				DEAL_SQ = #{dealSq}
+	</update>
+	<select id="getPaymentDealInfo" resultType="hashMap" parameterType="String">
+		/*1차 결제 정보 조회*/
+		SELECT 
+				A.DEAL_SQ AS dealSq,
+				A.WORK_SQ AS workSq,
+				A.MBR_REF_NO AS mbrRefNo,
+				FORMAT(A.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				A.DEAL_TYP_CD AS dealTypCd,
+				B.WORK_NM AS workNm,
+				B.MBR_SQ AS sellMbrSq
+		FROM 
+				TBL_DA_DEAL_M AS A
+		INNER JOIN
+				TBL_DA_WORK_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ 
+		WHERE 
+				DEAL_SQ = #{dealSq}
+	</select>
+	<select id="getPaymentBuyerInfo" resultType="hashMap" parameterType="String">
+		/*결제 구매자, 배송지 조회*/
+		SELECT 
+				MBR_SQ AS buyMbrSq,
+				MBR_NM AS mbrNm,
+				MBR_EMAIL AS mbrEmail,
+				MBR_CP_NUM AS mbrCpNum,
+				MBR_DELIVRY_ADDR AS mbrDelivryAddr 
+		FROM 
+				TBL_DA_MBR_M
+		WHERE 
+				MBR_SQ = #{mbrSq}
+	
+	</select>
+	
+	<select id="getMyDealDetailDealInfo" resultType="hashMap" parameterType="String">
+		/*결제 상세 페이지 상품 정보 조회*/
+		SELECT 
+				B.DEAL_SQ AS dealSq,
+				A.MBR_SQ AS mbrSq,
+				B.WORK_SQ AS workSq,
+				B.ARTST_SQ AS artstSq,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.WORK_NM AS workNm,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				B.DEAL_TYP_CD AS dealTypCd,
+				B.DEAL_STTS_CD AS dealSttsCd,
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
+				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
+				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B, 
+				TBL_DA_WORK_DEAL_H AS C			
+		WHERE 
+				A.WORK_SQ = B.WORK_SQ 
+			AND	A.ARTST_SQ = B.ARTST_SQ 
+			AND C.DEAL_SQ = B.DEAL_SQ 
+			AND B.DEAL_SQ = #{dealSq}
+		GROUP BY B.DEAL_SQ;
+	</select>
+	
 </mapper>

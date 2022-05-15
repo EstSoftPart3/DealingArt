@@ -487,6 +487,7 @@ function dealReg(){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
 	}else{
+		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 	}
 	if($("input:radio[name='delivryAddr']:checked").val() == "N"){

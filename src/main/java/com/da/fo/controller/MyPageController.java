@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,7 @@ import com.da.sample.service.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
+import com.google.gson.JsonObject;
 
 @Controller
 public class MyPageController {
@@ -47,7 +52,7 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
-
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping("/withdrawal")
@@ -645,5 +650,27 @@ public class MyPageController {
 		int result = myPageService.collectionCor(param);
 		return result;
 	}
-
+	
+	//구매자 결제 페이지 오픈
+	@RequestMapping("/paymentBuyer")
+	@ResponseBody
+	public ModelAndView openPaymentBuyer(@RequestParam(value = "dealSq", required = false) String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/payment_buyer");
+		Map<String, Object> param = new HashMap<>();
+		param.put("dealSq", dealSq);
+		param.put("mbrSq", mbrSq);
+		Map<String, Object> result = myPageService.openPaymentBuyer(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//거래내역 상세 페이지 이동
+	@RequestMapping("/myDealDetail")
+	@ResponseBody
+	public ModelAndView openMyDealDetail(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail");
+		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 }
