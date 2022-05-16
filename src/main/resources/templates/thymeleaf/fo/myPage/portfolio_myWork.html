@@ -134,16 +134,16 @@ function myWorkList(){
 			myWorkListHtml += '	</div>';
 		}
 		if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
-			myWorkListHtml += '	<div class="item-div-img sale-on">';
-			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'" >';
-			myWorkListHtml += '		<div class="item-ho2 sale-div">';
-			myWorkListHtml += '			<h3>판매중</h3>';
-			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
-			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
-			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
-			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
-			myWorkListHtml += '		</div>';
-			myWorkListHtml += '	</div>';
+// 			myWorkListHtml += '	<div class="item-div-img sale-on">';
+// 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'" >';
+// 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
+// 			myWorkListHtml += '			<h3>판매중</h3>';
+// 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+// 			myWorkListHtml += '		</div>';
+// 			myWorkListHtml += '	</div>';
 		}
 		if(result[i].dealSttsCd == "aa"){
 			myWorkListHtml += '	<div class="item-div-img sold-3">';
@@ -151,7 +151,7 @@ function myWorkList(){
 			myWorkListHtml += '	</div>';
 		}
 		//if(result[i].dealTypCd == null){
-			myWorkListHtml += '<div class="item-div-img reg" style="height:320px;width:470px;" >';
+			myWorkListHtml += '<div class="item-div-img reg" style="height:320px;width:470px" >';
 			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px">';
 			myWorkListHtml += '	<div class="item-ho3 reg-div">';
 			myWorkListHtml += '		<div class="regs" >';
@@ -160,7 +160,7 @@ function myWorkList(){
 			myWorkListHtml += '		</div>';
 			myWorkListHtml += '	</div>';
 			myWorkListHtml += '</div>';
-		//}	
+			
 			myWorkListHtml += '	<div class="item-body">';
 			myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 			myWorkListHtml += '		<div class="uesr-s">';
@@ -192,7 +192,23 @@ function myWorkList(){
 					myWorkListHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
 				}
 			}
+			if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
+	 			myWorkListHtml += '	<div class="item-div-img sale-on">';
+	 			
+	 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
+	 			myWorkListHtml += '			<h3>판매중</h3>';
+	 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	 			myWorkListHtml += '		</div>';
+	 			myWorkListHtml += '	</div>';
+			}
+			
+			
 			myWorkListHtml += '		</div>';
+			
+		//}
 		/*
 		myWorkListHtml += '	<div class="item-body">';
 		myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
