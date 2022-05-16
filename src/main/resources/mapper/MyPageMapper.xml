@@ -409,7 +409,7 @@
 				AND A.ARTST_SQ = #{value}
 	</select>
 	<select id="myWorkListNonSale" resultType="hashMap" parameterType="hashMap">
-		/*나의 작품 전체 검색*/
+		/*나의 작품 판매중 아닌 것 검색*/
 		SELECT 
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
@@ -711,9 +711,15 @@
 				TBL_DA_MBR_M AS D
 		WHERE 
 				A.MBR_SQ = D.MBR_SQ 
+				<if test="workSq.size != 0 and workSq != null">
+					AND A.WORK_SQ NOT IN
+					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
+			        	#{item}
+			        </foreach>
+        		</if>
 				AND A.WORK_TYP_CD = 'COLL'
 				AND A.WORK_SALE_YN = 'N'
-				AND A.MBR_SQ = #{value}
+				AND A.MBR_SQ = #{mbrSq}
 	</select>
 	<select id="myCollectionMod" resultType="hashMap" parameterType="String">
 		/*나의 소장품 정보*/

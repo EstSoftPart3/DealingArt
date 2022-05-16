@@ -39,9 +39,14 @@ public class MyPageDao {
 	 * return : 소장품 목록이 들어있는 리스트
 	 */
 	public List myCollection(String param) {
-		List<String> resultSale = myPageMapper.myCollectionSale(param);
-		List<String> resultNonSale = myPageMapper.myCollectionNonSale(param);
-		List<String> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
+		List<Map<String, Object>> resultSale = myPageMapper.myCollectionSale(param);
+		Map<String, Object> paramMap = new HashMap<>();
+		List<String> workSq = new ArrayList<String>();
+		for(int i=0; i<resultSale.size(); i++) {
+			workSq.add(resultSale.get(i).get("workSq").toString());
+		}
+		List<Map<String, Object>> resultNonSale = myPageMapper.myCollectionNonSale(paramMap);
+		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
 		return result;
 	}
 	
