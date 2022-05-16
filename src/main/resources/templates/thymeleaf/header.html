@@ -1167,12 +1167,15 @@ function fn_validation(inputId,msg,color) {
 $("#autocomplete").hide();
 function ibx_search_onkeyup(e){
 	var wordLength = $("#ibx_search").val().trim().length;
+	var ibx_search_value = $("#ibx_search").val();
+	console.log(ibx_search_value)
 	if(wordLength > 1){
 		$.ajax({
 			url:"/totalSearchAutocomplete",
 			type:"post",
 			data: {
-				searchKeyword : "*"+$("#ibx_search").val()+"*" 
+				//searchKeyword : "*"+$("#ibx_search").val()+"*"
+				searchKeyword : ibx_search_value
 			},
 			dataType:"json",
 			success:function(data){
