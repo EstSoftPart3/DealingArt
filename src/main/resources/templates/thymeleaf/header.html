@@ -65,7 +65,8 @@
 				<!-- 로그인전 -->
 				<div class="login-hide h-text" id="loginBf" style="display:none;">
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#loginModal">LOGIN</span>
-					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span>
+					<!-- <span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span> -->
+					<span style="cursor:pointer;" onclick="javascript:fnModalAlert();">JOIN</span>
 				</div>
 				
 				<!-- 로그인후 -->
@@ -208,7 +209,8 @@
 						<div class="login-tt">
 							<a href="#" onclick="openFindIdModal()" data-toggle="modal">아이디 찾기</a>
 							<p class="lb-p2"><a href="#" onclick="openFindPwdModal()" data-toggle="modal">비빌먼호 찾기</a></p>
-							<p class="lb-p2"><a href="#" data-toggle="modal" data-target="#memberModal"><span>회원가입</span></a></p>
+							<!-- <p class="lb-p2"><a href="#" data-toggle="modal" data-target="#memberModal"><span>회원가입</span></a></p> -->
+							<p class="lb-p2"><a href="javascript:fnModalAlert();"><span>회원가입</span></a>
 							<!-- <span style="cursor:pointer;" class="lb-p2" data-toggle="modal" data-target="#memberModal">회원가입</span> -->
 						</div>
 						

@@ -58,7 +58,7 @@
 							</tr>
 							<tr>
 								<th>보증서</th>
-								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음 <a href="javascript:openWorkGrtUrl();" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg" onclick="openWorkGrtUrl()"/></a></td>
+								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음 <a href="javascript:openWorkGrtUrl();" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg"/></a></td>
 								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
 							</tr>
 							<tr>
@@ -139,7 +139,7 @@
 						
 						<div class="bat-box">
 							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
-							<button type="button" class="ba-btn2"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
+							<button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
 							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<div class="clearboth"></div>
 						</div>
@@ -279,11 +279,11 @@
 			<div class="modal-body">
 				<div class="md-box-1">
 					<div class="md-ds">
-						신고가 완료되었습니다.
+						서비스 준비중입니다.
 					</div>
 					
 					<div class="baeg-btn mg_t30">
-						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+						<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>
 					</div>
 					
 				</div>
@@ -315,12 +315,17 @@
 				<dl class="ad-dl">
 					<dt>SNS</dt>
 					<dd>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-1.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-2.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>
+						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstInstagramUrl)}">
+							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="resources/img/icon/i-1.png"/></a>
+						</th:block>
+						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstfacebookUrl)}">
+							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="resources/img/icon/i-2.png"/></a>
+						</th:block>
+						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="resources/img/icon/i-2.png" /></a> -->
+						<!-- <a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>
 						<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>
 						<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>
+						<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a> -->
 					</dd>
 				</dl>
 				<dl class="ad-dl">
@@ -436,15 +441,14 @@ function btn_purchaseOrBid_onclick(){
 }
 //보증서 보기 팝업 호출
 function openWorkGrtUrl(){
-	debugger;
 	var img = new Image();
 	img.src = result.deal.workGrtUrl;
 	var img_width = img.width;
 	var win_width = img.width + 25;
 	var img_height = img.height;
-	var win = img.height + 30;
-	var OpenWindow = window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto');
-	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+	var win = img.height + 25;
+	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
+	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+result.deal.workGrtUrl+"' width='"+img_width+" height='"+img_height+"'>");
 }
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
