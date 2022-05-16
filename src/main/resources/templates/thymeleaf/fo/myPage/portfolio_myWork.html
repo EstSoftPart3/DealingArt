@@ -113,7 +113,7 @@ function myWorkList(){
 		}
 		if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
 			myWorkListHtml += '	<div class="item-div-img sale-on">';
-			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'" >';
 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
 			myWorkListHtml += '			<h3>판매중</h3>';
 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
@@ -123,7 +123,7 @@ function myWorkList(){
 			myWorkListHtml += '		</div>';
 			myWorkListHtml += '	</div>';
 		}
-		if(result[i].dealSttsCd == "TC"){
+		if(result[i].dealSttsCd == "aa"){
 			myWorkListHtml += '	<div class="item-div-img sold-3">';
 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
 			myWorkListHtml += '	</div>';
