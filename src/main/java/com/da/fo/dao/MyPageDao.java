@@ -42,9 +42,13 @@ public class MyPageDao {
 		List<Map<String, Object>> resultSale = myPageMapper.myCollectionSale(param);
 		Map<String, Object> paramMap = new HashMap<>();
 		List<String> workSq = new ArrayList<String>();
-		for(int i=0; i<resultSale.size(); i++) {
-			workSq.add(resultSale.get(i).get("workSq").toString());
+		if(resultSale.size() > 0) {
+			for(int i=0; i<resultSale.size(); i++) {
+				workSq.add(resultSale.get(i).get("workSq").toString());
+			}
 		}
+		paramMap.put("workSq", workSq);
+		paramMap.put("mbrSq", param);
 		List<Map<String, Object>> resultNonSale = myPageMapper.myCollectionNonSale(paramMap);
 		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
 		return result;
@@ -90,12 +94,14 @@ public class MyPageDao {
 	public List myWork(String param) {
 		List<Map<String, Object>> resultSale = myPageMapper.myWorkListSale(param);
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("artstSq", param);
 		List<String> workSq = new ArrayList<String>();
-		for(int i=0; i<resultSale.size(); i++) {
-			workSq.add(resultSale.get(i).get("workSq").toString());
+		if(resultSale.size() > 0) {
+			for(int i=0; i<resultSale.size(); i++) {
+				workSq.add(resultSale.get(i).get("workSq").toString());
+			}
 		}
 		paramMap.put("workSq", workSq);
+		paramMap.put("artstSq", param);
 		List<Map<String, Object>> resultNonSale = myPageMapper.myWorkListNonSale(paramMap);
 		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
 		return result;

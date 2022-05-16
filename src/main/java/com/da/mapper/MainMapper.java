@@ -19,6 +19,13 @@ public interface MainMapper {
 	public List mainTodayBid(Object param);
 	
 	/*
+	 * 메인화면 인사이트 데이터
+	 * param : null
+	 * return : List
+	 */
+	public List mainInsights();
+	
+	/*
 	 * 메인 화면에서 통합검색시 작가정보를 조회한다.
 	 * param : searchKeyword
 	 * return : 작가에 관한 정보
