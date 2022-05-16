@@ -80,8 +80,8 @@
 							</div>
 						
 							<div class="">
-								<ul class="noti-ul">
-									<li>
+								<ul class="noti-ul" id="dataList">
+									<!-- <li>
 										<a href="#">
 											<p>오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관....</p>
 											<span>2022.03.01</span>
@@ -92,7 +92,7 @@
 											<p>오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관</p>
 											<span>2022.03.01</span>
 										</a>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 							
@@ -106,8 +106,45 @@
 				
 			</div>
 		</div>
+		
+		
+		
+		
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		
+		
+		
 	</div>
+	
+	<!-- 신고하기 완료 -->
+<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="md-ds" id="boardTitle">
+						
+					</div>
+					
+					
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
 <script type="text/javascript">      
 
 $(document).ready(function () {
@@ -130,9 +167,70 @@ $(".lg-my").click(function() {
  	    $('.bg-sh').toggleClass('bg-show');     
  	 	 $('.s-hov').toggleClass('s-hov-show');     
  	  });
+ 	  
+searchMemberData(); 
+
+ 
   
 });
  
+function fn_boardContent(boardTitle,brdContent) {
+	$('#myModal4').modal()	
+	
+	$('#boardTitle').html(boardTitle);
+	
+	$('#brdContent').html(brdContent)
+}
+
+//회원 리스트 호출
+	function searchMemberData(page) {
+		$.ajax({
+	           type: "post",
+	           url: "/admin/board/boardListData",
+	           data: {
+	        	   page : page,
+	        	   pageSize : 100,
+	        	   useYn : 'Y',
+	        	   brdTypCd : 'NT',
+	        	   searchGubun : $("#searchGubun").val(),
+	        	   searchWord : $("#searchWord").val()
+	           },
+	           success: function(data) {
+	        	   
+	        	   console.log(data);
+	        	   
+	        	   
+	        	   dataList = data.boardData.boardInfo;
+	        	    
+	        	   var authGubun = '';
+	        	   var checkState = '';
+	        	   var strHtml = '';
+	        	   for(i=0; i<dataList.length; i++){
+	        		   
+	        		   //onmouseover="imageInfo(\''+cid+'\')" brdContent
+	        		   
+		        	   	strHtml += '<li>';
+		        	   	strHtml += '<a href="javascript:fn_boardContent(\''+dataList[i].brdTitle+'\')">';
+		        	   	//strHtml += '<a href="javascript:fn_boardContent(\''+dataList[i].brdTitle+'\',\''+dataList[i].brdContent+'\')">';
+		        	   	//strHtml += "<a href='javascript:fn_boardContent('\'+dataList[i].brdTitle+\''"+dataList[i].brdTitle+"')'>";
+		        	   	strHtml += '<p>' + dataList[i].brdTitle +'</p>';
+		        		strHtml += '</a>';
+		        	   	strHtml += '</li>';
+		        	   	
+		        	 	checkState = '';
+		           }
+	        	   $("#dataList").empty();
+	        	   $("#dataList").append(strHtml).trigger("create");
+	        	   
+			
+	           },
+	           error: function(error) {
+	        	   var errorJson = JSON.stringify(error);
+	               //alert("오류 발생" + errorJson);
+	               console.log(errorJson);
+	           }
+		})
+	}
  
  
  
