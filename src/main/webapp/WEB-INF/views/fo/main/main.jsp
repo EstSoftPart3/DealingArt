@@ -51,7 +51,7 @@
 					</div>
 					
 					<div class="bab-bo">
-						<div class="ta-sho">
+						<div class="ta-sho" style="display:none">
 							<a href="#"><span>Guide</span></a>
 						</div>
 						<div class="mab-rb">
