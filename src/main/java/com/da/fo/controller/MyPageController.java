@@ -583,23 +583,22 @@ public class MyPageController {
 		System.out.println("######### file : " + multipartFiles);
 		if (multipartFiles != null) {
 			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
-			param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-			param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-			param.put("workImgRerUrl", fileVo.get(2).getFileUrl()); 
-			if(fileVo.size() >= 4){ 
-				param.put("workGrtUrl", fileVo.get(3).getFileUrl()); 
-			} 
-			if(fileVo.size() >= 5){ 
-				param.put("workImgLefUrl", fileVo.get(4).getFileUrl()); 
+			if(!param.get("workMainImgUrl").toString().equals("") && !param.get("workMainImgUrl").toString().equals(null)) {
+				if (fileVo.size() >= 1) {
+					param.put("workGrtUrl", fileVo.get(0).getFileUrl());
 				}
-			if(fileVo.size() >= 6){ 
-				param.put("workImgRitUrl",fileVo.get(5).getFileUrl()); 
-			} 
-			if(fileVo.size() >= 7){
-				param.put("workImgTopUrl", fileVo.get(6).getFileUrl()); 
-			} 
-			if(fileVo.size() >= 8){ 
-				param.put("workImgBotUrl", fileVo.get(7).getFileUrl()); 
+				if (fileVo.size() >= 2) {
+					param.put("workImgLefUrl", fileVo.get(1).getFileUrl());
+				}
+				if (fileVo.size() >= 3) {
+					param.put("workImgRitUrl", fileVo.get(2).getFileUrl());
+				}
+				if (fileVo.size() >= 4) {
+					param.put("workImgTopUrl", fileVo.get(3).getFileUrl());
+				}
+				if (fileVo.size() >= 5) {
+					param.put("workImgBotUrl", fileVo.get(4).getFileUrl());
+				}
 			}
 			System.out.println("############## fileVO : " + fileVo);
 		}
@@ -629,23 +628,41 @@ public class MyPageController {
 		if (multipartFiles != null) {
 			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
 			System.out.println("############## fileVO : " + fileVo);
-			param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-			param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-			param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
-			if (fileVo.size() >= 4) {
-				param.put("workGrtUrl", fileVo.get(3).getFileUrl());
-			}
-			if (fileVo.size() >= 5) {
-				param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
-			}
-			if (fileVo.size() >= 6) {
-				param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
-			}
-			if (fileVo.size() >= 7) {
-				param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
-			}
-			if (fileVo.size() >= 8) {
-				param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+			if(!param.get("workMainImgUrl").toString().equals("") && !param.get("workMainImgUrl").toString().equals(null)) {
+				if (fileVo.size() >= 1) {
+					param.put("workGrtUrl", fileVo.get(0).getFileUrl());
+				}
+				if (fileVo.size() >= 2) {
+					param.put("workImgLefUrl", fileVo.get(1).getFileUrl());
+				}
+				if (fileVo.size() >= 3) {
+					param.put("workImgRitUrl", fileVo.get(2).getFileUrl());
+				}
+				if (fileVo.size() >= 4) {
+					param.put("workImgTopUrl", fileVo.get(3).getFileUrl());
+				}
+				if (fileVo.size() >= 5) {
+					param.put("workImgBotUrl", fileVo.get(4).getFileUrl());
+				}
+			}else{
+				param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
+				param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
+				param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
+				if (fileVo.size() >= 4) {
+					param.put("workGrtUrl", fileVo.get(3).getFileUrl());
+				}
+				if (fileVo.size() >= 5) {
+					param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+				}
+				if (fileVo.size() >= 6) {
+					param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+				}
+				if (fileVo.size() >= 7) {
+					param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+				}
+				if (fileVo.size() >= 8) {
+					param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+				}
 			}
 		}
 		int result = myPageService.collectionCor(param);
