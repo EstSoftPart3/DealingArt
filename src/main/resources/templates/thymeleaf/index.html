@@ -4,6 +4,13 @@
 <head>
 	 <th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  
 	<!-- <th:block th:replace="templates/thymeleaf/headerFragment :: headerFragment" ></th:block> -->
+	<style>
+		.ellipsis{
+				overflow:hidden;
+				text-overflow: ellipsis;
+				width:235px;
+	    	};
+    </style>
 </head>
 
 <body>
@@ -16,6 +23,9 @@
 					<div class="swiper mySwiper">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
+								<img src="resources/img/beta_babber-1.jpg" />
+							</div>
+							<div class="swiper-slide">
 								<img src="resources/img/banner-1.jpg" />
 								<div class="mab-text">
 									<div class="mb-box">
@@ -25,9 +35,6 @@
 										<p class="mab-p2">35x35cm,  Lenticular & mixed media, 2021</p>
 									</div>
 								</div>
-							</div>
-							<div class="swiper-slide">
-								<img src="resources/img/banner-2.jpg" />
 							</div>
 							<div class="swiper-slide">
 								<img src="resources/img/banner-3.jpg" />
@@ -180,7 +187,7 @@
 				</div>
 				<div class="cns-div">
 				
-					<div class="swiper mySwiper3">
+					<!-- <div class="swiper mySwiper3">
 						<div class="swiper-wrapper cn-b">
 							<div class="swiper-slide elm">
 								<a href="#">
@@ -238,9 +245,9 @@
 								</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				
-					<!-- <ul class="cn-b">
+					<ul class="cn-b" id="mainInsights">
 						<li class="elm">
 							<a href="#">
 								<div class="cns-box">
@@ -296,9 +303,9 @@
 								</div>
 							</a>
 						</li>
-					</ul>  -->
+					</ul>
 					<div class="text-center">
-						<button type="button" class="btn-more" onclick=""><span>more</span></button>
+						<!-- <button type="button" class="btn-more" onclick=""><span>more</span></button> -->
 					</div>
 				</div>
 			</div>
@@ -306,13 +313,13 @@
 		
 				
 			<!-- 가장 많은 입찰 / 오늘의 낙찰 -->
-			<div class="contents max-1500">
+		<!-- 	<div class="contents max-1500">
 				<div class="cont-title">
-					<h3>오늘의 낙찰</h3>
+					<h3>오늘의 낙찰</h3> -->
 					<!-- <a href="#" class="ct-more mo-no"><img src="img/icon-p.jpg" /><span>more</span></a> -->
-				</div>
+				<!-- </div> -->
 				
-					<div id="columns">
+					<!-- <div id="columns"> -->
 						<!-- <figure class="item">
 							<img src="resources/img/img-1.jpg">
 							<a class="hd-div2">								
@@ -410,11 +417,11 @@
 								</div>
 							</a>
 						</figure> -->
-					</div>
+					<!-- </div> -->
 			
 		</div>
 		<div class="text-center">
-			<button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button>
+			<!-- <button type="button" class="btn-more" onclick="more_onCilck()"><span>more</span></button> -->
 		</div>
 		 
 		
@@ -488,6 +495,7 @@
 <script type="text/javascript">
 	var mainHotest = {};
 	var mainTodayBid = {};
+	var mainInsights = {};
 	var page = 1;
 	$(document).ready(function() {
 	    $(".elm").hover(
@@ -729,24 +737,50 @@
 	           success: function(data) {
 	        	   mainHotest = data.mainData.mainHotest;
 	        	   mainTodayBid = data.mainData.todayBid;
+	        	   mainInsights = data.mainData.insights;
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
-	        		           		   	        		   
-		        	   hotestHtml += '<div class="swiper-slide">';
-		        	   hotestHtml += '<a class="hd-div">';
-		        	   hotestHtml += '<img src="'+ mainHotest[i].workMainImgUrl +'" class="hd-img"/>';
-		        	   hotestHtml += '		<div class="hd-text" >';
-		        	   hotestHtml += '			<h4>'+ mainHotest[i].artstActvtyNm +'</h4>';
-		        	   hotestHtml += '			<div class="hd-d1">'+ mainHotest[i].workNm +'('+ mainHotest[i].workProdcYear +')';
-		        	   hotestHtml += '			<br/>소재 '+ mainHotest[i].workMatrl +', '+ mainHotest[i].workSizeWidth +'x'+ mainHotest[i].workSizeDepth +'x'+ mainHotest[i].workSizeHeight +'</div>';
-		        	   hotestHtml += '			<div class="hd-d2">응찰가 '+ formatComma(mainHotest[i].maxBidPrc) +'</div>';
-		        	   hotestHtml += '		</div>';
-		        	   hotestHtml += '	</a>';
-		        	   hotestHtml += '</div>';
+	        		hotestHtml +='<div class="swiper-slide">';
+					hotestHtml +='	<a class="hd-div">';
+					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:280px; heigth:280px;"/>';
+					hotestHtml +='		<div class="hd-text">';
+					hotestHtml +='			<h4>'+mainHotest[i].artstActvtyNm+'</h4>';
+					hotestHtml +='			<div class="hd-d1">'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';
+					hotestHtml +='			<br/>소재 '+mainHotest[i].workMatrl+', '+mainHotest[i].workSizeWidth+'x'+mainHotest[i].workSizeDepth+'cm</div>';
+					if(mainHotest[i].dealTypCd == "A"){
+						if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
+							hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
+						}else{
+							hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
+						}
+	        	    }
+	        	    if(mainHotest[i].dealTypCd == "S"){
+						hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
+	        	    }
+					hotestHtml +='		</div>';
+					hotestHtml +='	</a>';
+					hotestHtml +='</div>';
 	        	   }
+	        	   $("#mainHotestContent").empty();
 	        	   $("#mainHotestContent").append(hotestHtml).trigger("create");
 	        	   
-	        	   var todayBidHtml = '';
+	        	   var insightsHtml = '';
+	        	   for(i=0; i<mainInsights.length; i++){
+	        		insightsHtml += '	<li class="elm">';
+					insightsHtml += '		<a href="#">';
+					insightsHtml += '			<div class="cns-box">';
+					insightsHtml += '				<img src="'+mainInsights[i].mgzMainImgUrl+'" style="width:280px; height:280px;"/>';
+					insightsHtml += '				<div class="cns-sb">';
+					insightsHtml += '					<p class="cns-p1">'+mainInsights[i].mgzTitle+'</p>';
+					insightsHtml += '					<p class="cns-p2 ellipsis">'+mainInsights[i].mgzContent+'</p>';
+					insightsHtml += '				</div>';
+					insightsHtml += '			</div>';
+					insightsHtml += '		</a>';
+					insightsHtml += '	</li>';
+	        	   }
+	        	   $("#mainInsights").empty();
+	        	   $("#mainInsights").append(insightsHtml).trigger("create");
+	        	  /*  var todayBidHtml = '';
 	        	   for(i=0; i<mainTodayBid.length; i++){
 	        		   
 	        		   var imgId = Math.random().toString(36).substr(2,11);
@@ -767,7 +801,7 @@
 	        		
  	        		   //imgSize(imgId);
 	        	   }
-	        	   $("#columns").append(todayBidHtml).trigger("create");
+	        	   $("#columns").append(todayBidHtml).trigger("create"); */
 	        	   
 	           },
 	           error: function(error) {

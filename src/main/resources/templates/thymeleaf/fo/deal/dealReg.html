@@ -249,7 +249,7 @@
 					</div>
 						
 						<div class="bat-box2">
-							<button type="button" class="ba-btn1"  data-toggle="modal" data-target="#myModal4"><span>경매 시작하기</span></button>
+							<button type="button" class="ba-btn1" data-toggle="modal" data-target="#myModal4" id="btn_dealReg"><span>경매 시작하기</span></button>
 						</div>
 						
 					</div>
@@ -344,6 +344,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
 		$("#dealStrtPrcS").css("display", "");
+		$("#btn_dealReg").text("<span>판매 등록하기</span>")
 	}else{
 		$("#dealRegTitle").text("거래등록 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
@@ -481,11 +482,13 @@ function vaild(){
 
 function dealReg(){
 	$('#myModal4').modal('hide');
-	result.deal.mbrSq = sMbrSqVal;
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
+	result.deal.mbrSq = sMbrSqVal;
 	if(result.deal.dealTypCd == "A"){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
+		modalAlertShow("경매 시작은 서비스 준비중입니다.");
+		return;
 	}else{
 		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
@@ -527,7 +530,6 @@ function dealReg(){
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
-	        	debugger;
 	        	if(data != 0 || data != null || data != ""){
 	        		modalAlertShow("성공적으로 저장되었습니다.", "myWork");
 	        	}

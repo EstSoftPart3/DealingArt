@@ -5,38 +5,38 @@
 <mapper namespace="com.da.mapper.MainMapper">
 	<select id="mainHotest" resultType="hashMap">
 		/*오늘의 입찰*/
-		SELECT	A.WORK_SQ AS workSq, <!-- 작품_순번 --> 
-				A.MBR_SQ AS mbrSq, <!-- 멤버_순번 -->
-				B.DEAL_SQ AS dealSq, <!-- 거래_순번 -->
-				C.BID_CNT AS bidCnt, <!-- 응찰_횟수 -->
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, <!-- 작품_대표_이미지 -->
-				E.ARTST_ACTVTY_NM AS artstActvtyNm, <!-- 작가_활동명 -->
-				E.ARTST_ENGLS_NM AS artstEnglsNm, <!-- 작가_영문명 --> 
-				A.WORK_MATRL AS workMatrl, <!-- 작품_소재 --> 
-				A.WORK_NM AS workNm, <!-- 작품_명 --> 
-				A.WORK_SIZE_WIDTH AS workSizeWidth, <!-- 작품_사이즈_가로 --> 
-				A.WORK_SIZE_DEPTH AS workSizeDepth, <!-- 작품_사이즈_세로 -->
-				A.WORK_SIZE_HEIGHT AS workSizeHeight, <!--  작품_사이즈_높이 -->
-				A.WORK_PRODC_YEAR AS workProdcYear, <!-- 작품_제작년도 -->
-				D.MAX_BID_PRC AS maxBidPrc<!-- 작품_최고_응찰금액 -->
-		FROM	TBL_DA_WORK_M AS A,
-				TBL_DA_DEAL_M AS B, 
-				(SELECT DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
-				FROM TBL_DA_AUCTN_BID_H 
-				GROUP BY DEAL_SQ 
-				ORDER BY BID_CNT DESC
-				LIMIT 20) AS C, <!-- 작품_응찰_횟수 -->
-				(SELECT DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
+		SELECT 
+				C.DEAL_SQ AS dealSq, /*거래번호*/
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				C.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				(SELECT MAX(BID_PRC)
 				FROM TBL_DA_AUCTN_BID_H
-				GROUP BY DEAL_SQ
-				LIMIT 20) AS D, <!-- 작품_최고_응찰금액 -->
-				TBL_DA_ARTST_M AS E
-		WHERE	B.DEAL_SQ = C.DEAL_SQ 
-		AND 	A.WORK_SQ = B.WORK_SQ 
-		AND 	D.DEAL_SQ = B.DEAL_SQ
-		AND		A.ARTST_SQ = E.ARTST_SQ
-		AND 	B.DEAL_STTS_CD = 'IP'
-		ORDER BY C.BID_CNT DESC;
+				WHERE C.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+				FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+				FORMAT(C.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+				FORMAT(C.DEAL_SBID_PRC, 0) AS dealSbidPrc /*거래낙찰가격*/
+		FROM 
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN 
+				TBL_DA_DEAL_M AS C
+			ON 	A.WORK_SQ = C.WORK_SQ 
+		WHERE
+				C.DEAL_SQ IS NOT NULL
+			AND C.DEAL_STTS_CD = "TP"
 	</select>
 	
 	<select id="mainTodayBid" resultType="hashMap" parameterType="hashMap">
@@ -65,6 +65,18 @@
 		AND		A.ARTST_SQ = C.ARTST_SQ
 		LIMIT #{pageSize}
 		OFFSET #{page};
+		
+	</select>
+	
+	<select id="mainInsights" resultType="hashMap">
+		/*메인 인사이트 조회*/
+		SELECT 
+				MGZ_SQ AS mgzSq,
+				MGZ_TITLE AS mgzTitle,
+				MGZ_CONTENT AS mgzContent,
+				MGZ_MAIN_IMG_URL AS mgzMainImgUrl
+		FROM
+				TBL_DA_MGZ_M
 		
 	</select>
 	

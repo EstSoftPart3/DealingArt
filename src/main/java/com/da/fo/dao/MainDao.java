@@ -40,7 +40,9 @@ public class MainDao {
 		param.put("page", (Integer.parseInt(String.valueOf(param.get("page")))-1)*4);
 		param.put("pageSize", Integer.parseInt(String.valueOf(param.get("pageSize"))));
 		List todayBid = mainMapper.mainTodayBid(param);
+		List insights = mainMapper.mainInsights();
 		result.put("todayBid", todayBid);
+		result.put("insights", insights);
 		
 		return result;
 	}
