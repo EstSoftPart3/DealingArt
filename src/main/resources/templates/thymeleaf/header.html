@@ -132,7 +132,7 @@
 									<option>작가명</option>
 								</select>
 							</div> -->
-							<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);"/>
+							<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);" style="outline: none;"/>
 							<a href="javascript:void(0);" onclick="btn_search_onclick();"><img src="resources/img/icon-2.jpg" /></a>
 						</div>
 						<div id="autocomplete">
@@ -156,6 +156,7 @@
 								<li><a href="#">text</a></li>
 								<li><a href="#">text</a></li> -->
 							</ul>
+							<!--
 							<div class="ta-h3">
 								<h3 class="sea-h3">컨텐츠</h3>
 								<a href="javascript:void(0);" class="contentMore"><span>more</span></a>
@@ -166,6 +167,7 @@
 								<li><a href="#">컨텐츠 제목입니다.</a></li>
 								<li><a href="#">컨텐츠 제목입니다.</a></li>
 							</ul>
+							-->
 						</div>
 					</div>
 				</div>
@@ -1267,7 +1269,9 @@ $(document).on("click",".contentMore",function(){
 });
 
 function btn_search_onclick(){
+
 	var searchKeyword = $("#ibx_search").val();
+	
 	if(searchKeyword == null || searchKeyword == ""){
 		alert("검색어가 입력되지 않았습니다");
 	}else{
@@ -1275,7 +1279,7 @@ function btn_search_onclick(){
 			url:"/totalSearch_artist",
 			target:"_self",
 			vals:[
-				["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+				["searchKeyword", searchKeyword]
 			]
 		});
 	}

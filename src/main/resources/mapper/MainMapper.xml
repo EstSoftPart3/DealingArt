@@ -134,18 +134,8 @@
 		ON 		A.ARTST_SQ = E.ARTST_SQ 
 		INNER JOIN TBL_DA_ARTST_EXHBTN_S AS F 
 		ON 		A.ARTST_SQ = F.ARTST_SQ 
-		WHERE 	MATCH (A.ARTST_ACTVTY_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-		OR		MATCH (A.ARTST_ENGLS_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-		OR 		MATCH (C.WORK_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-		OR 		MATCH (D.EDUCTN_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-		OR 		MATCH (E.CAREER_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-		OR 		MATCH (F.EXHBTN_NM)
-				AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+		WHERE 1=1 	
+		AND (B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') OR A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 		GROUP BY A.ARTST_SQ;
 	</select>
 	
@@ -170,23 +160,13 @@
 				INNER JOIN TBL_DA_WORK_M AS C
 				ON 		A.ARTST_SQ = C.ARTST_SQ
 				INNER JOIN TBL_DA_ARTST_EDUCTN_S AS D
-				ON		A.ARTST_SQ = D.ARTST_SQ 
+				ON		A.ARTST_SQ = D.ARTST_SQ  
 				INNER JOIN TBL_DA_ARTST_CAREER_S AS E 
 				ON 		A.ARTST_SQ = E.ARTST_SQ 
 				INNER JOIN TBL_DA_ARTST_EXHBTN_S AS F 
 				ON 		A.ARTST_SQ = F.ARTST_SQ 
-				WHERE 	MATCH (A.ARTST_ACTVTY_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-				OR		MATCH (A.ARTST_ENGLS_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-				OR 		MATCH (C.WORK_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-				OR 		MATCH (D.EDUCTN_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-				OR 		MATCH (E.CAREER_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-				OR 		MATCH (F.EXHBTN_NM)
-						AGAINST (#{searchKeyword} IN BOOLEAN MODE)
+				WHERE 1=1 	
+		        AND (B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') OR A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 				GROUP BY A.ARTST_SQ) AS A
 	</select>
 	
