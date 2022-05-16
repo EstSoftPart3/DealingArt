@@ -83,9 +83,16 @@ public class MyPageDao {
 	 * return : List
 	 */
 	public List myWork(String param) {
-		List<String> resultSale = myPageMapper.myWorkListSale(param);
-		List<String> resultNonSale = myPageMapper.myWorkListNonSale(param);
-		List<String> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
+		List<Map<String, Object>> resultSale = myPageMapper.myWorkListSale(param);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("artstSq", param);
+		List<String> workSq = new ArrayList<String>();
+		for(int i=0; i<resultSale.size(); i++) {
+			workSq.add(resultSale.get(i).get("workSq").toString());
+		}
+		paramMap.put("workSq", workSq);
+		List<Map<String, Object>> resultNonSale = myPageMapper.myWorkListNonSale(paramMap);
+		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
 		return result;
 	}
 	

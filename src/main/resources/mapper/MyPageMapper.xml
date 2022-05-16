@@ -360,6 +360,7 @@
 	<select id="myWorkListSale" resultType="hashMap" parameterType="String">
 		/*나의 작품 판매중 검색*/
 		SELECT 
+				D.DEAL_SQ AS dealSq, /*거래 번호*/
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
@@ -407,8 +408,8 @@
 				A.WORK_TYP_CD = 'WORK'
 				AND A.ARTST_SQ = #{value}
 	</select>
-	<select id="myWorkListNonSale" resultType="hashMap" parameterType="String">
-		/*나의 작품 판매전 검색*/
+	<select id="myWorkListNonSale" resultType="hashMap" parameterType="hashMap">
+		/*나의 작품 전체 검색*/
 		SELECT 
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
@@ -435,9 +436,15 @@
 				TBL_DA_ARTST_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		WHERE 
-					A.WORK_TYP_CD = 'WORK'
+				A.WORK_TYP_CD = 'WORK'
+				<if test="workSq.size != 0 and workSq != null">
+					AND A.WORK_SQ NOT IN
+					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
+			        	#{item}
+			        </foreach>
+        		</if>
 				AND A.WORK_SALE_YN = 'N'
-				AND A.ARTST_SQ = #{value}
+				AND A.ARTST_SQ = #{artstSq}
 	</select>
 	
 	<select id="myWorkMod" resultType="hashMap" parameterType="String">

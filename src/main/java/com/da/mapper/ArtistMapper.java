@@ -54,9 +54,18 @@ public interface ArtistMapper {
 	public List artistInfoExhbtn(Object param);
 	
 	/*
-	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트의 작품을 불러온다.
+	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트의 판매중 작품을 불러온다.
 	 * param : artstSq
 	 * return : 검색 결과
 	 */
-	public List artistWorkList(Object param);
+	public List artistWorkListSale(Object param);
+	
+	/*
+	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트의 판매전 작품을 불러온다.
+	 * param : artstSq
+	 * return : 검색 결과
+	 */
+	public List artistWorkListNonSale(Object param);
 }
+
+

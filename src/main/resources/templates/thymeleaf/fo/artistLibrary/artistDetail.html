@@ -442,9 +442,9 @@ $(function() {
 	
 		for(var i=0; i<workList.length; i++){
 			workListHtml += '<figure class="item" id="'+ workList[i].workSq +'">';
-			if(workList[i].dealTypCd == "AUCT" && workList[i].dealSttsCd == "IP"){
-				workListHtml += '	<div class="item-div-img active">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+			if(workList[i].dealTypCd == "A" && workList[i].dealSttsCd == "TP"){
+				workListHtml += '	<div class="item-div-img active" onclick="workDetail('+ workList[i].workSq +')">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
 				workListHtml += '		<div class="item-ho">';
 				workListHtml += '			<p>'+ workList[i].dealStrtDate +' - '+ workList[i].dealEndngDate +'</p>';
 				workListHtml += '			<p> 응찰수 : '+ workList[i].bidCnt +'</p>';
@@ -456,9 +456,9 @@ $(function() {
 				workListHtml += '		</div>';
 				workListHtml += '	</div>';
 			}
-			if(workList[i].dealTypCd == "SALE" && workList[i].dealTypCd == "IP"){
-				workListHtml += '	<div class="item-div-img sale">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+			if(workList[i].dealTypCd == "S" && workList[i].dealSttsCd == "TP"){
+				workListHtml += '	<div class="item-div-img sale" onclick="workDetail('+ workList[i].workSq +')">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
 				workListHtml += '		<div class="item-ho2 sale-div">';
 				workListHtml += '			<h3>판매중</h3>';
 				workListHtml += '				<ul><li>'+ workList[i].dealRemainingDay +'<span>day</span></li>';
@@ -468,9 +468,14 @@ $(function() {
 				workListHtml += '		</div>';
 				workListHtml += '	</div>';
 			}
-			if(workList[i].dealTypCd == "EN"){
+			if(workList[i].dealSttsCd == "TC"){
 				workListHtml += '	<div class="item-div-img sold-3">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
+				workListHtml += '	</div>';
+			}
+			if(workList[i].dealTypCd == null){
+				workListHtml += '	<div class="item-div-img sale">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
 				workListHtml += '	</div>';
 			}
 			workListHtml += '	<div class="item-body">';
@@ -479,7 +484,7 @@ $(function() {
 			if(workList[i].artstProfileImgUrl == null || workList[i].artstProfileImgUrl == ""){
 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
 			}else{
-				workListHtml += '		<img src="'+ workList[i].artstProfileImgUrl +'"/>';
+				workListHtml += '		<img src="'+ workList[i].artstProfileImgUrl +'" style="width:55px; height:55px; border-radius:30%;"/>';
 			}
 			workListHtml += '		</div>';
 			workListHtml += '		<div class="text-s">';
@@ -487,7 +492,7 @@ $(function() {
 			workListHtml += '			<p class="ts-1">'+ workList[i].workNm +' ('+ workList[i].workProdcYear +')</p>';
 			workListHtml += '			<p>'+ workList[i].workMatrl +'</p>';
 			workListHtml += '			<p>'+ workList[i].workSizeDepth +'x'+ workList[i].workSizeWidth +'</p>';
-			if(workList[i].dealTypCd == "AUCT"){
+			if(workList[i].dealTypCd == "A"){
 				workListHtml += '			<h4>입찰가 '+ workList[i].maxBidPrc +'</h4>';
 				workListHtml += '			<p class="ts-2">';
 				workListHtml += '			'+ workList[i].dealStrtDate +' – '+ workList[i].dealEndngDate +'<br/>';
@@ -495,7 +500,7 @@ $(function() {
 				workListHtml += '			'+ workList[i].dealRemainingDay +'일 '+ workList[i].dealRemainingHour +'시 '+ workList[i].dealRemainingMin +'분 '+ workList[i].dealRemainingSec +'초';
 				workListHtml += '			</p>';
 			}
-			if(workList[i].dealTypCd == "SALE"){
+			if(workList[i].dealTypCd == "S"){
 				workListHtml += '			<h4>판매가 '+ workList[i].maxBidPrc +'</h4>';
 			}
 			workListHtml += '		</div>';
@@ -516,8 +521,8 @@ $(function() {
 		artstInfoHtml2 += '<h3>Artist library</h3>';
 		artstInfoHtml2 += '</div>';
 		artstInfoHtml2 += '<div class="ad-sty">';
-		artstInfoHtml2 += '<div class="ad-user"><img src="resources/img/icon/user-2.png" /></div>';
-		//artstInfo += '<div class="ad-user"><img src="'+ artstInfo.artstProfileImgUrl +'" /></div>';
+		//artstInfoHtml2 += '<div class="ad-user"><img src="resources/img/icon/user-2.png" /></div>';
+		artstInfoHtml2 += '<div class="ad-user"><img src="'+ artstInfo.artistInfo.artstProfileImgUrl +'" style="width:321px; height:306px; border-radius:30%;"/></div>';
 		artstInfoHtml += '<div class="ad-text">';
 		artstInfoHtml += '	<h3>'+ artstInfo.artistInfo.artstActvtyNm +'</h3>';
 		artstInfoHtml += '	<h4>'+ artstInfo.artistInfo.artstEnglsNm +'</h4>';
@@ -526,25 +531,31 @@ $(function() {
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '<dt>SNS</dt>';
 		artstInfoHtml += '<dd>';
-		artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" class="if-img"><img src="resources/img/icon/i-1.png" /></a>';
-		artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" class="if-img"><img src="resources/img/icon/i-2.png" /></a>';
-		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>';
+		if(artstInfo.artistInfo.artstInstagramUrl != null && artstInfo.artistInfo.artstInstagramUrl != ""){
+			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" class="if-img"><img src="resources/img/icon/i-1.png" /></a>';
+		}
+		if(artstInfo.artistInfo.artstfacebookUrl != null && artstInfo.artistInfo.artstfacebookUrl != ""){
+			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" class="if-img"><img src="resources/img/icon/i-2.png" /></a>';
+		}
+		/* artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>';
 		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>';
 		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>';
-		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>'; */
 		artstInfoHtml += '</dd>';
 		artstInfoHtml += '</dl>';
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>홈페이지</dt>';
 		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+		if(artstInfo.artistInfo.artstHmpgUrl != null && artstInfo.artistInfo.artstHmpgUrl != ""){
+			artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		artstInfoHtml += '	<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>학력</dt>';
 		artstInfoHtml += '	<dd>';
 		for(var i=0; i<eductn.length; i++){
-			artstInfoHtml += '		<p>'+ eductn[i].eductnEndngDate +' '+ eductn[i].eductnNm +'</p>';
+			artstInfoHtml += '		<p>'+ eductn[i].eductnNm +'</p>';
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
@@ -552,7 +563,7 @@ $(function() {
 		artstInfoHtml += '	<dt>경력</dt>';
 		artstInfoHtml += '	<dd>';
 		for(var i=0; i<career.length; i++){
-			artstInfoHtml += '		<p>'+ career[i].careerEndngDate +' '+ career[i].careerNm +'</p>';
+			artstInfoHtml += '		<p>'+ career[i].careerNm +'</p>';
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
@@ -560,7 +571,7 @@ $(function() {
 		artstInfoHtml += '	<dt>전시 정보</dt>';
 		artstInfoHtml += '	<dd>';
 		for(var i=0; i<exhbtn.length; i++){
-			artstInfoHtml += '		<p>'+ exhbtn[i].exhbtnEndngDate +' '+ exhbtn[i].exhbtnNm +'</p>';
+			artstInfoHtml += '		<p>'+ exhbtn[i].exhbtnNm +'</p>';
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
@@ -578,7 +589,9 @@ $(function() {
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>인터뷰영상</dt>';
 		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstPromtnVideoUrl +'</p>';
+		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
+			artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstPromtnVideoUrl +'</p>';
+		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		artstInfoHtml += '<dl class="ad-dl">';
@@ -599,6 +612,16 @@ $(function() {
 		$("#moreButton").append(moreButton).trigger("create");
 	}
 });
+
+function workDetail(workSq){
+	pageGoPost({
+		url:"/bidding",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
+}
 
 $(document).on("click", ".heart", function(){
 	var param = new Object();

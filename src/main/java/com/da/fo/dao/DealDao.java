@@ -52,7 +52,7 @@ public class DealDao {
 			List eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
 			List exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
-			List workList = artistMapper.artistWorkList(deal.get("artstSq").toString());
+			List workList = artistMapper.artistWorkListSale(deal.get("artstSq").toString());
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
@@ -68,6 +68,11 @@ public class DealDao {
 	 * return : int
 	 */
 	public int dealReg(Object param) {
-		return dealMapper.dealReg(param);
+		int result = dealMapper.dealReg(param);
+		if(result > 0) {
+			int result2 = dealMapper.updateMbrRefNo();
+			return result2;
+		}
+		return 0;
 	}
 }

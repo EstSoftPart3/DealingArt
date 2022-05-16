@@ -98,16 +98,16 @@ public class DealController {
 			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
 			work.put("workGrtUrl", fileVo.get(0).getFileUrl());
 			if(fileVo.size() >= 2){ 
-				work.put("workImgLefUrl", fileVo.get(3).getFileUrl()); 
+				work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
 			} 
 			if(fileVo.size() >= 3){ 
-				work.put("workImgRitUrl", fileVo.get(4).getFileUrl()); 
-				}
+				work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
+			}	
 			if(fileVo.size() >= 4){ 
-				work.put("workImgTopUrl",fileVo.get(5).getFileUrl()); 
+				work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
 			} 
 			if(fileVo.size() >= 5){
-				work.put("workImgBotUrl", fileVo.get(6).getFileUrl()); 
+				work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
 			} 
 			System.out.println("############## fileVO : " + fileVo);
 		}

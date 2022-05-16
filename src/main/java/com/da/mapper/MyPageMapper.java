@@ -60,7 +60,7 @@ public interface MyPageMapper {
 	 * param : 나의 작품 정보가 들어있는 param
 	 * return : List
 	 */
-	public List myWorkListNonSale(String param);
+	public List myWorkListNonSale(Object param);
 	
 	/*
 	 * 나의 작품 수정

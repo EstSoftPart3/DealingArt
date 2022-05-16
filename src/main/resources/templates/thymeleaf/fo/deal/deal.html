@@ -48,14 +48,14 @@
 								</div>
 								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
-										<input type="checkbox" id="a1" name="dealSttsCd" value="IP" class="searchOption" onclick="dealSearch()"/>
-										<label for="a1"><span></span>진행 중인 거래</label><br/>
-										<input type="checkbox" id="a2" name="dealSttsCd" value="EN" class="searchOption" onclick="dealSearch()"/>
-										<label for="a2"><span></span>종료된 거래</label><br/>
-										<input type="checkbox" id="a3" name="dealTypCd" value="AUCT" class="searchOption" onclick="dealSearch()"/>
-										<label for="a3"><span></span>경매</label><br/>
-										<input type="checkbox" id="a4" name="dealTypCd" value="SALE" class="searchOption" onclick="dealSearch()"/>
-										<label for="a4"><span></span>정찰가</label>
+										<input type="checkbox" id="a11" name="dealSttsCd" value="TP" class="searchOption" onclick="dealSearch()"/>
+										<label for="a11"><span></span>진행 중인 거래</label><br/>
+										<input type="checkbox" id="a22" name="dealSttsCd" value="TC" class="searchOption" onclick="dealSearch()"/>
+										<label for="a22"><span></span>종료된 거래</label><br/>
+										<input type="checkbox" id="a33" name="dealTypCd" value="A" class="searchOption" onclick="dealSearch()"/>
+										<label for="a33"><span></span>경매</label><br/>
+										<input type="checkbox" id="a44" name="dealTypCd" value="S" class="searchOption" onclick="dealSearch()"/>
+										<label for="a44"><span></span>정찰가</label>
 									</div>
 								</div>
 							</div>
@@ -101,7 +101,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default">
+							<!-- <div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading5">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion5" href="#collapse5" aria-expanded="true" aria-controls="collapse5">
@@ -128,7 +128,7 @@
 									
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 <!-- 						<button type="button" class="btn-more2" onclick="searchOptionReset()"><span>reset</span></button> -->
 					</div>
@@ -136,34 +136,34 @@
 					<div class="con-right">
 					
 						<div class="sea-won2">
-							<input type="text" class="" placeholder="작품이나 작가를 검색해 보세요" />
-							<a href="#" data-toggle="modal" data-target="#myModal"><img src="resources/img/de/sech-icon.jpg" /></a>
+							<input type="text" class="" placeholder="작품이나 작가를 검색해 보세요" disabled/>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
 						<div class="reds-box">
 							<ul class="pc-on">
 								<li>
-									<a href="#" class="up-on">
+									<a href="javascript:fnModalAlert();" class="up-on">
 										최신 순
 									</a>
 								</li>
 								<li>
-									<a href="#" class="down-on">
+									<a href="javascript:fnModalAlert();" class="down-on">
 										제작년도
 									</a>
 								</li>
 								<li>
-									<a href="#" class="">
+									<a href="javascript:fnModalAlert();" class="">
 										작가명 <span>ㄱ</span> - <span>ㅎ</span>
 									</a>
 								</li>
 								<li>
-									<a href="#" class="">
+									<a href="javascript:fnModalAlert();" class="">
 										작가명 <span>A</span> - <span>Z</span>
 									</a>
 								</li>
 								<li>
-									<a href="#" class="">
+									<a href="javascript:fnModalAlert();" class="">
 										가격
 									</a>
 								</li>
@@ -182,12 +182,12 @@
 											<li role="presentation">
 												<div class="drop-body pd_0">
 													<div class="drop-select">
-														<a href="#" class="active">최신 순</a>
-														<a href="#">제작년도</a>
-														<a href="#">작가명</a>
-														<a href="#">작가명</a>
-														<a href="#">가격</a>
-														<a href="#">남은 거래</a>
+														<a href="javascript:fnModalAlert();" class="active">최신 순</a>
+														<a href="javascript:fnModalAlert();">제작년도</a>
+														<a href="javascript:fnModalAlert();">작가명</a>
+														<a href="javascript:fnModalAlert();">작가명</a>
+														<a href="javascript:fnModalAlert();">가격</a>
+														<a href="javascript:fnModalAlert();">남은 거래</a>
 													</div>
 												</div>
 											</li>
@@ -765,7 +765,7 @@ function dealSearch(){
 	     			dealListHtml += '<figure class="item">';
 	     			if(dealList[i].dealTypCd == "A" && dealList[i].dealSttsCd == "TP"){
 	     				dealListHtml += '	<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">';
-	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'" style="width:353px;">';
 	     				dealListHtml += '		<div class="item-ho">';
 	     				dealListHtml += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
 	     				dealListHtml += '			<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
@@ -773,13 +773,13 @@ function dealSearch(){
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
 	     				dealListHtml += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-	     				dealListHtml += '				<h4>시작가 : '+ formatComma(dealList[i].dealStrtPrc) +'</h4>';
+	     				dealListHtml += '				<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
 	     				dealListHtml += '		</div>';
 	     				dealListHtml += '	</div>';
 	     			}
 	     			if(dealList[i].dealTypCd == "S" && dealList[i].dealSttsCd == "TP"){
 	     				dealListHtml += '	<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
-	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'" style="width:353px;">';
 	     				dealListHtml += '		<div class="item-ho2 sale-div">';
 	     				dealListHtml += '			<h3>판매중</h3>';
 	     				dealListHtml += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
@@ -789,9 +789,9 @@ function dealSearch(){
 	     				dealListHtml += '		</div>';
 	     				dealListHtml += '	</div>';
 	     			}
-	     			if(dealList[i].dealTypCd == "EN"){
+	     			if(dealList[i].dealSttsCd == "TC"){
 	     				dealListHtml += '	<div class="item-div-img sold-3">';
-	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'">';
+	     				dealListHtml += '		<img src="'+ dealList[i].workMainImgUrl +'" style="width:353px;">';
 	     				dealListHtml += '	</div>';
 	     			}
 	     			dealListHtml += '	<div class="item-body">';
@@ -809,7 +809,7 @@ function dealSearch(){
 	     			dealListHtml += '			<p>'+ dealList[i].workMatrl +'</p>';
 	     			dealListHtml += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
 	     			if(dealList[i].dealTypCd == "A"){
-	     				dealListHtml += '			<h4>입찰가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
+	     				dealListHtml += '			<h4>입찰가 '+ dealList[i].maxBidPrc +'</h4>';
 	     				dealListHtml += '			<p class="ts-2">';
 	     				dealListHtml += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
 	     				dealListHtml += '			응찰수 : '+ dealList[i].bidCnt +'<br/>';
@@ -817,9 +817,8 @@ function dealSearch(){
 	     				dealListHtml += '			</p>';
 	     			}
 	     			if(dealList[i].dealTypCd == "S"){
-	     				//dealListHtml += '			<h4>판매가 '+ formatComma(dealList[i].maxBidPrc) +'</h4>';
+	     				dealListHtml += '			<h4>판매가 '+ dealList[i].dealFinalPrc +'</h4>';
 	     			}
-	     			dealListHtml += '		</div>';
 	     			if(dealList[i].authSq == 2){
 	     				dealListHtml += '	<div class="artist active"><span>Artist</span></div>';
 	     			}

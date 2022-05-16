@@ -58,7 +58,7 @@
 							</tr>
 							<tr>
 								<th>보증서</th>
-								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음 <a href="#" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg" /></a></td>
+								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음 <a href="javascript:openWorkGrtUrl();" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg" onclick="openWorkGrtUrl()"/></a></td>
 								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
 							</tr>
 							<tr>
@@ -433,6 +433,18 @@ function btn_purchaseOrBid_onclick(){
 			]
 		});
 	}
+}
+//보증서 보기 팝업 호출
+function openWorkGrtUrl(){
+	debugger;
+	var img = new Image();
+	img.src = result.deal.workGrtUrl;
+	var img_width = img.width;
+	var win_width = img.width + 25;
+	var img_height = img.height;
+	var win = img.height + 30;
+	var OpenWindow = window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto');
+	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
 }
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)

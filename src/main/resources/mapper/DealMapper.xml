@@ -6,6 +6,7 @@
 	<select id="dealSerach" resultType="hashMap" parameterType="hashMap">
 		/*딜 검색*/
 		SELECT 
+				D.DEAL_SQ AS dealSq, /*거래번호*/
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
@@ -27,8 +28,9 @@
 				(SELECT MAX(BID_PRC)
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
-				D.DEAL_STRT_PRC AS dealStrtPrc, /*거래시작가격*/
-				D.DEAL_SBID_PRC AS dealSbidPrc, /*거래낙찰가격*/
+				FORMAT(D.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+				FORMAT(D.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+				FORMAT(D.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
@@ -50,7 +52,7 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
-				1=1
+				D.DEAL_SQ IS NOT NULL
 			<if test="authSq != null and authSq != ''">
 				AND B.AUTH_SQ = #{authSq}
         	</if>	
@@ -159,7 +161,7 @@
 					) VALUES (
 						#{workSq},
 						#{mbrSq},
-						CONCAT('D', LPAD(#{workSq}, 17, '0')),
+						CONCAT('D', LPAD(DEAL_SQ, 17, '0')),
 						#{dealTypCd},
 						#{dealSttsCd},
 						#{dealStrtPrc},
@@ -191,5 +193,15 @@
 							,ARTST_SQ = #{artstSq}
 						</if>
 	</insert>
+	
+	<update id="updateMbrRefNo">
+		/*거래 등록 주문번호 등록*/
+		UPDATE
+				TBL_DA_DEAL_M
+		SET
+				MBR_REF_NO = CONCAT('D', LPAD(DEAL_SQ, 17, '0'))
+		WHERE
+				DEAL_SQ = LAST_INSERT_ID()
+	</update>
 	
 </mapper>
