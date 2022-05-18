@@ -201,7 +201,37 @@
 										</table>
 									</div>
 								</div>
-							</div>					
+							</div>
+							<!-- 쿠폰 -->
+							<div id="div_coupon" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">쿠폰</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-2">
+										<table class="mstyle-2">
+											<tr>
+												<th><span class="my-red">쿠폰 선택</span></th>
+												<td class="pd_t17">
+													<div class="selec-box bg-st">
+														<select class="selectpicker" id="sbx_trnsprt1" disabled>
+															<option value="null">-선택-</option>
+															<option value="134,000">쿠폰입니다.</option>
+														</select>
+													</div>
+													<div id="div_trnsprt1">
+														<div class="comy-box">
+															<div class="cmy-text">쿠폰입니다.</div>
+															<div class="cmy-won">15%</div>
+															<div class="cmy-end">X</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>										
 							
 							<!-- 2차 결제 완료 -->
 							<div id="2PC" style="display:none;">
@@ -332,6 +362,7 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
 		$("#1PW").css("display", "");
+		$("#div_coupon").css("display", "");
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "")
 		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15);
@@ -343,6 +374,7 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("구매자 2차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
 		$("#2PW").css("display", "");
+		$("#div_coupon").css("display", "");
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "")
 	}
