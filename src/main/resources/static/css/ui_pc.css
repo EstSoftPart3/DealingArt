@@ -1864,12 +1864,12 @@ input[type="radio"]:checked + label span {
     padding: 27px;
     margin-top: 28px;
 }
-.baeg-ul li{
+.baeg-ul li-1{
     padding-bottom: 25px;
     border-bottom: #d3d3d3 1px dashed;
     margin-bottom: 30px;
 }
-.baeg-ul li:last-child{
+.baeg-ul li-1:last-child{
     border-bottom: 0;
     margin: 0;
     padding: 0;
