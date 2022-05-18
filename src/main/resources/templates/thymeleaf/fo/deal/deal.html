@@ -622,13 +622,13 @@
 		     					
 		     					html += '<div class="item-ho">';
 		     					
-		     					html += '			<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
-			     				html += '			<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
-			     				html + '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-			     				html += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-			     				html += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-			     				html += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-			     				html += '				<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
+		     					html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
+			     				html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
+			     				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+			     				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+			     				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+			     				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			     				html += '<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
 		     					
 		     					html += '</div>';
 		     					
@@ -659,11 +659,11 @@
 		     						} else {
 		     							html += '<h4>입찰가 30,000</h4>';
 		     						}
-		    	     				html += '			<p class="ts-2">';
-		    	     				html += '			'+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
-		    	     				html += '			응찰수 : '+ dealList[i].bidCnt +'<br/>';
-		    	     				html += '			'+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
-		    	     				html += '			</p>';
+		    	     				html += '<p class="ts-2">';
+		    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+		    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
+		    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+		    	     				html += '</p>';
 		    	     			}
 		     					
 		     					html += '</div>'
@@ -691,6 +691,13 @@
 		     					//작품 이미지
 		     					html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+		     					html += '		<div class="item-ho2 sale-div">';
+		    	     			html += '			<h3>판매중</h3>';
+		    	     			html += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+		    	     			html += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+		    	     			html += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+		    	     			html += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+		    	     			html += '		</div>';
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
 		     					html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
