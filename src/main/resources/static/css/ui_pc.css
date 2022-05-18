@@ -1443,7 +1443,7 @@ columns2 figure {
 
 
 .heart{
-    position: absolute;
+    /* position: absolute; */
     right: 10px;
     top: 10px;
     width: 25px;
@@ -1453,6 +1453,19 @@ columns2 figure {
 
 .heart:after{content:'';width: 25px;height: 25px;background-image: url(../img/de/har-off.png);position: absolute;right: 0;top: 0;background-repeat: no-repeat;background-position: center; background-size:100%;}
 .heart.on:after{background-image: url(../img/de/har-on.png);content:'';}
+
+
+.heartsoldout{
+    /* position: absolute; */
+    right: 10px;
+    top: 10px;
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+}
+
+.heartsoldout:after{content:'';width: 25px;height: 25px;background-image: url(../img/de/har-off.png);position: absolute;right: 0;top: 0;background-repeat: no-repeat;background-position: center; background-size:100%;}
+.heartsoldout.on:after{background-image: url(../img/de/har-on.png);content:'';}
 
 .item-div-img{
     position: relative;
