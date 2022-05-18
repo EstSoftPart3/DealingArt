@@ -437,7 +437,10 @@ function btn_payment(){
 		}); 
 	}
 }
-
+window.call = function (data) {
+    console.log(data);
+    window.location.reload()
+};
 $("#sbx_trnsprt1").on("change", function(){
 	$("#div_trnsprt2").empty();
 	var selected = $("#sbx_trnsprt1 option:selected").val();

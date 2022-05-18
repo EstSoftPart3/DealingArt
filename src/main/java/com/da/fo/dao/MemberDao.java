@@ -53,7 +53,21 @@ public class MemberDao {
 	 * return : int
 	 */
 	public Map<String, Object> login(Map<String, Object> param) {
-		return memberMapper.login(param);
+		Map<String, Object> result = new HashMap<>();
+		int idCheck = memberMapper.loginIdCheck(param); //회원 아이디 체크
+		if(idCheck > 0) { //아이디 체크 성공하면
+			int pwdCheck = memberMapper.loginPwdCheck(param); //회원 비밀번호 체크
+			if(pwdCheck > 0) { //비밀번호 체크 성공하면
+				result = memberMapper.login(param); //로그인 정보를 가져온다
+				return result;
+			}else{
+				result.put("error", "nonPwd"); //패스워드가 안맞는다
+				return result;
+			}
+		}else{
+			result.put("error", "nonId"); //아이디가 안맞는다
+			return  result;
+		}
 	}
 	
 	/*

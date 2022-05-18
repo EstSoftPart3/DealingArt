@@ -67,13 +67,13 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/memberEdit";
 	}
 
-	// 소장품 등록
+	// 소장품 등록 페이지 오픈
 	@RequestMapping("/collection_reg")
 	public String collectionReg() {
 		return "thymeleaf/fo/myPage/collection_reg";
 	}
 
-	// 소장품 수정
+	// 나의 작품 등록 페이지 오픈
 	@RequestMapping("/myWork_reg")
 	public String myWorkReg() {
 		return "thymeleaf/fo/myPage/myWork_reg";
@@ -608,7 +608,7 @@ public class MyPageController {
 		return result;
 	}
 	
-	// 나의 작품 수정 페이지 오픈
+	// 나의 소장품 수정 페이지 오픈
 	@RequestMapping("/myCollectionMod")
 	@ResponseBody
 	public ModelAndView myCollectionMod(@RequestParam(value = "workSq", required = false) String workSq) {

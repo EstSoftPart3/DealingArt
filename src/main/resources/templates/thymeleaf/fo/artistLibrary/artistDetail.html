@@ -614,13 +614,7 @@ $(function() {
 });
 
 function workDetail(workSq){
-	pageGoPost({
-		url:"/bidding",
-		target:"_self",
-		vals:[
-			["workSq", workSq]
-		]
-	});
+	location.href="/openBidding?workSq="+workSq;
 }
 
 $(document).on("click", ".heart", function(){

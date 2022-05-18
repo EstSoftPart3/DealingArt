@@ -26,9 +26,23 @@ public interface MemberMapper {
 	/*
 	 * 로그인 기능
 	 * param : loginId, loginPw
-	 * return : int
+	 * return : HashMap
 	 */
 	public Map<String, Object> login(Map<String, Object> param);
+	
+	/*
+	 * 로그인 아이디 체크
+	 * param : loginId
+	 * return : int
+	 */
+	public int loginIdCheck(Map<String, Object> param);
+	
+	/*
+	 * 로그인 비밀번호 체크
+	 * param : loginId, loginPw
+	 * return : int
+	 */
+	public int loginPwdCheck(Map<String, Object> param);
 	
 	/*
 	 * 아티스트 정보를 불러온다

@@ -75,12 +75,13 @@
 					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
-							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
-							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>경매 / 거래 내역</span></a></li>
+							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>회원정보 수정</span></a></li>
+							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
-							<li><a href="/myCollection"><img src="resources/img/ic-3.jpg" /><span>마이 콜렉션</span></a></li>
+							<li><a href="javascript:void(0);" class="myWork"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
+							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li>
 							<!-- class="scrap" -->
-							<li><a href="/scrap"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
+							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
 							<!-- /customerService -->
 							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
@@ -104,7 +105,7 @@
 				<ul class="mab-ul">
 					<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li> -->
 					<li><a href="#" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
-					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
+					<li><a href="javascript:void(0);" class="workReg"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -783,6 +784,7 @@ var artstSq = "";
 var artstActvtyNm = "";
 var artstEnglsNm = "";
 var artstBirthYear = "";
+var workSq = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
 //Session GET
@@ -853,13 +855,19 @@ function login(){
 	        			artstBirthYear = data.artstBirthYear;
 	        		}
 				}else if (login == 2){
-					modalAlertShow("탈퇴한 회원입니다.", "main");
+					modalAlertShow("탈퇴한 회원입니다.");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
-				}else if (login == 0){
-					modalAlertShow("회원정보가 존재하지 않습니다.", "main");
+				}else if (login == "nonId"){
+					modalAlertShow("존재하지 않는 아이디입니다.");
+					sMbrSqVal = data.sMbrSqVal;
+					sAuthSqVal = data.sAuthSqVal;
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
+				}else if (login == "nonPwd"){
+					modalAlertShow("비밀번호가 틀립니다.");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
 					loginBf.setAttribute("style", "");
@@ -1316,6 +1324,17 @@ $(document).on("click", ".scrap", function(){
 			["mbrSq", sMbrSqVal]
 		]
 	});
+});
+$(document).on("click", ".workReg", function(){
+	if(sAuthSqVal != "2"){
+		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
+	}else{
+		modalConfirm("알림", "나의 작품 등록 페이지로 하시겠습니까?", function(confrim){
+			if(confrim){
+				window.location.href = "/myWork_reg";
+			}
+		});
+	}
 });
 //Input Box Null Check
 function isEmpty(str){

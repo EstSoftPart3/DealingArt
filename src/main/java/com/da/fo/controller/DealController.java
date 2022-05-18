@@ -1,12 +1,16 @@
 package com.da.fo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.da.common.AwsS3Service;
 import com.da.fo.service.DealService;
@@ -61,6 +67,16 @@ public class DealController {
 	@RequestMapping("/bidding")
 	@ResponseBody
 	public ModelAndView bidding(@RequestParam(value="workSq", required=false) String workSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
+		Map<String, Object> result = dealService.dealDetail(workSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	@RequestMapping("/openBidding")
+	@ResponseBody
+	public ModelAndView openBidding(@RequestParam(value="workSq", required=false) String workSq) {
+		System.out.println("workSq : " + workSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
 		Map<String, Object> result = dealService.dealDetail(workSq);
 		mv.addObject("result", result);

@@ -195,12 +195,13 @@ public class TestController {
 		if(rsltMap.get("resultCode").toString().equals("200")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('결제가 완료되었습니다.'); window.close(); </script>");
+			out.println("<script>alert('결제가 완료되었습니다.'); opener.call("+rsltMap.get("resultCode").toString()+"); window.close(); </script>");
 			out.flush();
 		}else{
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('결제를 실패하였습니다. 사유 : "+rsltMap.get("resultMessage").toString()+"); window.close(); </script>");
+			out.println("<script>alert('결제를 실패하였습니다. 사유 : "+rsltMap.get("resultMessage").toString()+"); "
+					+ "opener.call(\"+rsltMap.get(\"resultCode\").toString()+\"); window.close(); </script>");
 			out.flush();
 		}
 	}

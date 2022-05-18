@@ -625,7 +625,7 @@ function dealSearch(){
      		if(data == null){
      			alert("검색 결과가 없습니다.");
      		}else{
-     			//$("#columns2").empty();
+     			$("#columns2").empty();
      			dealList = data.result;
      		
 	     		for(var i=0; i<dealList.length; i++){
@@ -696,7 +696,7 @@ function dealSearch(){
 	     			dealListHtml += '	</div>';
 	     			dealListHtml += '</figure>';
 	     		}
-	     		//$("#columns2").append(dealListHtml).trigger("create");
+	     		$("#columns2").append(dealListHtml).trigger("create");
      		}
      		
         },
@@ -757,13 +757,7 @@ $("#myCollection").on("click", function(){
 });
 
 function workDetail(workSq){
-	pageGoPost({
-		url:"/bidding",
-		target:"_self",
-		vals:[
-			["workSq", workSq]
-		]
-	});
+	location.href="/bidding?workSq="+workSq;
 }
 
 $(document).on("click", ".heart", function(){

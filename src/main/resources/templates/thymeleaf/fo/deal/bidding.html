@@ -429,14 +429,7 @@ setInterval(function() {
 
 function btn_purchaseOrBid_onclick(){
 	if($("#btn_purchaseOrBid").text() == "구매하기"){
-		pageGoPost({
-			url:"/myDealDetailBuy",
-			target:"_self",
-			vals:[
-				["dealSq", result.deal.dealSq],
-				["mbrSq", sMbrSqVal]
-			]
-		});
+		location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 	}
 }
 //보증서 보기 팝업 호출

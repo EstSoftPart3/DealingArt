@@ -371,23 +371,9 @@ function myDealSearchList(){
 function myDealDetail(obj){
 	var dealSq = obj.getAttribute("dealSq");
 	if($("input:radio[name='buyOrSell']:checked").val() == "BUY"){
-		pageGoPost({
-			url:"/myDealDetailBuy",
-			target:"_self",
-			vals:[
-				["dealSq", dealSq],
-				["mbrSq", sMbrSqVal]
-			]
-		});
+		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	}else{
-		pageGoPost({
-			url:"/myDealDetailSell",
-			target:"_self",
-			vals:[
-				["dealSq", dealSq],
-				["mbrSq", sMbrSqVal]
-			]
-		});
+		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	}
 }
 
