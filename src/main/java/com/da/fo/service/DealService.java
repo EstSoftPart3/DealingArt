@@ -24,4 +24,11 @@ public interface DealService {
 	 * return : int
 	 */
 	public int dealReg(Object param);
+	
+	/*
+	 * 응찰 테이블에 응찰 정보 insert
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int bidReg(Object param);
 }

@@ -169,4 +169,17 @@ public class DealController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	//응찰버튼 클릭하면 응찰 테이블에 마지막 응찰가랑 비교를 하고 응찰 테이블에 응찰정보를 insert한다.
+	@RequestMapping("/bidReg")
+	@ResponseBody
+	public ModelAndView bidReg(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println("########### param : "+param);
+		
+		int result = dealService.bidReg(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 }

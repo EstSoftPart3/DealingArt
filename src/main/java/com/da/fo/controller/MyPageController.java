@@ -694,16 +694,6 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//구매내역 상세 페이지 이동
-	@RequestMapping("/getDetailBuy")
-	@ResponseBody
-	public ModelAndView getDetailBuy(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("jsonView");
-		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
 	//판매내역 상세 페이지 이동
 	@RequestMapping("/myDealDetailSell")
 	@ResponseBody

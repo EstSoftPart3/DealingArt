@@ -75,4 +75,20 @@ public class DealDao {
 		}
 		return 0;
 	}
+	
+	/*
+	 * 응찰 테이블에 응찰 정보 insert
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int bidReg(Object param) {
+		int checkResult = dealMapper.bidRegCheck(param);
+		if(checkResult > 0) {
+			return -1;
+		}else{
+			int regResult = dealMapper.bidReg(param);
+			regResult += dealMapper.updateDealAuctnPrc(param);
+			return regResult;
+		}
+	}
 }
