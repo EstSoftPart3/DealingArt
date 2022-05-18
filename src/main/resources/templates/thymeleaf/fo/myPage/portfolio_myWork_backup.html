@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		
+		<div class="body-wrap">
+			<div class="contents">
+				<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
+				<div class="con-wrap pop-wrap">
+				
+					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					<div class="con-right">
+					
+						<div class="reds-box mg_t150 por">
+							<ul class="pc-on">
+								<li>
+									<a href="#" class="up-on">
+										최신 순
+									</a>
+								</li>
+								<li>
+									<a href="#" class="down-on">
+										가격
+									</a>
+								</li>
+							</ul>
+<!-- 							<div class="med-ic"> -->
+<!-- 								<div class="por"> -->
+<!-- 									<div class="tootip-5">설정/공유</div> -->
+<!-- 									<img src="/resources/img/mypage/icon-8.png" class="med-me"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+						</div>
+						
+						<script>
+			  				
+			  			$( document ).ready(function() {
+			  				$(".styleNone").removeAttr( 'style' );
+			  			});
+	
+  						</script>
+  						<style>
+      #columns2{
+        column-width:350px;
+        column-gap: 15px;
+      }
+      #columns2 figure{
+        display: inline-block;
+        border:1px solid rgba(0,0,0,0.2);
+        margin:0;
+        margin-bottom: 15px;
+        padding:10px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
+      }
+      #columns2 figure img{
+        width:100%;
+      }
+      #columns2 figure figcaption{
+        border-top:1px solid rgba(0,0,0,0.2);
+        padding:10px;
+        margin-top:11px;
+      }
+    </style>
+						
+						<div>
+							<div class="columns-wrap2 styleNone" id="columns2" >
+							
+							</div>
+						</div>
+						
+					</div>
+					
+						<div class="text-center mg_t50" style="width:100px;">
+<!-- 							<button type="button" class="btn-more"><span>more</span></button> -->
+						</div>
+				</div>
+				
+			</div>
+		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+	
+
+
+
+<script th:inline="javascript">
+var result = /*[[${result}]]*/ 'default';
+$(function() { 
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+	$("#conTitle").empty();
+	$("#conBtn").empty();
+	const conBtn = document.getElementById("conBtn");
+	conBtn.style.display = "";
+	var conTitleHtml = "";
+	conTitleHtml += '<h3>포트폴리오</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
+	conBtn.innerHTML += '<a href="/myWork_reg"><img src="resources/img/mypage/mycon-1.png" /></a>';
+	conBtn.innerHTML += '<a href="javascript:fnModalAlert();"><img src="resources/img/mypage/mycon-2.png" /></a>';
+	
+	$("#myWork").addClass("active");
+	myWorkList();
+});   
+
+function myWorkList(){
+	var myWorkListHtml = '';
+	$("#columns2").empty();
+	for(var i=0; i<result.length; i++){
+	
+		
+		myWorkListHtml += '<figure class="item" >';
+		if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
+// 			myWorkListHtml += '	<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
+// 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+// 			myWorkListHtml += '		<div class="item-ho">';
+// 			myWorkListHtml += '			<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
+// 			myWorkListHtml += '			<p> 응찰수 : '+ result[i].bidCnt +'</p>';
+// 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+// 			myWorkListHtml += '				<h4>시작가 : '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+// 			myWorkListHtml += '		</div>';
+// 			myWorkListHtml += '	</div>';
+		}
+		if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
+// 			myWorkListHtml += '	<div class="item-div-img sale-on">';
+// 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'" >';
+// 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
+// 			myWorkListHtml += '			<h3>판매중</h3>';
+// 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+// 			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+// 			myWorkListHtml += '		</div>';
+// 			myWorkListHtml += '	</div>';
+		}
+		if(result[i].dealSttsCd == "aa"){
+// 			myWorkListHtml += '	<div class="item-div-img sold-3">';
+// 			myWorkListHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
+// 			myWorkListHtml += '	</div>';
+		}
+		//if(result[i].dealTypCd == null){
+			myWorkListHtml += '<div class="item-div-img reg" style="height:320px;width:470px" >';
+			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px">';
+			myWorkListHtml += '	<div class="item-ho3 reg-div">';
+			myWorkListHtml += '		<div class="regs" >';
+			myWorkListHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
+			myWorkListHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>작품 수정</span></a>';
+			myWorkListHtml += '		</div>';
+			myWorkListHtml += '	</div>';
+			myWorkListHtml += '</div>';
+			
+			myWorkListHtml += '	<div class="item-body">';
+			myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
+			myWorkListHtml += '		<div class="uesr-s">';
+			if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+				myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+			}else{
+				myWorkListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:40px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+			}
+			myWorkListHtml += '		</div>';
+			myWorkListHtml += '		<div class="text-s" style="height:100px;">';
+			myWorkListHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+			myWorkListHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
+			myWorkListHtml += '			<p>'+ result[i].workMatrl +'</p>';
+			myWorkListHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
+			if(result[i].dealTypCd == "A"){
+				myWorkListHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+				myWorkListHtml += '			<p class="ts-2">';
+				myWorkListHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
+				myWorkListHtml += '			응찰수 : '+ result[i].bidCnt +'<br/>';
+				myWorkListHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
+				myWorkListHtml += '			</p>';
+			}
+			if(result[i].dealTypCd == "S"){
+				myWorkListHtml += '			<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+			}
+			if(result[i].dealTypCd == null){
+				
+				if (result[i].workPrc != null) {
+					myWorkListHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
+				}
+			}
+			if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
+	 			myWorkListHtml += '	<div class="item-div-img sale-on">';
+	 			
+	 			myWorkListHtml += '		<div class="item-ho2 sale-div">';
+	 			myWorkListHtml += '			<h3>판매중</h3>';
+	 			myWorkListHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
+	 			myWorkListHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	 			myWorkListHtml += '		</div>';
+	 			myWorkListHtml += '	</div>';
+			}
+			
+			
+			myWorkListHtml += '		</div>';
+			
+		//}
+		/*
+		myWorkListHtml += '	<div class="item-body">';
+		myWorkListHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
+		myWorkListHtml += '		<div class="uesr-s">';
+		if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+			myWorkListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+		}else{
+			myWorkListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:40px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+		}
+		myWorkListHtml += '		</div>';
+		myWorkListHtml += '		<div class="text-s" style="height:100px;">';
+		myWorkListHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+		myWorkListHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
+		myWorkListHtml += '			<p>'+ result[i].workMatrl +'</p>';
+		myWorkListHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
+		if(result[i].dealTypCd == "A"){
+			myWorkListHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
+			myWorkListHtml += '			<p class="ts-2">';
+			myWorkListHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
+			myWorkListHtml += '			응찰수 : '+ result[i].bidCnt +'<br/>';
+			myWorkListHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
+			myWorkListHtml += '			</p>';
+		}
+		if(result[i].dealTypCd == "S"){
+			myWorkListHtml += '			<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+		}
+		if(result[i].dealTypCd == null){
+			
+			if (result[i].workPrc != null) {
+				myWorkListHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
+			}
+		}
+		myWorkListHtml += '		</div>';
+		*/
+		if(result[i].authSq == 2){
+			//myWorkListHtml += '	<div class="artist active"><span>Artist</span></div>';
+		}
+		if(result[i].authSq == 1){
+			myWorkListHtml += '	<div class="artist"><span>Artist</span></div>';
+		}
+		myWorkListHtml += '	</div>';
+		
+		myWorkListHtml += '</figure>';
+	}
+	$("#columns2").append(myWorkListHtml).trigger("create");
+}
+
+$(document).on("click", ".cor-a", function(){
+	var workSq= $(this).attr("workSq");
+    pageGoPost({
+		url:"/myWorkMod",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
+});
+
+$(document).on("click", ".reg-a", function(){
+	var workSq= $(this).attr("workSq");
+	pageGoPost({
+		url:"/dealReg",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
+});
+
+$(document).on("click", ".heart", function(){
+	var param = new Object();
+	var element = $(this);
+	param.workSq= element.attr("workSq");
+	param.mbrSq = sMbrSqVal;
+	if($(this).hasClass("on")){
+		$.ajax({
+	        type: "post",
+	        url: "/scrapDel",
+	        data: param,
+	        success: function(data) {
+	        	element.removeClass("on");
+	        	element.addClass("off");
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/scrapAdd",
+	        data: param,
+	        success: function(data) {
+	        	if(data == 1){
+	        		element.addClass("on");
+	        	}else{
+	        		modalAlertShow("스크랩 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+});
+      
+ $(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches)
+    {
+	    document.querySelectorAll(".item").forEach((item) => {
+    	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+    	  });
+    	  const wrap = document.querySelector(".columns-wrap2");
+    	  wrap.style.display = "grid";
+    	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
+    	  wrap.style.gridAutoRows = "1px";
+    	  
+    	  
+    	
+    	
+    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+	      document.querySelectorAll(".item").forEach((item) => {
+    	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+    	  });
+    	  const wrap = document.querySelector(".columns-wrap2");
+    	  wrap.style.display = "grid";
+    	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
+    	  wrap.style.gridAutoRows = "1px";
+    	
+    	
+     } else {
+    	var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+     });
+    	
+    	document.querySelectorAll(".item").forEach((item) => {
+    	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+    	  });
+    	  const wrap = document.querySelector(".columns-wrap2");
+    	  wrap.style.display = "grid";
+    	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
+    	  wrap.style.gridAutoRows = "1px";
+    	
+   	  
+     };
+}).resize();
+ 
+ 
+ 
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ 
+ $(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+  });
+  
+  $(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ 
+ /* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+ 
+ 
+ 
+ var delay = 300;
+ var timer = null;
+
+ //Javascript
+ window.addEventListener('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+
+ //jQuery
+ $(window).on('resize', function(){
+ 	clearTimeout(timer);
+ 	timer = setTimeout(function(){
+ 		document.location.reload();
+ 	}, delay);
+ });
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+      
+</script>
+    
+	
+	
+	
+	
+</body>
+
+</html>
