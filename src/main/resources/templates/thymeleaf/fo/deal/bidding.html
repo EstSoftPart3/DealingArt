@@ -77,7 +77,7 @@
 						</table>
 						
 						<ul class="baeg-ul">
-							<li class="">
+							<li class="li-1">
 								<table class="tstyle2">
 									<tr>
 										<th>
@@ -105,7 +105,7 @@
 									</tr>
 								</table>
 							</li>
-							<li class="">
+							<li class="li-1">
 								<table class="tstyle2">
 									<tr class="t-red" id="tr_maxBidPrc">
 										<th>
@@ -130,8 +130,8 @@
 										</th>
 										<td>
 											<div class="selec-box">
-												<select class="selectpicker" id="sbx_bidPrc">
-													<option value="null">-선택-</option>
+												<select class="selectpicker" id="sbx_bidPrc" >
+													<option value="null" style="font-size:18px;">-선택-</option>
 												</select>
 											</div>
 										</td>
@@ -139,7 +139,6 @@
 								</table>
 							</li>
 						</ul>
-						
 						<div class="bat-box">
 							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
 							<button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
@@ -397,8 +396,12 @@
 
 
 <script th:inline="javascript">
+$('.selectpicker').selectpicker('render');
 var result = /*[[${result}]]*/ 'default';
+var workGrtUrl = new Image();
+workGrtUrl.src = result.deal.workGrtUrl;
 $(function() {
+	$("#sbx_bidPrc").selectpicker("refresh");
 	if(result.deal.bidMbrSq == sMbrSqVal){
 		$(".ba-btn1").append('<div class="tootip-3">현재 가장 높은 응찰자 입니다 </div>').trigger("create");
 	}
@@ -416,16 +419,7 @@ $(function() {
 		$("#btn_purchaseOrBid").text("구매하기");
 		$("#btn_history").css("display", "none");
 	}else{ //경매면
-		var askingPrice = 0;
-		var askingPriceList = [];
-		if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
-			$("#td_askingPrice").text(formatComma(askingPrice(parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''))))+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
-		}else{ //입찰가가 없다면
-			$("#td_askingPrice").text(formatComma(askingPrice(parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''))))+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
-		}
-		for(i=0; i<9; i++){
-			$("#sbx_bidPrc").append("<option value='1'>1번</option>");
-		}
+		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 	}
 });
 //거래 남은 시간 1초마다 계산해서 표현하기
@@ -445,54 +439,72 @@ setInterval(function() {
 function btn_purchaseOrBid_onclick(){
 	if($("#btn_purchaseOrBid").text() == "구매하기"){
 		location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
+	}else{
+		
 	}
 }
 //보증서 보기 팝업 호출
 function openWorkGrtUrl(){
-	var img = new Image();
-	img.src = result.deal.workGrtUrl;
-	var img_width = img.width;
-	var win_width = img.width + 25;
-	var img_height = img.height;
-	var win = img.height + 25;
+	var img_width = workGrtUrl.width;
+	var win_width = workGrtUrl.width + 25;
+	var img_height = workGrtUrl.height;
+	var win = workGrtUrl.height + 25;
 	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
-	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+result.deal.workGrtUrl+"' width='"+img_width+" height='"+img_height+"'>");
+	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+workGrtUrl.src+"' width='"+img_width+" height='"+img_height+"'>");
 }
 //경매일 경우 호가 단위를 자동으로 리턴해준다.
 function askingPrice(prc){
-	debugger;
 	var returnVal;
 	if (prc > 0 && prc < 300000) {
 		returnVal = 20000;
 	}
-	if (prc > 300000 && prc < 1000000) {
+	if (prc >= 300000 && prc < 1000000) {
 		returnVal = 50000;
 	}
-	if (prc > 1000000 && prc < 3000000) {
+	if (prc >= 1000000 && prc < 3000000) {
 		returnVal = 100000;
 	}
-	if (prc > 3000000 && prc < 5000000) {
+	if (prc >= 3000000 && prc < 5000000) {
 		returnVal = 200000;
 	}
-	if (prc > 5000000 && prc < 10000000) {
+	if (prc >= 5000000 && prc < 10000000) {
 		returnVal = 500000;
 	}
-	if (prc > 10000000 && prc < 30000000) {
+	if (prc >= 10000000 && prc < 30000000) {
 		returnVal = 1000000;
 	}
-	if (prc > 30000000 && prc < 50000000) {
+	if (prc >= 30000000 && prc < 50000000) {
 		returnVal = 2000000;
 	}
-	if (prc > 50000000 && prc < 200000000) {
+	if (prc >= 50000000 && prc < 200000000) {
 		returnVal = 5000000;
 	}
-	if (prc > 200000000 && prc < 500000000) {
+	if (prc >= 200000000 && prc < 500000000) {
 		returnVal = 10000000;
 	}
 	if (prc >= 500000000) {
 		returnVal = 20000000;
 	}
 	return returnVal;
+}
+
+function selectBoxWriteAskingPrice(){
+	var bidPrc = 0; //입찰가
+	var askingPrc = 0; //호가단위
+	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+		bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
+		askingPrc = askingPrice(bidPrc);
+		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+	}else{ //입찰가가 없다면
+		bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
+		askingPrc = askingPrice(bidPrc);
+		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
+	}
+	for(i=0; i<9; i++){
+		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
+		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
+	}
+	$("#sbx_bidPrc").selectpicker("refresh");
 }
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
@@ -643,8 +655,6 @@ function askingPrice(prc){
     event.stopPropagation();
 });
  
- $('.selectpicker').selectpicker();
-      
 </script>
     
 	

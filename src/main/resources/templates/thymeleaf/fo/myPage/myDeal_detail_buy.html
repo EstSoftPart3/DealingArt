@@ -214,9 +214,15 @@
 												<th><span class="my-red">쿠폰 선택</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprt1" disabled>
+														<select class="selectpicker" id="sbx_trnsprt1">
 															<option value="null">-선택-</option>
-															<option value="134,000">쿠폰입니다.</option>
+															<option value="1">쿠폰입니다.</option>
+															<option value="2">쿠폰입니다.</option>
+															<option value="3">쿠폰입니다.</option>
+															<option value="4">쿠폰입니다.</option>
+															<option value="5">쿠폰입니다.</option>
+															<option value="6">쿠폰입니다.</option>
+															<option value="7">쿠폰입니다.</option>
 														</select>
 													</div>
 													<div id="div_trnsprt1">
@@ -329,26 +335,6 @@
 var result = /*[[${result}]]*/ 'default';
 var fee = 0;
 var amount = 0;
-//var dealSq = /*[[${dealSq}]]*/ 'default';  
-//var mbrSq = /*[[${mbrSq}]]*/ 'default';
-
-/* $(function() {
-	$.ajax({
-        type: "post",
-        url: "/getDetailBuy",
-        data: {
-        	dealSq : dealSq,
-        	mbrSq : mbrSq
-        },
-        success: function(data) {
-        	debugger;
-        	data.result = result;
-        },
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-	});
-}); */
 jQuery(document).ready(function() {
 	$("#conTitle").empty();
 	const conBtn = document.getElementById("conBtn");

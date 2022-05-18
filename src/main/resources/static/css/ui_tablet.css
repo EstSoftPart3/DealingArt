@@ -3155,7 +3155,7 @@ width: 22rem;}
     font-weight: 600;
     color: #555555;
     width: 25rem;
-    padding-bottom: 2rem;
+    /* padding-bottom: 2rem; */
     vertical-align: top;
 }
 .mstyle-1 td{
@@ -5134,10 +5134,6 @@ position: relative;background-color: #fbfbfb;}
 .panel-title4 a.collapsed .collapsdiv:after{background-image: url(../img/about/arr-t.png);width: 23px;height: 12px;background-size: auto;background-color: #fff;}
 
 
-
-
-
-
 /* 0511 */
 .mstyle-3{ width: auto; margin: 0;border-top: #000 1px solid;padding-top: 20px;margin-top: 20px;}
 .mstyle-3 tr:last-child th{padding-bottom:0;}
@@ -5157,3 +5153,13 @@ position: relative;background-color: #fbfbfb;}
 .bg-st .btn-group button{background-color:#fff;}
 .comy-sum{text-align: right;width: 78.4rem;margin-top: 3rem;font-size: 2rem; font-weight: 600; color: #9f9f9f;vertical-align: middle;}
 .comy-sum span{padding-left: 2rem;font-size: 3.6rem; color: #000000; vertical-align: middle;font-weight: 600;}
+
+
+/* 0516 */
+.btn-mw{margin:0 auto !important;max-width: 50rem;}
+.th-w170 th{width: 26rem;/* padding-top: 2rem; */padding-bottom: 3rem;vertical-align: middle;}
+.th-w170 td .btns-1{margin-bottom:2rem;}
+
+
+/* 0518 */
+.link-text{width:7.5rem;}
