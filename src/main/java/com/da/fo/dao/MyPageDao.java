@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.da.mapper.MyPageMapper;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 
 @Repository
 public class MyPageDao {

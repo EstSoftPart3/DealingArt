@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.bo.service.comCodeService;
 
 @Controller

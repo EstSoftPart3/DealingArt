@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.boMemberService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 
 
 @Controller

@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.common.AwsS3Service;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;

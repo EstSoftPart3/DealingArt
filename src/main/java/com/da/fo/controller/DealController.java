@@ -32,7 +32,7 @@ import com.da.common.AwsS3Service;
 import com.da.fo.service.DealService;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.vo.FileVo;
 import com.da.vo.MbrInfoVo;
 import com.google.gson.Gson;

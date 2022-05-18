@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.util.MainPayUtil;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;

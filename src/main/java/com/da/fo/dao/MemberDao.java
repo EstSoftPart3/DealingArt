@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.da.mapper.MemberMapper;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.vo.AutoLoginVo;
 import com.da.vo.MbrInfoVo;
 import com.querydsl.jpa.impl.JPAQueryFactory;

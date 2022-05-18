@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.da.fo.service.MemberService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.vo.AutoLoginVo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

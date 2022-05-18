@@ -487,8 +487,6 @@ function dealReg(){
 	if(result.deal.dealTypCd == "A"){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
-		modalAlertShow("경매 시작은 서비스 준비중입니다.");
-		return;
 	}else{
 		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');

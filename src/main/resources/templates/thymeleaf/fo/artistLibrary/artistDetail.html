@@ -444,7 +444,7 @@ $(function() {
 			workListHtml += '<figure class="item" id="'+ workList[i].workSq +'">';
 			if(workList[i].dealTypCd == "A" && workList[i].dealSttsCd == "TP"){
 				workListHtml += '	<div class="item-div-img active" onclick="workDetail('+ workList[i].workSq +')">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style=""width:100%;">';
 				workListHtml += '		<div class="item-ho">';
 				workListHtml += '			<p>'+ workList[i].dealStrtDate +' - '+ workList[i].dealEndngDate +'</p>';
 				workListHtml += '			<p> 응찰수 : '+ workList[i].bidCnt +'</p>';
@@ -458,7 +458,7 @@ $(function() {
 			}
 			if(workList[i].dealTypCd == "S" && workList[i].dealSttsCd == "TP"){
 				workListHtml += '	<div class="item-div-img sale" onclick="workDetail('+ workList[i].workSq +')">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style=""width:100%;">';
 				workListHtml += '		<div class="item-ho2 sale-div">';
 				workListHtml += '			<h3>판매중</h3>';
 				workListHtml += '				<ul><li>'+ workList[i].dealRemainingDay +'<span>day</span></li>';
@@ -470,12 +470,12 @@ $(function() {
 			}
 			if(workList[i].dealSttsCd == "TC"){
 				workListHtml += '	<div class="item-div-img sold-3">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style=""width:100%;">';
 				workListHtml += '	</div>';
 			}
 			if(workList[i].dealTypCd == null){
 				workListHtml += '	<div class="item-div-img sale">';
-				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:353px;">';
+				workListHtml += '		<img src="'+ workList[i].workMainImgUrl +'" style="width:100%;">';
 				workListHtml += '	</div>';
 			}
 			workListHtml += '	<div class="item-body">';
