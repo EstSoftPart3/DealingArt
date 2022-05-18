@@ -31,4 +31,25 @@ public interface DealMapper {
 	 * return : int
 	 */
 	public int updateMbrRefNo();
+	
+	/*
+	 * 응찰 전 사용자 응찰값과 저장된 응찰가 비교
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int bidRegCheck(Object param);
+	
+	/*
+	 * 응찰 테이블에 응찰 정보를 insert한다
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int bidReg(Object param);
+	
+	/*
+	 * 딜 테이블에 응찰 가격을 update한다
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int updateDealAuctnPrc(Object param);
 }

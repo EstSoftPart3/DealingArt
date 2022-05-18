@@ -930,13 +930,7 @@
 	});
     
 	function workDetail(workSq){
-		pageGoPost({
-			url:"/bidding",
-			target:"_self",
-			vals:[
-				["workSq", workSq]
-			]
-		});
+		window.location.href = "/bidding?workSq="+workSq;
 	}
 	
 	

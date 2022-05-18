@@ -205,4 +205,52 @@
 				DEAL_SQ = LAST_INSERT_ID()
 	</update>
 	
+	<select id="bidRegCheck" resultType="int" parameterType="hashMap">
+		/*회원이 입력한 응찰가와 마지막 응찰가와 비교한다.*/
+		SELECT 
+		    	COUNT(*) 
+		FROM
+			    (
+			    SELECT 
+			    		*
+			    FROM 
+			    		TBL_DA_AUCTN_BID_H 
+				WHERE 
+						1=1
+				    AND MBR_SQ = #{mbrSq}
+				    AND DEAL_SQ = #{dealSq}
+				    AND BID_PRC >= #{bidPrc}
+				    GROUP BY DEAL_SQ
+				) A
+	</select>
+	
+	<insert id="bidReg" parameterType="hashMap">
+		/*응찰 테이블에 insert한다*/
+		INSERT INTO 
+		
+		TBL_DA_AUCTN_BID_H(
+		
+			MBR_SQ,
+			DEAL_SQ,
+			BID_PRC,
+			BID_DATE
+			
+		)VALUES(
+		
+			#{mbrSq},
+			#{dealSq},
+			#{bidPrc},
+			NOW()
+		)
+	</insert>
+	
+	<update id="updateDealAuctnPrc" parameterType="hashMap">
+		/* 딜 테이블에 응찰 가격 업데이트*/
+		UPDATE
+				TBL_DA_DEAL_M
+		SET
+				DEAL_AUCTN_PRC = #{bidPrc}
+		WHERE
+				DEAL_SQ = #{dealSq}
+	</update>
 </mapper>
