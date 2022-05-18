@@ -176,6 +176,7 @@ public class DealController {
 	public ModelAndView bidReg(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		System.out.println("########### param : "+param);
+		
 		int result = dealService.bidReg(param);
 		mv.addObject("result", result);
 		return mv;
