@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.bo.service.boMemberService;
 import com.da.bo.service.boardService;
 import com.da.common.AwsS3Service;
-import com.da.sample.service.CommonService;
 
 @Controller
 public class BoardController {

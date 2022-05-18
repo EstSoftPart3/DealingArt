@@ -135,8 +135,28 @@
 				TBL_DA_MBR_M
 		WHERE 	
 				MBR_ID = #{loginId}
-			AND	MBR_EMAIL = #{loginId}
 			AND	MBR_PASSWRD = #{loginPw}   
+   </select>
+   
+   <select id="loginIdCheck" resultType="int" parameterType="hashMap">
+   /* 회원 로그인 아이디 체크 */
+		SELECT 	
+				COUNT(MBR_SQ)
+		FROM 	
+				TBL_DA_MBR_M
+		WHERE 	
+				MBR_ID = #{loginId}
+   </select>
+   
+   <select id="loginPwdCheck" resultType="int" parameterType="hashMap">
+   /* 회원 로그인 패스워드 체크 */
+		SELECT 	
+				COUNT(MBR_SQ)
+		FROM 	
+				TBL_DA_MBR_M
+		WHERE 	
+				MBR_ID = #{loginId}
+			AND	MBR_PASSWRD = #{loginPw}  
    </select>
    
    <select id="getArtistInfo" resultType="hashMap" parameterType="String">

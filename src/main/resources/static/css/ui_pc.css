@@ -1794,7 +1794,7 @@ input[type="radio"]:checked + label span {
 }
 
 .baeg-left{
-    width: 628px;
+    width: 680px;
     display: table-cell;
     vertical-align: top;
 }

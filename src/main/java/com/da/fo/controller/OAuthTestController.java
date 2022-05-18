@@ -42,7 +42,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.da.util.ScriptUtils;
 import com.da.fo.service.MemberService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 
 @Controller 
 @RequestMapping("/auth")

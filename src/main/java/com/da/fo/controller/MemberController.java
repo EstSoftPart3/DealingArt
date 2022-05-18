@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.da.fo.service.MemberService;
-import com.da.sample.service.CommonService;
+import com.da.util.CommonService;
 import com.da.vo.AutoLoginVo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -164,12 +164,12 @@ public class MemberController {
 		int chk = memberService.memberWithdrawalCheck(param);
 		if(chk > 0) { //탈퇴된 회원이면 2를 반환
 			mv.addObject("login", "2");
-			mv.addObject("sMbrSqVal", "");
+			mv.addObject("sMbrSqVal", null);
 			return mv;
 		}else{
 			Map<String, Object> result = memberService.login(param);
 			
-			if(result != null) {
+			if(!result.containsKey("error")) { //에러 코드가 없으면
 				String mbrSq = result.get("mbrSq").toString();
 				String authSq = result.get("authSq").toString();
 				if(autoLoginYn.equals("Y")){
@@ -209,8 +209,8 @@ public class MemberController {
 				mv.addObject("sAuthSqVal", authSq);
 				return mv;
 				
-			}else{
-				mv.addObject("login", "0");
+			}else{ //에러코드가 있으면
+				mv.addObject("login", result.get("error").toString());
 				mv.addObject("sMbrSqVal", null);
 				mv.addObject("sAuthSqVal", null);
 				return mv;

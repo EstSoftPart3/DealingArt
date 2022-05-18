@@ -34,7 +34,7 @@
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<img th:src="${result.deal.workMainImgUrl}" />
+						<img th:src="${result.deal.workMainImgUrl}" style="width:98%;"/>
 					</div>
 					<div class="baeg-right">
 						<div class="be-title">
@@ -89,7 +89,7 @@
 										<th>
 											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>호가단위</span></div>
 										</th>
-										<td>100,000</td>
+										<td id="td_askingPrice"></td>
 									</tr>
 									<tr>
 										<th>
@@ -111,29 +111,32 @@
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span></div>
 										</th>
+									<th:block th:if="${not #strings.isEmpty(result.deal.maxBidPrc)}">
 										<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
+									</th:block>
+									<th:block th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
+										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
+									</th:block>
 									</tr>
-									<tr class="t-red">
+									<!-- <tr class="t-red">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
 										</th>
 										<td>100,000</td>
-									</tr>
+									</tr> -->
 									<tr class="t-red" id="tr_bidPrc">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>응찰가</span></div>
 										</th>
-										<td></td>
+										<td>
+											<div class="selec-box">
+												<select class="selectpicker" id="sbx_bidPrc">
+													<option value="null">-선택-</option>
+												</select>
+											</div>
+										</td>
 									</tr>
 								</table>
-								
-								<div class="selec-box" id="sbx_bidPrc">
-									<select class="selectpicker">
-										<option>Mustard</option>
-										<option>Ketchup</option>
-										<option>Relish</option>
-									</select>
-								</div>
 							</li>
 						</ul>
 						
@@ -156,7 +159,7 @@
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
-							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" /></span>
+							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:100%; border-radius:15%;"/></span>
 						</div>
 						<div class="su-r">
 							<p class="sup-1" th:text="${result.artistInfo.artstActvtyNm}">이 용은</p>
@@ -179,7 +182,7 @@
 							
 							<div class="swiper-slide" th:each="workList : ${result.workList}">
 								<a class="hd-div hd-tablet">
-									<img th:src="${workList.workMainImgUrl}" class="hd-img" />
+									<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
 									
 									<div class="hd-text">
 										<h4 th:text="${workList.artstActvtyNm}">작가명</h4>
@@ -402,7 +405,7 @@ $(function() {
 	if(result.deal.artstSq == null || result.deal.artstSq == ""){
 		$("#artstInfo").css("display", "none");
 	}
-	if(result.deal.dealTypCd == "S"){
+	if(result.deal.dealTypCd == "S"){ //정찰가면
 		$("#pageTitle").text("구매하기");
 		$("#spn_dealStrtPrc").text("판매가");
 		$("#tr_priceUnit").css("display", "none");
@@ -412,15 +415,27 @@ $(function() {
 		$("#sbx_bidPrc").css("display", "none");
 		$("#btn_purchaseOrBid").text("구매하기");
 		$("#btn_history").css("display", "none");
+	}else{ //경매면
+		var askingPrice = 0;
+		var askingPriceList = [];
+		if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+			$("#td_askingPrice").text(formatComma(askingPrice(parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''))))+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+		}else{ //입찰가가 없다면
+			$("#td_askingPrice").text(formatComma(askingPrice(parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''))))+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
+		}
+		for(i=0; i<9; i++){
+			$("#sbx_bidPrc").append("<option value='1'>1번</option>");
+		}
 	}
 });
-var dday = new Date(result.deal.dealEndngDate).getTime();
+//거래 남은 시간 1초마다 계산해서 표현하기
+var dday = new Date(result.deal.dealEndngDateTime).getTime();
 
 setInterval(function() {
   var today = new Date().getTime();
   var gap = dday - today;
   var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
   var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
   var sec = Math.ceil((gap % (1000 * 60)) / 1000);
 
@@ -429,14 +444,7 @@ setInterval(function() {
 
 function btn_purchaseOrBid_onclick(){
 	if($("#btn_purchaseOrBid").text() == "구매하기"){
-		pageGoPost({
-			url:"/myDealDetailBuy",
-			target:"_self",
-			vals:[
-				["dealSq", result.deal.dealSq],
-				["mbrSq", sMbrSqVal]
-			]
-		});
+		location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 	}
 }
 //보증서 보기 팝업 호출
@@ -449,6 +457,42 @@ function openWorkGrtUrl(){
 	var win = img.height + 25;
 	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
 	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+result.deal.workGrtUrl+"' width='"+img_width+" height='"+img_height+"'>");
+}
+//경매일 경우 호가 단위를 자동으로 리턴해준다.
+function askingPrice(prc){
+	debugger;
+	var returnVal;
+	if (prc > 0 && prc < 300000) {
+		returnVal = 20000;
+	}
+	if (prc > 300000 && prc < 1000000) {
+		returnVal = 50000;
+	}
+	if (prc > 1000000 && prc < 3000000) {
+		returnVal = 100000;
+	}
+	if (prc > 3000000 && prc < 5000000) {
+		returnVal = 200000;
+	}
+	if (prc > 5000000 && prc < 10000000) {
+		returnVal = 500000;
+	}
+	if (prc > 10000000 && prc < 30000000) {
+		returnVal = 1000000;
+	}
+	if (prc > 30000000 && prc < 50000000) {
+		returnVal = 2000000;
+	}
+	if (prc > 50000000 && prc < 200000000) {
+		returnVal = 5000000;
+	}
+	if (prc > 200000000 && prc < 500000000) {
+		returnVal = 10000000;
+	}
+	if (prc >= 500000000) {
+		returnVal = 20000000;
+	}
+	return returnVal;
 }
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
