@@ -23,22 +23,22 @@
 						<div class="reds-box mg_t150 por">
 							<ul class="pc-on">
 								<li>
-									<a href="#" class="up-on">
+									<a href="javascript:fnModalAlert();" class="up-on">
 										최신 순
 									</a>
 								</li>
 								<li>
-									<a href="#" class="down-on">
+									<a href="javascript:fnModalAlert();" class="down-on">
 										제작년도
 									</a>
 								</li>
 								<li>
-									<a href="#" class="">
+									<a href="javascript:fnModalAlert();" class="">
 										작가명 <span>ㄱ</span> - <span>ㅎ</span>
 									</a>
 								</li>
 								<li>
-									<a href="#" class="">
+									<a href="javascript:fnModalAlert();" class="">
 										작가명 <span>A</span> - <span>Z</span>
 									</a>
 								</li>
@@ -51,14 +51,27 @@
 							</div>
 						</div>
 						
-						<div>
-							<div class="columns-wrap2" id="columns2">
+						  <style type="text/css">
+								
+								.pseudo-img {
+								  border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px
+								}
+								
+								.grid{border:0px solid #222;text-align:center;margin: 0 auto;}
+ 								.griditem{ margin-bottom:40px;}
+
+							</style>
+							
+							
+						    
+						    <!-- 작품 리스트  -->
+						  	<div class="grid">
+								 
 							</div>
-						</div>
 						
-						<div class="text-center mg_t50">
-							<button type="button" class="btn-more"><span>more</span></button>
-						</div>
+<!-- 						<div class="text-center mg_t50"> -->
+<!-- 							<button type="button" class="btn-more"><span>more</span></button> -->
+<!-- 						</div> -->
 						
 					</div>
 				</div>
@@ -74,6 +87,7 @@
 
 <script th:inline="javascript">
 var result = /*[[${result}]]*/ 'default';
+
 jQuery(document).ready(function() {
 	if(sAuthSqVal == 2){
 		document.getElementById("portfolio").style.display="";
@@ -87,97 +101,77 @@ jQuery(document).ready(function() {
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
 	$("#myCollection").addClass("active");
+	
 	myCollectionList();
+	
 });   
 
 function myCollectionList(){
-	var myCollectionHtml = '';
-	$("#columns2").empty();
+    
+	var html = "";
+	
+	$("#grid").empty();
+	
 	for(var i=0; i<result.length; i++){
 		
-		myCollectionHtml += '<figure class="item">';
-		if(result[i].dealTypCd == "AUCT" && result[i].dealSttsCd == "IP"){
-			myCollectionHtml += '	<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
-			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
-			myCollectionHtml += '		<div class="item-ho">';
-			myCollectionHtml += '			<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
-			myCollectionHtml += '			<p> 응찰수 : '+ result[i].bidCnt +'</p>';
-			myCollectionHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
-			myCollectionHtml += '				<h4>시작가 : '+ formatComma(result[i].dealStrtPrc) +'</h4>';
-			myCollectionHtml += '		</div>';
-			myCollectionHtml += '	</div>';
-		}
-		if(result[i].dealTypCd == "SALE" && result[i].dealTypCd == "IP"){
-			myCollectionHtml += '	<div class="item-div-img sale-on">';
-			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
-			myCollectionHtml += '		<div class="item-ho2 sale-div">';
-			myCollectionHtml += '			<h3>판매중</h3>';
-			myCollectionHtml += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
-			myCollectionHtml += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
-			myCollectionHtml += '		</div>';
-			myCollectionHtml += '	</div>';
-		}
-		if(result[i].dealTypCd == "EN"){
-			myCollectionHtml += '	<div class="item-div-img sold-3">';
-			myCollectionHtml += '		<img src="'+ result[i].workMainImgUrl +'">';
-			myCollectionHtml += '	</div>';
-		}
+		if(i != 0) {
+			var z = i+1
+			var gtText = "gt"+z;
+		}	
+		
 		if(result[i].dealTypCd == null){
-			myCollectionHtml += '<div class="item-div-img reg">';
-			myCollectionHtml += '	<img src="'+ result[i].workMainImgUrl +'">';
-			myCollectionHtml += '	<div class="item-ho3 reg-div">';
-			myCollectionHtml += '		<div class="regs">';
-			myCollectionHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
-			myCollectionHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
-			myCollectionHtml += '		</div>';
-			myCollectionHtml += '	</div>';
-			myCollectionHtml += '</div>';
-			
-		}
-		myCollectionHtml += '	<div class="item-body">';
-		myCollectionHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
-		myCollectionHtml += '		<div class="uesr-s">';
-		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-			myCollectionHtml += '		<img src="resources/img/de/ues-icon.png"/>';
-		//}else{
-			//myCollectionHtml += '		<img src="'+ result[i].artstProfileImgUrl +'"/>';
-		//}
-		myCollectionHtml += '		</div>';
-		myCollectionHtml += '		<div class="text-s">';
-		myCollectionHtml += '			<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
-		myCollectionHtml += '			<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
-		myCollectionHtml += '			<p>'+ result[i].workMatrl +'</p>';
-		myCollectionHtml += '			<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
-		if(result[i].dealTypCd == "AUCT"){
-			myCollectionHtml += '			<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
-			myCollectionHtml += '			<p class="ts-2">';
-			myCollectionHtml += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
-			myCollectionHtml += '			응찰수 : '+ result[i].bidCnt +'<br/>';
-			myCollectionHtml += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
-			myCollectionHtml += '			</p>';
-		}
-		if(result[i].dealTypCd == "SALE"){
-			myCollectionHtml += '			<h4>판매가 '+ formatComma(result[i].maxBidPrc) +'</h4>';
-		}
-		if(result[i].dealTypCd == null){
-			myCollectionHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
-		}
-		myCollectionHtml += '		</div>';
-		if(result[i].authSq == 2){
-			myCollectionHtml += '	<div class="artist active"><span>Artist</span></div>';
-		}
-		if(result[i].authSq == 1){
-			myCollectionHtml += '	<div class="artist"><span>Artist</span></div>';
-		}
-		myCollectionHtml += '	</div>';
-		myCollectionHtml += '</figure>';
+				
+				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+				html += '<div >';
+				html += '<div class="item-div-img reg">';
+				//작품 이미지
+				html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+				html += '	<div class="item-ho3 reg-div">';
+				html += '		<div class="regs" >';
+				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
+				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
+				html += '		</div>';
+				html += '	</div>';
+				html += '</div>';
+				html += '<div class="item-body" style="height:70px;">';
+				html += '<div>';
+				html += '<div class="uesr-s">';
+				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+ 				html += '<img src="resources/img/de/ues-icon.png"/>';
+ 			}else{
+ 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+ 			}
+				html += '</div>';
+				
+				
+				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+				
+				html += '<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+				html += '<p class="ts-1">'+ result[i].workNm +'</p>';
+				html += '</div>'
+				
+				html += '</div>';
+				
+				if(result[i].authSq == 2){
+ 				html += '<div class="artist active"><span>Artist</span></div>';
+ 			}
+ 			if(result[i].authSq == 1){
+ 				html += '<div class="artist"><span>Artist</span></div>';
+ 			}
+				
+				html += '</div>';
+				html += '</div>';
+				html += '</div>';
+	    
+			}
+		
+		
 	}
-	$("#columns2").append(myCollectionHtml).trigger("create");
+	//$("#grid").append(html).trigger("create");
+	$(".grid").append(html);
+	
+	
+	masonryLayout();
 }
 
 $(document).on("click", ".cor-a", function(){
@@ -187,7 +181,13 @@ $(document).on("click", ".cor-a", function(){
 
 $(document).on("click", ".reg-a", function(){
 	var workSq= $(this).attr("workSq");
-	modalAlertShow("서비스 준비중 입니다.","");
+	pageGoPost({
+		url:"/dealReg",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
 });
 
 $(document).on("click", ".heart", function(){
@@ -227,59 +227,7 @@ $(document).on("click", ".heart", function(){
 	}
 });
       
-      $(window).on("resize", function () {
-	   	    if(window.matchMedia('(min-width: 1537px)').matches)
-	   	    {
-		   	    document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	  
-		       	  
-	   	    	
-	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	
-	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 1,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
-	   	    	
-	   	    	document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
-		       	  wrap.style.gridAutoRows = "1px";
-	   	    	
-	       	  
-	   	     };
-	   	}).resize();
-      
+     
       
       
       $(document).ready(function () {
@@ -321,14 +269,7 @@ $(document).on("click", ".heart", function(){
           });
       }
       
-      
-      /* jQuery(function($) {
-
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
-
-    	}); */
+  
       
       
       
@@ -356,6 +297,21 @@ $(document).on("click", ".heart", function(){
     	    // therefore delegated events won't be fired
     	    event.stopPropagation();
     	});
+      
+      
+     //화면 레이아웃 추가
+  	function masonryLayout() {
+  		
+  		$('.grid').masonry({
+  		  	  itemSelector: '.griditem',
+  		  	  columnWidth: 360,
+  		  	  gutter: 10,
+  		  	  horizontalOrder: true,
+  		  	  // originLeft: false //왼쪽부터 정렬 
+  		  	  // originTop: false //바닥부터
+  		  	  transitionDuration: '0.2s' //위치 전환 시간
+  		});
+  	}
 </script>
     
 	

@@ -50,7 +50,7 @@
 								}
 								
 								.grid{border:0px solid #222;text-align:center;margin: 0 auto;}
- 								.griditem{ margin-bottom:40px;}
+ 								.griditem{ margin-bottom:10px;}
 
 							</style>
 							
@@ -116,7 +116,7 @@ function myWorkList(){
      						
      						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 	     					html += '<div  >';
-	     					html += '<div class="item-div-img active-on">'
+	     					html += '<div class="item-div-img active-on">';
 	     					//작품 이미지
 	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;" style="cursor:pointer">';
 	     					
@@ -491,7 +491,7 @@ $(document).on("click", ".heart", function(){
 		$('.grid').masonry({
 		  	  itemSelector: '.griditem',
 		  	  columnWidth: 360,
-		  	  gutter: 10,
+		  	  gutter: 1,
 		  	  horizontalOrder: true,
 		  	  // originLeft: false //왼쪽부터 정렬 
 		  	  // originTop: false //바닥부터
