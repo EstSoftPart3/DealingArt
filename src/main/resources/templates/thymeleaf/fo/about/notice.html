@@ -62,38 +62,25 @@
 						
 							<div class="me-sech">
 								<div class="is-bos">
-									<div class="selec-inline">
-										<div class="selec-box">
-											<select class="selectpicker">
-												<option>제목 + 내용</option>
-												<option></option>
-												<option></option>
-											</select>
-										</div>
-									</div>
+<!-- 									<div class="selec-inline"> -->
+<!-- 										<div class="selec-box"> -->
+<!-- 											<select class="selectpicker"> -->
+<!-- 												<option>제목 + 내용</option> -->
+<!-- 												<option></option> -->
+<!-- 												<option></option> -->
+<!-- 											</select> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 								
-									<div class="is-sum d_i_b">
-										<input type="text" class="" placeholder="검색어를 입력하세요" />
-										<button type="button" class="">검색</button>
-									</div>
+<!-- 									<div class="is-sum d_i_b"> -->
+<!-- 										<input type="text" class="" placeholder="검색어를 입력하세요" /> -->
+<!-- 										<button type="button" class="">검색</button> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						
 							<div class="">
-								<ul class="noti-ul" id="dataList">
-									<!-- <li>
-										<a href="#">
-											<p>오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관....</p>
-											<span>2022.03.01</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<p>오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관오늘의집이용약관</p>
-											<span>2022.03.01</span>
-										</a>
-									</li> -->
-								</ul>
+								<ul class="noti-ul" id="ul_brdList"></ul>
 							</div>
 							
 							<div class="text-center mg_t50">
@@ -107,43 +94,30 @@
 			</div>
 		</div>
 		
-		
-		
-		
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 		
 		
 		
 	</div>
 	
-	<!-- 신고하기 완료 -->
-<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w530">
+
+<!-- 모달검색 -->
+<!-- Modal -->
+<div class="modal fade modal-s" id="lp_brdDtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1200">
 		<div class="modal-content">
-			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
 				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
-
 			</div>
-			<div class="modal-body">
-				<div class="md-box-1">
-					<div class="md-ds" id="boardTitle">
-						
-					</div>
-					
-					
-					
-					<div class="baeg-btn mg_t30">
-						<a href="#"><button type="button" class="baeg-b1">확인</button></a>
-					</div>
-					
-				</div>
-			</div>
+			
+			<!-- 상세내용 -->
+			<div class="modal-body pd60 h850-o" id="lp_brdDtl_cntnt"></div>
+			
 		</div>
 	</div>
 </div>
-	
 	
 <script type="text/javascript">      
 
@@ -156,8 +130,105 @@ $(".cn-b").hover(
 	function(){ $(this).addClass('gis') },
     function(){ $(this).removeClass('gis') }
   )
+  
+  selectBrdList("NT");
 });
+
+/*
+ * 게시판 목록 조회
+ * PARAM : BRD_TYP_CD = #{brdTypCd}
+		NT - 공지사항
+		FA - faq
+ * RETURN : 게시판 목록
+ */
+ function selectBrdList(brdTypCd){
+ 	
+ 	$.ajax({
+         type: "post",
+         url: "/selectBrdList",
+         data:{
+        	 brdTypCd : brdTypCd
+ 		},
+         success: function(data) {
+         	var brdList = null;
+         	var brdListHtml = "";
+         	
+         	if(data.result != null && data.result.length > 0){
+         		brdList = data.result;	
+         		console.log(data);
+         		
+         		for(var i=0; i<brdList.length; i++){
+
+					brdListHtml += '<li>';
+					brdListHtml += '	<a href="" data-toggle="modal" data-target="#lp_brdDtl" onclick="selectBrdDtl('+ brdList[i].brdSq +');">';
+					brdListHtml += '		<p>'+ brdList[i].brdTitle +'</p>';
+					brdListHtml += '		<span>'+ brdList[i].regDate +'</span>';
+					brdListHtml += '	</a>';
+					brdListHtml += '</li>';
+             	}
+         		
+             	$("#ul_brdList").empty();
+             	$("#ul_brdList").append(brdListHtml).trigger("create");
+         	}else{
+         		modalAlertShow("검색 결과가 없습니다."); 
+         		$("#ul_brdList").empty();
+         	}
+         },           
+         error: function(error) {
+             alert("오류 발생" + error);
+         }
+ 	});
+ }
  
+ 
+ /*
+	 * 게시판 상세 조회
+	 * PARAM : BRD_SQ = #{brdSq}
+	 * RETURN : 게시판 상세
+	 */
+  function selectBrdDtl(brdSq){
+  	
+  	$.ajax({
+          type: "post",
+          url: "/selectBrdDtl",
+          data:{
+        	  brdSq : brdSq
+  		},
+          success: function(data) {
+          	var mgzDtl = null;
+          	console.log(data);
+          	if(data.result != null){
+              	$("#lp_brdDtl_cntnt").empty();
+              	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
+          	}else{
+          		modalAlertShow("검색 결과가 없습니다."); 
+          		$("#lp_brdDtl_cntnt").empty();
+          	}
+          },           
+          error: function(error) {
+              alert("오류 발생" + error);
+          }
+  	});
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(function() {                      
   $(".bab-bo").click(function() { 
     $(this).toggleClass("bashow");     
@@ -167,72 +238,7 @@ $(".lg-my").click(function() {
  	    $('.bg-sh').toggleClass('bg-show');     
  	 	 $('.s-hov').toggleClass('s-hov-show');     
  	  });
- 	  
-searchMemberData(); 
-
- 
-  
 });
- 
-function fn_boardContent(boardTitle,brdContent) {
-	$('#myModal4').modal()	
-	
-	$('#boardTitle').html(boardTitle);
-	
-	$('#brdContent').html(brdContent)
-}
-
-//회원 리스트 호출
-	function searchMemberData(page) {
-		$.ajax({
-	           type: "post",
-	           url: "/admin/board/boardListData",
-	           data: {
-	        	   page : page,
-	        	   pageSize : 100,
-	        	   useYn : 'Y',
-	        	   brdTypCd : 'NT',
-	        	   searchGubun : $("#searchGubun").val(),
-	        	   searchWord : $("#searchWord").val()
-	           },
-	           success: function(data) {
-	        	   
-	        	   console.log(data);
-	        	   
-	        	   
-	        	   dataList = data.boardData.boardInfo;
-	        	    
-	        	   var authGubun = '';
-	        	   var checkState = '';
-	        	   var strHtml = '';
-	        	   for(i=0; i<dataList.length; i++){
-	        		   
-	        		   //onmouseover="imageInfo(\''+cid+'\')" brdContent
-	        		   
-		        	   	strHtml += '<li>';
-		        	   	strHtml += '<a href="javascript:fn_boardContent(\''+dataList[i].brdTitle+'\')">';
-		        	   	//strHtml += '<a href="javascript:fn_boardContent(\''+dataList[i].brdTitle+'\',\''+dataList[i].brdContent+'\')">';
-		        	   	//strHtml += "<a href='javascript:fn_boardContent('\'+dataList[i].brdTitle+\''"+dataList[i].brdTitle+"')'>";
-		        	   	strHtml += '<p>' + dataList[i].brdTitle +'</p>';
-		        		strHtml += '</a>';
-		        	   	strHtml += '</li>';
-		        	   	
-		        	 	checkState = '';
-		           }
-	        	   $("#dataList").empty();
-	        	   $("#dataList").append(strHtml).trigger("create");
-	        	   
-			
-	           },
-	           error: function(error) {
-	        	   var errorJson = JSON.stringify(error);
-	               //alert("오류 발생" + errorJson);
-	               console.log(errorJson);
-	           }
-		})
-	}
- 
- 
  
 /* 메뉴바 FIXED */
 if (jQuery(window).width() > 0) {
