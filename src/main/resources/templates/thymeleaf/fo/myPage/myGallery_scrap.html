@@ -149,9 +149,9 @@ function scrapList(){
 				html += '<div class="uesr-s">';
 				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
  				html += '<img src="resources/img/de/ues-icon.png"/>';
- 			}else{
+ 				}else{
  				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}
+ 				}
 				html += '</div>';
 				
 				
@@ -173,7 +173,7 @@ function scrapList(){
  				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
  				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
  				html += '</p>';
- 			}
+ 				}
 				
 				html += '</div>'
 				
@@ -181,10 +181,10 @@ function scrapList(){
 				
 				if(dealList[i].authSq == 2){
  				html += '<div class="artist active"><span>Artist</span></div>';
- 			}
- 			if(dealList[i].authSq == 1){
+ 				}
+ 				if(dealList[i].authSq == 1){
  				html += '<div class="artist"><span>Artist</span></div>';
- 			}
+ 				}
 				
 				html += '</div>';
 				html += '</div>';
@@ -200,13 +200,13 @@ function scrapList(){
 				//작품 이미지
 				html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
 				html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				html += '		<div class="item-ho2 sale-div">';
- 			html += '			<h3>판매중</h3>';
- 			html += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
- 			html += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
- 			html += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
- 			html += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
- 			html += '		</div>';
+				html += '<div class="item-ho2 sale-div">';
+ 				html += '<h3>판매중</h3>';
+ 				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+ 				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+ 				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+ 				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+ 				html += '</div>';
 				html += '</div>';
 				html += '<div class="item-body">';
 				html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
@@ -214,9 +214,9 @@ function scrapList(){
 				html += '<div class="uesr-s">';
 				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
  				html += '<img src="resources/img/de/ues-icon.png"/>';
- 			}else{
+ 				}else{
  				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}
+ 				}
 				html += '</div>';
 				
 				
@@ -233,10 +233,10 @@ function scrapList(){
 				
 				if(dealList[i].authSq == 2){
  				html += '<div class="artist active"><span>Artist</span></div>';
- 			}
- 			if(dealList[i].authSq == 1){
+ 				}
+ 				if(dealList[i].authSq == 1){
  				html += '<div class="artist"><span>Artist</span></div>';
- 			}
+ 				}
 				
 				html += '</div>';
 				html += '</div>';
