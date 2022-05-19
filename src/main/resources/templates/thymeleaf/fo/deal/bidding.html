@@ -28,8 +28,9 @@
 			<div class="contents max-1500">
 				<div class="sub-title">
 					<h3 class="mo-no" id="pageTitle">응찰하기</h3>
-					<button type="button" class="btn-on" >판매중</button>
-					<!-- <button type="button" class="btn-off">거래완료</button> -->
+					
+					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TP')}">판매중</button>
+					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TC')}">거래완료</button>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -97,7 +98,7 @@
 										</th>
 										<td th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
 									</tr>
-									<tr>
+									<tr th:if="${result.deal.dealSttsCd.toString().equals('TC')}">
 										<th>
 											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>남은시간</span></div>
 										</th>
@@ -424,7 +425,8 @@ $(function() {
 		$("#sbx_bidPrc").css("display", "none");
 		$("#btn_purchaseOrBid").text("구매하기");
 		$("#btn_history").css("display", "none");
-	}else{ //경매면
+	}
+	if(result.deal.dealTypCd == "A" && result.deal.dealSttsCd == "TP"){ //경매면
 		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 	}
 });
@@ -432,14 +434,17 @@ $(function() {
 var dday = new Date(result.deal.dealEndngDateTime).getTime();
 
 setInterval(function() {
-  var today = new Date().getTime();
-  var gap = dday - today;
-  var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-  var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+	var today = new Date().getTime();
+	if(today <= dday){
+		location.reload();
+	}
+  	var gap = dday - today;
+  	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+  	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
 
-  document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+  	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 }, 1000);
 
 function btn_purchaseOrBid_onclick(){

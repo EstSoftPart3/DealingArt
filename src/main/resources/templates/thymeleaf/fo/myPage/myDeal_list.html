@@ -279,27 +279,35 @@ function myDealSearchList(){
     				myDealListHtml += '			<h4>'+ myDealList[i].artstActvtyNm +'</h4>';
     				myDealListHtml += '			<h5>'+ myDealList[i].workNm +'('+ myDealList[i].workProdcYear +')</h5>';
     				myDealListHtml += '		</div>';
-    				if(myDealList[i].dealTypCd == "A"){
+    				if(myDealList[i].dealTypCd == "A"){ //경매면
 	    				myDealListHtml += '		<div class="myd-te2">';
 	    				myDealListHtml += '			<dl class="myd-dl3">';
-	    				myDealListHtml += '				<dt>경매기간</dt>';
+	    				myDealListHtml += '				<dt>경매 기간</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
 	    				myDealListHtml += '				<dt>시작가</dt>';
-	    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].dealStrtPrc) +' 원</dd>';
-	    				myDealListHtml += '				<dt>현재입찰가</dt>';
-	    				myDealListHtml += '				<dd>'+ formatComma(myDealList[i].maxBidPrc) +' 원</dd>';
-	    				myDealListHtml += '				<dt>응찰가</dt>';
-	    				myDealListHtml += '				<dd>';
-	    				myDealListHtml += '					<div class="is-sum2">';
-	    				myDealListHtml += '						<div class="is-won"><input type="text" class="" placeholder="" /></div>';
-	    				myDealListHtml += '						<button type="button" dealSq="'+myDealList[i].dealSq+'" onclick="bidReg()">응찰하기</button>';
-	    				myDealListHtml += '					</div>';
-	    				myDealListHtml += '				</dd>';
-	    				myDealListHtml += '				<dt>남은시간</dt>';
-	    				myDealListHtml += '				<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtPrc +' 원</dd>';
+	    				if(myDealList[i].dealSttsCd == "TP"){ //경매 진행중이면
+	    					myDealListHtml += '			<dt>현재 입찰가</dt>';
+	    					myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' 원</dd>';
+		    				myDealListHtml += '			<dt>응찰가</dt>';
+		    				myDealListHtml += '			<dd>';
+		    				myDealListHtml += '				<div class="is-sum2">';
+		    				myDealListHtml += '					<select class="selectpicker" name="askingPrice" maxBidPrc="'+myDealList[i].maxBidPrc+'" id="sbx_bidPrc'+myDealList[i].dealSq+'" data-width="fit">';
+		    				myDealListHtml += '						<option value="null" style="font-size:18px;">-선택-</option>';
+		    				myDealListHtml += '					</select>';
+		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'" onclick="bidReg(this)">응찰하기</button>';
+		    				myDealListHtml += '				</div>';
+		    				myDealListHtml += '			</dd>';
+		    				myDealListHtml += '			<dt>남은 시간</dt>';
+		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+	    				}
+	    				if(myDealList[i].dealSttsCd == "TC"){ //경매 종료면
+	    					myDealListHtml += '			<dt>낙찰가</dt>';
+	    					myDealListHtml += '			<dd>'+ myDealList[i].dealSbidPrc +' 원</dd>';
+	    				}
 	    				myDealListHtml += '				<dt>응찰수</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
-	    				myDealListHtml += '				<dt>예상수수료</dt>';
+	    				myDealListHtml += '				<dt>예상 수수료</dt>';
 	    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
 	    				//myDealListHtml += '				<dt>예상배송비</dt>';
 	    				//myDealListHtml += '				<dd></dd>';
@@ -309,12 +317,14 @@ function myDealSearchList(){
     				if(myDealList[i].dealTypCd == "S"){
         				myDealListHtml += '		<div class="myd-te2">';
         				myDealListHtml += '			<dl class="myd-dl3">';
-        				myDealListHtml += '				<dt>판매기간</dt>';
+        				myDealListHtml += '				<dt>판매 기간</dt>';
         				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
         				myDealListHtml += '				<dt>판매가</dt>';
         				myDealListHtml += '				<dd>'+ myDealList[i].dealFinalPrc +' 원</dd>';
-        				myDealListHtml += '				<dt>남은시간</dt>';
-        				myDealListHtml += '				<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+        				if(myDealList[i].dealSttsCd == "TP"){
+	        				myDealListHtml += '			<dt>남은 시간</dt>';
+	        				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+        				}
         				myDealListHtml += '				<dt>예상 수수료</dt>';
         				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].dealFinalPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
         				//myDealListHtml += '				<dt>예상배송비</dt>';
@@ -326,36 +336,61 @@ function myDealSearchList(){
     				myDealListHtml += '	<div class="myd-te3">';
     				myDealListHtml += '		<div class="myd-table">';
     				myDealListHtml += '			<div class="myd-won">';
-    				if(myDealList[i].dealTypCd == "A"){
+    				if(myDealList[i].dealTypCd == "A"){ //경매면
     					myDealListHtml += '				<p class="won-p">';
-    					if(myDealList[i].bidMbrSq == sMbrSqVal){
+    					if(myDealList[i].bidMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP"){ //가장 높은 입찰자면서 거래중이면
 	    					myDealListHtml += '					현재 가장 높은 입찰가로 입찰 중 입니다.';
-    					}else{
-    						myDealListHtml += '					현재 회원님보다 높은 입찰가가 있습니다.';
+	    					myDealListHtml += '					<span>경매 진행 중</span>';
     					}
-    					myDealListHtml += '					<span>경매 진행 중</span>';
+    					if(myDealList[i].bidMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP"){//거래중이며 가장 높은 입찰가가 아니면
+    						myDealListHtml += '					현재 회원님보다 높은 입찰가가 있습니다.';
+    						myDealListHtml += '					<span>경매 진행 중</span>';
+    					}
+    					
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PW"){ //낙찰자이면서 1차 결제 대기 상태면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>1차 결제를 진행해 주세요.';
+	    					myDealListHtml += '					<span>1차 결제 대기</span>';
+	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PW"){ //낙찰자이면서 2차 결제 대기 상태면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제를 진행해 주세요.';
+	    					myDealListHtml += '					<span>2차 결제 대기</span>';
+	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC"){ //낙찰자이면서 2차 결제 완료 상태면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>2차 결제 완료</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW"){ //판매자이면서 2차 결제 완료 상태면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제를 진행해주세요.';
+	    					myDealListHtml += '					<span>결제 대기</span>';
+	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC"){ //판매자이면서 2차 결제 완료 상태면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>결제 완료</span>';
+	    				}
 	    				myDealListHtml += '				</p>';
-	    				//myDealListHtml += '				<button type="button" class="btns-2">구매 확정</button>';
     				}
     				if(myDealList[i].dealTypCd == "S"){
 	    				myDealListHtml += '				<p class="won-p">';
-	    				if(myDealList[i].buyPaymntSttsCd == "1PC"){
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PC"){
 	    					myDealListHtml += '					현재 구매자 1차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>1차 결제 완료</span>';
 	    				}
-	    				if(myDealList[i].buyPaymntSttsCd == "2PW"){
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal &&myDealList[i].buyPaymntSttsCd == "2PW"){
 	    					myDealListHtml += '					구매자 2차 결제 대기중입니다.';
 		    				myDealListHtml += '					<span>2차 결제 대기</span>';
 	    				}
-	    				if(myDealList[i].buyPaymntSttsCd == "2PC"){
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC"){
 	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>2차 결제 완료</span>';
 	    				}
-	    				if(myDealList[i].sellPaymntSttsCd == "2PW"){
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW"){
 	    					myDealListHtml += '					판매자 결제를 대기중입니다.';
 		    				myDealListHtml += '					<span>결제 대기</span>';
 	    				}
-	    				if(myDealList[i].sellPaymntSttsCd == "2PC"){
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC"){
 	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>결제 완료</span>';
 	    				}
@@ -372,6 +407,11 @@ function myDealSearchList(){
         		modalAlertShow("검색 결과가 없습니다."); 
         		$("#myDealList").empty();
         	}
+        	if(document.querySelectorAll("select[name='askingPrice']").length > 0){
+        		$(".selectpicker").selectpicker();
+        		var elements = document.querySelectorAll("select[name='askingPrice']");
+        		selectBoxWriteAskingPrice(elements, )
+        	}
         },           
         error: function(error) {
             alert("오류 발생" + error);
@@ -384,6 +424,9 @@ setInterval(function() {
 	for(var i=0; i<elements.length; i++){
 		var dday = new Date(parseInt(elements[i].attributes[1].value)).getTime();
 		var today = new Date().getTime();
+		if(today <= dday){
+			myDealSearchList();
+		}
 	  	var gap = dday - today;
 		var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
 		var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
@@ -400,7 +443,7 @@ function myDealDetail(obj){
 	if($("input:radio[name='buyOrSell']:checked").val() == "BUY"){
 		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	}else{
-		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+		location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	}
 }
 
@@ -458,36 +501,85 @@ function searchDateCheck(){
 	}
 	return true;
 }
+
+//경매일 경우 호가 단위를 자동으로 리턴해준다.
+function askingPrice(prc){
+	var returnVal;
+	if (prc > 0 && prc < 300000) {
+		returnVal = 20000;
+	}
+	if (prc >= 300000 && prc < 1000000) {
+		returnVal = 50000;
+	}
+	if (prc >= 1000000 && prc < 3000000) {
+		returnVal = 100000;
+	}
+	if (prc >= 3000000 && prc < 5000000) {
+		returnVal = 200000;
+	}
+	if (prc >= 5000000 && prc < 10000000) {
+		returnVal = 500000;
+	}
+	if (prc >= 10000000 && prc < 30000000) {
+		returnVal = 1000000;
+	}
+	if (prc >= 30000000 && prc < 50000000) {
+		returnVal = 2000000;
+	}
+	if (prc >= 50000000 && prc < 200000000) {
+		returnVal = 5000000;
+	}
+	if (prc >= 200000000 && prc < 500000000) {
+		returnVal = 10000000;
+	}
+	if (prc >= 500000000) {
+		returnVal = 20000000;
+	}
+	return returnVal;
+}
+
+function selectBoxWriteAskingPrice(objs){
+	for(var i=0; i<objs.length; i++){
+		var	bidPrc = parseInt(objs[i].attributes.maxBidPrc.value.replaceAll(/,/g, '')); //입찰가
+		var	askingPrc = askingPrice(bidPrc); //호가단위
+		for(var j=0; j<9; j++){
+			askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
+			objs[i].options[j] = new Option(formatComma(bidPrc+=askingPrc));
+			$(".selectpicker").selectpicker("refresh");
+		}
+	}
+}
+
 //경매인 거래는 응찰하기 버튼 누르면 응찰되게
-function bidReg(){
-	var dealSq = $(this).attr("dealSq");
-	$.ajax({
-        type: "post",
-        url: "/bidReg",
-        data : {
-        	dealSq : result.deal.dealSq,
-        	mbrSq : sMbrSqVal,
-        	bidPrc : parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''))
-        }, 
-        success: function(data) {
-        	debugger;
-        	if(data.result == -1){
-	        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
-        	}
-        	if(data.result == 2){
-        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
-					if(confrim){
-						location.href = "/myDeal";
-					}else{
-						location.reload();
-					}
-				});
-        	}
-        },
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-	});	
+function bidReg(obj){
+	debugger;
+	var dealSq = obj.attributes.dealSq.value;
+	var bidPrc = parseInt($("#sbx_bidPrc"+dealSq+" option:selected").val().replaceAll(/,/g, ''));
+	if(bidPrc != null && bidPrc != ""){
+		$.ajax({
+	        type: "post",
+	        url: "/bidReg",
+	        data : {
+	        	dealSq : dealSq,
+	        	mbrSq : sMbrSqVal,
+	        	bidPrc : bidPrc
+	        }, 
+	        success: function(data) {
+	        	debugger;
+	        	if(data.result == -1){
+		        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+	        	}
+	        	if(data.result == 2){
+	        		modalAlertShow("응찰이 완료되었습니다.");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});	
+	}else{
+		modalAlertShow("응찰가가 입력되지 않았습니다.", "bidPrc"+dealSq);
+	}
 }
 </script>
     
