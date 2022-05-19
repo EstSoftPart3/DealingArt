@@ -214,6 +214,24 @@
 	</div>
 </div>
 
+<!-- 모달검색 -->
+<!-- Modal -->
+<div class="modal fade modal-s" id="lp_mgz9Dtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1200">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			
+			<!-- 상세내용 -->
+			<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt"></div>
+			
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	var mainHotest = {};
 	var mainTodayBid = {};
@@ -479,13 +497,12 @@
 
 	        		   insightsHtml +='<div class="swiper-slide">';
 	        		   insightsHtml +='<div>';
-	        		   insightsHtml +='<a href="javascript:fnModalAlert();">';
+	        		   insightsHtml += '	<a href="" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mainInsights[i].mgzSq +');">';
 	        		   insightsHtml += '<div class="cns-box">';
 	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" style="height:300px; "/>';
 	 				   insightsHtml += '<div class="cns-sb">';
 	 				   insightsHtml += '<p class="cns-p1">'+mainInsights[i].mgzTitle+'</p>';
-	 				   //insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzContent+'</p>';
-	 				   insightsHtml += '<p class="cns-p2 ellipsis">딜링아트</p>';
+	 				   insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzDescrptn+'</p>';
 	 				   insightsHtml +='</a>';
 	 				   insightsHtml +='</div>';
 	 				   insightsHtml +='<div>';
@@ -526,6 +543,36 @@
 		})
 	}
 	
+  	/*
+     * MGZ9 상세 조회
+     * PARAM : #MGZ_SQ
+     * RETURN : MGZ9 상세
+     */
+     function selectMgz9Dtl(mgzSq){
+     	
+     	$.ajax({
+             type: "post",
+             url: "/selectMgz9Dtl",
+             data:{
+            	 mgzSq : mgzSq
+     		},
+             success: function(data) {
+             	var mgzDtl = null;
+             	console.log(data);
+             	if(data.result != null){
+                 	$("#lp_mgz9Dtl_cntnt").empty();
+                 	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+             	}else{
+             		modalAlertShow("검색 결과가 없습니다."); 
+             		$("#lp_mgz9Dtl_cntnt").empty();
+             	}
+             },           
+             error: function(error) {
+                 alert("오류 발생" + error);
+             }
+     	});
+     }
+  	
 	function more_onCilck(){
 		page += 1;
 		searchMainData(page);
