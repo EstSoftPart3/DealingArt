@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,59 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
 	private MyPageDao myPageDao;
+	
+	/*
+	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
+	 * param : mbrSq
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList(String param) {
+		return myPageDao.myCouponList(param);
+	}
+	
+	/*
+	 * 쿠폰 등록
+	 * param : 쿠폰식별번호, 회원순번
+	 * return : 등록 시도 결과 메시지
+	 */
+	public Map<String, String> myRegCoupon(Map<String, Object> param) {
+		
+		Map<String, String> result = new HashMap<String, String>();
+		
+		//쿠폰식별번호 조회 searchCuponIdntfctnNum
+		List cuponList = myPageDao.searchCuponIdntfctnNum(param);
+		List<Map<String, Object>> listMap = cuponList; 
+		
+		if(listMap.size() > 0) {
+			
+			String cuponSq = listMap.get(0).get("cuponSq").toString(); //쿠폰순번
+			int diffDay = Integer.parseInt(listMap.get(0).get("diffDay").toString()); //쿠폰 사용기한
+			
+			param.put("cuponSq", cuponSq);
+			//쿠폰 중복등록 카운트 조회
+			int overlapCnt = myPageDao.cntCouponOverlap(param);
+			
+			if(overlapCnt > 0){
+				result.put("msg", "이전에 등록한 쿠폰입니다.");
+			}else {
+				
+				if(diffDay > 0) {
+					result.put("msg", "사용기한이 지난 쿠폰입니다.");
+				} else {
+					//쿠폰 등록
+					if(myPageDao.insertCouponReg(param) > 0) {
+						result.put("msg", "쿠폰이 등록되었습니다.");
+					} else {
+						result.put("msg", "쿠폰 등록에 실패하였습니다.");
+					}
+				}
+			}
+		}else {//등록 불가능한 쿠폰인 경우
+			result.put("msg", "존재하지 않는 쿠푠입니다.");
+		}
+		
+		return result;
+	}
 	
 	/*
 	 * 거래내역 화면 오픈 시, 검색 조건 입력 후 조회 시 로그인한 회원의 거래내역 리스트를 보여준다.

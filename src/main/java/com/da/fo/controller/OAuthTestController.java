@@ -248,7 +248,7 @@ public class OAuthTestController {
 			accessTokenParams.add("client_id", "69c902a158be248a93aca88ba9ff0929"); 
 			accessTokenParams.add("client_secret", "AQB8RotIga9HUSLBEkzYoFXW4SSVwQDV"); 
 			accessTokenParams.add("code" , code);
-			accessTokenParams.add("redirect_uri" , "https://www.dealing-art.net/main");
+			accessTokenParams.add("redirect_uri" , "http://localhost:8088/auth/kakao/callback");
 
 			HttpEntity<MultiValueMap<String, String>> accessTokenRequest = new HttpEntity<>(accessTokenParams, accessTokenHeaders);
 

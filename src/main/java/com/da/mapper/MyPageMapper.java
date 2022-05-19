@@ -6,6 +6,35 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 public interface MyPageMapper {
+	
+	/*
+	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
+	 * param : mbrSq
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList(String param);
+	
+	/*
+	 * 쿠폰식별번호 조회
+	 * param : cuponIdntfctnNum
+	 * return : 쿠폰 목록이 들어있는 리스트
+	 */
+	public List searchCuponIdntfctnNum(Object param);
+	
+	/*
+	 * 쿠폰중복등록 카운트
+	 * param : cuponSq, mbrSq
+	 * return : 쿠폰중복등록 카운트
+	 */
+	public int cntCouponOverlap(Object param);
+	
+	/*
+	 * 쿠폰 등록
+	 * param : cuponSq, mbrSq
+	 * return : 쿠폰 등록
+	 */
+	public int insertCouponReg(Object param);
+	
 	/*
 	 * 거래내역 정찰가 리스트를 보여준다.
 	 * param : null or  searchOption

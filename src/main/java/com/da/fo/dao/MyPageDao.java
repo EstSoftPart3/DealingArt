@@ -25,6 +25,45 @@ public class MyPageDao {
 	
 	@Autowired
 	private CommonService commonService;
+	
+	
+	
+	/*
+	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
+	 * param : mbrSq
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList(String param) {
+		return myPageMapper.myCouponList(param);
+	}
+	
+	/*
+	 * 쿠폰식별번호 조회
+	 * param : cuponIdntfctnNum
+	 * return : 쿠폰 목록이 들어있는 리스트
+	 */
+	public List searchCuponIdntfctnNum(Map<String, Object> param){
+		return myPageMapper.searchCuponIdntfctnNum(param);
+	}
+	
+	/*
+	 * 쿠폰중복등록 카운트
+	 * param : cuponSq, mbrSq
+	 * return : 쿠폰중복등록 카운트
+	 */
+	public int cntCouponOverlap(Map<String, Object> param){
+		return myPageMapper.cntCouponOverlap(param);
+	}
+	
+	/*
+	 * 쿠폰 등록
+	 * param : cuponSq, mbrSq
+	 * return : 쿠폰 등록
+	 */
+	public int insertCouponReg(Map<String, Object> param){
+		return myPageMapper.insertCouponReg(param);
+	}
+	
 	/*
 	 * 거래내역 화면 오픈 시, 검색 조건 입력 후 조회 시 로그인한 회원의 거래내역 리스트를 보여준다.
 	 * param : null or  searchOption
@@ -39,6 +78,7 @@ public class MyPageDao {
 		}
 		return result;
 	}
+	
 	/*
 	 * 나의 소장품 목록
 	 * param : mbrSq
