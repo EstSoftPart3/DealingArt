@@ -114,17 +114,20 @@
 					<div class="swiper mySwiper2">
 						
 						<div class="swiper-wrapper" id="mainHotestContent">
-							
-						</div>
 						
-<!-- 						<div class="swiper-pagination swpa-2 pc-no"></div> -->
-					</div>
+						</div>
+					<div class="swiper-pagination swpa-2 pc-no"></div>	
+					</div>	
+					
+					
 					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
 					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+					
 				</div>
-				<!-- <div class="text-center">
-					<button type="button" class="btn-more ta-no"><span>more</span></button>
-				</div> -->
+				
+				
+					
+				
 			</div>
 			
 			<!-- Dealing Art Insights -->
@@ -134,10 +137,12 @@
 				</div>
 				<div class="swi-box">
 					<div class="swiper mySwiperIn">
-						<div class="swiper-wrapper" id="mainInsights"></div>
-						</div>
+						<div class="swiper-wrapper" id="mainInsights"></div></div>
 					</div>
+<!-- 					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div> -->
+<!-- 			    	<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div> -->
 				</div>
+				
 			</div>
 			
 		 
@@ -272,11 +277,7 @@
 	       	renderBullet: function (index, className) {
 	        	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
 	          }
-	    	},
-	    	navigation: {
- 	            nextEl: ".swiper-button-next",
- 	            prevEl: ".swiper-button-prev",
- 	        },
+	    	}
 	  });
 	  
 	  
@@ -296,7 +297,10 @@
 					  	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
 					    }
 					 },
-					
+				    	navigation: {
+			 	            nextEl: ".swiper-button-next",
+			 	            prevEl: ".swiper-button-prev",
+			 	        },
 				});
 			} else if (ww < 1200) {
 				// 페이드 효과
@@ -316,12 +320,13 @@
 			   autoHeight: false,
 			   loop: false,
 		   	   pagination: {
-		       el: ".swiper-pagination",
+		       
 		       clickable: true,
 		       	renderBullet: function (index, className) {
 		        	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
 		          }
-		    	}
+		      },
+    	     
 	    });
 	    
 	    responsiveSwiperIn();
@@ -339,7 +344,8 @@
 					  renderBullet: function (index, className) {
 					  	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
 					    }
-					 },
+					 }
+					 
 					
 				});
 			} else if (ww < 1200) {
@@ -465,20 +471,21 @@
 	        	   $("#mainHotestContent").empty();
 	        	   $("#mainHotestContent").append(hotestHtml).trigger("create");
 	        	   
-	        	   console.log(mainInsights.length);
+	        	   
 	        	   
 	        	   var insightsHtml = '';
 	        	   for(i=0; i<mainInsights.length; i++){
 
 
-	        		   insightsHtml +='<div class="swiper-slide hd-div1">';
+	        		   insightsHtml +='<div class="swiper-slide">';
 	        		   insightsHtml +='<div>';
 	        		   insightsHtml +='<a href="javascript:fnModalAlert();">';
 	        		   insightsHtml += '<div class="cns-box">';
 	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" style="height:300px; "/>';
 	 				   insightsHtml += '<div class="cns-sb">';
 	 				   insightsHtml += '<p class="cns-p1">'+mainInsights[i].mgzTitle+'</p>';
-	 				   insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzContent+'</p>';
+	 				   //insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzContent+'</p>';
+	 				   insightsHtml += '<p class="cns-p2 ellipsis">딜링아트</p>';
 	 				   insightsHtml +='</a>';
 	 				   insightsHtml +='</div>';
 	 				   insightsHtml +='<div>';
