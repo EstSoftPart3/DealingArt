@@ -4,6 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 public interface MyPageService {
+	
+	/*
+	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
+	 * param : mbrSq
+	 * return : 쿠폰목록
+	 */
+	List myCouponList(String param);
+	
+	/*
+	 * 쿠폰 등록
+	 * param : 쿠폰식별번호, 회원순번
+	 * return : 등록 시도 결과 메시지
+	 */
+	Map<String, String> myRegCoupon(Map<String, Object> param);
+	
 	/*
 	 * 거래내역 화면 오픈 시, 검색 조건 입력 후 조회 시 로그인한 회원의 거래내역 리스트를 보여준다.
 	 * param : null or  searchOption

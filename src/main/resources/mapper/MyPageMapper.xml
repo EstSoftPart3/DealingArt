@@ -3,6 +3,89 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MyPageMapper">
+
+	<select id="myCouponList" resultType="hashMap" parameterType="String">
+	/* 쿠폰 리스트 */
+		SELECT 
+			 CM.CUPON_SQ										as cuponSq
+			,CM.CUPON_DIV_CD									as cuponDivCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_DIV_CD
+			) 													as cuponDivNm
+			,CM.CUPON_TYP_CD 									as cuponTypCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_TYP_CD
+			) 													as cuponTypNm
+			,CM.DISC_TYP_CD 									as discTypCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.DISC_TYP_CD
+			) 													as discTypNm
+			,CM.CUPON_DR 										as cuponDr 			
+			,CM.CUPON_DISC_AMT 									as cuponDiscAmt 		
+			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
+			,CM.CUPON_NM 										as cuponNm 			
+			,CM.CUPON_CNTNT 									as cuponCntnt 		
+			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
+			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')          as useEndDate       
+			,CM.REG_MBR_SQ                                      as regMbrSq         
+			,CM.REG_DT                                          as regDt             
+			,CM.UPDT_MBR_SQ                                     as updtMbrSq        
+			,CM.UPDT_DT                                         as updtDt            
+			,CM.USE_YN                                          as useYn             
+			,CM.DEL_YN                                          as delYn             
+			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+			,MCR.CUPON_USE_YN									as cuponUseYn	
+			,MCR.CUPON_USE_DT                                   as cuponUseDt
+		FROM TBL_DA_CUPON_M CM
+		INNER JOIN TBL_DA_MBR_CUPON_R MCR
+		ON CM.CUPON_SQ = MCR.CUPON_SQ
+		WHERE (CM.USE_YN = 'Y' AND CM.DEL_YN = 'N')
+		AND MCR.MBR_SQ = #{mbrSq}
+	</select>
+	
+	<select id="searchCuponIdntfctnNum" resultType="hashMap" parameterType="hashMap">
+	/* 쿠폰식별번호 조회 */
+		SELECT 
+			 CM.CUPON_SQ										as cuponSq
+			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
+			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
+			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')           as useEndDate       
+			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+		FROM TBL_DA_CUPON_M CM
+		WHERE (CM.USE_YN = 'Y' AND CM.DEL_YN = 'N')
+		AND CM.CUPON_IDNTFCTN_NUM = #{cuponIdntfctnNum}
+	</select>
+	
+	<select id="cntCouponOverlap" resultType="int" parameterType="hashMap">
+		/* 쿠폰중복등록 카운트 */
+		SELECT
+			COUNT(*)
+		FROM TBL_DA_MBR_CUPON_R
+		WHERE CUPON_SQ = #{cuponSq} AND MBR_SQ = #{mbrSq}
+	</select>
+	
+	<insert id="insertCouponReg">
+		/*쿠폰 등록*/
+		INSERT INTO TBL_DA_MBR_CUPON_R	(
+			 CUPON_SQ 
+			,MBR_SQ 
+			,CUPON_USE_YN
+		)VALUES(
+			#{cuponSq} 
+			,#{mbrSq} 
+			,'N'
+		);
+	</insert>
+
 	<select id="myDealSearchList123" resultType="hashMap" parameterType="hashMap">
 	/* 마이페이지 거래내역 리스트 */
 		SELECT 

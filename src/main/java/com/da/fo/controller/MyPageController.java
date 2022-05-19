@@ -91,6 +91,29 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/coupon";
 	}
 
+	// 쿠폰 리스트 조회
+	@RequestMapping("/myCouponList")
+	@ResponseBody
+	public ModelAndView myCouponList(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println("############# mbrSq : " + mbrSq);
+		List result = myPageService.myCouponList(mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	// 쿠폰 등록
+	@RequestMapping("/myRegCoupon")
+	@ResponseBody
+	public ModelAndView myRegCoupon(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println("############# param : " + param);
+		
+		Map<String, String> result = myPageService.myRegCoupon(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	// 소장품
 	@RequestMapping("/myCollection")
 	@ResponseBody
