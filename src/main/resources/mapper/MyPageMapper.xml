@@ -4,8 +4,67 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MyPageMapper">
 
+	<select id="myCouponList_payment" resultType="hashMap" parameterType="String">
+	/* 쿠폰 리스트 - 결제 */
+		SELECT 
+			 CM.CUPON_SQ										as cuponSq
+			,CM.CUPON_DIV_CD									as cuponDivCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_DIV_CD
+			) 													as cuponDivNm
+			,CM.CUPON_TYP_CD 									as cuponTypCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_TYP_CD
+			) 													as cuponTypNm
+			,CM.DISC_TYP_CD 									as discTypCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.DISC_TYP_CD
+			) 													as discTypNm
+			,CM.CUPON_DR 										as cuponDr 			
+			,CM.CUPON_DISC_AMT 									as cuponDiscAmt 		
+			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
+			,CM.CUPON_NM 										as cuponNm 			
+			,CM.CUPON_CNTNT 									as cuponCntnt 		
+			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
+			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')          as useEndDate       
+			,CM.REG_MBR_SQ                                      as regMbrSq         
+			,CM.REG_DT                                          as regDt             
+			,CM.UPDT_MBR_SQ                                     as updtMbrSq        
+			,CM.UPDT_DT                                         as updtDt            
+			,CM.USE_YN                                          as useYn             
+			,CM.DEL_YN                                          as delYn             
+			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+			,MCR.CUPON_USE_YN									as cuponUseYn	
+			,MCR.CUPON_USE_DT                                   as cuponUseDt
+		FROM TBL_DA_CUPON_M CM
+		INNER JOIN TBL_DA_MBR_CUPON_R MCR
+		ON CM.CUPON_SQ = MCR.CUPON_SQ
+		WHERE (CM.USE_YN = 'Y' AND CM.DEL_YN = 'N')
+		AND (
+				(
+					CM.CUPON_DIV_CD = "IU" 
+					
+					AND (TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) <![CDATA[<=]]> 0))
+				OR (
+						CM.CUPON_DIV_CD = "TU" 
+						AND (CURDATE() BETWEEN CM.USE_STRT_DATE AND CM.USE_END_DATE)
+					)
+		)
+		AND MCR.MBR_SQ = #{mbrSq}
+		AND CM.CUPON_TYP_CD = #{cuponTypCd}
+	</select>
+
 	<select id="myCouponList" resultType="hashMap" parameterType="String">
-	/* 쿠폰 리스트 */
+	/* 쿠폰 리스트 - 목록*/
 		SELECT 
 			 CM.CUPON_SQ										as cuponSq
 			,CM.CUPON_DIV_CD									as cuponDivCd

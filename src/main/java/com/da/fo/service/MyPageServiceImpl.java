@@ -19,6 +19,15 @@ public class MyPageServiceImpl implements MyPageService{
 	private MyPageDao myPageDao;
 	
 	/*
+	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
+	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList_payment(Map<String, Object> param) {
+		return myPageDao.myCouponList_payment(param);
+	}
+	
+	/*
 	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
 	 * param : mbrSq
 	 * return : 쿠폰목록
