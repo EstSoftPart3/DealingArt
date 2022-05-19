@@ -36,7 +36,8 @@
     <script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="resources/js/defaults-ko_KR.min.js"></script>
     
-    
+	<!-- CK에디터 -->
+	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
     
     <style type="text/css">
 		.modal-open {
@@ -792,7 +793,7 @@ var workSq = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
 //Session GET
-/* jQuery(document).ready(function() {
+jQuery(document).ready(function() {
 	$.ajax({
         type: "post",
         url: "/loginSession",
@@ -821,7 +822,7 @@ var loginAf = document.getElementById("loginAf");
             alert("오류 발생" + error);
         }
 	})
-}); */
+});
 
 //로그인 기능
 function login(){

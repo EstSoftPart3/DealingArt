@@ -4318,10 +4318,12 @@ code{
 .mgz-list li a{
     display: block;
 }
+
 .mgz-list li a .ml-img{
     position: relative;
 }
-.mgz-list li a .ml-img img{}
+
+.mgz-list li a .ml-img img{width:393px; height:240px;}
 
 .mgz-list li a .ml-div{height:176px;}
 .mgz-list li a .ml-h3{

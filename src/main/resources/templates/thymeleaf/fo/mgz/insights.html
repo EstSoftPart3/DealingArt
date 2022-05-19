@@ -31,56 +31,7 @@
 							</ul>
 						</div>
 						
-						<ul class="mgz-list">
-							<li>
-								<a href="#">
-									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
-									<div class="ml-div">
-										<h3 class="ml-h3">컨텐츠 제목</h3>
-										<div class="ml-p">
-											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
-										</div>
-										<span class="ml-time">2022.03.03</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
-									<div class="ml-div">
-										<h3 class="ml-h3">컨텐츠 제목</h3>
-										<div class="ml-p">
-											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
-										</div>
-										<span class="ml-time">2022.03.03</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
-									<div class="ml-div">
-										<h3 class="ml-h3">컨텐츠 제목</h3>
-										<div class="ml-p">
-											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
-										</div>
-										<span class="ml-time">2022.03.03</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="ml-img"><img src="resources/img/mgz/list-bg1.png" /></div>
-									<div class="ml-div">
-										<h3 class="ml-h3">컨텐츠 제목</h3>
-										<div class="ml-p">
-											코로나로 심각한 지금 여행을 즐기던 이들은 코로나 이전 별다른 제약 없이 자유롭게 해외 여행을 다니던 시절을 그리워하는 이들이 많아다니던 시절을 그리워하는 이들이 많아
-										</div>
-										<span class="ml-time">2022.03.03</span>
-									</div>
-								</a>
-							</li>
-						</ul>
+						<ul class="mgz-list" id="mgz9List"></ul>
 						
 						
 						<div class="text-center">
@@ -96,7 +47,23 @@
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 
-
+<!-- 모달검색 -->
+<!-- Modal -->
+<div class="modal fade modal-s" id="lp_mgz9Dtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1200">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			
+			<!-- 상세내용 -->
+			<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt"></div>
+			
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">      
 
@@ -219,6 +186,7 @@ $(document).ready(function(){
  	 	 $('.s-hov').toggleClass('s-hov-show');     
  	  });
   
+  selectMgz9List("IST");
 });
  
  
@@ -274,7 +242,92 @@ $(document).ready(function(){
 });
  
  $('.selectpicker').selectpicker();
-      
+
+ 
+ /*
+ * MGZ9 목록 조회
+ * PARAM : 
+	#MGZ_TYP_CD
+		IST - INSIGHTS
+		MDA - MEDIA
+		EBI - EXHIBITION
+ * RETURN : MGZ9 목록
+ */
+ function selectMgz9List(mgzTypCd){
+ 	
+ 	$.ajax({
+         type: "post",
+         url: "/selectMgz9List",
+         data:{
+        	 mgzTypCd : mgzTypCd
+ 		},
+         success: function(data) {
+         	var mgz9List = null;
+         	var mgz9ListHtml = "";
+         	
+         	if(data.result != null && data.result.length > 0){
+         		mgz9List = data.result;	
+         		console.log(data);
+         		
+         		for(var i=0; i<mgz9List.length; i++){
+         			mgz9ListHtml += '<li>';
+	         		mgz9ListHtml += '	<a href="" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+	         		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
+	         		mgz9ListHtml += '		<div class="ml-div">';
+	         		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+	         		mgz9ListHtml += '			<div class="ml-p">';
+	         		mgz9ListHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+	         		mgz9ListHtml += '			</div>';
+	         		mgz9ListHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+	         		mgz9ListHtml += '		</div>';
+	         		mgz9ListHtml += '	</a>';
+	         		mgz9ListHtml += '</li>';
+             	}
+         		
+             	$("#mgz9List").empty();
+             	$("#mgz9List").append(mgz9ListHtml).trigger("create");
+         	}else{
+         		modalAlertShow("검색 결과가 없습니다."); 
+         		$("#mgz9List").empty();
+         	}
+         },           
+         error: function(error) {
+             alert("오류 발생" + error);
+         }
+ 	});
+ }
+ 
+ 
+ /*
+  * MGZ9 상세 조회
+  * PARAM : #MGZ_SQ
+  * RETURN : MGZ9 상세
+  */
+  function selectMgz9Dtl(mgzSq){
+  	
+  	$.ajax({
+          type: "post",
+          url: "/selectMgz9Dtl",
+          data:{
+         	 mgzSq : mgzSq
+  		},
+          success: function(data) {
+          	var mgzDtl = null;
+          	console.log(data);
+          	if(data.result != null){
+              	$("#lp_mgz9Dtl_cntnt").empty();
+              	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+          	}else{
+          		modalAlertShow("검색 결과가 없습니다."); 
+          		$("#lp_mgz9Dtl_cntnt").empty();
+          	}
+          },           
+          error: function(error) {
+              alert("오류 발생" + error);
+          }
+  	});
+  }
+ 
 </script>
     
 	
