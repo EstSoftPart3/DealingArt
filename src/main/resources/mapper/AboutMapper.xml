@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.da.mapper.AboutMapper">
+
+	<select id="selectBrdList" resultType="hashMap" parameterType="String">
+	/* 게시판 리스트 */
+		SELECT
+			 BRD_SQ            					as brdSq     
+			,BRD_TYP_CD        					as brdTypCd 
+			,BRD_TITLE         					as brdTitle 
+			<if test="brdTypCd == 'FA' and brdTypCd != null">
+				,BRD_CONTENT       					as brdContent 
+          	</if>
+			,REG_MBR_SQ        					as regMbrSq 
+			,REG_DT            					as regDt    
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')	as regDate   
+			,UPDT_MBR_SQ       					as updtMbrSq
+			,UPDT_DT           					as updt_dt    
+			,USE_YN            					as use_yn     
+			,DEL_YN            					as del_yn     
+		FROM TBL_DA_BRD_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND BRD_TYP_CD = #{brdTypCd}
+	</select>
+	
+	<select id="selectBrdDtl" resultType="hashMap" parameterType="String">
+	/* MGZ9 리스트 */
+		SELECT
+			 BRD_SQ            					as brdSq     
+			,BRD_TYP_CD        					as brdTypCd 
+			,BRD_TITLE         					as brdTitle  
+			,BRD_CONTENT       					as brdContent
+			,REG_MBR_SQ        					as regMbrSq 
+			,REG_DT            					as regDt    
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')	as regDate   
+			,UPDT_MBR_SQ       					as updtMbrSq
+			,UPDT_DT           					as updt_dt    
+			,USE_YN            					as use_yn     
+			,DEL_YN            					as del_yn     
+		FROM TBL_DA_BRD_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND BRD_SQ = #{brdSq}
+	</select>
+
+</mapper>

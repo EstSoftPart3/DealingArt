@@ -246,4 +246,42 @@
 		WHERE
 				DEAL_SQ = #{dealSq}
 	</update>
+	
+	<select id="selectSuccessfulBidList" resultType="hashMap">
+		/*경매 종료 시간 지난 경매 정보 가져오기*/
+		SELECT 
+				DEAL_SQ AS dealSq,
+				DEAL_TYP_CD AS dealTypCd,
+				DEAL_AUCTN_PRC AS dealAuctnPrc
+		FROM
+				TBL_DA_DEAL_M
+		WHERE 
+				DEAL_TYP_CD = 'A'
+			AND DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
+	</select>
+	
+	<select id="selectSuccessfulBidBuyMbrSq" resultType="String">
+		/*경매 종료된 거래 낙찰자 가져오기*/
+		SELECT 
+				MBR_SQ AS buyMbrSq
+		FROM 
+				TBL_DA_AUCTN_BID_H
+		WHERE 
+				 DEAL_SQ = #{dealSq}
+		GROUP BY DEAL_SQ 
+		ORDER BY BID_PRC DESC;
+	</select>
+	
+	<update id="updateSuccessfulBidDeal">
+		/*경매 종료된 거래 정보 업데이트*/
+		UPDATE 
+				TBL_DA_DEAL_M
+		SET
+				BUY_MBR_SQ = #{buyMbrSq},
+				DEAL_STTS_CD = 'TC',
+				DEAL_SBID_PRC = #{dealSbidPrc},
+				DEAL_FINAL_PRC = #{dealFinalPrc}
+		WHERE 
+				DEAL_SQ = #{dealSq}
+	</update>
 </mapper>

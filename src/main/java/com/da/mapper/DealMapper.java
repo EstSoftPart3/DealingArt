@@ -52,4 +52,25 @@ public interface DealMapper {
 	 * return : int
 	 */
 	public int updateDealAuctnPrc(Object param);
+	
+	/*
+	 * 경매 종료 된 거래 정보를 가져온다
+	 * param : null
+	 * return : list
+	 */
+	public List selectSuccessfulBidList();
+	
+	/*
+	 * 경매 종료 된 거래 낙찰자를 가져온다
+	 * param : dealSq
+	 * return : String
+	 */
+	public String selectSuccessfulBidBuyMbrSq(Object param);
+	
+	/*
+	 * 경매 종료 된 거래 정보를 딜 테이블에 업데이트한다
+	 * param : Map
+	 * return : null
+	 */
+	public void updateSuccessfulBidDeal(Object param);
 }

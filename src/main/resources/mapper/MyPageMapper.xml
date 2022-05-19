@@ -243,6 +243,7 @@
 				TBL_DA_DEAL_M AS B
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
+			AND B.DEAL_TYP_CD = 'S'
 			AND	A.ARTST_SQ = B.ARTST_SQ 
 			<if test="buyOrSell == 'BUY'">
 				AND B.BUY_MBR_SQ = #{mbrSq}
@@ -268,6 +269,10 @@
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				C.MBR_REF_NO AS mbrRefNo, /*거래주문코드*/
+				C.BUY_MBR_SQ AS buyMbrSq, /*거래구매자순번*/
+				C.SELL_MBR_SQ AS sellMbrSq, /*거래판매자순번*/
+				C.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd, /*거래구매자결제상태*/
+				C.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd, /*거래판매자결제상태*/
 				(SELECT FORMAT(MAX(BID_PRC), 0)
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE C.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
@@ -292,11 +297,18 @@
 		INNER JOIN 
 				TBL_DA_DEAL_M AS C
 			ON 	A.WORK_SQ = C.WORK_SQ 
+		<if test="buyOrSell == 'BUY'">
 		INNER JOIN 
 				TBL_DA_AUCTN_BID_H AS D
 			ON C.DEAL_SQ = D.DEAL_SQ 
-		WHERE 
+		</if>
+		WHERE 	
+			<if test="buyOrSell == 'BUY'">
 				D.MBR_SQ IN (#{mbrSq})
+			</if>
+			<if test="buyOrSell == 'SELL'">
+				C.SELL_MBR_SQ = #{mbrSq}
+			</if>
 		GROUP BY C.DEAL_SQ;
 	</select>
 	

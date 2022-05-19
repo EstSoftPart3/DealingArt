@@ -7,11 +7,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 
-
+@EnableScheduling
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.da"})
 public class DealingArtApplication extends SpringBootServletInitializer{
@@ -24,7 +25,6 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(DealingArtApplication.class);
 	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(DealingArtApplication.class, args);
 	}
@@ -39,5 +39,4 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	    return new RestTemplate();
 	}
 	
-
 }

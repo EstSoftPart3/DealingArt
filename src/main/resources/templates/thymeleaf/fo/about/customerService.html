@@ -63,20 +63,20 @@
 						
 							<div class="">
 								<div class="is-bos">
-									<div class="selec-inline">
-										<div class="selec-box">
-											<select class="selectpicker">
-												<option>제목 + 내용</option>
-												<option></option>
-												<option></option>
-											</select>
-										</div>
-									</div>
+<!-- 									<div class="selec-inline"> -->
+<!-- 										<div class="selec-box"> -->
+<!-- 											<select class="selectpicker"> -->
+<!-- 												<option>제목 + 내용</option> -->
+<!-- 												<option></option> -->
+<!-- 												<option></option> -->
+<!-- 											</select> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 								
-									<div class="is-sum d_i_b">
-										<input type="text" class="cli-mo" placeholder="검색어를 입력하세요" />
-										<button type="button" class="">검색</button>
-									</div>
+<!-- 									<div class="is-sum d_i_b"> -->
+<!-- 										<input type="text" class="cli-mo" placeholder="검색어를 입력하세요" /> -->
+<!-- 										<button type="button" class="">검색</button> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 							
@@ -91,38 +91,7 @@
 						
 							<div class="wrapper">
 								<div class="panel-group3" id="accordion" role="tablist" aria-multiselectable="true">
-									<div class="panel panel-default3">
-										<div class="panel-heading3 active" role="tab" id="heading1">
-											<h4 class="panel-title3">
-												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-													예상 배송비는 어떻게 책정되나요?
-												<div class="collapsdiv"></div>
-												</a>
-											</h4>
-										</div>
-										<div id="collapse1" class="panel-collapse3 collapse in" role="tabpanel" aria-labelledby="heading1">
-											<div class="panel-body">
-												<div class="coll-text">
-													판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.
-												</div>
-											</div>
-										</div>
-										<div class="panel-heading3" role="tab" id="heading2">
-											<h4 class="panel-title3">
-												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-													예상 배송비는 어떻게 책정되나요?
-												<div class="collapsdiv"></div>
-												</a>
-											</h4>
-										</div>
-										<div id="collapse2" class="panel-collapse3 collapse" role="tabpanel" aria-labelledby="heading2">
-											<div class="panel-body">
-												<div class="coll-text">
-													판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.판매자와 구매자의 마이페이지에 등록된 회원의 주소를 기준으로 책정됩니다.
-												</div>
-											</div>
-										</div>
-									</div>
+									<div class="panel panel-default3" id="ul_brdList"></div>
 								</div>
 							</div>
 							
@@ -150,7 +119,98 @@ $(".cn-b").hover(
 	function(){ $(this).addClass('gis') },
     function(){ $(this).removeClass('gis') }
   )
+  
+  selectBrdList("FA");
  });
+ 
+ 
+/*
+ * 게시판 목록 조회
+ * PARAM : BRD_TYP_CD = #{brdTypCd}
+		NT - 공지사항
+		FA - faq
+ * RETURN : 게시판 목록
+ */
+ function selectBrdList(brdTypCd){
+ 	
+ 	$.ajax({
+         type: "post",
+         url: "/selectBrdList",
+         data:{
+        	 brdTypCd : brdTypCd
+ 		},
+         success: function(data) {
+         	var brdList = null;
+         	var brdListHtml = "";
+         	
+         	if(data.result != null && data.result.length > 0){
+         		brdList = data.result;	
+         		console.log(data);
+         		
+         		for(var i=0; i<brdList.length; i++){
+					
+         			brdListHtml += '<div class="panel-heading3 active" role="tab" id="heading'+ brdList[i].brdSq +'">';
+					brdListHtml += '	<h4 class="panel-title3">';
+					brdListHtml += '		<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ brdList[i].brdSq +'" aria-expanded="true" aria-controls="collapse'+ brdList[i].brdSq +'">';
+					brdListHtml += '			'+ brdList[i].brdTitle +'';
+					brdListHtml += '		<div class="collapsdiv"></div>';
+					brdListHtml += '		</a>';
+					brdListHtml += '	</h4>';
+					brdListHtml += '</div>';
+					brdListHtml += '<div id="collapse'+ brdList[i].brdSq +'" class="panel-collapse3 collapse" role="tabpanel" aria-labelledby="heading'+ brdList[i].brdSq +'">';
+					brdListHtml += '	<div class="panel-body">';
+					brdListHtml += '		<div class="coll-text">';
+					brdListHtml += '			'+ brdList[i].brdContent +'';
+					brdListHtml += '		</div>';
+					brdListHtml += '	</div>';
+					brdListHtml += '</div>';
+         			
+             	}
+         		
+             	$("#ul_brdList").empty();
+             	$("#ul_brdList").append(brdListHtml).trigger("create");
+         	}else{
+         		modalAlertShow("검색 결과가 없습니다."); 
+         		$("#ul_brdList").empty();
+         	}
+         },           
+         error: function(error) {
+             alert("오류 발생" + error);
+         }
+ 	});
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 $(function() {                      
   $(".bab-bo").click(function() { 
