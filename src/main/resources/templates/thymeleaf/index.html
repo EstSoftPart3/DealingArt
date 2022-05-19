@@ -116,12 +116,12 @@
 						<div class="swiper-wrapper" id="mainHotestContent">
 						
 						</div>
-					<div class="swiper-pagination swpa-2 pc-no"></div>	
+						<div class="swiper-pagination swpa-2 pc-no"></div>	
 					</div>	
 					
 					
-					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
-					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+					<div class="swiper-button-next InPrevSwiper2 sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev InNextSwiper2 sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
 					
 				</div>
 				
@@ -136,11 +136,22 @@
 					<h3>Dealing Art <span class="ta-no"><br/></span>Insights</h3>
 				</div>
 				<div class="swi-box">
-					<div class="swiper mySwiperIn">
-						<div class="swiper-wrapper" id="mainInsights"></div></div>
+					
+					
+					
+					<div class="swiper mySwiperIn" >
+						
+						<div class="swiper-wrapper" id="mainInsights">
+						
+						</div>
+						
+						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
-<!-- 					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div> -->
-<!-- 			    	<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div> -->
+					<div class="swiper-button-prev InPrev sbp ta-no" style="left:auto;float:left"><span><img src="resources/img/arr-l.jpg"></span></div>
+					<div class="swiper-button-next InNext sbn ta-no" style="right:auto;"><span><img src="resources/img/arr-r.jpg"></span></div>
+					
+			    	
+			    	
 				</div>
 				
 			</div>
@@ -286,16 +297,17 @@
 	  
 	  
 	  var swiper = new Swiper(".mySwiper2", {
-		   slidesPerView: 3,
+		   slidesPerView: 2,
 		   autoHeight: false,
 		   loop: false,
-	   	   pagination: {
-	       el: ".swiper-pagination",
-	       clickable: true,
-	       	renderBullet: function (index, className) {
-	        	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
-	          }
-	    	}
+		   autoplay: {
+		          delay: 3000,
+		          disableOnInteraction: false,
+		   },
+			navigation: {
+				 nextEl: ".InNextSwiper2",
+				 prevEl: ".InPrevSwiper2",
+			},
 	  });
 	  
 	  
@@ -303,25 +315,18 @@
 	  
 	  function responsiveSwiper() {
 			if (ww >= 1200) {
-				// 슬라이드 효과
+				// 1
 				swiper = new Swiper('.mySwiper2', {
-					slidesPerView: 3,
+					slidesPerView: 2,
 					loop: false,
 					effect: 'slide',
-					pagination: {
-					  el: ".swiper-pagination",
-					  clickable: true,
-					  renderBullet: function (index, className) {
-					  	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
-					    }
-					 },
-				    	navigation: {
-			 	            nextEl: ".swiper-button-next",
-			 	            prevEl: ".swiper-button-prev",
-			 	        },
+					navigation: {
+						 nextEl: ".swiper-button-next",
+						 prevEl: ".swiper-button-prev",
+					},
 				});
 			} else if (ww < 1200) {
-				// 페이드 효과
+				// 2
 				swiper = new Swiper('.mySwiper2', {
 					slidesPerView: 1,
 					loop: false,
@@ -334,40 +339,38 @@
 		}
 	       	  
 	    var swiper = new Swiper(".mySwiperIn", {
-	    	   slidesPerView: 5,
-			   autoHeight: false,
-			   loop: false,
-		   	   pagination: {
-		       
-		       clickable: true,
-		       	renderBullet: function (index, className) {
-		        	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
-		          }
-		      },
+	    	   
+	    	slidesPerView: 3,
+			loop: false,
+			effect: 'slide',
+			navigation: {
+				 nextEl: ".InNext",
+				 prevEl: ".InPrev",
+			},
     	     
 	    });
 	    
 	    responsiveSwiperIn();
 	    
 	    function responsiveSwiperIn() {
-			if (ww >= 1200) {
-				// 슬라이드 효과
+			
+	    	if (ww >= 1200) {
+				
 				swiper = new Swiper('.mySwiperIn', {
-					slidesPerView: 5,
+				
+					slidesPerView: 3,
 					loop: false,
 					effect: 'slide',
-					pagination: {
-					  el: ".swiper-pagination",
-					  clickable: true,
-					  renderBullet: function (index, className) {
-					  	return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
-					    }
-					 }
-					 
+					navigation: {
+						 nextEl: ".InNext",
+						 prevEl: ".InPrev",
+					},
 					
 				});
+				
 			} else if (ww < 1200) {
-				// 페이드 효과
+				
+				
 				swiper = new Swiper('.mySwiperIn', {
 					slidesPerView: 1,
 					loop: false

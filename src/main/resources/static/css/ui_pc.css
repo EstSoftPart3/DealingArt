@@ -1031,6 +1031,9 @@ transform:tarnslateY(-50%);
 .swiper-button-next:after{display:none;}
 .swiper-button-prev:before{display:none;}
 
+.swiper-button-nextIn:after{display:none;}
+.swiper-button-prevIn:before{display:none;}
+
 .pc-no{display:none;}
 .swiper-button-prev:after{display:none;}
 
