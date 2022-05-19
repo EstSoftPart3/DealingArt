@@ -292,7 +292,7 @@ function myDealSearchList(){
 	    				myDealListHtml += '				<dd>';
 	    				myDealListHtml += '					<div class="is-sum2">';
 	    				myDealListHtml += '						<div class="is-won"><input type="text" class="" placeholder="" /></div>';
-	    				myDealListHtml += '						<button type="button" class="">응찰하기</button>';
+	    				myDealListHtml += '						<button type="button" dealSq="'+myDealList[i].dealSq+'" onclick="bidReg()">응찰하기</button>';
 	    				myDealListHtml += '					</div>';
 	    				myDealListHtml += '				</dd>';
 	    				myDealListHtml += '				<dt>남은시간</dt>';
@@ -394,6 +394,7 @@ setInterval(function() {
 	}
 }, 1000);
 
+//거래 계약 안내 및 상세 페이지로 이동
 function myDealDetail(obj){
 	var dealSq = obj.getAttribute("dealSq");
 	if($("input:radio[name='buyOrSell']:checked").val() == "BUY"){
@@ -403,6 +404,7 @@ function myDealDetail(obj){
 	}
 }
 
+//날짜 선택 버튼 클릭 시 날짜 자동 셋팅
 function searchOption_onclick(clickId){
 	var today = new Date();
 	var searchEndngDate = document.getElementById('searchEndngDate');
@@ -440,6 +442,7 @@ function searchOption_onclick(clickId){
 			break;
 	}
 }
+//검색 날짜 입력되었는지 확인
 function searchDateCheck(){
 	var strtDate = document.getElementById('searchStrtDate');
 	var endngDate = document.getElementById('searchEndngDate');
@@ -454,6 +457,37 @@ function searchDateCheck(){
 		}
 	}
 	return true;
+}
+//경매인 거래는 응찰하기 버튼 누르면 응찰되게
+function bidReg(){
+	var dealSq = $(this).attr("dealSq");
+	$.ajax({
+        type: "post",
+        url: "/bidReg",
+        data : {
+        	dealSq : result.deal.dealSq,
+        	mbrSq : sMbrSqVal,
+        	bidPrc : parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''))
+        }, 
+        success: function(data) {
+        	debugger;
+        	if(data.result == -1){
+	        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+        	}
+        	if(data.result == 2){
+        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+					if(confrim){
+						location.href = "/myDeal";
+					}else{
+						location.reload();
+					}
+				});
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});	
 }
 </script>
     
