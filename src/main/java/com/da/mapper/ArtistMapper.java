@@ -66,6 +66,13 @@ public interface ArtistMapper {
 	 * return : 검색 결과
 	 */
 	public List artistWorkListNonSale(Object param);
+	
+	/*
+	 * 아티스트 전체 작품 정보를 불러온다.
+	 * param : artstSq
+	 * return : 검색 결과
+	 */
+	public List artistWorkListAll(Object param);
 }
 
 

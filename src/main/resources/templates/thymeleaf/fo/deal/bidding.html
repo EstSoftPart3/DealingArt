@@ -175,32 +175,36 @@
 					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
 					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
 				</div>
-				<div class="swi-box max-1500">
-					<div class="swiper mySwiper2">
-						<div class="swiper-wrapper">
-							
-							<div class="swiper-slide" th:each="workList : ${result.workList}">
-								<a class="hd-div hd-tablet">
-									<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
-									
-									<div class="hd-text">
-										<h4 th:text="${workList.artstActvtyNm}">작가명</h4>
-										<div class="hd-d1" th:inline="text">
-											[[${workList.workNm}]]([[${workList.workProdcYear}]])
-											<br/>
-											소재 [[${workList.workMatrl}]], [[${workList.workSizeWidth}]] x [[${workList.workSizeDepth}]]
+				<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
+				<th:block th:if="${not #strings.isEmpty(result.workList)}">
+					<div class="swi-box max-1500">
+						<div class="swiper mySwiper2">
+							<div class="swiper-wrapper">
+								
+								<div class="swiper-slide" th:each="workList : ${result.workList}">
+									<a class="hd-div hd-tablet">
+										<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
+										
+										<div class="hd-text">
+											<h4 th:text="${workList.artstActvtyNm}+'('+${workList.artstBirthYear}+')'">작가명</h4>
+											<div class="hd-d1" th:inline="text">
+												[[${workList.workNm}]]([[${workList.workProdcYear}]])
+												<br/>
+												소재 [[${workList.workMatrl}]], [[${workList.workSizeWidth}]] x [[${workList.workSizeDepth}]]
+											</div>
+											<div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div>
 										</div>
-										<div class="hd-d2" th:text="${workList.maxBidPrc}">낙찰가 3,700,000 원</div>
-									</div>
-								</a>
+									</a>
+								</div>
+								
 							</div>
-							
+							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
-						<div class="swiper-pagination swpa-2 pc-no"></div>
+						<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
 					</div>
-					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
-					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
-				</div>
+				</th:block>
+				<!-- 영역 끝 -->
 			</div>
 		</div>
 	</div>

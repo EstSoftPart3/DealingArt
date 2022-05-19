@@ -163,7 +163,7 @@ public class MyPageController {
 		return mv;
 	}
 
-	// 거래내역
+	//거래내역
 	@RequestMapping("/myDeal")
 	public String myDeal() {
 		return "thymeleaf/fo/myPage/myDeal_list";
