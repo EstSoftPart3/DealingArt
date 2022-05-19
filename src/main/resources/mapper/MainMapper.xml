@@ -71,12 +71,13 @@
 	<select id="mainInsights" resultType="hashMap">
 		/*메인 인사이트 조회*/
 		SELECT 
-				MGZ_SQ AS mgzSq,
-				MGZ_TITLE AS mgzTitle,
-				MGZ_CONTENT AS mgzContent,
-				MGZ_MAIN_IMG_URL AS mgzMainImgUrl
-		FROM
-				TBL_DA_MGZ_M
+				 MGZ_SQ 			as mgzSq
+				,MGZ_TITLE 			as mgzTitle
+				,MGZ_DESCRPTN       as mgzDescrptn  
+				,MGZ_MAIN_IMG_URL 	as mgzMainImgUrl
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND MGZ_TYP_CD = 'IST'
 		
 	</select>
 	

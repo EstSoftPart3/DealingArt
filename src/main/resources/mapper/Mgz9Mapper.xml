@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.da.mapper.Mgz9Mapper">
+
+	<select id="selectMgz9List" resultType="hashMap" parameterType="String">
+	/* MGZ9 리스트 */
+		SELECT
+			 MGZ_SQ             as mgzSq          
+			,MBR_SQ             as mbrSq          
+			,MGZ_TITLE          as mgzTitle       
+			,MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ_TYP_CD         as mgzTypCd      
+			,REG_MBR_SQ         as regMbrSq      
+			,REG_DT             as regDt     
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')			as regDate      
+			,UPDT_MBR_SQ        as updtMbrSq     
+			,UPDT_DT            as updtDt         
+			,DEL_YN             as delYn          
+			,USE_YN             as useYn          
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND MGZ_TYP_CD = #{mgzTypCd}
+	</select>
+	
+	<select id="selectMgz9Dtl" resultType="hashMap" parameterType="String">
+	/* MGZ9 리스트 */
+		SELECT
+			 MGZ_SQ             as mgzSq          
+			,MBR_SQ             as mbrSq          
+			,MGZ_TITLE          as mgzTitle      
+			,MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ_CONTENT        as mgzContent     
+			,MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ_TYP_CD         as mgzTypCd      
+			,REG_MBR_SQ         as regMbrSq      
+			,REG_DT             as regDt          
+			,UPDT_MBR_SQ        as updtMbrSq     
+			,UPDT_DT            as updtDt         
+			,DEL_YN             as delYn          
+			,USE_YN             as useYn          
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND MGZ_SQ = #{mgzSq}
+	</select>
+
+</mapper>
