@@ -46,4 +46,16 @@ public class ArtistController {
 		return mv;
 		
 	}
+	
+	
+	@RequestMapping("/artistDetailWork")
+	@ResponseBody
+	public ModelAndView artistDetailWork(@RequestParam(value="artstSq", required = false) @Nullable int artstSq) {
+		System.out.println("################## artstSq : "+artstSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetailWork");
+		Map<String, Object> result = artistService.artistDetail(artstSq);
+		mv.addObject("result", result);
+		return mv;
+		
+	}
 }
