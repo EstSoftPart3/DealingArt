@@ -31,7 +31,13 @@ public class MyPageDao {
 	 * return : 거래내역
 	 */
 	public List myDealSearchList(Map<String, Object> param) {
-		return myPageMapper.myDealSearchList(param);
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		if(param.get("saleOrAuction").toString().equals("sale")){
+			result = myPageMapper.myDealSearchListSale(param);
+		}else {
+			result = myPageMapper.myDealSearchListAuction(param);
+		}
+		return result;
 	}
 	/*
 	 * 나의 소장품 목록

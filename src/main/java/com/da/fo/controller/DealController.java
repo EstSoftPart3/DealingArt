@@ -73,16 +73,6 @@ public class DealController {
 		return mv;
 	}
 	
-	@RequestMapping("/openBidding")
-	@ResponseBody
-	public ModelAndView openBidding(@RequestParam(value="workSq", required=false) String workSq) {
-		System.out.println("workSq : " + workSq);
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
-		Map<String, Object> result = dealService.dealDetail(workSq);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
 	//거래 등록 페이지 오픈
 	@RequestMapping("/dealReg")
 	@ResponseBody
