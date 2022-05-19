@@ -118,7 +118,7 @@ function myWorkList(){
 	     					html += '<div  >';
 	     					html += '<div class="item-div-img active-on">';
 	     					//작품 이미지
-	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;" style="cursor:pointer">';
+	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 	     					
 	     					html += '<div class="item-ho">';
 	     					
@@ -191,11 +191,11 @@ function myWorkList(){
      					//판매 - 거래진행중
      					if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
 	     					
-     						html += '<div class="griditem '+gtText+'" style="border:1px solid #222;">';
+     						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 	     					html += '<div>';
 	     					//작품 이미지
 	     					html += '<div class="item-div-img sale-on">';
-	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 	     					html += '		<div class="item-ho2 sale-div">';
 	    	     			html += '			<h3>판매중</h3>';
 	    	     			html += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
@@ -249,7 +249,7 @@ function myWorkList(){
 	     					html += '<div >';
 	     					html += '<div class="item-div-img sold-3">';
 	     					//작품 이미지
-	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 	     					html += '</div>';
 	     					html += '<div class="item-body">';
 	     					
@@ -293,7 +293,7 @@ function myWorkList(){
 	     					html += '<div >';
 	     					html += '<div class="item-div-img reg">';
 	     					//작품 이미지
-	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+	     					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 	     					html += '	<div class="item-ho3 reg-div">';
 	     					html += '		<div class="regs" >';
 	     					html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
@@ -488,14 +488,20 @@ $(document).on("click", ".heart", function(){
  //화면 레이아웃 추가
 	function masonryLayout() {
 		
-		$('.grid').masonry({
+		var msnry = new Masonry( '.grid', {
+
+			
 		  	  itemSelector: '.griditem',
 		  	  columnWidth: 360,
-		  	  gutter: 1,
+		  	  gutter: 10,
 		  	  horizontalOrder: true,
 		  	  // originLeft: false //왼쪽부터 정렬 
 		  	  // originTop: false //바닥부터
 		  	  transitionDuration: '0.2s' //위치 전환 시간
+		});
+		
+		imagesLoaded( '.grid' ).on( 'progress', function() {
+			msnry.layout();
 		});
 	}
       

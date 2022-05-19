@@ -301,16 +301,19 @@ $(document).on("click", ".heart", function(){
       
      //화면 레이아웃 추가
   	function masonryLayout() {
-  		
-  		$('.grid').masonry({
-  		  	  itemSelector: '.griditem',
-  		  	  columnWidth: 360,
-  		  	  gutter: 10,
-  		  	  horizontalOrder: true,
-  		  	  // originLeft: false //왼쪽부터 정렬 
-  		  	  // originTop: false //바닥부터
-  		  	  transitionDuration: '0.2s' //위치 전환 시간
-  		});
+  		var msnry = new Masonry( '.grid', {
+		  	  itemSelector: '.griditem',
+		  	  columnWidth: 360,
+		  	  gutter: 10,
+		  	  horizontalOrder: true,
+		  	  // originLeft: false //왼쪽부터 정렬 
+		  	  // originTop: false //바닥부터
+		  	  transitionDuration: '0.2s' //위치 전환 시간
+		});
+		
+		imagesLoaded( '.grid' ).on( 'progress', function() {
+			msnry.layout();
+		});
   	}
 </script>
     
