@@ -290,14 +290,14 @@
 						<div>
 						
 							<style type="text/css">
-								
+							
 								.pseudo-img {
-								  border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px
+								  border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px;
 								}
 								
-								.grid{border:0px solid #222;text-align:center;margin: 0 auto;}
+								.grid{border:0px solid #222;text-align:center;margin: 100 auto;}
  								.griditem{ margin-bottom:40px;}
-
+								
 							</style>
 							
 							
@@ -614,7 +614,7 @@
 		     					html += '<div  >';
 		     					html += '<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">'
 		     					//작품 이미지
-		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;" style="cursor:pointer">';
+		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					
 		     					html += '<div class="item-ho">';
 		     					
@@ -686,7 +686,7 @@
 		     					html += '<div>';
 		     					//작품 이미지
 		     					html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
-		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '		<div class="item-ho2 sale-div">';
 		    	     			html += '			<h3>판매중</h3>';
 		    	     			html += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
@@ -739,7 +739,7 @@
 		     					html += '<div >';
 		     					html += '<div class="item-div-img sold-3" onclick="workDetail('+ dealList[i].workSq +')">';
 		     					//작품 이미지
-		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;">';
+		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
 		     					html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
@@ -783,7 +783,7 @@
 		     			
 		     		
 		     		$(".grid").append(html);
-		     			//$("#masonryList").append(html);
+		     	
 		     			
 		     		masonryLayout();
 	     		}
@@ -800,6 +800,7 @@
 		 if(window.matchMedia('(min-width: 1537px)').matches) {
 			$(".grid").width( '1200px' );
 		 }
+		
 	 }).resize();
 
 	 
@@ -876,15 +877,22 @@
     //화면 레이아웃 추가
 	function masonryLayout() {
 		
-		$('.grid').masonry({
+		var msnry = new Masonry( '.grid', {
+
+				
 		  	  itemSelector: '.griditem',
 		  	  columnWidth: 360,
 		  	  gutter: 10,
 		  	  horizontalOrder: true,
 		  	  // originLeft: false //왼쪽부터 정렬 
 		  	  // originTop: false //바닥부터
-		  	  transitionDuration: '0.2s' //위치 전환 시간
+		  	  //transitionDuration: '0.2s' //위치 전환 시간
 		});
+		
+		imagesLoaded( '.grid' ).on( 'progress', function() {
+			msnry.layout();
+		});
+			
 	}
     
     
@@ -946,7 +954,7 @@
 			modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");	
 		} else {
 		
-			console.log(sMbrSqVal);
+			
 			
 			var param = new Object();
 			var element = $(this);
@@ -984,6 +992,10 @@
 		
 		}
 	});
+	
+	
+	
+	
 	</script>	
     
 	

@@ -567,7 +567,9 @@ $(document).on("click", ".heart", function(){
 //화면 레이아웃 추가
 function masonryLayout() {
 	
-	$('.grid').masonry({
+	var msnry = new Masonry( '.grid', {
+
+			
 	  	  itemSelector: '.griditem',
 	  	  columnWidth: 360,
 	  	  gutter: 10,
@@ -577,18 +579,15 @@ function masonryLayout() {
 	  	  //transitionDuration: '0.2s' //위치 전환 시간
 	});
 	
+	imagesLoaded( '.grid' ).on( 'progress', function() {
+		msnry.layout();
+	});
+		
 }
-
-
 
 $( document ).ready(function() {
 	
 	
-	if (self.name != 'reload') {
-        self.name = 'reload';
-        self.location.reload(true);
-    }
-    else self.name = '';
 	
 	 
 	  $("#pills-home-tab").unbind("click").bind("click",function(){
@@ -609,9 +608,6 @@ $( document ).ready(function() {
 		 
 		 	
 	});
-
-
-      
 </script>
     
 	
