@@ -91,6 +91,23 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/coupon";
 	}
 
+	/*
+	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
+	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
+	 * return : 쿠폰목록
+	 */
+	@RequestMapping("/myCouponList_payment")
+	@ResponseBody
+	public ModelAndView myCouponList_payment(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println("############# param : " + param);
+		
+		List result = myPageService.myCouponList_payment(param);
+		mv.addObject("result", result);
+		
+		return mv;
+	}
+	
 	// 쿠폰 리스트 조회
 	@RequestMapping("/myCouponList")
 	@ResponseBody
