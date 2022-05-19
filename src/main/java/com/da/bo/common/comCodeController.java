@@ -21,9 +21,6 @@ public class comCodeController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private CommonService commonService;
-	
-	@Autowired
 	private comCodeService comCodeService;
 	
 	

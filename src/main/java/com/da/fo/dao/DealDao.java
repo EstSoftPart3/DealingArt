@@ -52,7 +52,7 @@ public class DealDao {
 			List eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
 			List exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
-			List workList = artistMapper.artistWorkListSale(deal.get("artstSq").toString());
+			List workList = artistMapper.artistWorkListAll(deal.get("artstSq").toString());
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);

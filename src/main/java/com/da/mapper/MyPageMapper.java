@@ -8,6 +8,13 @@ import org.apache.ibatis.annotations.Param;
 public interface MyPageMapper {
 	
 	/*
+	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
+	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList_payment(Object param);
+	
+	/*
 	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
 	 * param : mbrSq
 	 * return : 쿠폰목록
@@ -36,11 +43,18 @@ public interface MyPageMapper {
 	public int insertCouponReg(Object param);
 	
 	/*
-	 * 거래내역 화면 오픈 시, 검색 조건 입력 후 조회 시 로그인한 회원의 거래내역 리스트를 보여준다.
+	 * 거래내역 정찰가 리스트를 보여준다.
 	 * param : null or  searchOption
 	 * return : 거래내역
 	 */
-	public List myDealSearchList(Object param);
+	public List myDealSearchListSale(Object param);
+	
+	/*
+	 * 거래내역 경매 리스트를 보여준다.
+	 * param : null or  searchOption
+	 * return : 거래내역
+	 */
+	public List myDealSearchListAuction(Object param);
 	
 	/*
 	 * 나의 소장품 판매중인 것 목록

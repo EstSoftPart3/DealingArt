@@ -26,7 +26,14 @@ public class MyPageDao {
 	@Autowired
 	private CommonService commonService;
 	
-	
+	/*
+	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
+	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
+	 * return : 쿠폰목록
+	 */
+	public List myCouponList_payment(Map<String, Object> param) {
+		return myPageMapper.myCouponList_payment(param);
+	}
 	
 	/*
 	 * 쿠폰 화면 오픈 시, 로그인한 회원의 쿠폰 리스트를 보여준다.
@@ -70,7 +77,13 @@ public class MyPageDao {
 	 * return : 거래내역
 	 */
 	public List myDealSearchList(Map<String, Object> param) {
-		return myPageMapper.myDealSearchList(param);
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		if(param.get("saleOrAuction").toString().equals("sale")){
+			result = myPageMapper.myDealSearchListSale(param);
+		}else {
+			result = myPageMapper.myDealSearchListAuction(param);
+		}
+		return result;
 	}
 	
 	/*
