@@ -106,5 +106,11 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	void updateDealBuyMbrSq(@Param("buyMbrSq") String buyMbrSq, @Param("dealSq") String deqlSq);
+	
+	/**
+	 * 결제되면 작품 테이블에 판매여부를 Y로 바꾼다
+	 * @param paramMap
+	 */
+	void updateWorkSaleYn(String paramMap);
 
 }

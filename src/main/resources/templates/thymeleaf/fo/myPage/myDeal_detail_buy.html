@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
@@ -26,6 +27,7 @@
 									<div class="por">
 										<div class="tootip-4">거래 계약 안내</div>
 										<img src="resources/img/mypage/icon-1.png" class="med-me" />
+										<a href="javascript:openWorkGrtUrl();" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg"/></a>
 									</div>
 								</div>
 							</div>
@@ -43,7 +45,7 @@
 										<dl class="myd-dl1">
 										<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('S')}">
 											<dt>판매 기간</dt>
-											<dd th:text="${result.dealInfo.dealStrtDate}+' ~ '+${result.dealInfo.dealEndngDate}">2021.10.31 – 2021.11.31</dd>
+											<dd th:text="${result.dealInfo.dealStrtDate}+' ~ '+${result.dealInfo.dealEndngDate}"></dd>
 											<dt>판매가</dt>
 											<dd th:text="${result.dealInfo.dealFinalPrc}+' KRW'">2,200,000 원</dd>
 										</th:block>
@@ -95,8 +97,8 @@
 							<div class="myd-box">
 								<div class="myd-box-1">
 									<div class="mtext">
-										<p>회원의 주소와 배송지의 주소가 동일해야 합니다. 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
-										<button type="button" class="btns-1">받는사람 정보 수정하기</button>
+										<p>※ 회원의 주소와 배송지의 주소가 동일해야 합니다.<br>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
+										<button type="button" class="btns-1" data-toggle="modal" data-target="#newAddrModal" >받는사람 정보 수정하기</button>
 									</div>
 									
 									<div class="mg_t40">
@@ -115,7 +117,7 @@
 											</tr>
 											<tr>
 												<th>주소</th>
-												<td th:text="${result.mbrInfo.mbrDelivryAddr}">(06172) 서울특별시 OO구 OOO로OO길 OO 상세주소</td>
+												<td th:text="${result.mbrInfo.mbrDelivryAddr}"></td>
 											</tr>
 											<!-- <tr>
 												<th>배송 요청 사항</th>
@@ -141,7 +143,7 @@
 											<table class="mstyle-1">
 												<tr>
 													<th>작품가</th>
-													<td th:text="${result.dealInfo.dealFinalPrc} + '원'"></td>
+													<td th:text="${result.dealInfo.dealFinalPrc} + ' KRW'"></td>
 												</tr>
 												<tr>
 													<th>거래 수수료</th>
@@ -159,7 +161,7 @@
 														</div>
 														<div id="div_couponList_DD">
 														</div>
-														<div class="comy-sum">
+														<div class="comy-sum" id="div_totalAmount_1">
 														</div>
 													</td>
 												</tr>
@@ -213,7 +215,7 @@
 															<option value="null">-선택-</option>
 														</select>
 													</div>
-													<div id="div_trnsprtServiceCd">
+													<div class="comy-sum" id="div_trnsprtServiceCd">
 													</div>
 												</td>
 											</tr>
@@ -227,7 +229,7 @@
 													</div>
 													<div id="div_couponList_TD">
 													</div>
-													<div class="comy-sum">
+													<div class="comy-sum" id="div_totalAmount_2">
 													</div>
 												</td>
 											</tr>
@@ -280,10 +282,10 @@
 										</div>
 										
 										<div class="mbtn-box">
-											<a href="#" class="btns-3">카드영수증</a>
-											<a href="#" class="btns-3">거래명세서</a>
-											<a href="#" class="btns-3">현금영수증</a>
-											<a href="#" class="btns-3">거래계약서</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">거래명세서</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">거래계약서</a>
 										</div>
 									</div>
 								</div>
@@ -316,7 +318,7 @@
 					
 							<div class="bat-box5">
 								<a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="btn_payment()"><span>결제하기</span></a>
-								<a href="javascript:window.history.back();" class="ba-btn2" ><span>거래 내역 돌아가기</span></a>
+								<a href="javascript:location.href='/myDeal';" class="ba-btn2" ><span>거래 내역 돌아가기</span></a>
 							</div>
 						</div>
 						
@@ -327,6 +329,41 @@
 		</div>
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
+<!-- 새로운 주소 모달창 -->
+<div class="modal fade modal-s" id="newAddrModal" tabindex="-1" role="dialog" aria-labelledby="newAddrModal" aria-hidden="true">
+	<form id="findId" name="findId" method="post">
+	<div class="modal-dialog modal-baeg max-w480">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>주소 변경</h2>
+				    <img src="resources/img/ba/icon-3.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
+				<div class="id-box">
+					<div class="input-box input-group">
+						<div class="input-drox">
+							<input type="text" class="input-3" id="txt_newAddr" placeholder="주소를 검색하세요." readonly disabled/>
+						</div>
+						<button type="button" class="group-btn" id="btn_searchAddr" onclick="searchAddr()">주소 검색</button>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-3" id="txt_newAddrDetail" placeholder="상세주소를 입력하세요." readonly disabled/>
+					</div>
+					<div class="bat-box3 mg_t30">
+						<span class="c-reds">※ 회원의 주소와 배송지의 주소가 동일해야 합니다.<br>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</span>
+					</div>
+					<div class="bat-box3 mg_t30">
+						<button type="button" class="ba-btn1" onclick="updateNewAddr()"><span>저장</span></button>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
 
 <script th:inline="javascript">
 var result = /*[[${result}]]*/ 'default';
@@ -334,6 +371,12 @@ var fee = 0; //거래 수수료
 var amount = 0; //할인 전 금액
 var disc = 0; //할인할 금액
 var totalAmount = 0; //최종 결제 금액
+var sbx_couponSqList = []; //셀렉트 박스 쿠폰 순번 저장용
+var workGrtUrl = new Image(); //보증서
+workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
+/*
+ * 화면 오픈시
+ */
 jQuery(document).ready(function() {
 	$("#conTitle").empty();
 	const conBtn = document.getElementById("conBtn");
@@ -342,42 +385,46 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>거래 계약 상세</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#myDeal").addClass("active");
-	if(result.dealInfo.dealTypCd == "A" && result.dealInfo.dealSttsCd == "TP"){
-		if(result.dealInfo.bidMbrSq == sMbrSqVal){
+	
+	if(result.dealInfo.dealTypCd == "A" && result.dealInfo.dealSttsCd == "TP"){ //경매면서 판매중이면
+		if(result.dealInfo.bidMbrSq == sMbrSqVal){ //가장 높은 입찰자면
 			$("#dealSttsCdDetail").text("현재 가장 높은 입찰가로 입찰 중 입니다.");
 			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
-		}else{
+		}else{ 
 			$("#dealSttsCdDetail").text("현재 회원님보다 높은 입찰가가 있습니다.");
 			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
 		}
 	}
 	$(".selectpicker").selectpicker(); //셀렉트피커 활성화
 	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
-	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
+	if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제 미완료면
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
-		$("#1PW").css("display", "");
-		$("#paymethod").css("display", "");
-		$("#btn_payment").css("display", "")
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15);
-		$("#fee").text(formatComma(fee) + '원');
-		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) + fee;
+		$("#1PW").css("display", ""); //1차 결제 div
+		$("#paymethod").css("display", ""); //결제 수단 div
+		$("#btn_payment").css("display", "") //결제 버튼
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15); //작품가의 15프로인 수수료를 구한다
+		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제 미완료면
 		$("#dealSttsCdDetail").text("구매자 2차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
-		$("#2PW").css("display", "");
+		$("#2PW").css("display", ""); //2차 결제 div
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "");
 		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PC"){
+	if(result.dealInfo.buyPaymntSttsCd == "2PC"){ //2차 결제 완료면
 		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
 		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
-		$("#2PC").css("display", "");
+		$("#2PC").css("display", ""); //2차 결제 완료 div
 	}
 });
+/*
+ * 남은 시간 초 단위로 불러온다 
+ */
 var dday = new Date(result.dealInfo.dealEndngDate).getTime();
 
 setInterval(function() {
@@ -391,32 +438,109 @@ setInterval(function() {
 		document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
-
+/*
+ * 보증서 보기 팝업
+ */
+function openWorkGrtUrl(){
+ 	var img_width = workGrtUrl.width;
+ 	var win_width = workGrtUrl.width + 25;
+ 	var img_height = workGrtUrl.height;
+ 	var win = workGrtUrl.height + 25;
+ 	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
+ 	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+workGrtUrl.src+"' width='"+img_width+" height='"+img_height+"'>");
+ }
+/*
+ * 주소 검색 클릭 시 
+ */
+ function searchAddr(){
+	$("#txt_newAddr").attr("disabled", false);
+	new daum.Postcode({
+    	oncomplete: function(data) { //선택시 입력값 세팅
+		$("#txt_newAddr").val(data.address); // 주소 넣기
+		$("#txt_newAddrDetail").attr("readonly", false);
+		$("#txt_newAddrDetail").attr("disabled", false);
+		$('#txt_newAddrDetail').focus();
+    	}
+	}).open();
+}
+/*
+ * 새로운 주소 등록 모달 저장 클릭시
+ */
+function updateNewAddr(){
+	if($("#txt_newAddr").val() == null || $("#txt_newAddr").val() == ""){
+		$("#newAddrModal").modal("hide");
+		modalAlertShow("주소 검색을 해주세요.", "btn_searchAddr");
+		return;
+	}
+	if($("#txt_newAddrDetail").val() == null || $("#txt_newAddrDetail").val() == ""){
+		$("#newAddrModal").modal("hide");
+		modalAlertShow("상세 주소를 입력해주세요.", "txt_newAddrDetail");
+		return;
+	}
+	var mbrDelivryAddr = $("#txt_newAddr").val()+" "+$("#txt_newAddrDetail").val(); 
+	$.ajax({
+		type: "POST",
+        url: "/updateNewAddr",
+        data: {
+        	mbrSq : sMbrSqVal,
+        	mbrDelivryAddr : mbrDelivryAddr
+        },
+		success:function(data){
+			if(data.result > 0){
+				$("#newAddrModal").modal("hide");
+				modalAlertShow("새로운 주소가 정상적으로 등록되었습니다.", "reload");
+			}else{
+				$("#newAddrModal").modal("hide");
+				modalAlertShow("주소 변경에 실패했습니다.", "reload");
+			} 
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
+/*
+ * 결제 수단 클릭시
+ */
 function btn_paymethod_onclick(obj){
 	result.dealInfo.paymethod = obj.attributes.value.value;
 }
 
-function btn_payment(){
+/*
+ * 결제하기
+ */
+ function btn_payment(){
 	var data = {
-			paymethod : result.dealInfo.paymethod, //지불수단
-			amount : parseInt(amount), //메인페이 결제 금액
+			/*메인 페이에 보낼 파라미터*/
 			mbrRefNo : "", //주문번호
+			amount : parseInt(totalAmount), //메인페이에서 결제할 금액
+			paymethod : result.dealInfo.paymethod, //지불수단
 			goodsName : result.dealInfo.workNm, //상품명
+			/*DB에 저장할 파라미터*/
+			dealSq : result.dealInfo.dealSq, //거래 순번
+			workSq : result.dealInfo.workSq, //작품 순번
+			artstSq : result.dealInfo.artstSq, //아티스트 순번
 			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
-			dealSq : result.dealInfo.dealSq, //거래 순번
-			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
-			paymntDivCd : "B", //결제 구분 코드 (B 구매자/S 판매자)
-			paymntAmt : parseInt(amount), //총 결제 금액
+			paymntAmt : parseInt(totalAmount), //총 결제 금액
 			paymntFeeAmt : parseInt(fee), //결제 수수료
-			workSq : result.dealInfo.workSq //작품 순번
-			}
+			paymntDiscAmt : parseInt(disc), //할인할 금액
+			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
+			paymntDivCd : "B" //결제 구분 코드 (B 구매자/S 판매자)
+			};
 	if(result.dealInfo.paymethod == null || result.dealInfo.paymethod == ""){
 		modalAlertShow("결제 수단이 선택되지 않았습니다.")
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
+	if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
 		data.paymntTypCd = "1"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-1"; //거래 순번
+		var index = $("#sbx_couponList_DD option").index($("#sbx_couponList_DD option:selected")) - 1; //선택된 1차 쿠폰 index를 가져온다
+		data.cuponSq = sbx_couponSqList[index]; //1차 결제 쿠폰 순번을 가져온다
+		//임시 하드코딩
+		data.amount = 1004;
+		data.paymntAmt = 1004;
+		data.paymntFeeAmt = 100;
+		data.paymntDiscAmt = 100;
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -431,12 +555,16 @@ function btn_payment(){
 					Mainpay.open(response.data.nextPcUrl); //PC와 Mobile은 URL이 상이합니다.
 					return false;
 				}
-			}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
 		}); 
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
 		data.paymntTypCd = "2"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
+		//임시 하드코딩
 		data.amount = 1004;
 		data.paymntAmt = 1004;
 		$.ajax({
@@ -453,10 +581,16 @@ function btn_payment(){
 					Mainpay.open(response.data.nextPcUrl); //PC와 Mobile은 URL이 상이합니다.
 					return false;
 				}
-			}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
 		}); 
 	}
 }
+/*
+ * 결제 완료/실패 시 리로드 된다
+ */
 window.call = function (data) {
     console.log(data);
     window.location.reload()
@@ -513,9 +647,9 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			innerText += '</div>';
 			$("#div_trnsprtTypCd").empty();
 			$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+			totalTrnsprtPrc(); //총 금액 자동계산
 		}
 	}
-	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
 //운송 지역 구분 선택시
@@ -565,10 +699,13 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 				innerText += '</div>';
 				$("#div_trnsprtTypCd").empty();
 				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-			}
+				totalTrnsprtPrc(); //총 금액 자동계산
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
 		}); 
 	}
-	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
 //서비스 구분 셀렉트 박스 선택시
@@ -597,39 +734,14 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 				innerText += '</div>';
 				$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
 				totalTrnsprtPrc(); //총 금액 자동계산
-			}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
 		}); 
 	}
 });
-//부가서비스 총 금액 자동 표시
-function totalTrnsprtPrc(){
-	var cmyWonList = document.querySelectorAll(".cmy-won");
-	var trnsprtPrc = 0;
-	var totalTrnsprtPrc = 0;
-	var disc = document.querySelector(".cmy-coupon").innerText.replaceAll(' KRW', '').replaceAll('%', '');
-	
-	if(cmyWonList.length > 0){
-		for(var i=0; i<cmyWonList.length; i++){
-			trnsprtPrc = cmyWonList[i].innerText.replaceAll(/,/g, '');
-			trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' KRW', ''));
-			totalTrnsprtPrc += trnsprtPrc;
-		}
-	}else{
-		trnsprtPrc = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, ''));
-		totalTrnsprtPrc = amount;
-	}
-	if(disc.length > 2){
-		disc = parseInt(disc);
-		totalTrnsprtPrc -= disc;
-	}else{
-		disc = parseInt(disc)*0.01;
-		disc = fee * disc;
-		totalTrnsprtPrc -= disc;
-	}
-	amount = totalTrnsprtPrc;
-	$(".comy-sum").empty();
-	$(".comy-sum").append("총금액<span>"+formatComma(totalTrnsprtPrc)+" 원</span>").trigger("create"); //부가서비스 총 가격 추가
-}
+
 //쿠폰 목록 가져오기
 function getCouponList(code){
 	var cuponTypCd = code;
@@ -646,7 +758,7 @@ function getCouponList(code){
 				target.disabled = false; //쿠폰 셀렉트 박스 활성화
 				target.options.length = 1; //쿠폰 셀렉트박스 옵션 초기화
 				for(var i=0; i<data.result.length; i++){ //쿠폰 박스에 옵션 추가
-						var opt = document.createElement("option");
+					var opt = document.createElement("option");
 					if(data.result[i].cuponDr != null){
 						opt.value = data.result[i].cuponDr;
 					}else{
@@ -654,46 +766,117 @@ function getCouponList(code){
 					}
 						opt.text = data.result[i].cuponNm;
 						target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
+						sbx_couponSqList[i] = data.result[i].cuponSq; //쿠폰 array에 쿠폰 순번 추가
 				}
 				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			}
-		}
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
 	}); 
 }
 
-//쿠폰 셀렉트 박스 선택시
-$("#sbx_couponList_TD").on("change", function(){
-	var innerText = '';
-	innerText += '<div class="comy-box">';
-	innerText += '	<div class="cmy-text">'+$("#sbx_couponList_TD option:selected").text()+'</div>';
-	if($("#sbx_couponList_TD option:selected").val().length > 2){
-		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
-	}else{
-		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';
-	}
-	innerText += '	<div class="cmy-end">X</div>';
-	innerText += '</div>';
-	$("#div_couponList_TD").empty();
-	$("#div_couponList_TD").append(innerText).trigger("create"); //쿠폰 추가
-	totalTrnsprtPrc();
-});
-//쿠폰 셀렉트 박스 선택시
+//1차 결제 쿠폰 셀렉트 박스 선택시
 $("#sbx_couponList_DD").on("change", function(){
-	var innerText = '';
-	innerText += '<div class="comy-box">';
-	innerText += '	<div class="cmy-text">'+$("#sbx_couponList_DD option:selected").text()+'</div>';
-	var value = $("#sbx_couponList_DD option:selected").val();
-	if(value.length > 2){
-		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
+	var checked = $("#sbx_couponList_DD option:selected").val();
+	if(checked != "null"){
+		var innerText = '';
+		innerText += '<div class="comy-box">';
+		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_DD option:selected").text()+'</div>';
+		if($("#sbx_couponList_TD option:selected").val().length > 2){
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
+		}else{
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
+		}
+		innerText += '	<div class="cmy-end">X</div>';
+		innerText += '</div>';
+		$("#div_couponList_DD").empty();
+		$("#div_couponList_DD").append(innerText).trigger("create"); //쿠폰 추가
 	}else{
-		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
+		$("#div_couponList_DD").empty();
 	}
-	innerText += '	<div class="cmy-end">X</div>';
-	innerText += '</div>';
-	$("#div_couponList_DD").empty();
-	$("#div_couponList_DD").append(innerText).trigger("create"); //쿠폰 추가
 	totalTrnsprtPrc();
 });
+
+//2차 결제 쿠폰 셀렉트 박스 선택시
+$("#sbx_couponList_TD").on("change", function(){
+	var checked = $("#sbx_couponList_TD option:selected").val();
+	if(checked != "null"){
+		var innerText = '';
+		innerText += '<div class="comy-box">';
+		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_TD option:selected").text()+'</div>';
+		if($("#sbx_couponList_TD option:selected").val().length > 2){
+			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
+		}else{
+			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';
+		}
+		innerText += '	<div class="cmy-end">X</div>';
+		innerText += '</div>';
+		$("#div_couponList_TD").empty();
+		$("#div_couponList_TD").append(innerText).trigger("create"); //쿠폰 추가
+	}else{
+		$("#div_couponList_TD").empty();
+	}
+	totalTrnsprtPrc();
+});
+
+//최종 결제 금액 자동 표시
+function totalTrnsprtPrc(){
+	totalAmount = 0; //최종 결제 금액 초기화
+	/*********************/
+	/*2차 결제 최종 금액 구하기*/
+	/*********************/
+	if(fee == 0){ //거래 수수료가 없으면 2차 결제
+		var trnsprtPrc = 0; //부가 서비스 금액
+		var cmyWonList = document.querySelectorAll(".cmy-won"); //부가 서비스 내역을 불러온다
+		for(var i=0; i<cmyWonList.length; i++){ //부가 서비스 갯수만큼
+			trnsprtPrc = cmyWonList[i].innerText.replaceAll(/,/g, ''); //부가서비스 금액을 가져온다
+			trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' KRW', '')); //부가서비스 금액을 가져온다
+			totalAmount += trnsprtPrc; ///최종 부가서비스 금액을 가져온다
+		}
+		if(document.querySelector("#div_couponVal_TD") != null){
+			disc = document.querySelector("#div_couponVal_TD").innerText; //쿠폰 할인 금액을 가져온다
+			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
+				disc = totalAmount * disc; //쿠폰 할인 금액을 가져온다
+				totalAmount -= disc; //부가서비스에서 할인 금액을 뺀다
+			}else{ //쿠폰 할인 금액이 원화이면
+				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
+				totalAmount -= disc; //부가서비스에서 할인 금액을 뺀다
+			}
+		}
+		$("#div_totalAmount_2").empty(); //2차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_2").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+	/*********************/
+	/*1차 결제 최종 금액 구하기*/
+	/*********************/
+	}else{ //거래 수수료가 있으면 1차 결제
+		disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
+		fee = $("#fee").text().replaceAll(/,/g, '');
+		fee = parseInt(fee.replaceAll(' KRW', ''));
+		if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+			disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
+			disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
+			disc = fee * disc; //쿠폰 할인 금액을 가져온다
+			fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+		}else{ //쿠폰 할인 금액이 원화이면
+			disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
+			disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
+			fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+		}
+		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
+		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
+		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+	}
+}
+
+/*
+ * 퍼블리싱 영역
+ */
 $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches){
   	    document.querySelectorAll(".item").forEach((item) => {

@@ -59,7 +59,7 @@
 							</tr>
 							<tr style="display:none">
 								<th>보증서</th>
-								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음 <a href="javascript:openWorkGrtUrl();" class="mg_l30 por"><div class="tootip-2">보증서 보기</div><img src="resources/img/de/print-icon.jpg"/></a></td>
+								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음</td>
 								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
 							</tr>
 							<tr>
@@ -428,8 +428,6 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
-var workGrtUrl = new Image();
-workGrtUrl.src = result.deal.workGrtUrl;
 $(function() {
 	$("#sbx_bidPrc").selectpicker("refresh");
 	if(sMbrSqVal != null && sMbrSqVal != ""){
@@ -517,15 +515,7 @@ function btn_purchaseOrBid_onclick(){
 		}
 	}
 }
-//보증서 보기 팝업 호출
-function openWorkGrtUrl(){
-	var img_width = workGrtUrl.width;
-	var win_width = workGrtUrl.width + 25;
-	var img_height = workGrtUrl.height;
-	var win = workGrtUrl.height + 25;
-	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
-	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+workGrtUrl.src+"' width='"+img_width+" height='"+img_height+"'>");
-}
+
 //경매일 경우 호가 단위를 자동으로 리턴해준다.
 function askingPrice(prc){
 	var returnVal;

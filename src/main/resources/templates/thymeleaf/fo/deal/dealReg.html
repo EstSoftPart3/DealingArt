@@ -9,7 +9,7 @@
     	.footer-wrap{margin-top:0;}
     	.hd-div{background-color:#fff;}
     	input[type="radio"] + label{margin-bottom:0;}
-    	.input-time{
+    	.timepicker{
     		width: 100px;
     		height: 32px;
   			border: #cccccc 1px solid;
@@ -78,10 +78,10 @@
 								<div class="input-box" id="choiceDate" style="display:none;">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
 									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt"/></div>
-									<input type="time" class="input-time" id="dealStrtTime" required>
+									<input type="text" class="timepicker" id="dealStrtTime" required>
 									<span class="is-span">~</span> 
 									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt"></div>
-									<input type="time" class="input-time" id="dealEndngTime" required>
+									<input type="text" class="timepicker" id="dealEndngTime" required>
 								</div>
 							</div>
 						</div>
@@ -335,6 +335,19 @@ jQuery(document).ready(function() {
 		$(".user-on").css("display", "none");
 		$("#q2").prop("checked", "true");
 	}
+	
+    $('.timepicker').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 10,
+//         minTime: '10',
+//         maxTime: '6:00pm',
+        defaultTime: '0',
+        startTime: '12:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+	
 });
 
 $("input:radio[name='dealTypCd']").change(function(){
@@ -344,7 +357,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
 		$("#dealStrtPrcS").css("display", "");
-		$("#btn_dealReg").text("<span>판매 등록하기</span>")
+		$("#btn_dealReg").text("판매 등록하기")
 	}else{
 		$("#dealRegTitle").text("거래등록 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
@@ -595,6 +608,7 @@ function setTodayTime(){
 	var minutes = now.getMinutes().toString();
 	
 	return year+'-'+month+'-'+date+' '+hours+':'+minutes;
+	
 }
 
       
