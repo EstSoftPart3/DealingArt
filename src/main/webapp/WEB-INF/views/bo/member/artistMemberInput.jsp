@@ -56,6 +56,25 @@
 	                    		</div>
 	                    		
 	                  		</div>
+	                  		
+	                  		<div class="form-group row">
+	                  			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+	                  			   
+	                  			   <label class="col-form-label sTitle LabelStyle" style="text-align: center;">회원권한</label>
+	                  			   &nbsp;
+                                   <label class="btn btn-secondary sTitle r1">
+                    					<input type="radio" name="authSq"  class="authSq sTitle" autocomplete="off" value="1"> 일반
+                  					</label>
+                  					<label class="btn btn-secondary sTitle r2">
+                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="2"> 작가
+                  					</label>
+                  					
+                  					&nbsp;&nbsp;
+                  					<button type="button" class="btn btn-info sTitle" onclick="artistMemberLevelUpdate('<c:out value="${param.mbrSqParam}" />');">저장</button>
+                  					
+                				</div>
+	                  		<div>
+	                  		
 	                  	</div>
 	             	</div>
                  </div> 
@@ -79,6 +98,7 @@
                 								
                 									<input type="hidden" name="artstProfileImgUrl" id="artstProfileImgUrl">
 													<input type="file" id="file" style="display:none">
+													
 													<img class="content" id="dropZone" style="cursor:pointer;height:152px;width:150px;"/>
                 								
                 								</div>
@@ -1274,6 +1294,24 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 		        	 var mbrNm = dataContent.mbrNm						//이름
 		        	 var mbrId = dataContent.mbrId						//아이디
 		        	 var mbrCpNum = dataContent.mbrCpNum				//닉네임
+		        	 var authSq = dataContent.authSq					//회원구분
+		        	 
+					if(authSq == '1') {
+		        		$(":radio[name='authSq'][value='1']").attr('checked', true);
+		        		 $('.r1').addClass('active');
+			        	 $('.r2').removeClass('active');
+			        	 $('.r3').removeClass('active');
+			        	 $('.r4').removeClass('active');
+			         } 
+		        	 if(authSq == '2') {
+			        	 $(":radio[name='authSq'][value='2']").attr('checked', true);
+			         	 
+			        	 $('.r1').removeClass('active');
+			        	 $('.r2').addClass('active');
+			        	 $('.r3').removeClass('active');
+			        	 $('.r4').removeClass('active');
+					 }
+		        	
 		        	 
 		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrId").val(mbrId);
@@ -1346,7 +1384,7 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 							 message: "작가정보 등록완료.",
 							 locale: 'kr',
 							 callback: function() {
-							 		
+								 location.reload();	
 						     } });
 				   },
 		           error: function(error) {
@@ -1403,8 +1441,10 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 				        	$("#artstSelfIntro").val(artstSelfIntro);
 					    	/* 프로필 이미지 */
 				        	$("#artstProfileImgUrl").val(artstProfileImgUrl);
+					    	
+					    	if(artstProfileImgUrl) {
 				        	$("#dropZone").prop("src",artstProfileImgUrl)
-				        	
+					    	}
 				        	$("#artstPromtnVideoUrl").val(artstPromtnVideoUrl);
 				        	
 				        	$("#artstHmpgUrl").val(artstHmpgUrl);
@@ -1547,6 +1587,43 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 		
 		function imgInput() {
 			$('#file').click();
+		}
+		
+		function artistMemberLevelUpdate() {
+			var mbrSq  = $("#mbrSq").val();
+			var authSq = $('input[name="authSq"]:checked').val();
+			
+			
+			let params = {
+				mbrSq : mbrSq,
+				authSq : authSq	
+			}
+			
+			if (!confirm("회원 권한을 수정하시겠습니까?")) {
+		       
+		    } else {
+		    	
+		    	
+		    	$.ajax({
+			           type: "post",
+			           url: "memberUpdateData",
+			           data: params,
+			           success: function(data) {
+			        	   bootbox.alert({
+								 message: "회원 권한수정이 완료 되었습니다.",
+								 locale: 'kr',
+								 callback: function() {
+									 location.reload();		
+							     } });
+					   },
+			           error: function(error) {
+			        	   var errorJson = JSON.stringify(error);
+			               console.log(errorJson);
+			           }
+				})
+		    	
+		    }
+			
 		}
 	</script>
  

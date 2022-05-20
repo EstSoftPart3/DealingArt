@@ -93,8 +93,8 @@
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
-					<span class="sog-1"><a href="/scrap"><img src="resources/img/icon-1.png" /></a></span>
-					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
+					<span class="sog-1 scrap"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
 							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>회원정보 수정</span></a></li>
@@ -103,7 +103,7 @@
 							<li><a href="javascript:void(0);" class="myWork"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
 							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li>
 							<!-- class="scrap" -->
-							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
+							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
 							<!-- /customerService -->
 							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
@@ -1321,13 +1321,18 @@ function btn_search_onclick(){
 	
 }
 $(document).on("click", ".myWork", function(){
-	pageGoPost({
-		url:"/myWork",
-		target:"_self",
-		vals:[
-			["artstSq", artstSq]
-		]
-	});
+	
+	if(sAuthSqVal != "2"){
+		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
+	}else{
+		pageGoPost({
+			url:"/myWork",
+			target:"_self",
+			vals:[
+				["artstSq", artstSq]
+			]
+		});
+	}
 });
 $(document).on("click", ".myCollection", function(){
 	pageGoPost({
