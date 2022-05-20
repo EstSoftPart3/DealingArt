@@ -110,7 +110,7 @@
    		        		   		checkState = 'checked'; 
    		        		   	}
    		        		    
-   		        		    if(dataList[i].authSq == '3') {
+   		        		    if(dataList[i].authSq == '3') { 
  		        		   	   authGubun = '[관리자]';
  		        		   		checkState = 'checked'; 
  		        		   	}
@@ -128,11 +128,11 @@
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>';
    			        	 	strHtml += '<td>'+ dataList[i].regDt +'</td>';
    			        	 	
-   			        	 	if(dataList[i].authSq  == '2') {
-   			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">등록</button></td>';	
-   			        	 	} else {
-   			        	 	strHtml += '<td></td>';
-   			        	 	}
+   			        	 	//if(dataList[i].authSq  == '2') {
+   			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">작가정보확인</button></td>';	
+   			        	 	//} else {
+   			        	 	//strHtml += '<td></td>';
+   			        	 	//}
    			        	 	
    			        	   	strHtml += '</tr>';
    			        	   	

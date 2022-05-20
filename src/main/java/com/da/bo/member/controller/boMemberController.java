@@ -180,20 +180,32 @@ public class boMemberController {
 	@ResponseBody
 	public void memberUpdateData(@RequestParam Map<String, Object> param) {
 		
-		
 		//아이디 암호화
-		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		String mbrId = (String) param.get("mbrId");
+		if(!commonService.isEmpty(mbrId)) {
+			String mbrIdEncrypt = commonService.encrypt(mbrId);
+			param.put("mbrId", mbrIdEncrypt);
+		}
 		//이메일 암호화
-		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrEmail"));
+		String mbrEmail = (String) param.get("mbrEmail");
+		if(!commonService.isEmpty(mbrEmail)) {
+			String mbrEmailEncrypt = commonService.encrypt(mbrEmail);
+			param.put("mbrEmail", mbrEmailEncrypt);
+		}
+		
 		//휴대전화번호 암호화
-		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+		String mbrCpNum = (String) param.get("mbrCpNum");
+		if(!commonService.isEmpty(mbrCpNum)) {
+			String mbrCpNumEncrypt = commonService.encrypt(mbrCpNum);
+			param.put("mbrCpNum", mbrCpNumEncrypt);
+		}
+		
 		//집주소 암호화
-		String mbrHomeAddrEncrypt = commonService.encrypt((String) param.get("mbrHomeAddr"));
-				
-		param.put("mbrId", mbrIdEncrypt);
-		param.put("mbrEmail", mbrEmailEncrypt);
-		param.put("mbrCpNum", mbrCpNumEncrypt);
-		param.put("mbrHomeAddr", mbrHomeAddrEncrypt);
+		String mbrHomeAddr = (String) param.get("mbrHomeAddr");
+		if(!commonService.isEmpty(mbrHomeAddr)) {
+			String mbrHomeAddrEncrypt = commonService.encrypt(mbrHomeAddr);
+			param.put("mbrHomeAddr", mbrHomeAddrEncrypt);
+		}
 		
 		boMemberService.memberUpdate(param);
 		
