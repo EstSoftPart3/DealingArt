@@ -330,8 +330,10 @@
 
 <script th:inline="javascript">
 var result = /*[[${result}]]*/ 'default';
-var fee = 0;
-var amount = 0;
+var fee = 0; //거래 수수료
+var amount = 0; //할인 전 금액
+var disc = 0; //할인할 금액
+var totalAmount = 0; //최종 결제 금액
 jQuery(document).ready(function() {
 	$("#conTitle").empty();
 	const conBtn = document.getElementById("conBtn");
@@ -360,7 +362,6 @@ jQuery(document).ready(function() {
 		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15);
 		$("#fee").text(formatComma(fee) + '원');
 		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) + fee;
-		$("#amount").text('￦' + formatComma(amount) + '원');
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
@@ -369,7 +370,7 @@ jQuery(document).ready(function() {
 		$("#2PW").css("display", "");
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "");
-		getCouponList("TD");; //운송 수수료 할인 쿠폰 목록 가져오기
+		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "2PC"){
 		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
@@ -602,7 +603,6 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 });
 //부가서비스 총 금액 자동 표시
 function totalTrnsprtPrc(){
-	$(".comy-sum").empty();
 	var cmyWonList = document.querySelectorAll(".cmy-won");
 	var trnsprtPrc = 0;
 	var totalTrnsprtPrc = 0;
@@ -627,6 +627,7 @@ function totalTrnsprtPrc(){
 		totalTrnsprtPrc -= disc;
 	}
 	amount = totalTrnsprtPrc;
+	$(".comy-sum").empty();
 	$(".comy-sum").append("총금액<span>"+formatComma(totalTrnsprtPrc)+" 원</span>").trigger("create"); //부가서비스 총 가격 추가
 }
 //쿠폰 목록 가져오기
