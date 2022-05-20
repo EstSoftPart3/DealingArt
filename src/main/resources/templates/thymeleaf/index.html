@@ -236,8 +236,9 @@
 				</div>
 			</div>
 			
+			
 			<!-- 상세내용 -->
-			<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt"></div>
+			<div class="modal-body pd60 h850-o mainInsightsContent" id="lp_mgz9Dtl_cntnt"></div>
 			
 		</div>
 	</div>
@@ -435,26 +436,7 @@
       }
       
     
-      var delay = 300;
-      var timer = null;
-
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-      
-  	function searchMainData(page) {
+      function searchMainData(page) {
 		$.ajax({
 	           type: "post",
 	           url: "main/mainData",
@@ -565,6 +547,16 @@
              	if(data.result != null){
                  	$("#lp_mgz9Dtl_cntnt").empty();
                  	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+                 	
+                 	var appDevice =	$("#appDevice").val();
+             		
+             		if(appDevice == "MOBILE") {
+             			
+             			$(".mainInsightsContent > div").css('font-size', '11px');
+             			$(".mainInsightsContent > div").css('padding-left', '0px');
+             			$(".mainInsightsContent > div").css('padding-right', '0px');
+             		}
+                 	
              	}else{
              		modalAlertShow("검색 결과가 없습니다."); 
              		$("#lp_mgz9Dtl_cntnt").empty();
@@ -595,7 +587,8 @@
   		$('#hd-'+imgId).height(imgHeight);
  		
  	}
-	
+ 	
+ 	
 </script>
 </body>
 
