@@ -142,30 +142,7 @@
       }
       
       
-      var delay = 300;
-      var timer = null;
-
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      	
-      /* 	document.querySelectorAll(".item").forEach((item) => {
-      	   item.style.gridRowEnd = `span ${item.clientHeight + 20}`;
-      	}); */
-      });
-
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      	
-      });
-      
+   
 var artstInfo = /*[[${result}]]*/ 'default';
 
 $(function() { 
@@ -525,8 +502,8 @@ if(window.matchMedia('(min-width: 1537px)').matches) {
 
 
 function workDetail(workSq){
-	console.log(workSq);
-	location.href="/bidding?workSq="+workSq;
+// 	console.log(workSq);
+// 	location.href="/bidding?workSq="+workSq;
 }
 
 $(document).on("click", ".heart", function(){
