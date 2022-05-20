@@ -136,8 +136,8 @@ public class MainPayUtil {
 		System.out.println("responseJson:"+responseJson);
 				
 		Map<String, Object> responseMap = ParseUtils.fromJson(responseJson, Map.class);        
-		String resultCode = (String) responseMap.get("resultCode");        
-		String resultMessage = (String) responseMap.get("resultMessage");
+		String resultCode = responseMap.get("resultCode").toString();        
+		String resultMessage = responseMap.get("resultMessage").toString();
 
 		if( ! "200".equals(resultCode)) { //READY API 호출 실패
 			String errMessage = String.format("READY API 호출결과 : resultCode: %s, resultMessge: %s", resultCode, resultMessage);
@@ -155,6 +155,22 @@ public class MainPayUtil {
 			paramMap.put("expireTime", dataMap.get("expireTime").toString());
 			paramMap.put("resultCode", resultCode);
 			paramMap.put("resultMessage", resultMessage);
+			
+			/*결제 준비 정보*/
+//			rsltMap.put("amount", paramMap.get("amount"));
+//			rsltMap.put("sellMbrSq", paramMap.get("sellMbrSq"));
+//			rsltMap.put("buyMbrSq", paramMap.get("buyMbrSq"));
+//			rsltMap.put("dealSq", paramMap.get("dealSq"));
+//			rsltMap.put("workSq", paramMap.get("workSq"));
+//			rsltMap.put("cuponSq", paramMap.get("cuponSq"));
+//			rsltMap.put("paymntDivCd", paramMap.get("paymntDivCd"));
+//			rsltMap.put("paymntTypCd", paramMap.get("paymntTypCd"));
+//			rsltMap.put("paymntAmt", paramMap.get("paymntAmt"));
+//			rsltMap.put("paymntFeeAmt", paramMap.get("paymntFeeAmt"));
+//			rsltMap.put("paymntDiscAmt", paramMap.get("paymntDiscAmt"));
+//			rsltMap.put("paymethod", paramMap.get("paymethod"));
+//			rsltMap.put("authToken", paramMap.get("authToken"));
+//			rsltMap.put("aid", paramMap.get("aid"));
 			
 			mainPayMapper.insertMainPayRequest(paramMap);
 		}
@@ -176,6 +192,7 @@ public class MainPayUtil {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> parameters = mainPayMapper.getMainPayRequest(paramMap.get("aid").toString());
 		
+		System.out.println("################################# 결제 paramMap :"+paramMap);
 		String resultCode = "";
 	    String resultMessage = "";
 	    
@@ -192,8 +209,6 @@ public class MainPayUtil {
 		parameters.put("authToken", paramMap.get("authToken").toString()); //거래인증용 토큰, approvalUrl에서 수신한 값사용
 		parameters.put("amount", parameters.get("amount").toString());
 		
-		resultMap.put("aid", paramMap.get("aid"));
-	
 		String responseJson = "";
 		Map<String, Object> responseMap = new HashMap<>();
 	    try{
@@ -233,11 +248,13 @@ public class MainPayUtil {
 	    	resultMap.put("buyMbrSq", parameters.get("buyMbrSq"));
 	    	resultMap.put("dealSq", parameters.get("dealSq"));
 	    	resultMap.put("workSq", parameters.get("workSq"));
-	    	resultMap.put("couponSq", parameters.get("couponSq"));
+	    	resultMap.put("artstSq", parameters.get("artstSq"));
+	    	resultMap.put("cuponSq", parameters.get("cuponSq"));
 	    	resultMap.put("paymntDivCd", parameters.get("paymntDivCd"));
 	    	resultMap.put("paymntTypCd", parameters.get("paymntTypCd"));
 	    	resultMap.put("paymntAmt", parameters.get("paymntAmt"));
 	    	resultMap.put("paymntFeeAmt", parameters.get("paymntFeeAmt"));
+	    	resultMap.put("paymntDiscAmt", parameters.get("paymntDiscAmt"));
 	    	resultMap.put("paymethod", parameters.get("paymethod"));
 	    	resultMap.put("authToken", parameters.get("authToken"));
 	    	resultMap.put("aid", parameters.get("aid"));
@@ -273,6 +290,7 @@ public class MainPayUtil {
 		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
 		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString());
 		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
+		    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
 		    }
 		    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
 		    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {
