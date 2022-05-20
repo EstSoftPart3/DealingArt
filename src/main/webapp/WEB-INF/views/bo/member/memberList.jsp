@@ -99,12 +99,26 @@
    		        	   var strHtml = '';
    		        	   for(i=0; i<dataList.length; i++){
    		        		   
-   		        		   	if(dataList[i].authSq == '2') {
+   		        		   	
+   		        		    if(dataList[i].authSq == '1') {
+		        		   	   authGubun = '';
+		        		   		checkState = 'checked'; 
+		        		   	}
+   		        		   
+   		        		    if(dataList[i].authSq == '2') {
    		        		   	   authGubun = '[작가]';
    		        		   		checkState = 'checked'; 
-   		        		   	} else {
-   		        		   	   authGubun = '';	
-   		        		   	} 
+   		        		   	}
+   		        		    
+   		        		    if(dataList[i].authSq == '3') {
+ 		        		   	   authGubun = '[관리자]';
+ 		        		   		checkState = 'checked'; 
+ 		        		   	}
+   		        		    
+   		        		    if(dataList[i].authSq == '4') {
+		        		   	   authGubun = '[전체관리자]';
+		        		   		checkState = 'checked'; 
+		        		   	}
    		        			
    			        	   	strHtml += '<tr align="center" style="height:20px;">';
    			        		strHtml += '<td>'+ authGubun + ' ' + dataList[i].mbrSocialSort +'</td>';
