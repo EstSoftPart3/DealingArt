@@ -18,6 +18,7 @@
 			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
 			,UPDT_MBR_SQ                      AS updtMbrSq
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN			   				  AS useYn
 			,DEL_YN			   				  AS delYn
 		FROM
             TBL_DA_BRD_M A 
@@ -30,7 +31,7 @@
    <insert id="boardInsert" parameterType="hashMap">
     	INSERT INTO TBL_DA_BRD_M
         (
-			,BRD_TITLE
+			BRD_TITLE
 			,BRD_CONTENT
 			,BRD_TYP_CD
 			,REG_MBR_SQ
@@ -40,10 +41,10 @@
        	) 
         VALUES
         (
-			,#{brdTitle}
+			#{brdTitle}
 			,#{brdContent}
 			,#{brdTypCd}
-			,#{mbrSq}
+			,#{regMbrSq}
 			,NOW()
 			,default
 			,default
@@ -53,8 +54,7 @@
     <!-- 게시판 상세 -->
     <select id="boardDetail" resultType="hashMap">
         SELECT
-           	 BRD_SQ             		      AS brdSq
-			,MBR_SQ              			  AS mbrSq
+           	 BRD_SQ             			  AS brdSq
 			,BRD_TITLE         				  AS brdTitle
 			,BRD_CONTENT      				  AS brdContent
 			,BRD_TYP_CD        				  AS brdTypCd
@@ -62,6 +62,7 @@
 			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
 			,UPDT_MBR_SQ                      AS updtMbrSq
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN			   				  AS useYn
 			,DEL_YN			   				  AS delYn
 		FROM
             TBL_DA_BRD_M A

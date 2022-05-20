@@ -77,18 +77,17 @@ public class BoardController {
 		
 		System.out.println("dddd");
 		
-		int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
 		String brdTitle = (String) param.get("brdTitle");
 		String brdContent = (String) param.get("brdContent");
 		String brdTypCd = (String) param.get("brdTypCd");
 		int regMbrSq = Integer.parseInt((String) param.get("regMbrSq"));
 
-		param.put("mbrSq", mbrSq);
 		param.put("brdTitle", brdTitle);
 		param.put("brdContent", brdContent);
 		param.put("brdTypCd", brdTypCd);
 		param.put("regMbrSq", regMbrSq);
-
+		
+		System.out.println(param);
 		
 		boardService.boardInsert(param);
 		
@@ -150,7 +149,6 @@ public class BoardController {
 		
 
 		param.put("brdSq", brdSq);
-		param.put("mbrSq", mbrSq);
 		param.put("brdTitle", brdTitle);
 		param.put("brdContent", brdContent);
 		param.put("brdTypCd", brdTypCd);

@@ -5,17 +5,17 @@
 <%@ include file="/WEB-INF/views/boInclude/include_top.jspf"%>
 
 <%
-	//게시판 타입 : 공지사항 (NT), 일반(GN)
-	String brdTypCd = request.getParameter("brdTypCd"); 
+	//잡지타입 : Insights (IST), Media(MDA), Exhibition(EBI)
+	String mgzTypCd = request.getParameter("mgzTypCd"); 
+	String mgzName; 
 	
-	String brdName; 
-	
-	if(brdTypCd.equals("NT")) {
-		brdName = "공지사항"; 
-	} else {
-		brdName = "FAQ"; 
+	if(mgzTypCd.equals("IST")){
+		mgzName = "Insights"; 
+	}else if(mgzTypCd.equals("MDA")){
+		mgzName = "Media"; 
+	}else{
+		mgzName = "Exhibition";
 	}
-
 %>
 
 <body class="hold-transition sidebar-mini">
@@ -28,23 +28,23 @@
 		    
 		     	<!-- Main content -->
 	    		<section class="content">
-	    			<input type="hidden" name="brdTypCd" id="brdTypCd" value="<%=brdTypCd%>">
+	    			<input type="hidden" name="mgzTypCd" id="mgzTypCd" value="<%=mgzTypCd%>">
 	    			
 	    			<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
 	                 	<ul class="nav nav-pills">
-		               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b><%=brdName%></b></a></li>
+		               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b><%=mgzName%></b></a></li>
 		               	</ul>
 					 </div>
 					 
 					 <div class="card">
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
-					 		<div id="boardList" style="font-size:12px;"></div>
+					 		<div id="magazineList" style="font-size:12px;"></div>
 					 	</div>
 					 	
 					 	<div class="form-group row" >
                     		<div style="text-align:right;width:900px;">
-                    			<button type="button" class="btn btn-info sTitle" onclick="boardInput();">입력</button>
+                    			<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">입력</button>
 					    	</div>
                     	</div>
 					 		
@@ -62,25 +62,25 @@
    <script>
    
    $(document).ready(function() {
-	   boardList();
+	   magazineList();
    });
    
    /* 게시판 입력 */
-   function boardInput() {
-	   var brdTypCd = $('#brdTypCd').val();
-	   console.log("brdTypCd :"+brdTypCd);
+   function magazineInput() {
+	   var mgzTypCd = $('#mgzTypCd').val();
+	   console.log("mgzTypCd :"+mgzTypCd);
 	   
-	   location.href = "/admin/board/boardWrite?brdTypCd="+brdTypCd;
+	   /* location.href = "/admin/board/boardWrite?brdTypCd="+brdTypCd; */
    }
    
    
    /* 게시판 리스트 */
-   function boardList(){
+   function magazineList(){
    
-	   var brdTypCd = $('#brdTypCd').val();
+	   var mgzTypCd = $('#mgzTypCd').val();
 	   
 	   let params = {
-			brdTypCd : brdTypCd
+			   mgzTypCd : mgzTypCd
 		}
 	   
 	   $("#boardList").jsGrid({
@@ -101,13 +101,13 @@
 	        	   var d = $.Deferred();
 	               $.ajax({
 	      	    	 type: "post",
-	    	    	 url: "/admin/board/boardListData",
+	    	    	 url: "/admin/magazine/magazineListData",
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
 	    	    	 //d.resolve(response.boardData.boardInfo);
 	    	    	 
-	    	    	 d.resolve($.map(response.boardData.boardInfo, function (item, itemIndex) {
+	    	    	 d.resolve($.map(response.magazineData.magazineInfo, function (item, itemIndex) {
                          return $.extend(item, { "Index": itemIndex + 1 });
                      }));
 	    	    	 
@@ -116,14 +116,21 @@
 	           }
 	       },
 	       fields: [
+	    	   
+	    	   
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
-	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
-	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "regMbrSq",title:"등록회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 , visible: true},
-	    	   { name: "updtMbrSq",title:"수정회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "mgzSq",  title:"메거진순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "mbrSq",title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "mgzTitle",id:"메거진제목", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
+	    	   { name: "mgzDescrptn",title:"메거진설명", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "mgzContent",title:"메거진내용", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "mgzMainImgUrl",title:"메거진대표이미지URL", type: "text", width: 200,align:"center",width:100 , visible: true},
+	    	   { name: "mgzTypCd",title:"메거진구분코드", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "regMbrSq",title:"등록회원", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 },
+	    	   { name: "updtMbrSq",title:"수정회원", type: "text", width: 200,align:"center",width:100 },
+	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 },
+	    	   { name: "useYn",title:"사용여부", type: "text", width: 200,align:"center",width:100 },
 	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 }
 	    	  
 	    	   

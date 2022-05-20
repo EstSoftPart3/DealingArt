@@ -266,6 +266,9 @@
 
 <script type="text/javascript">      
 
+
+
+
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {
@@ -467,6 +470,7 @@ $(function() {
 });
 
 function collectionReg(){
+
 	if(checkValid()){
 		work.mbrSq = sMbrSqVal;
 		work.artstYear = $("#artstYear").val();
@@ -507,6 +511,7 @@ function collectionReg(){
 }
 
 function checkValid(){
+
 	if($("#artstActvtyNm").val() != null && $("#artstActvtyNm").val() != ""){
 		work.artstActvtyNm = $("#artstActvtyNm").val();
 	}else{
@@ -549,6 +554,74 @@ function checkValid(){
 		modalAlertShow("메인 컬러가 선택되지 않았습니다!", "mc-1");	
 		return false;
 	}
+	
+	//이미지 용량 확인 체크 시작
+	if($("#workMainImgUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workMainImgUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 대표 사진의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workMainImgUrl");
+			return false;
+		}
+	}else if($("#workImgFrtUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgFrtUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(전면)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgFrtUrl");
+			return false;
+		}
+	}else if($("#workImgRerUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgRerUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(후면)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgRerUrl");
+			return false;
+		}
+	}else if($("#workGrtUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workGrtUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("보증서의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workGrtUrl");
+			return false;
+		}
+	}else if($("#workImgLefUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgLefUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(좌)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgLefUrl");
+			return false;
+		}
+	}else if($("#workImgRitUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgRitUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(우)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgRitUrl");
+			return false;
+		}
+	}else if($("#workImgTopUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgTopUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(상)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgTopUrl");
+			return false;
+		}
+	}else if($("#workImgBotUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#workImgBotUrl")[0].files[0].size;
+
+		if(fileSize > maxSize){
+			modalAlertShow("작품 사진(하)의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "workImgBotUrl");
+			return false;
+		}
+	}
+	//이미지 용량 확인 체크 끝
 	
 	return true;
 }
@@ -597,6 +670,7 @@ $(document).on("click", ".keywrdList", function(){
 	var keywrd = $("#keywrd").val().replaceAll(keywrdValue, '');
 	$("#keywrd").val(keywrd.substring(0, keywrd.length - 1));
 });
+
 </script>
     
 	
