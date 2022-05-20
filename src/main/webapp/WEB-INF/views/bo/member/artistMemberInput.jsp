@@ -68,12 +68,7 @@
                   					<label class="btn btn-secondary sTitle r2">
                     					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="2"> 작가
                   					</label>
-                  					<label class="btn btn-secondary sTitle r3">
-                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="3"> 관리자
-                  					</label>
-                  					<label class="btn btn-secondary sTitle r4">
-                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="4"> 전체관리자
-                  					</label>
+                  					
                   					&nbsp;&nbsp;
                   					<button type="button" class="btn btn-info sTitle" onclick="artistMemberLevelUpdate('<c:out value="${param.mbrSqParam}" />');">저장</button>
                   					
@@ -1316,20 +1311,7 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 			        	 $('.r3').removeClass('active');
 			        	 $('.r4').removeClass('active');
 					 }
-		        	 if(authSq == '3') {
-			        	 $(":radio[name='authSq'][value='3']").attr('checked', true);
-			        	 $('.r1').removeClass('active');
-			        	 $('.r2').removeClass('active');
-			        	 $('.r3').addClass('active');
-			        	 $('.r4').removeClass('active');
-					 }
-		        	 if(authSq == '4') {
-			        	 $(":radio[name='authSq'][value='4']").attr('checked', true);
-			        	 $('.r1').removeClass('active');
-			        	 $('.r2').removeClass('active');
-			        	 $('.r3').removeClass('active');
-			        	 $('.r4').addClass('active');
-					 }
+		        	
 		        	 
 		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrId").val(mbrId);
