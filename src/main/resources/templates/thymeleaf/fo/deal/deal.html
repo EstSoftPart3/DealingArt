@@ -139,8 +139,8 @@
 					<div class="con-right">
 					
 						<div class="sea-won2">
-							<input type="text" class="" placeholder="작품이나 작가를 검색해 보세요" />
-							<a href="#" data-toggle="modal" data-target="#myModal"><img src="resources/img/de/sech-icon.jpg" /></a>
+							<input type="text" class="" placeholder="작품이나 작가를 검색해 보세요" disabled/>
+							<a href="javascript:fnModalAlert();"><img src="resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
 						<div class="reds-box">
@@ -742,7 +742,8 @@
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
-		     					html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					//html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
 		     					html += '<div>';
 		     					html += '<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
@@ -931,13 +932,10 @@
 		modalAlertShow("판매가 완료된 상품은 [스크랩]을 할 수 없습니다.");
 	});
 	$(document).on("click", ".heart", function(){
-		
+		debugger;
 		if(sMbrSqVal == null) {
 			modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");	
 		} else {
-		
-			
-			
 			var param = new Object();
 			var element = $(this);
 			param.workSq= element.attr("workSq");

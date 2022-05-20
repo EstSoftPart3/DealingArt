@@ -290,6 +290,7 @@ public class MainPayUtil {
 		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
 		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString());
 		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
+		    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
 		    }
 		    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
 		    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {

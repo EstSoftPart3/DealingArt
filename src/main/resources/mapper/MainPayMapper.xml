@@ -224,6 +224,15 @@
   				ON DUPLICATE KEY UPDATE
   					DEAL_ENDNG_DT = NOW()
   </insert>
+  <update id="updateWorkSaleYn" parameterType="String">
+  	/*작품 테이블 판매여부 업데이트*/
+  	UPDATE 
+  			TBL_DA_WORK_M
+  	SET
+  			WORK_SALE_YN = 'Y'
+  	WHERE
+  			WORK_SQ = #{workSq}
+  </update>
   
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">
