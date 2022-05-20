@@ -59,9 +59,9 @@ public class TestController {
 		 * ----------------------------------------------------------
 		 */
 		
-		testSms();
-		
-		testMail();
+//		testSms();
+//		
+//		testMail();
 		
 		logger.info("------------------------------------------");
 		System.out.println(reStr);
