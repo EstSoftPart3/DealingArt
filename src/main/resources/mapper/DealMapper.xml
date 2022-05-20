@@ -140,7 +140,6 @@
 					TBL_DA_DEAL_M (
 						WORK_SQ,
 						SELL_MBR_SQ,
-						MBR_REF_NO,
 						DEAL_TYP_CD,
 						DEAL_STTS_CD,
 						DEAL_STRT_PRC,
@@ -155,13 +154,23 @@
 					) VALUES (
 						#{workSq},
 						#{mbrSq},
-						CONCAT('D', LPAD(DEAL_SQ, 17, '0')),
 						#{dealTypCd},
 						#{dealSttsCd},
 						#{dealStrtPrc},
 						#{dealStrtDt}
 						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
-							,DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY)
+							<!-- ,DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY) -->
+							<![CDATA[
+							,DATE_ADD(DATE_FORMAT(#{dealStrtDt},'%Y-%m-%d %H') + INTERVAL
+						   	CASE
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  10 THEN 10 
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  20 THEN 20
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  30 THEN 30
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  40 THEN 40
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  50 THEN 50
+								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <=  59 THEN 00
+						   	END MINUTE, INTERVAL #{dealStrtDtAddDt} DAY)
+    						]]>
 						</if>
 						<if test="dealEndngDt != null and dealEndngDt != ''">
 							,#{dealEndngDt}
@@ -172,20 +181,7 @@
 						<if test="dealFinalPrc != null and dealFinalPrc != ''">
 							,#{dealFinalPrc}
 						</if>
-					) ON DUPLICATE KEY UPDATE
-						DEAL_TYP_CD = #{dealTypCd},
-						DEAL_STTS_CD = #{dealSttsCd},
-						DEAL_STRT_PRC = #{dealStrtPrc},
-						DEAL_STRT_DT = #{dealStrtDt}
-						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
-							,DEAL_ENDNG_DT = DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY)
-						</if>
-						<if test="dealEndngDt != null and dealEndngDt != ''">
-							,DEAL_STRT_DT = #{dealEndngDt}
-						</if>
-						<if test="artstSq != null and artstSq != ''">
-							,ARTST_SQ = #{artstSq}
-						</if>
+					) 
 	</insert>
 	
 	<update id="updateMbrRefNo">
