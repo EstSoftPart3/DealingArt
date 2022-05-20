@@ -97,16 +97,16 @@ public interface MyPageService {
 	List<String> scrapList(String param);
 	
 	/*
-	 * 1차 결제 결제정보
-	 * param : dealSq, mbrSq
-	 * return : 결제에 필요한 정보
-	 */
-	public Map<String, Object> openPaymentBuyer(Map<String, Object> param);
-	
-	/*
 	 * 거래 상세 페이지
 	 * param : dealSq, mbrSq
 	 * return : 거래에 관한 데이터
 	 */
 	public Map<String, Object> openMyDealDetail(String dealSq, String mbrSq);
+	
+	/*
+	 * 운송 옵션 가격, 코드 네임 조회
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 운송 가격, 코드 네임
+	 */
+	public Map<String, Object> selectTrnsprtInfo(Object param);
 }

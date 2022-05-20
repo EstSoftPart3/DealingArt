@@ -176,7 +176,7 @@ public interface MyPageMapper {
 	public int updateSellPaymntSttsCd(@Param("dealSq") String dealSq, @Param("dealSttsCd")String dealSttsCd);
 	
 	/*
-	 * 1차 결제 정보 조회
+	 * 결제 정보 조회
 	 * param : dealSq
 	 * return : 결재 정보
 	 */
@@ -196,4 +196,17 @@ public interface MyPageMapper {
 	 */
 	public Map<String, Object> getMyDealDetailDealInfo(String param);
 	
+	/*
+	 * 운송 옵션 가격 조회
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 운송 옵션 가격
+	 */
+	public String selectTrnsprtPrc(Object param);
+	
+	/*
+	 * 운송 옵션 코드 네임 조회
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 운송 옵션 코드 네임
+	 */
+	public Map<String, Object> selectTrnsprtCdNm(Object param);
 }

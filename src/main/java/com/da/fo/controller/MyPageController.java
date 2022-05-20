@@ -709,18 +709,6 @@ public class MyPageController {
 		return result;
 	}
 	
-	//구매자 결제 페이지 오픈
-	@RequestMapping("/paymentBuyer")
-	@ResponseBody
-	public ModelAndView openPaymentBuyer(@RequestParam(value = "dealSq", required = false) String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/payment_buyer");
-		Map<String, Object> param = new HashMap<>();
-		param.put("dealSq", dealSq);
-		param.put("mbrSq", mbrSq);
-		Map<String, Object> result = myPageService.openPaymentBuyer(param);
-		mv.addObject("result", result);
-		return mv;
-	}
 	
 	//구매내역 상세 페이지 이동
 	@RequestMapping("/myDealDetailBuy")
@@ -740,6 +728,16 @@ public class MyPageController {
 	public ModelAndView openMyDealDetailSell(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell");
 		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//운송 매트리스 운송 가격, 코드 네임 가져오기
+	@RequestMapping("/selectTrnsprtInfo")
+	@ResponseBody
+	public ModelAndView selectTrnsprtPrc(@RequestParam Map<String, Object> paramMap) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = myPageService.selectTrnsprtInfo(paramMap);
 		mv.addObject("result", result);
 		return mv;
 	}

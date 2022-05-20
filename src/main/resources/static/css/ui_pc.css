@@ -5027,6 +5027,7 @@ position: relative;background-color: #fbfbfb;}
 .comy-box{background-color: #f1f1f1;margin-top: 10px;position: relative;display: table;width: 480px;}
 .comy-box .cmy-text{display: table-cell;font-size: 14px;padding: 20px;vertical-align: middle;width: 260px;}
 .comy-box .cmy-won{display: table-cell;color: #000;font-size: 21px;vertical-align: middle;font-weight: 500;text-align: right;padding-right: 50px;}
+.comy-box .cmy-coupon{display: table-cell;color: #000;font-size: 21px;vertical-align: middle;font-weight: 500;text-align: right;padding-right: 50px;}
 .comy-box .cmy-end{position: absolute;right: 24px;top: 50%;font-size: 16px;color: #838383;transform: translateY(-50%);line-height: 1;font-weight: 400;letter-spacing: 0;cursor: pointer;}
 .pd_t17{padding-top: 17px !important;}
 .bg-st{background-color:#fff;width: 480px;}

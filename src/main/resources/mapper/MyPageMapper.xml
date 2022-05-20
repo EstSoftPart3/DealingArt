@@ -1238,24 +1238,7 @@
 		WHERE  
 				DEAL_SQ = #{dealSq}
 	</update>
-	<select id="getPaymentDealInfo" resultType="hashMap" parameterType="String">
-		/*1차 결제 정보 조회*/
-		SELECT 
-				A.DEAL_SQ AS dealSq,
-				A.WORK_SQ AS workSq,
-				A.MBR_REF_NO AS mbrRefNo,
-				FORMAT(A.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
-				A.DEAL_TYP_CD AS dealTypCd,
-				B.WORK_NM AS workNm,
-				B.MBR_SQ AS sellMbrSq
-		FROM 
-				TBL_DA_DEAL_M AS A
-		INNER JOIN
-				TBL_DA_WORK_M AS B
-			ON	A.WORK_SQ = B.WORK_SQ 
-		WHERE 
-				DEAL_SQ = #{dealSq}
-	</select>
+	
 	<select id="getPaymentBuyerInfo" resultType="hashMap" parameterType="String">
 		/*결제 구매자/판매자 배송지 조회*/
 		SELECT 
@@ -1290,12 +1273,17 @@
 				B.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd,
 				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
-				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
-				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*경매 시작가*/
+				(SELECT MBR_SQ 
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE B.DEAL_SQ = DEAL_SQ
+				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
+				FORMAT(B.DEAL_AUCTN_PRC, 0) AS dealAuctnPrc, /*경매 응찰 가격*/
+				FORMAT(B.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*경매 낙찰 가격*/
+				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래 최종 가격*/
+				(SELECT COUNT(DEAL_SQ)
+				FROM TBL_DA_AUCTN_BID_H 
+				WHERE B.DEAL_SQ = DEAL_SQ) AS bidCnt /*응찰수*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -1304,6 +1292,46 @@
 			AND	A.ARTST_SQ = B.ARTST_SQ 
 			AND B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ;
+	</select>
+	
+	<select id="selectTrnsprtPrc" resultType="String" parameterType="hashMap">
+		/*운송 가격 가져오기*/
+		SELECT
+				FORMAT(TRNSPRT_PRC , 0)
+		FROM
+				TBL_DA_TRNSPRT_PRC_MTRX
+		WHERE 
+				TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			<if test="trnsprtTypCd != null and trnsprtTypCd != ''">
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			</if>
+			<if test="trnsprtAreaCd != null and trnsprtAreaCd != ''">
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+			<if test="trnsprtServiceCd != null and trnsprtServiceCd != ''">
+			AND TRNSPRT_SERVICE_CD = #{trnsprtServiceCd}
+			</if>
+	</select>
+	
+	<select id="selectTrnsprtCdNm" resultType="hashMap" parameterType="hashMap">
+		/*운송 매트리스 코드 이름 가져오기*/
+		SELECT
+			(SELECT TRNSPRT_DIV_CD_NM
+			FROM TBL_DA_TRNSPRT_PRC_MTRX
+			WHERE TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			GROUP BY TRNSPRT_DIV_CD_NM) AS trnsprtDivCdNm,
+			(SELECT TRNSPRT_TYP_CD_NM 
+			FROM TBL_DA_TRNSPRT_PRC_MTRX
+			WHERE TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			GROUP BY TRNSPRT_TYP_CD_NM) AS trnsprtTypCdNm,
+			(SELECT TRNSPRT_AREA_CD_NM 
+			FROM TBL_DA_TRNSPRT_PRC_MTRX
+			WHERE TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			GROUP BY TRNSPRT_AREA_CD_NM) AS trnsprtAreaCdNm,
+			(SELECT TRNSPRT_SERVICE_CD_NM 
+			FROM TBL_DA_TRNSPRT_PRC_MTRX
+			WHERE TRNSPRT_SERVICE_CD = #{trnsprtServiceCd}
+			GROUP BY TRNSPRT_SERVICE_CD_NM) AS trnsprtServiceCdNm
 	</select>
 	
 </mapper>

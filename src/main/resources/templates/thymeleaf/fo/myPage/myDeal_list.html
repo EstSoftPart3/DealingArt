@@ -350,12 +350,12 @@ function myDealSearchList(){
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PW"){ //낙찰자이면서 1차 결제 대기 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>1차 결제를 진행해 주세요.';
 	    					myDealListHtml += '					<span>1차 결제 대기</span>';
-	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    					myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
 	    				}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PW"){ //낙찰자이면서 2차 결제 대기 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제를 진행해 주세요.';
 	    					myDealListHtml += '					<span>2차 결제 대기</span>';
-	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    					myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
 	    				}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC"){ //낙찰자이면서 2차 결제 완료 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
@@ -364,7 +364,7 @@ function myDealSearchList(){
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW"){ //판매자이면서 2차 결제 완료 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제를 진행해주세요.';
 	    					myDealListHtml += '					<span>결제 대기</span>';
-	    					myDealListHtml += '			<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
+	    					myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
 	    				}
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC"){ //판매자이면서 2차 결제 완료 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
@@ -381,6 +381,7 @@ function myDealSearchList(){
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal &&myDealList[i].buyPaymntSttsCd == "2PW"){
 	    					myDealListHtml += '					구매자 2차 결제 대기중입니다.';
 		    				myDealListHtml += '					<span>2차 결제 대기</span>';
+		    				myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
 	    				}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC"){
 	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
@@ -389,6 +390,7 @@ function myDealSearchList(){
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW"){
 	    					myDealListHtml += '					판매자 결제를 대기중입니다.';
 		    				myDealListHtml += '					<span>결제 대기</span>';
+		    				myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">결제하기</button>';
 	    				}
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC"){
 	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
@@ -424,7 +426,7 @@ setInterval(function() {
 	for(var i=0; i<elements.length; i++){
 		var dday = new Date(parseInt(elements[i].attributes[1].value)).getTime();
 		var today = new Date().getTime();
-		if(today <= dday){
+		if(today >= dday){
 			myDealSearchList();
 		}
 	  	var gap = dday - today;

@@ -98,7 +98,7 @@
 										</th>
 										<td th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
 									</tr>
-									<tr th:if="${result.deal.dealSttsCd.toString().equals('TC')}">
+									<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
 										<th>
 											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>남은시간</span></div>
 										</th>
@@ -435,7 +435,7 @@ var dday = new Date(result.deal.dealEndngDateTime).getTime();
 
 setInterval(function() {
 	var today = new Date().getTime();
-	if(today <= dday){
+	if(today >= dday){
 		location.reload();
 	}
   	var gap = dday - today;

@@ -257,6 +257,7 @@
 				TBL_DA_DEAL_M
 		WHERE 
 				DEAL_TYP_CD = 'A'
+			AND DEAL_STTS_CD = 'TP'
 			AND DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
 	</select>
 	

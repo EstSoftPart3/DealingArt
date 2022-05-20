@@ -224,25 +224,6 @@ public class MyPageDao {
 		return result;
 	}
 	
-	/*
-	 * 1차 결제 결제정보
-	 * param : dealSq, mbrSq
-	 * return : 결제에 필요한 정보
-	 */
-	public Map<String, Object> openPaymentBuyer(Map<String, Object> param){
-		Map<String, Object> result = new HashMap<>();
-		//int resultUpdate = myPageMapper.updateDealSttsCd(param.get("dealSq").toString(), "1PW");
-		//if( resultUpdate > 0) {
-			Map<String, Object> result1 = myPageMapper.getPaymentDealInfo(param.get("dealSq").toString());
-			Map<String, Object> result2 = myPageMapper.getPaymentBuyerInfo(param.get("mbrSq").toString());
-			result2.put("mbrEmail", commonService.decrypt(result2.get("mbrEmail").toString()));
-			result2.put("mbrCpNum", commonService.decrypt(result2.get("mbrCpNum").toString()));
-			result.put("deal", result1);
-			result.put("mbrInfo", result2);
-			return result;
-		//}
-		//return null;
-	}
 	
 	/*
 	 * 거래 상세 페이지
@@ -257,6 +238,20 @@ public class MyPageDao {
 		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));
 		result.put("dealInfo", dealInfo);
 		result.put("mbrInfo", mbrInfo);
+		return result;
+	}
+	
+	/*
+	 * 운송 옵션 가격, 코드 네임 조회
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 운송 가격, 코드 네임
+	 */
+	public Map<String, Object> selectTrnsprtInfo(Object param){
+		Map<String, Object> result = new HashMap<>();
+		String trnsprtPrc = myPageMapper.selectTrnsprtPrc(param);
+		result.put("trnsprtPrc", trnsprtPrc);
+		Map<String, Object> trnsprtCdNm = myPageMapper.selectTrnsprtCdNm(param);
+		result.put("trnsprtCdNm", trnsprtCdNm);
 		return result;
 	}
 }

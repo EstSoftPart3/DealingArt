@@ -31,7 +31,7 @@
 							</div>
 							<div class="myd-box">
 								<div class="myd-img">
-									<img src="resources/img/mypage/img_bg.png"/>
+									<img th:src="${result.dealInfo.workMainImgUrl}" />
 								</div>
 								<div class="myd-2">
 									<div class="myd-te1">
@@ -41,24 +41,40 @@
 									</div>
 									<div class="myd-te2">
 										<dl class="myd-dl1">
+										
+										<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('S')}">
 											<dt>판매기간</dt>
 											<dd th:text="${result.dealInfo.dealStrtDate}+'~'+${result.dealInfo.dealEndngDate}">2021.10.31 – 2021.11.31</dd>
 											<dt>판매가</dt>
 											<dd th:text="${result.dealInfo.dealFinalPrc}">2,200,000 원</dd>
-											<!-- <dt>시작가</dt>
-											<dd th:text="${result.dealInfo.dealStrtPrc}">1,700,000 원</dd>
-											<dt>현재입찰가</dt>
-											<dd>2,300,000 원</dd>
-											<dt>응찰가</dt>
-											<dd>2,200,000 원</dd> -->
-											
+										</th:block>
+										
+										<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('A')}">
+											<dt>경매 기간</dt>
+											<dd th:text="${result.dealInfo.dealStrtDate}+' ~ '+${result.dealInfo.dealEndngDate}">2021.10.31 – 2021.11.31</dd>
+											<dt>시작가</dt>
+											<dd th:text="${result.dealInfo.dealStrtPrc}+' KRW'">1,700,000 원</dd>
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
+												<dt>현재 입찰가</dt>
+												<dd th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+											</th:block>
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TC')}">
+												<dt>낙찰가</dt>
+												<dd th:text="${result.dealInfo.dealSbidPrc}+' KRW'">2,200,000 원</dd>
+											</th:block>
+										</th:block>	
+										
 										</dl>
 										<dl class="myd-dl2">
-											<dt>남은시간</dt>
-											<dd id="dealCount"></dd>
-											<!-- <dt>응찰수</dt>
-											<dd>12</dd>
-											<dt>예상수수료</dt>
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
+												<dt>남은시간</dt>
+												<dd id="dealCount"></dd>
+											</th:block>
+											<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('A')}">
+												<dt>응찰수</dt>
+												<dd th:text="${result.dealInfo.bidCnt}">12</dd>
+											</th:block>
+											<!-- <dt>예상수수료</dt>
 											<dd>250,000원</dd>
 											<dt>예상배송비</dt>
 											<dd></dd> -->
@@ -69,8 +85,6 @@
 									<div class="myd-table">
 										<div class="myd-won">
 											<p class="won-p" id="dealSttsCdDetail">
-												현재 가장 높은 입찰가로  입찰 중 입니다.
-												<span>경매 진행 중</span>
 											</p>
 											<!-- <button type="button" class="btns-2">구매확정</button> -->
 										</div>
@@ -132,19 +146,20 @@
 												<th><span class="my-red">부가서비스(필수)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprt1" disabled>
+														<select class="selectpicker" id="sbx_trnsprtTypCd" data-width="480px">
 															<option value="null">-선택-</option>
-															<option value="130,000">프리미엄운송(수도권)</option>
-															<option value="297,000">프리미엄운송(비수도권)</option>
-															<option value="0">직접운송</option>
+															<option value="P">프리미엄운송</option>
+															<option value="D">직접운송</option>
 														</select>
 													</div>
-													<div id="div_trnsprt1">
-														<div class="comy-box">
-															<div class="cmy-text">프리미엄운송(수도권)</div>
-															<div class="cmy-won">&#8361; 130,000원</div>
-															<div class="cmy-end">X</div>
-														</div>
+													<div class="selec-box bg-st">
+														<select class="selectpicker" id="sbx_trnsprtAreaCd" data-width="480px">
+															<option value="null">-선택-</option>
+															<option value="MA">수도권</option>
+															<option value="NA">비수도권</option>
+														</select>
+													</div>
+													<div id="div_trnsprtTypCd">
 													</div>
 												</td>
 											</tr>
@@ -152,27 +167,32 @@
 												<th><span class="my-red">부가서비스(선택)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprt2" disabled>
+														<select class="selectpicker" id="sbx_trnsprtServiceCd" data-width="480px" disabled>
 															<option value="null">-선택-</option>
 														</select>
 													</div>
-													
-													<div id="div_trnsprt2">
-														<div class="comy-box">
-															<div class="cmy-text">포장비</div>
-															<div class="cmy-won">&#8361; 8,000원</div>
-															<div class="cmy-end">X</div>
-														</div>
+													<div id="div_trnsprtServiceCd">
 													</div>
-													<div class="comy-sum" id="div_trnsprt3">
-														총금액<span>&#8361; 138,000원</span>
+												</td>
+											</tr>
+											<tr>
+												<th><span class="my-red">쿠폰 선택</span></th>
+												<td class="pd_t17">
+													<div class="selec-box bg-st">
+														<select class="selectpicker" id="sbx_couponList" data-width="480px" disabled>
+															<option value="null">-선택-</option>
+														</select>
+													</div>
+													<div id="div_couponList">
+													</div>
+													<div class="comy-sum" id="div_totalTrnsprtPrc">
 													</div>
 												</td>
 											</tr>
 										</table>
 									</div>
 								</div>
-							</div>					
+							</div>
 							
 							<!-- 2차 결제 완료 -->
 							<div id="2PC" style="display:none;">
@@ -284,19 +304,14 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").append("<span>결제 대기</span>"); 
 		$("#2PW").css("display", "");
 		$("#paymethod").css("display", "");
-		$("#btn_payment").css("display", "")
+		$("#btn_payment").css("display", "");
+		getCouponList("TD");; //운송 수수료 할인 쿠폰 목록 가져오기
 	}
 	if(result.dealInfo.sellPaymntSttsCd == "2PC"){
 		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
 		$("#dealSttsCdDetail").append("<span>결제 완료</span>"); 
 		$("#2PC").css("display", "");
 	}
-	
-	//하드코딩
- 	$("#sbx_trnsprt1").val("130,000");
-	$("#sbx_trnsprt2").html('<option value="null">-선택-</option><option value="8,000">포장비</option>');
-	$("#sbx_trnsprt2").val("8,000");
-	$("#sbx_trnsprt2").selectpicker("refresh");
 });
 var dday = new Date(result.dealInfo.dealEndngDate).getTime();
 
@@ -357,54 +372,206 @@ function btn_payment(){
 	}
 }
 
-$("#sbx_trnsprt1").on("change", function(){
-	$("#div_trnsprt2").empty();
-	var selected = $("#sbx_trnsprt1 option:selected").val();
-	var selectedHtml = '';
-	switch(selected){
-		case "null" :
-			$("#sbx_trnsprt2").html('<option value="null">-선택-</option>');
-			$("#sbx_trnsprt2").val("null");
-			$("#sbx_trnsprt2").selectpicker("refresh");
-			break;
-		case "134,000" || "299,000" :
-			$("#sbx_trnsprt2").html('<option value="null">-선택-</option><option value="17,500">작품 컨디션 체크</option>');
-			$("#sbx_trnsprt2").selectpicker("refresh");
-			break;
-		case "0" :
-			$("#sbx_trnsprt2").html('<option value="null">-선택-</option><option value="17,500">작품 컨디션 체크</option><option value="27,000">작품 보관료</option>');
-			$("#sbx_trnsprt2").selectpicker("refresh");
-			break;
+//운송 구분 선택시
+$("#sbx_trnsprtTypCd").on("change", function(){
+	$("#div_trnsprtServiceCd").empty();
+	var selected = $(this).val(); //선택된 값 가져오기
+	if(selected == "null"){
+		$("#div_trnsprtTypCd").empty();
+		$('#sbx_trnsprtAreaCd').val(null);
+		$("#sbx_trnsprtServiceCd").val(null);
+		document.getElementById("sbx_trnsprtServiceCd").disabled = true;
+		$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+	}else{
+		if(selected == "P"){ //프리니엄 운송이면
+			$("#sbx_trnsprtAreaCd").selectpicker("show"); //지역 셀렉트박스 보이기
+			document.getElementById("sbx_trnsprtServiceCd").disabled = true; //서비스 선택 셀렉트 박스 비활성화
+			$('#sbx_trnsprtAreaCd').val(null); //초기값 선택
+			$('#sbx_trnsprtServiceCd').val(null); //초기값 선택
+			$("#div_trnsprtTypCd").empty();
+			$(".selectpicker").selectpicker("refresh");
+			$('#sbx_trnsprtAreaCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
+		}else{ //일반 운송이면
+			$('#sbx_trnsprtAreaCd').val(null); //초기값 선택
+			$('#sbx_trnsprtServiceCd').val(null); //초기값 선택
+			$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
+			$("#sbx_trnsprtAreaCd").selectpicker("refresh"); //셀렉트픽커 새로고침
+			var target = document.getElementById("sbx_trnsprtServiceCd");
+			target.disabled = false; //서비스 선택 셀렉트 박스 활성화
+			target.options.length = 1; //서비스 선택 셀렉트박스 옵션 초기화
+			var trnsprtServiceCd = {
+					text : ["작품 컨디션 체크", "작품 보관료"],
+					value : ["WCC", "ASF"]
+					}; //서비스 셀렉트 박스에 넣을 옵션
+			
+			for(var i=0; i<trnsprtServiceCd.value.length; i++){ //서비스 셀렉트 박스에 옵션 추가
+				var opt = document.createElement("option");
+				opt.value = trnsprtServiceCd.value[i];
+				opt.text = trnsprtServiceCd.text[i];
+				target.appendChild(opt);
+			}
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			$('#sbx_trnsprtServiceCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
+			
+			//운송 가격 표시하기
+			var innerText = "";
+			innerText += '<div class="comy-box">';
+			innerText += '	<div class="cmy-text">직접운송 (기본 포장비)</div>';
+			innerText += '	<div class="cmy-won">8,000 KRW</div>';
+			innerText += '	<div class="cmy-end">X</div>';
+			innerText += '</div>';
+			$("#div_trnsprtTypCd").empty();
+			$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+		}
 	}
+	totalTrnsprtPrc(); //총 금액 자동계산
+});
+
+//운송 지역 구분 선택시
+$("#sbx_trnsprtAreaCd").on("change", function(){
+	$("#div_trnsprtServiceCd").empty();
+	var selected = $(this).val(); //선택된 값 가져오기
+	if(selected == "null"){
+		$("#div_trnsprtTypCd").empty();
+	}else{
+		var target = document.getElementById("sbx_trnsprtServiceCd");
+		var innerText = "";
 		
-	if(selected != "null"){
-		selectedHtml += '<div class="comy-box">';
-		selectedHtml += '<div class="cmy-text">'+$("#sbx_trnsprt1 option:selected").text()+'</div>';
-		selectedHtml += '<div class="cmy-won">&#8361; '+selected+'원</div>';
-		$("#div_trnsprt1").empty();
-    	$("#div_trnsprt1").append(selectedHtml).trigger("create");
-	}else{
-		$("#div_trnsprt1").empty();
+		target.options.length = 1; //서비스 선택 셀렉트박스 옵션 초기화
+		var trnsprtServiceCd = {
+				text : ["포장비", "작품 컨디션 체크", "운송 보험"],
+				value : ["PC", "WCC", "TI"]
+				}; //서비스 셀렉트 박스에 넣을 옵션
+		
+		for(var i=0; i<trnsprtServiceCd.value.length; i++){ //서비스 셀렉트 박스에 옵션 추가
+			var opt = document.createElement("option");
+			opt.value = trnsprtServiceCd.value[i];
+			opt.text = trnsprtServiceCd.text[i];
+			target.appendChild(opt); //서비스 선택 셀렉트박스 옵션 추가
+		}
+		
+		target.disabled = false; //서비스 선택 셀렉트 박스 활성화
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+		$('#sbx_trnsprtServiceCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
+		
+		var paramMap = new Object();
+		paramMap.trnsprtDivCd = "S"; //판매자
+		paramMap.trnsprtTypCd = document.getElementById("sbx_trnsprtTypCd").value; //운송 구분 코드
+		paramMap.trnsprtAreaCd = selected; //지역 코드
+		paramMap.trnsprtServiceCd = "SF"; //서비스 구분 코드
+		$.ajax({
+			type: "POST",
+	        url: "/selectTrnsprtInfo",
+	        data: paramMap,
+	        async: false,
+			success: function(data){
+				//운송 가격 표시하기
+				var innerText = "";
+				innerText += '<div class="comy-box">';
+				innerText += '	<div class="cmy-text">'+data.result.trnsprtCdNm.trnsprtTypCdNm+' ('+data.result.trnsprtCdNm.trnsprtAreaCdNm+')</div>';
+				innerText += '	<div class="cmy-won">'+data.result.trnsprtPrc+' KRW</div>';
+				innerText += '	<div class="cmy-end">X</div>';
+				innerText += '</div>';
+				$("#div_trnsprtTypCd").empty();
+				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+			}
+		}); 
 	}
+	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
-$("#sbx_trnsprt2").on("change", function(){
-	var selected = $("#sbx_trnsprt2 option:selected").val();
-	var selectedHtml = '';
-	var selectedHtml2 = '';
-	if(selected != "null"){
-		selectedHtml += '<div class="comy-box">';
-		selectedHtml += '<div class="cmy-text">'+$("#sbx_trnsprt2 option:selected").text()+'</div>';
-		selectedHtml += '<div class="cmy-won">&#8361; '+selected+'원</div>';
-		selectedHtml += '<div class="cmy-end">X</div>';
-    	$("#div_trnsprt2").append(selectedHtml).trigger("create");
-    	selectedHtml += '총금액<span>&#8361; '+400,000+'원</span>';
+//서비스 구분 셀렉트 박스 선택시
+$("#sbx_trnsprtServiceCd").on("change", function(){
+	var selected = $(this).val(); //선택된 값 가져오기
+	if(selected == "null"){
+		$("#div_trnsprtServiceCd").empty();
+		totalTrnsprtPrc(); //총 금액 자동계산
 	}else{
-		$("#div_trnsprt2").empty();
+		var paramMap = new Object();
+		paramMap.trnsprtDivCd = "S"; //판매자
+		paramMap.trnsprtTypCd = document.getElementById("sbx_trnsprtTypCd").value; //운송 구분 코드
+		paramMap.trnsprtAreaCd = document.getElementById("sbx_trnsprtAreaCd").value; //지역 코드
+		paramMap.trnsprtServiceCd = selected; //서비스 구분 코드
+		$.ajax({
+			url:"/selectTrnsprtInfo",
+			type:"post",
+	        data: paramMap,
+			success: function(data){
+				//운송 가격 표시하기
+				var innerText = "";
+				innerText += '<div class="comy-box">';
+				innerText += '	<div class="cmy-text">'+data.result.trnsprtCdNm.trnsprtServiceCdNm+'</div>';
+				innerText += '	<div class="cmy-won">'+data.result.trnsprtPrc+' KRW</div>';
+				innerText += '	<div class="cmy-end">X</div>';
+				innerText += '</div>';
+				$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+				totalTrnsprtPrc(); //총 금액 자동계산
+			}
+		}); 
 	}
-	//amount = parseInt($("#sbx_trnsprt1 option:selected").val().replaceAll(/,/g, '')) + parseInt($("#sbx_trnsprt2 option:selected").val().replaceAll(/,/g, ''));
 });
+//부가서비스 총 금액 자동 표시
+function totalTrnsprtPrc(){
+	$("#div_totalTrnsprtPrc").empty();
+	var cmyWonList = document.querySelectorAll(".cmy-won");
+	var trnsprtPrc = 0;
+	var totalTrnsprtPrc = 0;
+	if(cmyWonList.length > 0){
+		for(var i=0; i<cmyWonList.length; i++){
+			trnsprtPrc = cmyWonList[i].innerText.replaceAll(/,/g, '');
+			trnsprtPrc = trnsprtPrc.replaceAll('KRW', '');
+			trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' ', ''))
+			totalTrnsprtPrc += trnsprtPrc;
+		}
+		$("#div_totalTrnsprtPrc").append("총금액<span>"+formatComma(totalTrnsprtPrc)+" 원</span>").trigger("create"); //부가서비스 총 가격 추가
+	}
+}
+//쿠폰 목록 가져오기
+function getCouponList(cuponTypCd){
+	$.ajax({
+		url:"/myCouponList_payment",
+		type:"post",
+      data: {
+      	mbrSq : sMbrSqVal,
+      	cuponTypCd : cuponTypCd
+      },
+		success: function(data){
+			var target = document.getElementById("sbx_couponList"); //쿠폰 셀렉트 박스 가져오기
+			if(data != null && data.result.length > 0){
+				target.disabled = false; //쿠폰 셀렉트 박스 활성화
+				target.options.length = 1; //쿠폰 셀렉트박스 옵션 초기화
+				for(var i=0; i<data.result.length; i++){ //쿠폰 박스에 옵션 추가
+					var opt = document.createElement("option");
+					if(data.result[i].cuponDr != null){
+						opt.value = data.result[i].cuponDr;
+					}else{
+						opt.value = data.result[i].cuponDiscAmt;
+					}
+					opt.text = data.result[i].cuponNm;
+					target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
+				}
+				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			}
+		}
+	}); 
+}
 
+//쿠폰 셀렉트 박스 선택시
+$("#sbx_couponList").on("change", function(){
+	var innerText = '';
+	innerText += '<div class="comy-box">';
+	innerText += '	<div class="cmy-text">'+$("#sbx_couponList option:selected").text()+'</div>';
+	if($("#sbx_couponList_TD option:selected").val().length < 2){
+		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';
+	}else{
+		innerText += '	<div class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
+	}
+	innerText += '	<div class="cmy-end">X</div>';
+	innerText += '</div>';
+	$("#div_couponList").empty();
+	$("#div_couponList").append(innerText).trigger("create"); //쿠폰 추가
+});
 $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches){
   	    document.querySelectorAll(".item").forEach((item) => {
