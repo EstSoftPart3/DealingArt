@@ -30,8 +30,10 @@ public class BoardController {
 	@Autowired
 	private boardService boardService;
 	
-	
-	
+	/**
+	 * 공지사항,FAQ DAO
+	 * 
+	 * **/
 	
 	//게시판 목록 페이지 이동
 	@RequestMapping("/admin/board/boardList")
@@ -157,5 +159,49 @@ public class BoardController {
 		boardService.boardUpdate(param);
 		
 	}
+	
+	/**
+	 * 공지사항,FAQ DAO
+	 * 
+	 * **/
+	
+	//게시판 목록 페이지 이동
+	@RequestMapping("/admin/magazine/magazineList")
+	public String openMagazineList(HttpServletRequest req) {
+		
+		String mgzTypCd = req.getParameter("mgzTypCd");
+		
+		return "bo/magazine/magazineList";
+	}
+	
+	//게시판 목록 데이터
+	@RequestMapping("/admin/magazine/magazineListData")
+	@ResponseBody
+	public ModelAndView MagazineListData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardService.magazineList(param);
+									
+		mv.addObject("magazineData", result);
+		
+		return mv;
+	}
+	
+	//게시판 등록 페이지 이동
+	@RequestMapping("/admin/magazine/magazineWrite")
+	public String openMagazineWrite(HttpServletRequest req) {
+		
+		String mgzTypCd = req.getParameter("mgzTypCd");
+		return "bo/magazine/magazineWrite";
+		
+	}
+	
 
+
+	
+	
 }

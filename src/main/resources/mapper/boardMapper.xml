@@ -10,8 +10,7 @@
     <!-- 게시판 목록 -->
     <select id="boardList" resultType="hashMap">
         SELECT
-           	BRD_SQ             				  AS brdSq
-			,MBR_SQ              			  AS mbrSq
+           	 BRD_SQ             			  AS brdSq
 			,BRD_TITLE         				  AS brdTitle
 			,BRD_CONTENT      				  AS brdContent
 			,BRD_TYP_CD        				  AS brdTypCd
@@ -31,22 +30,22 @@
    <insert id="boardInsert" parameterType="hashMap">
     	INSERT INTO TBL_DA_BRD_M
         (
-			 MBR_SQ
 			,BRD_TITLE
 			,BRD_CONTENT
 			,BRD_TYP_CD
 			,REG_MBR_SQ
 			,REG_DT
+			,USE_YN
 			,DEL_YN
        	) 
         VALUES
         (
-			 #{mbrSq}
 			,#{brdTitle}
 			,#{brdContent}
 			,#{brdTypCd}
 			,#{mbrSq}
 			,NOW()
+			,default
 			,default
         )
     </insert>
@@ -95,5 +94,108 @@
          	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
 	</update>
    
+   	<!-- 잡지 Mapper -->
+	   
+    <!-- 잡지 목록 -->
+    <select id="magazineList" resultType="hashMap">
+        SELECT
+           	 MGZ_SQ            			      AS mgzSq
+			,MBR_SQ         				  AS mbrSq
+			,MGZ_TITLE      				  AS mgzTitle
+			,MGZ_DESCRPTN        			  AS mgzDescrptn
+			,MGZ_CONTENT        			  AS mgzContent
+			,MGZ_MAIN_IMG_URL				  AS mgzMainImgUrl
+			,MGZ_TYP_CD						  AS mgzTypCd
+			,REG_MBR_SQ                       AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN                           AS useYn
+			,DEL_YN			   				  AS delYn
+		FROM
+            TBL_DA_MGZ_M A 
+        WHERE 1=1
+         	AND A.MGZ_TYP_CD = #{mgzTypCd}
+         	ORDER BY MGZ_SQ DESC
+    </select>
+    
+    <!-- 잡지 등록 -->
+   <insert id="magazineInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_MGZ_M
+        (
+			 MBR_SQ
+			,MGZ_TITLE
+			,BRD_CONTENT
+			,MGZ_DESCRPTN
+			,MGZ_MAIN_IMG_URL
+			,MGZ_TYP_CD
+			,REG_MBR_SQ
+			,REG_DT
+			,USE_YN 
+			,DEL_YN
+       	) 
+        VALUES
+        (
+			 #{mbrSq}
+			,#{mgzTitle}
+			,#{mgzDescrptn}
+			,#{mgzContent}
+			,#{mgzMainImgUrl}
+			,#{mgzTypCd}
+			,#{regMbrSq}
+			,NOW()
+			,default
+			,default
+        )
+    </insert>
+    
+    <!-- 잡지 상세 -->
+    <select id="magazineDetail" resultType="hashMap">
+        SELECT
+           	 MGZ_SQ            			      AS mgzSq
+			,MBR_SQ         				  AS mbrSq
+			,MGZ_TITLE      				  AS mgzTitle
+			,MGZ_DESCRPTN        			  AS mgzDescrptn
+			,MGZ_CONTENT        			  AS mgzContent
+			,MGZ_MAIN_IMG_URL				  AS mgzMainImgUrl
+			,MGZ_TYP_CD						  AS mgzTypCd
+			,REG_MBR_SQ                       AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN                           AS useYn
+			,DEL_YN			   				  AS delYn
+		FROM
+            TBL_DA_MGZ_M A
+        WHERE 1=1
+         	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
+    </select>
+    
+    <!-- 잡지 삭제 -->
+    <update id="magazineDelete" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_MGZ_M A
+		SET
+			DEL_YN	= 'Y'
+   		WHERE 1=1
+         	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
+	</update>
+    
+    <!-- 잡지 수정 -->
+    <update id="magazineUpdate" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_BRD_M A
+		SET
+			 MGZ_TITLE        = 	#{mgzTitle}
+			,MGZ_DESCRPTN     = 	#{mgzDescrptn}
+			,MGZ_CONTENT      = 	#{mgzContent}
+			,MGZ_MAIN_IMG_URL = 	#{mgzMainImgUrl}
+			,UPDT_MBR_SQ      =     '78'
+			,UPDT_DT          =		NOW()
+			,DEL_YN	     = 	'Y'
+
+   		WHERE 1=1
+         	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
+	</update>
   
 </mapper>

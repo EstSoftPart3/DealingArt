@@ -24,6 +24,10 @@ public class boardDao {
 	@Autowired
 	boardMapper boardMapper;
 	
+	/**
+	 * 공지사항,FAQ DAO
+	 * 
+	 * **/
 	
 	//게시판 목록
 	public Map<String, Object> boardList(Map<String, Object> param){
@@ -76,4 +80,63 @@ public class boardDao {
 		boardMapper.boardUpdate(param);
 		
 	}
+	
+	/**
+	 * 잡지 DAO
+	 * 
+	 * **/
+	
+	//잡지 목록
+	public Map<String, Object> magazineList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> magazineInfo = boardMapper.magazineList(param);
+		
+		result.put("magazineInfo", magazineInfo);
+				
+		return result;
+	}
+
+	//잡지 등록
+	public void magazineInsert(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.magazineInsert(param);
+		
+	}
+	
+	//잡지 상세
+	public Map<String, Object> magazineDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("DATA = " + param);
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> magazineDetailData = boardMapper.magazineDetail(param);
+		
+		result.put("magazineDetailData", magazineDetailData);
+		
+		return result;
+	}
+	
+	//잡지 삭제
+	public void magazineDelete(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.magazineDelete(param);
+		
+	}
+	
+	//잡지 수정
+	public void magazineUpdate(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.magazineUpdate(param);
+		
+	}
+	
+	
 }
