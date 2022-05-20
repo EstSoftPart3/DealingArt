@@ -1260,9 +1260,10 @@
 				B.DEAL_SQ AS dealSq,
 				B.SELL_MBR_SQ AS sellMbrSq,
 				B.BUY_MBR_SQ AS buyMbrSq,
-				B.WORK_SQ AS workSq,
-				B.ARTST_SQ AS artstSq,
+				A.WORK_SQ AS workSq,
+				A.ARTST_SQ AS artstSq,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.WORK_GRT_URL AS workGrtUrl,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
@@ -1290,8 +1291,8 @@
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND B.DEAL_SQ = #{dealSq}
-		GROUP BY B.DEAL_SQ;
+			AND B.DEAL_SQ = '54'
+		GROUP BY B.DEAL_SQ
 	</select>
 	
 	<select id="selectTrnsprtPrc" resultType="String" parameterType="hashMap">

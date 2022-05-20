@@ -741,4 +741,14 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	//배송 주소 변경
+	@RequestMapping("/updateNewAddr")
+	@ResponseBody
+	public ModelAndView updateNewAddr(@RequestParam Map<String, Object> paramMap) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = memberService.mbrDelivryAddrCor(paramMap);
+		mv.addObject("result", result);
+		return mv;
+	}
 }

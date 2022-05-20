@@ -587,7 +587,7 @@
    		SELECT * FROM TBL_DA_MBR_M WHERE MBR_SQ = #{mbrSq}
    </select>
    
-   <insert id="mbrDelivryAddrCor">
+   <update id="mbrDelivryAddrCor">
    		/*회원 배송 정보 수정*/
    		UPDATE
   				TBL_DA_MBR_M
@@ -595,5 +595,5 @@
    				MBR_DELIVRY_ADDR = #{mbrDelivryAddr}
    		WHERE 
    				MBR_SQ = #{mbrSq}
-   </insert>
+   </update>
 </mapper>
