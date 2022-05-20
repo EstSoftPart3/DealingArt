@@ -28,6 +28,13 @@ public class FileUploadController {
     	System.out.println("######### file : " + multipartFile.getName());
         return awsS3Service.upload(multipartFile, "upload");
     }
+    
+    
+    @PostMapping("/ckUpload")
+    public FileVo ckUpload(@RequestPart("upload") MultipartFile multipartFile) throws IOException {
+    	System.out.println("######### file : " + multipartFile.getName());
+        return awsS3Service.upload(multipartFile, "upload");
+    }
 
     @DeleteMapping("/delete")
     public void remove(FileVo fileVo) {
