@@ -9,7 +9,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoggerInterceptor())
-                .addPathPatterns("/*");
-                //.excludePathPatterns("/board"); // 해당 경로는 인터셉터가 가로채지 않는다.
+                .addPathPatterns("/*")
+                .excludePathPatterns("/*"); // 해당 경로는 인터셉터가 가로채지 않는다.
     }
 }

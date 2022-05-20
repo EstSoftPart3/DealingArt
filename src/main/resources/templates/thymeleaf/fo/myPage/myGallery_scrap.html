@@ -144,7 +144,7 @@ function scrapList(){
 				html += '</div>'
 				
 				html += '<div class="item-body">';
-				html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
 				html += '<div>';
 				html += '<div class="uesr-s">';
 				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
@@ -209,7 +209,7 @@ function scrapList(){
  				html += '</div>';
 				html += '</div>';
 				html += '<div class="item-body">';
-				html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
 				html += '<div>';
 				html += '<div class="uesr-s">';
 				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
@@ -334,6 +334,7 @@ $(document).on("click", ".heart", function(){
 	        success: function(data) {
 	        	element.removeClass("on");
 	        	element.addClass("off");
+	        	
 	        },
 	        error: function(error) {
 	            alert("오류 발생" + error);
@@ -356,6 +357,8 @@ $(document).on("click", ".heart", function(){
 	        }
 		});
 	}
+	
+// 	scrapList();
 });
 
  
