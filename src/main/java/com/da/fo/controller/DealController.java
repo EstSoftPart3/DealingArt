@@ -76,12 +76,19 @@ public class DealController {
 	//거래 등록 페이지 오픈
 	@RequestMapping("/dealReg")
 	@ResponseBody
-	public ModelAndView dealReg(@RequestParam(value="workSq", required=false) String workSq, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public ModelAndView dealReg(@RequestParam(value="workSq", required=false) String workSq,
+								@RequestParam(value="workTypCd", required=false) String workTypCd,
+								@RequestParam(value="mbrSq", required=false) String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/dealReg");
 		Map<String, Object> result = new HashMap<>();
-		Map<String, Object> work = myPageService.myWorkMod(workSq);
-		MbrInfoVo mbrInfo = memberService.mbrInfo(session.getAttribute("mbrSq").toString());
+		Map<String, Object> work = new HashMap<>(); 
+		if(workTypCd.equals("WORK")) {
+			work = myPageService.myWorkMod(workSq);
+		}
+		if(workTypCd.equals("COLL")) {
+			work = myPageService.myCollectionMod(workSq);
+		}
+		MbrInfoVo mbrInfo = memberService.mbrInfo(mbrSq);
 		mbrInfo.setMbrCpNum(commonService.decrypt(mbrInfo.getMbrCpNum()));
 		result.put("work", work);
 		result.put("mbrInfo", mbrInfo);

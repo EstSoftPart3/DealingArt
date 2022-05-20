@@ -367,14 +367,7 @@ $(document).on("click", ".cor-a", function(){
 });
 
 $(document).on("click", ".reg-a", function(){
-	var workSq= $(this).attr("workSq");
-	pageGoPost({
-		url:"/dealReg",
-		target:"_self",
-		vals:[
-			["workSq", workSq]
-		]
-	});
+	location.href = "/dealReg?workSq="+$(this).attr("workSq")+"&&mbrSq="+sMbrSqVal+"&&workTypCd=WORK";
 });
 
 $(document).on("click", ".heart", function(){
