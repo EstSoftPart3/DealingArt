@@ -18,6 +18,11 @@ public class boardServiceImpl implements boardService {
 	@Autowired
 	boardDao boardDao;
 	
+	/**
+	 * 공지사항,FAQ DAO
+	 * 
+	 * **/	
+	
 	//게시판 목록
 	@Override
 	public Map<String, Object> boardList(Map<String, Object> param){
@@ -57,5 +62,52 @@ public class boardServiceImpl implements boardService {
 	public void boardUpdate(Map<String, Object> param){
 		boardDao.boardUpdate(param);
 	}
+	
+	/**
+	 * 잡지 DAO
+	 * 
+	 * **/
+	
+	//잡지 목록
+	@Override
+	public Map<String, Object> magazineList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.magazineList(param);
+		
+		return result;
+	}
+	
+	//잡지 입력
+	@Override
+	public void magazineInsert(Map<String, Object> param){
+		boardDao.magazineInsert(param);
+	}
+	
+	//잡지 상세
+	@Override
+	public Map<String, Object> magazineDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.magazineDetail(param);
+		
+		return result;
+	}
+		
+	//잡지 삭제
+	@Override
+	public void magazineDelete(Map<String, Object> param){
+		boardDao.magazineDelete(param);
+	}
+	
+	//잡지 수정
+	@Override
+	public void magazineUpdate(Map<String, Object> param){
+		boardDao.magazineUpdate(param);
+	}
+	
+	
 	
 }

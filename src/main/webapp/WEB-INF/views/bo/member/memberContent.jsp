@@ -173,11 +173,23 @@
 		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
 		        	 var authSqTxt = '';
-		        	 if(authSq == '2') {
-		        		 authSqTxt = '작가' 
-		        	 } else {
-		        		 authSqTxt = '일반'
+		        	 
+		        	 if(authSq == '1') {
+		        		 authSqTxt = '일반';
 		        	 }
+		        	 
+		        	 if(authSq == '2') {
+		        		 authSqTxt = '작가'; 
+		        	 }
+		        	 
+		        	 if(authSq == '3') {
+		        		 authSqTxt = '관리자';
+		        	 }
+		        	 
+		        	 if(authSq == '4') {
+		        		 authSqTxt = '전체관리자'; 
+		        	 }
+		        	 
 		        	 $("#authSqTxt").val(authSqTxt);
 		        	 $("#mbrNm").val(mbrNm);
 		        	 $("#mbrNm").val(mbrNm);

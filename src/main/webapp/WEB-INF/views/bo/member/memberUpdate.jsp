@@ -42,11 +42,17 @@
                     		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">회원구분</label>
                     		<div class="col-sm-3">
                     			<div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                   <label class="btn btn-secondary sTitle gSm">
+                                   <label class="btn btn-secondary sTitle r1">
                     					<input type="radio" name="authSq"  class="authSq sTitle" autocomplete="off" value="1"> 일반
                   					</label>
-                  					<label class="btn btn-secondary sTitle gSf">
+                  					<label class="btn btn-secondary sTitle r2">
                     					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="2"> 작가
+                  					</label>
+                  					<label class="btn btn-secondary sTitle r3">
+                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="3"> 관리자
+                  					</label>
+                  					<label class="btn btn-secondary sTitle r4">
+                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="4"> 전체관리자
                   					</label>
                 				</div>
                     		</div>
@@ -62,7 +68,6 @@
                   		<div class="form-group row">
                   			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
                     		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname" id="mbrNm" name="mbrNm" disabled>
                     		</div>
                     	</div>
                     	<hr>
@@ -216,12 +221,32 @@
 		        	 if(authSq == '1') {
 		        		 
 		        		 $(":radio[name='authSq'][value='1']").attr('checked', true);
-		        		 $('.gSm').addClass('active');
-			        	 $('.gSf').removeClass('active');
-			         } else {
+		        		 $('.r1').addClass('active');
+			        	 $('.r2').removeClass('active');
+			        	 $('.r3').removeClass('active');
+			        	 $('.r4').removeClass('active');
+			         } 
+		        	 if(authSq == '2') {
 			        	 $(":radio[name='authSq'][value='2']").attr('checked', true);
-			         	 $('.gSf').addClass('active');
-			        	 $('.gSm').removeClass('active');
+			         	 
+			        	 $('.r1').removeClass('active');
+			        	 $('.r2').addClass('active');
+			        	 $('.r3').removeClass('active');
+			        	 $('.r4').removeClass('active');
+					 }
+		        	 if(authSq == '3') {
+			        	 $(":radio[name='authSq'][value='3']").attr('checked', true);
+			        	 $('.r1').removeClass('active');
+			        	 $('.r2').removeClass('active');
+			        	 $('.r3').addClass('active');
+			        	 $('.r4').removeClass('active');
+					 }
+		        	 if(authSq == '4') {
+			        	 $(":radio[name='authSq'][value='4']").attr('checked', true);
+			        	 $('.r1').removeClass('active');
+			        	 $('.r2').removeClass('active');
+			        	 $('.r3').removeClass('active');
+			        	 $('.r4').addClass('active');
 					 }
 		        	 
 		        	 

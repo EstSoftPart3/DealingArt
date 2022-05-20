@@ -13,6 +13,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>딜링아트</title>
+<!-- 	<link rel="icon" href="http://localhost/resources/static/favicon.ico" /> -->
+ 	<link rel="icon" href="favicon.ico">
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.min.css">
 	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
@@ -50,6 +52,17 @@
 		  padding-right:0 !important;
 		}
    </style>
+   
+   <script>
+		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+		jQuery(document).ready(function($){
+		     if(!isMobile) {
+		         $("#appDevice").val("PC");
+		     } else {
+		     	 $("#appDevice").val("MOBILE"); 
+		     }
+		});
+  </script>
     
 </head>
 <body>
@@ -58,6 +71,8 @@
 	<div th:text="${session.sMbrSqVal}" style="display:none"></div>
 	<div th:text="${session.sAuthSqVal}" style="display:none"></div>
 	<input type="hidden" id="sMbrSqVal">
+	<!-- 접속 Divice 체크 -->
+	<input type="hidden" id="appDevice">
 		
 		<div class="head">
 			<div class="h-logo"><a href="/main"><img src="resources/img/logo.png" /></a></div>
@@ -80,8 +95,8 @@
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
-					<span class="sog-1"><a href="/scrap"><img src="resources/img/icon-1.png" /></a></span>
-					<span class="sog-2 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
+					<span class="sog-1 scrap"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
 							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>회원정보 수정</span></a></li>
@@ -90,7 +105,7 @@
 							<li><a href="javascript:void(0);" class="myWork"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
 							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li>
 							<!-- class="scrap" -->
-							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>좋아요</span></a></li>
+							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
 							<!-- /customerService -->
 							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
 						</ul>
@@ -1308,13 +1323,18 @@ function btn_search_onclick(){
 	
 }
 $(document).on("click", ".myWork", function(){
-	pageGoPost({
-		url:"/myWork",
-		target:"_self",
-		vals:[
-			["artstSq", artstSq]
-		]
-	});
+	
+	if(sAuthSqVal != "2"){
+		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
+	}else{
+		pageGoPost({
+			url:"/myWork",
+			target:"_self",
+			vals:[
+				["artstSq", artstSq]
+			]
+		});
+	}
 });
 $(document).on("click", ".myCollection", function(){
 	pageGoPost({
