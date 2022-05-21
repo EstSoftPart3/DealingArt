@@ -30,6 +30,12 @@
 				<if test="couponSq != null and couponSq != ''">
 					,COUPON_SQ
 				</if> 
+				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
+					,PAYMNT_DISC_AMT
+				</if> 
+				<if test="artstSq != null and artstSq != ''">
+					,ARTST_SQ
+				</if> 
 			) VALUES (
 				#{sellMbrSq},
 				#{buyMbrSq},
@@ -51,6 +57,12 @@
 				<if test="couponSq != null and couponSq != ''">
 					,#{couponSq}
 				</if> 
+				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
+					,#{paymntDiscAmt}
+				</if>
+				<if test="artstSq != null and artstSq != ''">
+					,#{artstSq}
+				</if> 
 			)
   </insert>
   
@@ -60,18 +72,21 @@
 				A.REQUEST_SQ AS requestSq,
 				A.DEAL_SQ AS dealSq,
 				A.WORK_SQ AS workSq,
+				A.ARTST_SQ AS artstSq,
 				A.SELL_MBR_SQ AS sellMbrSq,
 				A.BUY_MBR_SQ AS buyMbrSq,
-				A.COUPON_SQ AS couponSq,
+				A.CUPON_SQ AS couponSq,
 				A.PAYMNT_DIV_CD AS paymntDivCd,
 				A.PAYMNT_TYP_CD AS paymntTypCd,
 				A.PAYMNT_AMT AS paymntAmt,
 				A.PAYMNT_FEE_AMT AS paymntFeeAmt,
+				PAYMNT_DISC_AMT AS paymntDiscAmt,
 				A.MBR_REF_NO AS mbrRefNo,
 				A.PAYMETHOD AS paymethod,
 				A.AMOUNT AS amount,
 				A.GOODS_NAME AS goodsName,
 				A.AID AS aid
+				
 		FROM 
 				TBL_DA_MAINPAY_REQUEST_S AS A
 		INNER JOIN
@@ -126,8 +141,14 @@
 				TAX_FREE_AMOUNT,
 				PAYMNT_AMT,
 				PAYMNT_FEE_AMT
-				<if test="couponSq != null and couponSq != ''">
-					,COUPON_SQ
+				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
+					,PAYMNT_DISC_AMT
+				</if>
+				<if test="cuponSq != null and cuponSq != ''">
+					,CUPON_SQ
+				</if> 
+				<if test="artstSq != null and artstSq != ''">
+					,ARTST_SQ
 				</if> 
 			) VALUES (
 				<if test='paymntDivCd =="S"'>
@@ -166,8 +187,14 @@
 				#{taxFreeAmount},
 				#{paymntAmt},
 				#{paymntFeeAmt}
-				<if test="couponSq != null and couponSq != ''">
-					,#{couponSq}
+				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
+					,#{paymntDiscAmt}
+				</if>
+				<if test="cuponSq != null and cuponSq != ''">
+					,#{cuponSq}
+				</if> 
+				<if test="artstSq != null and artstSq != ''">
+					,#{artstSq}
 				</if> 
 			)
   </insert>
@@ -197,6 +224,15 @@
   				ON DUPLICATE KEY UPDATE
   					DEAL_ENDNG_DT = NOW()
   </insert>
+  <update id="updateWorkSaleYn" parameterType="String">
+  	/*작품 테이블 판매여부 업데이트*/
+  	UPDATE 
+  			TBL_DA_WORK_M
+  	SET
+  			WORK_SALE_YN = 'Y'
+  	WHERE
+  			WORK_SQ = #{workSq}
+  </update>
   
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">
