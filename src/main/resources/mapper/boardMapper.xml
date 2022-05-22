@@ -36,6 +36,8 @@
 			,BRD_TYP_CD
 			,REG_MBR_SQ
 			,REG_DT
+			,UPDT_MBR_SQ
+			,UPDT_DT
 			,USE_YN
 			,DEL_YN
        	) 
@@ -44,6 +46,8 @@
 			#{brdTitle}
 			,#{brdContent}
 			,#{brdTypCd}
+			,#{regMbrSq}
+			,NOW()
 			,#{regMbrSq}
 			,NOW()
 			,default
