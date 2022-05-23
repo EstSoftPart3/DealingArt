@@ -1252,13 +1252,14 @@ function ibx_search_onkeyup(e){
      
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
-	pageGoPost({
+	fnModalAlert();
+	/* pageGoPost({
 		url:"/bidding",
 		target:"_self",
 		vals:[
 			["workSq", workSq]
 		]
-	});
+	}); */
 });
 
 $(document).on("click",".artst",function(){
@@ -1273,7 +1274,8 @@ $(document).on("click",".artst",function(){
 });
 
 $(document).on("click",".workMore",function(){
-	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
+	fnModalAlert();
+	/* if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
 		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
 	}else{
 		modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
@@ -1287,7 +1289,7 @@ $(document).on("click",".workMore",function(){
 				});
 			}
 		});
-	}
+	} */
 });
 
 $(document).on("click",".artistMore",function(){

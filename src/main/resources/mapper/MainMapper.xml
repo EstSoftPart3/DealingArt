@@ -89,17 +89,18 @@
 				A.WORK_SQ AS workSq,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				A.ARTST_ACTVTY_NM AS artstActvtyNm,
-				B.KEYWRD AS keywrd 
+				A.ARTST_ACTVTY_NM AS artstActvtyNm
+				<!-- B.KEYWRD AS keywrd -->
 		FROM	
 				TBL_DA_WORK_M AS A
-		INNER JOIN  
+		<!-- INNER JOIN  
 				TBL_DA_KEYWRD_S AS B 
-			ON 	A.WORK_SQ = B.WORK_SQ 
+			ON 	A.WORK_SQ = B.WORK_SQ -->
 		WHERE 	
 				A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%')
+			OR  A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 		LIMIT 	4
 	</select>
 	

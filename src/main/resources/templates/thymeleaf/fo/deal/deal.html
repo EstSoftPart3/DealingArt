@@ -139,8 +139,8 @@
 					<div class="con-right">
 					
 						<div class="sea-won2">
-							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" disabled/>
-							<a href="javascript:fnModalAlert();"><img src="resources/img/de/sech-icon.jpg" /></a>
+							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" onkeydown="javascript: if (event.keyCode == 13) {dealSearch();}"/>
+							<a href="javascript:void(0);" onclick="dealSearch()"><img src="resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
 						<div class="reds-box">
@@ -626,8 +626,7 @@
 			     				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
 			     				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
 			     				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-			     				html += '<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
-		     					
+			     				html += '<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
 		     					html += '</div>';
 		     					
 		     					html += '</div>'
@@ -652,10 +651,10 @@
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
 		     					
 		     					if(dealList[i].dealTypCd == "A"){
-		     						if(dealList[i].maxBidPrc != null) {
-		    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +'</h4>';
-		     						} else {
-		     							html += '<h4>입찰가 30,000</h4>';
+		     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
+		    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+		     						}else{
+		     							html += '<h4>입찰가 0 KRW</h4>';
 		     						}
 		    	     				html += '<p class="ts-2">';
 		    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
@@ -715,7 +714,7 @@
 		     					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-		     					html += '<h4>판매가 '+ dealList[i].dealFinalPrc +'</h4>';
+		     					html += '<h4>판매가 '+ dealList[i].dealFinalPrc +' KRW</h4>';
 		     					html += '</div>'
 		     					
 		     					html += '</div>';
@@ -802,6 +801,8 @@
 	    document.querySelectorAll(".searchOption").forEach(function(v, i) {
 	        v.checked = false;
 	    });
+	    $("#searchKeyword").val("");
+	    dealSearch();
 	}
 	
 	 $(window).on("resize", function () {

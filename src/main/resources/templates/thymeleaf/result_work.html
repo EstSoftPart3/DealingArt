@@ -320,13 +320,14 @@
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s3.png" class="ste-img"/>
 													<p class="ste-p1">시작가</p>
-													<p class="ste-p2" th:text="${workList.dealStrtPrc}"></p>
+													<p class="ste-p2" th:text="${workList.dealStrtPrc}+' KRW'"></p>
 												</div>
 												<th:block th:if="${workList.dealSttsCd.toString().equals('TP')}"><!-- 경매며 판매 중이면 -->
 													<div class="ste-div">
 														<img src="resources/img/about/icon-s4.png" class="ste-img"/>
 														<p class="ste-p1">입찰가</p>
-														<p class="ste-p2" th:text="${workList.maxBidPrc}"></p>
+														<p class="ste-p2" th:if="${not #strings.isEmpty(workList.maxBidPrc)}" th:text="${workList.maxBidPrc}+' KRW'"></p>
+														<p class="ste-p2" th:unless="${not #strings.isEmpty(workList.maxBidPrc)}">0 KRW</p>
 													</div>
 													<div class="ste-div">
 														<img src="resources/img/about/icon-s5.png" class="ste-img"/>
@@ -338,7 +339,7 @@
 													<div class="ste-div">
 														<img src="resources/img/about/icon-s4.png" class="ste-img"/>
 														<p class="ste-p1">낙찰가</p>
-														<p class="ste-p2" th:text="${workList.dealSbidPrc}"></p>
+														<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
 													</div>
 												</th:block>
 											</th:block>
@@ -346,7 +347,7 @@
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">판매가</p>
-													<p class="ste-p2" th:text="${workList.dealFinalPrc}"></p>
+													<p class="ste-p2" th:text="${workList.dealFinalPrc}+' KRW'"></p>
 												</div>
 											</th:block>
 										</div>
@@ -558,6 +559,7 @@ function searchOptionReset(){
 	document.querySelectorAll(".searchOption").forEach(function(v, i) {
 		v.checked = false;
 	});
+	dealSearch();
 }           
 
 //거래 남은 시간 1초마다 계산해서 표현하기

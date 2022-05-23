@@ -466,22 +466,22 @@
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
 	        		hotestHtml +='<div class="swiper-slide hd-div">';
-					hotestHtml +='	<a href="javascript:fnModalAlert();">';
+					hotestHtml +='	<a href="javascript:void(0);" onclick="workDetail('+ mainHotest[i].workSq +')">';
 					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:280px; heigth:280px;"/>';
 					hotestHtml +='		<div class="hd-text">';
 					hotestHtml +='			<h4 style="height:100px;">'+mainHotest[i].artstActvtyNm+'<br>('+mainHotest[i].workNm+')</h4>';
-// 					hotestHtml +='			<div class="hd-d1" >'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';
-// 					hotestHtml +='			<br/>소재 '+mainHotest[i].workMatrl+', '+mainHotest[i].workSizeWidth+'x'+mainHotest[i].workSizeDepth+'cm</div>';
-// 					if(mainHotest[i].dealTypCd == "A"){
-// 						if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
-// 							hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
-// 						}else{
-// 							hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
-// 						}
-// 	        	    }
-// 	        	    if(mainHotest[i].dealTypCd == "S"){
-// 						hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
-// 	        	    }
+ 					hotestHtml +='			<div class="hd-d1" >'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';
+ 					hotestHtml +='			<br/>소재 '+mainHotest[i].workMatrl+', '+mainHotest[i].workSizeWidth+'x'+mainHotest[i].workSizeDepth+'cm</div>';
+ 					/* if(mainHotest[i].dealTypCd == "A"){
+ 						if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
+ 							hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
+ 						}else{
+ 							hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
+ 						}
+ 	        	    }
+ 	        	    if(mainHotest[i].dealTypCd == "S"){
+ 						hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
+ 	        	    } */
 					hotestHtml +='		</div>';
 					hotestHtml +='	</a>';
 					hotestHtml +='</div>';
@@ -502,7 +502,7 @@
 
 	        		   insightsHtml +='<div class="swiper-slide">';
 	        		   insightsHtml +='<div>';
-	        		   insightsHtml += '	<a href="" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mainInsights[i].mgzSq +');">';
+	        		   insightsHtml += '	<a href="/insights">';
 	        		   insightsHtml += '<div class="cns-box">';
 	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" style="height:300px; "/>';
 	 				   insightsHtml += '<div class="cns-sb">';
@@ -547,7 +547,10 @@
 	           }
 		})
 	}
-	
+    //응찰하기 페이지로 이동
+    function workDetail(workSq){
+  		window.location.href = "/bidding?workSq="+workSq;
+  	}
   	/*
      * MGZ9 상세 조회
      * PARAM : #MGZ_SQ
