@@ -113,7 +113,7 @@
 			</div>
 			
 			<!-- 상세내용 -->
-			<div class="modal-body pd60 h850-o" id="lp_brdDtl_cntnt"></div>
+			<div class="modal-body pd60 h850-o" id="editor"></div>
 			
 		</div>
 	</div>
@@ -198,11 +198,11 @@ $(".cn-b").hover(
           	var mgzDtl = null;
           	console.log(data);
           	if(data.result != null){
-              	$("#lp_brdDtl_cntnt").empty();
-              	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
+              	$("#editor").empty();
+              	$("#editor").append(data.result.brdContent).trigger("create");
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
-          		$("#lp_brdDtl_cntnt").empty();
+          		$("#editor").empty();
           	}
           },           
           error: function(error) {
