@@ -22,8 +22,7 @@ public class DealServiceImpl implements DealService{
 	 * return : 검색 결과
 	 */
 	public List dealSerach(Map<String, Object> searchOptions){
-		List result = dealDao.dealSerach(searchOptions);
-		return result;
+		return dealDao.dealSerach(searchOptions);
 	}
 	
 	/*

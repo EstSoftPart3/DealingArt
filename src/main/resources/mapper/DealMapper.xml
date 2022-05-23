@@ -36,6 +36,7 @@
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				D.DEAL_ENDNG_DT AS dealEndngDateTime, /*거래종료날짜시간*/
 				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
 				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
@@ -52,29 +53,38 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
-				D.DEAL_SQ IS NOT NULL
+				1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND 
+				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	C.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
+			</if>
 			<if test="authSq != null and authSq != ''">
 				AND B.AUTH_SQ = #{authSq}
         	</if>	
-			<if test="dealTypCds.size != 0 and dealTypCds != null">
+			<if test="dealTypCds != null">
 				AND D.DEAL_TYP_CD IN
 				<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-        	<if test="dealSttsCds.size != 0 and dealSttsCds != null">
+        	<if test="dealSttsCds != null">
 				AND D.DEAL_STTS_CD IN
 				<foreach collection="dealSttsCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-			<if test="workShpCds.size != 0 and workShpCds != null">
+			<if test="workShpCds != null">
 				AND A.WORK_SHP_CD IN
 				<foreach collection="workShpCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-	        <if test="workClsfcCds.size != 0 and workClsfcCds != null">
+	        <if test="workClsfcCds != null">
 				AND A.WORK_CLSFC_CD IN
 				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}

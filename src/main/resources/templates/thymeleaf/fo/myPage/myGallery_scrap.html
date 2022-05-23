@@ -103,236 +103,239 @@ jQuery(document).ready(function() {
 });      
 
 function scrapList(){
-	
-	var html = '';
-	
-	$("#grid").empty();
-	
-	dealList = result;
-	
-	console.log(dealList);
-	
-	for(var i=0; i<dealList.length; i++){
-			
-			if(i != 0)
-			{
-				var z = i+1
-				var gtText = "gt"+z;
-			}	
-				     					
-			//경매 - 겨래진행중
-			if(dealList[i].dealTypCd == "A" && dealList[i].dealSttsCd == "TP"){
+	if(result.length > 0){
+    	modalAlertShow("검색 결과가 없습니다.");
+    }else{
+		var html = '';
+		
+		$("#grid").empty();
+		
+		dealList = result;
+		
+		console.log(dealList);
+		
+		for(var i=0; i<dealList.length; i++){
 				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-				html += '<div  >';
-				html += '<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">'
-				//작품 이미지
-				html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				
-				html += '<div class="item-ho">';
-				
-				html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
-				html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
-				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
-				html += '<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
-				
-				html += '</div>';
-				
-				html += '</div>'
-				
-				html += '<div class="item-body">';
-				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-				html += '<div>';
-				html += '<div class="uesr-s">';
-				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
- 				}else{
- 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 				}
-				html += '</div>';
-				
-				
-				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-				
-				html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
-				html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-				html += '<p>'+ dealList[i].workMatrl +'</p>';
-				html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-				
-				if(dealList[i].dealTypCd == "A"){
-					if(dealList[i].maxBidPrc != null) {
- 					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +'</h4>';
-					} else {
-						html += '<h4>입찰가 30,000</h4>';
-					}
- 				html += '<p class="ts-2">';
- 				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
- 				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
- 				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
- 				html += '</p>';
- 				}
-				
-				html += '</div>'
-				
-				html += '</div>';
-				
-				if(dealList[i].authSq == 2){
- 				html += '<div class="artist active"><span>Artist</span></div>';
- 				}
- 				if(dealList[i].authSq == 1){
- 				html += '<div class="artist"><span>Artist</span></div>';
- 				}
-				
-				html += '</div>';
-				html += '</div>';
-				html += '</div>';
-				
-			}
-			
-			//판매 - 거래진행중
-			if(dealList[i].dealTypCd == "S" && dealList[i].dealSttsCd == "TP"){
-				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-				html += '<div>';
-				//작품 이미지
-				html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
-				html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				html += '<div class="item-ho2 sale-div">';
- 				html += '<h3>판매중</h3>';
- 				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
- 				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
- 				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
- 				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
- 				html += '</div>';
-				html += '</div>';
-				html += '<div class="item-body">';
-				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-				html += '<div>';
-				html += '<div class="uesr-s">';
-				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
- 				}else{
- 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 				}
-				html += '</div>';
-				
-				
-				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-				
-				html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
-				html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-				html += '<p>'+ dealList[i].workMatrl +'</p>';
-				html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-				html += '<h4>판매가 '+ dealList[i].dealFinalPrc +'</h4>';
-				html += '</div>'
-				
-				html += '</div>';
-				
-				if(dealList[i].authSq == 2){
- 				html += '<div class="artist active"><span>Artist</span></div>';
- 				}
- 				if(dealList[i].authSq == 1){
- 				html += '<div class="artist"><span>Artist</span></div>';
- 				}
-				
-				html += '</div>';
-				html += '</div>';
-				html += '</div>';
+				if(i != 0)
+				{
+					var z = i+1
+					var gtText = "gt"+z;
+				}	
+					     					
+				//경매 - 겨래진행중
+				if(dealList[i].dealTypCd == "A" && dealList[i].dealSttsCd == "TP"){
 					
-	    
-			}
-			
-			//거래종료
-			if(dealList[i].dealSttsCd == "TC"){
+					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+					html += '<div  >';
+					html += '<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')">'
+					//작품 이미지
+					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+					
+					html += '<div class="item-ho">';
+					
+					html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
+					html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
+					html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+					html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+					html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+					html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+					html += '<h4>시작가 : '+ dealList[i].dealStrtPrc +'</h4>';
+					
+					html += '</div>';
+					
+					html += '</div>'
+					
+					html += '<div class="item-body">';
+					html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+					html += '<div>';
+					html += '<div class="uesr-s">';
+					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				}else{
+	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	 				}
+					html += '</div>';
+					
+					
+					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+					
+					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+					html += '<p>'+ dealList[i].workMatrl +'</p>';
+					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+					
+					if(dealList[i].dealTypCd == "A"){
+						if(dealList[i].maxBidPrc != null) {
+	 					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +'</h4>';
+						} else {
+							html += '<h4>입찰가 30,000</h4>';
+						}
+	 				html += '<p class="ts-2">';
+	 				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+	 				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
+	 				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+	 				html += '</p>';
+	 				}
+					
+					html += '</div>'
+					
+					html += '</div>';
+					
+					if(dealList[i].authSq == 2){
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 				}
+	 				if(dealList[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
+					
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+					
+				}
 				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-				html += '<div >';
-				html += '<div class="item-div-img sold-3" onclick="workDetail('+ dealList[i].workSq +')">';
-				//작품 이미지
-				html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				html += '</div>';
-				html += '<div class="item-body">';
-				//html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-				html += '<div>';
-				html += '<div class="uesr-s">';
-				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
- 			}else{
- 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}
-				html += '</div>';
-				
-				
-				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-				
-				html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
-				html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-				html += '<p>'+ dealList[i].workMatrl +'</p>';
-				html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-				
-				html += '</div>'
-				
-				html += '</div>';
-				
-				if(dealList[i].authSq == 2){
- 				html += '<div class="artist active"><span>Artist</span></div>';
- 			}
- 			if(dealList[i].authSq == 1){
- 				html += '<div class="artist"><span>Artist</span></div>';
- 			}
-				
-				html += '</div>';
-				html += '</div>';
-				html += '</div>';
+				//판매 - 거래진행중
+				if(dealList[i].dealTypCd == "S" && dealList[i].dealSttsCd == "TP"){
+					
+					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+					html += '<div>';
+					//작품 이미지
+					html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')">';
+					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+					html += '<div class="item-ho2 sale-div">';
+	 				html += '<h3>판매중</h3>';
+	 				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
+	 				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
+	 				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
+	 				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	 				html += '</div>';
+					html += '</div>';
+					html += '<div class="item-body">';
+					html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+					html += '<div>';
+					html += '<div class="uesr-s">';
+					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				}else{
+	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	 				}
+					html += '</div>';
+					
+					
+					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+					
+					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+					html += '<p>'+ dealList[i].workMatrl +'</p>';
+					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+					html += '<h4>판매가 '+ dealList[i].dealFinalPrc +'</h4>';
+					html += '</div>'
+					
+					html += '</div>';
+					
+					if(dealList[i].authSq == 2){
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 				}
+	 				if(dealList[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
+					
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+						
 		    
-	    
+				}
+				
+				//거래종료
+				if(dealList[i].dealSttsCd == "TC"){
+					
+					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+					html += '<div >';
+					html += '<div class="item-div-img sold-3" onclick="workDetail('+ dealList[i].workSq +')">';
+					//작품 이미지
+					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+					html += '</div>';
+					html += '<div class="item-body">';
+					//html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+					html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+					html += '<div>';
+					html += '<div class="uesr-s">';
+					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 			}else{
+	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	 			}
+					html += '</div>';
+					
+					
+					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+					
+					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+					html += '<p>'+ dealList[i].workMatrl +'</p>';
+					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+					
+					html += '</div>'
+					
+					html += '</div>';
+					
+					if(dealList[i].authSq == 2){
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 			}
+	 			if(dealList[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 			}
+					
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+			    
+		    
+				}
+				
+				if(dealList[i].dealTypCd == null){
+					
+					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+					html += '<div >';
+					html += '<div class="item-div-img" >';
+					//작품 이미지
+					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+					
+					html += '</div>';
+					html += '<div class="item-body">';
+					html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+					html += '<div>';
+					html += '<div class="uesr-s">';
+					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	     			}else{
+	     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	     			}
+					html += '</div>';
+					
+					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+					html += '<p>'+ dealList[i].workMatrl +'</p>';
+					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+					html += '</div>'
+					
+					html += '</div>';
+					
+					if(dealList[i].authSq == 2){
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 				}
+	 				if(dealList[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+		    
+				}
+		   
 			}
-			
-			if(dealList[i].dealTypCd == null){
-				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-				html += '<div >';
-				html += '<div class="item-div-img" >';
-				//작품 이미지
-				html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				
-				html += '</div>';
-				html += '<div class="item-body">';
-				html += '<div class="heart on" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-				html += '<div>';
-				html += '<div class="uesr-s">';
-				if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
-     			}else{
-     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-     			}
-				html += '</div>';
-				
-				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-				html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
-				html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-				html += '<p>'+ dealList[i].workMatrl +'</p>';
-				html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
-				html += '</div>'
-				
-				html += '</div>';
-				
-				if(dealList[i].authSq == 2){
- 				html += '<div class="artist active"><span>Artist</span></div>';
- 				}
- 				if(dealList[i].authSq == 1){
- 				html += '<div class="artist"><span>Artist</span></div>';
- 				}
-				html += '</div>';
-				html += '</div>';
-				html += '</div>';
-	    
-			}
-	   
 		}
 	
 	

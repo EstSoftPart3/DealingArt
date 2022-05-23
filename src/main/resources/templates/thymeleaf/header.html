@@ -171,7 +171,7 @@
 						<div id="autocomplete">
 							<div class="ta-h3">
 								<h3 class="sea-h3">작품</h3>
-								<a href="javascript:void(0);" class="workMore"></a>
+								<a href="javascript:void(0);" class="workMore"><span>more</span></a>
 							</div>
 							<ul class="sea-text" id="work">
 								<!-- <li><a href="#">text</a></li>
@@ -181,7 +181,7 @@
 							</ul>
 							<div class="ta-h3">
 								<h3 class="sea-h3">작가</h3>
-								<a href="javascript:void(0);" class="artistMore"></a>
+								<a href="javascript:void(0);" class="artistMore"><span>more</span></a>
 							</div>
 							<ul class="sea-text" id="artst">
 								<!-- <li><a href="#">text</a></li>
@@ -1281,7 +1281,7 @@ $(document).on("click",".workMore",function(){
 					url:"/totalSearch_work",
 					target:"_self",
 					vals:[
-						["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+						["searchKeyword", $("#ibx_search").val()]
 					]
 				});
 			}
@@ -1299,7 +1299,7 @@ $(document).on("click",".artistMore",function(){
 					url:"/totalSearch_artist",
 					target:"_self",
 					vals:[
-						["searchKeyword", "*"+$("#ibx_search").val()+"*"]
+						["searchKeyword", $("#ibx_search").val()]
 					]
 				});
 			}

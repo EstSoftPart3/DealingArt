@@ -107,66 +107,68 @@ jQuery(document).ready(function() {
 });   
 
 function myCollectionList(){
-    
-	var html = "";
-	
-	$("#grid").empty();
-	
-	for(var i=0; i<result.length; i++){
-		
-		if(i != 0) {
-			var z = i+1
-			var gtText = "gt"+z;
-		}	
-		
-		if(result[i].dealTypCd == null){
-				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-				html += '<div >';
-				html += '<div class="item-div-img reg">';
-				//작품 이미지
-				html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-				html += '	<div class="item-ho3 reg-div">';
-				html += '		<div class="regs" >';
-				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
-				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
-				html += '		</div>';
-				html += '	</div>';
-				html += '</div>';
-				html += '<div class="item-body" style="height:70px;">';
-				html += '<div>';
-				html += '<div class="uesr-s">';
-				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
- 			}else{
- 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}
-				html += '</div>';
-				
-				
-				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-				
-				html += '<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
-				html += '<p class="ts-1">'+ result[i].workNm +'</p>';
-				html += '</div>'
-				
-				html += '</div>';
-				
-				if(result[i].authSq == 2){
- 				html += '<div class="artist active"><span>Artist</span></div>';
- 			}
- 			if(result[i].authSq == 1){
- 				html += '<div class="artist"><span>Artist</span></div>';
- 			}
-				
-				html += '</div>';
-				html += '</div>';
-				html += '</div>';
-	    
-			}
-		
-		
-	}
+    if(result.length > 0){
+    	modalAlertShow("검색 결과가 없습니다.");
+    }else{
+    	var html = "";
+    	
+    	$("#grid").empty();
+    	
+    	for(var i=0; i<result.length; i++){
+    		
+    		if(i != 0) {
+    			var z = i+1
+    			var gtText = "gt"+z;
+    		}	
+    		
+    		if(result[i].dealTypCd == null){
+    				
+    				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+    				html += '<div >';
+    				html += '<div class="item-div-img reg">';
+    				//작품 이미지
+    				html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+    				html += '	<div class="item-ho3 reg-div">';
+    				html += '		<div class="regs" >';
+    				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
+    				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
+    				html += '		</div>';
+    				html += '	</div>';
+    				html += '</div>';
+    				html += '<div class="item-body" style="height:70px;">';
+    				html += '<div>';
+    				html += '<div class="uesr-s">';
+    				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
+     				html += '<img src="resources/img/de/ues-icon.png"/>';
+     			}else{
+     				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+     			}
+    				html += '</div>';
+    				
+    				
+    				html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+    				
+    				html += '<h3>'+ result[i].artstActvtyNm +' ('+ result[i].artstBirthYear +')</h3>';
+    				html += '<p class="ts-1">'+ result[i].workNm +'</p>';
+    				html += '</div>'
+    				
+    				html += '</div>';
+    				
+    				if(result[i].authSq == 2){
+     				html += '<div class="artist active"><span>Artist</span></div>';
+     			}
+     			if(result[i].authSq == 1){
+     				html += '<div class="artist"><span>Artist</span></div>';
+     			}
+    				
+    				html += '</div>';
+    				html += '</div>';
+    				html += '</div>';
+    	    
+    		}
+    		
+    	}
+    }
 	//$("#grid").append(html).trigger("create");
 	$(".grid").append(html);
 	

@@ -34,8 +34,7 @@ public class DealDao {
 	 * return : 검색 결과
 	 */
 	public List dealSerach(Map<String, Object> searchOptions){
-		List result = dealMapper.dealSerach(searchOptions);
-		return result;
+		return dealMapper.dealSerach(searchOptions);
 	}
 	
 	/*
