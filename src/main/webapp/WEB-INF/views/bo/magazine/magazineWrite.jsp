@@ -46,20 +46,20 @@
 					 		
 					 			<div class="form-group row">
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
-                    				<div class="col-sm-6">
+                    				<div class="col-sm-12">
                       						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="">
                     				</div>
 					 			</div>
 					 			
 					 			<div class="form-group row">
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">설명</label>
-                    				<div class="col-sm-6">
+                    				<div class="col-sm-12">
                       						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="">
                     				</div>
 					 			</div>
 								
 
-								<div class="card card-primary card-outline" style="height:380px;width:585px;">
+								<div class="card card-primary card-outline" style="height:380px;width:100%;">
               							<div class="card-body box-profile">
                 							<div class="text-center" style="text-align: center;">
                 							<label class="col-form-label sTitle LabelStyle" style="text-align: center;">메인 이미지</label>
@@ -80,7 +80,7 @@
 
 					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-6">
+                    				<div class="col-sm-12">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
                     					<div id="toolbar-container"></div>
                     					<div id="editor">
@@ -90,7 +90,7 @@
                     				</div>
 					 			</div>
 					 			<div class="form-group row">
-                    				<div class="col-sm-6" style="text-align:right">
+                    				<div class="col-sm-12" style="text-align:center">
                       						<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
                       						<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
                     				</div>
