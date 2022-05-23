@@ -441,8 +441,10 @@ setInterval(function() {
 
 //거래 계약 안내 및 상세 페이지로 이동
 function myDealDetail(obj){
+	debugger;
 	var dealSq = obj.getAttribute("dealSq");
-	if($("input:radio[name='buyOrSell']:checked").val() == "BUY"){
+	var checked = $("input:radio[name='buyOrSell']:checked").val();
+	if(checked == "BUY"){
 		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	}else{
 		location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
@@ -554,7 +556,6 @@ function selectBoxWriteAskingPrice(objs){
 
 //경매인 거래는 응찰하기 버튼 누르면 응찰되게
 function bidReg(obj){
-	debugger;
 	var dealSq = obj.attributes.dealSq.value;
 	var bidPrc = parseInt($("#sbx_bidPrc"+dealSq+" option:selected").val().replaceAll(/,/g, ''));
 	if(bidPrc != null && bidPrc != ""){
@@ -567,7 +568,6 @@ function bidReg(obj){
 	        	bidPrc : bidPrc
 	        }, 
 	        success: function(data) {
-	        	debugger;
 	        	if(data.result == -1){
 		        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
 	        	}

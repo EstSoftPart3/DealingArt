@@ -1294,7 +1294,7 @@
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND B.DEAL_SQ = '54'
+			AND B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ
 	</select>
 	
