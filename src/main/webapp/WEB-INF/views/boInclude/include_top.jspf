@@ -23,7 +23,9 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <!-- CK에디터 -->
-  <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script> -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script>
+  
   <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
   
   <!--2022-03-10 추가 -->	
@@ -31,9 +33,18 @@
   	
   	.bTitle{ font-size:15px; }
   	.sTitle{ font-size:12px; height:30px; }
-  	.ck.ck-editor{ max-width: 700px; }
+  	.ck.ck-editor{ min-width: 1200px; }
   	.ck-editor__editable{ min-height: 500px; }
-	
+
   </style>
   
 </head>
+
+<%
+String mbrSq = (String)session.getAttribute("mbrSq");
+
+if(mbrSq == null) {
+	response.sendRedirect("/admin/");	
+}
+%>
+

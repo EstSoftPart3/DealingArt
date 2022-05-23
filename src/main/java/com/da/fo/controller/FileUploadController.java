@@ -1,6 +1,10 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +31,27 @@ public class FileUploadController {
     public FileVo upload(@RequestPart("file") MultipartFile multipartFile) throws IOException {
     	System.out.println("######### file : " + multipartFile.getName());
         return awsS3Service.upload(multipartFile, "upload");
+    }
+    
+    
+    @PostMapping("/ckUpload")
+    public FileVo ckUpload(@RequestPart("upload") MultipartFile multipartFile, HttpServletResponse res, HttpServletRequest req) throws IOException {
+    	System.out.println("######### file : " + multipartFile.getName());
+    	
+    	PrintWriter printWriter = null;
+    	
+    	FileVo fUrl = awsS3Service.upload(multipartFile, "upload");
+    	
+    	String fileUrl = fUrl.getFileUrl();
+    	
+    	System.out.println("######### fileUrl : " + fileUrl);
+    	
+
+        
+		return fUrl;
+        
+        
+        //return awsS3Service.upload(multipartFile, "upload");
     }
 
     @DeleteMapping("/delete")

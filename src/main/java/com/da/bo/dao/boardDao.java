@@ -82,11 +82,11 @@ public class boardDao {
 	}
 	
 	/**
-	 * 잡지 DAO
+	 * 메거진 DAO
 	 * 
 	 * **/
 	
-	//잡지 목록
+	//메거진 목록
 	public Map<String, Object> magazineList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -99,7 +99,7 @@ public class boardDao {
 		return result;
 	}
 
-	//잡지 등록
+	//메거진 등록
 	public void magazineInsert(Map<String, Object> param){
 		
 		System.out.println("DATA = " + param);
@@ -107,7 +107,7 @@ public class boardDao {
 		
 	}
 	
-	//잡지 상세
+	//메거진 상세
 	public Map<String, Object> magazineDetail(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -122,7 +122,7 @@ public class boardDao {
 		return result;
 	}
 	
-	//잡지 삭제
+	//메거진 삭제
 	public void magazineDelete(Map<String, Object> param){
 		
 		System.out.println("DATA = " + param);
@@ -130,7 +130,7 @@ public class boardDao {
 		
 	}
 	
-	//잡지 수정
+	//메거진 수정
 	public void magazineUpdate(Map<String, Object> param){
 		
 		System.out.println("DATA = " + param);
@@ -138,5 +138,61 @@ public class boardDao {
 		
 	}
 	
+	/**
+	 * CK에디터 통합 DAO
+	 * 
+	 * **/
 	
+	//CK에디터 통합 목록
+	public Map<String, Object> ckeditorList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> ckeditorInfo = boardMapper.ckeditorList(param);
+		
+		result.put("ckeditorInfo", ckeditorInfo);
+				
+		return result;
+	}
+
+	//CK에디터 통합 등록
+	public void ckeditorInsert(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.ckeditorInsert(param);
+		
+	}
+	
+	//CK에디터 통합 상세
+	public Map<String, Object> ckeditorDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("DATA = " + param);
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> ckeditorDetailData = boardMapper.ckeditorDetail(param);
+		
+		result.put("ckeditorDetailData", ckeditorDetailData);
+		
+		return result;
+	}
+	
+	//CK에디터 통합 삭제
+	public void ckeditorDelete(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.ckeditorDelete(param);
+		
+	}
+	
+	//CK에디터 통합 수정
+	public void ckeditorUpdate(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		boardMapper.ckeditorUpdate(param);
+		
+	}
+
 }

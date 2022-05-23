@@ -20,6 +20,7 @@
 
 <body class="hold-transition sidebar-mini">
 
+	
 	<div class="wrapper">
 	
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
@@ -55,7 +56,12 @@
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-6">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    					<textarea name="content" id="editor"></textarea>
+                    					
+                    					<div id="toolbar-container"></div>
+                    					<div id="editor">
+									        
+									    </div>
+<!--                     					<textarea name="content" id="editor"></textarea> -->
                     				</div>
                     				
 
@@ -85,49 +91,40 @@
    
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
+
+  
+   
    <script>
-   var editorContnet;
-   
-   ClassicEditor
-   
-	.create( document.querySelector( '#editor' ), {
-		toolbar: {
-	           items: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'indent', 'outdent', '|', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'exportPdf', 'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', 'highlight', 'horizontalLine', 'underline', ]
-	       },
-	       language: 'ko',
-	       image: {
-	           toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
-	       },
-	       table: {
-	           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
-	       },
-		ckfinder: {
-	        uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json' // 내가 지정한 업로드 url (post로 요청감)
-		},
-		alignment: {
-           options: [ 'left', 'center', 'right' ]
-       }
-	} )
-	.then( editor => {
-       console.log( 'Editor was initialized', editor );
-       editorContnet = editor;
-   } )
-	.catch( error => {
-	    console.error( error );
-	} );
-   
-/*    ClassicEditor
-	    .create( document.querySelector( '#editor' ))
-	    .then( editor => {editorContnet = editor;} )
-	    .catch( error => {console.error( error );} ); */
+   var editor;
+       
+	    DecoupledEditor
+            .create( document.querySelector( '#editor' ) ,{
+            	extraPlugins: [MyCustomUploadAdapterPlugin],
+            	
+            } )
+            .then( editor => {
+                const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+	    
+	    function MyCustomUploadAdapterPlugin(editor) {
+		    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+		        return new UploadAdapter(loader)
+		    }
+		}
    
    function boardInput() {
 	
 	var mbrSq     = $("#mbrSq").val();     //회원순번
 	var brdTypCd  = $("#brdTypCd").val();  //게시판구분코드
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
-    var brdContent = editorContnet.getData();
-
+    //var brdContent = editor.getData();
+   	var brdContent = $('#editor').html();
+   	console.log(brdContent);
    	 //제목
    	 if(isEmpty(brdTitle)) {
    		bootbox.alert({
@@ -192,6 +189,63 @@
            return false ;
    }
    </script>
+   
+   <script>
+    
+    class UploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+    
+
+        upload() {
+            return this.loader.file.then( file => new Promise(((resolve, reject) => {
+                this._initRequest();
+                this._initListeners( resolve, reject, file );
+                this._sendRequest( file );
+            })))
+            
+            // 파일 업로드가 성공했을때 resolved될 promise를 리턴하자.(server.upload(file) 메서드에서 promise를 리턴 시키라는 뜻)
+            return loader.file
+                .then( file => server.upload( file ) );
+        }
+
+        _initRequest() {
+            const xhr = this.xhr = new XMLHttpRequest();
+            xhr.open('POST', '/file/ckUpload', true);
+            xhr.responseType = 'json';
+        }
+
+        _initListeners(resolve, reject, file) {
+        	
+            const xhr = this.xhr;
+            const loader = this.loader;
+            const genericErrorText = '파일을 업로드 할 수 없습니다.'
+
+            xhr.addEventListener('error', () => {reject(genericErrorText)})
+            xhr.addEventListener('abort', () => reject())
+            xhr.addEventListener('load', () => {
+                const response = xhr.response
+                if(!response || response.error) {
+                    return reject( response && response.error ? response.error.message : genericErrorText );
+                }
+
+                resolve({
+                	default: response.fileUrl //업로드된 파일 주소
+                	
+                })
+            })
+        }
+
+        _sendRequest(file) {
+            const data = new FormData()
+            data.append('upload',file)
+            this.xhr.send(data)
+        }
+    }
+    
+   
+     </script>
  
  
 </body>
