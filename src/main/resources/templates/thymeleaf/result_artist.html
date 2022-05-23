@@ -8,7 +8,7 @@
     	.ellipsis{
 			overflow:hidden;
 			text-overflow: ellipsis;
-			width:211px;
+			width:100%;
     	};
     </style>
 </head>
@@ -25,26 +25,26 @@
 				
 				<div class="aut-top">
 					<ul class="mgz-ul3 aut-none">
-						<li><a href="#">작품</a></li>
-						<li class="active"><a href="#">작가</a></li>
-						<li><a href="#">컨텐트</a></li>
+						<li><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
+						<li class="active"><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
+						<li><a href="javascript:fnModalAlert();">컨텐츠</a></li>
 					</ul>
 				</div>
 				
 				<div class="reds-box aut-reds">
 					<ul class="pc-on">
 						<li>
-							<a href="#" class="up-on">
+							<a href="javascript:fnModalAlert();" class="up-on">
 								출생년도
 							</a>
 						</li>
 						<li>
-							<a href="#" class="">
+							<a href="javascript:fnModalAlert();" class="">
 								작가명 <span>ㄱ</span> - <span>ㅎ</span>
 							</a>
 						</li>
 						<li>
-							<a href="#" class="">
+							<a href="javascript:fnModalAlert();" class="">
 								작가명 <span>A</span> - <span>Z</span>
 							</a>
 						</li>
@@ -52,54 +52,16 @@
 				</div>
 				
 				<div>
-					<ul class="author-ul" id="artstList">
-						<li>
-							<a class="hd-div3">
-								<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>
-								<div class="user-1"><img src="resources/img/icon/user-1.png"></div>
+					<ul class="author-ul">
+						<li th:each="artstList : ${result.artstList}">
+							<a class="hd-div3 artstInfo" th:id="${artstList.artstSq}" style="cursor:pointer;" >
+								<div class="hd-bg3"><img th:src="${artstList.artstWorkImgUrl}" style="width:100%; height:100%;"/></div>
+								<div class="user-1"><img th:src="${artstList.artstProfileImgUrl}" style="width:100%; height:100%; border-radius:40%;"></div>
 								<div class="hd-text">
-									<h4>김미숙 <span class="h4-span">1982년생</span></h4>
-									<div class="hd-d1">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a class="hd-div3">
-								<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>
-								<div class="user-1"><img src="resources/img/icon/user-1.png"></div>
-								<div class="hd-text">
-									<h4>김미숙 <span class="h4-span">1982년생</span></h4>
-									<div class="hd-d1">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a class="hd-div3">
-								<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>
-								<div class="user-1"><img src="resources/img/icon/user-1.png"></div>
-								<div class="hd-text">
-									<h4>김미숙 <span class="h4-span">1982년생</span></h4>
-									<div class="hd-d1">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a class="hd-div3">
-								<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>
-								<div class="user-1"><img src="resources/img/icon/user-1.png"></div>
-								<div class="hd-text">
-									<h4>김미숙 <span class="h4-span">1982년생</span></h4>
-									<div class="hd-d1">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a class="hd-div3">
-								<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>
-								<div class="user-1"><img src="resources/img/icon/user-1.png"></div>
-								<div class="hd-text">
-									<h4>김미숙 <span class="h4-span">1982년생</span></h4>
-									<div class="hd-d1">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
+									<h4 th:text="${artstList.artstActvtyNm}">김미숙 
+										<span class="h4-span" th:text="${artstList.artistBirthYear}">1982년생</span>
+									</h4>
+									<div class="hd-d1 ellipsis" th:text="${artstList.artstSelfIntro}">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
 								</div>
 							</a>
 						</li>
@@ -117,7 +79,32 @@
 	</div>
 
 <script th:inline="javascript">
-      
+var result = /*[[${result}]]*/ 'default';
+$(function() {
+	var totalCountHtml = '';
+	if(result.totalCount > 0){
+		totalCountHtml += '<h4 class="aut-h4"><span class="c-red">"'+ result.searchKeyword +'"</span> 검색결과 총 <span class="c-red">'+ result.totalCount +'</span>개</h4>';
+	}else{
+		modalAlertShow("검색 결과가 없습니다.");
+		totalCountHtml += '<h4 class="aut-h4"><span class="c-red">"'+ result.searchKeyword +'"</span> 검색결과가 <span class="c-red">없습니다</span></h4>';
+	}
+	$(".aut-top").append(totalCountHtml).trigger("create");
+});
+
+$(document).on("click", ".artstInfo", function(){ 
+	var artstSq= $(this).attr("id");
+    pageGoPost({
+		url:"/artistDetail",
+		target:"_self",
+		vals:[
+			["artstSq", parseInt(artstSq)]
+		]
+	});
+});
+
+/*
+ * 퍼블리싱 부분
+ */
 $(document).ready(function () {
   $(".elm").hover(
 	function(){ $(this).addClass('hover') },
@@ -175,48 +162,6 @@ $(window).on('resize', function(){
  	timer = setTimeout(function(){
  		document.location.reload();
  	}, delay);
-});
-
-var artstList = /*[[${result.artstList}]]*/ 'default';
-var searchKeyword = /*[[${searchKeyword}]]*/ 'default';
-var totalCount = /*[[${result.totalCount.totalCount}]]*/ 'default';
-$(function() {
-	var artstListHtml = '';
-	var totalCountHtml = '';
-	if(artstList == null){
-		modalAlertShow("검색 결과가 없습니다.");
-		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과가 <span class="c-red">없습니다.</span></h4>';
-		$(".aut-top").append(totalCountHtml).trigger("create");
-	}else{
-		$("#artstList").empty();
-		totalCountHtml += '<h4 class="aut-h4">"'+ searchKeyword +'" 검색결과 총 <span class="c-red">'+ totalCount +'</span>개</h4>';
-		for(var i=0; i<artstList.length; i++){
-			artstListHtml += '<li>';
-			artstListHtml += '	<a class="hd-div3">';
-			artstListHtml += '		<div class="hd-bg3"><img src="resources/img/icon/bg-1.png" /></div>';
-			//artstListHtml += '		<div class="hd-bg3"><img src="'+ artstList[i].artstWorkImgUrl +'" /></div>';
-			artstListHtml += '		<div class="user-1"><img src="'+ artstList[i].artstProfileImgUrl +'" style="width:50px;"></div>';
-			artstListHtml += '		<div class="hd-text">';
-			artstListHtml += '			<h4 class="artstInfo" style="cursor:pointer;" artstSq="'+ artstList[i].artstSq +'">'+ artstList[i].artstActvtyNm +' <span class="h4-span">'+ artstList[i].artistBirthYear +'년생</span></h4>';
-			artstListHtml += '			<div class="ellipsis"><div class="hd-d1">'+ artstList[i].artstSelfIntro +'</div></div>';
-			artstListHtml += '		</div>';
-			artstListHtml += '	</a>';
-			artstListHtml += '</li>';
-		}
-		$("#artstList").append(artstListHtml).trigger("create");
-		$(".aut-top").append(totalCountHtml).trigger("create");
-	}
-});
-
-$(document).on("click", ".artstInfo", function(){
-	var artstSq= $(this).attr("artstSq");
-    pageGoPost({
-		url:"/artistDetail",
-		target:"_self",
-		vals:[
-			["artstSq", artstSq]
-		]
-	});
 });
 </script>
     

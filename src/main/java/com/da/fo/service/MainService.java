@@ -16,29 +16,14 @@ public interface MainService {
 	 * param : searchKeyword
 	 * return : 작가에 관한 정보
 	 */
-	List totalSearchArtist(String searchKeyword);
-	
-	/*
-	 * 작가 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	Map<String, Object> totalSearchArtistCount(String searchKeyword);
+	List<Map<String, Object>> totalSearchArtist(String searchKeyword);
 	
 	/*
 	 * 메인 화면에서 통합검색으로 작품을 조회환다.
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
 	 */
-	List totalSearchWork(String searchKeyword);
-	
-	/*
-	 * 작품 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	Map<String, Object> totalSearchWorkCount(String searchKeyword);
-	
+	List<Map<String, Object>> totalSearchWork(String searchKeyword);
 	
 	/*
 	 * 메인 화면에서 통합검색시 작품, 작가 정보를 자동완성으로 가져온다.
