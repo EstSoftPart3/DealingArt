@@ -31,7 +31,7 @@ public class BoardController {
 	private boardService boardService;
 	
 	/**
-	 * 공지사항,FAQ DAO
+	 * 공지사항,FAQ Controller
 	 * 
 	 * **/
 	
@@ -100,7 +100,7 @@ public class BoardController {
 		return "bo/board/boardDetail";
 	}
 	
-	//게시판 삭제
+	//게시판 상세 정보
 	@RequestMapping("/admin/board/boardDetailData")
 	@ResponseBody
 	public ModelAndView memberContentData(@RequestParam Map<String, Object> param) {
@@ -159,11 +159,11 @@ public class BoardController {
 	}
 	
 	/**
-	 * 공지사항,FAQ DAO
+	 * 메거진 Controller
 	 * 
 	 * **/
 	
-	//게시판 목록 페이지 이동
+	//메거진 목록 페이지 이동
 	@RequestMapping("/admin/magazine/magazineList")
 	public String openMagazineList(HttpServletRequest req) {
 		
@@ -172,7 +172,7 @@ public class BoardController {
 		return "bo/magazine/magazineList";
 	}
 	
-	//게시판 목록 데이터
+	//메거진 목록 데이터
 	@RequestMapping("/admin/magazine/magazineListData")
 	@ResponseBody
 	public ModelAndView MagazineListData(@RequestParam Map<String, Object> param) {
@@ -189,7 +189,32 @@ public class BoardController {
 		return mv;
 	}
 	
-	//게시판 등록 페이지 이동
+	//메거진 상세 페이지 이동
+	@RequestMapping("/admin/magazine/magazineDetail")
+	public String openMagazineDetail() {
+		
+		return "bo/magazine/magazineDetail";
+	}
+	
+	//메거진 상세 정보
+	@RequestMapping("/admin/magazine/magazineDetailData")
+	@ResponseBody
+	public ModelAndView magazineDetailData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardService.magazineDetail(param);
+		
+		mv.addObject("magazineDetailData", result);
+		
+		return mv;
+	}
+	
+	//메거진 등록 페이지 이동
 	@RequestMapping("/admin/magazine/magazineWrite")
 	public String openMagazineWrite(HttpServletRequest req) {
 		
@@ -198,8 +223,220 @@ public class BoardController {
 		
 	}
 	
+	//메거진 등록
+	@RequestMapping("/admin/magazine/magazineInsertData")
+	@ResponseBody
+	public void MagazineInsertData(@RequestParam Map<String, Object> param) {
+		
+		System.out.println("dddd");
 
+		
+	    int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
+		String mgzTitle = (String) param.get("mgzTitle");
+		String mgzDescrptn = (String) param.get("mgzDescrptn");
+		String mgzContent = (String) param.get("mgzContent");
+		String mgzMainImgUrl = (String) param.get("mgzMainImgUrl");
+		String mgzTypCd = (String) param.get("mgzTypCd");
+		 int regMbrSq = Integer.parseInt((String) param.get("regMbrSq"));
 
+		
+		param.put("mbrSq", mbrSq);
+		param.put("mgzTitle", mgzTitle);
+		param.put("mgzDescrptn", mgzDescrptn);
+		param.put("mgzContent", mgzContent);
+		param.put("mgzMainImgUrl", mgzMainImgUrl);
+		param.put("mgzTypCd", mgzTypCd);
+		param.put("regMbrSq", regMbrSq);
+		
+		System.out.println(param);
+		
+		boardService.magazineInsert(param);
+
+		
+	}
 	
+	//메거진 삭제
+	@RequestMapping("/admin/magazine/magazineDeleteData")
+	@ResponseBody
+	public void magazineDelete(@RequestParam Map<String, Object> param) {
+		
+		int mgzSq = Integer.parseInt((String) param.get("mgzSq"));
+		String mgzTypCd = (String) param.get("mgzTypCd");
+	
+		param.put("mgzSq", mgzSq);
+		param.put("mgzTypCd", mgzTypCd);
+		
+		boardService.magazineDelete(param);
+		
+	}
+	
+	//메거진 수정
+	@RequestMapping("/admin/magazine/magazineUpdateData")
+	@ResponseBody
+	public void magazineUpdateData(@RequestParam Map<String, Object> param) {
+
+		
+	    int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
+		String mgzTitle = (String) param.get("mgzTitle");
+		String mgzDescrptn = (String) param.get("mgzDescrptn");
+		String mgzContent = (String) param.get("mgzContent");
+		String mgzMainImgUrl = (String) param.get("mgzMainImgUrl");
+		String mgzTypCd = (String) param.get("mgzTypCd");
+		int updtMbrSq = Integer.parseInt((String) param.get("updtMbrSq"));
+
+		
+		param.put("mbrSq", mbrSq);
+		param.put("mgzTitle", mgzTitle);
+		param.put("mgzDescrptn", mgzDescrptn);
+		param.put("mgzContent", mgzContent);
+		param.put("mgzMainImgUrl", mgzMainImgUrl);
+		param.put("mgzTypCd", mgzTypCd);
+		param.put("updtMbrSq", updtMbrSq);
+		
+		System.out.println(param);
+
+		
+		boardService.magazineUpdate(param);
+		
+	}
+	
+	/**
+	 * CK에디터 통합 Controller
+	 * 
+	 * **/
+	
+	//CK에디터 통합 목록 페이지 이동
+	@RequestMapping("/admin/ckeditor/ckeditorList")
+	public String openCkeditorList(HttpServletRequest req) {
+		
+		String ckCd = req.getParameter("ckCd");
+		
+		return "bo/ckeditor/ckeditorList";
+	}
+	
+	//CK에디터 통합 목록 데이터
+	@RequestMapping("/admin/ckeditor/ckeditorListData")
+	@ResponseBody
+	public ModelAndView ckeditorListData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardService.ckeditorList(param);
+									
+		mv.addObject("ckeditorData", result);
+		
+		return mv;
+	}
+	
+	//CK에디터 통합 상세 페이지 이동
+	@RequestMapping("/admin/ckeditor/ckeditorDetail")
+	public String openCkeditorDetail() {
+		
+		return "bo/ckeditor/ckeditorDetail";
+	}
+	
+	//CK에디터 통합 상세 정보
+	@RequestMapping("/admin/ckeditor/ckeditorDetailData")
+	@ResponseBody
+	public ModelAndView ckeditorDetailData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardService.ckeditorDetail(param);
+		
+		mv.addObject("ckeditorDetailData", result);
+		
+		return mv;
+	}
+	
+	//CK에디터 통합 등록 페이지 이동
+	@RequestMapping("/admin/ckeditor/ckeditorWrite")
+	public String openCkeditorWrite(HttpServletRequest req) {
+		
+		String ckCd = req.getParameter("ckCd");
+		return "bo/ckeditor/ckeditorWrite";
+		
+	}
+	
+	//CK에디터 통합 등록
+	@RequestMapping("/admin/ckeditor/ckeditorInsertData")
+	@ResponseBody
+	public void ckeditorInsertData(@RequestParam Map<String, Object> param) {
+		
+		System.out.println("dddd");
+		
+	    int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
+		String ckTitle = (String) param.get("ckTitle");
+		String ckDescrptn = (String) param.get("ckDescrptn");
+		String ckContent = (String) param.get("ckContent");
+		String ckMainImgUrl = (String) param.get("ckMainImgUrl");
+		String ckTypCd = (String) param.get("ckTypCd");
+		 int regMbrSq = Integer.parseInt((String) param.get("regMbrSq"));
+
+		
+		param.put("mbrSq", mbrSq);
+		param.put("ckTitle", ckTitle);
+		param.put("ckDescrptn", ckDescrptn);
+		param.put("ckContent", ckContent);
+		param.put("ckMainImgUrl", ckMainImgUrl);
+		param.put("ckTypCd", ckTypCd);
+		param.put("regMbrSq", regMbrSq);
+		
+		System.out.println(param);
+		
+		boardService.ckeditorInsert(param);
+
+	}
+	
+	//CK에디터 통합 삭제
+	@RequestMapping("/admin/ckeditor/ckeditorDeleteData")
+	@ResponseBody
+	public void ckeditorDelete(@RequestParam Map<String, Object> param) {
+		
+		int ckSq = Integer.parseInt((String) param.get("ckSq"));
+		String ckTypCd = (String) param.get("ckTypCd");
+	
+		param.put("ckSq", ckSq);
+		param.put("ckTypCd", ckTypCd);
+		
+		boardService.ckeditorDelete(param);
+		
+	}
+	
+	//CK에디터 통합 수정
+	@RequestMapping("/admin/ckeditor/ckeditorUpdateData")
+	@ResponseBody
+	public void ckeditorUpdateData(@RequestParam Map<String, Object> param) {
+
+		
+	    int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
+		String ckTitle = (String) param.get("ckTitle");
+		String ckDescrptn = (String) param.get("ckDescrptn");
+		String ckContent = (String) param.get("ckContent");
+		String ckMainImgUrl = (String) param.get("ckMainImgUrl");
+		String ckTypCd = (String) param.get("ckTypCd");
+		int updtMbrSq = Integer.parseInt((String) param.get("updtMbrSq"));
+
+		
+		param.put("mbrSq", mbrSq);
+		param.put("ckTitle", ckTitle);
+		param.put("ckDescrptn", ckDescrptn);
+		param.put("ckContent", ckContent);
+		param.put("ckMainImgUrl", ckMainImgUrl);
+		param.put("ckTypCd", ckTypCd);
+		param.put("updtMbrSq", updtMbrSq);
+		
+		System.out.println(param);
+
+		boardService.ckeditorUpdate(param);
+		
+	}
 	
 }

@@ -5,17 +5,17 @@
 <%@ include file="/WEB-INF/views/boInclude/include_top.jspf"%>
 
 <%
-	//잡지타입 : Insights (IST), Media(MDA), Exhibition(EBI)
-	String mgzTypCd = request.getParameter("mgzTypCd"); 
-	String mgzName; 
+	//잡지타입 : CK에디터 (CK)
+	String ckTypCd = request.getParameter("ckTypCd"); 
+	String ckName = "CK에디터"; 
 	
-	if(mgzTypCd.equals("IST")){
+	/* if(mgzTypCd.equals("IST")){
 		mgzName = "인사이트"; 
 	}else if(mgzTypCd.equals("MDA")){
 		mgzName = "미디어"; 
 	}else{
 		mgzName = "전시회";
-	}
+	} */
 %>
 
 <body class="hold-transition sidebar-mini">
@@ -28,23 +28,23 @@
 		    
 		     	<!-- Main content -->
 	    		<section class="content">
-	    			<input type="hidden" name="mgzTypCd" id="mgzTypCd" value="<%=mgzTypCd%>">
+	    			<input type="hidden" name="ckTypCd" id="ckTypCd" value="<%=ckTypCd%>">
 	    			
 	    			<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
 	                 	<ul class="nav nav-pills">
-		               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b><%=mgzName%></b></a></li>
+		               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b><%=ckName%></b></a></li>
 		               	</ul>
 					 </div>
 					 
 					 <div class="card">
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
-					 		<div id="magazineList" style="font-size:12px;"></div>
+					 		<div id="ckeditorList" style="font-size:12px;"></div>
 					 	</div>
 					 	
 					 	<div class="form-group row" >
                     		<div style="text-align:right;width:900px;">
-                    			<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">입력</button>
+                    			<button type="button" class="btn btn-info sTitle" onclick="ckeditorInput();">입력</button>
 					    	</div>
                     	</div>
 					 		
@@ -62,28 +62,28 @@
    <script>
    
    $(document).ready(function() {
-	   magazineList();
+	   ckeditorList();
    });
    
-   /* 메거진 등록 func */
-   function magazineInput() {
-	   var mgzTypCd = $('#mgzTypCd').val();
-	   console.log("mgzTypCd :"+mgzTypCd);
+   /* CK에디터 등록 func */
+   function ckeditorInput() {
+	   var ckTypCd = $('#ckTypCd').val();
+	   console.log("ckTypCd :"+ckTypCd);
 	   
-	    location.href = "/admin/magazine/magazineWrite?mgzTypCd="+mgzTypCd;
+	    location.href = "/admin/ckeditor/ckeditorWrite?ckTypCd="+ckTypCd;
    }
    
    
-   /* 메거진 리스트 func */
-   function magazineList(){
+   /* CK에디터 목록 func */
+   function ckeditorList(){
    
-	   var mgzTypCd = $('#mgzTypCd').val();
+	   var ckTypCd = $('#ckTypCd').val();
 	   
 	   let params = {
-			   mgzTypCd : mgzTypCd
+			   ckTypCd : ckTypCd
 		}
 	   
-	   $("#magazineList").jsGrid({
+	   $("#ckeditorList").jsGrid({
 		   locale:"ko",
 	       height: "400px",
 	       width: "900px",
@@ -101,13 +101,13 @@
 	        	   var d = $.Deferred();
 	               $.ajax({
 	      	    	 type: "post",
-	    	    	 url: "/admin/magazine/magazineListData",
+	    	    	 url: "/admin/ckeditor/ckeditorListData",
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
 	    	    	 //d.resolve(response.boardData.boardInfo);
 	    	    	 
-	    	    	 d.resolve($.map(response.magazineData.magazineInfo, function (item, itemIndex) {
+	    	    	 d.resolve($.map(response.ckeditorData.ckeditorInfo, function (item, itemIndex) {
                          return $.extend(item, { "Index": itemIndex + 1 });
                      }));
 	    	    	 
@@ -119,13 +119,13 @@
 	    	   
 	    	   
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
-	    	   { name: "mgzSq",  title:"메거진순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
+	    	   { name: "ckSq",  title:"CK에디터순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "mbrSq",title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "mgzTitle",id:"메거진제목", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
-	    	   { name: "mgzDescrptn",title:"메거진설명", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "mgzContent",title:"메거진내용", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "mgzMainImgUrl",title:"메거진대표이미지URL", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "mgzTypCd",title:"메거진구분코드", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "ckTitle",id:"CK에디터제목", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
+	    	   { name: "ckDescrptn",title:"CK에디터설명", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "ckContent",title:"CK에디터내용", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "ckMainImgUrl",title:"CK에디터대표이미지URL", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "ckTypCd",title:"CK에디터구분코드", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "regMbrSq",title:"등록회원", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 },
 	    	   { name: "updtMbrSq",title:"수정회원", type: "text", width: 200,align:"center",width:100 , visible: false},
@@ -137,7 +137,7 @@
 	       ],
 	       rowClick: function(args) {
 	           //console.log(args)
-	       	   var getData = args.item.mgzSq;
+	       	   var getData = args.item.ckSq;
 	       	   console.log("getData :"+getData);
 	           fn_SubBrdPage(getData);
 
@@ -148,8 +148,8 @@
    }
    
    function fn_SubBrdPage(getData) {
-	   var mgzTypCd = $('#mgzTypCd').val();
-	   location.href='/admin/magazine/magazineDetail?mgzSq='+getData+'&mgzTypCd='+mgzTypCd;
+	   var ckTypCd = $('#ckTypCd').val();
+	   location.href='/admin/ckeditor/ckeditorDetail?ckSq='+getData+'&ckTypCd='+ckTypCd;
 	}
    
    </script>
