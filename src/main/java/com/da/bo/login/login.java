@@ -32,7 +32,7 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private loginService loginService;
 	
 	//LOGIN PAGE
-	@RequestMapping("/admin/")
+	@RequestMapping("/admin")
 	public String openLogin() {
 		
 		return "bo/login/login";
