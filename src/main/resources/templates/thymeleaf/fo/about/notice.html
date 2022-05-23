@@ -11,6 +11,8 @@
 </head>
 
 <body>
+  <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script>
+  
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap">
@@ -119,7 +121,19 @@
 	</div>
 </div>
 	
-<script type="text/javascript">      
+<script type="text/javascript">    
+
+
+DecoupledEditor
+.create( document.querySelector( '#lp_brdDtl_cntnt' ))
+.then( editor => {
+    const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+    document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+} )
+.catch( error => {
+    console.error( error );
+} );
 
 $(document).ready(function () {
   $(".elm").hover(
@@ -199,6 +213,12 @@ $(".cn-b").hover(
           	console.log(data);
           	if(data.result != null){
               	$("#lp_brdDtl_cntnt").empty();
+              	
+				var brdContent = data.result.brdContent; 
+				const domEditableElement = document.querySelector( '.ck-editor__editable' );
+				const editorInstance = domEditableElement.ckeditorInstance;
+				editorInstance.setData(brdContent);
+              	
               	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
@@ -211,14 +231,16 @@ $(".cn-b").hover(
   	});
   }
 
-
-
-
-
-
-
-
-
+document.querySelectorAll('.tImg').forEach((emoteImage) => {
+	emoteImage.addEventListener('dragend', (event) => {
+	    var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
+	            + '<img src="'+event.target.dataset.url+'">';
+	            + '</figure>';
+	    const viewFragment = wr_content_editor.data.processor.toView(imgTag);
+	    const modelFragment = wr_content_editor.data.toModel( viewFragment );
+	    wr_content_editor.model.insertContent(modelFragment);
+	});
+});
 
 
 

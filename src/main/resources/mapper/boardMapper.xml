@@ -91,8 +91,6 @@
 			,BRD_CONTENT = 	#{brdContent}
 			,UPDT_MBR_SQ = 	#{mbrSq}
 			,UPDT_DT     = 	NOW()
-			,DEL_YN	     = 	'Y'
-
    		WHERE 1=1
          	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
 	</update>
