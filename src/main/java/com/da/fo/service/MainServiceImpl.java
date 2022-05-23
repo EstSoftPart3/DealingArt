@@ -32,17 +32,8 @@ public class MainServiceImpl implements MainService{
 	 * param : searchKeyword
 	 * return : 작가에 관한 정보
 	 */
-	public List totalSearchArtist(String searchKeyword){
+	public List<Map<String, Object>> totalSearchArtist(String searchKeyword){
 		return mainDao.totalSearchArtist(searchKeyword);
-	}
-	
-	/*
-	 * 작가 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	public Map<String, Object> totalSearchArtistCount(String searchKeyword){
-		return mainDao.totalSearchArtistCount(searchKeyword);
 	}
 	
 	/*
@@ -50,17 +41,8 @@ public class MainServiceImpl implements MainService{
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
 	 */
-	public List totalSearchWork(String searchKeyword){
+	public List<Map<String, Object>> totalSearchWork(String searchKeyword){
 		return mainDao.totalSearchWork(searchKeyword);
-	}
-	
-	/*
-	 * 작품 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	public Map<String, Object> totalSearchWorkCount(String searchKeyword){
-		return mainDao.totalSearchWorkCount(searchKeyword);
 	}
 	
 	/*

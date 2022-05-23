@@ -52,21 +52,8 @@ public class MainDao {
 	 * param : searchKeyword
 	 * return : 작가에 관한 정보
 	 */
-	public List totalSearchArtist(String searchKeyword){
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearchArtist(param);
-	}
-	
-	/*
-	 * 작가 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	public Map<String, Object> totalSearchArtistCount(String searchKeyword){
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearchArtistCount(searchKeyword);
+	public List<Map<String, Object>> totalSearchArtist(String searchKeyword){
+		return mainMapper.totalSearchArtist(searchKeyword);
 	}
 	
 	/*
@@ -74,21 +61,8 @@ public class MainDao {
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
 	 */
-	public List totalSearchWork(String searchKeyword){
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearchWork(param);
-	}
-	
-	/*
-	 * 작품 통합검색 결과 카운트
-	 * param : searchKeyword
-	 * return : 카운트
-	 */
-	public Map<String, Object> totalSearchWorkCount(String searchKeyword){
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchKeyword", searchKeyword);
-		return mainMapper.totalSearchWorkCount(searchKeyword);
+	public List<Map<String, Object>> totalSearchWork(String searchKeyword){
+		return mainMapper.totalSearchWork(searchKeyword);
 	}
 	
 	/*

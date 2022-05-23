@@ -254,8 +254,8 @@ $(function() {
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div>';
 					//작품 이미지
-					html += '<div class="item-div-img sale-on">';
-					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;" onclick="workDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img sale-on" onclick="workDetail('+ result[i].workSq +')">';
+					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '		<div class="item-ho2 sale-div">';
 	     			html += '			<h3>판매중</h3>';
 	     			html += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
@@ -306,7 +306,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div >';
-					html += '<div class="item-div-img sold-3">';
+					html += '<div class="item-div-img sold-3" onclick="workDetail('+ result[i].workSq +')">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '</div>';
@@ -349,7 +349,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div >';
-					html += '<div class="item-div-img" >';
+					html += '<div class="item-div-img" onclick="javascript:fnModalAlert();">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					
@@ -503,8 +503,7 @@ if(window.matchMedia('(min-width: 1537px)').matches) {
 
 
 function workDetail(workSq){
-// 	console.log(workSq);
-// 	location.href="/bidding?workSq="+workSq;
+ 	location.href="/bidding?workSq="+workSq;
 }
 
 $(document).on("click", ".heart", function(){

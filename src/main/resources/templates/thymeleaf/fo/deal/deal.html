@@ -139,7 +139,7 @@
 					<div class="con-right">
 					
 						<div class="sea-won2">
-							<input type="text" class="" placeholder="작품이나 작가를 검색해 보세요" disabled/>
+							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" disabled/>
 							<a href="javascript:fnModalAlert();"><img src="resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
@@ -545,6 +545,7 @@
 	function dealSearch(){
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
+		searchOptions.searchKeyword = $("#searchKeyword").val();
 		//회원구분
 		if($('input[name=authSq]:checked').val() != null && $('input[name=authSq]:checked').val() != ""){
 			searchOptions.authSq = $('input[name=authSq]:checked').val();
@@ -555,7 +556,7 @@
 			dealTypCds.push(el.value);
 		});
 		if(dealTypCds.length > 0){
-			searchOptions.dealTypCds = JSON.stringify(dealTypCds);
+			searchOptions.dealTypCds = dealTypCds;
 		}
 		//거래상태코드
 		var dealSttsCds = new Array();
@@ -563,7 +564,7 @@
 			dealSttsCds.push(el.value);
 		});
 		if(dealSttsCds.length > 0){
-			searchOptions.dealSttsCds = JSON.stringify(dealSttsCds);
+			searchOptions.dealSttsCds = dealSttsCds;
 		}
 		//작품형태코드
 		var workShpCds = new Array();
@@ -571,7 +572,7 @@
 			workShpCds.push(el.value);
 		});
 		if(workShpCds.length > 0){
-			searchOptions.workShpCds = JSON.stringify(workShpCds);
+			searchOptions.workShpCds = workShpCds;
 		}
 		//작품분류코드
 		var workClsfcCds = new Array();
@@ -579,12 +580,13 @@
 			workClsfcCds.push(el.value);
 		});
 		if(workClsfcCds.length > 0){
-			searchOptions.workClsfcCds = JSON.stringify(workClsfcCds);
+			searchOptions.workClsfcCds = workClsfcCds;
 		}
 		$.ajax({
 	        type: "post",
 	        url: "/dealSearch",
-	        data: searchOptions,
+	        contentType:"application/json;",
+	        data: JSON.stringify(searchOptions),
 	        success: function(data) {
 	        	var dealList;
 	        	var html = "";

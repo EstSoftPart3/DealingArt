@@ -17,8 +17,8 @@
 		INNER JOIN 
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
-		/*WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1980' AND YEAR (NOW())*/
+		WHERE
+				YEAR (B.MBR_BIRTH) BETWEEN '1980' AND YEAR (NOW())
 	</select>
 	
 	<select id="middleAgedArtist" resultType="hashMap" parameterType="hashMap">
@@ -36,8 +36,8 @@
 		INNER JOIN 
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
-		/*WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1965' AND '1979'*/
+		WHERE
+				YEAR (B.MBR_BIRTH) BETWEEN '1965' AND '1979'
 	</select>
 	
 	<select id="seniorArtist" resultType="hashMap" parameterType="hashMap">
@@ -55,8 +55,8 @@
 		INNER JOIN 
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
-		/*WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'*/
+		WHERE
+				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'
 	</select>
 	
 	<select id="artistInfo" resultType="hashMap" parameterType="String">
