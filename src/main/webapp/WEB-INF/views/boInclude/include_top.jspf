@@ -39,3 +39,12 @@
   </style>
   
 </head>
+
+<%
+String mbrSq = (String)session.getAttribute("mbrSq");
+
+if(mbrSq == null) {
+	response.sendRedirect("/admin/");	
+}
+%>
+
