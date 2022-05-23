@@ -106,7 +106,7 @@
 			</div>
 			
 			<!-- hotest deal 스와이퍼 -->
-			<div class="contents max-1500">
+			<div class="contents max-1500 hotestDeal">
 				<div class="cont-title">
 					<h3>hotest deal</h3>
 				</div>
@@ -131,7 +131,7 @@
 			</div>
 			
 			<!-- Dealing Art Insights -->
-			<div class="contents max-1500">
+			<div class="contents max-1500  DealingArtInsights">
 				<div class="cont-title ta-t60">
 					<h3>Dealing Art <span class="ta-no"><br/></span>Insights</h3>
 				</div>
@@ -449,9 +449,20 @@
 	        	   pageSize : 4
 	           },
 	           success: function(data) {
+	        	  
 	        	   mainHotest = data.mainData.mainHotest;
+	        	   
+	        	   var mainHotestCount = mainHotest.length;
+	        	   if(mainHotestCount == 0) {
+	        		   $(".hotestDeal").hide();
+	        	   }else{
+	        		   $(".hotestDeal").show();
+	        	   }
+	        	   
 	        	   mainTodayBid = data.mainData.todayBid;
 	        	   mainInsights = data.mainData.insights;
+	        	   
+	        	   
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
 	        		hotestHtml +='<div class="swiper-slide hd-div">';
@@ -478,6 +489,11 @@
 	        	   $("#mainHotestContent").empty();
 	        	   $("#mainHotestContent").append(hotestHtml).trigger("create");
 	        	   
+	        	   if(mainInsights.length == 0) {
+	        		   $('.DealingArtInsights').hide();   
+	        	   } else {
+	        		   $('.DealingArtInsights').show();
+	        	   }
 	        	   
 	        	   
 	        	   var insightsHtml = '';
