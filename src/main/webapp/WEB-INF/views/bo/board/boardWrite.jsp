@@ -20,6 +20,7 @@
 
 <body class="hold-transition sidebar-mini">
 
+	
 	<div class="wrapper">
 	
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
@@ -55,7 +56,12 @@
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-6">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    					<textarea name="content" id="editor"></textarea>
+                    					
+                    					<div id="toolbar-container"></div>
+                    					<div id="editor">
+									        
+									    </div>
+<!--                     					<textarea name="content" id="editor"></textarea> -->
                     				</div>
                     				
 
@@ -84,6 +90,9 @@
 
    
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
+   
+
+  
    
    <script>
    var editorContnet;
@@ -122,16 +131,22 @@
 	    .create( document.querySelector( '#editor' ))
 	    .then( editor => {editorContnet = editor;} )
 	    .catch( error => {console.error( error );} ); */
+	  
+	    //extraPlugins: [MyCustomUploadAdapterPlugin],
 	    
-	    
-	    ClassicEditor
-	 	    .create( document.querySelector( '#editor' ), {
-	 	    	
-	 	    	 extraPlugins: [MyCustomUploadAdapterPlugin],
-	 	    }
-	 	   	)
-	 	    .then( editor => {editorContnet = editor;} )
-	 	    .catch( error => {console.error( error );} );
+	    DecoupledEditor
+            .create( document.querySelector( '#editor' ) ,{
+            	extraPlugins: [MyCustomUploadAdapterPlugin],
+            	
+            } )
+            .then( editor => {
+                const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
 	    
 	    function MyCustomUploadAdapterPlugin(editor) {
 		    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -264,6 +279,8 @@
             this.xhr.send(data)
         }
     }
+    
+   
      </script>
  
  
