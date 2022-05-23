@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script>
+  
   
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
@@ -114,8 +114,11 @@
 				</div>
 			</div>
 			
+			
 			<!-- 상세내용 -->
+			<div id="editor" class="ck-blurred ck ck-content " lang="en" dir="ltr"  aria-label="main" contenteditable="false">
 			<div class="modal-body pd60 h850-o" id="lp_brdDtl_cntnt"></div>
+			</div>
 			
 		</div>
 	</div>
@@ -124,16 +127,6 @@
 <script type="text/javascript">    
 
 
-DecoupledEditor
-.create( document.querySelector( '#lp_brdDtl_cntnt' ))
-.then( editor => {
-    const toolbarContainer = document.querySelector( '#toolbar-container' );
-
-    document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
-} )
-.catch( error => {
-    console.error( error );
-} );
 
 $(document).ready(function () {
   $(".elm").hover(
@@ -146,6 +139,9 @@ $(".cn-b").hover(
   )
   
   selectBrdList("NT");
+  
+  
+  
 });
 
 /*
@@ -214,11 +210,6 @@ $(".cn-b").hover(
           	if(data.result != null){
               	$("#lp_brdDtl_cntnt").empty();
               	
-				var brdContent = data.result.brdContent; 
-				const domEditableElement = document.querySelector( '.ck-editor__editable' );
-				const editorInstance = domEditableElement.ckeditorInstance;
-				editorInstance.setData(brdContent);
-              	
               	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
@@ -230,25 +221,6 @@ $(".cn-b").hover(
           }
   	});
   }
-
-document.querySelectorAll('.tImg').forEach((emoteImage) => {
-	emoteImage.addEventListener('dragend', (event) => {
-	    var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
-	            + '<img src="'+event.target.dataset.url+'">';
-	            + '</figure>';
-	    const viewFragment = wr_content_editor.data.processor.toView(imgTag);
-	    const modelFragment = wr_content_editor.data.toModel( viewFragment );
-	    wr_content_editor.model.insertContent(modelFragment);
-	});
-});
-
-
-
-
-
-
-
-
 
 
 $(function() {                      
@@ -274,36 +246,7 @@ if (jQuery(window).width() > 0) {
          return false;
      });
 }
- 
- 
- /* jQuery(function($) {
 
-    window.onresize = function(){
-      document.location.reload();
-    };
-
-}); */
- 
- 
- 
-var delay = 300;
-var timer = null;
-
-//Javascript
-window.addEventListener('resize', function(){
- 	clearTimeout(timer);
- 	timer = setTimeout(function(){
- 		document.location.reload();
- 	}, delay);
-});
-
-//jQuery
-$(window).on('resize', function(){
- 	clearTimeout(timer);
- 	timer = setTimeout(function(){
- 		document.location.reload();
- 	}, delay);
-});
  
 $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // The event won't be propagated up to the document NODE and 
@@ -312,6 +255,8 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 });
  
 $('.selectpicker').selectpicker();
+
+$('.ck-editor__editable').attr('contenteditable', 'false');
       
 </script>
     
