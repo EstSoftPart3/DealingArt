@@ -285,10 +285,14 @@ function myDealSearchList(){
 	    				myDealListHtml += '				<dt>경매 기간</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
 	    				myDealListHtml += '				<dt>시작가</dt>';
-	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtPrc +' 원</dd>';
+	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtPrc +' KRW</dd>';
 	    				if(myDealList[i].dealSttsCd == "TP" && $("input:radio[name='buyOrSell']:checked").val() == "BUY"){ //경매 진행중이면
 	    					myDealListHtml += '			<dt>현재 입찰가</dt>';
-	    					myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' 원</dd>';
+	    					if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+	    						myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' KRW</dd>';
+	    					}else{
+	    						myDealListHtml += '			<dd>0 원</dd>';
+	    					}
 		    				myDealListHtml += '			<dt>응찰가</dt>';
 		    				myDealListHtml += '			<dd>';
 		    				myDealListHtml += '				<div class="is-sum2">';
@@ -303,20 +307,26 @@ function myDealSearchList(){
 	    				}
 	    				if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq == sMbrSqVal){ //경매 진행중이며 판매자면
 	    					myDealListHtml += '			<dt>현재 입찰가</dt>';
-	    					myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' 원</dd>';
+	    					if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+	    						myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' KRW</dd>';
+	    					}else{
+	    						myDealListHtml += '			<dd>0 KRW</dd>';
+	    					}
 		    				myDealListHtml += '			<dt>남은 시간</dt>';
 		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
 	    				}
 	    				if(myDealList[i].dealSttsCd == "TC"){ //경매 종료면
 	    					myDealListHtml += '			<dt>낙찰가</dt>';
-	    					myDealListHtml += '			<dd>'+ myDealList[i].dealSbidPrc +' 원</dd>';
+	    					myDealListHtml += '			<dd>'+ myDealList[i].dealSbidPrc +' KRW</dd>';
 	    				}
 	    				myDealListHtml += '				<dt>응찰수</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
-	    				myDealListHtml += '				<dt>예상 수수료</dt>';
-	    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
-	    				//myDealListHtml += '				<dt>예상배송비</dt>';
-	    				//myDealListHtml += '				<dd></dd>';
+	    				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+		    				myDealListHtml += '				<dt>예상 수수료</dt>';
+		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
+		    				//myDealListHtml += '				<dt>예상배송비</dt>';
+		    				//myDealListHtml += '				<dd></dd>';
+	    				}
 	    				myDealListHtml += '			</dl>';
 	    				myDealListHtml += '		</div>';
     				}
@@ -326,15 +336,17 @@ function myDealSearchList(){
         				myDealListHtml += '				<dt>판매 기간</dt>';
         				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
         				myDealListHtml += '				<dt>판매가</dt>';
-        				myDealListHtml += '				<dd>'+ myDealList[i].dealFinalPrc +' 원</dd>';
+        				myDealListHtml += '				<dd>'+ myDealList[i].dealFinalPrc +' KRW</dd>';
         				if(myDealList[i].dealSttsCd == "TP"){
 	        				myDealListHtml += '			<dt>남은 시간</dt>';
 	        				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
         				}
-        				myDealListHtml += '				<dt>예상 수수료</dt>';
-        				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].dealFinalPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
-        				//myDealListHtml += '				<dt>예상배송비</dt>';
-        				//myDealListHtml += '				<dd></dd>';
+        				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+		    				myDealListHtml += '				<dt>예상 수수료</dt>';
+		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
+		    				//myDealListHtml += '				<dt>예상배송비</dt>';
+		    				//myDealListHtml += '				<dd></dd>';
+	    				}
         				myDealListHtml += '			</dl>';
         				myDealListHtml += '		</div>';
         			}
