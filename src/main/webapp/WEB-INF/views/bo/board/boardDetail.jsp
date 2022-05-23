@@ -20,6 +20,34 @@
 
 <body class="hold-transition sidebar-mini">
 
+<style>
+	.editable-container,
+	.toolbar-container {
+		position: relative;
+		border: 1px solid #ddd;
+		background: #eee;
+	}
+
+	.toolbar-container {
+		padding: 1em;
+	}
+
+	.editable-container {
+		padding: 3em;
+		overflow-y: scroll;
+		max-height: 500px;
+	}
+
+	.editable-container .document-editor__editable.ck-editor__editable {
+		min-height: 21cm;
+		padding: 2em;
+		border: 1px #D3D3D3 solid;
+		border-radius: var(--ck-border-radius);
+		background: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+</style>
+
 	<div class="wrapper">
 	
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
@@ -57,7 +85,11 @@
                     				
                     				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-6">
-                      					<textarea name="content" id="editor"></textarea>
+                      					<!-- <textarea name="content" id="editor"></textarea> -->
+                      					<div id="toolbar-container"></div>
+                      					<div id="editor">
+									        
+									    </div>
                       				</div>
                     				
 					 			</div>
@@ -133,10 +165,8 @@
 	        	 
 	        	 $('#brdTitle').val(brdTitleInput);
 	        	 
-	        	 const element = document.getElementById('brd');
-	        	 
-	        	 element.innerHTML 
-	        	    = brdContentInput;
+	        	 //const element = document.getElementById('brd');
+	        	 //element.innerHTML = brdContentInput;
 	        	 
 
 	           },
@@ -147,42 +177,32 @@
 		})
 	}
    
+   DecoupledEditor
+       .create( document.querySelector( '#editor' ) ,{
+       	extraPlugins: [MyCustomUploadAdapterPlugin],
+       	
+       } )
+       .then( editor => {
+           const toolbarContainer = document.querySelector( '#toolbar-container' );
 
-   var editorContnet;
+           toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+           document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+       } )
+       .catch( error => {
+           console.error( error );
+       } );
    
-   ClassicEditor
-   
-		.create( document.querySelector( '#editor' ), {
-			toolbar: {
-		           items: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'indent', 'outdent', '|', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'exportPdf', 'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', 'highlight', 'horizontalLine', 'underline', ]
-		       },
-		       language: 'ko',
-		       image: {
-		           toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
-		       },
-		       table: {
-		           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
-		       },
-			ckfinder: {
-		        uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json' // 내가 지정한 업로드 url (post로 요청감)
-			},
-			alignment: {
-	           options: [ 'left', 'center', 'right' ]
-	       }
-		} )
-		.then( editor => {
-	       console.log( 'Editor was initialized', editor );
-	       editorContnet = editor;
-	   } )
-		.catch( error => {
-		    console.error( error );
-		} );
+   function MyCustomUploadAdapterPlugin(editor) {
+	    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+	        return new UploadAdapter(loader)
+	    }
+	}
    
    
    function boardUpdate() {
 	
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
-    var brdContent = editorContnet.getData();
+    var brdContent =  $('#editor').html();
    	
   	 //제목
   	 if(isEmpty(brdTitle)) {
@@ -289,9 +309,76 @@
        else
            return false ;
    }
+	 
+   document.querySelectorAll('.tImg').forEach((emoteImage) => {
+       emoteImage.addEventListener('dragend', (event) => {
+           var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
+                   + '<img src="'+event.target.dataset.url+'">';
+                   + '</figure>';
+           const viewFragment = wr_content_editor.data.processor.toView(imgTag);
+           const modelFragment = wr_content_editor.data.toModel( viewFragment );
+           wr_content_editor.model.insertContent(modelFragment);
+       });
+});
    
    </script>
  
+  <script>
+    
+    class UploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+    
+
+        upload() {
+            return this.loader.file.then( file => new Promise(((resolve, reject) => {
+                this._initRequest();
+                this._initListeners( resolve, reject, file );
+                this._sendRequest( file );
+            })))
+            
+            // 파일 업로드가 성공했을때 resolved될 promise를 리턴하자.(server.upload(file) 메서드에서 promise를 리턴 시키라는 뜻)
+            return loader.file
+                .then( file => server.upload( file ) );
+        }
+
+        _initRequest() {
+            const xhr = this.xhr = new XMLHttpRequest();
+            xhr.open('POST', '/file/ckUpload', true);
+            xhr.responseType = 'json';
+        }
+
+        _initListeners(resolve, reject, file) {
+        	
+            const xhr = this.xhr;
+            const loader = this.loader;
+            const genericErrorText = '파일을 업로드 할 수 없습니다.'
+
+            xhr.addEventListener('error', () => {reject(genericErrorText)})
+            xhr.addEventListener('abort', () => reject())
+            xhr.addEventListener('load', () => {
+                const response = xhr.response
+                if(!response || response.error) {
+                    return reject( response && response.error ? response.error.message : genericErrorText );
+                }
+
+                resolve({
+                	default: response.fileUrl //업로드된 파일 주소
+                	
+                })
+            })
+        }
+
+        _sendRequest(file) {
+            const data = new FormData()
+            data.append('upload',file)
+            this.xhr.send(data)
+        }
+    }
+    
+   
+     </script>
  
 </body>
 </html>

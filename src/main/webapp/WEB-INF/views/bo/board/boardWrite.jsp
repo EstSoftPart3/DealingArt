@@ -95,45 +95,8 @@
   
    
    <script>
-   var editorContnet;
-   
-   /*
-   ClassicEditor
-    
-	.create( document.querySelector( '#editor' ), {
-		toolbar: {
-	           items: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'indent', 'outdent', '|', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'exportPdf', 'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', 'highlight', 'horizontalLine', 'underline', ]
-	       },
-	       language: 'ko',
-	       image: {
-	           toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
-	       },
-	       table: {
-	           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
-	       },
-		ckfinder: {
-	        uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json' // 내가 지정한 업로드 url (post로 요청감)
-		},
-		alignment: {
-           options: [ 'left', 'center', 'right' ]
-       }
-	} )
-	.then( editor => {
-       console.log( 'Editor was initialized', editor );
-       editorContnet = editor;
-   } )
-	.catch( error => {
-	    console.error( error );
-	} );
-   */
-   
-/*    ClassicEditor
-	    .create( document.querySelector( '#editor' ))
-	    .then( editor => {editorContnet = editor;} )
-	    .catch( error => {console.error( error );} ); */
-	  
-	    //extraPlugins: [MyCustomUploadAdapterPlugin],
-	    
+   var editor;
+       
 	    DecoupledEditor
             .create( document.querySelector( '#editor' ) ,{
             	extraPlugins: [MyCustomUploadAdapterPlugin],
@@ -159,8 +122,9 @@
 	var mbrSq     = $("#mbrSq").val();     //회원순번
 	var brdTypCd  = $("#brdTypCd").val();  //게시판구분코드
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
-    var brdContent = editorContnet.getData();
-
+    //var brdContent = editor.getData();
+   	var brdContent = $('#editor').html();
+   	console.log(brdContent);
    	 //제목
    	 if(isEmpty(brdTitle)) {
    		bootbox.alert({
