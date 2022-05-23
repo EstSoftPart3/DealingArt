@@ -296,9 +296,11 @@
 	  let ww = window.innerWidth;
 	  
 	  
+	  /* 첫번째 배너  */
+	  var mySwiper2Num = 4;
 	  
 	  var swiper = new Swiper(".mySwiper2", {
-		   slidesPerView: 2,
+		   slidesPerView: mySwiper2Num,
 		   autoHeight: false,
 		   loop: false,
 		   autoplay: {
@@ -312,13 +314,13 @@
 	  });
 	  
 	  
-	  responsiveSwiper();
+	  responsiveSwiper(mySwiper2Num);
 	  
-	  function responsiveSwiper() {
+	  function responsiveSwiper(mySwiper2Num) {
 			if (ww >= 1200) {
 				// 1
 				swiper = new Swiper('.mySwiper2', {
-					slidesPerView: 2,
+					slidesPerView: mySwiper2Num,
 					loop: false,
 					effect: 'slide',
 					navigation: {
@@ -338,10 +340,13 @@
 				});
 			}
 		}
-	       	  
-	    var swiper = new Swiper(".mySwiperIn", {
+	  /* 첫번째 배너  */
+	 
+	  /* 두번째 배너  */
+	  var mySwiperInNum = 5
+	  var swiper = new Swiper(".mySwiperIn", {
 	    	   
-	    	slidesPerView: 3,
+	    	slidesPerView: mySwiperInNum,
 			loop: false,
 			effect: 'slide',
 			navigation: {
@@ -351,15 +356,14 @@
     	     
 	    });
 	    
-	    responsiveSwiperIn();
+	    responsiveSwiperIn(mySwiperInNum);
 	    
-	    function responsiveSwiperIn() {
+	    function responsiveSwiperIn(mySwiperInNum) {
 			
 	    	if (ww >= 1200) {
 				
 				swiper = new Swiper('.mySwiperIn', {
-				
-					slidesPerView: 3,
+					slidesPerView: mySwiperInNum,
 					loop: false,
 					effect: 'slide',
 					navigation: {
@@ -380,7 +384,7 @@
 			}
 		}
 	  
-	       	  
+	    /* 두번째 배너  */    	  
 	       	  
 	   window.addEventListener('resize', function() {
 			ww = window.innerWidth;
