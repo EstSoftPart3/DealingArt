@@ -108,9 +108,7 @@ jQuery(document).ready(function() {
 
 function myCollectionList(){
     if(result.length > 0){
-    	modalAlertShow("검색 결과가 없습니다.");
-    }else{
-    	var html = "";
+		var html = "";
     	
     	$("#grid").empty();
     	
@@ -168,12 +166,12 @@ function myCollectionList(){
     		}
     		
     	}
+    	//$("#grid").append(html).trigger("create");
+    	$(".grid").append(html);
+    	masonryLayout();
+    }else{
+		modalAlertShow("검색 결과가 없습니다.");
     }
-	//$("#grid").append(html).trigger("create");
-	$(".grid").append(html);
-	
-	
-	masonryLayout();
 }
 
 $(document).on("click", ".cor-a", function(){

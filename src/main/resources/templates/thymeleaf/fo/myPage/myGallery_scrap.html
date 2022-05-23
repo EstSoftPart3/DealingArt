@@ -103,9 +103,8 @@ jQuery(document).ready(function() {
 });      
 
 function scrapList(){
-	if(result.length > 0){
-    	modalAlertShow("검색 결과가 없습니다.");
-    }else{
+	debugger;
+	if(result != null && result != ""){
 		var html = '';
 		
 		$("#grid").empty();
@@ -336,12 +335,11 @@ function scrapList(){
 				}
 		   
 			}
-		}
-	
-	
 		$(".grid").append(html);
- 		
 		masonryLayout();
+    }else{
+    	modalAlertShow("검색 결과가 없습니다.");
+    }
 }
 
 
