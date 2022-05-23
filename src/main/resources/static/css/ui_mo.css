@@ -5432,3 +5432,23 @@ position: relative;background-color: #fbfbfb;}
 .bg-st .btn-group button{background-color:#fff;}
 .comy-sum{text-align: right;width: 78.4rem;margin-top: 3rem;font-size: 2rem; font-weight: 600; color: #9f9f9f;vertical-align: middle;}
 .comy-sum span{padding-left: 2rem;font-size: 3.6rem; color: #000000; vertical-align: middle;font-weight: 600;}
+
+/* 0516 */
+.btn-mw{margin:0 auto !important;max-width: 50rem;}
+.th-w170 th{width: 21rem;/* padding-top: 2rem; */padding-bottom: 3rem;vertical-align: middle;}
+.th-w170 td .btns-1{margin-bottom:2rem;}
+
+/* 0520 */
+.mobile-con-wrap{}
+.mobile-con-wrap{}
+.mobile-con-wrap .con-left{display: block;}
+.mobile-con-wrap .con-left .cont-title4{display: none;}
+.mobile-con-wrap .con-left .panel-group{display: flex;width: 100%;}
+.mobile-con-wrap .con-left .panel-group .panel{border-bottom: #e8e8e8 1px solid;border-right: #e8e8e8 1px solid; flex:1;}
+.mobile-con-wrap .con-left .panel-group .panel a{text-align: center;}
+.mobile-con-wrap .con-left .panel-default>.panel-heading{padding: 1.8rem 0 1.8rem 0;}
+.mobile-con-wrap .con-left  .panel-title a:before{display: none;}
+.mobile-con-wrap .con-left .panel-group .panel.active{background-color: #e9625c;}
+.mobile-con-wrap .con-left .panel-group .panel.active a{color: #fff;}
+.mobile-con-wrap .con-left .panel-group .panel-title{font-size: 2.2rem;}
+.mobile-con-wrap .con-right{display: block;width: 100%;margin: 0 auto;max-width: 100% !important;}
