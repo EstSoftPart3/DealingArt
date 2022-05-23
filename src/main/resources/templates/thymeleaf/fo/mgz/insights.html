@@ -158,17 +158,17 @@ $(document).ready(function(){
           	var mgzDtl = null;
           	console.log(data);
           	if(data.result != null){
-              	$("#lp_mgz9Dtl_cntnt").empty();
-              	
+          		
               	var mgzContent = data.result.mgzContent; 
+              	$("#lp_mgz9Dtl_cntnt").empty();
               	$("#lp_mgz9Dtl_cntnt").append(mgzContent).trigger("create");
               	
               	var appDevice =	$("#appDevice").val();
-         		if(appDevice == "MOBILE") {
-              		$("#lp_mgz9Dtl_cntnt > div").css('font-size', '11px');
-     				$("#lp_mgz9Dtl_cntnt > div").css('padding-left', '0px');
-     			    $("#lp_mgz9Dtl_cntnt > div").css('padding-right', '0px');
-         		}
+              	if(appDevice == "MOBILE") {
+                	$("#editor > div").css('font-size', '11px');
+       				$("#editor > div").css('padding-left', '0px');
+       			    $("#editor > div").css('padding-right', '0px');
+           		}
               	
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
