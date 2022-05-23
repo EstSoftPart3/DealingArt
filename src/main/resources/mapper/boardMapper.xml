@@ -4,9 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.da.mapper.boardMapper">
-	
-  
-    
+
     <!-- 게시판 목록 -->
     <select id="boardList" resultType="hashMap">
         SELECT
@@ -99,9 +97,9 @@
          	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
 	</update>
    
-   	<!-- 잡지 Mapper -->
+   	<!-- 메거진 Mapper -->
 	   
-    <!-- 잡지 목록 -->
+    <!-- 메거진 목록 -->
     <select id="magazineList" resultType="hashMap">
         SELECT
            	 MGZ_SQ            			      AS mgzSq
@@ -124,14 +122,14 @@
          	ORDER BY MGZ_SQ DESC
     </select>
     
-    <!-- 잡지 등록 -->
+    <!-- 메거진 등록 -->
    <insert id="magazineInsert" parameterType="hashMap">
     	INSERT INTO TBL_DA_MGZ_M
         (
 			 MBR_SQ
 			,MGZ_TITLE
-			,BRD_CONTENT
 			,MGZ_DESCRPTN
+			,MGZ_CONTENT
 			,MGZ_MAIN_IMG_URL
 			,MGZ_TYP_CD
 			,REG_MBR_SQ
@@ -154,7 +152,7 @@
         )
     </insert>
     
-    <!-- 잡지 상세 -->
+    <!-- 메거진 상세 -->
     <select id="magazineDetail" resultType="hashMap">
         SELECT
            	 MGZ_SQ            			      AS mgzSq
@@ -176,20 +174,21 @@
          	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
     </select>
     
-    <!-- 잡지 삭제 -->
+    <!-- 메거진 삭제 -->
     <update id="magazineDelete" parameterType="hashMap">
    		UPDATE 
    			TBL_DA_MGZ_M A
 		SET
-			DEL_YN	= 'Y'
+			 DEL_YN	= 'Y'
+			,USE_YN	= 'N'
    		WHERE 1=1
          	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
 	</update>
     
-    <!-- 잡지 수정 -->
+    <!-- 메거진 수정 -->
     <update id="magazineUpdate" parameterType="hashMap">
    		UPDATE 
-   			TBL_DA_BRD_M A
+   			TBL_DA_MGZ_M A
 		SET
 			 MGZ_TITLE        = 	#{mgzTitle}
 			,MGZ_DESCRPTN     = 	#{mgzDescrptn}
@@ -197,10 +196,111 @@
 			,MGZ_MAIN_IMG_URL = 	#{mgzMainImgUrl}
 			,UPDT_MBR_SQ      =     '78'
 			,UPDT_DT          =		NOW()
-			,DEL_YN	     = 	'Y'
-
    		WHERE 1=1
          	AND A.MGZ_TYP_CD = #{mgzTypCd} AND A.MGZ_SQ = #{mgzSq}
+	</update>
+	
+   	<!-- CK에디터 통합 Mapper -->
+	   
+    <!-- CK에디터 통합 목록 -->
+    <select id="ckeditorList" resultType="hashMap">
+        SELECT
+           	 CK_SQ            			      AS ckSq
+			,MBR_SQ         				  AS mbrSq
+			,CK_TITLE      				      AS ckTitle
+			,CK_DESCRPTN        			  AS ckDescrptn
+			,CK_CONTENT        			      AS ckContent
+			,CK_MAIN_IMG_URL				  AS ckMainImgUrl
+			,CK_TYP_CD				          AS ckTypCd
+			,REG_MBR_SQ                       AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN                           AS useYn
+			,DEL_YN			   				  AS delYn
+		FROM
+            TBL_DA_CK_EDITOR_M A 
+        WHERE 1=1
+         	AND A.CK_TYP_CD = #{ckTypCd}
+         	ORDER BY CK_SQ DESC
+    </select>
+    
+    <!-- CK에디터 통합 등록 -->
+   <insert id="ckeditorInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_CK_EDITOR_M
+        (
+			 MBR_SQ
+			,CK_TITLE
+			,CK_DESCRPTN
+			,CK_CONTENT
+			,CK_MAIN_IMG_URL
+			,CK_TYP_CD
+			,REG_MBR_SQ
+			,REG_DT
+			,USE_YN 
+			,DEL_YN
+       	) 
+        VALUES
+        (
+			 #{mbrSq}
+			,#{ckTitle}
+			,#{ckDescrptn}
+			,#{ckContent}
+			,#{ckMainImgUrl}
+			,#{ckTypCd}
+			,#{regMbrSq}
+			,NOW()
+			,default
+			,default
+        )
+    </insert>
+    
+    <!-- CK에디터 통합 상세 -->
+    <select id="ckeditorDetail" resultType="hashMap">
+        SELECT
+           	 CK_SQ            			      AS ckSq
+			,MBR_SQ         				  AS mbrSq
+			,CK_TITLE      				      AS ckTitle
+			,CK_DESCRPTN        			  AS ckDescrptn
+			,CK_CONTENT        			      AS ckContent
+			,CK_MAIN_IMG_URL				  AS ckMainImgUrl
+			,CK_TYP_CD				          AS ckTypCd
+			,REG_MBR_SQ                       AS regMbrSq
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
+			,UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
+			,USE_YN                           AS useYn
+			,DEL_YN			   				  AS delYn
+		FROM
+            TBL_DA_CK_EDITOR_M A
+        WHERE 1=1
+         	AND A.CK_TYP_CD = #{ckTypCd} AND A.CK_SQ = #{ckSq}
+    </select>
+    
+    <!-- CK에디터 통합 삭제 -->
+    <update id="ckeditorDelete" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_CK_EDITOR_M A
+		SET
+			 DEL_YN	= 'Y'
+			,USE_YN	= 'N'
+   		WHERE 1=1
+         	AND A.CK_TYP_CD = #{ckTypCd} AND A.CK_SQ = #{ckSq}
+	</update>
+    
+    <!-- CK에디터 통합 수정 -->
+    <update id="ckeditorUpdate" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_CK_EDITOR_M A
+		SET
+			 CK_TITLE        = 	#{ckTitle}
+			,CK_DESCRPTN     = 	#{ckDescrptn}
+			,CK_CONTENT      = 	#{ckContent}
+			,CK_MAIN_IMG_URL = 	#{ckMainImgUrl}
+			,UPDT_MBR_SQ      =     '78'
+			,UPDT_DT          =		NOW()
+   		WHERE 1=1
+         	AND A.CK_TYP_CD = #{ckTypCd} AND A.CK_SQ = #{ckSq}
 	</update>
   
 </mapper>

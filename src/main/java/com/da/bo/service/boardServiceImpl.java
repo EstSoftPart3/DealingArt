@@ -19,7 +19,7 @@ public class boardServiceImpl implements boardService {
 	boardDao boardDao;
 	
 	/**
-	 * 공지사항,FAQ DAO
+	 * 공지사항,FAQ ServiceImpl
 	 * 
 	 * **/	
 	
@@ -64,11 +64,11 @@ public class boardServiceImpl implements boardService {
 	}
 	
 	/**
-	 * 잡지 DAO
+	 * 메거진 ServiceImpl
 	 * 
 	 * **/
 	
-	//잡지 목록
+	//메거진 목록
 	@Override
 	public Map<String, Object> magazineList(Map<String, Object> param){
 		
@@ -79,13 +79,13 @@ public class boardServiceImpl implements boardService {
 		return result;
 	}
 	
-	//잡지 입력
+	//메거진 입력
 	@Override
 	public void magazineInsert(Map<String, Object> param){
 		boardDao.magazineInsert(param);
 	}
 	
-	//잡지 상세
+	//메거진 상세
 	@Override
 	public Map<String, Object> magazineDetail(Map<String, Object> param){
 		
@@ -96,18 +96,61 @@ public class boardServiceImpl implements boardService {
 		return result;
 	}
 		
-	//잡지 삭제
+	//메거진 삭제
 	@Override
 	public void magazineDelete(Map<String, Object> param){
 		boardDao.magazineDelete(param);
 	}
 	
-	//잡지 수정
+	//메거진 수정
 	@Override
 	public void magazineUpdate(Map<String, Object> param){
 		boardDao.magazineUpdate(param);
 	}
 	
+	/**
+	 * CK에디터 통합 ServiceImpl
+	 * 
+	 * **/
 	
+	//CK에디터 통합 목록
+	@Override
+	public Map<String, Object> ckeditorList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.ckeditorList(param);
+		
+		return result;
+	}
+	
+	//CK에디터 통합 입력
+	@Override
+	public void ckeditorInsert(Map<String, Object> param){
+		boardDao.ckeditorInsert(param);
+	}
+	
+	//CK에디터 통합 상세
+	@Override
+	public Map<String, Object> ckeditorDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.ckeditorDetail(param);
+		
+		return result;
+	}
+		
+	//CK에디터 통합 삭제
+	@Override
+	public void ckeditorDelete(Map<String, Object> param){
+		boardDao.ckeditorDelete(param);
+	}
+	
+	//CK에디터 통합 수정
+	@Override
+	public void ckeditorUpdate(Map<String, Object> param){
+		boardDao.ckeditorUpdate(param);
+	}	
 	
 }

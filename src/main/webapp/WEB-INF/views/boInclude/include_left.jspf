@@ -132,6 +132,53 @@
 		              </li>
 		           </ul>
           	</li>
+          		<li class="nav-item has-treeview menu-open">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-circle"></i>
+	              <p class="sTitle">
+	                메거진
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+		            <ul class="nav nav-treeview">
+		              <li class="nav-item">
+		                <a href="/admin/magazine/magazineList?mgzTypCd=IST" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">인사이트</p>
+		                </a>
+		              </li>
+		              <li class="nav-item">
+		                <a href="/admin/magazine/magazineList?mgzTypCd=MDA" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">미디어</p>
+		                </a>
+		              </li>
+		              <li class="nav-item">
+		                <a href="/admin/magazine/magazineList?mgzTypCd=EBI" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">전시회</p>
+		                </a>
+		              </li>
+		           </ul>
+          	</li>
+          	
+          	<li class="nav-item has-treeview menu-open">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-circle"></i>
+	              <p class="sTitle">
+	                샘플
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+		            <ul class="nav nav-treeview">
+		              <li class="nav-item">
+		                <a href="/admin/ckeditor/ckeditorList?ckTypCd=CK" class="nav-link">
+		                  <i class="far fa-circle nav-icon sTitle"></i>
+		                  <p class="sTitle">CK에디터</p>
+		                </a>
+		              </li>
+		           </ul>
+          	</li>
           	
           	<!--  <li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">공통관리</li>
@@ -145,8 +192,7 @@
 			            </a>
           	 		</li>
           	 </li> -->
-         
-          
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
