@@ -59,7 +59,7 @@
 			</div>
 			
 			<!-- 상세내용 -->
-			<div id="editor" class="ck-blurred ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+			<div id="editor" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt"></div>
 			</div>
 		</div>
@@ -159,16 +159,15 @@ $(document).ready(function(){
           	console.log(data);
           	if(data.result != null){
               	$("#lp_mgz9Dtl_cntnt").empty();
-              	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+              	
+              	var mgzContent = data.result.mgzContent; 
+              	$("#lp_mgz9Dtl_cntnt").append(mgzContent).trigger("create");
               	
               	var appDevice =	$("#appDevice").val();
-         		
          		if(appDevice == "MOBILE") {
-              	
               		$("#lp_mgz9Dtl_cntnt > div").css('font-size', '11px');
      				$("#lp_mgz9Dtl_cntnt > div").css('padding-left', '0px');
      			    $("#lp_mgz9Dtl_cntnt > div").css('padding-right', '0px');
-     			    
          		}
               	
           	}else{
@@ -182,7 +181,6 @@ $(document).ready(function(){
   	});
   }
 
-      
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {

@@ -117,8 +117,6 @@
 			<!-- 상세내용 -->
 			<div class="modal-body pd60 h850-o" id="lp_brdDtl_cntnt"></div>
 			
-			<div class="modal-body pd60 h850-o" id="lp_brdDtl_cntnt"></div>
-			
 		</div>
 	</div>
 </div>
@@ -216,11 +214,10 @@ $(".cn-b").hover(
           	if(data.result != null){
               	$("#lp_brdDtl_cntnt").empty();
               	
-              	var brdContent = data.result.brdContent; 
-              	 
-	        	 const domEditableElement = document.querySelector( '.ck-editor__editable' );
-	        	 const editorInstance = domEditableElement.ckeditorInstance;
-	        	 editorInstance.setData(brdContent);
+				var brdContent = data.result.brdContent; 
+				const domEditableElement = document.querySelector( '.ck-editor__editable' );
+				const editorInstance = domEditableElement.ckeditorInstance;
+				editorInstance.setData(brdContent);
               	
               	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
           	}else{
@@ -234,23 +231,16 @@ $(".cn-b").hover(
   	});
   }
 
-
-
-
-
-
-
-
-	 document.querySelectorAll('.tImg').forEach((emoteImage) => {
-	       emoteImage.addEventListener('dragend', (event) => {
-	           var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
-	                   + '<img src="'+event.target.dataset.url+'">';
-	                   + '</figure>';
-	           const viewFragment = wr_content_editor.data.processor.toView(imgTag);
-	           const modelFragment = wr_content_editor.data.toModel( viewFragment );
-	           wr_content_editor.model.insertContent(modelFragment);
-	       });
+document.querySelectorAll('.tImg').forEach((emoteImage) => {
+	emoteImage.addEventListener('dragend', (event) => {
+	    var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
+	            + '<img src="'+event.target.dataset.url+'">';
+	            + '</figure>';
+	    const viewFragment = wr_content_editor.data.processor.toView(imgTag);
+	    const modelFragment = wr_content_editor.data.toModel( viewFragment );
+	    wr_content_editor.model.insertContent(modelFragment);
 	});
+});
 
 
 
