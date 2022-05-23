@@ -142,7 +142,7 @@
 							</ul>
 							<div id="searchResult">
 								<h4 class="aut-h4" th:if="${result.totalCount} > 0"><span class="c-red" th:text="|&quot;${result.searchKeyword}&quot;|"></span> 검색결과 총 <span class="c-red" th:text="${result.totalCount}"></span>개</h4>
-								<h4 class="aut-h4" th:unless="${result.totalCount} > 0"><span class="c-red" th:text="|&quot;${result.searchKeyword}&quot;|"></span> 검색결과가 <span class="c-red"></span>없습니다</h4>
+								<h4 class="aut-h4" th:unless="${result.totalCount} > 0"><span class="c-red" th:text="|&quot;${result.searchKeyword}&quot;|"></span> 검색결과가 <span class="c-red">없습니다</span></h4>
 							</div>
 						</div>
 						
