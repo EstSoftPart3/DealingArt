@@ -20,6 +20,34 @@
 
 <body class="hold-transition sidebar-mini">
 
+<style>
+	.editable-container,
+	.toolbar-container {
+		position: relative;
+		border: 1px solid #ddd;
+		background: #eee;
+	}
+
+	.toolbar-container {
+		padding: 1em;
+	}
+
+	.editable-container {
+		padding: 3em;
+		overflow-y: scroll;
+		max-height: 500px;
+	}
+
+	.editable-container .document-editor__editable.ck-editor__editable {
+		min-height: 21cm;
+		padding: 2em;
+		border: 1px #D3D3D3 solid;
+		border-radius: var(--ck-border-radius);
+		background: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+</style>
+
 	<div class="wrapper">
 	
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
@@ -42,19 +70,19 @@
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
 					 	
-					 		<div class="col-md-9" style="padding-left:50px;">
+					 		<div class="col-md-12" style="padding-left:50px; margin: auto">
 					 		
 					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
+					 				<label class="col-form-label sTitle LabelStyle" ">제목</label>
                     				<div class="col-sm-6">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="">
+                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="" readonly="readonly">
                     				</div>
 					 			</div>
 					 			
 					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">설명</label>
+					 				<label class="col-form-label sTitle LabelStyle"">설명</label>
                     				<div class="col-sm-6">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="">
+                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="" readonly="readonly">
                     				</div>
 					 			</div>
 								
@@ -62,44 +90,42 @@
 								<div class="card card-primary card-outline" style="height:380px;width:585px;">
               							<div class="card-body box-profile">
                 							<div class="text-center" style="text-align: center;">
-                							<label class="col-form-label sTitle LabelStyle" style="text-align: center;">메인 이미지</label>
+                							<label class="col-form-label sTitle LabelStyle">메인 이미지</label>
                 								<div style="height:250px;width:545px;background-color:#efefef;text-align: center;">
                 								
                 									<input type="hidden" name="mgzMainImgUrl" id="mgzMainImgUrl">
 													<input type="file" id="file" style="display:none">
 													
-													<img class="content" id="dropZone" style="cursor:pointer;height:250px;width:545px;text-align: center;"/>
+													<img class="content" id="dropZone" style="cursor:pointer;height:300px;width:545px;text-align: center;"/>
                 								
                 								</div>
                   								<!-- <img class="profile-user-img img-fluid img-circle" src=""> -->
                 							</div>
-                							<b style="font-family: sans-serif; font-size: 8px; color: gray;">※ 회색공간을 클릭해서 업로드하거나, 파일을 끌어와서 업로드 하세요.</b>
 											<!-- <br><a href="javascript:imgInput();" class="btn btn-info btn-block" style="font-size:11px;width:150px;margin:auto;"><b>등록</b></a> -->
               							</div>
               						</div>
 
 					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-6">
-                      						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    					<textarea name="content" id="editor"></textarea>
+                    				<div class="col-sm-12">
+									<div id="editor" class="ck-blurred ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+					 				<div id="brd" class="col-sm-9" style="margin: auto;">
+					 		
+					 				</div>
+									</div>
                     				</div>
 					 			</div>
 					 			<div class="form-group row">
                     				
-                    				<div class="col-sm-6" style="text-align:right">
+                    				<div class="col-sm-12" style="margin: auto">
                     					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
-                    					<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardUpdatepage();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
                     				</div>
                     				
                     			</div>
 					 		</div>
 					 	</div>
-
-					 		<div id="brd">
-					 		
-					 		</div>
 
 					 </div>
 					
@@ -113,6 +139,9 @@
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
+   
+  
+   
 /*    var dataContent = {};
    
 	$(document).ready(function(){
@@ -122,7 +151,7 @@
 		memberContentData(mbrSq);
 		//작가회원정보
 		artistMemberInfoData(mbrSq);
-	}); */
+	});  */
    
 	   var mbrSq = $('#mbrSq').val();
 	   var mgzSq = '<c:out value="${param.mgzSq}" />';
@@ -134,102 +163,6 @@
    $(document).ready(function(){
 
 		magazineDetailtData(mgzSq,mgzTypCd)
-		
-		$("#file").bind('change', function() {
-			uploadResource(this.files);
-		});
-		
-		$(function() {
-			// 파일 드롭 다운
-			fileDropDown();
-		});
-		
-		// 파일 드롭 다운
-		function fileDropDown() {
-			var dropZone = $("#dropZone");
-			//Drag기능 
-			dropZone.on('dragenter', function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				// 드롭다운 영역 css
-				dropZone.css('background-color', '#E3F2FC');
-			});
-			dropZone.on('dragleave', function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				// 드롭다운 영역 css
-				dropZone.css('background-color', '#FFFFFF');
-			});
-			dropZone.on('dragover', function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				// 드롭다운 영역 css
-				dropZone.css('background-color', '#E3F2FC');
-			});
-			dropZone.on('drop', function(e) {
-				e.preventDefault();
-				// 드롭다운 영역 css
-				dropZone.css('background-color', '#FFFFFF');
-
-				var fileObject = e.originalEvent.dataTransfer.files;
-				
-				
-				
-				
-				if (fileObject != null) {
-					if (fileObject.length < 1) {
-						/* alert("폴더 업로드 불가"); */
-						console.log("폴더 업로드 불가");
-						return;
-					} else {
-						uploadResource(fileObject);
-					}
-				} else {
-					alert("ERROR");
-				}
-			});
-		}
-		
-		function uploadResource(fileObject) {
-			
-			var file = null;
-			
-			const formData = new FormData();
-			
-			if (fileObject != null) {
-				// 파일 Drag 이용하여 등록시
-				file = fileObject[0];
-				formData.append("file", file);
-				console.log(file);
-			} else {
-				file = document.getElementById("file");
-				formData.append("file", file.files[0]);
-			}
-			
-			var maxSize = 5 * 1024 * 1024; // 5MB
-			var fileSize = file.size;
-			
-			if(fileSize > maxSize){
-				alert("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.");
-				return false;
-			}
-			
-	        fetch("/file/upload", {
-	            method : "POST"
-	            , body : formData
-	        })
-	        .then(result => result.json())
-	        .then(data => {
-	            document.getElementById("dropZone").setAttribute("src", data.fileUrl);
-	            $('#mgzMainImgUrl').val(data.fileUrl);
-	            //document.getElementById("remove").setAttribute("fileNm", data.fileNm)
-	        })
-	        .catch(error => console.log(`error => ${error}`));
-	    }
-		
-		$("#dropZone").click(function(){
-	       $('#file').click();
-	    });
 		
 	});
    
@@ -255,145 +188,26 @@
 	        	 var mgzDescrptnInput = dataContent.mgzDescrptn;
 	        	 var mgzMainImgUrlInput = dataContent.mgzMainImgUrl;
 	        	 
-	        	 console.log(mgzContentInput);
 	        	 
-	        	 const domEditableElement = document.querySelector( '.ck-editor__editable' );
-	        	 const editorInstance = domEditableElement.ckeditorInstance;
-	        	 editorInstance.setData(mgzContentInput);
-	        	 
+	        	 $('#mgzContentInput').val(mgzContentInput);
 	        	 $('#mgzTitle').val(mgzTitleInput);
-	        	 $('#mgzContent').val(mgzContentInput);
 	        	 $('#mgzDescrptn').val(mgzDescrptnInput);
 	        	 $("#mgzMainImgUrl").val(mgzMainImgUrlInput);
 	        	 
 	        	 if(mgzMainImgUrlInput) {
 			        	$("#dropZone").prop("src",mgzMainImgUrlInput)
-				    	}
+				  }
 	        	 
-	        	 
+	        	 var timpStr = mgzContentInput;
+	        	 timpStr = timpStr.replaceAll("&lt;","<");
+	        	 timpStr = timpStr.replaceAll("&gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	 document.getElementById('brd').innerHTML=timpStr;
 
 	           },
-	           error: function(error) {
-	        	   var errorJson = JSON.stringify(error);
-	               console.log(errorJson);
-	           }
-		})
-	}
-   
-
-   var editorContnet;
-   
-   ClassicEditor
-   
-		.create( document.querySelector( '#editor' ), {
-			toolbar: {
-		           items: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'indent', 'outdent', '|', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'exportPdf', 'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', 'highlight', 'horizontalLine', 'underline', ]
-		       },
-		       language: 'ko',
-		       image: {
-		           toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
-		       },
-		       table: {
-		           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableCellProperties', 'tableProperties']
-		       },
-			ckfinder: {
-		        uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json' // 내가 지정한 업로드 url (post로 요청감)
-			},
-			alignment: {
-	           options: [ 'left', 'center', 'right' ]
-	       }
-		} )
-		.then( editor => {
-	       console.log( 'Editor was initialized', editor );
-	       editorContnet = editor;
-	   } )
-		.catch( error => {
-		    console.error( error );
-		} );
-   
-   
-   function boardUpdate() {
-		
-		var mbrSq     = $("#mbrSq").val();     
-		var mgzTitle  = $("#mgzTitle").val(); 
-		var mgzDescrptn  = $("#mgzDescrptn").val(); 
-	    var mgzContent = editorContnet.getData();
-	    var mgzMainImgUrl  = $("#mgzMainImgUrl").val();  
-	    var mgzTypCd  = $("#mgzTypCd").val();  
-	    var updtMbrSq = $("#mbrSq").val();
-	   
-	   //잡지 제목
-	   	 if(isEmpty(mgzTitle)) {
-	   		bootbox.alert({
-					 message: "제목을 입력해 주세요.",
-					 locale: 'kr',
-					 callback: function() {
-					 		$("#brdTitle").focus();
-				     } });
-				 return;
-	   	 }
-	   	 
-	   	 //잡지 설명
-	   	 if(isEmpty(mgzDescrptn)) {
-	   		bootbox.alert({
-					 message: "설명을 입력해 주세요.",
-					 locale: 'kr',
-					 callback: function() {
-					 		$("#brdTitle").focus();
-				     } });
-				 return;
-	   	 }
-	   	 
-	   	 //잡지 메인 이미지
-	   	 if(isEmpty(mgzDescrptn)) {
-	   		bootbox.alert({
-					 message: "메인이미지를 등록해 주세요.",
-					 locale: 'kr',
-					 callback: function() {
-					 		$("#brdTitle").focus();
-				     } });
-				 return;
-	   	 }
-	   	 
-	     //잡지 내용
-	   	 if(isEmpty(mgzContent)) {
-	   		bootbox.alert({
-					 message: "내용을 입력해 주세요.",
-					 locale: 'kr',
-					 callback: function() {
-					 		
-				     } });
-				 return;
-	   	 }
-   	        				
-		
-		$.ajax({
-	           type: "post",
-	           url: "magazineUpdateData",
-	           data: {
-	        	   mgzSq : mgzSq,
-	        	   mbrSq : mbrSq,
-	        	   mgzTitle : mgzTitle,
-	        	   mgzDescrptn : mgzDescrptn,
-	        	   mgzContent : mgzContent,
-	        	   mgzMainImgUrl : mgzMainImgUrl,
-	        	   mgzTypCd : mgzTypCd,
-	        	   updtMbrSq : updtMbrSq
-	           },
-	           success: function(data) {
-	        	   bootbox.alert({
-						 message: "게시글이 저장 되었습니다.",
-						 locale: 'kr',
-						 callback: function() {
-							 if(mgzTypCd == 'IST'){
-							 	location.href='/admin/magazine/magazineList?mgzTypCd=IST';
-						 	}else if(mgzTypCd == 'MDA'){
-						 		location.href='/admin/magazine/magazineList?mgzTypCd=MDA';
-						 	}else{
-						 		location.href='/admin/magazine/magazineList?mgzTypCd=EBI';
-						 	}
-					     } });
-			   },
 	           error: function(error) {
 	        	   var errorJson = JSON.stringify(error);
 	               console.log(errorJson);
@@ -444,9 +258,14 @@
 	  
    }
    
-   function boardList() {
-	   location.href='/admin/magazine/magazineList?brdTypCd=<%=mgzTypCd%>';
+   function boardUpdatepage() {
+	   location.href='/admin/magazine/magazineUpdate?mgzSq='+mgzSq+'&mgzTypCd=<%=mgzTypCd%>';
    }
+   
+   function fn_SubBrdPage(getData) {
+	   var mgzTypCd = $('#mgzTypCd').val();
+	   location.href='/admin/magazine/magazineDetail?mgzSq='+mgzSq+'&mgzTypCd='+mgzTypCd;
+	}
    
 	 //Input Box Null Check
    function isEmpty(str){
@@ -456,8 +275,13 @@
        else
            return false ;
    }
-   
+
    </script>
+   
+   <script>
+    
+   
+     </script>
  
  
 </body>

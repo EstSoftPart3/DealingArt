@@ -20,6 +20,34 @@
 
 <body class="hold-transition sidebar-mini">
 
+<style>
+	.editable-container,
+	.toolbar-container {
+		position: relative;
+		border: 1px solid #ddd;
+		background: #eee;
+	}
+
+	.toolbar-container {
+		padding: 1em;
+	}
+
+	.editable-container {
+		padding: 3em;
+		overflow-y: scroll;
+		max-height: 500px;
+	}
+
+	.editable-container .document-editor__editable.ck-editor__editable {
+		min-height: 21cm;
+		padding: 2em;
+		border: 1px #D3D3D3 solid;
+		border-radius: var(--ck-border-radius);
+		background: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+</style>
+
 	<div class="wrapper">
 	
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
@@ -81,27 +109,28 @@
 					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-6">
-                      						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    					<div id="toolbar-container"></div>
-                    					<div id="editor">
+                      					<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
+                    					<!-- <textarea name="content" id="editor"></textarea> -->
+                      					
+                      					<div id="toolbar-container"></div>
+                      					
+                      					<div id="editor">
 									        
 									    </div>
-                                        <!-- <textarea name="content" id="editor"></textarea> -->
                     				</div>
 					 			</div>
 					 			<div class="form-group row">
+                    				
                     				<div class="col-sm-6" style="text-align:right">
-                      						<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
-                      						<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
                     				</div>
-
-					 			</div>
-					 			
-					 			
+                    				
+                    			</div>
 					 		</div>
-					 		
 					 	</div>
-					 		
+
 					 </div>
 					
 	    		</section>
@@ -113,32 +142,32 @@
    
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
-   <script type="text/javascript">
-
-	  
-    var editor;
-       
-    DecoupledEditor
-           .create( document.querySelector( '#editor' ) ,{
-           	extraPlugins: [MyCustomUploadAdapterPlugin],
-           	
-           } )
-           .then( editor => {
-               const toolbarContainer = document.querySelector( '#toolbar-container' );
-
-               toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-           } )
-           .catch( error => {
-               console.error( error );
-           } );
-    
-    function MyCustomUploadAdapterPlugin(editor) {
-	    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-	        return new UploadAdapter(loader)
-	    }
-	}
+   <script>
+   
+  
+   
+/*    var dataContent = {};
+   
+	$(document).ready(function(){
+		
+		var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+		//회원기본정본
+		memberContentData(mbrSq);
+		//작가회원정보
+		artistMemberInfoData(mbrSq);
+	});  */
+   
+	   var mbrSq = $('#mbrSq').val();
+	   var mgzSq = '<c:out value="${param.mgzSq}" />';
+	   var mgzTypCd = '<c:out value="${param.mgzTypCd}" />';
+	   
+	   var editorContnet;
+	   var dataContent = {};
 	
-	$(document).ready(function() {
+   $(document).ready(function(){
+
+		magazineDetailtData(mgzSq,mgzTypCd)
+		
 		$("#file").bind('change', function() {
 			uploadResource(this.files);
 		});
@@ -212,7 +241,7 @@
 			
 			var maxSize = 5 * 1024 * 1024; // 5MB
 			var fileSize = file.size;
-
+			
 			if(fileSize > maxSize){
 				alert("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.");
 				return false;
@@ -234,75 +263,148 @@
 		$("#dropZone").click(function(){
 	       $('#file').click();
 	    });
+		
 	});
-
-
-	    
-   function magazineInput() {
-  
-	var mbrSq     = $("#mbrSq").val();     
-	var mgzTitle  = $("#mgzTitle").val(); 
-	var mgzDescrptn  = $("#mgzDescrptn").val(); 
-    var mgzContent = $('#editor').html();
-    var mgzMainImgUrl  = $("#mgzMainImgUrl").val();  
-    var mgzTypCd  = $("#mgzTypCd").val();  
-    var regMbrSq = $("#mbrSq").val();
-    
-   	 //잡지 제목
-   	 if(isEmpty(mgzTitle)) {
-   		bootbox.alert({
-				 message: "제목을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#mgzTitle").focus();
-			     } });
-			 return;
-   	 }
-   	 
-   	 //잡지 설명
-   	 if(isEmpty(mgzDescrptn)) {
-   		bootbox.alert({
-				 message: "설명을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#mgzDescrptn").focus();
-			     } });
-			 return;
-   	 }
-   	 
-   	 //잡지 메인 이미지
-   	 if(isEmpty(mgzMainImgUrl)) {
-   		bootbox.alert({
-				 message: "메인이미지를 등록해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#mgzMainImgUrl").focus();
-			     } });
-			 return;
-   	 }
-   	 
-     //잡지 내용
-   	 if(isEmpty(mgzContent)) {
-   		bootbox.alert({
-				 message: "내용을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-					 $("#mgzContent").focus();
-			     } });
-			 return;
-   	 }
+   
+   function magazineDetailtData(mgzSq,mgzTypCd) {
 
 		$.ajax({
 	           type: "post",
-	           url: "magazineInsertData",
+	           url: "magazineDetailData",
 	           data: {
+	        	   mgzSq : mgzSq,
+	        	   mgzTypCd : mgzTypCd
+	        	   
+	            },
+	           success: function(data) {
+	        	   
+	        	    
+	        	 dataContent = data.magazineDetailData.magazineDetailData[0];
+	        	 
+	        	 console.log(dataContent);
+
+	        	 var mgzTitleInput = dataContent.mgzTitle;
+	        	 var mgzContentInput = dataContent.mgzContent;
+	        	 var mgzDescrptnInput = dataContent.mgzDescrptn;
+	        	 var mgzMainImgUrlInput = dataContent.mgzMainImgUrl;
+	        	 
+	        	 console.log(mgzContentInput);
+	        	 
+	        	 const domEditableElement = document.querySelector( '.ck-editor__editable' );
+	        	 const editorInstance = domEditableElement.ckeditorInstance;
+	        	 editorInstance.setData(mgzContentInput);
+	        	 
+	        	
+	        	 
+ 	        	 $('#mgzTitle').val(mgzTitleInput);
+// 	        	 $('#mgzContent').val(mgzContentInput);
+ 	        	 $('#mgzDescrptn').val(mgzDescrptnInput);
+ 	        	 $("#mgzMainImgUrl").val(mgzMainImgUrlInput);
+	        	 
+	        	 if(mgzMainImgUrlInput) {
+			        	$("#dropZone").prop("src",mgzMainImgUrlInput)
+				   }
+
+	           },
+	           error: function(error) {
+	        	   var errorJson = JSON.stringify(error);
+	               console.log(errorJson);
+	           }
+		})
+	}
+   
+
+   var editor;
+   
+   DecoupledEditor
+	   .create( document.querySelector( '#editor' ) ,{
+	   	extraPlugins: [MyCustomUploadAdapterPlugin],
+	   	
+	   } )
+	   .then( editor => {
+	       const toolbarContainer = document.querySelector( '#toolbar-container' );
+	
+	       toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+	       document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+	   } )
+	   .catch( error => {
+	       console.error( error );
+	   } );
+	   
+   function MyCustomUploadAdapterPlugin(editor) {
+	    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+	        return new UploadAdapter(loader)
+	    }
+	}
+   
+   
+   function boardUpdate() {
+		
+		var mbrSq     = $("#mbrSq").val();     
+		var mgzTitle  = $("#mgzTitle").val(); 
+		var mgzDescrptn  = $("#mgzDescrptn").val(); 
+	    var mgzContent = $('#editor').html();
+	    var mgzMainImgUrl  = $("#mgzMainImgUrl").val();  
+	    var mgzTypCd  = $("#mgzTypCd").val();  
+	    var updtMbrSq = $("#mbrSq").val();
+	   
+	   //잡지 제목
+	   	 if(isEmpty(mgzTitle)) {
+	   		bootbox.alert({
+					 message: "제목을 입력해 주세요.",
+					 locale: 'kr',
+					 callback: function() {
+					 		$("#brdTitle").focus();
+				     } });
+				 return;
+	   	 }
+	   	 
+	   	 //잡지 설명
+	   	 if(isEmpty(mgzDescrptn)) {
+	   		bootbox.alert({
+					 message: "설명을 입력해 주세요.",
+					 locale: 'kr',
+					 callback: function() {
+					 		$("#brdTitle").focus();
+				     } });
+				 return;
+	   	 }
+	   	 
+	   	 //잡지 메인 이미지
+	   	 if(isEmpty(mgzDescrptn)) {
+	   		bootbox.alert({
+					 message: "메인이미지를 등록해 주세요.",
+					 locale: 'kr',
+					 callback: function() {
+					 		$("#brdTitle").focus();
+				     } });
+				 return;
+	   	 }
+	   	 
+	     //잡지 내용
+	   	 if(isEmpty(mgzContent)) {
+	   		bootbox.alert({
+					 message: "내용을 입력해 주세요.",
+					 locale: 'kr',
+					 callback: function() {
+					 		
+				     } });
+				 return;
+	   	 }
+   	        				
+		
+		$.ajax({
+	           type: "post",
+	           url: "magazineUpdateData",
+	           data: {
+	        	   mgzSq : mgzSq,
 	        	   mbrSq : mbrSq,
 	        	   mgzTitle : mgzTitle,
 	        	   mgzDescrptn : mgzDescrptn,
 	        	   mgzContent : mgzContent,
 	        	   mgzMainImgUrl : mgzMainImgUrl,
 	        	   mgzTypCd : mgzTypCd,
-	        	   regMbrSq : regMbrSq
+	        	   updtMbrSq : updtMbrSq
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({
@@ -325,11 +427,54 @@
 		})
 	}
    
-   function magazineList() {
+   function boardDelete() {
+   
+	   
+	   if(confirm('정말 삭제 하시겠습니까?')) {
+		   
+		   $.ajax({
+	           type: "post",
+	           url: "magazineDeleteData",
+	           data: {
+	        	   mgzTypCd : mgzTypCd,
+	        	   mgzSq : mgzSq,
+
+	           },
+	           success: function(data) {
+	        	   bootbox.alert({
+						 message: "삭제 되었습니다.",
+						 locale: 'kr',
+						 callback: function() {
+							 
+							 if(mgzTypCd == 'IST'){
+								 	location.href='/admin/magazine/magazineList?mgzTypCd=IST';
+							 	}else if(mgzTypCd == 'MDA'){
+							 		location.href='/admin/magazine/magazineList?mgzTypCd=MDA';
+							 	}else{
+							 		location.href='/admin/magazine/magazineList?mgzTypCd=EBI';
+							 	}
+							 
+						 		
+					     } });
+			   },
+	           error: function(error) {
+	        	   var errorJson = JSON.stringify(error);
+	               console.log(errorJson);
+	           }
+		})
+		   
+	   }else{
+		   return false;
+	   }
+	   
+	  
+   }
+   
+   function boardList() {
 	   location.href='/admin/magazine/magazineList?mgzTypCd=<%=mgzTypCd%>';
    }
    
-  //Input Box Null Check
+	 //Input Box Null Check
    function isEmpty(str){
        
        if(typeof str == "undefined" || str == null || str == "")
@@ -337,10 +482,22 @@
        else
            return false ;
    }
-  
+	 
+   document.querySelectorAll('.tImg').forEach((emoteImage) => {
+       emoteImage.addEventListener('dragend', (event) => {
+           var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
+                   + '<img src="'+event.target.dataset.url+'">';
+                   + '</figure>';
+           const viewFragment = wr_content_editor.data.processor.toView(imgTag);
+           const modelFragment = wr_content_editor.data.toModel( viewFragment );
+           wr_content_editor.model.insertContent(modelFragment);
+       });
+});
+
+   
    </script>
    
-    <script>
+   <script>
     
     class UploadAdapter {
         constructor(loader) {
