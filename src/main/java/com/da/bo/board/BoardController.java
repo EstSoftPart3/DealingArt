@@ -196,6 +196,13 @@ public class BoardController {
 		return "bo/magazine/magazineDetail";
 	}
 	
+	//메거진 수정 페이지 이동
+	@RequestMapping("/admin/magazine/magazineUpdate")
+	public String openMagazineUpdate() {
+		
+		return "bo/magazine/magazineUpdate";
+	}
+	
 	//메거진 상세 정보
 	@RequestMapping("/admin/magazine/magazineDetailData")
 	@ResponseBody

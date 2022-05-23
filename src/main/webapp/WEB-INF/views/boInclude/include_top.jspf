@@ -33,7 +33,7 @@
   	
   	.bTitle{ font-size:15px; }
   	.sTitle{ font-size:12px; height:30px; }
-  	.ck.ck-editor{ max-width: 700px; }
+  	.ck.ck-editor{ min-width: 1200px; }
   	.ck-editor__editable{ min-height: 500px; }
 
   </style>
