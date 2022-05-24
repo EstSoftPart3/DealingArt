@@ -47,28 +47,29 @@
 					 		
 					 			<div class="form-group row">
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
-                    				<div class="col-sm-6">
+                    				<div class="col-sm-9">
                       						<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
                     				</div>
 					 			</div>
 					 			
 					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-6">
+                    				<div class="col-sm-9">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
                     					
                     					<div id="toolbar-container"></div>
-                    					<div id="editor">
+                    					
+                    					<div id="editor" style="border: 1px solid #efefef;">
 									        
 									    </div>
-<!--                     					<textarea name="content" id="editor"></textarea> -->
+
                     				</div>
                     				
 
                     				
 					 			</div>
 					 			<div class="form-group row">
-                    				<div class="col-sm-6" style="text-align:right">
+                    				<div class="col-sm-9" style="text-align:right">
                       						<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
                       						<button type="button" class="btn btn-info sTitle" onclick="boardInput();">저장</button>
                     				</div>

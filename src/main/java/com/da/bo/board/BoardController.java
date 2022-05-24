@@ -100,6 +100,13 @@ public class BoardController {
 		return "bo/board/boardDetail";
 	}
 	
+	//게시판 상세 페이지 이동
+	@RequestMapping("/admin/board/boardUpdate")
+	public String openBoardUpdate() {
+		
+		return "bo/board/boardUpdate";
+	}
+	
 	//게시판 상세 정보
 	@RequestMapping("/admin/board/boardDetailData")
 	@ResponseBody

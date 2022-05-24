@@ -71,33 +71,33 @@
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
 					 	
-					 		<div class="col-md-9" style="padding-left:50px;">
+					 		<div class="col-md-12" style="padding-left:50px;">
 					 		
 					 			<div class="form-group row">
 					 				
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
-                    				<div class="col-sm-6">
-                      					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
+                    				<div class="col-sm-9">
+                      					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" readonly >
                     				</div>
 					 			</div>
 					 			
 					 			<div class="form-group row">
                     				
                     				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-6">
-                      					<!-- <textarea name="content" id="editor"></textarea> -->
-                      					<div id="toolbar-container"></div>
-                      					<div id="editor">
-									        
-									    </div>
-                      				</div>
-                    				
+                    				<div class="col-sm-9">
+                      					
+                      					<div id="toolbar-container" style="display:none"></div>
+                      					
+                      					<div id="editor" class="ck-blurred ck ck-content" style="border: 1px solid #efefef;" lang="en" dir="ltr"  aria-label="main" contenteditable="false">
+                      					</div>
+                      				
+                    				</div>	
 					 			</div>
 					 			<div class="form-group row">
                     				
-                    				<div class="col-sm-6" style="text-align:right">
+                    				<div class="col-sm-9" style="text-align:right">
                     					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
-                    					<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
+                    					<button type="button" class="btn btn-info sTitle" onclick="fn_SubBrdUpdatePage();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
                     				</div>
                     				
@@ -146,27 +146,29 @@
 	        	   
 	            },
 	           success: function(data) {
-	        	   
 	        	    
 	        	 dataContent = data.boardDetailData.boardDetailData[0];
 	        	 
-	        	 console.log(dataContent);
-	        	
-	        	 
-	        	 
-	        	 var brdContentInput = dataContent.brdContent;
-	        	 var brdTitleInput = dataContent.brdTitle;
+	        	 var brdContent = dataContent.brdContent;
+	        	 var brdTitle = dataContent.brdTitle;
 
-	        	 console.log(brdContentInput);
+				 var timpStr = brdContent;
+              	 
+              	 timpStr = timpStr.replaceAll("&lt;","<");
+	        	 timpStr = timpStr.replaceAll("&gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	 //Table 수정 금지
+	        	 timpStr = timpStr.replaceAll("true","false");
+	        	 document.getElementById('editor').innerHTML=timpStr;
 	        	 
-	        	 const domEditableElement = document.querySelector( '.ck-editor__editable' );
-	        	 const editorInstance = domEditableElement.ckeditorInstance;
-	        	 editorInstance.setData(brdContentInput);
 	        	 
-	        	 $('#brdTitle').val(brdTitleInput);
+	        	 $('#brdTitle').val(brdTitle);
 	        	 
-	        	 //const element = document.getElementById('brd');
-	        	 //element.innerHTML = brdContentInput;
+	        	//ckEditor Mouse Over Class Remove
+	        	 fn_styleNone();
 	        	 
 
 	           },
@@ -177,85 +179,7 @@
 		})
 	}
    
-   DecoupledEditor
-       .create( document.querySelector( '#editor' ) ,{
-       	extraPlugins: [MyCustomUploadAdapterPlugin],
-       	
-       } )
-       .then( editor => {
-           const toolbarContainer = document.querySelector( '#toolbar-container' );
-
-           toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-           document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
-       } )
-       .catch( error => {
-           console.error( error );
-       } );
-   
-   function MyCustomUploadAdapterPlugin(editor) {
-	    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-	        return new UploadAdapter(loader)
-	    }
-	}
-   
-   
-   function boardUpdate() {
-	
-   	var brdTitle  = $("#brdTitle").val();  //게시판제목
-    var brdContent =  $('#editor').html();
-   	
-  	 //제목
-  	 if(isEmpty(brdTitle)) {
-  		bootbox.alert({
-				 message: "제목을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		$("#brdTitle").focus();
-			     } });
-			 return;
-  	 }
-  	 
-    //내용
-  	 if(isEmpty(brdContent)) {
-  		bootbox.alert({
-				 message: "내용을 입력해 주세요.",
-				 locale: 'kr',
-				 callback: function() {
-				 		
-			     } });
-			 return;
-  	 }
-   	        				
-		
-		$.ajax({
-	           type: "post",
-	           url: "boardUpdateData",
-	           data: {
-	        	   mbrSq : mbrSq,
-	        	   brdTypCd : brdTypCd,
-	        	   brdSq : brdSq,
-	        	   brdTitle : brdTitle,
-	        	   brdContent : brdContent
-	           },
-	           success: function(data) {
-	        	   bootbox.alert({
-						 message: "게시글이 수정 되었습니다..",
-						 locale: 'kr',
-						 callback: function() {
-							 if(brdTypCd == 'NT'){
-							 		location.href='/admin/board/boardList?brdTypCd=NT';
-							 	}else{
-							 		location.href='/admin/board/boardList?brdTypCd=FA';
-							 	}
-					     } });
-			   },
-	           error: function(error) {
-	        	   var errorJson = JSON.stringify(error);
-	               console.log(errorJson);
-	           }
-		})
-	}
-   
+  
    function boardDelete() {
    
 	   
@@ -310,75 +234,25 @@
            return false ;
    }
 	 
-   document.querySelectorAll('.tImg').forEach((emoteImage) => {
-       emoteImage.addEventListener('dragend', (event) => {
-           var imgTag = '<figure class="image ck-widget ck-widget_with-resizer ck-widget_selected" contenteditable="false">'
-                   + '<img src="'+event.target.dataset.url+'">';
-                   + '</figure>';
-           const viewFragment = wr_content_editor.data.processor.toView(imgTag);
-           const modelFragment = wr_content_editor.data.toModel( viewFragment );
-           wr_content_editor.model.insertContent(modelFragment);
-       });
-});
+	 
+   function fn_SubBrdUpdatePage() {
+	   
+	   var brdSq = '<c:out value="${param.brdSq}" />';
+	   var brdTypCd = '<c:out value="${param.brdTypCd}" />';
+	   
+	   location.href='/admin/board/boardUpdate?brdSq='+brdSq+'&brdTypCd='+brdTypCd;
+	}
+	 
+   //ckEditor Mouse Over Class Remove
+   function fn_styleNone() {
+   	$(".ck-widget__type-around__button").css("display","none");
+   	$(".ck-widget").css("outline-style","none");
+   	$(".ck-widget__selection-handle").css("display","none");
+   }
    
    </script>
  
-  <script>
-    
-    class UploadAdapter {
-        constructor(loader) {
-            this.loader = loader;
-        }
-    
-
-        upload() {
-            return this.loader.file.then( file => new Promise(((resolve, reject) => {
-                this._initRequest();
-                this._initListeners( resolve, reject, file );
-                this._sendRequest( file );
-            })))
-            
-            // 파일 업로드가 성공했을때 resolved될 promise를 리턴하자.(server.upload(file) 메서드에서 promise를 리턴 시키라는 뜻)
-            return loader.file
-                .then( file => server.upload( file ) );
-        }
-
-        _initRequest() {
-            const xhr = this.xhr = new XMLHttpRequest();
-            xhr.open('POST', '/file/ckUpload', true);
-            xhr.responseType = 'json';
-        }
-
-        _initListeners(resolve, reject, file) {
-        	
-            const xhr = this.xhr;
-            const loader = this.loader;
-            const genericErrorText = '파일을 업로드 할 수 없습니다.'
-
-            xhr.addEventListener('error', () => {reject(genericErrorText)})
-            xhr.addEventListener('abort', () => reject())
-            xhr.addEventListener('load', () => {
-                const response = xhr.response
-                if(!response || response.error) {
-                    return reject( response && response.error ? response.error.message : genericErrorText );
-                }
-
-                resolve({
-                	default: response.fileUrl //업로드된 파일 주소
-                	
-                })
-            })
-        }
-
-        _sendRequest(file) {
-            const data = new FormData()
-            data.append('upload',file)
-            this.xhr.send(data)
-        }
-    }
-    
-   
-     </script>
+ 
  
 </body>
 </html>

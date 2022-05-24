@@ -39,11 +39,13 @@
 					 <div class="card">
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
-					 		<div id="boardList" style="font-size:12px;"></div>
+					 		<div class="col-sm-9">
+					 			<div id="boardList" style="font-size:12px;"></div>
+					 		</div>
 					 	</div>
 					 	
 					 	<div class="form-group row" >
-                    		<div style="text-align:right;width:900px;">
+                    		<div class="col-sm-9" style="text-align:right;right:15px;">
                     			<button type="button" class="btn btn-info sTitle" onclick="boardInput();">입력</button>
 					    	</div>
                     	</div>
@@ -86,7 +88,7 @@
 	   $("#boardList").jsGrid({
 		   locale:"ko",
 	       height: "400px",
-	       width: "900px",
+	       width: "100%",
 	       inserting: false,
 	       editing: false,
 	       sorting: false,
