@@ -723,7 +723,7 @@ function changePasswrd(){
 						<table width="100%" class="tstyle2">
 							<tr class="t-red">
 								<th>
-									<div class="tsc-2"><img src="resources/img/de/check-on.jpg"><span>손쉽게 포트폴리오를 관리하고 빠르게 공유 할 수 있습니다.</span></div>
+									<div class="tsc-2"><img src="resources/img/de/check-on.jpg"><span>손쉽게 포트폴리오를 관리하고 공유 할 수 있습니다.</span></div>
 								</th>
 							</tr>
 							<tr class="t-red">
@@ -1230,7 +1230,7 @@ function ibx_search_onkeyup(e){
 				var artstHtml = '';
 				
 				for(i=0; i<work.length; i++){
-					workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
+					workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
 				}
 				$("#work").append(workHtml).trigger("create");
 				
@@ -1253,14 +1253,25 @@ function ibx_search_onkeyup(e){
      
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
-	fnModalAlert();
-	/* pageGoPost({
-		url:"/bidding",
-		target:"_self",
-		vals:[
-			["workSq", workSq]
-		]
-	}); */
+	var dealSttsCd = $(this).attr("dealSttsCd");
+	if(dealSttsCd == "null"){
+		pageGoPost({
+			url:"/workDetail",
+			target:"_self",
+			vals:[
+				["workSq", workSq]
+			]
+		});
+	}else{
+		pageGoPost({
+			url:"/bidding",
+			target:"_self",
+			vals:[
+				["workSq", workSq]
+			]
+		}); 
+	}
+	
 });
 
 $(document).on("click",".artst",function(){

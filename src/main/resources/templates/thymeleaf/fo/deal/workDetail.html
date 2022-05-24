@@ -17,6 +17,9 @@
   			line-height: 29.15px;    /* 추가 */
   			height: 145.75px;        /* line-height x line */
     	};
+    	[name=workClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
     </style>
 </head>
 
@@ -27,20 +30,17 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no" id="pageTitle">응찰하기</h3>
-					
-					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TP')}">판매중</button>
-					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TC')}">거래완료</button>
+					<h3 class="mo-no" id="pageTitle">작품정보</h3>
 				</div>
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<img th:src="${result.deal.workMainImgUrl}" style="width:98%;"/>
+						<img th:src="${result.work.workMainImgUrl}" style="width:98%;"/>
 					</div>
 					<div class="baeg-right">
 						<div class="be-title">
-							<h2 th:text="${result.deal.artstActvtyNm}"></h2>
-							<h3 th:text="${result.deal.workNm}"></h3>
+							<h2 th:text="${result.work.artstActvtyNm}"></h2>
+							<h3 th:text="${result.work.workNm}"></h3>
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
 <!-- 								<div class="tootip-1">신고하기</div> -->
@@ -51,104 +51,59 @@
 						<table class="tstyle1">
 							<tr>
 								<th>제작년도</th>
-								<td th:text="${result.deal.workProdcYear}"></td>
+								<td th:text="${result.work.workProdcYear}"></td>
 							</tr>
 							<tr>
 								<th>소재/기법</th>
-								<td th:text="${result.deal.workMatrl}">canvas</td>
-							</tr>
-							<tr style="display:none">
-								<th>보증서</th>
-								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음</td>
-								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
+								<td th:text="${result.work.workMatrl}">canvas</td>
 							</tr>
 							<tr>
 								<th>액자</th>
-								<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
-								<td th:if="${result.deal.workFrmYn == 'N'}">없음</td>
+								<td th:if="${result.work.workFrmYn == 'Y'}">있음</td>
+								<td th:if="${result.work.workFrmYn == 'N'}">없음</td>
 							</tr>
 							<tr>
 								<th>사이즈</th>
-								<td th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
+								<td th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
+							</tr>
+							<tr>
+								<th>판매 여부</th>
+								<td th:if="${result.work.workSaleYn == 'Y'}">판매 완료</td>
+								<td th:if="${result.work.workSaleYn == 'N'}">미판매</td>
+							</tr>
+							<tr>
+								<th>메인 컬러</th>
+								<td th:if="${result.work.workClrCd == 'MIX'}"><div class="color-box"><input type="radio" id="mc-1" name="workClrCd" value="MIX" checked><label for="mc-1" class="mc-1 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'RED'}"><div class="color-box"><input type="radio" id="mc-2" name="workClrCd" value="RED" checked><label for="mc-2" class="mc-2 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'ORANGE'}"><div class="color-box"><input type="radio" id="mc-3" name="workClrCd" value="ORANGE" checked><label for="mc-3" class="mc-3 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'YELLOW'}"><div class="color-box"><input type="radio" id="mc-4" name="workClrCd" value="YELLOW" checked><label for="mc-4" class="mc-4 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GREEN'}"><div class="color-box"><input type="radio" id="mc-5" name="workClrCd" value="GREEN" checked><label for="mc-5" class="mc-5 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'SKY'}"><div class="color-box"><input type="radio" id="mc-6" name="workClrCd" value="SKY" checked><label for="mc-6" class="mc-6 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLUE'}"><div class="color-box"><input type="radio" id="mc-7" name="workClrCd" value="BLUE" checked><label for="mc-7" class="mc-7 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'PURPLE'}"><div class="color-box"><input type="radio" id="mc-8" name="workClrCd" value="PURPLE" checked><label for="mc-8" class="mc-8 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BROWN'}"><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked><label for="mc-9" class="mc-9 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'WHITE'}"><div class="color-box"><input type="radio" id="mc-10" name="workClrCd" value="WHITE" checked><label for="mc-10" class="mc-10 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
+							</tr>
+							<tr>
+								<th>소장가(판매가)</th>
+								<td th:text="${result.work.workPrc}+' KRW'"></td>
 							</tr>
 							<tr>
 								<th>닉네임</th>
-								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.mbrNcknm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.mbrNcknm}]]
+									<img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
-								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.artstActvtyNm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.artstActvtyNm}]]
+									<img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
 							</tr>
 						</table>
-						
-						<ul class="baeg-ul">
-							<li class="li-1">
-								<table class="tstyle2">
-									<tr>
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_dealStrtPrc">시작가</span></div>
-										</th>
-										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
-									</tr>
-									<tr id="tr_priceUnit">
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>호가단위</span></div>
-										</th>
-										<td id="td_askingPrice"></td>
-									</tr>
-									<tr>
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_period">경매기간</span></div>
-										</th>
-										<td th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
-									</tr>
-									<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>남은시간</span></div>
-										</th>
-										<td id="dealCount"></td>
-									</tr>
-								</table>
-							</li>
-							<li class="li-1">
-								<table class="tstyle2">
-									<tr class="t-red" id="tr_maxBidPrc">
-										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span></div>
-										</th>
-									<th:block th:if="${not #strings.isEmpty(result.deal.maxBidPrc)}">
-										<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
-									</th:block>
-									<th:block th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
-										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
-									</th:block>
-									</tr>
-									<!-- <tr class="t-red">
-										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
-										</th>
-										<td>100,000</td>
-									</tr> -->
-									<tr class="t-red" id="tr_bidPrc">
-										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>응찰가</span></div>
-										</th>
-										<td>
-											<div class="selec-box">
-												<select class="selectpicker" id="sbx_bidPrc" >
-													<option value="null" style="font-size:18px;">-선택-</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-								</table>
-							</li>
-						</ul>
 						<div class="bat-box">
-							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
+							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
-							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
+							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
 							<button type="button" class="ba-btn3" onclick="javascript:history.go(-2);"><span>뒤로 가기</span></button>
 							<div class="clearboth"></div>
 						</div>
@@ -219,30 +174,6 @@
 		</div>
 	</div>
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
-</div>
-
-
-<!-- 차트 -->
-<div class="modal fade modal-s" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w1023">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="baegs">
-					<h2>응찰 히스토리</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
-				</div>
-
-			</div>
-			<div class="modal-body">
-				<div class="text-right mg_t25">
-					<input type="checkbox" id="a1" name="cc">
-					<label for="a1"><span></span>내 응찰만 보기</label>
-				</div>
-				<img src="resources/img/ba/chart-img.png" class="mdimg" />
-			</div>
-		</div>
-	</div>
 </div>
 
 
@@ -434,147 +365,6 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
-$(function() {
-	$("#sbx_bidPrc").selectpicker("refresh");
-	if(sMbrSqVal != null && sMbrSqVal != ""){
-		if(result.deal.bidMbrSq == sMbrSqVal){
-			$(".ba-btn1").append('<div class="tootip-3">현재 가장 높은 응찰자 입니다 </div>').trigger("create");
-		}
-	}
-	if(result.deal.artstSq == null || result.deal.artstSq == ""){
-		$("#artstInfo").css("display", "none");
-	}
-	if(result.deal.dealTypCd == "S"){ //정찰가면
-		$("#pageTitle").text("구매하기");
-		$("#spn_dealStrtPrc").text("판매가");
-		$("#tr_priceUnit").css("display", "none");
-		$("#spn_period").text("판매기간");
-		$("#tr_maxBidPrc").css("display", "none");
-		$("#tr_bidPrc").css("display", "none");
-		$("#sbx_bidPrc").css("display", "none");
-		$("#btn_purchaseOrBid").text("구매하기");
-		$("#btn_history").css("display", "none");
-	}
-	if(result.deal.dealTypCd == "A" && result.deal.dealSttsCd == "TP"){ //경매면
-		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
-	}
-});
-//거래 남은 시간 1초마다 계산해서 표현하기
-var dday = new Date(result.deal.dealEndngDateTime).getTime();
-
-setInterval(function() {
-	var today = new Date().getTime();
-	if(today >= dday){
-		location.reload();
-	}
-  	var gap = dday - today;
-  	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-  	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-
-  	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
-}, 1000);
-
-function btn_purchaseOrBid_onclick(){
-	if(sMbrSqVal == "" || sMbrSqVal == null){
-		modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
-			if(confrim){
-				$("#loginModal").modal("show");	
-			}
-		});
-	}else{
-		if($("#btn_purchaseOrBid").text() == "구매하기"){
-			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
-		}else{
-			if($("#sbx_bidPrc").val() != "null"){
-				$.ajax({
-			        type: "post",
-			        url: "/bidReg",
-			        data : {
-			        	dealSq : result.deal.dealSq,
-			        	mbrSq : sMbrSqVal,
-			        	bidPrc : parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''))
-			        }, 
-			        success: function(data) {
-			        	if(data.result == -1){
-				        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
-			        	}
-			        	if(data.result == 2){
-			        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
-								if(confrim){
-									location.href = "/myDeal";
-								}else{
-									location.reload();
-								}
-							});
-			        	}
-			        },
-			        error: function(error) {
-			            alert("오류 발생" + error);
-			        }
-				});		
-			}else{
-				modalAlertShow("응찰가가 입력되지 않았습니다.", "sbx_bidPrc");
-			}
-		}
-	}
-}
-
-//경매일 경우 호가 단위를 자동으로 리턴해준다.
-function askingPrice(prc){
-	var returnVal;
-	if (prc > 0 && prc < 300000) {
-		returnVal = 20000;
-	}
-	if (prc >= 300000 && prc < 1000000) {
-		returnVal = 50000;
-	}
-	if (prc >= 1000000 && prc < 3000000) {
-		returnVal = 100000;
-	}
-	if (prc >= 3000000 && prc < 5000000) {
-		returnVal = 200000;
-	}
-	if (prc >= 5000000 && prc < 10000000) {
-		returnVal = 500000;
-	}
-	if (prc >= 10000000 && prc < 30000000) {
-		returnVal = 1000000;
-	}
-	if (prc >= 30000000 && prc < 50000000) {
-		returnVal = 2000000;
-	}
-	if (prc >= 50000000 && prc < 200000000) {
-		returnVal = 5000000;
-	}
-	if (prc >= 200000000 && prc < 500000000) {
-		returnVal = 10000000;
-	}
-	if (prc >= 500000000) {
-		returnVal = 20000000;
-	}
-	return returnVal;
-}
-
-function selectBoxWriteAskingPrice(){
-	var bidPrc = 0; //입찰가
-	var askingPrc = 0; //호가단위
-	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
-		bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
-		askingPrc = askingPrice(bidPrc);
-		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
-	}else{ //입찰가가 없다면
-		bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
-		askingPrc = askingPrice(bidPrc);
-		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
-	}
-	for(i=0; i<9; i++){
-		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
-		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
-	}
-	$("#sbx_bidPrc").selectpicker("refresh");
-}
 
 
  $(window).on("resize", function () {

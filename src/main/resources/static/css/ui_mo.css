@@ -3882,21 +3882,22 @@ display: none;}
   background-color: #999999;
 }
 .color-box{}
-.color-box a{width: 6rem;height: 6rem;display: inline-block;border-radius: 50%;margin-right: 1.2rem;position: relative;}
-.color-box a:last-child{margin-right:0;}
-.color-box a.mc-1{background: linear-gradient(#ff0101, #ff7519, #ffcc19, #b1ff19, #19fff7, #3065b4, #9426c7);}
-.color-box a.mc-2{background:#e24537;}
-.color-box a.mc-3{background:#fe793d;}
-.color-box a.mc-4{background:#fdd03b;}
-.color-box a.mc-5{background:#6eae30;}
-.color-box a.mc-6{background:#75d3fe;}
-.color-box a.mc-7{background:#3b97f5;}
-.color-box a.mc-8{background:#935de0;}
-.color-box a.mc-9{background:#b66d3e;}
-.color-box a.mc-10{background:#ffffff; border:#c7c7c7 1px solid}
-.color-box a.mc-11{background:#c7c7c7;}
+.color-box label{width: 6rem;height: 6rem;display: inline-block;border-radius: 50%;margin-right: 1.2rem;position: relative;}
+.color-box label:last-child{margin-right:0;}
+.color-box label.mc-1{background: linear-gradient(#ff0101, #ff7519, #ffcc19, #b1ff19, #19fff7, #3065b4, #9426c7);}
+.color-box label.mc-2{background:#e24537;}
+.color-box label.mc-3{background:#fe793d;}
+.color-box label.mc-4{background:#fdd03b;}
+.color-box label.mc-5{background:#6eae30;}
+.color-box label.mc-6{background:#75d3fe;}
+.color-box label.mc-7{background:#3b97f5;}
+.color-box label.mc-8{background:#935de0;}
+.color-box label.mc-9{background:#b66d3e;}
+.color-box label.mc-10{background:#ffffff; border:#c7c7c7 1px solid}
+.color-box label.mc-11{background:#c7c7c7;}
+.color-box label.mc-12{background:#000000;}
 
-.color-box a.active:after{content:"";position: absolute;left: 0;top: 0;background-image: url('../img/mypage/icon-check.png');width: 3rem;height: 2rem;background-size: 3rem 2rem;left: 50%;top: 50%;transform: translate(-50%, -50%);}
+/*.color-box label.active:after{content:"";position: absolute;left: 0;top: 0;background-image: url('../img/mypage/icon-check.png');width: 3rem;height: 2rem;background-size: 3rem 2rem;left: 50%;top: 50%;transform: translate(-50%, -50%);}*/
 
 .key-box{
     margin-top: 10px;
