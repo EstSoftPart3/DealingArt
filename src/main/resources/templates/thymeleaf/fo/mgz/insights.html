@@ -161,7 +161,23 @@ $(document).ready(function(){
           		
               	var mgzContent = data.result.mgzContent; 
               	$("#lp_mgz9Dtl_cntnt").empty();
-              	$("#lp_mgz9Dtl_cntnt").append(mgzContent).trigger("create");
+              	
+ 				var timpStr = mgzContent;
+              	 
+              	 timpStr = timpStr.replaceAll("&lt;","<");
+	        	 timpStr = timpStr.replaceAll("&gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	 //Table 수정 금지
+	        	 timpStr = timpStr.replaceAll("true","false");
+	        	 document.getElementById('lp_mgz9Dtl_cntnt').innerHTML=timpStr;
+              	
+              	
+              	//$("#lp_mgz9Dtl_cntnt").append(mgzContent).trigger("create");
+              	
+              	fn_styleNone();
               	
               	var appDevice =	$("#appDevice").val();
               	if(appDevice == "MOBILE") {
@@ -309,6 +325,13 @@ $(document).ready(function(){
 });
  
  $('.selectpicker').selectpicker();
+ 
+//ckEditor Mouse Over Class Remove
+ function fn_styleNone() {
+ 	$(".ck-widget__type-around__button").css("display","none");
+ 	$(".ck-widget").css("outline-style","none");
+ 	$(".ck-widget__selection-handle").css("display","none");
+ }
 
  
 </script>
