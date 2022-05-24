@@ -491,7 +491,6 @@ function btn_purchaseOrBid_onclick(){
 			        	bidPrc : parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''))
 			        }, 
 			        success: function(data) {
-			        	debugger;
 			        	if(data.result == -1){
 				        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
 			        	}
