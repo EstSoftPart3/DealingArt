@@ -7,6 +7,9 @@
     	@media screen and (min-width: 1px) and (max-width: 1536px){
     		.con-left{display:none}
     	}
+    	
+    	
+    	
     </style>
 </head>
 
@@ -140,7 +143,7 @@ $(".cn-b").hover(
   
   selectBrdList("NT");
   
-  
+
   
 });
 
@@ -210,10 +213,27 @@ $(".cn-b").hover(
           	if(data.result != null){
               	$("#lp_brdDtl_cntnt").empty();
               	
-              	$("#lp_brdDtl_cntnt").append(data.result.brdContent).trigger("create");
+              	 var timpStr = data.result.brdContent;
+              	 
+              	 timpStr = timpStr.replaceAll("&lt;","<");
+	        	 timpStr = timpStr.replaceAll("&gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	 //Table 수정 금지
+	        	 timpStr = timpStr.replaceAll("true","false");
+	        	 document.getElementById('lp_brdDtl_cntnt').innerHTML=timpStr;
+	        	 
+	        	 //ckEditor Mouse Over Class Remove
+	        	 fn_styleNone();
+              	
+              	
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
           		$("#lp_brdDtl_cntnt").empty();
+          		
+          		
           	}
           },           
           error: function(error) {
@@ -255,12 +275,16 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 });
  
 $('.selectpicker').selectpicker();
+timpStr.replaceAll
+//ckEditor Mouse Over Class Remove
+function fn_styleNone() {
+	$(".ck-widget__type-around__button").css("display","none");
+	$(".ck-widget").css("outline-style","none");
+	$(".ck-widget__selection-handle").css("display","none");
+}
 
-$('.ck-editor__editable').attr('contenteditable', 'false');
       
 </script>
-    
-	
 	
 	
 	
