@@ -28,27 +28,30 @@
 		    
 		     	<!-- Main content -->
 	    		<section class="content">
+	    		
 	    			<input type="hidden" name="mgzTypCd" id="mgzTypCd" value="<%=mgzTypCd%>">
 	    			
 	    			<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);background-color:#efefef">
 	                 	<ul class="nav nav-pills">
 		               		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b><%=mgzName%></b></a></li>
 		               	</ul>
-					 </div>
+					</div>
 					 
-					 <div class="card">
+					<div class="card">
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
-					 		<div id="magazineList" style="font-size:12px;"></div>
+					 		<div class="col-sm-9">
+					 			<div id="magazineList" style="font-size:12px;"></div>
+					 		</div>
 					 	</div>
 					 	
 					 	<div class="form-group row" >
-                    		<div style="text-align:right;width:90%">
+                    		<div class="col-sm-9" style="text-align:right;right:15px;">
                     			<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">입력</button>
 					    	</div>
                     	</div>
 					 		
-					 </div>
+					</div>
 	    			
 	    		</section>
 	    		
@@ -86,7 +89,7 @@
 	   $("#magazineList").jsGrid({
 		   locale:"ko",
 	       height: "400px",
-	       width: "90%",
+	       width: "100%",
 	       inserting: false,
 	       editing: false,
 	       sorting: false,

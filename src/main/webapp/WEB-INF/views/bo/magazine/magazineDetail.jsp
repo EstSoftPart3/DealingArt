@@ -6,8 +6,10 @@
 
 <%
 	//잡지타입 : Insights (IST), Media(MDA), Exhibition(EBI)
-	String mgzTypCd = request.getParameter("mgzTypCd"); 
-	String mgzName; 
+	String mgzTypCd = request.getParameter("mgzTypCd");
+    String mgzSq = request.getParameter("mgzSq");
+	
+    String mgzName; 
 	
 	if(mgzTypCd.equals("IST")){
 		mgzName = "인사이트"; 
@@ -16,36 +18,17 @@
 	}else{
 		mgzName = "전시회";
 	}
+	
+	if(mgzTypCd.equals("MDA")) {
+		response.sendRedirect("/admin/magazine/magazineUpdate?mgzSq="+mgzSq+"&mgzTypCd=MDA");	
+	}
+	
 %>
 
 <body class="hold-transition sidebar-mini">
 
 <style>
-	.editable-container,
-	.toolbar-container {
-		position: relative;
-		border: 1px solid #ddd;
-		background: #eee;
-	}
-
-	.toolbar-container {
-		padding: 1em;
-	}
-
-	.editable-container {
-		padding: 3em;
-		overflow-y: scroll;
-		max-height: 500px;
-	}
-
-	.editable-container .document-editor__editable.ck-editor__editable {
-		min-height: 21cm;
-		padding: 2em;
-		border: 1px #D3D3D3 solid;
-		border-radius: var(--ck-border-radius);
-		background: white;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	}
+	#brd { zoom: 0.8;}
 </style>
 
 	<div class="wrapper">
@@ -70,54 +53,67 @@
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
 					 	
-					 		<div class="col-md-12" style="padding-left:50px; margin: auto">
-					 		
-					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle" ">제목</label>
-                    				<div class="col-sm-12">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="" readonly="readonly">
-                    				</div>
-					 			</div>
+					 		<table border="0" cellspacing="5" cellpadding="5">
+					 			<tr>
+					 				<td colspan="2">
+					 				
+					 				<div class="form-group row">
+						 				<label class="col-form-label sTitle LabelStyle" ">제목</label>
+	                    				<div class="col-sm-11">
+	                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="" readonly="readonly">
+	                    				</div>
+						 			</div>
 					 			
-					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle"">설명</label>
-                    				<div class="col-sm-12">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="" readonly="readonly">
-                    				</div>
-					 			</div>
-								
-
-								<div class="card card-primary card-outline" style="height:380px;width:100%;">
-              							<div class="card-body box-profile">
-                							<div class="text-center" style="text-align: center;">
-                							<label class="col-form-label sTitle LabelStyle">메인 이미지</label>
-                								<div style="height:250px;width:545px;background-color:#efefef;text-align: center;">
-                								
-                									<input type="hidden" name="mgzMainImgUrl" id="mgzMainImgUrl">
-													<input type="file" id="file" style="display:none">
+						 			<div class="form-group row">
+						 				<label class="col-form-label sTitle LabelStyle"">설명</label>
+	                    				<div class="col-sm-11">
+	                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="" readonly="readonly">
+	                    				</div>
+						 			</div>
+					 					
+					 				</td>
+					 			</tr>
+					 			<tr>
+					 				<td valign="top">
+					 					
+					 					<div class="card card-primary card-outline" style="height:300px;width:250px;">
+		              						<div class="card-body box-profile">
+		                						<div class="text-center" style="text-align: center;">
+		                							
+		                							<label class="col-form-label sTitle LabelStyle" style="text-align: center;">메인 이미지</label>
+		                								
+		                							<div style="height:170px;width:200px;background-color:#efefef;text-align: center;">
+		                								
+		                								<input type="hidden" name="mgzMainImgUrl" id="mgzMainImgUrl">
+														<input type="file" id="file" style="display:none">
+															
+														<img class="content" id="dropZone" style="cursor:pointer;text-align:center;height:170px;width:200px;"/>
+		                								
+		                							</div>
+		                  								
+		                						</div>
+		                						<b style="font-family: sans-serif; font-size: 8px; color: gray;">※ 회색공간을 클릭해서 업로드하거나, 파일을 끌어와서 업로드 하세요.</b>
 													
-													<img class="content" id="dropZone" style="cursor:pointer;height:300px;width:545px;text-align: center;"/>
-                								
-                								</div>
-                  								<!-- <img class="profile-user-img img-fluid img-circle" src=""> -->
-                							</div>
-											<!-- <br><a href="javascript:imgInput();" class="btn btn-info btn-block" style="font-size:11px;width:150px;margin:auto;"><b>등록</b></a> -->
-              							</div>
-              						</div>
-
-					 			<div class="form-group row">
-					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-12">
-									<div id="editor" class="ck-blurred ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
-					 				<div id="brd" class="col-sm-9" style="margin: auto;">
+		              						</div>
+	              						</div>
+	              							
+					 				</td>
+					 				<td style="text-align:left" >
+					 				
+					 				
+					 					<div id="brd" style="border: 1px solid #efefef;padding:5px;width:1000px;">
 					 		
-					 				</div>
-									</div>
-                    				</div>
-					 			</div>
+					 					</div>
+									
+					 				
+					 				</td>
+					 			</tr>
+					 		</table>
+					 	
+					 		<div class="col-md-9">
 					 			<div class="form-group row">
                     				
-                    				<div class="col-sm-12" style="text-align:center">
+                    				<div class="col-sm-9" style="text-align:right">
                     					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardUpdatepage();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
@@ -205,7 +201,12 @@
 	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
 	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
 	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	//Table 수정 금지
+	        	 timpStr = timpStr.replaceAll("true","false");
 	        	 document.getElementById('brd').innerHTML=timpStr;
+	        	 
+	        	 //ckEditor Mouse Over Class Remove
+	        	 fn_styleNone();
 
 	           },
 	           error: function(error) {
@@ -279,6 +280,15 @@
        else
            return false ;
    }
+	 
+   //ckEditor Mouse Over Class Remove
+   function fn_styleNone() {
+   	$(".ck-widget__type-around__button").css("display","none");
+   	$(".ck-widget").css("outline-style","none");
+   	$(".ck-widget__selection-handle").css("display","none");
+   }
+   
+ 
 
    </script>
    

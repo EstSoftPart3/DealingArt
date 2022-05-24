@@ -41,68 +41,73 @@
 					 <div class="card">
 					 
 					 	<div class="card-body" style="background-color:#ffffff;">
-					 	
-					 		<div class="col-md-9" style="padding-left:50px;">
 					 		
-					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
-                    				<div class="col-sm-12">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="">
-                    				</div>
-					 			</div>
-					 			
-					 			<div class="form-group row">
-					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">설명</label>
-                    				<div class="col-sm-12">
-                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="">
-                    				</div>
-					 			</div>
-								
-
-								<div class="card card-primary card-outline" style="height:380px;width:100%;">
-              							<div class="card-body box-profile">
-                							<div class="text-center" style="text-align: center;">
-                							<label class="col-form-label sTitle LabelStyle" style="text-align: center;">메인 이미지</label>
-                								<div style="height:250px;width:545px;background-color:#efefef;text-align: center;">
-                								
-                									<input type="hidden" name="mgzMainImgUrl" id="mgzMainImgUrl">
-													<input type="file" id="file" style="display:none">
+					 		<table border="0">
+					 			<tr>
+					 				<td colspan="2">
+					 					
+					 					<div class="form-group row">
+						 					<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
+	                    					<div class="col-sm-11">
+	                      						<input type="text" class="form-control sTitle classname"  id="mgzTitle" name="mgzTitle" value="">
+	                    					</div>
+						 				</div>
+						 				
+						 				<div class="form-group row">
+						 					<label class="col-form-label sTitle LabelStyle" style="text-align: center;">설명</label>
+	                    					<div class="col-sm-11">
+	                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="">
+	                    					</div>
+						 				</div>
+						 				
+					 				</td>
+					 			</tr>
+					 			<tr>
+					 				<td valign="top">
+					 					
+					 					<div class="card card-primary card-outline" style="height:300px;width:250px;">
+		              						<div class="card-body box-profile">
+		                						<div class="text-center" style="text-align: center;">
+		                							
+		                							<label class="col-form-label sTitle LabelStyle" style="text-align: center;">메인 이미지</label>
+		                								
+		                							<div style="height:170px;width:200px;background-color:#efefef;text-align: center;">
+		                								
+		                								<input type="hidden" name="mgzMainImgUrl" id="mgzMainImgUrl">
+														<input type="file" id="file" style="display:none">
+															
+														<img class="content" id="dropZone" style="cursor:pointer;text-align: center;height:170px;width:200px;"/>
+		                								
+		                							</div>
+		                  								
+		                						</div>
+		                						<b style="font-family: sans-serif; font-size: 8px; color: gray;">※ 회색공간을 클릭해서 업로드하거나, 파일을 끌어와서 업로드 하세요.</b>
 													
-													<img class="content" id="dropZone" style="cursor:pointer;height:250px;width:545px;text-align: center;"/>
-                								
-                								</div>
-                  								<!-- <img class="profile-user-img img-fluid img-circle" src=""> -->
-                							</div>
-                							<b style="font-family: sans-serif; font-size: 8px; color: gray;">※ 회색공간을 클릭해서 업로드하거나, 파일을 끌어와서 업로드 하세요.</b>
-											<!-- <br><a href="javascript:imgInput();" class="btn btn-info btn-block" style="font-size:11px;width:150px;margin:auto;"><b>등록</b></a> -->
-              							</div>
-              						</div>
-
-					 			<div class="form-group row">
-					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
-                    				<div class="col-sm-12">
-                      						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
-                    					<div id="toolbar-container"></div>
-                    					<div id="editor">
-									        
-									    </div>
-                                        <!-- <textarea name="content" id="editor"></textarea> -->
-                    				</div>
-					 			</div>
-					 			<div class="form-group row">
-                    				<div class="col-sm-12" style="text-align:center">
-                      						<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
-                      						<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
-                    				</div>
-
-					 			</div>
-					 			
-					 			
-					 		</div>
+		              						</div>
+	              						</div>
+	              							
+					 				</td>
+					 				<td>
+					 					<div class="col-sm-12">
+					 						<div id="toolbar-container" style="width:650px;"></div>
+                    						<div id="editor" style="border: 1px solid #efefef;width:650px;">
+					 					</div>
+					 				</td>
+					 			</tr>
+					 			<tr>
+					 				<td style="padding-right:10px;text-align:right" colspan="2">
+					 					
+					 					
+					 						<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
+					 						<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
+					 					
+					 					
+					 				</td>
+					 			</tr>
+					 		</table>
 					 		
 					 	</div>
 					 		
-					 </div>
 					
 	    		</section>
 	    		
@@ -338,10 +343,7 @@
            return false ;
    }
   
-   </script>
-   
-    <script>
-    
+  
     class UploadAdapter {
         constructor(loader) {
             this.loader = loader;
