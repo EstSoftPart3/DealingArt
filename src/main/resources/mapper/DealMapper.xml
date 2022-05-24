@@ -11,9 +11,9 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				B.AUTH_SQ AS authSq, /*작가구분*/
-				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -89,6 +89,32 @@
 				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
+	        </if>
+	        <if test="sort != null and sort != ''">
+	        	<if test='sort == "LT"'>
+	        		ORDER BY D.DEAL_STRT_DT
+	        	</if>
+	        	<if test='sort == "PY"'>
+	        		ORDER BY A.WORK_PRODC_YEAR
+	        	</if>
+	        	<if test='sort == "KN"'>
+	        		ORDER BY A.ARTST_ACTVTY_NM
+	        	</if>
+	        	<if test='sort == "EN"'>
+	        		ORDER BY C.ARTST_ENGLS_NM
+	        	</if>
+	        	<if test='sort == "PC"'>
+	        		ORDER BY maxBidPrc, dealFinalPrc
+	        	</if>
+	        	<if test='sort == "RT"'>
+	        		ORDER BY D.DEAL_ENDNG_DT
+	        	</if>
+	        	<if test='type == "DOWN"'>
+	        		DESC
+	        	</if>
+	        	<if test='type == "UP"'>
+	        		ASC 
+	        	</if>
 	        </if>
 	</select>
 	<select id="dealDetail" parameterType="String" resultType="hashMap">

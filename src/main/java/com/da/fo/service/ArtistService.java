@@ -18,4 +18,11 @@ public interface ArtistService {
 	 * return : 검색 결과
 	 */
 	Map<String, Object> artistDetail(int artstSq);
+	
+	/*
+	 * 아티스트 라이브러리에서 정렬시 정렬한 작품 목록을 가져온다.
+	 * param : Map
+	 * return : 정렬 결과
+	 */
+	List<Map<String, Object>> artistDetailSort(Map<String, Object> param);
 }

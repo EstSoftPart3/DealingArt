@@ -68,4 +68,23 @@ public class ArtistDao {
 		result.put("workList", workList);
 		return result;
 	}
+	
+	/*
+	 * 아티스트 라이브러리에서 정렬시 정렬한 작품 목록을 가져온다.
+	 * param : Map
+	 * return : 정렬 결과
+	 */
+	public List<Map<String, Object>> artistDetailSort(Map<String, Object> param){
+		//작가 작품 리스트
+		List<Map<String, Object>> workListSale = artistMapper.artistWorkListSale(param); //작가 작품 판매중 리스트
+		List<String> workSq = new ArrayList<String>();
+		for(int i=0; i<workListSale.size(); i++) { //판매중인 workSq 구하기
+			workSq.add(workListSale.get(i).get("workSq").toString());
+		}
+		param.put("workSq", workSq); //판매중인 workSq 넣기
+		List<Map<String, Object>> workListNonSale = artistMapper.artistWorkListNonSale(param); //작가 작품 판매중이 아닌 리스트
+		List<Map<String, Object>> workList = Stream.concat(workListSale.stream(), workListNonSale.stream()).collect(Collectors.toList()); //작품 판매중과 판매아닌것 합치기
+		
+		return workList;
+	}
 }
