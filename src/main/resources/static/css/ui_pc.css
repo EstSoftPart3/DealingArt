@@ -3622,8 +3622,9 @@ display: inline-block;margin-left: 13px;}
 .color-box label.mc-9{background:#b66d3e;}
 .color-box label.mc-10{background:#ffffff; border:#c7c7c7 1px solid}
 .color-box label.mc-11{background:#c7c7c7;}
+.color-box label.mc-12{background:#000000;}
 
-.color-box a.active:after{content:"";position: absolute;left: 0;top: 0;background-image: url('../img/mypage/icon-check.png');width: 20px;height: 15px;background-size: 20px 15px;left: 50%;top: 50%;transform: translate(-50%, -50%);}
+/*.color-box label.active:after{content:"";position: absolute;left: 0;top: 0;background-image: url('../img/mypage/icon-check.png');width: 20px;height: 15px;background-size: 20px 15px;left: 50%;top: 50%;transform: translate(-50%, -50%);}*/
 
 .key-box{
     margin-top: 10px;

@@ -151,4 +151,12 @@ public class DealController {
 		return mv;
 	}
 	
+	@RequestMapping("/workDetail")
+	@ResponseBody
+	public ModelAndView workDetail(@RequestParam(value="workSq", required=false) String workSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/workDetail");
+		Map<String, Object> result = dealService.workDetail(workSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 }

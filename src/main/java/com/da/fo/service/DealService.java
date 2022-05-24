@@ -31,4 +31,11 @@ public interface DealService {
 	 * return : int
 	 */
 	public int bidReg(Object param);
+	
+	/*
+	 * 작품 상세 페이지 (미판매)
+	 * param : workSq
+	 * return : 작품 상세 정보
+	 */
+	public Map<String, Object> workDetail(String param);
 }
