@@ -128,7 +128,7 @@
 				A.EXHBTN_ENDNG_DATE DESC
 	</select>
 	
-	<select id="artistWorkListSale" resultType="hashMap" parameterType="String">
+	<select id="artistWorkListSale" resultType="hashMap" parameterType="hashMap">
 		/*작가 작품 판매중 리스트*/
 		SELECT 
 				D.DEAL_SQ AS dealSq, /*거래 번호*/
@@ -143,6 +143,7 @@
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
+				FORMAT(A.WORK_PRC, 0) AS workPrc, /*소장가*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
@@ -155,6 +156,7 @@
 				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
 				FORMAT(D.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
 				FORMAT(D.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
+				FORMAT(D.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래낙찰가격*/
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
@@ -177,6 +179,20 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				A.ARTST_SQ = #{artstSq}
+		<if test="sort != null and sort != ''">
+        	<if test='sort == "PY"'>
+        		ORDER BY A.WORK_PRODC_YEAR
+        	</if>
+        	<if test='sort == "PC"'>
+        		ORDER BY maxBidPrc, dealFinalPrc, workPrc
+        	</if>
+        	<if test='type == "DOWN"'>
+        		DESC
+        	</if>
+        	<if test='type == "UP"'>
+        		ASC 
+        	</if>
+		</if>
 	</select>
 	<select id="artistWorkListNonSale" resultType="hashMap" parameterType="hashMap">
 		/*작가 작품 판매전 리스트*/
@@ -214,6 +230,20 @@
 			        </foreach>
         		</if>
 				AND A.ARTST_SQ = #{artstSq}
+		<if test="sort != null and sort != ''">
+        	<if test='sort == "PY"'>
+        		ORDER BY A.WORK_PRODC_YEAR
+        	</if>
+        	<if test='sort == "PC"'>
+        		ORDER BY workPrc
+        	</if>
+        	<if test='type == "DOWN"'>
+        		DESC
+        	</if>
+        	<if test='type == "UP"'>
+        		ASC 
+        	</if>
+		</if>
 	</select>
 	
 	<select id="artistWorkListAll" resultType="hashMap" parameterType="String">

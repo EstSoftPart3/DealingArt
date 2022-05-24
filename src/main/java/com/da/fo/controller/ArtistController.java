@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -7,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.ArtistService;
+
 
 @Controller
 public class ArtistController {
@@ -54,6 +57,16 @@ public class ArtistController {
 		System.out.println("################## artstSq : "+artstSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetailWork");
 		Map<String, Object> result = artistService.artistDetail(artstSq);
+		mv.addObject("result", result);
+		return mv;
+		
+	}
+	
+	@RequestMapping("/artistDetail/sort")
+	@ResponseBody
+	public ModelAndView artistDetailSort(@RequestBody @Nullable Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = artistService.artistDetailSort(param);
 		mv.addObject("result", result);
 		return mv;
 		

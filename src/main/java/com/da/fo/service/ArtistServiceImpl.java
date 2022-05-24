@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,14 @@ public class ArtistServiceImpl implements ArtistService{
 	 */
 	public Map<String, Object> artistDetail(int artstSq){
 		return artistDao.artistDetail(artstSq);
+	}
+	
+	/*
+	 * 아티스트 라이브러리에서 정렬시 정렬한 작품 목록을 가져온다.
+	 * param : Map
+	 * return : 정렬 결과
+	 */
+	public List<Map<String, Object>> artistDetailSort(Map<String, Object> param){
+		return artistDao.artistDetailSort(param);
 	}
 }

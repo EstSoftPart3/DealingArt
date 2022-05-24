@@ -368,7 +368,6 @@ function myWorkReg(){
 	    for(var i=0; i<file.length; i++){
 	    	formData.append("file", file[i].files[0]);
 	    }
-	    debugger;
 	    formData.append("work", new Blob([JSON.stringify(result)], {type: "application/json"}));
 	
 	
