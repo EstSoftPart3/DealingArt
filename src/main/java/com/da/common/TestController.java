@@ -41,19 +41,19 @@ public class TestController {
 	@Autowired
 	private MainPayUtil mainPayUtil;
 	
-	@RequestMapping("/")
-	public String index() {
-		logger.info("index");
-		
-		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
-		try {
-			
-		String reStr = commonService.encrypt("김영삼");
-		
-		String deStr = commonService.decrypt("68160dc64efc04a5a68dce5320b433b3");
-		
-		Map<String, Object> reMap = commonService.getJusoDetail("도평리", 1, 10);
+//	@RequestMapping("/")
+//	public String index() {
+//		logger.info("index");
+//		
+//		Map<String, Object> rtnMap = new HashMap<String, Object>();
+//		
+//		try {
+//			
+//		String reStr = commonService.encrypt("김영삼");
+//		
+//		String deStr = commonService.decrypt("68160dc64efc04a5a68dce5320b433b3");
+//		
+//		Map<String, Object> reMap = commonService.getJusoDetail("도평리", 1, 10);
 		
 		/**
 		 * ----------------------------------------------------------
@@ -63,18 +63,18 @@ public class TestController {
 //		
 //		testMail();
 		
-		logger.info("------------------------------------------");
-		System.out.println(reStr);
-		System.out.println(deStr);
-		System.out.println(reMap);
-		logger.info("------------------------------------------");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "index";
-	}
+//		logger.info("------------------------------------------");
+//		System.out.println(reStr);
+//		System.out.println(deStr);
+//		System.out.println(reMap);
+//		logger.info("------------------------------------------");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return "index";
+//	}
 	
 	@RequestMapping("/checkplus_success")
 	public String checkplusSuccess() {
