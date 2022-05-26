@@ -96,11 +96,11 @@
 							</tr>
 							<tr>
 								<th>닉네임</th>
-								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.mbrNcknm}]]
-									<img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.mbrNcknm}]]
+									<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
-								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.artstActvtyNm}]]
-									<img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
+									<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
 							</tr>
 						</table>
@@ -149,8 +149,8 @@
 					<div class="swi-box max-1500">
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper">
-								
-								<div class="swiper-slide" th:each="workList : ${result.workList}">
+							<th:block th:each="workList : ${result.workList}">
+								<div class="swiper-slide" th:onclick="|location.href='@{/workDetail(workSq=${workList.workSq})}'|">
 									<a class="hd-div hd-tablet">
 										<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
 										
@@ -160,11 +160,14 @@
 												[[${workList.workNm}]]([[${workList.workProdcYear}]])
 												<br/>
 												소재 [[${workList.workMatrl}]], [[${workList.workSizeWidth}]] x [[${workList.workSizeDepth}]]
+												<br/>
+												가격 [[${workList.workPrc}]] KRW
 											</div>
-											<div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div>
+											<!-- <div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div> -->
 										</div>
 									</a>
 								</div>
+							</th:block>
 								
 							</div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>

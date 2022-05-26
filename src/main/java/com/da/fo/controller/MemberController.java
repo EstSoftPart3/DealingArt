@@ -62,6 +62,7 @@ public class MemberController {
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
+		param.put("mbrDelivryCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
 		
 		

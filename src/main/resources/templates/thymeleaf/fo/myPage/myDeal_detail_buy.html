@@ -56,7 +56,8 @@
 											<dd th:text="${result.dealInfo.dealStrtPrc}+' KRW'">1,700,000 원</dd>
 											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
 												<dt>현재 입찰가</dt>
-												<dd th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+												<dd th:if="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}" th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+												<dd th:unless="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}">0 KRW</dd>
 											</th:block>
 											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TC')}">
 												<dt>낙찰가</dt>

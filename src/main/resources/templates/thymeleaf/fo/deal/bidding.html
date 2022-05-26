@@ -77,11 +77,11 @@
 							</tr>
 							<tr>
 								<th>닉네임</th>
-								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.mbrNcknm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]]
+									<img th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
-								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.artstActvtyNm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" style="width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]]
+									<img th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
 							</tr>
 						</table>
@@ -187,15 +187,15 @@
 			<div class="contents conbg">
 				<div class="cont-title2 max-1500">
 					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
-					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
+					<button type="button" class="the-more" onclick="openArtstInfoModal()">더보기</button>
 				</div>
 				<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
 				<th:block th:if="${not #strings.isEmpty(result.workList)}">
 					<div class="swi-box max-1500">
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper">
-								
-								<div class="swiper-slide" th:each="workList : ${result.workList}">
+							<th:block th:each="workList : ${result.workList}">
+								<div class="swiper-slide" th:onclick="|location.href='@{/workDetail(workSq=${workList.workSq})}'|">	
 									<a class="hd-div hd-tablet">
 										<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
 										
@@ -205,12 +205,14 @@
 												[[${workList.workNm}]]([[${workList.workProdcYear}]])
 												<br/>
 												소재 [[${workList.workMatrl}]], [[${workList.workSizeWidth}]] x [[${workList.workSizeDepth}]]
+												<br/>
+												가격 [[${workList.workPrc}]] KRW
 											</div>
-											<div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div>
+											<!-- <div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div> -->
 										</div>
 									</a>
 								</div>
-								
+							</th:block>
 							</div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
@@ -317,7 +319,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeArtstInfoModal()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -463,6 +465,17 @@ $(function() {
 		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 	}
 });
+//부모창 스크롤 방지
+function openArtstInfoModal(){ 
+	$('body').css("overflow", "hidden");
+	$('#artstInfoMore').modal({backdrop: 'static', keyboard: false})  
+	$("#artstInfoMore").modal("show");
+}
+
+function closeArtstInfoModal(){ 
+	$('body').css("overflow", "scroll");
+	$("#artstInfoMore").modal("hide");
+}
 //거래 남은 시간 1초마다 계산해서 표현하기
 var dday = new Date(result.deal.dealEndngDateTime).getTime();
 
@@ -481,6 +494,7 @@ setInterval(function() {
 }, 1000);
 
 function btn_purchaseOrBid_onclick(){
+	
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 			if(confrim){
@@ -488,6 +502,14 @@ function btn_purchaseOrBid_onclick(){
 			}
 		});
 	}else{
+		if(result.deal.sellMbrSq == sMbrSqVal){
+			modalAlertShow("본인의 거래에는 응찰 할 수 없습니다.");
+			return;
+		}
+		if(result.deal.bidMbrSq == sMbrSqVal){
+			modalAlertShow("가장 높은 입찰자인 경우 중복 응찰이 불가합니다.");
+			return;
+		}
 		if($("#btn_purchaseOrBid").text() == "구매하기"){
 			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 		}else{
@@ -579,7 +601,6 @@ function selectBoxWriteAskingPrice(){
 	}
 	$("#sbx_bidPrc").selectpicker("refresh");
 }
-
 
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)

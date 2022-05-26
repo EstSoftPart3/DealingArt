@@ -137,8 +137,9 @@
 				<a href="javascript:fnModalAlert();" class="mab-a"><span>Guide</span></a>
 				<ul class="mab-ul">
 					<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li> -->
-					<li><a href="#" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
-					<li><a href="javascript:void(0);" class="workReg"><img src="resources/img/icon-6.png" /> <span>작품등록</span></a></li>
+					<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
+					<li><a href="javascript:void(0);" class="workReg"><img src="resources/img/icon-6.png" /> <span>작품 등록</span></a></li>
+					<li><a href="javascript:void(0);" class="collectionReg"><img src="resources/img/icon-6.png" /> <span>소장품 등록</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -838,6 +839,7 @@ jQuery(document).ready(function() {
         			artstActvtyNm = data.artstActvtyNm;
         			artstEnglsNm = data.artstEnglsNm;
         			artstBirthYear = data.artstBirthYear;
+        			$("#artstReg").css("display", "none");
         		}
         	}else{
         		sMbrSqVal = data.sMbrSqVal;
@@ -886,6 +888,7 @@ function login(){
 	        			artstActvtyNm = data.artstActvtyNm;
 	        			artstEnglsNm = data.artstEnglsNm;
 	        			artstBirthYear = data.artstBirthYear;
+	        			$("#artstReg").css("display", "none");
 	        		}
 				}else if (login == 2){
 					modalAlertShow("탈퇴한 회원입니다.");
@@ -1286,8 +1289,7 @@ $(document).on("click",".artst",function(){
 });
 
 $(document).on("click",".workMore",function(){
-	fnModalAlert();
-	/* if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
+	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
 		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
 	}else{
 		modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
@@ -1301,7 +1303,7 @@ $(document).on("click",".workMore",function(){
 				});
 			}
 		});
-	} */
+	}
 });
 
 $(document).on("click",".artistMore",function(){
@@ -1380,9 +1382,21 @@ $(document).on("click", ".workReg", function(){
 	if(sAuthSqVal != "2"){
 		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
 	}else{
-		modalConfirm("알림", "나의 작품 등록 페이지로 하시겠습니까?", function(confrim){
+		modalConfirm("알림", "작품 등록 페이지로 하시겠습니까?", function(confrim){
 			if(confrim){
 				window.location.href = "/myWork_reg";
+			}
+		});
+	}
+});
+
+$(document).on("click", ".collectionReg", function(){
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("로그인 후 이용할 수 있습니다.");
+	}else{
+		modalConfirm("알림", "소장품 등록 페이지로 하시겠습니까?", function(confrim){
+			if(confrim){
+				window.location.href = "/collection_reg";
 			}
 		});
 	}

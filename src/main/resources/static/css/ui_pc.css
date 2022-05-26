@@ -2284,7 +2284,7 @@ input[type="radio"]:checked + label span {
 	background-color: #f9f9f9;
 	font-size: 12px;
 	color: #999999;
-	padding: 0 0 15px 75px;
+	padding: 0 0 15px 100px;
 	height: 48px;
 	vertical-align: top;
 }

@@ -21,6 +21,7 @@
 			,MBR_SEX_CD
 			,MBR_HOME_ADDR
 			,MBR_DELIVRY_ADDR
+			,MBR_DELIVRY_CP_NUM
 			,MBR_CP_NUM
 			,MBR_CP_CERT_YN
 			,MBR_CP_CERT_DATE
@@ -47,6 +48,7 @@
 			,#{mbrSexCd}
 			,#{mbrHomeAddr}
 			,#{mbrDelivryAddr}
+			,#{mbrDelivryCpNum}
 			,#{mbrCpNum}
 			,#{mbrCpCertYn}
 			,#{mbrCpCertDate}
@@ -592,7 +594,8 @@
    		UPDATE
   				TBL_DA_MBR_M
    		SET
-   				MBR_DELIVRY_ADDR = #{mbrDelivryAddr}
+   				MBR_DELIVRY_ADDR = #{mbrDelivryAddr},
+   				MBR_DELIVRY_CP_NUM = #{mbrDelivryCpNum}
    		WHERE 
    				MBR_SQ = #{mbrSq}
    </update>
