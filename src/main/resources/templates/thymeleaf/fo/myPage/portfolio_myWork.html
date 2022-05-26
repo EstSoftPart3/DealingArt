@@ -179,7 +179,7 @@ function myWorkList(){
 				html += '</div>';
 				
 			}
-			debugger;
+			
 			//판매 - 거래진행중
 			if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
 				
@@ -211,7 +211,7 @@ function myWorkList(){
 				html += '<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
 				html += '<p>'+ result[i].workMatrl +'</p>';
 				html += '<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
-				debugger;
+				
 				html += '<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +' KRW</h4>';
 				html += '</div>'
 				

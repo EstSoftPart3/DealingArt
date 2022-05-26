@@ -112,5 +112,6 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	void updateWorkSaleYn(String paramMap);
+	
 
 }

@@ -209,4 +209,6 @@ public interface MyPageMapper {
 	 * return : 운송 옵션 코드 네임
 	 */
 	public Map<String, Object> selectTrnsprtCdNm(Object param);
+
+	public void updateCouponUseYn(Object param);
 }

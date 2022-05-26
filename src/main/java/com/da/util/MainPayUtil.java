@@ -300,6 +300,10 @@ public class MainPayUtil {
 		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("2")) {
 		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
 		    }
+		    
+		    if(!parameters.get("cuponSq").toString().equals("") && !parameters.get("cuponSq").toString().equals(null)) {//쿠폰 사용하면 사용롼료로 바꾼다
+		    	myPageMapper.updateCouponUseYn(resultMap);
+		    }
 	    }
     	
 		rsltMap.put("resultCode", resultCode);

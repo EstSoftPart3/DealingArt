@@ -36,8 +36,11 @@
 									<script type="text/javascript">
 									
 									$(document).ready(function() {
-										$("#file").bind('change', function() {
-											uploadResource(this.files);
+										$("#file_artstProfileImgUrl").bind('change', function() {
+											uploadResource(this.files, "profile");
+										});
+										$("#file_artstWorkImgUrl").bind('change', function() {
+											uploadResource(this.files, "mainWork");
 										});
 										
 										$(function() {
@@ -47,35 +50,71 @@
 										
 										// 파일 드롭 다운
 										function fileDropDown() {
-											var dropZone = $("#dropZone");
+											var dropZone1 = $("#dropZone_artstProfileImgUrl");
+											var dropZone2 = $("#dropZone_artstWorkImgUrl");
 											//Drag기능 
-											dropZone.on('dragenter', function(e) {
+											dropZone1.on('dragenter', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
 												dropZone.css('background-color', '#E3F2FC');
 											});
-											dropZone.on('dragleave', function(e) {
+											dropZone1.on('dragleave', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
 												dropZone.css('background-color', '#FFFFFF');
 											});
-											dropZone.on('dragover', function(e) {
+											dropZone1.on('dragover', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
 												dropZone.css('background-color', '#E3F2FC');
 											});
-											dropZone.on('drop', function(e) {
+											dropZone1.on('drop', function(e) {
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#FFFFFF');
+												var fileObject = e.originalEvent.dataTransfer.files;
+												
+												if (fileObject != null) {
+													if (fileObject.length < 1) {
+														/* alert("폴더 업로드 불가"); */
+														console.log("폴더 업로드 불가");
+														return;
+													} else {
+														uploadResource(fileObject);
+													}
+												} else {
+													alert("ERROR");
+												}
+											});
+											
+											//Drag기능 
+											dropZone2.on('dragenter', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#E3F2FC');
+											});
+											dropZone2.on('dragleave', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#FFFFFF');
+											});
+											dropZone2.on('dragover', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												// 드롭다운 영역 css
+												dropZone.css('background-color', '#E3F2FC');
+											});
+											dropZone2.on('drop', function(e) {
 												e.preventDefault();
 												// 드롭다운 영역 css
 												dropZone.css('background-color', '#FFFFFF');
 								
 												var fileObject = e.originalEvent.dataTransfer.files;
-												
-												
-												
 												
 												if (fileObject != null) {
 													if (fileObject.length < 1) {
@@ -91,7 +130,7 @@
 											});
 										}
 										
-										function uploadResource(fileObject) {
+										function uploadResource(fileObject, fileType) {
 											
 											var file = null;
 											
@@ -111,7 +150,7 @@
 											var fileSize = file.size;
 											
 											if(fileSize > maxSize){
-												modalAlertShow("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+												modalAlertShow("이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
 												return false;
 											}
 											
@@ -121,16 +160,26 @@
 									        })
 									        .then(result => result.json())
 									        .then(data => {
-									            document.getElementById("dropZone").setAttribute("src", data.fileUrl);
-									            $('#artstProfileImgUrl').val(data.fileUrl);
+									        	if(fileType == "profile"){
+									        		document.getElementById("dropZone_artstProfileImgUrl").setAttribute("src", data.fileUrl);
+										            $('artstProfileImgUrl').val(data.fileUrl);
+									        	}
+									        	if(fileType == "mainWork"){
+									        		 document.getElementById("dropZone_artstWorkImgUrl").setAttribute("src", data.fileUrl);
+											            $('#artstWorkImgUrl').val(data.fileUrl);
+									        	}
 									            //document.getElementById("remove").setAttribute("fileNm", data.fileNm)
 									        })
 									        .catch(error => console.log(`error => ${error}`));
 									    }
 										
-										$("#dropZone").click(function(){
-									       $('#file').click();
+										$("#dropZone_artstProfileImgUrl").click(function(){
+									       $('#file_artstProfileImgUrl').click();
 									    });
+										
+										$("#dropZone_artstWorkImgUrl").click(function(){
+										       $('#file_artstWorkImgUrl').click();
+										    });
 									});
 									
 									</script>
@@ -141,8 +190,8 @@
 											<td>
 												<div class="cont-box">
 													<input type="hidden" name="artstProfileImgUrl" id="artstProfileImgUrl">
-													<input type="file" id="file" style="display:none">
-													<img class="content" id="dropZone" style="cursor:pointer"/>
+													<input type="file" id="file_artstProfileImgUrl" style="display:none">
+													<img class="content" id="dropZone_artstProfileImgUrl" style="cursor:pointer"/>
 													<!-- <div class="content" id="dropZone"></div> -->
 													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
 												</div>
@@ -214,6 +263,18 @@
 															<option	value="KR-49">제주특별자치도</option>
 														</select>
 													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th><span class="my-red">대표 작품 이미지</span></th>
+											<td>
+												<div class="cont-box">
+													<input type="hidden" name="artstWorkImgUrl" id="artstWorkImgUrl">
+													<input type="file" id="file_artstWorkImgUrl" style="display:none">
+													<img class="content" id="dropZone_artstWorkImgUrl" style="cursor:pointer"/>
+													<!-- <div class="content" id="dropZone"></div> -->
+													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
 												</div>
 											</td>
 										</tr>
@@ -1123,8 +1184,11 @@
 		    	/* 작가순번 */
 		    	$("#artstSq").val(dataContent.artstSq);
 		    	/* 프로필 이미지 */
-		    	$("#dropZone").prop("src",dataContent.artstProfileImgUrl)
+		    	$("#dropZone_artstProfileImgUrl").prop("src",dataContent.artstProfileImgUrl)
 		    	$("#artstProfileImgUrl").val(dataContent.artstProfileImgUrl);
+		    	/* 작가 대표 작품 이미지*/
+		     	$("#dropZone_artstWorkImgUrl").prop("src",dataContent.artstWorkImgUrl)
+		    	$("#artstWorkImgUrl").val(dataContent.artstWorkImgUrl);
 		    	/* 활동명 */
 		    	$("#artstActvtyNm").val(dataContent.artstActvtyNm);
 		    	/* 영문명 */
@@ -1324,6 +1388,7 @@
 		 //savaState : 1 (일반저장), 2(임시저장)
 		var mbrSq 				= $("#mbrSq").html();				//회원순번
 		var artstProfileImgUrl 	= $("#artstProfileImgUrl").val();	//☆ 프로필 이미지
+		var artstWorkImgUrl 	= $("#artstWorkImgUrl").val();	//☆ 프로필 이미지
 		var artstActvtyNm 		= $("#artstActvtyNm").val();		//☆ 활동명
 		var artstEnglsNm 		= $("#artstEnglsNm").val();			//영문명
 		var artstActvtyPartCd   = $("input:radio[name='artstActvtyPartCd']:checked").val(); //☆ 활동분야코드
@@ -1348,17 +1413,31 @@
 			 return;
 		}
 		
+		if(isEmpty(artstWorkImgUrl)) {
+			modalAlertShow("대표 작품 이미지를 등록해 주세요.","");
+			 return;
+		}
+		
 		if(isEmpty(artstActvtyNm)) {
 			modalAlertShow("활동명을 등록해 주세요.","");
 			 return;
 		}
 		
-		if($("#file").val() != ""){	
+		if($("#file_artstProfileImgUrl").val() != ""){	
 			var maxSize = 5 * 1024 * 1024; // 5MB
-			var fileSize = $("#file")[0].files[0].size;
+			var fileSize = $("#file_artstProfileImgUrl")[0].files[0].size;
 			
 			if(fileSize > maxSize){
 				modalAlertShow("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+				return false;
+			}
+		}
+		if($("#file_artstWorkImgUrl").val() != ""){	
+			var maxSize = 5 * 1024 * 1024; // 5MB
+			var fileSize = $("#file_artstWorkImgUrl")[0].files[0].size;
+			
+			if(fileSize > maxSize){
+				modalAlertShow("대표 작품 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
 				return false;
 			}
 		}
@@ -1366,6 +1445,7 @@
 		let baseParams = {
 				mbrSq : mbrSq,
 				artstProfileImgUrl:artstProfileImgUrl,
+				artstWorkImgUrl:artstWorkImgUrl,
 				artstActvtyNm:artstActvtyNm,
 				artstEnglsNm:artstEnglsNm,
 				artstActvtyPartCd:artstActvtyPartCd,

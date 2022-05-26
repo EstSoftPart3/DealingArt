@@ -251,6 +251,16 @@
 			<if test="buyOrSell == 'SELL'">
 				AND B.SELL_MBR_SQ = #{mbrSq}
 			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (
+						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					)
+			</if>
+			<if test="searchStrtDate != null and searchStrtDate != '' and searchEndngDate != null and searchEndngDate != ''">
+				AND DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') BETWEEN #{searchStrtDate} AND #{searchEndngDate}
+			</if>
 		GROUP BY B.DEAL_SQ;
 	</select>
 	
@@ -303,11 +313,22 @@
 			ON C.DEAL_SQ = D.DEAL_SQ 
 		</if>
 		WHERE 	
+				C.DEAL_TYP_CD = 'A'
 			<if test="buyOrSell == 'BUY'">
-				D.MBR_SQ IN (#{mbrSq})
+			AND	D.MBR_SQ IN (#{mbrSq})
 			</if>
 			<if test="buyOrSell == 'SELL'">
-				C.SELL_MBR_SQ = #{mbrSq}
+			AND	C.SELL_MBR_SQ = #{mbrSq}
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (
+						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					)
+			</if>
+			<if test="searchStrtDate != null and searchStrtDate != '' and searchEndngDate != null and searchEndngDate != ''">
+				AND DATE_FORMAT(C.DEAL_ENDNG_DT, '%Y.%m.%d') BETWEEN #{searchStrtDate} AND #{searchEndngDate}
 			</if>
 		GROUP BY C.DEAL_SQ;
 	</select>
