@@ -658,10 +658,7 @@
 		     					
 		     					html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
 			     				html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
-			     				html += '<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-			     				html += '<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-			     				html += '<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-			     				html += '<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+			     				html += '<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
 			     				html += '<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
 		     					html += '</div>';
 		     					
@@ -686,18 +683,16 @@
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
 		     					
-		     					if(dealList[i].dealTypCd == "A"){
-		     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
-		    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
-		     						}else{
-		     							html += '<h4>입찰가 0 KRW</h4>';
-		     						}
-		    	     				html += '<p class="ts-2">';
-		    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
-		    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
-		    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
-		    	     				html += '</p>';
-		    	     			}
+	     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
+	    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+	     						}else{
+	     							html += '<h4>입찰가 0 KRW</h4>';
+	     						}
+	    	     				/* html += '<p class="ts-2">';
+	    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+	    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
+	    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+	    	     				html += '</p>'; */
 		     					
 		     					html += '</div>'
 		     					
@@ -726,10 +721,7 @@
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '		<div class="item-ho2 sale-div">';
 		    	     			html += '			<h3>판매중</h3>';
-		    	     			html += '				<ul><li>'+ dealList[i].dealRemainingDay +'<span>day</span></li>';
-		    	     			html += '				<li>'+ dealList[i].dealRemainingHour +'<span>hrs</span></li>';
-		    	     			html += '				<li>'+ dealList[i].dealRemainingMin +'<span>min</span></li>';
-		    	     			html += '				<li>'+ dealList[i].dealRemainingSec +'<span>sec</span></li></ul>';
+		    	     			html += '				<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
 		    	     			html += '		</div>';
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
@@ -832,6 +824,29 @@
 	        }
 		})
 	}
+	//거래 남은 시간 1초마다 계산해서 표현하기
+	setInterval(function() {
+		var elements = document.querySelectorAll(".dealCount");
+		for(var i=0; i<elements.length; i++){
+			var html = '';
+			var dday = new Date(parseInt(elements[i].attributes.dday.value)).getTime();
+			var today = new Date().getTime();
+			if(today >= dday){
+				dealSearch();
+			}
+		  	var gap = dday - today;
+			var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+			var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+			var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+			var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+			html += '<li>'+ day +'<span>day</span></li>';
+ 			html += '<li>'+ hour +'<span>hrs</span></li>';
+ 			html += '<li>'+ min +'<span>min</span></li>';
+ 			html += '<li>'+ sec +'<span>sec</span></li>';
+			elements[i].innerHTML = html;
+		  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+		}
+	}, 1000);
 	
 	function searchOptionReset(){
 	    document.querySelectorAll(".searchOption").forEach(function(v, i) {

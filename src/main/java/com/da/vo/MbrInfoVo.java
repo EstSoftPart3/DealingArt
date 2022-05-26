@@ -15,6 +15,7 @@ public class MbrInfoVo {
 	private String mbrSexCd;
 	private String mbrHomeAddr;
 	private String mbrDelivryAddr;
+	private String mbrDelivryCpNum;
 	private String mbrCpNum;
 	private String mbrCpCertYn;
 	private String mbrCpCertDate;

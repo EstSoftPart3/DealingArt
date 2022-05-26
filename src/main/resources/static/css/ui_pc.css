@@ -112,7 +112,7 @@
 }
 
 .body-wrap {
-    padding-top: 80px;
+    padding-top: 66px;
 }
 
 .contents {
@@ -2284,7 +2284,7 @@ input[type="radio"]:checked + label span {
 	background-color: #f9f9f9;
 	font-size: 12px;
 	color: #999999;
-	padding: 0 0 15px 75px;
+	padding: 0 0 15px 100px;
 	height: 48px;
 	vertical-align: top;
 }
@@ -3293,7 +3293,7 @@ display: inline-block;margin-left: 13px;}
 
 
 .is-bos{
-    display: inline-block;
+	display: inline-block;
 }
 .is-la{
     display: inline-block;
@@ -5045,3 +5045,11 @@ position: relative;background-color: #fbfbfb;}
 
 /* 0518 */
 .link-text{width:38px;}
+
+
+/* 0526 */
+.cont-title3 h3 span {
+    font-size: 18px;
+    padding-left: 15px;
+    color: #ccc
+}

@@ -166,7 +166,7 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : mbrSq
 	 * return : 스크랩 목록이 들어있는 List
 	 */
-	public List<String> scrapList(String param){
+	public List<Map<String, Object>> scrapList(String param){
 		return myPageDao.scrapList(param);
 	}
 	

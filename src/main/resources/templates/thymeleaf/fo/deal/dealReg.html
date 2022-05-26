@@ -96,7 +96,7 @@
 								</div>
 								<div class="input-box">
 									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="희망가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px;"/>
-									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" style="font-size:15px; display:none;"/>
+									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px; display:none;"/>
 								</div>
 							</div>
 						</div>
@@ -121,19 +121,19 @@
 										</tr>
 										<tr>
 											<th>휴대전화</th>
-											<td th:text="${result.mbrInfo.mbrCpNum}"></td>
+											<td th:text="${result.mbrInfo.mbrDelivryCpNum}"></td>
 										</tr>
 									</table>
 								</div>
 								
 								<div class="home-2" style="display:none;">
 									<div class="input-box">
-										<input type="text" class="input-2" style="font-size:14px;" th:value="${result.mbrInfo.mbrNm}" readonly/>
+										<input type="text" class="input-2" style="font-size:14px;" th:value="${result.mbrInfo.mbrNm}" readonly disabled/>
 										<span class="span-in">보내는 사람</span>
 									</div>
 										
 									<div class="input-box">
-										<input type="text" class="input-2" style="width:78%; font-size:14px;" placeholder="우편번호를 검색하세요" id="mbrDelivryAddr" readonly/>
+										<input type="text" class="input-2" style="width:78%; font-size:14px;" placeholder="우편번호를 검색하세요" id="mbrDelivryAddr" readonly disabled/>
 										<span class="span-in">기본 주소</span>
 										<button type="button" class="addrBtn" onclick="searchAddr()">우편번호 검색</button>
 										
@@ -143,7 +143,7 @@
 										<span class="span-in">상세 주소</span>
 									</div>
 									<div class="input-box">
-										<input type="text" class="input-2" style="font-size:14px;" th:value="${result.mbrInfo.mbrCpNum}" readonly/>
+										<input type="text" class="input-2" style="font-size:14px;" id="mbrDelivryCpNum" th:value="${result.mbrInfo.mbrDelivryCpNum}" onkeyup="inputPhoneNumber(this)"/>
 										<span class="span-in">휴대전화</span>
 									</div>
 								</div>
@@ -263,14 +263,14 @@
 
 
 <!-- 거래 등록 전 꼭! 확인하세요 -->
-<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-baeg max-w530">
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>거래 등록 전 <br/>꼭! 확인하세요</h2>
 				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div>
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
 				</div>
 
 			</div>
@@ -400,9 +400,36 @@ function searchAddr(){
 }
 
 function dealStrtPrcCal(obj){
-	var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
-	var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
-	$("#dealStrtPrcA").text(val2+"원");
+	var checked = $("input:radio[name='dealTypCd']:checked").val();
+	if(checked == "A"){
+		if(obj.value != null && obj.value != ""){
+			obj.value = obj.value.replaceAll(/,/g,'');          // ,값 공백처리
+			obj.value = parseInt(obj.value);
+			var n = obj.value % 10000;
+			if(n != 0 || obj.value == 0){
+				modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+				obj.value = '';
+				$("#dealStrtPrcA").text("");
+			}else{
+				var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
+				var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$("#dealStrtPrcA").text(val2+" KRW");
+			}
+			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	}else{
+		if(obj.value != null && obj.value != ""){
+			obj.value = obj.value.replaceAll(/,/g,'');          // ,값 공백처리
+			obj.value = parseInt(obj.value);
+			var n = obj.value % 10000;
+			if(n != 0 || obj.value == 0){
+				modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+				obj.value = '';
+				$("#dealStrtPrcA").text("");
+			}
+			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	}
 }
 
 $(document).on("change", ".upload-hidden", function(e){
@@ -427,8 +454,9 @@ function readImg(input, imgId){
 function comma(obj){
 	obj.value = obj.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
 	obj.value = obj.value.replace(/,/g,'');          // ,값 공백처리
-	obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
+    obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
 }
+
 
 function keywrdSet(obj){
 	var str_space = /\s/;           
@@ -480,6 +508,10 @@ function vaild(){
 	}
 	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
 		modalAlertShow("배송 시작 주소가 입력되지 않았습니다.");
+		return false;
+	}
+	if(result.mbrInfo.mbrDelivryCpNum == null || result.mbrInfo.mbrDelivryCpNum == ""){
+		modalAlertShow("배송 시작 휴대전화 번호가 입력되지 않았습니다.");
 		return false;
 	}
 	if($("#workGrtUrl1").attr("src") == null || $("#workGrtUrl1").attr("src") == ""){
@@ -544,7 +576,7 @@ function dealReg(){
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
 	result.deal.mbrSq = sMbrSqVal;
 	if(result.deal.dealTypCd == "A"){
-		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll("원", "");
+		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll(" KRW", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
 	}else{
 		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
@@ -554,6 +586,9 @@ function dealReg(){
 		if($("#mbrDelivryAddr").val() != "" && $("#mbrDelivryAddr").val() != null){
 			if($("#mbrDelivryAddrDetail").val() != "" && $("#mbrDelivryAddrDetail").val() != null){
 				result.mbrInfo.mbrDelivryAddr = $("#mbrDelivryAddr").val() + " " + $("#mbrDelivryAddrDetail").val();				
+			}
+			if($("#mbrDelivryCpNum").val() != "" && $("#mbrDelivryCpNum").val() != null){
+				result.mbrInfo.mbrDelivryCpNum = $("#mbrDelivryCpNum").val();
 			}
 		}
 	}

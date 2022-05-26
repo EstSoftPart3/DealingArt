@@ -60,8 +60,8 @@
 											<option value="PC">취소</option>
 											<option value="RT">반품</option>
 										</select>
-										<button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
 									</div>
+									<button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
 								</div>
 							</div>
 							<div id="myDealList">
@@ -250,7 +250,7 @@ $("input:radio[name='saleOrAuction']").change(function(){
 function myDealSearchList(){
 	searchOptions.mbrSq = sMbrSqVal;
 	if($("#searchKeyword").val() != "" && $("#searchKeyword").val() != null){
-		searchOptions.searchKeyword = "*"+$("#searchKeyword").val()+"*";
+		searchOptions.searchKeyword = $("#searchKeyword").val();
 	}
 	if(searchDateCheck()){
 		searchOptions.searchStrtDate = $("#searchStrtDate").val();
@@ -270,8 +270,10 @@ function myDealSearchList(){
         		for(var i=0; i<myDealList.length; i++){
     	        	myDealListHtml += '<div class="myd-box myd-mobile">';
     				myDealListHtml += '	<div class="myd-img">';
-    				myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'"  class="" />';
-    				myDealListHtml += '		<button type="button" class="btns-4">응찰 히스토리</button>';
+    				myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)"/>';
+    				if(myDealList[i].dealTypCd == "A"){ //경매면 응찰 히스토리 버튼 추가
+    					myDealListHtml += '		<button type="button" class="btns-4" onclick="fnModalAlert()">응찰 히스토리</button>';
+    				}
     				myDealListHtml += '		<button type="button" class="btns-4" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">거래 계약 안내 및 상세</button>';
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-2">';

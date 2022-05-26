@@ -355,6 +355,38 @@ function modalConfirm(title, msg, callback){
 (jQuery);
 /*
 *********************************************************************************************************
+* 함수설명	: 휴대전화 번호 자동 하이픈.
+* str	: 핸드폰 번호
+***********************************************************************************************************
+*/
+function inputPhoneNumber(obj) {
+
+    var number = obj.value.replace(/[^0-9]/g, "");
+    var phone = "";
+
+    if(number.length < 4) {
+        return number;
+    } else if(number.length < 7) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3);
+    } else if(number.length < 11) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 3);
+        phone += "-";
+        phone += number.substr(6);
+    } else {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 4);
+        phone += "-";
+        phone += number.substr(7);
+    }
+    obj.value = phone;
+}
+/*
+*********************************************************************************************************
 * 함수설명	: 입력된 한글의 마지막글자에 받침이 있는지 없는지 검사해준다.
 * str	: 문자열
 ***********************************************************************************************************

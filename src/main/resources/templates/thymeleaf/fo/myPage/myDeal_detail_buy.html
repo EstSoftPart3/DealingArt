@@ -56,7 +56,8 @@
 											<dd th:text="${result.dealInfo.dealStrtPrc}+' KRW'">1,700,000 원</dd>
 											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
 												<dt>현재 입찰가</dt>
-												<dd th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+												<dd th:if="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}" th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+												<dd th:unless="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}">0 KRW</dd>
 											</th:block>
 											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TC')}">
 												<dt>낙찰가</dt>
@@ -397,6 +398,17 @@ jQuery(document).ready(function() {
 	}
 	$(".selectpicker").selectpicker(); //셀렉트피커 활성화
 	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
+	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TP"){ //정찰가 1차 결제/구매하기
+		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
+		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
+		$("#1PW").css("display", ""); //1차 결제 div
+		$("#paymethod").css("display", ""); //결제 수단 div
+		$("#btn_payment").css("display", "") //결제 버튼
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15); //작품가의 15프로인 수수료를 구한다
+		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
+	}
 	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TC"){ //1차 결제 미완료면
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
@@ -784,7 +796,7 @@ $("#sbx_couponList_DD").on("change", function(){
 		var innerText = '';
 		innerText += '<div class="comy-box">';
 		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_DD option:selected").text()+'</div>';
-		if($("#sbx_couponList_TD option:selected").val().length > 2){
+		if(checked.length > 2){
 			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
 		}else{
 			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
@@ -806,7 +818,7 @@ $("#sbx_couponList_TD").on("change", function(){
 		var innerText = '';
 		innerText += '<div class="comy-box">';
 		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_TD option:selected").text()+'</div>';
-		if($("#sbx_couponList_TD option:selected").val().length > 2){
+		if(checked.length > 2){
 			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
 		}else{
 			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';

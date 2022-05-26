@@ -90,7 +90,7 @@ public class DealController {
 			work = myPageService.myCollectionMod(workSq);
 		}
 		MbrInfoVo mbrInfo = memberService.mbrInfo(mbrSq);
-		mbrInfo.setMbrCpNum(commonService.decrypt(mbrInfo.getMbrCpNum()));
+		mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));
 		result.put("work", work);
 		result.put("mbrInfo", mbrInfo);
 		mv.addObject("result", result);
@@ -105,7 +105,7 @@ public class DealController {
 		System.out.println("##################### collectionReg file : " + multipartFiles);
 		JSONObject jsonObject = new JSONObject(new Gson().toJson(param));
 		Map<String, Object> mbrInfo = new Gson().fromJson(jsonObject.getJSONObject("mbrInfo").toString(), new HashMap().getClass());
-		mbrInfo.put("mbrCpNum", commonService.encrypt(mbrInfo.get("mbrCpNum").toString()));
+		mbrInfo.put("mbrDelivryCpNum", commonService.encrypt(mbrInfo.get("mbrDelivryCpNum").toString()));
 		Map<String, Object> work = new Gson().fromJson(jsonObject.getJSONObject("work").toString(), new HashMap().getClass());
 		Map<String, Object> deal = new Gson().fromJson(jsonObject.getJSONObject("deal").toString(), new HashMap().getClass());
 		if (multipartFiles != null) {

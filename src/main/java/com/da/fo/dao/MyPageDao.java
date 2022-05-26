@@ -212,13 +212,23 @@ public class MyPageDao {
 	 * param : mbrSq
 	 * return : 스크랩 목록이 들어있는 List
 	 */
-	public List<String> scrapList(String param){
-		List<String> paramList = myPageMapper.scrapList(param);
-		List<String> result = null;
-		System.out.println("@@@@@@@@@@@@@@@@@@@ List Pram : " + paramList);
-		if(!paramList.isEmpty()) {
-			List<String> resultNonSale = myPageMapper.scrapListNonSale(paramList);
-			List<String> resultSale = myPageMapper.scrapListSale(paramList);
+	public List<Map<String, Object>> scrapList(String param){
+		List<String> scrapSq = myPageMapper.scrapList(param); //스크랩한 작품 순번 조회
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		System.out.println("@@@@@@@@@@@@@@@@@@@ List Pram : " + scrapSq);
+		
+		if(!scrapSq.isEmpty()) {
+			List<Map<String, Object>> resultSale = myPageMapper.scrapListSale(scrapSq); //판매중인 스크랩 작품 조회
+			List<String> workSq = new ArrayList<String>();
+			if(resultSale.size() > 0) {
+				for(int i=0; i<resultSale.size(); i++) {
+					workSq.add(resultSale.get(i).get("workSq").toString());
+				}
+			}
+			paramMap.put("workSq", workSq); //판매중인 스크랩 작품 순번을 담는다
+			paramMap.put("scrapSq", scrapSq); //스크랩 작품 순번을 담는다
+			List<Map<String, Object>> resultNonSale = myPageMapper.scrapListNonSale(paramMap);
 			result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
 		}
 		return result;

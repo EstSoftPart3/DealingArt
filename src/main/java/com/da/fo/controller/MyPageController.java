@@ -147,7 +147,7 @@ public class MyPageController {
 	@ResponseBody
 	public ModelAndView scrap(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
-		List<String> result = myPageService.scrapList(mbrSq);
+		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
 		mv.addObject("result", result);
 		return mv;
 	}

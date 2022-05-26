@@ -94,7 +94,7 @@ public interface MyPageService {
 	 * param : mbrSq
 	 * return : 스크랩 목록이 들어있는 List
 	 */
-	List<String> scrapList(String param);
+	List<Map<String, Object>> scrapList(String param);
 	
 	/*
 	 * 거래 상세 페이지

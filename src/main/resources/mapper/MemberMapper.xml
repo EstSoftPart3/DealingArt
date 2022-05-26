@@ -21,6 +21,7 @@
 			,MBR_SEX_CD
 			,MBR_HOME_ADDR
 			,MBR_DELIVRY_ADDR
+			,MBR_DELIVRY_CP_NUM
 			,MBR_CP_NUM
 			,MBR_CP_CERT_YN
 			,MBR_CP_CERT_DATE
@@ -47,6 +48,7 @@
 			,#{mbrSexCd}
 			,#{mbrHomeAddr}
 			,#{mbrDelivryAddr}
+			,#{mbrDelivryCpNum}
 			,#{mbrCpNum}
 			,#{mbrCpCertYn}
 			,#{mbrCpCertDate}
@@ -232,6 +234,7 @@
 			,ARTST_ACTVTY_CITY_CD
 			,ARTST_SELF_INTRO
 			,ARTST_PROFILE_IMG_URL
+			,ARTST_WORK_IMG_URL
 			,ARTST_HMPG_URL
 			,ARTST_PROMTN_VIDEO_URL
 			,ARTST_FACEBOOK_URL
@@ -253,6 +256,7 @@
 			,#{artstActvtyCityCd}
 			,#{artstSelfIntro}
 			,#{artstProfileImgUrl}
+			,#{artstWorkImgUrl}
 			,#{artstHmpgUrl}
 			,#{artstPromtnVideoUrl}
 			,#{artstFacebookId}
@@ -276,6 +280,7 @@
 			<if test="artstActvtyCityCd">ARTST_ACTVTY_CITY_CD = #{artstActvtyCityCd},</if>
 			<if test="artstSelfIntro">ARTST_SELF_INTRO = #{artstSelfIntro},</if>
 			<if test="artstProfileImgUrl">ARTST_PROFILE_IMG_URL = #{artstProfileImgUrl},</if>
+			<if test="artstWorkImgUrl">ARTST_WORK_IMG_URL = #{artstWorkImgUrl},</if>
 			<if test="artstHmpgUrl">ARTST_HMPG_URL = #{artstHmpgUrl},</if>
 			<if test="artstPromtnVideoUrl">ARTST_PROMTN_VIDEO_URL = #{artstPromtnVideoUrl},</if>
 			<if test="artstFacebookUrl">ARTST_FACEBOOK_URL = #{artstFacebookUrl},</if>
@@ -298,6 +303,7 @@
 			,ARTST_ACTVTY_CITY_CD	AS artstActvtyCityCd      
 			,ARTST_SELF_INTRO		AS artstSelfIntro     
 			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
+			,ARTST_WORK_IMG_URL		AS artstWorkImgUrl 
 			,ARTST_HMPG_URL			AS artstHmpgUrl       
 			,ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
 			,ARTST_FACEBOOK_URL		AS artstFacebookUrl    
@@ -592,7 +598,8 @@
    		UPDATE
   				TBL_DA_MBR_M
    		SET
-   				MBR_DELIVRY_ADDR = #{mbrDelivryAddr}
+   				MBR_DELIVRY_ADDR = #{mbrDelivryAddr},
+   				MBR_DELIVRY_CP_NUM = #{mbrDelivryCpNum}
    		WHERE 
    				MBR_SQ = #{mbrSq}
    </update>
