@@ -88,8 +88,9 @@
          	var mgz9ListHtml = "";
          	
          	if(data.result != null && data.result.length > 0){
-         		mgz9List = data.result;	
-         		console.log(data);
+         		mgz9List = data.result;
+         		
+         		console.log(mgz9List[0].mgzMainImgUrl);
          		
          		for(var i=0; i<mgz9List.length; i++){
          			mgz9ListHtml += '<li>';

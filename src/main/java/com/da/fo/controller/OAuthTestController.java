@@ -69,8 +69,8 @@ public class OAuthTestController {
 		MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
 
 		accessTokenParams.add("grant_type", "authorization_code");
-		accessTokenParams.add("client_id", "bfkY1xo1RrQOxpKeXWD2"); 
-		accessTokenParams.add("client_secret", "lmdsOfC9Yr"); 
+		accessTokenParams.add("client_id", "FXgRR5OMp34hGHwZUM6i"); 
+		accessTokenParams.add("client_secret", "bJTl9NaiYe"); 
 		accessTokenParams.add("code" , code); // 응답으로 받은 코드 accessTokenParams.add("state" , state); // 응답으로 받은 상태
 		accessTokenParams.add("state" , state); // 응답으로 받은 상태
 
@@ -96,8 +96,8 @@ public class OAuthTestController {
 	      String apiURL = "https://openapi.naver.com/v1/nid/me";
 	      Map<String, String> requestHeaders = new HashMap<>();
 	      requestHeaders.put("Authorization", header);
-	      requestHeaders.put("client_id", "bfkY1xo1RrQOxpKeXWD2"); 
-	      requestHeaders.put("client_secret", "lmdsOfC9Yr"); 
+	      requestHeaders.put("client_id", "FXgRR5OMp34hGHwZUM6i"); 
+	      requestHeaders.put("client_secret", "bJTl9NaiYe"); 
 	      
 	      String responseBody = get(apiURL,requestHeaders);
 
