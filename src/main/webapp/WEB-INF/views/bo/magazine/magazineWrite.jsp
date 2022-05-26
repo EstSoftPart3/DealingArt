@@ -125,9 +125,15 @@
        
     DecoupledEditor
            .create( document.querySelector( '#editor' ) ,{
-           	extraPlugins: [MyCustomUploadAdapterPlugin],
+        	
+        	    //sourcedialog
+           		//plugins: [SourceEditing], 
+            	//toolbar: ['sourceEditing'],
+        	   extraPlugins: [MyCustomUploadAdapterPlugin],
+           	
            	
            } )
+           
            .then( editor => {
                const toolbarContainer = document.querySelector( '#toolbar-container' );
 
@@ -142,6 +148,8 @@
 	        return new UploadAdapter(loader)
 	    }
 	}
+    
+    
 	
 	$(document).ready(function() {
 		$("#file").bind('change', function() {

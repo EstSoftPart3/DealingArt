@@ -19,7 +19,8 @@
 			,UPDT_MBR_SQ        as updtMbrSq     
 			,UPDT_DT            as updtDt         
 			,DEL_YN             as delYn          
-			,USE_YN             as useYn          
+			,USE_YN             as useYn     
+			,MGZ_CONTENT        as mgzContent     
 		FROM TBL_DA_MGZ_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND MGZ_TYP_CD = #{mgzTypCd}

@@ -64,6 +64,24 @@
 </div>
 
 
+<style>
+.contentBox{
+  display:table;
+  table-layout:fixed;
+  width:100%;
+  height:200px;
+  
+  text-align:center;
+}
+.contentBox__item{
+  display:table-cell;
+  text-align:center;
+  vertical-align:middle;
+}
+
+</style>
+
+
 <script type="text/javascript">      
 
 /*
@@ -90,9 +108,19 @@
          	if(data.result != null && data.result.length > 0){
          		mgz9List = data.result;
          		
-         		console.log(mgz9List[0].mgzMainImgUrl);
          		
-         		for(var i=0; i<mgz9List.length; i++){
+         		
+         		for(var i=5; i<mgz9List.length; i++){
+         			console.log(mgz9List[i].mgzContent);
+         			timpStr = mgz9List[i].mgzContent;
+         			timpStr = timpStr.replaceAll("&lt;","<");
+   	        	    timpStr = timpStr.replaceAll("&gt;",">");
+   	        	    timpStr = timpStr.replaceAll("&amp;lt;","<");
+   	        	    timpStr = timpStr.replaceAll("&amp;gt;",">");
+   	        	    timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+   	        	    timpStr = timpStr.replaceAll("&amp;amp;","&");
+   	        	 
+         			/*
          			mgz9ListHtml += '<li>';
 	         		mgz9ListHtml += '	<a href="" class="mgz-youtube" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
 	         		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
@@ -105,6 +133,13 @@
 	         		mgz9ListHtml += '		</div>';
 	         		mgz9ListHtml += '	</a>';
 	         		mgz9ListHtml += '</li>';
+	         		*/
+         			mgz9ListHtml += '<li>';
+         			mgz9ListHtml += '<a href="#" class="mgz-youtube" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+         			mgz9ListHtml += '<div style="pointer-events:none;">'+ timpStr +'</div>';
+         			mgz9ListHtml += '</a>'
+         			mgz9ListHtml += '</li>';
+         		
              	}
          		
              	$("#mgz9List").empty();
@@ -121,12 +156,18 @@
  }
  
  
+ function onPlayerStateChange(event){
+	  console.log('State Change: ' + event.data);
+	}
+ 
  /*
   * MGZ9 상세 조회
   * PARAM : #MGZ_SQ
   * RETURN : MGZ9 상세
   */
   function selectMgz9Dtl(mgzSq){
+	  
+	console.log("selectMgz9Dtl");
   	
   	$.ajax({
           type: "post",
@@ -140,7 +181,18 @@
           	
           	if(data.result != null){
             	$("#lp_mgz9Dtl_cntnt").empty();
-            	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+            	
+            	timpStr = data.result.mgzContent;
+     			timpStr = timpStr.replaceAll("&lt;","<");
+	        	timpStr = timpStr.replaceAll("&gt;",">");
+	        	timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	timpStr = timpStr.replaceAll("&amp;amp;","&");
+            	
+            	$("#lp_mgz9Dtl_cntnt").append(timpStr).trigger("create");
+            	
+            	fn_styleNone();
         	}else{
         		modalAlertShow("검색 결과가 없습니다."); 
         		$("#lp_mgz9Dtl_cntnt").empty();
@@ -309,6 +361,13 @@
 });
  
  $('.selectpicker').selectpicker();
+ 
+//ckEditor Mouse Over Class Remove
+ function fn_styleNone() {
+ 	$(".ck-widget__type-around__button").css("display","none");
+ 	$(".ck-widget").css("outline-style","none");
+ 	$(".ck-widget__selection-handle").css("display","none");
+ }
  
 </script>
 	
