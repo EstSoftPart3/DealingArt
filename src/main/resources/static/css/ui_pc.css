@@ -112,7 +112,7 @@
 }
 
 .body-wrap {
-    padding-top: 80px;
+    padding-top: 66px;
 }
 
 .contents {
@@ -5045,3 +5045,11 @@ position: relative;background-color: #fbfbfb;}
 
 /* 0518 */
 .link-text{width:38px;}
+
+
+/* 0526 */
+.cont-title3 h3 span {
+    font-size: 18px;
+    padding-left: 15px;
+    color: #ccc
+}

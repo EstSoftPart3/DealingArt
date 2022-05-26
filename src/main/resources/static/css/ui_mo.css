@@ -178,7 +178,7 @@ html, body{font-size: calc(100vw / 75);}
 
 
 .body-wrap{
-    padding-top: 9.7rem;
+    padding-top: 7.7rem;
 }
 .contents{}
 
@@ -5453,3 +5453,11 @@ position: relative;background-color: #fbfbfb;}
 .mobile-con-wrap .con-left .panel-group .panel.active a{color: #fff;}
 .mobile-con-wrap .con-left .panel-group .panel-title{font-size: 2.2rem;}
 .mobile-con-wrap .con-right{display: block;width: 100%;margin: 0 auto;max-width: 100% !important;}
+
+
+/* 0526 */
+.cont-title3 h3 span {
+    font-size: 2rem;
+    padding-left: 15px;
+    color: #ccc
+}
