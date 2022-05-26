@@ -162,10 +162,7 @@
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				DATEDIFF(D.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(D.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec /*거래남은초*/
+				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN

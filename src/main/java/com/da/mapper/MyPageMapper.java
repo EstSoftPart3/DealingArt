@@ -152,14 +152,14 @@ public interface MyPageMapper {
 	 * param : 스크랩한 작품 번호가 들어있는 List
 	 * return : 스크랩 목록이 들어있는 List
 	 */
-	public List<String> scrapListNonSale(List<String> param);
+	public List<Map<String, Object>> scrapListNonSale(Object param);
 	
 	/*
 	 * 판매중인 스크랩 목록
 	 * param : 스크랩한 작품 번호가 들어있는 List
 	 * return : 스크랩 목록이 들어있는 List
 	 */
-	public List<String> scrapListSale(List<String> param);
+	public List<Map<String, Object>> scrapListSale(Object param);
 	
 	/*
 	 * 구매 결제 상태 변경

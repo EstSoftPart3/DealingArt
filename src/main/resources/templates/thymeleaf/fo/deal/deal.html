@@ -683,18 +683,16 @@
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
 		     					
-		     					if(dealList[i].dealTypCd == "A"){
-		     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
-		    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
-		     						}else{
-		     							html += '<h4>입찰가 0 KRW</h4>';
-		     						}
-		    	     				/* html += '<p class="ts-2">';
-		    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
-		    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
-		    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
-		    	     				html += '</p>'; */
-		    	     			}
+	     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
+	    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+	     						}else{
+	     							html += '<h4>입찰가 0 KRW</h4>';
+	     						}
+	    	     				/* html += '<p class="ts-2">';
+	    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
+	    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
+	    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
+	    	     				html += '</p>'; */
 		     					
 		     					html += '</div>'
 		     					
