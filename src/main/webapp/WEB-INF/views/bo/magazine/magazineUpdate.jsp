@@ -84,14 +84,14 @@
 						 				<div class="form-group row">
 						 					<label class="col-form-label sTitle LabelStyle" style="text-align: center;">설명</label>
 	                    					<div class="col-sm-11">
-	                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="">
+	                      						<input type="text" class="form-control sTitle classname"  id="mgzDescrptn" name="mgzDescrptn" value="" style="height:80px;">
 	                    					</div>
 						 				</div>
 						 				
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td valign="top">
+					 				<td valign="top" id="mainImg">
 					 					
 					 					<div class="card card-primary card-outline" style="height:300px;width:250px;">
 		              						<div class="card-body box-profile">
@@ -117,13 +117,13 @@
 					 				</td>
 					 				<td>
 					 					<div class="col-sm-12">
-					 						<div id="toolbar-container" style="width:650px;"></div>
-                    						<div id="editor" style="border: 1px solid #efefef;width:650px;">
+					 						<div id="toolbar-container" style="width:800px;"></div>
+                    						<div id="editor" style="border: 1px solid #efefef;width:800px;">
 					 					</div>
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td style="padding-right:10px;text-align:right" colspan="2">
+					 				<td  colspan="2" style="text-align:right">
 					 					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardUpdate();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
@@ -373,7 +373,8 @@
 				     } });
 				 return;
 	   	 }
-	   	 
+	   	<% if(!mgzTypCd.equals("MDA")) { %>
+	   	
 	   	 //잡지 메인 이미지
 	   	 if(isEmpty(mgzDescrptn)) {
 	   		bootbox.alert({
@@ -384,6 +385,7 @@
 				     } });
 				 return;
 	   	 }
+	   	 <% } %>
 	   	 
 	     //잡지 내용
 	   	 if(isEmpty(mgzContent)) {
@@ -558,6 +560,11 @@
    
      </script>
  
+   <% if(mgzTypCd.equals("MDA")) { %>
+    <script>
+    	$("#mainImg").hide(); 
+    </script>
+   <% } %>>
  
 </body>
 </html>

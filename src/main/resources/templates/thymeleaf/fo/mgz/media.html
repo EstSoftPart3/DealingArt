@@ -53,7 +53,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="conts">
-				    <div data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png"></div>
+				    <div data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png"></div>
 				</div>
 			</div>
 			<div id="editor" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
@@ -110,7 +110,7 @@
          		
          		
          		
-         		for(var i=5; i<mgz9List.length; i++){
+         		for(var i=0; i<mgz9List.length; i++){
          			console.log(mgz9List[i].mgzContent);
          			timpStr = mgz9List[i].mgzContent;
          			timpStr = timpStr.replaceAll("&lt;","<");
@@ -137,8 +137,17 @@
          			mgz9ListHtml += '<li>';
          			mgz9ListHtml += '<a href="#" class="mgz-youtube" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
          			mgz9ListHtml += '<div style="pointer-events:none;">'+ timpStr +'</div>';
+         			mgz9ListHtml += '		<div class="ml-div">';
+	         		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+	         		mgz9ListHtml += '			<div class="ml-p">';
+	         		mgz9ListHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+	         		mgz9ListHtml += '			</div>';
+	         		mgz9ListHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+	         		mgz9ListHtml += '		</div>';
          			mgz9ListHtml += '</a>'
          			mgz9ListHtml += '</li>';
+         			
+         			iframeSize();
          		
              	}
          		
@@ -189,8 +198,11 @@
 	        	timpStr = timpStr.replaceAll("&amp;gt;",">");
 	        	timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
 	        	timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	timpStr = timpStr.replaceAll("&nbsp;","");
             	
             	$("#lp_mgz9Dtl_cntnt").append(timpStr).trigger("create");
+            	
+            	
             	
             	fn_styleNone();
         	}else{
@@ -368,6 +380,24 @@
  	$(".ck-widget").css("outline-style","none");
  	$(".ck-widget__selection-handle").css("display","none");
  }
+ 
+ 
+ function iframeSize() {
+	 
+	$(document).ready(function () {
+	    var appDevice = $("#appDevice").val();
+	    if(appDevice == "MOBILE") {
+	    	 $("iframe").height('100%');
+	    	 $("iframe").width('100%');
+	    } else {
+	    	$("iframe").width(360);
+		    $("iframe").height(210);	
+	    }
+		
+	});
+	 
+	  
+}
  
 </script>
 	
