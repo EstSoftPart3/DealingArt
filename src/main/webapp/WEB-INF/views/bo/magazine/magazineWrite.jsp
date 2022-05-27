@@ -95,7 +95,7 @@
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td style="padding-left:10px;text-align:left" colspan="2">
+					 				<td colspan="2" style="text-align:right">
 					 					<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
 					 					<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
 					 				</td>

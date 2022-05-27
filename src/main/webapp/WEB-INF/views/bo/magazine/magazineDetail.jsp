@@ -108,19 +108,16 @@
 					 				
 					 				</td>
 					 			</tr>
-					 		</table>
-					 	
-					 		<div class="col-md-8">
-					 			<div class="form-group row">
-                    				
-                    				<div class="col-sm-8" style="text-align:left">
-                    					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
+					 			<tr>
+					 				<td style="text-align:right" colspan="2">
+					 					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardUpdatepage();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
-                    				</div>
-                    				
-                    			</div>
-					 		</div>
+					 				</td>
+					 			</tr>
+					 		</table>
+					 	
+					 		
 					 	</div>
 
 					 </div>
