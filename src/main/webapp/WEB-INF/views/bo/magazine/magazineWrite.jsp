@@ -63,7 +63,7 @@
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td valign="top">
+					 				<td valign="top" id="mainImg">
 					 					
 					 					<div class="card card-primary card-outline" style="height:300px;width:250px;">
 		              						<div class="card-body box-profile">
@@ -89,19 +89,15 @@
 					 				</td>
 					 				<td>
 					 					<div class="col-sm-12">
-					 						<div id="toolbar-container" style="width:650px;"></div>
-                    						<div id="editor" style="border: 1px solid #efefef;width:650px;">
+					 						<div id="toolbar-container" style="width:800px;"></div>
+                    						<div id="editor" style="border: 1px solid #efefef;width:800px;">
 					 					</div>
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td style="padding-right:10px;text-align:right" colspan="2">
-					 					
-					 					
-					 						<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
-					 						<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
-					 					
-					 					
+					 				<td style="padding-left:10px;text-align:left" colspan="2">
+					 					<button type="button" class="btn btn-info sTitle" onclick="magazineList();">리스트로 돌아가기</button>
+					 					<button type="button" class="btn btn-info sTitle" onclick="magazineInput();">저장</button>
 					 				</td>
 					 			</tr>
 					 		</table>
@@ -283,6 +279,8 @@
 			 return;
    	 }
    	 
+   	<% if(!mgzTypCd.equals("MDA")) { %>
+   	 
    	 //잡지 메인 이미지
    	 if(isEmpty(mgzMainImgUrl)) {
    		bootbox.alert({
@@ -293,6 +291,8 @@
 			     } });
 			 return;
    	 }
+   	 <%}%>
+   	 
    	 
      //잡지 내용
    	 if(isEmpty(mgzContent)) {
@@ -407,6 +407,11 @@
    
      </script>
  
+  <% if(mgzTypCd.equals("MDA")) { %>
+    <script>
+    	$("#mainImg").hide(); 
+    </script>
+   <% } %>>
  
 </body>
 </html>

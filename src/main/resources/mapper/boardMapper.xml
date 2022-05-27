@@ -117,6 +117,7 @@
             TBL_DA_MGZ_M A 
         WHERE 1=1
          	AND A.MGZ_TYP_CD = #{mgzTypCd}
+         	AND A.USE_YN = 'Y'
          	ORDER BY MGZ_SQ DESC
     </select>
     

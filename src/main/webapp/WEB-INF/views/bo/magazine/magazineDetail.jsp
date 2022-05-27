@@ -19,9 +19,9 @@
 		mgzName = "전시회";
 	}
 	
-	if(mgzTypCd.equals("MDA")) {
-		response.sendRedirect("/admin/magazine/magazineUpdate?mgzSq="+mgzSq+"&mgzTypCd=MDA");	
-	}
+// 	if(mgzTypCd.equals("MDA")) {
+// 		response.sendRedirect("/admin/magazine/magazineUpdate?mgzSq="+mgzSq+"&mgzTypCd=MDA");	
+// 	}
 	
 %>
 
@@ -74,7 +74,7 @@
 					 				</td>
 					 			</tr>
 					 			<tr>
-					 				<td valign="top">
+					 				<td valign="top" id="mainImg">
 					 					
 					 					<div class="card card-primary card-outline" style="height:300px;width:250px;">
 		              						<div class="card-body box-profile">
@@ -110,10 +110,10 @@
 					 			</tr>
 					 		</table>
 					 	
-					 		<div class="col-md-9">
+					 		<div class="col-md-8">
 					 			<div class="form-group row">
                     				
-                    				<div class="col-sm-9" style="text-align:right">
+                    				<div class="col-sm-8" style="text-align:left">
                     					<button type="button" class="btn btn-info sTitle" onclick="boardList();">리스트로 돌아가기</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardUpdatepage();">수정</button>
                     					<button type="button" class="btn btn-info sTitle" onclick="boardDelete();">삭제</button>
@@ -207,6 +207,8 @@
 	        	 
 	        	 //ckEditor Mouse Over Class Remove
 	        	 fn_styleNone();
+	        	 
+	        	 iframeSize();
 
 	           },
 	           error: function(error) {
@@ -291,12 +293,21 @@
  
 
    </script>
-   
-   <script>
-    
-   
-     </script>
- 
+   <% if(mgzTypCd.equals("MDA")) { %>
+    <script>
+    	$("#mainImg").hide(); 
+    	
+    		function iframeSize() {
+    	
+    			$(document).ready(function () {
+    	      	     
+    	    	$("iframe").width(987);
+    			$("iframe").height(500);	
+    	       		
+    		});
+    	}
+    </script>
+   <% } %>>
  
 </body>
 </html>
