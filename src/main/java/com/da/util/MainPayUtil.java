@@ -191,6 +191,7 @@ public class MainPayUtil {
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> parameters = mainPayMapper.getMainPayRequest(paramMap.get("aid").toString());
+		Map<String, Object> param = new HashMap<>();
 		
 		System.out.println("################################# 결제 paramMap :"+paramMap);
 		String resultCode = "";
@@ -204,22 +205,25 @@ public class MainPayUtil {
 		}
 		
 		/*승인요청 파라미터 세팅*/
-		parameters.put("version", "V001"); //버전정보
-		parameters.put("mbrNo", mbrNo); //섹터나인에서 부여한 가맹점 번호(상점 아이디)
-		parameters.put("authToken", paramMap.get("authToken").toString()); //거래인증용 토큰, approvalUrl에서 수신한 값사용
-		parameters.put("amount", parameters.get("amount").toString());
+		param.put("version", "V001"); //버전정보
+		param.put("mbrNo", mbrNo); //섹터나인에서 부여한 가맹점 번호(상점 아이디)
+		param.put("aid", paramMap.get("aid").toString());
+		param.put("mbrRefNo", parameters.get("mbrRefNo").toString());
+		param.put("authToken", paramMap.get("authToken").toString()); //거래인증용 토큰, approvalUrl에서 수신한 값사용
+		param.put("paymethod", paramMap.get("paymethod").toString());
+		param.put("amount", parameters.get("amount").toString());
 		
 		String responseJson = "";
 		Map<String, Object> responseMap = new HashMap<>();
 	    try{
 	    	/* 결제준비 API 호출   */
 	    	String payUrl = stdApiBase + payUri;
-	    	responseJson = HttpSendTemplate.post(payUrl, parameters, apiKey);
+	    	responseJson = HttpSendTemplate.post(payUrl, param, apiKey);
 	    } catch(Exception e) {
 	    	/* 망취소 처리(승인API 호출 도중 응답수신에 실패한 경우) */
 	    	String netCancelUrl = stdApiBase + cancelUri;
 	    	try {
-				HttpSendTemplate.post(netCancelUrl, parameters, apiKey);
+				HttpSendTemplate.post(netCancelUrl, param, apiKey);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
