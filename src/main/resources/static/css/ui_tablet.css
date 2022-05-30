@@ -5187,3 +5187,39 @@ position: relative;background-color: #fbfbfb;}
     padding-left: 15px;
     color: #ccc
 }
+
+/* 0527 */
+.terms-wrap{}
+.terms-wrap ul{}
+.terms-wrap ul li{}
+.terms-wrap ul li a{color: #4e4e4e !important;font-size: 16px;border: #e1e1e1 1px solid !important;margin: 0;border-radius: 0;border-right: none !important;}
+.terms-wrap ul li:last-child a{border: #e1e1e1 1px solid !important;}
+.terms-wrap ul li.active a{color: #e9625c !important;border: #e9625c 1px solid !important;border-radius: 0 !important;font-size: 16px;}
+.terms-wrap ul li:hover a{color: #e9625c !important;border: #e9625c 1px solid !important;border-radius: 0 !important;font-size: 16px; background:#fff !important;}
+.terms-wrap .tab-content{border-left: #e1e1e1 1px solid;border-bottom: #e1e1e1 1px solid;border-right: #e1e1e1 1px solid;}
+.terms-wrap .tab-content .tab-pane{padding: 20px;font-size: 12px;}
+.terms-wrap .tab-content .tab-pane h3{font-size: 22px;font-weight: 600;}
+.terms-wrap .tab-content .tab-pane p{font-size: 18px;padding-top: 15px;}
+
+.modal-demo-2{ display: table; width: 100%;padding-bottom: 3rem;}
+.modal-demo-2 .modmo-left{ display: table-cell; width: 24rem;height: 40rem;}
+.modal-demo-2 .modmo-left img{width: 24rem;height: 40rem;}
+.modal-demo-2 .modmo-right{ display: table-cell; vertical-align: top; padding-left: 2rem;}
+.modal-demo-2 .modmo-right h3{ font-size: 2.6rem; font-weight: 600; padding-bottom: 2.4rem;padding-top: 0;color: #333333;}
+.modal-demo-2 .modmo-right h4{font-size: 2.6rem;color: #333333;margin-bottom: 2.4rem;}
+.modal-demo-2 .modmo-right .mrp1{ font-size: 14px; color: #999999;}
+.modal-demo-2 .modmo-right .mrp2{ font-size: 16px; font-weight: 600; color: #333333;}
+.infat-h4{text-align: center;font-size: 3rem;font-weight: 600;padding-top: 1rem;padding-bottom: 6rem;}
+.md2-list{font-size: 1.8rem;color: #808080;font-weight: 500;margin-bottom: 1rem;}
+.md2-list .md2-sp1{display: inline-block;width: 9rem;}
+.md2-list .md2-sp2{padding-left: 16px;}
+
+.tstyle4{width: 100%;}
+.tstyle4 th{ font-size: 1.3rem; font-weight: 600; color: #999999; width: 25rem; /* padding-bottom: 30px; */background: #ededed;border: #cdcdcd 1px solid;padding: 1rem;}
+.tstyle4 td{ color: #333333; font-size: 1.3rem; font-weight: 600; /* padding-bottom: 30px; */border: #cdcdcd 1px solid;padding: 1rem;}
+.tstyle4 tr:last-child th{padding-bottom:0;}
+.tstyle4 tr:last-child td{padding-bottom:0;}
+p.dib{display:inline-block !important;}
+#myModal5 .check-info{width: calc(100% - 18.5rem);/* white-space: nowrap; */}
+#myModal6 .check-info{}
+.terms-body{padding-top:5rem;}

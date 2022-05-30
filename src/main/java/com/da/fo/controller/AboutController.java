@@ -37,6 +37,23 @@ public class AboutController {
 		return "thymeleaf/fo/about/customerService";
 	}
 	
+	//이용약관
+	@RequestMapping("/termOfService")
+	public String openTermOfService() {
+		return "thymeleaf/fo/about/terms_1";
+	}
+	
+	//개인정보취급방침
+	@RequestMapping("/privacyPolicy")
+	public String openPrivacyPolicy() {
+		return "thymeleaf/fo/about/terms_2";
+	}
+	
+	//마케팅및광고
+	@RequestMapping("/marketing")
+	public String openMarketing() {
+		return "thymeleaf/fo/about/terms_3";
+	}
 	/*
 	 * 게시판 목록 조회
 	 * PARAM : BRD_TYP_CD = #{brdTypCd}

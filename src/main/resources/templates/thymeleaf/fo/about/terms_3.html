@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+		<div class="body-wrap terms-body">
+			
+			<div class="contents max-1500">
+				<div class="cont-title3" style="margin:0;">
+					<h3>이용약관 및 개인정보 보호 작품명</h3>
+				</div>
+				
+				<div class="terms-wrap">
+					<ul class="nav nav-tabs">
+						<li><a href="/termOfService">이용약관</a></li>
+						<li><a href="/privacyPolicy">개인정보처리방침</a></li>
+						<li class='active'><a href="#">마케팅및광고성</a></li>
+					</ul>
+					<div class="tab-content">
+						
+						<div class="tab-pane fade in active" id="tabmenu_03">
+							<h3>마케팅 및 광고성 정보 수신에 대한 동의</h3><br/>
+
+							[선택] 맨션나인 주식회사(이하 "회사")는 전자적 전송매체를 이용하여 영리목적의 광고성 정보를 전송하기 위하여 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제50조 및 개인정보 보호법 제22조 제4항에 따라 회원의 사전 수신 동의를 얻고 있습니다. 회원은 마케팅 및 광고 수신에 동의한 경우에도 언제든지 동의를 철회하거나, 마케팅 목적의 정보 전송을 중지할 것을 요청할 수 있습니다. <br/>
+							<p>개인정보 이용목적</p>
+							회사의 전시 및 신규 사업 소개 등 광고, 홍보 및 마케팅 목적`<br/>
+							<p>개인정보 수집항목</p>
+							이메일, 휴대전화번호, 로그인ID, 성별, 생년월일, 이름<br/>
+							<p>개인정보 보유기간</p>
+							별도 동의 철회 시까지 또는 회원탈퇴 시까지<br/>
+							<p>제공방법</p>
+							SMS문자, 전화, 이메일 발송, 앱 푸시 알림, 우편물<br/><br/>
+							
+							* 귀하께서는 회사의 마케팅 및 광고 목적 정보 수신에 대한 동의를 거부할 수 있으나, 이 경우 경매 정보 및 경매 일정 안내 서비스 등이 제한될 수 있습니다.<br/>
+							* 보다 자세한 내용에 대하여는 개인정보 처리방침을 참고하시기 바랍니다.
+														
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		
+	</div>
+
+
+<!-- 모달검색 -->
+<!-- Modal -->
+<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sech">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+
+			</div>
+			<div class="modal-body">				
+				<!-- 검색버튼 클릭시 -->
+				<div class="search-show">
+					<div class="sea-box">
+						<img src="../common/img/w-logo.jpg" class="sea-img" />
+						
+						<div class="sea-won">
+							<!-- <div class="select-box">
+								<select>
+									<option>작가명</option>
+								</select>
+							</div> -->
+							<input type="text" class="" />
+							<a href="#"><img src="../common/img/icon-2.jpg" /></a>
+						</div>
+						<div class="ta-h3">
+							<h3 class="sea-h3">작품</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+						<div class="ta-h3">
+							<h3 class="sea-h3">작가</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+						<div class="ta-h3">
+							<h3 class="sea-h3">컨텐츠</h3>
+							<a href="#"><span>more</span></a>
+						</div>
+						<ul class="sea-text">
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+							<li><a href="#">text</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+      
+      
+     /*  $(window).on("resize", function () {
+	   	    if(window.matchMedia('(min-width: 1537px)').matches)
+	   	    {
+	   	    	var swiper = new Swiper(".mySwiper1", {
+	   	          slidesPerView: 4,
+	   	          spaceBetween: 20,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	       	  autoplay: {
+	               delay: 300000,
+	               disableOnInteraction: false,
+	             },
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swl-1",
+	   	            prevEl: ".swr-1",
+	   	          },
+	   	        });  
+		       	  
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 4,
+		   	          spaceBetween: 20,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	       	  autoplay: {
+		               delay: 300000,
+		               disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-2",
+		   	            prevEl: ".swr-2",
+		   	          },
+		   	        });
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper4", {
+		   	          slidesPerView: 4,
+		   	          spaceBetween: 20,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	       	  autoplay: {
+		               delay: 300000,
+		               disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-3",
+		   	            prevEl: ".swr-3",
+		   	          },
+		   	        });  
+	   	    	
+	   	    	
+	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+	   	    	var swiper = new Swiper(".mySwiper1", {
+	   	          slidesPerView: 3,
+	   	          spaceBetween: 30,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	          autoplay: {
+	               delay: 3000,
+	               disableOnInteraction: false,
+	             },
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swl-1",
+	   	            prevEl: ".swr-1",
+	   	          },
+	   	     });
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 3,
+		   	          spaceBetween: 30,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	          autoplay: {
+		               delay: 3000,
+		               disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-2",
+		   	            prevEl: ".swr-2",
+		   	          },
+		   	     });
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper4", {
+		   	          slidesPerView: 3,
+		   	          spaceBetween: 30,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	          autoplay: {
+		               delay: 3000,
+		               disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-3",
+		   	            prevEl: ".swr-3",
+		   	          },
+		   	     });
+		       	
+		       	
+	   	    	
+	   	     } else {
+	   	    	var swiper = new Swiper(".mySwiper1", {
+	   	          slidesPerView: 1,
+	   	          slidesPerGroup: 1,
+	   	          loop: true,
+	   	          loopFillGroupWithBlank: true,
+	   	      	  autoplay: {
+	              delay: 3000,
+	              disableOnInteraction: false,
+	             },
+	   	          pagination: {
+	   	            el: ".swiper-pagination",
+	   	            clickable: true,
+	   	          },
+	   	          navigation: {
+	   	            nextEl: ".swl-1",
+	   	            prevEl: ".swr-1",
+	   	          },
+	   	     });
+	   	    	
+	       	  
+	   	    	var swiper = new Swiper(".mySwiper2", {
+		   	          slidesPerView: 1,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	      	  autoplay: {
+		              delay: 3000,
+		              disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-2",
+		   	            prevEl: ".swr-2",
+		   	          },
+		   	     });
+	   	    	
+	   	    	var swiper = new Swiper(".mySwiper4", {
+		   	          slidesPerView: 1,
+		   	          slidesPerGroup: 1,
+		   	          loop: true,
+		   	          loopFillGroupWithBlank: true,
+		   	      	  autoplay: {
+		              delay: 3000,
+		              disableOnInteraction: false,
+		             },
+		   	          pagination: {
+		   	            el: ".swiper-pagination",
+		   	            clickable: true,
+		   	          },
+		   	          navigation: {
+		   	            nextEl: ".swl-3",
+		   	            prevEl: ".swr-3",
+		   	          },
+		   	     });
+	       	  
+	       	  
+	       	  
+	       	  
+	       	  
+	       	  
+	   	     };
+	   	}).resize(); */
+      
+      
+      
+      $(document).ready(function () {
+	      $(".elm").hover(
+	    	function(){ $(this).addClass('hover') },
+	   	    function(){ $(this).removeClass('hover') }
+	   	  )
+	   	  $(".cn-b").hover(
+	    	function(){ $(this).addClass('gis') },
+	   	    function(){ $(this).removeClass('gis') }
+	   	  )
+      });
+      
+      $(function() {                      
+    	  $(".bab-bo").click(function() { 
+    	    $(this).toggleClass("bashow");     
+    	  });
+    	  
+    	  $(".lg-my").click(function() { 
+      	    $('.bg-sh').toggleClass('bg-show');     
+      	 	 $('.s-hov').toggleClass('s-hov-show');     
+      	  });
+    	  
+    	});
+      
+      
+      
+      
+      /* 메뉴바 FIXED */
+      if (jQuery(window).width() > 0) {
+          jQuery(window).on("scroll",function(ev){
+              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+                  jQuery('.head-wrap').addClass('fixed');
+              }
+              else{
+                  jQuery('.head-wrap').removeClass('fixed');
+              }
+              return false;
+          });
+      }
+      
+      
+      var delay = 300;
+      var timer = null;
+
+      //Javascript
+     /*  window.addEventListener('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      }); */
+
+      //jQuery
+     /*  $(window).on('resize', function(){
+      	clearTimeout(timer);
+      	timer = setTimeout(function(){
+      		document.location.reload();
+      	}, delay);
+      }); */
+      
+      
+      
+    </script>
+    
+	
+	
+	
+	
+</body>
+
+</html>
