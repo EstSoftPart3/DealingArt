@@ -341,4 +341,54 @@
 		WHERE 
 				A.WORK_SQ = #{workSq}
 	</select>
+	<select id="selectAutoBid" resultType="hashMap" parameterType="hashMap">
+		/*자동응찰 내용 조회*/
+		SELECT
+				MBR_SQ AS mbrSq,
+				DEAL_SQ AS dealSq,
+				AUTO_BID_PRC AS autoBidPrc
+		FROM 
+				TBL_DA_AUTO_BID_H
+		WHERE 
+				DEAL_SQ = #{dealSq}
+				AND AUTO_BID_PRC <![CDATA[>]]> #{bidPrc}
+		ORDER BY AUTO_BID_DT ASC, AUTO_BID_PRC ASC 
+	</select>
+	<select id="selectMaxAutoBidPrc" resultType="hashMap" parameterType="long">
+		/*자동응찰 최고 금액 조회*/
+		SELECT
+				AUTO_BID_PRC
+		FROM 
+				TBL_DA_AUTO_BID_H
+		WHERE 
+				DEAL_SQ = #{dealSq}
+				AND AUTO_BID_PRC <![CDATA[>]]> #{bidPrc}
+		ORDER BY AUTO_BID_PRC DESC
+		LIMIT 1
+	</select>
+	<insert id="insertAutoBid">
+		/*자동응찰 등록*/
+		INSERT INTO
+					TBL_DA_AUTO_BID_H(
+						MBR_SQ,
+						DEAL_SQ,
+						AUTO_BID_PRC,
+						AUTO_BID_DT
+					) VALUES (
+						#{mbrSq},
+						#{dealSq},
+						#{autoBidPrc},
+						NOW()
+					)
+	</insert>
+	<update id="updateLastBid">
+		/*마지막 입찰자 자동응찰 빠른 순으로 변경*/
+		UPDATE
+				TBL_DA_AUCTN_BID_H
+		SET
+				MBR_SQ = #{mbrSq}
+		WHERE
+				DEAL_SQ = #{dealSq}
+			AND BID_PRC = #{bidPrc}
+	</update>
 </mapper>

@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.thymeleaf.util.ListUtils;
 
 import com.da.mapper.ArtistMapper;
 import com.da.mapper.DealMapper;
@@ -80,15 +82,140 @@ public class DealDao {
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
 	 */
-	public int bidReg(Object param) {
-		int checkResult = dealMapper.bidRegCheck(param);
-		if(checkResult > 0) {
-			return -1;
-		}else{
-			int regResult = dealMapper.bidReg(param);
-			regResult += dealMapper.updateDealAuctnPrc(param);
-			return regResult;
+	public int bidReg(Map<String, Object> param) {
+		if(param.get("autoBidPrc") != null) { //자동응찰이면
+			dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
+			int autoBidResult = autoBid(param);
+			if(autoBidResult != -1) { //자동응찰 실패가 아니면
+				if(autoBidResult == 0) { //자동응찰이 성공적으로 등록 되었으면
+					return 10;
+				}
+				if(autoBidResult == 1) { //자동응찰이 성공적으로 등록 되었지만 더 높은 응찰자가 있으면
+					return 11;
+				}
+				if(autoBidResult == 2) { //자동응찰이며 같은 금액으로 자동응찰 내역이 있으며 자동응찰 일시가 늦으면
+					return 12;
+				}
+			}
+			return -11;
+		}else{	
+			int checkResult = dealMapper.bidRegCheck(param); //응찰가 현재 응찰가보다 낮거나 같으면
+			if(checkResult > 0) {
+				return -1; //-1를 리턴해준다
+			}else{ //응찰가 현재 응찰가보다 높으면
+				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
+				regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				autoBid(param); //자동응찰
+				return regResult;
+			}
 		}
+	}
+	
+	/*
+	 * 자동응찰 내역이 있으면 자동응찰을 실행한다.
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : null
+	 */
+	public int autoBid(Map<String, Object> param) {
+		List<Map<String, Object>> result = dealMapper.selectAutoBid(param);
+		if(!ListUtils.isEmpty(result)) {
+			Map<String, Object> paramMap = new HashMap<>();
+			if(result.size() > 1) {
+				long bidPrc = Long.parseLong(param.get("bidPrc").toString());
+				bidPrc += askingPrice(bidPrc);
+				param.put("bidPrc", bidPrc);
+				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
+				regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				long autoBidPrc1 = Long.parseLong(result.get(0).get("autoBidPrc").toString());
+				long autoBidPrc2 = Long.parseLong(result.get(1).get("autoBidPrc").toString());
+				if(autoBidPrc1 == autoBidPrc2) {
+					if(Integer.parseInt(param.get("mbrSq").toString()) == Integer.parseInt(result.get(1).get("mbrSq").toString())){
+						loop :
+						for(int j=0; j<30; j++) {
+							for(int i=0; i<result.size(); i++) {
+								bidPrc += askingPrice(bidPrc);
+								if(bidPrc > autoBidPrc1) {
+									break loop;
+								}
+								paramMap.put("mbrSq", result.get(i).get("mbrSq"));
+								paramMap.put("dealSq", result.get(i).get("dealSq"));
+								paramMap.put("bidPrc", bidPrc);
+								dealMapper.bidReg(paramMap);
+								
+							}
+							dealMapper.updateDealAuctnPrc(paramMap);
+						}
+						paramMap.put("mbrSq", result.get(0).get("mbrSq").toString());
+						dealMapper.updateLastBid(paramMap);
+						return 2;
+					}
+				}else{
+				loop :
+					for(int j=0; j<30; j++) {
+						for(int i=0; i<result.size(); i++) {
+							bidPrc += askingPrice(bidPrc);
+							paramMap.put("mbrSq", result.get(i).get("mbrSq"));
+							paramMap.put("dealSq", result.get(i).get("dealSq"));
+							paramMap.put("bidPrc", bidPrc);
+							dealMapper.bidReg(paramMap);
+							if(bidPrc > autoBidPrc1) {
+								break loop;
+							}
+						}
+						dealMapper.updateDealAuctnPrc(paramMap);
+					}
+				return 1;
+				}
+			}else{
+				long bidPrc = Long.parseLong(param.get("bidPrc").toString());
+				bidPrc += askingPrice(bidPrc);
+				param.put("bidPrc", bidPrc);
+				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
+				regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				return 0;
+			}
+		}
+		return -1;
+	}
+	
+	/*
+	 * 호가를 계산해서 리턴해준다.
+	 * param : bidPrc
+	 * return : long
+	 */
+	public long askingPrice(long prc){
+		long returnVal = 0;
+		if (prc > 0 && prc < 300000) {
+			returnVal = 20000;
+		}
+		if (prc >= 300000 && prc < 1000000) {
+			returnVal = 50000;
+		}
+		if (prc >= 1000000 && prc < 3000000) {
+			returnVal = 100000;
+		}
+		if (prc >= 3000000 && prc < 5000000) {
+			returnVal = 200000;
+		}
+		if (prc >= 5000000 && prc < 10000000) {
+			returnVal = 500000;
+		}
+		if (prc >= 10000000 && prc < 30000000) {
+			returnVal = 1000000;
+		}
+		if (prc >= 30000000 && prc < 50000000) {
+			returnVal = 2000000;
+		}
+		if (prc >= 50000000 && prc < 200000000) {
+			returnVal = 5000000;
+		}
+		if (prc >= 200000000 && prc < 500000000) {
+			returnVal = 10000000;
+		}
+		if (prc >= 500000000) {
+			returnVal = 20000000;
+		}
+		return returnVal;
 	}
 	
 	/*

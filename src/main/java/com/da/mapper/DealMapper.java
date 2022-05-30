@@ -80,4 +80,32 @@ public interface DealMapper {
 	 * return : 작품 상세 정보
 	 */
 	public Map<String, Object> workDetail(Object param);
+	
+	/*
+	 * 자동응찰 있는지 조회
+	 * param : dealSq, bidPrc
+	 * return : autoBidPrc
+	 */
+	public List<Map<String, Object>> selectAutoBid(Object param);
+	
+	/*
+	 * 자동응찰 등록
+	 * param : dealSq, mbrSq, autoBidPrc
+	 * return : null
+	 */
+	public void insertAutoBid(Object param);
+	
+	/*
+	 * 자동응찰 최고 금액 조회
+	 * param : dealSq, mbrSq
+	 * return : maxAutoBidPrc
+	 */
+	public Long selectMaxAutoBidPrc(Object param);
+	
+	/*
+	 * 자동응찰 빠른 순으로 마지막 입찰자 변경
+	 * param : dealSq, bidPrc
+	 * return : null
+	 */
+	public void updateLastBid(Object param);
 }

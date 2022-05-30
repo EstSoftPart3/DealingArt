@@ -49,7 +49,7 @@ public class DealServiceImpl implements DealService{
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
 	 */
-	public int bidReg(Object param) {
+	public int bidReg(Map<String, Object> param) {
 		return dealDao.bidReg(param);
 	}
 	

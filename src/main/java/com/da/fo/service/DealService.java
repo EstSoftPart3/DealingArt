@@ -30,7 +30,7 @@ public interface DealService {
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
 	 */
-	public int bidReg(Object param);
+	public int bidReg(Map<String, Object> param);
 	
 	/*
 	 * 작품 상세 페이지 (미판매)

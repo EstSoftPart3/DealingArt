@@ -140,7 +140,7 @@
 										</th>
 										<td>
 											<div class="selec-box">
-												<select class="selectpicker" id="sbx_bidPrc" >
+												<select class="selectpicker" id="sbx_bidPrc" data-size="11">
 													<option value="null" style="font-size:18px;">-선택-</option>
 												</select>
 											</div>
@@ -514,38 +514,85 @@ function btn_purchaseOrBid_onclick(){
 			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 		}else{
 			if($("#sbx_bidPrc").val() != "null"){
-				$.ajax({
-			        type: "post",
-			        url: "/bidReg",
-			        data : {
-			        	dealSq : result.deal.dealSq,
-			        	mbrSq : sMbrSqVal,
-			        	bidPrc : parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''))
-			        }, 
-			        success: function(data) {
-			        	if(data.result == -1){
-				        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
-			        	}
-			        	if(data.result == 2){
-			        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
-								if(confrim){
-									location.href = "/myDeal";
-								}else{
-									location.reload();
-								}
-							});
-			        	}
-			        },
-			        error: function(error) {
-			            alert("오류 발생" + error);
-			        }
-				});		
+				var param = new Object(); //컨트롤러에 보낼 파라미터 
+				param.dealSq = result.deal.dealSq; //거래 순번
+				param.mbrSq = sMbrSqVal; //멤버 순번
+				var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
+				if(index > 1){ //바로 위의 응찰가보다 높으면
+					modalConfirm("알림", "인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+						if(confrim){
+							param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
+							param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
+							bidReg(param); //응찰을 한다
+						}else{
+							return;
+						}
+					});
+				}else{
+					param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
+					bidReg(param);
+				}
+				
 			}else{
 				modalAlertShow("응찰가가 입력되지 않았습니다.", "sbx_bidPrc");
 			}
 		}
 	}
 }
+function bidReg(param){
+	$.ajax({
+        type: "post",
+        url: "/bidReg",
+        data : param, 
+        success: function(data) {
+        	if(data.result == -1){
+	        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+        	}
+        	if(data.result == -11){
+	        	modalAlertShow("자동 응찰에 실패했습니다. 다시 시도해주세요.", "reload");
+        	}
+        	if(data.result == 10){
+        		modalConfirm("알림", "자동 응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+					if(confrim){
+						location.href = "/myDeal";
+					}else{
+						location.reload();
+					}
+				});
+        	}
+        	if(data.result == 11){
+        		modalConfirm("알림", "회원님보다 높은 자동 응찰가가 있어서 높은 자동 응찰가로 자동 입찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+					if(confrim){
+						location.href = "/myDeal";
+					}else{
+						location.reload();
+					}
+				});
+        	}
+        	if(data.result == 12){
+        		modalConfirm("알림", "회원님과 같은 금액을 자동 응찰 설정한 자동입찰자가 있지만,<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+					if(confrim){
+						location.href = "/myDeal";
+					}else{
+						location.reload();
+					}
+				});
+        	}
+        	if(data.result == 2){
+        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+					if(confrim){
+						location.href = "/myDeal";
+					}else{
+						location.reload();
+					}
+				});
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});		
+} 
 
 //경매일 경우 호가 단위를 자동으로 리턴해준다.
 function askingPrice(prc){
@@ -595,7 +642,7 @@ function selectBoxWriteAskingPrice(){
 		askingPrc = askingPrice(bidPrc);
 		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
 	}
-	for(i=0; i<9; i++){
+	for(i=0; i<30; i++){
 		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
 		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
 	}

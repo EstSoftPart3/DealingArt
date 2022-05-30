@@ -141,7 +141,6 @@ function modalConfirm(title, msg, callback){
 	Html += '			<div class="baegs">';
 	Html += '				<h2>'+ title +'</h2>';
 	Html += '		    	<img src="resources/img/ba/icon-1.png" class="con-img" />';
-	Html += '		    	<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
 	Html += '			</div>';
 	Html += '		</div>';
 	Html += '		<div class="modal-body">';
