@@ -23,46 +23,52 @@
 						<div class="me-left me-move">
 							<div class="me-sech">
 								<div class="is-bos">
-									<div class="is-sum">
-										<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
-										<input type="radio" id="w1" name="buyOrSell" value="BUY" checked>
-										<label for="w1"><span></span>구매내역</label>
-										<input type="radio" id="w2" name="buyOrSell" value="SELL">
-										<label for="w2"><span></span>판매내역</label>
-										<input type="radio" id="w3" name="saleOrAuction" value="auction" checked>
-										<label for="w3"><span></span>경매</label>
-										<input type="radio" id="w4" name="saleOrAuction" value="sale">
-										<label for="w4"><span></span>정찰가</label>
-										<!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
-									</div>
-									<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
-									<button type="button" class="sech-btn" id="searchOption_6M" onclick="searchOption_onclick(this.id)">최근 6개월</button>
-									<button type="button" class="sech-btn" id="searchOption_1Y" onclick="searchOption_onclick(this.id)">최근 1년</button>
-									<button type="button" class="sech-btn" id="searchOption_2Y" onclick="searchOption_onclick(this.id)">최근 2년</button>
-									<button type="button" class="sech-btn" id="searchOption_3Y" onclick="searchOption_onclick(this.id)">최근 3년</button>
-								</div>
-								<div class="is-la">
-									<div class="is-label">
-										<label>기간선택</label>
-										<div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
-										<span class="is-span">~</span> 
-										<div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
-									</div>
-									<div class="selec-box select-s1">
-										<select class="selectpicker">
-											<option value="ALL">전체</option>
-											<option value="IP">판매중</option>
-											<option value="EN">판매완료</option>
-											<option value="PD">결제대기</option>
-											<option value="PF">결제완료</option>
-											<option value="SS">배송시작</option>
-											<option value="DC">배송완료</option>
-											<option value="PC">취소</option>
-											<option value="RT">반품</option>
-										</select>
-									</div>
-									<button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
-								</div>
+		                           <div class="is-sum">
+		                              <input type="radio" id="w1" name="buyOrSell" value="BUY" checked>
+		                              <label for="w1"><span></span>구매내역</label>
+		                              <input type="radio" id="w2" name="buyOrSell" value="SELL">
+		                              <label for="w2"><span></span>판매내역</label>
+		                              <input type="radio" id="w3" name="saleOrAuction" value="auction" checked>
+		                              <label for="w3"><span></span>경매</label>
+		                              <input type="radio" id="w4" name="saleOrAuction" value="sale">
+		                              <label for="w4"><span></span>정찰가</label>
+		                              <div class="is-label">
+		                              	<label></label>
+			                              <div class="selec-box select-s1">
+				                              <select class="selectpicker">
+				                                 <option value="ALL">전체</option>
+				                                 <option value="IP">판매중</option>
+				                                 <option value="EN">판매완료</option>
+				                                 <option value="PD">결제대기</option>
+				                                 <option value="PF">결제완료</option>
+				                                 <option value="SS">배송시작</option>
+				                                 <option value="DC">배송완료</option>
+				                                 <option value="PC">취소</option>
+				                                 <option value="RT">반품</option>
+				                              </select>
+				                           </div>
+				                      </div>
+				                      <div class="is-label">
+		                              	<label></label>
+		                              	<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
+		                              </div>
+		                              <!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
+		                           </div>
+		                           <div class="is-la">
+		                           		<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
+				                        <button type="button" class="sech-btn" id="searchOption_6M" onclick="searchOption_onclick(this.id)">최근 6개월</button>
+				                        <button type="button" class="sech-btn" id="searchOption_1Y" onclick="searchOption_onclick(this.id)">최근 1년</button>
+				                        <button type="button" class="sech-btn" id="searchOption_2Y" onclick="searchOption_onclick(this.id)">최근 2년</button>
+				                        <button type="button" class="sech-btn" id="searchOption_3Y" onclick="searchOption_onclick(this.id)">최근 3년</button>
+			                       		<div class="is-label">
+			                              <label>기간선택</label>
+			                              <div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
+			                              <span class="is-span">~</span> 
+			                              <div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
+			                           </div>
+			                           <button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
+			                        </div>
+		                        </div>
 							</div>
 							<div id="myDealList">
 								<!-- <div class="myd-box myd-mobile">

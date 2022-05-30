@@ -306,7 +306,7 @@ public class MainPayUtil {
 		    }
 		    
 		    if(!parameters.get("cuponSq").toString().equals("") && !parameters.get("cuponSq").toString().equals(null)) {//쿠폰 사용하면 사용롼료로 바꾼다
-		    	myPageMapper.updateCouponUseYn(resultMap);
+		    	mainPayMapper.updateCouponUseYn(resultMap);
 		    }
 	    }
     	

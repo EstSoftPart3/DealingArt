@@ -27,8 +27,8 @@
 				RESULT_MESSAGE,
 				CREATE_TIME,
 				EXPIRE_TIME
-				<if test="couponSq != null and couponSq != ''">
-					,COUPON_SQ
+				<if test="cuponSq != null and cuponSq != ''">
+					,CUPON_SQ
 				</if> 
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,PAYMNT_DISC_AMT
@@ -54,8 +54,8 @@
 				#{resultMessage},
 				#{createTime},
 				#{expireTime}
-				<if test="couponSq != null and couponSq != ''">
-					,#{couponSq}
+				<if test="cuponSq != null and cuponSq != ''">
+					,#{cuponSq}
 				</if> 
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,#{paymntDiscAmt}
@@ -75,7 +75,7 @@
 				A.ARTST_SQ AS artstSq,
 				A.SELL_MBR_SQ AS sellMbrSq,
 				A.BUY_MBR_SQ AS buyMbrSq,
-				A.CUPON_SQ AS couponSq,
+				A.CUPON_SQ AS cuponSq,
 				A.PAYMNT_DIV_CD AS paymntDivCd,
 				A.PAYMNT_TYP_CD AS paymntTypCd,
 				A.PAYMNT_AMT AS paymntAmt,

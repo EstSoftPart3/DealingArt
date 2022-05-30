@@ -113,5 +113,9 @@ public interface MainPayMapper {
 	 */
 	void updateWorkSaleYn(String paramMap);
 	
-
+	/**
+	 * 쿠폰을 사용하면 쿠폰 사용 등록을 한다.
+	 * @param paramMap
+	 */
+	public void updateCouponUseYn(Object param);
 }
