@@ -89,7 +89,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeArtstInfoModal()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -249,7 +249,7 @@ $(function() {
 		*/
 		$("#artstInfo").append(artstInfoHtml2).trigger("create");
 		$("#artstInfo").append(artstInfoHtml).trigger("create");
-		var artstInfoButton = '<button type="button" class="the-more2 mg_t60" data-toggle="modal" data-target="#artstInfoMore">더보기</button>';
+		var artstInfoButton = '<button type="button" class="the-more2 mg_t60" onclick="openArtstInfoModal()">더보기</button>';
 		$("#artstInfo").append(artstInfoButton).trigger("create");
 		$("#artstInfoModal").append(artstInfoHtml).trigger("create");
 		var moreButton = '<button type="button" class="btn-more"><span>more</span></button>';
@@ -514,6 +514,19 @@ function onload(sort, type){
 	setInterval();
 	
 }
+
+//부모창 스크롤 방지
+function openArtstInfoModal(){ 
+	$('body').css("overflow", "hidden");
+	$('#artstInfoMore').modal({backdrop: 'static', keyboard: false})  
+	$("#artstInfoMore").modal("show");
+}
+
+function closeArtstInfoModal(){ 
+	$('body').css("overflow", "scroll");
+	$("#artstInfoMore").modal("hide");
+}
+
 //거래 남은 시간 1초마다 계산해서 표현하기
 setInterval(function() {
 	var elements = document.querySelectorAll(".dealCount");

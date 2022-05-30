@@ -77,10 +77,10 @@
 								</ul>
 								<div class="input-box" id="choiceDate" style="display:none;">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
-									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt"/></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="거래 시작 날짜"/></div>
 									<input type="text" class="timepicker" id="dealStrtTime" required>
 									<span class="is-span">~</span> 
-									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt"></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="거래 종료 날짜"></div>
 									<input type="text" class="timepicker" id="dealEndngTime" required>
 								</div>
 							</div>
@@ -133,13 +133,13 @@
 									</div>
 										
 									<div class="input-box">
-										<input type="text" class="input-2" style="width:78%; font-size:14px;" placeholder="우편번호를 검색하세요" id="mbrDelivryAddr" readonly disabled/>
+										<input type="text" class="input-2" style="width:78%; font-size:14px;" placeholder="우편번호를 검색하세요." id="mbrDelivryAddr" readonly disabled/>
 										<span class="span-in">기본 주소</span>
 										<button type="button" class="addrBtn" onclick="searchAddr()">우편번호 검색</button>
 										
 									</div>
 									<div class="input-box">
-										<input type="text" class="input-2" placeholder="상세주소를 입력하세요" style="font-size:14px;" id="mbrDelivryAddrDetail"/>
+										<input type="text" class="input-2" placeholder="상세주소를 입력하세요." style="font-size:14px;" id="mbrDelivryAddrDetail"/>
 										<span class="span-in">상세 주소</span>
 									</div>
 									<div class="input-box">
@@ -163,7 +163,12 @@
 										<td>
 											<div class="filebox bs3-primary">
 												<!-- <input class="upload-name" value="파일선택" disabled> -->
-												<img class="content" id="workGrtUrl1" style="cursor:pointer" th:src="${result.work.workGrtUrl}"/>
+												<th:block th:if="${not #strings.isEmpty(result.work.workGrtUrl)}">
+													<img class="content" id="workGrtUrl1" style="cursor:pointer" th:src="${result.work.workGrtUrl}"/>
+												</th:block>
+												<th:block th:unless="${not #strings.isEmpty(result.work.workGrtUrl)}">
+													<img class="content" id="workGrtUrl1" style="cursor:pointer"/>
+												</th:block>
 												<label for="workGrtUrl">찾아보기</label> 
 												<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.work.workGrtUrl}"> 
 											</div>
@@ -176,7 +181,7 @@
 									<tr>
 										<th><span class="my-red">소장가</span></th>
 										<td>
-											<input type="text" class="input-4" id="workPrc" th:value="${result.work.workPrc}" onkeyup="comma(this)" style="font-size:15px;"/>
+											<input type="text" class="input-4" id="workPrc" th:value="${result.work.workPrc}" onkeyup="comma(this)" placeholder="작품의 소장 가격을 입력해주세요." style="font-size:15px;"/>
 										</td>
 									</tr>
 									<tr>
@@ -229,7 +234,7 @@
 									</tr>
 									<tr>
 										<th>작품영상</th>
-										<td><input type="text" class="input-4" id="workVideoUrl" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요" th:value="${result.work.workVideoUrl}"/></td>
+										<td><input type="text" class="input-4" id="workVideoUrl" placeholder="홈페이지, SNS 등 본 작품과 관련된 영상 링크를 기재해 주세요." th:value="${result.work.workVideoUrl}"/></td>
 									</tr>
 									<tr>
 										<th>작품소개</th>
@@ -238,7 +243,7 @@
 									<tr>
 										<th><span class="">작품 키워드</span></th>
 										<td>
-											<input type="text" class="input-4" id="keywrd" placeholder="키워드를 쉼표로 구분해 주세요." onblur="keywrdSet(this)" th:value="${result.work.keywrd}"/>
+											<input type="text" class="input-4" id="keywrd" placeholder="키워드를 쉼표로 구분해주세요." onblur="keywrdSet(this)" th:value="${result.work.keywrd}"/>
 											<div class="key-box">
 											</div>
 										</td>
@@ -371,7 +376,7 @@ $("input:radio[name='dealPeriod']").change(function(){
 	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
 		$("#choiceDate").css("display", "");
 		$("#startDate").css("display", "none");
-		result.work.dealStrtDtAddDt = null;
+		result.deal.dealStrtDtAddDt = null;
 	}else{
 		$("#choiceDate").css("display", "none");
 		$("#startDate").css("display", "");
