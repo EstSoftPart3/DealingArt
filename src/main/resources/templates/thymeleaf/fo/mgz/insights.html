@@ -59,7 +59,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" /></div>
 				</div>
 			</div>
 			
@@ -122,7 +122,7 @@ $(document).ready(function(){
          		
          		for(var i=0; i<mgz9List.length; i++){
          			mgz9ListHtml += '<li>';
-	         		mgz9ListHtml += '	<a href="" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+	         		mgz9ListHtml += '	<a href="javascript:void(0);" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
 	         		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
 	         		mgz9ListHtml += '		<div class="ml-div">';
 	         		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
@@ -156,8 +156,6 @@ $(document).ready(function(){
   */
   function selectMgz9Dtl(mgzSq){
 	  
-	  $("body").css("overflow", "hidden");
-  	
   	$.ajax({
           type: "post",
           url: "/selectMgz9Dtl",
@@ -195,7 +193,9 @@ $(document).ready(function(){
        				$("#editor > div").css('padding-left', '0px');
        			    $("#editor > div").css('padding-right', '0px');
            		}
-              	
+              	$("body").css("overflow", "hidden");
+              	$('#lp_mgz9Dtl').modal({backdrop: 'static', keyboard: false})  
+              	$("#lp_mgz9Dtl").modal("show");
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
           		$("#lp_mgz9Dtl_cntnt").empty();
@@ -205,6 +205,15 @@ $(document).ready(function(){
               alert("오류 발생" + error);
           }
   	});
+  }
+ 
+  /*
+   * MGZ9 콘첸츠 모달 닫기
+   */
+   function closeMgz9Dtl(){
+	  
+	  $("body").css("overflow", "scroll");
+	  $("#lp_mgz9Dtl").modal("hide");
   }
 
  $(window).on("resize", function () {
