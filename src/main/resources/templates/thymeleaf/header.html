@@ -55,7 +55,8 @@
 <!-- 	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script> -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script>
 	<link rel="stylesheet" href="resources/css/content-styles.css" type="text/css">
-	<meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+	
+	
 	
     <!-- chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
@@ -574,7 +575,7 @@ function changePasswrd(){
 		return;
 	}
 	
-	fn_validation('findPwdMbrPwdCheck3','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+	//fn_validation('findPwdMbrPwdCheck3','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
 	
 	//비밀번호--------------------------------------------------------------------//
 	$.ajax({
@@ -1058,10 +1059,12 @@ $("#memberInputBtn").on('click', function(event){
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
 		  return;
+	 } else {
+		 $('#mbrPwdCheckU').css('color','#999999');
+		 $('#mbrPwdCheckD').css('color','#999999');	 
 	 }
 	
-	 $('#mbrPwdCheckU').css('color','#999999');
-	 $('#mbrPwdCheckD').css('color','#999999');
+	
 	 
 	 
 	//비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
@@ -1113,7 +1116,19 @@ $("#memberInputBtn").on('click', function(event){
 	     url: "main/memberInsertData",
 	     data: memParams,
 	     success: function(data) {
-	    	 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
+	    	 
+	    	
+	    	
+	    	 
+	    	 if (typeof data != "undefined"){
+	    		 	    		 
+	    		 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
+	    		 
+	    		 var mbrIdEncrypt = data;
+	    		
+	    		 //memberInputEmail(mbrIdEncrypt)
+	    	 }
+	    	 
 	   	 },
 	     error: function(error) {
 	  	   var errorJson = JSON.stringify(error);
@@ -1123,6 +1138,34 @@ $("#memberInputBtn").on('click', function(event){
 	
 	
 });
+
+
+
+function memberInputEmail(mbrIdEncrypt) {
+	
+	 console.log(mbrIdEncrypt);
+	
+	 
+	 let params = {
+			mbrId : mbrIdEncrypt,
+			gubun : 'MEMINPUT' 
+	 }
+	 
+	 console.log(params);
+	
+	$.ajax({
+	     type: "post",
+	     url: "/emailSend",
+	     data: params,
+	     success: function(data) {
+	    	 console.log(data);
+	   	 },
+	     error: function(error) {
+	  	   var errorJson = JSON.stringify(error);
+	         console.log(errorJson);
+	     }
+	})
+}
 
 //이메일 형식 체크
 function CheckEmail(str) {                                                 
