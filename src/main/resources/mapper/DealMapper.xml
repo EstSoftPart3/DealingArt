@@ -391,4 +391,14 @@
 				DEAL_SQ = #{dealSq}
 			AND BID_PRC = #{bidPrc}
 	</update>
+	<select id="selectAuctnBidList" resultType="hashMap" parameterType="String">
+		/* 거래내역 리스트 가져오기 (응찰히스토리)*/
+		SELECT 
+				BID_PRC AS bidPrc,
+				DATE_FORMAT(BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate 
+		FROM 
+				TBL_DA_AUCTN_BID_H
+		WHERE 
+				DEAL_SQ = #{dealSq}
+	</select>
 </mapper>

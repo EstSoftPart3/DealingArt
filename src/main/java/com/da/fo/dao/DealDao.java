@@ -50,10 +50,12 @@ public class DealDao {
 		result.put("deal", deal);
 		if(!deal.get("artstSq").equals(null)) {
 			Map<String, Object> artistInfo = artistMapper.artistInfo(deal.get("artstSq").toString());
+			List auctnBid = dealMapper.selectAuctnBidList(deal.get("dealSq").toString());
 			List eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
 			List exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
 			List workList = artistMapper.artistWorkListAll(deal.get("artstSq").toString());
+			result.put("auctnBid", auctnBid);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);

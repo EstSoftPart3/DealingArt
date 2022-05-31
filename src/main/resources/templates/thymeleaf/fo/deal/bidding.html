@@ -152,7 +152,7 @@
 						<div class="bat-box">
 							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
 							<button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
-							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
+							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<button type="button" class="ba-btn3" onclick="javascript:history.go(-2);"><span>목록으로 돌아가기</span></button>
 							<div class="clearboth"></div>
 						</div>
@@ -229,7 +229,7 @@
 
 
 <!-- 차트 -->
-<div class="modal fade modal-s" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+<div class="modal fade modal-s" id="bidHistory" tabindex="-1" role="dialog" aria-labelledby="bidHistoryLabel" aria-hidden="true">
 	<div class="modal-dialog modal-baeg max-w1023">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -242,10 +242,11 @@
 			</div>
 			<div class="modal-body">
 				<div class="text-right mg_t25">
-					<input type="checkbox" id="a1" name="cc">
-					<label for="a1"><span></span>내 응찰만 보기</label>
+					<!-- <input type="checkbox" id="a1" name="cc">
+					<label for="a1"><span></span>내 응찰만 보기</label> -->
 				</div>
-				<img src="resources/img/ba/chart-img.png" class="mdimg" />
+				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<canvas id="canvas"></canvas>
 			</div>
 		</div>
 	</div>
@@ -440,6 +441,7 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
+
 $(function() {
 	$("#sbx_bidPrc").selectpicker("refresh");
 	if(sMbrSqVal != null && sMbrSqVal != ""){
@@ -465,6 +467,56 @@ $(function() {
 		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 	}
 });
+/* 응찰 히스토리 */
+var bidDate = [];
+var bidPrc = [];
+$(function() {
+	for(var i=0; i<result.auctnBid.length; i++){
+		bidDate.push(result.auctnBid[i].bidDate);
+		bidPrc.push(result.auctnBid[i].bidPrc);
+	}
+});
+const bidHistory = new Chart(document.getElementById("canvas"), {
+    type: 'line',
+    data: {
+        labels: bidDate,
+        datasets: [{
+            label: '응찰가',
+            data: bidPrc,
+            borderColor: "rgba(50, 50, 50, 50)",
+            backgroundColor: "rgba(50, 50, 50, 50)",
+            borderWidth: 3,
+            pointRadius: 5,
+            fill: false,
+            lineTension: 0
+        }]
+    },
+    options: {
+    	plugins: {
+            tooltip: {
+            	titleFont: {
+            		weight: 'normal',
+            		size: 13
+            	},
+            	bodyFont: {
+            		weight: 'normal',
+            		size: 13
+            	},
+            	callbacks: {
+                    title: function(context) {
+                    	var title = "응찰시간: " + context[0].label;
+                    	return title;
+                    }
+                }
+            },
+            legend: {
+        		display: false
+        	}
+		}
+	}
+});
+
+
 //부모창 스크롤 방지
 function openArtstInfoModal(){ 
 	$('body').css("overflow", "hidden");

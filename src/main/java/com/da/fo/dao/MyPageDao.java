@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.da.mapper.DealMapper;
 import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 
@@ -25,6 +26,9 @@ public class MyPageDao {
 	
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private DealMapper dealMapper;
 	
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
@@ -263,5 +267,14 @@ public class MyPageDao {
 		Map<String, Object> trnsprtCdNm = myPageMapper.selectTrnsprtCdNm(param);
 		result.put("trnsprtCdNm", trnsprtCdNm);
 		return result;
+	}
+	
+	/*
+	 * 거래내역 응찰 히스토리 가져오기
+	 * param : deslSq
+	 * return : bidDate, bidPrc
+	 */
+	public List<Map<String, Object>> myDealListBidHistory(Object param){
+		return dealMapper.selectAuctnBidList(param);
 	}
 }

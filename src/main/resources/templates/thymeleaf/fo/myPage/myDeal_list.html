@@ -130,7 +130,29 @@
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
 </div>
+<!-- 차트 -->
+<div class="modal fade modal-s" id="bidHistory" tabindex="-1" role="dialog" aria-labelledby="bidHistoryLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1023">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>응찰 히스토리</h2>
+				    <img src="resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
 
+			</div>
+			<div class="modal-body">
+				<div class="text-right mg_t25">
+					<!-- <input type="checkbox" id="a1" name="cc">
+					<label for="a1"><span></span>내 응찰만 보기</label> -->
+				</div>
+				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<canvas id="canvas"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
@@ -224,7 +246,76 @@ $.datepicker.setDefaults({
 	showMonthAfterYear: true,
 	yearSuffix: '년'
 });
-      
+/* 응찰 히스토리 */
+function bidHistory(dealSq) {
+	$(".modal-body").empty();
+	var canvas = document.createElement("canvas");
+	canvas.id = canvas;
+	$(".modal-body").append(canvas);
+	
+	var bidDate = [];
+	var bidPrc = [];
+	$.ajax({
+        type: "post",
+        url: "/myDealList/bidHistory",
+        data: {
+        	dealSq : dealSq
+        },
+        success: function(data) {
+        	for(var i=0; i<data.result.length; i++){
+        		bidDate.push(data.result[i].bidDate);
+        		bidPrc.push(data.result[i].bidPrc);
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+	
+	
+	const bidHistory = new Chart(canvas, {
+	    type: 'line',
+	    data: {
+	        labels: bidDate,
+	        datasets: [{
+	            label: '응찰가',
+	            data: bidPrc,
+	            borderColor: "rgba(50, 50, 50, 50)",
+	            backgroundColor: "rgba(50, 50, 50, 50)",
+	            borderWidth: 3,
+	            pointRadius: 5,
+	            fill: false,
+	            lineTension: 0
+	        }]
+	    },
+	    options: {
+	    	plugins: {
+	            tooltip: {
+	            	titleFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	bodyFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	callbacks: {
+	                    title: function(context) {
+	                    	var title = "응찰시간: " + context[0].label;
+	                    	return title;
+	                    }
+	                }
+	            },
+	            legend: {
+	        		display: false
+	        	}
+			}
+		}
+	});
+	$("#bidHistory").modal("show");
+};
+
+
 jQuery(document).ready(function() {
 	$('.datepicker').datepicker();
 	$("#searchStrtDate").calendar( $("#searchEndngDate") );
@@ -278,7 +369,7 @@ function myDealSearchList(){
     				myDealListHtml += '	<div class="myd-img">';
     				myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)"/>';
     				if(myDealList[i].dealTypCd == "A"){ //경매면 응찰 히스토리 버튼 추가
-    					myDealListHtml += '		<button type="button" class="btns-4" onclick="fnModalAlert()">응찰 히스토리</button>';
+    					myDealListHtml += '		<button type="button" class="btns-4" onclick="bidHistory('+myDealList[i].dealSq+')">응찰 히스토리</button>';
     				}
     				myDealListHtml += '		<button type="button" class="btns-4" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">거래 계약 안내 및 상세</button>';
     				myDealListHtml += '	</div>';
@@ -307,7 +398,7 @@ function myDealSearchList(){
 		    				myDealListHtml += '					<select class="selectpicker" name="askingPrice" maxBidPrc="'+myDealList[i].maxBidPrc+'" id="sbx_bidPrc'+myDealList[i].dealSq+'" data-width="fit">';
 		    				myDealListHtml += '						<option value="null" style="font-size:18px;">-선택-</option>';
 		    				myDealListHtml += '					</select>';
-		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'" onclick="bidReg(this)">응찰하기</button>';
+		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'"bidMbrSq="'+myDealList[i].bidMbrSq+'" onclick="bidReg(this)">응찰하기</button>';
 		    				myDealListHtml += '				</div>';
 		    				myDealListHtml += '			</dd>';
 		    				myDealListHtml += '			<dt>남은 시간</dt>';
@@ -590,7 +681,12 @@ function selectBoxWriteAskingPrice(objs){
 //경매인 거래는 응찰하기 버튼 누르면 응찰되게
 function bidReg(obj){
 	var dealSq = obj.attributes.dealSq.value;
+	var bidMbrSq = obj.attributes.bidMbrSq.value;
 	var bidPrc = parseInt($("#sbx_bidPrc"+dealSq+" option:selected").val().replaceAll(/,/g, ''));
+	if(bidMbrSq == sMbrSqVal){
+		modalAlertShow("가장 높은 입찰자인 경우 중복 응찰이 불가합니다.");
+		return;
+	}
 	if(bidPrc != null && bidPrc != ""){
 		$.ajax({
 	        type: "post",

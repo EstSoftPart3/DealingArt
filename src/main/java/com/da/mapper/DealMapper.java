@@ -108,4 +108,12 @@ public interface DealMapper {
 	 * return : null
 	 */
 	public void updateLastBid(Object param);
+	
+	/*
+	 * 응찰내역 가져오기 (응찰히스토리)
+	 * param : dealSq
+	 * return : bidPrc, bidDate
+	 */
+	public List selectAuctnBidList(Object param);
+	
 }

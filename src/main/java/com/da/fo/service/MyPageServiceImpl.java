@@ -187,4 +187,13 @@ public class MyPageServiceImpl implements MyPageService{
 	public Map<String, Object> selectTrnsprtInfo(Object param){
 		return myPageDao.selectTrnsprtInfo(param);
 	}
+	
+	/*
+	 * 거래내역 응찰 히스토리 가져오기
+	 * param : deslSq
+	 * return : bidDate, bidPrc
+	 */
+	public List<Map<String, Object>> myDealListBidHistory(Object param){
+		return myPageDao.myDealListBidHistory(param);
+	}
 }

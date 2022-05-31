@@ -109,4 +109,11 @@ public interface MyPageService {
 	 * return : 운송 가격, 코드 네임
 	 */
 	public Map<String, Object> selectTrnsprtInfo(Object param);
+	
+	/*
+	 * 거래내역 응찰 히스토리 가져오기
+	 * param : deslSq
+	 * return : bidDate, bidPrc
+	 */
+	public List<Map<String, Object>> myDealListBidHistory(Object param);
 }

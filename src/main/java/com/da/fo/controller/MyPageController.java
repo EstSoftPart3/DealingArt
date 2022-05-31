@@ -751,4 +751,14 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	//거래내역 응찰 히스토리 가져오기
+	@RequestMapping("/myDealList/bidHistory")
+	@ResponseBody
+	public ModelAndView myDealListBidHistory(@RequestParam("dealSq") String dealSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = myPageService.myDealListBidHistory(dealSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 }
