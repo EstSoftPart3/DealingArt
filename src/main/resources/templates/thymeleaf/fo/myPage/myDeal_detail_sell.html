@@ -473,9 +473,6 @@ function btn_payment(){
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-3"; //주문 번호
 		var index = $("#sbx_couponList option").index($("#sbx_couponList option:selected")) - 1; //선택된 쿠폰 index를 가져온다
 		data.cuponSq = sbx_couponSqList[index]; //쿠폰 순번을 가져온다
-		//임시 하드코딩
-		data.amount = 1004;
-		data.paymntAmt = 1004;
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',

@@ -548,11 +548,6 @@ function btn_paymethod_onclick(obj){
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-1"; //거래 순번
 		var index = $("#sbx_couponList_DD option").index($("#sbx_couponList_DD option:selected")) - 1; //선택된 1차 쿠폰 index를 가져온다
 		data.cuponSq = sbx_couponSqList[index]; //1차 결제 쿠폰 순번을 가져온다
-		//임시 하드코딩
-		data.amount = 1004;
-		data.paymntAmt = 1004;
-		data.paymntFeeAmt = 100;
-		data.paymntDiscAmt = 100;
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -576,9 +571,6 @@ function btn_paymethod_onclick(obj){
 	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
 		data.paymntTypCd = "2"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
-		//임시 하드코딩
-		data.amount = 1004;
-		data.paymntAmt = 1004;
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -782,6 +774,7 @@ function getCouponList(code){
 				}
 				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			}
+			totalTrnsprtPrc();
 		},
 		error: function(error) {
             alert("오류 발생" + error);
@@ -866,19 +859,23 @@ function totalTrnsprtPrc(){
 	/*1차 결제 최종 금액 구하기*/
 	/*********************/
 	}else{ //거래 수수료가 있으면 1차 결제
-		disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
+		if(document.querySelector("#div_couponVal_DD") == null){
+			disc = 0;
+		}else{
+			disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
+			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
+				disc = fee * disc; //쿠폰 할인 금액을 가져온다
+				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+			}else{ //쿠폰 할인 금액이 원화이면
+				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
+				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+			}
+		}
 		fee = $("#fee").text().replaceAll(/,/g, '');
 		fee = parseInt(fee.replaceAll(' KRW', ''));
-		if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
-			disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
-			disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
-			disc = fee * disc; //쿠폰 할인 금액을 가져온다
-			fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
-		}else{ //쿠폰 할인 금액이 원화이면
-			disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
-			disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
-			fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
-		}
 		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
 		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
 		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
