@@ -110,19 +110,35 @@ public class DealController {
 		Map<String, Object> deal = new Gson().fromJson(jsonObject.getJSONObject("deal").toString(), new HashMap().getClass());
 		if (multipartFiles != null) {
 			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
-			work.put("workGrtUrl", fileVo.get(0).getFileUrl());
-			if(fileVo.size() >= 2){ 
-				work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
-			} 
-			if(fileVo.size() >= 3){ 
-				work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
-			}	
-			if(fileVo.size() >= 4){ 
-				work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
-			} 
-			if(fileVo.size() >= 5){
-				work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
-			} 
+			if(!param.get("workGrtUrl").toString().equals("") && !param.get("workGrtUrl").toString().equals(null)) {
+				work.put("workGrtUrl", fileVo.get(0).getFileUrl());
+				if(fileVo.size() >= 2){ 
+					work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
+				} 
+				if(fileVo.size() >= 3){ 
+					work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
+				}	
+				if(fileVo.size() >= 4){ 
+					work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
+				} 
+				if(fileVo.size() >= 5){
+					work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
+				} 
+			}else{
+				work.put("workGrtUrl", fileVo.get(0).getFileUrl());
+				if(fileVo.size() >= 2){ 
+					work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
+				} 
+				if(fileVo.size() >= 3){ 
+					work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
+				}	
+				if(fileVo.size() >= 4){ 
+					work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
+				} 
+				if(fileVo.size() >= 5){
+					work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
+				} 
+			}
 			System.out.println("############## fileVO : " + fileVo);
 		}
 		int result = myPageService.myWorkCor(work);
