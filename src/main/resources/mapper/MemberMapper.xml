@@ -99,7 +99,14 @@
         FROM
             TBL_DA_MBR_M A 
         WHERE 1=1
-         AND A.MBR_SQ = #{mbrSq}
+        <if test="mbrSq != null"> 
+        	AND A.MBR_SQ = #{mbrSq}
+        </if>
+        
+        <if test="mbrId != null"> 
+        	AND A.MBR_ID = #{mbrId}
+        </if>
+         
   </select>
     
     

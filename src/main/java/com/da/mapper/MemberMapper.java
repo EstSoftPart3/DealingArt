@@ -9,7 +9,7 @@ import com.da.vo.MbrInfoVo;
 public interface MemberMapper {
 	
 	//회원 가입
-	public void memberInsert(Map<String, Object> param);
+	public int memberInsert(Map<String, Object> param);
 	
 	//회원 수정
 	public void memberUpdate(Map<String, Object> param);

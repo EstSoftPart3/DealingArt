@@ -57,24 +57,24 @@
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#E3F2FC');
+												dropZone1.css('background-color', '#E3F2FC');
 											});
 											dropZone1.on('dragleave', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#FFFFFF');
+												dropZone1.css('background-color', '#FFFFFF');
 											});
 											dropZone1.on('dragover', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#E3F2FC');
+												dropZone1.css('background-color', '#E3F2FC');
 											});
 											dropZone1.on('drop', function(e) {
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#FFFFFF');
+												dropZone1.css('background-color', '#FFFFFF');
 												var fileObject = e.originalEvent.dataTransfer.files;
 												
 												if (fileObject != null) {
@@ -83,7 +83,7 @@
 														console.log("폴더 업로드 불가");
 														return;
 													} else {
-														uploadResource(fileObject);
+														uploadResource(fileObject,'profile');
 													}
 												} else {
 													alert("ERROR");
@@ -95,24 +95,24 @@
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#E3F2FC');
+												dropZone2.css('background-color', '#E3F2FC');
 											});
 											dropZone2.on('dragleave', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#FFFFFF');
+												dropZone2.css('background-color', '#FFFFFF');
 											});
 											dropZone2.on('dragover', function(e) {
 												e.stopPropagation();
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#E3F2FC');
+												dropZone2.css('background-color', '#E3F2FC');
 											});
 											dropZone2.on('drop', function(e) {
 												e.preventDefault();
 												// 드롭다운 영역 css
-												dropZone.css('background-color', '#FFFFFF');
+												dropZone2.css('background-color', '#FFFFFF');
 								
 												var fileObject = e.originalEvent.dataTransfer.files;
 												
@@ -122,7 +122,7 @@
 														console.log("폴더 업로드 불가");
 														return;
 													} else {
-														uploadResource(fileObject);
+														uploadResource(fileObject,'mainWork');
 													}
 												} else {
 													alert("ERROR");
@@ -149,7 +149,7 @@
 											var maxSize = 5 * 1024 * 1024; // 5MB
 											var fileSize = file.size;
 											
-											if(fileSize > maxSize){
+											if(fileSize > maxSize){ 
 												modalAlertShow("이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
 												return false;
 											}
@@ -162,13 +162,15 @@
 									        .then(data => {
 									        	if(fileType == "profile"){
 									        		document.getElementById("dropZone_artstProfileImgUrl").setAttribute("src", data.fileUrl);
-										            $('artstProfileImgUrl').val(data.fileUrl);
+										            $('#artstProfileImgUrl').val(data.fileUrl);
+										            console.log("artstProfileImgUrl :"+data.fileUrl)
 									        	}
 									        	if(fileType == "mainWork"){
 									        		 document.getElementById("dropZone_artstWorkImgUrl").setAttribute("src", data.fileUrl);
-											            $('#artstWorkImgUrl').val(data.fileUrl);
+											        $('#artstWorkImgUrl').val(data.fileUrl);
+											        console.log("artstWorkImgUrl :"+data.fileUrl)
 									        	}
-									            //document.getElementById("remove").setAttribute("fileNm", data.fileNm)
+									         
 									        })
 									        .catch(error => console.log(`error => ${error}`));
 									    }
@@ -875,7 +877,7 @@
 							
 					
 							<div class="bat-box5">
-								<a href="javascript:AuthorInfoSave(1);" class="btnAction ba-btn2"><span>등록하기</span></a>
+								<a href="javascript:AuthorInfoSave(1);" class="btnAction ba-btn2"><span>등록하기(작가신청)</span></a>
 								<a href="javascript:AuthorInfoSave(2);" class="btnAction ba-btn2"><span>임시저장</span></a>
 								<a href="javascript:formReset();" class="btnAction ba-btn2"><span>취소</span></a>
 								<!-- <a href="javascript:fn_alert();" class="btnAction ba-btn2"><span>미리보기</span></a> -->
@@ -1165,7 +1167,10 @@
 	//작가기본정보 VIEW
 	function AuthorInfoSaveView(proc) {
 		
+		
+		
 		//proc : 2 라면 입력,수정후 프로세서 이다.
+		
 		
 		var mbrSq = $("#mbrSq").html(); //회원순번
 		
@@ -1308,7 +1313,7 @@
    						}
    				 	
    					});
-   					console.log("careerlist :"+JSON.stringify(careerlist));
+   					
    					$.ajax({
    				     	type: "post",
    				     	url: "/myPage/authorCareerInfoSaveData",
@@ -1353,7 +1358,7 @@
    						}
 
    					});
-   					console.log("exhbtnlist :"+JSON.stringify(exhbtnlist));
+   					
    					$.ajax({
    					type: "post",
    					url: "/myPage/authorExhbtnInfoSaveData",
@@ -1388,15 +1393,15 @@
 		 //savaState : 1 (일반저장), 2(임시저장)
 		var mbrSq 				= $("#mbrSq").html();				//회원순번
 		var artstProfileImgUrl 	= $("#artstProfileImgUrl").val();	//☆ 프로필 이미지
-		var artstWorkImgUrl 	= $("#artstWorkImgUrl").val();	//☆ 프로필 이미지
+		var artstWorkImgUrl 	= $("#artstWorkImgUrl").val();		//☆ 대표 이미지
 		var artstActvtyNm 		= $("#artstActvtyNm").val();		//☆ 활동명
 		var artstEnglsNm 		= $("#artstEnglsNm").val();			//영문명
 		var artstActvtyPartCd   = $("input:radio[name='artstActvtyPartCd']:checked").val(); //☆ 활동분야코드
 		var artstActvtyNatnCd 	= $("#artstActvtyNatnCd").val();		//활동지역 국가코드
 		var artstActvtyCityCd 	= $("#artstActvtyCityCd").val();		//활동지역 도시코드
-		var artstSelfIntro 		= $("#artstSelfIntro").val();		//자기소개
-		var artstHmpgUrl 		= $("#artstHmpgUrl").val();			//홈페이지 URL
-		var artstFacebookUrl 	= $("#artstFacebookUrl").val();		//페이스북 URL
+		var artstSelfIntro 		= $("#artstSelfIntro").val();			//자기소개
+		var artstHmpgUrl 		= $("#artstHmpgUrl").val();				//홈페이지 URL
+		var artstFacebookUrl 	= $("#artstFacebookUrl").val();			//페이스북 URL
 		var artstInstagramUrl 	= $("#artstInstagramUrl").val();		//인스타그램 URL
 		
 		if(saveState == 1) {
@@ -1467,8 +1472,13 @@
 		    	console.log("saveData :"+data);
 		    	
 		    	if(data == 1) {
+		    		
+		    		
+		    		//modalAlertShow("작가 정보등록 완료했습니다.","");
+		    		alert("작가 정보등록 완료했습니다.")
+		    		
 		    		AuthorInfoSaveView(2);
-		    		//modalAlertShow("작가기본정보 등록 완료","");
+		    		
 		    	}
 		   	 },
 		     error: function(error) {

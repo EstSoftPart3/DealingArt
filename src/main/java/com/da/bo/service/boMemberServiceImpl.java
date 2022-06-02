@@ -58,7 +58,11 @@ public class boMemberServiceImpl implements boMemberService {
 	}
 	
 	@Override
-	public void memberUpdate(Map<String, Object> param){
-		boMemberDao.memberUpdate(param);
+	public int memberUpdate(Map<String, Object> param){
+		int updateState = -1;
+		
+		updateState = boMemberDao.memberUpdate(param);
+		
+		return updateState;
 	}
 }

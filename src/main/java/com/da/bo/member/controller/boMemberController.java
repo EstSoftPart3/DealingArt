@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.bo.service.boMemberService;
 import com.da.util.CommonService;
 
+import com.da.util.sendEmail;
 
 @Controller
 public class boMemberController {
@@ -31,6 +32,9 @@ public class boMemberController {
 	
 	@Autowired
 	private boMemberService boMemberService;
+	
+	@Autowired
+	private sendEmail sendEmail;
 
 	@RequestMapping("/admin/swordbass")
 	public String swordbass() {
@@ -182,8 +186,9 @@ public class boMemberController {
 		
 		//아이디 암호화
 		String mbrId = (String) param.get("mbrId");
+		String mbrIdEncrypt = null;
 		if(!commonService.isEmpty(mbrId)) {
-			String mbrIdEncrypt = commonService.encrypt(mbrId);
+			mbrIdEncrypt = commonService.encrypt(mbrId);
 			param.put("mbrId", mbrIdEncrypt);
 		}
 		//이메일 암호화
@@ -207,7 +212,29 @@ public class boMemberController {
 			param.put("mbrHomeAddr", mbrHomeAddrEncrypt);
 		}
 		
-		boMemberService.memberUpdate(param);
+		//사용자 권한
+		String authSq = (String) param.get("authSq");
+		
+		int saveState = -1;
+		
+		saveState = boMemberService.memberUpdate(param);
+		
+		if(saveState == 1) {
+						
+			if(authSq.equals("2")) {
+				//작가신청완료 이메일
+				Map<String, Object> eParam = new HashMap<>();
+				
+				//회원아이디
+				eParam.put("mbrId", mbrIdEncrypt);
+				//회웍입력 구분 코드
+				eParam.put("gubun", "EAP");
+				
+				//이메일 Function Call
+				sendEmail.emailSendUtil(eParam);
+			
+			}
+		}
 		
 	}
 	//복호화
