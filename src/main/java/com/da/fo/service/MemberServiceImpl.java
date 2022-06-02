@@ -19,8 +19,10 @@ public class MemberServiceImpl implements MemberService  {
 	
 	//회원정보 입력
 	@Override
-	public void memberInsert(Map<String, Object> param){
-		memberDao.memberInsert(param);
+	public int memberInsert(Map<String, Object> param){
+		int insertState = -1;
+		insertState = memberDao.memberInsert(param);
+		return insertState;
 	}
 	
 	//회원정보 입력

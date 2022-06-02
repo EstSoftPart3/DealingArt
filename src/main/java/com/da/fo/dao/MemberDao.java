@@ -40,10 +40,15 @@ public class MemberDao {
 	}
 	
 	//회원정보 입력
-	public void memberInsert(Map<String, Object> param){
+	public int memberInsert(Map<String, Object> param){
 		
 		System.out.println("FO_MEMBER_INSERT_REQUEST = " + param);
-		memberMapper.memberInsert(param);
+		
+		int insertState = -1;
+		
+		insertState = memberMapper.memberInsert(param);
+		
+		return insertState;
 		
 	}
 	

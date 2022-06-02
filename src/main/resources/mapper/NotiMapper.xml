@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.NotiMapper">
+	
+   <!-- Email, SMS INSERT -->
+   <insert id="notiInsert" parameterType="hashMap">
+    	INSERT INTO TBL_DA_SND_H
+        (
+        	SND_TYP
+			,SND_CON_CD
+			,SND_DT
+			,MBR_ID
+			,SND_ADDRESS
+			,SND_NUMBER
+			
+       	) 
+        VALUES
+        (
+        	#{sndTyp}
+			,#{sndConCd}
+			,NOW()
+			,#{mbrId}
+			,#{sndAddress}
+			,#{sndNumber}
+		)
+    </insert>
+    
+    <!-- Email, SMS SEND LIST -->
+    <select id="notiSelect" resultType="hashMap">
+        SELECT
+           SND_TYP AS sndTyp 
+           ,SND_CON_CD AS sndConCd
+		   ,SND_DT AS sndDt
+		   ,MBR_ID AS mbrId
+		   ,SND_ADDRESS AS sndAddress
+		   ,SND_NUMBER AS sndNumber 
+        FROM
+            TBL_DA_SND_H A 
+        WHERE 1=1
+        <if test="sndTyp != null"> 
+        	AND A.SND_TYP = #{sndTyp}
+        </if>
+        <if test="sndConCd != null"> 
+        	AND A.SND_CON_CD = #{sndConCd}
+        </if>
+        <if test="mbrId != null"> 
+        	AND A.MBR_ID = #{mbrId}
+        </if>
+        <if test="sndAddress != null"> 
+        	AND A.SND_ADDRESS = #{sndAddress}
+        </if>
+        <if test="sndNumber != null"> 
+        	AND A.SND_NUMBER = #{sndNumber}
+        </if>
+    </select>
+    
+    <!-- Email, SMS SEND COUNT -->
+     <select id="notiCount" resultType="int">
+	  	SELECT
+	    	COUNT(*) AS CNT      
+		FROM TBL_DA_SND_H A 
+	    WHERE 1=1
+	     <if test="sndTyp != null"> 
+        	AND A.SND_TYP = #{sndTyp}
+        </if>
+        <if test="sndConCd != null"> 
+        	AND A.SND_CON_CD = #{sndConCd}
+        </if>
+        <if test="mbrId != null"> 
+        	AND A.MBR_ID = #{mbrId}
+        </if>
+        <if test="sndAddress != null"> 
+        	AND A.SND_ADDRESS = #{sndAddress}
+        </if>
+        <if test="sndNumber != null"> 
+        	AND A.SND_NUMBER = #{sndNumber}
+        </if>
+  </select>
+   
+   
+</mapper>

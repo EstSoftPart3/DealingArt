@@ -68,6 +68,8 @@
                   		<div class="form-group row">
                   			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
                     		<div class="col-sm-3">
+                    		
+                    		<input type="text" class="form-control sTitle classname" id="mbrNm" name="mbrNm">
                     		</div>
                     	</div>
                     	<hr>

@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import com.da.util.sendEmail;
+import com.da.util.SendSmsUtil;
+
+import com.da.mapper.MemberMapper;
+
 @Controller
 public class MemberController {
 	
@@ -41,10 +47,19 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private sendEmail sendEmail;
+	
+	@Autowired
+	private SendSmsUtil sendSmsUtil;
+	
+	@Autowired
+	MemberMapper memberMapper;
+	
 	//회원가입
 	@RequestMapping("/main/memberInsertData")
 	@ResponseBody
-	public void memberInsertData(@RequestParam Map<String, Object> param) {
+	public int memberInsertData(@RequestParam Map<String, Object> param) {
 		
 		//회원 아이디.이메일
 		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
@@ -64,9 +79,29 @@ public class MemberController {
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("mbrDelivryCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
+		param.put("gubun", "MEMINPUT");
 		
 		
-		memberService.memberInsert(param);
+		int insertState = -1;
+		
+		insertState = memberService.memberInsert(param);
+		
+		if(insertState == 1) {
+		
+		    //회원가입 환영 이메일
+			Map<String, Object> eParam = new HashMap<>();
+			
+			//회원아이디
+			eParam.put("mbrId", mbrIdEncrypt);
+			//회웍입력 구분 코드
+			eParam.put("gubun", "EMI");
+			
+			//이메일 Function Call
+			sendEmail.emailSendUtil(eParam);
+		
+		}
+		
+		 return insertState;
 	}
 	
 	
@@ -313,6 +348,38 @@ public class MemberController {
 		int saveState = -1;
 		
 		saveState = memberService.authorInfoBaseSave(param);
+		
+		String useYn = param.get("useYn").toString();
+		
+		if(saveState == 1 && useYn.equals("Y")) {
+			
+			Map<String, Object> result = new HashMap<>();
+			
+			
+			//회원정보 가져고기
+			List<Map<String, Object>> memberContent = memberMapper.memberContent(param);
+			
+			String mbrCpNum = commonService.decrypt((String) memberContent.get(0).get("mbrCpNum")).replace("-", "");
+			String mbrId = commonService.decrypt((String) memberContent.get(0).get("mbrId"));
+			String mbrNm = (String) memberContent.get(0).get("mbrNm");
+			
+			
+			//SMS보내기
+			Map<String, Object> sendParams = new HashMap<String, Object>();
+									
+			sendParams.put("mbrCpNum", mbrCpNum);
+			sendParams.put("mbrId", mbrId);
+			sendParams.put("sndConCd", "SAA");
+			
+			sendSmsUtil.sendSmsProc(sendParams);
+			
+			
+		}
+		
+		String mbrSq = param.get("mbrSq").toString();
+		
+		//회원정보 검색
+		
 		
 		return saveState;
 	}

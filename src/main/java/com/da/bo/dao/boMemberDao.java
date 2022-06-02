@@ -128,10 +128,13 @@ public class boMemberDao {
 	}
 	
 	//회원정보 수정
-	public void memberUpdate(Map<String, Object> param){
+	public int memberUpdate(Map<String, Object> param){
 		
-		System.out.println("MEMBER_UPDATE_REQUEST = " + param);
-		boMemberMapper.memberUpdate(param);
+		int updateState = -1;
+		
+		updateState =  boMemberMapper.memberUpdate(param);
+		
+		return updateState;
 		
 	}
 

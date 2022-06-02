@@ -18,7 +18,7 @@ public interface boMemberMapper {
 	public void memberInsert(Map<String, Object> param);
 	
 	//회원 수정
-	public void memberUpdate(Map<String, Object> param);
+	public int memberUpdate(Map<String, Object> param);
 	
 	
 
