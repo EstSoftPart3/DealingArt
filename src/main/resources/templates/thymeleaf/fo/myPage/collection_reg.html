@@ -475,7 +475,7 @@ function collectionReg(){
 	if(checkValid()){
 		work.mbrSq = sMbrSqVal;
 		work.artstYear = $("#artstYear").val();
-		work.workPrc = $("#workPrc").val();
+		work.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		work.workSizeWidth = $("#workSizeWidth").val();
 		work.workSizeDepth = $("#workSizeDepth").val();
 		work.workMatrl = $("#workMatrl").val();
@@ -484,11 +484,37 @@ function collectionReg(){
 		work.workIntrdc = $("#workIntrdc").val();
 		work.keywrd = $("#keywrd").val();
 		
-		const file = document.getElementsByClassName("upload-hidden");
-	    const formData = new FormData();
-	    for(var i=0; i<file.length; i++){
-	    	formData.append("file", file[i].files[0]);
-	    }
+		const formData = new FormData();
+		//작품 대표 사진
+		const workMainImgUrl = document.getElementById("workMainImgUrl");
+		formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+		//작품 사진 전면
+		const workImgFrtUrl = document.getElementById("workImgFrtUrl");
+		formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+		//작품 사진 후면
+		const workImgRerUrl = document.getElementById("workImgRerUrl");
+		formData.append("workImgRerUrl", workImgRerUrl.files[0]);
+		//보증서, 작품 사진 좌우상하
+		const workGrtUrl = document.getElementById("workGrtUrl");
+		const workImgLefUrl = document.getElementById("workImgLefUrl");
+		const workImgRitUrl = document.getElementById("workImgRitUrl");
+		const workImgTopUrl = document.getElementById("workImgTopUrl");
+		const workImgBotUrl = document.getElementById("workImgBotUrl");
+		if(workGrtUrl.files[0] != null){
+			formData.append("workGrtUrl", workGrtUrl.files[0]);
+		}
+		if(workImgLefUrl.files[0] != null){
+			formData.append("workImgLefUrl", workImgLefUrl.files[0]);
+		}
+		if(workImgRitUrl.files[0] != null){
+			formData.append("workImgRitUrl", workImgRitUrl.files[0]);
+		}
+		if(workImgTopUrl.files[0] != null){
+			formData.append("workImgTopUrl", workImgTopUrl.files[0]);
+		}
+		if(workImgBotUrl.files[0] != null){
+			formData.append("workImgBotUrl", workImgBotUrl.files[0]);
+		}
 	    formData.append("work", new Blob([JSON.stringify(work)], {type: "application/json"}));
 	
 	

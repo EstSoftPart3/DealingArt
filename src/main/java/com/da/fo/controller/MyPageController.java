@@ -544,29 +544,53 @@ public class MyPageController {
 	@PostMapping("/collectionReg")
 	@ResponseBody
 	public int collectionReg(@RequestPart(value = "work") Map<String, Object> param,
-			@RequestPart(value = "file") List<MultipartFile> multipartFiles) {
-		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + multipartFiles);
-		System.out.println("######### file : " + multipartFiles);
-		List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
-		System.out.println("############## fileVO : " + fileVo);
-		param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-		param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-		param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
-		if (fileVo.size() >= 4) {
-			param.put("workGrtUrl", fileVo.get(3).getFileUrl());
+			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
+			@RequestPart(value = "workImgFrtUrl") @Nullable MultipartFile workImgFrtUrl,
+			@RequestPart(value = "workImgRerUrl") @Nullable MultipartFile workImgRerUrl,
+			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		//작품 메인 사진
+		if (workMainImgUrl != null) {
+			FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workMainImgUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 5) {
-			param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+		//작품 전면 사진
+		if (workImgFrtUrl != null) {
+			FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgFrtUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 6) {
-			param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+		//작품 후면 사진
+		if (workImgRerUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgRerUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 7) {
-			param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+		//보증서
+		if (workGrtUrl != null) {
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workGrtUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 8) {
-			param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+		//작품 사진 좌
+		if (workImgLefUrl != null) {
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgLefUrl", file.getFileUrl());
+		}
+		//작품 사진 우
+		if (workImgRitUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgRitUrl", file.getFileUrl());
+		}
+		//작품 사진 상
+		if (workImgTopUrl != null) {
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgTopUrl", file.getFileUrl());
+		}
+		//작품 사진 하
+		if (workImgBotUrl != null) {
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgBotUrl", file.getFileUrl());
 		}
 		int result = myPageService.collectionReg(param);
 		return result;
@@ -576,29 +600,53 @@ public class MyPageController {
 	@PostMapping("/myWorkReg")
 	@ResponseBody
 	public int myWorkReg(@RequestPart(value = "work") Map<String, Object> param,
-			@RequestPart(value = "file") List<MultipartFile> multipartFiles) {
-		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + multipartFiles);
-		System.out.println("######### file : " + multipartFiles);
-		List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
-		System.out.println("############## fileVO : " + fileVo);
-		param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-		param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-		param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
-		if (fileVo.size() >= 4) {
-			param.put("workGrtUrl", fileVo.get(3).getFileUrl());
+			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
+			@RequestPart(value = "workImgFrtUrl") @Nullable MultipartFile workImgFrtUrl,
+			@RequestPart(value = "workImgRerUrl") @Nullable MultipartFile workImgRerUrl,
+			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		//작품 메인 사진
+		if (workMainImgUrl != null) {
+			FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workMainImgUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 5) {
-			param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
+		//작품 전면 사진
+		if (workImgFrtUrl != null) {
+			FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgFrtUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 6) {
-			param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
+		//작품 후면 사진
+		if (workImgRerUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgRerUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 7) {
-			param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
+		//보증서
+		if (workGrtUrl != null) {
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workGrtUrl", file.getFileUrl());
 		}
-		if (fileVo.size() >= 8) {
-			param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
+		//작품 사진 좌
+		if (workImgLefUrl != null) {
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgLefUrl", file.getFileUrl());
+		}
+		//작품 사진 우
+		if (workImgRitUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgRitUrl", file.getFileUrl());
+		}
+		//작품 사진 상
+		if (workImgTopUrl != null) {
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgTopUrl", file.getFileUrl());
+		}
+		//작품 사진 하
+		if (workImgBotUrl != null) {
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgBotUrl", file.getFileUrl());
 		}
 		int result = myPageService.myWorkReg(param);
 		return result;
@@ -617,30 +665,54 @@ public class MyPageController {
 	// 나의 작품 수정
 	@PostMapping("/myWorkCor")
 	@ResponseBody
-	public int myWorkCor(@RequestPart(value = "work") Map<String, Object> param, @RequestPart(value = "file") @Nullable List<MultipartFile> multipartFiles) {
-		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + multipartFiles);
-		System.out.println("######### file : " + multipartFiles);
-		if (multipartFiles != null) {
-			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
-			if(!param.get("workMainImgUrl").toString().equals("") && !param.get("workMainImgUrl").toString().equals(null)) {
-				if (fileVo.size() >= 1) {
-					param.put("workGrtUrl", fileVo.get(0).getFileUrl());
-				}
-				if (fileVo.size() >= 2) {
-					param.put("workImgLefUrl", fileVo.get(1).getFileUrl());
-				}
-				if (fileVo.size() >= 3) {
-					param.put("workImgRitUrl", fileVo.get(2).getFileUrl());
-				}
-				if (fileVo.size() >= 4) {
-					param.put("workImgTopUrl", fileVo.get(3).getFileUrl());
-				}
-				if (fileVo.size() >= 5) {
-					param.put("workImgBotUrl", fileVo.get(4).getFileUrl());
-				}
-			}
-			System.out.println("############## fileVO : " + fileVo);
+	public int myWorkCor(@RequestPart(value = "work") Map<String, Object> param, 
+			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
+			@RequestPart(value = "workImgFrtUrl") @Nullable MultipartFile workImgFrtUrl,
+			@RequestPart(value = "workImgRerUrl") @Nullable MultipartFile workImgRerUrl,
+			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		//작품 메인 사진
+		if (workMainImgUrl != null) {
+			FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workMainImgUrl", file.getFileUrl());
+		}
+		//작품 전면 사진
+		if (workImgFrtUrl != null) {
+			FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgFrtUrl", file.getFileUrl());
+		}
+		//작품 후면 사진
+		if (workImgRerUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgRerUrl", file.getFileUrl());
+		}
+		//보증서
+		if (workGrtUrl != null) {
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workGrtUrl", file.getFileUrl());
+		}
+		//작품 사진 좌
+		if (workImgLefUrl != null) {
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgLefUrl", file.getFileUrl());
+		}
+		//작품 사진 우
+		if (workImgRitUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgRitUrl", file.getFileUrl());
+		}
+		//작품 사진 상
+		if (workImgTopUrl != null) {
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgTopUrl", file.getFileUrl());
+		}
+		//작품 사진 하
+		if (workImgBotUrl != null) {
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+param.get("mbrSq").toString());
+			param.put("workImgBotUrl", file.getFileUrl());
 		}
 		
 		int result = myPageService.myWorkCor(param);
@@ -661,49 +733,54 @@ public class MyPageController {
 	// 소장품 등록
 	@PostMapping("/collectionCor")
 	@ResponseBody
-	public int collectionCor(@RequestPart(value = "work") Map<String, Object> param, @RequestPart(value = "file") @Nullable List<MultipartFile> multipartFiles) {
-		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + multipartFiles);
-		System.out.println("######### file : " + multipartFiles);
-		if (multipartFiles != null) {
-			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "userCollection");
-			System.out.println("############## fileVO : " + fileVo);
-			if(!param.get("workMainImgUrl").toString().equals("") && !param.get("workMainImgUrl").toString().equals(null)) {
-				if (fileVo.size() >= 1) {
-					param.put("workGrtUrl", fileVo.get(0).getFileUrl());
-				}
-				if (fileVo.size() >= 2) {
-					param.put("workImgLefUrl", fileVo.get(1).getFileUrl());
-				}
-				if (fileVo.size() >= 3) {
-					param.put("workImgRitUrl", fileVo.get(2).getFileUrl());
-				}
-				if (fileVo.size() >= 4) {
-					param.put("workImgTopUrl", fileVo.get(3).getFileUrl());
-				}
-				if (fileVo.size() >= 5) {
-					param.put("workImgBotUrl", fileVo.get(4).getFileUrl());
-				}
-			}else{
-				param.put("workMainImgUrl", fileVo.get(0).getFileUrl());
-				param.put("workImgFrtUrl", fileVo.get(1).getFileUrl());
-				param.put("workImgRerUrl", fileVo.get(2).getFileUrl());
-				if (fileVo.size() >= 4) {
-					param.put("workGrtUrl", fileVo.get(3).getFileUrl());
-				}
-				if (fileVo.size() >= 5) {
-					param.put("workImgLefUrl", fileVo.get(4).getFileUrl());
-				}
-				if (fileVo.size() >= 6) {
-					param.put("workImgRitUrl", fileVo.get(5).getFileUrl());
-				}
-				if (fileVo.size() >= 7) {
-					param.put("workImgTopUrl", fileVo.get(6).getFileUrl());
-				}
-				if (fileVo.size() >= 8) {
-					param.put("workImgBotUrl", fileVo.get(7).getFileUrl());
-				}
-			}
+	public int collectionCor(@RequestPart(value = "work") Map<String, Object> param, 
+			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
+			@RequestPart(value = "workImgFrtUrl") @Nullable MultipartFile workImgFrtUrl,
+			@RequestPart(value = "workImgRerUrl") @Nullable MultipartFile workImgRerUrl,
+			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		//작품 메인 사진
+		if (workMainImgUrl != null) {
+			FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workMainImgUrl", file.getFileUrl());
+		}
+		//작품 전면 사진
+		if (workImgFrtUrl != null) {
+			FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgFrtUrl", file.getFileUrl());
+		}
+		//작품 후면 사진
+		if (workImgRerUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgRerUrl", file.getFileUrl());
+		}
+		//보증서
+		if (workGrtUrl != null) {
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workGrtUrl", file.getFileUrl());
+		}
+		//작품 사진 좌
+		if (workImgLefUrl != null) {
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgLefUrl", file.getFileUrl());
+		}
+		//작품 사진 우
+		if (workImgRitUrl != null) {
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgRitUrl", file.getFileUrl());
+		}
+		//작품 사진 상
+		if (workImgTopUrl != null) {
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgTopUrl", file.getFileUrl());
+		}
+		//작품 사진 하
+		if (workImgBotUrl != null) {
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+			param.put("workImgBotUrl", file.getFileUrl());
 		}
 		int result = myPageService.collectionCor(param);
 		return result;

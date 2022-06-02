@@ -371,6 +371,9 @@ function myDealSearchList(){
     				if(myDealList[i].dealTypCd == "A"){ //경매면 응찰 히스토리 버튼 추가
     					myDealListHtml += '		<button type="button" class="btns-4" onclick="bidHistory('+myDealList[i].dealSq+')">응찰 히스토리</button>';
     				}
+    				if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq == sMbrSqVal){ //거래중 이면서 판매자 본인 일 경우 거래 수정 버튼 추가
+						myDealListHtml += '		<button type="button" class="btns-4" dealTypCd="'+myDealList[i].dealTypCd+'" dealSq="'+myDealList[i].dealSq+'" dealAuctnPrc="'+myDealList[i].dealAuctnPrc+'" onclick="dealMod(this)">거래 중단 및 수정하기</button>';
+					}
     				myDealListHtml += '		<button type="button" class="btns-4" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetail(this)">거래 계약 안내 및 상세</button>';
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-2">';
@@ -711,6 +714,17 @@ function bidReg(obj){
 	}else{
 		modalAlertShow("응찰가가 입력되지 않았습니다.", "bidPrc"+dealSq);
 	}
+}
+
+function dealMod(obj){
+	var dealTypCd = obj.attributes.dealTypCd.value;
+	var dealSq = obj.attributes.dealSq.value;
+	var dealAuctnPrc = obj.attributes.dealAuctnPrc.value;
+	if(dealTypCd == "A" && dealAuctnPrc != "undefined"){
+		modalAlertShow("응찰이 된 거래는 수정할 수 없습니다.");
+		return;
+	}
+	location.href="/dealMod?dealSq="+dealSq;
 }
 </script>
     

@@ -10,11 +10,12 @@
     	.hd-div{background-color:#fff;}
     	input[type="radio"] + label{margin-bottom:0;}
     	.timepicker{
-    		width: 100px;
+    		width: 50px;
     		height: 32px;
   			border: #cccccc 1px solid;
     		font-size: 14px;
-    	}
+    		text-align: center;
+    	} 
     	.addrBtn{
 	    	width: 20%;
 		    background: #999999;
@@ -35,7 +36,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="" id="dealRegTitle">거래 등록 (경매)</h3>
+					<h3 class="" id="dealRegTitle">거래 수정 (경매)</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -53,29 +54,29 @@
 								</div>
 							</div>
 							<div class="med-box radio-2">
-								<input type="radio" id="r1" name="dealTypCd" value="A" checked>
-								<label for="r1" class="wd-145"><span></span>경매</label>
-								<input type="radio" id="r2" name="dealTypCd" value="S">
-								<label for="r2"><span></span>정찰가</label>
+								<input type="radio" id="auctn" name="dealTypCd" value="A">
+								<label for="auctn" class="wd-145"><span></span>경매</label>
+								<input type="radio" id="sell" name="dealTypCd" value="S">
+								<label for="sell"><span></span>정찰가</label>
 							</div>
 						</div>
 						
 						<div class="med">
 							<h2>기간설정</h2>
 							<div class="med-box radio-2">
-								<input type="radio" id="w1" name="dealPeriod" value="start" checked>
+								<input type="radio" id="w1" name="dealPeriod" value="start">
 								<label for="w1" class="wd-145"><span></span>즉시 시작</label>
-								<input type="radio" id="w2" name="dealPeriod" value="choice">
+								<input type="radio" id="w2" name="dealPeriod" value="choice" checked>
 								<label for="w2"><span></span>시작 시간 선택</label>
 								
-								<ul class="med-ul" id="startDate">
+								<ul class="med-ul" id="startDate" style="display:none;">
 									<li onclick="startDateSel(this)" value="7"><a href="#" >1주</a></li>
 									<li onclick="startDateSel(this)" value="14"><a href="#">2주</a></li>
 									<li onclick="startDateSel(this)" value="21"><a href="#">3주</a></li>
 									<li onclick="startDateSel(this)" value="28"><a href="#">4주</a></li>
 									<li onclick="startDateSel(this)" value="35"><a href="#">5주</a></li>
 								</ul>
-								<div class="input-box" id="choiceDate" style="display:none;">
+								<div class="input-box" id="choiceDate">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
 									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="거래 시작 날짜"/></div>
 									<input type="text" class="timepicker" id="dealStrtTime" required>
@@ -91,12 +92,17 @@
 							<div class="med-box radio-2">
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
-									<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA"></div></label>
+									<th:block th:if="${result.deal.dealTypCd.toString().equals('A')}">
+										<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA" th:text="${result.deal.dealStrtPrc}+' KRW'"></div></label>
+									</th:block>
+									<th:block th:if="${result.deal.dealTypCd.toString().equals('S')}">
+										<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA"></div></label>
+									</th:block>
 									<span class="to-red" style="font-size:12px;">판매 희망가의 70%로 자동 설정 됩니다.</span>
 								</div>
 								<div class="input-box">
 									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="희망가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px;"/>
-									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px; display:none;"/>
+									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" th:value="${result.deal.dealStrtPrc}" style="font-size:15px;"/>
 								</div>
 							</div>
 						</div>
@@ -327,12 +333,34 @@
 
 
 <script th:inline="javascript">
+$.datepicker.setDefaults({
+	dateFormat: 'yy.mm.dd',
+	prevText: '이전 달',
+	nextText: '다음 달',
+	monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	showMonthAfterYear: true,
+	yearSuffix: '년'
+});
+
 var result = /*[[${result}]]*/ 'default';
-var deal = new Object();
-result.deal = deal;
 jQuery(document).ready(function() {
-	$('.datepicker').datepicker();
+	$("#dealStrtDt").datepicker().datepicker("setDate", result.deal.dealStrtDate);
+	$("#dealEndngDt").datepicker().datepicker("setDate", result.deal.dealEndngDate);
 	$("#dealStrtDt").calendar($("#dealEndngDt"));
+	$("#dealStrtTime").timepicker({
+        timeFormat: "HH:mm",
+        defaultTime: result.deal.dealStrtTime
+    });
+	$("#dealEndngTime").timepicker({
+        timeFormat: "HH:mm",
+        defaultTime: result.deal.dealEndngTime,
+        interval: 10
+    });
+	result.deal.dealEndngDate
 	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
 		$(".home-1").css("display", "none");
 		$(".home-2").css("display", "");
@@ -341,23 +369,17 @@ jQuery(document).ready(function() {
 		$("#q2").prop("checked", "true");
 	}
 	
-    $('.timepicker').timepicker({
-        timeFormat: 'HH:mm',
-        interval: 10,
-//         minTime: '10',
-//         maxTime: '6:00pm',
-        defaultTime: '0',
-        startTime: '12:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-    });
-	
+    if(result.deal.dealTypCd == "S"){
+    	$("#sell").prop("checked", true);
+	}else{
+		$("#auctn").prop("checked", true);
+	}
+    $("input:radio[name='dealTypCd']").change();
 });
 
 $("input:radio[name='dealTypCd']").change(function(){
 	if($("input:radio[name='dealTypCd']:checked").val() == "S"){
-		$("#dealRegTitle").text("거래등록 (정찰가)");
+		$("#dealRegTitle").text("거래 수정 (정찰가)");
 		$("#bidOrSale").text("판매가");
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
@@ -366,7 +388,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$(".md-ds").empty();
 		$(".md-ds").html("판매가 되면 거래를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}else{
-		$("#dealRegTitle").text("거래등록 (경매)");
+		$("#dealRegTitle").text("거래 수정 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
 		$("#bidOrSale2").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
@@ -386,19 +408,6 @@ $("input:radio[name='dealPeriod']").change(function(){
 		$("#choiceDate").css("display", "none");
 		$("#startDate").css("display", "");
 	}
-});
-
-$.datepicker.setDefaults({
-	dateFormat: 'yy.mm.dd',
-	prevText: '이전 달',
-	nextText: '다음 달',
-	monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	showMonthAfterYear: true,
-	yearSuffix: '년'
 });
 
 function searchAddr(){
@@ -649,7 +658,7 @@ function dealReg(){
 	        processData : false,
 	        success: function(data) {
 	        	if(data != 0 || data != null || data != ""){
-	        		modalAlertShow("성공적으로 저장되었습니다.", "myWork");
+	        		modalAlertShow("성공적으로 저장되었습니다.", "myDeal");
 	        	}
 	        },
 	        error: function(error) {

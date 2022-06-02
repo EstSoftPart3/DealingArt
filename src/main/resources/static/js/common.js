@@ -103,6 +103,10 @@ function modalAlertClose(obj) {
 		});
 	}
 	
+	if(obj == "myDeal"){
+		location.href='/myDeal';
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');

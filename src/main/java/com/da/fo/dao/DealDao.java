@@ -13,6 +13,9 @@ import org.thymeleaf.util.ListUtils;
 
 import com.da.mapper.ArtistMapper;
 import com.da.mapper.DealMapper;
+import com.da.mapper.MemberMapper;
+import com.da.util.CommonService;
+import com.da.vo.MbrInfoVo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
@@ -25,10 +28,16 @@ public class DealDao {
 	JPAQueryFactory queryFactory; //QueryDsl을 사용하기 위해
 	
 	@Autowired
-	DealMapper dealMapper;
+	private DealMapper dealMapper;
 	
 	@Autowired
-	ArtistMapper artistMapper;
+	private ArtistMapper artistMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	/*
 	 * 딜 페이지에서 검색 필터별로 검색 결과를 조회한다.
@@ -241,6 +250,25 @@ public class DealDao {
 			result.put("exhbtn", exhbtn);
 			result.put("workList", workList);
 		}
+		return result;
+	}
+	
+	/*
+	 * 거래 정보 가져오기 (거래 수정)
+	 * param : dealSq
+	 * return : deal 테이블
+	 */
+	public Map<String, Object> selectDeal(Object param){
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> deal = dealMapper.selectDeal(param);
+		MbrInfoVo mbrInfo = memberMapper.mbrInfo(deal.get("sellMbrSq").toString());
+		mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));
+		Map<String, Object> work = dealMapper.selectWork(deal.get("workSq").toString());
+		result.put("deal", deal);
+		result.put("mbrInfo", mbrInfo);
+		result.put("work", work);
+		
 		return result;
 	}
 }

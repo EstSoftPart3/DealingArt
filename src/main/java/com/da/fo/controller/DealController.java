@@ -100,52 +100,64 @@ public class DealController {
 	//거래 등록 기능
 	@RequestMapping("/dealReg/reg")
 	@ResponseBody
-	public int myWorkCor(@RequestPart(value = "param") Map<String, Object> param, @RequestPart(value = "file") @Nullable List<MultipartFile> multipartFiles) {
+	public int myWorkCor(@RequestPart(value = "param") Map<String, Object> param, 
+			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		
 		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + multipartFiles);
+		System.out.println("##################### collectionReg file : " + workGrtUrl + workImgLefUrl + workImgRitUrl + workImgTopUrl + workImgBotUrl);
 		JSONObject jsonObject = new JSONObject(new Gson().toJson(param));
+		//회원 정보
 		Map<String, Object> mbrInfo = new Gson().fromJson(jsonObject.getJSONObject("mbrInfo").toString(), new HashMap().getClass());
+		//회원 배송받을 핸드폰 번호
 		mbrInfo.put("mbrDelivryCpNum", commonService.encrypt(mbrInfo.get("mbrDelivryCpNum").toString()));
+		//작품 정보
 		Map<String, Object> work = new Gson().fromJson(jsonObject.getJSONObject("work").toString(), new HashMap().getClass());
+		//거래 정보
 		Map<String, Object> deal = new Gson().fromJson(jsonObject.getJSONObject("deal").toString(), new HashMap().getClass());
-		if (multipartFiles != null) {
-			List<FileVo> fileVo = awsS3Service.uploadFiles(multipartFiles, "artistWork");
-			if(!param.get("workGrtUrl").toString().equals("") && !param.get("workGrtUrl").toString().equals(null)) {
-				work.put("workGrtUrl", fileVo.get(0).getFileUrl());
-				if(fileVo.size() >= 2){ 
-					work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
-				} 
-				if(fileVo.size() >= 3){ 
-					work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
-				}	
-				if(fileVo.size() >= 4){ 
-					work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
-				} 
-				if(fileVo.size() >= 5){
-					work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
-				} 
-			}else{
-				work.put("workGrtUrl", fileVo.get(0).getFileUrl());
-				if(fileVo.size() >= 2){ 
-					work.put("workImgLefUrl", fileVo.get(1).getFileUrl()); 
-				} 
-				if(fileVo.size() >= 3){ 
-					work.put("workImgRitUrl", fileVo.get(2).getFileUrl()); 
-				}	
-				if(fileVo.size() >= 4){ 
-					work.put("workImgTopUrl",fileVo.get(3).getFileUrl()); 
-				} 
-				if(fileVo.size() >= 5){
-					work.put("workImgBotUrl", fileVo.get(4).getFileUrl()); 
-				} 
-			}
-			System.out.println("############## fileVO : " + fileVo);
+		//보증서
+		if(workGrtUrl != null){
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			work.put("workGrtUrl", file.getFileUrl());
 		}
-		int result = myPageService.myWorkCor(work);
-		result += memberService.mbrDelivryAddrCor(mbrInfo);
+		//작품 사진 좌
+		if(workImgLefUrl != null){
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			work.put("workImgLefUrl", file.getFileUrl());
+		}
+		//작품 사진 우
+		if(workImgRitUrl != null){
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			work.put("workImgRitUrl", file.getFileUrl());
+		}
+		//작품 사진 상
+		if(workImgTopUrl != null){
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			work.put("workImgTopUrl", file.getFileUrl());
+		}
+		//작품 사진 하
+		if(workImgBotUrl != null){
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			work.put("workImgBotUrl", file.getFileUrl());
+		}
+		int result = myPageService.myWorkCor(work); 
+		result += memberService.mbrDelivryAddrCor(mbrInfo); 
 		result += dealService.dealReg(deal);
-		 
+		
 		return result;
+	}
+	
+	//거래 수정 페이지 오픈
+	@RequestMapping("/dealMod")
+	@ResponseBody
+	public ModelAndView dealReg(@RequestParam(value="dealSq", required=false) String dealSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/dealMod");
+		Map<String, Object> result = dealService.selectDeal(dealSq);
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	@RequestMapping("/dealSearch")

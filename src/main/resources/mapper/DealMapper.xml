@@ -222,7 +222,7 @@
 						DEAL_TYP_CD = #{dealTypCd},
 						DEAL_STTS_CD = #{dealSttsCd},
 						DEAL_STRT_PRC = #{dealStrtPrc},
-						DEAL_STRT_DT = #{dealStrtDt},
+						DEAL_STRT_DT = #{dealStrtDt}
 						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
 							<![CDATA[
 							,DEAL_ENDNG_DT = DATE_ADD(DATE_FORMAT(#{dealStrtDt},'%Y-%m-%d %H') + INTERVAL
@@ -430,5 +430,64 @@
 				TBL_DA_AUCTN_BID_H
 		WHERE 
 				DEAL_SQ = #{dealSq}
+	</select>
+	
+	<select id="selectDeal" resultType="hashMap" parameterType="String">
+		/* 거래 등록된 정보 가져오기 */
+		SELECT 
+				DEAL_SQ AS dealSq,
+				SELL_MBR_SQ AS sellMbrSq,
+				WORK_SQ AS workSq,
+				DEAL_TYP_CD AS dealTypCd,
+				DEAL_STTS_CD AS dealSttsCd,
+				FORMAT(DEAL_STRT_PRC, 0) AS dealStrtPrc,
+				DATE_FORMAT(DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate,
+				DATE_FORMAT(DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate,
+				DATE_FORMAT(DEAL_STRT_DT, '%H:%i') AS dealStrtTime,
+				DATE_FORMAT(DEAL_ENDNG_DT, '%H:%i') AS dealEndngTime
+		FROM 
+				TBL_DA_DEAL_M
+		WHERE 
+				DEAL_SQ = #{dealSq}
+	</select>
+	
+	<select id="selectWork" resultType="hashMap" parameterType="String">
+		/* 작품 정보 가져오기 */
+		SELECT 
+				A.WORK_SQ AS workSq,
+				A.WORK_NM AS workNm,
+				A.WORK_TYP_CD AS workTypCd,
+				A.ARTST_SQ AS artstSq,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.ARTST_BIRTH_YEAR AS artstBirthYear,
+				A.WORK_SIZE_WIDTH AS workSizeWidth,
+				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_MATRL AS workMatrl,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
+				A.WORK_IMG_RER_URL AS workImgRerUrl,
+				A.WORK_FRM_YN AS workFrmYn,
+				A.WORK_SALE_YN AS workSaleYn,
+				A.WORK_CLR_CD AS workClrCd,
+				A.WORK_GRT_URL AS workGrtUrl,
+				FORMAT(A.WORK_PRC, 0) AS workPrc,
+				A.WORK_IMG_LEF_URL AS workImgLefUrl,
+				A.WORK_IMG_RIT_URL AS workImgRitUrl,
+				A.WORK_IMG_TOP_URL AS workImgTopUrl,
+				A.WORK_IMG_BOT_URL AS workImgBotUrl,
+				A.WORK_VIDEO_URL AS workVideoUrl,
+				A.WORK_INTRDC AS workIntrdc,
+				(SELECT B.KEYWRD_SQ  
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
+				(SELECT B.KEYWRD
+				 FROM TBL_DA_KEYWRD_S AS B
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+		FROM 
+				TBL_DA_WORK_M AS A
+				
+		WHERE 
+				A.WORK_SQ = #{workSq}
 	</select>
 </mapper>

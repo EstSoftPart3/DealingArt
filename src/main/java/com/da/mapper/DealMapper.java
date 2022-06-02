@@ -116,4 +116,18 @@ public interface DealMapper {
 	 */
 	public List selectAuctnBidList(Object param);
 	
+	/*
+	 * 거래 정보 가져오기 (거래 수정)
+	 * param : dealSq
+	 * return : deal 테이블 정보
+	 */
+	public Map<String, Object> selectDeal(Object param);
+	
+	/*
+	 * 작품 정보 가져오기 (거래 수정)
+	 * param : workSq
+	 * return : work 테이블 정보
+	 */
+	public Map<String, Object> selectWork(Object param);
+	
 }
