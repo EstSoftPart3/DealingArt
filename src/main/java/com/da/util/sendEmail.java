@@ -57,6 +57,43 @@ public class sendEmail {
 			String content_part = null;
 			String content_head = null;
 			
+			
+			//히스토리 테이블 카운터
+			Map<String, Object> getParam = new HashMap<String, Object>();
+			
+			
+			if(gubun.equals("EMI")) {
+				
+				//보낸티입
+				String sndTyp = "E";
+				//보낸 컨텐츠 코드
+				String sndConCd = "EMI";
+				
+				getParam.put("sndTyp", sndTyp);
+				getParam.put("sndConCd", sndConCd);
+				getParam.put("mbrId", mbrId);
+				getParam.put("sndAddress", mbrId);
+			
+			}
+			
+			if(gubun.equals("EAP")) {
+				
+				//보낸티입
+				String sndTyp = "E";
+				//보낸 컨텐츠 코드
+				String sndConCd = "EAP";
+				
+				getParam.put("sndTyp", sndTyp);
+				getParam.put("sndConCd", sndConCd);
+				getParam.put("mbrId", mbrId);
+				getParam.put("sndAddress", mbrId);
+			
+			}
+					
+			int notiCount = NotiMapper.notiCount(getParam);
+			
+			if(notiCount == 0) {
+			
 			//회원가입
 		    if(gubun.equals("EMI")) {
 		    	
@@ -175,7 +212,7 @@ public class sendEmail {
 						+ "                            <div style=\"text-align: center;\">"
 						+ "                                <span style=\"color: rgb(51, 51, 51); font-family: AppleSDGothic, &quot;apple sd gothic neo&quot;, &quot;noto sans korean&quot;, &quot;noto sans korean regular&quot;, &quot;noto sans cjk kr&quot;, &quot;noto sans cjk&quot;, &quot;nanum gothic&quot;, &quot;malgun gothic&quot;, dotum, arial, helvetica, MS Gothic, sans-serif; font-style: normal;\"><br></span>"
 						+ "                            </div>"
-						+ "                            <div style=\"text-align: center; \">&nbsp;\"+mbrId+"님의 작가등록이 완료 되었습니다.&nbsp;</div>"
+						+ "                            <div style=\"text-align: center; \">"+mbrId+"님의 작가등록이 완료 되었습니다.&nbsp;</div>"
 						+ "                            <div style=\"text-align: center; \"><br></div>"
 						+ "                            <div style=\"text-align: center; \">"
 						+ "                                <span style=\"font-weight: bold;\">안녕하세요, "+mbrId+"님! </span>"
@@ -352,43 +389,14 @@ public class sendEmail {
 				
 				rtnMap = sendMailUtil.sendMail(params);
 				
-				//히스토리 테이블 카운터
-				Map<String, Object> getParam = new HashMap<String, Object>();
-				
-				if(gubun.equals("EMI")) {
-				
-					//보낸티입
-					String sndTyp = "E";
-					//보낸 컨텐츠 코드
-					String sndConCd = "EMI";
-					
-					getParam.put("sndTyp", sndTyp);
-					getParam.put("sndConCd", sndConCd);
-					getParam.put("mbrId", mbrId);
-					getParam.put("sndAddress", mbrId);
-				
-				}
-				
-				if(gubun.equals("EAP")) {
-					
-					//보낸티입
-					String sndTyp = "E";
-					//보낸 컨텐츠 코드
-					String sndConCd = "EAP";
-					
-					getParam.put("sndTyp", sndTyp);
-					getParam.put("sndConCd", sndConCd);
-					getParam.put("mbrId", mbrId);
-					getParam.put("sndAddress", mbrId);
-				
-				}
-						
-				int notiCount = NotiMapper.notiCount(getParam);
 				
 				if(notiCount == 0) {
 					//히스토리 저장
 					NotiMapper.notiInsert(getParam);
 				}
+				
+				
+			}
 				
 				return title;
 				
