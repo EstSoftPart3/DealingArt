@@ -355,21 +355,33 @@ public class MemberController {
 			
 			Map<String, Object> result = new HashMap<>();
 			
-			
-			//회원정보 가져고기
+			//검색조건 : mbrSq, mbrId
+			//회원정보 가져오기
 			List<Map<String, Object>> memberContent = memberMapper.memberContent(param);
 			
 			String mbrCpNum = commonService.decrypt((String) memberContent.get(0).get("mbrCpNum")).replace("-", "");
 			String mbrId = commonService.decrypt((String) memberContent.get(0).get("mbrId"));
 			String mbrNm = (String) memberContent.get(0).get("mbrNm");
 			
+			//등록일시	
+			//String regDt = (String) param.get("regDt");
+			//낙찰일시
+			//String sBidDt = (String) param.get("sBidDt");
+			//작품명
+			//String workNm = (String) param.get("workNm");
+			//최종낙찰가
+			//String bidPrc = (String) param.get("bidPrc");
+			//만료일시
+			//String dealEndngDt = (String) param.get("dealEndngDt");
+			//응찰일시
+			//String bidDt = (String) param.get("bidDt");
 			
 			//SMS보내기
 			Map<String, Object> sendParams = new HashMap<String, Object>();
 									
 			sendParams.put("mbrCpNum", mbrCpNum);
 			sendParams.put("mbrId", mbrId);
-			sendParams.put("sndConCd", "SAA");
+			sendParams.put("sndConCd", "SAE");
 			
 			sendSmsUtil.sendSmsProc(sendParams);
 			

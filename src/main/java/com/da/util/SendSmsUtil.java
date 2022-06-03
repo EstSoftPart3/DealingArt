@@ -108,7 +108,26 @@ public class SendSmsUtil {
 		//보낸 회원 번호
 		String sndNumber = (String) params.get("mbrCpNum");
 		
-		//MBR_EMAIL
+		//등록일시	
+		String regDt = (String) params.get("regDt");
+		//낙찰일시
+		String sBidDt = (String) params.get("sBidDt");
+		//작품명
+		String workNm = (String) params.get("workNm");
+		//최종낙찰가
+		String bidPrc = (String) params.get("bidPrc");
+		//만료일시
+		String dealEndngDt = (String) params.get("dealEndngDt");
+		//응찰일시
+		String bidDt = (String) params.get("bidDt");
+		
+		
+		/*
+		1) 작가신청완료 	: SAA
+		2) 낙찰알림		: SSA
+		3) 정찰-거래종료	: SRE
+		4) 경매-거래종료	: SAE
+		*/
 		
 		getParam.put("sndTyp", sndTyp);
 		getParam.put("sndConCd", sndConCd);
@@ -122,8 +141,38 @@ public class SendSmsUtil {
 			String smsContent = null;
 			
 			if(sndConCd.equals("SAA")) {
-				smsContent = "{딜링아트} 작가 등록 신청 완료 안내\n\n안녕하세요, "+ mbrId +"작가님!\n작가 등록을 신청해주셔서 대단히 감사합니다.\n운영자 승인이 완료되면 마이페이지에서 ‘포트폴리오’ 메뉴를 확인하세요!\n\n[안내사항]\n- 작가 등록 등록이 완료된 후 포트폴리오 메뉴가 활성화 됩니다.\n- 학력, 경력, 소속, 전시정보를 허위로 입력하는 경우 작가 등록이 보류 될 수 있으니 유의해주세요.";
-			} else {
+				smsContent = "(딜링아트) 작가 등록 신청 완료 안내\n\n"
+						+ "안녕하세요, "+ mbrId +"작가님!\n"
+						+ "작가 등록을 신청해주셔서 대단히 감사합니다.\n"
+						+ "운영자 승인이 완료되면 마이페이지에서 ‘포트폴리오’ 메뉴를 확인하세요!\n\n"
+						+ "[안내사항]\n\n"
+						+ "- 작가 등록 등록이 완료된 후 포트폴리오 메뉴가 활성화 됩니다.\n"
+						+ "- 학력, 경력, 소속, 전시정보를 허위로 입력하는 경우\n"
+						+ "작가 등록이 보류 될 수 있으니 유의해주세요.\n";
+			} else if(sndConCd.equals("SSA")) {
+				smsContent = "(딜링아트} 미술품 낙찰 완료\n"
+						+ "□판매형식 : 경매 \n"
+						+ "□등록일시 : "+regDt+" \n"
+						+ "□낙찰일시 : "+sBidDt+" \n"
+						+ "□작품명 : "+workNm+" \n"
+						+ "□최종낙찰가 : "+bidPrc+" 축하합니다.\n"
+						+ mbrId +"님! 구매자가 48시간 이내 결제를 완료하면\n"
+						+ "고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
+			} else if(sndConCd.equals("SRE")) {
+				smsContent = "(딜링아트) 미술품 거래 종료 안내\n\n"
+						+ "□작품명 : "+workNm+"\n"
+						+ "□판매형식 : 정찰 \n"
+						+ "□만료일시 : "+dealEndngDt+"\n"
+						+ mbrId +"님! 등록하신 미술품의 판매 기간이 만료되어 아쉽게도 판매가 종료되었습니다.\n"
+						+ "다시 판매 하시려면 마이갤러리>소장품 메뉴에서 등록을 진행해주세요. ";
+			} else if(sndConCd.equals("SAE")) {
+				smsContent = "(딜링아트} 미술품 거래 종료 안내\n\n"
+						+ "□작품명 : "+workNm+"\n"
+						+ "□구매형식 : 경매 \n"
+						+ "□응찰일시 : "+bidDt+"\n"
+						+ "□만료일시 : "+dealEndngDt+"\n"
+						+ ""+mbrId+"님! 응찰 하신 미술품이 아쉽게도 다른 회원님께 낙찰되었습니다.";
+			}else {
 				smsContent = "내용 없음";
 			}
 			
