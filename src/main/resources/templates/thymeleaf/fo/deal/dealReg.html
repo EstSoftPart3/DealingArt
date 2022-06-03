@@ -648,8 +648,8 @@ function dealReg(){
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
-	        	if(data != 0 || data != null || data != ""){
-	        		modalAlertShow("성공적으로 저장되었습니다.", "myWork");
+	        	if(data > 0 || data != null || data != ""){
+	        		modalAlertShow("거래가 등록되었습니다.", "myWork");
 	        	}
 	        },
 	        error: function(error) {

@@ -130,4 +130,18 @@ public interface DealMapper {
 	 */
 	public Map<String, Object> selectWork(Object param);
 	
+	/*
+	 * 거래 완료, 응찰 됬는지 확인
+	 * param : dealSq
+	 * return : Count
+	 */
+	public int selectDealSttsCd(Object param);
+	
+	/*
+	 * 거래 중단 (거래 삭제)
+	 * param : dealSq
+	 * return : null
+	 */
+	public int deleteDeal(Object param);
+	
 }

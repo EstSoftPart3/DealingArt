@@ -80,10 +80,15 @@ public class DealDao {
 	 * return : int
 	 */
 	public int dealReg(Object param) {
-		int result = dealMapper.dealReg(param);
-		if(result > 0) {
-			int result2 = dealMapper.updateMbrRefNo();
-			return result2;
+		int suspension = dealMapper.selectDealSttsCd(param);
+		if(suspension > 0) {
+			return -1;
+		}else{
+			int result = dealMapper.dealReg(param);
+			if(result > 0) {
+				int result2 = dealMapper.updateMbrRefNo();
+				return result2;
+			}
 		}
 		return 0;
 	}
@@ -259,8 +264,9 @@ public class DealDao {
 	 * return : deal 테이블
 	 */
 	public Map<String, Object> selectDeal(Object param){
-		
+		int suspension = dealMapper.selectDealSttsCd(param);
 		Map<String, Object> result = new HashMap<String, Object>();
+		
 		Map<String, Object> deal = dealMapper.selectDeal(param);
 		MbrInfoVo mbrInfo = memberMapper.mbrInfo(deal.get("sellMbrSq").toString());
 		mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));
@@ -270,5 +276,20 @@ public class DealDao {
 		result.put("work", work);
 		
 		return result;
+	}
+	/*
+	 * 거래 중단하기 (거래 삭제)
+	 * param : dealSq
+	 * return : int
+	 */
+	public int bidSuspension(Object param){
+		int suspension = dealMapper.selectDealSttsCd(param);
+		int result = 0;
+		if(suspension > 0) {
+			return -1;
+		}else{
+			result = dealMapper.deleteDeal(param);
+			return result;
+		}
 	}
 }
