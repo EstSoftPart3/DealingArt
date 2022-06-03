@@ -220,14 +220,15 @@ public class boMemberController {
 		saveState = boMemberService.memberUpdate(param);
 		
 		if(saveState == 1) {
-						
+			
+			//작가 코드(2)로 업데이트가 되었다면...
 			if(authSq.equals("2")) {
 				//작가신청완료 이메일
 				Map<String, Object> eParam = new HashMap<>();
 				
 				//회원아이디
 				eParam.put("mbrId", mbrIdEncrypt);
-				//회웍입력 구분 코드
+				//이메일 발송코드
 				eParam.put("gubun", "EAP");
 				
 				//이메일 Function Call
