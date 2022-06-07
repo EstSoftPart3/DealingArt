@@ -369,7 +369,7 @@ public class OAuthTestController {
 		  params.add("client_secret", "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");
 		  params.add("code", code);
 		  params.add("grant_type", "authorization_code");
-		  params.add("redirect_uri", "https://www.dealing-art.com/auth/google/callback");
+		  params.add("redirect_uri", "https://www.dealing-art.com/auth/google/callback"); 
 
 		  HttpEntity<MultiValueMap<String, String>> accessTokenRequest = new HttpEntity<>(params, headers);
 
