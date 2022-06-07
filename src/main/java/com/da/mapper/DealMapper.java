@@ -144,4 +144,11 @@ public interface DealMapper {
 	 */
 	public int deleteDeal(Object param);
 	
+	/*
+	 * 거래 종료된 유찰자 조회
+	 * param : dealSq
+	 * return : mbrSq
+	 */
+	public List<Map<String, Object>> selectAuctioneerByMbrSq(Object param);
+	
 }

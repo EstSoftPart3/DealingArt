@@ -512,4 +512,24 @@
 		FROM TBL_DA_DEAL_M 
 		WHERE DEAL_SQ = #{dealSq}
 	</delete>
+	
+	<select id="selectAuctioneerByMbrSq" resultType="hashMap" parameterType="hashMap">
+		/* 거래 종료된 경매 유찰자 조회*/
+				
+		SELECT 
+				MBR_SQ AS mbrSq
+		FROM 
+				TBL_DA_AUCTN_BID_H
+		WHERE 
+				MBR_SQ NOT IN (
+				SELECT 
+						MBR_SQ AS buyMbrSq
+				FROM 
+						TBL_DA_AUCTN_BID_H
+				WHERE 
+						 DEAL_SQ = #{dealSq}
+				GROUP BY DEAL_SQ 
+				ORDER BY BID_PRC DESC
+				)
+	</select>
 </mapper>
