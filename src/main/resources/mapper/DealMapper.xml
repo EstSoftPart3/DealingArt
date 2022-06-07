@@ -490,4 +490,26 @@
 		WHERE 
 				A.WORK_SQ = #{workSq}
 	</select>
+	
+	<select id="selectDealSttsCd" resultType="int" parameterType="String">
+		/* 응찰 또는 판매됬는지 확인 */
+		SELECT COUNT(*)
+		FROM
+				(
+				SELECT 
+						DEAL_SQ AS dealSq
+				FROM
+						TBL_DA_DEAL_M
+				WHERE 
+						DEAL_SQ = #{dealSq}
+					AND (DEAL_STTS_CD = 'TC' OR DEAL_AUCTN_PRC IS NOT NULL)
+				) A
+	</select>
+	
+	<delete id="deleteDeal" parameterType="String">
+		/* 거래 중단 */
+		DELETE 
+		FROM TBL_DA_DEAL_M 
+		WHERE DEAL_SQ = #{dealSq}
+	</delete>
 </mapper>

@@ -3341,7 +3341,18 @@ display: inline-block;margin-left: 13px;}
 }
 .is-label label{
     margin: 0;
-    padding: 0 10px 0 28px;
+    padding: 0 10px 0 15px;
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+}
+.is-label1{
+    display: inline-block;
+}
+.is-label1 label{
+    margin: 0;
+    padding: 0 10px 0 0;
     display: inline-block;
     font-size: 14px;
     color: #333;
@@ -3375,13 +3386,13 @@ display: inline-block;margin-left: 13px;}
     top: 87px;
 }
 
-.select-s1{
+ .select-s1{
     display: inline-block;
 }
-.select-s1 .bootstrap-select{
-    width: 200px !important;
+ .select-s1 .bootstrap-select{
+    width: 200px !important; 
     margin-top: 0 !important;
-}
+} 
 .select-s1 .bootstrap-select > .btn{font-size: 14px;color: #333333;padding: 0 0 0 18px;height: 32px;background-color: #fff;}
 .select-s1 .bootstrap-select.btn-group .btn .filter-option{
     opacity: 1;

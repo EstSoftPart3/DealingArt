@@ -187,4 +187,13 @@ public class DealController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	@RequestMapping("/dealMod/bidSuspension")
+	@ResponseBody
+	public ModelAndView bidSuspension(@RequestParam(value="dealSq", required=false) String dealSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = dealService.bidSuspension(dealSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 }

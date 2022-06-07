@@ -24,50 +24,63 @@
 							<div class="me-sech">
 								<div class="is-bos">
 		                           <div class="is-sum">
-		                              <input type="radio" id="w1" name="buyOrSell" value="BUY" checked>
+		                           	  <div class="is-label1">
+		                           	  	<label>거래 구분</label>
+			                              <select class="selectpicker" id="buyOrSell" data-width="fit">
+			                                 <option value="ALL">전체</option>
+			                                 <option value="BUY">구매 내역</option>
+			                                 <option value="SELL">판매 내역</option>
+			                              </select>
+				                      </div>
+				                      <div class="is-label">
+		                           	  	<label>거래 유형</label>
+			                              <select class="selectpicker" id="saleOrAuction" data-width="fit">
+			                                 <option value="ALL">전체</option>
+			                                 <option value="AUCTN">경매</option>
+			                                 <option value="SALE">정찰가</option>
+			                              </select>
+				                      </div>
+		                              <!-- <input type="radio" id="w1" name="buyOrSell" value="BUY" checked>
 		                              <label for="w1"><span></span>구매내역</label>
 		                              <input type="radio" id="w2" name="buyOrSell" value="SELL">
 		                              <label for="w2"><span></span>판매내역</label>
 		                              <input type="radio" id="w3" name="saleOrAuction" value="auction" checked>
 		                              <label for="w3"><span></span>경매</label>
 		                              <input type="radio" id="w4" name="saleOrAuction" value="sale">
-		                              <label for="w4"><span></span>정찰가</label>
+		                              <label for="w4"><span></span>정찰가</label> -->
 		                              <div class="is-label">
-		                              	<label></label>
-			                              <div class="selec-box select-s1">
-				                              <select class="selectpicker">
-				                                 <option value="ALL">전체</option>
-				                                 <option value="IP">판매중</option>
-				                                 <option value="EN">판매완료</option>
-				                                 <option value="PD">결제대기</option>
-				                                 <option value="PF">결제완료</option>
-				                                 <option value="SS">배송시작</option>
-				                                 <option value="DC">배송완료</option>
-				                                 <option value="PC">취소</option>
-				                                 <option value="RT">반품</option>
-				                              </select>
-				                           </div>
+		                              	<label>거래 상태</label>
+			                              <select class="selectpicker" id="dealSttsCd" data-width="fit">
+			                                 <option value="ALL">전체</option>
+			                                 <option value="TP">판매중</option>
+			                                 <option value="TC">판매완료</option>
+			                              </select>
 				                      </div>
 				                      <div class="is-label">
 		                              	<label></label>
-		                              	<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
-		                              </div>
-		                              <!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
-		                           </div>
-		                           <div class="is-la">
-		                           		<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
+		                              	<button type="button" class="sech-btn" id="searchOption_ALL" onclick="searchOption_onclick(this.id)">전체(기간선택)</button>
 				                        <button type="button" class="sech-btn" id="searchOption_6M" onclick="searchOption_onclick(this.id)">최근 6개월</button>
 				                        <button type="button" class="sech-btn" id="searchOption_1Y" onclick="searchOption_onclick(this.id)">최근 1년</button>
 				                        <button type="button" class="sech-btn" id="searchOption_2Y" onclick="searchOption_onclick(this.id)">최근 2년</button>
 				                        <button type="button" class="sech-btn" id="searchOption_3Y" onclick="searchOption_onclick(this.id)">최근 3년</button>
-			                       		<div class="is-label">
-			                              <label>기간선택</label>
-			                              <div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
-			                              <span class="is-span">~</span> 
-			                              <div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
-			                           </div>
-			                           <button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
-			                        </div>
+		                              </div>
+		                              <!-- <button type="button" class="" onclick="myDealSearchList()">검색</button> -->
+		                           </div>
+		                           <div class="is-sum">
+			                           <div class="is-la">
+				                       		<div class="is-label1">
+				                              <label>기간 선택</label>
+				                              <div class="input-cand"><input type="text" class="datepicker" id="searchStrtDate"/></div>
+				                              <span class="is-span">~</span> 
+				                              <div class="input-cand"><input type="text" class="datepicker" id="searchEndngDate"></div>
+				                           </div>
+				                           <div class="is-label">
+				                           	<label>검색 키워드</label>
+				                           	<input type="text" class="" id="searchKeyword" onkeydown="javascript: if (event.keyCode == 13) {myDealSearchList();}" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요." />
+				                           </div>
+				                           <button type="button" class="sech-btn" onclick="myDealSearchList()">조회</button>
+				                        </div>
+				                    </div>
 		                        </div>
 							</div>
 							<div id="myDealList">
@@ -157,7 +170,6 @@
 
 
 <script type="text/javascript">      
-      
  $(document).ready(function () {
   $(".elm").hover(
 	function(){ $(this).addClass('hover') },
@@ -233,7 +245,6 @@
     event.stopPropagation();
 });
  
- //$('.selectpicker').selectpicker();
 $.datepicker.setDefaults({
 	dateFormat: 'yy.mm.dd',
 	prevText: '이전 달',
@@ -246,6 +257,7 @@ $.datepicker.setDefaults({
 	showMonthAfterYear: true,
 	yearSuffix: '년'
 });
+
 /* 응찰 히스토리 */
 function bidHistory(dealSq) {
 	$(".modal-body").empty();
@@ -336,11 +348,15 @@ jQuery(document).ready(function() {
 
 var searchOptions = new Object();
 
-$("input:radio[name='buyOrSell']").change(function(){
+$("#buyOrSell").change(function(){
 	myDealSearchList();
 });
 
-$("input:radio[name='saleOrAuction']").change(function(){
+$("#saleOrAuction").change(function(){
+	myDealSearchList();
+});
+
+$("#dealSttsCd").change(function(){
 	myDealSearchList();
 });
 
@@ -353,8 +369,9 @@ function myDealSearchList(){
 		searchOptions.searchStrtDate = $("#searchStrtDate").val();
 		searchOptions.searchEndngDate = $("#searchEndngDate").val();
 	}
-	searchOptions.buyOrSell = $("input:radio[name='buyOrSell']:checked").val();
-	searchOptions.saleOrAuction = $("input:radio[name='saleOrAuction']:checked").val();
+	searchOptions.buyOrSell = $("#buyOrSell").val();
+	searchOptions.saleOrAuction = $("#saleOrAuction").val();
+	searchOptions.dealSttsCd = $("#dealSttsCd").val();
 	$.ajax({
         type: "post",
         url: "/myDealSearchList",
@@ -388,7 +405,7 @@ function myDealSearchList(){
 	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtDate +' – '+ myDealList[i].dealEndngDate +'</dd>';
 	    				myDealListHtml += '				<dt>시작가</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].dealStrtPrc +' KRW</dd>';
-	    				if(myDealList[i].dealSttsCd == "TP" && $("input:radio[name='buyOrSell']:checked").val() == "BUY"){ //경매 진행중이면
+	    				if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq != sMbrSqVal){ //경매 진행중이면
 	    					myDealListHtml += '			<dt>현재 입찰가</dt>';
 	    					if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
 	    						myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' KRW</dd>';
@@ -458,15 +475,15 @@ function myDealSearchList(){
     				myDealListHtml += '			<div class="myd-won">';
     				if(myDealList[i].dealTypCd == "A"){ //경매면
     					myDealListHtml += '				<p class="won-p">';
-    					if(myDealList[i].bidMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP" && $("input:radio[name='buyOrSell']:checked").val() == "BUY"){ //가장 높은 입찰자면서 거래중이면
+    					if(myDealList[i].bidMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq != sMbrSqVal){ //가장 높은 입찰자면서 거래중이면
 	    					myDealListHtml += '					현재 가장 높은 입찰가로 입찰 중 입니다.';
 	    					myDealListHtml += '					<span>경매 진행 중</span>';
     					}
-    					if(myDealList[i].bidMbrSq != sMbrSqVal && myDealList[i].dealSttsCd == "TP" && $("input:radio[name='buyOrSell']:checked").val() == "BUY"){//거래중이며 가장 높은 입찰가가 아니면
+    					if(myDealList[i].bidMbrSq != sMbrSqVal && myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq != sMbrSqVal){//거래중이며 가장 높은 입찰가가 아니면
     						myDealListHtml += '					현재 회원님보다 높은 입찰가가 있습니다.';
     						myDealListHtml += '					<span>경매 진행 중</span>';
     					}
-    					if(myDealList[i].dealSttsCd == "TP" && $("input:radio[name='buyOrSell']:checked").val() == "SELL"){//경매 거래중이며 판매자면
+    					if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq == sMbrSqVal){//경매 거래중이며 판매자면
     						myDealListHtml += '					현재 회원님의 작품이 경매 진행중입니다.';
     						myDealListHtml += '					<span>경매 진행 중</span>';
     					}
@@ -538,9 +555,9 @@ function myDealSearchList(){
         		$("#myDealList").empty();
         	}
         	if(document.querySelectorAll("select[name='askingPrice']").length > 0){
-        		$(".selectpicker").selectpicker();
         		var elements = document.querySelectorAll("select[name='askingPrice']");
-        		selectBoxWriteAskingPrice(elements, )
+        		selectBoxWriteAskingPrice(elements)
+        		$('.selectpicker').selectpicker('refresh');
         	}
         },           
         error: function(error) {

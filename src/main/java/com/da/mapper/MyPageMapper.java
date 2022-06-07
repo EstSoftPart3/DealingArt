@@ -50,11 +50,18 @@ public interface MyPageMapper {
 	public List myDealSearchListSale(Object param);
 	
 	/*
-	 * 거래내역 경매 리스트를 보여준다.
+	 * 거래내역 구매 경매 리스트를 보여준다.
 	 * param : null or  searchOption
 	 * return : 거래내역
 	 */
-	public List myDealSearchListAuction(Object param);
+	public List myDealSearchListAuctionBuy(Object param);
+	
+	/*
+	 * 거래내역 판매 경매 리스트를 보여준다.
+	 * param : null or  searchOption
+	 * return : 거래내역
+	 */
+	public List myDealSearchListAuctionSell(Object param);
 	
 	/*
 	 * 나의 소장품 판매중인 것 목록

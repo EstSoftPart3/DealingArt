@@ -45,4 +45,11 @@ public interface DealService {
 	 * return : deal 테이블
 	 */
 	public Map<String, Object> selectDeal(Object param);
+	
+	/*
+	 * 거래 중단하기 (거래 삭제)
+	 * param : dealSq
+	 * return : int
+	 */
+	public int bidSuspension(Object param);
 }

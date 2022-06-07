@@ -3624,6 +3624,20 @@ display: none;}
 .is-label input{}
 .is-label input{}
 
+.is-label1{
+    display: block;
+    margin-bottom: 1.2rem;
+    width: 100%;
+}
+.is-label1 label{
+    margin: 0;
+    padding: 0 10px 0 0;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    display: none;
+}
+
 .input-cand{
     display: inline-block;
     position: relative;

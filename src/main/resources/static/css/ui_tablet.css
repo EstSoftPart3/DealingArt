@@ -3416,6 +3416,19 @@ width: 22rem;}
 .is-label input{}
 .is-label input{}
 
+.is-label1{
+    display: inline-block;
+    margin-left: 0.7rem;
+}
+.is-label1 label{
+    margin: 0;
+    padding: 0 10px 0 0;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    display: none;
+}
+
 .input-cand{
     display: inline-block;
     position: relative;

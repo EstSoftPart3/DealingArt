@@ -70,4 +70,13 @@ public class DealServiceImpl implements DealService{
 	public Map<String, Object> selectDeal(Object param){
 		return dealDao.selectDeal(param);
 	}
+	
+	/*
+	 * 거래 중단하기 (거래 삭제)
+	 * param : dealSq
+	 * return : int
+	 */
+	public int bidSuspension(Object param){
+		return dealDao.bidSuspension(param);
+	}
 }

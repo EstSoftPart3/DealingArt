@@ -82,10 +82,40 @@ public class MyPageDao {
 	 */
 	public List myDealSearchList(Map<String, Object> param) {
 		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
-		if(param.get("saleOrAuction").toString().equals("sale")){
+		if(param.get("saleOrAuction").toString().equals("ALL")){
+			if(param.get("buyOrSell").toString().equals("ALL")){
+				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
+				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
+				result = Stream.concat(resultAuctionBuy.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultSale.stream()).collect(Collectors.toList());
+			}
+			if(param.get("buyOrSell").toString().equals("BUY")){
+				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
+				result = Stream.concat(resultSale.stream(), resultAuctionBuy.stream()).collect(Collectors.toList());
+			}
+			if(param.get("buyOrSell").toString().equals("SELL")){
+				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
+				result = Stream.concat(resultSale.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
+			}
+		}
+		if(param.get("saleOrAuction").toString().equals("SALE")){
 			result = myPageMapper.myDealSearchListSale(param);
-		}else {
-			result = myPageMapper.myDealSearchListAuction(param);
+		}
+		if(param.get("saleOrAuction").toString().equals("AUCTN")){
+			if(param.get("buyOrSell").toString().equals("ALL")){
+				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
+				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
+				result = Stream.concat(resultAuctionBuy.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
+			}
+			if(param.get("buyOrSell").toString().equals("BUY")){
+				result = myPageMapper.myDealSearchListAuctionBuy(param);
+			}
+			if(param.get("buyOrSell").toString().equals("SELL")){
+				result = myPageMapper.myDealSearchListAuctionSell(param);
+			}
 		}
 		return result;
 	}

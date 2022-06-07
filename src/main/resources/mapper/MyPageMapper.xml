@@ -251,6 +251,16 @@
 			<if test="buyOrSell == 'SELL'">
 				AND B.SELL_MBR_SQ = #{mbrSq}
 			</if>
+			<if test="buyOrSell == 'ALL'">
+				AND B.BUY_MBR_SQ = #{mbrSq}
+				AND B.SELL_MBR_SQ = #{mbrSq}
+			</if>
+			<if test="dealSttsCd == 'TP'">
+				AND B.DEAL_STTS_CD = 'TP'
+			</if>
+			<if test="dealSttsCd == 'TC'">
+				AND B.DEAL_STTS_CD = 'TC'
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -264,8 +274,8 @@
 		GROUP BY B.DEAL_SQ;
 	</select>
 	
-	<select id="myDealSearchListAuction" resultType="hashMap" parameterType="hashMap">
-		/*거래내역 경매 리스트*/
+	<select id="myDealSearchListAuctionBuy" resultType="hashMap" parameterType="hashMap">
+		/*거래내역 구매 경매 리스트*/
 		SELECT 
 				C.DEAL_SQ AS dealSq, /*거래순번*/
 				A.WORK_SQ AS workSq, /*작품번호*/
@@ -307,18 +317,81 @@
 		INNER JOIN 
 				TBL_DA_DEAL_M AS C
 			ON 	A.WORK_SQ = C.WORK_SQ 
-		<if test="buyOrSell == 'BUY'">
 		INNER JOIN 
 				TBL_DA_AUCTN_BID_H AS D
 			ON C.DEAL_SQ = D.DEAL_SQ 
-		</if>
 		WHERE 	
 				C.DEAL_TYP_CD = 'A'
-			<if test="buyOrSell == 'BUY'">
 			AND	D.MBR_SQ IN (#{mbrSq})
+			<if test="dealSttsCd == 'TP'">
+				AND C.DEAL_STTS_CD = 'TP'
 			</if>
-			<if test="buyOrSell == 'SELL'">
+			<if test="dealSttsCd == 'TC'">
+				AND C.DEAL_STTS_CD = 'TC'
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (
+						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					)
+			</if>
+			<if test="searchStrtDate != null and searchStrtDate != '' and searchEndngDate != null and searchEndngDate != ''">
+				AND DATE_FORMAT(C.DEAL_ENDNG_DT, '%Y.%m.%d') BETWEEN #{searchStrtDate} AND #{searchEndngDate}
+			</if>
+		GROUP BY C.DEAL_SQ;
+	</select>
+	<select id="myDealSearchListAuctionSell" resultType="hashMap" parameterType="hashMap">
+		/*거래내역 판매 경매 리스트*/
+		SELECT 
+				C.DEAL_SQ AS dealSq, /*거래순번*/
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				YEAR (A.ARTST_BIRTH_YEAR) AS artstBirthYear, /*작가생년월일*/
+				C.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				C.MBR_REF_NO AS mbrRefNo, /*거래주문코드*/
+				C.BUY_MBR_SQ AS buyMbrSq, /*거래구매자순번*/
+				C.SELL_MBR_SQ AS sellMbrSq, /*거래판매자순번*/
+				C.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd, /*거래구매자결제상태*/
+				C.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd, /*거래판매자결제상태*/
+				(SELECT FORMAT(MAX(BID_PRC), 0)
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE C.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+				FORMAT(C.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+				FORMAT(C.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
+				FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+				(SELECT COUNT(DEAL_SQ)
+				FROM TBL_DA_AUCTN_BID_H 
+				WHERE C.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+				(SELECT MBR_SQ 
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE C.DEAL_SQ = DEAL_SQ
+				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
+				DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작날짜*/
+				DATE_FORMAT(C.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료날짜*/
+				C.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+		FROM 
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN 
+				TBL_DA_DEAL_M AS C
+			ON 	A.WORK_SQ = C.WORK_SQ 
+		WHERE 	
+				C.DEAL_TYP_CD = 'A'
 			AND	C.SELL_MBR_SQ = #{mbrSq}
+			<if test="dealSttsCd == 'TP'">
+				AND C.DEAL_STTS_CD = 'TP'
+			</if>
+			<if test="dealSttsCd == 'TC'">
+				AND C.DEAL_STTS_CD = 'TC'
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
