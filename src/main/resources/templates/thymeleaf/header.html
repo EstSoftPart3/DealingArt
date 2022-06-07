@@ -637,8 +637,9 @@ function changePasswrd(){
 	
 	function googleUserLogin() {
 		//var googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive.metadata.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8088/auth/google/callback&client_id=449213206661-c9iopfi3an6fglsajlq2npnp1c12f14s.apps.googleusercontent.com";
-		var googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=https://www.dealing-art.com/auth/google/callback&client_id=449213206661-c9iopfi3an6fglsajlq2npnp1c12f14s.apps.googleusercontent.com";
-	 	window.open(googleUrl,"_blank","height=600,width=577,top=100,left=200,scrollbars=yes,resizable=yes");
+		//var googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=https://www.dealing-art.com/auth/google/callback&client_id=449213206661-c9iopfi3an6fglsajlq2npnp1c12f14s.apps.googleusercontent.com";
+	 	var googleUrl = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=https://www.dealing-art.com/auth/google/callback&response_type=code&client_id=449213206661-c9iopfi3an6fglsajlq2npnp1c12f14s.apps.googleusercontent.com";
+		window.open(googleUrl,"_blank","height=600,width=577,top=100,left=200,scrollbars=yes,resizable=yes");
 	}
 </script>
 
