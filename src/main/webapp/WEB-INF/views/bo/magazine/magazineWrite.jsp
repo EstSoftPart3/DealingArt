@@ -117,27 +117,47 @@
    <script type="text/javascript">
 
 	  
-    var editor;
+//     var editor;
        
-    DecoupledEditor
-           .create( document.querySelector( '#editor' ) ,{
+//     DecoupledEditor
+//            .create( document.querySelector( '#editor' ) ,{
         	
-        	    //sourcedialog
-           		//plugins: [SourceEditing], 
-            	//toolbar: ['sourceEditing'],
-        	   extraPlugins: [MyCustomUploadAdapterPlugin],
+//         	    //sourcedialog
+//            		//plugins: [SourceEditing], 
+//             	//toolbar: ['sourceEditing'],
+//         	   extraPlugins: [MyCustomUploadAdapterPlugin],
            	
            	
-           } )
+//            } )
            
-           .then( editor => {
-               const toolbarContainer = document.querySelector( '#toolbar-container' );
+//            .then( editor => {
+//                const toolbarContainer = document.querySelector( '#toolbar-container' );
 
-               toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-           } )
-           .catch( error => {
-               console.error( error );
-           } );
+//                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+//            } )
+//            .catch( error => {
+//                console.error( error );
+//            } );
+    DecoupledDocumentEditor
+	.create( document.querySelector( '#editor' ), {
+		
+		licenseKey: 'ExsHmoBFE5WDCOKFluh5/uyuEY1LuvUHcEq99SadAptme2Af1zXKgJX2wA==',
+		extraPlugins: [MyCustomUploadAdapterPlugin],
+		
+		
+	} )
+	.then( editor => {
+		 const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+		  toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+          document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+	} )
+	.catch( error => {
+		console.error( 'Oops, something went wrong!' );
+		console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+		console.warn( 'Build id: ebx524mxzl84-u9490jx48w7r' );
+		console.error( error );
+	} );
     
     function MyCustomUploadAdapterPlugin(editor) {
 	    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {

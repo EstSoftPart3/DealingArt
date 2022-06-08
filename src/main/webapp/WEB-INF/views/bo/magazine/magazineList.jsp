@@ -124,7 +124,7 @@
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
 	    	   { name: "mgzSq",  title:"메거진순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "mbrSq",title:"회원순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "mgzTitle",id:"메거진제목", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
+	    	   { name: "mgzTitle",id:"메거진제목", title:"제목", type: "text", width: 300,align:"left", visible: true, key:true},
 	    	   { name: "mgzDescrptn",title:"메거진설명", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "mgzContent",title:"메거진내용", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "mgzMainImgUrl",title:"메거진대표이미지URL", type: "text", width: 200,align:"center",width:100 , visible: false},
@@ -133,8 +133,8 @@
 	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 },
 	    	   { name: "updtMbrSq",title:"수정회원", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "useYn",title:"사용여부", type: "text", width: 200,align:"center",width:100 },
-	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 }
+	    	   { name: "useYn",title:"사용여부", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 , visible: false}
 	    	  
 	    	   
 	       ],

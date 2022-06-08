@@ -101,10 +101,11 @@
 					 				<td style="text-align:left" >
 					 				
 					 				
-					 					<div id="brd" style="border: 1px solid #efefef;padding:5px;width:1000px;">
+<!-- 					 					<div id="brd" style="border: 1px solid #efefef;padding:5px;width:1000px;"> -->
 					 		
-					 					</div>
-									
+<!-- 					 					</div> -->
+											
+											<div id="editor" style="border: 1px solid #efefef;width:800px;pointer-events:none;">
 					 				
 					 				</td>
 					 			</tr>
@@ -132,6 +133,26 @@
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
+   
+   DecoupledDocumentEditor
+	.create( document.querySelector( '#editor' ), {
+		
+		licenseKey: 'ExsHmoBFE5WDCOKFluh5/uyuEY1LuvUHcEq99SadAptme2Af1zXKgJX2wA==',
+		
+		
+	} )
+	.then( editor => {
+		 const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+		  toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+         document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+	} )
+	.catch( error => {
+		console.error( 'Oops, something went wrong!' );
+		console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+		console.warn( 'Build id: ebx524mxzl84-u9490jx48w7r' );
+		console.error( error );
+	} );
    
   
    
@@ -191,16 +212,20 @@
 			        	$("#dropZone").prop("src",mgzMainImgUrlInput)
 				  }
 	        	 
-	        	 var timpStr = mgzContentInput;
-	        	 timpStr = timpStr.replaceAll("&lt;","<");
-	        	 timpStr = timpStr.replaceAll("&gt;",">");
-	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
-	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
-	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
-	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
-	        	//Table 수정 금지
-	        	 timpStr = timpStr.replaceAll("true","false");
-	        	 document.getElementById('brd').innerHTML=timpStr;
+// 	        	 var timpStr = mgzContentInput;
+// 	        	 timpStr = timpStr.replaceAll("&lt;","<");
+// 	        	 timpStr = timpStr.replaceAll("&gt;",">");
+// 	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+// 	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+// 	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+// 	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+// 	        	//Table 수정 금지
+// 	        	 timpStr = timpStr.replaceAll("true","false");
+// 	        	 document.getElementById('brd').innerHTML=timpStr;
+	        	 
+	        	  const domEditableElement = document.querySelector( '.ck-editor__editable' );
+	        	 const editorInstance = domEditableElement.ckeditorInstance;
+	        	 editorInstance.setData(mgzContentInput);
 	        	 
 	        	 //ckEditor Mouse Over Class Remove
 	        	 fn_styleNone();
