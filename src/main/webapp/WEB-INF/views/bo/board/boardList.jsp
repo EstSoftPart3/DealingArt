@@ -87,7 +87,7 @@
 	   
 	   $("#boardList").jsGrid({
 		   locale:"ko",
-	       height: "400px",
+	       height: "700px",
 	       width: "100%",
 	       inserting: false,
 	       editing: false,
@@ -108,9 +108,13 @@
 	    	         dataType: "json"
 	    	      }).done(function(response) {
 	    	    	 //d.resolve(response.boardData.boardInfo);
+	    	    	
 	    	    	 
 	    	    	 d.resolve($.map(response.boardData.boardInfo, function (item, itemIndex) {
-                         return $.extend(item, { "Index": itemIndex + 1 });
+                         
+	    	    		 var rSize = response.boardData.boardInfo.length - itemIndex;
+		    	    		    	    		 
+	    	    		 return $.extend(item, { "Index": rSize });
                      }));
 	    	    	 
 	    	      });
@@ -120,13 +124,13 @@
 	       fields: [
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
 	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
-	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"center", visible: true, key:true},
+	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"left", visible: true, key:true},
 	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "regMbrSq",title:"등록회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "regDt",title:"등록일시", type: "text", width: 200,align:"center",width:100 , visible: true},
 	    	   { name: "updtMbrSq",title:"수정회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 , visible: false},
-	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 }
+	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 , visible: false}
 	    	  
 	    	   
 	       ],

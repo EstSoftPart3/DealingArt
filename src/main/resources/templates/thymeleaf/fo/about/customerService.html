@@ -108,7 +108,9 @@
 									  padding: 3px 8px;
 									  border-radius: 15px;
 									}
+									
 							</style>
+							
 						
 							<div class="wrapper">
 								<div class="panel-group3" id="accordion" role="tablist" aria-multiselectable="true">
@@ -169,6 +171,17 @@ $(".cn-b").hover(
          		console.log(data);
          		
          		for(var i=0; i<brdList.length; i++){
+         			
+         			 var timpStr = brdList[i].brdContent;
+                 	 
+                 	 timpStr = timpStr.replaceAll("&lt;","<");
+	   	        	 timpStr = timpStr.replaceAll("&gt;",">");
+	   	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+	   	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+	   	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	   	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+	   	        	 //Table 수정 금지
+	   	        	 timpStr = timpStr.replaceAll("true","false");
 					
          			brdListHtml += '<div class="panel-heading3 active" role="tab" id="heading'+ brdList[i].brdSq +'">';
 					brdListHtml += '	<h4 class="panel-title3">';
@@ -180,8 +193,8 @@ $(".cn-b").hover(
 					brdListHtml += '</div>';
 					brdListHtml += '<div id="collapse'+ brdList[i].brdSq +'" class="panel-collapse3 collapse" role="tabpanel" aria-labelledby="heading'+ brdList[i].brdSq +'">';
 					brdListHtml += '	<div class="panel-body">';
-					brdListHtml += '		<div class="coll-text">';
-					brdListHtml += '			'+ brdList[i].brdContent +'';
+					brdListHtml += '		<div class="coll-text ck-blurred ck ck-content" style="border: 0px solid #efefef;" lang="ko" dir="ltr"  aria-label="main" contenteditable="false">';
+					brdListHtml += '			'+ timpStr +'';
 					brdListHtml += '		</div>';
 					brdListHtml += '	</div>';
 					brdListHtml += '</div>';
@@ -190,6 +203,9 @@ $(".cn-b").hover(
          		
              	$("#ul_brdList").empty();
              	$("#ul_brdList").append(brdListHtml).trigger("create");
+             	
+             	fn_styleNone();
+             	
          	}else{
          		modalAlertShow("검색 결과가 없습니다."); 
          		$("#ul_brdList").empty();
@@ -206,7 +222,12 @@ $(".cn-b").hover(
  
  
  
- 
+ //ckEditor Mouse Over Class Remove
+ function fn_styleNone() {
+ 	$(".ck-widget__type-around__button").css("display","none");
+ 	$(".ck-widget").css("outline-style","none");
+ 	$(".ck-widget__selection-handle").css("display","none");
+ }
  
  
  

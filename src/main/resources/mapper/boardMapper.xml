@@ -21,6 +21,7 @@
 		FROM
             TBL_DA_BRD_M A 
         WHERE 1=1
+        	AND A.DEL_YN = 'N'
          	AND A.BRD_TYP_CD = #{brdTypCd}
          	ORDER BY BRD_SQ DESC
     </select>
