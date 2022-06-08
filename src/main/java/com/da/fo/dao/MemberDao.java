@@ -415,4 +415,14 @@ public class MemberDao {
 	public int mbrDelivryAddrCor(Object param) {
 		return memberMapper.mbrDelivryAddrCor(param);
 	}
+	
+	/*
+	 * 회원 활동명 중복체크
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public int selectMbrNcknmCount(Object param) {
+		return memberMapper.selectMbrNcknmCount(param);
+	}
+
 }

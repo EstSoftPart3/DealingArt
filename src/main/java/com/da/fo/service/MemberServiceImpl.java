@@ -278,4 +278,14 @@ public class MemberServiceImpl implements MemberService  {
 	public int mbrDelivryAddrCor(Object param) {
 		return memberDao.mbrDelivryAddrCor(param);
 	}
+	
+	/*
+	 * 회원 활동명 중복체크
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public int selectMbrNcknmCount(Object param) {
+		return memberDao.selectMbrNcknmCount(param);
+	}
+
 }

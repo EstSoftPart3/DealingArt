@@ -13,6 +13,7 @@ import com.da.mapper.DealMapper;
 import com.da.mapper.MemberMapper;
 import com.da.util.CommonService;
 import com.da.util.SendSmsUtil;
+import com.da.vo.MbrInfoVo;
 
 @Component
 public class AuctionScheduler {
@@ -33,71 +34,79 @@ public class AuctionScheduler {
 	@Scheduled(cron="0 */10 * * * *")
 	public void successfulBid () {
 		List<Map<String, Object>> successfulBidList = dealMapper.selectSuccessfulBidList(); //거래 종료 시간 만료한 경매 정보 가져오기
+		List<Map<String, Object>> successfulSaleList = dealMapper.selectNotSoldSaleList(); //판매 종료 시간이 만료했지만 판매되지 않은 정찰가 거래 정보 가져오기
+		MbrInfoVo mbrInfoVo = new MbrInfoVo();
+		Map<String, Object> smsParam = new HashMap<String, Object>();
 		Map<String, Object> updateParamMap = new HashMap<>();
-		String dealSq;
-		String buyMbrSq;
+		String bidDealSq;
+		String bidBuyMbrSq;
+		String saleDealSq;
+		String saleBuyMbrSq;
 		for(int i=0; i<successfulBidList.size(); i++) {
-			dealSq = successfulBidList.get(i).get("dealSq").toString(); //거래 순번 가져오기
-			buyMbrSq = dealMapper.selectSuccessfulBidBuyMbrSq(dealSq); //거래 순번으로 낙찰자 가져오기
-			updateParamMap.put("buyMbrSq", buyMbrSq); //업데이트할 구매자 순번에 구매자 순번을 넣어준다
+			bidDealSq = successfulBidList.get(i).get("dealSq").toString(); //거래 순번 가져오기
+			bidBuyMbrSq = dealMapper.selectSuccessfulBidBuyMbrSq(bidDealSq); //거래 순번으로 낙찰자 가져오기
+			
+			updateParamMap.put("buyMbrSq", bidBuyMbrSq); //업데이트할 구매자 순번에 구매자 순번을 넣어준다
 			updateParamMap.put("dealSbidPrc", successfulBidList.get(i).get("dealAuctnPrc").toString()); //업데이트할 낙찰 금액에 낙찰 금액을 넣어준다
 			updateParamMap.put("dealFinalPrc", successfulBidList.get(i).get("dealAuctnPrc").toString()); //업데이트할 최종 금액에 낙찰 금액을 넣어준다
 			updateParamMap.put("dealSq", successfulBidList.get(i).get("dealSq").toString()); //업데이트할 거래 순번에 거래 순번을 넣어준다
 			dealMapper.updateSuccessfulBidDeal(updateParamMap); //딜 테이블을 거래종료 및 낙찰로 업데이트한다
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("mbrSq", buyMbrSq);
-			List<Map<String, Object>> memberContent = memberMapper.memberContent(param); //낙찰자 조회한다
-			//회원전화번호
-			param.put("mbrCpNum", commonService.decrypt((String)memberContent.get(0).get("mbrCpNum")).replace("-", ""));
-			//회원아이디
-			param.put("mbrId", commonService.decrypt((String) memberContent.get(0).get("mbrId")));
-			//회원이름
-			param.put("mbrNm", memberContent.get(0).get("mbrNm"));
-			//등록일시	
-			param.put("regDt", memberContent.get(0).get("regDt"));
-			//낙찰일시
-			param.put("sBidDt", memberContent.get(0).get("sBidDt"));
-			//작품명
-			param.put("workNm", memberContent.get(0).get("workNm"));
-			//최종낙찰가
-			param.put("bidPrc", memberContent.get(0).get("bidPrc"));
-			//만료일시
-			param.put("dealEndngDt", memberContent.get(0).get("dealEndngDt"));
-			//응찰일시
-			param.put("bidDt", memberContent.get(0).get("bidDt"));
-			//대상코드 수정 중요@@@@@
-			param.put("sndConCd", "SSA");
-						
-			sendSmsUtil.sendSmsProc(param); //낙찰자에게 낙찰 알림 메세지를 보낸다
 			
-			List<Map<String, Object>> auctioneer = dealMapper.selectAuctioneerByMbrSq(dealSq); //유찰자를 조회한다
+			mbrInfoVo = memberMapper.mbrInfo(bidBuyMbrSq); //낙찰자 정보를 조회한다
+			//회원전화번호
+			smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpCertYn().replace("-", "")));
+			//회원아이디
+			smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+			//등록일시	
+			smsParam.put("regDt", successfulBidList.get(i).get("dealStrtDt"));
+			//낙찰일시
+			smsParam.put("sBidDt", successfulBidList.get(i).get("dealEndngDt"));
+			//작품명
+			smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+			//최종낙찰가
+			smsParam.put("bidPrc", successfulBidList.get(i).get("dealAuctnPrc"));
+			//대상코드 수정 중요@@@@
+			smsParam.put("sndConCd", "SSA");
+						
+			sendSmsUtil.sendSmsProc(smsParam); //낙찰자에게 낙찰 알림 메세지를 보낸다
+			
+			List<Map<String, Object>> auctioneer = dealMapper.selectAuctioneerByMbrSq(bidDealSq, bidBuyMbrSq); //유찰자를 조회한다
 			for(int j=0; j<auctioneer.size(); j++) { //유찰자 만큼
-				Map<String, Object> param2 = new HashMap<String, Object>();
-				param2.put("mbrSq", buyMbrSq);
-				List<Map<String, Object>> memberContent2 = memberMapper.memberContent(param2);
+				mbrInfoVo = memberMapper.mbrInfo(auctioneer.get(j).get("mbrSq").toString());
 				//회원전화번호
-				param2.put("mbrCpNum", commonService.decrypt((String)memberContent2.get(i).get("mbrCpNum")).replace("-", ""));
+				smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum().replace("-", "")));
 				//회원아이디
-				param2.put("mbrId", commonService.decrypt((String) memberContent2.get(i).get("mbrId")));
-				//회원이름
-				param2.put("mbrNm", memberContent2.get(i).get("mbrNm"));
-				//등록일시	
-				param2.put("regDt", memberContent2.get(i).get("regDt"));
-				//낙찰일시
-				param2.put("sBidDt", memberContent2.get(i).get("sBidDt"));
+				smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
 				//작품명
-				param2.put("workNm", memberContent2.get(i).get("workNm"));
-				//최종낙찰가
-				param2.put("bidPrc", memberContent2.get(i).get("bidPrc"));
+				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
 				//만료일시
-				param2.put("dealEndngDt", memberContent2.get(i).get("dealEndngDt"));
+				smsParam.put("dealEndngDt", successfulBidList.get(i).get("dealEndngDt"));
 				//응찰일시
-				param2.put("bidDt", memberContent2.get(i).get("bidDt"));
-				//대상코드 수정 중요@@@@
-				param2.put("sndConCd", "SAE");
+				smsParam.put("bidDt", auctioneer.get(j).get("bidDate"));
+				//대상코드 수정 중요@@@
+				smsParam.put("sndConCd", "SAE");
 							
-				sendSmsUtil.sendSmsProc(param); //유찰자에게 경매종료 메세지를 보낸다
+				sendSmsUtil.sendSmsProc(smsParam); //유찰자에게 경매종료 메세지를 보낸다
 			}
+		}
+		
+		for(int i=0; i<successfulSaleList.size(); i++) { //정찰가면서 판매 시간이 종료된 걸 조회한다
+			updateParamMap.put("dealSq", successfulSaleList.get(i).get("dealSq").toString()); //업데이트할 거래 순번에 거래 순번을 넣어준다
+			dealMapper.updateSuccessfulBidDeal(updateParamMap); //거래 상태를 거래 종료로 바꾼다
+			
+			mbrInfoVo = memberMapper.mbrInfo(successfulSaleList.get(i).get("mbrSq").toString()); //회원정보를 조회한다
+			//회원전화번호
+			smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum().replace("-", "")));
+			//회원아이디
+			smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+			//작품명
+			smsParam.put("workNm", successfulSaleList.get(i).get("workNm"));
+			//만료일시
+			smsParam.put("dealEndngDt", successfulSaleList.get(i).get("dealEndngDt"));
+			//대상코드 수정 중요@@@
+			smsParam.put("sndConCd", "SRE");
+			
+			sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
 		}
 	}
 }

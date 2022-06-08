@@ -309,15 +309,44 @@
 	<select id="selectSuccessfulBidList" resultType="hashMap">
 		/*경매 종료 시간 지난 경매 정보 가져오기*/
 		SELECT 
-				DEAL_SQ AS dealSq,
-				DEAL_TYP_CD AS dealTypCd,
-				DEAL_AUCTN_PRC AS dealAuctnPrc
+				A.DEAL_SQ AS dealSq,
+				A.WORK_SQ AS workSq,
+				B.WORK_NM AS workNm,
+				A.DEAL_TYP_CD AS dealTypCd,
+				A.DEAL_AUCTN_PRC AS dealAuctnPrc,
+				DATE_FORMAT(A.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt,
+				DATE_FORMAT(A.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDt
 		FROM
-				TBL_DA_DEAL_M
+				TBL_DA_DEAL_M A
+		INNER JOIN 
+				TBL_DA_WORK_M B
+			ON	A.WORK_SQ = B.WORK_SQ
 		WHERE 
-				DEAL_TYP_CD = 'A'
-			AND DEAL_STTS_CD = 'TP'
-			AND DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
+				A.DEAL_TYP_CD = 'A'
+			AND A.DEAL_STTS_CD = 'TP'
+			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
+	</select>
+	
+	<select id="selectNotSoldSaleList" resultType="hashMap">
+		/*판매 종료 시간 지났지만 판매 되지 않은 정찰가 거래 정보 가져오기*/
+		SELECT 
+				A.DEAL_SQ AS dealSq,
+				A.WORK_SQ AS workSq,
+				B.WORK_NM AS workNm,
+				A.SELL_MBR_SQ AS sellMbrSq,
+				A.DEAL_TYP_CD AS dealTypCd,
+				A.DEAL_AUCTN_PRC AS dealAuctnPrc,
+				DATE_FORMAT(A.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt,
+				DATE_FORMAT(A.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDt
+		FROM
+				TBL_DA_DEAL_M A
+		INNER JOIN 
+				TBL_DA_WORK_M B
+			ON	A.WORK_SQ = B.WORK_SQ
+		WHERE 
+				A.DEAL_TYP_CD = 'S'
+			AND A.DEAL_STTS_CD = 'TP'
+			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
 	</select>
 	
 	<select id="selectSuccessfulBidBuyMbrSq" resultType="String">
@@ -337,10 +366,16 @@
 		UPDATE 
 				TBL_DA_DEAL_M
 		SET
-				BUY_MBR_SQ = #{buyMbrSq},
-				DEAL_STTS_CD = 'TC',
-				DEAL_SBID_PRC = #{dealSbidPrc},
-				DEAL_FINAL_PRC = #{dealFinalPrc}
+				DEAL_STTS_CD = 'TC'
+				<if test="buyMbrSq != null and buyMbrSq != ''">
+					,BUY_MBR_SQ = #{buyMbrSq}
+				</if>
+				<if test="dealSbidPrc != null and dealSbidPrc != ''">
+					,DEAL_SBID_PRC = #{dealSbidPrc}
+				</if>
+				<if test="dealFinalPrc != null and dealFinalPrc != ''">
+					DEAL_FINAL_PRC = #{dealFinalPrc}
+				</if>
 		WHERE 
 				DEAL_SQ = #{dealSq}
 	</update>
@@ -513,23 +548,27 @@
 		WHERE DEAL_SQ = #{dealSq}
 	</delete>
 	
-	<select id="selectAuctioneerByMbrSq" resultType="hashMap" parameterType="hashMap">
+	<select id="selectAuctioneerByMbrSq" resultType="hashMap" parameterType="String">
 		/* 거래 종료된 경매 유찰자 조회*/
-				
 		SELECT 
-				MBR_SQ AS mbrSq
+				A.MBR_SQ AS mbrSq,
+				A.BID_DATE AS bidDate
 		FROM 
-				TBL_DA_AUCTN_BID_H
-		WHERE 
-				MBR_SQ NOT IN (
+				(
 				SELECT 
-						MBR_SQ AS buyMbrSq
+						*
 				FROM 
 						TBL_DA_AUCTN_BID_H
 				WHERE 
-						 DEAL_SQ = #{dealSq}
-				GROUP BY DEAL_SQ 
-				ORDER BY BID_PRC DESC
-				)
+						DEAL_SQ = #{dealSq}
+					AND (BID_DATE) IN (
+							SELECT MAX(BID_DATE) AS bidDate
+							FROM TBL_DA_AUCTN_BID_H
+							GROUP BY MBR_SQ
+						)
+				ORDER BY BID_DATE
+				) A
+		WHERE A.MBR_SQ != #{mbrSq}
+		GROUP BY A.MBR_SQ
 	</select>
 </mapper>

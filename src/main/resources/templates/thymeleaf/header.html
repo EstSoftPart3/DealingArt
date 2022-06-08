@@ -689,7 +689,13 @@ function changePasswrd(){
 						<div class="input-box">
 							<p class="inp-p" id="mainSmsCertificationCheck" style="display:none;color:red">휴대폰 인증완료</p>
 						</div>
-						
+						<div class="input-box input-group">
+							<input type="text" class="input-3" placeholder="활동명" id="mbrNcknm" autocomplete="off" onkeyup="characterCheck(this)" onblur="mbrNcknmLength(this)"/>
+							<button type="button" class="group-btn" id="mbrNcknmBtn" onclick="mbrNcknmCheck(this)" disabled>중복체크</button>
+						</div>
+						<div class="input-box">
+							<p class="inp-p" id="mbrNcknmCheck">활동명을 입력 후 중복체크를 해주세요.</p>
+						</div>
 						<input type="hidden" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 						<input type="hidden" name="EncodeData">					<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 					
@@ -836,6 +842,61 @@ function mainMobileAuthFail() {
 	 modalAlertShow("휴대폰 인증에 실패 하였습니다.","");
 }
 
+var mbrNcknmCheckYn = "N"; //활동명 중복체크 여부
+
+//활동명 특수문자 제한
+function characterCheck(obj){
+	var regExp = /[ \{\}\[\]\/?,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi; 
+	
+	if(regExp.test(obj.value)){
+		fn_validation('mbrNcknmCheck','활동명에는 문자, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.', 'R');
+		obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+		document.getElementById("mbrNcknmBtn").disabled = true;
+	}else{
+		fn_validation('mbrNcknmCheck','활동명을 입력 후 중복체크를 해주세요.', 'B');
+		document.getElementById("mbrNcknmBtn").disabled = false;
+	}
+}
+
+//활동명 길이 제한
+function mbrNcknmLength(obj){
+	if(obj.value.length < 3){
+		fn_validation('mbrNcknmCheck','활동명은 3글자 이상이여야 합니다.', 'R');
+		document.getElementById("mbrNcknmBtn").disabled = true;
+		obj.focus();
+	}else{
+		fn_validation('mbrNcknmCheck','활동명을 입력 후 중복체크를 해주세요.', 'B');
+		document.getElementById("mbrNcknmBtn").disabled = false;
+	}
+}
+
+//활동명 중복체크
+function mbrNcknmCheck(obj){
+	$.ajax({
+        type: "post",
+        url: "/mbrNcknmCheck",
+        data: {
+        	mbrNcknm : document.getElementById("mbrNcknm").value
+        },
+        success: function(data) {
+        	if (data.result > 0) {
+        		obj.disabled = true;
+        		obj.value = "";
+        		$('#memberModal').css("overflow", "scroll");
+        		modalAlertShow("활동명이 중복되었습니다. 다시 입력해주세요.", "mbrNcknm");        		
+        	}else{
+        		mbrNcknmCheckYn = "Y";
+        		$('#memberModal').css("overflow", "scroll");
+        		modalAlertShow("사용 가능한 활동명입니다.");   
+        		fn_validation('mbrNcknmCheck','', 'B');
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+}
+
 var sMbrSqVal = "";
 var sAuthSqVal = "";
 var artstSq = "";
@@ -875,7 +936,7 @@ jQuery(document).ready(function() {
         error: function(error) {
             alert("오류 발생" + error);
         }
-	})
+	});
 });
 
 //로그인 기능
@@ -998,6 +1059,8 @@ $("#memberInputBtn").on('click', function(event){
 	var mbrCpCertDi = $("#mbrCpCertDi").val();
 	//소셜 회원 로그인 구분
 	var mbrSocialSort = "GEN";
+	//회원 활동명
+	var mbrNcknm = $("#mbrNcknm").val();
 	
 	if(isEmpty(mbrId)) {
 		fn_validation('mbrIdCheck','이메일을 입력해주세요.', 'R');
@@ -1114,6 +1177,12 @@ $("#memberInputBtn").on('click', function(event){
 		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
 		return;
 	}
+	
+	//활동명 중복체크 여부
+	if(mbrNcknmCheckYn == "N"){
+		fn_validation('mbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
+		return;
+	}
 	 
 	 let memParams = {
 		  "mbrId" : mbrId,
@@ -1124,7 +1193,8 @@ $("#memberInputBtn").on('click', function(event){
 		  "mbrCpCertYn" : mbrCpCertYn,
 		  "mbrCpCertDate" : mbrCpCertDate,
 		  "mbrCpCertDi" : mbrCpCertDi,
-		  "mbrSocialSort" : mbrSocialSort
+		  "mbrSocialSort" : mbrSocialSort,
+		  "mbrNcknm" : mbrNcknm
 	 }
 	 
 	 
