@@ -77,7 +77,8 @@
 									<th><span class="my-red">작품 대표 사진</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workMainImgUrl1" style="cursor:pointer" th:src="${result.workMainImgUrl}"/>
+											<img class="content" id="workMainImgUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workMainImgUrl)}" th:src="${result.workMainImgUrl}"/>
+											<img class="content" id="workMainImgUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workMainImgUrl)}"/>
 											<label for="workMainImgUrl">찾아보기</label> 
 											<input type="file" id="workMainImgUrl" class="upload-hidden" th:value="${result.workMainImgUrl}"> 
 										</div>
@@ -88,7 +89,8 @@
 									<th><span class="my-red">작품 사진(전면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgFrtUrl1" style="cursor:pointer" th:src="${result.workImgFrtUrl}"/>
+										<img class="content" id="workImgFrtUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgFrtUrl)}" th:src="${result.workImgFrtUrl}"/>
+											<img class="content" id="workImgFrtUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgFrtUrl)}"/>
 											<label for="workImgFrtUrl">찾아보기</label> 
 											<input type="file" id="workImgFrtUrl" class="upload-hidden" th:value="${result.workImgFrtUrl}"> 
 										</div>
@@ -99,7 +101,8 @@
 									<th><span class="my-red">작품 사진(후면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgRerUrl1" style="cursor:pointer" th:src="${result.workImgRerUrl}"/>
+											<img class="content" id="workImgRerUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgRerUrl)}" th:src="${result.workImgRerUrl}"/>
+											<img class="content" id="workImgRerUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgRerUrl)}"/>
 											<label for="workImgRerUrl">찾아보기</label> 
 											<input type="file" id="workImgRerUrl" class="upload-hidden" th:value="${result.workImgRerUrl}">  
 										</div>
@@ -136,6 +139,26 @@
 										</div>
 									</td>
 								</tr>
+								<tr>
+									<th><span class="my-red">형태</span></th>
+									<td>
+										<input type="radio" id="z1" name="workShpCd" value="PLN" th:checked="${result.workShpCd eq 'PLN'}"/>
+										<label for="z1" class="wd-145"><span></span>평면</label>
+										<input type="radio" id="z2" name="workShpCd" value="SLD" th:checked="${result.workShpCd eq 'SLD'}"/>
+										<label for="z2" class="wd-145"><span></span>입체</label>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="my-red">구분</span></th>
+									<td>
+										<input type="checkbox" id="z11" name="workClsfcCd" value="PAINTING" onclick="workClsfcCdCheck()"/>
+										<label for="z11" class="wd-145"><span></span>회화</label>
+										<input type="checkbox" id="z22" name="workClsfcCd" value="EDITION" onclick="workClsfcCdCheck()"/>
+										<label for="z22" class="wd-145"><span></span>에디션</label>
+										<input type="checkbox" id="z33" name="workClsfcCd" value="PICTURE" onclick="workClsfcCdCheck()"/>
+										<label for="z33" class="wd-145"><span></span>사진</label>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -151,7 +174,8 @@
 									<th><span class="my-red">보증서</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:src="${result.workGrtUrl}"/>
+											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workGrtUrl)}" th:src="${result.workGrtUrl}"/>
+											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workGrtUrl)}"/>
 											<label for="workGrtUrl">찾아보기</label> 
 											<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.workGrtUrl}"> 
 										</div>
@@ -188,7 +212,8 @@
 									<th><span class="">작품 사진(좌)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgLefUrl1" style="cursor:pointer" th:src="${result.workImgLefUrl}"/>
+											<img class="content" id="workImgLefUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgLefUrl)}" th:src="${result.workImgLefUrl}"/>
+											<img class="content" id="workImgLefUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgLefUrl)}"/>
 											<label for="workImgLefUrl">찾아보기</label> 
 											<input type="file" id="workImgLefUrl" class="upload-hidden" th:value="${result.workImgLefUrl}"> 
 										</div>
@@ -199,7 +224,8 @@
 									<th><span class="">작품 사진(우)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgRitUrl1" style="cursor:pointer" th:src="${result.workImgRitUrl}"/>
+											<img class="content" id="workImgRitUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgRitUrl)}" th:src="${result.workImgRitUrl}"/>
+											<img class="content" id="workImgRitUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgRitUrl)}"/>
 											<label for="workImgRitUrl">찾아보기</label> 
 											<input type="file" id="workImgRitUrl" class="upload-hidden" th:value="${result.workImgRitUrl}"> 
 										</div>
@@ -210,7 +236,8 @@
 									<th><span class="">작품 사진(상)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgTopUrl1" style="cursor:pointer" th:src="${result.workImgTopUrl}"/>
+											<img class="content" id="workImgTopUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgTopUrl)}" th:src="${result.workImgTopUrl}"/>
+											<img class="content" id="workImgTopUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgTopUrl)}"/>
 											<label for="workImgTopUrl">찾아보기</label> 
 											<input type="file" id="workImgTopUrl" class="upload-hidden" th:value="${result.workImgTopUrl}"> 
 										</div>
@@ -221,7 +248,8 @@
 									<th><span class="">작품 사진(하)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workImgBotUrl1" style="cursor:pointer" th:src="${result.workImgBotUrl}"/>
+											<img class="content" id="workImgBotUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgBotUrl)}" th:src="${result.workImgBotUrl}"/>
+											<img class="content" id="workImgBotUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workImgBotUrl)}"/>
 											<label for="workImgBotUrl">찾아보기</label> 
 											<input type="file" id="workImgBotUrl" class="upload-hidden" th:value="${result.workImgBotUrl}"> 
 										</div>
@@ -449,25 +477,54 @@ var storage = new Object();
 
 $(function() {   
 	if(sessionStorage.getItem("work") != null){
-		storage = JSON.parse(sessionStorage.getItem("work"));
-		$("#artstActvtyNm").val(storage.artstActvtyNm);
-		$("#artstYear").val(storage.artstYear);
-		$("#workNm").val(storage.workNm);
-		$('input:radio[name="workFrmYn"][value="'+storage.workFrmYn+'"]').prop('checked', true);
-		$('input:radio[name="workClrCd"][value="'+storage.workClrCd+'"]').prop('checked', true);
-		$("#workPrc").val(storage.workPrc);
-		$("#workSizeWidth").val(storage.workSizeWidth);
-		$("#workSizeDepth").val(storage.workSizeDepth);
-		$("#workMatrl").val(storage.workMatrl);
-		$("#workProdcYear").val(storage.workProdcYear);
-		$("#workVideoUrl").val(storage.workVideoUrl);
-		$("#workIntrdc").val(storage.workIntrdc);
-		$("#keywrd").val(storage.keywrd);
+		modalConfirm("알림", "임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
+			function(confirm){
+				if(confirm){
+					storage = JSON.parse(sessionStorage.getItem("work"));
+					$("#workNm").val(storage.workNm);
+					$('input:radio[name="workFrmYn"][value="'+storage.workFrmYn+'"]').prop('checked', true);
+					$('input:radio[name="workSaleYn"][value="'+storage.workSaleYn+'"]').prop('checked', true);
+					$('input:radio[name="workClrCd"][value="'+storage.workClrCd+'"]').prop('checked', true);
+					$('input:radio[name="workShpCd"][value="'+storage.workShpCd+'"]').prop('checked', true);
+					//작품 구분 체크하기
+					if(storage.workClsfcCd != null && storage.workClsfcCd != ""){
+						var workClsfcds = storage.workClsfcCd.split(",");
+						for(var i in workClsfcds){
+							document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+								if(el.value == workClsfcds[i]){
+									el.checked = true;
+								}
+							});
+						}
+					}
+					$("#workPrc").val(storage.workPrc);
+					$("#workSizeWidth").val(storage.workSizeWidth);
+					$("#workSizeDepth").val(storage.workSizeDepth);
+					$("#workMatrl").val(storage.workMatrl);
+					$("#workProdcYear").val(storage.workProdcYear);
+					$("#workVideoUrl").val(storage.workVideoUrl);
+					$("#workIntrdc").val(storage.workIntrdc);
+					$("#keywrd").val(storage.keywrd);
+					$('input:radio[name="workClrCd"][value="'+storage.workSaleYn+'"]').prop('checked', true);
+				}
+		});
+	}else{
+		if(result.workClsfcCd != null && result.workClsfcCd != ""){
+			var workClsfcds = result.workClsfcCd.split(",");
+			for(var i in workClsfcds){
+				document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+					if(el.value == workClsfcds[i]){
+						el.checked = true;
+					}
+				});
+			}
+		}
+		if(result.keywrd != null && result.keywrd != ""){
+			const keywrd = document.getElementById("keywrd");
+			keywrdSet(keywrd);
+		}
 	}
-	if(result.keywrd != null && result.keywrd != ""){
-		const keywrd = document.getElementById("keywrd");
-		keywrdSet(keywrd);
-	}
+	
 });
 
 function collectionReg(){
@@ -577,6 +634,24 @@ function checkValid(){
 		return false;
 	}
 	
+	if($('input:radio[name=workShpCd]').is(':checked')){
+		result.workShpCd = $('input[name=workShpCd]:checked').val();
+	}else{
+		modalAlertShow("작품 형태가 선택되지 않았습니다!", "z1");	
+		return false;
+	}
+	
+	var workClsfcCdCheckYn = false;
+	document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+		if(el.checked == true){
+			workClsfcCdCheckYn = true;
+		} 
+	});
+	if(!workClsfcCdCheckYn){
+		modalAlertShow("작품 구분이 선택되지 않았습니다!", "z11");	
+		return false;
+	}
+	
 	//이미지 용량 확인 체크 시작
 	if($("#workMainImgUrl").val() != ""){	
 		var maxSize = 5 * 1024 * 1024; // 5MB
@@ -653,11 +728,12 @@ function collectionStorage(){
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({
-																artstActvtyNm : $("#artstActvtyNm").val(),
-																artstYear : $("#artstYear").val(),
 																workNm : $("#workNm").val(),
 																workFrmYn : $('input[name=workFrmYn]:checked').val(),
+																workSaleYn : $('input[name=workSaleYn]:checked').val(),
 																workClrCd : $('input[name=workClrCd]:checked').val(),
+																workShpCd : $('input[name=workShpCd]:checked').val(),
+																workClsfcCd : result.workClsfcCd,
 																workPrc : $("#workPrc").val(),
 																workSizeWidth : $("#workSizeWidth").val(),
 																workSizeDepth : $("#workSizeDepth").val(),
@@ -667,10 +743,19 @@ function collectionStorage(){
 																workIntrdc : $("#workIntrdc").val(),
 																keywrd : $("#keywrd").val(),
 																}));
+				modalAlertShow("임시 저장 되었습니다.", "reload");
 			}
 	});
 }
-
+//작품 구분 체크하면 체크한 값을 가져온다
+function workClsfcCdCheck(){
+	result.workClsfcCd = "";
+	document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
+		result.workClsfcCd += el.value + ",";
+	});
+	result.workClsfcCd = result.workClsfcCd.slice(0, -1);
+} 
+//키워드 입력시 공백제거하고 키워드 값을 가져온다
 function keywrdSet(obj){
 	var str_space = /\s/;           
     if(str_space.exec(obj.value) || obj.value == null || obj.value == "") {   
@@ -685,6 +770,7 @@ function keywrdSet(obj){
 	$(".key-box").append(keywrdHtml).trigger("create");
 }
 
+//키워드 옆에 X 버튼 누르면 해당 키워드가 지워진다
 $(document).on("click", ".keywrdList", function(){
 	var keywrdId = document.getElementById("keywrd"+$(this).attr("keywrdSq"));
 	keywrdId.remove();
