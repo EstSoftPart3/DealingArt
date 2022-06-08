@@ -5511,3 +5511,11 @@ p.dib{display:inline-block !important;}
 #myModal5 .check-info{width: calc(100% - 17.5rem);/* white-space: nowrap; */}
 #myModal6 .check-info{}
 .terms-body{padding-top:5rem;}
+
+
+/* 0607 */
+.is-sum{display:block;}
+.is-label{display:inline-block; width:auto;}
+.is-label1{display:inline-block; width:auto;}
+.terms-wrap ul li.active a{font-size:1.6rem;}
+.terms-wrap ul li a{font-size:1.6rem;}
