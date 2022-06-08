@@ -3,6 +3,8 @@ package com.da.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface DealMapper {
 	/*
 	 * 딜 페이지에서 검색 필터별로 검색 결과를 조회한다.
@@ -54,7 +56,7 @@ public interface DealMapper {
 	public int updateDealAuctnPrc(Object param);
 	
 	/*
-	 * 경매 종료 된 거래 정보를 가져온다
+	 * 경매 시간이 지나서 종료 된 거래 정보를 가져온다
 	 * param : null
 	 * return : list
 	 */
@@ -149,6 +151,13 @@ public interface DealMapper {
 	 * param : dealSq
 	 * return : mbrSq
 	 */
-	public List<Map<String, Object>> selectAuctioneerByMbrSq(Object param);
+	public List<Map<String, Object>> selectAuctioneerByMbrSq(@Param("bidDealSq") String dealSq, @Param("bidBuyMbrSq") String mbrSq);
+	
+	/*
+	 * 판매시간이 지나서 종료 된 정찰가 거래 정보를 가져온다
+	 * param : null
+	 * return : list
+	 */
+	public List selectNotSoldSaleList();
 	
 }

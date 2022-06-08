@@ -147,5 +147,12 @@ public interface MemberService {
 	 * return : int
 	 */
 	public int mbrDelivryAddrCor(Object param);
+	
+	/*
+	 * 회원 활동명 중복체크
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public int selectMbrNcknmCount(Object param);
 
 }

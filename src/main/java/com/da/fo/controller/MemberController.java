@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
@@ -626,5 +627,15 @@ public class MemberController {
 		param.put("mbrId", commonService.encrypt(param.get("mbrId").toString()));
 		param.put("mbrPasswrd", commonService.encrypt(param.get("mbrPasswrd").toString()));
 		return memberService.changePasswrd(param);
+	}
+	
+	//회원 활동명 중복체크
+	@RequestMapping("/mbrNcknmCheck")
+	@ResponseBody
+	public ModelAndView mbrNcknmCheck(@RequestParam String mbrNcknm) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = memberService.selectMbrNcknmCount(mbrNcknm);
+		mv.addObject("result", result);
+		return mv;
 	}
 }

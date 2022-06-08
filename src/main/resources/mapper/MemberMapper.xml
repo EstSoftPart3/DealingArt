@@ -610,4 +610,14 @@
    		WHERE 
    				MBR_SQ = #{mbrSq}
    </update>
+   
+   <select id="selectMbrNcknmCount" resultType="int" parameterType="String">
+   		/*회원 활동명 중복체크*/
+   		SELECT 
+				COUNT(MBR_SQ) 
+		FROM 
+				TBL_DA_MBR_M
+		WHERE 
+				MBR_NCKNM = #{mbrNcknm}
+   </select>
 </mapper>
