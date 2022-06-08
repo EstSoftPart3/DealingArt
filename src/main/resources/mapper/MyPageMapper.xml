@@ -252,8 +252,8 @@
 				AND B.SELL_MBR_SQ = #{mbrSq}
 			</if>
 			<if test="buyOrSell == 'ALL'">
-				AND B.BUY_MBR_SQ = #{mbrSq}
-				AND B.SELL_MBR_SQ = #{mbrSq}
+				AND (B.BUY_MBR_SQ = #{mbrSq}
+				OR B.SELL_MBR_SQ = #{mbrSq})
 			</if>
 			<if test="dealSttsCd == 'TP'">
 				AND B.DEAL_STTS_CD = 'TP'
