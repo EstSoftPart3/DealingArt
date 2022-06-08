@@ -72,8 +72,8 @@
 										<label for="b1"><span></span>평면</label><br/>
 										<input type="checkbox" id="b2" name="workShpCd" value="SLD" class="searchOption" onclick="dealSearch()"/>
 										<label for="b2"><span></span>입체</label><br/>
-										<input type="checkbox" id="b3" name="workShpCd" value="NFT" class="searchOption" onclick="dealSearch()"/>
-										<label for="b3"><span></span>NFT</label>
+										<!-- <input type="checkbox" id="b3" name="workShpCd" value="NFT" class="searchOption" onclick="dealSearch()"/>
+										<label for="b3"><span></span>NFT</label> -->
 									</div>
 								</div>
 							</div>
@@ -81,13 +81,19 @@
 								<div class="panel-heading" role="tab" id="heading3">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
-											분류
+											구분
 										</a>
 									</h4>
 								</div>
 								<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 									<div class="panel-body">
-										<input type="checkbox" id="c1" name="workClsfcCd" value="ORNTPAI" class="searchOption" onclick="dealSearch()"/>
+									<input type="checkbox" id="c11" name="workClsfcCd" value="PAINTING" class="searchOption" onclick="dealSearch()"/>
+										<label for="c11"><span></span>회화</label><br/>
+										<input type="checkbox" id="c22" name="workClsfcCd" value="EDITION" class="searchOption" onclick="dealSearch()"/>
+										<label for="c22"><span></span>에디션</label><br/>
+										<input type="checkbox" id="c33" name="workClsfcCd" value="PICTURE" class="searchOption" onclick="dealSearch()"/>
+										<label for="c33"><span></span>그림</label>
+										<!-- <input type="checkbox" id="c1" name="workClsfcCd" value="ORNTPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c1"><span></span>동양화</label><br/>
 										<input type="checkbox" id="c2" name="workClsfcCd" value="WSTNPAI" class="searchOption" onclick="dealSearch()"/>
 										<label for="c2"><span></span>서양화</label><br/>
@@ -96,7 +102,7 @@
 										<input type="checkbox" id="c4" name="workClsfcCd" value="MDRNART" class="searchOption" onclick="dealSearch()"/>
 										<label for="c4"><span></span>현대미술</label><br/>
 										<input type="checkbox" id="c5" name="workClsfcCd" value="ANTQART" class="searchOption" onclick="dealSearch()"/>
-										<label for="c5"><span></span>고미술</label>
+										<label for="c5"><span></span>고미술</label> -->
 									</div>
 								</div>
 							</div>
@@ -248,10 +254,16 @@
 											</li>
 											<li role="presentation">
 												<div class="drop-title">
-													<span>분류</span>
+													<span>구분</span>
 												</div>
 												<div class="drop-body">
-													<input type="checkbox" id="i1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
+												<input type="checkbox" id="i11" name="workClsfcCd" value="PAINTING" class="searchOption"/>
+													<label for="i11"><span></span>회화</label><br/>
+													<input type="checkbox" id="i22" name="workClsfcCd" value="EDITION" class="searchOption"/>
+													<label for="i22"><span></span>에디션</label><br/>
+													<input type="checkbox" id="i33" name="workClsfcCd" value="PICTURE" class="searchOption"/>
+													<label for="i33"><span></span>그림</label><br/>
+													<!-- <input type="checkbox" id="i1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 													<label for="i1"><span></span>동양화</label><br/>
 													<input type="checkbox" id="i2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
 													<label for="i2"><span></span>서양화</label><br/>
@@ -260,7 +272,7 @@
 													<input type="checkbox" id="i4" name="workClsfcCd" value="MDRNART" class="searchOption"/>
 													<label for="i4"><span></span>현대미술</label><br/>
 													<input type="checkbox" id="i5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
-													<label for="i5"><span></span>고미술</label>
+													<label for="i5"><span></span>고미술</label> -->
 												</div>
 											</li>
 											<li role="presentation">
@@ -449,10 +461,22 @@
 					</li>
 					<li role="presentation">
 						<div class="drop-title">
-							<span>분류</span>
+							<span>구분</span>
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
+								<input type="checkbox" id="v11" name="workClsfcCd" value="PAINTING" class="searchOption"/>
+								<label for="v11"><span></span>회화</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v22" name="workClsfcCd" value="EDITION" class="searchOption"/>
+								<label for="v22"><span></span>에디션</label>
+							</div>
+							<div class="db-div">
+								<input type="checkbox" id="v33" name="workClsfcCd" value="PICTURE" class="searchOption"/>
+								<label for="v33"><span></span>그림</label>
+							</div>
+							<!-- <div class="db-div">
 								<input type="checkbox" id="v1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 								<label for="v1"><span></span>동양화</label>
 							</div>
@@ -471,7 +495,7 @@
 							<div class="db-div">
 								<input type="checkbox" id="v5" name="workClsfcCd" value="ANTQART" class="searchOption"/>
 								<label for="v5"><span></span>고미술</label>
-							</div>
+							</div> -->
 						</div>
 					</li>
 					<li role="presentation">

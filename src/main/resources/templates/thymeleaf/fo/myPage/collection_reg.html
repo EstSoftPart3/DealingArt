@@ -136,6 +136,26 @@
 										</div>
 									</td>
 								</tr>
+								<tr>
+									<th><span class="my-red">형태</span></th>
+									<td>
+										<input type="radio" id="z1" name="workShpCd" value="PLN"/>
+										<label for="z1" class="wd-145"><span></span>평면</label>
+										<input type="radio" id="z2" name="workShpCd" value="SLD"/>
+										<label for="z2" class="wd-145"><span></span>입체</label>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="my-red">구분</span></th>
+									<td>
+										<input type="checkbox" id="z11" name="workClsfcCd" value="PAINTING" onclick="workClsfcCdCheck()"/>
+										<label for="z11" class="wd-145"><span></span>회화</label>
+										<input type="checkbox" id="z22" name="workClsfcCd" value="EDITION" onclick="workClsfcCdCheck()"/>
+										<label for="z22" class="wd-145"><span></span>에디션</label>
+										<input type="checkbox" id="z33" name="workClsfcCd" value="PICTURE" onclick="workClsfcCdCheck()"/>
+										<label for="z33" class="wd-145"><span></span>사진</label>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -172,7 +192,7 @@
 											<input type="text" class="input-4" id="workSizeWidth"/>
 											<span class="cg-x">X</span> 
 											<input type="text" class="input-4" id="workSizeDepth"/>
-											<span class="cg-text">cm 37호 입니다</span>
+											<!-- <span class="cg-text">cm 37호 입니다</span> -->
 										</div>
 									</td>
 								</tr>
@@ -449,24 +469,41 @@ function readImg(input, imgId){
 }
 
 var work = new Object();
+var storage = new Object();
 work.workTypCd = 'COLL';
 $(function() {   
 	if(sessionStorage.getItem("work") != null){
-		var work1 = new Object();
-		work1 = JSON.parse(sessionStorage.getItem("work"));
-		$("#artstActvtyNm").val(work1.artstActvtyNm);
-		$("#artstYear").val(work1.artstYear);
-		$("#workNm").val(work1.workNm);
-		$('input:radio[name="workFrmYn"][value="'+work1.workFrmYn+'"]').prop('checked', true);
-		$('input:radio[name="workClrCd"][value="'+work1.workClrCd+'"]').prop('checked', true);
-		$("#workPrc").val(work1.workPrc);
-		$("#workSizeWidth").val(work1.workSizeWidth);
-		$("#workSizeDepth").val(work1.workSizeDepth);
-		$("#workMatrl").val(work1.workMatrl);
-		$("#workProdcYear").val(work1.workProdcYear);
-		$("#workVideoUrl").val(work1.workVideoUrl);
-		$("#workIntrdc").val(work1.workIntrdc);
-		$("#keywrd").val(work1.keywrd);
+		modalConfirm("알림", "임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
+			function(confirm){
+				if(confirm){
+					storage = JSON.parse(sessionStorage.getItem("work"));
+					$("#workNm").val(storage.workNm);
+					$('input:radio[name="workFrmYn"][value="'+storage.workFrmYn+'"]').prop('checked', true);
+					$('input:radio[name="workSaleYn"][value="'+storage.workSaleYn+'"]').prop('checked', true);
+					$('input:radio[name="workClrCd"][value="'+storage.workClrCd+'"]').prop('checked', true);
+					$('input:radio[name="workShpCd"][value="'+storage.workShpCd+'"]').prop('checked', true);
+					//작품 구분 체크하기
+					if(storage.workClsfcCd != null && storage.workClsfcCd != ""){
+						var workClsfcds = storage.workClsfcCd.split(",");
+						for(var i in workClsfcds){
+							document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+								if(el.value == workClsfcds[i]){
+									el.checked = true;
+								}
+							});
+						}
+					}
+					$("#workPrc").val(storage.workPrc);
+					$("#workSizeWidth").val(storage.workSizeWidth);
+					$("#workSizeDepth").val(storage.workSizeDepth);
+					$("#workMatrl").val(storage.workMatrl);
+					$("#workProdcYear").val(storage.workProdcYear);
+					$("#workVideoUrl").val(storage.workVideoUrl);
+					$("#workIntrdc").val(storage.workIntrdc);
+					$("#keywrd").val(storage.keywrd);
+					$('input:radio[name="workClrCd"][value="'+storage.workSaleYn+'"]').prop('checked', true);
+				}
+		});
 	}
 });
 
@@ -582,6 +619,24 @@ function checkValid(){
 		return false;
 	}
 	
+	if($('input:radio[name=workShpCd]').is(':checked')){
+		work.workShpCd = $('input[name=workShpCd]:checked').val();
+	}else{
+		modalAlertShow("작품 형태가 선택되지 않았습니다!", "z1");	
+		return false;
+	}
+	
+	var workClsfcCdCheckYn = false;
+	document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+		if(el.checked == true){
+			workClsfcCdCheckYn = true;
+		} 
+	});
+	if(!workClsfcCdCheckYn){
+		modalAlertShow("작품 구분이 선택되지 않았습니다!", "z11");	
+		return false;
+	}
+	
 	//이미지 용량 확인 체크 시작
 	if($("#workMainImgUrl").val() != ""){	
 		var maxSize = 5 * 1024 * 1024; // 5MB
@@ -658,11 +713,12 @@ function collectionStorage(){
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({
-																artstActvtyNm : $("#artstActvtyNm").val(),
-																artstYear : $("#artstYear").val(),
 																workNm : $("#workNm").val(),
 																workFrmYn : $('input[name=workFrmYn]:checked').val(),
+																workSaleYn : $('input[name=workSaleYn]:checked').val(),
 																workClrCd : $('input[name=workClrCd]:checked').val(),
+																workShpCd : $('input[name=workShpCd]:checked').val(),
+																workClsfcCd : result.workClsfcCd,
 																workPrc : $("#workPrc").val(),
 																workSizeWidth : $("#workSizeWidth").val(),
 																workSizeDepth : $("#workSizeDepth").val(),
@@ -672,10 +728,19 @@ function collectionStorage(){
 																workIntrdc : $("#workIntrdc").val(),
 																keywrd : $("#keywrd").val(),
 																}));
+				modalAlertShow("임시 저장 되었습니다.", "reload");
 			}
 	});
 }
-
+//작품 구분 체크하면 체크한 값을 가져온다
+function workClsfcCdCheck(){
+	result.workClsfcCd = "";
+	document.querySelectorAll('input[name=workClsfcCd]:checked').forEach((el) => {
+		work.workClsfcCd += el.value + ",";
+	});
+	work.workClsfcCd = result.workClsfcCd.slice(0, -1);
+} 
+//키워드 입력시 공백제거하고 키워드 값을 가져온다
 function keywrdSet(obj){
 	var str_space = /\s/;           
     if(str_space.exec(obj.value) || obj.value == null || obj.value == "") {   
@@ -689,7 +754,7 @@ function keywrdSet(obj){
 	$(".key-box").empty();
 	$(".key-box").append(keywrdHtml).trigger("create");
 }
-
+//키워드 옆에 X 버튼 누르면 해당 키워드가 지워진다
 $(document).on("click", ".keywrdList", function(){
 	var keywrdId = document.getElementById("keywrd"+$(this).attr("keywrdSq"));
 	keywrdId.remove();
