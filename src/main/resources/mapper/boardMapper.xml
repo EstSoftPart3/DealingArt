@@ -18,6 +18,13 @@
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
 			,USE_YN			   				  AS useYn
 			,DEL_YN			   				  AS delYn
+			,( CASE
+			   	WHEN BRD_CON_TYP_CD = "UP" THEN "이용정책"
+			   	WHEN BRD_CON_TYP_CD = "CO" THEN "공통"
+			   	WHEN BRD_CON_TYP_CD = "PU" THEN "구매"
+			   	WHEN BRD_CON_TYP_CD = "SA" THEN "판매"
+			   END
+			)
 		FROM
             TBL_DA_BRD_M A 
         WHERE 1=1
@@ -39,6 +46,7 @@
 			,UPDT_DT
 			,USE_YN
 			,DEL_YN
+			,BRD_CON_TYP_CD
        	) 
         VALUES
         (
@@ -51,6 +59,7 @@
 			,NOW()
 			,default
 			,default
+			,#{brdConTypCd}
         )
     </insert>
     
@@ -60,6 +69,7 @@
            	 BRD_SQ             			  AS brdSq
 			,BRD_TITLE         				  AS brdTitle
 			,BRD_CONTENT      				  AS brdContent
+			,BRD_CON_TYP_CD					  AS brdConTypCd
 			,BRD_TYP_CD        				  AS brdTypCd
 			,REG_MBR_SQ        				  AS regMbrSq
 			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt
@@ -90,6 +100,7 @@
 		SET
 			 BRD_TITLE   = 	#{brdTitle}
 			,BRD_CONTENT = 	#{brdContent}
+			,BRD_CON_TYP_CD = #{brdConTypCd}
 			,UPDT_MBR_SQ = 	#{mbrSq}
 			,UPDT_DT     = 	NOW()
    		WHERE 1=1

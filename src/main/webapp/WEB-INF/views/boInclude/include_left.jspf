@@ -129,7 +129,7 @@
 		              <li class="nav-item">
 		                <a href="/admin/board/boardList?brdTypCd=FA" class="nav-link">
 		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">FAQ</p>
+		                  <p class="sTitle">자주하는질문</p>
 		                </a>
 		              </li>
 		           </ul>

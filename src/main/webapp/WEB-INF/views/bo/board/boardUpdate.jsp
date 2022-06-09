@@ -13,7 +13,7 @@
 	if(brdTypCd.equals("NT")) {
 		brdName = "공지사항"; 
 	} else {
-		brdName = "FAQ"; 
+		brdName = "자주하는질문"; 
 	}
 
 %>
@@ -80,6 +80,28 @@
                       					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
                     				</div>
 					 			</div>
+					 			
+					 			<div class="form-group row">
+		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
+                    						<div class="col-sm-7">
+                      							<div style="padding-left:10px;float:left;">
+													<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="CO" checked>
+													<label for="a2" class="col-form-label sTitle">공통</label>
+												</div>
+                      							<div style="padding-left:10px;float:left;">
+                      								<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="UP">
+													<label for="a1" class="col-form-label sTitle">이용정책</label>
+												</div>
+												<div style="padding-left:10px;float:left;">
+													<input type="radio" id="a3" name="brdConTypCd" class="brdConTypCd" value="PU">
+													<label for="a3" class="col-form-label sTitle">구매</label>
+												</div>
+												<div style="padding-left:10px;float:left;">
+													<input type="radio" id="a4" name="brdConTypCd" class="brdConTypCd" value="SA">
+													<label for="a4" class="col-form-label sTitle">판매</label>
+												</div>
+                    						</div>
+		               		   			</div>
 					 			
 					 			<div class="form-group row">
                     				
@@ -227,6 +249,9 @@
 	
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
     var brdContent =  $('#editor').html();
+   	//게시판 내용 구분
+    var brdConTypCd = $("input[name='brdConTypCd']:checked").val();
+    
    	
   	 //제목
   	 if(isEmpty(brdTitle)) {
@@ -238,6 +263,7 @@
 			     } });
 			 return;
   	 }
+  	
   	 
     //내용
   	 if(isEmpty(brdContent)) {
@@ -259,7 +285,8 @@
 	        	   brdTypCd : brdTypCd,
 	        	   brdSq : brdSq,
 	        	   brdTitle : brdTitle,
-	        	   brdContent : brdContent
+	        	   brdContent : brdContent,
+	        	   brdConTypCd : brdConTypCd
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({
