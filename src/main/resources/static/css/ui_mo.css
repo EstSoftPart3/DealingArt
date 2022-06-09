@@ -5163,6 +5163,8 @@ color: #333333;}
     width: 100%;
     display: block;
     position: relative;
+    padding-right:35px;
+    line-height: 23px;
 }
 .panel-title3 a.collapsed .collapsdiv:after{content:'';width: 16px;height: 11px;position: absolute;right: 15px;top: 50%;margin-top: -5px;background-image: url(../img/mypage/ar-down.png);background-size: 16px 11px;}
 
