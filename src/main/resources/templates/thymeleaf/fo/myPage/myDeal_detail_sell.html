@@ -460,7 +460,7 @@ function btn_payment(){
 			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
-			paymntFeeAmt : "", //결제 수수료
+			paymntFeeAmt : null, //결제 수수료
 			paymntDiscAmt : parseInt(disc), //할인할 금액
 			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
 			paymntDivCd : "S" //결제 구분 코드 (B 구매자/S 판매자)

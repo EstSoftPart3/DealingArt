@@ -466,6 +466,9 @@ $(function() {
 	if(result.deal.dealTypCd == "A" && result.deal.dealSttsCd == "TP"){ //경매면
 		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 	}
+	if(result.deal.dealSttsCd == "TC"){ //판매종료면
+		$("#btn_purchaseOrBid").css("display", "none");
+	}
 });
 /* 응찰 히스토리 */
 var bidDate = [];
