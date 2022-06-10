@@ -206,7 +206,7 @@ public class MemberController {
 		}else{
 			Map<String, Object> result = memberService.login(param);
 			
-			if(!result.containsKey("error")) { //에러 코드가 없으면
+			if(result.get("error").toString().equals("none")) { //에러 코드가 없으면
 				String mbrSq = result.get("mbrSq").toString();
 				String authSq = result.get("authSq").toString();
 				if(autoLoginYn.equals("Y")){
@@ -241,7 +241,7 @@ public class MemberController {
 				}
 				session.setAttribute("mbrSq", mbrSq);
 				session.setAttribute("authSq", authSq);
-				mv.addObject("login", "1");
+				mv.addObject("login", 1);
 				mv.addObject("sMbrSqVal", mbrSq);
 				mv.addObject("sAuthSqVal", authSq);
 				return mv;
