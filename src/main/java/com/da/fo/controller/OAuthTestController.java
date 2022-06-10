@@ -341,7 +341,10 @@ public class OAuthTestController {
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
 		    	  
-		    	  if(resultLogin != null) {
+		    	  String loginError = resultLogin.get("error").toString();
+	  	    	  
+		    	  if(!loginError.equals("nonPwd")) {
+		    	  
 		    		 String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
@@ -446,9 +449,11 @@ public class OAuthTestController {
 		    	  loginParam.put("password", rId);
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
+		    	  String loginError = resultLogin.get("error").toString();
+	  	    	  
+		    	  if(!loginError.equals("nonPwd")) { 
 		    	  
-		    	  if(resultLogin != null) {
-		    		 String mbrSq = resultLogin.get("mbrSq").toString();
+		    		  String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
 					 session.setAttribute("mbrSq", mbrSq);
