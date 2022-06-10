@@ -72,7 +72,7 @@ public class OAuthTestController {
 		accessTokenParams.add("client_id", "FXgRR5OMp34hGHwZUM6i"); 
 		accessTokenParams.add("client_secret", "bJTl9NaiYe"); 
 		
-//		accessTokenParams.add("client_id", "bfkY1xo1RrQOxpKeXWD2");
+//		accessTokenParams.add("client_id", "bfkY1xo1RrQOxpKeXWD2"); 
 //		accessTokenParams.add("client_secret", "lmdsOfC9Yr"); 
 		
 		accessTokenParams.add("code" , code); // 응답으로 받은 코드 accessTokenParams.add("state" , state); // 응답으로 받은 상태
@@ -341,10 +341,7 @@ public class OAuthTestController {
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
 		    	  
-		    	  String loginError = resultLogin.get("error").toString();
-	  	    	  
-		    	  if(!loginError.equals("nonPwd")) {
-		    	  
+		    	  if(resultLogin != null) {
 		    		 String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
@@ -449,11 +446,9 @@ public class OAuthTestController {
 		    	  loginParam.put("password", rId);
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
-		    	  String loginError = resultLogin.get("error").toString();
-	  	    	  
-		    	  if(!loginError.equals("nonPwd")) { 
 		    	  
-		    		  String mbrSq = resultLogin.get("mbrSq").toString();
+		    	  if(resultLogin != null) {
+		    		 String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
 					 session.setAttribute("mbrSq", mbrSq);
