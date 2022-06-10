@@ -24,8 +24,8 @@ public class AboutServiceImpl implements AboutService{
 			FA - faq
 	 * RETURN : 게시판 목록
 	 */
-	public List selectBrdList(String param) {
-		return aboutDao.selectBrdList(param);
+	public List selectBrdList(String brdTypCd, String brdConTypCd) {
+		return aboutDao.selectBrdList(brdTypCd,brdConTypCd);
 	}
 	
 	/*

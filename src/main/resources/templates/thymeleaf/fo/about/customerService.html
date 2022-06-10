@@ -91,6 +91,16 @@
 								</div>
 							</div>
 							
+							<div class="is-label pb_10">
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','All');">전체</button>
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','UP');">이용정책</button>
+<!-- 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','CO');">공통</button> -->
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','PU');">구매</button>
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','SA');">판매</button>
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','TR');">운송</button>
+								<button type="button" class="sech-btn" onclick="selectBrdList('FA','DE');">거래</button>
+							</div>
+							
 							<style type="text/css">
 								 ol li {
 									  counter-increment: step-counter;
@@ -146,7 +156,7 @@ $(".cn-b").hover(
     function(){ $(this).removeClass('gis') }
   )
   
-  selectBrdList("FA");
+  selectBrdList("FA","All");
  });
  
  
@@ -155,16 +165,27 @@ $(".cn-b").hover(
  * PARAM : BRD_TYP_CD = #{brdTypCd}
 		NT - 공지사항
 		FA - faq
+		brdConTypCd = #{brdConTypCd} : 게시물종류
+		 UP	- 이용정책
+		 CO	- 공통
+		 PU	- 구매
+		 SA	- 판매
+		 TR	- 운송
+		 DE	- 거래
  * RETURN : 게시판 목록
+ 
  */
- function selectBrdList(brdTypCd){
+ function selectBrdList(brdTypCd,brdConTypCd){
+	 
+	 console.log(brdConTypCd);
  	
  	$.ajax({
          type: "post",
          url: "/selectBrdList",
          data:{
-        	 brdTypCd : brdTypCd
- 		},
+        	 brdTypCd : brdTypCd,
+        	 brdConTypCd : brdConTypCd
+ 		 },
          success: function(data) {
          	var brdList = null;
          	var brdListHtml = "";
@@ -210,7 +231,7 @@ $(".cn-b").hover(
              	fn_styleNone();
              	
          	}else{
-         		modalAlertShow("검색 결과가 없습니다."); 
+         		//modalAlertShow("검색 결과가 없습니다."); 
          		$("#ul_brdList").empty();
          	}
          },           

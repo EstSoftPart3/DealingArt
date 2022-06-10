@@ -29,8 +29,8 @@ public class AboutDao {
 			FA - faq
 	 * RETURN : 게시판 목록
 	 */
-	public List selectBrdList(String param) {
-		return aboutMapper.selectBrdList(param);
+	public List selectBrdList(String brdTypCd, String brdConTypCd) {
+		return aboutMapper.selectBrdList(brdTypCd,brdConTypCd);
 	}
 	
 	/*

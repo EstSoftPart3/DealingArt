@@ -23,6 +23,9 @@
 		FROM TBL_DA_BRD_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND BRD_TYP_CD = #{brdTypCd}
+		<if test="brdTypCd == 'FA' and brdConTypCd != 'All'">
+        	AND BRD_CON_TYP_CD = #{brdConTypCd}
+        </if>
 	</select>
 	
 	<select id="selectBrdDtl" resultType="hashMap" parameterType="String">

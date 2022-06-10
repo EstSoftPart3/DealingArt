@@ -23,13 +23,22 @@
 			   	WHEN BRD_CON_TYP_CD = "CO" THEN "공통"
 			   	WHEN BRD_CON_TYP_CD = "PU" THEN "구매"
 			   	WHEN BRD_CON_TYP_CD = "SA" THEN "판매"
+			   	WHEN BRD_CON_TYP_CD = "TR" THEN "운송"
+			   	WHEN BRD_CON_TYP_CD = "DE" THEN "거래"
 			   END
-			)
+			) AS brdConTypCdTxt,
+			BRD_CON_TYP_CD AS brdConTypCd
+			
 		FROM
             TBL_DA_BRD_M A 
         WHERE 1=1
         	AND A.DEL_YN = 'N'
-         	AND A.BRD_TYP_CD = #{brdTypCd}
+        	<if test="brdTypCd != null">
+         		AND A.BRD_TYP_CD = #{brdTypCd}
+         	</if>
+         	<if test="brdConTypCd != null">
+         		AND A.BRD_CON_TYP_CD = #{brdConTypCd}
+         	</if>
          	ORDER BY BRD_SQ DESC
     </select>
     
@@ -70,6 +79,15 @@
 			,BRD_TITLE         				  AS brdTitle
 			,BRD_CONTENT      				  AS brdContent
 			,BRD_CON_TYP_CD					  AS brdConTypCd
+			,( CASE
+			   	WHEN BRD_CON_TYP_CD = "UP" THEN "이용정책"
+			   	WHEN BRD_CON_TYP_CD = "CO" THEN "공통"
+			   	WHEN BRD_CON_TYP_CD = "PU" THEN "구매"
+			   	WHEN BRD_CON_TYP_CD = "SA" THEN "판매"
+			   	WHEN BRD_CON_TYP_CD = "TR" THEN "운송"
+			   	WHEN BRD_CON_TYP_CD = "DE" THEN "거래"
+			   END
+			) AS brdConTypCdTxt
 			,BRD_TYP_CD        				  AS brdTypCd
 			,REG_MBR_SQ        				  AS regMbrSq
 			,DATE_FORMAT(REG_DT, "%Y-%m-%d")  AS regDt

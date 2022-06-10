@@ -81,6 +81,11 @@
    
 	   var brdTypCd = $('#brdTypCd').val();
 	   
+	   console.log("brdTypCd :"+brdTypCd);
+	   
+	  
+	  
+	   
 	   let params = {
 			brdTypCd : brdTypCd
 		}
@@ -122,7 +127,9 @@
 	           }
 	       },
 	       fields: [
+	    	   
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
+	    	   { name: "brdConTypCdTxt",title:"종류", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"left", visible: true, key:true},
 	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 , visible: false},
@@ -131,8 +138,6 @@
 	    	   { name: "updtMbrSq",title:"수정회원순번", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "updtDt",title:"수정일시", type: "text", width: 200,align:"center",width:100 , visible: false},
 	    	   { name: "delYn",title:"삭제여부", type: "text", width: 200,align:"center",width:100 , visible: false}
-	    	  
-	    	   
 	       ],
 	       rowClick: function(args) {
 	           //console.log(args)
@@ -141,8 +146,15 @@
 	           fn_SubBrdPage(getData);
 
            }
+	       
+	      
 
 	   });
+	   
+ 		if(brdTypCd == "FA") {
+		   
+		   $("#boardList").jsGrid("fieldOption", "1", "visible", true);
+	   }
    
    }
    

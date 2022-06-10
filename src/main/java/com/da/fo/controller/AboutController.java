@@ -63,11 +63,11 @@ public class AboutController {
 	 */
 	@RequestMapping("/selectBrdList")
 	@ResponseBody
-	public ModelAndView selectBrdList(@RequestParam(value = "brdTypCd", required = true) String brdTypCd) {
+	public ModelAndView selectBrdList(@RequestParam(value = "brdTypCd", required = true) String brdTypCd,@RequestParam(value = "brdConTypCd", required = true) String brdConTypCd) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		logger.debug("############# brdTypCd : " + brdTypCd);
 		
-		List result = aboutService.selectBrdList(brdTypCd);
+		List result = aboutService.selectBrdList(brdTypCd,brdConTypCd);
 		mv.addObject("result", result);
 		return mv;
 	}

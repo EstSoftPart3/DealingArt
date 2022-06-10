@@ -12,7 +12,7 @@ public interface AboutService {
 			FA - faq
 	 * RETURN : 게시판 목록
 	 */
-	List selectBrdList(String param);
+	List selectBrdList(String brdTypCd, String brdConTypCd);
 	
 	/*
 	 * 게시판 상세 조회

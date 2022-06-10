@@ -53,6 +53,36 @@
 					 			</div>
 					 			
 					 			<div class="form-group row">
+		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
+                    				<div class="col-sm-7">
+                      					<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="CO" checked>
+											<label for="a2" class="col-form-label sTitle">공통</label>
+										</div>
+                      					<div style="padding-left:10px;float:left;">
+                      						<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="UP">
+											<label for="a1" class="col-form-label sTitle">이용정책</label>
+										</div>
+										<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a3" name="brdConTypCd" class="brdConTypCd" value="PU">
+											<label for="a3" class="col-form-label sTitle">구매</label>
+										</div>
+										<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a4" name="brdConTypCd" class="brdConTypCd" value="SA">
+											<label for="a4" class="col-form-label sTitle">판매</label>
+										</div>
+										<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a4" name="brdConTypCd" class="brdConTypCd" value="TR">
+											<label for="a4" class="col-form-label sTitle">운송</label>
+										</div>
+										<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a4" name="brdConTypCd" class="brdConTypCd" value="DE">
+											<label for="a4" class="col-form-label sTitle">거래</label>
+										</div>
+                    				</div>
+		               		   </div>
+					 			
+					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-9">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
@@ -146,7 +176,11 @@ DecoupledDocumentEditor
    	var brdTitle  = $("#brdTitle").val();  //게시판제목
     //var brdContent = editor.getData();
    	var brdContent = $('#editor').html();
-   	console.log(brdContent);
+   	
+	//게시판 내용 구분
+    var brdConTypCd = $("input[name='brdConTypCd']:checked").val();
+   
+   	
    	 //제목
    	 if(isEmpty(brdTitle)) {
    		bootbox.alert({
@@ -177,7 +211,8 @@ DecoupledDocumentEditor
 	        	   brdTypCd : brdTypCd,
 	        	   regMbrSq : mbrSq,
 	        	   brdTitle : brdTitle,
-	        	   brdContent : brdContent
+	        	   brdContent : brdContent,
+	        	   brdConTypCd : brdConTypCd
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({

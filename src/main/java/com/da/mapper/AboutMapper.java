@@ -12,7 +12,7 @@ public interface AboutMapper {
 			FA - faq
 	 * RETURN : 게시판 목록
 	 */
-	public List selectBrdList(String param);
+	public List selectBrdList(String brdTypCd, String brdConTypCd);
 	
 	/*
 	 * 게시판 상세 조회

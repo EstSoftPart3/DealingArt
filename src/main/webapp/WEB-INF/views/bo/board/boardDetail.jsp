@@ -74,10 +74,16 @@
 					 		<div class="col-md-12" style="padding-left:50px;">
 					 		
 					 			<div class="form-group row">
-					 				
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
                     				<div class="col-sm-9">
                       					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" readonly >
+                    				</div>
+					 			</div>
+					 			
+					 			<div class="form-group row">
+					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
+                    				<div class="col-sm-9">
+                      					<input type="text" class="form-control sTitle classname"  id="brdConTypCdText" name="brdConTypCdText" readonly >
                     				</div>
 					 			</div>
 					 			
@@ -88,7 +94,7 @@
                       					
                       					<div id="toolbar-container" style="display:none"></div>
                       					
-                      					<div id="editor" class="ck-blurred ck ck-content" style="border: 1px solid #efefef;" lang="en" dir="ltr"  aria-label="main" contenteditable="false">
+                      					<div id="editor" class="ck-blurred ck ck-content" style="border: 1px solid #efefef;min-height:500px;padding:20px;" lang="en" dir="ltr"  aria-label="main" contenteditable="false" >
                       					</div>
                       				
                     				</div>	
@@ -122,6 +128,8 @@
    
    <script>
    
+   
+   
    var mbrSq = $('#mbrSq').val();
    var brdSq = '<c:out value="${param.brdSq}" />';
    var brdTypCd = '<c:out value="${param.brdTypCd}" />';
@@ -148,9 +156,11 @@
 	           success: function(data) {
 	        	    
 	        	 dataContent = data.boardDetailData.boardDetailData[0];
-	        	 
+	        	 console.log(dataContent);
 	        	 var brdContent = dataContent.brdContent;
 	        	 var brdTitle = dataContent.brdTitle;
+	        	 var brdConTypCdTxt = dataContent.brdConTypCdTxt;
+	        	
 
 				 var timpStr = brdContent;
               	 
@@ -166,6 +176,7 @@
 	        	 
 	        	 
 	        	 $('#brdTitle').val(brdTitle);
+	        	 $('#brdConTypCdText').val(brdConTypCdTxt);
 	        	 
 	        	//ckEditor Mouse Over Class Remove
 	        	 fn_styleNone();
