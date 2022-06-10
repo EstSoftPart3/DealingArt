@@ -64,6 +64,7 @@ public class MemberDao {
 			int pwdCheck = memberMapper.loginPwdCheck(param); //회원 비밀번호 체크
 			if(pwdCheck > 0) { //비밀번호 체크 성공하면
 				result = memberMapper.login(param); //로그인 정보를 가져온다
+				result.put("error", "none"); //오류없음
 				return result;
 			}else{
 				result.put("error", "nonPwd"); //패스워드가 안맞는다

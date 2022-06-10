@@ -72,7 +72,7 @@ public class OAuthTestController {
 		accessTokenParams.add("client_id", "FXgRR5OMp34hGHwZUM6i"); 
 		accessTokenParams.add("client_secret", "bJTl9NaiYe"); 
 		
-//		accessTokenParams.add("client_id", "bfkY1xo1RrQOxpKeXWD2"); 
+//		accessTokenParams.add("client_id", "bfkY1xo1RrQOxpKeXWD2");
 //		accessTokenParams.add("client_secret", "lmdsOfC9Yr"); 
 		
 		accessTokenParams.add("code" , code); // 응답으로 받은 코드 accessTokenParams.add("state" , state); // 응답으로 받은 상태
