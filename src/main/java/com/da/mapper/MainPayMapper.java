@@ -105,7 +105,7 @@ public interface MainPayMapper {
 	 * 1차 결제 구매자 순번 등록
 	 * @param paramMap
 	 */
-	void updateDealBuyMbrSq(@Param("buyMbrSq") String buyMbrSq, @Param("dealSq") String deqlSq);
+	void updateDealBuyMbrSq(@Param("buyMbrSq") String buyMbrSq, @Param("dealSq") String deqlSq, @Param("dealTypCd") String dealTypCd);
 	
 	/**
 	 * 결제되면 작품 테이블에 판매여부를 Y로 바꾼다

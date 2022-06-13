@@ -425,10 +425,13 @@
 						REG_MBR_SQ,
 						UPDT_DT,
 						UPDT_MBR_SQ
+						<if test="artstEnglsNm != null and artstEnglsNm != ''">
+							,ARTST_ENGLS_NM
+						</if>
 						<if test="artstSq != null and artstSq != ''">
 							,ARTST_SQ
 						</if>
-						<if test="artstYear != null and artstYear != ''">
+						<if test="artstBirthYear != null and artstBirthYear != ''">
 							,ARTST_BIRTH_YEAR
 						</if> 
 						<if test="workPrc != null and workPrc != ''">
@@ -484,8 +487,11 @@
 						#{mbrSq},
 						NOW(),
 						#{mbrSq}
-						<if test="artstYear != null and artstYear != ''">
-							,#{artstYear}
+						<if test="artstEnglsNm != null and artstEnglsNm != ''">
+							,#{artstEnglsNm}
+						</if>
+						<if test="artstBirthYear != null and artstBirthYear != ''">
+							,#{artstBirthYear}
 						</if> 
 						<if test="workPrc != null and workPrc != ''">
 							,#{workPrc}
@@ -781,7 +787,7 @@
 				
 		WHERE 
 				A.WORK_SQ = #{value}
-			AND A.WORK_TYP_CD = 'WORK'
+			<!-- AND A.WORK_TYP_CD = 'WORK' -->
 	</select>
 	
 	<insert id="myWorkCor">
@@ -1029,8 +1035,11 @@
 				A.WORK_SQ AS workSq,
 				A.WORK_NM AS workNm,
 				A.WORK_TYP_CD AS workTypCd,
+				A.WORK_SHP_CD AS workShpCd,
+				A.WORK_CLSFC_CD AS workClsfcCd,
 				A.ARTST_SQ AS artstSq,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
 				A.ARTST_BIRTH_YEAR AS artstBirthYear,
 				A.WORK_SIZE_WIDTH AS workSizeWidth,
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
@@ -1061,7 +1070,7 @@
 				
 		WHERE 
 				A.WORK_SQ = #{value}
-			AND A.WORK_TYP_CD = 'COLL'
+			<!-- AND A.WORK_TYP_CD = 'COLL' -->
 	</select>
 	
 	<insert id="collectionCor">
@@ -1082,10 +1091,13 @@
 									WORK_IMG_RER_URL,
 									UPDT_DT,
 									UPDT_MBR_SQ
+									<if test="artstEnglsNm != null and artstEnglsNm != ''">
+										,ARTST_ENGLS_NM
+									</if>
 									<if test="artstSq != null and artstSq != ''">
 										,ARTST_SQ
 									</if>
-									<if test="artstYear != null and artstYear != ''">
+									<if test="artstBirthYear != null and artstBirthYear != ''">
 										,ARTST_BIRTH_YEAR
 									</if> 
 									<if test="workPrc != null and workPrc != ''">
@@ -1140,11 +1152,14 @@
 									#{workImgRerUrl},
 									NOW(),
 									#{mbrSq}
+									<if test="artstEnglsNm != null and artstEnglsNm != ''">
+										,#{artstEnglsNm}
+									</if>
 									<if test="artstSq != null and artstSq != ''">
 										,#{artstSq}
 									</if>
-									<if test="artstYear != null and artstYear != ''">
-										,#{artstYear}
+									<if test="artstBirthYear != null and artstBirthYear != ''">
+										,#{artstBirthYear}
 									</if> 
 									<if test="workPrc != null and workPrc != ''">
 										,#{workPrc}
@@ -1193,13 +1208,16 @@
 								WORK_CLSFC_CD = #{workClsfcCd},
 								WORK_MAIN_IMG_URL = #{workMainImgUrl},
 								WORK_IMG_FRT_URL = #{workImgFrtUrl},
-								WORK_IMG_RER_URL =#{workImgRerUrl},
+								WORK_IMG_RER_URL = #{workImgRerUrl},
 								UPDT_DT = NOW(),
 								UPDT_MBR_SQ = #{mbrSq}
+								<if test="artstEnglsNm != null and artstEnglsNm != ''">
+										,ARTST_ENGLS_NM = #{artstEnglsNm}
+								</if>
 								<if test="artstSq != null and artstSq != ''">
 									,ARTST_SQ = #{artstSq}
 								</if>
-								<if test="artstYear != null and artstYear != ''">
+								<if test="artstBirthYear != null and artstBirthYear != ''">
 									,ARTST_BIRTH_YEAR = #{artstBirthYear}
 								</if> 
 								<if test="workPrc != null and workPrc != ''">
@@ -1453,4 +1471,220 @@
 			GROUP BY TRNSPRT_SERVICE_CD_NM) AS trnsprtServiceCdNm
 	</select>
 	
+	<insert id="insertTrnsprt" parameterType="hashMap">
+	/*운송 테이블에 운송 정보 입력*/
+	INSERT INTO
+				TBL_DA_DEAL_TRNSPRT_S(
+					DEAL_SQ,
+					BUY_MBR_SQ,
+					SELL_MBR_SQ,
+					ARTST_SQ,
+					TRNSPRT_DIV_CD,
+					TRNSPRT_TYP_CD,
+					TRNSPRT_AREA_CD,
+					TRNSPRT_SERVICE_CD,
+					TRNSPRT_PRC 
+				)VALUES
+				<foreach collection="list" item="item" index="idex" separator=",">
+				(
+					#{item.dealSq},
+					#{item.buyMbrSq},
+					#{item.sellMbrSq},
+					#{item.artstSq},
+					#{item.trnsprtDivCd},
+					#{item.trnsprtTypCd},
+					#{item.trnsprtAreaCd},
+					#{item.trnsprtServiceCd},
+					#{item.trnsprtPrc}
+				)
+				</foreach>
+	</insert>
+	
+	<select id="selectPaymntBuy1" parameterType="hashMap" resultType="hashMap">
+		/*결제 내역 정보 가져오기*/
+		SELECT 
+				(
+				CASE
+					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
+					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
+					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+				END 
+				) AS payMethod,
+				(
+				CASE 
+					WHEN A.PAY_TYPE IN ('I', 'V', 'K') THEN '신용카드'
+					WHEN A.PAY_TYPE = 'A' THEN '카카오페이'
+					WHEN A.PAY_TYPE = 'P' THEN '페이코'
+					WHEN A.PAY_TYPE IN ('N1', 'N2') THEN '네이버페이'
+				END 
+				) AS payType,
+				(
+				CASE 
+					WHEN A.BANK_CODE IN ('03', '003') THEN '기업은행'
+					WHEN A.BANK_CODE IN ('04', '004') THEN '국민은행'
+					WHEN A.BANK_CODE IN ('11', '011') THEN '농협'
+					WHEN A.BANK_CODE IN ('20', '020') THEN '우리은행'
+					WHEN A.BANK_CODE IN ('26', '088') THEN '신한은행'
+					WHEN A.BANK_CODE IN ('32', '032') THEN '부산은행'
+					WHEN A.BANK_CODE IN ('71', '071') THEN '우체국'
+					WHEN A.BANK_CODE IN ('81', '081') THEN '하나은행'
+					WHEN A.BANK_CODE = '005' THEN '외환은행'
+					WHEN A.BANK_CODE = '023' THEN '제일은행'
+					WHEN A.BANK_CODE = '027' THEN '씨티은행'
+					WHEN A.BANK_CODE = '031' THEN '대구은행'
+					WHEN A.BANK_CODE = '034' THEN '광주은행'
+					WHEN A.BANK_CODE = '037' THEN '전북은행'
+					WHEN A.BANK_CODE = '039' THEN '경남은행'
+					WHEN A.BANK_CODE = '048' THEN '신협'
+					WHEN A.BANK_CODE = '045' THEN '새마을금고'
+					WHEN A.BANK_CODE = '035' THEN '제주은행'
+					WHEN A.BANK_CODE = '007' THEN '수협'
+					WHEN A.BANK_CODE = '002' THEN '산업은행'
+				END
+				)AS bankName,
+				A.ISSUE_COMPANY_NAME AS issueCompanyName,
+				A.CARD_NO AS cardNo,
+				A.BANK_CODE AS bankCode,
+				A.ACCOUNT_NO AS accountNo,
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
+				B.CUPON_NM AS cuponNm
+		FROM 
+				TBL_DA_PAYMNT_H A
+		LEFT JOIN 
+				TBL_DA_CUPON_M B
+			ON	A.CUPON_SQ = B.CUPON_SQ 
+		WHERE 
+				A.DEAL_SQ = #{dealSq}
+			AND MBR_SQ = #{mbrSq}
+			AND A.PAYMNT_TYP_CD = '1'
+			AND A.PAYMNT_DIV_CD = 'B'
+	</select>
+	
+	<select id="selectPaymntBuy2" parameterType="hashMap" resultType="hashMap">
+		/*결제 내역 정보 가져오기*/
+		SELECT 
+				(
+				CASE
+					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
+					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
+					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+				END 
+				) AS payMethod,
+				(
+				CASE 
+					WHEN A.PAY_TYPE IN ('I', 'V', 'K') THEN '신용카드'
+					WHEN A.PAY_TYPE = 'A' THEN '카카오페이'
+					WHEN A.PAY_TYPE = 'P' THEN '페이코'
+					WHEN A.PAY_TYPE IN ('N1', 'N2') THEN '네이버페이'
+				END 
+				) AS payType,
+				(
+				CASE 
+					WHEN A.BANK_CODE IN ('03', '003') THEN '기업은행'
+					WHEN A.BANK_CODE IN ('04', '004') THEN '국민은행'
+					WHEN A.BANK_CODE IN ('11', '011') THEN '농협'
+					WHEN A.BANK_CODE IN ('20', '020') THEN '우리은행'
+					WHEN A.BANK_CODE IN ('26', '088') THEN '신한은행'
+					WHEN A.BANK_CODE IN ('32', '032') THEN '부산은행'
+					WHEN A.BANK_CODE IN ('71', '071') THEN '우체국'
+					WHEN A.BANK_CODE IN ('81', '081') THEN '하나은행'
+					WHEN A.BANK_CODE = '005' THEN '외환은행'
+					WHEN A.BANK_CODE = '023' THEN '제일은행'
+					WHEN A.BANK_CODE = '027' THEN '씨티은행'
+					WHEN A.BANK_CODE = '031' THEN '대구은행'
+					WHEN A.BANK_CODE = '034' THEN '광주은행'
+					WHEN A.BANK_CODE = '037' THEN '전북은행'
+					WHEN A.BANK_CODE = '039' THEN '경남은행'
+					WHEN A.BANK_CODE = '048' THEN '신협'
+					WHEN A.BANK_CODE = '045' THEN '새마을금고'
+					WHEN A.BANK_CODE = '035' THEN '제주은행'
+					WHEN A.BANK_CODE = '007' THEN '수협'
+					WHEN A.BANK_CODE = '002' THEN '산업은행'
+				END
+				)AS bankName,
+				A.ISSUE_COMPANY_NAME AS issueCompanyName,
+				A.CARD_NO AS cardNo,
+				A.BANK_CODE AS bankCode,
+				A.ACCOUNT_NO AS accountNo,
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
+				B.CUPON_NM AS cuponNm
+		FROM 
+				TBL_DA_PAYMNT_H A
+		LEFT JOIN 
+				TBL_DA_CUPON_M B
+			ON	A.CUPON_SQ = B.CUPON_SQ 
+		WHERE 
+				A.DEAL_SQ = #{dealSq}
+			AND MBR_SQ = #{mbrSq}
+			AND A.PAYMNT_TYP_CD = '2'
+			AND A.PAYMNT_DIV_CD = 'B'
+	</select>
+	
+	<select id="selectPaymntSell" parameterType="hashMap" resultType="hashMap">
+		/*결제 내역 정보 가져오기*/
+		SELECT 
+				(
+				CASE
+					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
+					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
+					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+				END 
+				) AS payMethod,
+				(
+				CASE 
+					WHEN A.PAY_TYPE IN ('I', 'V', 'K') THEN '신용카드'
+					WHEN A.PAY_TYPE = 'A' THEN '카카오페이'
+					WHEN A.PAY_TYPE = 'P' THEN '페이코'
+					WHEN A.PAY_TYPE IN ('N1', 'N2') THEN '네이버페이'
+				END 
+				) AS payType,
+				(
+				CASE 
+					WHEN A.BANK_CODE IN ('03', '003') THEN '기업은행'
+					WHEN A.BANK_CODE IN ('04', '004') THEN '국민은행'
+					WHEN A.BANK_CODE IN ('11', '011') THEN '농협'
+					WHEN A.BANK_CODE IN ('20', '020') THEN '우리은행'
+					WHEN A.BANK_CODE IN ('26', '088') THEN '신한은행'
+					WHEN A.BANK_CODE IN ('32', '032') THEN '부산은행'
+					WHEN A.BANK_CODE IN ('71', '071') THEN '우체국'
+					WHEN A.BANK_CODE IN ('81', '081') THEN '하나은행'
+					WHEN A.BANK_CODE = '005' THEN '외환은행'
+					WHEN A.BANK_CODE = '023' THEN '제일은행'
+					WHEN A.BANK_CODE = '027' THEN '씨티은행'
+					WHEN A.BANK_CODE = '031' THEN '대구은행'
+					WHEN A.BANK_CODE = '034' THEN '광주은행'
+					WHEN A.BANK_CODE = '037' THEN '전북은행'
+					WHEN A.BANK_CODE = '039' THEN '경남은행'
+					WHEN A.BANK_CODE = '048' THEN '신협'
+					WHEN A.BANK_CODE = '045' THEN '새마을금고'
+					WHEN A.BANK_CODE = '035' THEN '제주은행'
+					WHEN A.BANK_CODE = '007' THEN '수협'
+					WHEN A.BANK_CODE = '002' THEN '산업은행'
+				END
+				)AS bankName,
+				A.ISSUE_COMPANY_NAME AS issueCompanyName,
+				A.CARD_NO AS cardNo,
+				A.BANK_CODE AS bankCode,
+				A.ACCOUNT_NO AS accountNo,
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
+				B.CUPON_NM AS cuponNm
+		FROM 
+				TBL_DA_PAYMNT_H A
+		LEFT JOIN 
+				TBL_DA_CUPON_M B
+			ON	A.CUPON_SQ = B.CUPON_SQ 
+		WHERE 
+				A.DEAL_SQ = #{dealSq}
+			AND MBR_SQ = #{mbrSq}
+			AND A.PAYMNT_DIV_CD = 'S'
+	</select>
 </mapper>

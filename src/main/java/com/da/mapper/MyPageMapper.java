@@ -217,4 +217,33 @@ public interface MyPageMapper {
 	 */
 	public Map<String, Object> selectTrnsprtCdNm(Object param);
 	
+	/*
+	 * 운송 테이블에 판매자 운송 정보 입력
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 
+	 */
+	public void insertTrnsprt(Object param);
+	
+	/*
+	 * 거래 내역 조회
+	 * param : mbrSq, dealSq
+	 * return : 
+	 */
+	public Map<String, Object> selectPaymntBuy1(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
+	/*
+	 * 거래 내역 조회
+	 * param : mbrSq, dealSq
+	 * return : 
+	 */
+	public Map<String, Object> selectPaymntBuy2(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
+	/*
+	 * 거래 내역 조회
+	 * param : mbrSq, dealSq
+	 * return : 
+	 */
+	public Map<String, Object> selectPaymntSell(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
+	
 }

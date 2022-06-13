@@ -13,6 +13,7 @@
 				SELL_MBR_SQ,
 				BUY_MBR_SQ,
 				DEAL_SQ, 
+				DEAL_TYP_CD,
 				WORK_SQ,
 				PAYMNT_DIV_CD,
 				PAYMNT_TYP_CD,
@@ -40,6 +41,7 @@
 				#{sellMbrSq},
 				#{buyMbrSq},
 				#{dealSq},
+				#{dealTypCd},
 				#{workSq},
 				#{paymntDivCd},
 				#{paymntTypCd},
@@ -71,6 +73,7 @@
 	  	SELECT 
 				A.REQUEST_SQ AS requestSq,
 				A.DEAL_SQ AS dealSq,
+				A.DEAL_TYP_CD AS dealTypCd,
 				A.WORK_SQ AS workSq,
 				A.ARTST_SQ AS artstSq,
 				A.SELL_MBR_SQ AS sellMbrSq,
@@ -103,6 +106,9 @@
 		SET		
 				BUY_MBR_SQ = #{buyMbrSq},
 				DEAL_STTS_CD = 'TC'
+				<if test='dealTypCd == "S"'>
+					DEAL_ENDNG_DT = NOW()
+				</if>
 		WHERE  
 				DEAL_SQ = #{dealSq}
   </update>
@@ -123,12 +129,12 @@
 			</if>
 			
   </update>
-  <!-- readyapi 정보 등록 -->
   <insert id="insertPayMnt" parameterType="hashMap">
   		INSERT INTO
 			TBL_DA_PAYMNT_H(
 				MBR_SQ,
 				DEAL_SQ,
+				DEAL_TYP_CD,
 				WORK_SQ,
 				PAYMNT_DIV_CD,
 				PAYMNT_TYP_CD,
@@ -175,6 +181,7 @@
 					#{buyMbrSq},
 				</if>
 				#{dealSq},
+				#{dealTypCd},
 				#{workSq},
 				#{paymntDivCd},
 				#{paymntTypCd},
@@ -250,7 +257,10 @@
   	WHERE
   			WORK_SQ = #{workSq}
   </update>
-  
+  <select id="">
+  	/*결제 정보 불러오기*/
+  	
+  </select>
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">
   	INSERT INTO TBL_DA_MAINPAY_API_RESULT

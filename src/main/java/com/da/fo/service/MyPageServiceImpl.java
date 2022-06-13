@@ -175,8 +175,17 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : dealSq, mbrSq
 	 * return : 거래에 관한 데이터
 	 */
-	public Map<String, Object> openMyDealDetail(String dealSq, String mbrSq){
-		return myPageDao.openMyDealDetail(dealSq, mbrSq);
+	public Map<String, Object> openMyDealDetailBuy(String dealSq, String mbrSq){
+		return myPageDao.openMyDealDetailBuy(dealSq, mbrSq);
+	}
+	
+	/*
+	 * 거래 상세 페이지
+	 * param : dealSq, mbrSq
+	 * return : 거래에 관한 데이터
+	 */
+	public Map<String, Object> openMyDealDetailSell(String dealSq, String mbrSq){
+		return myPageDao.openMyDealDetailSell(dealSq, mbrSq);
 	}
 	
 	/*
@@ -195,5 +204,14 @@ public class MyPageServiceImpl implements MyPageService{
 	 */
 	public List<Map<String, Object>> myDealListBidHistory(Object param){
 		return myPageDao.myDealListBidHistory(param);
+	}
+	
+	/*
+	 * 운송 테이블에 판매자 운송 정보 입력
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 
+	 */
+	public void insertTrnsprt(Object param) {
+		myPageDao.insertTrnsprt(param);
 	}
 }

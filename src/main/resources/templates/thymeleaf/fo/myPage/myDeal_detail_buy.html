@@ -240,9 +240,9 @@
 							</div>
 							
 							<!-- 2차 결제 완료 -->
-							<div id="2PC" style="display:none;">
+							<div id="2PC" style="display:none;"  th:if="${not #maps.isEmpty(result.payMntInfo1)}">
 								<div class="med">
-									<h2 class="h2-con">결제 정보</h2>
+									<h2 class="h2-con">1차 결제 정보</h2>
 								</div>
 								<div class="myd-box">
 									<div class="myd-box-1">
@@ -250,35 +250,89 @@
 										<div class="mbox-1">
 											<table class="mstyle-1">
 												<tr>
-													<th>지급 수단</th>
-													<td>신한은행 000-000-0000</td>
+													<th>결제 수단</th>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('신용카드')}" th:text="|[${result.payMntInfo1.payType}] ${result.payMntInfo1.issueCompanyName}카드 카드번호 ${result.payMntInfo1.cardNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankCode}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankCode} ${result.payMntInfo1.accountNo}|">신한은행 000-000-0000</td>
 												</tr>
 												<tr>
-													<th>정산 내역</th>
+													<th>결제 내역</th>
 													<td>
 														<div class="tbx-1">
 															<dl class="tbx-dl1">
 																<dt>작품</dt>
-																<dd>2,300,000 원</dd>
+																<dd th:text="|${result.payMntInfo1.paymntWorkAmt} KRW|">2,300,000 원</dd>
 																<dt>거래 수수료</dt>
-																<dd>2,300,000 원</dd>
-																<dt>배송비</dt>
-																<dd>2,300,000 원</dd>
+																<dd th:text="|${result.payMntInfo1.paymntFeeAmt} KRW|">2,300,000 원</dd>
+																<dt>거래 수수료 할인</dt>
+																<dd th:if="${not #strings.isEmpty(result.payMntInfo1.paymntDiscAmt)}" th:text="|${result.payMntInfo1.paymntDiscAmt} KRW|">2,300,000 원</dd>
+																<dd th:unless="${not #strings.isEmpty(result.payMntInfo1.paymntDiscAmt)}">0 KRW</dd>
 															</dl>
 															<dl class="tbx-dl2">
 																<dt>총 결제금액</dt>
-																<dd>2,300,000 원</dd>
+																<dd th:text="|${result.payMntInfo1.paymntAmt} KRW|">2,300,000 원</dd>
 															</dl>
 														</div>
 													
 													</td>
 												</tr>
-												<tr>
+												<!-- <tr>
 													<th>정산 예정일</th>
 													<td>
 														2021,10.11
 													</td>
+												</tr> -->
+											</table>
+										</div>
+										
+										<div class="mbtn-box">
+											<a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">거래명세서</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a>
+											<a href="javascript:fnModalAlert();" class="btns-3">거래계약서</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="med">
+									<h2 class="h2-con">2차 결제 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>결제 수단</th>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('신용카드')}" th:text="|[${result.payMntInfo2.payType}] ${result.payMntInfo2.issueCompanyName}카드 카드번호 ${result.payMntInfo2.cardNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankCode}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankCode} ${result.payMntInfo2.accountNo}|">신한은행 000-000-0000</td>
 												</tr>
+												<tr>
+													<th>결제 내역</th>
+													<td>
+														<div class="tbx-1">
+															<dl class="tbx-dl1">
+																<dt>배송료</dt>
+																<dd th:text="|${result.payMntInfo2.paymntAmt} KRW|">2,300,000 원</dd>
+																<dt>배송료 할인</dt>
+																<dd th:if="${not #strings.isEmpty(result.payMntInfo2.paymntDiscAmt)}" th:text="|${result.payMntInfo2.paymntDiscAmt} KRW|">2,300,000 원</dd>
+																<dd th:unless="${not #strings.isEmpty(result.payMntInfo2.paymntDiscAmt)}">0 KRW</dd>
+															</dl>
+															<dl class="tbx-dl2">
+																<dt>총 결제금액</dt>
+																<dd th:text="|${result.payMntInfo2.paymntAmt} KRW|">2,300,000 원</dd>
+															</dl>
+														</div>
+													
+													</td>
+												</tr>
+												<!-- <tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr> -->
 											</table>
 										</div>
 										
@@ -308,6 +362,11 @@
 												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
 												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
 											</div>
+											<div class="bat-box3 mg_t30">
+												<span class="c-reds">※ 오픈 이벤트 (거래 수수료 할인)</span>
+												<br/><span class="c-reds">카드결제 : 거래수수료 2.5% 할인</span>
+												<br/><span class="c-reds">가상계좌 : 거래수수료 4% 할인</span>
+											</div>
 											<!-- <div class="pay-check">
 												<input type="checkbox" id="a1" name="cc" />
 												<label for="a1"><span></span>결재수단과 입력정보를 다음에도 사용</label>
@@ -318,6 +377,7 @@
 							</div>
 					
 							<div class="bat-box5">
+								<!-- <a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="call(200)"><span>결제하기</span></a> -->
 								<a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="btn_payment()"><span>결제하기</span></a>
 								<a href="javascript:location.href='/myDeal';" class="ba-btn2" ><span>거래 내역 돌아가기</span></a>
 							</div>
@@ -373,6 +433,9 @@ var amount = 0; //할인 전 금액
 var disc = 0; //할인할 금액
 var totalAmount = 0; //최종 결제 금액
 var sbx_couponSqList = []; //셀렉트 박스 쿠폰 순번 저장용
+var trnsprt = new Object(); //운송 테이블
+var trnsprtServiceCdList = []; //운송 서비스 코드 Array
+var trnsprtPrcList = []; //운송 가격 Array
 var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 /*
@@ -404,7 +467,7 @@ jQuery(document).ready(function() {
 		$("#1PW").css("display", ""); //1차 결제 div
 		$("#paymethod").css("display", ""); //결제 수단 div
 		$("#btn_payment").css("display", "") //결제 버튼
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15); //작품가의 15프로인 수수료를 구한다
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 15프로인 수수료를 구한다
 		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
@@ -415,7 +478,7 @@ jQuery(document).ready(function() {
 		$("#1PW").css("display", ""); //1차 결제 div
 		$("#paymethod").css("display", ""); //결제 수단 div
 		$("#btn_payment").css("display", "") //결제 버튼
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.15); //작품가의 15프로인 수수료를 구한다
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 15프로인 수수료를 구한다
 		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
@@ -516,6 +579,19 @@ function updateNewAddr(){
  */
 function btn_paymethod_onclick(obj){
 	result.dealInfo.paymethod = obj.attributes.value.value;
+	if(result.dealInfo.paymethod == "CARD"){
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.075); //작품가의 7.5프로인 수수료를 구한다
+		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	}
+	if(result.dealInfo.paymethod == "VACCT"){
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.06); //작품가의 6프로인 수수료를 구한다
+		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	}
+	if(result.dealInfo.paymethod == "ACCT"){
+		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	}
+	totalTrnsprtPrc();
 }
 
 /*
@@ -530,6 +606,7 @@ function btn_paymethod_onclick(obj){
 			goodsName : result.dealInfo.workNm, //상품명
 			/*DB에 저장할 파라미터*/
 			dealSq : result.dealInfo.dealSq, //거래 순번
+			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
 			workSq : result.dealInfo.workSq, //작품 순번
 			artstSq : result.dealInfo.artstSq, //아티스트 순번
 			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
@@ -569,6 +646,10 @@ function btn_paymethod_onclick(obj){
 		}); 
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
+		if(totalAmount == "0"){
+			modalAlertShow("부가서비스가 선택되지 않았습니다.", "sbx_trnsprtTypCd");
+			return false;
+		}
 		data.paymntTypCd = "2"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
 		$.ajax({
@@ -596,13 +677,43 @@ function btn_paymethod_onclick(obj){
  * 결제 완료/실패 시 리로드 된다
  */
 window.call = function (data) {
-    console.log(data);
+	//2차 결제면 운송 정보를 입력한다.
+	if(data == "200" && result.dealInfo.buyPaymntSttsCd == "2PW"){
+		var trnsprtList = [];
+		for(var i=0; i<trnsprt.trnsprtServiceCd.length; i++){
+			var data = {
+				dealSq : result.dealInfo.dealSq,
+				buyMbrSq : result.mbrInfo.buyMbrSq, 
+				sellMbrSq : result.dealInfo.sellMbrSq, 
+				artstSq : result.dealInfo.artstSq,
+				trnsprtDivCd : "B",
+				trnsprtTypCd : trnsprt.trnsprtTypCd,
+				trnsprtAreaCd : trnsprt.trnsprtAreaCd,
+				trnsprtServiceCd : trnsprt.trnsprtServiceCd[i],
+				trnsprtPrc : trnsprt.trnsprtPrc[i].replaceAll(/,/g, '')
+			};
+			trnsprtList.push(data);
+		}
+		$.ajax({
+			type: "POST",
+			contentType: "application/json",
+	        url: "/insertTrnsprt",
+	        data: JSON.stringify(trnsprtList),
+	        async: false,
+			success:function(data){
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+	}
     window.location.reload()
 };
 
 //운송 구분 선택시
 $("#sbx_trnsprtTypCd").on("change", function(){
 	$("#div_trnsprtServiceCd").empty();
+	trnsprtServiceCdList = []; //서비스 선택 Array 초기화
 	var selected = $(this).val(); //선택된 값 가져오기
 	if(selected == "null"){
 		$("#div_trnsprtTypCd").empty();
@@ -651,14 +762,17 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			innerText += '</div>';
 			$("#div_trnsprtTypCd").empty();
 			$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-			totalTrnsprtPrc(); //총 금액 자동계산
+			
 		}
 	}
+	trnsprt.trnsprtTypCd = selected; //운송 서비스 선택
+	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
 //운송 지역 구분 선택시
 $("#sbx_trnsprtAreaCd").on("change", function(){
 	$("#div_trnsprtServiceCd").empty();
+	trnsprtServiceCdList = []; //서비스 선택 Array 초기화
 	var selected = $(this).val(); //선택된 값 가져오기
 	if(selected == "null"){
 		$("#div_trnsprtTypCd").empty();
@@ -703,13 +817,18 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 				innerText += '</div>';
 				$("#div_trnsprtTypCd").empty();
 				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-				totalTrnsprtPrc(); //총 금액 자동계산
+				trnsprtServiceCdList.push("SF"); //서비스 선택 Array에 값 추가
+				trnsprt.trnsprtServiceCd = trnsprtServiceCdList;
+				trnsprtPrcList.push(data.result.trnsprtPrc); //운송 가격 Array에 값 추가
+				trnsprt.trnsprtPrc = trnsprtPrcList;
 			},
 			error: function(error) {
 	            alert("오류 발생" + error);
 	        }
 		}); 
 	}
+	trnsprt.trnsprtAreaCd = selected; //운송 지역코드 선택
+	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
 //서비스 구분 셀렉트 박스 선택시
@@ -717,6 +836,7 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 	var selected = $(this).val(); //선택된 값 가져오기
 	if(selected == "null"){
 		$("#div_trnsprtServiceCd").empty();
+		trnsprtServiceCdList = []; //운송 서비스 Array 초기화
 		totalTrnsprtPrc(); //총 금액 자동계산
 	}else{
 		var paramMap = new Object();
@@ -737,6 +857,10 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 				innerText += '	<div class="cmy-end">X</div>';
 				innerText += '</div>';
 				$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+				trnsprtServiceCdList.push(selected); //운송 서비스 선택 Array에 값 추가
+				trnsprt.trnsprtServiceCd = trnsprtServiceCdList; 
+				trnsprtPrcList.push(data.result.trnsprtPrc); //운송 가격 Array에 값 추가
+				trnsprt.trnsprtPrc = trnsprtPrcList;
 				totalTrnsprtPrc(); //총 금액 자동계산
 			},
 			error: function(error) {

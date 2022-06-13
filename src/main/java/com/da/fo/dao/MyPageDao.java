@@ -274,10 +274,39 @@ public class MyPageDao {
 	 * param : dealSq, mbrSq
 	 * return : 거래에 관한 데이터
 	 */
-	public Map<String, Object> openMyDealDetail(String dealSq, String mbrSq){
+	public Map<String, Object> openMyDealDetailBuy(String dealSq, String mbrSq){
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfo(dealSq);
 		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
+		Map<String, Object> payMntInfo1 = new HashMap<>();
+		Map<String, Object> payMntInfo2 = new HashMap<>();
+		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
+			payMntInfo1 = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
+			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
+		}
+		result.put("payMntInfo1", payMntInfo1);
+		result.put("payMntInfo2", payMntInfo2);
+		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
+		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));
+		result.put("dealInfo", dealInfo);
+		result.put("mbrInfo", mbrInfo);
+		return result;
+	}
+	
+	/*
+	 * 거래 상세 페이지
+	 * param : dealSq, mbrSq
+	 * return : 거래에 관한 데이터
+	 */
+	public Map<String, Object> openMyDealDetailSell(String dealSq, String mbrSq){
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfo(dealSq);
+		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
+		Map<String, Object> payMntInfo = new HashMap<>();
+		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
+			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
+		}
+		result.put("payMntInfo", payMntInfo);
 		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
 		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));
 		result.put("dealInfo", dealInfo);
@@ -306,5 +335,14 @@ public class MyPageDao {
 	 */
 	public List<Map<String, Object>> myDealListBidHistory(Object param){
 		return dealMapper.selectAuctnBidList(param);
+	}
+	
+	/*
+	 * 운송 테이블에 판매자 운송 정보 입력
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 
+	 */
+	public void insertTrnsprt(Object param) {
+		myPageMapper.insertTrnsprt(param);
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.common.AwsS3Service;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
+import com.da.mapper.MainMapper;
 import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
@@ -53,6 +55,9 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private MainMapper mainMapper;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -792,10 +797,8 @@ public class MyPageController {
 	@ResponseBody
 	public ModelAndView openMyDealDetailBuy(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy");
-		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		Map<String, Object> result = myPageService.openMyDealDetailBuy(dealSq, mbrSq);
 		mv.addObject("result", result);
-		mv.addObject("dealSq", dealSq);
-		mv.addObject("mbrSq", mbrSq);
 		return mv;
 	}
 	
@@ -804,7 +807,7 @@ public class MyPageController {
 	@ResponseBody
 	public ModelAndView openMyDealDetailSell(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell");
-		Map<String, Object> result = myPageService.openMyDealDetail(dealSq, mbrSq);
+		Map<String, Object> result = myPageService.openMyDealDetailSell(dealSq, mbrSq);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -835,6 +838,44 @@ public class MyPageController {
 	public ModelAndView myDealListBidHistory(@RequestParam("dealSq") String dealSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		List<Map<String, Object>> result = myPageService.myDealListBidHistory(dealSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//소장품 등록 작가 검색 모달창 자동완성
+	@RequestMapping("/searchArtst")
+	@ResponseBody
+	public ModelAndView searchArtst(@RequestParam("searchKeyword") String searchKeyword) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = mainMapper.totalSearchAutocompleteArtist(searchKeyword);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//소장품 등록 작품 검색 모달창 자동완성
+	@RequestMapping("/searchWork")
+	@ResponseBody
+	public ModelAndView searchWork(@RequestParam("searchKeyword") String searchKeyword) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = mainMapper.totalSearchAutocompleteWork(searchKeyword);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//운송 정보 저장
+	@RequestMapping("/insertTrnsprt")
+	@ResponseBody
+	public void insertTrnsprtBySell(@RequestBody List<Map<String, Object>> paramMap) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ TrnsprtParam : "+paramMap);
+		myPageService.insertTrnsprt(paramMap);
+	}
+	
+	//소장품 등록 작품 검색 결과 클릭시
+	@RequestMapping("/selectWork")
+	@ResponseBody
+	public ModelAndView selectWork(@RequestParam("workSq") String workSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = myPageService.myCollectionMod(workSq);
 		mv.addObject("result", result);
 		return mv;
 	}
