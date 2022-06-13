@@ -48,15 +48,20 @@
             TBL_DA_MBR_M A 
         WHERE 1=1
          
-          <if test="searchGubun == 'mbrNm' and searchWord != null">
-          	AND A.MBR_NM LIKE CONCAT('%',#{searchWord},'%')
+          <if test="memberGubun != '' and memberGubun != null">
+          	AND A.AUTH_SQ = #{memberGubun}
           </if>
-          <if test="searchGubun == 'mbrId' and searchWord != null">
-          	AND A.MBR_ID LIKE CONCAT('%',#{searchWord},'%')
-          </if>
-          <if test="searchGubun == 'mbrNcknm' and searchWord != null">
-          	AND A.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
-          </if>
+          <if test="searchWord != null and searchWord !=''">
+	          <if test="searchGubun == 'mbrNm' and searchWord != null">
+	          	AND A.MBR_NM LIKE CONCAT('%',#{searchWord},'%')
+	          </if>
+	          <if test="searchGubun == 'mbrId' and searchWord != null">
+	          	AND A.MBR_ID LIKE CONCAT('%',#{searchWord},'%')
+	          </if>
+	          <if test="searchGubun == 'mbrNcknm' and searchWord != null">
+	          	AND A.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
+	          </if>
+	       </if>
           <if test="mbrSq != null">
           	AND A.MBR_SQ = #{mbrSq}
           </if>
@@ -189,6 +194,58 @@
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}
 	</update>
+	
+	
+	<!-- 작가신청 -->
+	<select id="artistApp" resultType="hashMap">
+       SELECT 
+       
+       	A.AUTH_SQ               AS authSq
+		,A.MBR_SQ               AS mbrSq
+		,A.MBR_ID               AS mbrId
+		,A.MBR_EMAIL            AS mbrEmail
+		,A.MBR_PASSWRD          AS mbrPasswrd
+		,MBR_NM               AS mbrNm
+		,IFNULL(A.MBR_NCKNM,'-') AS mbrNcknm
+		,A.MBR_NATN_CD          AS mbrNatnCd
+		,A.MBR_BIRTH            AS mbrBirth
+		,(
+			CASE 
+				WHEN A.MBR_SEX_CD = 'MALE' THEN '남'
+				WHEN A.MBR_SEX_CD = 'FEMALE' THEN '여' 
+				WHEN A.MBR_SEX_CD IS NULL THEN '-'
+			END
+		 ) AS mbrSexCd
+		,A.MBR_HOME_ADDR        AS mbrHomeAddr
+		,A.MBR_DELIVRY_ADDR     AS mbrDelivryAddr
+		,A.MBR_CP_NUM           AS mbrCpNum
+		,A.MBR_CP_CERT_YN       AS mbrCpCertYn
+		,A.MBR_CP_CERT_DATE     AS mbrCpCertDate
+		,A.REG_MBR_SQ           AS regMbrSq
+		,DATE_FORMAT(A.REG_DT,'%Y-%m-%d')  AS regDt
+		,A.UPDT_MBR_SQ          AS updtMbrSq
+		,DATE_FORMAT(A.UPDT_DT,'%Y-%m-%d')  AS updtDt
+		,A.USE_YN               AS useYn
+		,A.DEL_YN				  AS delYn
+		,(
+			CASE 
+			 WHEN A.MBR_SOCIAL_SORT = 'GEN' THEN '일반'
+			 WHEN A.MBR_SOCIAL_SORT = 'KAO' THEN '카카오'
+			 WHEN A.MBR_SOCIAL_SORT = 'GOG' THEN '구글'
+			 WHEN A.MBR_SOCIAL_SORT = 'NAV' THEN '네이버'
+			END
+		 ) AS mbrSocialSort
+       
+       FROM TBL_DA_MBR_M A
+	INNER JOIN TBL_DA_ARTST_M B ON A.MBR_SQ = B.MBR_SQ 
+	WHERE A.AUTH_SQ = '1'
+       <if test="mbrId != null">
+          		AND A.MBR_ID = #{mbrId}
+       </if>
+       <if test="mbrNm != null">
+          		AND A.MBR_NM = #{mbrNm}
+       </if>
+    </select>
    
     
     

@@ -250,4 +250,27 @@ public class boMemberController {
 		return deStr;
 	}
 	
+	
+	//작가신청 목록 페이지 이동
+	@RequestMapping("/admin/member/artistProList")
+	public String openArtistProList() {
+		return "bo/member/artistProList";
+	}
+	
+	//작가신청 목록 데이터
+	@RequestMapping("/admin/member/artistProData")
+	@ResponseBody
+	public ModelAndView artistProData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boMemberService.artistAppList(param);
+									
+		mv.addObject("artist", result);
+		
+		return mv;
+	}
 }

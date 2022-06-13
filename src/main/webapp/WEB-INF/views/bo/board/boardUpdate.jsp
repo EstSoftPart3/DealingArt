@@ -18,6 +18,10 @@
 
 %>
 
+<style type="text/css">
+	  #toolbar-container{ position: sticky; top: 185px;}
+</style>
+
 <body class="hold-transition sidebar-mini">
 
 <style>
@@ -80,7 +84,9 @@
                       					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
                     				</div>
 					 			</div>
-					 			
+					 			<%
+					 			if(!brdTypCd.equals("NT")) {
+					 			%>
 					 			<div class="form-group row">
 		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
                     				<div class="col-sm-7">
@@ -110,6 +116,7 @@
 										</div>
                     				</div>
 		               		   </div>
+		               		   <%}%>
 					 			
 					 			<div class="form-group row">
                     				
@@ -117,7 +124,7 @@
                     				<div class="col-sm-9">
                       					
                       					
-                      					<div id="toolbar-container"></div>
+                      					<div id="toolbar-container" style="z-index:9999"></div>
                       					
                       					<div id="editor" style="border: 1px solid #efefef;">
 									        

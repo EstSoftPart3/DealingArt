@@ -10,7 +10,7 @@
 				<ul class="">
 					<li><a href="#">경매약관</a></li>
 					<li><a href="#">온라인경매약관</a></li>
-					<li><a href="#">개인정보처림방침</a></li>
+					<li><a href="#">개인정보처리방침</a></li>
 					<li><a href="#">내부정보관리규정</a></li>
 				</ul>
 				<div class="footer-icon">

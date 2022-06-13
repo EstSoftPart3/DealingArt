@@ -17,20 +17,11 @@
     			<div class="card">
     				
 	    			<div class="card-header">
-	                	<h3 class="card-title bTitle">회원 목록</h3>
+	                	<h3 class="card-title bTitle">작가신청회원 목록</h3>
 	                	
 		                <div class="card-tools">
 		                  
 		                  <div class="input-group input-group-sm" style="width: 350px;">
-		                  
-		                  
-		                    <select class="custom-select bTitle" id="memberGubun">
-	                          <option value="" selected>전체</option>
-	                          <option value="1">개인/콜렉터</option>
-	                          <option value="2">작가</option>
-	                          <option value="3">관리자</option>
-	                          <option value="4">전체관리자</option>
-	                        </select>
 		                    
 		                    <select class="custom-select bTitle" id="searchGubun">
 	                          <option value="">선택</option>
@@ -73,10 +64,7 @@
     		</section>
 		 </div>
 		 
-		  <!--card-footer -->
-         <div class="card-footer" >
-               <button type="button" class="btn btn-info sTitle" style="float:right" onclick="goMemberInput();">회원가입</button>
-         </div>
+		
 		
 	</div>
 	
@@ -93,7 +81,7 @@
    		function searchMemberData(page) {
    			$.ajax({
    		           type: "post",
-   		           url: "memberSearch",
+   		           url: "artistProData",
    		           data: {
    		        	   page : page,
    		        	   pageSize : 100,
@@ -104,7 +92,9 @@
    		           },
    		           success: function(data) {
    		        	   
-   		        	dataList = data.memberData.memberList;
+   		        	console.log(data);
+   		        	   
+   		        	dataList = data.artist.appList;
    		        	    
    		        	   var authGubun = '';
    		        	   var checkState = '';
@@ -226,7 +216,7 @@
    			
    			let param = {
    				mbrSqParam : mbrSq,
-   				mbrAuthSq : '1'
+   				mbrAuthSq : '2'
    			}
    		
    			var contentUrl = "/admin/member/memberContent";
@@ -236,12 +226,10 @@
    		
    		//작가등록
    		function artistMemberContent(mbrSq) {
-   			
    			let param = {
-   	   			mbrSqParam : mbrSq,
-   	   			mbrAuthSq : '1'
-   	   		}
-   			
+   	   				mbrSqParam : mbrSq,
+   	   				mbrAuthSq : '2'
+   	   			}
    			var contentUrl = "/admin/member/artistMemberInput";
    			postForm(contentUrl, param);
    		}

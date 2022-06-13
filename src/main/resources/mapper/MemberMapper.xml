@@ -124,6 +124,7 @@
 			<if test="mbrHomeAddr    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
 			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR =#{mbrDelivryAddr},</if>
 			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
+			<if test="mbrNcknm       != null">MBR_NCKNM = #{mbrNcknm},</if>
 			UPDT_DT = NOW(),
 			<if test="useYn          != null">USE_YN = #{useYn},</if>
 			<if test="delYn          != null">DEL_YN = #{delYn},</if>

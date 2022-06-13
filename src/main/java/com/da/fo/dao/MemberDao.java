@@ -129,6 +129,9 @@ public class MemberDao {
 			 String mbrEmlAlarm = (String) memberContent.get(z).get("mbrEmlAlarm");
 			 //휴대폰 이벤트 알림
 			 String mbrCpAlarm = (String) memberContent.get(z).get("mbrCpAlarm");
+			 //닉네임
+			 String mbrNcknm = (String) memberContent.get(z).get("mbrNcknm");
+			 
 						
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
@@ -137,6 +140,7 @@ public class MemberDao {
 			 memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
 			 memberContent.get(z).put("mbrEmlAlarm", mbrEmlAlarm);
 			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
+			 memberContent.get(z).put("mbrNcknm", mbrNcknm);
 			 
 		  }
 		

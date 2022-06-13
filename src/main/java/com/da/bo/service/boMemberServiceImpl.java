@@ -57,6 +57,7 @@ public class boMemberServiceImpl implements boMemberService {
 		boMemberDao.memberInsert(param);
 	}
 	
+	//회원정보 수정
 	@Override
 	public int memberUpdate(Map<String, Object> param){
 		int updateState = -1;
@@ -65,4 +66,17 @@ public class boMemberServiceImpl implements boMemberService {
 		
 		return updateState;
 	}
+	
+	//작가신청 목록
+	@Override
+	public Map<String, Object> artistAppList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boMemberDao.artistAppList(param);
+		
+		return result;
+	}
+	
+	
 }

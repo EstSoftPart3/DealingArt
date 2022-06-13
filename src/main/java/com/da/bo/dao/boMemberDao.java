@@ -137,5 +137,45 @@ public class boMemberDao {
 		return updateState;
 		
 	}
+	
+	
+	//작가신청 목록
+	public Map<String, Object> artistAppList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+			
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> memberList = boMemberMapper.artistApp(param);
+		
+		 for(int z=0; z<memberList.size(); z++){
+			 	
+			
+			//아이디 복호화
+			 String mbrIdDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrId"));
+			 //비밀번호 복호화
+			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrPasswrd"));
+			 //이메일 복호화
+			 String mbrEmailDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrEmail"));
+			 //휴대전화번호 복호화
+			 String mbrCpNumDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrCpNum"));
+			 //집주소 복호화
+			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrHomeAddr"));
+			 
+			 //회원구분
+			 String mbrSocialSort = (String) memberList.get(z).get("mbrSocialSort");
+			 
+			 memberList.get(z).put("mbrSocialSort", mbrSocialSort);
+			 memberList.get(z).put("mbrId", mbrIdDecrypt);
+			 memberList.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
+			 memberList.get(z).put("mbrEmail", mbrEmailDecrypt);
+			 memberList.get(z).put("mbrCpNum", mbrCpNumDecrypt);
+			 memberList.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
+		  }
+		
+		result.put("appList", memberList);
+		
+		return result;
+	}
 
 }

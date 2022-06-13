@@ -18,6 +18,10 @@
 	}
 %>
 
+<style type="text/css">
+	#toolbar-container{ position: sticky; top: 185px;}
+</style>
+
 <body class="hold-transition sidebar-mini">
 
 	<div class="wrapper">
@@ -89,7 +93,7 @@
 					 				</td>
 					 				<td>
 					 					<div class="col-sm-12">
-					 						<div id="toolbar-container" style="width:800px;"></div>
+					 						<div id="toolbar-container" style="width:800px;z-index:9999""></div>
                     						<div id="editor" style="border: 1px solid #efefef;width:800px;">
 					 					</div>
 					 				</td>

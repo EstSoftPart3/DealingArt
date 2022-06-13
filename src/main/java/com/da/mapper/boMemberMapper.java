@@ -21,5 +21,9 @@ public interface boMemberMapper {
 	public int memberUpdate(Map<String, Object> param);
 	
 	
+	//회원 목록
+	public List artistApp(Map<String, Object> param);
+	
+	
 
 }
