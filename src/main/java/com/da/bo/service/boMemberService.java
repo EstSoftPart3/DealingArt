@@ -18,5 +18,8 @@ public interface boMemberService {
 	
 	//회원정보 수정
 	public int memberUpdate(Map<String, Object> param);
+	
+	//작가신청 목록
+	public Map<String, Object> artistAppList(Map<String, Object> param);
 
 }

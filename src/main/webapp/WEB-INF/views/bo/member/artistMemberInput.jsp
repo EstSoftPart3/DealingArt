@@ -1327,7 +1327,15 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 		
 		//회원목록 이동
 		function goList(){
-			location.href = '/admin/member/memberList';
+			
+			var authSq = '<c:out value="${param.mbrAuthSq}" />';
+			
+			if(authSq == '2') {
+				location.href = '/admin/member/artistProList';
+			} else {
+				location.href = '/admin/member/memberList';	
+			}
+			
 		}
 		
 		//작가정보 등록

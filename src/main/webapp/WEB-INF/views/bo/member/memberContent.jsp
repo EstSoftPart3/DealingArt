@@ -137,7 +137,12 @@
    
 		$(document).ready(function(){
 			
+			//회원순번
 			var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+			
+			//회원권한순번
+			var AuthSq = '<c:out value="${param.mbrAuthSq}" />';
+			
 			memberContentData(mbrSq);
 			
 		});
@@ -219,18 +224,27 @@
 		
 		//회원목록 이동
 		function goList(){
-			location.href = '/admin/member/memberList';
+			
+			var authSq = '<c:out value="${param.mbrAuthSq}" />';
+			
+			if(authSq == '2') {
+				location.href = '/admin/member/artistProList';
+			} else {
+				location.href = '/admin/member/memberList';	
+			}
+			
+			
 		}
 		
 		function memberUpdate() {
    			
 			var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+			var authSq = '<c:out value="${param.mbrAuthSq}" />';
 			
    			let param = {
-   				mbrSqParam : mbrSq
+   				mbrSqParam : mbrSq,
+   				mbrAuthSq : authSq
    			}
-   			
-   			console.log(param);
    			
    			var contentUrl = "/admin/member/memberUpdate";
    			postForm(contentUrl, param);

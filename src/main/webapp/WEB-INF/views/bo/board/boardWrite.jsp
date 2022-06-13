@@ -45,6 +45,8 @@
 					 	
 					 		<div class="col-md-9" style="padding-left:50px;">
 					 		
+					 		    
+					 		
 					 			<div class="form-group row">
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">제목</label>
                     				<div class="col-sm-9">

@@ -185,6 +185,9 @@
 		$(document).ready(function(){
 			
 			var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+			
+			var authSq = '<c:out value="${param.mbrAuthSq}" />';
+			
 			memberContentData(mbrSq);
 			
 		});
@@ -389,7 +392,7 @@
                 return false ;
         }
         
-      //다음 주소 찾기
+      	//다음 주소 찾기
    		function userAddress(inputId) {
    			    
 		     new daum.Postcode({
@@ -400,13 +403,16 @@
 	    }
       
       
-   	//회원 상세정보 이동
+   		//회원 상세정보 이동
    		function memberContent() {
    			
    			var mbrSq = '<c:out value="${param.mbrSqParam}" />';
    			
+   			var authSq = '<c:out value="${param.mbrAuthSq}" />';
+   			
    			let param = {
-   				mbrSqParam : mbrSq
+   				mbrSqParam : mbrSq,
+   				mbrAuthSq : authSq 
    			}
    		
    			var contentUrl = "/admin/member/memberContent";
