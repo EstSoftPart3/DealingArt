@@ -63,11 +63,19 @@
 									<div class="input-box input-group">
 										<input type="text" class="input-3" placeholder="활동명" id="uMbrNcknm" autocomplete="off" onkeyup="uCharacterCheck(this)" onblur="uMbrNcknmLength(this)"/>
 										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" disabled>중복체크</button>
+										<input type="hidden" id="uMbrNcknmCheckYn" value="N">
+									</div>
+									
+									<div class="input-box input-group">
+										<input type="text" class="input-3" placeholder="주소" id="uMbrHomeAddr" autocomplete="off" />
+										<button type="button" class="group-btn" onclick="userAddress('uMbrHomeAddr');">주소찾기</button>
 									</div>
 									
 									<div class="input-box">
 										<p class="inp-p" id="uMbrNcknmCheck">활동명을 입력 후 중복체크를 해주세요.</p>
 									</div>
+									
+									
 									
 									<div class="bat-box3 mg_t65">
 										<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
@@ -111,7 +119,7 @@ $(document).ready(function() {
 	});
 
 });
-var uMbrNcknmCheckYn = "N"; //활동명 중복체크 여부
+//var uMbrNcknmCheckYn = "N"; //활동명 중복체크 여부
 
 //활동명 특수문자 제한
 function uCharacterCheck(obj){
@@ -151,11 +159,20 @@ function uMbrNcknmCheck(obj){
       	if (data.result > 0) {
       		obj.disabled = true;
       		obj.value = "";
-      		modalAlertShow("활동명이 중복되었습니다. 다시 입력해주세요.", "uMbrNcknm");        		
+      		modalAlertShow("활동명이 중복되었습니다. 다시 입력해주세요.", "uMbrNcknm");
+      		
+      		$("#uMbrNcknmCheckYn").val('N');
+      		
       	}else{
-      		mbrNcknmCheckYn = "Y";
+      		
+      		$("#uMbrNcknmCheckYn").val('Y');
+      		
       		modalAlertShow("사용 가능한 활동명입니다.");   
+      		
       		fn_validation('uMbrNcknmCheck','', 'B');
+      		
+      		
+      		
       	}
       },
       error: function(error) {
@@ -249,6 +266,10 @@ $("#memberUpdateBtn").on('click', function(event){
 	var mbrCpCertDate = $("#uMbrCpCertDate").val();
 	//회원 활동명
 	var mbrNcknm = $("#uMbrNcknm").val();
+	//회원 주소
+	var mbrHomeAddr = $("#uMbrHomeAddr").val();
+	
+	var uMbrNcknmCheckYn = $("#uMbrNcknmCheckYn").val();
 	
 	//비밀번호--------------------------------------------------------------------//
 	//비밀번호 문자 입력이 안되었다면..
@@ -369,7 +390,8 @@ $("#memberUpdateBtn").on('click', function(event){
 	
 	//활동명 중복체크 여부
 	if(uMbrNcknmCheckYn == "N"){
-		fn_validation('uMbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
+		fn_validation('uMbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');
+		//alert("활동명 중복체크를 해주세요.");
 		return;
 	}
 	
@@ -382,7 +404,8 @@ $("#memberUpdateBtn").on('click', function(event){
 	  "mbrCpNum" : mbrCpNum, 
 	  "mbrCpCertYn" : mbrCpCertYn,
 	  "mbrCpCertDate" : mbrCpCertDate,
-	  "mbrNcknm" : mbrNcknm
+	  "mbrNcknm" : mbrNcknm,
+	  "mbrHomeAddr" : mbrHomeAddr 
 	}
 	
 	 $.ajax({
@@ -565,6 +588,7 @@ function memberContentData(mbrSq) {
         	 	$("#uMbrId").val(mbrId);
         	 	$("#uMbrNcknm").val(mbrNcknm);
         	 	$("#uMbrCpNum").val(mbrCpNum);
+        	 	$("#uMbrHomeAddr").val(mbrHomeAddr);
         	 
         	 }
            },
@@ -594,8 +618,21 @@ jQuery(document).ready(function() {
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	
 	$("#memberEdit").addClass("active");
-});   
+}); 
+
+
+//다음 주소 찾기
+function userAddress(inputId) {
+		    
+     new daum.Postcode({
+           oncomplete: function(data) { //선택시 입력값 세팅
+           document.getElementById(inputId).value = data.address; // 주소 넣기
+        }
+    }).open();
+}
 </script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 </body>
 

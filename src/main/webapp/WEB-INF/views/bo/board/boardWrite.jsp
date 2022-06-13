@@ -18,6 +18,10 @@
 
 %>
 
+<style type="text/css">
+	#toolbar-container{ position: sticky; top: 185px;}
+</style>
+
 <body class="hold-transition sidebar-mini">
 
 	
@@ -53,7 +57,9 @@
                       						<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" value="">
                     				</div>
 					 			</div>
-					 			
+					 			<%
+					 			if(!brdTypCd.equals("NT")) {
+					 			%>
 					 			<div class="form-group row">
 		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
                     				<div class="col-sm-7">
@@ -82,14 +88,15 @@
 											<label for="a4" class="col-form-label sTitle">거래</label>
 										</div>
                     				</div>
-		               		   </div>
+		               		   	</div>
+		               		   	<%}%>
 					 			
 					 			<div class="form-group row">
 					 			<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
                     				<div class="col-sm-9">
                       						<!-- <input type="text" class="form-control sTitle classname"  id="brdContent" name="brdContent" value=""> -->
                     					
-                    					<div id="toolbar-container"></div>
+                    					<div id="toolbar-container" style="z-index:9999"></div>
                     					
                     					<div id="editor" style="border: 1px solid #efefef;">
 									        
@@ -156,7 +163,7 @@ DecoupledDocumentEditor
 		 const toolbarContainer = document.querySelector( '#toolbar-container' );
 
 		  toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-          document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+          //document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
 	} )
 	.catch( error => {
 		console.error( 'Oops, something went wrong!' );
@@ -305,7 +312,8 @@ DecoupledDocumentEditor
     
    
      </script>
- 
+ 		
+ 	 
  
 </body>
 </html>

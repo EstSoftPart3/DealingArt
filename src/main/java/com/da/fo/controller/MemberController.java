@@ -121,10 +121,12 @@ public class MemberController {
 		String mbrNm = (String) param.get("mbrNm");
 		//휴대전화번호 암호화
 		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
-		
 		//회원 순번
 		String mbrSq = (String) param.get("mbrSq");
-		
+		//회원 주소
+		String mbrHomeAddr = commonService.encrypt((String) param.get("mbrHomeAddr"));
+		//닉네임
+		String mbrNcknm = (String) param.get("mbrNcknm");
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);
@@ -132,7 +134,9 @@ public class MemberController {
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
-		param.put("useYn", "Y"); 
+		param.put("useYn", "Y");
+		param.put("mbrHomeAddr", mbrHomeAddr);
+		param.put("mbrNcknm", mbrNcknm);
 		
 		memberService.memberUpdate(param);
 	}

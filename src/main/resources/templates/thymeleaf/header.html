@@ -15,7 +15,7 @@
 	<title>딜링아트</title>
 <!-- 	<link rel="icon" href="http://localhost/resources/static/favicon.ico" /> -->
  	
- 	<link rel="icon" type="image/png" href="resources/img/favicon.png">
+ 	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
  	
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.min.css">
 	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
@@ -812,6 +812,8 @@ $(document).ready(function() {
 
 //휴대폰 인증 성공
 function mainMobileAuthSuccess(returnValue) {
+	console.log("mainMobileAuthSuccess");
+	console.log("returnValue :"+returnValue);
 	$.ajax({
         type: "post",
         url: "/memberDuplicateCheck",
@@ -819,6 +821,9 @@ function mainMobileAuthSuccess(returnValue) {
         		mbrCpCertDi : returnValue
         },
         success: function(data) {
+        	
+        	console.log(data);
+        	
         	if(data > 0){
         		document.memberInput.mbrNm.value ="";
         		document.memberInput.mbrCpNum.value="";
