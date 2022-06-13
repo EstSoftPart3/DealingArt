@@ -103,6 +103,14 @@ function modalAlertClose(obj) {
 		});
 	}
 	
+	if(obj == "termOfService"){
+		window.open("/termOfService","_blank");
+	}
+	
+	if(obj == "privacyPolicy"){
+		window.open("/privacyPolicy","_blank");
+	}
+	
 	if(obj == "myDeal"){
 		location.href='/myDeal';
 	}

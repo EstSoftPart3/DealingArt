@@ -708,13 +708,13 @@ function changePasswrd(){
 						경매 / 판매 알림 수신을 원하실 경우 모두 동의해 주세요.  <span class="text-line">모두 동의</span>						
 					</div>
 					<div class="radio-3 rad-mg">
-						<input type="checkbox" id="s1" name="rr">
+						<input type="checkbox" id="s1" name="s1">
 						<label for="s1"><span></span>(필수) 만 18세 이상입니다.</label><br/>
-						<input type="checkbox" id="s2" name="rr">
-						<label for="s2"><span></span>(필수) 이용 약관</label><br/>
-						<input type="checkbox" id="s3" name="rr">
-						<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label><br/>
-						<input type="checkbox" id="s4" name="rr">
+						<input type="checkbox" id="s2" name="s2">
+						<label for="s2"><span></span>(필수) 이용 약관</label>&nbsp;&nbsp;<label><a href="/termOfService" target="_blank">[읽기]</a></label><br/>
+						<input type="checkbox" id="s3" name="s3">
+						<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label>&nbsp;&nbsp;<label><a href="/privacyPolicy" target="_blank">[읽기]</a></label><br/>
+						<input type="checkbox" id="s4" name="s4">
 						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>
 					</div>
 					<div class="bat-box3">
@@ -1045,6 +1045,11 @@ $('#memberModal').on('show.bs.modal', function (e) {
 
 //회원가입
 $("#memberInputBtn").on('click', function(event){
+	
+	
+	
+	
+	
 
 	//회원아이디
 	var mbrId = $("#mbrId").val();
@@ -1190,6 +1195,29 @@ $("#memberInputBtn").on('click', function(event){
 		fn_validation('mbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
 		return;
 	}
+	
+	
+	var s1Check = $('input:checkbox[name=s1]').is(':checked');
+	
+	if(s1Check == false) {
+		modalAlertShow("만 18세 이상인것은 확인해주세요.","");
+		return;
+	}
+	
+	var s2Check = $('input:checkbox[name=s2]').is(':checked');
+	
+	if(s2Check == false) {
+		modalAlertShow("이용약관을 읽고 확인해 주세요.","termOfService");
+		return;
+	}
+	
+	var s3Check = $('input:checkbox[name=s3]').is(':checked');
+	
+	if(s3Check == false) {
+		modalAlertShow("개인정보처리방침을 읽고 확인해 주세요.","privacyPolicy");
+		return;
+	}
+
 	 
 	 let memParams = {
 		  "mbrId" : mbrId,
