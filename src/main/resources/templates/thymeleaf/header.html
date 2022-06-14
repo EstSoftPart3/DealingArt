@@ -83,6 +83,8 @@
 		         $("#appDevice").val("PC");
 		     } else {
 		     	 $("#appDevice").val("MOBILE"); 
+		     	 $(".lp_mgz9DtlModalHearder").css("max-width","900px");
+		     	 $("#lp_mgz9Dtl_cntnt").css("max-width","700px");
 		     }
 		});
   </script>
@@ -711,7 +713,7 @@ function changePasswrd(){
 						<input type="checkbox" id="s3" name="s3">
 						<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label>&nbsp;&nbsp;<label><a href="/privacyPolicy" target="_blank">[읽기]</a></label><br/>
 						<input type="checkbox" id="s4" name="s4">
-						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>
+						<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>&nbsp;&nbsp;<label><a href="/marketing" target="_blank">[읽기]</a></label>
 					</div>
 					<div class="bat-box3">
 						<button type="button" class="ba-btn1" id="memberInputBtn"><span>회원 가입하기</span></button>
@@ -816,8 +818,7 @@ $('#loginModal').on('hidden.bs.modal', function () {
 
 //휴대폰 인증 성공
 function mainMobileAuthSuccess(returnValue) {
-	console.log("mainMobileAuthSuccess");
-	console.log("returnValue :"+returnValue);
+	
 	$.ajax({
         type: "post",
         url: "/memberDuplicateCheck",
@@ -1222,7 +1223,16 @@ $("#memberInputBtn").on('click', function(event){
 		modalAlertShow("개인정보처리방침을 읽고 확인해 주세요.","privacyPolicy");
 		return;
 	}
-
+	
+	var s4Check = $('input:checkbox[name=s4]').is(':checked');
+	
+	var mbrEmlAlarm = "N";
+	var mbrCpAlarm = "N";
+	
+	if(s4Check == true) {
+		mbrEmlAlarm = 'Y';
+		mbrCpAlarm = 'Y'
+	}
 	 
 	 let memParams = {
 		  "mbrId" : mbrId,
@@ -1234,8 +1244,10 @@ $("#memberInputBtn").on('click', function(event){
 		  "mbrCpCertDate" : mbrCpCertDate,
 		  "mbrCpCertDi" : mbrCpCertDi,
 		  "mbrSocialSort" : mbrSocialSort,
-		  "mbrNcknm" : mbrNcknm
-	 }
+		  "mbrNcknm" : mbrNcknm,
+		  "mbrEmlAlarm" : mbrEmlAlarm,
+		  "mbrCpAlarm" : mbrCpAlarm
+	}
 	 
 	 
 	 $.ajax({

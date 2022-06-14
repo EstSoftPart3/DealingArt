@@ -73,6 +73,11 @@ public class MemberController {
 		//휴대전화번호 암호화
 		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
 		
+		//이벤트, 프로모션 이메일 수신
+		String mbrEmlAlarm = (String) param.get("mbrEmlAlarm");
+		//이멘트 프로모션 SMS 수신
+		String mbrCpAlarm = (String) param.get("mbrCpAlarm");
+		
 		param.put("mbrId", mbrIdEncrypt);
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
@@ -81,6 +86,10 @@ public class MemberController {
 		param.put("mbrDelivryCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
 		param.put("gubun", "MEMINPUT");
+		
+		param.put("mbrEmlAlarm", mbrEmlAlarm);
+		param.put("mbrCpAlarm", mbrCpAlarm);
+		
 		
 		
 		int insertState = -1;

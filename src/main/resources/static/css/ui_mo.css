@@ -498,8 +498,8 @@ html, body{font-size: calc(100vw / 75);}
 }
 .hd-div:hover .hd-text{display:none;}
 .hd-div .hd-img{
-    width: auto;
-    height: auto;
+    width: 280px;
+    height: 280px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -4741,8 +4741,8 @@ code{
     min-height: 0;
     border-bottom: 0;
     position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
+    top: 15.5rem;
+    right: 9.5rem;
     width: 3.7rem;
     height: 3.7rem;
 }
