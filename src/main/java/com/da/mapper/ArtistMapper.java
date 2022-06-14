@@ -53,6 +53,8 @@ public interface ArtistMapper {
 	 */
 	public List artistInfoExhbtn(Object param);
 	
+	public List artistInfoExhbtnAword(Object param);
+	
 	/*
 	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트의 판매중 작품을 불러온다.
 	 * param : artstSq

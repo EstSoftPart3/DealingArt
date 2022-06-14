@@ -150,6 +150,8 @@ $(function() {
 	var career = artstInfo.career;
 	var eductn = artstInfo.eductn;
 	var exhbtn = artstInfo.exhbtn;
+	var exhbtnAword = artstInfo.exhbtnAword;
+	
 	var artstInfoHtml = "";
 	var artstInfoHtml2 = "";
 	if(artstInfo == null){
@@ -220,12 +222,17 @@ $(function() {
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>수상</dt>';
 		artstInfoHtml += '	<dd>';
+		for(var i=0; i<exhbtnAword.length; i++){
+			artstInfoHtml += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
+		}
+		/*
 		artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
 		artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
 		artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
 		artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
 		artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
 		artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
+		*/
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		artstInfoHtml += '<dl class="ad-dl">';

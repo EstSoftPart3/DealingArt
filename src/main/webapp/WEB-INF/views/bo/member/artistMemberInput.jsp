@@ -805,14 +805,14 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		   
 		   $("#perDonginList").jsGrid({
 			   locale:"ko",
-		       height: "400px",
+		       height: "500px",
 		       width: "1000px",
 		       inserting: false,
 		       editing: true,
 		       sorting: false,
 		       paging: false,
 		       autoload: true,
-		       pageSize: 10,
+		       pageSize: 100,
 		       deleteConfirm: "정말 삭제 하시겠습니까?",
 		       controller: {
 		           loadData: function (filter) {
@@ -822,7 +822,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		    	    	 url: "/myPage/authorExhbtnInfoViewData",
 		    	         data: params,
 		    	         dataType: "json"
-		    	      }).done(function(response) {
+		    	      }).done(function(response) { 
 		    	    	 d.resolve(response.author.exhbtnInfo);
 		    	      });
 		               return d.promise();

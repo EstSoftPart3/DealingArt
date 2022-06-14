@@ -50,6 +50,9 @@ public class ArtistDao {
 		List eductn = artistMapper.artistInfoEductn(Integer.toString(artstSq)); //작가학력
 		List career = artistMapper.artistInfoCareer(Integer.toString(artstSq)); //작가경력
 		List exhbtn = artistMapper.artistInfoExhbtn(Integer.toString(artstSq)); //작가전시
+		
+		List exhbtnAword = artistMapper.artistInfoExhbtnAword(Integer.toString(artstSq)); //수상
+		
 		//작가 작품 리스트
 		List<Map<String, Object>> workListSale = artistMapper.artistWorkListSale(Integer.toString(artstSq)); //작가 작품 판매중 리스트
 		List<String> workSq = new ArrayList<String>();
@@ -65,6 +68,7 @@ public class ArtistDao {
 		result.put("eductn", eductn);
 		result.put("career", career);
 		result.put("exhbtn", exhbtn);
+		result.put("exhbtnAword", exhbtnAword);
 		result.put("workList", workList);
 		return result;
 	}
