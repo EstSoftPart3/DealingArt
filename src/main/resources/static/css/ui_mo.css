@@ -4469,7 +4469,7 @@ code{
     font-size: 2rem;
     color: #999999;
 }
-.check-info div{
+.check-info p{
     padding-bottom: 5px;
     font-weight: 600;
     color: #333333;
