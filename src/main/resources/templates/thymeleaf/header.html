@@ -904,6 +904,10 @@ function mbrNcknmCheck(obj){
 	});
 }
 
+setTimeout(function(){
+	location.reload();
+},900000); // 15분 마다 새로고침 (세션 만료 체크)
+
 var sMbrSqVal = "";
 var sAuthSqVal = "";
 var artstSq = "";
