@@ -415,6 +415,246 @@
 	</div>
 </div>
 
+<!-- 응찰하기 -->
+<div class="modal fade modal-s" id="bidNotesModal" tabindex="-1" role="dialog" aria-labelledby="myModal5Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w800">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>응찰 유의사항</h2>
+				    <img src="/resources/img/ba/icon-2.png" class="con-img" />
+				    <div class="close" onclick="bidNotesModalClose()"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<h4 class="infat-h4"><span class="c-red">응찰</span>하시기 전에 꼭 확인을 해주세요. </h4>
+				
+					<!-- <div class="modal-demo-2">
+						<div class="modmo-left"><img src="/resources/img/mypage/img-bg-2.png" class="" /></div>
+						<div class="modmo-right">
+							<h3>이용은(Lee Yong-eun)</h3>
+							<h4>작품명 : 코끼리</h4>
+							<div class="md2-list">
+								<span class="md2-sp1">제작년도</span> : <span class="md2-sp2">2022</span>
+							</div>
+							<div class="md2-list">
+								<span class="md2-sp1">소재/기법</span> : <span class="md2-sp2">한지에 채색, 금</span>
+							</div>
+							<div class="md2-list">
+								<span class="md2-sp1">액자</span> : <span class="md2-sp2">없음</span>
+							</div>
+							<div class="md2-list">
+								<span class="md2-sp1">사이즈</span> : <span class="md2-sp2">72.7 X 100</span>
+							</div>
+						</div>
+					</div> -->
+					
+					<div class="wrapper center-block">
+							<div class="panel-group2" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default2">
+									<div class="panel-heading2" role="tab" id="headingOne">
+										<h4 class="panel-title2">
+											<a>
+												<div class="db-div">
+													<input type="checkbox" id="cbx_bidAgree1"/>
+													<label for="cbx_bidAgree1"><span></span>
+														<div class="check-info">
+															<p>응찰하려는 작품<b class="c-red dib" th:text="|(작품명 : ${result.deal.workNm}, 작가명 : ${result.deal.artstActvtyNm})|"></b>이 맞습니다.</p>
+															낙찰 시 48시간 이내 결제
+														</div>
+													</label>
+												</div>
+											<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">보기</div>
+											</a>
+										</h4>
+									</div>
+								<div id="collapseOne" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingOne">
+									<div class="panel-body">
+										<div class="coll-text">
+											■ 응찰방법<br/>
+											-응찰은 최종 경매 마감시간전까지 여러 번 신청은 가능하나 취소는 불가능 합니다. <br/>
+											-응찰방법은 희망하는 가격으로 응찰하거나 자동 응찰의 방법을 이용할 수 있습니다.<br/> 
+											-모든 작품은 해당 작품의 최종 경매 마감시간전까지 자동 응찰을 할 수 있습니다. <br/><br/>
+											
+											■ 회사는 아래 사항으로 인한 응찰의 오류나 누락에 대해서 책임을 지지 않습니다. <br/>
+											-판매자 또는 구매자측 소프트웨어의 고장 및 이와 관련된 문제의 발생하는 경우 <br/>
+											-판매자 또는 구매자측 컴퓨터 또는 전자장치의 고장 및 문제의 발생하는 경우 <br/><br/>
+											
+											■ 어떤 미술품에 관하여 최고 가격을 응찰한 자동 응찰 방식의 회원이 둘 이상이 있는 경우 해당 미술품은 자동 응찰을 통한 구매의사를 가장 먼저 표시한 회원이 낙찰을 받습니다. <br/>
+											
+											■ 낙찰을 받은 회원은 회사가 발송하는 이메일(또는 회원이 입력한 휴대전화번호로 발송되는 SMS문자 또는 카카오톡 SNS 등)를 통해 낙찰을 확인 받을 수 있습니다. <br/>
+											
+											■ 판매자가 제공하는 미술품에 대한 정보는 회원에 대한 참고자료에 불과하므로 구매자는 구매를 희망하는 미술품에 대해 신중하게 응찰을 해야 됩니다<br/>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default2">
+								<div class="panel-heading2" role="tab" id="headingTwo">
+									<h4 class="panel-title2">
+										<a>
+											<div class="db-div">
+												<input type="checkbox" id="cbx_bidAgree2"/>
+												<label for="cbx_bidAgree2"><span></span>
+													<div class="check-info">
+														<p>주문완료 또는 낙찰된 작품에 대한 <b class="c-red dib">취소가 불가</b>합니다.</p>
+														주문이 완료되었거나 낙찰된 작품에 대한 중도 거래 취소가 불가하며, 취소 시 <b class="c-red dib">거래취소수수료 10%</b>가 부과됩니다.
+													</div>
+												</label>
+											</div>
+											<!-- <div class="collapsdiv">보기</div> -->
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingTwo">
+									<div class="panel-body">
+								        <div class="coll-text">
+											
+
+										</div>
+									</div>
+								</div>
+							</div>
+							  <div class="panel panel-default2">
+							    <div class="panel-heading2" role="tab" id="headingThree">
+							      <h4 class="panel-title2">
+							        <a>
+							         <div class="db-div">
+										<input type="checkbox" id="cbx_bidAgree3"/>
+										<label for="cbx_bidAgree3"><span></span>
+											<div class="check-info">
+												<p>작품 판매 대한 수수료가 부과됩니다.</p>
+												판매자 : <b class="c-red dib">6%</b>, 구매자 3% (부가세 제외) 
+											</div>
+										</label>
+									</div>
+									<!-- <div class="collapsdiv">보기</div> -->
+							        </a>
+							      </h4>
+							    </div>
+							    <!-- <div id="collapseThree" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingThree">
+							      <div class="panel-body">
+							       <div class="coll-text">
+									</div>
+							      </div>
+							    </div> -->
+							  </div>
+							  
+							  <div class="panel panel-default2">
+							    <div class="panel-heading2" role="tab" id="headingfor">
+							      <h4 class="panel-title2">
+							        <a>
+							         <div class="db-div">
+										<input type="checkbox" id="cbx_bidAgree4"/>
+										<label for="cbx_bidAgree4"><span></span>
+											<div class="check-info">
+												<p>모든 미술품의 <b class="c-red dib">운송</b>은 <b class="c-red dib">직거래</b>가 불가능합니다.</p>
+												구매자는 회사가 제공하는 <b class="c-red dib">배송서비스</b>를 필수로 사용해야 됩니다. 
+											</div>
+										</label>
+									</div>
+									<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFor" aria-expanded="true" aria-controls="collapseOne">보기</div>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseFor" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingfor">
+							      <div class="panel-body">
+							       <div class="coll-text">
+										■ 운송 유의사항<br/>
+											
+										-고객센터에서 운송서비스를 안내 받은 후 48시간 이내에 결제를 해야 됩니다.<br/>
+										-운송방법은 프리미엄 운송서비스와 직접운송 중 필수로 이용해야 되며 추가적으로 설치, 포장이 필요한 경우 선택이 가능합니다. <br/>
+										-작품가/부가서비스 미결제, 운송일정조율에 대한 응답거부, 작품운송의 인계 및 수취거부, 미술품 또는 보증서의 허위, 변조, 조작, 딜링아트 서비스 이용약관에 위반되는 행위가 발생되는 경우 거래가 취소 될 수 있습니다. <br/>
+										-미술품의 소유권은 구매자에게 운송이 완료 되기 전까지 판매자에게 있습니다. <br/>
+										-해외운송은 불가하며 제주도, 도서산간 지역, 조형작품은 별도문의를 통해 안내해드립니다.
+									</div>
+							      </div>
+							    </div>
+							</div>
+							
+							<div class="panel panel-default2">
+							    <div class="panel-heading2" role="tab" id="headingThree">
+							      <h4 class="panel-title2">
+							        <a>
+							         <div class="db-div">
+										<input type="checkbox" id="cbx_bidAgree5"/>
+										<label for="cbx_bidAgree5"><span></span>
+											<div class="check-info">
+												<p>딜링아트의 최신 이용정책을 모두 확인했습니다.</p>
+												안전한 거래를 위해 반드시 숙지해야 될 패널티규정, 부적절행위 등에 대한 이용정책을 확인했습니다. 
+											</div>
+										</label>
+									</div>
+									<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseOne">보기</div>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThree" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingThree">
+							      <div class="panel-body">
+							       <div class="coll-text">
+										■페널티 규정 <br/>
+										판매자와 구매자의 안전한 거래를 위해 아래 사유에 따라 거래 철회비가 부과됩니다.<br/>
+										<table class="tstyle4">
+											<tr>
+												<th>작품가, 부가서비스 미결제</th>
+												<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+											</tr>
+											<tr>
+												<th>최종 납입 통보 후 12시간 이내 미결제</th>
+											</tr>
+											<tr>
+												<th>응답거부 </th>
+												<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+											</tr>
+											<tr>
+												<th>48시간 이내 운송 일정 조율 불가 </th>
+											</tr>
+											<tr>
+												<th>작품인계 및 수취거부</th>
+												<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+											</tr>
+											<tr>
+												<th>협의된 운송일정에 연락이 두절 또는 작품의 인수/인계 거부</th>
+											</tr>
+											<tr>
+												<th>허위거래</th>
+												<td rowspan="2"><b class="c-red dib">작품가의 전액환불.<br/>작품가의 10.0%</b></td>
+											</tr>
+											<tr>
+												<th>미술품이나 보증서에 허위, 위조, 변조 및 기타 조작</th>
+											</tr>
+											<tr>
+												<th>거래약관위반</th>
+												<td rowspan="2"><b class="c-red dib">영구이용 정지,<br/>작품가의 10.0%</b></td>
+											</tr>
+											<tr>
+												<th>딜링아트 서비스 이용약관 위반</th>
+											</tr>
+										</table>
+										*거래 철회 사유를 야기한 책임 당사는 해당 미술품의 정찰가 혹은 낙찰가의 10%가 부과됩니다.<br/>
+										* 거래 철회 수수료가 딜링아트에 지급이 된 후 3%의 금액을 피해 당사자에게 환급을 해드립니다. 
+
+									</div>
+							      </div>
+							    </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="btn_agree_onclick()">동의</button>
+						<button type="button" class="baeg-b2" onclick="bidNotesModalClose()">취소</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -553,8 +793,8 @@ setInterval(function() {
   	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 }, 1000);
 
+//응찰하기/구매하기 버튼 클릭
 function btn_purchaseOrBid_onclick(){
-	
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 			if(confrim){
@@ -574,31 +814,52 @@ function btn_purchaseOrBid_onclick(){
 			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 		}else{
 			if($("#sbx_bidPrc").val() != "null"){
-				var param = new Object(); //컨트롤러에 보낼 파라미터 
-				param.dealSq = result.deal.dealSq; //거래 순번
-				param.mbrSq = sMbrSqVal; //멤버 순번
-				var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
-				if(index > 1){ //바로 위의 응찰가보다 높으면
-					modalConfirm("알림", "인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
-						if(confrim){
-							param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
-							param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
-							bidReg(param); //응찰을 한다
-						}else{
-							return;
-						}
-					});
-				}else{
-					param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
-					bidReg(param);
-				}
-				
+				$('body').css("overflow", "hidden");
+				$('#bidNotesModal').modal({backdrop: 'static', keyboard: false})  
+				$("#bidNotesModal").modal("show");
 			}else{
 				modalAlertShow("응찰가가 입력되지 않았습니다.", "sbx_bidPrc");
 			}
 		}
 	}
+	
 }
+//응찰 유의 사항 동의
+function btn_agree_onclick(){
+	if(!$("#cbx_bidAgree1").is(":checked") || !$("#cbx_bidAgree2").is(":checked") 
+			|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
+		$('body').css("overflow", "scroll");
+		$("#bidNotesModal").modal("hide");
+		modalAlertShow("모든 사항에 동의가 되어있지 않습니다!</br>모든 사항에 동의를 해야 응찰이 가능합니다.");
+		return;
+	}else{
+		var param = new Object(); //컨트롤러에 보낼 파라미터 
+		param.dealSq = result.deal.dealSq; //거래 순번
+		param.mbrSq = sMbrSqVal; //멤버 순번
+		var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
+		if(index > 1){ //바로 위의 응찰가보다 높으면
+			modalConfirm("알림", "인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+				if(confrim){
+					param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
+					param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
+					bidReg(param); //응찰을 한다
+				}else{
+					return;
+				}
+			});
+		}else{
+			param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
+			bidReg(param);
+		}
+	}
+}
+//응찰 유의사항 모달창 닫기
+function bidNotesModalClose(){
+	$('body').css("overflow", "scroll");
+	$("#bidNotesModal").modal("hide");
+}
+
+//응찰 한다
 function bidReg(param){
 	$.ajax({
         type: "post",
