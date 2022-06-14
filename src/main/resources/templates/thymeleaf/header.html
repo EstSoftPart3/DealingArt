@@ -1409,7 +1409,7 @@ function ibx_search_onkeyup(e){
 				$("#work").append(workHtml).trigger("create");
 				
 				for(i=0; i<artist.length; i++){
-					artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artistBirthYear+')</a></li>';
+					artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artstBirthYear+')</a></li>';
 				}
 				$("#artst").append(artstHtml).trigger("create");
 				$("#autocomplete").show();
@@ -1421,7 +1421,9 @@ function ibx_search_onkeyup(e){
             }
 			
 		});
-
+	}else{
+		$("#work").empty();
+		$("#artst").empty();
 	}
 }
      

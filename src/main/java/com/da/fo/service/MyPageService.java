@@ -101,7 +101,14 @@ public interface MyPageService {
 	 * param : dealSq, mbrSq
 	 * return : 거래에 관한 데이터
 	 */
-	public Map<String, Object> openMyDealDetail(String dealSq, String mbrSq);
+	public Map<String, Object> openMyDealDetailBuy(String dealSq, String mbrSq);
+	
+	/*
+	 * 거래 상세 페이지
+	 * param : dealSq, mbrSq
+	 * return : 거래에 관한 데이터
+	 */
+	public Map<String, Object> openMyDealDetailSell(String dealSq, String mbrSq);
 	
 	/*
 	 * 운송 옵션 가격, 코드 네임 조회
@@ -115,5 +122,12 @@ public interface MyPageService {
 	 * param : deslSq
 	 * return : bidDate, bidPrc
 	 */
-	public List<Map<String, Object>> myDealListBidHistory(Object param);
+	public List<Map<String, Object>> myDealListBidHistory(Object param);	
+	
+	/*
+	 * 운송 테이블에 판매자 운송 정보 입력
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 
+	 */
+	public void insertTrnsprt(Object param);
 }

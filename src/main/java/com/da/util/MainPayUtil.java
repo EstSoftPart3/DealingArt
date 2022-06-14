@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -100,6 +101,10 @@ public class MainPayUtil {
 		 *=================================================================================================*/
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
 		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
+		/* 결제 허용할 카드사 번호 리스트*/
+		String availableCard = "['02','03','05','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','KP','UP','PC','AV','AM','AJ','NP']";
+		JSONArray availableCards = new JSONArray(availableCard);
+		parameters.put("availableCards", availableCards);
 		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/
 		parameters.put("mbrRefNo", paramMap.get("mbrRefNo")); //가맹점주문번호 (가맹점에서 생성한 중복되지 않는 번호)
@@ -128,6 +133,7 @@ public class MainPayUtil {
 		String readyUrl = stdApiBase + readyUri; // 테스트용
 		try {
 			responseJson = HttpSendTemplate.post(readyUrl, parameters, apiKey);
+			System.out.println(parameters);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -251,6 +257,7 @@ public class MainPayUtil {
 	    	resultMap.put("sellMbrSq", parameters.get("sellMbrSq"));
 	    	resultMap.put("buyMbrSq", parameters.get("buyMbrSq"));
 	    	resultMap.put("dealSq", parameters.get("dealSq"));
+	    	resultMap.put("dealTypCd", parameters.get("dealTypCd"));
 	    	resultMap.put("workSq", parameters.get("workSq"));
 	    	resultMap.put("artstSq", parameters.get("artstSq"));
 	    	resultMap.put("cuponSq", parameters.get("cuponSq"));
@@ -292,7 +299,7 @@ public class MainPayUtil {
 	    	
 	    	//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
 		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
-		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString());
+		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString(), parameters.get("dealTypCd").toString());
 		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
 		    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
 		    }

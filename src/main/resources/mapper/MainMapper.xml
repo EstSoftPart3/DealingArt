@@ -90,9 +90,13 @@
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
+				A.ARTST_BIRTH_YEAR AS artstBirthYear,
+				A.WORK_INTRDC AS workIntrdc,
 				(SELECT DEAL_STTS_CD
 				FROM TBL_DA_DEAL_M
-				WHERE A.WORK_SQ = WORK_SQ) AS dealSttsCd
+				WHERE A.WORK_SQ = WORK_SQ) AS dealSttsCd,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl
 				<!-- B.KEYWRD AS keywrd -->
 		FROM	
 				TBL_DA_WORK_M AS A
@@ -114,7 +118,9 @@
 				A.MBR_SQ AS mbrSq,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
-				YEAR (B.MBR_BIRTH) AS artistBirthYear
+				YEAR (B.MBR_BIRTH) AS artstBirthYear,
+				A.ARTST_SELF_INTRO AS artstSelfIntro,
+				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl
 		FROM	
 				TBL_DA_ARTST_M AS A
 		INNER JOIN 	

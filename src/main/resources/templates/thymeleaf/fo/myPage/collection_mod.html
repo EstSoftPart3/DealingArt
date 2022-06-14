@@ -32,9 +32,9 @@
 					<div class="myd-box">
 						<div class="myd-box-2">
 							
-							<div class="input-gra">
-								<input type="text" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요."/>
-								<a href="#"><img src="resources/img/mypage/icon-sech.png" /></a>
+							<div class="input-gra" data-toggle="modal" data-target="#searchArtstModal">
+								<input type="text" placeholder="작가명으로 검색해 보세요." style="cursor:pointer"/>
+								<a href="javascript:void(0);" onclick=><img src="resources/img/mypage/icon-sech.png" /></a>
 							</div>
 							
 							<table class="mstyle-2">
@@ -55,9 +55,9 @@
 					</div>
 					<div class="myd-box">
 						<div class="myd-box-2">
-							<div class="input-gra">
-								<input type="text" placeholder="작품명, 작가명으로 거래 내역을 검색해 보세요."/>
-								<a href="#"><img src="resources/img/mypage/icon-sech.png" /></a>
+							<div class="input-gra" data-toggle="modal" data-target="#searchWorkModal">
+								<input type="text" placeholder="작품명으로 검색해 보세요." style="cursor:pointer"/>
+								<a href="javascript:void(0);"><img src="resources/img/mypage/icon-sech.png" /></a>
 							</div>
 						</div>
 					</div>
@@ -290,7 +290,75 @@
 		</div>
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
+<!-- 작가명검색 -->
+<div class="modal fade modal-s" id="searchArtstModal" tabindex="-1" role="dialog" aria-labelledby="collModal2Label" aria-hidden="true">
+	<div class="modal-dialog modal-sech">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
 
+			</div>
+			<div class="modal-body">				
+				<!-- 검색버튼 클릭시 -->
+				<div class="search-show">
+					<div class="sea-box">
+						<img src="resources/img/w-logo.jpg" class="sea-img" />
+						
+						<div class="sea-won">
+							<!-- <div class="select-box">
+								<select>
+									<option>작가명</option>
+								</select>
+							</div> -->
+							<input type="text" id="txt_searchArtst" placeholder="작가명으로 검색해 보세요." onkeyup="searchArtst()"/>
+							<a href="#" style="cursor:default;"><img src="resources/img/icon-2.jpg" /></a>
+						</div>
+						<ul class="collsul" id="ul_searchArtst">
+						</ul>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 작품명검색 -->
+<div class="modal fade modal-s" id="searchWorkModal" tabindex="-1" role="dialog" aria-labelledby="collModal1Label" aria-hidden="true">
+	<div class="modal-dialog modal-sech">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+
+			</div>
+			<div class="modal-body">				
+				<!-- 검색버튼 클릭시 -->
+				<div class="search-show">
+					<div class="sea-box">
+						<img src="resources/img/w-logo.jpg" class="sea-img" />
+						
+						<div class="sea-won">
+							<!-- <div class="select-box">
+								<select>
+									<option>작가명</option>
+								</select>
+							</div> -->
+							<input type="text" id="txt_searchWork" placeholder="작품명으로 검색해 보세요." onkeyup="searchWork()"/>
+							<a href="#" style="cursor:default;"><img src="resources/img/icon-2.jpg" /></a>
+						</div>
+						<ul class="collsul" id="ul_searchWork">
+						</ul>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <script th:inline="javascript">
@@ -481,6 +549,8 @@ $(function() {
 			function(confirm){
 				if(confirm){
 					storage = JSON.parse(sessionStorage.getItem("work"));
+					$("#artstActvtyNm").val(storage.artstActvtyNm);
+					$("#artstYear").val(storage.artstBirthYear);
 					$("#workNm").val(storage.workNm);
 					$('input:radio[name="workFrmYn"][value="'+storage.workFrmYn+'"]').prop('checked', true);
 					$('input:radio[name="workSaleYn"][value="'+storage.workSaleYn+'"]').prop('checked', true);
@@ -530,7 +600,7 @@ $(function() {
 function collectionReg(){
 	if(checkValid()){
 		result.mbrSq = sMbrSqVal;
-		result.artstYear = $("#artstYear").val();
+		result.artstBirthYear = $("#artstYear").val();
 		result.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		result.workSizeWidth = $("#workSizeWidth").val();
 		result.workSizeDepth = $("#workSizeDepth").val();
@@ -542,33 +612,69 @@ function collectionReg(){
 		const formData = new FormData();
 		//작품 대표 사진
 		const workMainImgUrl = document.getElementById("workMainImgUrl");
-		formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+		if(workMainImgUrl.files[0] == null && $("#workMainImgUrl1").attr("src") != null){
+			result.workMainImgUrl = $("#workMainImgUrl1").attr("src");
+		}else{
+			formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+		}
 		//작품 사진 전면
 		const workImgFrtUrl = document.getElementById("workImgFrtUrl");
-		formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+		if(workImgFrtUrl.files[0] == null && $("#workImgFrtUrl1").attr("src") != null){
+			result.workImgFrtUrl = $("#workImgFrtUrl1").attr("src");
+		}else{
+			formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+		}
 		//작품 사진 후면
 		const workImgRerUrl = document.getElementById("workImgRerUrl");
-		formData.append("workImgRerUrl", workImgRerUrl.files[0]);
-		//보증서, 작품 사진 좌우상하
+		if(workImgRerUrl.files[0] == null && $("#workImgRerUrl1").attr("src") != null){
+			result.workImgRerUrl = $("#workImgRerUrl1").attr("src");
+		}else{
+			formData.append("workImgRerUrl", workImgRerUrl.files[0]);
+		}
+		//보증서
 		const workGrtUrl = document.getElementById("workGrtUrl");
+		if(workGrtUrl.files[0] == null && $("#workGrtUrl1").attr("src") != null){
+			result.workGrtUrl = $("#workGrtUrl1").attr("src");
+		}else{
+			if(workGrtUrl.files[0] != null){
+				formData.append("workGrtUrl", workGrtUrl.files[0]);
+			}
+		}
+		//작품 사진 좌
 		const workImgLefUrl = document.getElementById("workImgLefUrl");
+		if(workImgLefUrl.files[0] == null && $("#workImgLefUrl1").attr("src") != null){
+			result.workImgLefUrl = $("#workImgLefUrl1").attr("src");
+		}else{
+			if(workImgLefUrl.files[0] != null){
+				formData.append("workImgLefUrl", workImgLefUrl.files[0]);
+			}
+		}
+		//작품 사진 우
 		const workImgRitUrl = document.getElementById("workImgRitUrl");
+		if(workImgRitUrl.files[0] == null && $("#workImgRitUrl1").attr("src") != null){
+			result.workImgRitUrl = $("#workImgRitUrl1").attr("src");
+		}else{
+			if(workImgRitUrl.files[0] != null){
+				formData.append("workImgRitUrl", workImgRitUrl.files[0]);
+			}
+		}
+		//작품 사진 상
 		const workImgTopUrl = document.getElementById("workImgTopUrl");
+		if(workImgTopUrl.files[0] == null && $("#workImgTopUrl1").attr("src") != null){
+			result.workImgTopUrl = $("#workImgTopUrl1").attr("src");
+		}else{
+			if(workImgTopUrl.files[0] != null){
+				formData.append("workImgTopUrl", workImgTopUrl.files[0]);
+			}
+		}
+		//작품 사진 하
 		const workImgBotUrl = document.getElementById("workImgBotUrl");
-		if(workGrtUrl.files[0] != null){
-			formData.append("workGrtUrl", workGrtUrl.files[0]);
-		}
-		if(workImgLefUrl.files[0] != null){
-			formData.append("workImgLefUrl", workImgLefUrl.files[0]);
-		}
-		if(workImgRitUrl.files[0] != null){
-			formData.append("workImgRitUrl", workImgRitUrl.files[0]);
-		}
-		if(workImgTopUrl.files[0] != null){
-			formData.append("workImgTopUrl", workImgTopUrl.files[0]);
-		}
-		if(workImgBotUrl.files[0] != null){
-			formData.append("workImgBotUrl", workImgBotUrl.files[0]);
+		if(workImgBotUrl.files[0] == null && $("#workImgBotUrl1").attr("src") != null){
+			result.workImgBotUrl = $("#workImgBotUrl1").attr("src");
+		}else{
+			if(workImgBotUrl.files[0] != null){
+				formData.append("workImgBotUrl", workImgBotUrl.files[0]);
+			}
 		}
 	    formData.append("work", new Blob([JSON.stringify(result)], {type: "application/json"}));
 		$.ajax({
@@ -728,6 +834,10 @@ function collectionStorage(){
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({
+																artstSq : work.artstSq,
+																artstActvtyNm : $("#artstActvtyNm").val(),
+																artstEnglsNm : work.artstEnglsNm,
+																artstBirthYear : $("#artstYear").val(),
 																workNm : $("#workNm").val(),
 																workFrmYn : $('input[name=workFrmYn]:checked').val(),
 																workSaleYn : $('input[name=workSaleYn]:checked').val(),
@@ -778,6 +888,150 @@ $(document).on("click", ".keywrdList", function(){
 	var keywrd = $("#keywrd").val().replaceAll(keywrdValue, '');
 	$("#keywrd").val(keywrd.substring(0, keywrd.length - 1));
 });
+function searchArtst(){
+	var searchKeyword = $("#txt_searchArtst").val();
+	var wordLength = $("#txt_searchArtst").val().trim().length;
+	if(wordLength > 1){
+		$.ajax({
+			url:"/searchArtst",
+			type:"post",
+	      data: {
+	      	searchKeyword : searchKeyword
+	      },
+			success: function(data){
+				$("#ul_searchArtst").empty();
+				var result = data.result;
+				var html = '';
+				for(var i=0; i<result.length; i++){
+					html += '<li artstSq="'+result[i].artstSq+'" artstActvtyNm="'+result[i].artstActvtyNm+'" artstBirthYear="'+result[i].artstBirthYear+'" onclick="selectArtst(this)" style="cursor:pointer;">';
+					html += '	<div class="collsearch">';
+					html += '		<div class="collsear-img"><img src="'+result[i].artstProfileImgUrl+'" class="colls-i2" /></div>';
+					html += '		<div class="collsear-text">';
+					if(result[i].artstEnglsNm != null && result[i].artstEnglsNm != ""){
+						html += '			<h2>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h2>';
+					}else{
+						html += '			<h2>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+'</h2>';
+					}
+					if(result[i].artstSelfIntro != null && result[i].artstSelfIntro != ""){
+						html += '			<p>'+result[i].artstSelfIntro+'</p>';
+					}else{
+						html += '			<p>작가 소개가 없습니다.</p>';
+					}
+					html += '		</div>';
+					html += '	</div>';
+					html += '</li>';
+				}
+				$("#ul_searchArtst").append(html).trigger("create");
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+	}else{
+		$("#ul_searchArtst").empty();
+	}
+}
+
+function selectArtst(obj){
+	var artstActvtyNm = obj.attributes.artstActvtyNm.value;
+	var artstBirthYear = obj.attributes.artstBirthYear.value;
+	work.artstEnglsNm = obj.attributes.artstEnglsNm.value;
+	work.artstSq = obj.attributes.artstSq.value;
+	$("#artstActvtyNm").val(artstActvtyNm);
+	$("#artstYear").val(artstBirthYear);
+	$("#searchArtstModal").modal("hide");
+}
+
+function searchWork(){
+	var searchKeyword = $("#txt_searchWork").val();
+	$.ajax({
+		url:"/searchWork",
+		type:"post",
+      data: {
+      	searchKeyword : searchKeyword
+      },
+		success: function(data){
+			$("#ul_searchWork").empty();
+			var result = data.result;
+			var html = '';
+			for(var i=0; i<result.length; i++){
+				html += '<li workSq="'+result[i].workSq+'" onclick="selectWork(this)" style="cursor:pointer;">';
+				html += '	<div class="collsearch">';
+				html += '		<div class="collsear-img"><img src="'+result[i].workMainImgUrl+'" class="colls-i2" /></div>';
+				html += '		<div class="collsear-text">';
+				html += '			<h2>'+result[i].workNm+'('+result[i].workProdcYear+')</h2>';
+				html += '			<h3>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h3>';
+				if(result[i].workIntrdc == null || result[i].workIntrdc == ""){
+					html += '			<p>작품 소개가 없습니다.</p>';
+				}else{
+					html += '			<p>'+result[i].workIntrdc+'</p>';
+				}
+				html += '		</div>';
+				html += '	</div>';
+				html += '</li>';
+			}
+			$("#ul_searchWork").append(html).trigger("create");
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
+
+function selectWork(obj){
+	$("#searchWorkModal").modal("hide");
+	var workSq = obj.attributes.workSq.value;
+	$.ajax({
+		url:"/selectWork",
+		type:"post",
+      data: {
+      	workSq : workSq
+      },
+		success: function(data){
+			var result2 = data.result;
+			result.artstSq = result2.artstSq;
+			result.artstEnglsNm = result2.artstEnglsNm;
+			$("#artstActvtyNm").val(result2.artstActvtyNm);
+			$("#artstYear").val(result2.artstBirthYear);
+			$("#workNm").val(result2.workNm);
+			$('input:radio[name="workFrmYn"][value="'+result2.workFrmYn+'"]').prop('checked', true);
+			$('input:radio[name="workSaleYn"][value="'+result2.workSaleYn+'"]').prop('checked', true);
+			$('input:radio[name="workClrCd"][value="'+result2.workClrCd+'"]').prop('checked', true);
+			$('input:radio[name="workShpCd"][value="'+result2.workShpCd+'"]').prop('checked', true);
+			//작품 구분 체크하기
+			if(result2.workClsfcCd != null && result2.workClsfcCd != ""){
+				var workClsfcds = result2.workClsfcCd.split(",");
+				for(var i in workClsfcds){
+					document.querySelectorAll('input[name=workClsfcCd]').forEach((el) => {
+						if(el.value == workClsfcds[i]){
+							el.checked = true;
+						}
+					});
+				}
+			}
+			$("#workPrc").val(result2.workPrc);
+			$("#workSizeWidth").val(result2.workSizeWidth);
+			$("#workSizeDepth").val(result2.workSizeDepth);
+			$("#workMatrl").val(result2.workMatrl);
+			$("#workProdcYear").val(result2.workProdcYear);
+			$("#workVideoUrl").val(result2.workVideoUrl);
+			$("#workIntrdc").val(result2.workIntrdc);
+			$("#keywrd").val(result2.keywrd);
+			$("#workMainImgUrl1").attr("src", result2.workMainImgUrl);
+			$("#workImgFrtUrl1").attr("src", result2.workImgFrtUrl);
+			$("#workImgRerUrl1").attr("src", result2.workImgRerUrl);
+			$("#workGrtUrl1").attr("src", result2.workGrtUrl);
+			$("#workImgLefUrl1").attr("src", result2.workImgLefUrl);
+			$("#workImgRitUrl1").attr("src", result2.workImgRitUrl);
+			$("#workImgTopUrl1").attr("src", result2.workImgTopUrl);
+			$("#workImgTopUrl1").attr("src", result2.workImgBotUrl);
+			$('input:radio[name="workClrCd"][value="'+result2.workSaleYn+'"]').prop('checked', true);
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
 </script>
     
 	
