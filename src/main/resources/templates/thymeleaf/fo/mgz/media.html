@@ -53,7 +53,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="conts">
-				    <div data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png"></div>
+				    <div data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"></div>
 				</div>
 			</div>
 			<div id="editor" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
@@ -351,20 +351,20 @@
  var timer = null;
 
  //Javascript
- window.addEventListener('resize', function(){
- 	clearTimeout(timer);
- 	timer = setTimeout(function(){
- 		document.location.reload();
- 	}, delay);
- });
+//  window.addEventListener('resize', function(){
+//  	clearTimeout(timer);
+//  	timer = setTimeout(function(){
+//  		document.location.reload();
+//  	}, delay);
+//  });
 
  //jQuery
- $(window).on('resize', function(){
- 	clearTimeout(timer);
- 	timer = setTimeout(function(){
- 		document.location.reload();
- 	}, delay);
- });
+//  $(window).on('resize', function(){
+//  	clearTimeout(timer);
+//  	timer = setTimeout(function(){
+//  		document.location.reload();
+//  	}, delay);
+//  });
  
  $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // The event won't be propagated up to the document NODE and 

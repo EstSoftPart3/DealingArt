@@ -302,8 +302,7 @@
 	  var mySwiper2Num = 4;
 	  
 	  var swiper = new Swiper(".mySwiper2", {
-		   slidesPerView: mySwiper2Num,
-		   autoHeight: false,
+		   slidesPerView: "auto",
 		   loop: false,
 		   autoplay: {
 		          delay: 3000,
@@ -334,11 +333,7 @@
 				// 2
 				swiper = new Swiper('.mySwiper2', {
 					slidesPerView: 1,
-					loop: false,
-					 autoplay: {
-				          delay: 3000,
-				          disableOnInteraction: false,
-				     }
+					loop: true
 				});
 			}
 		}
@@ -348,7 +343,7 @@
 	  var mySwiperInNum = 5
 	  var swiper = new Swiper(".mySwiperIn", {
 	    	   
-	    	slidesPerView: mySwiperInNum,
+	    	slidesPerView: "auto",
 			loop: false,
 			effect: 'slide',
 			navigation: {
@@ -469,7 +464,7 @@
 	        	   for(i=0; i<mainHotest.length; i++){
 	        		hotestHtml +='<div class="swiper-slide hd-div">';
 					hotestHtml +='	<a href="javascript:void(0);" onclick="workDetail('+ mainHotest[i].workSq +')">';
-					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:280px; heigth:280px;"/>';
+					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:250px; heigth:280px;"/>';
 					hotestHtml +='		<div class="hd-text">';
 					hotestHtml +='			<h4 style="height:100px;">'+mainHotest[i].artstActvtyNm+'<br>('+mainHotest[i].workNm+')</h4>';
  					hotestHtml +='			<div class="hd-d1" >'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';

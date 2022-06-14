@@ -608,8 +608,8 @@ columns figure {
 }
 
 .hd-div .hd-img {
-    width: auto;
-    height: auto;
+    width: 280px;
+    height: 280px;;
     position: absolute;
     left: 50%;
     top: 50%;
