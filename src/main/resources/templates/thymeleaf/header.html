@@ -93,10 +93,6 @@
 	    
 </head>
 <body>
-
-
-    
-    
 	<div class="head-wrap">
 	<!-- Session GET -->
 	<div th:text="${session.sMbrSqVal}" style="display:none"></div>
@@ -265,14 +261,14 @@
 					<div class="login-chs">
 						<div class="login-tt">
 							<a href="#" onclick="openFindIdModal()" data-toggle="modal">아이디 찾기</a>
-							<p class="lb-p2"><a href="#" onclick="openFindPwdModal()" data-toggle="modal">비빌먼호 찾기</a></p>
+							<p class="lb-p2"><a href="#" onclick="openFindPwdModal()" data-toggle="modal">비밀번호 찾기</a></p>
 							<!-- <p class="lb-p2"><a href="#" data-toggle="modal" data-target="#memberModal"><span>회원가입</span></a></p> -->
 <!-- 							<p class="lb-p2"><a href="javascript:fnModalAlert();"><span>회원가입</span></a> -->
 							<a style="cursor:pointer;" class="lb-p2" data-toggle="modal" data-target="#memberModal">회원가입</a>
 						</div>
 						
 					</div>
-					<div class="login-lk">
+					<div class="login-lk" style="display:none">
 						<p>소셜아이디로 간편하게 로그인할 수 있습니다.</p>
 						<div class="ll-img">
 							<a href="javascript:naverUserLogin();"><img src="resources/img/icon-naver.png"/></a>
@@ -410,12 +406,12 @@ $("#findIdFindPwdBtn").click(function() {
 						<input type="text" class="input-3" placeholder="아이디(email)" id="findPwdMbrId"/>
 					</div>
 					<div class="input-box" style="display:none;" id="findPwdMbrPwdForm1">
-						<input type="password" class="input-3" id="findPwdMbrPwd1" placeholder="새 비빌먼호" />
+						<input type="password" class="input-3" id="findPwdMbrPwd1" placeholder="새 비빌번호" />
 						<p class="inp-p" id="findPwdMbrPwdCheck1" style="text-align:left;">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
 						<p class="inp-p" id="findPwdMbrPwdCheck2" style="text-align:left;">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
 					</div>
 					<div class="input-box" style="display:none;" id="findPwdMbrPwdForm2">
-						<input type="password" class="input-3" id="findPwdMbrPwd2" placeholder="새 비빌먼호 확인" />
+						<input type="password" class="input-3" id="findPwdMbrPwd2" placeholder="새 비빌번호 확인" />
 						<p class="inp-p" id="findPwdMbrPwdCheck3" style="text-align:left;">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 					</div>
 					<!-- <div class="input-box input-group">
@@ -676,7 +672,7 @@ function changePasswrd(){
 							<input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/>
 							<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 						</div>					
-						<div class="input-box input-group">
+						<div class="input-box input-group" id="mbrNmDiv" style="display:none">
 							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" readonly/>
 							<input type="text" class="input-3" placeholder="생년월일(본인인증후 자동입력)" id="mbrBirth" name="mbrBirth" autocomplete="off" readonly style="margin-right: 0px;"/>
 						</div>
@@ -720,7 +716,7 @@ function changePasswrd(){
 					<div class="bat-box3">
 						<button type="button" class="ba-btn1" id="memberInputBtn"><span>회원 가입하기</span></button>
 					</div>
-					<div class="login-lk">
+					<div class="login-lk" style="display:none">
 						<p>소셜아이디로 간편하게 로그인할 수 있습니다.</p> 
 						<div class="ll-img">
 							<a href="javascript:naverUserLogin();"><img src="resources/img/icon-naver.png"/></a>
@@ -810,6 +806,14 @@ $(document).ready(function() {
 
 });
 
+
+$('#loginModal').on('hidden.bs.modal', function () {
+	//아이디 초기화
+	$("#txt_Id").val('');
+	//비밀번호 초기화
+	$("#txt_Pw").val('');
+})
+
 //휴대폰 인증 성공
 function mainMobileAuthSuccess(returnValue) {
 	console.log("mainMobileAuthSuccess");
@@ -837,6 +841,9 @@ function mainMobileAuthSuccess(returnValue) {
         		$("#mbrNmCheck").css('display',"none");
         		fn_validation('mbrNmCheck','', 'B');
         		document.memberInput.mbrCpCertDi.value=returnValue;
+        		
+        		//숨겼던 성명, 생년월일이 나타나게 한다.
+        		$("#mbrNmDiv").show();
         	}
         },
         error: function(error) {
@@ -1051,10 +1058,6 @@ $('#memberModal').on('show.bs.modal', function (e) {
 $("#memberInputBtn").on('click', function(event){
 	
 	
-	
-	
-	
-
 	//회원아이디
 	var mbrId = $("#mbrId").val();
 	//비밀번호
@@ -1159,8 +1162,6 @@ $("#memberInputBtn").on('click', function(event){
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','#999999');	 
 	 }
-	
-	
 	 
 	 
 	//비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
@@ -1243,9 +1244,6 @@ $("#memberInputBtn").on('click', function(event){
 	     data: memParams,
 	     success: function(data) {
 	    	 
-	    	
-	    	
-	    	 
 	    	 if (typeof data != "undefined"){
 	    		 	    		 
 	    		 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
@@ -1268,17 +1266,12 @@ $("#memberInputBtn").on('click', function(event){
 
 
 function memberInputEmail(mbrIdEncrypt) {
-	
-	 console.log(mbrIdEncrypt);
-	
 	 
 	 let params = {
 			mbrId : mbrIdEncrypt,
 			gubun : 'MEMINPUT' 
 	 }
 	 
-	 console.log(params);
-	
 	$.ajax({
 	     type: "post",
 	     url: "/emailSend",
@@ -1590,6 +1583,8 @@ function isEmpty(str){
 function fnModalAlert() {
 	modalAlertShow("서비스 준비중 입니다.","");
 }
+
+
 
 
 </script>
