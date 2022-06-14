@@ -341,7 +341,11 @@ public class OAuthTestController {
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
 		    	  
-		    	  if(resultLogin != null) {
+		    	  String loginError = resultLogin.get("error").toString();
+		    	  	    	  
+		    	  if(!loginError.equals("nonPwd")) {
+		    	  
+		    	  //if(resultLogin != null) {
 		    		 String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
@@ -376,7 +380,8 @@ public class OAuthTestController {
 		  params.add("client_secret", "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");
 		  params.add("code", code);
 		  params.add("grant_type", "authorization_code");
-		  params.add("redirect_uri", "https://www.dealing-art.com/auth/google/callback"); 
+		  params.add("redirect_uri", "https://www.dealing-art.com/auth/google/callback");
+		  //params.add("redirect_uri", "http://localhost/auth/google/callback");
 
 		  HttpEntity<MultiValueMap<String, String>> accessTokenRequest = new HttpEntity<>(params, headers);
 
@@ -447,7 +452,11 @@ public class OAuthTestController {
 		    	  
 		    	  Map<String, Object> resultLogin = memberService.login(loginParam);
 		    	  
-		    	  if(resultLogin != null) {
+		    	  String loginError = resultLogin.get("error").toString();
+		    	  	    	  
+		    	  if(!loginError.equals("nonPwd")) {
+		    	  
+		    	  //if(resultLogin != null) {
 		    		 String mbrSq = resultLogin.get("mbrSq").toString();
 					 String authSq = resultLogin.get("authSq").toString();
 					 
