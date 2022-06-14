@@ -390,6 +390,9 @@ function myDealSearchList(){
     				if(myDealList[i].buyMbrSq == sMbrSqVal){ //구매자이면
     					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailBuy(this)"/>';
     				}
+    				if(myDealList[i].buyMbrSq == null && myDealList[i].sellMbrSq != sMbrSqVal){ //경매중이면
+    					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailBuy(this)"/>';
+    				}
     				if(myDealList[i].dealTypCd == "A"){ //경매면 응찰 히스토리 버튼 추가
     					myDealListHtml += '		<button type="button" class="btns-4" onclick="bidHistory('+myDealList[i].dealSq+')">응찰 히스토리</button>';
     				}

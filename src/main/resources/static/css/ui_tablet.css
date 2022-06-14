@@ -4224,7 +4224,7 @@ code{
     font-size: 2.2rem;
     color: #999999;
 }
-.check-info div{
+.check-info p{
     padding-bottom: 5px;
     font-weight: 600;
     color: #333333;
@@ -4259,9 +4259,9 @@ code{
     display: block;
     position: relative;
 }
-.panel-title2 a.collapsed .collapsdiv:after{content:'';width: 16px;height: 11px;position: absolute;right: 15px;top: 50%;margin-top: -5px;background-image: url(../img/mypage/ar-down.png);background-size: 16px 11px;}
+.panel-title2 .collapsdiv.collapsed:after{content:'';width: 16px;height: 11px;position: absolute;right: 15px;top: 50%;margin-top: -5px;background-image: url(../img/mypage/ar-down.png);background-size: 16px 11px;}
 
-.panel-title2 a  .collapsdiv:before{content:'';width:16px;height:11px;position: absolute;right: 15px;top: 50%;margin-top: -5px;background-image: url(../img/mypage/ar-up.png);background-size: 16px 11px;}
+.panel-title2 .collapsdiv:before{content:'';width:16px;height:11px;position: absolute;right: 15px;top: 50%;margin-top: -5px;background-image: url(../img/mypage/ar-up.png);background-size: 16px 11px;}
 
 .panel-collapse2{
     border: none;

@@ -93,12 +93,26 @@ function modalAlertClose(obj) {
 		location.reload();
 	}
 	
+	if(obj == "back"){
+		history.back();
+	}
+	
 	if(obj == "myWork"){
 		pageGoPost({
 			url:"/myWork",
 			target:"_self",
 			vals:[
 				["artstSq", artstSq]
+			]
+		});
+	}
+	
+	if(obj == "myCollection"){
+		pageGoPost({
+			url:"/myCollection",
+			target:"_self",
+			vals:[
+				["mbrSq", sMbrSqVal]
 			]
 		});
 	}
