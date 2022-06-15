@@ -49,6 +49,9 @@
 										<input type="text" class="input-3" placeholder="이름" id="uMbrNm" name="uMbrNm" readonly/>
 										<p class="inp-p" id="uMbrNmCheck"></p>
 									</div>
+									<div class="input-box">
+										<p class="inp-p">성명은 본인인증 후 자동으로 입력됩니다.</p>
+									</div>
 									<div class="input-box input-group">
 										<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum" readonly/>
 										<button type="button" class="group-btn phone" id="SmsCertification">인증하기</button>
@@ -61,8 +64,9 @@
 									</div>
 									
 									<div class="input-box input-group">
+										<input type="hidden" id="uMbrNcknmTemp"/>
 										<input type="text" class="input-3" placeholder="활동명" id="uMbrNcknm" autocomplete="off" onkeyup="uCharacterCheck(this)" onblur="uMbrNcknmLength(this)"/>
-										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" disabled>중복체크</button>
+										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" disabled style="display:none;">중복체크</button>
 										<input type="hidden" id="uMbrNcknmCheckYn" value="N">
 									</div>
 									<div class="input-box">
@@ -263,14 +267,24 @@ $("#memberUpdateBtn").on('click', function(event){
 	var mbrCpNum = $("#uMbrCpNum").val();
 	//휴대폰 본인인증 여부
 	var mbrCpCertYn = $("#uMbrCpCertYn").val();
+	
 	//휴대폰 본인인증 날짜
 	var mbrCpCertDate = $("#uMbrCpCertDate").val();
 	//회원 활동명
 	var mbrNcknm = $("#uMbrNcknm").val();
+	//회원 활동명 체크
+	var mbrNcknmTemp = $("#uMbrNcknmTemp").val();
 	//회원 주소
 	var mbrHomeAddr = $("#uMbrHomeAddr").val();
 	
 	var uMbrNcknmCheckYn = $("#uMbrNcknmCheckYn").val();
+	//닉네임 변경되었다면 validation 체크
+	if(mbrNcknm == mbrNcknmTemp) {
+		uMbrNcknmCheckYn = 'Y';
+	} else {
+		$("#uMbrNcknmBtn").show();
+	}
+	
 	
 	//비밀번호--------------------------------------------------------------------//
 	//비밀번호 문자 입력이 안되었다면..
@@ -295,12 +309,10 @@ $("#memberUpdateBtn").on('click', function(event){
 	if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
 	if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
 	if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
-	
-	console.log("chk :"+chk);
+		
 	
 	if(chk < 3)
 	{
-		console.log("check_chk");
 		$('#uMbrPwdCheckU').css('color','#999999');
 		$('#uMbrPwdCheckD').css('color','red');
 		return;
@@ -382,12 +394,6 @@ $("#memberUpdateBtn").on('click', function(event){
 	 
 	fn_validation('uMbrCpNumCheck','', 'B');
 	
-	//휴대폰본인인증 여부
-	if(mbrCpCertYn == 'N') {
-		$("#smsCertificationCheck").show();
-		fn_validation('smsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
-		return;
-	}
 	
 	//활동명 중복체크 여부
 	if(uMbrNcknmCheckYn == "N"){
@@ -415,8 +421,7 @@ $("#memberUpdateBtn").on('click', function(event){
 	     data: memParams,
 	     success: function(data) {
 	    	 modalAlertShow("회원수정이 완료 되었습니다.","reload");
-	    	
-	   	 },
+	    },
 	     error: function(error) {
 	  	   var errorJson = JSON.stringify(error);
 	         console.log(errorJson);
@@ -428,7 +433,6 @@ $("#memberUpdateBtn").on('click', function(event){
 //휴대폰 인증 성공
 function mobileAuthSuccess()
 {
-		
 	$("#smsCertificationCheck").css('display',"block");
 	fn_validation('smsCertificationCheck','휴대폰 인증완료.', 'B');
 }
@@ -438,7 +442,6 @@ function mobileAuthSuccess()
 function mobileAuthFail()
 {
 	modalAlertShow("인증에 실패했습니다.","");
-	
 }
 
 
@@ -571,25 +574,27 @@ function memberContentData(mbrSq) {
         	 	dataContent = data.memberContentData.memberContent[0];
         	 
         	 	console.log(dataContent);
-        	 	var mbrSq = dataContent.mbrSq						//이름
-        	 	var mbrNm = dataContent.mbrNm						//이름
-        	 	var mbrId = dataContent.mbrId						//아이디
+        	 	var mbrSq = dataContent.mbrSq					//회원순번
+        	 	var mbrNm = dataContent.mbrNm					//이름
+        	 	var mbrId = dataContent.mbrId					//아이디
         	 	var mbrNcknm = dataContent.mbrNcknm				//닉네임
         	 	var mbrEmail = dataContent.mbrEmail				//이메일
         	 	var mbrBirth = dataContent.mbrBirth				//생년월일
         	 	var mbrSexCd = dataContent.mbrSexCd				//성별
         	 	var mbrCpNum = dataContent.mbrCpNum				//휴대폰번호
-        	 	var regDt = dataContent.regDt						//회원등록일시
-        	 	var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
+        	 	var regDt = dataContent.regDt					//회원등록일시
+        	 	var mbrHomeAddr = dataContent.mbrHomeAddr		//집주소
         	 	var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
-        	 	var useYn = dataContent.useYn						//사용여부
-        	 
+        	 	var useYn = dataContent.useYn					//사용여부
+        	 	var mbrCpCertDate = dataContent.mbrCpCertDate	//전화인증날짜	
         	 	$("#uMbrSq").val(mbrSq);
         	 	$("#uMbrNm").val(mbrNm);
         	 	$("#uMbrId").val(mbrId);
         	 	$("#uMbrNcknm").val(mbrNcknm);
+        	 	$("#uMbrNcknmTemp").val(mbrNcknm);
         	 	$("#uMbrCpNum").val(mbrCpNum);
         	 	$("#uMbrHomeAddr").val(mbrHomeAddr);
+        	 	$("#uMbrCpCertDate").val(mbrCpCertDate);
         	 
         	 }
            },

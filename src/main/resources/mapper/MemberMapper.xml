@@ -90,7 +90,7 @@
 			,MBR_DELIVRY_ADDR     AS mbrDelivryAddr
 			,MBR_CP_NUM           AS mbrCpNum
 			,MBR_CP_CERT_YN       AS mbrCpCertYn
-			,MBR_CP_CERT_DATE     AS mbrCpCertDate
+			,DATE_FORMAT(MBR_CP_CERT_DATE,'%Y-%m-%d %H:%i:%s') AS mbrCpCertDate
 			,REG_MBR_SQ           AS regMbrSq
 			,DATE_FORMAT(REG_DT,'%Y-%m-%d')  AS regDt
 			,UPDT_MBR_SQ          AS updtMbrSq

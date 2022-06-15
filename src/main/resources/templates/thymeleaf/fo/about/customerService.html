@@ -94,7 +94,7 @@
 							<div class="is-label pb_10">
 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','All');">전체</button>
 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','UP');">이용정책</button>
-<!-- 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','CO');">공통</button> -->
+								<!--<button type="button" class="sech-btn" onclick="selectBrdList('FA','CO');">공통</button>-->
 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','PU');">구매</button>
 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','SA');">판매</button>
 								<button type="button" class="sech-btn" onclick="selectBrdList('FA','TR');">운송</button>
@@ -102,13 +102,13 @@
 							</div>
 							
 							<style type="text/css">
-								 ol li {
+								.coll-text ol li {
 									  counter-increment: step-counter;
 									  margin-bottom: 10px;
 									  list-style-type: none;
 									}
 									
-									ol li::before {
+								.coll-text ol li::before {
 									  content: counter(step-counter);
 									  margin-right: 5px;
 									  font-size: 80%;
@@ -119,9 +119,7 @@
 									  border-radius: 15px;
 									}
 									
-									ul li { list-style-type : disc } /* 점으로 된 목록 */
-
-									
+								.coll-text	ul li { list-style-type : disc } /* 점으로 된 목록 */
 							</style>
 							
 						
@@ -252,31 +250,6 @@ $(".cn-b").hover(
  	$(".ck-widget").css("outline-style","none");
  	$(".ck-widget__selection-handle").css("display","none");
  }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
 $(function() {                      
   $(".bab-bo").click(function() { 
