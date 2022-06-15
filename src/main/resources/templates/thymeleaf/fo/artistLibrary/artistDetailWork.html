@@ -152,6 +152,7 @@ $(function() {
 	var career = artstInfo.career;
 	var eductn = artstInfo.eductn;
 	var exhbtn = artstInfo.exhbtn;
+	var exhbtnAword = artstInfo.exhbtnAword;
 	var html = "";
 	var artstInfoHtml = "";
 	var artstInfoHtml2 = "";
@@ -173,7 +174,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div  >';
-					html += '<div class="item-div-img active-on" onclick="workDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img active-on" onclick="dealDetail('+ result[i].workSq +')">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="20%;" >';
 					
@@ -251,8 +252,8 @@ $(function() {
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div>';
 					//작품 이미지
-					html += '<div class="item-div-img sale-on">';
-					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;" onclick="workDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img sale-on onclick="dealDetail('+ result[i].workSq +')">';
+					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '		<div class="item-ho2 sale-div">';
 	     			html += '			<h3>판매중</h3>';
 	     			html += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
@@ -285,7 +286,7 @@ $(function() {
 					html += '</div>';
 					
 					if(result[i].authSq == 2){
-     				html += '<div class="artist active" onclick="workDetail('+ result[i].workSq +')"><span>Artist</span></div>';
+     				html += '<div class="artist active" onclick="dealDetail('+ result[i].workSq +')"><span>Artist</span></div>';
      				}
      				if(result[i].authSq == 1){
      				html += '<div class="artist"><span>Artist</span></div>';
@@ -303,7 +304,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div >';
-					html += '<div class="item-div-img sold-3">';
+					html += '<div class="item-div-img sold-3" onclick="dealDetail('+ result[i].workSq +')">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '</div>';
@@ -346,7 +347,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div >';
-					html += '<div class="item-div-img" >';
+					html += '<div class="item-div-img" onclick="workDetail('+ result[i].workSq +')">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					
@@ -453,12 +454,9 @@ $(function() {
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>수상</dt>';
 		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
-		artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
-		artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
-		artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
-		artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
-		artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
+		for(var i=0; i<exhbtnAword.length; i++){
+			artstInfoHtml += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
+		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		artstInfoHtml += '<dl class="ad-dl">';
@@ -497,10 +495,12 @@ if(window.matchMedia('(min-width: 1537px)').matches) {
 		$(".grid").width( '1200px' );
  }
 
+function dealDetail(workSq){
+ 	location.href="/bidding?workSq="+workSq;
+}
 
 function workDetail(workSq){
-// 	console.log(workSq);
-// 	location.href="/bidding?workSq="+workSq;
+ 	location.href="/workDetail?workSq="+workSq;
 }
 
 $(document).on("click", ".heart", function(){

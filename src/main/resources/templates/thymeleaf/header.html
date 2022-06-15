@@ -176,7 +176,7 @@
 				</div>
 
 			</div>
-			<div class="modal-body">				
+			<div class="modal-body" >				
 				<!-- 검색버튼 클릭시 -->
 				<div class="search-show">
 					<div class="sea-box">
@@ -337,6 +337,10 @@
 	</form>
 </div>
 <script th:inline="javascript">
+$('#myModal').on('hidden.bs.modal', function (e) {
+	$('#ibx_search').val("");
+	ibx_search_onkeyup();
+});
 function openFindIdModal(){
 	$("#loginModal").modal("hide");
 	$("#idModal").modal("show");
@@ -1433,6 +1437,7 @@ function ibx_search_onkeyup(e){
 	}else{
 		$("#work").empty();
 		$("#artst").empty();
+		$("#autocomplete").hide();
 	}
 }
      

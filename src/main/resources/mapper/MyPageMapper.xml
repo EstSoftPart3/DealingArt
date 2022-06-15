@@ -145,77 +145,6 @@
 		);
 	</insert>
 
-	<select id="myDealSearchList123" resultType="hashMap" parameterType="hashMap">
-	/* 마이페이지 거래내역 리스트 */
-		SELECT 
-				B.DEAL_SQ AS dealSq,
-				A.MBR_SQ AS mbrSq,
-				B.WORK_SQ AS workSq,
-				B.ARTST_SQ AS artstSq,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
-				C.ARTST_ACTVTY_NM AS artstActvtyNm,
-				C.ARTST_ENGLS_NM AS artstEnglsNm,
-				A.WORK_NM AS workNm,
-				A.WORK_PRODC_YEAR AS workProdcYear,
-				B.DEAL_TYP_CD AS dealTypCd,
-				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
-				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
-				FORMAT(E.MAX_BID_PRC, 0) AS maxBidPrc,
-				DATEDIFF(B.DEAL_ENDNG_DT, NOW()) AS dealRemainingDay, /*거래남은일자*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%H') AS dealRemainingHour, /*거래남은시*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%i') AS dealRemainingMin, /*거래남은분*/
-				DATE_FORMAT(TIMEDIFF(DATE_FORMAT(B.DEAL_ENDNG_DT, '%H:%i:%s'), DATE_FORMAT(NOW(), '%H:%i:%s')), '%s') AS dealRemainingSec, /*거래남은초*/
-				D.BID_CNT AS bidCnt,
-				G.MAX_BID_DATE AS maxBidDate
-		FROM 
-				TBL_DA_WORK_M AS A,
-				TBL_DA_DEAL_M AS B, 
-				TBL_DA_ARTST_M AS C,
-				(
-					SELECT 
-							DEAL_SQ , COUNT(DEAL_SQ) AS BID_CNT
-					FROM 
-							TBL_DA_AUCTN_BID_H 
-					GROUP BY DEAL_SQ 
-					ORDER BY BID_CNT DESC
-				) AS D, /* 작품 응찰 횟수 */
-				(
-					SELECT 
-							DEAL_SQ, MAX(BID_PRC) AS MAX_BID_PRC
-					FROM 
-							TBL_DA_AUCTN_BID_H
-					GROUP BY DEAL_SQ
-				) AS E, /* 작품 최고 응찰금액 */
-				TBL_DA_AUCTN_BID_H AS F,
-				(
-					SELECT 
-							DEAL_SQ, MAX(DATE_FORMAT(BID_DATE, '%Y.%m.%d')) AS MAX_BID_DATE
-					FROM 
-							TBL_DA_AUCTN_BID_H
-					GROUP BY DEAL_SQ
-				) AS G  /* 작품 마지막 응찰 일시 */
-		WHERE 
-				A.WORK_SQ = B.WORK_SQ 
-			AND	A.ARTST_SQ = B.ARTST_SQ 
-			AND A.MBR_SQ = C.MBR_SQ 
-			AND D.DEAL_SQ = B.DEAL_SQ 
-			AND E.DEAL_SQ = B.DEAL_SQ 
-			AND F.DEAL_SQ = B.DEAL_SQ 
-			AND G.DEAL_SQ = B.DEAL_SQ
-			AND F.MBR_SQ = #{mbrSq}
-			<if test="searchKeyword != null and searchKeyword != ''">
-				AND (
-						MATCH (C.ARTST_ACTVTY_NM) AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-						OR MATCH (C.ARTST_ENGLS_NM) AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-						OR MATCH (A.WORK_NM) AGAINST (#{searchKeyword} IN BOOLEAN MODE)
-					)
-			</if>
-			<if test="searchStrtDate != null and searchStrtDate != '' and searchEndngDate != null and searchEndngDate != ''">
-				AND G.MAX_BID_DATE BETWEEN #{searchStrtDate} AND #{searchEndngDate}
-			</if>
-		GROUP BY F.DEAL_SQ;
-	</select>
 	
 	<select id="myDealSearchListSale" resultType="hashMap" parameterType="hashMap">
 		/*거래내역 정찰가 리스트*/
@@ -244,7 +173,6 @@
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND B.DEAL_TYP_CD = 'S'
-			AND	A.ARTST_SQ = B.ARTST_SQ 
 			<if test="buyOrSell == 'BUY'">
 				AND B.BUY_MBR_SQ = #{mbrSq}
 			</if>
@@ -755,6 +683,10 @@
 		SELECT 
 				A.WORK_SQ AS workSq,
 				A.WORK_NM AS workNm,
+				A.ARTST_SQ AS artstSq,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
+				A.ARTST_BIRTH_YEAR AS artstBirthYear,
 				A.WORK_TYP_CD AS workTypCd,
 				A.WORK_SHP_CD AS workShpCd,
 				A.WORK_CLSFC_CD AS workClsfcCd,
@@ -957,9 +889,9 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				B.AUTH_SQ AS authSq, /*작가구분*/
-				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
-				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				YEAR (A.ARTST_BIRTH_YEAR) AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -987,7 +919,7 @@
 		INNER JOIN
 				TBL_DA_MBR_M AS B
 			ON	A.MBR_SQ = B.MBR_SQ
-		INNER JOIN
+		LEFT JOIN
 				TBL_DA_ARTST_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		INNER JOIN 
@@ -1426,7 +1358,6 @@
 				TBL_DA_DEAL_M AS B
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
-			AND	A.ARTST_SQ = B.ARTST_SQ 
 			AND B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ
 	</select>
