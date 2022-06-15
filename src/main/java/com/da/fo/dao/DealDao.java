@@ -1,5 +1,6 @@
 package com.da.fo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,24 +55,38 @@ public class DealDao {
 	 * return : 딜 상세 정보
 	 */
 	public Map<String, Object> dealDetail(String param){
-		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> deal = dealMapper.dealDetail(param);
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> artistInfo = new HashMap<>();
+		List<Map<String, Object>> auctnBid = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> eductn = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> career = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> exhbtn = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> workList = new ArrayList<Map<String,Object>>();
 		result.put("deal", deal);
-		if(!deal.get("artstSq").equals(null)) {
-			Map<String, Object> artistInfo = artistMapper.artistInfo(deal.get("artstSq").toString());
-			List auctnBid = dealMapper.selectAuctnBidList(deal.get("dealSq").toString());
-			List eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
-			List career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
-			List exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
-			List workList = artistMapper.artistWorkListAll(deal.get("artstSq").toString());
+		if(deal.containsKey("artstSq")) {
 			result.put("auctnBid", auctnBid);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
 			result.put("workList", workList);
+			return result;
+		}else{
+			artistInfo = artistMapper.artistInfo(deal.get("artstSq").toString());
+			auctnBid = dealMapper.selectAuctnBidList(deal.get("dealSq").toString());
+			eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
+			career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
+			exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
+			workList = artistMapper.artistWorkListAll(deal.get("artstSq").toString());
+			result.put("auctnBid", auctnBid);
+			result.put("artistInfo", artistInfo);
+			result.put("eductn", eductn);
+			result.put("career", career);
+			result.put("exhbtn", exhbtn);
+			result.put("workList", workList);
+			return result;
 		}
-		return result;
 	}
 	
 	/*

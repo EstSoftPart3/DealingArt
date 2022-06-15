@@ -39,11 +39,11 @@
 					</div>
 					<div class="baeg-right">
 						<div class="be-title">
-							<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstEnglsNm)}">
-								<h2 th:text="${result.artistInfo.artstActvtyNm}"></h2>
-								<h2 th:text="'('+${result.artistInfo.artstEnglsNm}+')'"></h2>
+							<th:block th:if="${not #strings.isEmpty(result.deal.artstEnglsNm)}">
+								<h2 th:text="${result.deal.artstActvtyNm}"></h2>
+								<h2 th:text="'('+${result.deal.artstEnglsNm}+')'"></h2>
 							</th:block>
-							<h2 th:if="${#strings.isEmpty(result.artistInfo.artstEnglsNm)}" th:text="${result.artistInfo.artstActvtyNm}"></h2>
+							<h2 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h2>
 							<h3 th:text="${result.deal.workNm}"></h3>
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
@@ -78,10 +78,10 @@
 							<tr>
 								<th>닉네임</th>
 								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
 								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]]
-									<img th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
 								</td>
 							</tr>
 						</table>
@@ -166,7 +166,7 @@
 				</div>
 			</div>
 				
-		<div id="artstInfo">	
+		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
@@ -320,7 +320,7 @@
 	</div>
 </div>
 
-<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${not #maps.isEmpty(result.artistInfo)}">
 	<div class="modal-dialog modal-baeg max-w1200">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
@@ -430,26 +430,6 @@
 			<div class="modal-body">
 				<div class="md-box-1">
 					<h4 class="infat-h4"><span class="c-red">응찰</span>하시기 전에 꼭 확인을 해주세요. </h4>
-				
-					<!-- <div class="modal-demo-2">
-						<div class="modmo-left"><img src="/resources/img/mypage/img-bg-2.png" class="" /></div>
-						<div class="modmo-right">
-							<h3>이용은(Lee Yong-eun)</h3>
-							<h4>작품명 : 코끼리</h4>
-							<div class="md2-list">
-								<span class="md2-sp1">제작년도</span> : <span class="md2-sp2">2022</span>
-							</div>
-							<div class="md2-list">
-								<span class="md2-sp1">소재/기법</span> : <span class="md2-sp2">한지에 채색, 금</span>
-							</div>
-							<div class="md2-list">
-								<span class="md2-sp1">액자</span> : <span class="md2-sp2">없음</span>
-							</div>
-							<div class="md2-list">
-								<span class="md2-sp1">사이즈</span> : <span class="md2-sp2">72.7 X 100</span>
-							</div>
-						</div>
-					</div> -->
 					
 					<div class="wrapper center-block">
 							<div class="panel-group2" id="accordion" role="tablist" aria-multiselectable="true">
@@ -796,11 +776,19 @@ setInterval(function() {
 //응찰하기/구매하기 버튼 클릭
 function btn_purchaseOrBid_onclick(){
 	if(sMbrSqVal == "" || sMbrSqVal == null){
-		modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
-			if(confrim){
-				$("#loginModal").modal("show");	
-			}
-		});
+		if(result.deal.dealTypCd == "S"){
+			modalConfirm("알림", "로그인 후 구매할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+				if(confrim){
+					$("#loginModal").modal("show");	
+				}
+			});
+		}else{
+			modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>화인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+				if(confrim){
+					$("#loginModal").modal("show");	
+				}
+			});
+		}
 	}else{
 		if(result.deal.sellMbrSq == sMbrSqVal){
 			modalAlertShow("본인의 거래에는 응찰 할 수 없습니다.");

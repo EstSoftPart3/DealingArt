@@ -193,8 +193,8 @@
 													<div class="drop-select">
 														<a href="javascript:void(0);" onclick="sorting(this)" name="LT" class="">등록 일시</a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="PY" class="">제작년도</a>
-														<a href="javascript:void(0);" onclick="sorting(this)" name="KN" class="">작가명</a>
-														<a href="javascript:void(0);" onclick="sorting(this)" name="EN" class="">작가명</a>
+														<a href="javascript:void(0);" onclick="sorting(this)" name="KN" class="">작가명 <span>ㄱ</span> - <span>ㅎ</span></a>
+														<a href="javascript:void(0);" onclick="sorting(this)" name="EN" class="">작가명 <span>A</span> - <span>Z</span></a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="PC" class="">가격</a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="RT" class="">종료 일시</a>
 													</div>
@@ -354,69 +354,6 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade modal-s" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sech">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="conts">
-				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
-				</div>
-
-			</div>
-			<div class="modal-body">				
-				<!-- 검색버튼 클릭시 -->
-				<div class="search-show">
-					<div class="sea-box">
-						<img src="/resources/img/w-logo.jpg" class="sea-img" />
-						
-						<div class="sea-won">
-							<!-- <div class="select-box">
-								<select>
-									<option>작가명</option>
-								</select>
-							</div> -->
-							<input type="text" class="" />
-							<a href="#"><img src="/resources/img/icon-2.jpg" /></a>
-						</div>
-						<div class="ta-h3">
-							<h3 class="sea-h3">작품</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">작가</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-						<div class="ta-h3">
-							<h3 class="sea-h3">컨텐츠</h3>
-							<a href="#"><span>more</span></a>
-						</div>
-						<ul class="sea-text">
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-							<li><a href="#">text</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Modal -->
 <div class="modal fade modal-s" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
 	<div class="modal-dialog modal-sech3">
 		<div class="modal-content">
@@ -427,7 +364,7 @@
 
 			</div>
 			<div class="modal-body">
-				<div class="pons-div">
+				<!-- <div class="pons-div">
 					<button type="button" class="pons-btn">동양화</button>
 					<button type="button" class="pons-btn">동양화</button>
 					<button type="button" class="pons-btn">동양화</button>
@@ -435,7 +372,7 @@
 					<button type="button" class="pons-btn">동양화</button>
 					<button type="button" class="pons-btn">동양화</button>
 					<button type="button" class="pons-btn">동양화</button>
-				</div>
+				</div> -->
 				<ul class="drop-ul">
 					<li role="presentation">
 						<div class="drop-title">
@@ -594,6 +531,7 @@
 	}
 	
 	function dealSearch(sort, type){
+		$("#myModal1").modal("hide");
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
 		
