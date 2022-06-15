@@ -7,6 +7,7 @@
     	@media screen and (min-width: 1px) and (max-width: 1536px){
     		.con-left{display:none}
     	}
+    	
     </style>
 </head>
 
@@ -148,14 +149,14 @@
 												<th><span class="my-red">부가서비스(필수)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtTypCd" data-width="480px">
+														<select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:300px !important;">
 															<option value="null">-선택-</option>
 															<option value="P">프리미엄운송</option>
 															<option value="D">직접운송</option>
 														</select>
 													</div>
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtAreaCd" data-width="480px">
+														<select class="selectpicker" id="sbx_trnsprtAreaCd" style="min-width:300px !important;">
 															<option value="null">-선택-</option>
 															<option value="MA">수도권</option>
 															<option value="NA">비수도권</option>
@@ -169,7 +170,7 @@
 												<th><span class="my-red">부가서비스(선택)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtServiceCd" data-width="480px" disabled>
+														<select class="selectpicker" id="sbx_trnsprtServiceCd" disabled style="min-width:300px !important;">
 															<option value="null">-선택-</option>
 														</select>
 													</div>
@@ -181,7 +182,7 @@
 												<th><span class="my-red">쿠폰 선택</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_couponList" data-width="480px" disabled>
+														<select class="selectpicker" id="sbx_couponList" disabled style="min-width:300px !important;">
 															<option value="null">-선택-</option>
 														</select>
 													</div>
@@ -248,6 +249,7 @@
 										</div>
 									</div>
 								</div>
+							</div>
 								
 								<!-- <div class="med">
 									<h2 class="h2-con">정산 정보</h2>
@@ -300,7 +302,6 @@
 									</div>
 								</div>
 							</div> -->
-							
 							<!-- 결제 수단 -->
 							<div id="paymethod" style="display:none;">
 								<div class="med">
@@ -316,6 +317,11 @@
 												<a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a>
 												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
 												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
+											</div>
+											<div class="bat-box3 mg_t30">
+												<span class="c-reds">※ 오픈 이벤트 (거래 수수료 할인)</span>
+												<br/><span class="c-reds">카드결제 : 거래수수료 2.5% 할인</span>
+												<br/><span class="c-reds">가상계좌 : 거래수수료 4% 할인</span>
 											</div>
 											<!-- <div class="pay-check">
 												<input type="checkbox" id="a1" name="cc" />
@@ -406,8 +412,8 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("판매자 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>결제 대기</span>"); 
 		$("#2PW").css("display", ""); //판매자 결제 div
-		$("#paymethod").css("display", ""); //결제 수단 div
-		$("#btn_payment").css("display", ""); //결베 버튼
+		$("#paymethod").css("display", ""); 
+		$("#btn_payment").css("display", "");
 		getCouponList("TD");; //운송 수수료 할인 쿠폰 목록 가져오기
 	}
 	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "TC"){ //판매자 결제 완료면
@@ -420,16 +426,19 @@ jQuery(document).ready(function() {
  * 남은 시간 초 단위로 불러온다 
  */
 var dday = new Date(result.dealInfo.dealEndngDate).getTime();
-
+var today = new Date().getTime();
+if(dday > today){
+}
 setInterval(function() {
-  var today = new Date().getTime();
-  var gap = dday - today;
-  var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-
-  document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+	
+  	var gap = dday - today;
+  	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  	if(document.getElementById("dealCount") != null){
+  		document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+  	}
 }, 1000);
 /*
  * 보증서 보기 팝업
