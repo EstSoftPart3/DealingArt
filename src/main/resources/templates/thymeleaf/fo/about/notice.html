@@ -157,7 +157,8 @@ $(".cn-b").hover(
          type: "post",
          url: "/selectBrdList",
          data:{
-        	 brdTypCd : brdTypCd
+        	 brdTypCd : brdTypCd,
+        	 brdConTypCd : null
  		},
          success: function(data) {
          	var brdList = null;
