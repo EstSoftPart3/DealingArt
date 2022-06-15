@@ -1322,7 +1322,7 @@ columns2 figure {
     position: relative;
 }
 .item-div-img.active .item-ho{display:block;}
-.item-div-img.active:before{/* content:''; */position: absolute;width: 100%;background: rgb(51 51 51 / 80%);height: 100%;left: 0;top: 0;z-index: 1;}
+.item-div-img.active:before{ content:''; position: absolute;width: 100%;background: rgb(51 51 51 / 80%);height: 100%;left: 0;top: 0;z-index: 1;}
 
 .item-ho{display:none;position: absolute;top: 50%;width: 100%;text-align: center;/* height: 100%; */transform: translateY(-50%);z-index: 1;}
 .item-ho:after{content:'';}
