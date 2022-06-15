@@ -73,12 +73,12 @@
 		SELECT 
 				 MGZ_SQ 			as mgzSq
 				,MGZ_TITLE 			as mgzTitle
-				,MGZ_DESCRPTN       as mgzDescrptn  
+				,MGZ_DESCRPTN       as mgzDescrptn
 				,MGZ_MAIN_IMG_URL 	as mgzMainImgUrl
 		FROM TBL_DA_MGZ_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND MGZ_TYP_CD = 'IST'
-		
+		ORDER BY MGZ_SQ DESC
 	</select>
 	
 	<select id="totalSearchAutocompleteWork" resultType="hashMap" parameterType="String">
