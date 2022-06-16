@@ -455,13 +455,18 @@ function artistLibraryList(){
       
 $(document).on("click", ".swiper-slide", function(){
 	var artstSq= $(this).attr("artstSq");
-    pageGoPost({
+    
+	location.href = "/artistDetail?artstSq="+artstSq 
+	
+	/*
+	pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
 		vals:[
 			["artstSq", artstSq]
 		]
 	});
+    */
 });
       
 </script>
