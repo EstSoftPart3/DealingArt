@@ -87,6 +87,19 @@
 		     	 $("#lp_mgz9Dtl_cntnt").css("max-width","700px");
 		     }
 		});
+		
+		
+		$( document ).ready(function() {
+			var referrer = document.referrer;
+			
+			console.log("이전 페이지 URL: "+referrer);
+
+		    $(window).on('popstate', function(event) {
+		    	window.location = referrer;
+		    });
+		    	
+
+		});
   </script>
   
   

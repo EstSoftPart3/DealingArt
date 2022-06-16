@@ -115,6 +115,9 @@ $(document).ready(function() {
 			method: "POST",
 			url: "/auth/phone"
 		}).done(function(data) {
+			
+			console.log("Nice_id :"+data);
+			
 			document.form_chk.EncodeData.value = data;
 			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 			document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
@@ -433,6 +436,7 @@ $("#memberUpdateBtn").on('click', function(event){
 //휴대폰 인증 성공
 function mobileAuthSuccess()
 {
+	
 	$("#smsCertificationCheck").css('display',"block");
 	fn_validation('smsCertificationCheck','휴대폰 인증완료.', 'B');
 }
