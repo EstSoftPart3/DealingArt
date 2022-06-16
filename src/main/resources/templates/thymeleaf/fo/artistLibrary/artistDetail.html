@@ -142,7 +142,6 @@
       }
       
       
-   
 var artstInfo = /*[[${result}]]*/ 'default';
 var result;
 $(function() { 
@@ -518,8 +517,6 @@ function onload(sort, type){
 			
 	$(".grid").append(html).trigger("create");
 	masonryLayout();
-	setInterval();
-	
 }
 
 //부모창 스크롤 방지
@@ -533,7 +530,6 @@ function closeArtstInfoModal(){
 	$('body').css("overflow", "scroll");
 	$("#artstInfoMore").modal("hide");
 }
-
 //거래 남은 시간 1초마다 계산해서 표현하기
 setInterval(function() {
 	var elements = document.querySelectorAll(".dealCount");

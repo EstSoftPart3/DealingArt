@@ -164,6 +164,9 @@ public class DealController {
 	@ResponseBody
 	public ModelAndView dealSerach(@RequestBody @Nullable Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
+		int page = Integer.parseInt(param.get("page").toString());
+		int startRow = ((page-1)*6+1);
+		param.put("startRow", startRow);
 		List result = dealService.dealSerach(param);
 		mv.addObject("result", result);
 		return mv;

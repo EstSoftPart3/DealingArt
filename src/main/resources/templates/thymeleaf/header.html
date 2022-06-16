@@ -955,6 +955,7 @@ jQuery(document).ready(function() {
         		loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
         	}
+        	$("#mbrId").attr("disabled", true);
         },
         error: function(error) {
             alert("오류 발생" + error);
@@ -1017,6 +1018,7 @@ function login(){
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
 				}
+				$("#mbrId").attr("disabled", true);
 			},
 			error: function(request, status, error){
                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);

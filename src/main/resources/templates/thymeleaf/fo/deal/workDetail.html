@@ -148,27 +148,7 @@
 				<th:block th:if="${not #strings.isEmpty(result.workList)}">
 					<div class="swi-box max-1500">
 						<div class="swiper mySwiper2">
-							<div class="swiper-wrapper">
-							<th:block th:each="workList : ${result.workList}">
-								<div class="swiper-slide" th:onclick="|location.href='@{/workDetail(workSq=${workList.workSq})}'|">
-									<a class="hd-div hd-tablet">
-										<img th:src="${workList.workMainImgUrl}" class="hd-img" style="width:100%;"/>
-										
-										<div class="hd-text">
-											<h4 th:text="${workList.artstActvtyNm}+'('+${workList.artstBirthYear}+')'">작가명</h4>
-											<div class="hd-d1" th:inline="text">
-												[[${workList.workNm}]]([[${workList.workProdcYear}]])
-												<br/>
-												소재 [[${workList.workMatrl}]], [[${workList.workSizeWidth}]] x [[${workList.workSizeDepth}]]
-												<br/>
-												가격 [[${workList.workPrc}]] KRW
-											</div>
-											<!-- <div class="hd-d2" th:text="'가격 '+${workList.workPrc}+'원'">낙찰가 3,700,000 원</div> -->
-										</div>
-									</a>
-								</div>
-							</th:block>
-								
+							<div class="swiper-wrapper"  id="swiper_workList">
 							</div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
@@ -308,18 +288,14 @@
 					</th:block>
 					</dd>
 				</dl>
-				
-<!-- 				<dl class="ad-dl"> -->
-<!-- 					<dt>수상</dt> -->
-<!-- 					<dd> -->
-<!-- 						<p>2020 Fly High, 충무로갤러리</p> -->
-<!-- 						<p>2019 크리스마스 아트마켓, 갤러리오</p> -->
-<!-- 						<p>2019 Falling in Animal, 비움갤러리</p> -->
-<!-- 						<p>2019 취하다 아트페어, 프로타주갤러리</p> -->
-<!-- 						<p>2019 be coming a collector, 연희예술극장</p> -->
-<!-- 						<p>2019 이원생중계, 갤러리라메르</p> -->
-<!-- 					</dd> -->
-<!-- 				</dl> -->
+				<dl class="ad-dl">
+					<dt>수상</dt>
+					<dd>
+					<th:block th:each="exhbtnAword: ${result.exhbtnAword}">
+						<p th:text="${exhbtnAword.exhbtnNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
 <!-- 				<dl class="ad-dl"> -->
 <!-- 					<dt>인터뷰영상</dt> -->
 <!-- 					<dd> -->
@@ -366,13 +342,38 @@ jQuery(document).ready(function($){
 		$(".ellipsis").height('320px');
 		
 		$(".ellipsis").css('padding',20);
-     }
+    }
+	workList();
 });
 
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
-
+//작가의 다른 작품 리스트
+function workList(){
+	if(result.workList.length > 0){
+		$("#swiper_workList").empty();
+		var html = '';
+		for(var i=0; i<result.workList.length; i++){
+			html +='<div class="swiper-slide" onclick="javascript:location.href=/workDetail?workSq='+result.workList[i].workSq+'">	';
+			html +='	<a class="hd-div hd-tablet">';
+			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100%;"/>';
+			html +='		<div class="hd-text">';
+			html +='			<h4>'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" th:inline="text">';
+			html +='				'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+			html +='				<br/>';
+			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
+			html +='				<br/>';
+			html +='				가격 '+result.workList[i].workPrc+' KRW';
+			html +='			</div>';
+			html +='		</div>';
+			html +='	</a>';
+			html +='</div>';
+		}
+		$("#swiper_workList").append(html).trigger("create");
+	}
+}
 
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)

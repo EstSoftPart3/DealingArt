@@ -112,6 +112,7 @@
 	        		ASC 
 	        	</if>
 	        </if>
+	        LIMIT 6 OFFSET #{startRow}
 	</select>
 	<select id="dealDetail" parameterType="String" resultType="hashMap">
 		/*응찰하기*/

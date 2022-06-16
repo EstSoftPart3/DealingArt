@@ -176,33 +176,22 @@ $(function() {
 					html += '<div  >';
 					html += '<div class="item-div-img active-on" onclick="dealDetail('+ result[i].workSq +')">';
 					//작품 이미지
-					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" width="20%;" >';
-					
+					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;" >';
+					//마우스 호버 부분
 					html += '<div class="item-ho">';
-					
-					html += '<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
-					if(result[i].maxBidPrc == null) {
-						html += '<h4>입찰가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
-					} else {
-						html += '<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';	
-					}
-					
-					html += '<p class="ts-2">';
-					html += ''+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
-					html += '응찰수 : '+ result[i].bidCnt +'<br/>';
-					html += ''+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
-					html += '</p>';
-					
-					html += '</div>';
-					
+					html += '	<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
+	 				html += '	<p> 응찰수 : '+ result[i].bidCnt +'</p>';
+	 				html += '	<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
+	 				html += '	<h4>시작가 '+ result[i].dealStrtPrc +' KRW</h4>';
+					html += '	</div>';
 					html += '</div>'
-					
+					//작품 이미지 하단 영역
 					html += '<div class="item-body">';
-					
+					html += '<div class="heart" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-     				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
 	     			}else{
 	     			html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	     			}
@@ -216,25 +205,18 @@ $(function() {
 					html += '<p>'+ result[i].workMatrl +'</p>';
 					html += '<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
 					
-					if(result[i].dealTypCd == "A"){
 					if(result[i].maxBidPrc == null) {
-     				html += '<h4>입찰가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
-     				} else {
-     				html += '<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +'</h4>';	
-     				}
-     				html += '			<p class="ts-2">';
-     				html += '			'+ result[i].dealStrtDate +' – '+ result[i].dealEndngDate +'<br/>';
-     				html += '			응찰수 : '+ result[i].bidCnt +'<br/>';
-     				html += '			'+ result[i].dealRemainingDay +'일 '+ result[i].dealRemainingHour +'시 '+ result[i].dealRemainingMin +'분 '+ result[i].dealRemainingSec +'초';
-     				html += '			</p>';
-     				}
+	 					html += '<h4>입찰가 0 KRW</h4>';
+	 				} else {
+	 					html += '<h4>입찰가 '+ formatComma(result[i].maxBidPrc) +' KRW</h4>';	
+	 				}
 					
 					html += '</div>'
 					
 					html += '</div>';
 					
 					if(result[i].authSq == 2){
-     				html += '<div class="artist active"><span>Artist</span></div>';
+	 				html += '<div class="artist active"><span>Artist</span></div>';
 	     			}
 	     			if(result[i].authSq == 1){
 	     				html += '<div class="artist"><span>Artist</span></div>';
@@ -252,25 +234,22 @@ $(function() {
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div>';
 					//작품 이미지
-					html += '<div class="item-div-img sale-on onclick="dealDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img sale" onclick="dealDetail('+ result[i].workSq +')">';
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '		<div class="item-ho2 sale-div">';
 	     			html += '			<h3>판매중</h3>';
-	     			html += '				<ul><li>'+ result[i].dealRemainingDay +'<span>day</span></li>';
-	     			html += '				<li>'+ result[i].dealRemainingHour +'<span>hrs</span></li>';
-	     			html += '				<li>'+ result[i].dealRemainingMin +'<span>min</span></li>';
-	     			html += '				<li>'+ result[i].dealRemainingSec +'<span>sec</span></li></ul>';
+	     			html += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
 	     			html += '		</div>';
 					html += '</div>';
 					html += '<div class="item-body">';
-					
+					html += '<div class="heart" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-     				html += '<img src="resources/img/de/ues-icon.png"/>';
-     				}else{
-     				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-     				}
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				}else{
+	 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	 				}
 					html += '</div>';
 					
 					
@@ -280,18 +259,18 @@ $(function() {
 					html += '<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
 					html += '<p>'+ result[i].workMatrl +'</p>';
 					html += '<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
-					html += '<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +'</h4>';
+					html += '<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +' KRW</h4>';
 					html += '</div>'
 					
 					html += '</div>';
 					
 					if(result[i].authSq == 2){
-     				html += '<div class="artist active" onclick="dealDetail('+ result[i].workSq +')"><span>Artist</span></div>';
-     				}
-     				if(result[i].authSq == 1){
-     				html += '<div class="artist"><span>Artist</span></div>';
-     				}
-     				
+	 				html += '<div class="artist active" onclick="dealDetail('+ result[i].workSq +')"><span>Artist</span></div>';
+	 				}
+	 				if(result[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
+	 				
 					html += '</div>';
 					html += '</div>';
 					html += '</div>';
@@ -309,14 +288,14 @@ $(function() {
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '</div>';
 					html += '<div class="item-body">';
-					
+					html += '<div class="heart" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-     				html += '<img src="resources/img/de/ues-icon.png"/>';
-     				}else{
-     				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-     				}
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				}else{
+	 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+	 				}
 					html += '</div>';
 					
 					
@@ -326,16 +305,15 @@ $(function() {
 					html += '<p class="ts-1">'+ result[i].workNm +' ('+ result[i].workProdcYear +')</p>';
 					html += '<p>'+ result[i].workMatrl +'</p>';
 					html += '<p>'+ result[i].workSizeDepth +'x'+ result[i].workSizeWidth +'</p>';
-						     					html += '</div>'
-					
+					html += '</div>'
 					html += '</div>';
 					
 					if(result[i].authSq == 2){
-     				html += '<div class="artist active"><span>Artist</span></div>';
-     				}
-     				if(result[i].authSq == 1){
-     				html += '<div class="artist"><span>Artist</span></div>';
-     				}
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 				}
+	 				if(result[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
 					html += '</div>';
 					html += '</div>';
 					html += '</div>';
@@ -343,7 +321,7 @@ $(function() {
 				}
 		   
 				
-			 if(result[i].dealTypCd == null){
+			 	if(result[i].dealTypCd == null){
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div >';
@@ -353,10 +331,11 @@ $(function() {
 					
 					html += '</div>';
 					html += '<div class="item-body">';
+					html += '<div class="heart" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-     				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="resources/img/de/ues-icon.png"/>';
 	     			}else{
 	     				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	     			}
@@ -372,11 +351,11 @@ $(function() {
 					html += '</div>';
 					
 					if(result[i].authSq == 2){
-     				html += '<div class="artist active"><span>Artist</span></div>';
-     				}
-     				if(result[i].authSq == 1){
-     				html += '<div class="artist"><span>Artist</span></div>';
-     				}
+	 				html += '<div class="artist active"><span>Artist</span></div>';
+	 				}
+	 				if(result[i].authSq == 1){
+	 				html += '<div class="artist"><span>Artist</span></div>';
+	 				}
 					html += '</div>';
 					html += '</div>';
 					html += '</div>';
@@ -487,7 +466,29 @@ $(function() {
 		$("#moreButton").append(moreButton).trigger("create");
 	}
 });
-
+//거래 남은 시간 1초마다 계산해서 표현하기
+setInterval(function() {
+	var elements = document.querySelectorAll(".dealCount");
+	for(var i=0; i<elements.length; i++){
+		var html = '';
+		var dday = new Date(elements[i].attributes.dday.value).getTime();
+		var today = new Date().getTime();
+		if(today >= dday){
+			onload();
+		}
+	  	var gap = dday - today;
+		var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+		var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+		var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+		var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+		html += '<li>'+ day +'<span>day</span></li>';
+		html += '<li>'+ hour +'<span>hrs</span></li>';
+		html += '<li>'+ min +'<span>min</span></li>';
+		html += '<li>'+ sec +'<span>sec</span></li>';
+		elements[i].innerHTML = html;
+	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+	}
+}, 1000);
 
 
 	 

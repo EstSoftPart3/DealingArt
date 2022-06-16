@@ -62,6 +62,7 @@ public class DealDao {
 		List<Map<String, Object>> eductn = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> career = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> exhbtn = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> exhbtnAword = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> workList = new ArrayList<Map<String,Object>>();
 		result.put("deal", deal);
 		if(deal.get("artstSq") == null){
@@ -70,6 +71,7 @@ public class DealDao {
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
+			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
 			return result;
 		}else{
@@ -78,12 +80,14 @@ public class DealDao {
 			eductn = artistMapper.artistInfoEductn(deal.get("artstSq").toString());
 			career = artistMapper.artistInfoCareer(deal.get("artstSq").toString());
 			exhbtn = artistMapper.artistInfoExhbtn(deal.get("artstSq").toString());
+			exhbtnAword = artistMapper.artistInfoExhbtnAword(deal.get("artstSq").toString());
 			workList = artistMapper.artistWorkListAll(deal.get("artstSq").toString());
 			result.put("auctnBid", auctnBid);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
+			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
 			return result;
 		}
@@ -263,11 +267,13 @@ public class DealDao {
 			List eductn = artistMapper.artistInfoEductn(work.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(work.get("artstSq").toString());
 			List exhbtn = artistMapper.artistInfoExhbtn(work.get("artstSq").toString());
+			List exhbtnAword = artistMapper.artistInfoExhbtnAword(work.get("artstSq").toString());
 			List workList = artistMapper.artistWorkListAll(work.get("artstSq").toString());
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
+			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
 		}
 		return result;

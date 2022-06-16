@@ -83,6 +83,8 @@ public class MainController {
 		}else {
 			result.put("totalCount", 0);
 		}
+		result.put("sort", null);
+		result.put("type", null);
 		result.put("searchKeyword", searchKeyword);
 		mv.addObject("result", result);
 		return mv;
@@ -100,15 +102,24 @@ public class MainController {
 	@RequestMapping("/totalSearch_work/searchOptions")
 	public String totalSearchWorkSearchOptions(Model model, @RequestBody Map<String, Object> param) {
 		Map<String,Object> result = new HashMap<>();
+		int page = Integer.parseInt(param.get("page").toString());
+		int startRow = ((page-1)*6+1);
+		if(page == 1){
+			startRow = 0;
+		}
+		param.put("startRow", startRow);
 		List<Map<String, Object>> workList = dealService.dealSerach(param);
-		result.put("workList", workList);
 		if(workList.size() > 0) {
 			result.put("totalCount", workList.size());
 		}else{
 			result.put("totalCount", 0);
 		}
+		result.put("sort", param.get("sort"));
+		result.put("type", param.get("type"));
+		result.put("workList", workList);
 		result.put("searchKeyword", param.get("searchKeyword"));
 		model.addAttribute("result", result);
+		System.out.println("result:"+result);
 		return "thymeleaf/result_work :: fragment-resultWork";
 	}
 }

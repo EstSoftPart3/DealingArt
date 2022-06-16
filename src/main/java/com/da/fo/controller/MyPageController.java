@@ -192,7 +192,7 @@ public class MyPageController {
 
 	@RequestMapping("/withdrawalSubmit")
 	@ResponseBody
-	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param) {
+	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param, HttpSession session) {
 		System.out.println("############## param : " + param);
 		param.put("email", commonService.encrypt((String) param.get("email")));
 		param.put("password", commonService.encrypt((String) param.get("password")));
@@ -200,6 +200,7 @@ public class MyPageController {
 		if (chk > 0) {
 			return 2;
 		} else {
+			session.invalidate();
 			return memberService.memberWithdrawal(param);
 		}
 	}

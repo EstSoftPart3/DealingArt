@@ -318,7 +318,9 @@
 						  	<div class="grid">
 								 
 							</div>
-						  					
+						  	<div class="text-center mg_t50">
+								<button type="button" class="btn-more" id="btn_more" onclick="dealSearchMore()"><span>more</span></button>
+							</div>
 						</div>
 						
 						
@@ -497,8 +499,8 @@
 </div>
 
 
-	<script type="text/javascript"> 
-	
+<script type="text/javascript"> 
+	var more = 1;
 	$(function () {
 		dealSearch();
 	});
@@ -534,7 +536,7 @@
 		$("#myModal1").modal("hide");
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
-		
+		searchOptions.page = more;
 		//정렬
 		if(sort != null && type != null){
 			searchOptions.sort = sort;
@@ -589,12 +591,13 @@
 	        	var dealList;
 	        	var html = "";
 	        	var dealListHtml = "";
-	     		if(data == null){
-	     			alert("검색 결과가 없습니다.");
+	     		if(data.result.length == 0){
+	     			modalAlertShow("검색 결과가 없습니다.");
+	     			$("#btn_more").css("display", "none");
 	     		}else{
-	     			
-	     			$(".grid").empty();
-	     			
+	     			if(more == 1){
+	     				$(".grid").empty();
+	     			}
 	     			dealList = data.result;
 	     			
 	     			
@@ -775,8 +778,6 @@
 		     			
 		     		
 		     		$(".grid").append(html);
-		     	
-		     			
 		     		masonryLayout();
 	     		}
 	     		
@@ -785,6 +786,11 @@
 	            alert("오류 발생" + error); 
 	        }
 		})
+	}
+	
+	function dealSearchMore(){
+		more += 1;
+		dealSearch();
 	}
 	//거래 남은 시간 1초마다 계산해서 표현하기
 	setInterval(function() {
@@ -991,10 +997,7 @@
 		}
 	});
 	
-	
-	
-	
-	</script>	
+</script>	
     
 	
 	

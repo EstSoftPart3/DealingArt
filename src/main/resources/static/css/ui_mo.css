@@ -1358,8 +1358,6 @@ columns2 figure {
     /* padding-top: 24px; */
 }
 
-.mg_t50{margin-top:50px;display: none;}
-
 .reds-box{
     margin-bottom: 2.5rem;
     margin-top: 3.9rem;
@@ -5551,3 +5549,12 @@ p.dib{display:inline-block !important;}
 .is-label1{display:inline-block; width:auto;}
 .terms-wrap ul li.active a{font-size:1.6rem;}
 .terms-wrap ul li a{font-size:1.6rem;}
+
+/* 06.16
+ * more 버튼 display : none 수정
+ * 정영우 팀장
+ */
+ .mg_t50{
+	margin-top:50px;
+	/* display: none; */
+}
