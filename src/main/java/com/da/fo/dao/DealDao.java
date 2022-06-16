@@ -64,7 +64,7 @@ public class DealDao {
 		List<Map<String, Object>> exhbtn = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> workList = new ArrayList<Map<String,Object>>();
 		result.put("deal", deal);
-		if(deal.containsKey("artstSq")) {
+		if(deal.get("artstSq") == null){
 			result.put("auctnBid", auctnBid);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
