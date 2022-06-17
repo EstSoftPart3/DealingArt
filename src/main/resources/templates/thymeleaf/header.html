@@ -90,13 +90,15 @@
 		
 		
 		$( document ).ready(function() {
+			var val = $("#mainPayCall").val();
+			var referrer = document.referrer;
 			console.log("이전 페이지 URL: "+referrer);
-
-		    $(window).on('popstate', function(event) {
-		    	window.location = referrer;
-		    });
-		    	
-
+			if(val != 1){
+				$(window).on('popstate', function(event) {
+			    	window.location = referrer;
+			    });
+			}
+		    
 		});
   </script>
   
@@ -805,7 +807,6 @@ function changePasswrd(){
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
 <script th:inline="javascript">
-
 $(document).ready(function() {
 	
 	$('#mbrCpNumBtn').click(function() {
