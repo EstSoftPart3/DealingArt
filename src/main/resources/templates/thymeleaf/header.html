@@ -93,15 +93,28 @@
 		
 		
 		$( document ).ready(function() {
-			var val = $("#mainPayCall").val();
-			var referrer = document.referrer;
-			console.log("이전 페이지 URL: "+referrer);
-			if(val != 1){
-				$(window).on('popstate', function(event) {
-			    	window.location = referrer;
-			    });
+			
+			let referrer = document.referrer;
+			
+			document.onmouseover = function() {
+			    //User's mouse is inside the page.
+			    window.innerDocClick = true;
 			}
-		    
+
+			document.onmouseleave = function() {
+			    //User's mouse has left the page.
+			    window.innerDocClick = false;
+			}
+
+			window.onhashchange = function() {
+			    if (window.innerDocClick) {
+			        //Your own in-page mechanism triggered the hash change
+			    } else {
+			    	window.location = referrer;
+			    }
+			}
+			
+
 		});
   </script>
   
@@ -1332,6 +1345,9 @@ function CheckEmail(str) {
 }                         
 
 //아이디 중복 체크
+
+$('#memberModal').on('shown.bs.modal', function () {
+
 $("#mbrId").blur(function() {
 	var dataCheckCount = {};
 	
@@ -1394,6 +1410,8 @@ $("#mbrId").blur(function() {
 		return;
 		
 	}
+});
+
 });
 
 
