@@ -28,7 +28,7 @@ public class FileUploadController {
 	private AwsS3Service awsS3Service;
 	
     @PostMapping("/upload")
-    public FileVo upload(@RequestPart(value = "file") MultipartFile multipartFile,@RequestPart(value = "url") String url) throws IOException {
+    public FileVo upload(@RequestPart(value = "file") MultipartFile multipartFile, @RequestPart(value = "url") String url) throws IOException {
     	System.out.println("######### file : " + multipartFile.getName());
         return awsS3Service.upload(multipartFile, url);
     }

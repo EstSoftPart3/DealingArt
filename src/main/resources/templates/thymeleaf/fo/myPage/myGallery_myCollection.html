@@ -302,8 +302,8 @@ function myCollectionList(){
 			html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 			html += '	<div class="item-ho3 reg-div">';
 			html += '		<div class="regs" >';
-			html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
-			html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>소장품 수정</span></a>';
+			html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
+			html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정</span></a>';
 			html += '		</div>';
 			html += '	</div>';
 			html += '</div>';
@@ -373,14 +373,16 @@ setInterval(function() {
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
-$(document).on("click", ".cor-a", function(){
-	var workSq= $(this).attr("workSq");
-    location.href = "/myCollectionMod?workSq="+workSq;
-});
 
-$(document).on("click", ".reg-a", function(){
-	location.href = "/dealReg?workSq="+$(this).attr("workSq")+"&&mbrSq="+sMbrSqVal+"&&workTypCd=COLL";
-});
+function collectionMod(obj){
+	var workSq = obj.getAttribute("workSq");
+    location.href = "/myCollectionMod?workSq="+workSq;
+}
+
+function dealReg(obj){
+	var workSq = obj.getAttribute("workSq");
+	location.href = "/dealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal+"&&workTypCd=COLL";
+}
 
 $(document).on("click", ".heart", function(){
 	var param = new Object();

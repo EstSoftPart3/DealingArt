@@ -90,8 +90,6 @@
 		
 		
 		$( document ).ready(function() {
-			var referrer = document.referrer;
-			
 			console.log("이전 페이지 URL: "+referrer);
 
 		    $(window).on('popstate', function(event) {
@@ -149,7 +147,10 @@
 							<!-- class="scrap" -->
 							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
 							<!-- /customerService -->
-							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
+							<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li> -->
+							<li><a href="/alarm"><img src="resources/img/ic-5.jpg" /><span>알림 설정</span></a></li>
+							<li><a href="/coupon" class="scrap"><img src="resources/img/ic-4.jpg" /><span>쿠폰</span></a></li>
+							<li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li>
 						</ul>
 						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
 					</div>
@@ -968,7 +969,6 @@ jQuery(document).ready(function() {
         		loginBf.setAttribute("style", "");
 				loginAf.setAttribute("style", "display:none;");
         	}
-        	$("#mbrId").attr("disabled", true);
         },
         error: function(error) {
             alert("오류 발생" + error);
@@ -1031,7 +1031,6 @@ function login(){
 					loginBf.setAttribute("style", "");
 					loginAf.setAttribute("style", "display:none;");
 				}
-				$("#mbrId").attr("disabled", true);
 			},
 			error: function(request, status, error){
                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
