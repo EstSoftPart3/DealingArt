@@ -463,7 +463,7 @@ html, body{font-size: calc(100vw / 152);}
   display: block;
   width: 100%;
   height: 100%;
-  /*object-fit: cover;*/
+  object-fit: cover;
 }
 
 .swiper-pagination-bullet {
