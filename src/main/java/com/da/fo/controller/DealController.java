@@ -166,6 +166,9 @@ public class DealController {
 		ModelAndView mv = new ModelAndView("jsonView");
 		int page = Integer.parseInt(param.get("page").toString());
 		int startRow = ((page-1)*6+1);
+		if(page == 1){
+			startRow = 0;
+		}
 		param.put("startRow", startRow);
 		List result = dealService.dealSerach(param);
 		mv.addObject("result", result);

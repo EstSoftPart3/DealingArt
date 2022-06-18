@@ -153,7 +153,7 @@
 												<th><span class="my-red">판매자 부가서비스(필수)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:300px !important;">
+														<select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:152px !important;">
 															<option value="null">-선택-</option>
 															<option value="P">프리미엄운송</option>
 															<option value="D">직접운송</option>
@@ -316,9 +316,9 @@
 									
 										<div class="mbox-1">
 											<div class="pay-link">
-												<a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a>
+												<!-- <a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a> -->
 												<!-- <a href="#" class="pay-2" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-3.png" /><span>무통장입금</span></a> -->
-												<a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a>
+												<!-- <a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a> -->
 												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
 												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
 											</div>
@@ -349,6 +349,7 @@
 		</div>
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
+</div>
 <!-- 새로운 주소 모달창 -->
 <div class="modal fade modal-s" id="newAddrModal" tabindex="-1" role="dialog" aria-labelledby="newAddrModal" aria-hidden="true">
 	<form id="findId" name="findId" method="post">
@@ -557,7 +558,7 @@ function btn_payment(){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl); //PC와 Mobile은 URL이 상이합니다.
+			        Mainpay.open(response.data.nextPcUrl);
 					return false;
 				}
 			},

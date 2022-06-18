@@ -528,12 +528,16 @@ function myDealSearchList(){
     				}
     				if(myDealList[i].dealTypCd == "S"){
 	    				myDealListHtml += '				<p class="won-p">';
-	    				if(myDealList[i].sellMbrSq != sMbrSqVal && myDealList[i].dealSttsCd == "TP"){//정찰가 거래중이며 판매자면
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP"){//정찰가 거래중이며 판매자면
     						myDealListHtml += '					현재 회원님의 작품이 판매중입니다.';
     						myDealListHtml += '					<span>판매 중</span>';
     					}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PW" && myDealList[i].dealSttsCd == "TP"){ //정찰가면서 거래중이며 1차 결제 완료안되었을때
+    						myDealListHtml += '					구매자 1차 결제 대기중입니다.';
+    						myDealListHtml += '					<span>결제 대기</span>';
+    					}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PC" && myDealList[i].dealSttsCd == "TC"){
-	    					myDealListHtml += '					현재 구매자 1차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					구매자 1차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>1차 결제 완료</span>';
 	    				}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal &&myDealList[i].buyPaymntSttsCd == "2PW" && myDealList[i].dealSttsCd == "TC"){
@@ -600,13 +604,22 @@ setInterval(function() {
 //거래 계약 안내 및 상세 페이지 (구매자)로 이동
 function myDealDetailBuy(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	if(!isMobile){
+		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	}else{
+		location.href="/myDealDetailBuy_mo?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	}
 }
 
 //거래 계약 안내 및 상세 페이지 (판매자)로 이동
 function myDealDetailSell(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	if(!isMobile){
+		location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	}else{
+		location.href="/myDealDetailSell_mo?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	}
+	
 }
 
 

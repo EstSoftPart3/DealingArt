@@ -49,6 +49,14 @@ public interface MyPageMapper {
 	 */
 	public List myDealSearchListSale(Object param);
 	
+	
+	/*
+	 * 거래내역 정찰가 가상계좌 입금전 리스트를 보여준다.
+	 * param : null or  searchOption
+	 * return : 거래내역
+	 */
+	public List myDealSearchListVACCT(Object param);
+	
 	/*
 	 * 거래내역 구매 경매 리스트를 보여준다.
 	 * param : null or  searchOption

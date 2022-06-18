@@ -185,6 +185,29 @@
 										</td>
 									</tr>
 									<tr>
+										<th><span class="my-red">사이즈</span></th>
+										<td>
+											<div class="coll-gr">
+												<input type="text" class="input-4" id="workSizeWidth" th:value="${result.work.workSizeWidth}"/>
+												<span class="cg-x">X</span> 
+												<input type="text" class="input-4" id="workSizeDepth" th:value="${result.work.workSizeDepth}"/>
+												<!-- <span class="cg-text">cm 37호 입니다</span> -->
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th><span class="my-red">호수</span></th>
+										<td><input type="text" class="input-4" id="workLake" th:value="${result.work.workLake}"/></td>
+									</tr>
+									<tr>
+										<th><span class="my-red">소재/기법</span></th>
+										<td><input type="text" class="input-4" id="workMatrl" th:value="${result.work.workMatrl}"/></td>
+									</tr>
+									<tr>
+										<th><span class="my-red">제작년도</span></th>
+										<td><input type="text" class="input-4" id="workProdcYear" th:value="${result.work.workProdcYear}"/></td>
+									</tr>
+									<tr>
 										<th><span class="">작품 사진(좌)</span></th>
 										<td>
 											<div class="filebox bs3-primary">
@@ -754,6 +777,18 @@ function vaild(){
 		modalAlertShow("작품 소장가가 입력되지 않았습니다.");
 		return false;
 	}
+	if(result.work.workLake == null || result.work.workLake == ""){
+		modalAlertShow("호가가 입력되지 않았습니다.");
+		return false;
+	}
+	if(result.work.workMatrl == null || result.work.workMatrl == ""){
+		modalAlertShow("작품 소재/기법이 입력되지 않았습니다.");
+		return false;
+	}
+	if(result.work.workProdcYear == null || result.work.workProdcYear == ""){
+		modalAlertShow("작품 제작년도가 입력되지 않았습니다.");
+		return false;
+	}
 	
 	//이미지 용량 확인 체크 시작
 	if($("#workGrtUrl").val() != ""){	
@@ -835,6 +870,10 @@ function dealRegNotesModal(){
 	result.deal.artstSq = result.work.artstSq;
 	result.deal.workSq = result.work.workSq.toString();
 	result.deal.dealSttsCd = "TP";
+	result.work.workLake = $("#workLake").val();
+	result.work.workMatrl = $("#workMatrl").val();
+	result.work.workProdcYear = $("#workProdcYear").val();
+	
 	if(vaild()){
 		$('body').css("overflow", "hidden");
 		$('#dealRegNotesModal').modal({backdrop: 'static', keyboard: false});

@@ -85,24 +85,31 @@ public class MyPageDao {
 		if(param.get("saleOrAuction").toString().equals("ALL")){
 			if(param.get("buyOrSell").toString().equals("ALL")){
 				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultVACCT = myPageMapper.myDealSearchListVACCT(param);
 				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
 				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
 				result = Stream.concat(resultAuctionBuy.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
-				result = Stream.concat(result.stream(), resultSale.stream()).collect(Collectors.toList());
+				result = Stream.concat(resultVACCT.stream(), resultSale.stream()).collect(Collectors.toList());
 			}
 			if(param.get("buyOrSell").toString().equals("BUY")){
 				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultVACCT = myPageMapper.myDealSearchListVACCT(param);
 				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
 				result = Stream.concat(resultSale.stream(), resultAuctionBuy.stream()).collect(Collectors.toList());
+				result = Stream.concat(resultVACCT.stream(), result.stream()).collect(Collectors.toList());
 			}
 			if(param.get("buyOrSell").toString().equals("SELL")){
 				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+				List<Map<String, Object>> resultVACCT = myPageMapper.myDealSearchListVACCT(param);
 				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
 				result = Stream.concat(resultSale.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultVACCT.stream()).collect(Collectors.toList());
 			}
 		}
 		if(param.get("saleOrAuction").toString().equals("SALE")){
-			result = myPageMapper.myDealSearchListSale(param);
+			List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
+			List<Map<String, Object>> resultVACCT = myPageMapper.myDealSearchListVACCT(param);
+			result = Stream.concat(resultSale.stream(), resultVACCT.stream()).collect(Collectors.toList());
 		}
 		if(param.get("saleOrAuction").toString().equals("AUCTN")){
 			if(param.get("buyOrSell").toString().equals("ALL")){
@@ -280,10 +287,18 @@ public class MyPageDao {
 		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
 		Map<String, Object> payMntInfo1 = new HashMap<>();
 		Map<String, Object> payMntInfo2 = new HashMap<>();
+		Map<String, Object> vacctInfo = new HashMap<>();
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo1 = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
 			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
 		}
+		if(dealInfo.get("payMethod") != null) {
+			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+				vacctInfo = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
+				
+			}
+		}
+		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo1", payMntInfo1);
 		result.put("payMntInfo2", payMntInfo2);
 		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
@@ -303,9 +318,17 @@ public class MyPageDao {
 		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfo(dealSq);
 		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
 		Map<String, Object> payMntInfo = new HashMap<>();
+		Map<String, Object> vacctInfo = new HashMap<>();
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
 		}
+		if(dealInfo.containsKey("payMethod")) {
+			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+				vacctInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
+				result.put("vacctInfo", vacctInfo);
+			}
+		}
+		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo", payMntInfo);
 		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
 		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));

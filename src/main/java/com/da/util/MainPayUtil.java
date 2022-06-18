@@ -102,9 +102,9 @@ public class MainPayUtil {
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
 		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
 		/* 결제 허용할 카드사 번호 리스트*/
-//		String availableCard = "['02','03','05','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','KP','UP','PC','AV','AM','AJ','NP']";
-//		JSONArray availableCards = new JSONArray(availableCard);
-//		parameters.put("availableCards", availableCards);
+		String availableCard = "['02','03','05','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','KP','UP','PC','AV','AM','AJ','NP']";
+		JSONArray availableCards = new JSONArray(availableCard);
+		parameters.put("availableCards", availableCards);
 		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/
 		parameters.put("mbrRefNo", paramMap.get("mbrRefNo")); //가맹점주문번호 (가맹점에서 생성한 중복되지 않는 번호)
@@ -269,12 +269,12 @@ public class MainPayUtil {
 	    	resultMap.put("paymethod", parameters.get("paymethod"));
 	    	resultMap.put("authToken", parameters.get("authToken"));
 	    	resultMap.put("aid", parameters.get("aid"));
+	    	resultMap.put("goodsName", parameters.get("goodsName"));
 	    	/*결제 완료 기본 정보*/
 	    	resultMap.put("mbrRefNo", dataMap.get("mbrRefNo"));
 	    	resultMap.put("refNo", dataMap.get("refNo"));
 	    	resultMap.put("tranDate", dataMap.get("tranDate"));
 	    	resultMap.put("tranTime", dataMap.get("tranTime"));
-	    	resultMap.put("goodsName", dataMap.get("goodsName"));
 	    	resultMap.put("amount", dataMap.get("amount"));
 	    	resultMap.put("taxAmount", dataMap.get("taxAmount"));
 	    	resultMap.put("feeAmount", dataMap.get("feeAmount"));
@@ -293,28 +293,33 @@ public class MainPayUtil {
 		    resultMap.put("bankCode", dataMap.get("bankCode"));
 		    resultMap.put("accountNo", dataMap.get("accountNo"));
 		    resultMap.put("accountCloseDate", dataMap.get("accountCloseDate"));
-		    
+		    resultMap.put("accountCloseDate", dataMap.get("accountCloseDate"));
+		    //거래내역 테이블에 내역을 insert한다
 		    mainPayMapper.insertPayMnt(resultMap);
-	    	mainPayMapper.insertWorkDeal(resultMap);
 	    	
-	    	//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
-		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
-		    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString(), parameters.get("dealTypCd").toString());
-		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
-		    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
-		    }
-		    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 대기로 바꾼다.
-		    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {
-		    	myPageMapper.updateSellPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
-		    }
-		    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
-		    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("2")) {
-		    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
-		    }
-		    
-		    if(parameters.get("cuponSq") != null && !parameters.get("cuponSq").toString().equals("")) {//쿠폰 사용하면 사용롼료로 바꾼다
-		    	mainPayMapper.updateCouponUseYn(resultMap);
-		    }
+	    	//가상계좌가 아닐 경우
+	    	if(!parameters.get("paymethod").toString().equals("VACCT")) {
+	    		//딜 테이블에 구매자/판매자 
+	    		mainPayMapper.insertWorkDeal(resultMap);
+	    		//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
+			    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
+			    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString(), parameters.get("dealTypCd").toString());
+			    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
+			    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
+			    }
+			    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
+			    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {
+			    	myPageMapper.updateSellPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
+			    }
+			    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
+			    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("2")) {
+			    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
+			    }
+			  //쿠폰 사용하면 사용롼료로 바꾼다
+			    if(parameters.get("cuponSq") != null && !parameters.get("cuponSq").toString().equals("")) {
+			    	mainPayMapper.updateCouponUseYn(resultMap);
+			    }
+	    	}
 	    }
     	
 		rsltMap.put("resultCode", resultCode);
