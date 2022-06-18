@@ -513,8 +513,11 @@ jQuery(document).ready(function() {
 		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
-		if(result.dealInfo.vacctInfo != null){
+		if(result.vacctInfo != null){
 			$("#VACCT").css("display", "");
+			$("#1PW").css("display", "none"); //1차 결제 div
+			$("#paymethod").css("display", "none"); //결제 수단 div
+			$("#btn_payment").css("display", "none") //결제 버튼
 		}
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TC"){ //1차 결제 미완료면
@@ -535,8 +538,11 @@ jQuery(document).ready(function() {
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "");
 		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
-		if(result.dealInfo.vacctInfo != null){
+		if(result.vacctInfo != null){
 			$("#VACCT").css("display", "");
+			$("#2PW").css("display", "none"); //2차 결제 div
+			$("#paymethod").css("display", "none");
+			$("#btn_payment").css("display", "none");
 		}
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 완료면
