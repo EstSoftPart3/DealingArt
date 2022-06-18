@@ -1286,13 +1286,13 @@ columns2 figure {
 
 .item-ho{display:none;position: absolute;top: 50%;width: 100%;text-align: center;/* height: 100%; */transform: translateY(-50%);z-index: 1;}
 .item-ho:after{content:'';}
-.item-ho p{font-size: 3.6rem;padding-bottom: 0.3rem;color: rgb(255 255 255 / 80%);}
+.item-ho p{font-size: 2.6rem;padding-bottom: 0.3rem;color: rgb(255 255 255 / 80%);}
 .item-ho ul{padding-top: 0.8rem;width: 100%;}
-.item-ho ul li{font-size: 3.2rem;display: inline-block;color: rgb(255 255 255 / 80%);padding-right: 2.7rem;position: relative;line-height: 1.3;}
+.item-ho ul li{font-size: 2.8rem;display: inline-block;color: rgb(255 255 255 / 80%);padding-right: 2.7rem;position: relative;line-height: 1.3;}
 .item-ho ul li:after{content:':';position: absolute;top: 0;right: 1.1rem;font-size: 2.8rem;}
 .item-ho ul li:last-child:after{content:''; display:none;}
 .item-ho ul li:last-child{padding-right:0;}
-.item-ho ul li span{font-size: 3.2rem;display: block;}
+.item-ho ul li span{font-size: 2.3rem;display: block;}
 .item-ho h4{
     font-size: 3rem;
     font-weight: 600;
@@ -5188,7 +5188,7 @@ position: relative;background-color: #fbfbfb;}
 .bg-st{background-color:#fff;width: 78.4rem;}
 .bg-st .btn-group{margin-top: 0 !important;}
 .bg-st .btn-group button{background-color:#fff;}
-.comy-sum{text-align: right;width: 78.4rem;margin-top: 3rem;font-size: 2rem; font-weight: 600; color: #9f9f9f;vertical-align: middle;}
+.comy-sum{text-align: right;/* width: 78.4rem; */margin-top: 3rem;font-size: 2rem; font-weight: 600; color: #9f9f9f;vertical-align: middle;}
 .comy-sum span{padding-left: 2rem;font-size: 3.6rem; color: #000000; vertical-align: middle;font-weight: 600;}
 
 
