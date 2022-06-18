@@ -596,6 +596,7 @@ jQuery(document).ready(function() {
         dropdown: true,
         scrollbar: true
     });
+    
 	
 });
 
@@ -927,7 +928,14 @@ function dealReg(){
 	        processData : false,
 	        success: function(data) {
 	        	if(data > 0 || data != null || data != ""){
-	        		modalAlertShow("거래가 등록되었습니다.", "main");
+	        		if(result.work.workTypCd == "COLL"){
+	        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
+	        		}else if(result.work.workTypCd == "WORK"){
+	        			modalAlertShow("거래가 등록되었습니다.", "myWork");
+	        		}else{
+	        			modalAlertShow("거래가 등록되었습니다.", "main");
+	        		}
+	        		
 	        	}
 	        },
 	        error: function(error) {

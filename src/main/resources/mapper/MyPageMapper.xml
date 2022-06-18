@@ -660,6 +660,7 @@
 							#{workNm},
 							#{workSizeWidth},
 							#{workSizeDepth},
+							#{workLake},
 							#{workMatrl},
 							#{workProdcYear},
 							#{workImgFrtUrl},
