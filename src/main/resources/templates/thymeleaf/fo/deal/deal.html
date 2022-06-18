@@ -439,8 +439,8 @@
 						</div>
 						<div class="drop-body">
 						<div class="db-div">
-                                <input type="checkbox" id="v11" name="workClsfcCd" value="PAINTING" class="searchOption"/>
-								<label for=" v11"><span></span>회화</label>
+                                <input type="checkbox" id="m22" name="workClsfcCd" value="PAINTING" class="searchOption"/>
+								<label for="m22"><span></span>회화</label>
 							</div>
 							<div class="db-div">
                                 <input type="checkbox" id="v22" name="workClsfcCd" value="EDITION" class="searchOption"/>
@@ -593,7 +593,6 @@
 	        	var dealListHtml = "";
 	     		if(data.result.length == 0){
 	     			modalAlertShow("검색 결과가 없습니다.");
-	     			$("#btn_more").css("display", "none");
 	     		}else{
 	     			if(more == 1){
 	     				$(".grid").empty();

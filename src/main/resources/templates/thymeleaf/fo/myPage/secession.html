@@ -194,36 +194,37 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 
 	
 	function submit(){
-		var param = new Object();
 		
 		//var name = $("#txt_name").val();
-    	var email = $("#txt_email").val();
-    	var password = $("#txt_password").val();
+    	var loginId = $("#txt_email").val();
+    	var loginPw = $("#txt_password").val();
     	//if(name == null || name == "" || name == undefined){
     		//modalAlertShow("이름을 입력해주세요.", "txt_name");
     	if(!document.getElementById('chk_agree').checked){
 			modalAlertShow("회원탈퇴에 동의해주세요.", "chk_agree");
 			//alert("동의해주세요.");
-		}else if(email == null || email == "" || email == undefined){
+		}else if(loginId == null || loginId == "" || loginId == undefined){
     		modalAlertShow("이메일을 입력해주세요.", "txt_email");
-    	}else if(password == null || password == "" || password == undefined){
+    	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
     		modalAlertShow("비밀번호를 입력해주세요.", "txt_password");
     	}else{
-    		//param.name = name;
-    		param.email = email;
-    		param.password = password;
     		modalConfirm("알림", "정말 회원탈퇴를 하시겠습니까?", function(callback){
     			if(callback){
     				$.ajax({
     		    		type: "post",
-    		    	    url: "/withdrawalSubmit",
-    		    	    data: param,
+    		    	    url: "/login",
+    		    	    data: {
+    		    	    	loginId : loginId,
+    						loginPw : loginPw
+    		    	    },
     		    	    success: function(data) {
-    		    	    	if(data == 1){
-    		    	    		modalAlertShow("회원탈퇴를 완료되었습니다.", "");
-    		    	    	}else if(data == 2){
-    		    	    		modalAlertShow("이미 회원탈퇴된 회원입니다.", "");
-    		    	    	}
+    		    	    	if(data.login == 1){
+    		    	    		memberDel(data.sMbrSqVal);
+    		    	    	}else if (data.login == "nonId"){
+    							modalAlertShow("존재하지 않는 아이디입니다.");
+    						}else if (data.login == "nonPwd"){
+    							modalAlertShow("비밀번호가 틀립니다.");
+    						}
     		    	    },
     		    	    error: function(error) {
     		    	    	alert("오류 발생" + error);
@@ -234,6 +235,36 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     	}
     	
 	}
+    	
+    function memberDel(callback){
+		var param = new Object();
+		
+		//var name = $("#txt_name").val();
+    	var email = $("#txt_email").val();
+    	var password = $("#txt_password").val();
+    	
+    	if(callback == sMbrSqVal){
+    		param.email = email;
+    		param.password = password;
+    		$.ajax({
+	    		type: "post",
+	    	    url: "/withdrawalSubmit",
+	    	    data: param,
+	    	    success: function(data) {
+	    	    	if(data == 1){
+	    	    		modalAlertShow("회원탈퇴를 완료되었습니다.", "main");
+	    	    	}else if(data == 2){
+	    	    		modalAlertShow("이미 회원탈퇴된 회원입니다.", "main");
+	    	    	}
+	    	    },
+	    	    error: function(error) {
+	    	    	alert("오류 발생" + error);
+	    		}
+			});
+    	}else{
+    		modalAlertShow("현재 로그인한 회원 아이디와 비밀번호가 아닙니다.", "reload");
+    	}
+    }
       
 	jQuery(document).ready(function() {
 		if(sAuthSqVal == 2){

@@ -202,6 +202,96 @@
 		GROUP BY B.DEAL_SQ;
 	</select>
 	
+	<select id="myDealSearchListVACCT" parameterType="hashMap" resultType="hashMap">
+		/* 거래내역 정찰가 가상계좌 입금전 리스트 */
+		SELECT 
+				B.DEAL_SQ AS dealSq,
+				<if test="buyOrSell == 'ALL'">
+				(SELECT
+					MBR_SQ
+				FROM 
+					TBL_DA_PAYMNT_H
+				WHERE
+					MBR_SQ = #{mbrSq}
+				AND DEAL_SQ = B.DEAL_SQ 
+				AND	PAYMETHOD = 'VACCT'
+				AND PAYMNT_DIV_CD = 'S'
+				) AS sellMbrSq,
+				(SELECT
+					MBR_SQ
+				FROM 
+					TBL_DA_PAYMNT_H
+				WHERE
+					MBR_SQ = #{mbrSq}
+				AND DEAL_SQ = B.DEAL_SQ 
+				AND	PAYMETHOD = 'VACCT'
+				AND PAYMNT_DIV_CD = 'B'
+				) AS buyMbrSq,
+				</if>
+				<if test="buyOrSell == 'SELL'">
+				(SELECT
+					MBR_SQ
+				FROM 
+					TBL_DA_PAYMNT_H
+				WHERE
+					MBR_SQ = #{mbrSq}
+				AND DEAL_SQ = B.DEAL_SQ 
+				AND	PAYMETHOD = 'VACCT'
+				AND PAYMNT_DIV_CD = 'S'
+				) AS sellMbrSq,
+				</if>
+				<if test="buyOrSell == 'BUY'">
+				(SELECT
+					MBR_SQ
+				FROM 
+					TBL_DA_PAYMNT_H
+				WHERE
+					MBR_SQ = #{mbrSq}
+				AND DEAL_SQ = B.DEAL_SQ 
+				AND	PAYMETHOD = 'VACCT'
+				AND PAYMNT_DIV_CD = 'B'
+				) AS buyMbrSq,
+				</if>
+				B.WORK_SQ AS workSq,
+				B.ARTST_SQ AS artstSq,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.WORK_NM AS workNm,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				B.DEAL_TYP_CD AS dealTypCd,
+				B.DEAL_STTS_CD AS dealSttsCd,
+				B.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd,
+				B.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd,
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc,
+				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				B.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B
+		WHERE 
+				A.WORK_SQ = B.WORK_SQ 
+			AND B.DEAL_TYP_CD = 'S'
+			<if test="dealSttsCd == 'TP'">
+				AND B.DEAL_STTS_CD = 'TP'
+				</if>
+			<if test="dealSttsCd == 'TC'">
+				AND B.DEAL_STTS_CD = 'TC'
+			</if>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (
+						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					)
+			</if>
+			<if test="searchStrtDate != null and searchStrtDate != '' and searchEndngDate != null and searchEndngDate != ''">
+				AND DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') BETWEEN #{searchStrtDate} AND #{searchEndngDate}
+			</if>
+		GROUP BY B.DEAL_SQ;
+	</select>
+	
 	<select id="myDealSearchListAuctionBuy" resultType="hashMap" parameterType="hashMap">
 		/*거래내역 구매 경매 리스트*/
 		SELECT 
@@ -398,6 +488,9 @@
 						<if test="workImgBotUrl != null and workImgBotUrl != ''">
 							,WORK_IMG_BOT_URL
 						</if>
+						<if test="workLake != null and workLake != ''">
+							,WORK_LAKE
+						</if>
 					)
 				VALUES (
 						#{mbrSq}, 
@@ -457,6 +550,9 @@
 						<if test="workImgBotUrl != null and workImgBotUrl != ''">
 							,#{workImgBotUrl}
 						</if>
+						<if test="workLake != null and workLake != ''">
+							,#{workLake}
+						</if>
 				)
 				
 	</insert>
@@ -502,6 +598,7 @@
 									WORK_NM,
 									WORK_SIZE_WIDTH,
 									WORK_SIZE_DEPTH,
+									WORK_LAKE,
 									WORK_MATRL,
 									WORK_PRODC_YEAR,
 									WORK_MAIN_IMG_URL,
@@ -692,6 +789,7 @@
 				A.WORK_CLSFC_CD AS workClsfcCd,
 				A.WORK_SIZE_WIDTH AS workSizeWidth,
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
@@ -735,6 +833,7 @@
 									WORK_NM,
 									WORK_SIZE_WIDTH,
 									WORK_SIZE_DEPTH,
+									WORK_LAKE,
 									WORK_MATRL,
 									WORK_PRODC_YEAR,
 									WORK_MAIN_IMG_URL,
@@ -781,6 +880,7 @@
 								#{workNm},
 								#{workSizeWidth},
 								#{workSizeDepth},
+								#{workLake},
 								#{workMatrl},
 								#{workProdcYear},
 								#{workMainImgUrl},
@@ -827,6 +927,7 @@
 								WORK_NM = #{workNm},
 								WORK_SIZE_WIDTH = #{workSizeWidth},
 								WORK_SIZE_DEPTH = #{workSizeDepth},
+								WORK_LAKE = #{workLake},
 								WORK_MATRL = #{workMatrl},
 								WORK_PRODC_YEAR = #{workProdcYear},
 								WORK_MAIN_IMG_URL = #{workMainImgUrl},
@@ -975,6 +1076,7 @@
 				A.ARTST_BIRTH_YEAR AS artstBirthYear,
 				A.WORK_SIZE_WIDTH AS workSizeWidth,
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
@@ -1068,6 +1170,9 @@
 									<if test="workImgBotUrl != null and workImgBotUrl != ''">
 										,WORK_IMG_BOT_URL
 									</if>
+									<if test="workLake != null and workLake != ''">
+										,WORK_LAKE
+									</if>
 								)
 							VALUES (
 									#{workSq},
@@ -1129,6 +1234,9 @@
 									<if test="workImgBotUrl != null and workImgBotUrl != ''">
 										,#{workImgBotUrl}
 									</if>
+									<if test="workLake != null and workLake != ''">
+										,#{workLake}
+									</if>
 							)
 	ON DUPLICATE KEY UPDATE
 								WORK_TYP_CD = #{workTypCd}, 
@@ -1187,6 +1295,9 @@
 								</if>
 								<if test="workImgBotUrl != null and workImgBotUrl != ''">
 									,WORK_IMG_BOT_URL = #{workImgBotUrl}
+								</if>
+								<if test="workLake != null and workLake != ''">
+									,WORK_LAKE = #{workLake}
 								</if>
 	</insert>
 	
@@ -1352,13 +1463,18 @@
 				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래 최종 가격*/
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
-				WHERE B.DEAL_SQ = DEAL_SQ) AS bidCnt /*응찰수*/
+				WHERE B.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+				C.PAYMETHOD AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
+		LEFT JOIN
+				TBL_DA_PAYMNT_H C
+			ON	B.DEAL_SQ = C.DEAL_SQ 
 		WHERE 
-				A.WORK_SQ = B.WORK_SQ 
-			AND B.DEAL_SQ = #{dealSq}
+				<!-- A.WORK_SQ = B.WORK_SQ  -->
+			<!-- AND B.DEAL_SQ = #{dealSq} -->
+			B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ
 	</select>
 	
@@ -1473,15 +1589,16 @@
 					WHEN A.BANK_CODE = '002' THEN '산업은행'
 				END
 				)AS bankName,
-				A.ISSUE_COMPANY_NAME AS issueCompanyName,
-				A.CARD_NO AS cardNo,
-				A.BANK_CODE AS bankCode,
-				A.ACCOUNT_NO AS accountNo,
-				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
-				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
-				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
-				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
-				B.CUPON_NM AS cuponNm
+				A.ISSUE_COMPANY_NAME AS issueCompanyName, /*카드사*/
+				A.CARD_NO AS cardNo, /*카드번호*/
+				A.INSTALLMENT AS installment, /*할부개월 수*/
+				A.ACCOUNT_NO AS accountNo, /*입금 계좌번호*/
+				DATE_FORMAT(A.ACCOUNT_CLOSE_DATE, '%Y-%m-%d') AS accountCloseDate, /*입금 마감일*/
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt, /*결제 금액*/
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
+				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -1536,15 +1653,16 @@
 					WHEN A.BANK_CODE = '002' THEN '산업은행'
 				END
 				)AS bankName,
-				A.ISSUE_COMPANY_NAME AS issueCompanyName,
-				A.CARD_NO AS cardNo,
-				A.BANK_CODE AS bankCode,
-				A.ACCOUNT_NO AS accountNo,
-				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
-				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
-				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
-				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
-				B.CUPON_NM AS cuponNm
+				A.ISSUE_COMPANY_NAME AS issueCompanyName, /*카드사*/
+				A.CARD_NO AS cardNo, /*카드번호*/
+				A.INSTALLMENT AS installment, /*할부개월 수*/
+				A.ACCOUNT_NO AS accountNo, /*입금 계좌번호*/
+				DATE_FORMAT(A.ACCOUNT_CLOSE_DATE, '%Y-%m-%d') AS accountCloseDate, /*입금 마감일*/
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt, /*결제 금액*/
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
+				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -1599,15 +1717,16 @@
 					WHEN A.BANK_CODE = '002' THEN '산업은행'
 				END
 				)AS bankName,
-				A.ISSUE_COMPANY_NAME AS issueCompanyName,
-				A.CARD_NO AS cardNo,
-				A.BANK_CODE AS bankCode,
-				A.ACCOUNT_NO AS accountNo,
-				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt,
-				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt,
-				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt,
-				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt,
-				B.CUPON_NM AS cuponNm
+				A.ISSUE_COMPANY_NAME AS issueCompanyName, /*카드사*/
+				A.CARD_NO AS cardNo, /*카드번호*/
+				A.INSTALLMENT AS installment, /*할부개월 수*/
+				A.ACCOUNT_NO AS accountNo, /*입금 계좌번호*/
+				DATE_FORMAT(A.ACCOUNT_CLOSE_DATE, '%Y-%m-%d') AS accountCloseDate, /*입금 마감일*/
+				FORMAT(A.PAYMNT_AMT, 0) AS paymntAmt, /*결제 금액*/
+				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
+				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
+				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
+				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 

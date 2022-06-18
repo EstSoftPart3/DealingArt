@@ -77,6 +77,10 @@
 									</td>
 								</tr>
 								<tr>
+									<th><span class="my-red">호수</span></th>
+									<td><input type="text" class="input-4" id="workLake"/></td>
+								</tr>
+								<tr>
 									<th><span class="my-red">소재/기법</span></th>
 									<td><input type="text" class="input-4" id="workMatrl"/></td>
 								</tr>
@@ -493,6 +497,13 @@ function checkValid(){
 		work.workSizeDepth = $("#workSizeDepth").val();
 	}else{
 		modalAlertShow("사이즈(세로)가 입력되지 않았습니다!", "workSizeDepth");
+		return false;
+	}
+	
+	if($("#workLake").val() != null && $("#workLake").val() != ""){
+		work.workLake = $("#workLake").val();
+	}else{
+		modalAlertShow("호수가 입력되지 않았습니다!", "workLake");
 		return false;
 	}
 	

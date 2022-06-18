@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script>
+<script src="https://api-std.mainpay.co.kr/js/mainpay.mobile-1.0.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
     <style>
@@ -261,7 +261,7 @@
 												</tr>
 												<tr>
 													<th>입금할 금액</th>
-													<td th:text="${result.vacctInfo.paymntAmt}">000-000-0000</td>
+													<td th:text="${result.vacctInfo.paymntWorkAmt}">000-000-0000</td>
 												</tr>
 												<tr>
 													<th>입금만료 일시</th>
@@ -635,11 +635,11 @@ function btn_paymethod_onclick(obj){
 	result.dealInfo.paymethod = obj.attributes.value.value;
 	if(result.dealInfo.buyPaymntSttsCd != "2PW"){
 		if(result.dealInfo.paymethod == "CARD"){
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.0075); //작품가의 7.5프로인 수수료를 구한다
+			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.075); //작품가의 7.5프로인 수수료를 구한다
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.006); //작품가의 6프로인 수수료를 구한다
+			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.06); //작품가의 6프로인 수수료를 구한다
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
@@ -692,7 +692,7 @@ function btn_paymethod_onclick(obj){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl);
+					Mainpay.open(response.data.nextMobileUrl);
 					return false;
 				}
 			},
@@ -719,7 +719,7 @@ function btn_paymethod_onclick(obj){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl);
+					Mainpay.open(response.data.nextMobileUrl);
 					return false;
 				}
 			},
@@ -764,7 +764,7 @@ window.call = function (data) {
 	        }
 		}); 
 	}
-	location.reload();
+	//location.reload();
 };
 
 //운송 구분 선택시
