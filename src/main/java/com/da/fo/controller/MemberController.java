@@ -395,7 +395,7 @@ public class MemberController {
 									
 			sendParams.put("mbrCpNum", mbrCpNum);
 			sendParams.put("mbrId", mbrId);
-			sendParams.put("sndConCd", "SAE");
+			sendParams.put("sndConCd", "SAA");
 			
 			sendSmsUtil.sendSmsProc(sendParams);
 			
