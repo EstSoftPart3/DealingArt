@@ -19,6 +19,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1980' AND YEAR (NOW())
+				limit 20
 	</select>
 	
 	<select id="middleAgedArtist" resultType="hashMap" parameterType="hashMap">
@@ -38,6 +39,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1965' AND '1979'
+				limit 20
 	</select>
 	
 	<select id="seniorArtist" resultType="hashMap" parameterType="hashMap">
@@ -57,6 +59,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'
+				limit 20
 	</select>
 	
 	<select id="artistInfo" resultType="hashMap" parameterType="String">
