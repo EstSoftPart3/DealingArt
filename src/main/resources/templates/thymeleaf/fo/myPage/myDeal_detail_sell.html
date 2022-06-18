@@ -200,6 +200,43 @@
 									</div>
 								</div>
 							</div>
+							<!-- 가상 계좌 정보 -->
+							<div id="VACCT" style="display:none;" th:if="${not #maps.isEmpty(result.vacctInfo)}">
+								<div class="med">
+									<h2 class="h2-con">가상 계좌 입금 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>입금 은행</th>
+													<td th:text="${result.vacctInfo.bankName}">신한은행</td>
+												</tr>
+												<tr>
+													<th>입금 계좌번호</th>
+													<td th:text="${result.vacctInfo.accountNo}">000-000-0000</td>
+												</tr>
+												<tr>
+													<th>입금할 금액</th>
+													<td th:text="${result.vacctInfo.paymntWorkAmt}">000-000-0000</td>
+												</tr>
+												<tr>
+													<th>입금만료 일시</th>
+													<td th:text="${result.vacctInfo.accountCloseDate}">000-000-0000</td>
+												</tr>
+												<!-- <tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr> -->
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
 							
 							<!-- 2차 결제 완료 -->
 							<div id="2PC" style="display:none;" th:if="${not #maps.isEmpty(result.payMntInfo)}">
@@ -420,6 +457,12 @@ jQuery(document).ready(function() {
 		$("#paymethod").css("display", ""); 
 		$("#btn_payment").css("display", "");
 		getCouponList("TD");; //운송 수수료 할인 쿠폰 목록 가져오기
+		if(result.vacctInfo.payMethod != null){
+			$("#VACCT").css("display", "");
+			$("#2PW").css("display", "none"); //1차 결제 div
+			$("#paymethod").css("display", "none"); //결제 수단 div
+			$("#btn_payment").css("display", "none") //결제 버튼
+		}
 	}
 	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "TC"){ //판매자 결제 완료면
 		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");

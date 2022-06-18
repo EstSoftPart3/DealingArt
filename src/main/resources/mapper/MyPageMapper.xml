@@ -154,7 +154,7 @@
 				B.BUY_MBR_SQ AS buyMbrSq,
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
@@ -254,7 +254,7 @@
 				</if>
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
@@ -273,11 +273,14 @@
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
 			AND B.DEAL_TYP_CD = 'S'
+			<if test="dealSttsCd == 'ALL'">
+				AND B.DEAL_STTS_CD = 'TP'
+			</if>
 			<if test="dealSttsCd == 'TP'">
 				AND B.DEAL_STTS_CD = 'TP'
-				</if>
+			</if>
 			<if test="dealSttsCd == 'TC'">
-				AND B.DEAL_STTS_CD = 'TC'
+				AND B.DEAL_STTS_CD IS NULL
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
@@ -304,7 +307,7 @@
 				C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				C.MBR_REF_NO AS mbrRefNo, /*거래주문코드*/
 				C.BUY_MBR_SQ AS buyMbrSq, /*거래구매자순번*/
@@ -371,7 +374,7 @@
 				C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				C.MBR_REF_NO AS mbrRefNo, /*거래주문코드*/
 				C.BUY_MBR_SQ AS buyMbrSq, /*거래구매자순번*/
@@ -436,9 +439,7 @@
 						WORK_CLR_CD,
 						WORK_SHP_CD,
 						WORK_CLSFC_CD,
-						WORK_MAIN_IMG_URL, 
 						WORK_IMG_FRT_URL, 
-						WORK_IMG_RER_URL,
 						REG_DT,
 						REG_MBR_SQ,
 						UPDT_DT,
@@ -472,6 +473,12 @@
 						</if> 
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,WORK_INTRDC
+						</if>
+						<if test="workMainImgUrl != null and workMainImgUrl != ''">
+							,WORK_MAIN_IMG_URL
+						</if>
+						<if test="workImgRerUrl != null and workImgRerUrl != ''">
+							,WORK_IMG_RER_URL
 						</if> 
 						<if test="workGrtUrl != null and workGrtUrl != ''">
 							,WORK_GRT_URL
@@ -501,9 +508,7 @@
 						#{workClrCd},
 						#{workShpCd},
 						#{workClsfcCd},
-						#{workMainImgUrl}, 
 						#{workImgFrtUrl}, 
-						#{workImgRerUrl},
 						NOW(),
 						#{mbrSq},
 						NOW(),
@@ -534,6 +539,12 @@
 						</if> 
 						<if test="workIntrdc != null and workIntrdc != ''">
 							,#{workIntrdc}
+						</if> 
+						<if test="workMainImgUrl != null and workMainImgUrl != ''">
+							,#{workMainImgUrl}
+						</if>
+						<if test="workImgRerUrl != null and workImgRerUrl != ''">
+							,#{workImgRerUrl}
 						</if> 
 						<if test="workGrtUrl != null and workGrtUrl != ''">
 							,#{workGrtUrl}
@@ -577,9 +588,7 @@
 							AND		WORK_FRM_YN = #{workFrmYn}
 							AND 	WORK_CLR_CD = #{workClrCd}
 							AND 	WORK_TYP_CD = #{workTypCd}
-							AND 	WORK_MAIN_IMG_URL = #{workMainImgUrl}
 							AND		WORK_IMG_FRT_URL = #{workImgFrtUrl}
-							AND		WORK_IMG_RER_URL = #{workImgRerUrl}
 						)
 										
 					)
@@ -601,9 +610,7 @@
 									WORK_LAKE,
 									WORK_MATRL,
 									WORK_PRODC_YEAR,
-									WORK_MAIN_IMG_URL,
 									WORK_IMG_FRT_URL,
-									WORK_IMG_RER_URL,
 									WORK_FRM_YN,
 									WORK_SALE_YN,
 									WORK_CLR_CD,
@@ -613,6 +620,12 @@
 									REG_MBR_SQ,
 									UPDT_DT,
 									UPDT_MBR_SQ
+									<if test="workMainImgUrl != null and workMainImgUrl != ''">
+										,WORK_MAIN_IMG_URL
+									</if>
+									<if test="workImgRerUrl != null and workImgRerUrl != ''">
+										,WORK_IMG_RER_URL
+									</if> 
 									<if test="workGrtUrl != null and workGrtUrl != ''">
 										,WORK_GRT_URL
 									</if>
@@ -649,9 +662,7 @@
 							#{workSizeDepth},
 							#{workMatrl},
 							#{workProdcYear},
-							#{workMainImgUrl},
 							#{workImgFrtUrl},
-							#{workImgRerUrl},
 							#{workFrmYn},
 							#{workSaleYn},
 							#{workClrCd},
@@ -661,6 +672,12 @@
 							#{mbrSq},
 							NOW(),
 							#{mbrSq}
+							<if test="workMainImgUrl != null and workMainImgUrl != ''">
+								,#{workMainImgUrl}
+							</if>
+							<if test="workImgRerUrl != null and workImgRerUrl != ''">
+								,#{workImgRerUrl}
+							</if> 
 							<if test="workGrtUrl != null and workGrtUrl != ''">
 								,#{workGrtUrl}
 							</if>
@@ -705,7 +722,7 @@
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
@@ -751,7 +768,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
@@ -836,9 +853,7 @@
 									WORK_LAKE,
 									WORK_MATRL,
 									WORK_PRODC_YEAR,
-									WORK_MAIN_IMG_URL,
 									WORK_IMG_FRT_URL,
-									WORK_IMG_RER_URL,
 									WORK_FRM_YN,
 									WORK_SALE_YN,
 									WORK_CLR_CD,
@@ -846,6 +861,12 @@
 									WORK_CLSFC_CD,
 									UPDT_DT,
 									UPDT_MBR_SQ
+									<if test="workMainImgUrl != null and workMainImgUrl != ''">
+										,WORK_MAIN_IMG_URL
+									</if>
+									<if test="workImgRerUrl != null and workImgRerUrl != ''">
+										,WORK_IMG_RER_URL
+									</if> 
 									<if test="workGrtUrl != null and workGrtUrl != ''">
 										,WORK_GRT_URL
 									</if>
@@ -883,9 +904,7 @@
 								#{workLake},
 								#{workMatrl},
 								#{workProdcYear},
-								#{workMainImgUrl},
 								#{workImgFrtUrl},
-								#{workImgRerUrl},
 								#{workFrmYn},
 								#{workSaleYn},
 								#{workClrCd},
@@ -893,6 +912,12 @@
 								#{workClsfcCd},
 								NOW(),
 								#{mbrSq}
+								<if test="workMainImgUrl != null and workMainImgUrl != ''">
+									,#{workMainImgUrl}
+								</if>
+								<if test="workImgRerUrl != null and workImgRerUrl != ''">
+									,#{workImgRerUrl}
+								</if> 
 								<if test="workGrtUrl != null and workGrtUrl != ''">
 									,#{workGrtUrl}
 								</if>
@@ -930,9 +955,7 @@
 								WORK_LAKE = #{workLake},
 								WORK_MATRL = #{workMatrl},
 								WORK_PRODC_YEAR = #{workProdcYear},
-								WORK_MAIN_IMG_URL = #{workMainImgUrl},
 								WORK_IMG_FRT_URL = #{workImgFrtUrl},
-								WORK_IMG_RER_URL = #{workImgRerUrl},
 								WORK_FRM_YN = #{workFrmYn},
 								WORK_SALE_YN = #{workSaleYn},
 								WORK_CLR_CD = #{workClrCd},
@@ -940,6 +963,12 @@
 								WORK_CLSFC_CD = #{workClsfcCd},
 								UPDT_DT = NOW(),
 								UPDT_MBR_SQ = #{mbrSq}
+								<if test="workMainImgUrl != null and workMainImgUrl != ''">
+									,WORK_MAIN_IMG_URL = #{workMainImgUrl}
+								</if>
+								<if test="workImgRerUrl != null and workImgRerUrl != ''">
+									,WORK_IMG_RER_URL = #{workImgRerUrl}
+								</if>
 								<if test="workGrtUrl != null and workGrtUrl != ''">
 									,WORK_GRT_URL = #{workGrtUrl}
 								</if>
@@ -999,7 +1028,7 @@
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
@@ -1043,7 +1072,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
@@ -1120,9 +1149,7 @@
 									WORK_CLR_CD,
 									WORK_SHP_CD,
 									WORK_CLSFC_CD,
-									WORK_MAIN_IMG_URL, 
 									WORK_IMG_FRT_URL, 
-									WORK_IMG_RER_URL,
 									UPDT_DT,
 									UPDT_MBR_SQ
 									<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -1155,6 +1182,12 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,WORK_INTRDC
 									</if> 
+									<if test="workMainImgUrl != null and workMainImgUrl != ''">
+										,WORK_MAIN_IMG_URL
+									</if>
+									<if test="workImgRerUrl != null and workImgRerUrl != ''">
+										,WORK_IMG_RER_URL
+									</if> 
 									<if test="workGrtUrl != null and workGrtUrl != ''">
 										,WORK_GRT_URL
 									</if>
@@ -1184,9 +1217,7 @@
 									#{workClrCd},
 									#{workShpCd},
 									#{workClsfcCd},
-									#{workMainImgUrl}, 
 									#{workImgFrtUrl}, 
-									#{workImgRerUrl},
 									NOW(),
 									#{mbrSq}
 									<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -1219,6 +1250,12 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,#{workIntrdc}
 									</if> 
+									<if test="workMainImgUrl != null and workMainImgUrl != ''">
+										,#{workMainImgUrl}
+									</if>
+									<if test="workImgRerUrl != null and workImgRerUrl != ''">
+										,#{workImgRerUrl}
+									</if> 
 									<if test="workGrtUrl != null and workGrtUrl != ''">
 										,#{workGrtUrl}
 									</if>
@@ -1246,9 +1283,7 @@
 								WORK_CLR_CD = #{workClrCd},
 								WORK_SHP_CD = #{workShpCd},
 								WORK_CLSFC_CD = #{workClsfcCd},
-								WORK_MAIN_IMG_URL = #{workMainImgUrl},
 								WORK_IMG_FRT_URL = #{workImgFrtUrl},
-								WORK_IMG_RER_URL = #{workImgRerUrl},
 								UPDT_DT = NOW(),
 								UPDT_MBR_SQ = #{mbrSq}
 								<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -1281,6 +1316,12 @@
 								<if test="workIntrdc != null and workIntrdc != ''">
 									,WORK_INTRDC = #{workIntrdc}
 								</if> 
+								<if test="workMainImgUrl != null and workMainImgUrl != ''">
+									,WORK_MAIN_IMG_URL = #{workMainImgUrl}
+								</if>
+								<if test="workImgRerUrl != null and workImgRerUrl != ''">
+									,WORK_IMG_RER_URL = #{workImgRerUrl}
+								</if>
 								<if test="workGrtUrl != null and workGrtUrl != ''">
 									,WORK_GRT_URL = #{workGrtUrl}
 								</if>
@@ -1326,7 +1367,7 @@
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
@@ -1374,7 +1415,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
@@ -1418,7 +1459,7 @@
 				DEAL_SQ = #{dealSq}
 	</update>
 	
-	<select id="getPaymentBuyerInfo" resultType="hashMap" parameterType="String">
+	<select id="getPaymentDeliveryInfo" resultType="hashMap" parameterType="String">
 		/*결제 구매자/판매자 배송지 조회*/
 		SELECT 
 				MBR_SQ AS buyMbrSq,
@@ -1433,7 +1474,7 @@
 	
 	</select>
 	
-	<select id="getMyDealDetailDealInfo" resultType="hashMap" parameterType="String">
+	<select id="getMyDealDetailDealInfoBuy" resultType="hashMap" parameterType="String">
 		/*결제 상세 페이지 상품 정보 조회*/
 		SELECT 
 				B.DEAL_SQ AS dealSq,
@@ -1441,7 +1482,7 @@
 				B.BUY_MBR_SQ AS buyMbrSq,
 				A.WORK_SQ AS workSq,
 				A.ARTST_SQ AS artstSq,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_GRT_URL AS workGrtUrl,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
@@ -1464,17 +1505,75 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE B.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				C.PAYMETHOD AS payMethod /*결제 수단*/
+				(SELECT
+					PAYMETHOD
+				FROM
+					TBL_DA_PAYMNT_H
+				WHERE
+					DEAL_SQ = #{dealSq}
+				AND	PAYMNT_TYP_CD = (CASE
+										WHEN B.BUY_PAYMNT_STTS_CD = '1PW' THEN '1'
+										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' THEN '2'
+										ELSE NULL
+									END)
+				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
-		LEFT JOIN
-				TBL_DA_PAYMNT_H C
-			ON	B.DEAL_SQ = C.DEAL_SQ 
 		WHERE 
-				<!-- A.WORK_SQ = B.WORK_SQ  -->
-			<!-- AND B.DEAL_SQ = #{dealSq} -->
-			B.DEAL_SQ = #{dealSq}
+				 A.WORK_SQ = B.WORK_SQ
+			AND B.DEAL_SQ = #{dealSq}
+		GROUP BY B.DEAL_SQ
+	</select>
+	
+	<select id="getMyDealDetailDealInfoSell" resultType="hashMap" parameterType="String">
+		/*결제 상세 페이지 상품 정보 조회*/
+		SELECT 
+				B.DEAL_SQ AS dealSq,
+				B.SELL_MBR_SQ AS sellMbrSq,
+				B.BUY_MBR_SQ AS buyMbrSq,
+				A.WORK_SQ AS workSq,
+				A.ARTST_SQ AS artstSq,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_GRT_URL AS workGrtUrl,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.WORK_NM AS workNm,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				B.MBR_REF_NO AS mbrRefNo,
+				B.DEAL_TYP_CD AS dealTypCd,
+				B.DEAL_STTS_CD AS dealSttsCd,
+				B.BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd,
+				B.SELL_PAYMNT_STTS_CD AS sellPaymntSttsCd,
+				DATE_FORMAT(B.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				FORMAT(B.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*경매 시작가*/
+				(SELECT MBR_SQ 
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE B.DEAL_SQ = DEAL_SQ
+				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
+				FORMAT(B.DEAL_AUCTN_PRC, 0) AS dealAuctnPrc, /*경매 응찰 가격*/
+				FORMAT(B.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*경매 낙찰 가격*/
+				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래 최종 가격*/
+				(SELECT COUNT(DEAL_SQ)
+				FROM TBL_DA_AUCTN_BID_H 
+				WHERE B.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+				(SELECT
+					PAYMETHOD
+				FROM
+					TBL_DA_PAYMNT_H
+				WHERE
+					DEAL_SQ = #{dealSq}
+				AND	PAYMNT_TYP_CD = (CASE
+										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' AND THEN '2'
+										ELSE B.NULL
+									END)
+				) AS payMethod /*결제 수단*/
+		FROM 
+				TBL_DA_WORK_M AS A,
+				TBL_DA_DEAL_M AS B
+		WHERE 
+				 A.WORK_SQ = B.WORK_SQ
+			AND B.DEAL_SQ = #{dealSq}
 		GROUP BY B.DEAL_SQ
 	</select>
 	

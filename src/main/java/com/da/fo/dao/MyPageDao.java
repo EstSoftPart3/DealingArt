@@ -283,8 +283,8 @@ public class MyPageDao {
 	 */
 	public Map<String, Object> openMyDealDetailBuy(String dealSq, String mbrSq){
 		Map<String, Object> result = new HashMap<>();
-		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfo(dealSq);
-		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
+		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfoBuy(dealSq);
+		Map<String, Object> mbrInfo = myPageMapper.getPaymentDeliveryInfo(mbrSq);
 		Map<String, Object> payMntInfo1 = new HashMap<>();
 		Map<String, Object> payMntInfo2 = new HashMap<>();
 		Map<String, Object> vacctInfo = new HashMap<>();
@@ -315,8 +315,8 @@ public class MyPageDao {
 	 */
 	public Map<String, Object> openMyDealDetailSell(String dealSq, String mbrSq){
 		Map<String, Object> result = new HashMap<>();
-		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfo(dealSq);
-		Map<String, Object> mbrInfo = myPageMapper.getPaymentBuyerInfo(mbrSq);
+		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfoSell(dealSq);
+		Map<String, Object> mbrInfo = myPageMapper.getPaymentDeliveryInfo(mbrSq);
 		Map<String, Object> payMntInfo = new HashMap<>();
 		Map<String, Object> vacctInfo = new HashMap<>();
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {

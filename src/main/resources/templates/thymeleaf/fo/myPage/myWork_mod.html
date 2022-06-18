@@ -89,7 +89,7 @@
 									<td><input type="text" class="input-4" id="workProdcYear" th:value="${result.workProdcYear}"/></td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품 대표 사진</span></th>
+									<th><span class="">작품 대표 사진</span></th>
 									<td>
 										<div class="filebox bs3-primary">
 											<!-- <input class="upload-name" value="파일선택" disabled th:value="${result.workMainImgUrl}"> -->
@@ -115,7 +115,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품사진(후면)</span></th>
+									<th><span class="">작품사진(후면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
 											<!-- <input class="upload-name" value="파일선택" disabled th:value="${result.workImgRerUrl}"> -->
@@ -441,33 +441,75 @@ function myWorkReg(){
 		const formData = new FormData();
 		//작품 대표 사진
 		const workMainImgUrl = document.getElementById("workMainImgUrl");
-		formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+		if(workMainImgUrl.files[0] == null && $("#workMainImgUrl1").attr("src") != null){
+			result.workMainImgUrl = $("#workMainImgUrl1").attr("src");
+		}else{
+			if(workMainImgUrl.files[0] != null){
+				formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+			}
+		}
 		//작품 사진 전면
 		const workImgFrtUrl = document.getElementById("workImgFrtUrl");
-		formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+		if(workImgFrtUrl.files[0] == null && $("#workImgFrtUrl1").attr("src") != null){
+			result.workImgFrtUrl = $("#workImgFrtUrl1").attr("src");
+		}else{
+			if(workImgFrtUrl.files[0] != null){
+				formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+			}
+		}
 		//작품 사진 후면
 		const workImgRerUrl = document.getElementById("workImgRerUrl");
-		formData.append("workImgRerUrl", workImgRerUrl.files[0]);
-		//보증서, 작품 사진 좌우상하
+		if(workImgRerUrl.files[0] == null && $("#workImgRerUrl1").attr("src") != null){
+			result.workImgRerUrl = $("#workImgRerUrl1").attr("src");
+		}else{
+			if(workImgRerUrl.files[0] != null){
+				formData.append("workImgRerUrl", workImgRerUrl.files[0]);
+			}
+		}
+		//보증서
 		const workGrtUrl = document.getElementById("workGrtUrl");
+		if(workGrtUrl.files[0] == null && $("#workGrtUrl1").attr("src") != null){
+			result.workGrtUrl = $("#workGrtUrl1").attr("src");
+		}else{
+			if(workGrtUrl.files[0] != null){
+				formData.append("workGrtUrl", workGrtUrl.files[0]);
+			}
+		}
+		//작품 사진 좌
 		const workImgLefUrl = document.getElementById("workImgLefUrl");
+		if(workImgLefUrl.files[0] == null && $("#workImgLefUrl1").attr("src") != null){
+			result.workImgLefUrl = $("#workImgLefUrl1").attr("src");
+		}else{
+			if(workImgLefUrl.files[0] != null){
+				formData.append("workImgLefUrl", workImgLefUrl.files[0]);
+			}
+		}
+		//작품 사진 우
 		const workImgRitUrl = document.getElementById("workImgRitUrl");
+		if(workImgRitUrl.files[0] == null && $("#workImgRitUrl1").attr("src") != null){
+			result.workImgRitUrl = $("#workImgRitUrl1").attr("src");
+		}else{
+			if(workImgRitUrl.files[0] != null){
+				formData.append("workImgRitUrl", workImgRitUrl.files[0]);
+			}
+		}
+		//작품 사진 상
 		const workImgTopUrl = document.getElementById("workImgTopUrl");
+		if(workImgTopUrl.files[0] == null && $("#workImgTopUrl1").attr("src") != null){
+			result.workImgTopUrl = $("#workImgTopUrl1").attr("src");
+		}else{
+			if(workImgTopUrl.files[0] != null){
+				formData.append("workImgTopUrl", workImgTopUrl.files[0]);
+			}
+		}
+		//작품 사진 하
 		const workImgBotUrl = document.getElementById("workImgBotUrl");
-		if(workGrtUrl.files[0] != null){
-			formData.append("workGrtUrl", workGrtUrl.files[0]);
-		}
-		if(workImgLefUrl.files[0] != null){
-			formData.append("workImgLefUrl", workImgLefUrl.files[0]);
-		}
-		if(workImgRitUrl.files[0] != null){
-			formData.append("workImgRitUrl", workImgRitUrl.files[0]);
-		}
-		if(workImgTopUrl.files[0] != null){
-			formData.append("workImgTopUrl", workImgTopUrl.files[0]);
-		}
-		if(workImgBotUrl.files[0] != null){
-			formData.append("workImgBotUrl", workImgBotUrl.files[0]);
+		if(workImgBotUrl.files[0] == null && $("#workImgBotUrl1").attr("src") != null){
+			result.workImgBotUrl = $("#workImgBotUrl1").attr("src");
+		}else{
+			if(workImgBotUrl.files[0] != null){
+				formData.append("workImgBotUrl", workImgBotUrl.files[0]);
+			}
 		}
 	    formData.append("work", new Blob([JSON.stringify(result)], {type: "application/json"}));
 	
