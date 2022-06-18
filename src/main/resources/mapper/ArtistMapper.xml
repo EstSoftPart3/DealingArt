@@ -169,7 +169,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*소장가*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
@@ -229,7 +229,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
@@ -281,7 +281,7 @@
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/

@@ -74,7 +74,7 @@
 									<td><input type="text" class="input-4" id="workNm" th:value="${result.workNm}"/></td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품 대표 사진</span></th>
+									<th><span class="">작품 대표 사진</span></th>
 									<td>
 										<div class="filebox bs3-primary">
 											<img class="content" id="workMainImgUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workMainImgUrl)}" th:src="${result.workMainImgUrl}"/>
@@ -98,7 +98,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">작품 사진(후면)</span></th>
+									<th><span class="">작품 사진(후면)</span></th>
 									<td>
 										<div class="filebox bs3-primary">
 											<img class="content" id="workImgRerUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workImgRerUrl)}" th:src="${result.workImgRerUrl}"/>
@@ -620,21 +620,27 @@ function collectionReg(){
 		if(workMainImgUrl.files[0] == null && $("#workMainImgUrl1").attr("src") != null){
 			result.workMainImgUrl = $("#workMainImgUrl1").attr("src");
 		}else{
-			formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+			if(workMainImgUrl.files[0] != null){
+				formData.append("workMainImgUrl", workMainImgUrl.files[0]);
+			}
 		}
 		//작품 사진 전면
 		const workImgFrtUrl = document.getElementById("workImgFrtUrl");
 		if(workImgFrtUrl.files[0] == null && $("#workImgFrtUrl1").attr("src") != null){
 			result.workImgFrtUrl = $("#workImgFrtUrl1").attr("src");
 		}else{
-			formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+			if(workImgFrtUrl.files[0] != null){
+				formData.append("workImgFrtUrl", workImgFrtUrl.files[0]);
+			}
 		}
 		//작품 사진 후면
 		const workImgRerUrl = document.getElementById("workImgRerUrl");
 		if(workImgRerUrl.files[0] == null && $("#workImgRerUrl1").attr("src") != null){
 			result.workImgRerUrl = $("#workImgRerUrl1").attr("src");
 		}else{
-			formData.append("workImgRerUrl", workImgRerUrl.files[0]);
+			if(workImgRerUrl.files[0] != null){
+				formData.append("workImgRerUrl", workImgRerUrl.files[0]);
+			}
 		}
 		//보증서
 		const workGrtUrl = document.getElementById("workGrtUrl");
@@ -716,20 +722,20 @@ function checkValid(){
 		return false;
 	}
 	
-	if(document.getElementById("workMainImgUrl1").src == null || document.getElementById("workMainImgUrl1").src == ""){
+	/* if(document.getElementById("workMainImgUrl1").src == null || document.getElementById("workMainImgUrl1").src == ""){
 		modalAlertShow("작품 대표 사진이 업로드되지 않았습니다!", "workMainImgUrl");
 		return false;
-	}
+	} */
 	
 	if(document.getElementById("workImgFrtUrl1").src == null || document.getElementById("workImgFrtUrl1").src == ""){
 		modalAlertShow("작품 전면 사진이 업로드되지 않았습니다!", "workImgFrtUrl");
 		return false;
 	}
 	
-	if(document.getElementById("workImgRerUrl1").src == null || document.getElementById("workImgRerUrl1").src == ""){
+	/* if(document.getElementById("workImgRerUrl1").src == null || document.getElementById("workImgRerUrl1").src == ""){
 		modalAlertShow("작품 후면 사진이 업로드되지 않았습니다!", "workImgRerUrl");
 		return false;
-	}
+	} */
 	
 	if($('input:radio[name=workFrmYn]').is(':checked')){
 		result.workFrmYn = $('input[name=workFrmYn]:checked').val();

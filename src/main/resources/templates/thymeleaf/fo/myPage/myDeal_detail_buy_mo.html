@@ -491,7 +491,6 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>거래 계약 상세</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#myDeal").addClass("active");
-	
 	if(result.dealInfo.dealTypCd == "A" && result.dealInfo.dealSttsCd == "TP"){ //경매면서 판매중이면
 		if(result.dealInfo.bidMbrSq == sMbrSqVal){ //가장 높은 입찰자면
 			$("#dealSttsCdDetail").text("현재 가장 높은 입찰가로 입찰 중 입니다.");
@@ -509,11 +508,9 @@ jQuery(document).ready(function() {
 		$("#1PW").css("display", ""); //1차 결제 div
 		$("#paymethod").css("display", ""); //결제 수단 div
 		$("#btn_payment").css("display", "") //결제 버튼
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 15프로인 수수료를 구한다
-		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
-		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+		feeCal();
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
-		if(result.vacctInfo != null){
+		if(result.vacctInfo.payMethod != null){
 			$("#VACCT").css("display", "");
 			$("#1PW").css("display", "none"); //1차 결제 div
 			$("#paymethod").css("display", "none"); //결제 수단 div
@@ -526,9 +523,7 @@ jQuery(document).ready(function() {
 		$("#1PW").css("display", ""); //1차 결제 div
 		$("#paymethod").css("display", ""); //결제 수단 div
 		$("#btn_payment").css("display", "") //결제 버튼
-		fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 15프로인 수수료를 구한다
-		$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
-		amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+		feeCal();
 		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
 	}
 	if(result.dealInfo.buyPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 미완료면
@@ -538,7 +533,7 @@ jQuery(document).ready(function() {
 		$("#paymethod").css("display", "");
 		$("#btn_payment").css("display", "");
 		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
-		if(result.vacctInfo != null){
+		if(result.vacctInfo.payMethod != null){
 			$("#VACCT").css("display", "");
 			$("#2PW").css("display", "none"); //2차 결제 div
 			$("#paymethod").css("display", "none");
@@ -551,6 +546,12 @@ jQuery(document).ready(function() {
 		$("#2PC").css("display", ""); //2차 결제 완료 div
 	}
 });
+//1차 결제 거래 수수료 구하기
+function feeCal(){
+	fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+	$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+}
 /*
  * 남은 시간 초 단위로 불러온다 
  */
@@ -635,16 +636,19 @@ function btn_paymethod_onclick(obj){
 	result.dealInfo.paymethod = obj.attributes.value.value;
 	if(result.dealInfo.buyPaymntSttsCd != "2PW"){
 		if(result.dealInfo.paymethod == "CARD"){
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.075); //작품가의 7.5프로인 수수료를 구한다
+			feeCal();
+			fee = Math.round(fee - (fee * 0.025)); //거래 수수료 2.5프로 할인
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.06); //작품가의 6프로인 수수료를 구한다
+			feeCal();
+			fee = Math.round(fee - (fee * 0.04)); //거래 수수료 4프로 할인 
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
-			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			feeCal();
 		}
 		totalTrnsprtPrc();
 	}
@@ -764,7 +768,7 @@ window.call = function (data) {
 	        }
 		}); 
 	}
-	//location.reload();
+	location.reload();
 };
 
 //운송 구분 선택시

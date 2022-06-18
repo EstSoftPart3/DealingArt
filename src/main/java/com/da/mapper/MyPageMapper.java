@@ -202,14 +202,21 @@ public interface MyPageMapper {
 	 * param : mbrSq
 	 * return : 회원 정보
 	 */
-	public Map<String, Object> getPaymentBuyerInfo(String param);
+	public Map<String, Object> getPaymentDeliveryInfo(String param);
 	
 	/*
-	 * 결제 상세페이지 상품 정보 조회
+	 * 구매자 결제 상세페이지 상품 정보 조회
 	 * param : dealSq
 	 * return : 상품 정보 조회
 	 */
-	public Map<String, Object> getMyDealDetailDealInfo(String param);
+	public Map<String, Object> getMyDealDetailDealInfoBuy(String param);
+	
+	/*
+	 * 판매자 결제 상세페이지 상품 정보 조회
+	 * param : dealSq
+	 * return : 상품 정보 조회
+	 */
+	public Map<String, Object> getMyDealDetailDealInfoSell(String param);
 	
 	/*
 	 * 운송 옵션 가격 조회
