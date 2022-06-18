@@ -167,14 +167,14 @@
 			OR  A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  D.EDUCTN_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  E.CAREER_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  F.EXHBTN_NM LIKE CONCAT('%',#{searchKeyword},'%')
+			OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
 		GROUP BY A.ARTST_SQ
 	</select>
 	
 	<select id="totalSearchWork" resultType="hashMap" parameterType="String">
 		/*작품 통합검색*/
 		SELECT 
-				D.DEAL_SQ AS dealSq, /*거래번호*/
+				IFNULL(D.DEAL_SQ,0) AS dealSq, /*거래번호*/
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
@@ -183,8 +183,8 @@
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
-				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
-				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				IFNULL(D.DEAL_TYP_CD,'X') AS dealTypCd, /*거래유형*/
+				IFNULL(D.DEAL_STTS_CD,'X') AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
@@ -212,7 +212,7 @@
 		INNER JOIN
 				TBL_DA_ARTST_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
-		INNER JOIN 
+		LEFT JOIN 
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
@@ -222,6 +222,7 @@
 			OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 			OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 			OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-		GROUP BY A.WORK_SQ;
+			OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+		GROUP BY A.WORK_SQ
 	</select>
 </mapper>

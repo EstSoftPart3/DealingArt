@@ -331,26 +331,38 @@
 										<!-- <div class="uli-img uli-hart-on"> 하트 온 -->
 										<div class="uli-img">
 											<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;"/>
-											<div class="uho"></div>
+											
+												<div class="uho"></div>
+											
 										</div>
 										<div class="uli-text">
 											<h3 class="ut-h3" th:text="${workList.artstActvtyNm}+'('+${workList.artstBirthYear}+')'"></h3>
-											<div class="ut-div" th:text="${workList.workNm}+'('+${workList.workProdcYear}+')'"></div>
+												<div class="ut-div" th:text="${workList.workNm}+'('+${workList.workProdcYear}+')'"></div>
+											
+											
 											<p class="ut-p" th:text="${workList.workMatrl}">Oil & Canvas</p>
-											<div class="ut-div" th:text="${workList.workSizeWidth}+' X '+${workList.workSizeDepth}"></div>
+											
+											<th:block th:if="${not #strings.isEmpty(workSizeWidth)}"><!-- 경매면 -->
+												<div class="ut-div" th:text="${workList.workSizeWidth}+' X '+${workList.workSizeDepth}"></div>
+											</th:block>
+											
 										</div>
 										<div class="uli-ste">
-											<div class="ste-div">
-												<img src="resources/img/about/icon-s1.png" class="ste-img"/>
-												<p class="ste-p1">경매기간</p>
-												<p class="ste-p2" th:text="${workList.dealStrtDate}+' ~ '+${workList.dealEndngDate}"></p>
-											</div>
-											<div class="ste-div" th:if="${workList.dealSttsCd.toString().equals('TP')}">
-												<img src="resources/img/about/icon-s2.png" class="ste-img"/>
-												<p class="ste-p1">남은시간</p>
-												<p class="ste-p2 dealCount" th:name="${workList.dealEndngDateTime}"></p>
-											</div>
+											
+											
 											<th:block th:if="${workList.dealTypCd.toString().equals('A')}"><!-- 경매면 -->
+											
+												<div class="ste-div">
+													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<p class="ste-p1">경매기간</p>
+													<p class="ste-p2" th:text="${workList.dealStrtDate}+' ~ '+${workList.dealEndngDate}"></p>
+												</div>
+												<div class="ste-div" th:if="${workList.dealSttsCd.toString().equals('TP')}">
+													<img src="resources/img/about/icon-s2.png" class="ste-img"/>
+													<p class="ste-p1">남은시간</p>
+													<p class="ste-p2 dealCount" th:name="${workList.dealEndngDateTime}"></p>
+												</div>
+											
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s3.png" class="ste-img"/>
 													<p class="ste-p1">시작가</p>
@@ -377,6 +389,7 @@
 													</div>
 												</th:block>
 											</th:block>
+											
 											<th:block th:if="${workList.dealTypCd.toString().equals('S')}"><!-- 정찰가면 -->
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
