@@ -91,38 +91,6 @@
 		     }
 		});
 		
-		
-		$( document ).ready(function() {
-			
-			let referrer = document.referrer;
-			
-			console.log("referrer :"+referrer);
-			
-			document.onmouseover = function() {
-			    //User's mouse is inside the page.
-			    window.innerDocClick = true;
-			    console.log("11111");
-			}
-
-			document.onmouseleave = function() {
-			    //User's mouse has left the page.
-			    window.innerDocClick = false;
-			    console.log("22222");
-			}
-
-			window.onhashchange = function() {
-				
-			    if (window.innerDocClick) {
-			        //Your own in-page mechanism triggered the hash change
-			    	console.log("33333");
-			    } else {
-			    	console.log("4444");
-			    	window.location = referrer;
-			    }
-			}
-			
-
-		});
   </script>
   
   
