@@ -26,6 +26,13 @@ public interface ArtistMapper {
 	public List seniorArtist();
 	
 	/*
+	 * 아티스트 라이브러리 오픈 시 대가 작가 목록을 불러온다.
+	 * param : null
+	 * return : 검색 결과
+	 */
+	public List masterArtist();
+	
+	/*
 	 * 아티스트 라이브러리에서 아티스트 선택 시 해당 아티스트 정보를 불러온다.
 	 * param : artstSq
 	 * return : 검색 결과

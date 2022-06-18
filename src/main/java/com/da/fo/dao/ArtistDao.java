@@ -31,10 +31,12 @@ public class ArtistDao {
 		Map<String, Object> result = new HashMap<>();
 		List upAndComingArtist = artistMapper.upAndComingArtist();
 		List middleAgedArtist = artistMapper.middleAgedArtist();
-		List seniorArtist =artistMapper.seniorArtist();
+		List seniorArtist = artistMapper.seniorArtist();
+		List masterArtist = artistMapper.masterArtist();
 		result.put("upAndComingArtist", upAndComingArtist);
 		result.put("middleAgedArtist", middleAgedArtist);
 		result.put("seniorArtist", seniorArtist);
+		result.put("masterArtist", masterArtist);
 		return result;
 	}
 	

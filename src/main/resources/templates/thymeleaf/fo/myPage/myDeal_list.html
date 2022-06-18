@@ -377,6 +377,7 @@ function myDealSearchList(){
         url: "/myDealSearchList",
         data: searchOptions,
         success: function(data) {
+        	debugger;
         	var myDealList = null;
         	var myDealListHtml = "";
         	if(data.result != null && data.result.length > 0){

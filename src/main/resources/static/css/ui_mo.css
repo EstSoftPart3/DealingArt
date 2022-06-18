@@ -1084,8 +1084,8 @@ html, body{font-size: calc(100vw / 75);}
     }
 
     
-.mySwiper3{overflow:inherit;}    
-.mySwiper3 .swiper-slide{width: 29.2rem !important;} 
+/* .mySwiper3{overflow:inherit;}    
+.mySwiper3 .swiper-slide{width: 29.2rem !important;}  */
 
 
 
@@ -2682,6 +2682,8 @@ z-index: 9;}
 .swi-show-2:hover .ait-l{opacity:1;}
 .swi-show-3:hover .ait-r{opacity:1;}
 .swi-show-3:hover .ait-l{opacity:1;}
+.swi-show-4:hover .ait-r{opacity:1;}
+.swi-show-4:hover .ait-l{opacity:1;}
 .ait-r{ right: -25px; opacity:0;}
 .ait-l{ left: -25px; opacity:0;}
 
@@ -2819,7 +2821,8 @@ z-index: 9;}
 
 .swi-show-1 .mySwiper1{padding-bottom:8rem !important;}
 .swi-show-2 .mySwiper2{}
-.swi-show-3 .mySwiper4{padding-bottom:8rem !important;}
+.swi-show-3 .mySwiper3{}
+.swi-show-4 .mySwiper4{}
 
 
 .ati-reds{display:none}

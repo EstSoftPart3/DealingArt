@@ -1199,11 +1199,11 @@ div{
   /* margin: 10px; */
 }
 
-.mySwiper3{height:497px;}
+/* .mySwiper3{height:497px;} */
 .swiper{z-index:0;}
-.mySwiper3 .swiper-slide{padding-top:15px;padding-bottom:15px;/* padding-right: 18px; *//* width: 300px !important; *//* flex: 1; */}
+/* .mySwiper3 .swiper-slide{padding-top:15px;padding-bottom:15px;padding-right: 18px; *//* width: 300px !important; *//* flex: 1;}
 .mySwiper3 .swiper-slide.hover{width: 284px !important;height: 530px !important;}
-.mySwiper3 .swiper-slide a{ display: block;}
+.mySwiper3 .swiper-slide a{ display: block;} */
 .gis .swiper-slide{padding-right: 0px;/* width: 101px !important; */}
 
 .ta-h3{
@@ -2444,6 +2444,8 @@ input[type="radio"]:checked + label span {
 .swi-show-2:hover .ait-l{opacity:1;}
 .swi-show-3:hover .ait-r{opacity:1;}
 .swi-show-3:hover .ait-l{opacity:1;}
+.swi-show-4:hover .ait-r{opacity:1;}
+.swi-show-4:hover .ait-l{opacity:1;}
 .ait-r{ right: -25px; opacity:0;}
 .ait-l{ left: -25px; opacity:0;}
 

@@ -18,8 +18,8 @@
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1980' AND YEAR (NOW())
-				limit 20
+				YEAR (B.MBR_BIRTH) <![CDATA[>=]]> '1980' 
+				limit 20 
 	</select>
 	
 	<select id="middleAgedArtist" resultType="hashMap" parameterType="hashMap">
@@ -38,8 +38,8 @@
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1965' AND '1979'
-				limit 20
+				YEAR (B.MBR_BIRTH) BETWEEN '1966' AND '1979'
+				limit 10
 	</select>
 	
 	<select id="seniorArtist" resultType="hashMap" parameterType="hashMap">
@@ -58,8 +58,28 @@
 				TBL_DA_MBR_M AS B 
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
-				YEAR (B.MBR_BIRTH) BETWEEN '1950' AND '1964'
-				limit 20
+				YEAR (B.MBR_BIRTH) BETWEEN '1951' AND '1965'
+				limit 10
+	</select>
+	
+	<select id="masterArtist" resultType="hashMap" parameterType="hashMap">
+		/*아티스트 라이브러리 대가 작가 조회*/
+		SELECT 
+				A.ARTST_SQ AS artstSq, 
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가 이름*/
+				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가 영어 이름*/
+				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
+				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
+				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
+				YEAR (B.MBR_BIRTH) AS artistBirthYear /*작가 생년*/
+		FROM
+				TBL_DA_ARTST_M AS A
+		INNER JOIN 
+				TBL_DA_MBR_M AS B 
+			ON 	A.MBR_SQ = B.MBR_SQ  
+		WHERE
+				YEAR (B.MBR_BIRTH) <![CDATA[<=]]> '1950'
+				limit 10
 	</select>
 	
 	<select id="artistInfo" resultType="hashMap" parameterType="String">

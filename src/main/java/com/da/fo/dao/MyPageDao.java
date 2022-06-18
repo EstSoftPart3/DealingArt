@@ -89,7 +89,8 @@ public class MyPageDao {
 				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
 				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
 				result = Stream.concat(resultAuctionBuy.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
-				result = Stream.concat(resultVACCT.stream(), resultSale.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultSale.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultVACCT.stream()).collect(Collectors.toList());
 			}
 			if(param.get("buyOrSell").toString().equals("BUY")){
 				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
