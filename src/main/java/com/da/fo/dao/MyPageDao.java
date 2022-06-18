@@ -322,7 +322,7 @@ public class MyPageDao {
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
 		}
-		if(dealInfo.containsKey("payMethod")) {
+		if(dealInfo.get("payMethod") != null) {
 			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
 				vacctInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
 				result.put("vacctInfo", vacctInfo);
@@ -342,12 +342,8 @@ public class MyPageDao {
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 운송 가격, 코드 네임
 	 */
-	public Map<String, Object> selectTrnsprtInfo(Object param){
-		Map<String, Object> result = new HashMap<>();
-		String trnsprtPrc = myPageMapper.selectTrnsprtPrc(param);
-		result.put("trnsprtPrc", trnsprtPrc);
-		Map<String, Object> trnsprtCdNm = myPageMapper.selectTrnsprtCdNm(param);
-		result.put("trnsprtCdNm", trnsprtCdNm);
+	public List<Map<String, Object>> selectTrnsprtInfo(Object param){
+		List<Map<String, Object>> result = myPageMapper.selectTrnsprtInfo(param);
 		return result;
 	}
 	

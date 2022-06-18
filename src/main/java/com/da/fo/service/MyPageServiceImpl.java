@@ -193,7 +193,7 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 운송 가격, 코드 네임
 	 */
-	public Map<String, Object> selectTrnsprtInfo(Object param){
+	public List<Map<String, Object>> selectTrnsprtInfo(Object param){
 		return myPageDao.selectTrnsprtInfo(param);
 	}
 	

@@ -233,6 +233,13 @@ public interface MyPageMapper {
 	public Map<String, Object> selectTrnsprtCdNm(Object param);
 	
 	/*
+	 * 운송 선택 옵션 이름, 값 조회
+	 * param : trnsprtDivCd trnsprtTypCd trnsprtReqYn
+	 * return : 운송 옵션 코드 네임
+	 */
+	public List<Map<String, Object>> selectTrnsprtInfo(Object param);
+	
+	/*
 	 * 운송 테이블에 판매자 운송 정보 입력
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 
@@ -259,6 +266,13 @@ public interface MyPageMapper {
 	 * return : 
 	 */
 	public Map<String, Object> selectPaymntSell(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
+	/*
+	 * 운송 테이블에 저장하기 위해 해당 운송 정보 가져오기
+	 * param : trnsprtServiceCdNm, trnsprtPrc
+	 * return : 
+	 */
+	public Map<String, Object> getTrnsprt(Object param);
 	
 	
 }
