@@ -293,10 +293,19 @@ public class MyPageDao {
 			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
 		}
 		if(dealInfo.get("payMethod") != null) {
-			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
-				vacctInfo = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
-				
+			if(dealInfo.get("buyPaymntSttsCd").toString().equals("1PW")) {
+				if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+					vacctInfo = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
+					
+				}
 			}
+			if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PW")) {
+				if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+					vacctInfo = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
+					
+				}
+			}
+			
 		}
 		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo1", payMntInfo1);

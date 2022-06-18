@@ -811,31 +811,11 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//구매내역 상세 페이지 이동
-	@RequestMapping("/myDealDetailBuy_mo")
-	@ResponseBody
-	public ModelAndView openMyDealDetailBuy_mo(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy_mo");
-		Map<String, Object> result = myPageService.openMyDealDetailBuy(dealSq, mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
 	//판매내역 상세 페이지 이동
 	@RequestMapping("/myDealDetailSell")
 	@ResponseBody
 	public ModelAndView openMyDealDetailSell(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell");
-		Map<String, Object> result = myPageService.openMyDealDetailSell(dealSq, mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
-	//판매내역 상세 페이지 이동
-	@RequestMapping("/myDealDetailSell_mo")
-	@ResponseBody
-	public ModelAndView openMyDealDetailSell_mo(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell_mo");
 		Map<String, Object> result = myPageService.openMyDealDetailSell(dealSq, mbrSq);
 		mv.addObject("result", result);
 		return mv;

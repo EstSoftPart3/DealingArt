@@ -1508,12 +1508,14 @@
 				FROM
 					TBL_DA_PAYMNT_H
 				WHERE
-					DEAL_SQ = #{dealSq}
+				IF (B.BUY_PAYMNT_STTS_CD = '2PW', MBR_SQ = B.BUY_MBR_SQ, 1=1)
+				AND B.DEAL_SQ = #{dealSq}
 				AND	PAYMNT_TYP_CD = (CASE
 										WHEN B.BUY_PAYMNT_STTS_CD = '1PW' THEN '1'
-										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' THEN '2'
+										WHEN B.BUY_PAYMNT_STTS_CD = '2PW' THEN '2'
 										ELSE NULL
 									END)
+				GROUP BY PAYMNT_SQ
 				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
@@ -1561,10 +1563,12 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					DEAL_SQ = #{dealSq}
+				AND MBR_SQ = B.SELL_MBR_SQ
 				AND	PAYMNT_TYP_CD = (CASE
-										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' AND THEN '2'
-										ELSE B.NULL
+										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' THEN '2'
+										ELSE NULL
 									END)
+				GROUP BY PAYMNT_SQ
 				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
