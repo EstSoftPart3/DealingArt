@@ -489,6 +489,7 @@
    			AND ARTST_SQ = #{artstSq}
    			AND MBR_SQ = #{mbrSq}
    			AND EXHBTN_TYP_CD = #{exhbtnTypCd}
+   			ORDER BY EXHBTN_NM DESC
   </select>
   
   <!-- 전시정보 삭제 -->

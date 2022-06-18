@@ -128,8 +128,8 @@
 		WHERE 
 				A.ARTST_SQ = #{artstSq}
 				AND A.EXHBTN_TYP_CD != 'AWRDS'
-		ORDER BY 
-				A.EXHBTN_ENDNG_DATE DESC
+		ORDER BY A.EXHBTN_NM DESC
+				/*A.EXHBTN_ENDNG_DATE DESC*/
 	</select>
 	
 	
