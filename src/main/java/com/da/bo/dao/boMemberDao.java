@@ -92,6 +92,7 @@ public class boMemberDao {
 			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
 			 
 			 String authSq = String.valueOf( memberContent.get(z).get("authSq"));
+						
 			 			
 			 memberContent.get(z).put("authSq", authSq);
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
