@@ -13,8 +13,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,16 +26,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.amazonaws.util.EC2MetadataUtils;
 import com.da.common.AwsS3Service;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
 import com.da.mapper.MainMapper;
+import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mainpay.sdk.utils.DateUtil;
 
 @Controller
 public class MyPageController {
@@ -58,6 +63,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MainMapper mainMapper;
+	
+	@Autowired
+	private MyPageMapper myPageMapper;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -838,7 +846,7 @@ public class MyPageController {
 	@ResponseBody
 	public ModelAndView selectTrnsprtPrc(@RequestParam Map<String, Object> paramMap) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		Map<String, Object> result = myPageService.selectTrnsprtInfo(paramMap);
+		List<Map<String, Object>> result = myPageService.selectTrnsprtInfo(paramMap);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -886,9 +894,38 @@ public class MyPageController {
 	//운송 정보 저장
 	@RequestMapping("/insertTrnsprt")
 	@ResponseBody
-	public void insertTrnsprtBySell(@RequestBody List<Map<String, Object>> paramMap) {
+	public void insertTrnsprt(@RequestBody Map<String, Object> param) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ param : "+param);
+		List<Map<String, Object>> paramList = (List<Map<String, Object>>) param.get("trnsprtInfo");
+		for(int i=0; i<paramList.size(); i++) {
+			paramList.get(i).put("dealSq", param.get("dealSq"));
+			paramList.get(i).put("buyMbrSq", param.get("buyMbrSq"));
+			paramList.get(i).put("sellMbrSq", param.get("sellMbrSq"));
+			paramList.get(i).put("artstSq", param.get("artstSq"));
+		}
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ paramList : "+paramList);
+		myPageService.insertTrnsprt(paramList);
+	}
+	
+	//해당 운송 정보 가져오기
+	@RequestMapping("/getTrnsprt")
+	@ResponseBody
+	public ModelAndView getTrnsprt(@RequestBody List<Map<String, Object>> paramMap) {
+		ModelAndView mv = new ModelAndView("jsonView");
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ TrnsprtParam : "+paramMap);
-		myPageService.insertTrnsprt(paramMap);
+		List<Map<String, Object>> resultList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<paramMap.size(); i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("trnsprtDivCd", paramMap.get(i).get("trnsprtDivCd"));
+			param.put("trnsprtServiceCdNm", paramMap.get(i).get("trnsprtServiceCdNm"));
+			param.put("trnsprtPrc", paramMap.get(i).get("trnsprtPrc"));
+			param.put("trnsprtTypCd", paramMap.get(i).get("trnsprtTypCd"));
+			param.put("trnsprtAreaCd", paramMap.get(i).get("trnsprtAreaCd"));
+			Map<String, Object> result = myPageMapper.getTrnsprt(param);
+			resultList.add(result);
+		}
+		mv.addObject("result", resultList);
+		return mv;
 	}
 	
 	//소장품 등록 작품 검색 결과 클릭시

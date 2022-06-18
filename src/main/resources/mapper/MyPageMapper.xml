@@ -213,8 +213,6 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					MBR_SQ = #{mbrSq}
-				AND DEAL_SQ = B.DEAL_SQ 
-				AND	PAYMETHOD = 'VACCT'
 				AND PAYMNT_DIV_CD = 'S'
 				) AS sellMbrSq,
 				(SELECT
@@ -223,8 +221,6 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					MBR_SQ = #{mbrSq}
-				AND DEAL_SQ = B.DEAL_SQ 
-				AND	PAYMETHOD = 'VACCT'
 				AND PAYMNT_DIV_CD = 'B'
 				) AS buyMbrSq,
 				</if>
@@ -235,8 +231,6 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					MBR_SQ = #{mbrSq}
-				AND DEAL_SQ = B.DEAL_SQ 
-				AND	PAYMETHOD = 'VACCT'
 				AND PAYMNT_DIV_CD = 'S'
 				) AS sellMbrSq,
 				</if>
@@ -247,8 +241,6 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					MBR_SQ = #{mbrSq}
-				AND DEAL_SQ = B.DEAL_SQ 
-				AND	PAYMETHOD = 'VACCT'
 				AND PAYMNT_DIV_CD = 'B'
 				) AS buyMbrSq,
 				</if>
@@ -268,11 +260,16 @@
 				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
 				B.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
-				TBL_DA_WORK_M AS A,
+				TBL_DA_WORK_M AS A
+		INNER JOIN
 				TBL_DA_DEAL_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
+		INNER JOIN
+				TBL_DA_PAYMNT_H AS C
+			ON	B.DEAL_SQ = C.DEAL_SQ
+			AND C.PAYMETHOD = 'VACCT'
 		WHERE 
-				A.WORK_SQ = B.WORK_SQ 
-			AND B.DEAL_TYP_CD = 'S'
+				B.DEAL_TYP_CD = 'S'
 			<if test="dealSttsCd == 'ALL'">
 				AND B.DEAL_STTS_CD = 'TP'
 			</if>
@@ -1617,6 +1614,53 @@
 			GROUP BY TRNSPRT_SERVICE_CD_NM) AS trnsprtServiceCdNm
 	</select>
 	
+	<select id="selectTrnsprtInfo" resultType="hashMap" parameterType="hashMap">
+		/* 운송 매트리스 코드 텍스트, 가격 조회 */
+		SELECT 
+				TRNSPRT_SERVICE_CD_NM AS text,
+				FORMAT(TRNSPRT_PRC, 0) AS value
+		FROM
+				TBL_DA_TRNSPRT_PRC_MTRX 
+		WHERE 
+				TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			<if test="trnsprtTypCd != null and trnsprtTypCd != ''">
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			</if>
+			<if test="trnsprtAreaCd != null and trnsprtAreaCd != ''">
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+			<if test="trnsprtServiceNm != null and trnsprtServiceNm != ''">
+			AND TRNSPRT_SERVICE_NM = #{trnsprtServiceNm}
+			</if>
+			<if test="trnsprtReqYn != null and trnsprtReqYn != ''">
+			AND TRNSPRT_REQ_YN = #{trnsprtReqYn}
+			</if>
+	</select>
+	
+	<select id="getTrnsprt" parameterType="hashMap" resultType="hashMap">
+		/*운송 테이블에 저장하기 위해 해당 운송 정보 가져오기*/
+		SELECT 
+				TRNSPRT_DIV_CD AS trnsprtDivCd,
+				TRNSPRT_DIV_CD_NM AS trnsprtDivCdNm,
+				TRNSPRT_TYP_CD AS trnsprtTypCd,
+				TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm,
+				TRNSPRT_AREA_CD AS trnsprtAreaCd,
+				TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm,
+				TRNSPRT_SERVICE_CD AS trnsprtServiceCd,
+				TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm,
+				TRNSPRT_PRC AS trnsprtPrc
+		FROM 
+				TBL_DA_TRNSPRT_PRC_MTRX
+		WHERE 
+				TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			AND	TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
+			AND TRNSPRT_PRC = #{trnsprtPrc}
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			<if test="trnsprtAreaCd != null and trnsprtAreaCd != ''">
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+	</select>
+	
 	<insert id="insertTrnsprt" parameterType="hashMap">
 	/*운송 테이블에 운송 정보 입력*/
 	INSERT INTO
@@ -1626,9 +1670,13 @@
 					SELL_MBR_SQ,
 					ARTST_SQ,
 					TRNSPRT_DIV_CD,
+					TRNSPRT_DIV_CD_NM,
 					TRNSPRT_TYP_CD,
+					TRNSPRT_TYP_CD_NM,
 					TRNSPRT_AREA_CD,
+					TRNSPRT_AREA_CD_NM,
 					TRNSPRT_SERVICE_CD,
+					TRNSPRT_SERVICE_CD_NM,
 					TRNSPRT_PRC 
 				)VALUES
 				<foreach collection="list" item="item" index="idex" separator=",">
@@ -1638,9 +1686,13 @@
 					#{item.sellMbrSq},
 					#{item.artstSq},
 					#{item.trnsprtDivCd},
+					#{item.trnsprtDivCdNm},
 					#{item.trnsprtTypCd},
+					#{item.trnsprtTypCdNm},
 					#{item.trnsprtAreaCd},
+					#{item.trnsprtAreaCdNm},
 					#{item.trnsprtServiceCd},
+					#{item.trnsprtServiceCdNm},
 					#{item.trnsprtPrc}
 				)
 				</foreach>
