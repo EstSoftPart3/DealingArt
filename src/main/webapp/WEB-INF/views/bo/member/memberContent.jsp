@@ -105,6 +105,7 @@
 		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">배송지 주소</label>
                     		<div class="col-sm-10">
                       			<input type="text" class="form-control sTitle classname"  id="mbrDelivryAddr" readonly>
+                      			
                     		</div>
                   		</div>
                   		<hr>
@@ -160,7 +161,7 @@
 		            },
 		           success: function(data) {
 		        	   
-		        	    
+		        	 console.log(data);   
 		        	 dataContent = data.memberContentData.memberContent[0];
 		        	 
 		        	 console.log(dataContent);
@@ -176,6 +177,8 @@
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
 		        	 var useYn = dataContent.useYn						//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
+		        	 
+		        	 var mbrPasswrd = dataContent.mbrPasswrd					//회원구분
 		        	 
 		        	 var authSqTxt = '';
 		        	 
@@ -207,6 +210,9 @@
 		        	 $("#regDt").val(regDt);
 		        	 $("#mbrHomeAddr").val(mbrHomeAddr);
 		        	 $("#mbrDelivryAddr").val(mbrDelivryAddr);
+		        	 
+		        	
+		        	 
 		        	 if(useYn == 'Y') {
 		        		 userYnText = "사용가능";
 		        	 } else {

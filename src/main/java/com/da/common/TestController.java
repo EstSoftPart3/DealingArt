@@ -320,5 +320,18 @@ public class TestController {
 	public String paymentClose() {
 		return "/payment/payment_close";
 	}
+	
+	//계좌확인
+	@RequestMapping("/memBankNum")
+	public String memBankNum() {
+		return "memBankNum";
+	}
+	
+	@RequestMapping("/memBankRequest")
+	public String memBankRequest() {
+		return "memBankRequest";
+	}
+	
+
 }
 
