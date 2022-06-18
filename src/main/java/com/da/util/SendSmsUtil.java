@@ -139,8 +139,8 @@ public class SendSmsUtil {
 		
 		
 			String smsContent = null;
-			
-			if(sndConCd.equals("SAA") && notiCount == 0) {
+			//&& notiCount == 0
+			if(sndConCd.equals("SAA") ) {
 				smsContent = "(딜링아트) 작가 등록 신청 완료 안내\n\n"
 						+ "안녕하세요, "+ mbrId +"작가님!\n"
 						+ "작가 등록을 신청해주셔서 대단히 감사합니다.\n"
