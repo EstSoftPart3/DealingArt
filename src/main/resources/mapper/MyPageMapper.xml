@@ -189,6 +189,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND B.DEAL_STTS_CD = 'TC'
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -279,6 +291,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND B.DEAL_STTS_CD IS NULL
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -347,6 +371,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND C.DEAL_STTS_CD = 'TC'
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -410,6 +446,18 @@
 			</if>
 			<if test="dealSttsCd == 'TC'">
 				AND C.DEAL_STTS_CD = 'TC'
+			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
@@ -1508,12 +1556,14 @@
 				FROM
 					TBL_DA_PAYMNT_H
 				WHERE
-					DEAL_SQ = #{dealSq}
+				IF (B.BUY_PAYMNT_STTS_CD = '2PW', MBR_SQ = B.BUY_MBR_SQ, 1=1)
+				AND B.DEAL_SQ = #{dealSq}
 				AND	PAYMNT_TYP_CD = (CASE
 										WHEN B.BUY_PAYMNT_STTS_CD = '1PW' THEN '1'
-										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' THEN '2'
+										WHEN B.BUY_PAYMNT_STTS_CD = '2PW' THEN '2'
 										ELSE NULL
 									END)
+				GROUP BY PAYMNT_SQ
 				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
@@ -1561,10 +1611,12 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 					DEAL_SQ = #{dealSq}
+				AND MBR_SQ = B.SELL_MBR_SQ
 				AND	PAYMNT_TYP_CD = (CASE
-										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' AND THEN '2'
-										ELSE B.NULL
+										WHEN B.SELL_PAYMNT_STTS_CD = '2PW' THEN '2'
+										ELSE NULL
 									END)
+				GROUP BY PAYMNT_SQ
 				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,

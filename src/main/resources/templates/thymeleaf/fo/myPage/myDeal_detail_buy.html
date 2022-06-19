@@ -292,8 +292,8 @@
 												<tr>
 													<th>결제 수단</th>
 													<td th:if="${#strings.equals(result.payMntInfo1.payMethod, '신용카드')} and ${not #strings.isEmpty(result.payMntInfo1.payType)}" th:text="|[${result.payMntInfo1.payType}] ${result.payMntInfo1.issueCompanyName}카드 카드번호 ${result.payMntInfo1.cardNo}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo1.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankCode}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo1.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankCode} ${result.payMntInfo1.accountNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.banknName}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankName} ${result.payMntInfo1.accountNo}|">신한은행 000-000-0000</td>
 												</tr>
 												<tr>
 													<th>결제 내역</th>
@@ -345,8 +345,8 @@
 												<tr>
 													<th>결제 수단</th>
 													<td th:if="${#strings.equals(result.payMntInfo2.payMethod, '신용카드')} and ${not #strings.isEmpty(result.payMntInfo1.payType)}" th:text="|[${result.payMntInfo2.payType}] ${result.payMntInfo2.issueCompanyName}카드 카드번호 ${result.payMntInfo2.cardNo}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo2.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankCode}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo2.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankCode} ${result.payMntInfo2.accountNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankName}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankName} ${result.payMntInfo2.accountNo}|">신한은행 000-000-0000</td>
 												</tr>
 												<tr>
 													<th>결제 내역</th>
@@ -476,8 +476,6 @@ var disc = 0; //할인할 금액
 var totalAmount = 0; //최종 결제 금액
 var sbx_couponSqList = []; //셀렉트 박스 쿠폰 순번 저장용
 var trnsprt = new Object(); //운송 테이블
-//var trnsprtServiceCdList = []; //운송 서비스 코드 Array
-//var trnsprtPrcList = []; //운송 가격 Array
 var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 //$("#mainPayCall").val(1);
@@ -545,6 +543,30 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
 		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
 		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PD"){ //2차 결제 완료고 배송준비 중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송 준비중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DS"){ //2차 결제 완료고 배송중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DC"){ //2차 결제 완료고 배송완료이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송완료</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PC"){ //2차 결제 완료고 구매확정이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>구매확정</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "ST"){ //2차 결제 완료고 거래중지면
+		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
+		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
 	}
 });
 //1차 결제 거래 수수료 구하기
@@ -697,7 +719,12 @@ function btn_paymethod_onclick(obj){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl);
+					if(!isMobile){
+						Mainpay.open(response.data.nextPcUrl);
+					}else{
+						Mainpay.open(response.data.nextMobileUrl);
+					}
+					
 					return false;
 				}
 			},
@@ -757,9 +784,10 @@ window.call = function (data) {
 					trnsprtPrc : trnsprtPrc,
 					trnsprtTypCd : $("#sbx_trnsprtTypCd option:selected").val(),
 					trnsprtAreaCd : $("#sbx_trnsprtAreaCd option:selected").val()
-				};
+			};
 			getTrnsprt.push(data);
 		}
+		//부가서비스 내역에 저장을 위해 부가서비스 코드를 조회해온다.
 		$.ajax({
 			type: "POST",
 			contentType: "application/json",
@@ -773,6 +801,7 @@ window.call = function (data) {
 	            alert("오류 발생" + error);
 	        }
 		}); 
+		//조회해온 부가서비스 코드를 저장한다.
 		if(trnsprtInfo.length > 0){
 			var param = new Object();
 			param.trnsprtInfo = trnsprtInfo;
@@ -841,10 +870,6 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 					}
 					$("#div_trnsprtTypCd").empty();
 					$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-					trnsprtServiceCdList.push("SF"); //서비스 선택 Array에 값 추가
-					trnsprt.trnsprtServiceCd = trnsprtServiceCdList;
-					trnsprtPrcList.push(data.result.trnsprtPrc); //운송 가격 Array에 값 추가
-					trnsprt.trnsprtPrc = trnsprtPrcList;
 				},
 				error: function(error) {
 		            alert("오류 발생" + error);
@@ -869,7 +894,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 			type: "POST",
 	        url: "/selectTrnsprtInfo",
 	        data: {
-	        	trnsprtDivCd : "B", //판매자
+	        	trnsprtDivCd : "B", //구매자
 	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
 	    		trnsprtAreaCd : selected, //지역 코드
 	    		trnsprtReqYn : "N" //부가서비스 필수 여부
@@ -893,7 +918,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 			type: "POST",
 	        url: "/selectTrnsprtInfo",
 	        data: {
-	        	trnsprtDivCd : "B", //판매자
+	        	trnsprtDivCd : "B", //구매자
 	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
 	    		trnsprtAreaCd : selected, //지역 코드
 	    		trnsprtReqYn : "Y" //부가서비스 필수 여부
@@ -909,10 +934,6 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 				}
 				$("#div_trnsprtTypCd").empty();
 				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-				trnsprtServiceCdList.push("SF"); //서비스 선택 Array에 값 추가
-				trnsprt.trnsprtServiceCd = trnsprtServiceCdList;
-				trnsprtPrcList.push(data.result.trnsprtPrc); //운송 가격 Array에 값 추가
-				trnsprt.trnsprtPrc = trnsprtPrcList;
 			},
 			error: function(error) {
 	            alert("오류 발생" + error);
@@ -932,18 +953,32 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 	var selected = $(this).val(); //선택된 값 가져오기
 	if(selected == "null"){
 		$("#div_trnsprtServiceCd").empty();
-		trnsprtServiceCdList = []; //운송 서비스 Array 초기화
-		totalTrnsprtPrc(); //총 금액 자동계산
 	}else{
-		var innerText = '';
-		innerText += '<div class="comy-box">';
-		innerText += '	<div class="cmy-text">'+$("#sbx_trnsprtServiceCd option:selected").text()+'</div>';
-		innerText += '	<div class="cmy-won">'+$("#sbx_trnsprtServiceCd option:selected").val()+' KRW</div>';
-		//innerText += '	<div class="cmy-end">X</div>';
-		innerText += '</div>';
-		$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
-		totalTrnsprtPrc(); //총 금액 자동계산
+		var textOverlap = false;
+		var text = $("#sbx_trnsprtServiceCd option:selected").text().substr(0, 5);
+		var cmyTextList = document.querySelectorAll(".cmy-text"); //부가 서비스 이름을 불러온다
+		for(var i=0; i<cmyTextList.length; i++){ //부가 서비스 갯수만큼
+			var text2 = cmyTextList[i].innerText.substr(0, 5);; //부가서비스 이름을 가져온다
+			if(text == text2){
+				textOverlap = true;
+				break;
+			}
+		}
+		if(textOverlap){
+			$("#sbx_trnsprtServiceCd").val("null");
+			$("#div_trnsprtServiceCd").empty();
+			modalAlertShow("같은 부가서비스는 선택할 수 없습니다.", "sbx_trnsprtServiceCd");
+		}else{
+			var innerText = '';
+			innerText += '<div class="comy-box">';
+			innerText += '	<div class="cmy-text">'+$("#sbx_trnsprtServiceCd option:selected").text()+'</div>';
+			innerText += '	<div class="cmy-won">'+$("#sbx_trnsprtServiceCd option:selected").val()+' KRW</div>';
+			//innerText += '	<div class="cmy-end">X</div>';
+			innerText += '</div>';
+			$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+		}
 	}
+	totalTrnsprtPrc(); //총 금액 자동계산
 });
 
 //쿠폰 목록 가져오기

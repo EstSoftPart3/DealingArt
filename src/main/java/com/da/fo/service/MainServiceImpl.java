@@ -41,8 +41,17 @@ public class MainServiceImpl implements MainService{
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
 	 */
-	public List<Map<String, Object>> totalSearchWork(String searchKeyword){
-		return mainDao.totalSearchWork(searchKeyword);
+	public List<Map<String, Object>> totalSearchWork(Object param){
+		return mainDao.totalSearchWork(param);
+	}
+	
+	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회 갯수를 가져온다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public int totalSearchWorkTotalCount(Object param){
+		return mainDao.totalSearchWorkTotalCount(param);
 	}
 	
 	/*

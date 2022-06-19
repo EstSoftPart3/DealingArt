@@ -53,7 +53,10 @@
 			                              <select class="selectpicker" id="dealSttsCd" data-width="fit">
 			                                 <option value="ALL">전체</option>
 			                                 <option value="TP">판매중</option>
-			                                 <option value="TC">판매완료</option>
+			                                 <option value="PD">배송준비중</option>
+			                                 <option value="DS">배송중</option>
+			                                 <option value="DC">배송완료</option>
+			                                 <option value="PC">구매확정</option>
 			                              </select>
 				                      </div>
 				                      <div class="is-label">
@@ -515,6 +518,23 @@ function myDealSearchList(){
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
 	    					myDealListHtml += '					<span>2차 결제 완료</span>';
 	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PD"){ //낙찰자이면서 2차 결제 완료고 배송 준비중이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송 준비중</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DS"){ //낙찰자이면서 2차 결제 완료고 배송중이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송중</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DC"){ //낙찰자이면서 2차 결제 완료고 배송완료면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송완료</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PC"){ //낙찰자이면서 2차 결제 완료고 구매확정이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>구매확정</span>';
+	    				}
+	    				
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW" && myDealList[i].dealSttsCd == "TC"){ //판매자이면서 2차 결제 완료 상태면
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제를 진행해주세요.';
 	    					myDealListHtml += '					<span>결제 대기</span>';
@@ -524,17 +544,34 @@ function myDealSearchList(){
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
 	    					myDealListHtml += '					<span>결제 완료</span>';
 	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PD"){ //판매자이면서 배송 준비중이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송 준비중</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DS"){ //판매자이면서 배송중이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송중</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DC"){ //판매자이면서 배송완료면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송완료</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PC"){ //판매자이면서 구매확정이면
+	    					myDealListHtml += '					낙찰 되었습니다!!!<br>판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>구매확정</span>';
+	    				}
+	    				if(myDealList[i].dealSttsCd == "ST"){ //거래중지면
+	    					myDealListHtml += '					거래중지 상태 입니다.';
+	    					myDealListHtml += '					<span>거래중지</span>';
+	    				}
 	    				myDealListHtml += '				</p>';
     				}
     				if(myDealList[i].dealTypCd == "S"){
 	    				myDealListHtml += '				<p class="won-p">';
-	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP"){//정찰가 거래중이며 판매자면
-    						myDealListHtml += '					현재 회원님의 작품이 판매중입니다.';
-    						myDealListHtml += '					<span>판매 중</span>';
-    					}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PW" && myDealList[i].dealSttsCd == "TP"){ //정찰가면서 거래중이며 1차 결제 완료안되었을때
     						myDealListHtml += '					구매자 1차 결제 대기중입니다.';
     						myDealListHtml += '					<span>결제 대기</span>';
+    						myDealListHtml += '				<button type="button" class="btns-2" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailBuy(this)">결제하기</button>';
     					}
 	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "1PC" && myDealList[i].dealSttsCd == "TC"){
 	    					myDealListHtml += '					구매자 1차 결제가 완료되었습니다.';
@@ -549,6 +586,26 @@ function myDealSearchList(){
 	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>2차 결제 완료</span>';
 	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PD"){ //낙찰자이면서 2차 결제 완료고 배송 준비중이면
+	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송 준비중</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DS"){ //낙찰자이면서 2차 결제 완료고 배송중이면
+	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송중</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DC"){ //낙찰자이면서 2차 결제 완료고 배송완료면
+	    					myDealListHtml += '					구매자 2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송완료</span>';
+	    				}
+	    				if(myDealList[i].buyMbrSq == sMbrSqVal && myDealList[i].buyPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PC"){ //낙찰자이면서 2차 결제 완료고 구매확정이면
+	    					myDealListHtml += '					2차 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>구매확정</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "TP"){//정찰가 거래중이며 판매자면
+    						myDealListHtml += '					현재 회원님의 작품이 판매중입니다.';
+    						myDealListHtml += '					<span>판매 중</span>';
+    					}
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PW" && myDealList[i].dealSttsCd == "TC"){
 	    					myDealListHtml += '					판매자 결제를 대기중입니다.';
 		    				myDealListHtml += '					<span>결제 대기</span>';
@@ -557,6 +614,26 @@ function myDealSearchList(){
 	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "TC"){
 	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
 		    				myDealListHtml += '					<span>결제 완료</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PD"){ //판매자이면서 배송 준비중이면
+	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송 준비중</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DS"){ //판매자이면서 배송중이면
+	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송중</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "DC"){ //판매자이면서 배송완료면
+	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>배송완료</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].sellPaymntSttsCd == "2PC" && myDealList[i].dealSttsCd == "PC"){ //판매자이면서 구매확정이면
+	    					myDealListHtml += '					판매자 결제가 완료되었습니다.';
+	    					myDealListHtml += '					<span>구매확정</span>';
+	    				}
+	    				if(myDealList[i].dealSttsCd == "ST"){ //거래중지면
+	    					myDealListHtml += '					거래중지 상태 입니다.';
+	    					myDealListHtml += '					<span>거래중지</span>';
 	    				}
 	    				myDealListHtml += '				</p>';
     				}

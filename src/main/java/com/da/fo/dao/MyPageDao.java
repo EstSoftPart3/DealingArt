@@ -89,7 +89,8 @@ public class MyPageDao {
 				List<Map<String, Object>> resultAuctionBuy = myPageMapper.myDealSearchListAuctionBuy(param);
 				List<Map<String, Object>> resultAuctionSell = myPageMapper.myDealSearchListAuctionSell(param);
 				result = Stream.concat(resultAuctionBuy.stream(), resultAuctionSell.stream()).collect(Collectors.toList());
-				result = Stream.concat(resultVACCT.stream(), resultSale.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultSale.stream()).collect(Collectors.toList());
+				result = Stream.concat(result.stream(), resultVACCT.stream()).collect(Collectors.toList());
 			}
 			if(param.get("buyOrSell").toString().equals("BUY")){
 				List<Map<String, Object>> resultSale = myPageMapper.myDealSearchListSale(param);
@@ -293,10 +294,19 @@ public class MyPageDao {
 			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
 		}
 		if(dealInfo.get("payMethod") != null) {
-			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
-				vacctInfo = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
-				
+			if(dealInfo.get("buyPaymntSttsCd").toString().equals("1PW")) {
+				if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+					vacctInfo = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
+					
+				}
 			}
+			if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PW")) {
+				if(dealInfo.get("payMethod").toString().equals("VACCT")) {
+					vacctInfo = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
+					
+				}
+			}
+			
 		}
 		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo1", payMntInfo1);
