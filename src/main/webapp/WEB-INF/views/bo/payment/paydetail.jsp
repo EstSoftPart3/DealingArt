@@ -124,10 +124,10 @@
 		                  <tbody>
 		                  	<tr align="center">
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TP" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TP','deal')">
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TP" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TP','deal')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TC','deal')">
+			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="TC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','TC','deal')" disabled>
 			                  	</td>
 			                  	<td>
 			                  		<input type="radio" name="dealSttsCd" class="dealSttsCd" value="PD" onclick="dealMainSttsCdUpdate('<%=dealSq%>','PD','deal')">

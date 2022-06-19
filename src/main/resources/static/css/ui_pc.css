@@ -5191,14 +5191,14 @@ position: relative;background-color: #fbfbfb;}
 
 .mb2-box .mb2-text1 li {
     display: block;
-    font-size:2.2rem;
+    font-size:2.0rem;
     font-weight: bold;
     color:#000;
 }
 
 .mb2-box .mb2-text1 li:nth-child(2) {
     display: block;
-    font-size:1.6rem;
+    font-size:1.3rem;
     font-weight: 100;
     color:#000;
 }
