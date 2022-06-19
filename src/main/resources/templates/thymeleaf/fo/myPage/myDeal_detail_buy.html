@@ -153,7 +153,7 @@
 													<td id="fee"></td>
 												</tr>
 												<tr>
-													<th>거래 수수료</br>부과세 (10%)</th>
+													<th>거래 수수료<br>부과세 (10%)</th>
 													<td id="feeTax"></td>
 												</tr>
 											</table>
@@ -581,6 +581,7 @@ function feeCal(){
 	$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 	$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
 	amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+	totalTrnsprtPrc();
 }
 /*
  * 남은 시간 초 단위로 불러온다 
@@ -1122,8 +1123,11 @@ function totalTrnsprtPrc(){
 		}
 		fee = $("#fee").text().replaceAll(/,/g, '');
 		fee = parseInt(fee.replaceAll(' KRW', ''));
+		feeTax = $("#feeTax").text().replaceAll(/,/g, '');
+		feeTax = parseInt(feeTax.replaceAll(' KRW', ''));
 		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
 		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
+		totalAmount += feeTax;
 		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
 		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
 	}
