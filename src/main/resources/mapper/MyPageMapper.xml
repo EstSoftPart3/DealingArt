@@ -561,6 +561,9 @@
 						<if test="artstEnglsNm != null and artstEnglsNm != ''">
 							,#{artstEnglsNm}
 						</if>
+						<if test="artstSq != null and artstSq != ''">
+							,#{artstSq}
+						</if>
 						<if test="artstBirthYear != null and artstBirthYear != ''">
 							,#{artstBirthYear}
 						</if> 
