@@ -76,10 +76,14 @@ public class MainController {
 	public ModelAndView totalSearchWork(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_work");
 		Map<String, Object> result = new HashMap<>();
-		List<Map<String, Object>> workList = mainService.totalSearchWork(searchKeyword);
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword", searchKeyword);
+		param.put("startRow", 0);
+		List<Map<String, Object>> workList = mainService.totalSearchWork(param);
+		int totalCount = mainService.totalSearchWorkTotalCount(param);
 		result.put("workList", workList);
-		if(workList.size() > 0) {
-			result.put("totalCount", workList.size());
+		if(totalCount > 0) {
+			result.put("totalCount", totalCount);
 		}else {
 			result.put("totalCount", 0);
 		}
@@ -108,10 +112,12 @@ public class MainController {
 			startRow = 0;
 		}
 		param.put("startRow", startRow);
-		List<Map<String, Object>> workList = dealService.dealSerach(param);
-		if(workList.size() > 0) {
-			result.put("totalCount", workList.size());
-		}else{
+		List<Map<String, Object>> workList = mainService.totalSearchWork(param);
+		int totalCount = mainService.totalSearchWorkTotalCount(param);
+		result.put("workList", workList);
+		if(totalCount > 0) {
+			result.put("totalCount", totalCount);
+		}else {
 			result.put("totalCount", 0);
 		}
 		result.put("sort", param.get("sort"));

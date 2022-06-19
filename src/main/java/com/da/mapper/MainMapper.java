@@ -40,6 +40,13 @@ public interface MainMapper {
 	public List<Map<String, Object>> totalSearchWork(Object param);
 	
 	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회 갯수를 가져온다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public int totalSearchWorkTotalCount(Object param);
+	
+	/*
 	 * 메인 화면에서 통합검색시 작품 정보를 자동완성으로 가져온다.
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보

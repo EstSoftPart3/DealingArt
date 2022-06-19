@@ -189,6 +189,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND B.DEAL_STTS_CD = 'TC'
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -279,6 +291,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND B.DEAL_STTS_CD IS NULL
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD IS NULL
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -347,6 +371,18 @@
 			<if test="dealSttsCd == 'TC'">
 				AND C.DEAL_STTS_CD = 'TC'
 			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
+			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
 						A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -410,6 +446,18 @@
 			</if>
 			<if test="dealSttsCd == 'TC'">
 				AND C.DEAL_STTS_CD = 'TC'
+			</if>
+			<if test="dealSttsCd == 'PD'">
+				AND B.DEAL_STTS_CD = 'PD'
+			</if>
+			<if test="dealSttsCd == 'DS'">
+				AND B.DEAL_STTS_CD = 'DS'
+			</if>
+			<if test="dealSttsCd == 'DC'">
+				AND B.DEAL_STTS_CD = 'DC'
+			</if>
+			<if test="dealSttsCd == 'PC'">
+				AND B.DEAL_STTS_CD = 'PC'
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (

@@ -544,6 +544,30 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
 		$("#2PC").css("display", ""); //2차 결제 완료 div
 	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PD"){ //2차 결제 완료고 배송준비 중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송 준비중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DS"){ //2차 결제 완료고 배송중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DC"){ //2차 결제 완료고 배송완료이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송완료</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PC"){ //2차 결제 완료고 구매확정이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>구매확정</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "ST"){ //2차 결제 완료고 거래중지면
+		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
+		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
+	}
 });
 //1차 결제 거래 수수료 구하기
 function feeCal(){

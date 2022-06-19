@@ -467,6 +467,30 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").append("<span>결제 완료</span>"); 
 		$("#2PC").css("display", ""); //정산 화면
 	}
+	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PD"){ //판매자 배송준비중이면
+		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송 준비중/span>"); 
+		$("#2PC").css("display", ""); //정산 화면
+	}
+	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DS"){ //판매자 배송중이면
+		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송중</span>"); 
+		$("#2PC").css("display", ""); //정산 화면
+	}
+	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DC"){ //판매자 배송완료면
+		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송완료</span>"); 
+		$("#2PC").css("display", ""); //정산 화면
+	}
+	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PC"){ //판매자 구매혹정이면
+		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>구매확정</span>"); 
+		$("#2PC").css("display", ""); //정산 화면
+	}
+	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "ST"){ //판매자 거래중지면
+		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
+		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
+	}
 });
 /*
  * 남은 시간 초 단위로 불러온다 

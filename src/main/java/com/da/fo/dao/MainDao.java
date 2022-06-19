@@ -61,8 +61,17 @@ public class MainDao {
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
 	 */
-	public List<Map<String, Object>> totalSearchWork(String searchKeyword){
-		return mainMapper.totalSearchWork(searchKeyword);
+	public List<Map<String, Object>> totalSearchWork(Object param){
+		return mainMapper.totalSearchWork(param);
+	}
+	
+	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회 갯수를 가져온다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public int totalSearchWorkTotalCount(Object param){
+		return mainMapper.totalSearchWorkTotalCount(param);
 	}
 	
 	/*

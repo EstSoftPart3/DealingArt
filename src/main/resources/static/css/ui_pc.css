@@ -124,7 +124,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+/*     object-fit: cover; */
 }
 .mab-text {
     position: absolute;
@@ -182,7 +182,7 @@ top:0;
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+/*     object-fit: cover; */
 }
 
 .swiper-pagination-bullet {
@@ -682,7 +682,7 @@ columns figure {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+/*     object-fit: cover; */
 }
 .hd-div {
     width: 361px;

@@ -194,7 +194,7 @@
 		GROUP BY A.ARTST_SQ
 	</select>
 	
-	<select id="totalSearchWork" resultType="hashMap" parameterType="String">
+	<select id="totalSearchWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 통합검색*/
 		SELECT 
 				IFNULL(D.DEAL_SQ,0) AS dealSq, /*거래번호*/
@@ -239,13 +239,189 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
-			 	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR 	C.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-			OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
-			OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
-		GROUP BY A.WORK_SQ
+				1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND 
+				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	C.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+				OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				)
+			</if>
+			<if test="authSq != null and authSq != ''">
+				AND B.AUTH_SQ = #{authSq}
+        	</if>	
+			<if test="dealTypCds != null">
+				AND D.DEAL_TYP_CD IN
+				<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+        	<if test="dealSttsCds != null">
+				AND D.DEAL_STTS_CD IN
+				<foreach collection="dealSttsCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+			<if test="workShpCds != null">
+				AND A.WORK_SHP_CD IN
+				<foreach collection="workShpCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+        	</if>
+	        <if test="workClsfcCds != null">
+				AND A.WORK_CLSFC_CD IN
+				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+	        </if>
+	        GROUP BY A.WORK_SQ
+	        <if test="sort != null and sort != ''">
+	        	<if test='sort == "LT"'>
+	        		ORDER BY D.DEAL_STRT_DT
+	        	</if>
+	        	<if test='sort == "PY"'>
+	        		ORDER BY A.WORK_PRODC_YEAR
+	        	</if>
+	        	<if test='sort == "KN"'>
+	        		ORDER BY A.ARTST_ACTVTY_NM
+	        	</if>
+	        	<if test='sort == "EN"'>
+	        		ORDER BY C.ARTST_ENGLS_NM
+	        	</if>
+	        	<if test='sort == "PC"'>
+	        		ORDER BY maxBidPrc, dealFinalPrc
+	        	</if>
+	        	<if test='sort == "RT"'>
+	        		ORDER BY D.DEAL_ENDNG_DT
+	        	</if>
+	        	<if test='type == "DOWN"'>
+	        		DESC
+	        	</if>
+	        	<if test='type == "UP"'>
+	        		ASC 
+	        	</if>
+	        </if>
+	        LIMIT 6 OFFSET #{startRow}
+	</select>
+	
+	<select id="totalSearchWorkTotalCount" resultType="int" parameterType="hashMap">
+		/*작품 통합검색*/
+		SELECT 
+				COUNT(*)
+		FROM 	(
+				SELECT
+						IFNULL(D.DEAL_SQ,0) AS dealSq, /*거래번호*/
+						A.WORK_SQ AS workSq, /*작품번호*/
+						A.MBR_SQ AS mbrSq, /*멤버번호*/
+						A.ARTST_SQ AS artstSq, /*작가번호*/
+						B.AUTH_SQ AS authSq, /*작가구분*/
+						A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+						C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+						A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+						C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+						IFNULL(D.DEAL_TYP_CD,'X') AS dealTypCd, /*거래유형*/
+						IFNULL(D.DEAL_STTS_CD,'X') AS dealSttsCd, /*거래상태*/
+						A.WORK_NM AS workNm, /*작품명*/
+						A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+						A.WORK_MATRL AS workMatrl, /*작품소재*/
+						IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+						A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
+						A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+						A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+						(SELECT FORMAT(MAX(BID_PRC), 0)
+						FROM TBL_DA_AUCTN_BID_H
+						WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+						FORMAT(D.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+						FORMAT(D.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+						FORMAT(D.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
+						(SELECT COUNT(DEAL_SQ)
+						FROM TBL_DA_AUCTN_BID_H 
+						WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+						DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
+						DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+						D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+				FROM 
+						TBL_DA_WORK_M AS A
+				INNER JOIN
+						TBL_DA_MBR_M AS B
+					ON	A.MBR_SQ = B.MBR_SQ
+				INNER JOIN
+						TBL_DA_ARTST_M AS C
+					ON 	A.ARTST_SQ = C.ARTST_SQ 
+				LEFT JOIN 
+						TBL_DA_DEAL_M AS D
+					ON 	A.WORK_SQ = D.WORK_SQ 
+				WHERE
+						1=1
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND 
+						(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR 	C.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+						OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
+						OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+						OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						)
+					</if>
+					<if test="authSq != null and authSq != ''">
+						AND B.AUTH_SQ = #{authSq}
+		        	</if>	
+					<if test="dealTypCds != null">
+						AND D.DEAL_TYP_CD IN
+						<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
+				        	#{item}
+				        </foreach>
+		        	</if>
+		        	<if test="dealSttsCds != null">
+						AND D.DEAL_STTS_CD IN
+						<foreach collection="dealSttsCds" item="item" index="idex"  open="(" close=")" separator=",">
+				        	#{item}
+				        </foreach>
+		        	</if>
+					<if test="workShpCds != null">
+						AND A.WORK_SHP_CD IN
+						<foreach collection="workShpCds" item="item" index="idex"  open="(" close=")" separator=",">
+				        	#{item}
+				        </foreach>
+		        	</if>
+			        <if test="workClsfcCds != null">
+						AND A.WORK_CLSFC_CD IN
+						<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
+				        	#{item}
+				        </foreach>
+			        </if>
+			        GROUP BY A.WORK_SQ
+			        <if test="sort != null and sort != ''">
+			        	<if test='sort == "LT"'>
+			        		ORDER BY D.DEAL_STRT_DT
+			        	</if>
+			        	<if test='sort == "PY"'>
+			        		ORDER BY A.WORK_PRODC_YEAR
+			        	</if>
+			        	<if test='sort == "KN"'>
+			        		ORDER BY A.ARTST_ACTVTY_NM
+			        	</if>
+			        	<if test='sort == "EN"'>
+			        		ORDER BY C.ARTST_ENGLS_NM
+			        	</if>
+			        	<if test='sort == "PC"'>
+			        		ORDER BY maxBidPrc, dealFinalPrc
+			        	</if>
+			        	<if test='sort == "RT"'>
+			        		ORDER BY D.DEAL_ENDNG_DT
+			        	</if>
+			        	<if test='type == "DOWN"'>
+			        		DESC
+			        	</if>
+			        	<if test='type == "UP"'>
+			        		ASC 
+			        	</if>
+			        </if>
+			    ) AS A
 	</select>
 </mapper>
