@@ -90,7 +90,13 @@ public class DealController {
 			work = myPageService.myCollectionMod(workSq);
 		}
 		MbrInfoVo mbrInfo = memberService.mbrInfo(mbrSq);
-		mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));
+		
+		if(mbrInfo.getMbrDelivryCpNum() == null) {
+			mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrCpNum()));
+		}else {
+			mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));
+		}
+		
 		result.put("work", work);
 		result.put("mbrInfo", mbrInfo);
 		mv.addObject("result", result);
