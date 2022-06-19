@@ -319,7 +319,7 @@
 								 
 							</div>
 						  	<div class="text-center mg_t50">
-								<button type="button" class="btn-more" id="btn_more" onclick="dealSearchMore()"><span>more</span></button>
+<!-- 								<button type="button" class="btn-more" id="btn_more" onclick="dealSearchMore()"><span>more</span></button> -->
 							</div>
 						</div>
 						
@@ -582,6 +582,10 @@
 		if(workClsfcCds.length > 0){
 			searchOptions.workClsfcCds = workClsfcCds;
 		}
+		
+		
+		console.log(searchOptions);
+		
 		$.ajax({
 	        type: "post",
 	        url: "/dealSearch",
@@ -593,6 +597,7 @@
 	        	var dealListHtml = "";
 	     		if(data.result.length == 0){
 	     			modalAlertShow("검색 결과가 없습니다.");
+	     			$(".grid").empty();
 	     		}else{
 	     			if(more == 1){
 	     				$(".grid").empty();
