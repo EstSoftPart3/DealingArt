@@ -856,6 +856,7 @@ function bidNotesModalClose(){
 
 //응찰 한다
 function bidReg(param){
+	bidNotesModalClose();
 	$.ajax({
         type: "post",
         url: "/bidReg",

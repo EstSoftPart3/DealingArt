@@ -144,7 +144,8 @@ public class DealController {
 			work.put("workImgBotUrl", file.getFileUrl());
 		}
 		int result = myPageService.myWorkCor(work); 
-		result += memberService.mbrDelivryAddrCor(mbrInfo); 
+		result += memberService.mbrDelivryAddrCor(mbrInfo);
+		System.out.println("@@@@@@@@@@@@ deal : "+deal);
 		result += dealService.dealReg(deal);
 		
 		return result;

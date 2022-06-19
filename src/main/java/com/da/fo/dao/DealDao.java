@@ -285,9 +285,7 @@ public class DealDao {
 	 * return : deal 테이블
 	 */
 	public Map<String, Object> selectDeal(Object param){
-		int suspension = dealMapper.selectDealSttsCd(param);
 		Map<String, Object> result = new HashMap<String, Object>();
-		
 		Map<String, Object> deal = dealMapper.selectDeal(param);
 		MbrInfoVo mbrInfo = memberMapper.mbrInfo(deal.get("sellMbrSq").toString());
 		mbrInfo.setMbrDelivryCpNum(commonService.decrypt(mbrInfo.getMbrDelivryCpNum()));

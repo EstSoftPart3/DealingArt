@@ -571,6 +571,11 @@
 
 
 <script th:inline="javascript">
+$(function() {
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
+	}
+});
 var result = /*[[${result}]]*/ 'default';
 var deal = new Object();
 result.deal = deal;

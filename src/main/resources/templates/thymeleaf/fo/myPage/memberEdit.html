@@ -27,10 +27,9 @@
 							<div class="me-center">
 								<div class="member-box">
 									
-									<div class="input-box input-group">
+									<div class="input-box">
 										<input type="hidden" id="uMbrSq" name="uMbrSq">
-										<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly/>
-										
+										<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly disabled/>
 									</div>
 									
 									<p class="inp-p" id="emailCertificationCheck" style="display:none">이메일 인증 완료</p>
@@ -66,20 +65,19 @@
 									<div class="input-box input-group">
 										<input type="hidden" id="uMbrNcknmTemp"/>
 										<input type="text" class="input-3" placeholder="활동명" id="uMbrNcknm" autocomplete="off" onkeyup="uCharacterCheck(this)" onblur="uMbrNcknmLength(this)"/>
-										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" disabled style="display:none;">중복체크</button>
-										<input type="hidden" id="uMbrNcknmCheckYn" value="N">
+										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" disabled>중복체크</button>
 									</div>
 									<div class="input-box">
 										<p class="inp-p" id="uMbrNcknmCheck">활동명을 입력 후 중복체크를 해주세요.</p>
 									</div>
 									
 									<div class="input-box input-group">
-										<input type="text" class="input-3" placeholder="주소" id="uMbrHomeAddr" autocomplete="off" />
-										<button type="button" class="group-btn" onclick="userAddress('uMbrHomeAddr');">주소찾기</button>
+										<input type="text" class="input-3" placeholder="우편번호를 검색하세요" id="uMbrHomeAddr" autocomplete="off" readonly disabled/>
+										<button type="button" class="group-btn" onclick="userAddress('uMbrHomeAddr');">우편번호 검색</button>
 									</div>
-									
-									
-									
+									<div class="input-box">
+										<input type="text" class="input-3" placeholder="상세주소를 입력하세요." id="mbrDelivryAddrDetail"/>
+									</div>
 									
 									
 									<div class="bat-box3 mg_t65">
@@ -145,8 +143,8 @@ function uCharacterCheck(obj){
 
 //활동명 길이 제한
 function uMbrNcknmLength(obj){
-	if(obj.value.length < 3){
-		fn_validation('uMbrNcknmCheck','활동명은 3글자 이상이여야 합니다.', 'R');
+	if(obj.value.length < 2){
+		fn_validation('uMbrNcknmCheck','활동명은 2글자 이상이여야 합니다.', 'R');
 		document.getElementById("uMbrNcknmBtn").disabled = true;
 		obj.focus();
 	}else{
@@ -287,7 +285,6 @@ $("#memberUpdateBtn").on('click', function(event){
 	} else {
 		$("#uMbrNcknmBtn").show();
 	}
-	
 	
 	//비밀번호--------------------------------------------------------------------//
 	//비밀번호 문자 입력이 안되었다면..
