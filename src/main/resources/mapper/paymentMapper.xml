@@ -73,45 +73,49 @@
 	 <!-- 거래 상세 - 결제 -->
     <select id="payDetail" resultType="hashMap">
         SELECT
-           	MBR_SQ					AS mbrSq
-           	,PAYMNT_SQ              AS paymntSq
-			,DEAL_SQ                AS dealSq
-			,(CASE WHEN PAYMNT_TYP_CD = "1" THEN "1차 결제"
-			       WHEN PAYMNT_TYP_CD = "2" THEN "2차 결제"
-			  END			
-			  ) AS paymntTypCd
-			 ,(CASE WHEN PAYMNT_DIV_CD = "B" THEN "구매자"
-			       WHEN PAYMNT_DIV_CD = "S" THEN "판매자"
-			  END			
-			  ) AS paymntDivCdTxt
-			,MBR_REF_NO             AS mbrRefNo
-			,REF_NO                 AS refNo
-			,AUTH_TOKEN             AS authToken
-			,AID                    AS aid
-			,GOODS_NAME             AS goodsName
-			,PAYMETHOD              AS paymethod
-			,AMOUNT                 AS amount
-			,TRAN_DATE              AS tranDate
-			,TRAN_TIME              AS tranTime
-			,APPL_NO                AS applNo
-			,CARD_NO                AS cardNo
-			,INSTALLMENT            AS installment
-			,PAY_TYPE               AS payType
-			,ISSUE_COMPANY_NO       AS issueCompanyNo
-			,ISSUE_COMPANY_NAME     AS issueCompanyName
-			,ISSUE_CARD_NAME        AS issueCardName
-			,ACQ_COMPANY_NO         AS acqCompanyNo
-			,ACQ_COMPANY_NAME       AS acqCompanyName
-			,BANK_CODE              AS bankCode
-			,ACCOUNT_NO             AS accountNo
-			,ACCOUNT_CLOSE_DATE     AS accountCloseDate
-			,TAX_AMOUNT             AS taxAmount
-			,FEE_AMOUNT             AS feeAmount
-			,FORMAT(TAX_FREE_AMOUNT,0) AS taxFreeAmount
+				PAYMNT_SQ			as	paymntSq
+			,	PAYMNT_TYP_CD			as	paymntTypCd
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'PAYMNT_TYP_CD' AND B.DTL_CD = PH.PAYMNT_TYP_CD AND A.USE_YN = 'Y') AS paymntTypCdNm
+			,	MBR_SQ			as	mbrSq
+			,	DEAL_SQ			as	dealSq
+			,	DEAL_TYP_CD			as	dealTypCd
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'DEAL_TYP_CD' AND B.DTL_CD = PH.DEAL_TYP_CD AND A.USE_YN = 'Y') AS dealTypCdNm
+			,	WORK_SQ			as	workSq
+			,	ARTST_SQ			as	artstSq
+			,	CUPON_SQ			as	cuponSq
+			,	PAYMNT_DIV_CD			as	paymntDivCd
+			,(SELECT B.DTL_CD_NM FROM TBL_DA_COMN_CD_M A INNER JOIN TBL_DA_COMN_DTL_CD_S B ON A.CD_SQ = B.CD_SQ WHERE A.CD = 'PAYMNT_DIV_CD' AND B.DTL_CD = PH.PAYMNT_DIV_CD AND A.USE_YN = 'Y') AS paymntDivCdNm
+			,	PAYMNT_AMT			as	paymntAmt
+			,	PAYMNT_FEE_AMT			as	paymnt_feeAmt
+			,	PAYMNT_DISC_AMT			as	paymntDiscAmt
+			,	AMOUNT			as	amount
+			,	MBR_REF_NO			as	mbrRefNo
+			,	REF_NO			as	refNo
+			,	AUTH_TOKEN			as	authToken
+			,	AID			as	aid
+			,	GOODS_NAME			as	goodsName
+			,	PAYMETHOD			as	paymethod
+			,	TRAN_DATE			as	tranDate
+			,	TRAN_TIME			as	tranTime
+			,	APPL_NO			as	applNo
+			,	CARD_NO			as	cardNo
+			,	INSTALLMENT			as	installment
+			,	PAY_TYPE			as	payType
+			,	ISSUE_COMPANY_NO			as	issueCompanyNo
+			,	ISSUE_COMPANY_NAME			as	issueCompanyName
+			,	ISSUE_CARD_NAME			as	issueCardName
+			,	ACQ_COMPANY_NO			as	acqCompanyNo
+			,	ACQ_COMPANY_NAME			as	acqCompanyName
+			,	BANK_CODE			as	bankCode
+			,	ACCOUNT_NO			as	accountNo
+			,	ACCOUNT_CLOSE_DATE			as	accountCloseDate
+			,	TAX_AMOUNT			as	taxAmount
+			,	FEE_AMOUNT			as	feeAmount
+			,	FORMAT(TAX_FREE_AMOUNT,0)			as	taxFreeAmount
 		FROM
-            TBL_DA_PAYMNT_H A
+            TBL_DA_PAYMNT_H PH
         WHERE 1=1
-         	AND A.DEAL_SQ = #{dealSq}
+         	AND PH.DEAL_SQ = #{dealSq}
     </select>
 	  
     <!-- 거래 운송 목록 -->

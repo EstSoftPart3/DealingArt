@@ -29,6 +29,7 @@ public class boMemberDao {
 	boMemberMapper boMemberMapper;
 	
 	//회원정보 목록
+	@SuppressWarnings("null")
 	public Map<String, Object> memberList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -39,25 +40,26 @@ public class boMemberDao {
 		List<Map<String, Object>> memberList = boMemberMapper.memberList(param);
 		
 		 for(int z=0; z<memberList.size(); z++){
-			 	
+			 String mbrIdDecrypt = (String) memberList.get(z).get("mbrId");	
+			 String mbrEmailDecrypt = (String) memberList.get(z).get("mbrEmail");	
+			 String mbrCpNumDecrypt = (String) memberList.get(z).get("mbrCpNum");	
+			 String mbrHomeAddrDecrypt = (String) memberList.get(z).get("mbrHomeAddr");	
 			
 			//아이디 복호화
-			 String mbrIdDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrId"));
-			 //비밀번호 복호화
-			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrPasswrd"));
+			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
 			 //이메일 복호화
-			 String mbrEmailDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrEmail"));
+			 mbrEmailDecrypt = commonService.decrypt(mbrEmailDecrypt);
 			 //휴대전화번호 복호화
-			 String mbrCpNumDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrCpNum"));
-			 //집주소 복호화
-			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberList.get(z).get("mbrHomeAddr"));
-			 
+			 mbrCpNumDecrypt = commonService.decrypt(mbrCpNumDecrypt);
+			 if(mbrHomeAddrDecrypt != null && !mbrHomeAddrDecrypt.equals("")) {
+				 //집주소 복호화
+				 mbrHomeAddrDecrypt = commonService.decrypt(mbrHomeAddrDecrypt);
+			 }
 			 //회원구분
 			 String mbrSocialSort = (String) memberList.get(z).get("mbrSocialSort");
 			 
 			 memberList.get(z).put("mbrSocialSort", mbrSocialSort);
 			 memberList.get(z).put("mbrId", mbrIdDecrypt);
-			 memberList.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberList.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberList.get(z).put("mbrCpNum", mbrCpNumDecrypt);
 			 memberList.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
@@ -80,23 +82,26 @@ public class boMemberDao {
 		
 		for(int z=0; z<memberContent.size(); z++){
 		 	
+			 String mbrIdDecrypt = (String) memberContent.get(z).get("mbrId");	
+			 String mbrEmailDecrypt = (String) memberContent.get(z).get("mbrEmail");	
+			 String mbrCpNumDecrypt = (String) memberContent.get(z).get("mbrCpNum");	
+			 String mbrHomeAddrDecrypt = (String) memberContent.get(z).get("mbrHomeAddr");	
+			
 			 //아이디 복호화
-			 String mbrIdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrId"));
-			 //비밀번호 복호화
-			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrPasswrd"));
+			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
 			 //이메일 복호화
-			 String mbrEmailDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrEmail"));
+			 mbrEmailDecrypt = commonService.decrypt(mbrEmailDecrypt);
 			 //휴대전화번호 복호화
-			 String mbrCpNumDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrCpNum"));
-			 //집주소 복호화
-			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
+			 mbrCpNumDecrypt = commonService.decrypt(mbrCpNumDecrypt);
+			 if(mbrHomeAddrDecrypt != null && !mbrHomeAddrDecrypt.equals("")) {
+				 //집주소 복호화
+				 mbrHomeAddrDecrypt = commonService.decrypt(mbrHomeAddrDecrypt);
+			 }
 			 
 			 String authSq = String.valueOf( memberContent.get(z).get("authSq"));
-						
 			 			
 			 memberContent.get(z).put("authSq", authSq);
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
-			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);
 			 memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
@@ -139,6 +144,16 @@ public class boMemberDao {
 		
 	}
 	
+	//회원 비밀번호 초기화
+	public int memberPasswdClear(Map<String, Object> param){
+		
+		int updateState = -1;
+		
+		updateState =  boMemberMapper.memberPasswdClear(param);
+		
+		return updateState;
+		
+	}
 	
 	//작가신청 목록
 	public Map<String, Object> artistAppList(Map<String, Object> param){

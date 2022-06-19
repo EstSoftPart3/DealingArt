@@ -65,16 +65,16 @@
 		                  			판매자
 		                  		</td>
 			       				<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','buy')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','buy')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','buy')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','buy')">
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','buy')" disabled>
 			                  	</td>
 			                  	
 			                  </tr>
@@ -83,16 +83,16 @@
 		                  			구매자
 		                  		</td>
 			       				<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','sell')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','sell')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','sell')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','sell')">
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','sell')" disabled>
 			                  	</td>
 			                  	
 			                  </tr>
@@ -468,14 +468,45 @@
 	 	           }
 	 	       },
 	 	       fields: [
-	 	    	 { name: "paymntTypCd"	,title:"결제유형코드"		,type: "text"	,align:"center" },
-	 	    	 { name: "paymntDivCdTxt"	,title:"결제구분"		,type: "text"	,align:"center" },
-	 	    	 { name: "refNo"		,title:"결제거래번호"		,type: "text"	,align:"center" },
-	 	    	 { name: "mbrRefNo"		,title:"거래주문번호"		,type: "text"	,align:"center" },
-	 	    	 { name: "goodsName"	,title:"결제상품명"		,type: "text"	,align:"center" },
-	 	    	 { name: "paymethod"	,title:"결제수단"			,type: "text"	,align:"center" },
-	 	    	 { name: "cardNo"		,title:"결제신용카드번호"	,type: "text"	,align:"center" },
-	 	    	 { name: "accountNo"	,title:"결제가상계좌번호"	,type: "text"	,align:"center" },  
+	 	    	 
+	 	    	{ name: "paymntSq",title:"결제_순번",type: "text" ,align:"center" },
+// 	 	    	{ name: "paymntTypCd",title:"결제_유형_코드",type: "text" ,align:"center" },
+	 	    	{ name: "paymntTypCdNm",title:"결제_유형_코드",type: "text" ,align:"center" },
+	 	    	{ name: "mbrSq",title:"결제_회원_순번",type: "text" ,align:"center" },
+	 	    	{ name: "dealSq",title:"거래_순번",type: "text" ,align:"center" },
+	 	    	{ name: "dealTypCdNm",title:"거래_유형_코드",type: "text" ,align:"center" },
+	 	    	{ name: "workSq",title:"작품_순번",type: "text" ,align:"center" },
+	 	    	{ name: "artstSq",title:"작가_순번",type: "text" ,align:"center" },
+	 	    	{ name: "cuponSq",title:"쿠폰_순번",type: "text" ,align:"center" },
+	 	    	{ name: "paymntDivCdNm",title:"결제_구분_코드",type: "text" ,align:"center" },
+	 	    	{ name: "paymntAmt",title:"최종_결제_금액",type: "text" ,align:"center" },
+	 	    	{ name: "paymnt_feeAmt",title:"결제_거래_수수료",type: "text" ,align:"center" },
+	 	    	{ name: "paymntDiscAmt",title:"결제_할인_금액",type: "text" ,align:"center" },
+	 	    	{ name: "amount",title:"결제_금액",type: "text" ,align:"center" },
+	 	    	{ name: "mbrRefNo",title:"결제_거래주문번호",type: "text" ,align:"center" },
+	 	    	{ name: "refNo",title:"결제_거래_번호",type: "text" ,align:"center" },
+	 	    	{ name: "authToken",title:"결제_거래_인증토큰",type: "text" ,align:"center" },
+	 	    	{ name: "aid",title:"결제_준비_일련번호",type: "text" ,align:"center" },
+	 	    	{ name: "goodsName",title:"결제_상품_명",type: "text" ,align:"center" },
+	 	    	{ name: "paymethod",title:"결제_수단",type: "text" ,align:"center" },
+	 	    	{ name: "tranDate",title:"결제_거래_일자",type: "text" ,align:"center" },
+	 	    	{ name: "tranTime",title:"결제_거래_시각",type: "text" ,align:"center" },
+	 	    	{ name: "applNo",title:"결제_신용카드_승인번호",type: "text" ,align:"center" },
+	 	    	{ name: "cardNo",title:"결제_신용카드_번호",type: "text" ,align:"center" },
+	 	    	{ name: "installment",title:"결제_신용카드_할부개월수",type: "text" ,align:"center" },
+	 	    	{ name: "payType",title:"결제_신용카드_결제타입",type: "text" ,align:"center" },
+	 	    	{ name: "issueCompanyNo",title:"결제_신용카드_발급사_코드",type: "text" ,align:"center" },
+	 	    	{ name: "issueCompanyName",title:"결제_신용카드_발급사_이름",type: "text" ,align:"center" },
+	 	    	{ name: "issueCardName",title:"결제_신용카드_카드사_이름",type: "text" ,align:"center" },
+	 	    	{ name: "acqCompanyNo",title:"결제_신용카드_매입사_코드",type: "text" ,align:"center" },
+	 	    	{ name: "acqCompanyName",title:"결제_신용카드_매입사_이름",type: "text" ,align:"center" },
+	 	    	{ name: "bankCode",title:"결제_계좌이체(가상계좌)_은행사_코드",type: "text" ,align:"center" },
+	 	    	{ name: "accountNo",title:"결제_가상계좌_번호",type: "text" ,align:"center" },
+	 	    	{ name: "accountCloseDate",title:"결제_가상계좌_입금_마감일",type: "text" ,align:"center" },
+	 	    	{ name: "taxAmount",title:"결제_메인페이_세금_금액",type: "text" ,align:"center" },
+	 	    	{ name: "feeAmount",title:"결제_메인페이_수수료_금액",type: "text" ,align:"center" },
+	 	    	 
+	 	    	 
 	 	       ]
 
 	 	   });
@@ -646,17 +677,19 @@
 	     }
 		
 	  	//거래 메인 - 거래 상태 수정
-	  	function dealMainSttsCdUpdate(dealSq,dealCode,gubun){
+	  	function dealMainSttsCdUpdate(dealSq	,dealCode	,gubun){
 	  		
 	  		if(gubun == 'buy') {
-	  		
+	  			alert("결제진행상태 변경 불가!");
+	  			return false;
 	  			var params = {
 	  			   dealSq : dealSq,
 	  			   buyPaymntSttsCd : dealCode	
 	  			}
 	  		
 	  		} else if(gubun == 'sell') {
-	  			
+	  			alert("결제진행상태 변경 불가!");
+	  			return false;
 	  			var params = {
 	 	  			dealSq : dealSq,
 	 	  			sellPaymntSttsCd : dealCode	

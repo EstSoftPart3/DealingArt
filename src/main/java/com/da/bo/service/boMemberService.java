@@ -19,6 +19,9 @@ public interface boMemberService {
 	//회원정보 수정
 	public int memberUpdate(Map<String, Object> param);
 	
+	//회원 비밀번호 초기화
+	public int memberPasswdClear(Map<String, Object> param);
+	
 	//작가신청 목록
 	public Map<String, Object> artistAppList(Map<String, Object> param);
 

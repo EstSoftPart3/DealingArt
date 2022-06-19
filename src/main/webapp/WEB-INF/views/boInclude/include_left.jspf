@@ -173,7 +173,6 @@
 		           </ul>
           	</li>
           	
-          	<!--	
           	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
@@ -191,8 +190,7 @@
 		              </li>
 		           </ul>
           	</li>
-          	-->
-          	<!--  <li class="nav-item has-treeview menu-open">
+          	<li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">공통관리</li>
           	 		<li class="nav-item has-treeview">
           	 			<a href="/admin/comCode" class="nav-link" target="_blank">
@@ -203,7 +201,7 @@
 			              </p>
 			            </a>
           	 		</li>
-          	 </li> -->
+          	 </li>
 
         </ul>
       </nav>

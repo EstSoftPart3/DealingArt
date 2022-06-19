@@ -20,6 +20,8 @@ public interface boMemberMapper {
 	//회원 수정
 	public int memberUpdate(Map<String, Object> param);
 	
+	//회원 비밀번호 초기화
+	public int memberPasswdClear(Map<String, Object> param);
 	
 	//회원 목록
 	public List artistApp(Map<String, Object> param);

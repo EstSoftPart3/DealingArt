@@ -195,6 +195,15 @@
    		WHERE MBR_SQ = #{mbrSq}
 	</update>
 	
+	<!-- 회원 비밀번호 초기화 -->
+	<update id="memberPasswdClear" parameterType="hashMap">
+   		UPDATE TBL_DA_MBR_M
+   		<trim prefix="SET" suffixOverrides=",">
+			MBR_PASSWRD =#{mbrPasswrd},
+			UPDT_DT = NOW(),
+   		</trim>
+   		WHERE MBR_SQ = #{mbrSq}
+	</update>
 	
 	<!-- 작가신청 -->
 	<select id="artistApp" resultType="hashMap">

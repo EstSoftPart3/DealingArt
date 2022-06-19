@@ -155,6 +155,13 @@
                 				</div>
                 			</div>
                   		</div>
+                  		<div class="form-group row">
+		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">비밀번호</label>
+                    		<div class="col-sm-5">
+                    			<button type="button" class="btn btn-primary sTitle" onclick="fn_passwdClear();">초기화</button>
+                    			<span> 초기화 된 비밀번호 : a123456!</span>
+                    		</div>
+                  		</div>
                   		
                     </div>
                   
@@ -180,13 +187,11 @@
    
    <script>
    		
-	   var dataContent = {};
+		var dataContent = {};
+		var mbrSq = '<c:out value="${param.mbrSqParam}" />';
+		var authSq = '<c:out value="${param.mbrAuthSq}" />';
 	   
 		$(document).ready(function(){
-			
-			var mbrSq = '<c:out value="${param.mbrSqParam}" />';
-			
-			var authSq = '<c:out value="${param.mbrAuthSq}" />';
 			
 			memberContentData(mbrSq);
 			
@@ -442,6 +447,31 @@
    		    form.submit();
    		}
 	
+   		//비밀번호 초기화
+		function fn_passwdClear() {
+			
+			console.log("mbrSq : "+ mbrSq);
+			
+			$.ajax({
+		           type: "post",
+		           url: "/admin/member/memberPasswdClear",
+		           data: {
+		        	   mbrSq : mbrSq
+		            },
+		           success: function(data) {
+		        	   bootbox.alert({
+							 message: "비밀번호 초기화가 완료 되었습니다.",
+							 locale: 'kr',
+							 callback: function() {
+								 	memberContent();
+						     } });
+				   },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			})
+		}
 
 	</script>
  

@@ -238,6 +238,24 @@ public class boMemberController {
 		}
 		
 	}
+	
+	//회원 비밀번호 초기화
+	@RequestMapping("/admin/member/memberPasswdClear")
+	@ResponseBody
+	public ModelAndView memberPasswdClear(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		//휴대전화번호 암호화
+		String mbrPasswdEncrypt = commonService.encrypt("a123456!");
+		param.put("mbrPasswrd", mbrPasswdEncrypt);
+		
+		mv.addObject("result", boMemberService.memberPasswdClear(param));
+		
+		return mv;
+	}
+	
 	//복호화
 	@RequestMapping("/admin/member/memberDecrypt")
 	@ResponseBody
