@@ -99,6 +99,7 @@
 			,DEL_YN				  AS delYn
 			,MBR_EML_ALARM		  AS mbrEmlAlarm
 			,MBR_CP_ALARM		  AS mbrCpAlarm
+			,MBR_CP_CERT_DI		  AS mbrCpCertDi
 
         FROM
             TBL_DA_MBR_M A 
@@ -126,9 +127,10 @@
 			<if test="mbrBirth       != null">MBR_BIRTH = #{mbrBirth},</if>
 			<if test="mbrSexCd       != null">MBR_SEX_CD = #{mbrSexCd},</if>
 			<if test="mbrHomeAddr    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
-			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR =#{mbrDelivryAddr},</if>
+			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR = #{mbrDelivryAddr},</if>
 			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
 			<if test="mbrNcknm       != null">MBR_NCKNM = #{mbrNcknm},</if>
+			<if test="mbrCpCertDi    != null">MBR_CP_CERT_DI = #{mbrCpCertDi},</if>
 			UPDT_DT = NOW(),
 			<if test="useYn          != null">USE_YN = #{useYn},</if>
 			<if test="delYn          != null">DEL_YN = #{delYn},</if>

@@ -117,30 +117,36 @@ public class MemberDao {
 		 	
 			 //아이디 복호화
 			 String mbrIdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrId"));
-			 //비밀번호 복호화
+			//비밀번호 복호화
 			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrPasswrd"));
 			 //이메일 복호화
 			 String mbrEmailDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrEmail"));
 			 //휴대전화번호 복호화
 			 String mbrCpNumDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrCpNum"));
 			 //집주소 복호화
-			 String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
+			 //String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
+			 //배송 주소
+			 String mbrDelivryAddr = (String) memberContent.get(z).get("mbrDelivryAddr");
 			 //이메일 이벤트 알림
 			 String mbrEmlAlarm = (String) memberContent.get(z).get("mbrEmlAlarm");
 			 //휴대폰 이벤트 알림
 			 String mbrCpAlarm = (String) memberContent.get(z).get("mbrCpAlarm");
 			 //닉네임
 			 String mbrNcknm = (String) memberContent.get(z).get("mbrNcknm");
+			 //회원 휴대폰 인증 DI
+			 String mbrCpCertDi = (String) memberContent.get(z).get("mbrCpCertDi");
 			 
 						
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);
-			 memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
+			 //memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
+			 memberContent.get(z).put("mbrDelivryAddr", mbrDelivryAddr);
 			 memberContent.get(z).put("mbrEmlAlarm", mbrEmlAlarm);
 			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
 			 memberContent.get(z).put("mbrNcknm", mbrNcknm);
+			 memberContent.get(z).put("mbrCpCertDi", mbrCpCertDi);
 			 
 		  }
 		

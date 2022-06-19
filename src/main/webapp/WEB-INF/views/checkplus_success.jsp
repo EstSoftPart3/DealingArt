@@ -141,7 +141,7 @@
 		userHp = userHp.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 		opener.document.form_chk.uMbrCpNum.value=userHp;
 		opener.document.form_chk.uMbrCpCertYn.value='Y';
-		
+		opener.document.form_chk.uMbrCpCertDi.value="<%= sDupInfo %>";
 		var sCipherTime = "20<%=sCipherTime%>";
 		var dt = sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
 		

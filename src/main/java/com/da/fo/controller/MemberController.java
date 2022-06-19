@@ -70,6 +70,8 @@ public class MemberController {
 		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
 		//회원 이름
 		String mbrNm = (String) param.get("mbrNm");
+		//회원 활동명
+		String mbrNcknm = (String) param.get("mbrNcknm");
 		//휴대전화번호 암호화
 		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
 		
@@ -82,8 +84,9 @@ public class MemberController {
 		param.put("mbrEmail", mbrEmailEncrypt);
 		param.put("mbrPasswrd", mbrPasswrdEncrypt);
 		param.put("mbrNm", mbrNm);
+		param.put("mbrNcknm", mbrNcknm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
-		param.put("mbrDelivryCpNum", mbrCpNumEncrypt);
+		//param.put("mbrDelivryCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y"); 
 		param.put("gubun", "MEMINPUT");
 		
@@ -133,9 +136,12 @@ public class MemberController {
 		//회원 순번
 		String mbrSq = (String) param.get("mbrSq");
 		//회원 주소
-		String mbrHomeAddr = commonService.encrypt((String) param.get("mbrHomeAddr"));
+		//String mbrHomeAddr = commonService.encrypt((String) param.get("mbrHomeAddr"));
+		String mbrDelivryAddr = (String) param.get("mbrDelivryAddr");
 		//닉네임
 		String mbrNcknm = (String) param.get("mbrNcknm");
+		//휴대폰 인증 DI
+		String mbrCpCertDi = (String) param.get("mbrCpCertDi");
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);
@@ -144,8 +150,9 @@ public class MemberController {
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y");
-		param.put("mbrHomeAddr", mbrHomeAddr);
+		param.put("mbrDelivryAddr", mbrDelivryAddr);
 		param.put("mbrNcknm", mbrNcknm);
+		param.put("mbrCpCertDi", mbrCpCertDi);
 		
 		memberService.memberUpdate(param);
 	}
@@ -187,7 +194,6 @@ public class MemberController {
 		Map<String, Object> result = new HashMap<>();
 		
 		result = memberService.memberContent(param);
-		
 //		HttpSession session = request.getSession();
 //	    String sessionMbrSq = (String) session.getAttribute("mbrSq");
 //	    session.setAttribute("ssVar", sessionMbrSq);

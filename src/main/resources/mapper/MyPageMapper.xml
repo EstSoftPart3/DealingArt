@@ -280,6 +280,15 @@
 				TBL_DA_PAYMNT_H AS C
 			ON	B.DEAL_SQ = C.DEAL_SQ
 			AND C.PAYMETHOD = 'VACCT'
+			<if test="buyOrSell == 'ALL'">
+			AND (C.PAYMNT_DIV_CD = 'B' OR C.PAYMNT_DIV_CD = 'S')
+			</if>
+			<if test="buyOrSell == 'BUY'">
+			AND C.PAYMNT_DIV_CD = 'B'
+			</if>
+			<if test="buyOrSell == 'SELL'">
+			AND C.PAYMNT_DIV_CD = 'S'
+			</if>
 		WHERE 
 				B.DEAL_TYP_CD = 'S'
 			<if test="dealSttsCd == 'ALL'">
@@ -1560,7 +1569,7 @@
 					TBL_DA_PAYMNT_H
 				WHERE
 				IF (B.BUY_PAYMNT_STTS_CD = '2PW', MBR_SQ = B.BUY_MBR_SQ, 1=1)
-				AND B.DEAL_SQ = #{dealSq}
+				AND DEAL_SQ = #{dealSq}
 				AND	PAYMNT_TYP_CD = (CASE
 										WHEN B.BUY_PAYMNT_STTS_CD = '1PW' THEN '1'
 										WHEN B.BUY_PAYMNT_STTS_CD = '2PW' THEN '2'

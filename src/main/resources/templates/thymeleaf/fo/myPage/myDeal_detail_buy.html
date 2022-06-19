@@ -100,7 +100,7 @@
 							<div class="myd-box">
 								<div class="myd-box-1">
 									<div class="mtext">
-										<p>※ 회원의 주소와 배송지의 주소가 동일해야 합니다.<br>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
+										<p>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
 										<button type="button" class="btns-1" data-toggle="modal" data-target="#newAddrModal" >받는사람 정보 수정하기</button>
 									</div>
 									
@@ -151,6 +151,10 @@
 												<tr>
 													<th>거래 수수료</th>
 													<td id="fee"></td>
+												</tr>
+												<tr>
+													<th>거래 수수료</br>부과세 (10%)</th>
+													<td id="feeTax"></td>
 												</tr>
 											</table>
 											<table class="mstyle-2">
@@ -471,6 +475,7 @@
 <script th:inline="javascript">
 var result = /*[[${result}]]*/ 'default';
 var fee = 0; //거래 수수료
+var feeTax = 0; //거래 수수료 부과세
 var amount = 0; //할인 전 금액
 var disc = 0; //할인할 금액
 var totalAmount = 0; //최종 결제 금액
@@ -572,7 +577,9 @@ jQuery(document).ready(function() {
 //1차 결제 거래 수수료 구하기
 function feeCal(){
 	fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+	feeTax = fee * 0.10;
 	$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
 	amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
 }
 /*
@@ -660,14 +667,18 @@ function btn_paymethod_onclick(obj){
 	if(result.dealInfo.buyPaymntSttsCd != "2PW"){
 		if(result.dealInfo.paymethod == "CARD"){
 			feeCal();
-			fee = Math.round(fee - (fee * 0.025)); //거래 수수료 2.5프로 할인
+			fee = Math.round(fee - (fee * 0.075)); //거래 수수료 2.5프로 할인
+			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
 			feeCal();
-			fee = Math.round(fee - (fee * 0.04)); //거래 수수료 4프로 할인 
+			fee = Math.round(fee - (fee * 0.06)); //거래 수수료 4프로 할인 
+			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
@@ -695,7 +706,7 @@ function btn_paymethod_onclick(obj){
 			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
-			paymntFeeAmt : parseInt(fee), //결제 수수료
+			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료
 			paymntDiscAmt : parseInt(disc), //할인할 금액
 			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
 			paymntDivCd : "B" //결제 구분 코드 (B 구매자/S 판매자)
