@@ -78,10 +78,10 @@
 							<tr>
 								<th>닉네임</th>
 								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]]
-									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]]
-									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 							</tr>
 						</table>
