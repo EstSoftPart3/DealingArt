@@ -115,7 +115,7 @@
 	        LIMIT 6 OFFSET #{startRow}
 	</select>
 	<select id="dealDetail" parameterType="String" resultType="hashMap">
-		/*응찰하기*/
+		/*거래상세*/
 		SELECT 
 				D.DEAL_SQ AS dealSq, /*거래순번*/
 				A.WORK_SQ AS workSq, /*작품번호*/
@@ -124,7 +124,7 @@
 				D.SELL_MBR_SQ AS sellMbrSq, /*판매자 순번*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				B.MBR_NCKNM AS mbrNcknm, /*작가 닉네임*/
+				(SELECT SUB.MBR_NCKNM FROM TBL_DA_MBR_M SUB WHERE SUB.MBR_SQ = A.MBR_SQ) AS mbrNcknm, /*작가 닉네임*/
 				YEAR (A.ARTST_BIRTH_YEAR) AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
@@ -156,9 +156,6 @@
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
-		LEFT JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.ARTST_SQ = B.ARTST_SQ
 		LEFT JOIN
 				TBL_DA_ARTST_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
