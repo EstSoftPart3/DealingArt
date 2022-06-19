@@ -469,7 +469,7 @@ jQuery(document).ready(function() {
 	}
 	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PD"){ //판매자 배송준비중이면
 		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
-		$("#dealSttsCdDetail").append("<span>배송 준비중/span>"); 
+		$("#dealSttsCdDetail").append("<span>배송 준비중</span>"); 
 		$("#2PC").css("display", ""); //정산 화면
 	}
 	if(result.dealInfo.sellPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DS"){ //판매자 배송중이면

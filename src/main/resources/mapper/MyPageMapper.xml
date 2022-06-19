@@ -372,16 +372,16 @@
 				AND C.DEAL_STTS_CD = 'TC'
 			</if>
 			<if test="dealSttsCd == 'PD'">
-				AND B.DEAL_STTS_CD = 'PD'
+				AND C.DEAL_STTS_CD = 'PD'
 			</if>
 			<if test="dealSttsCd == 'DS'">
-				AND B.DEAL_STTS_CD = 'DS'
+				AND C.DEAL_STTS_CD = 'DS'
 			</if>
 			<if test="dealSttsCd == 'DC'">
-				AND B.DEAL_STTS_CD = 'DC'
+				AND C.DEAL_STTS_CD = 'DC'
 			</if>
 			<if test="dealSttsCd == 'PC'">
-				AND B.DEAL_STTS_CD = 'PC'
+				AND C.DEAL_STTS_CD = 'PC'
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (
@@ -448,16 +448,16 @@
 				AND C.DEAL_STTS_CD = 'TC'
 			</if>
 			<if test="dealSttsCd == 'PD'">
-				AND B.DEAL_STTS_CD = 'PD'
+				AND C.DEAL_STTS_CD = 'PD'
 			</if>
 			<if test="dealSttsCd == 'DS'">
-				AND B.DEAL_STTS_CD = 'DS'
+				AND C.DEAL_STTS_CD = 'DS'
 			</if>
 			<if test="dealSttsCd == 'DC'">
-				AND B.DEAL_STTS_CD = 'DC'
+				AND C.DEAL_STTS_CD = 'DC'
 			</if>
 			<if test="dealSttsCd == 'PC'">
-				AND B.DEAL_STTS_CD = 'PC'
+				AND C.DEAL_STTS_CD = 'PC'
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND (

@@ -694,7 +694,8 @@ function changePasswrd(){
 							<input type="hidden" id="mbrCpCertDi" name="mbrCpCertDi" value="">
 						</div>
 						<div class="input-box">
-							<p class="inp-p" id="mainSmsCertificationCheck" style="display:none;color:red">휴대폰 인증완료</p>
+							<p class="inp-p" id="mainSmsCertification" style="color:red;">인증하기 버튼을 먼저 눌러 진행해주세요.</p>
+							<p class="inp-p" id="mainSmsCertificationCheck" style="display:none;color:red;">휴대폰 인증완료</p>
 						</div>
 						<div class="input-box input-group">
 							<input type="text" class="input-3" placeholder="활동명" id="mbrNcknm" autocomplete="off" onkeyup="characterCheck(this)" onblur="mbrNcknmLength(this)"/>
@@ -844,6 +845,7 @@ function mainMobileAuthSuccess(returnValue) {
         		fn_validation('mbrNmCheck','이미 등록된 회원입니다.', 'R');
         	}else{
         		$("#mainSmsCertificationCheck").css('display',"block");
+        		$("#mainSmsCertification").css('display',"none");
         		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'B');
         		$("#mbrNmCheck").css('display',"none");
         		fn_validation('mbrNmCheck','', 'B');
@@ -881,8 +883,8 @@ function characterCheck(obj){
 
 //활동명 길이 제한
 function mbrNcknmLength(obj){
-	if(obj.value.length < 3){
-		fn_validation('mbrNcknmCheck','활동명은 3글자 이상이여야 합니다.', 'R');
+	if(obj.value.length < 2){
+		fn_validation('mbrNcknmCheck','활동명은 2글자 이상이여야 합니다.', 'R');
 		document.getElementById("mbrNcknmBtn").disabled = true;
 		obj.focus();
 	}else{

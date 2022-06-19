@@ -497,6 +497,7 @@
 				A.ARTST_SQ AS artstSq,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.ARTST_BIRTH_YEAR AS artstBirthYear,
+				A.WORK_LAKE AS workLake,
 				A.WORK_SIZE_WIDTH AS workSizeWidth,
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
 				A.WORK_MATRL AS workMatrl,
@@ -528,7 +529,7 @@
 				A.WORK_SQ = #{workSq}
 	</select>
 	
-	<select id="selectDealSttsCd" resultType="int" parameterType="String">
+	<select id="selectDealSttsCd" resultType="int" parameterType="hashMap">
 		/* 응찰 또는 판매됬는지 확인 */
 		SELECT COUNT(*)
 		FROM
