@@ -116,6 +116,7 @@
 }
 
 .contents {
+    margin-top:-6px;
 }
 .main-banner {height:530px;
 }
@@ -5132,3 +5133,107 @@ position: relative;background-color: #fbfbfb;}
 /* 0617*/
 .modal-s{padding: 0 !important; overflow: scroll;}
 
+
+/*0619*/
+.mb1-box {
+    width: 100%;
+    max-width: 1500px;
+    text-align: left;
+    padding-top: 130px;
+    margin: 0px auto;
+}
+
+.mb1-box .mb1-title {
+    background-color: #22a6a6;
+    border-radius:15px;
+    display: inline-block;
+    padding:5px 10px;
+    font-size: 1.5rem;
+    color:#fff;
+}
+
+.mb1-box .mb1-title2 {
+    font-size: 10rem;
+    font-weight: bold;
+    color: #ff005a;
+    text-shadow: 2px 2px 2px gray;
+}
+
+.mb1-box .mb1-title3 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #ffe92f;
+    text-shadow: 2px 2px 2px gray;
+}
+
+.mb1-box .mb1-title4 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.mb2-box {
+    width: 100%;
+    max-width: 1500px;
+    text-align: left;
+    padding-top: 45px;
+    margin: 0px auto;
+}
+
+.mb2-box .mb2-logo {
+    width:24rem;
+}
+
+.mb2-box .mb2-text1 {
+    display: block;
+    padding-top:32rem;
+}
+
+.mb2-box .mb2-text1 li {
+    display: block;
+    font-size:2.2rem;
+    font-weight: bold;
+    color:#000;
+}
+
+.mb2-box .mb2-text1 li:nth-child(2) {
+    display: block;
+    font-size:1.6rem;
+    font-weight: 100;
+    color:#000;
+}
+
+.mb2-box .mb2-text1 li:nth-child(2) img {
+    width:90px;
+    display: inline-block;
+    padding-bottom:3px;
+}
+
+.mb3-box {
+    width: 100%;
+    max-width: 1500px;
+    text-align: right;
+    padding-bottom: 10rem;
+    margin: 0px auto;
+}
+
+.mb3-box .mb3-text1 {
+    display: block;
+    position: absolute;
+    top: 39rem;
+    right: 5rem;
+}
+
+.mb3-box .mb3-text1 li {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color:#000;
+}
+
+.mb3-box .mb3-text1 li:nth-child(3) {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color:#000;
+}
