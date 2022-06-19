@@ -669,22 +669,28 @@ function collectionReg(){
 		}
 	    formData.append("work", new Blob([JSON.stringify(work)], {type: "application/json"}));
 	
+	    
+	    modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다. \n등록하시겠습니까?", 
+    		function(confirm){
+    			if(confirm){
+    				$.ajax({
+    			        type: "post",
+    			        url: "/collectionReg",
+    			        data: formData,
+    			        contentType : false,
+    			        processData : false,
+    			        success: function(data) {
+    			        	if(data != 0 || data != null || data != ""){
+    			        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
+    			        	}
+    			        },
+    			        error: function(error) {
+    			            alert("오류 발생" + error);
+    			        }
+    				});
+    			}
+    	});
 	
-		$.ajax({
-	        type: "post",
-	        url: "/collectionReg",
-	        data: formData,
-	        contentType : false,
-	        processData : false,
-	        success: function(data) {
-	        	if(data != 0 || data != null || data != ""){
-	        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
-	        	}
-	        },
-	        error: function(error) {
-	            alert("오류 발생" + error);
-	        }
-		});
 	}
 
 }
