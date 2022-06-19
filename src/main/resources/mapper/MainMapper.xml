@@ -305,7 +305,7 @@
 	        		ASC 
 	        	</if>
 	        </if>
-	        LIMIT 6 OFFSET #{startRow}
+<!-- 	        LIMIT 6 OFFSET #{startRow} -->
 	</select>
 	
 	<select id="totalSearchWorkTotalCount" resultType="int" parameterType="hashMap">
