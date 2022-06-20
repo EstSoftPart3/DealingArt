@@ -141,7 +141,17 @@
 				A.MBR_SQ AS mbrSq,
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
-				YEAR (B.MBR_BIRTH) AS artstBirthYear,
+				/*YEAR (B.MBR_BIRTH) AS artstBirthYear,*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artstBirthYear,
 				A.ARTST_SELF_INTRO AS artstSelfIntro,
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl
 		FROM	
