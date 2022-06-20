@@ -102,7 +102,7 @@ public class MainPayUtil {
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
 		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
 		/* 결제 허용할 카드사 번호 리스트*/
-		String availableCard = "['02','03','05','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','KP','UP','PC','AV','AM','AJ','NP']";
+		String availableCard = "['02','03','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','UP','PC','AV','AM','AJ','NP']";
 		JSONArray availableCards = new JSONArray(availableCard);
 		parameters.put("availableCards", availableCards);
 		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
