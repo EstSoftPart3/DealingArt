@@ -268,7 +268,7 @@ public class TestController {
 		if(param.get("cuponSq") != null) { //쿠폰 번호가 있으면
 			mainPayMapper.updateCouponUseYn(param); //쿠폰을 사용처리 해준다
 		}
-		return "NULL";
+		return "OK";
 	}
 	
 	/**
