@@ -682,21 +682,13 @@ setInterval(function() {
 //거래 계약 안내 및 상세 페이지 (구매자)로 이동
 function myDealDetailBuy(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	if(!isMobile){
-		location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
-	}else{
-		location.href="/myDealDetailBuy_mo?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
-	}
+	location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 }
 
 //거래 계약 안내 및 상세 페이지 (판매자)로 이동
 function myDealDetailSell(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	if(!isMobile){
-		location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
-	}else{
-		location.href="/myDealDetailSell_mo?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
-	}
+	location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	
 }
 
