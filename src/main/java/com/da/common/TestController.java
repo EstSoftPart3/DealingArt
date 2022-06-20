@@ -221,7 +221,7 @@ public class TestController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/payment/depositCompleted")
-	public @ResponseBody void depositCompleted(HttpServletRequest request, HttpServletResponse response
+	public @ResponseBody String depositCompleted(HttpServletRequest request, HttpServletResponse response
 			,@RequestParam(name = "RCPTNAME") String rcptName
 			,@RequestParam(name = "TRDATE") String trDate
 			,@RequestParam(name = "TRTIME") String trTime
@@ -268,6 +268,7 @@ public class TestController {
 		if(param.get("cuponSq") != null) { //쿠폰 번호가 있으면
 			mainPayMapper.updateCouponUseYn(param); //쿠폰을 사용처리 해준다
 		}
+		return "NULL";
 	}
 	
 	/**

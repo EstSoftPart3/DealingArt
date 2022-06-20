@@ -291,8 +291,8 @@
 			TBL_DA_PAYMNT_H
 	SET
 			RCPTNAME = #{rcptName},
-			TRDATE = #{trDate}
-			TRTIME = #{trTime}
+			TRDATE = #{trDate},
+			TRTIME = #{trTime},
 			TAX_AMOUNT = #{taxAmount},
 			REPLYCODE = #{replyCode}
 	WHERE 
