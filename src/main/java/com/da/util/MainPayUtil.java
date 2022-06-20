@@ -114,7 +114,7 @@ public class MainPayUtil {
 		 DB에서 조회한 값을 사용 바랍니다. */
 		parameters.put("amount", paramMap.get("amount").toString()); //총결제금액
 		/* 상품명 max 30byte*/
-		parameters.put("goodsName", paramMap.get("goodsName").toString()); //상품명 (일부 특수문자는 사용불가 합니다.)
+		parameters.put("goodsName", paramMap.get("goodsName").toString().substring(0, 14)); //상품명 (일부 특수문자는 사용불가 합니다.)
 		/* 상품코드 max 8byte*/
 		//parameters.put("goodsCode", paramMap.get("goods_code").toString());
 		/*인증완료 시 호출 URL*/
