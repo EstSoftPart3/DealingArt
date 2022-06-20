@@ -109,7 +109,7 @@
 			OR  A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 			
-		UNION ALL
+		UNION
 		
 		SELECT	
 				A.MBR_SQ AS mbrSq,
