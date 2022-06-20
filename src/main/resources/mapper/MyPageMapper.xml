@@ -280,7 +280,7 @@
 				TBL_DA_PAYMNT_H AS C
 			ON	B.DEAL_SQ = C.DEAL_SQ
 			AND C.PAYMETHOD = 'VACCT'
-			<if test="buyOrSell == 'ALL'">
+			<!-- <if test="buyOrSell == 'ALL'">
 			AND (C.PAYMNT_DIV_CD = 'B' OR C.PAYMNT_DIV_CD = 'S')
 			</if>
 			<if test="buyOrSell == 'BUY'">
@@ -288,7 +288,7 @@
 			</if>
 			<if test="buyOrSell == 'SELL'">
 			AND C.PAYMNT_DIV_CD = 'S'
-			</if>
+			</if> -->
 		WHERE 
 				B.DEAL_TYP_CD = 'S'
 			<if test="dealSttsCd == 'ALL'">
