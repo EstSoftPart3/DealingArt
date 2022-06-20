@@ -572,6 +572,16 @@
 				MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
    
+   <select id="selectMbrCpCertDi" resultType="String" parameterType="String">
+   		/*회원 중복체크 전 개인고유 번호 null 체크*/
+   		SELECT
+   				MBR_CP_CERT_DI
+   		FROM
+   				TBL_DA_MBR_M
+   		WHERE
+   				MBR_CP_CERT_DI = #{mbrCpCertDi}
+   </select>
+   
    <select id="memberDuplicateCheck" resultType="int" parameterType="String">
    		/*회원 중복체크*/
    		SELECT 
@@ -579,6 +589,7 @@
 		FROM
 				TBL_DA_MBR_M
 		WHERE 
+				<if test=""></if>
 				MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
    

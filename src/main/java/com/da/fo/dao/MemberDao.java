@@ -392,7 +392,13 @@ public class MemberDao {
 	 * return : 회원 카운트
 	 */
 	public int memberDuplicateCheck(String param) {
-		return memberMapper.memberDuplicateCheck(param);
+		String nullChk = memberMapper.selectMbrCpCertDi(param);
+		if(!nullChk.isEmpty()) {
+			int count = memberMapper.memberDuplicateCheck(param);
+			return count;
+		}else{
+			return 0;
+		}
 	}
 	
 	/*

@@ -118,4 +118,17 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	public void updateCouponUseYn(Object param);
+	
+	/**
+	 * 가상계좌 입금이 완료되면 결제 내역 테이블에 결과를 업데이트를 해준다.
+	 * @param paramMap
+	 */
+	public void updatePaymntCompletedVACCT(Object param);
+	
+	/**
+	 * 결제 내역 테이블에서 해당 거래내역 정보를 불러온다
+	 * @param paramMap
+	 */
+	public Map<String, Object> selectPaymnt(Object param);
+
 }

@@ -846,7 +846,6 @@
 			        	#{item}
 			        </foreach>
         		</if>
-				AND A.WORK_SALE_YN = 'N'
 				AND A.ARTST_SQ = #{artstSq}
 	</select>
 	
@@ -1146,7 +1145,6 @@
 			        </foreach>
         		</if>
 				AND A.WORK_TYP_CD = 'COLL'
-				AND A.WORK_SALE_YN = 'N'
 				AND A.MBR_SQ = #{mbrSq}
 	</select>
 	<select id="myCollectionMod" resultType="hashMap" parameterType="String">

@@ -315,7 +315,7 @@ public class MainPayUtil {
 			    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("2")) {
 			    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
 			    }
-			  //쿠폰 사용하면 사용롼료로 바꾼다
+			    //쿠폰 사용하면 사용롼료로 바꾼다
 			    if(parameters.get("cuponSq") != null && !parameters.get("cuponSq").toString().equals("")) {
 			    	mainPayMapper.updateCouponUseYn(resultMap);
 			    }

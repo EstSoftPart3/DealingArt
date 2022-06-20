@@ -200,5 +200,12 @@ public interface MemberMapper {
 	 * return : int
 	 */
 	public int selectMbrNcknmCount(Object param);
+	
+	/*
+	 * 회원 중복 체크 전 null 체크
+	 * param : mbrInfo
+	 * return : int
+	 */
+	public String selectMbrCpCertDi(Object param);
 
 }

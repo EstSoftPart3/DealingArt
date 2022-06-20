@@ -229,25 +229,51 @@
   	INSERT INTO
   				TBL_DA_WORK_DEAL_H(
 					DEAL_SQ,
-  					WORK_SQ,
-  					SELL_MBR_SQ,
-  					BUY_MBR_SQ,
-  					DEAL_ENDNG_DT
+					DEAL_ENDNG_DT
+					<if test="workSq != null and workSq != ''">
+  					,WORK_SQ
+  					</if>
+  					<if test="sellMbrSq != null and sellMbrSq != ''">
+  					,SELL_MBR_SQ
+  					</if>
+  					<if test="buyMbrSq != null and buyMbrSq != ''">
+  					,BUY_MBR_SQ
+  					</if>
   					<if test="artstSq != null and artstSq != ''">
-  						,ARTST_SQ
+  					,ARTST_SQ
   					</if>  				
   				) VALUES (
   					#{dealSq},
-  					#{workSq},
-  					#{sellMbrSq},
-  					#{buyMbrSq},
   					NOW()
+  					<if test="workSq != null and workSq != ''">
+  					,#{workSq}
+  					</if>
+  					<if test="sellMbrSq != null and sellMbrSq != ''">
+  					,#{sellMbrSq}
+  					</if>
+  					<if test="buyMbrSq != null and buyMbrSq != ''">
+  					,#{buyMbrSq}
+  					</if>
   					<if test="artstSq != null and artstSq != ''">
-  						,#{artstSq}
+  					,#{artstSq}
   					</if> 
   				) 
   				ON DUPLICATE KEY UPDATE
+  					DEAL_SQ = #{dealSq},
   					DEAL_ENDNG_DT = NOW()
+  					<if test="workSq != null and workSq != ''">
+  					,WORK_SQ = #{workSq}
+  					</if>
+  					<if test="sellMbrSq != null and sellMbrSq != ''">
+  					,SELL_MBR_SQ = #{sellMbrSq}
+  					</if>
+  					<if test="buyMbrSq != null and buyMbrSq != ''">
+  					,BUY_MBR_SQ = #{buyMbrSq}
+  					</if>
+  					<if test="artstSq != null and artstSq != ''">
+  					,ARTST_SQ = #{artstSq}
+  					</if> 
+  					
   </insert>
   <update id="updateWorkSaleYn" parameterType="String">
   	/*작품 테이블 판매여부 업데이트*/
@@ -258,9 +284,32 @@
   	WHERE
   			WORK_SQ = #{workSq}
   </update>
-  <select id="">
-  	/*결제 정보 불러오기*/
-  	
+  
+  <update id="updatePaymntCompletedVACCT" parameterType="hashMap">
+  	/*입금 완료된 가상계좌 결제 내역 테이블에 update*/
+  	UPDATE 
+			TBL_DA_PAYMNT_H
+	SET
+			RCPTNAME = #{rcptname},
+			TRDATE = #{trdate}
+			TRTIME = #{trtime}
+			TAX_AMOUNT = #{taxAmount},
+			REPLYCODE = #{replycode}
+	WHERE 
+			MBR_REF_NO  = #{ordno}
+		AND REF_NO = #{refNo}
+		AND ACCOUNT_NO = #{accountno}
+		AND AMOUNT = #{amt}	
+  </update>
+  
+  <select id="selectPaymnt" parameterType="hashMap" resultType="hashMap">
+  	/*거래내역 정보를 가져온다*/
+  	SELECT 
+  			*
+  	FROM
+  			TBL_DA_PAYMNT_H
+  	WHERE
+  			REF_NO = #{refNo}
   </select>
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">

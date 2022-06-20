@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.da.mapper.MainPayMapper;
+import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 import com.da.util.MainPayUtil;
 import com.da.util.SendMailUtil;
@@ -40,6 +42,12 @@ public class TestController {
 	
 	@Autowired
 	private MainPayUtil mainPayUtil;
+	
+	@Autowired
+	private MainPayMapper mainPayMapper;
+	
+	@Autowired
+	private MyPageMapper myPageMapper;
 	
 //	@RequestMapping("/")
 //	public String index() {
@@ -216,6 +224,33 @@ public class TestController {
 	public @ResponseBody void depositCompleted(HttpServletRequest request, HttpServletResponse response
 			,@RequestParam(required = false) Map<String, Object> paramMap) throws Exception {
 		System.out.println(" 가상계좌 결제 통보 param : "+paramMap);
+		mainPayMapper.updatePaymntCompletedVACCT(paramMap); //결제 내역에 입금 결과 업데이트
+		Map<String, Object> param = mainPayMapper.selectPaymnt(paramMap); //해당 결제 내역 정보를 가져온다
+		String paymntOrder = param.get("mbrRefNo").toString(); //주문 번호를 가져온다
+		paymntOrder = paymntOrder.substring(paymntOrder.length() - 1); //주문 번호 끝에 1글자만 가져온다
+		if(paymntOrder.equals("1")){ //구매자 1차 결제 이면
+			param.put("buyMbrSq", param.get("mbrSq").toString()); //결제 회원 순번을 구매자 회원 순번으로 입력한다
+			mainPayMapper.insertWorkDeal(param); //거래 내역에 구매자 정보 입력
+			String buyMbrSq = param.get("butMbrSq").toString();
+			String dealSq = param.get("dealSq").toString();
+			String dealTypCd = param.get("dealTypCd").toString();
+			mainPayMapper.updateDealBuyMbrSq(buyMbrSq, dealSq, dealTypCd); //딜 테이블에 1차 구매자 순번 등록
+			myPageMapper.updateBuyPaymntSttsCd(dealSq, "2PW"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+			mainPayMapper.updateWorkSaleYn(param.get("workSq").toString()); //작품 테이블에 판매 여부를 Y로 바꿔준다
+		}
+		if(paymntOrder.equals("2")){ //구매자 2차 결제 이면
+			param.put("buyMbrSq", param.get("mbrSq").toString()); //결제 회원 순번을 구매자 회원 순번으로 입력한다
+			mainPayMapper.insertWorkDeal(param); //거래 내역에 구매자 정보 입력
+			myPageMapper.updateBuyPaymntSttsCd(param.get("dealSq").toString(), "2PC"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+		}
+		if(paymntOrder.equals("3")) {//판매자
+			param.put("sellMbrSq", param.get("mbrSq").toString()); //결제 회원 순번을 구매자 회원 순번으로 입력한다
+			mainPayMapper.insertWorkDeal(param); //거래 내역에 판매자 정보 입력
+			myPageMapper.updateSellPaymntSttsCd(param.get("dealSq").toString(), "2PC"); //딜 테이블에 판매자 결제 상태 코드를 벼녁앻준다
+		}
+		if(param.get("cuponSq") != null) { //쿠폰 번호가 있으면
+			mainPayMapper.updateCouponUseYn(param); //쿠폰을 사용처리 해준다
+		}
 	}
 	
 	/**
