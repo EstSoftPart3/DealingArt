@@ -225,7 +225,17 @@ public class TestController {
 			,@RequestParam(required = false) Map<String, Object> paramMap) throws Exception {
 		System.out.println(" 가상계좌 결제 통보 param : "+paramMap);
 		mainPayMapper.updatePaymntCompletedVACCT(paramMap); //결제 내역에 입금 결과 업데이트
-		Map<String, Object> param = mainPayMapper.selectPaymnt(paramMap); //해당 결제 내역 정보를 가져온다
+		Map<String, Object> paramMap2 = new HashMap<>();
+		paramMap2.put("rcptName", paramMap.get("RCPTNAME").toString());
+		paramMap2.put("trDate", paramMap.get("TRDATE").toString());
+		paramMap2.put("trTime", paramMap.get("TRTIME").toString());
+		paramMap2.put("taxAmount", paramMap.get("TAX_AMOUNT").toString());
+		paramMap2.put("replyCode", paramMap.get("REPLYCODE").toString());
+		paramMap2.put("ordNo", paramMap.get("ORDNO").toString());
+		paramMap2.put("refNo", paramMap.get("REF_NO").toString());
+		paramMap2.put("accountNo", paramMap.get("ACCOUNTNO").toString());
+		paramMap2.put("amt", paramMap.get("AMT").toString());
+		Map<String, Object> param = mainPayMapper.selectPaymnt(paramMap2); //해당 결제 내역 정보를 가져온다
 		String paymntOrder = param.get("mbrRefNo").toString(); //주문 번호를 가져온다
 		paymntOrder = paymntOrder.substring(paymntOrder.length() - 1); //주문 번호 끝에 1글자만 가져온다
 		if(paymntOrder.equals("1")){ //구매자 1차 결제 이면

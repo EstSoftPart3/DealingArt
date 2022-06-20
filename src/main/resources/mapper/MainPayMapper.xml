@@ -290,15 +290,15 @@
   	UPDATE 
 			TBL_DA_PAYMNT_H
 	SET
-			RCPTNAME = #{rcptname},
-			TRDATE = #{trdate}
-			TRTIME = #{trtime}
+			RCPTNAME = #{rcptName},
+			TRDATE = #{trDate}
+			TRTIME = #{trTime}
 			TAX_AMOUNT = #{taxAmount},
-			REPLYCODE = #{replycode}
+			REPLYCODE = #{replyCode}
 	WHERE 
-			MBR_REF_NO  = #{ordno}
+			MBR_REF_NO  = #{ordNo}
 		AND REF_NO = #{refNo}
-		AND ACCOUNT_NO = #{accountno}
+		AND ACCOUNT_NO = #{accountNo}
 		AND AMOUNT = #{amt}	
   </update>
   
