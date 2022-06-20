@@ -205,6 +205,18 @@ public class TestController {
 			out.flush();
 		}
 	}
+	/**
+	 * 가상계좌 결제 확인
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/payment/depositCompleted")
+	public @ResponseBody void depositCompleted(HttpServletRequest request, HttpServletResponse response
+			,@RequestParam(required = false) Map<String, Object> paramMap) throws Exception {
+		System.out.println(" 가상계좌 결제 통보 param : "+paramMap);
+	}
 	
 	/**
 	 * 결제 완료 된 데이터 가져오기

@@ -153,7 +153,7 @@
 													<td id="fee"></td>
 												</tr>
 												<tr>
-													<th>거래 수수료<br>부과세 (10%)</th>
+													<th>거래 수수료<br>부가세 (10%)</th>
 													<td id="feeTax"></td>
 												</tr>
 											</table>
@@ -668,7 +668,7 @@ function btn_paymethod_onclick(obj){
 	if(result.dealInfo.buyPaymntSttsCd != "2PW"){
 		if(result.dealInfo.paymethod == "CARD"){
 			feeCal();
-			fee = Math.round(fee - (fee * 0.075)); //거래 수수료 2.5프로 할인
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.075); //거래 수수료 2.5프로 할인
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
@@ -676,7 +676,7 @@ function btn_paymethod_onclick(obj){
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
 			feeCal();
-			fee = Math.round(fee - (fee * 0.06)); //거래 수수료 4프로 할인 
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.06); //거래 수수료 4프로 할인 
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
