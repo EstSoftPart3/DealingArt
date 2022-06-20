@@ -731,7 +731,6 @@ function btn_paymethod_onclick(obj){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					debugger;
 					if(!isMobile){
 						Mainpay.open(response.data.nextPcUrl);
 					}else{
