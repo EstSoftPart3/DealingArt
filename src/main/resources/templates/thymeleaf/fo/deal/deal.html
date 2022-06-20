@@ -583,9 +583,6 @@
 			searchOptions.workClsfcCds = workClsfcCds;
 		}
 		
-		
-		console.log(searchOptions);
-		
 		$.ajax({
 	        type: "post",
 	        url: "/dealSearch",
@@ -1001,8 +998,12 @@
 		}
 	});
 	
-	//최초 접속시 필터 정의 (콜렉터,전행중 거래)
-	dealSearch('1', 'TP');
+	
+	$( document ).ready(function() {
+		//최초 접속시 필터 정의 (콜렉터,전행중 거래)
+		dealSearch('1', 'TP');
+		   
+	});
 	
 </script>	
     
