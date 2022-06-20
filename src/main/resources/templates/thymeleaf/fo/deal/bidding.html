@@ -805,11 +805,7 @@ function btn_purchaseOrBid_onclick(){
 			return;
 		}
 		if($("#btn_purchaseOrBid").text() == "구매하기"){
-			if(!isMobile){
-				location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
-			}else{
-				location.href="/myDealDetailBuy_mo?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
-			}
+			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 		}else{
 			if($("#sbx_bidPrc").val() != "null"){
 				$('body').css("overflow", "hidden");

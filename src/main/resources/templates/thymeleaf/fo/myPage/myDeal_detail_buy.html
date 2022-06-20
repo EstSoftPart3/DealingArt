@@ -736,7 +736,6 @@ function btn_paymethod_onclick(obj){
 					}else{
 						Mainpay.open(response.data.nextMobileUrl);
 					}
-					
 					return false;
 				}
 			},
@@ -763,7 +762,11 @@ function btn_paymethod_onclick(obj){
 				console.log(response);
 				if (response.resultCode == '200') {
 					/* 결제창 호출 */
-					Mainpay.open(response.data.nextPcUrl);
+					if(!isMobile){
+						Mainpay.open(response.data.nextPcUrl);
+					}else{
+						Mainpay.open(response.data.nextMobileUrl);
+					}
 					return false;
 				}
 			},
