@@ -626,7 +626,7 @@ function btn_payment(){
 					if(!isMobile){
 						Mainpay.open(response.data.nextPcUrl);
 					}else{
-						Mainpay.open(response.data.nextMobileUrl);
+						location.href = response.data.nextMobileUrl;
 					}
 					return false;
 				}
