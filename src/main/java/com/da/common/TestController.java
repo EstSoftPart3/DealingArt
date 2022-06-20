@@ -221,7 +221,7 @@ public class TestController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/payment/depositCompleted")
-	public @ResponseBody void depositCompleted(HttpServletRequest request, HttpServletResponse response
+	public @ResponseBody String depositCompleted(HttpServletRequest request, HttpServletResponse response
 			,@RequestParam(name = "RCPTNAME") String rcptName
 			,@RequestParam(name = "TRDATE") String trDate
 			,@RequestParam(name = "TRTIME") String trTime
@@ -248,7 +248,7 @@ public class TestController {
 		if(paymntOrder.equals("1")){ //구매자 1차 결제 이면
 			param.put("buyMbrSq", param.get("mbrSq").toString()); //결제 회원 순번을 구매자 회원 순번으로 입력한다
 			mainPayMapper.insertWorkDeal(param); //거래 내역에 구매자 정보 입력
-			String buyMbrSq = param.get("butMbrSq").toString();
+			String buyMbrSq = param.get("buyMbrSq").toString();
 			String dealSq = param.get("dealSq").toString();
 			String dealTypCd = param.get("dealTypCd").toString();
 			mainPayMapper.updateDealBuyMbrSq(buyMbrSq, dealSq, dealTypCd); //딜 테이블에 1차 구매자 순번 등록
@@ -268,6 +268,7 @@ public class TestController {
 		if(param.get("cuponSq") != null) { //쿠폰 번호가 있으면
 			mainPayMapper.updateCouponUseYn(param); //쿠폰을 사용처리 해준다
 		}
+		return "NULL";
 	}
 	
 	/**
