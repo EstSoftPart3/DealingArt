@@ -305,7 +305,46 @@
   <select id="selectPaymnt" parameterType="hashMap" resultType="hashMap">
   	/*거래내역 정보를 가져온다*/
   	SELECT 
-  			*
+  			PAYMNT_TYP_CD AS paymntTypCd,
+  			MBR_SQ AS mbrSq,
+  			DEAL_SQ AS dealSq,
+  			DEAL_TYP_CD AS dealTypCd,
+  			WORK_SQ AS workSq,
+  			ARTST_SQ AS artstSq,
+  			CUPON_SQ AS cuponSq,
+  			PAYMNT_DIV_CD AS paymntDivCd,
+  			PAYMNT_AMT AS paymntAmt,
+  			PAYMNT_FEE_AMT AS paymntFeeAmt,
+  			PAYMNT_DISC_AMT AS paymntDiscAmt,
+  			AMOUNT AS amount,
+  			MBR_REF_NO AS mbrRefNo,
+  			REF_NO AS refNo,
+  			AUTH_TOKEN AS authToken,
+  			AID AS aid,
+  			GOODS_NAME AS goodsName,
+  			PAYMETHOD AS paymethod,
+  			TRAN_DATE AS tranDate,
+  			TRAN_TIME AS tranTime,
+  			APPL_NO AS applNo,
+  			CARD_NO AS cardNo,
+  			INSTALLMENT AS installment,
+  			PAY_TYPE AS payType,
+  			ISSUE_COMPANY_NO AS issueCompanyNo,
+  			ISSUE_COMPANY_NAME AS issueCompanyName,
+  			ISSUE_CARD_NAME AS issueCardName,
+  			ACQ_COMPANY_NO AS acqCompanyNo,
+  			ACQ_COMPANY_NAME AS acqCompanyName,
+  			BANK_CODE AS bankCode,
+  			ACCOUNT_NO AS accountNo,
+  			ACCOUNT_CLOSE_DATE AS accountCloseDate,
+  			REPLYCODE AS replycode,
+  			RCPTNAME AS rcptname,
+  			TRDATE AS trdate,
+  			TRTIME AS trtime,
+  			TAX_AMOUNT AS taxAmount,
+  			FEE_AMOUNT AS feeAmount,
+  			TAX_FREE_AMOUNT AS taxFreeAmount,
+  			SERVICE_AMOUNT AS serviceAmount
   	FROM
   			TBL_DA_PAYMNT_H
   	WHERE
