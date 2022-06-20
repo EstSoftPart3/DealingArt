@@ -39,7 +39,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1966' AND '1979'
-				limit 10
+				limit 20
 	</select>
 	
 	<select id="seniorArtist" resultType="hashMap" parameterType="hashMap">
@@ -59,7 +59,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1951' AND '1965'
-				limit 10
+				limit 20
 	</select>
 	
 	<select id="masterArtist" resultType="hashMap" parameterType="hashMap">
@@ -79,7 +79,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) <![CDATA[<=]]> '1950'
-				limit 10
+				limit 20
 	</select>
 	
 	<select id="artistInfo" resultType="hashMap" parameterType="String">
