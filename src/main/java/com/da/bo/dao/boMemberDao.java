@@ -85,7 +85,8 @@ public class boMemberDao {
 			 String mbrIdDecrypt = (String) memberContent.get(z).get("mbrId");	
 			 String mbrEmailDecrypt = (String) memberContent.get(z).get("mbrEmail");	
 			 String mbrCpNumDecrypt = (String) memberContent.get(z).get("mbrCpNum");	
-			 String mbrHomeAddrDecrypt = (String) memberContent.get(z).get("mbrHomeAddr");	
+			 String mbrHomeAddrDecrypt = (String) memberContent.get(z).get("mbrHomeAddr");
+			 //String mbrPasswrdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrPasswrd"));
 			
 			 //아이디 복호화
 			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
@@ -100,6 +101,8 @@ public class boMemberDao {
 			 
 			 String authSq = String.valueOf( memberContent.get(z).get("authSq"));
 			 			
+			// memberContent.get(z).put("mbrPasswrd1", mbrPasswrdDecrypt);
+			 
 			 memberContent.get(z).put("authSq", authSq);
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
