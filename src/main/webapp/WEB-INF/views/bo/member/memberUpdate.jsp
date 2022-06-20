@@ -45,8 +45,8 @@
                                    <label class="btn btn-secondary sTitle r1">
                     					<input type="radio" name="authSq"  class="authSq sTitle" autocomplete="off" value="1"> 일반
                   					</label>
-                  					<label class="btn btn-secondary sTitle r2">
-                    					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="2"> 작가
+                  					<label class="btn btn-secondary sTitle r2 authSqShow">
+                    					<input type="radio" name="authSq" class="authSq sTitle " autocomplete="off" value="2"> 작가
                   					</label>
                   					<label class="btn btn-secondary sTitle r3">
                     					<input type="radio" name="authSq" class="authSq sTitle" autocomplete="off" value="3"> 관리자
@@ -473,6 +473,17 @@
 			})
 		}
 
+   		
+		$( document ).ready(function() {
+		   var authSq = '<c:out value="${param.mbrAuthSq}" />';
+			
+			if(authSq == '2') {
+				
+			} else {
+				$(".authSqShow").hide();
+			}
+		});
+   		
 	</script>
  
  
