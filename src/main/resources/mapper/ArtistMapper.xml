@@ -11,7 +11,18 @@
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
 				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
 				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
-				YEAR (B.MBR_BIRTH) AS artistBirthYear /*작가 생년*/
+				/*YEAR (B.MBR_BIRTH) AS artistBirthYear 작가 생년*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artistBirthYear
+				
 		FROM
 				TBL_DA_ARTST_M AS A
 		INNER JOIN 
@@ -31,7 +42,17 @@
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
 				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
 				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
-				YEAR (B.MBR_BIRTH) AS artistBirthYear /*작가 생년*/
+				/*YEAR (B.MBR_BIRTH) AS artistBirthYear 작가 생년*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artistBirthYear
 		FROM
 				TBL_DA_ARTST_M AS A
 		INNER JOIN 
@@ -51,7 +72,17 @@
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
 				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
 				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
-				YEAR (B.MBR_BIRTH) AS artistBirthYear /*작가 생년*/
+				/*YEAR (B.MBR_BIRTH) AS artistBirthYear 작가 생년*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artistBirthYear
 		FROM
 				TBL_DA_ARTST_M AS A
 		INNER JOIN 
@@ -71,7 +102,18 @@
 				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
 				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
 				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
-				YEAR (B.MBR_BIRTH) AS artistBirthYear /*작가 생년*/
+				/*YEAR (B.MBR_BIRTH) AS artistBirthYear 작가 생년*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artistBirthYear
+				
 		FROM
 				TBL_DA_ARTST_M AS A
 		INNER JOIN 
@@ -181,7 +223,17 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				/*YEAR (B.MBR_BIRTH) AS artstBirthYear, 작가생년월일*/
+				(
+				   CASE
+					WHEN 
+					 C.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 C.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", C.ARTST_YOD)
+				    END
+				) AS artstBirthYear,
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -243,7 +295,17 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				/*YEAR (B.MBR_BIRTH) AS artstBirthYear, 작가생년월일*/
+				(
+				   CASE
+					WHEN 
+					 C.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 C.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", C.ARTST_YOD)
+				    END
+				) AS artstBirthYear,
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				A.WORK_NM AS workNm, /*작품명*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
@@ -295,7 +357,19 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				/*YEAR (B.MBR_BIRTH) AS artstBirthYear, 작가생년월일*/
+				
+				(
+				   CASE
+					WHEN 
+					 C.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 C.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", C.ARTST_YOD)
+				    END
+				) AS artstBirthYear,
+				
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				A.WORK_NM AS workNm, /*작품명*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
