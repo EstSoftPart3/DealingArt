@@ -897,7 +897,9 @@ function mainMobileAuthSuccess(returnValue) {
         	}
         },
         error: function(error) {
+        	
         	var errorTxt = JSON.stringify(error);
+        	
             alert("오류 발생" + errorTxt);
         }
 	});	
