@@ -585,7 +585,7 @@
    <select id="memberDuplicateCheck" resultType="int" parameterType="String">
    		/*회원 중복체크*/
    		SELECT 
-				COUNT(MBR_CP_CERT_DI)
+				COUNT(*)
 		FROM
 				TBL_DA_MBR_M
 		WHERE 
