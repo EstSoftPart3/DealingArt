@@ -77,7 +77,9 @@
 			</div>
 			
 		</div>
-		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		<div id="footerAl">
+			<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+		</div>
 	</div>
 
 
@@ -623,7 +625,7 @@ function masonryLayout() {
 
 //화면 레이아웃 추가
 function masonryLayout() {
-	
+	console.log("masonryLayout")
 	var msnry = new Masonry( '.grid', {
 
 			
@@ -647,6 +649,8 @@ function masonryLayout() {
 
 
 $( document ).ready(function() {
+	
+	
 	 
   $("#pills-profile-tab").unbind("click").bind("click",function(){
 	  
@@ -661,6 +665,12 @@ $( document ).ready(function() {
 		});
 		 
 	});
+
+	if(isMobile == true) {
+		$("#footerAl").css("padding-top","1000px")
+	}
+
+	
 	 	
 });
 
