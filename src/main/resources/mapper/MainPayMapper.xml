@@ -350,6 +350,51 @@
   	WHERE
   			REF_NO = #{refNo}
   </select>
+  
+  <select id="VACCTOverlapChk" resultType="hashMap" parameterType="hashMap">
+  	/*가상계좌 중복 결제 요청 체크*/
+  	SELECT 
+			AMOUNT AS amount,
+			ACCOUNT_NO AS accountNo,
+			(
+			CASE 
+				WHEN BANK_CODE IN ('03', '003') THEN '기업은행'
+				WHEN BANK_CODE IN ('04', '004') THEN '국민은행'
+				WHEN BANK_CODE IN ('11', '011') THEN '농협'
+				WHEN BANK_CODE IN ('20', '020') THEN '우리은행'
+				WHEN BANK_CODE IN ('26', '088') THEN '신한은행'
+				WHEN BANK_CODE IN ('32', '032') THEN '부산은행'
+				WHEN BANK_CODE IN ('71', '071') THEN '우체국'
+				WHEN BANK_CODE IN ('81', '081') THEN '하나은행'
+				WHEN BANK_CODE = '005' THEN '외환은행'
+				WHEN BANK_CODE = '023' THEN '제일은행'
+				WHEN BANK_CODE = '027' THEN '씨티은행'
+				WHEN BANK_CODE = '031' THEN '대구은행'
+				WHEN BANK_CODE = '034' THEN '광주은행'
+				WHEN BANK_CODE = '037' THEN '전북은행'
+				WHEN BANK_CODE = '039' THEN '경남은행'
+				WHEN BANK_CODE = '048' THEN '신협'
+				WHEN BANK_CODE = '045' THEN '새마을금고'
+				WHEN BANK_CODE = '035' THEN '제주은행'
+				WHEN BANK_CODE = '007' THEN '수협'
+				WHEN BANK_CODE = '002' THEN '산업은행'
+			END
+			)AS bankName
+	FROM 
+			TBL_DA_PAYMNT_H
+	WHERE 
+			PAYMETHOD = 'VACCT'
+		AND AMOUNT = #{amount}
+		AND DEAL_SQ =  #{dealSq}
+		<if test='paymntDivCd =="S"'>
+		AND MBR_SQ = #{sellMbrSq}
+		</if>
+		<if test='paymntDivCd =="B"'>
+		AND MBR_SQ = #{buyMbrSq}
+		</if>
+		AND WORK_SQ = #{workSq}
+		AND PAYMNT_TYP_CD = #{paymntTypCd}
+  </select>
   <!-- api result -->
   <insert id="instApiResult" parameterType="hashmap">
   	INSERT INTO TBL_DA_MAINPAY_API_RESULT

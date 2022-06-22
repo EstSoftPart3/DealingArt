@@ -133,23 +133,25 @@
 <body>
 	<script>
 		
-		var diValue = '<%=sDupInfo%>'
-		opener.mainMobileAuthSuccess(diValue);
+		var name = '<%=sName%>';
+		opener.document.memberInput.mbrNm.value = name;
 		
-		opener.document.memberInput.mbrNm.value ="<%=sName%>";
-		
-		var userHp = '<%=sMobileNo%>'
+		var userHp = '<%=sMobileNo%>';
 		userHp = userHp.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 		opener.document.memberInput.mbrCpNum.value=userHp;
-		opener.document.memberInput.mbrCpCertYn.value='Y';
+		opener.document.memberInput.mbrCpCertYn.value = 'Y';
 		
 		var sCipherTime = "20<%=sCipherTime%>";
 		var dt = sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
-		opener.document.memberInput.mbrCpCertDate.value=dt;
+		opener.document.memberInput.mbrCpCertDate.value = dt;
 		
-		var sBirthDate = '<%=sBirthDate%>'
+		var sBirthDate = '<%=sBirthDate%>';
 		sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
-		opener.document.memberInput.mbrBirth.value=sBirthDate;
+		opener.document.memberInput.mbrBirth.value = sBirthDate;
+		
+		var diValue = '<%=sDupInfo%>';
+		opener.document.memberInput.mbrCpCertDi.value = diValue;
+		opener.mainMobileAuthSuccess();
 		
 		window.close();
   	</script>

@@ -637,6 +637,7 @@ public class MemberController {
 	@RequestMapping("/memberDuplicateCheck")
 	@ResponseBody
 	public int memberDuplicateCheck(@RequestParam String mbrCpCertDi) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@ mbrCpCertDi :" + mbrCpCertDi);
 		return memberService.memberDuplicateCheck(mbrCpCertDi);
 	}
 	

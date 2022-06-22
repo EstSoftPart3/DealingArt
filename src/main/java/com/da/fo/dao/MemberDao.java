@@ -393,11 +393,11 @@ public class MemberDao {
 	 */
 	public int memberDuplicateCheck(String param) {
 		
-		String nullChk = memberMapper.selectMbrCpCertDi(param);
-		
+//		String nullChk = memberMapper.selectMbrCpCertDi(param);
+//		System.out.println("@@@@@@@@@@@@@@@@@ nullChk" + nullChk);
 		int count = 0;
 		
-		if(nullChk != null && !nullChk.isEmpty()) {
+		if(param != null && !param.isEmpty() && !param.equals("")) {
 			count = memberMapper.memberDuplicateCheck(param);
 		}
 		

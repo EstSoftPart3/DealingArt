@@ -130,5 +130,11 @@ public interface MainPayMapper {
 	 * @param paramMap
 	 */
 	public Map<String, Object> selectPaymnt(Object param);
+	
+	/**
+	 * 결제 내역 테이블 해당 작품을 중복으로 가상계좌 요청 했는지 체크한다.
+	 * @param paramMap
+	 */
+	public Map<String, Object> VACCTOverlapChk(Object param);
 
 }
