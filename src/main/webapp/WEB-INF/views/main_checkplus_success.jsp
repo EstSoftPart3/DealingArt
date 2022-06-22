@@ -131,31 +131,6 @@
     <title>NICE평가정보 - CheckPlus 안심본인인증 테스트</title>
 </head>
 <body>
-	<script>
-		
-		var name = '<%=sName%>';
-		opener.document.memberInput.mbrNm.value = name;
-		
-		var userHp = '<%=sMobileNo%>';
-		userHp = userHp.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-		opener.document.memberInput.mbrCpNum.value=userHp;
-		opener.document.memberInput.mbrCpCertYn.value = 'Y';
-		
-		var sCipherTime = "20<%=sCipherTime%>";
-		var dt = sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
-		opener.document.memberInput.mbrCpCertDate.value = dt;
-		
-		var sBirthDate = '<%=sBirthDate%>';
-		sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
-		opener.document.memberInput.mbrBirth.value = sBirthDate;
-		
-		var diValue = '<%=sDupInfo%>';
-		opener.document.memberInput.mbrCpCertDi.value = diValue;
-		opener.mainMobileAuthSuccess();
-		
-		window.close();
-  	</script>
-    
     <div style="display:none">
     <center>
     <p><p><p><p>
@@ -218,4 +193,28 @@
     </center>
     </div>
 </body>
+<script>
+		
+		var name = '<%=sName%>';
+		opener.document.memberInput.mbrNm.value = name;
+		
+		var userHp = '<%=sMobileNo%>';
+		userHp = userHp.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+		opener.document.memberInput.mbrCpNum.value=userHp;
+		opener.document.memberInput.mbrCpCertYn.value = 'Y';
+		
+		var sCipherTime = "20<%=sCipherTime%>";
+		var dt = sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
+		opener.document.memberInput.mbrCpCertDate.value = dt;
+		
+		var sBirthDate = '<%=sBirthDate%>';
+		sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+		opener.document.memberInput.mbrBirth.value = sBirthDate;
+		
+		var diValue = '<%=sDupInfo%>';
+		opener.document.memberInput.mbrCpCertDi.value = diValue;
+		opener.mainMobileAuthSuccess();
+		
+		window.close();
+</script>
 </html>
