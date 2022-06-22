@@ -391,11 +391,12 @@ $('#findIdCpNum').click(function() {
 		document.findId.submit();
 	});
 });
-function findIdReturnValue(returnValue){
+function findIdReturnValue(){
+	var sDupInfo = /*[[ ${session.sDupInfo} ]]*/ 'default';
 	$.ajax({
         type: "post",
         url: "/findId",
-        data : {mbrCpCertDi : returnValue}, 
+        data : {mbrCpCertDi : sDupInfo}, 
         success: function(data) {
         	var result = null;
         	if (data.result != null) {
@@ -533,8 +534,9 @@ $("#findPwdMbrIdBtn").click(function() {
 		});
 	}
 });
-function findPwdReturnValue(returnValue){
-   	if (returnValue != null) {
+function findPwdReturnValue(){
+	var sName = /*[[ ${session.sName} ]]*/ 'default';
+   	if (sName != null) {
    		$("#findPwdMbrPwdForm1").css("display", "");
    		$("#findPwdMbrPwdForm2").css("display", "");
    		$("#findPwdSubmit").css("display", "");
@@ -694,7 +696,7 @@ function changePasswrd(){
 			</div>
 			<div class="modal-body member-body">
 				<img src="resources/img/icon/login-logo.png"  class="member-logo"/>
-				<div class="member-box">
+				<div class="member-box" th:fragment="fragment-joinResult">
 					<img src="resources/img/icon/icon-bg.png" class="member-icon" />
 					<h3 class="me-h3">회원가입</h3>
 					<p class="inp-p" id="iphoneJoinM1" style="color:red;">MacOS 및 iOS 운영체제에서 휴대폰 본인인증시 오류가 발생될 수 있습니다.</p>
@@ -716,7 +718,7 @@ function changePasswrd(){
 						</div>					
 						<div class="input-box input-group" id="mbrNmDiv" style="display:none">
 							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" disabled/>
-							<input type="text" class="input-3" placeholder="생년월일(본인인증후 자동입력)" id="mbrBirth" name="mbrBirth" autocomplete="off" style="margin-right:0px;" disabled/>
+							<input type="text" class="input-3" placeholder="생년월일(본인인증후 자동입력)" id="mbrBirth" name="mbrBirth" autocomplete="off" style="margin-right:0px;"  disabled/>
 						</div>
 						<p class="inp-p" id="mbrNmCheck"></p>
 						<div class="input-box input-group">
@@ -827,7 +829,15 @@ function changePasswrd(){
 
 <div class="modal fade modal-s" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true"></div>
 
+<input type="hidden" id="sName" 		value="${session.sName}" 		/>
+<input type="hidden" id="sBirthDate" 	value="${session.sBirthDate}" 	/>
+<input type="hidden" id="sMobileNo" 	value="${session.sMobileNo}" 	/>
+<input type="hidden" id="sCipherTime" 	value="${session.sCipherTime}" 	/>
+<input type="hidden" id="sDupInfo" 		value="${session.sDupInfo}" 		/>
+
+
 <script th:inline="javascript">
+
 $(document).ready(function() {
 	
 	var agent = navigator.userAgent.toLowerCase();
@@ -874,13 +884,21 @@ $('#loginModal').on('hidden.bs.modal', function () {
 })
 
 //휴대폰 인증 성공
-function mainMobileAuthSuccess(result) {
-	var mbrCpCertDi = result.sDupInfo;
-	var mbrNm = result.sName;
-	var mbrCpNum = result.sMobileNo.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-	var mbrCpCertDate = "20"+result.sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
-	var mbrBirth = result.sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+function mainMobileAuthSuccess() {
+	var sName = /*[[ ${session.sName} ]]*/ 'default';
+	var sBirthDate = /*[[ ${session.sBirthDate} ]]*/ 'default';
+	var sMobileNo = /*[[ ${session.sMobileNo} ]]*/ 'default';
+	var sCipherTime = /*[[ ${session.sCipherTime} ]]*/ 'default';
+	var sDupInfo = /*[[ ${session.sDupInfo} ]]*/ 'default';
+	
+	var mbrCpCertDi = sCipherTime;
+	var mbrNm = sName;
+	var mbrCpNum = sMobileNo.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+	var mbrCpCertDate = "20"+sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
+	var mbrBirth = sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+	
 	var overlapYn = "N";
+	
 	$.ajax({
         type: "post",
         url: "/memberDuplicateCheck",

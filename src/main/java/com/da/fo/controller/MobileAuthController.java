@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +59,7 @@ public class MobileAuthController {
 		
 	@RequestMapping("/auth/main_checkplus_success")
 	@ResponseBody
-	public void mainCheckplusSuccess(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void mainCheckplusSuccess(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
@@ -129,9 +130,13 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script> var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
-				+ "result.sDupInfo='"+sDupInfo+"'; result.sMobileNo='"+sMobileNo+"'; result.sCipherTime='"+sCipherTime+"'; "
-				+ "opener.mainMobileAuthSuccess(result); window.close();</script>");
+	    Map<String, Object> result = new HashMap<String, Object>();
+	    session.setAttribute("sName", sName);
+	    session.setAttribute("sBirthDate", sBirthDate);
+	    session.setAttribute("sMobileNo", sMobileNo);
+	    session.setAttribute("sCipherTime", sCipherTime);
+	    session.setAttribute("sDupInfo", sDupInfo);
+		out.println("<script> opener.mainMobileAuthSuccess(); window.close();</script>");
 		out.flush();
 	}
 	
@@ -218,7 +223,8 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script> var diValue='"+sDupInfo+"'; window.opener.findIdReturnValue(diValue); window.close();</script>");
+	    session.setAttribute("sDupInfo", sDupInfo);
+		out.println("<script>window.opener.findIdReturnValue(); window.close();</script>");
 		out.flush();
 	}
 	
@@ -306,7 +312,8 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script> opener.findPwdReturnValue(\"+sName+\"); window.close();</script>");
+	    session.setAttribute("sName", sName);
+		out.println("<script> opener.findPwdReturnValue(); window.close();</script>");
 		out.flush();
 	}
 	
