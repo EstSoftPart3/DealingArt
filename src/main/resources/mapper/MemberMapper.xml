@@ -575,7 +575,7 @@
    <select id="selectMbrCpCertDi" resultType="String" parameterType="String">
    		/*회원 중복체크 전 개인고유 번호 null 체크*/
    		SELECT
-   				MBR_CP_CERT_DI
+   				MBR_CP_CERT_DI AS mbrCpCertDi
    		FROM
    				TBL_DA_MBR_M
    		WHERE
@@ -585,7 +585,7 @@
    <select id="memberDuplicateCheck" resultType="int" parameterType="String">
    		/*회원 중복체크*/
    		SELECT 
-				COUNT(MBR_CP_CERT_DI)
+				COUNT(*)
 		FROM
 				TBL_DA_MBR_M
 		WHERE 

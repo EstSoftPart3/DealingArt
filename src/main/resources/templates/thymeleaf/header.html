@@ -906,7 +906,10 @@ function mainMobileAuthSuccess(returnValue) {
         	}
         },
         error: function(error) {
-            alert("오류 발생" + error);
+        	
+        	var errorTxt = JSON.stringify(error);
+        	
+            alert("오류 발생" + errorTxt);
         }
 	});	
 }
