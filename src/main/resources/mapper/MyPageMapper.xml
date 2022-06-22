@@ -219,42 +219,14 @@
 		SELECT 
 				B.DEAL_SQ AS dealSq,
 				<if test="buyOrSell == 'ALL'">
-				(SELECT
-					MBR_SQ
-				FROM 
-					TBL_DA_PAYMNT_H
-				WHERE
-					MBR_SQ = #{mbrSq}
-				AND PAYMNT_DIV_CD = 'S'
-				) AS sellMbrSq,
-				(SELECT
-					MBR_SQ
-				FROM 
-					TBL_DA_PAYMNT_H
-				WHERE
-					MBR_SQ = #{mbrSq}
-				AND PAYMNT_DIV_CD = 'B'
-				) AS buyMbrSq,
+				IFNULL(B.SELL_MBR_SQ, (SELECT PH.MBR_SQ FROM TBL_DA_PAYMNT_H PH WHERE PH.MBR_SQ = #{mbrSq} AND PH.PAYMNT_DIV_CD = 'S' AND PH.DEAL_SQ = B.DEAL_SQ) ) AS sellMbrSq,
+				IFNULL(B.BUY_MBR_SQ, (SELECT PH.MBR_SQ FROM TBL_DA_PAYMNT_H PH WHERE PH.MBR_SQ = #{mbrSq} AND PH.PAYMNT_DIV_CD = 'B' AND PH.DEAL_SQ = B.DEAL_SQ) ) AS buyMbrSq,
 				</if>
 				<if test="buyOrSell == 'SELL'">
-				(SELECT
-					MBR_SQ
-				FROM 
-					TBL_DA_PAYMNT_H
-				WHERE
-					MBR_SQ = #{mbrSq}
-				AND PAYMNT_DIV_CD = 'S'
-				) AS sellMbrSq,
+				IFNULL(B.SELL_MBR_SQ, (SELECT PH.MBR_SQ FROM TBL_DA_PAYMNT_H PH WHERE PH.MBR_SQ = #{mbrSq} AND PH.PAYMNT_DIV_CD = 'S' AND PH.DEAL_SQ = B.DEAL_SQ) ) AS sellMbrSq,
 				</if>
 				<if test="buyOrSell == 'BUY'">
-				(SELECT
-					MBR_SQ
-				FROM 
-					TBL_DA_PAYMNT_H
-				WHERE
-					MBR_SQ = #{mbrSq}
-				AND PAYMNT_DIV_CD = 'B'
-				) AS buyMbrSq,
+				IFNULL(B.BUY_MBR_SQ, (SELECT PH.MBR_SQ FROM TBL_DA_PAYMNT_H PH WHERE PH.MBR_SQ = #{mbrSq} AND PH.PAYMNT_DIV_CD = 'B' AND PH.DEAL_SQ = B.DEAL_SQ) ) AS buyMbrSq,
 				</if>
 				B.WORK_SQ AS workSq,
 				B.ARTST_SQ AS artstSq,
