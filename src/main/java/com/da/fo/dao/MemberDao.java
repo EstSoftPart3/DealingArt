@@ -397,8 +397,7 @@ public class MemberDao {
 		
 		int count = 0;
 		
-		//if(nullChk != null && !nullChk.isEmpty()) {
-		if(!commonService.isEmpty(nullChk)) {
+		if(nullChk != null && !nullChk.isEmpty()) {
 			count = memberMapper.memberDuplicateCheck(param);
 		}
 		
