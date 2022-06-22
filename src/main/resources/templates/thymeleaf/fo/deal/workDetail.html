@@ -64,7 +64,7 @@
 							<tr>
 								<th>액자</th>
 								<td th:if="${result.work.workFrmYn == 'Y'}">있음</td>
-								<td th:if="${result.work.workFrmYn == 'N'}">없음</td>
+								<td th:if="${result.work.workFrmYn == 'N' or result.work.workFrmYn == '' }">없음</td>
 							</tr>
 							<tr>
 								<th>사이즈</th>

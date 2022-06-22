@@ -874,32 +874,32 @@ $('#loginModal').on('hidden.bs.modal', function () {
 })
 
 //휴대폰 인증 성공
-function mainMobileAuthSuccess(returnValue) {
-	
+function mainMobileAuthSuccess() {
+	var mbrCpCertDi = $("#mbrCpCertDi").val();
 	$.ajax({
         type: "post",
         url: "/memberDuplicateCheck",
         data: {
-        		mbrCpCertDi : returnValue
+        		mbrCpCertDi : mbrCpCertDi
         },
         success: function(data) {
         	
         	console.log(data);
         	
         	if(data > 0){
-        		document.memberInput.mbrNm.value ="";
-        		document.memberInput.mbrCpNum.value="";
-        		document.memberInput.mbrCpCertYn.value="N";
-        		document.memberInput.mbrCpCertDate.value="";
-        		document.memberInput.mbrBirth.value="";
+        		document.memberInput.mbrNm.value = "";
+        		document.memberInput.mbrCpNum.value = "";
+        		document.memberInput.mbrCpCertYn.value = "N";
+        		document.memberInput.mbrCpCertDate.value = "";
+        		document.memberInput.mbrBirth.value = "";
         		fn_validation('mbrNmCheck','이미 등록된 회원입니다.', 'R');
         	}else{
         		$("#mainSmsCertificationCheck").css('display',"block");
         		$("#mainSmsCertification").css('display',"none");
-        		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'B');
+        		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'R');
         		$("#mbrNmCheck").css('display',"none");
         		fn_validation('mbrNmCheck','', 'B');
-        		document.memberInput.mbrCpCertDi.value=returnValue;
+        		document.memberInput.mbrCpCertDi.value = mbrCpCertDi;
         		
         		//숨겼던 성명, 생년월일이 나타나게 한다.
         		$("#mbrNmDiv").show();

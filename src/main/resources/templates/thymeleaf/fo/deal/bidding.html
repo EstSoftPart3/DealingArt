@@ -848,7 +848,7 @@ function btn_agree_onclick(){
 			|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
 		$('body').css("overflow", "scroll");
 		$("#bidNotesModal").modal("hide");
-		modalAlertShow("모든 사항에 동의가 되어있지 않습니다!</br>모든 사항에 동의를 해야 응찰이 가능합니다.");
+		modalAlertShow("모든 사항에 동의가 되어있지 않습니다!<br/>모든 사항에 동의를 해야 응찰이 가능합니다.");
 		return;
 	}else{
 		var param = new Object(); //컨트롤러에 보낼 파라미터 
@@ -1034,7 +1034,7 @@ function selectBoxWriteAskingPrice(){
 	            prevEl: ".swiper-button-prev",
 	          },
 	     });
-    	
+    	workList();
     	
     	
      } else {
@@ -1057,7 +1057,7 @@ function selectBoxWriteAskingPrice(){
 	            prevEl: ".swiper-button-prev",
 	          },
 	     });
-    	
+    	workList();
      };
 }).resize();
  

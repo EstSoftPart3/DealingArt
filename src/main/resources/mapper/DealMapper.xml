@@ -13,7 +13,7 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = " " ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR,'~',C.ARTST_YOD)) AS artstBirthYear, /*작가생년월일*//* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/

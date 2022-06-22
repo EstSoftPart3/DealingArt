@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.da.mapper.MainPayMapper;
 import com.da.mapper.MyPageMapper;
@@ -273,7 +274,7 @@ public class TestController {
 	}
 	
 	/**
-	 * MainPay 시작 화면
+	 * MainPay 닫기 버튼 누르면 호출
 	 * @return
 	 * @throws IOException 
 	 */
@@ -284,6 +285,20 @@ public class TestController {
 		PrintWriter out = response.getWriter();
 		out.println("<script> opener.parent.location.reload(); window.close(); </script>");
 		out.flush();
+	}
+	
+	/**
+	 * MainPay 가상계좌 중복 체크
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping("/payment/VACCTOverlapChk")
+	@ResponseBody
+	public ModelAndView VACCTOverlapChk(@RequestParam(required = false) Map<String, Object> paramMap, HttpServletResponse response) throws IOException {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = mainPayMapper.VACCTOverlapChk(paramMap);
+		mv.addObject("result", result);
+		return mv;
 	}
 	/**
 	 * 결제 완료 된 데이터 가져오기
