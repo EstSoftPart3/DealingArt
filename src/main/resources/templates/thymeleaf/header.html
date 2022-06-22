@@ -697,6 +697,8 @@ function changePasswrd(){
 				<div class="member-box">
 					<img src="resources/img/icon/icon-bg.png" class="member-icon" />
 					<h3 class="me-h3">회원가입</h3>
+					<p class="inp-p" id="iphoneJoinM1" style="color:red;">MacOS 및 iOS 운영체제에서 휴대폰 본인인증시 오류가 발생될 수 있습니다.</p>
+					<p class="inp-p" id="iphoneJoinM2" style="color:red;">Windows 또는 Android 에서 회원가입 부탁드립니다.</p>
 					<h4 class="me-h4">Dealing art  가입을 환영합니다. <span>회원 정보를 입력해 주세요.</span></h4>
 					
 						<div class="input-box">
@@ -713,12 +715,12 @@ function changePasswrd(){
 							<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 						</div>					
 						<div class="input-box input-group" id="mbrNmDiv" style="display:none">
-							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" readonly/>
-							<input type="text" class="input-3" placeholder="생년월일(본인인증후 자동입력)" id="mbrBirth" name="mbrBirth" autocomplete="off" readonly style="margin-right: 0px;"/>
+							<input type="text" class="input-3" placeholder="이름" id="mbrNm" name="mbrNm" autocomplete="off" disabled/>
+							<input type="text" class="input-3" placeholder="생년월일(본인인증후 자동입력)" id="mbrBirth" name="mbrBirth" autocomplete="off" style="margin-right:0px;" disabled/>
 						</div>
 						<p class="inp-p" id="mbrNmCheck"></p>
 						<div class="input-box input-group">
-							<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" readonly/>
+							<input type="text" class="input-3" placeholder="휴대폰 번호" id="mbrCpNum" name="mbrCpNum" autocomplete="off" disabled/>
 							<button type="button" class="group-btn" id="mbrCpNumBtn">인증하기</button>
 							<input type="hidden" id="mbrCpCertYn" name="mbrCpCertYn" value="N">
 							<input type="hidden" id="mbrCpCertDate" name="mbrCpCertDate" value="">
@@ -828,12 +830,19 @@ function changePasswrd(){
 <script th:inline="javascript">
 $(document).ready(function() {
 	
-	
 	var agent = navigator.userAgent.toLowerCase();
 
 	if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
 // 		alert('익스플로러는 현재 마이크로소프트 지원 중단으로 인하여 다른 브라우저(크롬, 엣지, 사파리 등) 사용을 권장드립니다.');
 		modalAlertShow("익스플로러는 현재 마이크로소프트 지원 중단으로 인하여 다른 브라우저(크롬, 엣지, 사파리 등) 사용을 권장드립니다.","");
+	}
+	
+	if(agent.indexOf("iphone") !== -1){
+		$("#iphoneJoinM1").css("display", "");
+		$("#iphoneJoinM2").css("display", "");
+	}else{
+		$("#iphoneJoinM1").css("display", "none");
+		$("#iphoneJoinM2").css("display", "none");
 	}
 	
 	

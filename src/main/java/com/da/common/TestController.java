@@ -1,5 +1,6 @@
 package com.da.common;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -272,6 +273,19 @@ public class TestController {
 	}
 	
 	/**
+	 * MainPay 시작 화면
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping("/payment/close")
+	@ResponseBody
+	public void paymentClose(@RequestParam(name = "aid") String aid, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script> opener.parent.location.reload(); window.close(); </script>");
+		out.flush();
+	}
+	/**
 	 * 결제 완료 된 데이터 가져오기
 	 * @param paramMap
 	 * @param request
@@ -375,15 +389,6 @@ public class TestController {
 		rsltMap = mainPayUtil.mainPayCashReceiptCancel(paramMap);
 		
 		return rsltMap;
-	}
-	
-	/**
-	 * MainPay 시작 화면
-	 * @return
-	 */
-	@RequestMapping("/payment/close")
-	public String paymentClose() {
-		return "/payment/payment_close";
 	}
 	
 	//계좌확인

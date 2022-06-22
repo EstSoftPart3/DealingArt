@@ -120,7 +120,7 @@ public class MainPayUtil {
 		/*인증완료 시 호출 URL*/
 		parameters.put("approvalUrl", returnUrl + "/payment/approval"); //인증결과 수신페이지 예) https://상점도메인/approval (주의) URL내에 &,=등의 특수문자 허용안됨)
 		/*결제창 close시 호출 URL*/
-		parameters.put("closeUrl", returnUrl); //결제종료 수신페이지 URL 예) https://상점도메인/close (주의) URL내에 &,=등의 특수문자 허용안됨)
+		parameters.put("closeUrl", returnUrl + "/payment/close"); //결제종료 수신페이지 URL 예) https://상점도메인/close (주의) URL내에 &,=등의 특수문자 허용안됨)
 		
 	    /*=================================================================================================
 	     *	READY API 호출 (**테스트 후 반드시 리얼-URL로 변경해야 합니다.**) 

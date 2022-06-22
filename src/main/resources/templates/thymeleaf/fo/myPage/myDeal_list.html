@@ -427,7 +427,7 @@ function myDealSearchList(){
 	    					if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
 	    						myDealListHtml += '			<dd>'+ myDealList[i].maxBidPrc +' KRW</dd>';
 	    					}else{
-	    						myDealListHtml += '			<dd>0 원</dd>';
+	    						myDealListHtml += '			<dd>0 KRW</dd>';
 	    					}
 		    				myDealListHtml += '			<dt>응찰가</dt>';
 		    				myDealListHtml += '			<dd>';
@@ -459,7 +459,7 @@ function myDealSearchList(){
 	    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
 	    				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
 		    				myDealListHtml += '				<dt>예상 수수료</dt>';
-		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
+		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.1))+' 원</dd>';
 		    				//myDealListHtml += '				<dt>예상배송비</dt>';
 		    				//myDealListHtml += '				<dd></dd>';
 	    				}
@@ -479,7 +479,7 @@ function myDealSearchList(){
         				}
         				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
 		    				myDealListHtml += '				<dt>예상 수수료</dt>';
-		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.15))+' 원</dd>';
+		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.1))+' 원</dd>';
 		    				//myDealListHtml += '				<dt>예상배송비</dt>';
 		    				//myDealListHtml += '				<dd></dd>';
 	    				}

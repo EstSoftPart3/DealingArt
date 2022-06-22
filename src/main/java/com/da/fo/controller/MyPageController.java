@@ -6,17 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,19 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.amazonaws.util.EC2MetadataUtils;
 import com.da.common.AwsS3Service;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
 import com.da.mapper.MainMapper;
+import com.da.mapper.MainPayMapper;
 import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.mainpay.sdk.utils.DateUtil;
 
 @Controller
 public class MyPageController {
@@ -66,6 +59,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageMapper myPageMapper;
+	
+	@Autowired
+	private MainPayMapper mainPayMapper;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -917,4 +913,5 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
 }

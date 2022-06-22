@@ -734,7 +734,10 @@ function btn_paymethod_onclick(obj){
 					if(!isMobile){
 						Mainpay.open(response.data.nextPcUrl);
 					}else{
-						location.href = response.data.nextPcUrl.replace("pc", "mobile");
+						//$("#mobileMainPayUrl").attr("href", response.data.nextPcUrl.replace("pc", "mobile"));
+						//$("#mobileMainPayUrl").trigger("click");
+						//window.location.href = response.data.nextPcUrl.replace("pc", "mobile");
+						window.open(response.data.nextMobileUrl);
 					}
 					return false;
 				}
@@ -765,7 +768,8 @@ function btn_paymethod_onclick(obj){
 					if(!isMobile){
 						Mainpay.open(response.data.nextPcUrl);
 					}else{
-						location.href = response.data.nextPcUrl.replace("pc", "mobile");
+						//location.href = response.data.nextPcUrl.replace("pc", "mobile");
+						window.open(response.data.nextMobileUrl);
 					}
 					return false;
 				}

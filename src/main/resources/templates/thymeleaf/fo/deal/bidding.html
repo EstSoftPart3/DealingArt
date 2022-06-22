@@ -127,7 +127,7 @@
 										<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
 									</th:block>
 									<th:block th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
-										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
+										<td>0 KRW</td>
 									</th:block>
 									</tr>
 									<!-- <tr class="t-red">
