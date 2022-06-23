@@ -40,7 +40,7 @@
 								<div class="myd-2">
 									<div class="myd-te1">
 										<h4 th:text="${result.dealInfo.artstActvtyNm}">작가명</h4>
-										<h5 th:text="${result.dealInfo.workNm}">작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										<h5 th:text="|${result.dealInfo.workNm} (${result.dealInfo.workProdcYear})|">작품명 입니다작품명입니다작품명입니다(2021)</h5>
 										<!-- <button type="button" class="btns-1">응찰 히스토리</button> -->
 									</div>
 									<div class="myd-te2">
@@ -586,19 +586,28 @@ function feeCal(){
 /*
  * 남은 시간 초 단위로 불러온다 
  */
-var dday = new Date(result.dealInfo.dealEndngDate).getTime();
-
-setInterval(function() {
+ var dealCount = setInterval(function(){
+	var endngDate = result.dealInfo.dealEndngDate.replaceAll(".", "-");
+	var dday = new Date(endngDate).getTime();
 	var today = new Date().getTime();
-	var gap = dday - today;
-	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-	if(document.getElementById("dealCount") != null){
-		document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+	var element = document.getElementById("dealCount");
+	//거래 남은 시간이 현재 시간보다 작으면
+	if(dday <= today){
+		stopDealCount();
 	}
+	var gap = dday - today;
+  	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+  	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  	element.innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+  	console.log(dday);
+  	console.log(today);
 }, 1000);
+
+function stopDealCount(){
+	clearInterval(dealCount);
+}
 /*
  * 보증서 보기 팝업
  */
