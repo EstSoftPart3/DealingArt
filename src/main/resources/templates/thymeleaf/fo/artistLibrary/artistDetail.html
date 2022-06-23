@@ -4,6 +4,9 @@
 	<style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
     </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    
 </head>
 
 <body>
@@ -12,7 +15,7 @@
 		<div class="body-wrap">
 		
 			<input type="hidden" id="artstSq" >
-		
+			<!-- 
 			<ul class="nav nav-pills ait-nav" id="pills-tab" role="tablist">
 				<li class="nav-item active">
 					<a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">작가프로필보기</a>
@@ -21,6 +24,17 @@
 					<a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">작품보기</a>
 				</li>
 			</ul>
+			 -->
+			
+			 <ul class="nav nav-pills ait-nav" id="pills-tab" role="tablist">
+				<li class="nav-item active">
+					<a href="#" >작가프로필보기</a>
+				</li>
+				<li class="nav-item">
+					<a href="javascript:artistWorkDetail();">작품보기</a>
+				</li>
+			</ul>
+			
 			<div class="tab-content ait-tab" id="pills-tabContent">
 				<div class="tab-pane fade active in tab-pane1" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 				
@@ -643,14 +657,29 @@ function masonryLayout() {
 		
 }
 
+function artistWorkDetail()
+{
+	  var artstSq= $("#artstSq").val();
+	     
+	  pageGoPost({
+			url:"/artistDetailWork",
+			target:"_self",
+			vals:[
+				["artstSq", artstSq]
+			]
+		});
+}
+
 
 
 
 
 $( document ).ready(function() {
 	
+ 
 	
-	 
+	
+  /*	 
   $("#pills-profile-tab").unbind("click").bind("click",function(){
 	  
 	  var artstSq= $("#artstSq").val();
@@ -664,11 +693,12 @@ $( document ).ready(function() {
 		});
 		 
 	});
-
+	*/
+	/*
 	if(isMobile == true) {
 		$("#footerAl").css("padding-top","1000px")
 	}
-
+	*/
 	
 	 	
 });
