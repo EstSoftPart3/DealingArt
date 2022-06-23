@@ -1128,6 +1128,7 @@ $('#memberModal').on('show.bs.modal', function (e) {
 	
 });
 
+var mbrIdOverlapChk = false;
 //회원가입
 $("#memberInputBtn").on('click', function(event){
 	
@@ -1155,24 +1156,32 @@ $("#memberInputBtn").on('click', function(event){
 	//회원 활동명
 	var mbrNcknm = $("#mbrNcknm").val();
 	
+	if(!mbrIdOverlapChk){ //아이디 중복체크 여부
+		$("#mbrId").focus();
+		return;
+	}
 	if(isEmpty(mbrId)) {
 		fn_validation('mbrIdCheck','이메일을 입력해주세요.', 'R');
+		$("#mbrId").focus();
 		return;
 	} 
 	if(!CheckEmail(mbrId)) {
 		fn_validation('mbrIdCheck','이메일을 올바르게 입력해주세요.', 'R');
+		$("#mbrId").focus();
 		return;
 	}
 	//비밀번호--------------------------------------------------------------------//
 	if(isEmpty(mbrPasswrd)) {
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
+		$("#mbrPasswrd").focus();
 		return;
 	} 
 	if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
 	{
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
+		$("#mbrPasswrd").focus();
 		return;
 	}
 	var chk = 0;
@@ -1183,6 +1192,7 @@ $("#memberInputBtn").on('click', function(event){
 	{
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
+		$("#mbrPasswrd").focus();
 		return;
 	}
 	 
@@ -1217,12 +1227,14 @@ $("#memberInputBtn").on('click', function(event){
 	 if(SamePass_0 > 1) {
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
+		 $("#mbrPasswrd").focus();
 		 return;
 	 } // if
 	 
 	 if(SamePass_1 > 1 || SamePass_2 > 1 )  {
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
+		 $("#mbrPasswrd").focus();
 		 return;
 	 }
 	
@@ -1231,6 +1243,7 @@ $("#memberInputBtn").on('click', function(event){
 	 {
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
+		 $("#mbrPasswrd").focus();
 		  return;
 	 } else {
 		 $('#mbrPwdCheckU').css('color','#999999');
@@ -1241,6 +1254,7 @@ $("#memberInputBtn").on('click', function(event){
 	//비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
 	if(mbrPasswrd != mbrPasswrdConfirm) {
 		fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
+		$("#mbrPasswrdConfirm").focus();
 		return;
 	}
 	
@@ -1248,8 +1262,10 @@ $("#memberInputBtn").on('click', function(event){
 	
 	//비밀번호--------------------------------------------------------------------//
 	
+	//이름
 	 if(isEmpty(mbrNm)) {
 		 fn_validation('mbrNmCheck','이름을 정확히 입력하세요', 'R');
+		 $("#mbrNm").val();
 		 return;
 	 }
 	 fn_validation('mbrNmCheck','', 'B');
@@ -1257,6 +1273,7 @@ $("#memberInputBtn").on('click', function(event){
 	//휴대폰번호
 	 if(isEmpty(mbrCpNum)) {
 		 fn_validation('mbrCpNumCheck','휴대폰번호를 정확히 입력하세요.', 'R');
+		 $("#mbrCpNum").val();
 		 return;
 	 }
 	 
@@ -1266,12 +1283,14 @@ $("#memberInputBtn").on('click', function(event){
 	if(mbrCpCertYn == 'N') {
 		$("#mainSmsCertificationCheck").show();
 		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
+		$("#mbrCpNum").val();
 		return;
 	}
 	
 	//활동명 중복체크 여부
 	if(mbrNcknmCheckYn == "N"){
 		fn_validation('mbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
+		$("#mbrNcknm").focus();
 		return;
 	}
 	
@@ -1383,7 +1402,6 @@ function CheckEmail(str) {
 }                         
 
 //아이디 중복 체크
-
 $('#memberModal').on('shown.bs.modal', function () {
 
 $("#mbrId").blur(function() {
@@ -1417,7 +1435,7 @@ $("#mbrId").blur(function() {
 					fn_validation('mbrNmCheck','', 'B');
 					$('#mbrPwdCheckU').css('color','#999999');
 					$('#mbrPwdCheckD').css('color','#999999');
-					
+					mbrIdOverlapChk = false;
 					return;
 				
 				} else {
@@ -1425,9 +1443,11 @@ $("#mbrId").blur(function() {
 					if(!CheckEmail(mbrIdParam)) {
 						$('#mbrIdCheck').html('이메일을 올바르게 입력해주세요.');
 						$('#mbrIdCheck').css('color','red');
+						mbrIdOverlapChk = false;
 					} else {
 						var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
 						fn_validation('mbrIdCheck',msg, 'B');	
+						mbrIdOverlapChk = true;
 					}
 					
 					return;
@@ -1444,7 +1464,7 @@ $("#mbrId").blur(function() {
 		var msg = "주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.";
 		
 		fn_validation('mbrIdCheck',msg, 'B');
-		
+		mbrIdOverlapChk = false;
 		return;
 		
 	}

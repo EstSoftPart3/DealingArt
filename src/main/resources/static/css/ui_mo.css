@@ -1110,7 +1110,7 @@ html, body{font-size: calc(100vw / 75);}
 .con-right{
     max-width: 110rem;
     display: block;
-    padding: 0 4.6rem;
+    padding: 0 1.6rem;
 }
 .con-wrap2{
     width: 100%;
@@ -3477,7 +3477,7 @@ display: none;}
     display: block;
     text-align: center;
 }
-.m-max1300{max-width: 67rem !important;}
+.m-max1300{max-width: 75rem !important;}
 
 
 
@@ -3611,7 +3611,18 @@ display: none;}
     vertical-align: middle;
     margin-right: 0.5rem;
 }
-.is-sum button{width: auto;height: 6.1rem;padding: 0 2rem;font-size: 2.3rem;color: #333333;background: linear-gradient( to top, #f3f3f3 , #fefefe );border: #cccccc 1px solid;vertical-align: middle;font-weight: 600;}
+.is-sum button{
+	width: auto;
+	height: 6.1rem;
+	padding: 0 2rem;
+	font-size: 2.1rem;
+	color: #333333;
+	background: linear-gradient( to top, #f3f3f3 , #fefefe );
+	border: #cccccc 1px solid;
+	vertical-align: middle;
+	font-weight: 600;
+	letter-spacing:0.5px;
+}
 
 .is-sum2{ margin-bottom: 10px;}
 .is-sum2 input{
