@@ -16,6 +16,7 @@
 		
 		<input type="hidden" id="artstSq" >
 		
+			<!--
 			<ul class="nav nav-pills ait-nav" id="pills-tab" role="tablist">
 				<li class="nav-item ">
 					<a class="nav-link" id="pills-home-tab" data-toggle="pill"  role="tab" aria-controls="pills-home" aria-selected="false">작가프로필보기</a>
@@ -24,6 +25,17 @@
 					<a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="true">작품보기</a>
 				</li>
 			</ul>
+			  -->
+			  
+			<ul class="nav nav-pills ait-nav" id="pills-tab" role="tablist">
+				<li class="nav-item ">
+					<a href="javascript:workDetailGo();" >작가프로필보기</a>
+				</li>
+				<li class="nav-item active">
+					<a href="#">작품보기</a>
+				</li>
+			</ul>
+			
 			<div class="tab-content ait-tab" id="pills-tabContent">
 				<div class="tab-pane fade tab-pane1" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 				
@@ -564,11 +576,24 @@ function masonryLayout() {
 		
 }
 
+function workDetailGo(){
+	var artstSq= $("#artstSq").val();
+	 
+	  pageGoPost({
+			url:"/artistDetail",
+			target:"_self",
+			vals:[
+				["artstSq", artstSq]
+			]
+		});
+	
+}
+
 $( document ).ready(function() {
 	
 	
 	
-	 
+	 /* 
 	  $("#pills-home-tab").unbind("click").bind("click",function(){
 		  var artstSq= $("#artstSq").val();
 		  
@@ -582,7 +607,7 @@ $( document ).ready(function() {
 			});
 			 
 		});
-		 
+		*/ 
 	 
 	  if(isMobile == true) {
 			$("#footerAl").css("padding-top","1000px")
