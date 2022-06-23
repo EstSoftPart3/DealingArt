@@ -9,7 +9,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	</head>
 <body>
-	Hello ChartSample!! TEST..
+	Hello ChartSample!! TEST.. TEST..
 	
 	<div style="width: 900px; height: 900px;">
 	<!--차트가 그려질 부분-->
