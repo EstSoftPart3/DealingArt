@@ -40,11 +40,11 @@
 					<div class="baeg-right">
 						<div class="be-title">
 							<th:block th:if="${not #strings.isEmpty(result.deal.artstEnglsNm)}">
-								<h2 th:text="${result.deal.artstActvtyNm}"></h2>
-								<h2 th:text="'('+${result.deal.artstEnglsNm}+')'"></h2>
+								<h3 th:text="${result.deal.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${result.deal.artstEnglsNm}+')'"></h3>
 							</th:block>
-							<h2 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h2>
-							<h3 th:text="${result.deal.workNm}"></h3>
+							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h3>
+							<h4 th:text="${result.deal.workNm}"></h4>
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
 <!-- 								<div class="tootip-1">신고하기</div> -->
@@ -68,7 +68,7 @@
 							<tr>
 								<th>액자</th>
 								<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
-								<td th:if="${result.deal.workFrmYn == 'N'}">없음</td>
+								<td th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
 							</tr>
 							<tr>
 								<th>사이즈</th>

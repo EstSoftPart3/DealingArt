@@ -1886,6 +1886,11 @@ input[type="radio"]:checked + label span {
     padding-bottom: 1.5rem;
 }
 .be-title h3{
+    font-size: 4rem;
+    color: #333333;
+    padding-bottom: 1.5rem;
+}
+.be-title h4{
     font-size: 3rem;
     color: #333333;
 }

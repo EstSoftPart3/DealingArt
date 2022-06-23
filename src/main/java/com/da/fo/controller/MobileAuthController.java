@@ -130,13 +130,9 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-	    Map<String, Object> result = new HashMap<String, Object>();
-	    session.setAttribute("sName", sName);
-	    session.setAttribute("sBirthDate", sBirthDate);
-	    session.setAttribute("sMobileNo", sMobileNo);
-	    session.setAttribute("sCipherTime", sCipherTime);
-	    session.setAttribute("sDupInfo", sDupInfo);
-		out.println("<script> opener.mainMobileAuthSuccess(); window.close();</script>");
+		out.println("<script> var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
+				+ "result.sDupInfo='"+sDupInfo+"'; result.sMobileNo='"+sMobileNo+"'; result.sCipherTime='"+sCipherTime+"'; "
+				+ "opener.mainMobileAuthSuccess(result); window.close();</script>");
 		out.flush();
 	}
 	
@@ -223,8 +219,7 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-	    session.setAttribute("sDupInfo", sDupInfo);
-		out.println("<script>window.opener.findIdReturnValue(); window.close();</script>");
+		out.println("<script> var diValue='"+sDupInfo+"'; window.opener.findIdReturnValue(diValue); window.close();</script>");
 		out.flush();
 	}
 	
@@ -312,8 +307,7 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-	    session.setAttribute("sName", sName);
-		out.println("<script> opener.findPwdReturnValue(); window.close();</script>");
+		out.println("<script> opener.findPwdReturnValue("+sName+"); window.close();</script>");
 		out.flush();
 	}
 	

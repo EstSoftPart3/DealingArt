@@ -85,9 +85,11 @@ public class mobileAuthServiceImpl implements mobileAuthService {
 		String sEncData = "";
 
 		int iReturn = niceCheck.fnEncode(sSiteCode, sSitePassword, sPlainData);
-		
+		sPlainData = niceCheck.getPlainData();
 		if (iReturn == 0) {
 			sEncData = niceCheck.getCipherData();
+			System.out.println("@@@@@@@@@@@@@@@@ sEncData : "+sEncData);
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@ sPlainData :"+sPlainData);
 			return sEncData;
 		} else if (iReturn == -1) {
 			throw new ResponseException("암호화 시스템 에러입니다.");

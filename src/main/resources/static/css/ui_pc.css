@@ -1819,6 +1819,11 @@ input[type="radio"]:checked + label span {
 .be-title h3{
     font-size: 50px;
     color: #333333;
+    padding-bottom: 10px;
+}
+.be-title h4{
+    font-size: 30px;
+    color: #333333;
 }
 .be-title .phos{
     position: absolute;

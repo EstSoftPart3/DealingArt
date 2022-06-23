@@ -40,11 +40,11 @@
 					<div class="baeg-right">
 						<div class="be-title">
 							<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstEnglsNm)}">
-								<h2 th:text="${result.artistInfo.artstActvtyNm}"></h2>
-								<h2 th:text="'('+${result.artistInfo.artstEnglsNm}+')'"></h2>
+								<h3 th:text="${result.artistInfo.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${result.artistInfo.artstEnglsNm}+')'"></h3>
 							</th:block>
-							<h2 th:if="${#strings.isEmpty(result.artistInfo.artstEnglsNm)}" th:text="${result.artistInfo.artstActvtyNm}"></h2>
-							<h3 th:text="${result.work.workNm}"></h3>
+							<h3 th:if="${#strings.isEmpty(result.artistInfo.artstEnglsNm)}" th:text="${result.artistInfo.artstActvtyNm}"></h3>
+							<h4 th:text="${result.work.workNm}"></h4>
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
 <!-- 								<div class="tootip-1">신고하기</div> -->
