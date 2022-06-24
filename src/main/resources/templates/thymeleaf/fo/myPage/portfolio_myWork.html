@@ -291,6 +291,7 @@ function myWorkList(){
 				html += '		<div class="regs" >';
 				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
 				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="myWorkMod(this)"><span>작품 수정</span></a>';
+				html += '			<a href="javascript:workDetailGo('+ result[i].workSq +')" ><span>상세보기</span></a>';
 				html += '		</div>';
 				html += '	</div>';
 				html += '</div>';
@@ -361,6 +362,20 @@ setInterval(function() {
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
+
+
+function workDetailGo(workSq) {
+	
+	pageGoPost({
+		url:"/workDetail",
+		target:"_self",
+		vals:[
+			["workSq", workSq]
+		]
+	});
+	
+}
+
 
  $(window).on("resize", function () {
 	 
