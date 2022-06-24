@@ -438,8 +438,8 @@ function myDealSearchList(){
 		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'"bidMbrSq="'+myDealList[i].bidMbrSq+'" onclick="bidReg(this)">응찰하기</button>';
 		    				myDealListHtml += '				</div>';
 		    				myDealListHtml += '			</dd>';
-		    				myDealListHtml += '			<dt>남은 시간</dt>';
-		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+		    				myDealListHtml += '			<div class="div_dealCount"><<dt>남은 시간</dt>';
+		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
 	    				}
 	    				if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq == sMbrSqVal){ //경매 진행중이며 판매자면
 	    					myDealListHtml += '			<dt>현재 입찰가</dt>';
@@ -448,8 +448,8 @@ function myDealSearchList(){
 	    					}else{
 	    						myDealListHtml += '			<dd>0 KRW</dd>';
 	    					}
-		    				myDealListHtml += '			<dt>남은 시간</dt>';
-		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+		    				myDealListHtml += '			<div class="div_dealCount"><dt>남은 시간</dt>';
+		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
 	    				}
 	    				if(myDealList[i].dealSttsCd == "TC"){ //경매 종료면
 	    					myDealListHtml += '			<dt>낙찰가</dt>';
@@ -474,8 +474,8 @@ function myDealSearchList(){
         				myDealListHtml += '				<dt>판매가</dt>';
         				myDealListHtml += '				<dd>'+ myDealList[i].dealFinalPrc +' KRW</dd>';
         				if(myDealList[i].dealSttsCd == "TP"){
-	        				myDealListHtml += '			<dt>남은 시간</dt>';
-	        				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd>';
+	        				myDealListHtml += '			<div class="div_dealCount"><dt>남은 시간</dt>';
+	        				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
         				}
         				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
 		    				myDealListHtml += '				<dt>예상 수수료</dt>';
@@ -661,20 +661,22 @@ function myDealSearchList(){
 	});
 }
 //거래 남은 시간 1초마다 계산해서 표현하기
-setInterval(function() {
+var dealCount = setInterval(function() {
 	var elements = document.querySelectorAll(".dealCount");
+	var divElements = document.querySelectorAll(".div_dealCount");
 	for(var i=0; i<elements.length; i++){
 		var dday = new Date(parseInt(elements[i].attributes[1].value)).getTime();
 		var today = new Date().getTime();
 		if(today >= dday){
-			myDealSearchList();
+			divElements[i].style.display = "none";
+		}else{
+			var gap = dday - today;
+			var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+			var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+			var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+			var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+			elements[i].textContent = day + " 일 " + hour + " : " + min + " : " + sec;
 		}
-	  	var gap = dday - today;
-		var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-		var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-		var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-		var sec = Math.ceil((gap % (1000 * 60)) / 1000);
-		elements[i].textContent = day + " 일 " + hour + " : " + min + " : " + sec;
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
