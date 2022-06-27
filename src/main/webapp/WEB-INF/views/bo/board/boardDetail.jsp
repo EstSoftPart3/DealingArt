@@ -79,14 +79,16 @@
                       					<input type="text" class="form-control sTitle classname"  id="brdTitle" name="brdTitle" readonly >
                     				</div>
 					 			</div>
-					 			
+					 			<%
+					 			if(brdTypCd.equals("FA")) {
+					 			%>
 					 			<div class="form-group row">
 					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
                     				<div class="col-sm-9">
                       					<input type="text" class="form-control sTitle classname"  id="brdConTypCdText" name="brdConTypCdText" readonly >
                     				</div>
 					 			</div>
-					 			
+					 			<%}%>
 					 			<div class="form-group row">
                     				
                     				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>

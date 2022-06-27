@@ -116,7 +116,23 @@
 										</div>
                     				</div>
 		               		   </div>
-		               		   <%}%>
+		               		   <%} else {%>
+		               		   	
+		               		   	<div class="form-group row">
+		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">공지타입</label>
+                    				<div class="col-sm-7">
+                      					<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="GE" checked>
+											<label for="a2" class="col-form-label sTitle">일반</label>
+										</div>
+                      					<div style="padding-left:10px;float:left;">
+                      						<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="EM">
+											<label for="a1" class="col-form-label sTitle">긴급(메인화면 팝업으로 공지)</label>
+										</div>
+									</div>
+		               		   	</div>
+		               		   	
+		               		   	<%}%>
 					 			
 					 			<div class="form-group row">
                     				
@@ -132,6 +148,21 @@
                       				</div>
                     				
 					 			</div>
+					 			
+					 			<div class="form-group row">
+		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">사용</label>
+                    				<div class="col-sm-7">
+                      					<div style="padding-left:10px;float:left;">
+											<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="Y" checked>
+											<label for="a2" class="col-form-label sTitle">사용함</label>
+										</div>
+                      					<div style="padding-left:10px;float:left;">
+                      						<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="N">
+											<label for="a1" class="col-form-label sTitle">사용하지 않음</label>
+										</div>
+									</div>
+		               		   	</div>
+					 			
 					 			<div class="form-group row">
                     				
                     				<div class="col-sm-9" style="text-align:right">

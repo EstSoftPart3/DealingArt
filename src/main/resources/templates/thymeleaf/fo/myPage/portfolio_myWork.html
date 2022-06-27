@@ -112,13 +112,13 @@ function myWorkList(){
 			//경매 - 겨래진행중
 			if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
 				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;" onclick="biddingMove('+result[i].workSq+')">';
 				html += '<div>';
 				html += '<div class="item-div-img active-on">';
 				//작품 이미지
-				html += '	<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+				//html += '	<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 				
-				html += '		<div class="item-ho">';
+				html += '		<div class="item-ho" style="cursor:pointer">';
 				html += '			<p>'+ result[i].dealStrtDate +' - '+ result[i].dealEndngDate +'</p>';
  				html += '			<p> 응찰수 : '+ result[i].bidCnt +'</p>';
  				html += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
@@ -145,9 +145,9 @@ function myWorkList(){
 				html += '<div class="uesr-s">';
 				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
  				html += '<img src="resources/img/de/ues-icon.png"/>';
- 			}else{
+ 				}else{
  				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}
+ 				}
 				html += '</div>';
 				
 				
@@ -186,11 +186,11 @@ function myWorkList(){
 			//판매 - 거래진행중
 			if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
 				
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;" onclick="biddingMove('+result[i].workSq+')">';
 				html += '<div>';
 				//작품 이미지
-				html += '<div class="item-div-img sale-on">';
-				html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+				html += '<div class="item-div-img sale-on" style="cursor:pointer">';
+				//html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 				html += '		<div class="item-ho2 sale-div">';
 	 			html += '			<h3>판매중</h3>';
 	 			html += '				<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
@@ -291,7 +291,7 @@ function myWorkList(){
 				html += '		<div class="regs" >';
 				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
 				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="myWorkMod(this)"><span>작품 수정</span></a>';
-				html += '			<a href="javascript:workDetailGo('+ result[i].workSq +')" ><span>상세보기</span></a>';
+				html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" ><span>상세보기</span></a>';
 				html += '		</div>';
 				html += '	</div>';
 				html += '</div>';
@@ -362,19 +362,6 @@ setInterval(function() {
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
-
-
-function workDetailGo(workSq) {
-	
-	pageGoPost({
-		url:"/workDetail",
-		target:"_self",
-		vals:[
-			["workSq", workSq]
-		]
-	});
-	
-}
 
 
  $(window).on("resize", function () {
@@ -501,6 +488,31 @@ $(document).on("click", ".heart", function(){
 		imagesLoaded( '.grid' ).on( 'progress', function() {
 			msnry.layout();
 		});
+	}
+ 
+ 
+	function workDetailMove(workSq) {
+		
+		pageGoPost({
+			url:"/workDetail",
+			target:"_self",
+			vals:[
+				["workSq", workSq]
+			]
+		});
+		
+	}
+
+	function biddingMove(workSq) {
+		
+		pageGoPost({
+			url:"/bidding",
+			target:"_self",
+			vals:[
+				["workSq", workSq]
+			]
+		});
+		
 	}
       
 </script>
