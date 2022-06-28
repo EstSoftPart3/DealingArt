@@ -159,6 +159,18 @@ $(document).ready(function(){
  }
  
  
+ var paramMz9 = location.search
+ 
+ var params = new URLSearchParams(paramMz9);
+  
+ var getParam= params.get('mgzSq');
+  
+ console.log("getParam :"+getParam);
+ 
+ if(getParam !=""){
+	 selectMgz9Dtl(getParam);
+ }
+ 
  /*
   * MGZ9 상세 조회
   * PARAM : #MGZ_SQ
