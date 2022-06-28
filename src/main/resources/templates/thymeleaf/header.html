@@ -1538,7 +1538,7 @@ function ibx_search_onkeyup(e){
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
 	var dealSttsCd = $(this).attr("dealSttsCd");
-	if(dealSttsCd == "null"){
+	if(dealSttsCd == null || dealSttsCd == ""){
 		pageGoPost({
 			url:"/workDetail",
 			target:"_self",
@@ -1546,7 +1546,8 @@ $(document).on("click",".work",function(){
 				["workSq", workSq]
 			]
 		});
-	}else{
+	}
+	if(dealSttsCd == "TP"){
 		pageGoPost({
 			url:"/bidding",
 			target:"_self",

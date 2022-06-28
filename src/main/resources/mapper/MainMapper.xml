@@ -93,13 +93,14 @@
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
 				A.ARTST_BIRTH_YEAR AS artstBirthYear,
 				A.WORK_INTRDC AS workIntrdc,
-				(SELECT DEAL_STTS_CD
-				FROM TBL_DA_DEAL_M
-				WHERE A.WORK_SQ = WORK_SQ) AS dealSttsCd,
+				B.DEAL_STTS_CD AS dealSttsCd,
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_MAIN_IMG_URL, A.WORK_IMG_FRT_URL) AS workMainImgUrl /*작품대표이미지주소*/
 				<!-- B.KEYWRD AS keywrd -->
 		FROM	
 				TBL_DA_WORK_M AS A
+		LEFT JOIN
+				TBL_DA_DEAL_M AS B
+			ON A.WORK_SQ = B.WORK_SQ
 		<!-- INNER JOIN  
 				TBL_DA_KEYWRD_S AS B 
 			ON 	A.WORK_SQ = B.WORK_SQ -->
@@ -108,7 +109,7 @@
 			OR  A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
-			
+			AND B.DEAL_STTS_CD != 'TC'
 		UNION
 		
 		SELECT	
@@ -121,16 +122,22 @@
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
 				A.ARTST_BIRTH_YEAR AS artstBirthYear,
 				A.WORK_INTRDC AS workIntrdc,
-				(SELECT DEAL_STTS_CD
-				FROM TBL_DA_DEAL_M
-				WHERE A.WORK_SQ = WORK_SQ) AS dealSttsCd,
+				C.DEAL_STTS_CD AS dealSttsCd,
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_MAIN_IMG_URL, A.WORK_IMG_FRT_URL) AS workMainImgUrl /*작품대표이미지주소*/
-
 		FROM	
-				TBL_DA_WORK_M AS A INNER JOIN TBL_DA_MBR_M B ON A.MBR_SQ = B.MBR_SQ
-
+				TBL_DA_WORK_M AS A 
+				
+		INNER JOIN 
+				TBL_DA_MBR_M B 
+			ON A.MBR_SQ = B.MBR_SQ
+			
+		LEFT JOIN
+				TBL_DA_DEAL_M AS C
+			ON A.WORK_SQ = C.WORK_SQ
+			
 		WHERE B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
-		
+			AND C.DEAL_STTS_CD != 'TC'
+			
 		LIMIT 	4
 	</select>
 	

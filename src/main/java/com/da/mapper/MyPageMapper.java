@@ -274,5 +274,17 @@ public interface MyPageMapper {
 	 */
 	public Map<String, Object> getTrnsprt(Object param);
 	
+	/*
+	 * 거래내역 운송 정보를 가져온다
+	 * param : null or  searchOption
+	 * return : 운송 정보
+	 */
+	public List selectTrnsprtInfoBuy(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
 	
+	/*
+	 * 거래내역 운송 정보를 가져온다
+	 * param : null or  searchOption
+	 * return : 운송 정보
+	 */
+	public List selectTrnsprtInfoSell(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
 }

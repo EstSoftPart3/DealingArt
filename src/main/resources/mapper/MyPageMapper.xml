@@ -252,6 +252,7 @@
 				TBL_DA_PAYMNT_H AS C
 			ON	B.DEAL_SQ = C.DEAL_SQ
 			AND C.PAYMETHOD = 'VACCT'
+			AND C.MBR_SQ = #{mbrSq}
 			<!-- <if test="buyOrSell == 'ALL'">
 			AND (C.PAYMNT_DIV_CD = 'B' OR C.PAYMNT_DIV_CD = 'S')
 			</if>
@@ -1515,6 +1516,7 @@
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_LAKE AS workLake,
 				B.MBR_REF_NO AS mbrRefNo,
 				B.DEAL_TYP_CD AS dealTypCd,
 				B.DEAL_STTS_CD AS dealSttsCd,
@@ -1569,6 +1571,7 @@
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
 				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_LAKE AS workLake,
 				B.MBR_REF_NO AS mbrRefNo,
 				B.DEAL_TYP_CD AS dealTypCd,
 				B.DEAL_STTS_CD AS dealSttsCd,
@@ -1741,6 +1744,7 @@
 					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
 					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
 					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+					WHEN A.PAYMETHOD = 'NONE' THEN '결제완료'
 				END 
 				) AS payMethod,
 				(
@@ -1805,6 +1809,7 @@
 					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
 					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
 					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+					WHEN A.PAYMETHOD = 'NONE' THEN '결제완료'
 				END 
 				) AS payMethod,
 				(
@@ -1869,6 +1874,7 @@
 					WHEN A.PAYMETHOD = 'CARD' THEN '신용카드'
 					WHEN A.PAYMETHOD = 'VACCT' THEN '가상계좌'
 					WHEN A.PAYMETHOD = 'ACCT' THEN '계좌이체'
+					WHEN A.PAYMETHOD = 'NONE' THEN '결제완료'
 				END 
 				) AS payMethod,
 				(
@@ -1922,5 +1928,35 @@
 				A.DEAL_SQ = #{dealSq}
 			AND MBR_SQ = #{mbrSq}
 			AND A.PAYMNT_DIV_CD = 'S'
+	</select>
+	<select id="selectTrnsprtInfoBuy" resultType="hashMap" parameterType="hashMap">
+		/* 구매자 운송 정보 가져오기 */
+		SELECT
+				TRNSPRT_TYP_CD AS trnsprtTypCd,
+				TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm,
+				TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm,
+				TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm,
+				FORMAT(TRNSPRT_PRC, 0) AS trnsprtPrc
+		FROM 
+				TBL_DA_DEAL_TRNSPRT_S
+		WHERE 
+				TRNSPRT_DIV_CD = 'B'
+			AND	DEAL_SQ = #{dealSq}
+			AND BUY_MBR_SQ = #{mbrSq}
+	</select>
+	<select id="selectTrnsprtInfoSell" resultType="hashMap" parameterType="hashMap">
+		/* 판매자 운송 정보 가져오기 */
+		SELECT
+				TRNSPRT_TYP_CD AS trnsprtTypCd,
+				TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm,
+				TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm,
+				TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm,
+				FORMAT(TRNSPRT_PRC, 0) AS trnsprtPrc
+		FROM 
+				TBL_DA_DEAL_TRNSPRT_S
+		WHERE 
+				TRNSPRT_DIV_CD = 'S'
+			AND	DEAL_SQ = #{dealSq}
+			AND SELL_MBR_SQ = #{mbrSq}
 	</select>
 </mapper>

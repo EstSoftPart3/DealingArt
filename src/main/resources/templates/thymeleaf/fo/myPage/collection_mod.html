@@ -183,8 +183,10 @@
 									<th><span class="my-red">보증서</span></th>
 									<td>
 										<div class="filebox bs3-primary">
-											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workGrtUrl)}" th:src="${result.workGrtUrl}"/>
-											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workGrtUrl)}"/>
+											<!-- <img class="content" id="workGrtUrl1" style="cursor:pointer" th:if="${not #strings.isEmpty(result.workGrtUrl)}" th:src="${result.workGrtUrl}"/>
+											<img class="content" id="workGrtUrl1" style="cursor:pointer" th:unless="${not #strings.isEmpty(result.workGrtUrl)}"/> -->
+											<input type="text" id="workGrtUrl1" class="input-4" th:if="${not #strings.isEmpty(result.workGrtUrl)}" th:value="${result.workGrtUrl}" disabled>
+											<input type="text" id="workGrtUrl1" class="input-4" th:unless="${not #strings.isEmpty(result.workGrtUrl)}" disabled>
 											<label for="workGrtUrl">찾아보기</label> 
 											<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.workGrtUrl}"> 
 										</div>
@@ -202,16 +204,18 @@
 									<th><span class="my-red">사이즈</span></th>
 									<td>
 										<div class="coll-gr">
-											<input type="text" class="input-4" id="workSizeWidth" th:value="${result.workSizeWidth}"/>
+											<input type="text" class="input-4" id="workSizeWidth" th:value="${result.workSizeWidth}" onblur="autoLake()"/>
 											<span class="cg-x">X</span> 
-											<input type="text" class="input-4" id="workSizeDepth" th:value="${result.workSizeDepth}"/>
-											<span class="cg-text">cm 37호 입니다</span>
+											<input type="text" class="input-4" id="workSizeDepth" th:value="${result.workSizeDepth}" onblur="autoLake()"/>
+											<span class="cg-text" id="workLake" th:if="${not #strings.isEmpty(result.workLake)}" th:utext="|<br/>${result.workLake}호 입니다.|">
+												<!-- <img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img> -->
+											</span>
+											<span class="cg-text" id="workLake" th:unless="${not #strings.isEmpty(result.workLake)}">
+												<br/>작품 사이즈를 입력하시면 호수가 자동으로 계산됩니다. 
+											</span>
+											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img>
 										</div>
 									</td>
-								</tr>
-								<tr>
-									<th><span class="my-red">호수</span></th>
-									<td><input type="text" class="input-4" id="workLake" th:value="${result.workLake}"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">소재/기법</span></th>
@@ -388,162 +392,135 @@
 		</div>
 	</div>
 </div>
+<!-- 호수 안내표 -->
+<!-- table -->
+<div class="modal fade modal-s" id="lakeHelpModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w480" style="max-width:600px !important;">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" onclick="closeLakeHelp()"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
 
+				<div class="login-box" style="margin-top:30px;">
+					<p class="lb-p1">작품 사이즈 기준표 (cm)</p>
+					<div class="text-box1">
+						
+						<table class="tstyle4">
+							<tr>
+								<th>호수</th>
+								<th>F형 (인물)</th>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>18.0 x 14.0</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>22.7 x 15.8</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>25.8 x 17.9</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>27.3 x 22.0</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>33.4 x 24.2</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>34.8 x 27.3</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>40.9 x 31.8</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>45.5 x 37.9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>53.0 x 45.0</td>
+							</tr>
+							<tr>
+								<td>12</td>
+								<td>60.6 x 50.0</td>
+							</tr>
+							<tr>
+								<td>15</td>
+								<td>65.1 x 53.0</td>
+							</tr>
+							<tr>
+								<td>20</td>
+								<td>72.7 x 60.6</td>
+							</tr>
+							<tr>
+								<td>25</td>
+								<td>80.3 x 65.1</td>
+							</tr>
+							<tr>
+								<td>30</td>
+								<td>90.9 x 72.7</td>
+							</tr>
+							<tr>
+								<td>40</td>
+								<td>100.0 x 80.3</td>
+							</tr>
+							<tr>
+								<td>50</td>
+								<td>116.8 x 91.0</td>
+							</tr>
+							<tr>
+								<td>60</td>
+								<td>130.3 x 97.0</td>
+							</tr>
+							<tr>
+								<td>80</td>
+								<td>145.5 x 112.1</td>
+							</tr>
+							<tr>
+								<td>100</td>
+								<td>162.2 x 130.3</td>
+							</tr>
+							<tr>
+								<td>120</td>
+								<td>193.9 x 130.3</td>
+							</tr>
+							<tr>
+								<td>150</td>
+								<td>227.3 x 181.8</td>
+							</tr>
+							<tr>
+								<td>200</td>
+								<td>259.1 x 193.9</td>
+							</tr>
+							<tr>
+								<td>300</td>
+								<td>290.9 x 218.2</td>
+							</tr>
+							<tr>
+								<td>500</td>
+								<td>333.3 x 248.5</td>
+							</tr>
+						</table>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script th:inline="javascript">
- $(window).on("resize", function () {
-    if(window.matchMedia('(min-width: 1537px)').matches)
-    {
-    	
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 4,
-	          spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       	  /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	        });
-    	
-    	  
-    	  
-    	
-    	
-    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-    	
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 3,
-	          spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	     });
-    	
-    	
-    	
-     } else {
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 2,
-	       	  spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	     });
-    	
-     };
-}).resize();
- 
- 
- 
- $(document).ready(function () {
-  $(".elm").hover(
-	function(){ $(this).addClass('hover') },
-    function(){ $(this).removeClass('hover') }
-  )
-  $(".cn-b").hover(
-	function(){ $(this).addClass('gis') },
-    function(){ $(this).removeClass('gis') }
-  )
- });
- 
- $(function() {                      
-  $(".bab-bo").click(function() { 
-    $(this).toggleClass("bashow");     
-  });
-  
-  $(".lg-my").click(function() { 
- 	    $('.bg-sh').toggleClass('bg-show');     
- 	 	 $('.s-hov').toggleClass('s-hov-show');     
- 	  });
-  
-});
- 
- 
- 
- 
- /* 메뉴바 FIXED */
- if (jQuery(window).width() > 0) {
-     jQuery(window).on("scroll",function(ev){
-         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-             jQuery('.head-wrap').addClass('fixed');
-         }
-         else{
-             jQuery('.head-wrap').removeClass('fixed');
-         }
-         return false;
-     });
- }
- 
- 
- /* jQuery(function($) {
 
-    window.onresize = function(){
-      document.location.reload();
-    };
-
-}); */
- 
- 
- 
- var delay = 300;
- var timer = null;
-
- //Javascript
-//  window.addEventListener('resize', function(){
-//  	clearTimeout(timer);
-//  	timer = setTimeout(function(){
-//  		document.location.reload();
-//  	}, delay);
-//  });
-
- //jQuery
-//  $(window).on('resize', function(){
-//  	clearTimeout(timer);
-//  	timer = setTimeout(function(){
-//  		document.location.reload();
-//  	}, delay);
-//  });
- 
- $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    // The event won't be propagated up to the document NODE and 
-    // therefore delegated events won't be fired
-    event.stopPropagation();
-});
- 
 $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
@@ -552,6 +529,10 @@ $(function() {
 
 $(document).on("change", ".upload-hidden", function(e){
 	readImg(e.target, e.target.id);
+});
+
+$("#workGrtUrl").change(function(){
+	$("#workGrtUrl1").val(this.value);
 });
 
 function readImg(input, imgId){
@@ -623,9 +604,112 @@ $(function() {
 			keywrdSet(keywrd);
 		}
 	}
-	
+	autoLake();
 });
-
+//호수 계산
+function autoLake(){
+	var width = $("#workSizeWidth").val();
+	var depth = $("#workSizeDepth").val();
+	var lake = "";
+	if(width != null && width != "" && depth != null && depth != ""){
+		if(width >= 18.0 && depth >= 14.0){
+			lake = 0;
+		}
+		if(width >= 22.7 && depth >= 15.8){
+			lake = 1;
+		}
+		if(width >= 25.8 && depth >= 17.9){
+			lake = 2;
+		}
+		if(width >= 27.3 && depth >= 22.0){
+			lake = 3;
+		}
+		if(width >= 33.4 && depth >= 24.2){
+			lake = 4;
+		}
+		if(width >= 34.8 && depth >= 27.3){
+			lake = 5;
+		}
+		if(width >= 40.9 && depth >= 31.8){
+			lake = 6;
+		}
+		if(width >= 45.5 && depth >= 37.9){
+			lake = 8;
+		}
+		if(width >= 53.0 && depth >= 45.0){
+			lake = 10;
+		}
+		if(width >= 60.6 && depth >= 50.0){
+			lake = 12;
+		}
+		if(width >= 65.1 && depth >= 53.0){
+			lake = 15;
+		}
+		if(width >= 72.7 && depth >= 60.6){
+			lake = 20;
+		}
+		if(width >= 80.3 && depth >= 65.1){
+			lake = 25;
+		}
+		if(width >= 90.9 && depth >= 72.7){
+			lake = 30;
+		}
+		if(width >= 100.0 && depth >= 80.3){
+			lake = 40;
+		}
+		if(width >= 116.8 && depth >= 91.0){
+			lake = 50;
+		}
+		if(width >= 100.0 && depth >= 80.3){
+			lake = 40;
+		}
+		if(width >= 116.8 && depth >= 91.0){
+			lake = 50;
+		}
+		if(width >= 130.3 && depth >= 97.0){
+			lake = 60;
+		}
+		if(width >= 145.5 && depth >= 112.1){
+			lake = 80;
+		}
+		if(width >= 162.2 && depth >= 130.3){
+			lake = 100;
+		}
+		if(width >= 193.9 && depth >= 130.3){
+			lake = 120;
+		}
+		if(width >= 227.3 && depth >= 181.8){
+			lake = 150;
+		}
+		if(width >= 259.1 && depth >= 193.9){
+			lake = 200;
+		}
+		if(width >= 290.9 && depth >= 218.2){
+			lake = 300;
+		}
+		if(width >= 333.3 && depth >= 248.5){
+			lake = 500;
+		}
+		$("#workLake").html("<br/>"+lake+"호 입니다.");
+		result.workLake = lake;
+		
+	}else{
+		$("#workLake").html("<br/>작품 사이즈를 입력하시면 호수가 자동으로 계산됩니다.");
+		result.workLake = "";
+	}
+}
+//호수 안내 팝업 오픈
+function openLakeHelp(){
+	$('body').css("overflow", "hidden");
+	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
+	$("#lakeHelpModal").modal("show");
+}
+//호수 안내 팝업 닫기
+function closeLakeHelp(){
+	$('body').css("overflow", "scroll");
+	$("#lakeHelpModal").modal("hide");
+}
+//소장품 등록
 function collectionReg(){
 	if(checkValid()){
 		result.mbrSq = sMbrSqVal;
@@ -638,7 +722,7 @@ function collectionReg(){
 		result.workVideoUrl = $("#workVideoUrl").val();
 		result.workIntrdc = $("#workIntrdc").val();
 		result.keywrd = $("#keywrd").val();
-		result.workLake = $("#workLake").val();
+		//result.workLake = $("#workLake").val();
 		
 		const formData = new FormData();
 		//작품 대표 사진
@@ -670,8 +754,8 @@ function collectionReg(){
 		}
 		//보증서
 		const workGrtUrl = document.getElementById("workGrtUrl");
-		if(workGrtUrl.files[0] == null && $("#workGrtUrl1").attr("src") != null){
-			result.workGrtUrl = $("#workGrtUrl1").attr("src");
+		if(workGrtUrl.files[0] == null && $("#workGrtUrl1").val() != null){
+			result.workGrtUrl = $("#workGrtUrl1").val();
 		}else{
 			if(workGrtUrl.files[0] != null){
 				formData.append("workGrtUrl", workGrtUrl.files[0]);
@@ -1057,7 +1141,7 @@ function selectWork(obj){
 			$("#workMainImgUrl1").attr("src", result2.workMainImgUrl);
 			$("#workImgFrtUrl1").attr("src", result2.workImgFrtUrl);
 			$("#workImgRerUrl1").attr("src", result2.workImgRerUrl);
-			$("#workGrtUrl1").attr("src", result2.workGrtUrl);
+			$("#workGrtUrl1").val(result2.workGrtUrl);
 			$("#workImgLefUrl1").attr("src", result2.workImgLefUrl);
 			$("#workImgRitUrl1").attr("src", result2.workImgRitUrl);
 			$("#workImgTopUrl1").attr("src", result2.workImgTopUrl);
@@ -1069,6 +1153,157 @@ function selectWork(obj){
         }
 	}); 
 }
+$(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches)
+    {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 4,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       	  /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	        });
+    	
+    	  
+    	  
+    	
+    	
+    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 3,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+    	
+    	
+     } else {
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 2,
+	       	  spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+     };
+}).resize();
+
+$(document).ready(function () {
+	  $(".elm").hover(
+		function(){ $(this).addClass('hover') },
+	    function(){ $(this).removeClass('hover') }
+	  )
+	  $(".cn-b").hover(
+		function(){ $(this).addClass('gis') },
+	    function(){ $(this).removeClass('gis') }
+	  )
+	 });
+	 
+	 $(function() {                      
+	  $(".bab-bo").click(function() { 
+	    $(this).toggleClass("bashow");     
+	  });
+	  
+	  $(".lg-my").click(function() { 
+	 	    $('.bg-sh').toggleClass('bg-show');     
+	 	 	 $('.s-hov').toggleClass('s-hov-show');     
+	 	  });
+	  
+	});
+	 
+	 
+	 
+	 
+	 /* 메뉴바 FIXED */
+	 if (jQuery(window).width() > 0) {
+	     jQuery(window).on("scroll",function(ev){
+	         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+	             jQuery('.head-wrap').addClass('fixed');
+	         }
+	         else{
+	             jQuery('.head-wrap').removeClass('fixed');
+	         }
+	         return false;
+	     });
+	 }
+	 
+	 
+	 /* jQuery(function($) {
+
+	    window.onresize = function(){
+	      document.location.reload();
+	    };
+
+	}); */
+	 
+	 
+	 
+	 var delay = 300;
+	 var timer = null;
+
+	 //Javascript
+	//  window.addEventListener('resize', function(){
+//	  	clearTimeout(timer);
+//	  	timer = setTimeout(function(){
+//	  		document.location.reload();
+//	  	}, delay);
+	//  });
+
+	 //jQuery
+	//  $(window).on('resize', function(){
+//	  	clearTimeout(timer);
+//	  	timer = setTimeout(function(){
+//	  		document.location.reload();
+//	  	}, delay);
+	//  });
+	 
+	 $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+	    // The event won't be propagated up to the document NODE and 
+	    // therefore delegated events won't be fired
+	    event.stopPropagation();
+	});
+	 
 </script>
     
 	

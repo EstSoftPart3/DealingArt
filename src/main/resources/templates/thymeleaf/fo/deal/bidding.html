@@ -980,10 +980,13 @@ function selectBoxWriteAskingPrice(){
 		bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
 		askingPrc = askingPrice(bidPrc);
 		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+		
 	}else{ //입찰가가 없다면
 		bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
 		askingPrc = askingPrice(bidPrc);
-		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.	
+		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.
+		
+		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc)+"</option>");
 	}
 	for(i=0; i<30; i++){
 		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.

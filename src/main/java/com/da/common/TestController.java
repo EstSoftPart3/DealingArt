@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -179,9 +180,10 @@ public class TestController {
 	 * @param paramMap
 	 * @param request
 	 * @return
+	 * @throws JSONException 
 	 */
 	@PostMapping("/payment/readyApi")
-	public @ResponseBody Map<String, Object> mainPayReadyApi(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> mainPayReadyApi(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws JSONException {
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 		
@@ -300,6 +302,7 @@ public class TestController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
 	/**
 	 * 결제 완료 된 데이터 가져오기
 	 * @param paramMap
@@ -313,6 +316,33 @@ public class TestController {
 		rsltList = mainPayUtil.getPaymentSuccessDataList(paramMap);
 		
 		return rsltList;
+	}
+	
+	/**
+	 * 결제 금액 0원이면 결제 완료 처리
+	 * @param paramMap
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/payment/paymentCompleted")
+	public @ResponseBody ModelAndView paymentCompleted(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("jsonView");
+		mv.addObject("result", "OK");
+		String paymntOrder = paramMap.get("mbrRefNo").toString(); //주문 번호를 가져온다
+		paymntOrder = paymntOrder.substring(paymntOrder.length() - 1); //주문 번호 끝에 1글자만 가져온다
+		if(paymntOrder.equals("2")) {
+			mainPayMapper.insertPayMnt(paramMap); //결제 내역에 등록한다
+			mainPayMapper.insertWorkDeal(paramMap); //거래 내역에 구매자 정보 입력
+			myPageMapper.updateBuyPaymntSttsCd(paramMap.get("dealSq").toString(), "2PC"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+			mainPayMapper.updateCouponUseYn(paramMap); //쿠폰을 사용처리 해준다
+		}
+		if(paymntOrder.equals("3")) {
+			mainPayMapper.insertPayMnt(paramMap); //결제 내역에 등록한다
+			mainPayMapper.insertWorkDeal(paramMap); //거래 내역에 구매자 정보 입력
+			myPageMapper.updateSellPaymntSttsCd(paramMap.get("dealSq").toString(), "2PC"); //딜 테이블에 판매자 결제 상태 코드를 변경해준다
+			mainPayMapper.updateCouponUseYn(paramMap); //쿠폰을 사용처리 해준다
+		}
+		return mv;
 	}
 	
 	/**

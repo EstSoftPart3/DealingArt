@@ -271,6 +271,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				A.ARTST_SQ = #{artstSq}
+			AND D.DEAL_STTS_CD = 'TC'
 		<if test="sort != null and sort != ''">
         	<if test='sort == "PY"'>
         		ORDER BY A.WORK_PRODC_YEAR

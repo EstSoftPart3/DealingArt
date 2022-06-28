@@ -1,18 +1,22 @@
 package com.da.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.da.mapper.MainPayMapper;
 import com.da.mapper.MyPageMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mainpay.sdk.net.HttpSendTemplate;
 import com.mainpay.sdk.utils.ParseUtils;
 
@@ -84,8 +88,9 @@ public class MainPayUtil {
 	 * Ready 
 	 * @param paramMap
 	 * @return
+	 * @throws JSONException 
 	 */
-	public Map<String, Object> readyApi(Map<String, Object> paramMap) {
+	public Map<String, Object> readyApi(Map<String, Object> paramMap){
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 
@@ -102,8 +107,12 @@ public class MainPayUtil {
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
 		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
 		/* 결제 허용할 카드사 번호 리스트*/
-		String availableCard = "['02','03','05','07','11','12','15','20','22','23','24','25','26','28','31','34','SP','UP','PC','AV','AM','AJ','NP']";
-		JSONArray availableCards = new JSONArray(availableCard);
+		//String[] availableCard = {"02", "03", "05", "07", "11", "12", "15", "20", "22", "23", "24", "25", "26", "28", "31", "34", "SP", "UP", "PC", "AV", "AM", "AJ", "NP"};
+		String[] availableCard = {"01", "02", "03", "11"};
+		ArrayList<String> availableCards = new ArrayList<String>(Arrays.asList(availableCard));
+		//Gson gson = new Gson();
+		//JsonArray availableCards = new JsonArray();
+		//availableCards = gson.fromJson(availableCard, availableCards.getClass());
 		parameters.put("availableCards", availableCards);
 		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/

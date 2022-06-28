@@ -126,27 +126,27 @@ public class DealController {
 		Map<String, Object> deal = new Gson().fromJson(jsonObject.getJSONObject("deal").toString(), new HashMap().getClass());
 		//보증서
 		if(workGrtUrl != null){
-			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workGrtUrl", file.getFileUrl());
 		}
 		//작품 사진 좌
 		if(workImgLefUrl != null){
-			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgLefUrl", file.getFileUrl());
 		}
 		//작품 사진 우
 		if(workImgRitUrl != null){
-			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgRitUrl", file.getFileUrl());
 		}
 		//작품 사진 상
 		if(workImgTopUrl != null){
-			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgTopUrl", file.getFileUrl());
 		}
 		//작품 사진 하
 		if(workImgBotUrl != null){
-			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work"+mbrInfo.get("mbrSq").toString());
+			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgBotUrl", file.getFileUrl());
 		}
 		int result = myPageService.myWorkCor(work); 

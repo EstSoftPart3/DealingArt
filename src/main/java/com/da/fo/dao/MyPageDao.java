@@ -289,9 +289,11 @@ public class MyPageDao {
 		Map<String, Object> payMntInfo1 = new HashMap<>();
 		Map<String, Object> payMntInfo2 = new HashMap<>();
 		Map<String, Object> vacctInfo = new HashMap<>();
+		List<Map<String, Object>> trnsprtInfo = new ArrayList<Map<String,Object>>();
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo1 = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
 			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
+			trnsprtInfo = myPageMapper.selectTrnsprtInfoBuy(dealSq, mbrSq);
 		}
 		if(dealInfo.get("payMethod") != null) {
 			if(dealInfo.get("buyPaymntSttsCd").toString().equals("1PW")) {
@@ -303,7 +305,6 @@ public class MyPageDao {
 			if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PW")) {
 				if(dealInfo.get("payMethod").toString().equals("VACCT")) {
 					vacctInfo = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
-					
 				}
 			}
 			
@@ -311,6 +312,7 @@ public class MyPageDao {
 		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo1", payMntInfo1);
 		result.put("payMntInfo2", payMntInfo2);
+		result.put("trnsprtInfo", trnsprtInfo);
 		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
 		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));
 		result.put("dealInfo", dealInfo);
@@ -329,8 +331,10 @@ public class MyPageDao {
 		Map<String, Object> mbrInfo = myPageMapper.getPaymentDeliveryInfo(mbrSq);
 		Map<String, Object> payMntInfo = new HashMap<>();
 		Map<String, Object> vacctInfo = new HashMap<>();
-		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
+		List<Map<String, Object>> trnsprtInfo = new ArrayList<Map<String,Object>>();
+		if(dealInfo.get("sellPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
+			trnsprtInfo = myPageMapper.selectTrnsprtInfoSell(dealSq, mbrSq);
 		}
 		if(dealInfo.get("payMethod") != null) {
 			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
@@ -340,6 +344,7 @@ public class MyPageDao {
 		}
 		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo", payMntInfo);
+		result.put("trnsprtInfo", trnsprtInfo);
 		mbrInfo.put("mbrEmail", commonService.decrypt(mbrInfo.get("mbrEmail").toString()));
 		mbrInfo.put("mbrCpNum", commonService.decrypt(mbrInfo.get("mbrCpNum").toString()));
 		result.put("dealInfo", dealInfo);
