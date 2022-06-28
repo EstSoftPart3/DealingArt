@@ -60,9 +60,9 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
          
-          <li class="nav-header">회원관리</li>
+          <li class="nav-header"></li>
          
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-open1">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p class="sTitle">
@@ -75,10 +75,10 @@
               <li class="nav-item">
                 <a href="/admin/member/memberList" class="nav-link">
                   <i class="far fa-circle nav-icon sTitle"></i>
-                  <p class="sTitle">정보조회</p>
+                  <p class="sTitle">전체</p>
                 </a>
               </li>
-              
+            
               <li class="nav-item">
                 <a href="/admin/member/artistProList" class="nav-link">
                   <i class="far fa-circle nav-icon sTitle"></i>
@@ -95,7 +95,7 @@
             </ul>
            </li>
                     	
-          	<li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-open1">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -103,23 +103,23 @@
 	                <i class="right fas fa-angle-left"></i>
 	              </p>
 	            </a>
-		            <ul class="nav nav-treeview">
-		              <li class="nav-item">
-		                <a href="/admin/payment" class="nav-link">
-		                  <i class="far fa-circle nav-icon sTitle"></i>
-		                  <p class="sTitle">주문</p>
-		                </a>
-		              </li>
-<!-- 		              <li class="nav-item"> -->
-<!-- 		                <a href="/admin/transit" class="nav-link"> -->
-<!-- 		                  <i class="far fa-circle nav-icon sTitle"></i> -->
-<!-- 		                  <p class="sTitle">배송</p> -->
-<!-- 		                </a> -->
-<!-- 		              </li> -->
-		           </ul>
+		         <ul class="nav nav-treeview">
+		            <li class="nav-item">
+		              <a href="/admin/payment" class="nav-link">
+		                <i class="far fa-circle nav-icon sTitle"></i>
+		                <p class="sTitle">주문</p>
+		              </a>
+		            </li>
+<!-- 		            <li class="nav-item"> -->
+<!-- 		              <a href="/admin/transit" class="nav-link"> -->
+<!-- 		                <i class="far fa-circle nav-icon sTitle"></i> -->
+<!-- 		                <p class="sTitle">배송</p> -->
+<!-- 		              </a> -->
+<!-- 		            </li> -->
+		         </ul>
           	</li>
           	
-          	<li class="nav-item has-treeview menu-open">
+          	<li class="nav-item has-treeview menu-open1">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -143,7 +143,7 @@
 		           </ul>
           	</li>
           	
-          	<li class="nav-item has-treeview menu-open">
+          	<li class="nav-item has-treeview menu-open1">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -173,6 +173,7 @@
 		           </ul>
           	</li>
           	
+          	<!--
           	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
@@ -190,6 +191,7 @@
 		              </li>
 		           </ul>
           	</li>
+          	-->
           	<li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">공통관리</li>
           	 		<li class="nav-item has-treeview">

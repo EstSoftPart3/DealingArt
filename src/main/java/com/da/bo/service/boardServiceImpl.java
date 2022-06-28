@@ -50,6 +50,17 @@ public class boardServiceImpl implements boardService {
 		
 		return result;
 	}
+	
+	//게시판 상세
+	@Override
+	public Map<String, Object> emBoardDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardDao.emBoardDetail(param);
+		
+		return result;
+	}
 		
 	//게시판 삭제
 	@Override

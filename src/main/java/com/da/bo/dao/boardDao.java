@@ -65,6 +65,21 @@ public class boardDao {
 		return result;
 	}
 	
+	//긴급게시판 상세
+	public Map<String, Object> emBoardDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		System.out.println("DATA = " + param);
+		
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> emBoardDetail = boardMapper.emBoardDetail(param);
+		
+		result.put("DetailData", emBoardDetail);
+		
+		return result;
+	}
+	
 	//게시판 삭제
 	public void boardDelete(Map<String, Object> param){
 		

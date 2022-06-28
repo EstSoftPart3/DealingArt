@@ -5,6 +5,9 @@
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
     </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    
 </head>
 
 <body>
@@ -358,7 +361,14 @@
 									<div class="uli-list">
 										<!-- <div class="uli-img uli-hart-on"> 하트 온 -->
 										<div class="uli-img">
-											<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;"/>
+											<th:block th:if="${workList.dealTypCd.toString().equals('A')}"><!-- 경매면 -->
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|dealDetail('${workList.workSq}')|"/>
+											</th:block>
+											
+											<th:block th:if="${workList.dealSttsCd.toString().equals('TP')}"><!-- 판매 중이면 -->
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
+											</th:block>
+											
 												<!-- <div class="uho"></div> -->
 										</div>
 										<div class="uli-text">
@@ -394,7 +404,7 @@
 													<p class="ste-p1">시작가</p>
 													<p class="ste-p2" th:text="${workList.dealStrtPrc}+' KRW'"></p>
 												</div>
-												<th:block th:if="${workList.dealSttsCd.toString().equals('TP')}"><!-- 경매며 판매 중이면 -->
+												<th:block th:if="${workList.dealSttsCd.toString().equals('TP')}"><!-- 판매 중이면 -->
 													<div class="ste-div">
 														<img src="resources/img/about/icon-s4.png" class="ste-img"/>
 														<p class="ste-p1">입찰가</p>
@@ -836,6 +846,14 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
+
+function dealDetail(workSq){
+ 	location.href="/bidding?workSq="+workSq;
+}
+
+function workDetail(workSq){
+ 	location.href="/workDetail?workSq="+workSq;
+}
       
 </script>
     
