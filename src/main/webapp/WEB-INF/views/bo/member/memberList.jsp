@@ -21,7 +21,7 @@
 	                	
 		                <div class="card-tools">
 		                  
-		                  <div class="input-group input-group-sm" style="width: 350px;">
+		                  <div class="input-group input-group-sm" style="width: 650px;">
 		                  
 		                  
 		                    <select class="custom-select bTitle" id="memberGubun">
@@ -38,7 +38,7 @@
 	                          <option value="mbrId">아이디</option>
 	                          <option value="mbrNcknm">닉네임</option>
 	                        </select>
-		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색">
+		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색" style="width:200px;">
 		
 		                    <div class="input-group-append">
 		                      <button type="button" data-action="memberSearch" data-id="search-id" class="btn btn-default" id="searchBtn"><i class="fas fa-search"></i></button>

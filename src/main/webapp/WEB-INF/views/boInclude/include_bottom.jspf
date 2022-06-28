@@ -43,21 +43,15 @@
   <link rel="stylesheet" href="/resources/plugins/jsgrid/jsgrid-theme.min.css">
 
 
-<!-- page script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
+$(function () {
+		var url = window.location.href,urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
+	    $('a').each(function () {
+	       	if(url == this.href){
+            	$(this).parent().parent().parent().addClass('menu-open');
+            	//$(this).parent().prop('a').addClass('active');
+            	$(this).addClass('active');
+			}
+		});
+});
 </script>
