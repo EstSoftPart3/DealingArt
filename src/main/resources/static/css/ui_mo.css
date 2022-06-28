@@ -5722,3 +5722,7 @@ p.dib{display:inline-block !important;}
     font-weight: 400;
     color:#000;
 }
+
+/*0623*/
+.rad-mg-1{margin-top:30px; margin-bottom:0; text-align: right;}
+.text-box1 { margin-top:13px; font-size:1.5rem; }

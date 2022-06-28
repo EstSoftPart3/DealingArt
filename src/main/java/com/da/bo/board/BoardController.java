@@ -75,12 +75,14 @@ public class BoardController {
 	@ResponseBody
 	public void BoardInsertData(@RequestParam Map<String, Object> param) {
 		
-		System.out.println("dddd");
+		//System.out.println("dddd");
 		
 		String brdTitle = (String) param.get("brdTitle");
 		String brdContent = (String) param.get("brdContent");
 		String brdTypCd = (String) param.get("brdTypCd");
 		String brdConTypCd = (String) param.get("brdConTypCd");
+		String brdAnTypCd = (String) param.get("brdAnTypCd");
+		String useYn = (String) param.get("useYn");
 		int regMbrSq = Integer.parseInt((String) param.get("regMbrSq"));
 
 		param.put("brdTitle", brdTitle);
@@ -88,6 +90,8 @@ public class BoardController {
 		param.put("brdTypCd", brdTypCd);
 		param.put("regMbrSq", regMbrSq);
 		param.put("brdConTypCd", brdConTypCd);
+		param.put("brdAnTypCd", brdAnTypCd);
+		param.put("useYn", useYn);
 		
 		
 		System.out.println(param);
@@ -113,7 +117,7 @@ public class BoardController {
 	//게시판 상세 정보
 	@RequestMapping("/admin/board/boardDetailData")
 	@ResponseBody
-	public ModelAndView memberContentData(@RequestParam Map<String, Object> param) {
+	public ModelAndView boardDetailData(@RequestParam Map<String, Object> param) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -123,9 +127,29 @@ public class BoardController {
 		
 		result = boardService.boardDetail(param);
 		
-		System.out.println("ㄹㅇㄹㅇㅇㄹㅇㄹㅇㄹ" + result);
+		//System.out.println("ㄹㅇㄹㅇㅇㄹㅇㄹㅇㄹ" + result);
 		
 		mv.addObject("boardDetailData", result);
+		
+		return mv;
+	}
+	
+	//긴급 게시판 상세
+	@RequestMapping("/admin/board/emBoardDetailData")
+	@ResponseBody
+	public ModelAndView emBoardDetailData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boardService.emBoardDetail(param);
+		
+		//System.out.println("emBoardDetail" + result);
+		
+		mv.addObject("emBoard", result);
 		
 		return mv;
 	}
@@ -157,14 +181,16 @@ public class BoardController {
 		String brdContent = (String) param.get("brdContent");
 		String brdTypCd = (String) param.get("brdTypCd");
 		String brdConTypCd = (String) param.get("brdConTypCd");
-		
+		String brdAnTypCd = (String) param.get("brdAnTypCd");
+		String useYn = (String) param.get("useYn");
 
 		param.put("brdSq", brdSq);
 		param.put("brdTitle", brdTitle);
 		param.put("brdContent", brdContent);
 		param.put("brdTypCd", brdTypCd);
 		param.put("brdConTypCd", brdConTypCd);
-
+		param.put("brdAnTypCd", brdAnTypCd);
+		param.put("useYn", useYn);
 		
 		boardService.boardUpdate(param);
 		

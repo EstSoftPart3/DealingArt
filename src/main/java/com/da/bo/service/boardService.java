@@ -15,6 +15,8 @@ public interface boardService {
 	public void boardInsert(Map<String, Object> param);
 	//게시판 상세
 	public Map<String, Object> boardDetail(Map<String, Object> param);
+	//긴급 게시판 상세
+	public Map<String, Object> emBoardDetail(Map<String, Object> param);
 	//게시판 삭제
 	public void boardDelete(Map<String, Object> param); 
 	//게시판 수정

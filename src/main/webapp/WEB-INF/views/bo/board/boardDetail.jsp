@@ -89,6 +89,16 @@
                     				</div>
 					 			</div>
 					 			<%}%>
+					 			<%
+					 			if(brdTypCd.equals("NT")) {
+					 			%>
+					 			<div class="form-group row">
+					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">공지<br>구분</label>
+                    				<div class="col-sm-9">
+                      					<input type="text" class="form-control sTitle classname"  id="brdAnTypCdTxt" name="brdAnTypCdTxt" readonly >
+                    				</div>
+					 			</div>
+					 			<%}%>
 					 			<div class="form-group row">
                     				
                     				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">내용</label>
@@ -101,6 +111,15 @@
                       				
                     				</div>	
 					 			</div>
+					 			
+					 			<div class="form-group row">
+					 				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">사용<br>유무</label>
+                    				<div class="col-sm-9">
+                      					<input type="text" class="form-control sTitle classname"  id="useYnTxt" name="useYnTxt" readonly >
+                    				</div>
+					 			</div>
+					 			
+					 			
 					 			<div class="form-group row">
                     				
                     				<div class="col-sm-9" style="text-align:right">
@@ -162,7 +181,8 @@
 	        	 var brdContent = dataContent.brdContent;
 	        	 var brdTitle = dataContent.brdTitle;
 	        	 var brdConTypCdTxt = dataContent.brdConTypCdTxt;
-	        	
+	        	 var brdAnTypCdTxt	= dataContent.brdAnTypCdTxt;
+	        	 var useYnTxt = dataContent.useYnTxt;
 
 				 var timpStr = brdContent;
               	 
@@ -179,6 +199,8 @@
 	        	 
 	        	 $('#brdTitle').val(brdTitle);
 	        	 $('#brdConTypCdText').val(brdConTypCdTxt);
+	        	 $('#brdAnTypCdTxt').val(brdAnTypCdTxt);
+	        	 $('#useYnTxt').val(useYnTxt);
 	        	 
 	        	//ckEditor Mouse Over Class Remove
 	        	 fn_styleNone();

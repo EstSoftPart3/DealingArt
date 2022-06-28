@@ -119,15 +119,15 @@
 		               		   <%} else {%>
 		               		   	
 		               		   	<div class="form-group row">
-		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">공지타입</label>
+		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">공지<br>타입</label>
                     				<div class="col-sm-7">
                       					<div style="padding-left:10px;float:left;">
-											<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="GE" checked>
-											<label for="a2" class="col-form-label sTitle">일반</label>
+											<input type="radio" id="t1" name="brdAnTypCd" class="brdAnTypCd" value="GE" checked>
+											<label for="t1" class="col-form-label sTitle">일반</label>
 										</div>
                       					<div style="padding-left:10px;float:left;">
-                      						<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="EM">
-											<label for="a1" class="col-form-label sTitle">긴급(메인화면 팝업으로 공지)</label>
+                      						<input type="radio" id="t2" name="brdAnTypCd" class="brdAnTypCd" value="EM">
+											<label for="t2" class="col-form-label sTitle">긴급(메인화면 팝업으로 공지)</label>
 										</div>
 									</div>
 		               		   	</div>
@@ -153,12 +153,12 @@
 		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">사용</label>
                     				<div class="col-sm-7">
                       					<div style="padding-left:10px;float:left;">
-											<input type="radio" id="a2" name="brdConTypCd" class="brdConTypCd" value="Y" checked>
-											<label for="a2" class="col-form-label sTitle">사용함</label>
+											<input type="radio" id="z1" name="useYn" class="useYn" value="Y" checked>
+											<label for="z1" class="col-form-label sTitle">사용함</label>
 										</div>
                       					<div style="padding-left:10px;float:left;">
-                      						<input type="radio" id="a1" name="brdConTypCd" class="brdConTypCd" value="N">
-											<label for="a1" class="col-form-label sTitle">사용하지 않음</label>
+                      						<input type="radio" id="z2" name="useYn" class="useYn" value="N">
+											<label for="z2" class="col-form-label sTitle">사용하지 않음</label>
 										</div>
 									</div>
 		               		   	</div>
@@ -223,10 +223,16 @@
 	        	 var brdContentInput = dataContent.brdContent;
 	        	 var brdTitleInput = dataContent.brdTitle;
 	        	 var brdConTypCd = dataContent.brdConTypCd;
+	        	 var brdAnTypCd = dataContent.brdAnTypCd;
+	        	 var useYn = dataContent.useYn;
 	        	 
+	        	 console.log("brdAnTypCd :"+brdAnTypCd);
 	        	 $("input:radio[name='brdConTypCd']:radio[value='"+brdConTypCd+"']").prop('checked', true); // 선택하기
-
 	        	 
+	        	 $("input:radio[name='brdAnTypCd']:radio[value='"+brdAnTypCd+"']").prop('checked', true); // 선택하기
+	        	 
+	        	  $("input:radio[name='useYn']:radio[value='"+useYn+"']").prop('checked', true); // 선택하기
+	        	 	        	 
 	        	 
 	        	 const domEditableElement = document.querySelector( '.ck-editor__editable' );
 	        	 const editorInstance = domEditableElement.ckeditorInstance;
@@ -300,7 +306,8 @@
     var brdContent =  $('#editor').html();
    	//게시판 내용 구분
     var brdConTypCd = $("input[name='brdConTypCd']:checked").val();
-    
+    var brdAnTypCd = $("input[name='brdAnTypCd']:checked").val();
+    var useYn = $("input[name='useYn']:checked").val();
    	
   	 //제목
   	 if(isEmpty(brdTitle)) {
@@ -335,7 +342,9 @@
 	        	   brdSq : brdSq,
 	        	   brdTitle : brdTitle,
 	        	   brdContent : brdContent,
-	        	   brdConTypCd : brdConTypCd
+	        	   brdConTypCd : brdConTypCd,
+	        	   brdAnTypCd : brdAnTypCd,
+	        	   useYn : useYn
 	           },
 	           success: function(data) {
 	        	   bootbox.alert({

@@ -27,7 +27,13 @@
 			   	WHEN BRD_CON_TYP_CD = "DE" THEN "거래"
 			   END
 			) AS brdConTypCdTxt,
-			BRD_CON_TYP_CD AS brdConTypCd
+			BRD_CON_TYP_CD AS brdConTypCd,
+			BRD_AN_TYP_CD AS brdAnTypCd,
+			( CASE
+			   	WHEN BRD_AN_TYP_CD = "GE" THEN "일반"
+			   	WHEN BRD_AN_TYP_CD = "EM" THEN "긴급"
+			   END
+			) AS brdAnTypCdTxt
 			
 		FROM
             TBL_DA_BRD_M A 
@@ -56,6 +62,7 @@
 			,USE_YN
 			,DEL_YN
 			,BRD_CON_TYP_CD
+			,BRD_AN_TYP_CD
        	) 
         VALUES
         (
@@ -69,6 +76,7 @@
 			,default
 			,default
 			,#{brdConTypCd}
+			,#{brdAnTypCd}
         )
     </insert>
     
@@ -95,10 +103,37 @@
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d") AS updtDt
 			,USE_YN			   				  AS useYn
 			,DEL_YN			   				  AS delYn
+			,BRD_AN_TYP_CD AS brdAnTypCd
+			,( CASE
+			   	WHEN BRD_AN_TYP_CD = "GE" THEN "일반"
+			   	WHEN BRD_AN_TYP_CD = "EM" THEN "긴급"
+			   END
+			) AS brdAnTypCdTxt
+			,( CASE
+			   	WHEN USE_YN = "Y" THEN "사용"
+			   	WHEN USE_YN = "N" THEN "미사용"
+			   END
+			) AS useYnTxt
 		FROM
             TBL_DA_BRD_M A
         WHERE 1=1
          	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}
+    </select>
+    
+    <!-- 메인 긴급공지 -->
+    <select id="emBoardDetail" resultType="hashMap">
+        SELECT
+           	 A.BRD_SQ  	   AS brdSq
+			,A.BRD_TITLE   AS brdTitle
+			,A.BRD_CONTENT AS brdContent
+		FROM
+            TBL_DA_BRD_M A
+        WHERE 1=1
+         	AND A.USE_YN = 'Y'
+         	AND A.DEL_YN = 'N' 
+         	AND A.BRD_AN_TYP_CD = 'EM'
+         	ORDER BY A.BRD_SQ DESC
+        LIMIT 1
     </select>
     
     <!-- 게시판 삭제 -->
@@ -119,7 +154,9 @@
 			 BRD_TITLE   = 	#{brdTitle}
 			,BRD_CONTENT = 	#{brdContent}
 			,BRD_CON_TYP_CD = #{brdConTypCd}
+			,BRD_AN_TYP_CD = #{brdAnTypCd}
 			,UPDT_MBR_SQ = 	#{mbrSq}
+			,USE_YN = 	#{useYn}
 			,UPDT_DT     = 	NOW()
    		WHERE 1=1
          	AND A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq}

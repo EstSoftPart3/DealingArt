@@ -130,6 +130,7 @@
 	    	   
 	    	   { name: "Index", title: "번호", type: "number", width: 30, align: "center", },
 	    	   { name: "brdConTypCdTxt",title:"종류", type: "text", width: 200,align:"center",width:100 , visible: false},
+	    	   { name: "brdAnTypCdTxt"	,title:"공지구분", type: "text", width: 150,align:"center" ,width:100, visible: true},
 	    	   { name: "brdSq"	,title:"게시판순번", type: "text", width: 150,align:"center" ,width:100, visible: false},
 	    	   { name: "brdTitle",id:"brdTitle", title:"제목", type: "text", width: 300,align:"left", visible: true, key:true},
 	    	   { name: "brdTypCd",title:"게시판종류", type: "text", width: 200,align:"center",width:100 , visible: false},
@@ -154,6 +155,7 @@
  		if(brdTypCd == "FA") {
 		   
 		   $("#boardList").jsGrid("fieldOption", "1", "visible", true);
+		   $("#boardList").jsGrid("fieldOption", "2", "visible", false);
 	   }
    
    }
