@@ -506,7 +506,7 @@
 	        	   
 	        	   mainTodayBid = data.mainData.todayBid;
 	        	   mainInsights = data.mainData.insights;
-	        	   
+	        	   console.log(mainInsights);
 	        	   
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
@@ -547,9 +547,9 @@
 
 	        		   insightsHtml +='<div class="swiper-slide">';
 	        		   insightsHtml +='<div>';
-	        		   insightsHtml += '	<a href="/insights">';
+	        		   insightsHtml += '	<a href="/insights?mgzSq='+mainInsights[i].mgzSq+'">';
 	        		   insightsHtml += '<div class="cns-box">';
-	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" style="height:300px; "/>';
+	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" />';
 	 				   insightsHtml += '<div class="cns-sb">';
 	 				   insightsHtml += '<p class="cns-p1">'+mainInsights[i].mgzTitle+'</p>';
 	 				   insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzDescrptn+'</p>';
