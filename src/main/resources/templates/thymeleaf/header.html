@@ -744,7 +744,10 @@ function changePasswrd(){
 					
 					<div class="me-text">
 						딜링아트 이용 약관에 동의해 주세요. <br/>
-						경매 / 판매 알림 수신을 원하실 경우 모두 동의해 주세요.  <span class="text-line">모두 동의</span>						
+						경매 / 판매 알림 수신을 원하실 경우 모두 동의해 주세요.  
+						</br></br>
+						<input type="checkbox" id= "checkboxAll" name="checkboxAll">
+						<label for= "checkboxAll"><span></span>모두 동의</label><br/>				
 					</div>
 					<div class="radio-3 rad-mg">
 						<input type="checkbox" id="s1" name="s1">
@@ -1188,7 +1191,7 @@ $("#memberInputBtn").on('click', function(event){
 	if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
 	if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
 	if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
-	if(chk < 2)
+	if(chk < 3)
 	{
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
@@ -1696,6 +1699,21 @@ function fnModalAlert() {
 	modalAlertShow("서비스 준비중 입니다.","");
 }
 
+$('#myModal').on('shown.bs.modal', function (e) {
+	$("#ibx_search").focus();	
+
+});
+
+
+
+$(document).ready(function() {
+	$("#checkboxAll").click(function() {
+		if($("#checkboxAll").is(":checked")) $("#s1").prop("checked", true) , $("#s2").prop("checked", true), $("#s3").prop("checked", true), $("#s4").prop("checked", true);
+		
+		else  $("#s1").prop("checked", false) , $("#s2").prop("checked", false), $("#s3").prop("checked", false), $("#s4").prop("checked", false);
+	});
+
+});
 
 
 

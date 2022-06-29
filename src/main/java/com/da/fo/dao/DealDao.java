@@ -261,9 +261,11 @@ public class DealDao {
 	public Map<String, Object> workDetail(String param){
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = dealMapper.workDetail(param);
+ 		Map<String, Object> artistInfo = new HashMap<>();
+
 		result.put("work", work);
-		if(!work.get("artstSq").equals(null)) {
-			Map<String, Object> artistInfo = artistMapper.artistInfo(work.get("artstSq").toString());
+		if(work.get("artstSq") != null) {
+			artistInfo = artistMapper.artistInfo(work.get("artstSq").toString());
 			List eductn = artistMapper.artistInfoEductn(work.get("artstSq").toString());
 			List career = artistMapper.artistInfoCareer(work.get("artstSq").toString());
 			List exhbtn = artistMapper.artistInfoExhbtn(work.get("artstSq").toString());
@@ -275,6 +277,11 @@ public class DealDao {
 			result.put("exhbtn", exhbtn);
 			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
+		} else {
+			result.put("artistInfo", artistInfo);
+			return result;
+
+			
 		}
 		return result;
 	}

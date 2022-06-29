@@ -1,12 +1,13 @@
 package com.da.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,7 @@ public class MainPayUtil {
 	 * Ready 
 	 * @param paramMap
 	 * @return
+	 * @throws ParseException 
 	 * @throws JSONException 
 	 */
 	public Map<String, Object> readyApi(Map<String, Object> paramMap){
@@ -99,7 +101,8 @@ public class MainPayUtil {
 		 - 생성 : http://cp.mainpay.co.kr 고객지원>기술지원>암호화키관리
 		 - 가맹점번호(mbrNo) 생성시 함께 만들어지는 key (테스트 완료후 real 서비스용 발급필요) */
 
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, String> parameters = new HashMap<String, String>();
+		//JSONObject parameters = new JSONObject();
 		
 		/*=================================================================================================
 		 *	필수 파라미터 
@@ -107,23 +110,27 @@ public class MainPayUtil {
 		/* 가맹점 아이디(테스트 완료후 real 서비스용 발급필요)*/
 		parameters.put("version", "V001"); //버전정보 (샘플코드값 사용)
 		/* 결제 허용할 카드사 번호 리스트*/
-		//String[] availableCard = {"02", "03", "05", "07", "11", "12", "15", "20", "22", "23", "24", "25", "26", "28", "31", "34", "SP", "UP", "PC", "AV", "AM", "AJ", "NP"};
-		String[] availableCard = {"01", "02", "03", "11"};
-		ArrayList<String> availableCards = new ArrayList<String>(Arrays.asList(availableCard));
+		//String availableCard = "['02', '03', '05', '07', '11', '12', '15', '20', '22', '23', '24', '25', '26', '28', '31', '34', 'SP', 'UP', 'PC', 'AV', 'AM', 'AJ', 'NP']";
+		String availableCard = "['02', '03', '05', '07', '11', '12', '15', '20', '22', '23', '24', '25', '26', '28', '31', '34', 'SP', 'UP', 'PC', 'AV', 'AM', 'AJ', 'NP']";
+		//String[] availableCard = {"01", "02", "03", "11"};
+		//ArrayList<String> availableCards = new ArrayList<String>(Arrays.asList(availableCard));
 		//Gson gson = new Gson();
 		//JsonArray availableCards = new JsonArray();
 		//availableCards = gson.fromJson(availableCard, availableCards.getClass());
-		parameters.put("availableCards", availableCards);
+		JSONArray availableCards = new JSONArray(availableCard);
+		//JSONObject availableCards = new JSONObject(availableCard1);
+		
+		parameters.put("availableCards", availableCards.toString());
 		parameters.put("mbrNo", mbrNo); //섹타나인에서 부여한 가맹점 번호 (상점 아이디)
 		/* 가맹점 유니크 주문번호 (가맹점 고유ID 대체가능) 6byte~20byte*/
-		parameters.put("mbrRefNo", paramMap.get("mbrRefNo")); //가맹점주문번호 (가맹점에서 생성한 중복되지 않는 번호)
+		parameters.put("mbrRefNo", paramMap.get("mbrRefNo").toString()); //가맹점주문번호 (가맹점에서 생성한 중복되지 않는 번호)
 		parameters.put("paymethod", paramMap.get("paymethod").toString()); //지불수단 (CARD: 신용카드 | VACCT: 가상계좌 | ACCT: 계좌이체 | HPP: 휴대폰소액)(*)간편결제는 "CARD"에 포함되어 있음
 		/* 결제금액 (공급가+부가세)
 		(#주의#) 페이지에서 전달 받은 값을 그대로 사용할 경우 금액위변조 시도가 가능합니다.
 		 DB에서 조회한 값을 사용 바랍니다. */
 		parameters.put("amount", paramMap.get("amount").toString()); //총결제금액
 		/* 상품명 max 30byte*/
-		parameters.put("goodsName", paramMap.get("goodsName")); //상품명 (일부 특수문자는 사용불가 합니다.)
+		parameters.put("goodsName", paramMap.get("goodsName").toString()); //상품명 (일부 특수문자는 사용불가 합니다.)
 		/* 상품코드 max 8byte*/
 		//parameters.put("goodsCode", paramMap.get("goods_code").toString());
 		/*인증완료 시 호출 URL*/
