@@ -45,13 +45,25 @@
 
 <script>
 $(function () {
+		
+		var pathname = window.location.pathname.split( '/' );
+		console.log(pathname[2])
 		var url = window.location.href,urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
 	    $('a').each(function () {
-	       	if(url == this.href){
+	       	
+	    	var href = this.href;
+	    	console.log("href :"+href);
+	    	if(url == this.href){
             	$(this).parent().parent().parent().addClass('menu-open');
-            	//$(this).parent().prop('a').addClass('active');
             	$(this).addClass('active');
 			}
+	    	
+	    	if(pathname[2] == href[4]) {
+	    		
+	    		$(this).parent().parent().parent().addClass('menu-open');
+	    		
+	    	}
+	    	
 		});
 });
 </script>
