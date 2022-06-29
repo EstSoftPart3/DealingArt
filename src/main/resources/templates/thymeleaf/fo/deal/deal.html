@@ -628,9 +628,12 @@
 		     					html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
 			     				html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
 			     				html += '<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
-			     				html += '<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
+			     				if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
+	    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+	     						}else{
+	     							html += '<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
+	     						}
 		     					html += '</div>';
-		     					
 		     					html += '</div>'
 		     					
 		     					html += '<div class="item-body">';

@@ -253,6 +253,7 @@
 													<td th:if="${result.payMntInfo.payMethod.toString().equals('신용카드')}" th:text="|[${result.payMntInfo.payType}] ${result.payMntInfo.issueCompanyName}카드 카드번호 ${result.payMntInfo.cardNo}|">신한은행 000-000-0000</td>
 													<td th:if="${result.payMntInfo.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo.payMethod} ${result.payMntInfo.bankName}|">신한은행 000-000-0000</td>
 													<td th:if="${result.payMntInfo.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo.payMethod} ${result.payMntInfo.bankName} ${result.payMntInfo.accountNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo.payMethod.toString().equals('결제완료')}" th:text="|자동 결제완료 처리 (결제 금액 0원)|">신한은행 000-000-0000</td>
 												</tr>
 												<tr>
 													<th>결제 내역</th>

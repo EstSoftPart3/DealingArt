@@ -10,11 +10,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -181,7 +179,6 @@ public class TestController {
 	 * @param paramMap
 	 * @param request
 	 * @return
-	 * @throws JSONException 
 	 * @throws ParseException 
 	 */
 	@PostMapping("/payment/readyApi")
