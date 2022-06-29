@@ -747,7 +747,22 @@ $.datepicker.setDefaults({
 });
 
 $("#workGrtUrl").change(function(){
-	$("#workGrtUrl1").val(this.value);
+	//파일 경로.
+	var filePath = this.value;
+	//전체경로를 \ 나눔.
+	var filePathSplit = filePath.split('\\'); 
+	//전체경로를 \로 나눈 길이.
+	var filePathLength = filePathSplit.length;
+	var fileName = filePathSplit[filePathLength-1];
+	//마지막 경로를 .으로 나눔.
+	//var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+	//파일명 : .으로 나눈 앞부분
+	//var fileName = fileNameSplit[0];
+	//파일 확장자 : .으로 나눈 뒷부분
+	//var fileExt = fileNameSplit[1];
+	//파일 크기
+	//var fileSize = file.files[0].size;
+	$("#workGrtUrl1").val(fileName);
 });
 
 jQuery(document).ready(function() {
@@ -819,82 +834,82 @@ function autoLake(){
 	var depth = $("#workSizeDepth").val();
 	var lake = "";
 	if(width != null && width != "" && depth != null && depth != ""){
-		if(width >= 18.0 && depth >= 14.0){
+		if(width <= 18.0 && depth <= 14.0 && width > 0 && depth > 0){
 			lake = 0;
 		}
-		if(width >= 22.7 && depth >= 15.8){
+		if(width <= 22.7 && depth <= 15.8 && width > 18.0 && depth > 14.0){
 			lake = 1;
 		}
-		if(width >= 25.8 && depth >= 17.9){
+		if(width <= 25.8 && depth <= 17.9 && width > 22.7 && depth > 15.8){
 			lake = 2;
 		}
-		if(width >= 27.3 && depth >= 22.0){
+		if(width <= 27.3 && depth <= 22.0 && width > 25.8 && depth > 17.9){
 			lake = 3;
 		}
-		if(width >= 33.4 && depth >= 24.2){
+		if(width <= 33.4 && depth <= 24.2 && width > 27.3 && depth > 22.0){
 			lake = 4;
 		}
-		if(width >= 34.8 && depth >= 27.3){
+		if(width <= 34.8 && depth <= 27.3 && width > 33.4 && depth > 24.2){
 			lake = 5;
 		}
-		if(width >= 40.9 && depth >= 31.8){
+		if(width <= 40.9 && depth <= 31.8 && width > 34.8 && depth > 27.3){
 			lake = 6;
 		}
-		if(width >= 45.5 && depth >= 37.9){
+		if(width <= 45.5 && depth <= 37.9 && width > 40.9 && depth > 31.8){
 			lake = 8;
 		}
-		if(width >= 53.0 && depth >= 45.0){
+		if(width <= 53.0 && depth <= 45.0 && width > 45.5 && depth > 37.9){
 			lake = 10;
 		}
-		if(width >= 60.6 && depth >= 50.0){
+		if(width <= 60.6 && depth <= 50.0 && width > 53.0 && depth > 45.0){
 			lake = 12;
 		}
-		if(width >= 65.1 && depth >= 53.0){
+		if(width <= 65.1 && depth <= 53.0 && width > 60.6 && depth > 50.0){
 			lake = 15;
 		}
-		if(width >= 72.7 && depth >= 60.6){
+		if(width <= 72.7 && depth <= 60.6 && width > 65.1 && depth > 53.0){
 			lake = 20;
 		}
-		if(width >= 80.3 && depth >= 65.1){
+		if(width <= 80.3 && depth <= 65.1 && width > 72.7 && depth > 60.6){
 			lake = 25;
 		}
-		if(width >= 90.9 && depth >= 72.7){
+		if(width <= 90.9 && depth <= 72.7 && width > 80.3 && depth > 65.1){
 			lake = 30;
 		}
-		if(width >= 100.0 && depth >= 80.3){
+		if(width <= 100.0 && depth <= 80.3 && width > 90.9 && depth > 72.7){
 			lake = 40;
 		}
-		if(width >= 116.8 && depth >= 91.0){
+		if(width <= 116.8 && depth <= 91.0 && width > 100.0 && depth > 80.3){
 			lake = 50;
 		}
-		if(width >= 100.0 && depth >= 80.3){
+		if(width <= 100.0 && depth <= 80.3 && width > 116.8 && depth > 91.0){
 			lake = 40;
 		}
-		if(width >= 116.8 && depth >= 91.0){
+		if(width <= 116.8 && depth <= 91.0 && width > 100.0 && depth > 80.3){
 			lake = 50;
 		}
-		if(width >= 130.3 && depth >= 97.0){
+		if(width <= 130.3 && depth <= 97.0 && width > 116.8 && depth > 91.0){
 			lake = 60;
 		}
-		if(width >= 145.5 && depth >= 112.1){
+		if(width <= 145.5 && depth <= 112.1 && width > 130.3 && depth > 97.0){
 			lake = 80;
 		}
-		if(width >= 162.2 && depth >= 130.3){
+		if(width <= 162.2 && depth <= 130.3 && width > 145.5 && depth > 112.1){
 			lake = 100;
 		}
-		if(width >= 193.9 && depth >= 130.3){
+		if(width <= 193.9 && depth <= 130.3 && width > 162.2 && depth > 130.3){
 			lake = 120;
 		}
-		if(width >= 227.3 && depth >= 181.8){
+		if(width <= 227.3 && depth <= 181.8 && width > 193.9 && depth > 130.3){
 			lake = 150;
 		}
-		if(width >= 259.1 && depth >= 193.9){
+		if(width <= 259.1 && depth <= 193.9 && width > 227.3 && depth > 181.8){
 			lake = 200;
 		}
-		if(width >= 290.9 && depth >= 218.2){
+		if(width <= 290.9 && depth <= 218.2 && width > 259.1 && depth > 193.9){
 			lake = 300;
 		}
-		if(width >= 333.3 && depth >= 248.5){
+		if(width <= 333.3 && depth <= 248.5 && width > 290.9 && depth > 218.2){
 			lake = 500;
 		}
 		$("#workLake").html("<br/>"+lake+"호 입니다.");

@@ -7,17 +7,12 @@ import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.da.mapper.MainPayMapper;
 import com.da.mapper.MyPageMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mainpay.sdk.net.HttpSendTemplate;
 import com.mainpay.sdk.utils.ParseUtils;
 
@@ -90,7 +85,6 @@ public class MainPayUtil {
 	 * @param paramMap
 	 * @return
 	 * @throws ParseException 
-	 * @throws JSONException 
 	 */
 	public Map<String, Object> readyApi(Map<String, Object> paramMap){
 		
