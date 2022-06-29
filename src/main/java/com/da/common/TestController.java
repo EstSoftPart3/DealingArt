@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,9 +182,10 @@ public class TestController {
 	 * @param request
 	 * @return
 	 * @throws JSONException 
+	 * @throws ParseException 
 	 */
 	@PostMapping("/payment/readyApi")
-	public @ResponseBody Map<String, Object> mainPayReadyApi(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws JSONException {
+	public @ResponseBody Map<String, Object> mainPayReadyApi(@RequestBody Map<String, Object> paramMap, HttpServletRequest request){
 		
 		Map<String, Object> rsltMap = new HashMap<String, Object>();
 		

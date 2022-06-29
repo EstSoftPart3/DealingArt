@@ -27,8 +27,8 @@
 										<div class="tootip-4">거래 계약 안내</div>
 										<img src="resources/img/mypage/icon-1.png" class="med-me">
 									</div>
-									<div class="por d_i_b mg_l30">
-										<a href="javascript:openWorkGrtUrl();" class="mg_l30 por">
+									<div class="por d_i_b mg_l30" th:if="${not #strings.equals(result.dealInfo.dealSttsCd, 'TP')}">
+										<a href="javascript:openWorkGrtUrl();" class="mg_l30 por" >
 										<div class="tootip-2">보증서 보기</div>
 										<img src="resources/img/de/print-icon.jpg"></a>
 									</div>

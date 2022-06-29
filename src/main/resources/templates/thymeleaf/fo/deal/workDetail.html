@@ -42,11 +42,11 @@
 					</div>
 					<div class="baeg-right">
 						<div class="be-title">
-							<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstEnglsNm)}">
-								<h3 th:text="${result.artistInfo.artstActvtyNm}"></h3>
-								<h3 th:text="'('+${result.artistInfo.artstEnglsNm}+')'"></h3>
+								<th:block th:if="${not #strings.isEmpty(result.work.artstEnglsNm)}">
+								<h3 th:text="${result.work.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${result.work.artstEnglsNm}+')'"></h3>
 							</th:block>
-							<h3 th:if="${#strings.isEmpty(result.artistInfo.artstEnglsNm)}" th:text="${result.artistInfo.artstActvtyNm}"></h3>
+							<h3 th:if="${#strings.isEmpty(result.work.artstEnglsNm)}" th:text="${result.work.artstActvtyNm}"></h3>
 							<h4 th:text="${result.work.workNm}"></h4>
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
@@ -100,10 +100,10 @@
 							<tr>
 								<th>닉네임</th>
 								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.mbrNcknm}]]
-									<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+										<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
-									<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+									<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 							</tr>
 						</table>
@@ -119,7 +119,7 @@
 				</div>
 			</div>
 				
-		<div id="artstInfo">	
+		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
@@ -229,7 +229,7 @@
 	</div>
 </div>
 
-<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${not #maps.isEmpty(result.artistInfo)}">
 	<div class="modal-dialog modal-baeg max-w1200">
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">

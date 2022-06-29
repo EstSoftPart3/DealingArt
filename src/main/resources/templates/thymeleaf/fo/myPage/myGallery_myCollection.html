@@ -68,7 +68,7 @@
 							
 						    
 						    <!-- 작품 리스트  -->
-						  	<div class="grid">
+					  	<div class="grid" style= "cursor: pointer;">
 								 
 							</div>
 						
@@ -308,7 +308,7 @@ function myCollectionList(){
 			html += '		<div class="regs" >';
 			html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
 			html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정</span></a>';
-			html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" ><span>상세보기</span></a>';
+			html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';
 			html += '		</div>';
 			html += '	</div>';
 			html += '</div>';
@@ -494,17 +494,10 @@ $(document).on("click", ".heart", function(){
   	}
      
      
-  	function workDetailMove(workSq) {
-  		
-  		pageGoPost({
-  			url:"/workDetail",
-  			target:"_self",
-  			vals:[
-  				["workSq", workSq]
-  			]
-  		});
-  		
+	function workDetailMove(workSq){
+  	 	location.href="/workDetail?workSq="+workSq;
   	}
+
 
   	function biddingMove(workSq) {
   		

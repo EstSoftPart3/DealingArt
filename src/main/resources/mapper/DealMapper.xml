@@ -395,6 +395,8 @@
 				A.WORK_SIZE_DEPTH AS workSizeDepth,
 				A.WORK_SALE_YN AS workSaleYn,
 				A.WORK_CLR_CD AS workClrCd,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
+			
 				FORMAT(A.WORK_PRC, 0) AS workPrc,
 				B.MBR_NCKNM AS mbrNcknm
 		FROM
