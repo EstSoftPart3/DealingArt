@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.dealing-art.com:443/</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/main</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/deal</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/insights</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/artist</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/serviceIntro</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/termOfService</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/privacyPolicy</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/marketing</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/media</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/exhibition</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/notice</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/customerService</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://www.dealing-art.com:443/withdrawal</loc>
+  <lastmod>2022-06-20T09:44:25+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>

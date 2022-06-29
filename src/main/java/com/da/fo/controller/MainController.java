@@ -54,6 +54,18 @@ public class MainController {
 		return "fo/main/fileUpload";
 	}
 	
+	//네이버 SEO
+	@RequestMapping("/naver31b27d248ba6c35c148f71e04a92cef6.html")
+	public String naverSeoHtml() {
+		return "thymeleaf/naver31b27d248ba6c35c148f71e04a92cef6.html";
+	}
+	
+	//구글 SEO
+	@RequestMapping("/sitemap.xml")
+	public String googleSeoXml() {
+		return "thymeleaf/sitemap.xml";
+	}
+	
 	@RequestMapping("/totalSearch_artist")
 	@ResponseBody
 	public ModelAndView totalSearchArtist(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
