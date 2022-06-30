@@ -3202,23 +3202,20 @@ display: inline-block;margin-left: 13px;}
 
 .pay-link{}
 .pay-link a{
-    width: 93px;
+   	width: 93px;
     height: 75px;
     display: inline-block;
-    background: #f3f3f3;
+    background: #fff;
     border: #cccccc 1px solid;
     vertical-align: top;
     text-align: center;
     position: relative;
     margin-right: 5px;
-    box-shadow: 2px 2px 2px black;
 }
 .pay-link a:active{
-	margin-left: 3px;
-	margin-top : 3px;
-	box-shadow : none;
+	background: #f3f3f3;
+	box-shadow: inset 2px 2px 7px #cfcfcf;
 }
-
 .pay-link a:last-child{margin-right:0;}
 .pay-link a span{
     display: block;
