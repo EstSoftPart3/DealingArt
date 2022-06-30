@@ -58,13 +58,7 @@
 	<!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script> -->
 	  <script src="/resources/plugins/ckBuild/ckeditor.js"></script>
 	<link rel="stylesheet" href="resources/css/content-styles.css" type="text/css">
-	
-	<meta property="og:title" content="DealingArt">
-	<meta name=”description” content=”개인간 미술품 거래 마켓플레이스”>
-	<meta name=”keywords” content=”미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart,”>
-	<meta property="og:url" content="https://www.dealing-art.com">
-	<meta property="og:image" content="https://www.dealing-art.com/resources/img/logo_new.png">
-	<meta property="og:type" content="website">
+
     
 	
     <!-- chart.js -->
@@ -1555,8 +1549,14 @@ function ibx_search_onkeyup(e){
      
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
+	
+	console.log("workSq :"+workSq);
+	
 	var dealSttsCd = $(this).attr("dealSttsCd");
-	if(dealSttsCd == null || dealSttsCd == ""){
+	
+	console.log("dealSttsCd :"+dealSttsCd);
+	
+	if(dealSttsCd == null || dealSttsCd == 'null' || dealSttsCd == ""  || dealSttsCd == "TC"){
 		pageGoPost({
 			url:"/workDetail",
 			target:"_self",
@@ -1565,6 +1565,8 @@ $(document).on("click",".work",function(){
 			]
 		});
 	}
+	
+	
 	if(dealSttsCd == "TP"){
 		pageGoPost({
 			url:"/bidding",
@@ -1579,6 +1581,7 @@ $(document).on("click",".work",function(){
 
 $(document).on("click",".artst",function(){
 	var artstSq= $(this).attr("sq");
+	
 	pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
@@ -1697,7 +1700,7 @@ $(document).on("click", ".workReg", function(){
 	if(sAuthSqVal != "2"){
 		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
 	}else{
-		modalConfirm("알림", "작품 등록 페이지로 하시겠습니까?", function(confrim){
+		modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다.<br><br>등록하시겠습니까?", function(confrim){
 			if(confrim){
 				window.location.href = "/myWork_reg";
 			}
@@ -1709,7 +1712,7 @@ $(document).on("click", ".collectionReg", function(){
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("로그인 후 이용할 수 있습니다.");
 	}else{
-		modalConfirm("알림", "소장품 등록 페이지로 하시겠습니까?", function(confrim){
+		modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다.<br><br> 소장품 등록 페이지로 하시겠습니까?", function(confrim){
 			if(confrim){
 				window.location.href = "/collection_reg";
 			}

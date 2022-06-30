@@ -91,7 +91,8 @@ $(function() {
 	var conTitleHtml = "";
 	conTitleHtml += '<h3>포트폴리오</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
-	conBtn.innerHTML += '<a href="/myWork_reg"><img src="resources/img/mypage/mycon-1.png" /></a>';
+	//conBtn.innerHTML += '<a href="/myWork_reg"><img src="resources/img/mypage/mycon-1.png" /></a>';
+	conBtn.innerHTML += '<a href="javascript:myWorkRegMove();"><img src="resources/img/mypage/mycon-1.png" /></a>';
 	conBtn.innerHTML += '<a href="javascript:fnModalAlert();"><img src="resources/img/mypage/mycon-2.png" /></a>';
 	
 	$("#myWork").addClass("active");
@@ -99,6 +100,17 @@ $(function() {
 	 myWorkList();
 });   
 
+function myWorkRegMove() {
+	
+	modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다. 등록하시겠습니까?", 
+	
+	function(confirm){
+		if(confirm){
+				location.href = "/myWork_reg";					
+		}
+	});
+
+}
 function myWorkList(){
 	if(result.length > 0){
 		var html = "";
