@@ -1541,8 +1541,14 @@ function ibx_search_onkeyup(e){
      
 $(document).on("click",".work",function(){
 	var workSq= $(this).attr("sq");
+	
+	console.log("workSq :"+workSq);
+	
 	var dealSttsCd = $(this).attr("dealSttsCd");
-	if(dealSttsCd == null || dealSttsCd == ""){
+	
+	console.log("dealSttsCd :"+dealSttsCd);
+	
+	if(dealSttsCd == null || dealSttsCd == ""  || dealSttsCd == "TC"){
 		pageGoPost({
 			url:"/workDetail",
 			target:"_self",
@@ -1565,6 +1571,7 @@ $(document).on("click",".work",function(){
 
 $(document).on("click",".artst",function(){
 	var artstSq= $(this).attr("sq");
+	
 	pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
