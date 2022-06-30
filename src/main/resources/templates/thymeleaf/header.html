@@ -251,18 +251,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 								<li><a href="#">text</a></li>
 								<li><a href="#">text</a></li> -->
 							</ul>
-							<!--
+							
 							<div class="ta-h3">
 								<h3 class="sea-h3">컨텐츠</h3>
 								<a href="javascript:void(0);" class="contentMore"><span>more</span></a>
 							</div>
-							<ul class="sea-text">
+							<ul class="sea-text" id="content">
+								<!-- <li><a href="#">컨텐츠 제목입니다.</a></li>
 								<li><a href="#">컨텐츠 제목입니다.</a></li>
 								<li><a href="#">컨텐츠 제목입니다.</a></li>
-								<li><a href="#">컨텐츠 제목입니다.</a></li>
-								<li><a href="#">컨텐츠 제목입니다.</a></li>
+								<li><a href="#">컨텐츠 제목입니다.</a></li> -->
 							</ul>
-							-->
+							
 						</div>
 					</div>
 				</div>
@@ -1515,10 +1515,13 @@ function ibx_search_onkeyup(e){
 			success:function(data){
 				$("#work").empty();
 				$("#artst").empty();
+				$("#content").empty();
 				var work = data.result.work;
 				var artist = data.result.artist;
+				var content = data.result.content;
 				var workHtml = '';
 				var artstHtml = '';
+				var contentHtml = '';
 				
 				for(i=0; i<work.length; i++){
 					workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
@@ -1529,8 +1532,12 @@ function ibx_search_onkeyup(e){
 					artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artstBirthYear+')</a></li>';
 				}
 				$("#artst").append(artstHtml).trigger("create");
-				$("#autocomplete").show();
+				for(i=0; i<content.length; i++){
+					contentHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+content[i].mgzSq+'">'+content[i].mgzTitle+'</a></li>';
+				}
+				$("#content").append(contentHtml).trigger("create");
 				
+				$("#autocomplete").show();
 				
 			},
 			error: function(request, status, error){
@@ -1541,6 +1548,7 @@ function ibx_search_onkeyup(e){
 	}else{
 		$("#work").empty();
 		$("#artst").empty();
+		$("#content").empty();
 		$("#autocomplete").hide();
 	}
 }
@@ -1618,7 +1626,22 @@ $(document).on("click",".artistMore",function(){
 });
 
 $(document).on("click",".contentMore",function(){
-	alert("컨텐츠 검색 결과 페이지로 이동합니다"); 
+	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
+		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
+	}else{
+		modalConfirm("알림", "컨텐츠 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+			if(confrim){
+				pageGoPost({
+					url:"/totalSearch_content",
+					target:"_self",
+					vals:[
+						["searchKeyword", $("#ibx_search").val()]
+					]
+				});
+			}
+		});
+	}
+	
 });
 
 function btn_search_onclick(){

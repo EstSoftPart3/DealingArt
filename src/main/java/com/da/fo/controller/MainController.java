@@ -106,6 +106,19 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/totalSearch_content")
+	@ResponseBody
+	public ModelAndView totalSearchContent(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
+		ModelAndView mv = new ModelAndView("thymeleaf/result_content");
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, Object>> contentList = mainService.totalSearchContent(searchKeyword);
+		result.put("contentList", contentList);
+		result.put("searchKeyword", searchKeyword);
+		result.put("totalCount", contentList.size());
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	@RequestMapping("/totalSearchAutocomplete")
 	@ResponseBody
 	public ModelAndView totalSearchAutocomplete(@RequestParam String searchKeyword) {

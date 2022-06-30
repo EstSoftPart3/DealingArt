@@ -81,7 +81,7 @@
 		ORDER BY MGZ_SQ DESC
 	</select>
 	
-	<select id="totalSearchAutocompleteWork" resultType="hashMap" parameterType="String">
+	<select id="totalSearchAutocompleteWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 자동완성*/
 		SELECT	
 				A.MBR_SQ AS mbrSq,
@@ -141,7 +141,7 @@
 		LIMIT 	4
 	</select>
 	
-	<select id="totalSearchAutocompleteArtist" resultType="hashMap" parameterType="String">
+	<select id="totalSearchAutocompleteArtist" resultType="hashMap" parameterType="hashMap">
 		/*작가 자동완성*/
 		SELECT	
 				A.ARTST_SQ AS artstSq,
@@ -171,6 +171,19 @@
 			OR  YEAR (B.MBR_BIRTH) LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
 		LIMIT  4
+	</select>
+	
+	<select id="totalSearchAutocompleteContent" resultType="hashMap" parameterType="hashMap">
+		/*mgz 자동 완성*/
+		SELECT 
+				MGZ_SQ AS mgzSq,
+				MGZ_TITLE AS mgzTitle
+		FROM 
+				TBL_DA_MGZ_M
+		WHERE 
+				(USE_YN = 'Y' AND DEL_YN = 'N')
+			AND	(MGZ_TITLE LIKE CONCAT('%',#{searchKeyword},'%')
+				OR 	MGZ_DESCRPTN LIKE CONCAT('%',#{searchKeyword},'%'))
 	</select>
 	
 	<select id="totalSearchArtist" resultType="hashMap" parameterType="String">
@@ -442,5 +455,29 @@
 			        	</if>
 			        </if>
 			    ) AS A
+	</select>
+	
+	<select id="totalSearchContent" resultType="hashMap" parameterType="String">
+		/* MGZ9 통합 검색 */
+		SELECT
+			 MGZ_SQ             as mgzSq          
+			,MBR_SQ             as mbrSq          
+			,MGZ_TITLE          as mgzTitle       
+			,MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ_TYP_CD         as mgzTypCd      
+			,REG_MBR_SQ         as regMbrSq      
+			,REG_DT             as regDt     
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')			as regDate      
+			,UPDT_MBR_SQ        as updtMbrSq     
+			,UPDT_DT            as updtDt         
+			,DEL_YN             as delYn          
+			,USE_YN             as useYn     
+			,MGZ_CONTENT        as mgzContent     
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND (MGZ_TITLE LIKE CONCAT('%',#{searchKeyword},'%')
+			OR 	MGZ_DESCRPTN LIKE CONCAT('%',#{searchKeyword},'%'))
+		ORDER BY MGZ_SQ DESC
 	</select>
 </mapper>

@@ -40,6 +40,13 @@ public interface MainMapper {
 	public List<Map<String, Object>> totalSearchWork(Object param);
 	
 	/*
+	 * 메인 화면에서 통합검색시 컨텐츠 정보를 조회한다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public List<Map<String, Object>> totalSearchContent(String param);
+	
+	/*
 	 * 메인 화면에서 통합검색으로 작품을 조회 갯수를 가져온다.
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보
@@ -59,4 +66,11 @@ public interface MainMapper {
 	 * return : 작가에 관한 정보
 	 */
 	public List totalSearchAutocompleteArtist(Object param);
+	
+	/*
+	 * 메인 화면에서 통합검색시 콘첸츠 정보를 자동완성으로 가져온다.
+	 * param : searchKeyword
+	 * return : 콘첸트에 관한 정보
+	 */
+	public List totalSearchAutocompleteContent(Object param);
 }

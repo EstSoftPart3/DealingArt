@@ -147,7 +147,7 @@
 							<ul class="mgz-ul3 aut-none">
 								<li class="active"><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
 								<li><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
-								<li><a href="javascript:fnModalAlert();">컨텐츠</a></li>
+								<li><a th:href="@{/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
 							</ul>
 							<div id="searchResult">
 								<h4 class="aut-h4" th:if="${result.totalCount} > 0"><span class="c-red" th:text="|&quot;${result.searchKeyword}&quot;|"></span> 검색결과 총 <span class="c-red" th:text="${result.totalCount}"></span>개</h4>

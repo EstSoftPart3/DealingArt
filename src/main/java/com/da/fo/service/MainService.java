@@ -26,6 +26,13 @@ public interface MainService {
 	List<Map<String, Object>> totalSearchWork(Object param);
 	
 	/*
+	 * 메인 화면에서 통합검색으로 컨텐츠를 조회한다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	List<Map<String, Object>> totalSearchContent(String param);
+	
+	/*
 	 * 메인 화면에서 통합검색으로 작품을 조회 갯수를 가져온다.
 	 * param : searchKeyword
 	 * return : 작품에 관한 정보

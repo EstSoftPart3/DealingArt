@@ -27,7 +27,7 @@
 					<ul class="mgz-ul3 aut-none">
 						<li><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
 						<li class="active"><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
-						<li><a href="javascript:fnModalAlert();">컨텐츠</a></li>
+						<li><a th:href="@{/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
 					</ul>
 				</div>
 				
@@ -68,8 +68,8 @@
 					</ul>
 				</div>
 				
-				<div class="text-center">
-					<button type="button" class="btn-more ta-no"><span>more</span></button>
+				<<div class="text-center">
+					<!-- <button type="button" class="btn-more ta-no"><span>more</span></button> -->
 				</div>
 			</div>
 			

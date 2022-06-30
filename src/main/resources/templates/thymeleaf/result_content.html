@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.mySwiper4{height:auto;}
+    	.ellipsis{
+			overflow:hidden;
+			text-overflow: ellipsis;
+			width:100%;
+    	};
+    </style>
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>	
+		<div class="body-wrap">
+			
+			<div class="contents max-1500">
+				<div class="cont-title3 mg-at auth-show">
+					<h3>검색결과</h3>
+				</div>
+				
+				<div class="aut-top">
+					<ul class="mgz-ul3 aut-none">
+						<li><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
+						<li><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
+						<li class="active"><a th:href="@{/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
+					</ul>
+				</div>
+				
+				<div class="reds-box aut-reds">
+				</div>
+				
+				<div>
+					<ul class="mgz-list" id="mgz9List"></ul>
+				</div>
+				
+				<div class="text-center">
+					<!-- <button type="button" class="btn-more ta-no"><span>more</span></button> -->
+				</div>
+			</div>
+			
+			
+		</div>
+		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+	
+<div class="modal fade modal-s" id="lp_mgz9Dtl_MDA" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-youtube">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"></div>
+				</div>
+			</div>
+			<div id="editor_MDA" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt_MDA"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="lp_mgz9Dtl_EBI" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1200">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;">
+				<div class="baegs">
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
+				</div>
+			</div>
+			
+			<!-- 상세내용 -->
+			<div id="editor_EBI" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt_EBI"></div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="lp_mgz9Dtl_IST" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+	<div class="modal-dialog modal-baeg max-w1200">
+		<div class="modal-content ">
+			<div class="modal-header lp_mgz9DtlModalHearder" style="padding: 0;min-height: 0;">
+				<div class="baegs">
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
+				</div>
+			</div>
+			
+			<!-- 상세내용 font-size: 15px !important;-->
+			<div  style="display: flex;justify-content: center">
+			<div id="lp_mgz9Dtl_cntnt_IST" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+				
+<!-- 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt" style="font:inherit;"></div> -->
+				
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">
+var result = /*[[${result}]]*/ 'default';
+$(function() {
+	var totalCountHtml = '';
+	if(result.totalCount > 0){
+		totalCountHtml += '<h4 class="aut-h4"><span class="c-red">"'+ result.searchKeyword +'"</span> 검색결과 총 <span class="c-red">'+ result.totalCount +'</span>개</h4>';
+	}else{
+		modalAlertShow("검색 결과가 없습니다.");
+		totalCountHtml += '<h4 class="aut-h4"><span class="c-red">"'+ result.searchKeyword +'"</span> 검색결과가 <span class="c-red">없습니다</span></h4>';
+	}
+	$(".aut-top").append(totalCountHtml).trigger("create");
+	if(result.contentList.length > 0){
+	
+		var mgz9List = result.contentList;
+		var mgz9ListHtml = '';
+		
+		for(var i=0; i<mgz9List.length; i++){
+			
+			mgz9ListHtml += '<li>';
+			if(mgz9List[i].mgzTypCd == "MDA"){
+				timpStr = mgz9List[i].mgzContent;
+	 			timpStr = timpStr.replaceAll("&lt;","<");
+	       	    timpStr = timpStr.replaceAll("&gt;",">");
+	       	    timpStr = timpStr.replaceAll("&amp;lt;","<");
+	       	    timpStr = timpStr.replaceAll("&amp;gt;",">");
+	       	    timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	       	    timpStr = timpStr.replaceAll("&amp;amp;","&");
+	       	    
+	       	 	mgz9ListHtml += '<a href="javascript:void(0);" class="mgz-youtube" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+	   			mgz9ListHtml += '<div style="pointer-events:none;">'+ timpStr +'</div>';
+	   			
+			}else{
+				mgz9ListHtml += '	<a href="javascript:void(0);" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+		 		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
+			}
+			mgz9ListHtml += '		<div class="ml-div">';
+     		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+     		mgz9ListHtml += '			<div class="ml-p">';
+     		mgz9ListHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+     		mgz9ListHtml += '			</div>';
+     		mgz9ListHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+     		mgz9ListHtml += '		</div>';
+ 			mgz9ListHtml += '</a>'
+ 			mgz9ListHtml += '</li>';
+			
+ 			iframeSize();
+		}
+		$("#mgz9List").empty();
+	 	$("#mgz9List").append(mgz9ListHtml).trigger("create");
+	}else{
+		modalAlertShow("검색 결과가 없습니다."); 
+		$("#mgz9List").empty();
+	}
+	
+});
+function iframeSize() {
+	 
+	$(document).ready(function () {
+	    var appDevice = $("#appDevice").val();
+	    if(appDevice == "MOBILE") {
+	    	 $("iframe").height('100%');
+	    	 $("iframe").width('100%');
+	    } else {
+	    	$("iframe").width(360);
+		    $("iframe").height(210);	
+	    }
+		
+	});
+	  
+}
+function selectMgz9Dtl(mgzSq){
+	//MDA 
+  	$.ajax({
+          type: "post",
+          url: "/selectMgz9Dtl",
+          data:{
+         	 mgzSq : mgzSq
+  		},
+          success: function(data) {
+          	var mgzDtl = null;
+          	console.log(data);
+          	
+          	if(data.result != null){
+          		//MDA
+          		if(data.result.mgzTypCd == "MDA"){
+	            	$("#lp_mgz9Dtl_cntnt_MDA").empty();
+	            	
+	            	timpStr = data.result.mgzContent;
+	     			timpStr = timpStr.replaceAll("&lt;","<");
+		        	timpStr = timpStr.replaceAll("&gt;",">");
+		        	timpStr = timpStr.replaceAll("&amp;lt;","<");
+		        	timpStr = timpStr.replaceAll("&amp;gt;",">");
+		        	timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+		        	timpStr = timpStr.replaceAll("&amp;amp;","&");
+		        	timpStr = timpStr.replaceAll("&nbsp;","");
+	            	
+	            	$("#lp_mgz9Dtl_cntnt_MDA").append(timpStr).trigger("create");
+	            	
+	            	fn_styleNone();
+	            	
+	            	$("body").css("overflow", "hidden");
+                	$('#lp_mgz9Dtl_MDA').modal({backdrop: 'static', keyboard: false})  
+                	$("#lp_mgz9Dtl_MDA").modal("show");
+          		}
+          		//EBI
+          		if(data.result.mgzTypCd == "EBI"){
+          			var mgzContent = data.result.mgzContent; 
+                	$("#lp_mgz9Dtl_cntnt_EBI").empty();
+                	$("#lp_mgz9Dtl_cntnt_EBI").append(mgzContent).trigger("create");
+                	
+                	var appDevice =	$("#appDevice").val();
+                	if(appDevice == "MOBILE") {
+                  	$("#editor_EBI > div").css('font-size', '11px');
+         				$("#editor_EBI > div").css('padding-left', '0px');
+         			    $("#editor_EBI > div").css('padding-right', '0px');
+             		}
+                	$("body").css("overflow", "hidden");
+                	$('#lp_mgz9Dtl_EBI').modal({backdrop: 'static', keyboard: false})  
+                	$("#lp_mgz9Dtl_EBI").modal("show");
+          		}
+          		//IST
+          		if(data.result.mgzTypCd == "IST"){
+          			var mgzContent = data.result.mgzContent; 
+                	$("#lp_mgz9Dtl_cntnt_IST").empty();
+                	
+    				var timpStr = mgzContent;
+                	 
+                	 timpStr = timpStr.replaceAll("&lt;","<");
+    	        	 timpStr = timpStr.replaceAll("&gt;",">");
+    	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
+    	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
+    	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+    	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
+    	        	 //Table 수정 금지
+    	        	 timpStr = timpStr.replaceAll("true","false");
+    	        	 document.getElementById('lp_mgz9Dtl_cntnt_IST').innerHTML=timpStr;
+                	
+                	
+                	//$("#lp_mgz9Dtl_cntnt").append(mgzContent).trigger("create");
+                	
+                	fn_styleNone();
+                	
+                	var appDevice =	$("#appDevice").val();
+                	if(appDevice == "MOBILE") {
+                  	$("#editor_IST > div").css('font-size', '11px');
+         				$("#editor_IST > div").css('padding-left', '0px');
+         			    $("#editor_IST > div").css('padding-right', '0px');
+             		}
+                	$("body").css("overflow", "hidden");
+                	$('#lp_mgz9Dtl_IST').modal({backdrop: 'static', keyboard: false})  
+                	$("#lp_mgz9Dtl_IST").modal("show");
+          		}
+        	}else{
+        		modalAlertShow("검색 결과가 없습니다."); 
+        		$("#lp_mgz9Dtl_cntnt_MDA").empty();
+        		$("#lp_mgz9Dtl_cntnt_EBI").empty();
+        		$("#lp_mgz9Dtl_cntnt_IST").empty();
+        	}
+          },           
+          error: function(error) {
+              alert("오류 발생" + error);
+          }
+  	});
+}
+function closeMgz9Dtl(){
+	  
+	  $("body").css("overflow", "scroll");
+	  $("#lp_mgz9Dtl_MDA").modal("hide");
+	  $("#lp_mgz9Dtl_EBI").modal("hide");
+	  $("#lp_mgz9Dtl_IST").modal("hide");
+}
+
+function fn_styleNone() {
+ 	$(".ck-widget__type-around__button").css("display","none");
+ 	$(".ck-widget").css("outline-style","none");
+ 	$(".ck-widget__selection-handle").css("display","none");
+ }
+
+/*
+ * 퍼블리싱 부분
+ */
+$(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+$(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+});
+ 
+$(function() {                      
+  $(".bab-bo").click(function() { 
+    $(this).toggleClass("bashow");     
+});
+  
+$(".lg-my").click(function() { 
+ 	    $('.bg-sh').toggleClass('bg-show');     
+ 	 	 $('.s-hov').toggleClass('s-hov-show');     
+ 	  });
+  
+});
+ 
+ 
+ 
+ 
+/* 메뉴바 FIXED */
+if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+}
+ 
+ 
+var delay = 300;
+var timer = null;
+
+//Javascript
+// window.addEventListener('resize', function(){
+//  	clearTimeout(timer);
+//  	timer = setTimeout(function(){
+//  		document.location.reload();
+//  	}, delay);
+// });
+
+//jQuery
+// $(window).on('resize', function(){
+//  	clearTimeout(timer);
+//  	timer = setTimeout(function(){
+//  		document.location.reload();
+//  	}, delay);
+// });
+</script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

@@ -55,6 +55,15 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	/*
+	 * 메인 화면에서 통합검색으로 작품을 조회환다.
+	 * param : searchKeyword
+	 * return : 작품에 관한 정보
+	 */
+	public List<Map<String, Object>> totalSearchContent(String param){
+		return mainDao.totalSearchContent(param);
+	}
+	
+	/*
 	 * 메인 화면에서 통합검색시 작품, 작가 정보를 자동완성으로 가져온다.
 	 * param : searchKeyword
 	 * return : 작품, 작가에 관한 정보

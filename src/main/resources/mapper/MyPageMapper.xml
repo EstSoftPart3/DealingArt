@@ -61,6 +61,7 @@
 		)
 		AND MCR.MBR_SQ = #{mbrSq}
 		AND CM.CUPON_TYP_CD = #{cuponTypCd}
+		AND MCR.CUPON_USE_YN = 'N'
 	</select>
 
 	<select id="myCouponList" resultType="hashMap" parameterType="String">
@@ -1694,7 +1695,7 @@
 			AND	TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
 			AND TRNSPRT_PRC = #{trnsprtPrc}
 			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
-			<if test="trnsprtAreaCd != null and trnsprtAreaCd != ''">
+			<if test="trnsprtAreaCd != null and trnsprtAreaCd != '' and trnsprtAreaCd != 'null'">
 			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
 			</if>
 	</select>

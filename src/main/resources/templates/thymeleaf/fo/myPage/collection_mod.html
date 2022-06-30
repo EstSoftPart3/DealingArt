@@ -521,6 +521,9 @@
 
 <script th:inline="javascript">
 
+var result = /*[[${result}]]*/ 'default';
+var storage = new Object();
+
 $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
@@ -564,9 +567,6 @@ function readImg(input, imgId){
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-var result = /*[[${result}]]*/ 'default';
-var storage = new Object();
 
 $(function() {   
 	if(sessionStorage.getItem("work") != null){
@@ -1161,7 +1161,7 @@ function selectWork(obj){
 			$("#workMainImgUrl1").attr("src", result2.workMainImgUrl);
 			$("#workImgFrtUrl1").attr("src", result2.workImgFrtUrl);
 			$("#workImgRerUrl1").attr("src", result2.workImgRerUrl);
-			$("#workGrtUrl1").val(result2.workGrtUrl);
+			//$("#workGrtUrl1").val(result2.workGrtUrl);
 			$("#workImgLefUrl1").attr("src", result2.workImgLefUrl);
 			$("#workImgRitUrl1").attr("src", result2.workImgRitUrl);
 			$("#workImgTopUrl1").attr("src", result2.workImgTopUrl);
