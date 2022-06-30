@@ -460,10 +460,14 @@
 	<select id="selectAuctnBidList" resultType="hashMap" parameterType="String">
 		/* 거래내역 리스트 가져오기 (응찰히스토리)*/
 		SELECT 
-				BID_PRC AS bidPrc,
-				DATE_FORMAT(BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate 
+				FORMAT(A.BID_PRC, 0) AS bidPrc,
+				DATE_FORMAT(A.BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate,
+				B.MBR_NCKNM AS mbrNcknm
 		FROM 
-				TBL_DA_AUCTN_BID_H
+				TBL_DA_AUCTN_BID_H AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
 		WHERE 
 				DEAL_SQ = #{dealSq}
 	</select>

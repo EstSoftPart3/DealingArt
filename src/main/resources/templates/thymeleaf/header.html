@@ -898,11 +898,29 @@ function mainMobileAuthSuccess(result) {
         		mbrCpCertDi : mbrCpCertDi
         },
         success: function(data) {
-        	console.log(data);
         	if(data > 0){
-        		overlapYn = "Y";
+        		document.memberInput.mbrNm.value = "";
+        		document.memberInput.mbrCpNum.value = "";
+        		document.memberInput.mbrCpCertYn.value = "N";
+        		document.memberInput.mbrCpCertDate.value = "";
+        		document.memberInput.mbrBirth.value = "";
+        		fn_validation('mainSmsCertificationCheck','이미 등록된 회원입니다.', 'R');
+        		$("#mainSmsCertificationCheck").css('display',"block");
+        		$("#mainSmsCertification").css('display',"none");
         	}else{
-        		overlapYn = "N";
+        		$("#mainSmsCertificationCheck").css('display',"block");
+        		$("#mainSmsCertification").css('display',"none");
+        		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'R');
+        		$("#mbrNmCheck").css('display',"none");
+        		fn_validation('mbrNmCheck','', 'B');
+        		document.memberInput.mbrCpCertDi.value = mbrCpCertDi;
+        		document.memberInput.mbrNm.value = mbrNm;
+        		document.memberInput.mbrCpNum.value = mbrCpNum;
+        		document.memberInput.mbrCpCertYn.value = "Y";
+        		document.memberInput.mbrCpCertDate.value = mbrCpCertDate;
+        		document.memberInput.mbrBirth.value = mbrBirth;
+        		//숨겼던 성명, 생년월일이 나타나게 한다.
+        		$("#mbrNmDiv").show();
         	}
         },
         error: function(error) {
@@ -910,28 +928,6 @@ function mainMobileAuthSuccess(result) {
             alert("오류 발생" + errorTxt);
         }
 	});
-	if(overlapYn == "N"){
-		$("#mainSmsCertificationCheck").css('display',"block");
-		$("#mainSmsCertification").css('display',"none");
-		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'R');
-		$("#mbrNmCheck").css('display',"none");
-		fn_validation('mbrNmCheck','', 'B');
-		document.memberInput.mbrCpCertDi.value = mbrCpCertDi;
-		document.memberInput.mbrNm.value = mbrNm;
-		document.memberInput.mbrCpNum.value = mbrCpNum;
-		document.memberInput.mbrCpCertYn.value = "Y";
-		document.memberInput.mbrCpCertDate.value = mbrCpCertDate;
-		document.memberInput.mbrBirth.value = mbrBirth;
-		//숨겼던 성명, 생년월일이 나타나게 한다.
-		$("#mbrNmDiv").show();
-	}else{
-		document.memberInput.mbrNm.value = "";
-		document.memberInput.mbrCpNum.value = "";
-		document.memberInput.mbrCpCertYn.value = "N";
-		document.memberInput.mbrCpCertDate.value = "";
-		document.memberInput.mbrBirth.value = "";
-		fn_validation('mainSmsCertificationCheck','이미 등록된 회원입니다.', 'R');
-	}
 }
 //휴대폰 인증 실패
 function mainMobileAuthFail() {
@@ -1292,6 +1288,12 @@ $("#memberInputBtn").on('click', function(event){
 		$("#mainSmsCertificationCheck").show();
 		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
 		$("#mbrCpNum").val();
+		return;
+	}
+	
+	//중복회원 여부
+	if($("#mainSmsCertificationCheck").text() == '이미 등록된 회원입니다.') {
+		$("#mbrCpNum").focus();
 		return;
 	}
 	
