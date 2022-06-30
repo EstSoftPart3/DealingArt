@@ -1548,7 +1548,7 @@ $(document).on("click",".work",function(){
 	
 	console.log("dealSttsCd :"+dealSttsCd);
 	
-	if(dealSttsCd == null || dealSttsCd == ""  || dealSttsCd == "TC"){
+	if(dealSttsCd == null || dealSttsCd == 'null' || dealSttsCd == ""  || dealSttsCd == "TC"){
 		pageGoPost({
 			url:"/workDetail",
 			target:"_self",
@@ -1557,6 +1557,8 @@ $(document).on("click",".work",function(){
 			]
 		});
 	}
+	
+	
 	if(dealSttsCd == "TP"){
 		pageGoPost({
 			url:"/bidding",
