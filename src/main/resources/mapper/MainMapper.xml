@@ -177,7 +177,8 @@
 		/*mgz 자동 완성*/
 		SELECT 
 				MGZ_SQ AS mgzSq,
-				MGZ_TITLE AS mgzTitle
+				MGZ_TITLE AS mgzTitle,
+				MGZ_TYP_CD AS mgzTypCd
 		FROM 
 				TBL_DA_MGZ_M
 		WHERE 

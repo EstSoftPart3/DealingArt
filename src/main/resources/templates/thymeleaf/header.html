@@ -158,11 +158,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov">
 						<ul>
-							<li><a href="/memberEdit"><img src="resources/img/ic-1.jpg" /><span>회원정보 수정</span></a></li>
+							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
 							<li><a href="javascript:void(0);" class="myWork"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
-							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li>
+							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li> -->
 							<!-- class="scrap" -->
 							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
 							<!-- /customerService -->
@@ -1527,7 +1528,7 @@ function ibx_search_onkeyup(e){
 				}
 				$("#artst").append(artstHtml).trigger("create");
 				for(i=0; i<content.length; i++){
-					contentHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+content[i].mgzSq+'">'+content[i].mgzTitle+'</a></li>';
+					contentHtml += '<li><a href="javascript:void(0);" class="contents" sq="'+content[i].mgzSq+'" cd="'+content[i].mgzTypCd+'">'+content[i].mgzTitle+'</a></li>';
 				}
 				$("#content").append(contentHtml).trigger("create");
 				
@@ -1589,6 +1590,21 @@ $(document).on("click",".artst",function(){
 			["artstSq", artstSq]
 		]
 	});
+});
+
+$(document).on("click",".contents",function(){
+	var mgzSq= $(this).attr("sq");
+	var mgzTypCd = $(this).attr("cd");
+	
+	if(mgzTypCd == "IST"){
+		location.href = '/insights?mgzSq='+mgzSq;
+	}
+	if(mgzTypCd == "MDA"){
+		location.href = '/media?mgzSq='+mgzSq;
+	}
+	if(mgzTypCd == "EBI"){
+		location.href = '/exhibition?mgzSq='+mgzSq;
+	}
 });
 
 $(document).on("click",".workMore",function(){

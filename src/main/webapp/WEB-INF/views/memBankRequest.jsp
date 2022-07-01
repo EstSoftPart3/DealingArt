@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.io.IOException" %>
@@ -24,12 +24,12 @@
 		IP : 121.162.155.160 / Port : 80, 443
 	*************************************************************************************************/
 
-	String niceUid = "BX378";				// NICE에서 발급받은 사이트코드
-	String svcPwd  = "HvfnaXXO0eA6";				// NICE에서 발급받은 사이트 패스워드
+	String niceUid = "NID206035";				// NICE에서 발급받은 사이트코드
+	String svcPwd  = "24501348";				// NICE에서 발급받은 사이트 패스워드
 	String strCharset = "UTF-8";		// 인증서버의 한글 인코딩 (EUC-KR, UTF-8)
 	
 	// 한글 인코딩 설정
-	 request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8");
 	//request.setCharacterEncoding("euc-kr");
 	
 	// 입력 페이지에서 전달된 입력값 취득

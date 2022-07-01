@@ -133,6 +133,9 @@
              		
                  	$("#mgz9List").empty();
                  	$("#mgz9List").append(mgz9ListHtml).trigger("create");
+                 	
+                 	fn_styleNone();
+                 	
              	}else{
              		modalAlertShow("검색 결과가 없습니다."); 
              		$("#mgz9List").empty();
@@ -144,6 +147,18 @@
      	});
      }
      
+	
+	var paramMz9 = location.search;
+	 
+	 var params = new URLSearchParams(paramMz9);
+	  
+	 var getParam= params.get('mgzSq');
+	  
+	 console.log("getParam :"+getParam);
+	 
+	 if(getParam !="" && getParam != null){
+		selectMgz9Dtl(getParam);
+	 }
      
      /*
       * MGZ9 상세 조회
@@ -173,6 +188,9 @@
            				$("#editor > div").css('padding-left', '0px');
            			    $("#editor > div").css('padding-right', '0px');
                		}
+                  	
+                  	
+                  	$("#lp_mgz9Dtl").modal("show");
                   	
               	}else{
               		modalAlertShow("검색 결과가 없습니다."); 
@@ -325,6 +343,13 @@
     	});
       
       $('.selectpicker').selectpicker();
+      
+    //ckEditor Mouse Over Class Remove
+      function fn_styleNone() {
+      	$(".ck-widget__type-around__button").css("display","none");
+      	$(".ck-widget").css("outline-style","none");
+      	$(".ck-widget__selection-handle").css("display","none");
+      }
       
       
     </script>

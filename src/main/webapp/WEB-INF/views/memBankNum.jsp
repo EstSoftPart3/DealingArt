@@ -1,17 +1,34 @@
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	/************************************************************************************************
-		NICEÆò°¡Á¤º¸ Copyright(c) KOREA INFOMATION SERVICE INC. ALL RIGHTS RESERVED
+		NICEí‰ê°€ì •ë³´ Copyright(c) KOREA INFOMATION SERVICE INC. ALL RIGHTS RESERVED
 		
-		¼­ºñ½º¸í : °èÁÂÈ®ÀÎ ¼­ºñ½º 
-		ÆäÀÌÁö¸í : °èÁÂÈ®ÀÎ ÀÔ·Â ÆäÀÌÁö - °èÁÂ ¼ÒÀ¯ÁÖ È®ÀÎ
+		ì„œë¹„ìŠ¤ëª… : ê³„ì¢Œí™•ì¸ ì„œë¹„ìŠ¤ 
+		íŽ˜ì´ì§€ëª… : ê³„ì¢Œí™•ì¸ ìž…ë ¥ íŽ˜ì´ì§€ - ê³„ì¢Œ ì†Œìœ ì£¼ í™•ì¸
 	*************************************************************************************************/
 %>
 <html>
 <head>
-	<meta charset="EUC-KR">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+<!--     <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="resources/js/defaults-ko_KR.min.js"></script>
+    
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.min.css">
+	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="resources/css/common_pc.css">
+	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
+	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
+	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.css"> -->
+	
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>NICEÆò°¡Á¤º¸ °èÁÂÈ®ÀÎ ¼­ºñ½º</title>
+	<title>NICEí‰ê°€ì •ë³´ ê³„ì¢Œí™•ì¸ ì„œë¹„ìŠ¤</title>
 	<style type="text/css">
 		input, select{
 			margin: 2px;
@@ -31,20 +48,21 @@
 		}
 	</style>	
 	<script>
+		//$(".selectpicker").selectpicker(); //ì…€ë ‰íŠ¸í”¼ì»¤ í™œì„±í™”
 		function bcSubmit(bcType){
 			if(bcType == "A"){
-				// °èÁÂ ¼ÒÀ¯ÁÖ È®ÀÎ
+				// ê³„ì¢Œ ì†Œìœ ì£¼ í™•ì¸
 				document.form_bc.service.value = "1";
 				document.form_bc.svcGbn.value = "5";
 			}
 			else if(bcType == "B"){
-				// °èÁÂ ¿¹±ÝÁÖ¸í È®ÀÎ
+				// ê³„ì¢Œ ì˜ˆê¸ˆì£¼ëª… í™•ì¸
 				document.form_bc.service.value = "2";
 				document.form_bc.svcGbn.value = "2";
 			}
 			else
 			{
-				// °èÁÂ À¯È¿¼º È®ÀÎ
+				// ê³„ì¢Œ ìœ íš¨ì„± í™•ì¸
 				document.form_bc.service.value = "3";
 				document.form_bc.svcGbn.value = "4";
 			}
@@ -54,56 +72,56 @@
 	</script>
 </head>	
 <body>
-	<!-- NICE °èÁÂÀÎÁõ form -->
+	<!-- NICE ê³„ì¢Œì¸ì¦ form -->
 	<form name="form_bc" method="post">
-		<!-- ¼­ºñ½º±¸ºÐ (1: ¼ÒÀ¯ÁÖ È®ÀÎ, 2: ¿¹±ÝÁÖ¸í È®ÀÎ, 3: °èÁÂ À¯È¿¼º È®ÀÎ) -->
+		<!-- ì„œë¹„ìŠ¤êµ¬ë¶„ (1: ì†Œìœ ì£¼ í™•ì¸, 2: ì˜ˆê¸ˆì£¼ëª… í™•ì¸, 3: ê³„ì¢Œ ìœ íš¨ì„± í™•ì¸) -->
 		<input type="hidden" name="service" value="">
-		<!-- ¾÷¹«±¸ºÐ (5: ¼ÒÀ¯ÁÖ È®ÀÎ, 2: ¿¹±ÝÁÖ¸í È®ÀÎ, 4: °èÁÂ À¯È¿¼º È®ÀÎ) -->
+		<!-- ì—…ë¬´êµ¬ë¶„ (5: ì†Œìœ ì£¼ í™•ì¸, 2: ì˜ˆê¸ˆì£¼ëª… í™•ì¸, 4: ê³„ì¢Œ ìœ íš¨ì„± í™•ì¸) -->
 		<input type="hidden" name="svcGbn" value="">
-		<!-- °èÁÂ±¸ºÐ (1:°³ÀÎ°èÁÂ, 2:¹ýÀÎ°èÁÂ) -->
+		<!-- ê³„ì¢Œêµ¬ë¶„ (1:ê°œì¸ê³„ì¢Œ, 2:ë²•ì¸ê³„ì¢Œ) -->
 		<input type="radio" name="strGbn" id="strGbn1" value="1" checked="checked">
-		<label for="strGbn1">°³ÀÎ°èÁÂ</label>
+		<label for="strGbn1">ê°œì¸ê³„ì¢Œ</label>
 		<input type="radio" name="strGbn" id="strGbn2" value="2">
-		<label for="strGbn2">¹ýÀÎ°èÁÂ</label>
+		<label for="strGbn2">ë²•ì¸ê³„ì¢Œ</label>
 		<br>
-		<!-- ÀºÇàÄÚµå -->
-		<label for="strBankCode">ÀºÇàÄÚµå</label>
+		<!-- ì€í–‰ì½”ë“œ -->
+		<label for="strBankCode">ì€í–‰ì½”ë“œ</label>
 		<select name="strBankCode">
-			<option value="002">»ê¾÷ÀºÇà</option>
-			<option value="003">±â¾÷ÀºÇà</option>
-			<option value="004">±¹¹ÎÀºÇà</option>
-			<option value="007">¼öÇù</option>
-			<option value="011">³óÇù</option>
-			<option value="020">¿ì¸®ÀºÇà</option>
-			<option value="023">SCÁ¦ÀÏÀºÇà</option>
-			<option value="027">ÇÑ±¹¾¾Æ¼ÀºÇà</option>
-			<option value="031">´ë±¸ÀºÇà</option>
-			<option value="032">ºÎ»êÀºÇà</option>
-			<option value="034">±¤ÁÖÀºÇà</option>
-			<option value="035">Á¦ÁÖÀºÇà</option>
-			<option value="037">ÀüºÏÀºÇà</option>
-			<option value="039">°æ³²ÀºÇà</option>
-			<option value="045">»õ¸¶À»±Ý°í</option>
-			<option value="048">½ÅÇù</option>
-			<option value="071">¿ìÃ¼±¹</option>
-			<option value="081">ÇÏ³ªÀºÇà</option>
-			<option value="088">½ÅÇÑÀºÇà</option>
+			<option value="002">ì‚°ì—…ì€í–‰</option>
+			<option value="003">ê¸°ì—…ì€í–‰</option>
+			<option value="004">êµ­ë¯¼ì€í–‰</option>
+			<option value="007">ìˆ˜í˜‘</option>
+			<option value="011">ë†í˜‘</option>
+			<option value="020">ìš°ë¦¬ì€í–‰</option>
+			<option value="023">SCì œì¼ì€í–‰</option>
+			<option value="027">í•œêµ­ì”¨í‹°ì€í–‰</option>
+			<option value="031">ëŒ€êµ¬ì€í–‰</option>
+			<option value="032">ë¶€ì‚°ì€í–‰</option>
+			<option value="034">ê´‘ì£¼ì€í–‰</option>
+			<option value="035">ì œì£¼ì€í–‰</option>
+			<option value="037">ì „ë¶ì€í–‰</option>
+			<option value="039">ê²½ë‚¨ì€í–‰</option>
+			<option value="045">ìƒˆë§ˆì„ê¸ˆê³ </option>
+			<option value="048">ì‹ í˜‘</option>
+			<option value="071">ìš°ì²´êµ­</option>
+			<option value="081">í•˜ë‚˜ì€í–‰</option>
+			<option value="088">ì‹ í•œì€í–‰</option>
 		</select>
-		<!-- °èÁÂ¹øÈ£ -->
-		<label for="strAccountNo">°èÁÂ¹øÈ£</label>
+		<!-- ê³„ì¢Œë²ˆí˜¸ -->
+		<label for="strAccountNo">ê³„ì¢Œë²ˆí˜¸</label>
 		<input type="text" name="strAccountNo" maxlength="40" size="40" value="">
 		<br>
-		<!-- ¿¹±ÝÁÖ¸í -->
-		<label for="name">¿¹±ÝÁÖ¸í</label>
+		<!-- ì˜ˆê¸ˆì£¼ëª… -->
+		<label for="name">ì˜ˆê¸ˆì£¼ëª…</label>
 		<input type="text" name="name" maxlength="40" size="16" value="">
 		<br>
-		<!-- »ý³â¿ùÀÏ/»ç¾÷ÀÚ¹øÈ£ -->
-		<label for="birth">»ý³â¿ùÀÏ</label>
+		<!-- ìƒë…„ì›”ì¼/ì‚¬ì—…ìžë²ˆí˜¸ -->
+		<label for="birth">ìƒë…„ì›”ì¼</label>
 		<input type="text" name="birth" maxlength="10" size="10" value="">
-		<span>(»ý³â¿ùÀÏ 6ÀÚ¸® / »ç¾÷ÀÚ¹øÈ£ 10ÀÚ¸®)</span>
+		<span>(ìƒë…„ì›”ì¼ 6ìžë¦¬ / ì‚¬ì—…ìžë²ˆí˜¸ 10ìžë¦¬)</span>
 		<br>
-		<!-- °èÁÂÀÎÁõ ¹öÆ° -->
-		<button onclick="javascript:bcSubmit('A');" >°èÁÂ ¼ÒÀ¯ÁÖ È®ÀÎ</button> (°èÁÂ¹øÈ£ + ¿¹±ÝÁÖ¸í + »ý³â¿ùÀÏ)
+		<!-- ê³„ì¢Œì¸ì¦ ë²„íŠ¼ -->
+		<button onclick="javascript:bcSubmit('A');" >ê³„ì¢Œ ì†Œìœ ì£¼ í™•ì¸</button> (ê³„ì¢Œë²ˆí˜¸ + ì˜ˆê¸ˆì£¼ëª… + ìƒë…„ì›”ì¼)
 	</form>	
 </body>
 </html>

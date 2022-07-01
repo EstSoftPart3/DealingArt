@@ -54,7 +54,16 @@
 							</div>
 						</div>
 						
-						  <style type="text/css">
+						<div id="div_noneCollection" style="display:none;">
+							<div class="t_1"><span class="c-red">
+								등록된 소장품</span>이 없습니다.<br><span class="c-red">소장품을 등록</span>해보세요!
+							</div>
+	                        <div class="bat-box3-1 mg_t65" style="text-align:center;">
+								<button type="button" class="ba-btn1" onclick="collectionRegMove()"><span>소장품 등록하러 가기</span></button>
+							</div>
+						</div>
+						
+						<style type="text/css">
 								
 								.pseudo-img {
 								  border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px
@@ -63,7 +72,7 @@
 								.grid{border:0px solid #222;text-align:center;margin: 0 auto;}
  								.griditem{ margin-bottom:40px;}
 
-							</style>
+						</style>
 							
 							
 						    
@@ -365,7 +374,8 @@ function myCollectionList(){
     	$(".grid").append(html);
     	masonryLayout();
     }else{
-		modalAlertShow("등록된 소장품이 없습니다.");
+    	$("#div_noneCollection").css("display", "");
+		//modalAlertShow("등록된 소장품이 없습니다.");
     }
 }
 //거래 남은 시간 1초마다 계산해서 표현하기
