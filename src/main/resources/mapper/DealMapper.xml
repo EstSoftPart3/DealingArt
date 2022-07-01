@@ -373,7 +373,7 @@
 					,DEAL_SBID_PRC = #{dealSbidPrc}
 				</if>
 				<if test="dealFinalPrc != null and dealFinalPrc != ''">
-					DEAL_FINAL_PRC = #{dealFinalPrc}
+					,DEAL_FINAL_PRC = #{dealFinalPrc}
 				</if>
 		WHERE 
 				DEAL_SQ = #{dealSq}

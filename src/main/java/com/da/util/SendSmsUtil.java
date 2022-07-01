@@ -102,24 +102,24 @@ public class SendSmsUtil {
 		//보낸티입
 		String sndTyp = "S";
 		//보낸 컨텐츠 코드
-		String sndConCd = (String) params.get("sndConCd");
+		String sndConCd = params.get("sndConCd").toString();
 		//보낼 회원 아이디
-		String mbrId = (String) params.get("mbrId");
+		String mbrId = params.get("mbrId").toString();
 		//보낸 회원 번호
-		String sndNumber = (String) params.get("mbrCpNum");
+		String sndNumber = params.get("mbrCpNum").toString();
 		
 		//등록일시	
-		String regDt = (String) params.get("regDt");
+		String regDt = params.get("regDt").toString();
 		//낙찰일시
-		String sBidDt = (String) params.get("sBidDt");
+		String sBidDt = params.get("sBidDt").toString();
 		//작품명
-		String workNm = (String) params.get("workNm");
+		String workNm = params.get("workNm").toString();
 		//최종낙찰가
-		String bidPrc = (String) params.get("bidPrc");
+		String bidPrc = params.get("bidPrc").toString();
 		//만료일시
-		String dealEndngDt = (String) params.get("dealEndngDt");
+		String dealEndngDt = params.get("dealEndngDt").toString();
 		//응찰일시
-		String bidDt = (String) params.get("bidDt");
+		String bidDt = params.get("bidDt").toString();
 		
 		
 		/*

@@ -3289,15 +3289,19 @@ width: 22rem;}
 
 .pay-link{}
 .pay-link a{
-    width: 20.7rem;
+	width: 20.7rem;
     height: 16.7rem;
     display: inline-block;
-    background: #f3f3f3;
+    background: #fff;
     border: #cccccc 1px solid;
     vertical-align: top;
     text-align: center;
     position: relative;
     margin-right: 1rem;
+}
+.pay-link a:active{
+    background: #f3f3f3;
+    box-shadow: inset 2px 2px 7px #cfcfcf;
 }
 .pay-link a:last-child{margin-right:0;}
 .pay-link a span{
