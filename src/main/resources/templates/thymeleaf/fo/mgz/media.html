@@ -105,7 +105,10 @@
         	 mgzTypCd : mgzTypCd
  		},
          success: function(data) {
-         	var mgz9List = null;
+         	
+        	console.log(data);
+        	 
+        	var mgz9List = null;
          	var mgz9ListHtml = "";
          	
          	if(data.result != null && data.result.length > 0){
@@ -138,7 +141,7 @@
 	         		mgz9ListHtml += '</li>';
 	         		*/
          			mgz9ListHtml += '<li>';
-         			mgz9ListHtml += '<a href="#" class="mgz-youtube" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+         			mgz9ListHtml += '<a href="#" class="mgz-youtube_'+mgz9List[i].mgzSq+'" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
          			mgz9ListHtml += '<div style="pointer-events:none;">'+ timpStr +'</div>';
          			mgz9ListHtml += '		<div class="ml-div">';
 	         		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
@@ -150,6 +153,7 @@
          			mgz9ListHtml += '</a>'
          			mgz9ListHtml += '</li>';
          			
+         			         			
          			iframeSize();
          		
              	}
@@ -172,14 +176,18 @@
 	  console.log('State Change: ' + event.data);
 	}
  
+
+
+ 
+
+ 
  /*
   * MGZ9 상세 조회
   * PARAM : #MGZ_SQ
   * RETURN : MGZ9 상세
   */
   function selectMgz9Dtl(mgzSq){
-	  
-	console.log("selectMgz9Dtl");
+
   	
   	$.ajax({
           type: "post",
@@ -206,8 +214,16 @@
             	$("#lp_mgz9Dtl_cntnt").append(timpStr).trigger("create");
             	
             	
-            	
             	fn_styleNone();
+            	//debugger;
+            	
+            	
+            	//$($("#lp_mgz9Dtl").attr("data-target")).modal("show");
+            	
+            	$("#lp_mgz9Dtl").modal("show");
+        
+            	//$("#lp_mgz9Dtl").modal();
+            	
         	}else{
         		modalAlertShow("검색 결과가 없습니다."); 
         		$("#lp_mgz9Dtl_cntnt").empty();
@@ -309,6 +325,25 @@
   )
   
   selectMgz9List("MDA");
+  
+  
+  var paramMz9 = location.search;
+  
+  var params = new URLSearchParams(paramMz9);
+   
+  var getParam= params.get('mgzSq');
+   
+  console.log("getParam :"+getParam);
+  
+  if(getParam !="" && getParam != null){
+ 	
+	  //selectMgz9Dtl(getParam);
+ 	  
+	  setTimeout(function() {
+		  $(".mgz-youtube_"+getParam).trigger("click");
+		}, 1000);
+  }
+  
  });
  
  $(function() {                      
@@ -400,6 +435,9 @@
 	});
 	  
 }
+ 
+
+ 
  
 </script>
 	
