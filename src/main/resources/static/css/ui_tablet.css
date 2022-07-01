@@ -5434,3 +5434,30 @@ p.dib{display:inline-block !important;}
 /*0630*/
 .hd-div3 .hd-bg3 img { width:100%; object-fit: contain !important;}
 .hd-div3 .user-1 img { object-fit: contain; }
+
+/*0701*/
+.t_1 {
+	font-size:30px;
+    font-weight: 600;
+    text-align: center;
+    padding: 100px 0; 
+}
+
+.iframe-size {
+	width:130rem;
+	height:73rem;
+}
+
+.bat-box3-1{
+    padding: 0
+}
+
+.bat-box3-1 button{
+    width: 50rem;
+    border-radius: 35px;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 11px 0 14px 0;
+    margin-bottom: 13px;
+    max-height: 60px;
+}

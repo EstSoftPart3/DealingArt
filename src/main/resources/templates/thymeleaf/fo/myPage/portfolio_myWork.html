@@ -44,6 +44,14 @@
 <!-- 							</div> -->
 						</div>
 						
+						<div id="div_noneMyWork" style="display:none;">
+							<div class="t_1"><span class="c-red">
+								등록된 작품</span>이 없습니다.<br><span class="c-red">작품을 등록</span>해보세요!
+							</div>
+	                        <div class="bat-box3-1 mg_t65" style="text-align:center;">
+								<button type="button" class="ba-btn1" onclick="myWorkRegMove()"><span>작품 등록하러 가기</span></button>
+							</div>
+						</div>
 						
     
 							<style type="text/css">
@@ -348,7 +356,8 @@ function myWorkList(){
 		//$("#masonryList").append(html);
 		masonryLayout();
     }else{
-		modalAlertShow("등록 된 작품이 없습니다.");
+    	$("#div_noneMyWork").css("display", "");
+		//modalAlertShow("등록 된 작품이 없습니다.");
     }
      
 }
