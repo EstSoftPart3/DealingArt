@@ -57,12 +57,12 @@
 							</th:block>
 							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h3>
 							<h4 th:text="${result.deal.workNm}"></h4>
-							<!--
+							<!-- 
 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">
 								<div class="tootip-1">신고하기</div>
 								<img src="resources/img/de/popo-1.png" />
 							</a>
-							   -->
+						 	-->	
 						</div>
 						<table class="tstyle1">
 							<tr>
@@ -850,6 +850,7 @@ function fn_decIns(){
 		
 		var workSqVal = result.deal.workSq;
 		var mbrSqVal = sMbrSqVal;
+		var rprtDtlVal = $("#rprtDtl").val();
 		
 		console.log("workSqVal :"+workSqVal);
 		console.log("mbrSqVal :"+mbrSqVal);
@@ -859,21 +860,13 @@ function fn_decIns(){
 			type: "POST",
 	        url: "/admin/reportInsData",
 	        data: {
-	        	trnsprtDivCd : "B", //구매자
-	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
-	    		trnsprtReqYn : "Y" //부가서비스 필수 여부
+	        	workSq : workSqVal,  //작품번호
+	        	mbrSq : mbrSqVal,	 //회원번호
+	        	rprtDtl : rprtDtlVal //신고내용
 	        },
 	        async: false,
 			success: function(data){
-				for(var i=0; i<data.result.length; i++){
-					innerText += '<div class="comy-box">';
-					innerText += '	<div class="cmy-text">'+data.result[i].text+'</div>';
-					innerText += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
-					//innerText += '	<div class="cmy-end">X</div>';
-					innerText += '</div>';
-				}
-				$("#div_trnsprtTypCd").empty();
-				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+				
 			},
 			error: function(error) {
 	            alert("오류 발생" + error);
