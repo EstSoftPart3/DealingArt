@@ -133,10 +133,11 @@ public class SendSmsUtil {
 		getParam.put("sndConCd", sndConCd);
 		getParam.put("mbrId", mbrId);
 		getParam.put("sndNumber", sndNumber);
+		
+		
+		if(!sndNumber.equals("01000000000") || !sndNumber.equals("01000001111") || !sndNumber.equals("01000002222")) {
 				
-		int notiCount = NotiMapper.notiCount(getParam);
-		
-		
+			int notiCount = NotiMapper.notiCount(getParam);
 		
 			String smsContent = null;
 			//
@@ -192,7 +193,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 			
 			}
-		
+		}
 		
 		return params;
 			
