@@ -474,6 +474,7 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>거래 계약 상세</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#myDeal").addClass("active");
+	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
 	
 	if(result.dealInfo.sellPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TP"){ //판매자 결제 미완료면
 		$("#dealSttsCdDetail").text("경매 진행 중 입니다.");
