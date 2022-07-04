@@ -104,34 +104,6 @@ public class TestController {
 		return "checkplus_fail";
 	}
 	
-	@RequestMapping("/test-sms")
-	public String testSms() {
-		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		/**
-		 * "content":"string",
-		 * "messages":[
-		        {
-		            "to":"string"
-		        }
-		    ]
-		 */
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
-		Map<String, Object> tomap = new HashMap<String, Object>();
-		
-		tomap.put("to", "01099428461");
-		mList.add(tomap);
-		
-		params.put("content", "테스트에용");
-		params.put("messages", mList);
-		
-		rtnMap = sendSmsUtil.sendSms(params);
-		
-		System.out.println(rtnMap);
-		
-		return rtnMap.get("statusCode").toString();
-	}
 	
 	@RequestMapping("/test-mail")
 	public String testMail() {
