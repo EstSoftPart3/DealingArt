@@ -215,7 +215,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th><span class="my-red">부가서비스(선택)</span></th>
+												<th><span class="">부가서비스(선택)</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
 														<select class="selectpicker" id="sbx_trnsprtServiceCd" style="min-width:300px !important;" disabled>
@@ -227,7 +227,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th><span class="my-red">쿠폰 선택</span></th>
+												<th><span class="">쿠폰 선택</span></th>
 												<td class="pd_t17">
 													<div class="selec-box bg-st">
 														<select class="selectpicker" id="sbx_couponList_TD" style="min-width:300px !important;" disabled>
@@ -983,6 +983,7 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			$(".selectpicker").selectpicker("refresh");
 			$('#sbx_trnsprtAreaCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
 		}else{ //일반 운송이면
+			document.getElementById("sbx_trnsprtServiceCd").disabled = true; //서비스 선택 셀렉트 박스 비활성화
 			$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			//운송 가격 표시하기
