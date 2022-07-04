@@ -57,12 +57,12 @@
 							</th:block>
 							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h3>
 							<h4 th:text="${result.deal.workNm}"></h4>
-							<!-- 
+							<!--
 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">
 								<div class="tootip-1">신고하기</div>
 								<img src="resources/img/de/popo-1.png" />
 							</a>
-							 -->
+							   -->
 						</div>
 						<table class="tstyle1">
 							<tr>
@@ -272,7 +272,7 @@
 					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
 					</p>
 					
-					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요."></textarea>
+					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>
 					
 					<!-- <div class="text-center  mg_b40">
 						<input type="checkbox" id="w1" name="cc">
@@ -826,15 +826,64 @@ function fn_declaration(){
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		
 		$(".close").trigger("click");
-		alert("confrim");
-		
+				
 		modalConfirm("알림", "로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 			if(confrim){
-						
+				$("#loginModal").modal("show");	
 			}
 		});
+	} else {
+		
+		//신고하기 입력
+		fn_decIns();				
+
 	}
 }
+
+
+
+//신고하기 입력
+function fn_decIns(){
+	
+	//로그인 체크 확인
+	if(sMbrSqVal != "" || sMbrSqVal != null){
+		
+		var workSqVal = result.deal.workSq;
+		var mbrSqVal = sMbrSqVal;
+		
+		console.log("workSqVal :"+workSqVal);
+		console.log("mbrSqVal :"+mbrSqVal);
+		
+		
+		$.ajax({
+			type: "POST",
+	        url: "/admin/reportInsData",
+	        data: {
+	        	trnsprtDivCd : "B", //구매자
+	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
+	    		trnsprtReqYn : "Y" //부가서비스 필수 여부
+	        },
+	        async: false,
+			success: function(data){
+				for(var i=0; i<data.result.length; i++){
+					innerText += '<div class="comy-box">';
+					innerText += '	<div class="cmy-text">'+data.result[i].text+'</div>';
+					innerText += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
+					//innerText += '	<div class="cmy-end">X</div>';
+					innerText += '</div>';
+				}
+				$("#div_trnsprtTypCd").empty();
+				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+		
+		
+	}
+}
+
 //응찰하기/구매하기 버튼 클릭
 function btn_purchaseOrBid_onclick(){
 	if(sMbrSqVal == "" || sMbrSqVal == null){
