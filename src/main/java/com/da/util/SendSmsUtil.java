@@ -177,18 +177,21 @@ public class SendSmsUtil {
 			}
 			
 			
-			
-			tomap.put("to", sndNumber);
-			mList.add(tomap);
+			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SRE") || sndConCd.equals("SAE") ) {
 				
-			params.put("content", smsContent);
-			params.put("messages", mList);
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
 			
-			rtnMap = this.sendSms(params);
-			
-			
-			//히스토리 저장
-			NotiMapper.notiInsert(getParam);
+			}
 		
 		
 		return params;
