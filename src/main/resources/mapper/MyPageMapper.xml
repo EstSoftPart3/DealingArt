@@ -840,7 +840,7 @@
 				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
 				A.WORK_IMG_RER_URL AS workImgRerUrl,
 				A.WORK_FRM_YN AS workFrmYn,
@@ -1138,7 +1138,7 @@
 				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
 				A.WORK_IMG_RER_URL AS workImgRerUrl,
 				A.WORK_FRM_YN AS workFrmYn,

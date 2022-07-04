@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/com.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
 <head>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
@@ -161,11 +162,12 @@
 												<tr>
 													<th><span class="my-red">쿠폰 선택</span></th>
 													<td class="pd_t17">
-														<div class="selec-box bg-st">
-															<select class="selectpicker" id="sbx_couponList_DD" style="min-width:300px !important;" disabled>
+														<!-- <div class="selec-box bg-st"> -->
+															<!-- <select class="selectpicker" id="sbx_couponList_DD" style="min-width:300px !important;" disabled> -->
+															<select class="selectpicker" id="sbx_couponList_DD" disabled>
 																<option value="null">-선택-</option>
 															</select>
-														</div>
+														<!-- </div> -->
 														<div id="div_couponList_DD">
 														</div>
 														<div class="comy-sum" id="div_totalAmount_1">
@@ -196,20 +198,22 @@
 											<tr>
 												<th><span class="my-red">부가서비스(필수)</span></th>
 												<td class="pd_t17">
-													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:300px !important;">
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:300px !important;"> -->
+														<select class="selectpicker" id="sbx_trnsprtTypCd">
 															<option value="null">-선택-</option>
 															<option value="P">프리미엄운송</option>
 															<option value="D">직접운송</option>
 														</select>
-													</div>
-													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtAreaCd" style="min-width:300px !important;">
+													<!-- </div> -->
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtAreaCd" style="min-width:300px !important;"> -->
+														<select class="selectpicker" id="sbx_trnsprtAreaCd">
 															<option value="null">-선택-</option>
 															<option value="MA">수도권</option>
 															<option value="NA">비수도권</option>
 														</select>
-													</div>
+													<!-- </div> -->
 													<div id="div_trnsprtTypCd">
 													</div>
 												</td>
@@ -217,11 +221,12 @@
 											<tr>
 												<th><span class="">부가서비스(선택)</span></th>
 												<td class="pd_t17">
-													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_trnsprtServiceCd" style="min-width:300px !important;" disabled>
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtServiceCd" style="min-width:300px !important;" disabled> -->
+														<select class="selectpicker" id="sbx_trnsprtServiceCd" disabled>	
 															<option value="null">-선택-</option>
 														</select>
-													</div>
+													<!-- </div> -->
 													<div id="div_trnsprtServiceCd">
 													</div>
 												</td>
@@ -229,11 +234,12 @@
 											<tr>
 												<th><span class="">쿠폰 선택</span></th>
 												<td class="pd_t17">
-													<div class="selec-box bg-st">
-														<select class="selectpicker" id="sbx_couponList_TD" style="min-width:300px !important;" disabled>
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_couponList_TD" style="min-width:300px !important;" disabled> -->
+														<select class="selectpicker" id="sbx_couponList_TD" disabled>
 															<option value="null">-선택-</option>
 														</select>
-													</div>
+													<!-- </div> -->
 													<div id="div_couponList_TD">
 													</div>
 													<div class="comy-sum" id="div_totalAmount_2">
@@ -512,6 +518,8 @@ var trnsprt = new Object(); //운송 테이블
 var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 //$("#mainPayCall").val(1);
+
+window.onpopstate = function () { history.go(-1)}; 
 /*
  * 화면 오픈시
  */

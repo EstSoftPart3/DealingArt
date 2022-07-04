@@ -625,6 +625,15 @@
    		SET
    				MBR_DELIVRY_ADDR = #{mbrDelivryAddr},
    				MBR_DELIVRY_CP_NUM = #{mbrDelivryCpNum}
+   				<if test="mbrAccountNo != null and mbrAccountNo != ''">
+   				,MBR_ACCOUNT_NO = #{mbrAccountNo}
+   				</if>
+   				<if test="mbrBankCd != null and mbrBankCd != ''">
+   				,MBR_BANK_CD = #{mbrBankCd}
+   				</if>
+   				<if test="mbrBankNm != null and mbrBankNm != ''">
+   				,MBR_BANK_NM = #{mbrBankNm}
+   				</if>
    		WHERE 
    				MBR_SQ = #{mbrSq}
    </update>

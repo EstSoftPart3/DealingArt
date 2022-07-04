@@ -431,9 +431,10 @@ public class TestController {
 	 * @throws IOException 
 	*************************************************************************************************/
 	@RequestMapping("/memBankRequest")
-	public void memBankRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public ModelAndView memBankRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
 		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		
 		String niceUid = "NID206035";				// NICE에서 발급받은 사이트코드
 		String svcPwd  = "24501348";				// NICE에서 발급받은 사이트 패스워드
@@ -491,8 +492,10 @@ public class TestController {
 		System.out.println("결과코드  : "  + resultCode + "<br>");
 		System.out.println("결과메시지 : " + resultMsg + "<br>");
 		
-		out.println("<script>opener.bankCheckCallBack("+resultCode+","+resultMsg+"); window.close(); </script>");
-		out.flush();
+		mv.addObject("resultCode", resultCode);
+		mv.addObject("resultMsg", resultMsg);
+		
+		return mv;
 	}
 	//계좌인증 소켓-POST 함수
 	public String bankCheck(String strCharset, String niceUid, String svcPwd, String service, String svcGbn, String strGbn, String strBankCode, String strAccountNo, String strNm, String strResId, String inq_rsn, String strOrderNo)

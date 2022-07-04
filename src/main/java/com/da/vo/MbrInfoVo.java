@@ -32,4 +32,7 @@ public class MbrInfoVo {
 	private String autoLoginSsnId;
 	private String autoLoginDate;
 	private String mbrCpCertDi;
+	private String mbrAccountNo;
+	private String mbrBankCd;
+	private String mbrBankNm;
 }

@@ -178,10 +178,13 @@
 						DEAL_STRT_DT,
 						DEAL_ENDNG_DT
 						<if test="artstSq != null and artst != ''">
-							,ARTST_SQ
+						,ARTST_SQ
 						</if>
 						<if test="dealFinalPrc != null and dealFinalPrc != ''">
-							,DEAL_FINAL_PRC
+						,DEAL_FINAL_PRC
+						</if>
+						<if test="dealSq != null and dealSq != ''">
+						,DEAL_SQ
 						</if>
 					) VALUES (
 						#{workSq},
@@ -191,31 +194,33 @@
 						#{dealStrtPrc},
 						#{dealStrtDt}
 						<if test="dealStrtDtAddDt != null and dealStrtDtAddDt != ''">
-							<!-- ,DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY) -->
-							<![CDATA[
-							,DATE_ADD(DATE_FORMAT(#{dealStrtDt},'%Y-%m-%d %H') + INTERVAL
-						   	CASE
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  10 THEN 10 
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  20 THEN 20
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  30 THEN 30
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  40 THEN 40
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  50 THEN 50
-								WHEN TIME_FORMAT(#{dealStrtDt},'%i') <=  59 THEN 00
-						   	END MINUTE, INTERVAL #{dealStrtDtAddDt} DAY)
-    						]]>
+						<!-- ,DATE_ADD(#{dealStrtDt}, INTERVAL #{dealStrtDtAddDt} DAY) -->
+						<![CDATA[
+						,DATE_ADD(DATE_FORMAT(#{dealStrtDt},'%Y-%m-%d %H') + INTERVAL
+					   	CASE
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  10 THEN 10 
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  20 THEN 20
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  30 THEN 30
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  40 THEN 40
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <  50 THEN 50
+							WHEN TIME_FORMAT(#{dealStrtDt},'%i') <=  59 THEN 00
+					   	END MINUTE, INTERVAL #{dealStrtDtAddDt} DAY)
+   						]]>
 						</if>
 						<if test="dealEndngDt != null and dealEndngDt != ''">
-							,#{dealEndngDt}
+						,#{dealEndngDt}
 						</if>
 						<if test="artstSq != null and artst != ''">
-							,#{artstSq}
+						,#{artstSq}
 						</if>
 						<if test="dealFinalPrc != null and dealFinalPrc != ''">
-							,#{dealFinalPrc}
+						,#{dealFinalPrc}
+						</if>
+						<if test="dealSq != null and dealSq != ''">
+						,#{dealSq}
 						</if>
 					) 
 					ON DUPLICATE KEY UPDATE
-					
 						WORK_SQ = #{workSq},
 						SELL_MBR_SQ = #{mbrSq},
 						DEAL_TYP_CD = #{dealTypCd},
@@ -576,5 +581,54 @@
 				) A
 		WHERE A.MBR_SQ != #{mbrSq}
 		GROUP BY A.MBR_SQ
+	</select>
+	
+	<select id="selectWorkAll" resultType="hashMap" parameterType="String">
+		/*작품 정보 전체 조회*/
+		SELECT 
+				WORK_SQ AS workSq,
+				MBR_SQ AS mbrSq,
+				ARTST_SQ AS artstSq,
+				WORK_NM AS workNm,
+				WORK_MATRL AS workMatrl,
+				WORK_TYP_CD AS workTypCd,
+				WORK_SHP_CD AS workShpCd,
+				WORK_CLSFC_CD AS workClsfcCd,
+				WORK_SIZE_WIDTH AS workSizeWidth,
+				WORK_SIZE_DEPTH AS workSizeDepth,
+				WORK_SIZE_HEIGHT AS workSizeHeight,
+				WORK_SIZE_WEIGHT AS workSizeWeigth,
+				WORK_LAKE AS workLake,
+				WORK_MAIN_IMG_URL AS workMainImgUrl,
+				WORK_FRM_IMG_URL AS workFrmImgUrl,
+				WORK_MDIA AS workMdia,
+				WORK_PRODC_YEAR AS workProdcYear,
+				WORK_PRC AS workPrc,
+				WORK_SALE_YN AS workSaleYn,
+				WORK_INTRDC AS workIntrdc,
+				WORK_CLR_CD AS workClrCd,
+				WORK_THM_CD AS workThmCd,
+				REG_MBR_SQ AS regMbrSq,
+				REG_DT AS regDt,
+				UPDT_MBR_SQ AS updtMbrSq,
+				UPDT_DT AS updtDt,
+				USE_YN AS UseYn,
+				DEL_YN AS delYn,
+				ARTST_ACTVTY_NM AS artstActvtNm,
+				ARTST_ENGLS_NM AS artstEnglsNm,
+				ARTST_BIRTH_YEAR AS artstBirthYear,
+				WORK_IMG_FRT_URL AS workImgFrtUrl,
+				WORK_IMG_RER_URL AS workImgRerUrl,
+				WORK_IMG_TOP_URL AS workImgTopUrl,
+				WORK_IMG_BOT_URL AS workImgBotUrl,
+				WORK_IMG_LEF_URL AS workImgLefUrl,
+				WORK_IMG_RIT_URL AS workImgRitUrl,
+				WORK_FRM_YN AS workFrmYn,
+				WORK_VIDEO_URL AS workVideoUrl,
+				WORK_GRT_URL AS workGrtUrl 
+		FROM 
+				TBL_DA_WORK_M
+		WHERE 
+				WORK_SQ = #{workSq}
 	</select>
 </mapper>
