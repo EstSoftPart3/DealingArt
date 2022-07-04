@@ -108,19 +108,44 @@ public class SendSmsUtil {
 		//보낸 회원 번호
 		String sndNumber = params.get("mbrCpNum").toString();
 		
-		//등록일시	
-		String regDt = params.get("regDt").toString();
-		//낙찰일시
-		String sBidDt = params.get("sBidDt").toString();
-		//작품명
-		String workNm = params.get("workNm").toString();
-		//최종낙찰가
-		String bidPrc = params.get("bidPrc").toString();
-		//만료일시
-		String dealEndngDt = params.get("dealEndngDt").toString();
-		//응찰일시
-		String bidDt = params.get("bidDt").toString();
 		
+		String regDt = null;
+		String sBidDt = null;
+		String workNm = null;
+		String bidPrc = null;
+		String dealEndngDt = null;
+		String bidDt = null;
+		
+		//미술품 낙찰완료
+		if(sndConCd.equals("SSA")) {
+			//등록일시	
+			regDt = params.get("regDt").toString();
+			//낙찰일시
+			sBidDt = params.get("sBidDt").toString();
+			//작품명
+			workNm = params.get("workNm").toString();
+			//최종낙찰가
+			bidPrc = params.get("bidPrc").toString();
+		}
+		
+		//미술품 거래 종료 안내 - 정찰
+		if(sndConCd.equals("SRE")) {
+			
+			//작품명
+			workNm = params.get("workNm").toString();
+			//만료일시
+			dealEndngDt = params.get("dealEndngDt").toString();
+			
+		}
+		//미술품 거래 종료 안내 - 경매
+		if(sndConCd.equals("SAE")) {
+			//작품명
+			workNm = params.get("workNm").toString();
+			//응찰일시
+			bidDt = params.get("bidDt").toString();
+			//만료일시
+			dealEndngDt = params.get("dealEndngDt").toString();
+		}
 		
 		/*
 		1) 작가신청완료 	: SAA
@@ -133,10 +158,11 @@ public class SendSmsUtil {
 		getParam.put("sndConCd", sndConCd);
 		getParam.put("mbrId", mbrId);
 		getParam.put("sndNumber", sndNumber);
+		
+		
+		if(!sndNumber.equals("01000000000") || !sndNumber.equals("01000001111") || !sndNumber.equals("01000002222")) {
 				
-		int notiCount = NotiMapper.notiCount(getParam);
-		
-		
+			int notiCount = NotiMapper.notiCount(getParam);
 		
 			String smsContent = null;
 			//
@@ -172,24 +198,25 @@ public class SendSmsUtil {
 						+ "□응찰일시 : "+bidDt+"\n"
 						+ "□만료일시 : "+dealEndngDt+"\n"
 						+ ""+mbrId+"님! 응찰 하신 미술품이 아쉽게도 다른 회원님께 낙찰되었습니다.";
-			}else {
-				smsContent = "내용 없음";
 			}
 			
 			
-			
-			tomap.put("to", sndNumber);
-			mList.add(tomap);
+			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SRE") || sndConCd.equals("SAE") ) {
 				
-			params.put("content", smsContent);
-			params.put("messages", mList);
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
 			
-			rtnMap = this.sendSms(params);
-			
-			
-			//히스토리 저장
-			NotiMapper.notiInsert(getParam);
-		
+			}
+		}
 		
 		return params;
 			
