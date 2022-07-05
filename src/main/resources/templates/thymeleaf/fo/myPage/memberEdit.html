@@ -256,10 +256,11 @@ function uCharacterCheck(obj){
 	$("#uMbrNcknmBtn").css("display", "");
 	if(obj.value == originalMbrNcknm) {
 		mbrNcknmCheckYn = "Y";
-		$("uMbrNcknmBtn").css("display", "none");
+		$("#uMbrNcknmBtn").css("display", "none");
+		$("#uMbrNcknmCheck").css("display", "none");
 	}else{
 		mbrNcknmCheckYn = "N";
-		$("uMbrNcknmBtn").css("display", "");
+		$("#uMbrNcknmBtn").css("display", "");
 	}
 	var regExp = /[ \{\}\[\]\/?,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi; 
 	
@@ -277,10 +278,10 @@ function uCharacterCheck(obj){
 function uMbrNcknmLength(obj){
 	if(obj.value == originalMbrNcknm) {
 		mbrNcknmCheckYn = "Y";
-		$("uMbrNcknmBtn").css("display", "none");
+		$("#uMbrNcknmBtn").css("display", "none");
 	}else{
 		mbrNcknmCheckYn = "N";
-		$("uMbrNcknmBtn").css("display", "");
+		$("#uMbrNcknmBtn").css("display", "");
 	}
 	if(obj.value.length < 2){
 		fn_validation('uMbrNcknmCheck','활동명은 2글자 이상이여야 합니다.', 'R');
