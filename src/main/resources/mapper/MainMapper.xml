@@ -257,8 +257,8 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
@@ -374,8 +374,8 @@
 						(SELECT COUNT(DEAL_SQ)
 						FROM TBL_DA_AUCTN_BID_H 
 						WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-						DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-						DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+						DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
+						DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
 						D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 				FROM 
 						TBL_DA_WORK_M AS A
