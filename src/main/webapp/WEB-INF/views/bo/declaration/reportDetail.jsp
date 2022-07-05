@@ -11,33 +11,6 @@
 
 <body class="hold-transition sidebar-mini">
 
-<style>
-	.editable-container,
-	.toolbar-container {
-		position: relative;
-		border: 1px solid #ddd;
-		background: #eee;
-	}
-
-	.toolbar-container {
-		padding: 1em;
-	}
-
-	.editable-container {
-		padding: 3em;
-		overflow-y: scroll;
-		max-height: 500px;
-	}
-
-	.editable-container .document-editor__editable.ck-editor__editable {
-		min-height: 21cm;
-		padding: 2em;
-		border: 1px #D3D3D3 solid;
-		border-radius: var(--ck-border-radius);
-		background: white;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	}
-</style>
 
 	<div class="wrapper">
 	
