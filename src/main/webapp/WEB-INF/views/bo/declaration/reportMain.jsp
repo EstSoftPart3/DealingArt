@@ -125,7 +125,7 @@
 		       },
 		       fields: [
 		    	   { name: "Index",title:"번호", type: "text", width: 50,align:"center" , visible: true},
-		    	   { name: "rprtSq",title:"번호", type: "text", width: 200,align:"center" , visible: true},
+		    	   { name: "rprtSq",title:"번호", type: "text", width: 200,align:"center" , visible: false},
 		    	   { name: "mbrSq",title:"신고자 번호", type: "text", width: 200,align:"center" , visible: false},
 		    	   { name: "mbrNm",title:"신고자명", type: "text", width: 200,align:"center" , visible: true},
 		    	   { name: "rprtDtl",title:"신고내용", type: "text", width: 200,align:"center" , visible:false },
