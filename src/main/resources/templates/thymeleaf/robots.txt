@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /withdrawal
+Disallow: /myCollection
+Disallow: /myDeal
+Disallow: /coupon
+Disallow: /scrap
+Disallow: /memberEdit
+Disallow: /alarm
+Disallow: /api
+Disallow: /admin
+Allow: /
+Sitemap: https://dealing-art.com/sitemap.xml
