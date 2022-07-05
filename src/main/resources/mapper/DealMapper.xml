@@ -465,7 +465,7 @@
 	<select id="selectAuctnBidList" resultType="hashMap" parameterType="String">
 		/* 거래내역 리스트 가져오기 (응찰히스토리)*/
 		SELECT 
-				FORMAT(A.BID_PRC, 0) AS bidPrc,
+				A.BID_PRC AS bidPrc,
 				DATE_FORMAT(A.BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate,
 				B.MBR_NCKNM AS mbrNcknm
 		FROM 
