@@ -37,10 +37,20 @@ public class reportController {
 		return result;
 	}
 	
-	@RequestMapping("/admin/reportMain")
+	//신고하기 리스트
+	@RequestMapping("/admin/reportList")
 	public ModelAndView reportPage() {
 		
-		ModelAndView mv = new ModelAndView("bo/member/reportMain");
+		ModelAndView mv = new ModelAndView("bo/declaration/reportMain");
+		
+		return mv;
+	}
+	
+	//신고하기 리스트
+	@RequestMapping("/admin/reportDetail")
+	public ModelAndView reportDetailPage() {
+		
+		ModelAndView mv = new ModelAndView("bo/declaration/reportDetail");
 		
 		return mv;
 	}
@@ -59,6 +69,19 @@ public class reportController {
 		
 		return mv;
 	}
+	
+	
+	@RequestMapping("/admin/reportUpdateData")
+	@ResponseBody
+	public int boardUpdateData(@RequestParam Map<String, Object> param) {
+		
+		int updateState = -1;
+		
+		updateState = reportService.reportUpdate(param);
+		
+		return updateState;
+	}
+	
 	
 	
 }

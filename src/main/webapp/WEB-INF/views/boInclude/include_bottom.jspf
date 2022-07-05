@@ -47,12 +47,12 @@
 $(function () {
 		
 		var pathname = window.location.pathname.split( '/' );
-		console.log(pathname[2])
+		//console.log(pathname[2])
 		var url = window.location.href,urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
 	    $('a').each(function () {
 	       	
 	    	var href = this.href;
-	    	console.log("href :"+href);
+	    	//console.log("href :"+href);
 	    	if(url == this.href){
             	$(this).parent().parent().parent().addClass('menu-open');
             	$(this).addClass('active');

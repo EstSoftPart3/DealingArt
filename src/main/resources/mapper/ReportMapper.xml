@@ -30,6 +30,7 @@
 			A.MBR_SQ AS mbrSq,
 			A.WORK_SQ AS workSq,
 			A.RPRT_DTL AS rprtDtl,
+			A.RPRT_RSLT_TYP_CD AS rprtRsltTypCd,
 			CASE
 				WHEN A.RPRT_RSLT_TYP_CD = 'RP'
 				THEN '신고요청'
@@ -47,30 +48,33 @@
 		
 			FROM TB_DA_RPRT_M AS A
 			
-			LEFT JOIN
+			INNER JOIN
 				TBL_DA_WORK_M AS B
 			ON 	A.WORK_SQ = B.WORK_SQ
 			
-			LEFT JOIN
+			INNER JOIN
 				TBL_DA_ARTST_M C
 			ON 	B.ARTST_SQ = C.ARTST_SQ
 			
-			LEFT JOIN
+			INNER JOIN
 				TBL_DA_MBR_M AS D
 			ON 	A.MBR_SQ = D.MBR_SQ
-
 			
-			<where>
-
+			WHERE 1=1
 			
-			</where>
+			 <if test="rprtSq != null">
+			 	AND A.RPRT_SQ = #{rprtSq}
+			 </if>
 			
-		
-		
-		
-	
+			ORDER BY RPRT_SQ DESC 
 	</select>
-   
+    <update id="reportUpdate" parameterType="hashMap">
+   		UPDATE TB_DA_RPRT_M 
+   		SET 
+      		RPRT_RSLT_TYP_CD =#{rprtRsltTypCd}
+      	WHERE 
+      		RPRT_SQ = #{rprtSq}
+	</update>
    
    
 </mapper>
