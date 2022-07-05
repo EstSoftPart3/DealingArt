@@ -57,13 +57,12 @@
 							</th:block>
 							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h3>
 							<h4 th:text="${result.deal.workNm}"></h4>
-							
-							<!--<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">-->
-							<a href="javascript:fn_decModalCall();" class="phos">
+							<!-- 
+							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">
 								<div class="tootip-1">신고하기</div>
 								<img src="resources/img/de/popo-1.png" />
 							</a>
-						 		
+						 	-->	
 						</div>
 						<table class="tstyle1">
 							<tr>
@@ -306,7 +305,7 @@
 			<div class="modal-body">
 				<div class="md-box-1">
 					<div class="md-ds">
-						해당 작품에 관한 신고하기가 완료 되었습니다.
+						서비스 준비중입니다.
 					</div>
 					
 					<div class="baeg-btn mg_t30">
@@ -318,35 +317,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- 신고하기 오류 -->
-<div class="modal fade modal-s" id="myModal4_4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w530">
-		<div class="modal-content">
-			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
-				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
-				</div>
-
-			</div>
-			<div class="modal-body">
-				<div class="md-box-1">
-					<div class="md-ds">
-						신고하기가 완료 되지 않았습니다. <BR><BR>
-						대표번호 1533-3024 문의해 주세요.<BR><BR>
-						감사합니다.<BR><BR>
-					</div>
-					
-					<div class="baeg-btn mg_t30">
-						<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 
 <div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${not #maps.isEmpty(result.artistInfo)}">
 	<div class="modal-dialog modal-baeg max-w1200">
@@ -854,16 +824,8 @@ function pageReload(){
 	});
 }
 
-function fn_decModalCall(){
-	
-	$('#rprtDtl').val('');
-	
-	$('#myModal3').modal('show');
-}
-
 //신고하기
 function fn_declaration(){
-	
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		
 		$(".close").trigger("click");
@@ -893,39 +855,26 @@ function fn_decIns(){
 		var mbrSqVal = sMbrSqVal;
 		var rprtDtlVal = $("#rprtDtl").val();
 		
-		if(rprtDtlVal == "" || rprtDtlVal == null ) {
-			
-			alert("신고내역을 입력주세요.");
-			$("#rprtDtl").focus();			
-			return;
-		} else {
+		console.log("workSqVal :"+workSqVal);
+		console.log("mbrSqVal :"+mbrSqVal);
 		
-			console.log("workSqVal :"+workSqVal);
-			console.log("mbrSqVal :"+mbrSqVal);
-			console.log("rprtDtlVal :"+rprtDtlVal);
-			
-			
-			$.ajax({
-				type: "POST",
-		        url: "/admin/reportInsData",
-		        data: {
-		        	workSq : workSqVal,  //작품번호
-		        	mbrSq : mbrSqVal,	 //회원번호
-		        	rprtDtl : rprtDtlVal //신고내용
-		        },
-		        async: false,
-				success: function(data){
-					$('#myModal3').modal('hide');
-					$('#myModal4').modal('show');
-				},
-				error: function(error) {
-		            //alert("오류 발생" + error);
-		            $('#myModal3').modal('hide');
-					$('#myModal4_4').modal('show');
-		        }
-			});
-			
-		}
+		
+		$.ajax({
+			type: "POST",
+	        url: "/admin/reportInsData",
+	        data: {
+	        	workSq : workSqVal,  //작품번호
+	        	mbrSq : mbrSqVal,	 //회원번호
+	        	rprtDtl : rprtDtlVal //신고내용
+	        },
+	        async: false,
+			success: function(data){
+				
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
 		
 		
 	}
@@ -1216,8 +1165,6 @@ function selectBoxWriteAskingPrice(){
  	  });
   
 });
- 
- 
  
  /* 메뉴바 FIXED */
  if (jQuery(window).width() > 0) {
