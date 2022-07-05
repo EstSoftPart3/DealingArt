@@ -34,8 +34,8 @@
 				(SELECT COUNT(DEAL_SQ)
 				FROM TBL_DA_AUCTN_BID_H 
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
-				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작일시*/
-				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료일시*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
@@ -151,8 +151,8 @@
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ
 				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
-				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate, /*거래시작날짜*/
-				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate, /*거래종료날짜*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작날짜*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료날짜*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
@@ -465,7 +465,7 @@
 	<select id="selectAuctnBidList" resultType="hashMap" parameterType="String">
 		/* 거래내역 리스트 가져오기 (응찰히스토리)*/
 		SELECT 
-				FORMAT(A.BID_PRC, 0) AS bidPrc,
+				A.BID_PRC AS bidPrc,
 				DATE_FORMAT(A.BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate,
 				B.MBR_NCKNM AS mbrNcknm
 		FROM 

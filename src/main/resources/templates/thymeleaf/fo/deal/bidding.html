@@ -757,6 +757,8 @@ function workList(){
 var bidDate = [];
 var bidPrc = [];
 $(function() {
+	bidDate.push(result.deal.dealStrtDate);
+	bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
 	for(var i=0; i<result.auctnBid.length; i++){
 		bidDate.push(result.auctnBid[i].bidDate);
 		bidPrc.push(result.auctnBid[i].bidPrc);

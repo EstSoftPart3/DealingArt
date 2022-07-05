@@ -30,8 +30,8 @@
 			,FORMAT(DEAL_STRT_PRC,0)       AS dealStrtPrc
 			,DEAL_AUCTN_PRC      AS dealAuctnPrc
 			,DEAL_FINAL_PRC      AS dealFinalPrc
-			,DATE_FORMAT(DEAL_STRT_DT, '%Y-%m-%d') AS dealStrtDt
-			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y-%m-%d') AS dealEndngDt
+			,DATE_FORMAT(DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt
+			,DATE_FORMAT(DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDt
 			,WORK_SQ        AS workSqNum
 			,DEAL_MEMO      AS dealMemo
 			,SELL_MBR_SQ	AS sellMbrSq
