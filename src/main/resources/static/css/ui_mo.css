@@ -5836,7 +5836,7 @@ p.dib{display:inline-block !important;}
     padding: 1.4rem;
     margin-top: 1.6rem;
 }
-.big-content .modal-body {
+.big-content .modal-body{
     width: 60rem;
     margin: 0 auto;
     float: left;
