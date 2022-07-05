@@ -5330,3 +5330,13 @@ position: relative;background-color: #fbfbfb;}
 .bootstrap-select.btn-group .dropdown-menu li {
     font-size:1.4rem !important;
 }
+/*0704*/
+.addrBtn{
+   	width: 20%;
+    background: #999999;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    height: 48px;
+    margin-left: 10px;
+}

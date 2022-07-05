@@ -271,6 +271,9 @@ function bidHistory(dealSq) {
 	
 	var bidDate = [];
 	var bidPrc = [];
+	var bidMbrNcknm = [];
+	var stepSize = "";
+	
 	$.ajax({
         type: "post",
         url: "/myDealList/bidHistory",
@@ -278,9 +281,13 @@ function bidHistory(dealSq) {
         	dealSq : dealSq
         },
         success: function(data) {
+        	bidDate.push(data.result[0].dealStrtDate);
+        	bidPrc.push(data.result[0].dealStrtPrc);
+        	bidMbrNcknm.push("시작가");
         	for(var i=0; i<data.result.length; i++){
         		bidDate.push(data.result[i].bidDate);
         		bidPrc.push(data.result[i].bidPrc);
+        		bidMbrNcknm.push(data.result[i].mbrNcknm);
         	}
         },
         error: function(error) {
@@ -319,7 +326,11 @@ function bidHistory(dealSq) {
 	                    title: function(context) {
 	                    	var title = "응찰시간: " + context[0].label;
 	                    	return title;
-	                    }
+	                    },
+	                    footer: function(tooltipItems) {
+	            			var footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
+	            			return footer;
+	            		}
 	                }
 	            },
 	            legend: {

@@ -130,9 +130,9 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script> var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
+		out.println("<script>var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
 				+ "result.sDupInfo='"+sDupInfo+"'; result.sMobileNo='"+sMobileNo+"'; result.sCipherTime='"+sCipherTime+"'; "
-				+ "opener.mainMobileAuthSuccess(result); window.close();</script>");
+				+ "window.opener.mainMobileAuthSuccess(result); window.close();</script>");
 		out.flush();
 	}
 	
