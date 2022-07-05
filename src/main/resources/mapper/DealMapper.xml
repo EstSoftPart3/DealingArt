@@ -467,14 +467,19 @@
 		SELECT 
 				A.BID_PRC AS bidPrc,
 				DATE_FORMAT(A.BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate,
-				B.MBR_NCKNM AS mbrNcknm
+				B.MBR_NCKNM AS mbrNcknm,
+				C.DEAL_STRT_PRC AS dealStrtPrc,
+				DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d %H:%i:%s') AS dealStrtDate
 		FROM 
 				TBL_DA_AUCTN_BID_H AS A
 		INNER JOIN
 				TBL_DA_MBR_M AS B
 			ON	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN
+				TBL_DA_DEAL_M AS C
+			ON	A.DEAL_SQ = C.DEAL_SQ
 		WHERE 
-				DEAL_SQ = #{dealSq}
+				A.DEAL_SQ = #{dealSq}
 	</select>
 	
 	<select id="selectDeal" resultType="hashMap" parameterType="String">
@@ -631,4 +636,185 @@
 		WHERE 
 				WORK_SQ = #{workSq}
 	</select>
+	<insert id="insertCollectionAll" parameterType="hashMap">
+		/*구매 확정 된 작품 소장품으로 등록*/
+		INSERT INTO
+				TBL_DA_WORK_M(
+						MBR_SQ,
+						WORK_NM,
+						WORK_TYP_CD,
+						WORK_SALE_YN,
+						WORK_CLR_CD,
+						USE_YN,
+						DEL_YN,
+						ARTST_ACTVTY_NM,
+						WORK_IMG_FRT_URL,
+						WORK_FRM_YN,
+						REG_MBR_SQ,
+						REG_DT,
+						<if test="artstSq != null and artstSq != ''">
+						,ARTST_SQ
+						</if>
+						<if test="workMatrl != null and workMatrl != ''">
+						WORK_MATRL,
+						</if>
+						<if test="workShpCd != null and workShpCd != ''">
+						WORK_SHP_CD,
+						</if>
+						<if test="workClsfcCd != null and workClsfcCd != ''">
+						WORK_CLSFC_CD,
+						</if>
+						<if test="workSizeWidth != null and workSizeWidth != ''">
+						WORK_SIZE_WIDTH,
+						</if>
+						<if test="workSizeDepth != null and workSizeDepth != ''">
+						WORK_SIZE_DEPTH,
+						</if>
+						<if test="workSizeHeight != null and workSizeHeight != ''">
+						WORK_SIZE_HEIGHT,
+						</if>
+						<if test="workSizeWeigth != null and workSizeWeigth != ''">
+						WORK_SIZE_WEIGHT,
+						</if>
+						<if test="workLake != null and workLake != ''">
+						WORK_LAKE,
+						</if>
+						<if test="workMainImgUrl != null and workMainImgUrl != ''">
+						WORK_MAIN_IMG_URL,
+						</if>
+						<if test="workFrmImgUrl != null and workFrmImgUrl != ''">
+						WORK_FRM_IMG_URL,
+						</if>
+						<if test="workMdia != null and workMdia != ''">
+						WORK_MDIA,
+						</if>
+						<if test="workProdcYear != null and workProdcYear != ''">
+						WORK_PRODC_YEAR,
+						</if>
+						<if test="workPrc != null and workPrc != ''">
+						WORK_PRC,
+						</if>
+						<if test="workIntrdc != null and workIntrdc != ''">
+						WORK_INTRDC,
+						</if>
+						<if test="workThmCd != null and workThmCd != ''">
+						WORK_THM_CD,
+						</if>
+						<if test="artstEnglsNm != null and artstEnglsNm != ''">
+						ARTST_ENGLS_NM,
+						</if>
+						<if test="artstBirthYear != null and artstBirthYear != ''">
+						ARTST_BIRTH_YEAR,
+						</if>
+						<if test="workImgRerUrl != null and workImgRerUrl != ''">
+						WORK_IMG_RER_URL,
+						</if>
+						<if test="workImgTopUrl != null and workImgTopUrl != ''">
+						WORK_IMG_TOP_URL,
+						</if>
+						<if test="workImgBotUrl != null and workImgBotUrl != ''">
+						WORK_IMG_BOT_URL,
+						</if>
+						<if test="workImgLefUrl != null and workImgLefUrl != ''">
+						WORK_IMG_LEF_URL,
+						</if>
+						<if test="workImgRitUrl != null and workImgRitUrl != ''">
+						WORK_IMG_RIT_URL,
+						</if>
+						<if test="workVideoUrl != null and workVideoUrl != ''">
+						WORK_VIDEO_URL,
+						</if>
+						<if test="workGrtUrl != null and workGrtUrl != ''">
+						WORK_GRT_URL
+						</if>
+				) VALUES (
+						#{mbrSq},
+						#{workNm},
+						#{workTypCd},
+						#{workSaleYn},
+						#{workClrCd},
+						#{UseYn},
+						#{delYn},
+						#{artstActvtNm},
+						#{workImgFrtUrl},
+						#{workFrmYn},
+						#{mbrSq},
+						NOW(),
+						<if test="artstSq != null and artstSq != ''">
+						,#{artstSq}
+						</if>
+						<if test="workMatrl != null and workMatrl != ''">
+						,#{workMatrl}
+						</if>
+						<if test="workShpCd != null and workShpCd != ''">
+						,#{workShpCd}
+						</if>
+						<if test="workClsfcCd != null and workClsfcCd != ''">
+						,#{workClsfcCd}
+						</if>
+						<if test="workSizeWidth != null and workSizeWidth != ''">
+						,#{workSizeWidth}
+						</if>
+						<if test="workSizeDepth != null and workSizeDepth != ''">
+						,#{workSizeDepth}
+						</if>
+						<if test="workSizeHeight != null and workSizeHeight != ''">
+						,#{workSizeHeight}
+						</if>
+						<if test="workSizeWeigth != null and workSizeWeigth != ''">
+						,#{workSizeWeigth}
+						</if>
+						<if test="workLake != null and workLake != ''">
+						,#{workLake}
+						</if>
+						<if test="workMainImgUrl != null and workMainImgUrl != ''">
+						,#{workMainImgUrl}
+						</if>
+						<if test="workFrmImgUrl != null and workFrmImgUrl != ''">
+						,#{workFrmImgUrl}
+						</if>
+						<if test="workMdia != null and workMdia != ''">
+						,#{workMdia}
+						</if>
+						<if test="workProdcYear != null and workProdcYear != ''">
+						,#{workProdcYear}
+						</if>
+						<if test="workPrc != null and workPrc != ''">
+						,#{workPrc}
+						</if>
+						<if test="workIntrdc != null and workIntrdc != ''">
+						,#{workIntrdc}
+						</if>
+						<if test="workThmCd != null and workThmCd != ''">
+						,#{workThmCd}
+						</if>
+						<if test="artstEnglsNm != null and artstEnglsNm != ''">
+						,#{artstEnglsNm}
+						</if>
+						<if test="artstBirthYear != null and artstBirthYear != ''">
+						,#{artstBirthYear}
+						</if>
+						<if test="workImgRerUrl != null and workImgRerUrl != ''">
+						,#{workImgRerUrl}
+						</if>
+						<if test="workImgTopUrl != null and workImgTopUrl != ''">
+						,#{workImgTopUrl}
+						</if>
+						<if test="workImgBotUrl != null and workImgBotUrl != ''">
+						,#{workImgBotUrl}
+						</if>
+						<if test="workImgLefUrl != null and workImgLefUrl != ''">
+						,#{workImgLefUrl}
+						</if>
+						<if test="workImgRitUrl != null and workImgRitUrl != ''">
+						,#{workImgRitUrl}
+						</if>
+						<if test="workVideoUrl != null and workVideoUrl != ''">
+						,#{workVideoUrl}
+						</if>
+						<if test="workGrtUrl != null and workGrtUrl != ''">
+						,#{workGrtUrl)
+						</if>
+				)
+	</insert>
 </mapper>

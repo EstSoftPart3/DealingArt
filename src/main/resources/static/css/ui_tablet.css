@@ -1900,8 +1900,8 @@ input[type="radio"]:checked + label span {
     margin-right: 1rem;
     position: relative;
 }
-.bat-box .ba-btn2 span:after{content:'';background-image:url(../img/de/mo/icon-1m.jpg);background-size: 3rem 3.5rem;width: 3rem;height: 3.5rem;position: absolute;left: -3.9rem;}
-.bat-box .ba-btn3 span:after{content:'';background-image:url(../img/de/mo/icon-2m.jpg);background-size: 3rem 3.5rem;width: 3rem;height: 3.5rem;position: absolute;left: -3.9rem;}
+/* .bat-box .ba-btn2 span:after{content:'';background-image:url(../img/de/mo/icon-1m.jpg);background-size: 3rem 3.5rem;width: 3rem;height: 3.5rem;position: absolute;left: -3.9rem;}
+.bat-box .ba-btn3 span:after{content:'';background-image:url(../img/de/mo/icon-2m.jpg);background-size: 3rem 3.5rem;width: 3rem;height: 3.5rem;position: absolute;left: -3.9rem;} */
 .bat-box button span{
     display: inline-block;
     vertical-align: middle;
@@ -1921,8 +1921,8 @@ input[type="radio"]:checked + label span {
     font-size: 2.4rem;
 }
 .ba-btn3{
-    border: #e9625c 3px solid;
-    color: #e9625c;
+    border: #c5c5c5 3px solid;
+    color: #c5c5c5;;
     width: 49%;
     float: left;
     font-size: 2.4rem;

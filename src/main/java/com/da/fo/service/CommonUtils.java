@@ -9,13 +9,10 @@ public class CommonUtils {
 
 		String domainName = request.getServerName();
 		
-		 System.out.println("#####"+"https://" + request.getServerName());
-		
 		if(domainName.startsWith(localUri)) {
 			return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		} else {
 			//return request.getScheme() + "://" + request.getServerName();
-			
 			return "https://" + request.getServerName();
 		}
 		

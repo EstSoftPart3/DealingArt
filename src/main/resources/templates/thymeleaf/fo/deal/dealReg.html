@@ -16,22 +16,12 @@
   			border: #cccccc 1px solid;
     		font-size: 14px;
     	}
-    	.addrBtn{
-	    	width: 20%;
-		    background: #999999;
-		    font-size: 16px;
-		    color: #fff;
-		    font-weight: 600;
-		    height: 48px;
-		    margin-left: 10px;
-    	}
     	/* Chrome, Safari, Edge, Opera */
 		input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
 		  -webkit-appearance: none;
 		  margin: 0;
 		}
-		
 		/* Firefox */
 		input[type=number] {
 		  -moz-appearance: textfield;
@@ -760,10 +750,11 @@
 						<!-- 업무구분 (5: 소유주 확인, 2: 예금주명 확인, 4: 계좌 유효성 확인) -->
 						<input type="hidden" name="svcGbn" value="5">
 						<!-- 계좌구분 (1:개인계좌, 2:법인계좌) -->
-						<input type="radio" id="ww1" name="strGbn" value="1" checked="checked">
+						<input type="hidden" name="strGbn" value="1">
+						<!-- <input type="radio" id="ww1" name="strGbn" value="1" checked="checked">
 						<label for="ww1" class="wd-145"><span></span>개인계좌</label>
 						<input type="radio" id="ww2" name="strGbn" value="2">
-						<label for="ww2"><span></span>법인계좌</label>
+						<label for="ww2"><span></span>법인계좌</label> -->
 						
 						<div class="home-2">
 							<div class="selec-box select-s2">
@@ -835,7 +826,7 @@ var result = /*[[${result}]]*/ 'default';
 var deal = new Object();
 result.deal = deal;
 //계좌구분
-$("input[name=strGbn]").click(function(){
+/* $("input[name=strGbn]").click(function(){
 	if(this.value != "1"){
 		$("input[name=name]").val("");
 		$("input[name=name]").attr("readOnly", false);
@@ -843,12 +834,12 @@ $("input[name=strGbn]").click(function(){
 		$("input[name=name]").val(result.mbrInfo.mbrNm);
 		$("input[name=name]").attr("readOnly", true);
 	}
-});
+}); */
 //계좌 확인
 function bcSubmit(){
 	var service = "1";
 	var svcGbn = "5";
-	var strGbn = $("input:radio[name='strGbn']:checked").val();
+	var strGbn = $("input[name=strGbn]").val();
 	var strBankCode = $("[name=strBankCode] option:selected").val();
 	var strAccountNo = $("input[name=strAccountNo]").val();
 	var name = $("input[name=name]").val();

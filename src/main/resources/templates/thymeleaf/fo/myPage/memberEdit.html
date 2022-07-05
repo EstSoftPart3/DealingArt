@@ -4,8 +4,19 @@
 
 
 <head>
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
@@ -40,7 +51,7 @@
 									
 									<!-- 비밀번호 변경 전 -->
 									<div class="input-box input-group" id="div_originalMbrPasswrd">
-										<input type="password" class="input-3" placeholder="비밀번호 변경을 하시려면 비밀번호 변경 버튼을 눌러주세요." disabled/>
+										<input type="password" class="input-3" placeholder="비밀번호 변경은 비밀번호 변경 버튼을 눌러주세요." disabled/>
 										<button type="button" class="group-btn" onclick="btn_newPasswrd();">비밀번호 변경</button>
 									</div>
 									
@@ -69,6 +80,7 @@
 										<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum" disabled/>
 										<button type="button" class="group-btn phone" id="SmsCertification">인증하기</button>
 										<input type="hidden" id="uMbrCpCertDi" name="mbrCpCertDi" value="">
+										<input type="hidden" id="uMbrCpCertYn" name="uMbrCpCertYn" value="">
 									</div>
 									<div class="input-box">
 										<p class="inp-p" id="smsCertificationCheck">휴대폰 번호 변경을 원하시면 인증하기 버튼을 눌러주세요.</p>
@@ -101,6 +113,15 @@
 										<p class="inp-p" id="mbrDelivryAddrCheck"></p>
 									</div>
 									
+									<div class="input-box input-group">
+										<input type="text" class="input-3" placeholder="계좌인증을 진행해주세요." id="mbrAccountNo" disabled/>
+										<button type="button" class="group-btn" data-toggle="modal" data-target="#checkAccount">계좌번호 인증</button>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">판매하신 작품의 정산을 받을 계좌를 입력해주세요.</p>
+										<p class="inp-p" id="mbrDelivryAddrCheck"></p>
+									</div>
+									
 									<div class="bat-box3 mg_t65">
 										<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
 									</div>
@@ -123,7 +144,92 @@
 		
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
+<!-- 0702 시작 -->
+<div class="modal fade modal-s" id="checkAccount" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>계좌번호 입력해주세요.</h2>
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
 
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="med-box radio-2">
+					<!-- NICE 계좌인증 form -->
+					<form name="form_bc" method="post">
+						<!-- 서비스구분 (1: 소유주 확인, 2: 예금주명 확인, 3: 계좌 유효성 확인) -->
+						<input type="hidden" name="service" value="1">
+						<!-- 업무구분 (5: 소유주 확인, 2: 예금주명 확인, 4: 계좌 유효성 확인) -->
+						<input type="hidden" name="svcGbn" value="5">
+						<!-- 계좌구분 (1:개인계좌, 2:법인계좌) -->
+						<input type="hidden" name="strGbn" value="1">
+						<!-- <input type="radio" id="ww1" name="strGbn" value="1" checked="checked">
+						<label for="ww1" class="wd-145"><span></span>개인계좌</label>
+						<input type="radio" id="ww2" name="strGbn" value="2">
+						<label for="ww2"><span></span>법인계좌</label> -->
+						
+						<div class="home-2">
+							<div class="selec-box select-s2">
+								<select class="selectpicker" name="strBankCode" data-width="100%" data-size="5" title="은행을 선택해주세요.">
+									<option value="002">산업은행</option>
+									<option value="003">기업은행</option>
+									<option value="004">국민은행</option>
+									<option value="007">수협</option>
+									<option value="011">농협</option>
+									<option value="020">우리은행</option>
+									<option value="023">SC제일은행</option>
+									<option value="027">한국씨티은행</option>
+									<option value="031">대구은행</option>
+									<option value="032">부산은행</option>
+									<option value="034">광주은행</option>
+									<option value="035">제주은행</option>
+									<option value="037">전북은행</option>
+									<option value="039">경남은행</option>
+									<option value="045">새마을금고</option>
+									<option value="048">신협</option>
+									<option value="071">우체국</option>
+									<option value="081">하나은행</option>
+									<option value="088">신한은행</option>
+								</select>
+							</div>
+							
+							<!-- <!-- <div class="input-box">
+								<input type="text" class="input-2" placeholder="은행코드을 입력해주세요" />
+								<span class="span-in">은행코드</span>
+							</div> -->
+							
+							<div class="input-box">
+								<input type="number" class="input-2" name="strAccountNo" placeholder="계좌번호를 입력해주세요" />
+								<span class="span-in">계좌번호</span>
+							</div>								
+							<div class="input-box">
+								<input type="text" class="input-2" name="name" placeholder="예금주명을 입력해주세요" readOnly/>
+								<span class="span-in">예금주명</span>
+							</div>
+							<div class="input-box">
+								<input type="number" class="input-2" name="birth" placeholder="생년월일 6자리 / 사업자번호 10자리" />
+								<span class="span-in">생년월일</span>
+							</div>
+						</div>
+					</form>
+					</div>
+					
+					
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="bcSubmit()">인증</button>
+						<button type="button" class="baeg-b2" data-dismiss="modal" aria-label="Close">취소</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 0702 끝 -->
 <script type="text/javascript"> 
 var mbrNcknmCheckYn = "Y"; 			//활동명 중복체크 여부
 var originalMbrSq = '';				//회원순번
@@ -141,13 +247,20 @@ var originalMbrDelivryAddr = '';	//배송지 주소
 var originalUseYn = '';				//사용여부
 var originalMbrCpCertDate = '';		//전화인증날짜	
 var originalMbrCpCertDi = ''; 		//휴대폰 인증 DI (주민번호 대체 고유값)
+var originalMbrAccountNo = '';		//정산 계좌번호
+var originalMbrBankCd = '';			//정산 계좌 은행 코드
+var originalMbrBankNm = '';			//정산 계좌 은행 이름
+
+var mbrAccountNo = '';
+var mbrBankCd = '';
+var mbrBankNm =  '';
 
 $(document).ready(function() {
 	
 	$('#SmsCertification').click(function() {
 		$.ajax({
 			method: "POST",
-			url: "/auth/phone"
+			url: "/main/auth/phone"
 		}).done(function(data) {
 			
 			console.log("Nice_id :"+data);
@@ -161,7 +274,12 @@ $(document).ready(function() {
 	});
 
 });
-
+function mainMobileAuthSuccess(result){
+	$("#uMbrCpCertDi").val(result.sDupInfo);
+	$("#uMbrCpCertYn").val("Y");
+	$("#uMbrCpNum").val(result.sMobileNo.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3"));
+	$("#uMbrNm").val(result.sName);
+}
 $( document ).ready(function() {
  	var sMbrSql = $("#mbrSq").html();
  	
@@ -181,7 +299,71 @@ jQuery(document).ready(function() {
 	
 	$("#memberEdit").addClass("active");
 }); 
-
+//계좌 확인
+function bcSubmit(){
+	var service = "1";
+	var svcGbn = "5";
+	var strGbn = $("input[name=strGbn]").val();
+	var strBankCode = $("[name=strBankCode] option:selected").val();
+	var strAccountNo = $("input[name=strAccountNo]").val();
+	var name = $("input[name=name]").val();
+	var birth = $("input[name=birth]").val();
+	if(strGbn == "" || strGbn == null){
+		$("#checkAccount").modal("hide");
+		modalAlertShow("계좌 구분을 선택해주세요.");
+		return false;
+	}
+	if(strBankCode == "" || strBankCode == null){
+		$("#checkAccount").modal("hide");
+		modalAlertShow("은행을 선택해주세요.");
+		return false;
+	}
+	if(strAccountNo == "" || strAccountNo == null){
+		$("#checkAccount").modal("hide");
+		modalAlertShow("계좌번호를 입력해주세요.");
+		return false;
+	}
+	if(name == "" || name == null){
+		$("#checkAccount").modal("hide");
+		modalAlertShow("예금주명을 입력해주세요.");
+		return false;
+	}
+	if(birth == "" || birth == null){
+		$("#checkAccount").modal("hide");
+		modalAlertShow("예금주의 생년월일(사업자번호)을 입력해주세요.");
+		return false;
+	}
+	var queryString = $("form[name=form_bc]").serialize();
+	
+	$.ajax({
+        type: "post",
+        url: "/memBankRequest",
+        data: queryString,
+        dataType: "json",
+        success: function(data) {
+        	if(data > 0 || data != null || data != ""){
+        		bankCheckCallBack(data.resultCode, data.resultMsg);
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+} 
+//계좌 확인 콜백
+function bankCheckCallBack(rstCd, rstMsg){
+	$("#checkAccount").modal("hide");
+	if(rstCd != 0000){
+		modalAlertShow(rstMsg);
+	}else{
+		mbrBankNm = $("[name=strBankCode] option:selected").text();
+		mbrBankCd = $("[name=strBankCode] option:selected").val();
+		mbrAccountNo = $("input[name=strAccountNo]").val();
+		$("#mbrAccountNo").val(result.mbrInfo.mbrBankNm+" "+result.mbrInfo.mbrAccountNo);
+		$("form[name=form_bc]")[0].reset();
+		modalAlertShow("계좌 인증이 완료 되었습니다.");
+	}
+};
 
 //다음 주소 찾기
 function userAddress(inputId) {
@@ -209,21 +391,24 @@ function memberContentData(mbrSq) {
         		console.log(data);   
         	 	dataContent = data.memberContentData.memberContent[0];
         	 	console.log(dataContent);
-        	 	originalMbrSq = dataContent.mbrSq;					//회원순번
-        	 	originalMbrNm = dataContent.mbrNm;					//이름
-        	 	originalMbrId = dataContent.mbrId;					//아이디
-        	 	originalMbrPasswrd = dataContent.mbrPasswrd;		//비밀번호
-        	 	originalMbrNcknm = dataContent.mbrNcknm;			//닉네임
-        	 	originalMbrEmail = dataContent.mbrEmail;			//이메일
-        	 	originalMbrBirth = dataContent.mbrBirth;			//생년월일
-        	 	originalMbrSexCd = dataContent.mbrSexCd;			//성별
-        	 	originalMbrCpNum = dataContent.mbrCpNum;			//휴대폰번호
-        	 	originalRegDt = dataContent.regDt;					//회원등록일시
-        	 	originalMbrHomeAddr = dataContent.mbrHomeAddr;		//집주소
-        	 	originalMbrDelivryAddr = dataContent.mbrDelivryAddr;//배송지 주소
-        	 	originalUseYn = dataContent.useYn;					//사용여부
-        	 	originalMbrCpCertDate = dataContent.mbrCpCertDate;	//전화인증날짜	
-        	 	originalMbrCpCertDi = dataContent.mbrCpCertDi;		//회원 휴대폰 인증 DI
+        	 	originalMbrSq = dataContent.mbrSq;								//회원순번
+        	 	originalMbrNm = dataContent.mbrNm;								//이름
+        	 	originalMbrId = dataContent.mbrId;								//아이디
+        	 	originalMbrPasswrd = dataContent.mbrPasswrd;					//비밀번호
+        	 	originalMbrNcknm = dataContent.mbrNcknm;						//닉네임
+        	 	originalMbrEmail = dataContent.mbrEmail;						//이메일
+        	 	originalMbrBirth = dataContent.mbrBirth;						//생년월일
+        	 	originalMbrSexCd = dataContent.mbrSexCd;						//성별
+        	 	originalMbrCpNum = dataContent.mbrCpNum;						//휴대폰번호
+        	 	originalRegDt = dataContent.regDt;								//회원등록일시
+        	 	originalMbrHomeAddr = dataContent.mbrHomeAddr;					//집주소
+        	 	originalMbrDelivryAddr = dataContent.mbrDelivryAddr;			//배송지 주소
+        	 	originalUseYn = dataContent.useYn;								//사용여부
+        	 	originalMbrCpCertDate = dataContent.mbrCpCertDate;				//전화인증날짜	
+        	 	originalMbrCpCertDi = dataContent.mbrCpCertDi;					//회원 휴대폰 인증 DI
+        	 	originalMbrAccountNo = dataContent.mbrAccountNo;				//정산 계좌번호
+        	 	originalMbrBankCd = dataContent.mbrBankCd;						//정산 계좌 은행 코드
+        	 	originalMbrBankNm = dataContent.mbrBankNm;						//정산 계좌 은행 이름
         	 	
         	 	$("#uMbrSq").val(originalMbrSq);
         	 	$("#uMbrNm").val(originalMbrNm);
@@ -233,6 +418,10 @@ function memberContentData(mbrSq) {
         	 	$("#uMbrCpNum").val(originalMbrCpNum);
         	 	$("#uMbrDelivryAddr").val(originalMbrDelivryAddr);
         	 	$("#uMbrCpCertDate").val(originalMbrCpCertDate);
+        	 	$("input[name=name]").val(originalMbrNm);
+        	 	if(originalMbrAccountNo != null && originalMbrAccountNo != ""){
+        	 		$("#mbrAccountNo").val(originalMbrBankNm+" "+originalMbrAccountNo);
+        	 	}
         	 }
            },
            error: function(error) {
@@ -410,6 +599,7 @@ $("#memberUpdateBtn").on('click', function(event){
 	
 	//회원 퓨대폰 인증 DI
 	var mbrCpCertDi = $("#uMbrCpCertDi").val();
+	
 	//휴대폰 번호 변경시
 	if(mbrCpNum != originalMbrCpNum){
 		if(originalMbrCpCertDi != null && originalMbrCpCertDi != ""){
@@ -557,6 +747,12 @@ $("#memberUpdateBtn").on('click', function(event){
 	  "mbrCpCertDi" : mbrCpCertDi,
 	  "mbrNcknm" : mbrNcknm,
 	  "mbrDelivryAddr" : mbrDelivryAddr
+	}
+	//정산 계좌 정보
+	if(mbrAccountNo != null && mbrAccountNo != ""){
+		memParams.mbrAccountNo = mbrAccountNo;
+		memParams.mbrBankCd = mbrBankCd;
+		memParams.mbrBankNm = mbrBankNm;
 	}
 	
 	 $.ajax({

@@ -125,24 +125,24 @@ public class MemberController {
 	public void memberUpdateData(@RequestParam Map<String, Object> param) {
 		
 		//회원 아이디.이메일
-		String mbrIdEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		String mbrIdEncrypt = commonService.encrypt(param.get("mbrId").toString());
 		//회원 이메일
-		String mbrEmailEncrypt = commonService.encrypt((String) param.get("mbrId"));
+		String mbrEmailEncrypt = commonService.encrypt(param.get("mbrId").toString());
 		//회원 비밀번호 암호화
-		String mbrPasswrdEncrypt = commonService.encrypt((String) param.get("mbrPasswrd"));
+		String mbrPasswrdEncrypt = commonService.encrypt(param.get("mbrPasswrd").toString());
 		//회원 이름
-		String mbrNm = (String) param.get("mbrNm");
+		String mbrNm = param.get("mbrNm").toString();
 		//휴대전화번호 암호화
-		String mbrCpNumEncrypt = commonService.encrypt((String) param.get("mbrCpNum"));
+		String mbrCpNumEncrypt = commonService.encrypt(param.get("mbrCpNum").toString());
 		//회원 순번
-		String mbrSq = (String) param.get("mbrSq");
+		String mbrSq = param.get("mbrSq").toString();
 		//회원 주소
-		//String mbrHomeAddr = commonService.encrypt((String) param.get("mbrHomeAddr"));
-		String mbrDelivryAddr = (String) param.get("mbrDelivryAddr");
+		//String mbrHomeAddr = commonService.encrypt(param.get("mbrHomeAddr"));
+		String mbrDelivryAddr = param.get("mbrDelivryAddr").toString();
 		//닉네임
-		String mbrNcknm = (String) param.get("mbrNcknm");
+		String mbrNcknm = param.get("mbrNcknm").toString();
 		//휴대폰 인증 DI
-		String mbrCpCertDi = (String) param.get("mbrCpCertDi");
+		String mbrCpCertDi = param.get("mbrCpCertDi").toString();
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);

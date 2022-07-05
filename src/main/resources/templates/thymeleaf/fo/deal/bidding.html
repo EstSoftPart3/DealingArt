@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- <script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script> -->
 <head>
-    <script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
     	.swi-box::before{background-color:#f9f9f9;}
@@ -238,7 +237,7 @@
 				<div class="baegs">
 					<h2>응찰 히스토리</h2>
 				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
 				</div>
 
 			</div>
@@ -693,7 +692,6 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
-
 $(function() {
 	
 	$("#sbx_bidPrc").selectpicker("refresh");
@@ -718,12 +716,34 @@ $(function() {
 	}
 	if(result.deal.dealTypCd == "A" && result.deal.dealSttsCd == "TP"){ //경매면
 		selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
+		chart();
 	}
 	if(result.deal.dealSttsCd == "TC"){ //판매종료면
 		$("#btn_purchaseOrBid").css("display", "none");
+		chart();
 	}
 	workList();
 });
+//호가 단위
+function selectBoxWriteAskingPrice(){
+	var bidPrc = 0; //입찰가
+	var askingPrc = 0; //호가단위
+	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+		bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
+		askingPrc = askingPrice(bidPrc);
+		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+	}else{ //입찰가가 없다면
+		bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
+		askingPrc = askingPrice(bidPrc);
+		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.
+		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc)+"</option>");
+	}
+	for(i=0; i<30; i++){
+		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
+		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
+	}
+	$("#sbx_bidPrc").selectpicker("refresh");
+}
 //작가의 다른 작품 리스트
 function workList(){
 	if(result.workList.length > 0){
@@ -750,55 +770,77 @@ function workList(){
 	}
 }
 /* 응찰 히스토리 */
-var bidDate = [];
-var bidPrc = [];
-$(function() {
+
+function chart() {
+	var bidDate = [];
+	var bidPrc = [];
+	var bidMbrNcknm = [];
+	var stepSize = "";
 	bidDate.push(result.deal.dealStrtDate);
 	bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
+	bidMbrNcknm.push("시작가");
 	for(var i=0; i<result.auctnBid.length; i++){
 		bidDate.push(result.auctnBid[i].bidDate);
 		bidPrc.push(result.auctnBid[i].bidPrc);
+		bidMbrNcknm.push(result.auctnBid[i].mbrNcknm);
 	}
-});
-const bidHistory = new Chart(document.getElementById("canvas"), {
-    type: 'line',
-    data: {
-        labels: bidDate,
-        datasets: [{
-            label: '응찰가',
-            data: bidPrc,
-            borderColor: "rgba(50, 50, 50, 50)",
-            backgroundColor: "rgba(50, 50, 50, 50)",
-            borderWidth: 3,
-            pointRadius: 5,
-            fill: false,
-            lineTension: 0
-        }]
-    },
-    options: {
-    	plugins: {
-            tooltip: {
-            	titleFont: {
-            		weight: 'normal',
-            		size: 13
-            	},
-            	bodyFont: {
-            		weight: 'normal',
-            		size: 13
-            	},
-            	callbacks: {
-                    title: function(context) {
-                    	var title = "응찰시간: " + context[0].label;
-                    	return title;
-                    }
-                }
-            },
-            legend: {
-        		display: false
-        	}
+	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+		stepSize = 0;
+	}else{ //입찰가가 없다면
+		stepSize = 10;
+	}
+	const bidHistory = new Chart(document.getElementById("canvas"), {
+	    type: 'line',
+	    data: {
+	        labels: bidDate,
+	        datasets: [{
+	            label: '응찰가',
+	            data: bidPrc,
+	            borderColor: "rgba(50, 50, 50, 50)",
+	            backgroundColor: "rgba(50, 50, 50, 50)",
+	            borderWidth: 3,
+	            pointRadius: 5,
+	            fill: false,
+	            lineTension: 0
+	        }]
+	    },
+	    options: {
+	    	scales: {
+	    		yAxes: {
+	   	            ticks: {
+		   	            stepSize: stepSize,
+	   	            }
+	    	   }
+	    	},
+	    	plugins: {
+	            tooltip: {
+	            	titleFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	bodyFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	callbacks: {
+	                    title: function(context) {
+	                    	var title = "응찰시간: " + context[0].label;
+	                    	return title;
+	                    },
+	            		footer: function(tooltipItems) {
+	            			var footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
+	            			return footer;
+	            		}
+	                }
+	            },
+	            legend: {
+	        		display: false
+	        	}
+			}
 		}
-	}
-});
+	});
+}
+
 
 
 //부모창 스크롤 방지
@@ -1098,27 +1140,7 @@ function askingPrice(prc){
 	return returnVal;
 }
 
-function selectBoxWriteAskingPrice(){
-	var bidPrc = 0; //입찰가
-	var askingPrc = 0; //호가단위
-	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
-		bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
-		askingPrc = askingPrice(bidPrc);
-		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
-		
-	}else{ //입찰가가 없다면
-		bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
-		askingPrc = askingPrice(bidPrc);
-		$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.
-		
-		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc)+"</option>");
-	}
-	for(i=0; i<30; i++){
-		askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
-		$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
-	}
-	$("#sbx_bidPrc").selectpicker("refresh");
-}
+
 
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)

@@ -71,7 +71,6 @@ public class mobileAuthServiceImpl implements mobileAuthService {
 			sErrorUrl = domainName + "/auth/findPwd_checkplus_fail"; // 실패시 이동될 URL
 			break;
 		}
-			
 
 
 		// 입력될 plain 데이타를 만든다.
@@ -89,7 +88,6 @@ public class mobileAuthServiceImpl implements mobileAuthService {
 		if (iReturn == 0) {
 			sEncData = niceCheck.getCipherData();
 			System.out.println("@@@@@@@@@@@@@@@@ sEncData : "+sEncData);
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@ sPlainData :"+sPlainData);
 			return sEncData;
 		} else if (iReturn == -1) {
 			throw new ResponseException("암호화 시스템 에러입니다.");

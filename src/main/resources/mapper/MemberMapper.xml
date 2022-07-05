@@ -100,6 +100,9 @@
 			,MBR_EML_ALARM		  AS mbrEmlAlarm
 			,MBR_CP_ALARM		  AS mbrCpAlarm
 			,MBR_CP_CERT_DI		  AS mbrCpCertDi
+			,MBR_ACCOUNT_NO		  AS mbrAccountNo
+			,MBR_BANK_CD		  AS mbrBankCd
+			,MBR_BANK_NM		  AS mbrBankNm
 
         FROM
             TBL_DA_MBR_M A 
@@ -119,25 +122,28 @@
    		UPDATE TBL_DA_MBR_M 
    		
    		<trim prefix="SET" suffixOverrides=",">
-      		<if test="mbrNm         != null">MBR_NM =#{mbrNm},</if>
-      		<if test="authSq         != null">AUTH_SQ =#{authSq},</if>
-			<if test="mbrEmail       != null">MBR_EMAIL =#{mbrEmail},</if>
-			<if test="mbrPasswrd     != null">MBR_PASSWRD =#{mbrPasswrd},</if>
-			<if test="mbrNatnCd      != null">MBR_NATN_CD = #{mbrNatnCd},</if>
-			<if test="mbrBirth       != null">MBR_BIRTH = #{mbrBirth},</if>
-			<if test="mbrSexCd       != null">MBR_SEX_CD = #{mbrSexCd},</if>
-			<if test="mbrHomeAddr    != null">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
-			<if test="mbrDelivryAddr != null">MBR_DELIVRY_ADDR = #{mbrDelivryAddr},</if>
-			<if test="mbrCpNum       != null">MBR_CP_NUM = #{mbrCpNum},</if>
-			<if test="mbrNcknm       != null">MBR_NCKNM = #{mbrNcknm},</if>
-			<if test="mbrCpCertDi    != null">MBR_CP_CERT_DI = #{mbrCpCertDi},</if>
+      		<if test="mbrNm 		 != null and mbrNm != ''">MBR_NM =#{mbrNm},</if>
+      		<if test="authSq 		 != null and authSq != ''">AUTH_SQ =#{authSq},</if>
+			<if test="mbrEmail 		 != null and mbrEmail != ''">MBR_EMAIL =#{mbrEmail},</if>
+			<if test="mbrPasswrd 	 != null and mbrPasswrd != ''">MBR_PASSWRD =#{mbrPasswrd},</if>
+			<if test="mbrNatnCd      != null and mbrNatnCd != ''">MBR_NATN_CD = #{mbrNatnCd},</if>
+			<if test="mbrBirth       != null and mbrBirth != ''">MBR_BIRTH = #{mbrBirth},</if>
+			<if test="mbrSexCd       != null and mbrSexCd != ''">MBR_SEX_CD = #{mbrSexCd},</if>
+			<if test="mbrHomeAddr    != null and mbrHomeAddr != ''">MBR_HOME_ADDR = #{mbrHomeAddr},</if>
+			<if test="mbrDelivryAddr != null and mbrDelivryAddr != ''">MBR_DELIVRY_ADDR = #{mbrDelivryAddr},</if>
+			<if test="mbrCpNum       != null and mbrCpNum != ''">MBR_CP_NUM = #{mbrCpNum},</if>
+			<if test="mbrNcknm       != null and mbrNcknm != ''">MBR_NCKNM = #{mbrNcknm},</if>
+			<if test="mbrCpCertDi    != null and mbrCpCertDi != ''">MBR_CP_CERT_DI = #{mbrCpCertDi},</if>
 			UPDT_DT = NOW(),
-			<if test="useYn          != null">USE_YN = #{useYn},</if>
-			<if test="delYn          != null">DEL_YN = #{delYn},</if>
-			<if test="mbrEmlAlarm    != null">MBR_EML_ALARM = #{mbrEmlAlarm},</if>
-			<if test="mbrCpAlarm     != null">MBR_CP_ALARM = #{mbrCpAlarm},</if>
-			<if test="mbrCpCertYn    != null">MBR_CP_CERT_YN = #{mbrCpCertYn},</if>
-			<if test="mbrCpCertDate  != null">MBR_CP_CERT_DATE = #{mbrCpCertDate},</if>
+			<if test="useYn          != null and useYn != ''">USE_YN = #{useYn},</if>
+			<if test="delYn          != null and delYn != ''">DEL_YN = #{delYn},</if>
+			<if test="mbrEmlAlarm    != null and mbrEmlAlarm != ''">MBR_EML_ALARM = #{mbrEmlAlarm},</if>
+			<if test="mbrCpAlarm     != null and mbrCpAlarm != ''">MBR_CP_ALARM = #{mbrCpAlarm},</if>
+			<if test="mbrCpCertYn    != null and mbrCpCertYn != ''">MBR_CP_CERT_YN = #{mbrCpCertYn},</if>
+			<if test="mbrCpCertDate  != null and mbrCpCertDate != ''">MBR_CP_CERT_DATE = #{mbrCpCertDate},</if>
+			<if test="mbrAccountNo   != null and mbrAccountNo != ''">MBR_ACCOUNT_NO = #{mbrAccountNo},</if>
+			<if test="mbrBankCd      != null and mbrBankCd != ''">MBR_BANK_CD = #{mbrBankCd},</if>
+			<if test="mbrBankNm      != null and mbrBankNm != ''">MBR_BANK_NM = #{mbrBankNm},</if>
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}
 	</update>

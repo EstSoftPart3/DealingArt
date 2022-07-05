@@ -116,26 +116,29 @@ public class MemberDao {
 		for(int z=0; z<memberContent.size(); z++){
 		 	
 			 //아이디 복호화
-			 String mbrIdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrId"));
+			 String mbrIdDecrypt = commonService.decrypt(memberContent.get(z).get("mbrId").toString());
 			//비밀번호 복호화
-			 String mbrPasswrdDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrPasswrd"));
+			 String mbrPasswrdDecrypt = commonService.decrypt(memberContent.get(z).get("mbrPasswrd").toString());
 			 //이메일 복호화
-			 String mbrEmailDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrEmail"));
+			 String mbrEmailDecrypt = commonService.decrypt(memberContent.get(z).get("mbrEmail").toString());
 			 //휴대전화번호 복호화
-			 String mbrCpNumDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrCpNum"));
+			 String mbrCpNumDecrypt = commonService.decrypt(memberContent.get(z).get("mbrCpNum").toString());
 			 //집주소 복호화
 			 //String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
 			 //배송 주소
-			 String mbrDelivryAddr = (String) memberContent.get(z).get("mbrDelivryAddr");
+			 String mbrDelivryAddr = memberContent.get(z).get("mbrDelivryAddr").toString();
 			 //이메일 이벤트 알림
-			 String mbrEmlAlarm = (String) memberContent.get(z).get("mbrEmlAlarm");
+			 String mbrEmlAlarm = memberContent.get(z).get("mbrEmlAlarm").toString();
 			 //휴대폰 이벤트 알림
-			 String mbrCpAlarm = (String) memberContent.get(z).get("mbrCpAlarm");
+			 String mbrCpAlarm = memberContent.get(z).get("mbrCpAlarm").toString();
 			 //닉네임
-			 String mbrNcknm = (String) memberContent.get(z).get("mbrNcknm");
+			 String mbrNcknm = memberContent.get(z).get("mbrNcknm").toString();
 			 //회원 휴대폰 인증 DI
-			 String mbrCpCertDi = (String) memberContent.get(z).get("mbrCpCertDi");
-			 
+			 String mbrCpCertDi = memberContent.get(z).get("mbrCpCertDi").toString();
+			 //정산 계좌 정보
+			 String mbrAccountNo = memberContent.get(z).get("mbrAccountNo").toString();
+			 String mbrBankCd = memberContent.get(z).get("mbrBankCd").toString();
+			 String mbrBankNm = memberContent.get(z).get("mbrBankNm").toString();
 						
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
@@ -147,6 +150,9 @@ public class MemberDao {
 			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
 			 memberContent.get(z).put("mbrNcknm", mbrNcknm);
 			 memberContent.get(z).put("mbrCpCertDi", mbrCpCertDi);
+			 memberContent.get(z).put("mbrAccountNo", mbrAccountNo);
+			 memberContent.get(z).put("mbrBankCd", mbrBankCd);
+			 memberContent.get(z).put("mbrBankNm", mbrBankNm);
 			 
 		  }
 		
