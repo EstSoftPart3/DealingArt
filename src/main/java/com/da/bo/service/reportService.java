@@ -15,4 +15,6 @@ public interface reportService {
 	
 	public List reportList(Object param);
 	
+	public int reportUpdate(Map<String, Object> param);
+	
 }

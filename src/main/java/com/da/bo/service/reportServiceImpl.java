@@ -30,9 +30,16 @@ public class reportServiceImpl implements reportService {
 	public List<Map<String, Object>> reportList(Object param) {
 		
 		List result = reportDao.reportList(param);
-		
-		
-		
 		return result;
+	}
+	
+
+	@Override
+	public int reportUpdate(Map<String, Object> param){
+		int updateState = -1;
+		
+		updateState = reportDao.reportUpdate(param);
+		
+		return updateState;
 	}
 }

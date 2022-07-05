@@ -22,14 +22,21 @@ public class reportDao {
 		System.out.println("service result data: " + result);
 
 		return result;
-		
-		
 	}
 	
 	public List<Map<String, Object>>  reportList(Object param){
 		List  result = reportMapper.reportList(param);
 		return result;
+	}
+	
+	
+	public int reportUpdate(Map<String, Object> param){
 		
+		int updateState = -1;
+		
+		updateState =  reportMapper.reportUpdate(param);
+		
+		return updateState;
 		
 	}
 	

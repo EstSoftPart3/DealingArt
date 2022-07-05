@@ -62,7 +62,7 @@
          
           <li class="nav-header"></li>
          
-          <li class="nav-item has-treeview menu-open1">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p class="sTitle">
@@ -95,7 +95,7 @@
             </ul>
            </li>
                     	
-          <li class="nav-item has-treeview menu-open1">
+          <li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -119,7 +119,7 @@
 		         </ul>
           	</li>
           	
-          	<li class="nav-item has-treeview menu-open1">
+          	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -143,7 +143,7 @@
 		           </ul>
           	</li>
           	
-          	<li class="nav-item has-treeview menu-open1">
+          	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-circle"></i>
 	              <p class="sTitle">
@@ -172,7 +172,18 @@
 		              </li>
 		           </ul>
           	</li>
-          	
+          	<li class="nav-item has-treeview menu-open">
+          	 	<li class="nav-header">신고하기</li>
+          	 		<li class="nav-item has-treeview">
+          	 			<a href="/admin/reportList" class="nav-link">
+			              <i class="nav-icon fas fa-circle"></i>
+			              <p class="sTitle">
+			                신고하기
+			                <i class="right fas fa-angle-left"></i>
+			              </p>
+			            </a>
+          	 		</li>
+          	 </li>
           	<!--
           	<li class="nav-item has-treeview menu-open">
 	            <a href="#" class="nav-link">
