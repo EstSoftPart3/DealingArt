@@ -60,6 +60,12 @@ public class MainController {
 		return "thymeleaf/naver31b27d248ba6c35c148f71e04a92cef6.html";
 	}
 	
+	//robot
+	@RequestMapping("/robots.txt")
+	public String robotSeo() {
+		return "thymeleaf/robots.txt";
+	}
+	
 	//구글 SEO
 	@RequestMapping("/sitemap.xml")
 	public String googleSeoXml() {
