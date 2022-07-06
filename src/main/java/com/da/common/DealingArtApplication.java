@@ -1,5 +1,6 @@
 package com.da.common;
 
+import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +38,14 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	@Bean
 	public RestTemplate getRestTemplate(){
 	    return new RestTemplate();
+	}
+	
+	@Bean
+
+	public HttpSessionListener httpSessionListener(){
+
+		return new SessionListener();
+
 	}
 	
 }

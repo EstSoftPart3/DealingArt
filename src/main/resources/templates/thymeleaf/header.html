@@ -977,10 +977,6 @@ function mbrNcknmCheck(obj){
 	});
 }
 
-setTimeout(function(){
-	location.reload();
-},900000); // 15분 마다 새로고침 (세션 만료 체크)
-
 var sMbrSqVal = "";
 var sAuthSqVal = "";
 var artstSq = "";
@@ -1121,10 +1117,10 @@ $('#memberModal').on('show.bs.modal', function (e) {
 });
 
 var mbrIdOverlapChk = false;
+var memberInputBtnClick = 0;
 //회원가입
 $("#memberInputBtn").on('click', function(event){
-	
-	
+	memberInputBtnClick += 1;
 	//회원아이디
 	var mbrId = $("#mbrId").val();
 	//비밀번호
@@ -1167,6 +1163,7 @@ $("#memberInputBtn").on('click', function(event){
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
 		$("#mbrPasswrd").focus();
+		memberInputBtnClick = 0;
 		return;
 	} 
 	if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
@@ -1174,6 +1171,7 @@ $("#memberInputBtn").on('click', function(event){
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
 		$("#mbrPasswrd").focus();
+		memberInputBtnClick = 0;
 		return;
 	}
 	var chk = 0;
@@ -1185,6 +1183,7 @@ $("#memberInputBtn").on('click', function(event){
 		$('#mbrPwdCheckU').css('color','red');
 		$('#mbrPwdCheckD').css('color','#999999');
 		$("#mbrPasswrd").focus();
+		memberInputBtnClick = 0;
 		return;
 	}
 	 
@@ -1220,6 +1219,7 @@ $("#memberInputBtn").on('click', function(event){
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
 		 $("#mbrPasswrd").focus();
+		 memberInputBtnClick = 0;
 		 return;
 	 } // if
 	 
@@ -1227,6 +1227,7 @@ $("#memberInputBtn").on('click', function(event){
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
 		 $("#mbrPasswrd").focus();
+		 memberInputBtnClick = 0;
 		 return;
 	 }
 	
@@ -1236,6 +1237,7 @@ $("#memberInputBtn").on('click', function(event){
 		 $('#mbrPwdCheckU').css('color','#999999');
 		 $('#mbrPwdCheckD').css('color','red');
 		 $("#mbrPasswrd").focus();
+		 memberInputBtnClick = 0;
 		  return;
 	 } else {
 		 $('#mbrPwdCheckU').css('color','#999999');
@@ -1247,6 +1249,7 @@ $("#memberInputBtn").on('click', function(event){
 	if(mbrPasswrd != mbrPasswrdConfirm) {
 		fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
 		$("#mbrPasswrdConfirm").focus();
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1258,6 +1261,7 @@ $("#memberInputBtn").on('click', function(event){
 	 if(isEmpty(mbrNm)) {
 		 fn_validation('mbrNmCheck','이름을 정확히 입력하세요', 'R');
 		 $("#mbrNm").val();
+		 memberInputBtnClick = 0;
 		 return;
 	 }
 	 fn_validation('mbrNmCheck','', 'B');
@@ -1266,6 +1270,7 @@ $("#memberInputBtn").on('click', function(event){
 	 if(isEmpty(mbrCpNum)) {
 		 fn_validation('mbrCpNumCheck','휴대폰번호를 정확히 입력하세요.', 'R');
 		 $("#mbrCpNum").val();
+		 memberInputBtnClick = 0;
 		 return;
 	 }
 	 
@@ -1276,12 +1281,14 @@ $("#memberInputBtn").on('click', function(event){
 		$("#mainSmsCertificationCheck").show();
 		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
 		$("#mbrCpNum").val();
+		memberInputBtnClick = 0;
 		return;
 	}
 	
 	//중복회원 여부
 	if($("#mainSmsCertificationCheck").text() == '이미 등록된 회원입니다.') {
 		$("#mbrCpNum").focus();
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1289,6 +1296,7 @@ $("#memberInputBtn").on('click', function(event){
 	if(mbrNcknmCheckYn == "N"){
 		fn_validation('mbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
 		$("#mbrNcknm").focus();
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1297,6 +1305,7 @@ $("#memberInputBtn").on('click', function(event){
 	
 	if(s1Check == false) {
 		modalAlertShow("만 18세 이상인것은 확인해주세요.","");
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1304,6 +1313,7 @@ $("#memberInputBtn").on('click', function(event){
 	
 	if(s2Check == false) {
 		modalAlertShow("이용약관을 읽고 확인해 주세요.","termOfService");
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1311,6 +1321,7 @@ $("#memberInputBtn").on('click', function(event){
 	
 	if(s3Check == false) {
 		modalAlertShow("개인정보처리방침을 읽고 확인해 주세요.","privacyPolicy");
+		memberInputBtnClick = 0;
 		return;
 	}
 	
@@ -1322,6 +1333,11 @@ $("#memberInputBtn").on('click', function(event){
 	if(s4Check == true) {
 		mbrEmlAlarm = 'Y';
 		mbrCpAlarm = 'Y'
+	}
+	
+	if(memberInputBtnClick > 1){
+		modalAlertShow("회원 가입 처리중입니다. 잠시만 기다려주세요.");
+		return;
 	}
 	 
 	 let memParams = {
@@ -1338,29 +1354,35 @@ $("#memberInputBtn").on('click', function(event){
 		  "mbrEmlAlarm" : mbrEmlAlarm,
 		  "mbrCpAlarm" : mbrCpAlarm
 	}
-	 
-	 
-	 $.ajax({
-	     type: "post",
-	     url: "main/memberInsertData",
-	     data: memParams,
-	     success: function(data) {
-	    	 
-	    	 if (typeof data != "undefined"){
-	    		 	    		 
-	    		 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
-	    		 
-	    		 var mbrIdEncrypt = data;
-	    		
-	    		 //memberInputEmail(mbrIdEncrypt)
-	    	 }
-	    	 
-	   	 },
-	     error: function(error) {
-	  	   var errorJson = JSON.stringify(error);
-	         console.log(errorJson);
-	     }
-	})
+	
+	if (!confirm("입력하신 정보로 회원 가입을 진행 하시겠습니까?")) {
+		$("#memberModal").modal("hide");
+    } else {
+        // 확인(예) 버튼 클릭 시 이벤트
+        $.ajax({
+		     type: "post",
+		     url: "main/memberInsertData",
+		     data: memParams,
+		     success: function(data) {
+		    	 
+		    	 if (typeof data != "undefined" && data > 0){
+		    		 	    		 
+		    		 modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
+		    		 
+		    		 var mbrIdEncrypt = data;
+		    		
+		    		 //memberInputEmail(mbrIdEncrypt)e
+		    	 }else{
+		    		 modalAlertShow("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.", "reload");
+		    	 }
+		    	 
+		   	 },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		});
+    }
 	
 	
 });

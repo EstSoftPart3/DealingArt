@@ -126,7 +126,11 @@ public class MemberDao {
 			 //집주소 복호화
 			 //String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
 			 //배송 주소
-			 String mbrDelivryAddr = memberContent.get(z).get("mbrDelivryAddr").toString();
+			 String mbrDelivryAddr = "";
+			 if(memberContent.get(z).get("mbrDelivryAddr") != null){
+				 mbrDelivryAddr = memberContent.get(z).get("mbrDelivryAddr").toString();
+				 memberContent.get(z).put("mbrDelivryAddr", mbrDelivryAddr);
+			 }
 			 //이메일 이벤트 알림
 			 String mbrEmlAlarm = memberContent.get(z).get("mbrEmlAlarm").toString();
 			 //휴대폰 이벤트 알림
@@ -136,23 +140,29 @@ public class MemberDao {
 			 //회원 휴대폰 인증 DI
 			 String mbrCpCertDi = memberContent.get(z).get("mbrCpCertDi").toString();
 			 //정산 계좌 정보
-			 String mbrAccountNo = memberContent.get(z).get("mbrAccountNo").toString();
-			 String mbrBankCd = memberContent.get(z).get("mbrBankCd").toString();
-			 String mbrBankNm = memberContent.get(z).get("mbrBankNm").toString();
-						
+			 String mbrAccountNo = "";
+			 String mbrBankCd = "";
+			 String mbrBankNm = "";
+			 if(memberContent.get(z).get("mbrAccountNo") != null) {
+				 mbrAccountNo = memberContent.get(z).get("mbrAccountNo").toString();
+				 mbrBankCd = memberContent.get(z).get("mbrBankCd").toString();
+				 mbrBankNm = memberContent.get(z).get("mbrBankNm").toString();
+				 memberContent.get(z).put("mbrAccountNo", mbrAccountNo);
+				 memberContent.get(z).put("mbrBankCd", mbrBankCd);
+				 memberContent.get(z).put("mbrBankNm", mbrBankNm);
+			 }
+			 
+			
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
 			 memberContent.get(z).put("mbrEmail", mbrEmailDecrypt);
 			 memberContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);
 			 //memberContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
-			 memberContent.get(z).put("mbrDelivryAddr", mbrDelivryAddr);
 			 memberContent.get(z).put("mbrEmlAlarm", mbrEmlAlarm);
 			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
 			 memberContent.get(z).put("mbrNcknm", mbrNcknm);
 			 memberContent.get(z).put("mbrCpCertDi", mbrCpCertDi);
-			 memberContent.get(z).put("mbrAccountNo", mbrAccountNo);
-			 memberContent.get(z).put("mbrBankCd", mbrBankCd);
-			 memberContent.get(z).put("mbrBankNm", mbrBankNm);
+			 
 			 
 		  }
 		

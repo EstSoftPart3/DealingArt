@@ -96,23 +96,29 @@ public class MemberController {
 		
 		
 		
-		int insertState = -1;
-		
-		insertState = memberService.memberInsert(param);
-		
-		if(insertState == 1) {
-		
-		    //회원가입 환영 이메일
-			Map<String, Object> eParam = new HashMap<>();
+		int insertState = 0;
+		String mbrCpCertDi = param.get("mbrCpCertDi").toString();
+		insertState = memberService.memberDuplicateCheck(mbrCpCertDi);
+		if(insertState == 0) {
 			
-			//회원아이디
-			eParam.put("mbrId", mbrIdEncrypt);
-			//회웍입력 구분 코드
-			eParam.put("gubun", "EMI");
+			insertState = memberService.memberInsert(param);
 			
-			//이메일 Function Call
-			sendEmail.emailSendUtil(eParam);
-		
+			if(insertState > 0) {
+			
+			    //회원가입 환영 이메일
+				Map<String, Object> eParam = new HashMap<>();
+				
+				//회원아이디
+				eParam.put("mbrId", mbrIdEncrypt);
+				//회웍입력 구분 코드
+				eParam.put("gubun", "EMI");
+				
+				//이메일 Function Call
+				sendEmail.emailSendUtil(eParam);
+			
+			}
+		}else{
+			insertState = -1;
 		}
 		
 		 return insertState;
