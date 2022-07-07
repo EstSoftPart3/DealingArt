@@ -9,6 +9,16 @@
     	[name=workClrCd]:checked+label{
 		  outline: 5px solid gray;
 		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
@@ -72,15 +82,23 @@
 									<th><span class="my-red">사이즈</span></th>
 									<td>
 										<div class="coll-gr">
-											<input type="text" class="input-4" id="workSizeWidth" onblur="autoLake()"/>
+											<!-- <input type="text" class="input-4" id="workSizeWidth" onblur="autoLake()"/>
 											<span class="cg-x">X</span> 
 											<input type="text" class="input-4" id="workSizeDepth" onblur="autoLake()"/>
 											<span class="cg-text" id="workLake">
 												<br/>작품 사이즈를 입력하시면 호수가 자동으로 계산됩니다. 
 											</span>
-											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img>
+											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img> -->
+											<input type="number" class="input-4" id="workSizeWidth"/>
+											<span class="cg-x">X</span> 
+											<input type="number" class="input-4" id="workSizeDepth"/>
 										</div>
 									</td>
+								</tr>
+								<tr>
+									<th><span class="">호수</span></th>
+									<td><input type="number" class="input-4" id="workLake" oninput="this.value = this.value.replace('.', ''); if(this.value > 500){this.value='';modalAlertShow('호수는 500호 까지입니다.');}" />
+									<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">소재/기법</span></th>
@@ -220,7 +238,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">가격</span></th>
+									<th><span class="">소장가</span></th>
 									<td><input type="text" class="input-4" id="workPrc"/></td>
 								</tr>
 								<tr>
@@ -697,7 +715,7 @@ function myWorkReg(){
 		work.artstEnglsNm = artstEnglsNm;
 		work.artstBirthYear = artstBirthYear;
 		work.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
-		//work.workLake = $("#workLake").val();
+		work.workLake = $("#workLake").val();
 		work.workVideoUrl = $("#workVideoUrl").val();
 		work.workIntrdc = $("#workIntrdc").val();
 		work.keywrd = $("#keywrd").val();

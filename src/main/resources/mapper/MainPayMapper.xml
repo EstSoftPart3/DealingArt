@@ -100,12 +100,11 @@
   </select>
   
   <update id="updateDealBuyMbrSq" parameterType="String">
-  		/*1차 결제 구매자 순번 등록*/
+  		/*1차 결제 구매자 순번, 구매 수수료 등록*/
   		UPDATE 
 				TBL_DA_DEAL_M 
 		SET		
 				BUY_MBR_SQ = #{buyMbrSq},
-				DEAL_STTS_CD = 'TC'
 				<if test='dealTypCd == "S"'>
 					,DEAL_ENDNG_DT = NOW()
 				</if>
@@ -241,7 +240,10 @@
   					</if>
   					<if test="artstSq != null and artstSq != ''">
   					,ARTST_SQ
-  					</if>  				
+  					</if>
+  					<if test="dealBuyFee != null and dealBuyFee">
+  					,DEAL_BUY_FEE
+  					</if>
   				) VALUES (
   					#{dealSq},
   					NOW()
@@ -257,6 +259,9 @@
   					<if test="artstSq != null and artstSq != ''">
   					,#{artstSq}
   					</if> 
+  					<if test="dealBuyFee != null and dealBuyFee">
+  					,#{dealBuyFee}
+  					</if>
   				) 
   				ON DUPLICATE KEY UPDATE
   					DEAL_SQ = #{dealSq},
@@ -273,7 +278,9 @@
   					<if test="artstSq != null and artstSq != ''">
   					,ARTST_SQ = #{artstSq}
   					</if> 
-  					
+  					<if test="dealBuyFee != null and dealBuyFee">
+  					,DEAL_BUY_FEE = #{dealBuyFee}
+  					</if>
   </insert>
   <update id="updateWorkSaleYn" parameterType="String">
   	/*작품 테이블 판매여부 업데이트*/

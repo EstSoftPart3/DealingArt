@@ -207,5 +207,8 @@ public interface MemberMapper {
 	 * return : int
 	 */
 	public String selectMbrCpCertDi(Object param);
+	
+	//회원 비밀번호 찾기
+	public String findPwd(Object param);
 
 }

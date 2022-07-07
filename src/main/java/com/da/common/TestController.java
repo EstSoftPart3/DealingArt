@@ -230,6 +230,7 @@ public class TestController {
 		paymntOrder = paymntOrder.substring(paymntOrder.length() - 1); //주문 번호 끝에 1글자만 가져온다
 		if(paymntOrder.equals("1")){ //구매자 1차 결제 이면
 			param.put("buyMbrSq", param.get("mbrSq").toString()); //결제 회원 순번을 구매자 회원 순번으로 입력한다
+			param.put("dealBuyFee", param.get("paymntFeeAmt").toString());
 			mainPayMapper.insertWorkDeal(param); //거래 내역에 구매자 정보 입력
 			String buyMbrSq = param.get("buyMbrSq").toString();
 			String dealSq = param.get("dealSq").toString();

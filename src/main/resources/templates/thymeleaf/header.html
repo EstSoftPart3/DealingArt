@@ -490,7 +490,8 @@ function findPwrModalClose(){
 	$("#findPwdMbrIdCheck").css("color","#999999");
 	$("#findPwdCpNum").css("display","none");
 	$("#findPwdMbrIdBtn").css("display","");
-	$("#findPwdMbrId").attr("readonly", false);
+	$("#findPwdMbrId").attr("disabled", false);
+	$('#passModal').modal('hide');
 }
 //아이디 중복 체크
 $("#findPwdMbrIdBtn").click(function() {
@@ -513,7 +514,7 @@ $("#findPwdMbrIdBtn").click(function() {
 					$("#findPwdMbrIdCheck").css("color","#999999");
 					$("#findPwdCpNum").css("display","");
 					$("#findPwdMbrIdBtn").css("display","none");
-					$("#findPwdMbrId").attr("readonly", true);
+					$("#findPwdMbrId").attr("disabled", true);
 				}else{
 					$("#findPwdMbrIdCheck").text("존재하지 않는 아이디(email) 입니다.");
 					$("#findPwdMbrIdCheck").css("color","red");
@@ -527,11 +528,29 @@ $("#findPwdMbrIdBtn").click(function() {
 	}
 });
 function findPwdReturnValue(returnValue){
-   	if (returnValue != null) {
-   		$("#findPwdMbrPwdForm1").css("display", "");
-   		$("#findPwdMbrPwdForm2").css("display", "");
-   		$("#findPwdSubmit").css("display", "");
-   		$("#findPwdCpNum").css("display", "none");
+   	if (returnValue != null && returnValue != "") {
+   		$.ajax({
+			type: "post",
+			url: "/findPwd",
+			data:{
+				mbrCpCertDi : returnValue,
+				mbrId : $("#findPwdMbrId").val()
+			},
+			success: function(data) {
+				if(data.result == true) {
+					$("#findPwdMbrPwdForm1").css("display", "");
+			   		$("#findPwdMbrPwdForm2").css("display", "");
+			   		$("#findPwdSubmit").css("display", "");
+			   		$("#findPwdCpNum").css("display", "none");
+				}else{
+					findPwrModalClose();
+					modalAlertShow("등록된 회원 정보가 없습니다.","");
+				}
+			},
+			error: function(error) {
+			    alert("오류 발생" + errorJson);
+			}
+		});
    	}else{
    		modalAlertShow("등록된 회원 정보가 없습니다.","");
    	}

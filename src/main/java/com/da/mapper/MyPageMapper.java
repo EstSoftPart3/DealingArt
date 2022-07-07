@@ -276,15 +276,22 @@ public interface MyPageMapper {
 	
 	/*
 	 * 거래내역 운송 정보를 가져온다
-	 * param : null or  searchOption
+	 * param : dealSq, mbrSq
 	 * return : 운송 정보
 	 */
 	public List selectTrnsprtInfoBuy(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
 	
 	/*
 	 * 거래내역 운송 정보를 가져온다
-	 * param : null or  searchOption
+	 * param : dealSq, mbrSq
 	 * return : 운송 정보
 	 */
 	public List selectTrnsprtInfoSell(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
+	/*
+	 * 거래내역 정산 정보를 가져온다
+	 * param : dealSq, mbrSq
+	 * return : 운송 정보
+	 */
+	public Map<String, Object> selectCalcInfo(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
 }

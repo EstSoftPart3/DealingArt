@@ -519,7 +519,7 @@ var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 //$("#mainPayCall").val(1);
 
-window.onpopstate = function () { history.go(-1)}; 
+//window.onpopstate = function () { history.go(-1)}; 
 /*
  * 화면 오픈시
  */
@@ -751,7 +751,7 @@ function btn_paymethod_onclick(obj){
 			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
 			workSq : result.dealInfo.workSq, //작품 순번
 			artstSq : result.dealInfo.artstSq, //아티스트 순번
-			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
+			buyMbrSq : sMbrSqVal, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
 			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료
@@ -1053,7 +1053,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 					opt.text = data.result[i].text;
 					target.appendChild(opt); //서비스 선택 셀렉트박스 옵션 추가
 				}
-				for(var i=0; i<target.options.length; i++){
+				/* for(var i=0; i<target.options.length; i++){
 					if(result.dealInfo.workLake < 80){
 						if(target.options[i].text.indexOf("80호 이상") > -1){
 							target.options[i].disabled = true;
@@ -1063,7 +1063,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 							target.options[i].disabled = true;
 						}
 					}
-				}
+				} */
 			},
 			error: function(error) {
 	            alert("오류 발생" + error);

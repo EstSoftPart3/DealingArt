@@ -50,7 +50,7 @@
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<div class="contentbox" style="width:98%;">
+						<div class="contentbox">
 							<div class="bigImages">
 								<img class="big big1" th:src="${result.deal.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
 							</div>
@@ -107,23 +107,26 @@
 								<tr>
 									<th>액자</th>
 									<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
-									<td
-										th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
+									<td th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
 								</tr>
 								<tr>
 									<th>사이즈</th>
-									<td
-										th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
+									<td th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
+								</tr>
+								<tr>
+									<th>호수</th>
+									<td th:if="${not #strings.isEmpty(result.deal.workLake)}" th:utext="|${result.deal.workLake} 
+									<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
 								</tr>
 								<tr>
 									<th>닉네임</th>
-									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}"
-										style="cursor: pointer;">[[${result.deal.mbrNcknm}]] <!-- 								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
-										<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor: pointer;">[[${result.deal.mbrNcknm}]] 
+									<!--<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
+									<!--<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 									</td>
 									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.artstActvtyNm}]]
-										<!-- 									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]] -->
-										<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+									<!--<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]] -->
+									<!--<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 									</td>
 								</tr>
 							</table>
@@ -785,6 +788,18 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
+
+//호수 안내 팝업 오픈
+function openLakeHelp(){
+	$('body').css("overflow", "hidden");
+	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
+	$("#lakeHelpModal").modal("show");
+}
+//호수 안내 팝업 닫기
+function closeLakeHelp(){
+	$('body').css("overflow", "scroll");
+	$("#lakeHelpModal").modal("hide");
+}
 $(function() {
 	
 	$("#sbx_bidPrc").selectpicker("refresh");

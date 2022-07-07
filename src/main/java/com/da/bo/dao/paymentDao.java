@@ -1,5 +1,6 @@
 package com.da.bo.dao;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
+import com.da.mapper.DealMapper;
 import com.da.mapper.paymentMapper;
 
 @Repository
@@ -23,6 +24,9 @@ public class paymentDao {
 	
 	@Autowired
 	paymentMapper paymentMapper;
+	
+	@Autowired
+	DealMapper dealMapper;
 	
 	//작품 거래 내역
 	public Map<String, Object> workDealhList(Map<String, Object> param){
@@ -93,7 +97,19 @@ public class paymentDao {
 	
 	//거래 메인 수정 : 거래_상태_코드
 	public void dealMainSttsCdUpdate(Map<String, Object> param){
-		paymentMapper.dealMainSttsCdUpdate(param);
+		if(param.get("dealSttsCd").toString().equals("PC")) {
+			Map<String, Object> workInfo = dealMapper.selectWorkAll(param.get("dealSq").toString());
+			String dealFinalPrc = workInfo.get("dealFinalPrc").toString().replaceAll("\\,","");
+			long dealSellFee = Math.round(Long.parseLong(dealFinalPrc) * 0.03); //판매 수수료 3프로를 구한다
+			long dealSellFee2 = dealSellFee + (Math.round(dealSellFee * 0.10)); //판매 수수료에 부과세를 더한다
+			long dealCalcPrc = Long.parseLong(dealFinalPrc) - dealSellFee2; //작품 금액에서 최종 판매 수수료를 빼고 정산 금액을 구한다
+			workInfo.put("dealSellFee", dealSellFee2);
+			workInfo.put("dealCalcPrc", dealCalcPrc);
+			dealMapper.updateDealWorkToPC(workInfo);
+			dealMapper.insertCollectionAll(workInfo);
+		}else {
+			paymentMapper.dealMainSttsCdUpdate(param);
+		}
 	}
 	
 	//거래 메인 수정 :거래_메모

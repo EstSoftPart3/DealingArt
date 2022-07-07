@@ -160,4 +160,24 @@ public interface DealMapper {
 	 */
 	public List selectNotSoldSaleList();
 	
+	/*
+	 * 구매 확정 처리할 거래 정보와 작품 정보를 조회한다.
+	 * param : workSq
+	 * return : 작품 정보 / 거래 정보
+	 */
+	public Map<String, Object> selectWorkAll(Object param);
+	
+	/*
+	 * 구매 확정 처리를 한다
+	 * param : dealSq, dealFinalPrc
+	 * return : int
+	 */
+	public int updateDealWorkToPC(Object param);
+	
+	/*
+	 * 구매 확정된 작품을 구매자 소장품으로 등록한다
+	 * param : 작품 정보
+	 * return : int
+	 */
+	public int insertCollectionAll(Object param);
 }

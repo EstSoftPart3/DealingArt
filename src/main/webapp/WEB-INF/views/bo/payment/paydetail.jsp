@@ -325,7 +325,9 @@
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
-	   
+	   	var dealSttsCd = "";
+	  	var sellPaymntSttsCd = "";
+	  	var buyPaymntSttsCd = "";
 	 	$(document).ready(function(){
 	 		
 	 		var dealSq = $("#dealSq").val();
@@ -398,9 +400,9 @@
 		        	 var sellMbrSq 	= dataContent.sellMbrSq;//판매자_순번
 		        	 var buyMbrSq 	= dataContent.buyMbrSq;	//구매자_순번
 		        	 var artstSq 	= dataContent.artstSq;	//작가_순번
-		        	 var workSqNum 	= dataContent.workSqNum;	//작품_순번
+		        	 var workSqNum 	= dataContent.workSqNum;//작품_순번
 		        	
-		        	//판매자 정보 호출
+		        	 //판매자 정보 호출
 		        	 fn_sellMbr(sellMbrSq);
 		        	 
 		        	 //구매자 정보 호출
@@ -678,7 +680,7 @@
 		
 	  	//거래 메인 - 거래 상태 수정
 	  	function dealMainSttsCdUpdate(dealSq	,dealCode	,gubun){
-	  		
+	  		var msg = '상태를 수정하시겠습니까?';
 	  		if(gubun == 'buy') {
 	  			alert("결제진행상태 변경 불가!");
 	  			return false;
@@ -703,10 +705,22 @@
 	 	  		}
 	  			
 	  		}
-	  		
+	  		if(dealSttsCd == 'PC'){
+	  			alert("구매 확정된 거래는 수정할 수 없습니다.");
+	  			$("input[name='dealSttsCd'][value='PC']").prop("checked", true);
+	  			return false;
+	  		}
+	  		if(dealSttsCd != 'DC' && dealCode == 'PC'){
+	  			alert("배송완료된 거래만 구매확정으로 변경할 수 있습니다.");
+	  			$("input[name='dealSttsCd'][value='DC']").prop("checked", true);
+	  			return false;
+	  		}
+	  		if(dealCode == 'PC'){
+	  			msg = '구매 확정으로 상태 수정하면 되돌릴 수 없습니다.\n상태를 수정하시겠습니까?'
+	  		}
 	  		console.log(params);
 	  		
-	  		if(confirm('상태를 수정하시겠습니까?')) {
+	  		if(confirm(msg)) {
 	  			
 	  			 $.ajax({
 	  	           type: "post",
@@ -770,7 +784,6 @@
 	  	}
 	  	
 	  	
-		
 		//결제진행단계
 		function workMainContent(dealSq) {
 			
@@ -785,9 +798,9 @@
 		        	    
 		        	 dataContent = ref.data.dealInfo[0];
 		        	 
-		        	 var dealSttsCd = dataContent.dealSttsCd;
-		        	 var sellPaymntSttsCd = dataContent.sellPaymntSttsCd;
-		        	 var buyPaymntSttsCd = dataContent.buyPaymntSttsCd;
+		        	 dealSttsCd = dataContent.dealSttsCd;
+		        	 sellPaymntSttsCd = dataContent.sellPaymntSttsCd;
+		        	 buyPaymntSttsCd = dataContent.buyPaymntSttsCd;
 		        	 
 		        	 
 		        	 $(".dealSttsCd").prop('checked' , false);

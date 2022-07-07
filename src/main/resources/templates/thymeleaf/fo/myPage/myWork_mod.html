@@ -9,6 +9,16 @@
     	[name=workClrCd]:checked+label{
 		  outline: 5px solid gray;
 		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
     </style>
 </head>
 
@@ -69,7 +79,7 @@
 									<th><span class="my-red">사이즈</span></th>
 									<td>
 										<div class="coll-gr">
-											<input type="text" class="input-4" id="workSizeWidth" th:value="${result.workSizeWidth}" onblur="autoLake()"/>
+											<!-- <input type="text" class="input-4" id="workSizeWidth" th:value="${result.workSizeWidth}" onblur="autoLake()"/>
 											<span class="cg-x">X</span> 
 											<input type="text" class="input-4" id="workSizeDepth" th:value="${result.workSizeDepth}" onblur="autoLake()"/>
 											<span class="cg-text" id="workLake" th:if="${not #strings.isEmpty(result.workLake)}" th:utext="|<br/>${result.workLake}호 입니다.|">
@@ -77,9 +87,17 @@
 											<span class="cg-text" id="workLake" th:unless="${not #strings.isEmpty(result.workLake)}">
 												<br/>작품 사이즈를 입력하시면 호수가 자동으로 계산됩니다. 
 											</span>
-											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img>
+											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img> -->
+											<input type="number" class="input-4" id="workSizeWidth" th:value="${result.workSizeWidth}"/>
+											<span class="cg-x">X</span> 
+											<input type="number" class="input-4" id="workSizeDepth" th:value="${result.workSizeDepth}"/>
 										</div>
 									</td>
+								</tr>
+								<tr>
+									<th><span class="">호수</span></th>
+									<td><input type="number" class="input-4" id="workLake" th:value="${result.workLake}" oninput="this.value = this.value.replace('.', ''); if(this.value > 500){this.value='';modalAlertShow('호수는 500호 까지입니다.');}" />
+									<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">소재/기법</span></th>
@@ -239,7 +257,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">가격</span></th>
+									<th><span class="">소장가</span></th>
 									<td>
 										<input type="text" class="input-4" id="workPrc" th:value="${result.workPrc}"/>
 									</td>
@@ -720,7 +738,7 @@ function myWorkReg(){
 		result.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		result.workVideoUrl = $("#workVideoUrl").val();
 		result.workIntrdc = $("#workIntrdc").val();
-		//result.workLake = $("#workLake").val();
+		result.workLake = $("#workLake").val();
 		
 		const formData = new FormData();
 		//작품 대표 사진

@@ -1,5 +1,6 @@
 package com.da.fo.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -329,12 +330,13 @@ public class MyPageDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> dealInfo = myPageMapper.getMyDealDetailDealInfoSell(dealSq);
 		Map<String, Object> mbrInfo = myPageMapper.getPaymentDeliveryInfo(mbrSq);
-		Map<String, Object> payMntInfo = new HashMap<>();
-		Map<String, Object> vacctInfo = new HashMap<>();
+		Map<String, Object> payMntInfo = new HashMap<>(); //결제 정보
+		Map<String, Object> vacctInfo = new HashMap<>(); //가상계좌 입금 정보
+		Map<String, Object> workDealInfo = new HashMap<>(); //정산 정보
 		List<Map<String, Object>> trnsprtInfo = new ArrayList<Map<String,Object>>();
-		if(dealInfo.get("sellPaymntSttsCd").toString().equals("2PC")) {
-			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq);
-			trnsprtInfo = myPageMapper.selectTrnsprtInfoSell(dealSq, mbrSq);
+		if(dealInfo.get("sellPaymntSttsCd").toString().equals("2PC")) { //2차 결제 완료면
+			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq); //결제 정보를 가져온다
+			trnsprtInfo = myPageMapper.selectTrnsprtInfoSell(dealSq, mbrSq); //부가서비스 정보를 가져온다
 		}
 		if(dealInfo.get("payMethod") != null) {
 			if(dealInfo.get("payMethod").toString().equals("VACCT")) {
@@ -342,6 +344,10 @@ public class MyPageDao {
 				result.put("vacctInfo", vacctInfo);
 			}
 		}
+		if(dealInfo.get("dealSttsCd").toString().equals("PC")) {
+			workDealInfo = myPageMapper.selectCalcInfo(dealSq, mbrSq);
+		}
+		result.put("workDealInfo", workDealInfo);
 		result.put("vacctInfo", vacctInfo);
 		result.put("payMntInfo", payMntInfo);
 		result.put("trnsprtInfo", trnsprtInfo);

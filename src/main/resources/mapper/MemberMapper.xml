@@ -653,4 +653,14 @@
 		WHERE 
 				MBR_NCKNM = #{mbrNcknm}
    </select>
+   
+   <select id="findPwd" resultType="String" parameterType="hashMap">
+   		/*회원 비밀번호 찾기*/
+   		SELECT
+   				MBR_ID
+   		FROM
+   				TBL_DA_MBR_M
+   		WHERE
+   				MBR_CP_CERT_DI = #{mbrCpCertDi}
+   </select>
 </mapper>

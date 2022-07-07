@@ -140,6 +140,7 @@
 	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_LAKE AS workLake, /*작품 호수*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
 				A.WORK_GRT_URL AS workGrtUrl, /*작품보증서URL*/
@@ -846,7 +847,9 @@
 				A.UPDT_DT = NOW(),
 				A.UPDT_MBR_SQ = #{sellMbrSq},
 				B.DEAL_STTS_CD = 'PC',
-				C.DEAL_FINAL_PRC = #{dealFinalPrc}
+				C.DEAL_FINAL_PRC = #{dealFinalPrc},
+				C.DEAL_SELL_FEE = #{dealSellFee},
+				C.DEAL_CALC_PRC = #{dealCalcPrc}
 		WHERE  
 				B.DEAL_SQ = #{dealSq}
 	</update>

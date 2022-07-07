@@ -1088,7 +1088,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				A.WORK_TYP_CD = 'COLL'
-				AND A.MBR_SQ = #{value}
+				AND A.MBR_SQ = #{mbrSq}
 	</select>
 	<select id="myCollectionNonSale" resultType="hashMap" parameterType="String">
 		/*나의 소장품 판매전 검색*/
@@ -1492,11 +1492,14 @@
 	<select id="getPaymentDeliveryInfo" resultType="hashMap" parameterType="String">
 		/*결제 구매자/판매자 배송지 조회*/
 		SELECT 
-				MBR_SQ AS buyMbrSq,
+				MBR_SQ AS mbrSq,
 				MBR_NM AS mbrNm,
 				MBR_EMAIL AS mbrEmail,
 				MBR_CP_NUM AS mbrCpNum,
-				MBR_DELIVRY_ADDR AS mbrDelivryAddr 
+				MBR_DELIVRY_ADDR AS mbrDelivryAddr,
+				MBR_ACCOUNT_NO AS mbrAccountNo,
+				MBR_BANK_CD AS mbrBankCd,
+				MBR_BANK_NM AS mbrBankNm
 		FROM 
 				TBL_DA_MBR_M
 		WHERE 
@@ -1958,6 +1961,20 @@
 		WHERE 
 				TRNSPRT_DIV_CD = 'S'
 			AND	DEAL_SQ = #{dealSq}
+			AND SELL_MBR_SQ = #{mbrSq}
+	</select>
+	
+	<select id="selectCalcInfo" resultType="hashMap" parameterType="String">
+		/* 판매자 정산 정보를 가져온다 */
+		SELECT 
+				DEAL_FINAL_PRC AS dealFinalPrc,
+				DEAL_SELL_FEE AS dealSellFee,
+				DEAL_CALC_PRC AS dealCalcPrc,
+				DATE_FORMAT(LAST_DAY(DATE_ADD(DEAL_ENDNG_DT, INTERVAL 1 MONTH)), '%Y.%m.%d') AS dealCalcDate
+		FROM 
+				TBL_DA_WORK_DEAL_H
+		WHERE
+				DEAL_SQ = #{dealSq}
 			AND SELL_MBR_SQ = #{mbrSq}
 	</select>
 </mapper>

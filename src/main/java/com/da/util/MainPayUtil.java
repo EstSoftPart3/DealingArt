@@ -309,16 +309,19 @@ public class MainPayUtil {
 	    	
 	    	//가상계좌가 아닐 경우
 	    	if(!parameters.get("paymethod").toString().equals("VACCT")) {
-	    		//딜 테이블에 구매자/판매자 
+	    		//거래내역 테이블에 구매자/판매자 정보와 작품 가격, 판매 수수료, 정산 금액을 저장한다. 
 	    		mainPayMapper.insertWorkDeal(resultMap);
 	    		//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
 			    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
+			    	parameters.put("dealBuyFee", param.get("paymntFeeAmt").toString()); //구매 수수료를 가져온다
+					mainPayMapper.insertWorkDeal(parameters); //거래 내역에 구매 수수료와 구매자를 입력한다
 			    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString(), parameters.get("dealTypCd").toString());
 			    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");
 			    	mainPayMapper.updateWorkSaleYn(parameters.get("workSq").toString());
 			    }
 			    //2차 결제이며 판매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.
 			    if(parameters.get("paymntDivCd").toString().equals("S") && parameters.get("paymntTypCd").toString().equals("2")) {
+			    	mainPayMapper.insertWorkDeal(parameters); //거래 내역에 판매자를 입력한다
 			    	myPageMapper.updateSellPaymntSttsCd(parameters.get("dealSq").toString(), "2PC");
 			    }
 			    //2차 결제이며 구매자인 경우 거래 상태 코드를 2차 결제 완료로 바꾼다.

@@ -295,8 +295,10 @@
 									</div>
 								</div>
 							</div>
-								
-								<!-- <div class="med">
+							
+						<!-- 구매확정 -->
+						<div id="PC"  th:if="${not #maps.isEmpty(result.workDealInfo)}">
+							<div class="med">
 									<h2 class="h2-con">정산 정보</h2>
 								</div>
 								<div class="myd-box">
@@ -305,25 +307,24 @@
 										<div class="mbox-1">
 											<table class="mstyle-1">
 												<tr>
-													<th>결제 수단</th>
-													<td th:if="${result.payMntInfo.payMethod.toString().equals('신용카드')}" th:text="|[${result.payMntInfo.payType}] ${result.payMntInfo.issueCompanyName}카드 카드번호 ${result.payMntInfo.cardNo}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo.payMethod} ${result.payMntInfo.bankCode}|">신한은행 000-000-0000</td>
-													<td th:if="${result.payMntInfo.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo.payMethod} ${result.payMntInfo.bankCode} ${result.payMntInfo2.accountNo}|">신한은행 000-000-0000</td>
+													<th>지급 수단</th>
+													<td th:if="${not #strings.isEmpty(result.mbrInfo.mbrAccountNo)}" th:text="|${result.mbrInfo.mbrBankNm} ${result.mbrInfo.mbrAccountNo}|">신한은행 000-000-0000</td>
+													<td th:unless="${not #strings.isEmpty(result.mbrInfo.mbrAccountNo)}"><a href="/memberEdit">정산 정보를 등록해주세요.</a></td>
 												</tr>
 												<tr>
-													<th>결제 내역</th>
+													<th>정산 내역</th>
 													<td>
 														<div class="tbx-1">
 															<dl class="tbx-dl1">
-																<dt>배송료</dt>
-																<dd th:text="|${result.payMntInfo.paymntAmt} KRW|">2,300,000 원</dd>
-																<dt>배송료 할인</dt>
-																<dd th:if="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}" th:text="|${result.payMntInfo.paymntDiscAmt} KRW|">2,300,000 원</dd>
-																<dd th:unless="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}">0 KRW</dd>
+																<dt>작품</dt>
+																<dd th:text="|${result.workDealInfo.dealFinalPrc} KRW|">2,300,000 원</dd>
+																<dt>총 판매 수수료<br/>
+																(수수료 3% + 부과세 10%)</dt>
+																<dd th:text="|${result.workDealInfo.dealSellFee} KRW|">2,300,000 원</dd>
 															</dl>
 															<dl class="tbx-dl2">
-																<dt>총 결제금액</dt>
-																<dd th:text="|${result.payMntInfo.paymntAmt} KRW|">2,300,000 원</dd>
+																<dt>총 정산금액</dt>
+																<dd th:text="|${result.workDealInfo.dealCalcPrc} KRW|">2,300,000 원</dd>
 															</dl>
 														</div>
 													
@@ -331,22 +332,20 @@
 												</tr>
 												<tr>
 													<th>정산 예정일</th>
-													<td>
-														2021,10.11
-													</td>
+													<td th:text="${result.workDealInfo.dealCalcDate}"></td>
 												</tr>
 											</table>
 										</div>
 										
 										<div class="mbtn-box">
-											<a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a>
+											<!-- <a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a> -->
 											<a href="javascript:fnModalAlert();" class="btns-3">거래명세서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a>
+											<!-- <a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a> -->
 											<a href="javascript:fnModalAlert();" class="btns-3">거래계약서</a>
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
 							<!-- 결제 수단 -->
 							<div id="paymethod" style="display:none;">
 								<div class="med">
@@ -519,6 +518,7 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("판매자 결제가 완료되었습니다.");
 		$("#dealSttsCdDetail").append("<span>구매확정</span>"); 
 		$("#2PC").css("display", ""); //정산 화면
+		$("#PC").css("display", ""); //정산 화면
 	}
 	if(result.dealInfo.dealSttsCd == "ST"){ //판매자 거래중지면
 		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");

@@ -307,7 +307,7 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script> opener.findPwdReturnValue("+sName+"); window.close();</script>");
+		out.println("<script> opener.findPwdReturnValue('"+sDupInfo+"'); window.close();</script>");
 		out.flush();
 	}
 	

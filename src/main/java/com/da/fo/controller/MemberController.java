@@ -634,9 +634,29 @@ public class MemberController {
 	public ModelAndView findId(@RequestParam String mbrCpCertDi) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		Map<String, Object> result = memberService.findId(mbrCpCertDi);
-		result.put("mbrId", commonService.decrypt(result.get("mbrId").toString()));
-		mv.addObject("result", result);
+		if(result != null && !result.isEmpty()) {
+			result.put("mbrId", commonService.decrypt(result.get("mbrId").toString()));
+			mv.addObject("result", result);
+		}else{
+			mv.addObject("result", null);
+		}
 		return mv;
+	}
+	
+	//회원 비밀번호 찾기
+	@RequestMapping("/findPwd")
+	@ResponseBody
+	public ModelAndView findPwd(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		String fMbrId = param.get("mbrId").toString();
+		String bMbrId = commonService.decrypt(memberMapper.findPwd(param));
+		if(fMbrId.equals(bMbrId)) {
+			mv.addObject("result", true);
+			return mv;
+		}else{
+			mv.addObject("result", false);
+			return mv;
+		}
 	}
 	
 	//회원 중복체크

@@ -77,7 +77,7 @@
 							
 						    
 						    <!-- 작품 리스트  -->
-					  	<div class="grid" style= "cursor: pointer;">
+					  	<div class="grid">
 								 
 							</div>
 						
@@ -275,7 +275,7 @@ function myCollectionList(){
 			}
 			
 			//거래종료
-			if(result[i].dealSttsCd == "TC"){
+			if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != ""){
 				
 				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 				html += '<div >';
@@ -321,22 +321,22 @@ function myCollectionList(){
 			
 			if(result[i].dealTypCd == null || result[i].dealTypCd == ""){
 			
-			html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
-			html += '<div >';
-			html += '<div class="item-div-img reg">';
-			//작품 이미지
-			html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-			html += '	<div class="item-ho3 reg-div">';
-			html += '		<div class="regs" >';
-			html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
-			html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정</span></a>';
-			html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';
-			html += '		</div>';
-			html += '	</div>';
-			html += '</div>';
-			html += '<div class="item-body">';
-			html += '<div>';
-			html += '<div class="uesr-s">';
+				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+				html += '<div >';
+				html += '<div class="item-div-img reg" style="cursor:pointer;">';
+				//작품 이미지
+				html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+				html += '	<div class="item-ho3 reg-div">';
+				html += '		<div class="regs" >';
+				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
+				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정</span></a>';
+				html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';
+				html += '		</div>';
+				html += '	</div>';
+				html += '</div>';
+				html += '<div class="item-body">';
+				html += '<div>';
+				html += '<div class="uesr-s">';
 			if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
  				html += '<img src="resources/img/de/ues-icon.png"/>';
  			}else{

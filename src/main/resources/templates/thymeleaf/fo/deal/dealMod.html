@@ -199,16 +199,18 @@
 										</td>
 									</tr>
 									<tr>
-										<th><span class="my-red">소장가</span></th>
-										<td>
-											<input type="text" class="input-4" id="workPrc" th:value="${result.work.workPrc}" onkeyup="comma(this)" placeholder="작품의 소장 가격을 입력해주세요." style="font-size:15px;"/>
-										</td>
+										<th><span class="my-red">소재/기법</span></th>
+										<td><input type="text" class="input-4" id="workMatrl" th:value="${result.work.workMatrl}"/></td>
+									</tr>
+									<tr>
+										<th><span class="my-red">제작년도</span></th>
+										<td><input type="text" class="input-4" id="workProdcYear" th:value="${result.work.workProdcYear}"/></td>
 									</tr>
 									<tr>
 										<th><span class="my-red">사이즈</span></th>
 										<td>
 											<div class="coll-gr">
-												<input type="text" class="input-4" id="workSizeWidth" th:value="${result.work.workSizeWidth}" onblur="autoLake()"/>
+												<!-- <input type="text" class="input-4" id="workSizeWidth" th:value="${result.work.workSizeWidth}" onblur="autoLake()"/>
 												<span class="cg-x">X</span> 
 												<input type="text" class="input-4" id="workSizeDepth" th:value="${result.work.workSizeDepth}" onblur="autoLake()"/>
 												<span class="cg-text" id="workLake" th:if="${not #strings.isEmpty(result.work.workLake)}" th:utext="|<br/>${result.work.workLake}호 입니다.|">
@@ -216,17 +218,25 @@
 												<span class="cg-text" id="workLake" th:unless="${not #strings.isEmpty(result.work.workLake)}">
 													<br/>작품 사이즈를 입력하시면 호수가 자동으로 계산됩니다. 
 												</span>
-												<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img>
+												<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img> -->
+												<input type="number" class="input-4" id="workSizeWidth" th:value="${result.work.workSizeWidth}"/>
+												<span class="cg-x">X</span> 
+												<input type="number" class="input-4" id="workSizeDepth" th:value="${result.work.workSizeDepth}"/>
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<th><span class="my-red">소재/기법</span></th>
-										<td><input type="text" class="input-4" id="workMatrl" th:value="${result.work.workMatrl}"/></td>
+										<th><span class="">호수</span></th>
+										<td>
+											<input type="number" class="input-4" id="workLake" th:value="${result.work.workLake}" oninput="this.value = this.value.replace('.', ''); if(this.value > 500){this.value='';modalAlertShow('호수는 500호 까지입니다.');}" />
+											<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openLakeHelp()"></img>
+										</td>
 									</tr>
 									<tr>
-										<th><span class="my-red">제작년도</span></th>
-										<td><input type="text" class="input-4" id="workProdcYear" th:value="${result.work.workProdcYear}"/></td>
+										<th><span class="">소장가</span></th>
+										<td>
+											<input type="text" class="input-4" id="workPrc" th:value="${result.work.workPrc}" onkeyup="comma(this)" placeholder="작품의 소장 가격을 입력해주세요."/>
+										</td>
 									</tr>
 									<tr>
 										<th><span class="">작품 사진(좌)</span></th>
@@ -965,7 +975,7 @@ jQuery(document).ready(function() {
 		$("#auctn").prop("checked", true);
 	}
     $("input:radio[name='dealTypCd']").change();
-    autoLake();
+    //autoLake();
 });
 
 $("input:radio[name='dealTypCd']").change(function(){
@@ -1349,7 +1359,7 @@ function dealRegNotesModal(){
 	result.deal.artstSq = result.work.artstSq;
 	result.deal.workSq = result.work.workSq.toString();
 	result.deal.dealSttsCd = "TP";
-	//result.work.workLake = $("#workLake").val();
+	result.work.workLake = $("#workLake").val();
 	result.work.workSizeWidth = $("#workSizeWidth").val();
 	result.work.workSizeDepth = $("#workSizeDepth").val();
 	result.work.workMatrl = $("#workMatrl").val();
