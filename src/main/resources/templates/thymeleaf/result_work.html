@@ -369,6 +369,10 @@
 												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
 											</th:block>
 											
+											<th:block th:if="${workList.dealTypCd.toString().equals('X')}"><!-- 정찰가 -->
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
+											</th:block>
+											
 												<!-- <div class="uho"></div> -->
 										</div>
 										<div class="uli-text">

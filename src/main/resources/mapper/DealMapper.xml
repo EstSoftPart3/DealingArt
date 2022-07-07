@@ -50,6 +50,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				1=1
+				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -541,7 +542,8 @@
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
 				(SELECT B.KEYWRD
 				 FROM TBL_DA_KEYWRD_S AS B
-				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
+				 WORK_OPEN_YN AS workOpenYn
 		FROM 
 				TBL_DA_WORK_M AS A
 				

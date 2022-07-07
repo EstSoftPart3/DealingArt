@@ -294,4 +294,6 @@ public interface MyPageMapper {
 	 * return : 운송 정보
 	 */
 	public Map<String, Object> selectCalcInfo(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	//나의작품 / 소장품 거래등록 확인
+	public int dealWorkCount(Map<String, Object> param);
 }

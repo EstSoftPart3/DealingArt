@@ -526,6 +526,7 @@
 						<if test="workLake != null and workLake != ''">
 							,WORK_LAKE
 						</if>
+						,WORK_OPEN_YN
 					)
 				VALUES (
 						#{mbrSq}, 
@@ -595,6 +596,7 @@
 						<if test="workLake != null and workLake != ''">
 							,#{workLake}
 						</if>
+						,#{workOpenYn}
 				)
 				
 	</insert>
@@ -681,6 +683,7 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,WORK_INTRDC
 									</if>
+									,WORK_OPEN_YN
 					)
 					VALUE(
 							#{mbrSq},
@@ -734,6 +737,7 @@
 							<if test="workIntrdc != null and workIntrdc != ''">
 								,#{workIntrdc}
 							</if>
+							,#{workOpenYn}
 					)
 					
 	</insert>
@@ -854,12 +858,10 @@
 				A.WORK_IMG_BOT_URL AS workImgBotUrl,
 				A.WORK_VIDEO_URL AS workVideoUrl,
 				A.WORK_INTRDC AS workIntrdc,
-				(SELECT B.KEYWRD_SQ  
-				 FROM TBL_DA_KEYWRD_S AS B
-				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
-				(SELECT B.KEYWRD
-				 FROM TBL_DA_KEYWRD_S AS B
-				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+				(SELECT B.KEYWRD_SQ FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
+				(SELECT B.KEYWRD FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
+				A.WORK_OPEN_YN AS workOpenYn 
+				 
 		FROM 
 				TBL_DA_WORK_M AS A
 				
@@ -922,6 +924,7 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,WORK_INTRDC
 									</if>
+									,WORK_OPEN_YN
 					) VALUES (
 								#{workSq},
 			     				#{mbrSq},
@@ -973,6 +976,7 @@
 								<if test="workIntrdc != null and workIntrdc != ''">
 									,#{workIntrdc}
 								</if>
+								,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
 		    					MBR_SQ = #{mbrSq},
@@ -1024,6 +1028,7 @@
 								<if test="workIntrdc != null and workIntrdc != ''">
 									,WORK_INTRDC = #{workIntrdc}
 								</if>
+								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>
 	
 	<insert id="keywrdCor">
@@ -1157,7 +1162,8 @@
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
 				(SELECT B.KEYWRD
 				 FROM TBL_DA_KEYWRD_S AS B
-				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd
+				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
+				 WORK_OPEN_YN AS workOpenYn
 		FROM 
 				TBL_DA_WORK_M AS A
 				
@@ -1236,6 +1242,7 @@
 									<if test="workLake != null and workLake != ''">
 										,WORK_LAKE
 									</if>
+									,WORK_OPEN_YN
 								)
 							VALUES (
 									#{workSq},
@@ -1304,6 +1311,7 @@
 									<if test="workLake != null and workLake != ''">
 										,#{workLake}
 									</if>
+									,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
 								WORK_TYP_CD = #{workTypCd}, 
@@ -1370,6 +1378,7 @@
 								<if test="workLake != null and workLake != ''">
 									,WORK_LAKE = #{workLake}
 								</if>
+								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>
 	
 	<select id="scrapList" resultType="hashMap" parameterType="String">
@@ -1977,4 +1986,14 @@
 				DEAL_SQ = #{dealSq}
 			AND SELL_MBR_SQ = #{mbrSq}
 	</select>
+   <!-- 나의작품 / 소장품 거래등록 확인  -->
+   <select id="dealWorkCount" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            TBL_DA_DEAL_M 
+        WHERE 
+        	WORK_SQ = #{workSq}
+   </select>
+   
 </mapper>

@@ -272,6 +272,7 @@
 		WHERE
 				A.ARTST_SQ = #{artstSq}
 			AND D.DEAL_STTS_CD = 'TP'
+			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 		<if test="sort != null and sort != ''">
         	<if test='sort == "PY"'>
         		ORDER BY A.WORK_PRODC_YEAR
@@ -326,6 +327,7 @@
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		WHERE 
 				A.WORK_SALE_YN = 'N'
+				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
@@ -390,6 +392,7 @@
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		WHERE 
 				A.WORK_TYP_CD = 'WORK'
+			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 			AND A.ARTST_SQ = #{artstSq}
 	</select>
 
