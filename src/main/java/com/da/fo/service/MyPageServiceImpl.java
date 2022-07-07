@@ -214,4 +214,13 @@ public class MyPageServiceImpl implements MyPageService{
 	public void insertTrnsprt(Object param) {
 		myPageDao.insertTrnsprt(param);
 	}
+	
+	//나의작품 / 소장품 거래등록 확인
+	@Override
+	public int dealWorkCount(Map<String, Object> param){
+		
+		int dealWorkCount = myPageDao.dealWorkCount(param);
+		
+		return dealWorkCount;
+	}
 }

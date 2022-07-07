@@ -193,6 +193,18 @@
 										<label for="z33" class="wd-145"><span></span>사진</label>
 									</td>
 								</tr>
+								<tr>
+									<th><span class="my-red">공개여부</span></th>
+									<td>
+										<div class="radio-2">
+											<!-- 오픈 기본 값 -->
+											<input type="radio" id="x1" name="workOpenYn" class="workOpenYn" value="Y" checked>
+											<label for="x1" class="wd-145"><span></span>공개</label>
+											<input type="radio" id="x2" name="workOpenYn" class="workOpenYn" value="N" >
+											<label for="x2"><span></span>비공개</label>
+										</div>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -701,6 +713,8 @@ function myWorkReg(){
 		work.workVideoUrl = $("#workVideoUrl").val();
 		work.workIntrdc = $("#workIntrdc").val();
 		work.keywrd = $("#keywrd").val();
+		//공개여부
+		work.workOpenYn = $('input[name=workOpenYn]:checked').val();
 		
 		const formData = new FormData();
 		//작품 사진 전면

@@ -914,4 +914,21 @@ public class MyPageController {
 		return mv;
 	}
 	
+	//나의작품 / 소장품 거래등록 확인
+	@RequestMapping("/mypage/dealWorkCountData")
+	@ResponseBody
+	public int dealWorkCount(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		//이메일 암호화
+		String workSq = (String) param.get("workSq");
+		param.put("workSq", workSq);
+		
+		int dealWorkCount = myPageService.dealWorkCount(param);
+			
+		return dealWorkCount;
+	}
+	
 }

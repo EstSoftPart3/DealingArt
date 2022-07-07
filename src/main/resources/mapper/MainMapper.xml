@@ -104,12 +104,16 @@
 		<!-- INNER JOIN  
 				TBL_DA_KEYWRD_S AS B 
 			ON 	A.WORK_SQ = B.WORK_SQ -->
-		WHERE 	
-				A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
+		WHERE 1=1 
 			AND B.DEAL_STTS_CD != 'TC'
+			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
+			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
+			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
+		
+			
+			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
+			
+			
 		UNION
 		
 		SELECT	
@@ -135,7 +139,8 @@
 				TBL_DA_DEAL_M AS C
 			ON A.WORK_SQ = C.WORK_SQ
 			
-		WHERE B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+		WHERE 1=1
+		    AND ( A.WORK_OPEN_YN = 'Y' AND B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 			AND C.DEAL_STTS_CD != 'TC'
 			
 		LIMIT 	4
@@ -273,6 +278,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				1=1
+				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -390,6 +396,7 @@
 					ON 	A.WORK_SQ = D.WORK_SQ 
 				WHERE
 						1=1
+						AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 					<if test="searchKeyword != null and searchKeyword != ''">
 						AND 
 						(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')

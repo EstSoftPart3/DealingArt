@@ -379,4 +379,13 @@ public class MyPageDao {
 	public void insertTrnsprt(Object param) {
 		myPageMapper.insertTrnsprt(param);
 	}
+	
+	//나의작품 / 소장품 거래등록 확인
+	public int dealWorkCount(Map<String, Object> param){
+		
+		int dealWorkCount = myPageMapper.dealWorkCount(param);
+		
+		return dealWorkCount;
+	}
+	
 }

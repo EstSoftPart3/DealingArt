@@ -130,4 +130,7 @@ public interface MyPageService {
 	 * return : 
 	 */
 	public void insertTrnsprt(Object param);
+	
+	//나의작품 / 소장품 거래등록 확인
+	public int dealWorkCount(Map<String, Object> param);
 }

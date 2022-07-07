@@ -163,6 +163,7 @@
 						</div>
 					<div id="auctionInfo">
 						<div class="med col_t85" style="padding:15px;">
+							<input type="hidden" name="workOpenYn" id="workOpenYn" th:value="${result.work.workOpenYn}">
 							<h2 class="">거래 등록 정보 <span class="c-gra">등록된 작품을 거래로 전환할 때 필요한 정보 입니다.</span></h2>
 						</div>
 						<div class="myd-box">
@@ -1203,6 +1204,15 @@ function startDateSel(obj){
 
 function vaild(){
 	$("#myModal4").modal("hide");
+	
+	//공개 유무
+	var workOpenYn = $("#workOpenYn").val();
+	
+	if(workOpenYn == "N") {
+		modalAlertShow("비공개 작품일 경우 거래 등록이 제한됩니다. <br> 작품 수정 페이지에서 공개로 전환 후 거래등록 해주세요.");
+		return false;
+	} 
+		
 	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
 		if(result.deal.dealStrtDt == null || result.deal.dealStrtDt == "" ||
 			result.deal.dealEndngDt == null || result.deal.dealEndngDt == ""){
@@ -1363,6 +1373,9 @@ function dealRegNotesModalClose(){
 //거래 등록
 function dealReg(){
 	$('#dealRegNotesModal').modal('hide');
+	
+	
+	
 	if(!$("#cbx_bidAgree1").is(":checked") || !$("#cbx_bidAgree2").is(":checked") 
 			|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
 		$('body').css("overflow", "scroll");
