@@ -5496,3 +5496,39 @@ p.dib{display:inline-block !important;}
     padding: 1.4rem;
     margin-top: 1.6rem;
 }
+
+/* 0703 */
+.contentbox{padding: 0;width: 64rem;}
+.bigImages{margin-bottom: 12.5px;}
+.big{width: 60rem;height: 60rem;}
+.small{ width:100px; height:100px;margin-right: 10px;}
+.smallImages{}
+.small{width: 7.5rem;height: 7.5rem;margin-right: 1.25rem;float: left;}
+.smallImages .small:last-child{margin-right:0;}
+
+.big-content{ background-color: rgb(255 255 255 / 0%); box-shadow: none; border: none;}
+.big-content .modal-header{ min-height: 0; padding: 0; border: none;}
+.big-content .modal-header .conts{ right: -70px; top: 0;}
+.big-content .modal-header .conts .close{ opacity: 1;}
+.big-content .modal-header .conts .close::before, .close::after{}
+.big-content .modal-header .conts .close::before, .close::after{}
+.big-content .modal-header .conts .close::after{}
+.big-content .modal-header .conts .close::before{ background: #fff;}
+
+.select-s2{}
+.select-s2 .selectpicker{}
+.select-s2 .bootstrap-select{}
+
+.hms-p{padding-top:10px;display: inline-block;padding-left: 10px;}
+.btn-4{
+    border: #e8e8e8 1px solid;
+    display: inline-block;
+    width: 28.8rem;
+    text-align: center;
+    height: 6.6rem;
+    font-size: 2.4rem;
+    color: #333333 !important;
+    font-weight: 600;
+    padding: 1.4rem;
+    margin-top: 1.6rem;
+}

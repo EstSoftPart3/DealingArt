@@ -12,7 +12,6 @@
 	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
 	<meta property="og:url" content="https://www.dealing-art.com">
 	
-    <script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
     	.swi-box::before{background-color:#f9f9f9;}
@@ -51,139 +50,194 @@
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<img th:src="${result.deal.workMainImgUrl}" style="width:98%;"/>
-					</div>
-					<div class="baeg-right">
-						<div class="be-title">
-							<th:block th:if="${not #strings.isEmpty(result.deal.artstEnglsNm)}">
-								<h3 th:text="${result.deal.artstActvtyNm}"></h3>
-								<h3 th:text="'('+${result.deal.artstEnglsNm}+')'"></h3>
-							</th:block>
-							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}" th:text="${result.deal.artstActvtyNm}"></h3>
-							<h4 th:text="${result.deal.workNm}"></h4>
-							
-							<!--<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">-->
-							<a href="javascript:fn_decModalCall();" class="phos">
-								<div class="tootip-1">신고하기</div>
-								<img src="resources/img/de/popo-1.png" />
-							</a>
-						 		
+						<div class="contentbox" style="width:98%;">
+							<div class="bigImages">
+								<img class="big big1" th:src="${result.deal.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
+							</div>
+							<div class="smallImages">
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+								<!-- small box 메인이미지-->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" />
+								<!-- small box 전면이미지 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRerUrl}" />
+								<!-- small box 후면이미지 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgTopUrl}" />
+								<!-- small box 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+								<!-- small box 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+								<!-- small box 좌 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
+								<!-- small box 하 -->
+							</div>
 						</div>
-						<table class="tstyle1">
-							<tr>
-								<th>제작년도</th>
-								<td th:text="${result.deal.workProdcYear}"></td>
-							</tr>
-							<tr>
-								<th>소재/기법</th>
-								<td th:text="${result.deal.workMatrl}">canvas</td>
-							</tr>
-							<tr style="display:none">
-								<th>보증서</th>
-								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음</td>
-								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
-							</tr>
-							<tr>
-								<th>액자</th>
-								<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
-								<td th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
-							</tr>
-							<tr>
-								<th>사이즈</th>
-								<td th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
-							</tr>
-							<tr>
-								<th>닉네임</th>
-								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor:pointer;">[[${result.deal.mbrNcknm}]]
-<!-- 								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
-<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
-								</td>
-									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" >[[${result.deal.artstActvtyNm}]]
-<!-- 									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]] -->
-<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
-								</td>
-							</tr>
-						</table>
-						
-						<ul class="baeg-ul">
-							<li class="li-1">
-								<table class="tstyle2">
-									<tr>
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_dealStrtPrc">시작가</span></div>
-										</th>
-										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
-									</tr>
-									<tr id="tr_priceUnit">
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>호가단위</span></div>
-										</th>
-										<td id="td_askingPrice"></td>
-									</tr>
-									<tr>
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span id="spn_period">경매기간</span></div>
-										</th>
-										<td th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
-									</tr>
-									<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
-										<th>
-											<div class="tsc-1"><img src="resources/img/de/check-off.jpg" /><span>남은시간</span></div>
-										</th>
-										<td id="dealCount"></td>
-									</tr>
-								</table>
-							</li>
-							<li class="li-1">
-								<table class="tstyle2">
-									<tr class="t-red" id="tr_maxBidPrc">
-										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span></div>
-										</th>
-									<th:block th:if="${not #strings.isEmpty(result.deal.maxBidPrc)}">
-										<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
-									</th:block>
-									<th:block th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
-										<td>0 KRW</td>
-									</th:block>
-									</tr>
-									<!-- <tr class="t-red">
+					</div>
+						<div class="baeg-right">
+							<div class="be-title">
+								<th:block
+									th:if="${not #strings.isEmpty(result.deal.artstEnglsNm)}">
+									<h3 th:text="${result.deal.artstActvtyNm}"></h3>
+									<h3 th:text="'('+${result.deal.artstEnglsNm}+')'"></h3>
+								</th:block>
+								<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}"
+									th:text="${result.deal.artstActvtyNm}"></h3>
+								<h4 th:text="${result.deal.workNm}"></h4>
+
+								<!--<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">-->
+								<a href="javascript:fn_decModalCall();" class="phos">
+									<div class="tootip-1">신고하기</div> <img
+									src="resources/img/de/popo-1.png" />
+								</a>
+
+							</div>
+							<table class="tstyle1">
+								<tr>
+									<th>제작년도</th>
+									<td th:text="${result.deal.workProdcYear}"></td>
+								</tr>
+								<tr>
+									<th>소재/기법</th>
+									<td th:text="${result.deal.workMatrl}">canvas</td>
+								</tr>
+								<tr style="display: none">
+									<th>보증서</th>
+									<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음</td>
+									<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
+								</tr>
+								<tr>
+									<th>액자</th>
+									<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
+									<td
+										th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
+								</tr>
+								<tr>
+									<th>사이즈</th>
+									<td
+										th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
+								</tr>
+								<tr>
+									<th>닉네임</th>
+									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}"
+										style="cursor: pointer;">[[${result.deal.mbrNcknm}]] <!-- 								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
+										<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+									</td>
+									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.artstActvtyNm}]]
+										<!-- 									<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]] -->
+										<!-- 									<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+									</td>
+								</tr>
+							</table>
+
+							<ul class="baeg-ul">
+								<li class="li-1">
+									<table class="tstyle2">
+										<tr>
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span
+														id="spn_dealStrtPrc">시작가</span>
+												</div>
+											</th>
+											<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
+										</tr>
+										<tr id="tr_priceUnit">
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span>호가단위</span>
+												</div>
+											</th>
+											<td id="td_askingPrice"></td>
+										</tr>
+										<tr>
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span
+														id="spn_period">경매기간</span>
+												</div>
+											</th>
+											<td
+												th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
+										</tr>
+										<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span>남은시간</span>
+												</div>
+											</th>
+											<td id="dealCount"></td>
+										</tr>
+									</table>
+								</li>
+								<li class="li-1">
+									<table class="tstyle2">
+										<tr class="t-red" id="tr_maxBidPrc">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>현재
+														입찰가</span>
+												</div>
+											</th>
+											<th:block
+												th:if="${not #strings.isEmpty(result.deal.maxBidPrc)}">
+												<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
+											</th:block>
+											<th:block
+												th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
+												<td>0 KRW</td>
+											</th:block>
+										</tr>
+										<!-- <tr class="t-red">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
 										</th>
 										<td>100,000</td>
 									</tr> -->
-									<tr class="t-red" id="tr_bidPrc">
-										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>응찰가</span></div>
-										</th>
-										<td>
-											<div class="selec-box">
-												<select class="selectpicker" id="sbx_bidPrc" data-size="11">
-													<option value="null" style="font-size:18px;">-선택-</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<!-- <tr class="t-red" id="tr_bidPrc">
+										<tr class="t-red" id="tr_bidPrc">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>응찰가</span>
+												</div>
+											</th>
+											<td>
+												<div class="selec-box">
+													<select class="selectpicker" id="sbx_bidPrc" data-size="11">
+														<option value="null" style="font-size: 18px;">-선택-</option>
+													</select>
+												</div>
+											</td>
+										</tr>
+										<!-- <tr class="t-red" id="tr_bidPrc">
 										<th>
 											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>정산받을 계좌번호</span></div>
 										</th>
 									</tr> -->
-								</table>
-							</li>
-						</ul>
-						<div class="bat-box">
-							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button>
-							<button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button>
-							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
-							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
-							<div class="clearboth"></div>
+									</table>
+								</li>
+							</ul>
+							<div class="bat-box">
+								<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"
+									onclick="btn_purchaseOrBid_onclick()">
+									<span>응찰하기</span>
+								</button>
+								<button type="button" class="ba-btn2"
+									onclick="javascript:fnModalAlert();">
+									<img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span>
+								</button>
+								<button type="button" class="ba-btn3" id="btn_history"
+									data-toggle="modal" data-target="#bidHistory">
+									<img src="resources/img/de/mo/icon-2.jpg" /><span>응찰
+										히스토리</span>
+								</button>
+								<button type="button" class="ba-btn3"
+									onclick="javascript:history.back();">
+									<span>목록으로 돌아가기</span>
+								</button>
+								<div class="clearboth"></div>
+							</div>
+
 						</div>
-						
 					</div>
 				</div>
-			</div>
 				
 		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
 			<div class="artist-wrap">
@@ -665,7 +719,42 @@
 	</div>
 </div>
 
-
+<!-- 0702 시작 -->
+<div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content big-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="contentbox">
+					<div class="bigImages">
+						<img class="big big2" th:src="${result.deal.workMainImgUrl}"/>
+					</div>
+					<div class="smallImages">
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+						<!-- small box 메인이미지-->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" />
+						<!-- small box 전면이미지 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRerUrl}" />
+						<!-- small box 후면이미지 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgTopUrl}" />
+						<!-- small box 상 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+						<!-- small box 우 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+						<!-- small box 좌 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
+						<!-- small box 하 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 0702 끝 -->
 
 
 <script th:inline="javascript">
@@ -1263,6 +1352,35 @@ function askingPrice(prc){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
+/* 0702 시작 */
+/* 상세 왼쪽이미지 */
+var bigPic1 = document.querySelector(".big1")
+var smallPics1 = document.querySelectorAll(".small1")
+
+for(var i = 0 ; i < smallPics1.length ; i++){
+  smallPics1[i].addEventListener("mouseover", changepic1);
+  
+}
+
+function changepic1(){
+  var smallPic1Attribute = this.getAttribute("src");
+  bigPic1.setAttribute("src", smallPic1Attribute);
+}
+
+/* 모달 상세 왼쪽이미지 */
+var bigPic2 = document.querySelector(".big2")
+var smallPics2 = document.querySelectorAll(".small2")
+
+for(var i = 0 ; i < smallPics2.length ; i++){
+  smallPics2[i].addEventListener("mouseover", changepic2);
+  
+}
+
+function changepic2(){
+  var smallPic2Attribute = this.getAttribute("src");
+  bigPic2.setAttribute("src", smallPic2Attribute);
+}
+/* 0702 끝 */
  
 </script>
 

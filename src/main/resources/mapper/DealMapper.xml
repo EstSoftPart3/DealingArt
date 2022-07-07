@@ -132,6 +132,12 @@
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl, /*전면이미지주소*/
+	            A.WORK_IMG_RER_URL AS workImgRerUrl, /*후면이미지주소*/
+	            A.WORK_IMG_TOP_URL AS workImgTopUrl, /*상 이미지주소*/
+	            A.WORK_IMG_BOT_URL AS workImgBotUrl, /*히 이미지주소*/
+	            A.WORK_IMG_LEF_URL AS workImgLefUrl, /*좌 이미지주소*/
+	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
@@ -589,52 +595,59 @@
 	</select>
 	
 	<select id="selectWorkAll" resultType="hashMap" parameterType="String">
-		/*작품 정보 전체 조회*/
+		/*구매확정 처리할 작품/거래 정보 전체 조회*/
 		SELECT 
-				WORK_SQ AS workSq,
-				MBR_SQ AS mbrSq,
-				ARTST_SQ AS artstSq,
-				WORK_NM AS workNm,
-				WORK_MATRL AS workMatrl,
-				WORK_TYP_CD AS workTypCd,
-				WORK_SHP_CD AS workShpCd,
-				WORK_CLSFC_CD AS workClsfcCd,
-				WORK_SIZE_WIDTH AS workSizeWidth,
-				WORK_SIZE_DEPTH AS workSizeDepth,
-				WORK_SIZE_HEIGHT AS workSizeHeight,
-				WORK_SIZE_WEIGHT AS workSizeWeigth,
-				WORK_LAKE AS workLake,
-				WORK_MAIN_IMG_URL AS workMainImgUrl,
-				WORK_FRM_IMG_URL AS workFrmImgUrl,
-				WORK_MDIA AS workMdia,
-				WORK_PRODC_YEAR AS workProdcYear,
-				WORK_PRC AS workPrc,
-				WORK_SALE_YN AS workSaleYn,
-				WORK_INTRDC AS workIntrdc,
-				WORK_CLR_CD AS workClrCd,
-				WORK_THM_CD AS workThmCd,
-				REG_MBR_SQ AS regMbrSq,
-				REG_DT AS regDt,
-				UPDT_MBR_SQ AS updtMbrSq,
-				UPDT_DT AS updtDt,
-				USE_YN AS UseYn,
-				DEL_YN AS delYn,
-				ARTST_ACTVTY_NM AS artstActvtNm,
-				ARTST_ENGLS_NM AS artstEnglsNm,
-				ARTST_BIRTH_YEAR AS artstBirthYear,
-				WORK_IMG_FRT_URL AS workImgFrtUrl,
-				WORK_IMG_RER_URL AS workImgRerUrl,
-				WORK_IMG_TOP_URL AS workImgTopUrl,
-				WORK_IMG_BOT_URL AS workImgBotUrl,
-				WORK_IMG_LEF_URL AS workImgLefUrl,
-				WORK_IMG_RIT_URL AS workImgRitUrl,
-				WORK_FRM_YN AS workFrmYn,
-				WORK_VIDEO_URL AS workVideoUrl,
-				WORK_GRT_URL AS workGrtUrl 
+				A.WORK_SQ AS workSq,
+				A.MBR_SQ AS mbrSq,
+				A.ARTST_SQ AS artstSq,
+				A.WORK_NM AS workNm,
+				A.WORK_MATRL AS workMatrl,
+				A.WORK_TYP_CD AS workTypCd,
+				A.WORK_SHP_CD AS workShpCd,
+				A.WORK_CLSFC_CD AS workClsfcCd,
+				A.WORK_SIZE_WIDTH AS workSizeWidth,
+				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_SIZE_HEIGHT AS workSizeHeight,
+				A.WORK_SIZE_WEIGHT AS workSizeWeigth,
+				A.WORK_LAKE AS workLake,
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl,
+				A.WORK_FRM_IMG_URL AS workFrmImgUrl,
+				A.WORK_MDIA AS workMdia,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_PRC AS workPrc,
+				A.WORK_SALE_YN AS workSaleYn,
+				A.WORK_INTRDC AS workIntrdc,
+				A.WORK_CLR_CD AS workClrCd,
+				A.WORK_THM_CD AS workThmCd,
+				A.REG_MBR_SQ AS regMbrSq,
+				A.REG_DT AS regDt,
+				A.UPDT_MBR_SQ AS updtMbrSq,
+				A.UPDT_DT AS updtDt,
+				A.USE_YN AS UseYn,
+				A.DEL_YN AS delYn,
+				A.ARTST_ACTVTY_NM AS artstActvtNm,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
+				A.ARTST_BIRTH_YEAR AS artstBirthYear,
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
+				A.WORK_IMG_RER_URL AS workImgRerUrl,
+				A.WORK_IMG_TOP_URL AS workImgTopUrl,
+				A.WORK_IMG_BOT_URL AS workImgBotUrl,
+				A.WORK_IMG_LEF_URL AS workImgLefUrl,
+				A.WORK_IMG_RIT_URL AS workImgRitUrl,
+				A.WORK_FRM_YN AS workFrmYn,
+				A.WORK_VIDEO_URL AS workVideoUrl,
+				A.WORK_GRT_URL AS workGrtUrl,
+				B.DEAL_SQ AS dealSq,
+				B.SELL_MBR_SQ AS sellMbrSq,
+				B.BUY_MBR_SQ AS buyMbrSq,
+				B.DEAL_FINAL_PRC AS dealFinalPrc 
 		FROM 
-				TBL_DA_WORK_M
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_DEAL_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
 		WHERE 
-				WORK_SQ = #{workSq}
+				B.DEAL_SQ = #{dealSq}
 	</select>
 	<insert id="insertCollectionAll" parameterType="hashMap">
 		/*구매 확정 된 작품 소장품으로 등록*/
@@ -651,95 +664,95 @@
 						WORK_IMG_FRT_URL,
 						WORK_FRM_YN,
 						REG_MBR_SQ,
-						REG_DT,
+						REG_DT
 						<if test="artstSq != null and artstSq != ''">
 						,ARTST_SQ
 						</if>
 						<if test="workMatrl != null and workMatrl != ''">
-						WORK_MATRL,
+						,WORK_MATRL
 						</if>
 						<if test="workShpCd != null and workShpCd != ''">
-						WORK_SHP_CD,
+						,WORK_SHP_CD
 						</if>
 						<if test="workClsfcCd != null and workClsfcCd != ''">
-						WORK_CLSFC_CD,
+						,WORK_CLSFC_CD
 						</if>
 						<if test="workSizeWidth != null and workSizeWidth != ''">
-						WORK_SIZE_WIDTH,
+						,WORK_SIZE_WIDTH
 						</if>
 						<if test="workSizeDepth != null and workSizeDepth != ''">
-						WORK_SIZE_DEPTH,
+						,WORK_SIZE_DEPTH
 						</if>
 						<if test="workSizeHeight != null and workSizeHeight != ''">
-						WORK_SIZE_HEIGHT,
+						,WORK_SIZE_HEIGHT
 						</if>
 						<if test="workSizeWeigth != null and workSizeWeigth != ''">
-						WORK_SIZE_WEIGHT,
+						,WORK_SIZE_WEIGHT
 						</if>
 						<if test="workLake != null and workLake != ''">
-						WORK_LAKE,
+						,WORK_LAKE
 						</if>
 						<if test="workMainImgUrl != null and workMainImgUrl != ''">
-						WORK_MAIN_IMG_URL,
+						,WORK_MAIN_IMG_URL
 						</if>
 						<if test="workFrmImgUrl != null and workFrmImgUrl != ''">
-						WORK_FRM_IMG_URL,
+						,WORK_FRM_IMG_URL
 						</if>
 						<if test="workMdia != null and workMdia != ''">
-						WORK_MDIA,
+						,WORK_MDIA
 						</if>
 						<if test="workProdcYear != null and workProdcYear != ''">
-						WORK_PRODC_YEAR,
+						,WORK_PRODC_YEAR
 						</if>
 						<if test="workPrc != null and workPrc != ''">
-						WORK_PRC,
+						,WORK_PRC
 						</if>
 						<if test="workIntrdc != null and workIntrdc != ''">
-						WORK_INTRDC,
+						,WORK_INTRDC
 						</if>
 						<if test="workThmCd != null and workThmCd != ''">
-						WORK_THM_CD,
+						,WORK_THM_CD
 						</if>
 						<if test="artstEnglsNm != null and artstEnglsNm != ''">
-						ARTST_ENGLS_NM,
+						,ARTST_ENGLS_NM
 						</if>
 						<if test="artstBirthYear != null and artstBirthYear != ''">
-						ARTST_BIRTH_YEAR,
+						,ARTST_BIRTH_YEAR
 						</if>
 						<if test="workImgRerUrl != null and workImgRerUrl != ''">
-						WORK_IMG_RER_URL,
+						,WORK_IMG_RER_URL
 						</if>
 						<if test="workImgTopUrl != null and workImgTopUrl != ''">
-						WORK_IMG_TOP_URL,
+						,WORK_IMG_TOP_URL
 						</if>
 						<if test="workImgBotUrl != null and workImgBotUrl != ''">
-						WORK_IMG_BOT_URL,
+						,WORK_IMG_BOT_URL
 						</if>
 						<if test="workImgLefUrl != null and workImgLefUrl != ''">
-						WORK_IMG_LEF_URL,
+						,WORK_IMG_LEF_URL
 						</if>
 						<if test="workImgRitUrl != null and workImgRitUrl != ''">
-						WORK_IMG_RIT_URL,
+						,WORK_IMG_RIT_URL
 						</if>
 						<if test="workVideoUrl != null and workVideoUrl != ''">
-						WORK_VIDEO_URL,
+						,WORK_VIDEO_URL
 						</if>
 						<if test="workGrtUrl != null and workGrtUrl != ''">
-						WORK_GRT_URL
+						,WORK_GRT_URL
 						</if>
 				) VALUES (
-						#{mbrSq},
+						#{buyMbrSq},
 						#{workNm},
-						#{workTypCd},
-						#{workSaleYn},
+						'COLL',
+						'N',
 						#{workClrCd},
-						#{UseYn},
-						#{delYn},
+						'Y',
+						'N',
 						#{artstActvtNm},
 						#{workImgFrtUrl},
 						#{workFrmYn},
-						#{mbrSq},
-						NOW(),
+						#{buyMbrSq},
+						NOW()
 						<if test="artstSq != null and artstSq != ''">
 						,#{artstSq}
 						</if>
@@ -813,8 +826,28 @@
 						,#{workVideoUrl}
 						</if>
 						<if test="workGrtUrl != null and workGrtUrl != ''">
-						,#{workGrtUrl)
+						,#{workGrtUrl}
 						</if>
 				)
 	</insert>
+	<update id="updateDealWorkToPC" parameterType="hashMap">
+		/*구매확정 거래 상태 작품 판매 여부 사용 여부 수정*/
+  		UPDATE 
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_DEAL_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
+		INNER JOIN
+				TBL_DA_WORK_DEAL_H AS C
+			ON	B.DEAL_SQ = C.DEAL_SQ
+		SET		
+				A.USE_YN = 'N',
+				A.WORK_SALE_YN = 'Y',
+				A.UPDT_DT = NOW(),
+				A.UPDT_MBR_SQ = #{sellMbrSq},
+				B.DEAL_STTS_CD = 'PC',
+				C.DEAL_FINAL_PRC = #{dealFinalPrc}
+		WHERE  
+				B.DEAL_SQ = #{dealSq}
+	</update>
 </mapper>
