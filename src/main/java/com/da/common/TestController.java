@@ -626,9 +626,9 @@ public class TestController {
       	
 		return result;
 	}
-	@RequestMapping("/fileDownload")
-	public boolean fileDownload(HttpServletRequest request, HttpServletResponse response) {
-		return awsS3Service.download("board/정영우등본.pdf", "다운로드.pdf", request, response);
-	}
+//	@RequestMapping("/fileDownload")
+//	public boolean fileDownload(HttpServletRequest request, HttpServletResponse response) {
+//		return awsS3Service.download("board/정영우등본.pdf", "다운로드.pdf", request, response);
+//	}
 }
 
