@@ -38,7 +38,27 @@
 				
 				<div class="baeg-wrap">
 					<div class="baeg-left">
-						<img th:src="${result.work.workMainImgUrl}" style="width:98%;"/>
+						<div class="contentbox">
+							<div class="bigImages">
+								<img class="big big1" th:src="${result.work.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
+							</div>
+								<div class="smallImages">
+								<!-- 메인 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+								<!-- 전면 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" /> -->
+								<!-- 후면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+								<!-- 좌 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+								<!-- 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+								<!-- 하 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
+							</div>
+						</div>
 					</div>
 					<div class="baeg-right">
 						<div class="be-title">
@@ -72,6 +92,11 @@
 							<tr>
 								<th>사이즈</th>
 								<td th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
+							</tr>
+							<tr>
+								<th>호수</th>
+								<td th:if="${not #strings.isEmpty(result.work.workLake)}" th:utext="|${result.work.workLake} 
+								<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
 							</tr>
 							<tr>
 								<th>판매 여부</th>
@@ -319,8 +344,242 @@
 		</div>
 	</div>
 </div>
+<!-- 0702 시작 -->
+<div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content big-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="contentbox">
+					<div class="bigImages">
+						<img class="big big2" th:src="${result.work.workMainImgUrl}"/>
+					</div>
+					<div class="smallImages">
+						<!-- 메인 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+						<!-- 전면 -->
+						<!-- <img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" /> -->
+						<!-- 후면 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+						<!-- 좌 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+						<!-- 우 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+						<!-- 상 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+						<!-- 하 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 호수 안내표 -->
+<!-- table -->
+<div class="modal fade modal-s" id="lakeHelpModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w480" style="max-width:600px !important;">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" onclick="closeLakeHelp()"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
 
+				<div class="login-box" style="margin-top:30px;">
+					<p class="lb-p1">작품 사이즈 기준표 (cm)</p>
+					<div class="text-box1">
+						
+						<table class="tstyle4">
+						  <tr>
+						    <td> 호수 </td>
+						    <td> F형(인물) </td>
+						    <td> P형(풍경) </td>
+						    <td> M형(해경) </td>
+						    <td> S형(정방형) </td>
+						  </tr>
+						  <tr>
+						    <td> 0 </td>
+						    <td> 18.0x14.0 </td>
+						    <td> - </td>
+						    <td> - </td>
+						    <td> - </td>
+						  </tr>
+						  <tr>
+						    <td> 1 </td>
+						    <td> 22.7x15.8 </td>
+						    <td> 22.7x14.0 </td>
+						    <td> 22.7x12.0 </td>
+						    <td> 15.8x15.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 2 </td>
+						    <td> 25.8x17.9 </td>
+						    <td> 25.8x16.0 </td>
+						    <td> 25.8x14.0 </td>
+						    <td> 17.9x17.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 3 </td>
+						    <td> 27.3x22.0 </td>
+						    <td> 27.3x19.0 </td>
+						    <td> 27.3x16.0 </td>
+						    <td> 22.0x22.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 4 </td>
+						    <td> 33.4x24.2 </td>
+						    <td> 33.4x21.2 </td>
+						    <td> 33.4x19.0 </td>
+						    <td> 24.2x24.2 </td>
+						  </tr>
+						  <tr>
+						    <td> 5 </td>
+						    <td> 34.8x27.3 </td>
+						    <td> 34.8x24.2 </td>
+						    <td> 34.8x21.2 </td>
+						    <td> 27.3x27.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 6 </td>
+						    <td> 40.9x31.8 </td>
+						    <td> 40.9x27.3 </td>
+						    <td> 40.9x24.2 </td>
+						    <td> 31.8x31.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 8 </td>
+						    <td> 45.5x37.9 </td>
+						    <td> 45.5x33.4 </td>
+						    <td> 45.5x27.3 </td>
+						    <td> 37.9x37.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 10 </td>
+						    <td> 53.0x45.0 </td>
+						    <td> 53.0x40.9 </td>
+						    <td> 53.0x33.4 </td>
+						    <td> 45.0x45.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 12 </td>
+						    <td> 60.6x50.0 </td>
+						    <td> 60.6x45.5 </td>
+						    <td> 60.6x40.9 </td>
+						    <td> 50.0x50.5 </td>
+						  </tr>
+						  <tr>
+						    <td> 15 </td>
+						    <td> 65.1x53.0 </td>
+						    <td> 65.1x50.5 </td>
+						    <td> 65.1x45.5 </td>
+						    <td> 53.0x53.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 20 </td>
+						    <td> 72.7x60.6 </td>
+						    <td> 72.7x53.0 </td>
+						    <td> 72.7x50.0 </td>
+						    <td> 60.6x60.6 </td>
+						  </tr>
+						  <tr>
+						    <td> 25 </td>
+						    <td> 80.3x65.1 </td>
+						    <td> 80.3x60.6 </td>
+						    <td> 80.3x53.0 </td>
+						    <td> 65.1x65.1 </td>
+						  </tr>
+						  <tr>
+						    <td> 30 </td>
+						    <td> 90.9x72.7 </td>
+						    <td> 90.9x65.1 </td>
+						    <td> 90.9x60.6 </td>
+						    <td> 72.7x72.7 </td>
+						  </tr>
+						  <tr>
+						    <td> 40 </td>
+						    <td> 100.0x80.3 </td>
+						    <td> 100.0x72.7 </td>
+						    <td> 100.0x65.1 </td>
+						    <td> 80.3x80.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 50 </td>
+						    <td> 116.8x91.0 </td>
+						    <td> 116.8x80.3 </td>
+						    <td> 116.8x72.7 </td>
+						    <td> 91.0x91.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 60 </td>
+						    <td> 130.3x97.0 </td>
+						    <td> 130.3x89.4 </td>
+						    <td> 130.3x80.3 </td>
+						    <td> 97.0x97.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 80 </td>
+						    <td> 145.5x112.1 </td>
+						    <td> 145.5x97.0 </td>
+						    <td> 145.5x89.4 </td>
+						    <td> 112.1x112.1 </td>
+						  </tr>
+						  <tr>
+						    <td> 100 </td>
+						    <td> 162.2x130.3 </td>
+						    <td> 162.2x112.1 </td>
+						    <td> 162.2x97.0 </td>
+						    <td> 130.3x130.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 120 </td>
+						    <td> 193.9x130.3 </td>
+						    <td> 193.9x112.1 </td>
+						    <td> 193.9x97.0 </td>
+						    <td> - </td>
+						  </tr>
+						  <tr>
+						    <td> 150 </td>
+						    <td> 227.3x181.8 </td>
+						    <td> 227.3x162.1 </td>
+						    <td> 227.3x145.5 </td>
+						    <td> 181.8x181.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 200 </td>
+						    <td> 259.1x193.9 </td>
+						    <td> 259.1x181.9 </td>
+						    <td> 259.1x162.1 </td>
+						    <td> 193.9x193.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 300 </td>
+						    <td> 290.9x218.2 </td>
+						    <td> 290.9x197.0 </td>
+						    <td> 290.9x181.8 </td>
+						    <td> 218.2x218.2 </td>
+						  </tr>
+						  <tr>
+						    <td> 500 </td>
+						    <td> 333.3x248.5 </td>
+						    <td> 333.3x218.2 </td>
+						    <td> 333.3x197.0 </td>
+						    <td> 248.5x248.5 </td>
+						  </tr>
+						</table>
 
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <script th:inline="javascript">
@@ -352,6 +611,12 @@ jQuery(document).ready(function($){
 $('.selectpicker').selectpicker('render');
 
 var result = /*[[${result}]]*/ 'default';
+//호수 안내 팝업 오픈
+function openLakeHelp(){
+	$('body').css("overflow", "hidden");
+	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
+	$("#lakeHelpModal").modal("show");
+}
 //작가의 다른 작품 리스트
 function workList(){
 	if(result.workList.length > 0){
@@ -493,7 +758,35 @@ function workList(){
     // therefore delegated events won't be fired
     event.stopPropagation();
 });
- 
+/* 0702 시작 */
+/* 상세 왼쪽이미지 */
+var bigPic1 = document.querySelector(".big1")
+var smallPics1 = document.querySelectorAll(".small1")
+
+for(var i = 0 ; i < smallPics1.length ; i++){
+  smallPics1[i].addEventListener("mouseover", changepic1);
+  
+}
+
+function changepic1(){
+  var smallPic1Attribute = this.getAttribute("src");
+  bigPic1.setAttribute("src", smallPic1Attribute);
+}
+
+/* 모달 상세 왼쪽이미지 */
+var bigPic2 = document.querySelector(".big2")
+var smallPics2 = document.querySelectorAll(".small2")
+
+for(var i = 0 ; i < smallPics2.length ; i++){
+  smallPics2[i].addEventListener("mouseover", changepic2);
+  
+}
+
+function changepic2(){
+  var smallPic2Attribute = this.getAttribute("src");
+  bigPic2.setAttribute("src", smallPic2Attribute);
+}
+/* 0702 끝 */
 </script>
 
 	

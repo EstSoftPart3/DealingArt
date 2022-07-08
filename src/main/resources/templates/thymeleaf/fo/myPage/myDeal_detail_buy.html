@@ -519,7 +519,13 @@ var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 //$("#mainPayCall").val(1);
 
-//window.onpopstate = function () { history.go(-1)}; 
+var historyYn = "Y";
+history.pushState(null, null, '');
+window.onpopstate = function(e) {    
+	if(historyYn == "Y"){  
+		history.back(-1);    
+	}
+};
 /*
  * 화면 오픈시
  */
@@ -740,6 +746,7 @@ function btn_paymethod_onclick(obj){
  * 결제하기
  */
  function btn_payment(){
+	historyYn = "N";
 	var data = {
 			/*메인 페이에 보낼 파라미터*/
 			mbrRefNo : "", //주문번호

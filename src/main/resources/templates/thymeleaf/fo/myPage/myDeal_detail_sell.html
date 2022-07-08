@@ -459,6 +459,14 @@ var sbx_couponSqList = []; //셀렉트 박스 쿠폰 순번 저장용
 var trnsprt = new Object(); //운송 테이블
 var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
+
+var historyYn = "Y";
+history.pushState(null, null, '');
+window.onpopstate = function(e) {    
+	if(historyYn == "Y"){  
+		history.back(-1);    
+	}
+};
 /*
  * 화면 오픈시
  */
@@ -623,6 +631,7 @@ function btn_paymethod_onclick(obj){
  * 결제하기
  */
 function btn_payment(){
+	historyYn = "N";
 	var data = {
 			/*메인 페이에 보낼 파라미터*/
 			mbrRefNo : "", //주문번호

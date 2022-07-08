@@ -409,7 +409,12 @@
 				A.WORK_SALE_YN AS workSaleYn,
 				A.WORK_CLR_CD AS workClrCd,
 				A.ARTST_ENGLS_NM AS artstEnglsNm,
-			
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl, /*전면이미지주소*/
+	            A.WORK_IMG_RER_URL AS workImgRerUrl, /*후면이미지주소*/
+	            A.WORK_IMG_TOP_URL AS workImgTopUrl, /*상 이미지주소*/
+	            A.WORK_IMG_BOT_URL AS workImgBotUrl, /*히 이미지주소*/
+	            A.WORK_IMG_LEF_URL AS workImgLefUrl, /*좌 이미지주소*/
+	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc,
 				B.MBR_NCKNM AS mbrNcknm
 		FROM

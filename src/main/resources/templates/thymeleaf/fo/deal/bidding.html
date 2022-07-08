@@ -55,20 +55,20 @@
 								<img class="big big1" th:src="${result.deal.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
 							</div>
 							<div class="smallImages">
+								<!-- 메인 -->
 								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
-								<!-- small box 메인이미지-->
+								<!-- 전면 -->
 								<!-- <img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" /> -->
-								<!-- small box 전면이미지 -->
-								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRerUrl}" />
-								<!-- small box 후면이미지 -->
-								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgTopUrl}" />
-								<!-- small box 상 -->
-								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
-								<!-- small box 우 -->
+								<!-- 후면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
+								<!-- 좌 -->
 								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
-								<!-- small box 좌 -->
+								<!-- 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
+								<!-- 하 -->
 								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
-								<!-- small box 하 -->
 							</div>
 						</div>
 					</div>
@@ -737,20 +737,20 @@
 						<img class="big big2" th:src="${result.deal.workMainImgUrl}"/>
 					</div>
 					<div class="smallImages">
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
-						<!-- small box 메인이미지-->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" />
-						<!-- small box 전면이미지 -->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRerUrl}" />
-						<!-- small box 후면이미지 -->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgTopUrl}" />
-						<!-- small box 상 -->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
-						<!-- small box 우 -->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
-						<!-- small box 좌 -->
-						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
-						<!-- small box 하 -->
+						<!-- 메인 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+						<!-- 전면 -->
+						<!-- <img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" /> -->
+						<!-- 후면 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
+						<!-- 좌 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+						<!-- 우 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+						<!-- 상 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
+						<!-- 하 -->
+						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
 					</div>
 				</div>
 			</div>

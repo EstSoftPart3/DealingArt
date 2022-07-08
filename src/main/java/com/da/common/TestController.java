@@ -59,6 +59,9 @@ public class TestController {
 	@Autowired
 	private MyPageMapper myPageMapper;
 	
+	@Autowired
+	private AwsS3Service awsS3Service;
+	
 //	@RequestMapping("/")
 //	public String index() {
 //		logger.info("index");
@@ -623,6 +626,9 @@ public class TestController {
       	
 		return result;
 	}
-
+	@RequestMapping("/fileDownload")
+	public boolean fileDownload(HttpServletRequest request, HttpServletResponse response) {
+		return awsS3Service.download("board/정영우등본.pdf", "다운로드.pdf", request, response);
+	}
 }
 
