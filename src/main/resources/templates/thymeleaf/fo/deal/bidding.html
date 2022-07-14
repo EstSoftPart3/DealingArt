@@ -113,9 +113,9 @@
 									<th>사이즈</th>
 									<td th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
 								</tr>
-								<tr>
+								<tr th:if="${not #strings.isEmpty(result.deal.workLake)}">
 									<th>호수</th>
-									<td th:if="${not #strings.isEmpty(result.deal.workLake)}" th:utext="|${result.deal.workLake} 
+									<td th:utext="|${result.deal.workLake} 
 									<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
 								</tr>
 								<tr>
@@ -738,19 +738,19 @@
 					</div>
 					<div class="smallImages">
 						<!-- 메인 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
 						<!-- 전면 -->
-						<!-- <img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" /> -->
+						<!-- <img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" /> -->
 						<!-- 후면 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
 						<!-- 좌 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
 						<!-- 우 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
 						<!-- 상 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
 						<!-- 하 -->
-						<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
+						<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
 					</div>
 				</div>
 			</div>
@@ -986,13 +986,16 @@ jQuery(document).ready(function($){
 });
 
 $('.selectpicker').selectpicker('render');
-
+/* if(new Date() >= new Date('2022/07/20 18:00') &&
+	new Date() <= new Date('2022/09/01 00:00')){
+	
+} */
 var result = /*[[${result}]]*/ 'default';
 
 //호수 안내 팝업 오픈
 function openLakeHelp(){
 	$('body').css("overflow", "hidden");
-	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
+	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false});
 	$("#lakeHelpModal").modal("show");
 }
 //호수 안내 팝업 닫기

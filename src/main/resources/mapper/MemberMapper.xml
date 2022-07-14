@@ -149,14 +149,16 @@
 	</update>
    
    <select id="login" resultType="hashMap" parameterType="hashMap">
-   /* 회원 로그인 */
+   		/* 회원 로그인 */
 		SELECT 	
 				MBR_SQ AS mbrSq,
 				AUTH_SQ AS authSq
 		FROM 	
 				TBL_DA_MBR_M
 		WHERE 	
-				MBR_ID = #{loginId}
+				USE_YN = 'Y'
+			AND DEL_YN = 'N'
+			AND	MBR_ID = #{loginId}
 			AND	MBR_PASSWRD = #{loginPw}   
    </select>
    
@@ -575,7 +577,9 @@
 		FROM 
 				TBL_DA_MBR_M
 		WHERE 
-				MBR_CP_CERT_DI = #{mbrCpCertDi}
+				USE_YN = 'Y'
+			AND DEL_YN = 'N'
+			AND	MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
    
    <select id="selectMbrCpCertDi" resultType="String" parameterType="String">
@@ -585,7 +589,9 @@
    		FROM
    				TBL_DA_MBR_M
    		WHERE
-   				MBR_CP_CERT_DI = #{mbrCpCertDi}
+   				USE_YN = 'Y'
+			AND DEL_YN = 'N'
+   			AND	MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
    
    <select id="memberDuplicateCheck" resultType="int" parameterType="String">
@@ -595,7 +601,9 @@
 		FROM
 				TBL_DA_MBR_M
 		WHERE 
-				MBR_CP_CERT_DI = #{mbrCpCertDi}
+				USE_YN = 'Y'
+			AND	DEL_YN = 'N'
+			AND	MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
    
    <select id="changePasswrdCheck" parameterType="hashMap" resultType="int">
@@ -661,6 +669,8 @@
    		FROM
    				TBL_DA_MBR_M
    		WHERE
-   				MBR_CP_CERT_DI = #{mbrCpCertDi}
+   				USE_YN = 'Y'
+			AND DEL_YN = 'N'
+   			AND	MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
 </mapper>

@@ -75,7 +75,7 @@ public class SendSmsUtil {
 			params.put("timestamp", timestamp);
 			params.put("access_key", access_key);
 			params.put("signature", signature);
-			
+			System.out.println("@@@@@@@parmas:"+params);
 			rtnMap = restTemplate.sendNCloudPostApi(url, params);
 			
 		} catch (InvalidKeyException e) {
@@ -209,6 +209,7 @@ public class SendSmsUtil {
 				params.put("content", smsContent);
 				params.put("messages", mList);
 				
+				System.out.println("######params:"+params);
 				rtnMap = this.sendSms(params);
 				
 				

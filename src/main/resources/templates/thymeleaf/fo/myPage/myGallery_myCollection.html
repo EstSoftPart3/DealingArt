@@ -306,7 +306,7 @@ function myCollectionList(){
 			}
 			
 			//거래종료
-			if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != ""){
+			if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != "" && result[i].dealSttsCd != "FB"){
 				
 				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 				html += '<div >';
@@ -350,7 +350,7 @@ function myCollectionList(){
 			}
 
 			
-			if(result[i].dealTypCd == null || result[i].dealTypCd == ""){
+			if(result[i].dealTypCd == null || result[i].dealTypCd == "" || result[i].dealSttsCd == "FB"){
 			
 				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 				html += '<div >';

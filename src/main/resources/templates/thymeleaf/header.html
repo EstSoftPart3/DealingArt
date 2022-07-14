@@ -321,7 +321,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<div class="baegs">
 					<h2>아이디찾기</h2>
 				    <img src="resources/img/ba/icon-3.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeFindIdModal()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 			</div>
 			<div class="modal-body login-body">
@@ -369,8 +369,14 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 	ibx_search_onkeyup();
 });
 function openFindIdModal(){
+	$('body').css("overflow", "hidden");
+	$('#loginModal').modal({backdrop: 'static', keyboard: false});
 	$("#loginModal").modal("hide");
 	$("#idModal").modal("show");
+}
+function closeFindIdModal(){
+	$('body').css("overflow", "scroll");
+	$("#idModal").modal("hide");
 }
 $('#findIdCpNum').click(function() {
 	$.ajax({
@@ -411,12 +417,10 @@ function findIdReturnValue(returnValue){
 	})
 }
 $("#findIdLoginBtn").click(function() {
+	$('body').css("overflow", "scroll");
 	$("#txt_Id").val($("#findIdmbrId").val());
 	$("#idModal").modal("hide");
 	$("#loginModal").modal("show");
-});
-$("#findIdFindPwdBtn").click(function() {
-
 });
 </script>
 
@@ -469,6 +473,8 @@ $("#findIdFindPwdBtn").click(function() {
 </div>
 <script th:inline="javascript">
 function openFindPwdModal(){
+	$('body').css("overflow", "hidden");
+	$('#passModal').modal({backdrop: 'static', keyboard: false});
 	$('#loginModal').modal('hide');
 	$('#passModal').modal('show');
 }
@@ -485,12 +491,16 @@ $('#findPwdCpNum').click(function() {
 	});
 });
 function findPwrModalClose(){
+	$('body').css("overflow", "scroll");
 	$("#findPwd")[0].reset();
 	$("#findPwdMbrIdCheck").text("비밀번호를 찾고자하는 아이디를 입력해주세요.");
 	$("#findPwdMbrIdCheck").css("color","#999999");
 	$("#findPwdCpNum").css("display","none");
 	$("#findPwdMbrIdBtn").css("display","");
 	$("#findPwdMbrId").attr("disabled", false);
+	$("#findPwdMbrPwdForm1").css("display", "none");
+	$("#findPwdMbrPwdForm2").css("display", "none");
+	$("#findPwdSubmit").css("display", "none");
 	$('#passModal').modal('hide');
 }
 //아이디 중복 체크
@@ -544,7 +554,7 @@ function findPwdReturnValue(returnValue){
 			   		$("#findPwdCpNum").css("display", "none");
 				}else{
 					findPwrModalClose();
-					modalAlertShow("등록된 회원 정보가 없습니다.","");
+					modalAlertShow("등록된 회원정보와 일치하지 않습니다.","");
 				}
 			},
 			error: function(error) {

@@ -93,9 +93,9 @@
 								<th>사이즈</th>
 								<td th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
 							</tr>
-							<tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workLake)}">
 								<th>호수</th>
-								<td th:if="${not #strings.isEmpty(result.work.workLake)}" th:utext="|${result.work.workLake} 
+								<td th:utext="|${result.work.workLake} 
 								<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
 							</tr>
 							<tr>
@@ -616,6 +616,11 @@ function openLakeHelp(){
 	$('body').css("overflow", "hidden");
 	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
 	$("#lakeHelpModal").modal("show");
+}
+//호수 안내 팝업 닫기
+function closeLakeHelp(){
+	$('body').css("overflow", "scroll");
+	$("#lakeHelpModal").modal("hide");
 }
 //작가의 다른 작품 리스트
 function workList(){

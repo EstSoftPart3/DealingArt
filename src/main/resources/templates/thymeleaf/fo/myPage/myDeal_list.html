@@ -58,6 +58,7 @@
 			                                 <option value="DS">배송중</option>
 			                                 <option value="DC">배송완료</option>
 			                                 <option value="PC">구매확정</option>
+			                                 <option value="FB">유찰</option>
 			                              </select>
 				                      </div>
 				                      <div class="is-label">
@@ -576,6 +577,10 @@ function myDealSearchList(){
 	    					myDealListHtml += '					거래중지 상태 입니다.';
 	    					myDealListHtml += '					<span>거래중지</span>';
 	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "FB"){ //유찰 상태면
+	    					myDealListHtml += '					유찰되었습니다.';
+	    					myDealListHtml += '					<span>유찰</span>';
+	    				}
 	    				myDealListHtml += '				</p>';
     				}
     				if(myDealList[i].dealTypCd == "S"){
@@ -646,6 +651,10 @@ function myDealSearchList(){
 	    				if(myDealList[i].dealSttsCd == "ST"){ //거래중지면
 	    					myDealListHtml += '					거래중지 상태 입니다.';
 	    					myDealListHtml += '					<span>거래중지</span>';
+	    				}
+	    				if(myDealList[i].sellMbrSq == sMbrSqVal && myDealList[i].dealSttsCd == "FB"){ //유찰 상태면
+	    					myDealListHtml += '					유찰되었습니다.';
+	    					myDealListHtml += '					<span>유찰</span>';
 	    				}
 	    				myDealListHtml += '				</p>';
     				}

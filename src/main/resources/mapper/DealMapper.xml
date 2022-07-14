@@ -336,7 +336,7 @@
 		WHERE 
 				A.DEAL_TYP_CD = 'A'
 			AND A.DEAL_STTS_CD = 'TP'
-			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
+			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW() + INTERVAL 5 SECOND
 	</select>
 	
 	<select id="selectNotSoldSaleList" resultType="hashMap">
@@ -346,6 +346,7 @@
 				A.WORK_SQ AS workSq,
 				B.WORK_NM AS workNm,
 				A.SELL_MBR_SQ AS sellMbrSq,
+				A.BUY_MBR_SQ AS buyMbrSq,
 				A.DEAL_TYP_CD AS dealTypCd,
 				A.DEAL_AUCTN_PRC AS dealAuctnPrc,
 				DATE_FORMAT(A.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt,
@@ -358,7 +359,7 @@
 		WHERE 
 				A.DEAL_TYP_CD = 'S'
 			AND A.DEAL_STTS_CD = 'TP'
-			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW()
+			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW() + INTERVAL 5 SECOND
 	</select>
 	
 	<select id="selectSuccessfulBidBuyMbrSq" resultType="String">
@@ -370,10 +371,11 @@
 		WHERE 
 				 DEAL_SQ = #{dealSq}
 		GROUP BY DEAL_SQ 
-		ORDER BY BID_PRC DESC;
+		ORDER BY BID_PRC DESC
+		LIMIT 1
 	</select>
 	
-	<update id="updateSuccessfulBidDeal">
+	<update id="updateSuccessfulBidDeal" parameterType="String">
 		/*경매 종료된 거래 정보 업데이트*/
 		UPDATE 
 				TBL_DA_DEAL_M
@@ -389,6 +391,16 @@
 					,DEAL_FINAL_PRC = #{dealFinalPrc}
 				</if>
 		WHERE 
+				DEAL_SQ = #{dealSq}
+	</update>
+	
+	<update id="updateFailedBidDeal" parameterType="String">
+		/*유찰된 거래 거래 상태 유찰로 변경*/
+		UPDATE
+				TBL_DA_DEAL_M
+		SET
+				DEAL_STTS_CD = 'FB'
+		WHERE
 				DEAL_SQ = #{dealSq}
 	</update>
 	
@@ -415,6 +427,7 @@
 	            A.WORK_IMG_BOT_URL AS workImgBotUrl, /*히 이미지주소*/
 	            A.WORK_IMG_LEF_URL AS workImgLefUrl, /*좌 이미지주소*/
 	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
+	            A.WORK_LAKE AS workLake,
 				FORMAT(A.WORK_PRC, 0) AS workPrc,
 				B.MBR_NCKNM AS mbrNcknm
 		FROM
@@ -590,7 +603,7 @@
 				FROM 
 						TBL_DA_AUCTN_BID_H
 				WHERE 
-						DEAL_SQ = #{dealSq}
+						DEAL_SQ = #{bidDealSq}
 					AND (BID_DATE) IN (
 							SELECT MAX(BID_DATE) AS bidDate
 							FROM TBL_DA_AUCTN_BID_H
@@ -598,7 +611,7 @@
 						)
 				ORDER BY BID_DATE
 				) A
-		WHERE A.MBR_SQ != #{mbrSq}
+		WHERE A.MBR_SQ != #{bidBuyMbrSq}
 		GROUP BY A.MBR_SQ
 	</select>
 	
@@ -648,7 +661,15 @@
 				B.DEAL_SQ AS dealSq,
 				B.SELL_MBR_SQ AS sellMbrSq,
 				B.BUY_MBR_SQ AS buyMbrSq,
-				B.DEAL_FINAL_PRC AS dealFinalPrc 
+				B.DEAL_FINAL_PRC AS dealFinalPrc,
+				<![CDATA[
+				(CASE
+					WHEN B.DEAL_ENDNG_DT >= '2022-07-20 18:00:00' AND B.DEAL_ENDNG_DT <= '2022-09-01 00:00:00' THEN 'Y'
+				ELSE
+					'N'
+				END
+				) AS eventYn
+				]]>
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN

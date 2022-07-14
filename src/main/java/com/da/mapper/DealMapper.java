@@ -77,6 +77,13 @@ public interface DealMapper {
 	public void updateSuccessfulBidDeal(Object param);
 	
 	/*
+	 * 판매 기간 종료된 거래 중 유찰된걸 유찰로 변경한다
+	 * param : dealSq
+	 * return : null
+	 */
+	public void updateFailedBidDeal(Object param);
+	
+	/*
 	 * 작품 상세페이지 (미판매)
 	 * param : workSq
 	 * return : 작품 상세 정보
