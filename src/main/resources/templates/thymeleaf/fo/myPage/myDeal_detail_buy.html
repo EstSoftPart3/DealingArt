@@ -336,9 +336,9 @@
 										</div>
 										
 										<div class="mbtn-box">
-											<a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a>
+											<a href="javascript:void(0);" class="btns-3" onclick="openReceipt1()">영수증</a>
 											<a href="javascript:fnModalAlert();" class="btns-3">거래명세서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a>
+											<!-- <a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a> -->
 											<a href="javascript:fnModalAlert();" class="btns-3">거래계약서</a>
 										</div>
 									</div>
@@ -391,9 +391,9 @@
 										</div>
 										
 										<div class="mbtn-box">
-											<a href="javascript:fnModalAlert();" class="btns-3">카드영수증</a>
+											<a href="javascript:void(0);" class="btns-3" onclick="openReceipt2()">영수증</a>
 											<a href="javascript:fnModalAlert();" class="btns-3">거래명세서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a>
+											<!-- <a href="javascript:fnModalAlert();" class="btns-3">현금영수증</a> -->
 											<a href="javascript:fnModalAlert();" class="btns-3">거래계약서</a>
 										</div>
 									</div>
@@ -742,6 +742,30 @@ function btn_paymethod_onclick(obj){
 	}
 }
 
+/*
+ * 1차 결제 영수증 
+ */
+function openReceipt1(){
+	var refNo = result.payMntInfo1.refNo;
+	var tranDate = result.payMntInfo1.tranDate;
+	if(refNo != null && refNo != "" && tranDate != null && tranDate != ""){
+		window.open("https://cp.mainpay.co.kr/salesReceipt/salesReceipt_popup.do?ref_no="+refNo+"&&tran_date="+tranDate);
+	}else{
+		modalAlertShow("결제 이력이 없습니다.");
+	}
+}
+/*
+ * 2차 결제 영수증 
+ */
+function openReceipt2(){
+	var refNo = result.payMntInfo2.refNo;
+	var tranDate = result.payMntInfo2.tranDate;
+	if(refNo != null && refNo != "" && tranDate != null && tranDate != ""){
+		window.open("https://cp.mainpay.co.kr/salesReceipt/salesReceipt_popup.do?ref_no="+refNo+"&&tran_date="+tranDate);
+	}else{
+		modalAlertShow("결제 이력이 없습니다.");
+	}
+}
 /*
  * 결제하기
  */

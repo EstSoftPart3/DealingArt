@@ -195,7 +195,7 @@ public class TestController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('결제를 실패하였습니다. 사유 : "+rsltMap.get("resultMessage").toString()+"'); "
-					+ "opener.call(\"+rsltMap.get(\"resultCode\").toString()+\"); window.close(); </script>");
+					+ "opener.call("+rsltMap.get("resultCode").toString()+"); window.close(); </script>");
 			out.flush();
 		}
 	}

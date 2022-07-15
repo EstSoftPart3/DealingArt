@@ -1813,7 +1813,9 @@
 				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
 				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
-				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
+				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
+				A.REF_NO AS refNo,
+				A.TRAN_DATE AS tranDate
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -1878,7 +1880,9 @@
 				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
 				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
-				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
+				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
+				A.REF_NO AS refNo,
+				A.TRAN_DATE AS tranDate
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -1943,7 +1947,9 @@
 				FORMAT((A.PAYMNT_AMT - A.PAYMNT_FEE_AMT), 0) AS paymntWorkAmt, /*작품 가격*/
 				FORMAT(A.PAYMNT_FEE_AMT, 0)AS paymntFeeAmt, /*거래 수수료*/
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
-				B.CUPON_NM AS cuponNm /*쿠폰 내용*/
+				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
+				A.REF_NO AS refNo,
+				A.TRAN_DATE AS tranDate
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 

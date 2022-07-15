@@ -324,6 +324,7 @@
 				A.DEAL_SQ AS dealSq,
 				A.WORK_SQ AS workSq,
 				B.WORK_NM AS workNm,
+				A.SELL_MBR_SQ AS sellMbrSq,
 				A.DEAL_TYP_CD AS dealTypCd,
 				A.DEAL_AUCTN_PRC AS dealAuctnPrc,
 				DATE_FORMAT(A.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt,
