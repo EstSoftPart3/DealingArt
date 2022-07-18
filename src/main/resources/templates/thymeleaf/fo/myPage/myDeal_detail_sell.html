@@ -660,7 +660,7 @@ function btn_payment(){
 			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
 			workSq : result.dealInfo.workSq, //작품 순번
 			artstSq : result.dealInfo.artstSq, //아티스트 순번
-			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
+			buyMbrSq : result.dealInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
 			paymntFeeAmt : null, //결제 수수료
@@ -753,7 +753,7 @@ function paymntCompleted(){
 			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
 			workSq : result.dealInfo.workSq, //작품 순번
 			artstSq : result.dealInfo.artstSq, //아티스트 순번
-			buyMbrSq : result.mbrInfo.buyMbrSq, //결제 회원 순번
+			buyMbrSq : result.dealInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
 			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료

@@ -905,29 +905,58 @@
 $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
-	}else{
-		//event();
 	}
 });
 $('.selectpicker').selectpicker();
 function event(){
-	if(new Date() >= new Date('2022/07/14 13:00') &&
+	if(new Date() >= new Date('2022/07/20 18:00') &&
 		new Date() <= new Date('2022/09/01 00:00')){
 		$.ajax({
 	        type: "post",
-	        url: "/myRegCoupon",
+	        url: "/myCouponList",
 	        data:{
-				mbrSq : sMbrSqVal,
-				cuponIdntfctnNum : "82X9-JB4L-FSOS-E66S"
+				mbrSq : sMbrSqVal
 			},
 	        success: function(data) {
-	        	console.log(data);
-	        	modalAlertShow("딜링아트 그랜드오픈 이벤트<br/>프리니엄배송 운송비 무료 쿠폰이 발급되었습니다.");
+	        	var myCouponList = null;
+	        	var myCouponListHtml = "";
+	        	
+	        	if(data.result != null && data.result.length > 0){
+	        		myCouponList = data.result;	
+	        		var cuponYn = "N";
+	        		for(var i=0; i<myCouponList.length; i++){
+	        			
+	        			if(myCouponList[i].cuponSq == "5"){
+	        				cuponYn = "Y";
+	        				break;
+	        			}else{
+	        				cuponYn = "N";
+	        			}
+	        		}
+	        		if(cuponYn == "N"){
+	        			
+	        			$.ajax({
+        			        type: "post",
+        			        url: "/myRegCoupon",
+        			        data:{
+        						mbrSq : sMbrSqVal,
+        						cuponIdntfctnNum : "82X9-JB4L-FSOS-E66S"
+        					},
+        			        success: function(data) {
+        			        	console.log(data);
+        			        	modalAlertShow("딜링아트 그랜드오픈 이벤트<br/>프리니엄배송 운송비 무료 쿠폰이 발급되었습니다.");
+        			        },           
+        			        error: function(error) {
+        			            alert("오류 발생" + error);
+        			        }
+        				});	
+	        		}
+	        	}
 	        },           
 	        error: function(error) {
 	            alert("오류 발생" + error);
 	        }
-		});	
+		});
 	}
 }
 var result = /*[[${result}]]*/ 'default';
@@ -1352,10 +1381,10 @@ function vaild(){
 		modalAlertShow("작품 보증서가 업로드되지 않았습니다.");
 		return false;
 	}
-	if(result.work.workPrc == null || result.work.workPrc == ""){
+	/* if(result.work.workPrc == null || result.work.workPrc == ""){
 		modalAlertShow("작품 소장가가 입력되지 않았습니다.");
 		return false;
-	}
+	} */
 	/* if(result.work.workLake == null || result.work.workLake == ""){
 		modalAlertShow("호수가 입력되지 않았습니다.");
 		return false;
@@ -1555,7 +1584,7 @@ function dealReg(){
 	        		}else{
 	        			modalAlertShow("거래가 등록되었습니다.", "main");
 	        		}
-	        		
+	        		event();
 	        	}
 	        },
 	        error: function(error) {

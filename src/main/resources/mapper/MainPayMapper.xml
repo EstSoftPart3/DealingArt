@@ -173,10 +173,10 @@
 					,ARTST_SQ
 				</if> 
 			) VALUES (
-				<if test='paymntDivCd =="S"'>
+				<if test='paymntDivCd == "S"'>
 					#{sellMbrSq},
 				</if>
-				<if test='paymntDivCd =="B"'>
+				<if test='paymntDivCd == "B"'>
 					#{buyMbrSq},
 				</if>
 				#{dealSq},

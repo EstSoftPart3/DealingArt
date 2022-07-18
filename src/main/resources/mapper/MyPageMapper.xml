@@ -34,15 +34,15 @@
 			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
 			,CM.CUPON_NM 										as cuponNm 			
 			,CM.CUPON_CNTNT 									as cuponCntnt 		
-			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
-			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')          as useEndDate       
+			,DATE_FORMAT(MCR.USE_STRT_DT, '%Y.%m.%d %H:%i')		as useStrtDt		
+			,DATE_FORMAT(MCR.USE_END_DT, '%Y.%m.%d %H:%i')      as useEndDt       
 			,CM.REG_MBR_SQ                                      as regMbrSq         
 			,CM.REG_DT                                          as regDt             
 			,CM.UPDT_MBR_SQ                                     as updtMbrSq        
 			,CM.UPDT_DT                                         as updtDt            
 			,CM.USE_YN                                          as useYn             
 			,CM.DEL_YN                                          as delYn             
-			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+			,TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) 	    as diffDay
 			,MCR.CUPON_USE_YN									as cuponUseYn	
 			,MCR.CUPON_USE_DT                                   as cuponUseDt
 		FROM TBL_DA_CUPON_M CM
@@ -53,10 +53,10 @@
 				(
 					CM.CUPON_DIV_CD = "IU" 
 					
-					AND (TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) <![CDATA[<=]]> 0))
+					AND (TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) <![CDATA[<=]]> 0))
 				OR (
 						CM.CUPON_DIV_CD = "TU" 
-						AND (CURDATE() BETWEEN CM.USE_STRT_DATE AND CM.USE_END_DATE)
+						AND (CURDATE() BETWEEN MCR.USE_STRT_DT AND MCR.USE_END_DT)
 					)
 		)
 		AND MCR.MBR_SQ = #{mbrSq}
@@ -94,15 +94,15 @@
 			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
 			,CM.CUPON_NM 										as cuponNm 			
 			,CM.CUPON_CNTNT 									as cuponCntnt 		
-			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
-			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')          as useEndDate       
+			,DATE_FORMAT(MCR.USE_STRT_DT, '%Y.%m.%d %H:%i')		as useStrtDt		
+			,DATE_FORMAT(MCR.USE_END_DT, '%Y.%m.%d %H:%i')      as useEndDt         
 			,CM.REG_MBR_SQ                                      as regMbrSq         
 			,CM.REG_DT                                          as regDt             
 			,CM.UPDT_MBR_SQ                                     as updtMbrSq        
 			,CM.UPDT_DT                                         as updtDt            
 			,CM.USE_YN                                          as useYn             
 			,CM.DEL_YN                                          as delYn             
-			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+			,TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) 	as diffDay
 			,MCR.CUPON_USE_YN									as cuponUseYn	
 			,MCR.CUPON_USE_DT                                   as cuponUseDt
 		FROM TBL_DA_CUPON_M CM
@@ -117,9 +117,9 @@
 		SELECT 
 			 CM.CUPON_SQ										as cuponSq
 			,CM.CUPON_IDNTFCTN_NUM 								as cuponIdntfctnNum 
-			,DATE_FORMAT(CM.USE_STRT_DATE, '%Y-%m-%d')			as useStrtDate 		
-			,DATE_FORMAT(CM.USE_END_DATE, '%Y-%m-%d')           as useEndDate       
-			,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay
+			,CM.USE_STRT_DT										as useStrtDt 		
+			,CM.USE_END_DT          							as useEndDt       
+			<!-- ,TIMESTAMPDIFF(DAY, CM.USE_END_DATE, CURDATE()) 	as diffDay -->
 		FROM TBL_DA_CUPON_M CM
 		WHERE (CM.USE_YN = 'Y' AND CM.DEL_YN = 'N')
 		AND CM.CUPON_IDNTFCTN_NUM = #{cuponIdntfctnNum}
@@ -139,10 +139,19 @@
 			 CUPON_SQ 
 			,MBR_SQ 
 			,CUPON_USE_YN
+			,USE_STRT_DT
+			,USE_END_DT
 		)VALUES(
 			#{cuponSq} 
 			,#{mbrSq} 
 			,'N'
+			<if test="useStrtDt != null and useStrtDt != ''">
+			,${useStrtDt}
+			</if>
+			<if test="useEndDt != null and useEndDt != ''">
+			,${useEndDt}
+			</if>
+			
 		);
 	</insert>
 
