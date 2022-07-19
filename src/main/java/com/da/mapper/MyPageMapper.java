@@ -26,7 +26,7 @@ public interface MyPageMapper {
 	 * param : cuponIdntfctnNum
 	 * return : 쿠폰 목록이 들어있는 리스트
 	 */
-	public List searchCuponIdntfctnNum(Object param);
+	public Map<String, Object> searchCuponIdntfctnNum(Object param);
 	
 	/*
 	 * 쿠폰중복등록 카운트

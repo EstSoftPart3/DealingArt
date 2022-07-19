@@ -194,7 +194,7 @@ function myCouponList(searchCondition){
         					myCouponListHtml += '			<h3>'+ myCouponList[i].cuponNm+'</h3>';
         					myCouponListHtml += '			<h4>'+ myCouponList[i].cuponCntnt+'</h4>';
         					myCouponListHtml += '			<div class="cou-lis">';
-        					myCouponListHtml += '				<span class="">'+ myCouponList[i].useStrtDate+' ~ '+ myCouponList[i].useEndDate+'</span>';
+        					myCouponListHtml += '				<span class="">'+ myCouponList[i].useStrtDt+' ~ '+ myCouponList[i].useEndDt+'</span>';
         					myCouponListHtml += '				<span class="cou-red">사용기간 '+ Math.abs(myCouponList[i].diffDay) + '일 남음.</span>';
         					myCouponListHtml += '			</div>';
         					myCouponListHtml += '		</div>';
@@ -219,7 +219,7 @@ function myCouponList(searchCondition){
         					myCouponListHtml += '			<h3>'+ myCouponList[i].cuponNm+'</h3>';
         					myCouponListHtml += '			<h4>'+ myCouponList[i].cuponCntnt+'</h4>';
         					myCouponListHtml += '			<div class="cou-lis">';
-        					myCouponListHtml += '				<span class="">'+ myCouponList[i].useStrtDate+' ~ '+ myCouponList[i].useEndDate+'</span>';
+        					myCouponListHtml += '				<span class="">'+ myCouponList[i].useStrtDt+' ~ '+ myCouponList[i].useEndDt+'</span>';
         					if(myCouponList[i].cuponUseYn == 'Y'){
         						myCouponListHtml += '				<span class="cou-red">사용완료.</span>';
         					}else{

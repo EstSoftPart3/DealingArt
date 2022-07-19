@@ -54,7 +54,7 @@ public class MyPageDao {
 	 * param : cuponIdntfctnNum
 	 * return : 쿠폰 목록이 들어있는 리스트
 	 */
-	public List searchCuponIdntfctnNum(Map<String, Object> param){
+	public Map<String, Object> searchCuponIdntfctnNum(Map<String, Object> param){
 		return myPageMapper.searchCuponIdntfctnNum(param);
 	}
 	
