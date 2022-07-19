@@ -363,7 +363,7 @@ public class MyPageDao {
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 운송 가격, 코드 네임
 	 */
-	public List<Map<String, Object>> selectTrnsprtInfo(Object param){
+	public List<Map<String, Object>> selectTrnsprtInfo(Map<String, Object> param){
 		List<Map<String, Object>> result = myPageMapper.selectTrnsprtInfo(param);
 		return result;
 	}

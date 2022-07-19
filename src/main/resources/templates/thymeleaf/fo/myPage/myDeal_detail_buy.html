@@ -513,7 +513,7 @@ var feeTax = 0; //거래 수수료 부과세
 var amount = 0; //할인 전 금액
 var disc = 0; //할인할 금액
 var totalAmount = 0; //최종 결제 금액
-var sbx_couponSqList = []; //셀렉트 박스 쿠폰 순번 저장용
+var sbx_couponList = []; //쿠폰 옵션 JSON 리스트
 var trnsprt = new Object(); //운송 테이블
 var workGrtUrl = new Image(); //보증서
 workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
@@ -817,7 +817,9 @@ function openReceipt2(){
 		data.paymntTypCd = "1"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-1"; //거래 순번
 		var index = $("#sbx_couponList_DD option").index($("#sbx_couponList_DD option:selected")) - 1; //선택된 1차 쿠폰 index를 가져온다
-		data.cuponSq = sbx_couponSqList[index]; //1차 결제 쿠폰 순번을 가져온다
+		if(index > -1){
+			data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+		}
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -849,13 +851,15 @@ function openReceipt2(){
 		data.paymntTypCd = "2"; //거래 차수
 		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
 		var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
-		data.cuponSq = sbx_couponSqList[index]; //1차 결제 쿠폰 순번을 가져온다
-		if($("#sbx_trnsprtTypCd").val() == "" || $("#sbx_trnsprtTypCd").val() == null){
+		if(index > -1){
+			data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+		}
+		if($("#sbx_trnsprtTypCd").val() == "" || $("#sbx_trnsprtTypCd").val() == "null"){
 			modalAlertShow("부가서비스가 선택되지 않았습니다.", "sbx_trnsprtTypCd");
 			return false;
 		}else{
 			if($("#sbx_trnsprtTypCd").val() == "P"){
-				if($("#sbx_trnsprtServiceCd").val() == "" || $("#sbx_trnsprtServiceCd").val() == null){
+				if($("#sbx_trnsprtServiceCd").val() == "" || $("#sbx_trnsprtServiceCd").val() == "null"){
 					modalAlertShow("부가서비스가 선택되지 않았습니다.", "sbx_trnsprtTypCd");
 					return false;
 				}
@@ -918,7 +922,7 @@ function paymntCompleted(){
 	data.paymntTypCd = "2"; //거래 차수
 	data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
 	var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
-	data.cuponSq = sbx_couponSqList[index]; //1차 결제 쿠폰 순번을 가져온다
+	data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
@@ -941,6 +945,7 @@ function paymntCompleted(){
  * 결제 완료/실패 시 리로드 된다
  */
 window.call = function (data) {
+	historyYn = "N";
 	//2차 결제면 운송 정보를 입력한다.
 	if(data == "200" && result.dealInfo.buyPaymntSttsCd == "2PW"){
 		var trnsprtInfo = [];
@@ -1185,14 +1190,20 @@ function getCouponList(code){
 				target.options.length = 1; //쿠폰 셀렉트박스 옵션 초기화
 				for(var i=0; i<data.result.length; i++){ //쿠폰 박스에 옵션 추가
 					var opt = document.createElement("option");
-					if(data.result[i].cuponDr != null){
+					var object = new Object(); //쿠폰 리스트에 넣을 JSON 값
+					if(data.result[i].discTypCd != "AD"){
 						opt.value = data.result[i].cuponDr;
 					}else{
 						opt.value = data.result[i].cuponDiscAmt;
 					}
 						opt.text = data.result[i].cuponNm;
-						target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
-						sbx_couponSqList[i] = data.result[i].cuponSq; //쿠폰 array에 쿠폰 순번 추가
+						object.discTypCd = data.result[i].discTypCd;
+					if(data.result[i].cuponDetailCd != null){
+						object.cuponDetailCd = data.result[i].cuponDetailCd;
+					}
+					target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
+					object.cuponSq = data.result[i].cuponSq;
+					sbx_couponList.push(object); //쿠폰 Array에 쿠폰 옵션 추가
 				}
 				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			}
@@ -1207,14 +1218,15 @@ function getCouponList(code){
 //1차 결제 쿠폰 셀렉트 박스 선택시
 $("#sbx_couponList_DD").on("change", function(){
 	var checked = $("#sbx_couponList_DD option:selected").val();
+	var cuponNm = $("#sbx_couponList_DD option:selected").text();
 	if(checked != "null"){
 		var innerText = '';
 		innerText += '<div class="comy-box">';
 		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_DD option:selected").text()+'</div>';
-		if(checked.length > 2){
-			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
-		}else{
+		if(cuponNm.indexOf("%") > -1){
 			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
+		}else{
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
 		}
 		//innerText += '	<div class="cmy-end">X</div>';
 		innerText += '</div>';
@@ -1229,14 +1241,15 @@ $("#sbx_couponList_DD").on("change", function(){
 //2차 결제 쿠폰 셀렉트 박스 선택시
 $("#sbx_couponList_TD").on("change", function(){
 	var checked = $("#sbx_couponList_TD option:selected").val();
+	var cuponNm = $("#sbx_couponList_TD option:selected").text();
 	if(checked != "null"){
 		var innerText = '';
 		innerText += '<div class="comy-box">';
 		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_TD option:selected").text()+'</div>';
-		if(checked.length > 2){
-			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
-		}else{
+		if(cuponNm.indexOf("%") > -1){
 			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';
+		}else{
+			innerText += '	<div id="div_couponVal_TD" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+' KRW</div>';
 		}
 		//innerText += '	<div class="cmy-end">X</div>';
 		innerText += '</div>';
@@ -1263,8 +1276,13 @@ function totalTrnsprtPrc(){
 			totalAmount += trnsprtPrc; ///최종 부가서비스 금액을 가져온다
 		}
 		if(document.querySelector("#div_couponVal_TD") != null){
+			var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
+			var cuponDetailCd = sbx_couponList[index].cuponDetailCd; //2차 결제 쿠폰 디테일 코드를 가져온다
+			if(cuponDetailCd == "PSF"){
+				
+			}
 			disc = document.querySelector("#div_couponVal_TD").innerText; //쿠폰 할인 금액을 가져온다
-			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+			if(disc.indexOf("%") > -1){ //쿠폰 할인 금액이 퍼센트이면
 				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
 				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
 				disc = totalAmount * disc; //쿠폰 할인 금액을 가져온다

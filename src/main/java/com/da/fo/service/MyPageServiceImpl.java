@@ -52,7 +52,7 @@ public class MyPageServiceImpl implements MyPageService{
 		if(!cuponMap.isEmpty() && cuponMap != null) {
 			
 			String cuponSq = cuponMap.get("cuponSq").toString(); //쿠폰순번
-			//int diffDay = Integer.parseInt(cuponList.get(0).get("diffDay").toString()); //쿠폰 사용기한
+			int diffDay = Integer.parseInt(cuponMap.get("diffDay").toString()); //쿠폰 사용기한
 			
 			param.put("cuponSq", cuponSq);
 			param.put("useStrtDt", cuponMap.get("useStrtDt").toString());
@@ -64,14 +64,15 @@ public class MyPageServiceImpl implements MyPageService{
 				result.put("msg", "이전에 등록한 쿠폰입니다.");
 			}else{
 				
-//				if(diffDay > 0) {
-//					result.put("msg", "사용기한이 지난 쿠폰입니다.");
-//				} else {
-					//쿠폰 등록
-				if(myPageDao.insertCouponReg(param) > 0) {
-					result.put("msg", "쿠폰이 등록되었습니다.");
+				if(diffDay > 0) {
+					result.put("msg", "사용기한이 지난 쿠폰입니다.");
 				} else {
-					result.put("msg", "쿠폰 등록에 실패하였습니다.");
+					//쿠폰 등록
+					if(myPageDao.insertCouponReg(param) > 0) {
+						result.put("msg", "쿠폰이 등록되었습니다.");
+					} else {
+						result.put("msg", "쿠폰 등록에 실패하였습니다.");
+					}
 				}
 			}
 		}else{//등록 불가능한 쿠폰인 경우
@@ -194,7 +195,7 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 운송 가격, 코드 네임
 	 */
-	public List<Map<String, Object>> selectTrnsprtInfo(Object param){
+	public List<Map<String, Object>> selectTrnsprtInfo(Map<String, Object> param){
 		return myPageDao.selectTrnsprtInfo(param);
 	}
 	

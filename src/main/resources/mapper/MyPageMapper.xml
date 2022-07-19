@@ -22,6 +22,13 @@
 				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
 				and CDCS.DTL_CD=CM.CUPON_TYP_CD
 			) 													as cuponTypNm
+			,CM.CUPON_DETAIL_CD 								as cuponDetailCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_DETAIL_CD
+			) 													as cuponDetailNm
 			,CM.DISC_TYP_CD 									as discTypCd
 			,(
 				select CDCS.DTL_CD_NM
@@ -52,11 +59,10 @@
 		AND (
 				(
 					CM.CUPON_DIV_CD = "IU" 
-					
-					AND (TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) <![CDATA[<=]]> 0))
+					AND NOW() <![CDATA[<=]]> MCR.USE_END_DT)
 				OR (
-						CM.CUPON_DIV_CD = "TU" 
-						AND (CURDATE() BETWEEN MCR.USE_STRT_DT AND MCR.USE_END_DT)
+					CM.CUPON_DIV_CD = "TU" 
+					AND (NOW() <![CDATA[>=]]> MCR.USE_STRT_DT AND NOW() <![CDATA[<=]]> MCR.USE_END_DT)
 					)
 		)
 		AND MCR.MBR_SQ = #{mbrSq}
@@ -82,6 +88,13 @@
 				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
 				and CDCS.DTL_CD=CM.CUPON_TYP_CD
 			) 													as cuponTypNm
+			,CM.CUPON_DETAIL_CD 								as cuponDetailCd
+			,(
+				select CDCS.DTL_CD_NM
+				from TBL_DA_COMN_DTL_CD_S CDCS 
+				where (CDCS.USE_YN='Y' and CDCS.DEL_YN='N')
+				and CDCS.DTL_CD=CM.CUPON_DETAIL_CD
+			) 													as cuponDetailNm
 			,CM.DISC_TYP_CD 									as discTypCd
 			,(
 				select CDCS.DTL_CD_NM
@@ -102,7 +115,7 @@
 			,CM.UPDT_DT                                         as updtDt            
 			,CM.USE_YN                                          as useYn             
 			,CM.DEL_YN                                          as delYn             
-			,TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) 	as diffDay
+			,TIMESTAMPDIFF(DAY, MCR.USE_END_DT, CURDATE()) 		as diffDay
 			,MCR.CUPON_USE_YN									as cuponUseYn	
 			,MCR.CUPON_USE_DT                                   as cuponUseDt
 		FROM TBL_DA_CUPON_M CM
@@ -1122,9 +1135,9 @@
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
-				D.AUTH_SQ AS authSq, /*작가구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				B.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl,
 				A.WORK_NM AS workNm, /*작품명*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
@@ -1134,17 +1147,18 @@
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
 		FROM 
-				TBL_DA_WORK_M AS A,
-				TBL_DA_MBR_M AS D
+				TBL_DA_WORK_M AS A
+		LEFT JOIN
+				TBL_DA_ARTST_M AS B
+			ON	A.ARTST_SQ = B.ARTST_SQ
 		WHERE 
-				A.MBR_SQ = D.MBR_SQ 
+				A.WORK_TYP_CD = 'COLL'
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
 			        	#{item}
 			        </foreach>
         		</if>
-				AND A.WORK_TYP_CD = 'COLL'
 				AND A.MBR_SQ = #{mbrSq}
 	</select>
 	<select id="myCollectionMod" resultType="hashMap" parameterType="String">
@@ -1728,7 +1742,7 @@
 			AND	TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
 			AND TRNSPRT_PRC = #{trnsprtPrc}
 			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
-			<if test="trnsprtAreaCd != null and trnsprtAreaCd != '' and trnsprtAreaCd != 'null'">
+			<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
 			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
 			</if>
 	</select>
@@ -2023,4 +2037,203 @@
         	WORK_SQ = #{workSq}
    </select>
    
+   <select id="beforeApplyCupon" parameterType="hashMap" resultType="long">
+   		/* 쿠폰 할인 적용 전의 총 값 가져오기 */
+   		SELECT
+   				SUM(A.VALUE) AS totalAmt
+   		FROM	(
+   				SELECT
+						TRNSPRT_SERVICE_CD_NM AS text,
+						TRNSPRT_PRC AS value,
+						TRNSPRT_REQ_YN AS regYn
+				FROM 
+						TBL_DA_TRNSPRT_PRC_MTRX
+				WHERE 
+						TRNSPRT_DIV_CD = #{trnsprtDivCd}
+					<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+					AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+					</if>
+					<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+					AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+					</if>
+					AND TRNSPRT_REQ_YN = 'Y'
+				UNION ALL
+					SELECT
+						TRNSPRT_SERVICE_CD_NM AS text,
+						TRNSPRT_PRC AS value,
+						TRNSPRT_REQ_YN AS regYn
+				FROM 
+						TBL_DA_TRNSPRT_PRC_MTRX
+				WHERE 
+						TRNSPRT_DIV_CD = #{trnsprtDivCd}
+					<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+					AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+					</if>
+					<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+					AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+					</if>
+					<if test='trnsprtServiceCdNm != null and trnsprtServiceCdNm != ""'>
+					AND TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
+					</if>
+   		) A
+   </select>
+   
+   <select id="applyCupon" parameterType="hashMap" resultType="hashMap">
+   		/* 쿠폰 할인 적용 값 가져오기 */
+   		SELECT
+				TRNSPRT_SERVICE_CD_NM AS text,
+				<if test='cuponDetailCd != null and cuponDetailCd != ""'>
+				(
+				CASE
+				<if test='cuponDetailCd == "PSF"'>
+					<if test='discTypCd == "AD"'>
+					WHEN TRNSPRT_SERVICE_CD = 'SF' THEN FORMAT(TRNSPRT_PRC - ${cuponDiscAmt}, 0)
+					</if>
+					<if test='discTypCd == "DR"'>
+					WHEN TRNSPRT_SERVICE_CD = 'SF' THEN FORMAT(TRNSPRT_PRC - (TRNSPRT_PRC * (${cuponDiscAmt} * 0.01)), 0)
+					</if>
+				</if>
+				ELSE FORMAT(TRNSPRT_PRC, 0)
+				END
+				)AS value,
+				</if>
+				<if test='cuponDetailCd == null or cuponDetailCd == ""'>
+				FORMAT(TRNSPRT_PRC, 0) AS value,
+				</if>
+				TRNSPRT_REQ_YN AS regYn
+		FROM 
+				TBL_DA_TRNSPRT_PRC_MTRX
+		WHERE 
+				TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			</if>
+			<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+			AND TRNSPRT_REQ_YN = 'Y'
+		UNION ALL
+			SELECT
+				TRNSPRT_SERVICE_CD_NM AS text,
+				<if test='cuponDetailCd != null and cuponDetailCd != ""'>
+				(
+				CASE
+				<if test='cuponDetailCd == "PSF"'>
+					<if test='discTypCd == "AD"'>
+					WHEN TRNSPRT_SERVICE_CD = 'SF' THEN FORMAT(TRNSPRT_PRC - ${cuponDiscAmt}, 0)
+					</if>
+					<if test='discTypCd == "DR"'>
+					WHEN TRNSPRT_SERVICE_CD = 'SF' THEN FORMAT(TRNSPRT_PRC - (TRNSPRT_PRC * (${cuponDiscAmt} * 0.01)), 0)
+					</if>
+				</if>
+				ELSE FORMAT(TRNSPRT_PRC, 0)
+				END
+				)AS value,
+				</if>
+				<if test='cuponDetailCd == null or cuponDetailCd == ""'>
+				FORMAT(TRNSPRT_PRC, 0) AS value,
+				</if>
+				TRNSPRT_REQ_YN AS regYn
+		FROM 
+				TBL_DA_TRNSPRT_PRC_MTRX
+		WHERE 
+				TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			</if>
+			<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+			<if test='trnsprtServiceCdNm != null and trnsprtServiceCdNm != ""'>
+			AND TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
+			</if>
+   </select>
+   
+   <select id="applyCuponTotal" parameterType="hashMap" resultType="long">
+   		/* 쿠폰 할인 적용 총 값 가져오기 */
+   		SELECT
+   				<if test='cuponDetailCd == null or cuponDetailCd == ""'>
+   					<if test='discTypCd == "AD"'>
+					SUM(A.VALUE) - ${cuponDiscAmt} AS totalAmt
+					</if>
+					<if test='discTypCd == "DR"'>
+					SUM(A.VALUE) - (SUM(A.VALUE) * (${cuponDiscAmt} * 0.01)) AS totalAmt
+					</if>
+   				</if>
+   				<if test='cuponDetailCd != null and cuponDetailCd != ""'>
+   				SUM(A.VALUE) AS totalAmt
+   				</if>
+   				<if test='cuponSq == null or cuponSq == ""'>
+   				SUM(A.VALUE) AS totalAmt
+   				</if>
+   		FROM	(
+		   		SELECT
+						TRNSPRT_SERVICE_CD_NM AS text,
+						<if test='cuponDetailCd != null and cuponDetailCd != ""'>
+						(
+						CASE
+						<if test='cuponDetailCd == "PSF"'>
+							<if test='discTypCd == "AD"'>
+							WHEN TRNSPRT_SERVICE_CD = 'SF' THEN TRNSPRT_PRC - ${cuponDiscAmt}
+							</if>
+							<if test='discTypCd == "DR"'>
+							WHEN TRNSPRT_SERVICE_CD = 'SF' THEN TRNSPRT_PRC - (TRNSPRT_PRC * (${cuponDiscAmt} * 0.01))
+							</if>
+						</if>
+						ELSE TRNSPRT_PRC
+						END
+						)AS value,
+						</if>
+						<if test='cuponDetailCd == null or cuponDetailCd == ""'>
+						TRNSPRT_PRC AS value,
+						</if>
+						TRNSPRT_REQ_YN AS regYn
+				FROM 
+						TBL_DA_TRNSPRT_PRC_MTRX
+				WHERE 
+						TRNSPRT_DIV_CD = #{trnsprtDivCd}
+					<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+					AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+					</if>
+					<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+					AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+					</if>
+					AND TRNSPRT_REQ_YN = 'Y'
+				UNION ALL
+					SELECT
+						TRNSPRT_SERVICE_CD_NM AS text,
+						<if test='cuponDetailCd != null and cuponDetailCd != ""'>
+						(
+						CASE
+						<if test='cuponDetailCd == "PSF"'>
+							<if test='discTypCd == "AD"'>
+							WHEN TRNSPRT_SERVICE_CD = 'SF' THEN TRNSPRT_PRC - ${cuponDiscAmt}
+							</if>
+							<if test='discTypCd == "DR"'>
+							WHEN TRNSPRT_SERVICE_CD = 'SF' THEN TRNSPRT_PRC - (TRNSPRT_PRC * (${cuponDiscAmt} * 0.01))
+							</if>
+						</if>
+						ELSE TRNSPRT_PRC
+						END
+						)AS value,
+						</if>
+						<if test='cuponDetailCd == null or cuponDetailCd == ""'>
+						TRNSPRT_PRC AS value,
+						</if>
+						TRNSPRT_REQ_YN AS regYn
+				FROM 
+						TBL_DA_TRNSPRT_PRC_MTRX
+				WHERE 
+						TRNSPRT_DIV_CD = #{trnsprtDivCd}
+					<if test='trnsprtTypCd != null and trnsprtTypCd != "" and trnsprtTypCd != "null"'>
+					AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+					</if>
+					<if test='trnsprtAreaCd != null and trnsprtAreaCd != "" and trnsprtAreaCd != "null"'>
+					AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+					</if>
+					<if test='trnsprtServiceCdNm != null and trnsprtServiceCdNm != ""'>
+					AND TRNSPRT_SERVICE_CD_NM = #{trnsprtServiceCdNm}
+					</if>
+					) A
+   </select>
 </mapper>

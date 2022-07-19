@@ -313,7 +313,7 @@ public class MainPayUtil {
 	    		mainPayMapper.insertWorkDeal(resultMap);
 	    		//1차 결제이며 구매자인 경우 거래 상태 코드를 1차 결제 완료로 바꾼다.
 			    if(parameters.get("paymntDivCd").toString().equals("B") && parameters.get("paymntTypCd").toString().equals("1")) {
-			    	parameters.put("dealBuyFee", param.get("paymntFeeAmt").toString()); //구매 수수료를 가져온다
+			    	parameters.put("dealBuyFee", parameters.get("paymntFeeAmt").toString()); //구매 수수료를 가져온다
 					mainPayMapper.insertWorkDeal(parameters); //거래 내역에 구매 수수료와 구매자를 입력한다
 			    	mainPayMapper.updateDealBuyMbrSq(parameters.get("buyMbrSq").toString(), parameters.get("dealSq").toString(), parameters.get("dealTypCd").toString());
 			    	myPageMapper.updateBuyPaymntSttsCd(parameters.get("dealSq").toString(), "2PW");

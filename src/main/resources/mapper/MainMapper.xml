@@ -140,8 +140,10 @@
 			ON A.WORK_SQ = C.WORK_SQ
 			
 		WHERE 1=1
-		    AND ( A.WORK_OPEN_YN = 'Y' AND B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%'))
-			AND C.DEAL_STTS_CD != 'TC'
+		    AND B.DEAL_STTS_CD != 'TC'
+			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
+			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
+			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
 			
 		LIMIT 	4
 	</select>
@@ -228,7 +230,7 @@
 			OR  A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  D.EDUCTN_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  E.CAREER_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+			<!-- OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') -->
 		GROUP BY A.ARTST_SQ
 	</select>
 	
@@ -287,7 +289,7 @@
 				OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-				OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+				<!-- OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') -->
 				)
 			</if>
 			<if test="authSq != null and authSq != ''">
@@ -405,7 +407,7 @@
 						OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 						OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 						OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
-						OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%')
+						<!-- OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') -->
 						)
 					</if>
 					<if test="authSq != null and authSq != ''">

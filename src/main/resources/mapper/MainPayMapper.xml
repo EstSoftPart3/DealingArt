@@ -104,7 +104,7 @@
   		UPDATE 
 				TBL_DA_DEAL_M 
 		SET		
-				BUY_MBR_SQ = #{buyMbrSq},
+				BUY_MBR_SQ = #{buyMbrSq}
 				<if test='dealTypCd == "S"'>
 					,DEAL_ENDNG_DT = NOW()
 				</if>

@@ -1,7 +1,9 @@
 package com.da.util;
 
+import java.math.BigDecimal;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,8 +117,8 @@ public class SendSmsUtil {
 		String bidPrc = null;
 		String dealEndngDt = null;
 		String bidDt = null;
-		
-		//미술품 낙찰완료
+		DecimalFormat dFormat = new DecimalFormat("###,###");
+		//미술품 낙찰완료(구매자)
 		if(sndConCd.equals("SSA")) {
 			//등록일시	
 			regDt = params.get("regDt").toString();
@@ -125,7 +127,21 @@ public class SendSmsUtil {
 			//작품명
 			workNm = params.get("workNm").toString();
 			//최종낙찰가
-			bidPrc = params.get("bidPrc").toString();
+			BigDecimal num = new BigDecimal(params.get("bidPrc").toString());
+			bidPrc = dFormat.format(num);
+		}
+		
+		//미술품 낙찰완료(판매자)
+		if(sndConCd.equals("SSE")) {
+			//등록일시	
+			regDt = params.get("regDt").toString();
+			//낙찰일시
+			sBidDt = params.get("sBidDt").toString();
+			//작품명
+			workNm = params.get("workNm").toString();
+			//최종낙찰가
+			BigDecimal num = new BigDecimal(params.get("bidPrc").toString());
+			bidPrc = dFormat.format(num);
 		}
 		
 		//미술품 거래 종료 안내 - 정찰
@@ -152,6 +168,7 @@ public class SendSmsUtil {
 		2) 낙찰알림		: SSA
 		3) 정찰-거래종료	: SRE
 		4) 경매-거래종료	: SAE
+		5) 경매-낙찰완료	: SSE
 		*/
 		
 		getParam.put("sndTyp", sndTyp);
@@ -181,8 +198,18 @@ public class SendSmsUtil {
 						+ "□등록일시 : "+regDt+" \n"
 						+ "□낙찰일시 : "+sBidDt+" \n"
 						+ "□작품명 : "+workNm+" \n"
-						+ "□최종낙찰가 : "+bidPrc+" 축하합니다.\n"
-						+ mbrId +"님! 구매자가 48시간 이내 결제를 완료하면\n"
+						+ "□최종낙찰가 : "+bidPrc+" KRW 축하합니다.\n"
+						+ mbrId +"님! 48시간 이내 결제를 완료하면\n"
+						+ "고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
+			} else if(sndConCd.equals("SSE")) {
+				smsContent = "(딜링아트} 미술품 낙찰 완료\n"
+						+ "□판매형식 : 경매 \n"
+						+ "□등록일시 : "+regDt+" \n"
+						+ "□낙찰일시 : "+sBidDt+" \n"
+						+ "□작품명 : "+workNm+" \n"
+						+ "□최종낙찰가 : "+bidPrc+" KRW 축하합니다.\n"
+						+ mbrId +"님! 등록하신 거래가 낙찰 되었습니다.\n"
+						+ "구매자가 48시간 이내 결제를 완료하면\n "
 						+ "고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
 			} else if(sndConCd.equals("SRE")) {
 				smsContent = "(딜링아트) 미술품 거래 종료 안내\n\n"
@@ -201,7 +228,7 @@ public class SendSmsUtil {
 			}
 			
 			
-			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SRE") || sndConCd.equals("SAE") ) {
+			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SRE") || sndConCd.equals("SAE") || sndConCd.equals("SSE") ) {
 				
 				tomap.put("to", sndNumber);
 				mList.add(tomap);

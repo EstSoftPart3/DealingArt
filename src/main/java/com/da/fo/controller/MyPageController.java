@@ -931,4 +931,20 @@ public class MyPageController {
 		return dealWorkCount;
 	}
 	
+	//나의작품 / 소장품 거래등록 확인
+	@RequestMapping("/applyCupon")
+	@ResponseBody
+	public ModelAndView applyCupon(@RequestParam Map<String, Object> param) {
+		System.out.println(param);
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = myPageMapper.applyCupon(param);
+		Long bTotalAmt = myPageMapper.beforeApplyCupon(param);
+		Long totalAmt = myPageMapper.applyCuponTotal(param);
+		Long discAmt = bTotalAmt - totalAmt;
+		mv.addObject("result", result);
+		mv.addObject("totalAmt", totalAmt);
+		mv.addObject("discAmt", discAmt);
+		return mv;
+	}
+	
 }

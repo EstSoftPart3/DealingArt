@@ -294,6 +294,29 @@ public interface MyPageMapper {
 	 * return : 운송 정보
 	 */
 	public Map<String, Object> selectCalcInfo(@Param("dealSq") String dealSq, @Param("mbrSq") String mbrSq);
+	
 	//나의작품 / 소장품 거래등록 확인
 	public int dealWorkCount(Map<String, Object> param);
+	
+	/*
+	 * 부가서비스 결제 시 쿠폰 적용된 할인 금액을 가져온다
+	 * param : 	cuponDiscAmt cuponNm cuponSqcuponTypCd discTypCd cuponDetailCd trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 쿠폰 적용 된 부가서비스 별 금액
+	 */
+	public List<Map<String, Object>> applyCupon(Object param);
+	
+	/*
+	 * 부가서비스 결제 시 쿠폰 적용된 총 할인 금액을 가져온다
+	 * param : 	cuponDiscAmt cuponNm cuponSqcuponTypCd discTypCd cuponDetailCd trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 총 결제 금액
+	 */
+	public Long applyCuponTotal(Object param);
+	
+	/*
+	 * 부가서비스 결제 시 쿠폰 적용 전 총 할인 금액을 가져온다
+	 * param : 	cuponDiscAmt cuponNm cuponSqcuponTypCd discTypCd cuponDetailCd trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
+	 * return : 총 결제 금액
+	 */
+	public Long beforeApplyCupon(Object param);
+	
 }

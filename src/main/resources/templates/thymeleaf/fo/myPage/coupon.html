@@ -201,6 +201,9 @@ function myCouponList(searchCondition){
         					myCouponListHtml += '		<div class="cou-right">';
         					myCouponListHtml += '			<p>';
         					myCouponListHtml += '				'+ myCouponList[i].cuponTypNm +'';
+        					if(myCouponList[i].cuponDetailNm != null){
+        						myCouponListHtml += '				<br/>('+ myCouponList[i].cuponDetailNm +')';
+        					}
         					if(myCouponList[i].discTypCd == "DR"){
         						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDr +'% 할인</span>';
         					}else if(myCouponList[i].discTypCd == "AD"){
@@ -230,6 +233,9 @@ function myCouponList(searchCondition){
         					myCouponListHtml += '		<div class="cou-right">';
         					myCouponListHtml += '			<p>';
         					myCouponListHtml += '				'+ myCouponList[i].cuponTypNm +'';
+        					if(myCouponList[i].cuponDetailNm != null){
+        						myCouponListHtml += '				<br/>('+ myCouponList[i].cuponDetailNm +')';
+        					}
         					if(myCouponList[i].discTypCd == "DR"){
         						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDr +'% 할인</span>';
         					}else if(myCouponList[i].discTypCd == "AD"){
