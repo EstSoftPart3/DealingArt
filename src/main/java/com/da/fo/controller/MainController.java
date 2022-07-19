@@ -37,6 +37,25 @@ public class MainController {
 		return "thymeleaf/index";
 	}
 	
+	//로그린 페이지
+	@RequestMapping("/mlogin")
+	public String openLogin() {
+		return "thymeleaf/index";
+	}
+	
+	//회원가입 본인인증
+	@RequestMapping("/joinStep1")
+	public String openJoinStep1() {
+		return "thymeleaf/fo/member/join_1";
+	}
+	
+	
+	//회원가입 본인인증
+	@RequestMapping("/joinStep2")
+	public String openJoinStep2() {
+		return "thymeleaf/fo/member/join_2";
+	}
+	
 	@RequestMapping("/main/mainData")
 	@ResponseBody
 	public ModelAndView mainData(@RequestParam @Nullable Map<String, Object>  param) {

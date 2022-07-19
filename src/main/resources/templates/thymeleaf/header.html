@@ -112,7 +112,9 @@
 				<!-- 로그인전 -->
 				<div class="login-hide h-text" id="loginBf" style="display:none;">
 					<span style="cursor:pointer;" data-toggle="modal" data-target="#loginModal">LOGIN</span>
-					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span>
+<!-- 					<span style="cursor:pointer;" data-toggle="modal" data-target="#memberModal">JOIN</span> -->
+					<span><a href="/joinStep1">JOIN</a></span>
+					
 <!-- 					<span style="cursor:pointer;" onclick="javascript:fnModalAlert();">JOIN</span> -->
 				</div>
 				
@@ -676,6 +678,7 @@ function changePasswrd(){
 </script>
 
 <!-- 회원가입 -->
+<!--
 <div class="modal fade modal-s" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
 	<form id="memberInput" name="memberInput" method="post">
 	<div class="modal-dialog modal-baeg max-w800 momber-modal">
@@ -730,8 +733,8 @@ function changePasswrd(){
 						<div class="input-box">
 							<p class="inp-p" id="mbrNcknmCheck">활동명을 입력 후 중복체크를 해주세요.</p>
 						</div>
-						<input type="hidden" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
-						<input type="hidden" name="EncodeData">					<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+						<input type="hidden" name="m" value="checkplusSerivce">	필수 데이타로, 누락하시면 안됩니다.
+						<input type="hidden" name="EncodeData">					위에서 업체정보를 암호화 한 데이타입니다.
 					
 					
 					
@@ -771,7 +774,7 @@ function changePasswrd(){
 	
 	</form>
 </div>
-
+  -->
 <!-- 작가등록 -->
 <div class="modal fade modal-s" id="authorModal1" tabindex="-1" role="dialog" aria-labelledby="authorModal1Label" aria-hidden="true">
 	<div class="modal-dialog modal-baeg max-w500">
@@ -844,21 +847,21 @@ $(document).ready(function() {
 	
 	
 	
-	$('#mbrCpNumBtn').click(function() {
+// 	$('#mbrCpNumBtn').click(function() {
 		
-		console.log("mbrCpNumBtn");
+// 		console.log("mbrCpNumBtn");
 		
-		$.ajax({
-			method: "POST",
-			url: "/main/auth/phone"
-		}).done(function(data) {
-			document.memberInput.EncodeData.value = data;
-			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-			document.memberInput.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
-			document.memberInput.target = "popupChk";
-			document.memberInput.submit();
-		});
-	});
+// 		$.ajax({
+// 			method: "POST",
+// 			url: "/main/auth/phone"
+// 		}).done(function(data) {
+// 			document.memberInput.EncodeData.value = data;
+// 			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+// 			document.memberInput.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+// 			document.memberInput.target = "popupChk";
+// 			document.memberInput.submit();
+// 		});
+// 	});
 
 });
 
@@ -870,61 +873,17 @@ $('#loginModal').on('hidden.bs.modal', function () {
 	$("#txt_Pw").val('');
 })
 
-//휴대폰 인증 성공
-function mainMobileAuthSuccess(result) {
-	var mbrCpCertDi = result.sDupInfo;
-	var mbrNm = result.sName;
-	var mbrCpNum = result.sMobileNo.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-	var mbrCpCertDate = "20"+result.sCipherTime.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3 $4:$5:$6');
-	var mbrBirth = result.sBirthDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
-	var overlapYn = "N";
-	
-	$.ajax({
-        type: "post",
-        url: "/memberDuplicateCheck",
-        data: {
-        		mbrCpCertDi : mbrCpCertDi
-        },
-        success: function(data) {
-        	if(data > 0){
-        		document.memberInput.mbrNm.value = "";
-        		document.memberInput.mbrCpNum.value = "";
-        		document.memberInput.mbrCpCertYn.value = "N";
-        		document.memberInput.mbrCpCertDate.value = "";
-        		document.memberInput.mbrBirth.value = "";
-        		fn_validation('mainSmsCertificationCheck','이미 등록된 회원입니다.', 'R');
-        		$("#mainSmsCertificationCheck").css('display',"block");
-        		$("#mainSmsCertification").css('display',"none");
-        	}else{
-        		$("#mainSmsCertificationCheck").css('display',"block");
-        		$("#mainSmsCertification").css('display',"none");
-        		fn_validation('mainSmsCertificationCheck','휴대폰 인증완료.', 'R');
-        		$("#mbrNmCheck").css('display',"none");
-        		fn_validation('mbrNmCheck','', 'B');
-        		document.memberInput.mbrCpCertDi.value = mbrCpCertDi;
-        		document.memberInput.mbrNm.value = mbrNm;
-        		document.memberInput.mbrCpNum.value = mbrCpNum;
-        		document.memberInput.mbrCpCertYn.value = "Y";
-        		document.memberInput.mbrCpCertDate.value = mbrCpCertDate;
-        		document.memberInput.mbrBirth.value = mbrBirth;
-        		//숨겼던 성명, 생년월일이 나타나게 한다.
-        		$("#mbrNmDiv").show();
-        	}
-        },
-        error: function(error) {
-        	var errorTxt = JSON.stringify(error);
-            alert("오류 발생" + errorTxt);
-        }
-	});
-}
+
 //휴대폰 인증 실패
+/*
 function mainMobileAuthFail() {
 	 modalAlertShow("휴대폰 인증에 실패 하였습니다.","");
 }
-
-var mbrNcknmCheckYn = "N"; //활동명 중복체크 여부
+*/
+//var mbrNcknmCheckYn = "N"; //활동명 중복체크 여부
 
 //활동명 특수문자 제한
+/*
 function characterCheck(obj){
 	var regExp = /[ \{\}\[\]\/?,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi; 
 	
@@ -937,8 +896,9 @@ function characterCheck(obj){
 		document.getElementById("mbrNcknmBtn").disabled = false;
 	}
 }
-
+*/
 //활동명 길이 제한
+/*
 function mbrNcknmLength(obj){
 	if(obj.value.length < 2){
 		fn_validation('mbrNcknmCheck','활동명은 2글자 이상이여야 합니다.', 'R');
@@ -949,8 +909,9 @@ function mbrNcknmLength(obj){
 		document.getElementById("mbrNcknmBtn").disabled = false;
 	}
 }
-
+*/
 //활동명 중복체크
+/*
 function mbrNcknmCheck(obj){
 	$.ajax({
         type: "post",
@@ -976,7 +937,7 @@ function mbrNcknmCheck(obj){
         }
 	});
 }
-
+*/
 setTimeout(function(){
 	location.reload();
 },3601000); // 1시간 1분 마다 새로고침 (세션 만료 체크)
@@ -1120,6 +1081,7 @@ $('#memberModal').on('show.bs.modal', function (e) {
 	
 });
 
+/*
 var mbrIdOverlapChk = false;
 var memberInputBtnClick = 0;
 //회원가입
@@ -1390,7 +1352,7 @@ $("#memberInputBtn").on('click', function(event){
 	
 	
 });
-
+*/
 
 
 function memberInputEmail(mbrIdEncrypt) {
@@ -1426,6 +1388,7 @@ function CheckEmail(str) {
 }                         
 
 //아이디 중복 체크
+/*
 $('#memberModal').on('shown.bs.modal', function () {
 
 $("#mbrId").blur(function() {
@@ -1495,7 +1458,7 @@ $("#mbrId").blur(function() {
 });
 
 });
-
+*/
 
 function fn_validation(inputId,msg,color) {
 		
