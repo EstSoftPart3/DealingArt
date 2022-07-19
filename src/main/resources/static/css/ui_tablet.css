@@ -5496,3 +5496,46 @@ p.dib{display:inline-block !important;}
     padding: 1.4rem;
     margin-top: 1.6rem;
 }
+
+/*0717*/
+.sub-title-1 {
+    margin-top: 62px;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.sub-title-1 h3 {
+    font-size: 40px;
+    position: relative;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: center;
+    color: #000000;
+}
+
+.join_box {
+    border:1px solid #eaeaea;
+    padding:20px;
+    width:750px;
+    margin:0 auto;
+    border-radius: 3px;
+}
+
+.input-box-1 {
+    position: relative;
+    margin-top: 13px;
+    border:1px solid #eaeaea;
+    padding:10px;
+    font-size:14px;
+    color:#000;
+}
+
+.confirm-1 {
+    display: inline-block;
+    width:92%;
+}
+.confirm-2 {
+    text-align: right;
+    display: inline-block;
+}
+

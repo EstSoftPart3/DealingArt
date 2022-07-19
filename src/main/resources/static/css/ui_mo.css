@@ -1870,6 +1870,9 @@ input[type="radio"]:checked + label span {
 /* .baeg-left img{
     width: 36.4rem;
 } */
+/* 0715 수정 */
+.baeg-left img{  object-fit:contain; }
+
 .baeg-right{
     display: block;
     vertical-align: top;
@@ -2657,7 +2660,10 @@ z-index: 9;}
     border: #fff 4px solid;
     border-radius: 50%;
 }
-.hd-div3 .user-1 img{width: 100%;}
+/* .hd-div3 .user-1 img{width: 100%;} */
+/* 0715 수정 */
+.hd-div3 .user-1 img{ object-fit:cover; }
+
 .hd-div3 .hd-text{
     padding: 3rem 4.2rem 0 15rem;
     text-align: left;
@@ -5798,8 +5804,13 @@ p.dib{display:inline-block !important;}
 }
 /* 0703 */
 .contentbox{padding: 0;width: 100%;clear: both;}
-.bigImages{margin-bottom: 12.5px;}
-.big{width: 60rem;height: 60rem;}
+
+/* 0715 수정 */
+.bigImages{margin-bottom: 12.5px;width: 312px;height: 374px;}
+/* .big{width: 60rem;height: 60rem;} */
+/* 0715 수정 */
+.big{width: 100%;height: 100%;}
+
 .small{ width:100px; height:100px;margin-right: 10px;}
 .smallImages{
     clear: both;
@@ -5857,5 +5868,47 @@ p.dib{display:inline-block !important;}
 
 .input-box .input-2 {
     padding: 0px 0 1.5rem 15.7rem !important;
+}
+
+/*0717*/
+.sub-title-1 {
+    margin-top: 62px;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.sub-title-1 h3 {
+    font-size: 40px;
+    position: relative;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: center;
+    color: #000000;
+}
+
+.join_box {
+    border:1px solid #eaeaea;
+    padding:20px;
+    width:65rem;
+    margin:0 auto;
+    border-radius: 3px;
+}
+
+.input-box-1 {
+    position: relative;
+    margin-top: 13px;
+    border:1px solid #eaeaea;
+    padding:10px;
+    font-size:14px;
+    color:#000;
+}
+
+.confirm-1 {
+    display: inline-block;
+    width:80%;
+}
+.confirm-2 {
+    text-align: right;
+    display: inline-block;
 }
 

@@ -619,6 +619,7 @@ columns figure {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    object-fit:cotain;
 }
 
 .footer-icon a img {
@@ -1806,7 +1807,8 @@ input[type="radio"]:checked + label span {
     display: table-cell;
     vertical-align: top;
 }
-.baeg-left img{}
+/* 0715 수정 */
+.baeg-left img{  object-fit:contain; }
 .baeg-right{
     display: table-cell;
     vertical-align: top;
@@ -2427,7 +2429,8 @@ input[type="radio"]:checked + label span {
     border: #fff 2px solid;
     border-radius: 50%;
 }
-.hd-div3 .user-1 img{}
+/* 0715 수정 */
+.hd-div3 .user-1 img{ object-fit:cover; }
 .hd-div3 .hd-text{
     padding: 20px 25px 0 120px;
 }
@@ -5294,8 +5297,12 @@ position: relative;background-color: #fbfbfb;}
 
 /* 0703 */
 .contentbox{padding: 0;width: 600px;}
-.bigImages{margin-bottom: 12.5px;}
-.big{width: 600px;height: 600px;}
+
+/* 0715 수정 */
+.bigImages{margin-bottom: 12.5px;width:600px; height:600px;}
+/* 0715 수정 */
+.big{width: 100%;height: 100%;}
+
 .small{ width:100px; height:100px;margin-right: 10px;}
 .smallImages{}
 .small{width: 75px;height: 75px;margin-right: 12.5px;float: left;}
@@ -5340,4 +5347,47 @@ position: relative;background-color: #fbfbfb;}
     height: 48px;
     margin-left: 10px;
 }
+
+/*0717*/
+.sub-title-1 {
+    margin-top: 62px;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.sub-title-1 h3 {
+    font-size: 40px;
+    position: relative;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: center;
+    color: #000000;
+}
+
+.join_box {
+    border:1px solid #eaeaea;
+    padding:20px;
+    width:750px;
+    margin:0 auto;
+    border-radius: 3px;
+}
+
+.input-box-1 {
+    position: relative;
+    margin-top: 13px;
+    border:1px solid #eaeaea;
+    padding:10px;
+    font-size:14px;
+    color:#000;
+}
+
+.confirm-1 {
+    display: inline-block;
+    width:92%;
+}
+.confirm-2 {
+    text-align: right;
+    display: inline-block;
+}
+
 

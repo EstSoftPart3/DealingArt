@@ -15,10 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import  com.da.fo.service.ResponseException;
 
 import com.da.fo.service.mobileAuthService;
@@ -130,11 +134,77 @@ public class MobileAuthController {
 	    }else{
 	        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
 	    }
-		out.println("<script>var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
-				+ "result.sDupInfo='"+sDupInfo+"'; result.sMobileNo='"+sMobileNo+"'; result.sCipherTime='"+sCipherTime+"'; "
-				+ "window.opener.mainMobileAuthSuccess(result); window.close();</script>");
-		out.flush();
+	    
+	    
+	    out.println("\r\n"
+	    		+ "<html lang=\"ko\" xmlns:th=\"http://www.thymeleaf.org\" xmlns:layout=\"http://www.ultraq.net.nz/thymeleaf/layout\">\r\n"
+	    		+ " <head>\r\n"
+	    		+ "	<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r\n"
+	    		+ " </head>\r\n"
+	    		+ " <body>\r\n"
+	    		+ "	<form name=\"thisForm\" action=\"/joinStepProc\" target=\"join1\" method=\"post\">\r\n"
+	    		+ "		<input type=\"hidden\" name=\"sName\" id=\"sName\" value='"+sName+"' th:field=\"*{sName}\">\r\n"
+	    		+ "		<input type=\"hidden\" name=\"sBirthDate\" id=\"sBirthDate\" value='"+sBirthDate+"'>\r\n"
+	    		+ "		<input type=\"hidden\" name=\"sDupInfo\" id=\"sDupInfo\" value='"+sDupInfo+"'>\r\n"
+	    		+ "		<input type=\"hidden\" name=\"sMobileNo\" id=\"sMobileNo\" value='"+sMobileNo+"'>\r\n"
+	    		+ "		<input type=\"hidden\" name=\"sCipherTime\" id=\"sCipherTime\" value='"+sCipherTime+"'>\r\n"
+	    		+ "	</form>\r\n"
+	    		+ "	<script>\r\n"
+	    		+ "		\r\n"
+	    		+ "		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;\r\n"
+	    		+ "		jQuery(document).ready(function($){\r\n"
+	    		+ "		     if(isMobile) {\r\n"
+	    		+ "		        document.thisForm.submit();\r\n"
+	    		+ "		     } else {\r\n"
+	    		+ "		     	 document.thisForm.submit();\r\n"
+	    		+ "				window.close();\r\n"
+	    		+ "		     }\r\n"
+	    		+ "		});\r\n"
+	    		+ "    </script>\r\n"
+	    		+ " </body>\r\n"
+	    		+ "</html>");
+	    
+	    out.flush();
+		
+//	    out.println("<script>var result = new Object(); result.sName='"+sName+"'; result.sBirthDate='"+sBirthDate+"'; "
+//				+ "result.sDupInfo='"+sDupInfo+"'; result.sMobileNo='"+sMobileNo+"'; result.sCipherTime='"+sCipherTime+"'; "
+//				+ "window.opener.mainMobileAuthSuccess(result); window.close();</script>");
+//		out.flush();
+	    
+	    
+	    //model.addAttribute("sName",sName);
+	    
+	    //return"redirect:/join";
+	    
 	}
+	
+
+	 @RequestMapping("/joinStepProc")
+	 public ModelAndView doJoinStepProc(HttpServletRequest request,HttpServletResponse response, RedirectAttributes redirect, Model model) throws Exception {
+		 
+		 Map<String, String> map = new HashMap<String, String>();
+	     
+		 //가잆자 성명
+		 String sName = request.getParameter("sName");
+		 //가입자 생년월일
+		 String sBirthDate = request.getParameter("sBirthDate");
+		 //가입자 휴대폰 인증정보 키
+		 String sDupInfo = request.getParameter("sDupInfo");
+		 //휴대전화번호
+		 String sMobileNo = request.getParameter("sMobileNo");
+		 //본인인증 날짜
+		 String sCipherTime = request.getParameter("sCipherTime");
+		 
+		 model.addAttribute("sName", sName);
+		 model.addAttribute("sBirthDate", sBirthDate);
+		 model.addAttribute("sDupInfo", sDupInfo);
+		 model.addAttribute("sMobileNo", sMobileNo);
+		 model.addAttribute("sCipherTime", sCipherTime);
+
+	    return new ModelAndView("forward:/joinStep2");
+		 
+		
+	 }
 	
 	@RequestMapping("/auth/main_checkplus_fail")
 	public String mainCheckplusFail() {
