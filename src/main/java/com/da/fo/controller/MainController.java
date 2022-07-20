@@ -37,10 +37,16 @@ public class MainController {
 		return "thymeleaf/index";
 	}
 	
-	//로그린 페이지
+	//로그인 페이지
 	@RequestMapping("/mlogin")
 	public String openLogin() {
 		return "thymeleaf/index";
+	}
+	
+	//이벤트 랜딩
+	@RequestMapping("/event")
+	public String openEvent() {
+		return "thymeleaf/fo/event/event_v1";
 	}
 	
 	//회원가입 본인인증

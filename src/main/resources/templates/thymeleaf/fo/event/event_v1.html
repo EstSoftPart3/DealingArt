@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>딜링아트</title>
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="DeailngArt">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<link type="text/css" rel="stylesheet" href="resources/css/event_css/font.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/event_css/bootstrap.min.css">
+	<link type="text/css"rel="stylesheet" href="resources/css/event_css/common_pc.css">
+	<link type="text/css" media="screen and (max-width: 1319px)" rel="stylesheet" href="resources/css/event_css/ui_mo.css" />
+	<link type="text/css" media="screen and (min-width: 1320px)" rel="stylesheet" href="resources/css/event_css/ui_pc.css" />
+
+	<!-- 웹폰트 -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. --!>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+	
+	
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
+	
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="head-wrap">
+			<div class="nl-top">
+				<a href="/main"><img src="/resources/img/basic_logo.png" class="logo" /></a>
+				<h2 class="nl-h2">국내 최초 개인간 미술품 거래 플랫폼 <span class="b">딜링아트</span></h2>
+				<h3 class="nl-h3">Grand <span class="bb">open</span></h3>
+				
+				<div class="d-youtube">
+					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/3amrd9Q1Cns" title="미술품 직거래 플랫폼 딜링아트 Dealing art" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+				
+				<div class="nl-sum">
+					<ul>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title">딜링아트의 <span class="b">5가지<br/> 새로운 기준</span></div>
+							</div>
+						</li>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title"><span class="b">합리적</span> 수수료</div>
+								<p class="nl-p">수수료 거품을 쫙 뺐습니다</p>
+							</div>
+						</li>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title"><span class="b">편리한</span> 거래</div>
+								<p class="nl-p">작품 정보만 입력하면 즉시 판매 / 경매</p>
+							</div>
+						</li>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title"><span class="b">투명한</span> 거래</div>
+								<p class="nl-p">응찰 히스토리 및 낙찰 결과 공개</p>
+							</div>
+						</li>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title"><span class="b">안전한</span> 거래</div>
+								<p class="nl-p">보증서가 있는 작품만</p>
+							</div>
+						</li>
+						<li>
+							<div class="nl-div">
+								<div class="nl-title"><span class="b">안전한</span> 운송</div>
+								<p class="nl-p">미술품 전문 핸들러와 운송보험 가입<br/>작품 컨디션 체크 서비스</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="gallery-box">
+				<div class="gallery-list"><img src="/resources/img/gallery-img.png" /></div>
+			</div>
+			
+			<div class="ens-title">
+				<h3 class="">딜링아트에서 준비한<br/><span class="b">오픈 이벤트!</span></h3>
+			</div>
+			
+			<div class="ene-box">
+				<ul class="ene-ul">
+					<li>
+						<div class="elist">
+							<div class="e-nunber"><span>01</span></div>
+							<div class="e-text">회원가입 이벤트</div>
+							<p class="e-p">Rising Star!<br/>이예린 작가의 디지털 프린트 에디션 증정 (10명)</p>
+							<span class="e-span">자유(edition30), Digital-Printing, 2021</span>
+							
+							<img src="/resources/img/nis-1.png" class="e-img-1" />
+						</div>
+					</li>
+					<li>
+						<div class="elist">
+							<div class="e-nunber"><span>02</span></div>
+							<div class="e-text">작품 판매 수수료 <br/>무료 이벤트</div>
+							<p class="e-p ep-top">경매/정찰 상관없이 판매 수수료 무료 (8월31일 까지)</p>
+							
+							<img src="/resources/img/nis-2.png" class="e-img-2" />
+						</div>
+					</li>
+					<li>
+						<div class="elist">
+							<div class="e-nunber"><span>03</span></div>
+							<div class="e-text">작품 구매비 지원 <br/>이벤트</div>
+							<p class="e-p ep-top letter-1-2">1,000,000원 (1명) / 500,000원 (3명) , 200,000원 (5명)</p>
+							
+							<img src="/resources/img/nis-3.png" class="e-img-3" />
+						</div>
+					</li>
+					<li>
+						<div class="elist">
+							<div class="e-nunber"><span>04</span></div>
+							<div class="e-text">거래 등록하면<br/>운송료 무료쿠폰</div>
+							<p class="e-p ep-top">500만원 이상 작품 적용 / 도서산간지역 제외</p>
+							
+							<img src="/resources/img/nis-4.png" class="e-img-4" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="btn-box">
+				<a href="/joinStep1" class="btn-1"><span class="dib"><span class="b">회원가입</span>하고</span>이벤트 <span class="b">참여하기!</span></a>
+			</div>
+			
+			<div class="footer-wrap">
+				<div class="footer-box">
+					<div class="footer-title">유의사항</div>
+					<div class="footer-text">
+						<ol>
+							<li>이벤트는 8월31일에 종료됩니다.</li>
+							<li>EVENT1 회원가입 이벤트, EVENT 3 작품구매비 이벤트 당첨자는 개별 연락 드리며, 공지사항 게시판을 확인해 주세요.</li>
+							<li>EVENT2 작품 판매 수수료는 경우 정산 시 차감 방식으로, 판매 수수료 0원으로 정산 됩니다.<br/>
+								<span class="pd_l20 pd_ta">- 경매 : 이벤트 기간 내 낙찰 기준</span>
+								<span class="pd_l20">- 정찰 : 이벤트 기간 내 1차 결제 기준</span>
+							</li>
+							<li>EVENT3 작품 구매비 지원 이벤트의 당첨금은 회원정보에 등록되어 있는 본인계좌로 9월30일 지급됩니다.</li>
+							<li>EVENT4 운송료 무료 이벤트로 제공되는 프리미엄운송 무료 쿠폰은 500만원 이상 작품에만 적용 가능하며 제주도 및 도서산간지역의 경우 적용이 불가합니다.</li>
+							<li>경품, 쿠폰, 서비스 이용 계정 등 이벤트 혜택은 거래 및 재판매가 불가하며 이로 인한 손실에 대해서는 책임을 지지 않습니다.</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</body>
+</html>
