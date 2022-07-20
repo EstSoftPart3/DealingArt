@@ -71,6 +71,26 @@ public class AuctionScheduler {
 							
 				sendSmsUtil.sendSmsProc(smsParam); //낙찰자에게 낙찰 알림 메세지를 보낸다
 				
+				mbrInfoVo = new MbrInfoVo();
+				smsParam = new HashMap<String, Object>();
+				mbrInfoVo = memberMapper.mbrInfo(successfulBidList.get(i).get("sellMbrSq").toString());
+				//회원전화번호
+				smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
+				//회원아이디
+				smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+				//등록일시	
+				smsParam.put("regDt", successfulBidList.get(i).get("dealStrtDt"));
+				//낙찰일시
+				smsParam.put("sBidDt", successfulBidList.get(i).get("dealEndngDt"));
+				//작품명
+				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+				//최종낙찰가
+				smsParam.put("bidPrc", successfulBidList.get(i).get("dealAuctnPrc"));
+				//대상코드 수정 중요@@@@
+				smsParam.put("sndConCd", "SSE");
+				
+				sendSmsUtil.sendSmsProc(smsParam); //판매자에게 낙찰 알림 메세지를 보낸다
+				
 				List<Map<String, Object>> auctioneer = dealMapper.selectAuctioneerByMbrSq(bidDealSq, bidBuyMbrSq); //유찰자를 조회한다
 				for(int j=0; j<auctioneer.size(); j++) { //유찰자 만큼
 					mbrInfoVo = memberMapper.mbrInfo(auctioneer.get(j).get("mbrSq").toString());

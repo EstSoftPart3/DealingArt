@@ -41,11 +41,9 @@ public class DealingArtApplication extends SpringBootServletInitializer{
 	}
 	
 	@Bean
-
 	public HttpSessionListener httpSessionListener(){
 
 		return new SessionListener();
 
 	}
-	
 }
