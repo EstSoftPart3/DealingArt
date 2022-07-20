@@ -266,6 +266,7 @@
 																	<dt th:if="${trnsprtInfo.trnsprtTypCd} == 'D'" th:text="|${trnsprtInfo.trnsprtTypCdNm}, ${trnsprtInfo.trnsprtServiceCdNm}|">부가서비스</dt>
 																	<dd th:text="|${trnsprtInfo.trnsprtPrc} KRW|">2,300,000 원</dd>
 																</th:block>
+																<dt>배송료 할인</dt>
 																<dd th:if="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}" th:text="|${result.payMntInfo.paymntDiscAmt} KRW|">2,300,000 원</dd>
 																<dd th:unless="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}">0 KRW</dd>
 															</dl>
