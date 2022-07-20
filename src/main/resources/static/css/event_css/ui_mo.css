@@ -12,7 +12,7 @@ html, body{font-size: calc(100vw / 75);}
 }
 .head-wrap {
     width: 100%;
-    background-image: url("../img/bg-mo.png");
+    background-image: url("/resources/img/bg-mo.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: #eef8f7;
