@@ -860,9 +860,9 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 	if(selected == "null"){
 		$("#div_trnsprtTypCd").empty();
 		$('#sbx_trnsprtAreaCd').val("null");
+		$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
 		$("#sbx_trnsprtServiceCd").val("null");
 		$("#sbx_trnsprtServiceCd").attr("disabled", true);
-		$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
 		$("#sbx_couponList").val("null");
 		$("#sbx_couponList").attr("disabled", true);
 		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
@@ -1011,7 +1011,7 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 			$("#sbx_trnsprtServiceCd").val("null");
 			$("#div_trnsprtServiceCd").empty();
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
-			modalAlertShow("같은 부가서비스는 선택할 수 없습니다.");
+			modalAlertShow("동일한 유형의 부가서비스는 선택할 수 없습니다.");
 		}else{
 			var innerText = '';
 			innerText += '<div class="comy-box">';
@@ -1023,14 +1023,6 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 		}
 	}
 	$("#sbx_couponList").trigger("change");
-	//totalTrnsprtPrc(); //총 금액 자동계산
-	/* if($("#sbx_couponList option:selected").val() != "null"){ */
-		
-		//$("#sbx_trnsprtTypCd").trigger("change");
-		
-	/* }else{
-		
-	} */
 });
 //쿠폰 목록 가져오기
 function getCouponList(cuponTypCd){
@@ -1045,10 +1037,10 @@ function getCouponList(cuponTypCd){
 			var target = document.getElementById("sbx_couponList"); //쿠폰 셀렉트 박스 가져오기
 			if(data != null && data.result.length > 0){
 				target.options.length = 1; //쿠폰 셀렉트박스 옵션 초기화
+				
 				for(var i=0; i<data.result.length; i++){ //쿠폰 박스에 옵션 추가
 					
 					var opt = document.createElement("option");
-				
 					var object = new Object(); //쿠폰 리스트에 넣을 JSON 값
 					object.cuponSq = data.result[i].cuponSq; //쿠폰 SQ
 					object.cuponTypCd = data.result[i].cuponTypCd; //쿠폰 할인 유형
