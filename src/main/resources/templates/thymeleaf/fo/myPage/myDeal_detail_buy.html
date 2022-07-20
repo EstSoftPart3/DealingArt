@@ -618,6 +618,10 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
 		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
 	}
+	if(result.dealInfo.dealSttsCd == "FB"){ //유찰이면
+		$("#dealSttsCdDetail").text("유찰되었습니다.");
+		$("#dealSttsCdDetail").append("<span>유찰</span>"); 
+	}
 });
 //1차 결제 거래 수수료 구하기
 function feeCal(){

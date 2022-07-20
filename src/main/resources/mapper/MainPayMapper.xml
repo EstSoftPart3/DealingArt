@@ -105,6 +105,7 @@
 				TBL_DA_DEAL_M 
 		SET		
 				BUY_MBR_SQ = #{buyMbrSq}
+				,DEAL_STTS_CD = 'TC'
 				<if test='dealTypCd == "S"'>
 					,DEAL_ENDNG_DT = NOW()
 				</if>
