@@ -1285,6 +1285,16 @@ $("#sbx_couponList_TD").on("change", function(){
 			totalTrnsprtPrc();
 			return;
 		}
+		var dealFinalPrc = 0;
+		dealFinalPrc = result.dealInfo.dealFinalPrc.replaceAll(/,/g, '');
+		if(param.cuponDetailCd == "PSF" && dealFinalPrc < 5000000){
+			modalAlertShow("판매가 500만원 이상이여야 사용 가능한 쿠폰입니다.");
+			$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
+			$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			totalTrnsprtPrc();
+			return;
+		}
 	}
 	param.trnsprtDivCd = "B";
 	param.trnsprtTypCd = $("#sbx_trnsprtTypCd option:selected").val();
