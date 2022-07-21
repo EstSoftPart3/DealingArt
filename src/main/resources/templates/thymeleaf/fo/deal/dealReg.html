@@ -881,7 +881,7 @@
 								<span class="span-in">예금주명</span>
 							</div>
 							<div class="input-box">
-								<input type="number" class="input-2" name="birth" placeholder="생년월일 6자리 / 사업자번호 10자리" />
+								<input type="number" class="input-2" name="birth" placeholder="생년월일 6자리"/>
 								<span class="span-in">생년월일</span>
 							</div>
 						</div>
@@ -908,9 +908,10 @@ $(function() {
 	}
 });
 $('.selectpicker').selectpicker();
-function event(){
-	if(new Date() >= new Date('2022/07/20 18:00') &&
+function event(cd){
+	if(new Date() >= new Date('2022/07/20 16:00') &&
 		new Date() <= new Date('2022/09/01 00:00')){
+		var workTypCd = cd;
 		$.ajax({
 	        type: "post",
 	        url: "/myCouponList",
@@ -944,12 +945,26 @@ function event(){
         					},
         			        success: function(data) {
         			        	console.log(data);
-        			        	modalAlertShow("딜링아트 그랜드오픈 이벤트<br/>프리니엄배송 운송비 무료 쿠폰이 발급되었습니다.");
+        			        	if(workTypCd == "COLL"){
+        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myCollection");
+        		        		}else if(workTypCd == "WORK"){
+        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myWork");
+        		        		}else{
+        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "main");
+        		        		}
         			        },           
         			        error: function(error) {
         			            alert("오류 발생" + error);
         			        }
         				});	
+	        		}else{
+	        			if(workTypCd == "COLL"){
+		        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
+		        		}else if(workTypCd == "WORK"){
+		        			modalAlertShow("거래가 등록되었습니다.", "myWork");
+		        		}else{
+		        			modalAlertShow("거래가 등록되었습니다.", "main");
+		        		}
 	        		}
 	        	}
 	        },           
@@ -1577,14 +1592,7 @@ function dealReg(){
 	        processData : false,
 	        success: function(data) {
 	        	if(data > 0 || data != null || data != ""){
-	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
-	        		}else if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myWork");
-	        		}else{
-	        			modalAlertShow("거래가 등록되었습니다.", "main");
-	        		}
-	        		event();
+	        		event(result.work.workTypCd);
 	        	}
 	        },
 	        error: function(error) {

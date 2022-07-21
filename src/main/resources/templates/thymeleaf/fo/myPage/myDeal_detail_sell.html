@@ -266,6 +266,7 @@
 																	<dt th:if="${trnsprtInfo.trnsprtTypCd} == 'D'" th:text="|${trnsprtInfo.trnsprtTypCdNm}, ${trnsprtInfo.trnsprtServiceCdNm}|">부가서비스</dt>
 																	<dd th:text="|${trnsprtInfo.trnsprtPrc} KRW|">2,300,000 원</dd>
 																</th:block>
+																<dt>배송료 할인</dt>
 																<dd th:if="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}" th:text="|${result.payMntInfo.paymntDiscAmt} KRW|">2,300,000 원</dd>
 																<dd th:unless="${not #strings.isEmpty(result.payMntInfo.paymntDiscAmt)}">0 KRW</dd>
 															</dl>
@@ -1083,6 +1084,17 @@ $("#sbx_couponList").on("change", function(){
 		if(param.cuponDetailCd == "PSF" && $("#sbx_trnsprtTypCd option:selected").val() != "P" && 
 			$("#sbx_trnsprtAreaCd option:selected").val() == "null"){
 			modalAlertShow("선택하신 쿠폰은 사용 조건이 맞지 않습니다.");
+			$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
+			$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			totalTrnsprtPrc();
+			return;
+		}
+		
+		var dealFinalPrc = 0;
+		dealFinalPrc = result.dealInfo.dealFinalPrc.replaceAll(/,/g, '');
+		if(param.cuponDetailCd == "PSF" && dealFinalPrc < 5000000){
+			modalAlertShow("판매가 500만원 이상이여야 사용 가능한 쿠폰입니다.");
 			$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
 			$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침

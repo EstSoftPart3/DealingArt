@@ -618,6 +618,10 @@ jQuery(document).ready(function() {
 		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
 		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
 	}
+	if(result.dealInfo.dealSttsCd == "FB"){ //유찰이면
+		$("#dealSttsCdDetail").text("유찰되었습니다.");
+		$("#dealSttsCdDetail").append("<span>유찰</span>"); 
+	}
 });
 //1차 결제 거래 수수료 구하기
 function feeCal(){
@@ -1277,6 +1281,16 @@ $("#sbx_couponList_TD").on("change", function(){
 			modalAlertShow("선택하신 쿠폰은 사용 조건이 맞지 않습니다.");
 			$("#sbx_couponList_TD").val("null"); //쿠폰 셀렉트박스 초기화
 			$("#div_couponList_TD").empty();//쿠폰(선택) 영역 초기화
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			totalTrnsprtPrc();
+			return;
+		}
+		var dealFinalPrc = 0;
+		dealFinalPrc = result.dealInfo.dealFinalPrc.replaceAll(/,/g, '');
+		if(param.cuponDetailCd == "PSF" && dealFinalPrc < 5000000){
+			modalAlertShow("판매가 500만원 이상이여야 사용 가능한 쿠폰입니다.");
+			$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
+			$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			totalTrnsprtPrc();
 			return;
