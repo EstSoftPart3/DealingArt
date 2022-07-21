@@ -160,6 +160,8 @@ jQuery(document).ready(function() {
 var searchCondition = 1;
 function myCouponList(searchCondition){
 	
+	//var sMbrSqVal = '330'
+	
 	if(searchCondition == 1){
 		$('#pills-home-tab').addClass('active');
 		$('#pills-profile-tab').removeClass('active');
@@ -207,7 +209,7 @@ function myCouponList(searchCondition){
         					if(myCouponList[i].discTypCd == "DR"){
         						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDr +'% 할인</span>';
         					}else if(myCouponList[i].discTypCd == "AD"){
-        						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDiscAmt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +'원 할인</span>';
+        						myCouponListHtml += '				<span>'+ comma(myCouponList[i].cuponDiscAmt) +'원 할인..</span>';
         					}
         					myCouponListHtml += '			</p>';
         					myCouponListHtml += '		</div>';
@@ -239,7 +241,7 @@ function myCouponList(searchCondition){
         					if(myCouponList[i].discTypCd == "DR"){
         						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDr +'% 할인</span>';
         					}else if(myCouponList[i].discTypCd == "AD"){
-        						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDiscAmt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +'원 할인</span>';
+        						myCouponListHtml += '				<span>'+ comma(myCouponList[i].cuponDiscAmt) +'원 할인</span>';
         					}
         					myCouponListHtml += '			</p>';
         					myCouponListHtml += '		</div>';
@@ -282,6 +284,13 @@ function myRegCoupon(){
         }
 	});
 }
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+
 </script>
     
 	
