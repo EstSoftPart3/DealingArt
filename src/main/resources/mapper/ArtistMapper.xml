@@ -30,6 +30,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) <![CDATA[>=]]> '1980' 
+				AND B.USE_YN = 'Y'
 				limit 20 
 	</select>
 	
@@ -60,6 +61,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1966' AND '1979'
+				AND B.USE_YN = 'Y'
 				limit 20
 	</select>
 	
@@ -90,6 +92,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) BETWEEN '1951' AND '1965'
+				AND B.USE_YN = 'Y'
 				limit 20
 	</select>
 	
@@ -121,6 +124,7 @@
 			ON 	A.MBR_SQ = B.MBR_SQ  
 		WHERE
 				YEAR (B.MBR_BIRTH) <![CDATA[<=]]> '1950'
+				AND B.USE_YN = 'Y'
 				limit 20
 	</select>
 	
