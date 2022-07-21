@@ -209,7 +209,7 @@ function myCouponList(searchCondition){
         					if(myCouponList[i].discTypCd == "DR"){
         						myCouponListHtml += '				<span>'+ myCouponList[i].cuponDr +'% 할인</span>';
         					}else if(myCouponList[i].discTypCd == "AD"){
-        						myCouponListHtml += '				<span>'+ comma(myCouponList[i].cuponDiscAmt) +'원 할인..</span>';
+        						myCouponListHtml += '				<span>'+ comma(myCouponList[i].cuponDiscAmt) +'원 할인</span>';
         					}
         					myCouponListHtml += '			</p>';
         					myCouponListHtml += '		</div>';
@@ -267,22 +267,28 @@ function myCouponList(searchCondition){
 
 
 function myRegCoupon(){
-	$.ajax({
-        type: "post",
-        url: "/myRegCoupon",
-        data:{
-			mbrSq : sMbrSqVal,
-			cuponIdntfctnNum : $("#inp_cuponNum").val()
-		},
-        success: function(data) {
-        	console.log(data);
-        	modalAlertShow(data.result.msg);
-        	myCouponList(1);
-        },           
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-	});
+	var cuponNum = $("#inp_cuponNum").val();
+	if(cuponNum == "" || cuponNum == null){
+		modalAlertShow("쿠폰 번호가 입력되지 않았습니다.", "inp_cuponNum");
+		return;
+	}else{
+		$.ajax({
+	        type: "post",
+	        url: "/myRegCoupon",
+	        data:{
+				mbrSq : sMbrSqVal,
+				cuponIdntfctnNum : $("#inp_cuponNum").val()
+			},
+	        success: function(data) {
+	        	console.log(data);
+	        	modalAlertShow(data.result.msg);
+	        	myCouponList(1);
+	        },           
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
 }
 
 function comma(str) {

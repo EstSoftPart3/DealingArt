@@ -926,7 +926,9 @@ function paymntCompleted(){
 	data.paymntTypCd = "2"; //거래 차수
 	data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
 	var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
-	data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+	if(index > -1){
+		data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+	}
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',

@@ -1698,11 +1698,7 @@ $(document).on("click", ".workReg", function(){
 	if(sAuthSqVal != "2"){
 		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
 	}else{
-		modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다.<br><br>등록하시겠습니까?", function(confrim){
-			if(confrim){
-				window.location.href = "/myWork_reg";
-			}
-		});
+		window.location.href = "/myWork_reg";
 	}
 });
 
@@ -1710,11 +1706,7 @@ $(document).on("click", ".collectionReg", function(){
 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("로그인 후 이용할 수 있습니다.");
 	}else{
-		modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다.<br><br> 소장품 등록 페이지로 하시겠습니까?", function(confrim){
-			if(confrim){
-				window.location.href = "/collection_reg";
-			}
-		});
+		window.location.href = "/collection_reg";
 	}
 });
 //Input Box Null Check
