@@ -4364,6 +4364,7 @@ code{
     display: block;
     vertical-align: top;
     width: 28rem;
+    padding-left:2rem;
 }
 .mgz-title .mgz-text{
     position: relative;
@@ -5221,10 +5222,9 @@ position: relative;background-color: #fbfbfb;}
 
 
 /* 0518 */
-/* .link-text{width:7.5rem;} */
-/* 0722 */
-.link-text {width:15.5rem; padding-bottom:1rem;}
-.mgz-title img {display:block; vertical-align:top; width:28rem; padding-left:2rem;}
+.link-text{
+	width:15.5rem; padding-bottom:1rem;
+}
 
 /* 0520 */
 .mobile-con-wrap{}

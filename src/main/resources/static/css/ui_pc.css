@@ -5066,9 +5066,11 @@ position: relative;background-color: #fbfbfb;}
 
 
 /* 0518 */
-/* .link-text{width:38px;} */
-/* 0722 */
-.link-text {width:100px; padding-bottom:2px;}
+.link-text{
+	width:100px; 
+	padding-bottom:2px;
+}
+
 
 /* 0526 */
 .cont-title3 h3 span {
