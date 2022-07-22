@@ -4641,6 +4641,7 @@ code{
     display: block;
     vertical-align: top;
     width: 24rem;
+    padding-left:2rem;
 }
 .mgz-title .mgz-text{
     position: relative;
