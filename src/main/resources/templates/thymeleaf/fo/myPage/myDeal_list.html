@@ -399,7 +399,7 @@ function myDealSearchList(){
         		myDealList = data.result;	
         		for(var i=0; i<myDealList.length; i++){
     	        	myDealListHtml += '<div class="myd-box myd-mobile">';
-    				myDealListHtml += '	<div class="myd-img">';
+    				myDealListHtml += '	<div class="myd-img baeg-left">';
     				if(myDealList[i].sellMbrSq == sMbrSqVal){ //판매자이면
     					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailSell(this)"/>';
     				}
