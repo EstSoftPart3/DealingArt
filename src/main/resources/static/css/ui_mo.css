@@ -4637,11 +4637,13 @@ code{
     padding-left: 4.7rem;
     padding-top: 2.5rem;
 }
-.mgz-title img{
+/* .mgz-title img{
     display: block;
     vertical-align: top;
     width: 24rem;
-}
+} */
+/* 0722 */
+.mgz-title img {display:block; vertical-align:top; width:24rem; padding-left:2rem;}
 .mgz-title .mgz-text{
     position: relative;
     padding-left: 0;
