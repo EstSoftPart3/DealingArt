@@ -103,6 +103,10 @@ public class DealDao {
 		if(suspension > 0) {
 			return -1;
 		}else{
+			int dealCount = dealMapper.dealRegOverlapChk(param);
+			if(dealCount > 0) {
+				return -2;
+			}
 			int result = dealMapper.dealReg(param);
 			if(result > 0) {
 				int result2 = dealMapper.updateMbrRefNo();

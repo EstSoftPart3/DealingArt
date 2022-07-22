@@ -126,7 +126,7 @@
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				(SELECT SUB.MBR_NCKNM FROM TBL_DA_MBR_M SUB WHERE SUB.MBR_SQ = A.MBR_SQ) AS mbrNcknm, /*작가 닉네임*/
-				YEAR (A.ARTST_BIRTH_YEAR) AS artstBirthYear, /*작가생년월일*/
+				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -268,6 +268,16 @@
 		WHERE
 				DEAL_SQ = LAST_INSERT_ID()
 	</update>
+	
+	<select id="dealRegOverlapChk" resultType="int" parameterType="hashMap">
+		/* 거랟 등록 전 중복체크 */
+		SELECT 
+				COUNT(WORK_SQ)
+		FROM
+				TBL_DA_DEAL_M
+		WHERE 
+				WORK_SQ = #{workSq}
+	</select>
 	
 	<select id="bidRegCheck" resultType="int" parameterType="hashMap">
 		/*회원이 입력한 응찰가와 마지막 응찰가와 비교한다.*/

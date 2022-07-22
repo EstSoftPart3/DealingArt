@@ -35,6 +35,13 @@ public interface DealMapper {
 	public int updateMbrRefNo();
 	
 	/*
+	 * 거래등록 전 중복체크
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealRegOverlapChk(Object param);
+	
+	/*
 	 * 응찰 전 사용자 응찰값과 저장된 응찰가 비교
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
