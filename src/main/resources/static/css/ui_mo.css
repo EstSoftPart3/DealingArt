@@ -2200,7 +2200,7 @@ input[type="radio"]:checked + label span {
     top: 5.6rem;
     z-index: 9;
 }
-.modal-baeg .modal-content .modal-header .baegs .close img{width:4rem; display: none;}
+.modal-baeg .modal-content .modal-header .baegs .close img{width:4rem; display: block;}
 
 .modal-baeg .modal-content .modal-header .close::before, .modal-baeg .modal-content .modal-header .close::after{display:none;}
 
