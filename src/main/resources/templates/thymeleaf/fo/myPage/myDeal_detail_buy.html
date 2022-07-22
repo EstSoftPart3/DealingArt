@@ -510,6 +510,14 @@
 	</div>
 </div>
 <script th:inline="javascript">
+$(function(){
+	const url = new URL(window.location.href);
+	const urlParam = url.searchParams;
+	if(sMbrSqVal != urlParam.get('mbrSq')){
+		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
+	}
+});
+
 var result = /*[[${result}]]*/ 'default';
 var fee = 0; //거래 수수료
 var feeTax = 0; //거래 수수료 부과세

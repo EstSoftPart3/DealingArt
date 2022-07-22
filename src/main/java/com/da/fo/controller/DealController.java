@@ -149,12 +149,19 @@ public class DealController {
 			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgBotUrl", file.getFileUrl());
 		}
-		int result = myPageService.myWorkCor(work); 
-		result += memberService.mbrDelivryAddrCor(mbrInfo);
-		System.out.println("@@@@@@@@@@@@ deal : "+deal);
-		result += dealService.dealReg(deal);
+		int result1 = myPageService.myWorkCor(work); 
+		int result2 = 0;
+		int result3 = 0;
+		if(result1 > 0) {
+			result2 = memberService.mbrDelivryAddrCor(mbrInfo);
+			if(result2 > 0) {
+				result3 = dealService.dealReg(deal);
+			}
+		}
 		
-		return result;
+		System.out.println("@@@@@@@@@@@@ deal : "+result3);
+		
+		return result3;
 	}
 	
 	//거래 수정 페이지 오픈
