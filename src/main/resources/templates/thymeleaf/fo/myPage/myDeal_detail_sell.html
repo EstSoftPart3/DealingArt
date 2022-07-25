@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script>
+<script type="text/javascript" src="resources/js/com.js"></script>
 <link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
 <head>
     <style>
@@ -143,7 +143,35 @@
 									</div>
 								</div>
 							</div>
-							
+							<!-- 결제 수단 -->
+							<div id="paymethod" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">결제 수단</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<div class="pay-link">
+												<a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a>
+												<!-- <a href="#" class="pay-2" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-3.png" /><span>무통장입금</span></a> -->
+												<!-- <a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a> -->
+												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
+												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
+											</div>
+											<!-- <div class="bat-box3 mg_t30">
+												<span class="c-reds">※ 오픈 이벤트 (거래 수수료 할인)</span>
+												<br/><span class="c-reds">카드결제 : 거래수수료 2.5% 할인</span>
+												<br/><span class="c-reds">가상계좌 : 거래수수료 4% 할인</span>
+											</div> -->
+											<!-- <div class="pay-check">
+												<input type="checkbox" id="a1" name="cc" />
+												<label for="a1"><span></span>결재수단과 입력정보를 다음에도 사용</label>
+											</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
 							
 							<!-- 2차 결제 -->		
 							<div id="2PW" style="display:none;">
@@ -350,35 +378,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- 결제 수단 -->
-							<div id="paymethod" style="display:none;">
-								<div class="med">
-									<h2 class="h2-con">결제 수단</h2>
-								</div>
-								<div class="myd-box">
-									<div class="myd-box-1">
-									
-										<div class="mbox-1">
-											<div class="pay-link">
-												<a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a>
-												<!-- <a href="#" class="pay-2" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-3.png" /><span>무통장입금</span></a> -->
-												<!-- <a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a> -->
-												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
-												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
-											</div>
-											<!-- <div class="bat-box3 mg_t30">
-												<span class="c-reds">※ 오픈 이벤트 (거래 수수료 할인)</span>
-												<br/><span class="c-reds">카드결제 : 거래수수료 2.5% 할인</span>
-												<br/><span class="c-reds">가상계좌 : 거래수수료 4% 할인</span>
-											</div> -->
-											<!-- <div class="pay-check">
-												<input type="checkbox" id="a1" name="cc" />
-												<label for="a1"><span></span>결재수단과 입력정보를 다음에도 사용</label>
-											</div> -->
-										</div>
-									</div>
-								</div>
-							</div>
 					
 							<div class="bat-box5">
 								<!-- <a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="call(200)"><span>결제하기</span></a> -->
@@ -460,7 +459,7 @@ $(function(){
 	const url = new URL(window.location.href);
 	const urlParam = url.searchParams;
 	if(sMbrSqVal != urlParam.get('mbrSq')){
-		modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
+		location.href="/main";
 	}
 });
 

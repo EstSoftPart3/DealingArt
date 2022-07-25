@@ -6,17 +6,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="icon" type="image/png" href="/resources/img/favicon.png">
- 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.min.css"/>
+	<link rel="icon" type="image/png" href="resources/img/favicon.png">
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select.min.css"/>
 	<link type="text/css" rel="stylesheet" href="resources/css/font.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/swiper-bundle.min.css" />
 	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
 	<link type="text/css" rel="stylesheet" href="resources/css/common_pc.css"/>
 	
-	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
-	
-	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
-	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
+	<link type="text/css" media="screen and (max-width: 1319px)" rel="stylesheet" href="resources/css/ui_mo.css" />
+	<link type="text/css" media="screen and (min-width: 1320px)" rel="stylesheet" href="resources/css/ui_pc.css" />
 	
 	<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.css">
 	
@@ -26,67 +24,57 @@
 	<!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="resources/js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="resources/js/common.js"></script>
-    
-    
-    
-    <script type="text/javascript" src="resources/js/masonry.pkgd.min.js"></script>
-    <script type="text/javascript" src="resources/js/imagesloaded.pkgd.min.js"></script>
-<!--     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script> 추가 -->
-    
-    <script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="resources/js/defaults-ko_KR.min.js"></script>
-    
+	<script type="text/javascript" src="resources/js/swiper-bundle.min.js"></script>
+	<script type="text/javascript" src="resources/js/common.js"></script>
+	   
+	   
+	   
+	<script type="text/javascript" src="resources/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="resources/js/imagesloaded.pkgd.min.js"></script>
+	<!--     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script> 추가 -->
+	
+	<script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="resources/js/defaults-ko_KR.min.js"></script>
+	
 	<!-- jQuery.timepicker -->
-<!--     <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script> -->
-<!-- 	<link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/> -->
+	<!--     <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script> -->
+	<!-- 	<link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/> -->
 	
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-    
+	   
 	<!-- CK에디터 -->
-<!-- 	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script> -->
+	<!-- 	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script> -->
 	<!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script> -->
-	  <script src="/resources/plugins/ckBuild/ckeditor.js"></script>
+	<script src="/resources/plugins/ckBuild/ckeditor.js"></script>
 	<link rel="stylesheet" href="resources/css/content-styles.css" type="text/css">
-
-    
 	
-    <!-- chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-    
-    
-  
-  
-    
-    
-    <style type="text/css">
-		.modal-open {
-		  overflow:hidden;
-		  overflow-y:scroll;
-		  padding-right:0 !important;
-		}
-   </style>
+	   
+	
+	<!-- chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+	
+	<style type="text/css">
+	.modal-open {
+	  overflow:hidden;
+	  overflow-y:scroll;
+	  padding-right:0 !important;
+	}
+	</style>
    
-   <script>
-		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-		jQuery(document).ready(function($){
-		     if(!isMobile) {
-		         $("#appDevice").val("PC");
-		     } else {
-		     	 $("#appDevice").val("MOBILE"); 
-		     	 $(".lp_mgz9DtlModalHearder").css("max-width","900px");
-		     	 $("#lp_mgz9Dtl_cntnt").css("max-width","700px");
-		     }
-		});
-  </script>
-  
-  
-    <!-- google -->
-    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
-	    
+	<script>
+	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+	jQuery(document).ready(function($){
+	     if(!isMobile) {
+	         $("#appDevice").val("PC");
+	     } else {
+	     	 $("#appDevice").val("MOBILE"); 
+	     	 $(".lp_mgz9DtlModalHearder").css("max-width","900px");
+	     	 $("#lp_mgz9Dtl_cntnt").css("max-width","700px");
+	     }
+	});
+	</script>
 </head>
 <body>
 	<div class="head-wrap">
