@@ -83,7 +83,7 @@
 
 <body>
 	<div class="wrap">
-
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
 		<div class="body-wrap">
 			<div class="contents">
 				<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
@@ -101,9 +101,9 @@
 									<p class="sd-1">1.  발송하는 메일 수신거부는 '마이페이지 > 설정'에서 확인하세요</p>
 									<p class="sd-1">2.  이용 불편 및 각종 문의 사항은 고객센터로 문의 주시면 성심 성의껏 답변 </p>
 									<div class="sd-link">
-										<a href="" class="sdl-a">자주 묻는 질문</a>
-										<a href="" class="sdl-a">1:1 온라인 문의</a>
-										<a href="" class="sdl-a">전화 문의: OOO-OOO-OOOO (365일 오전 9시~오후6시)</a>
+										<a href="/customerService" class="sdl-a">자주 묻는 질문</a>
+										<a href="javascript:fnModalAlert();" class="sdl-a">1:1 온라인 문의</a>
+										<a href="javascript:void(0);" class="sdl-a">전화 문의: 02-1533-3024 (평일 AM 10:00 ~ PM 19:00)</a>
 									</div>
 								</div>
 								

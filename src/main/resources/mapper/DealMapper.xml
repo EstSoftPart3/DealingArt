@@ -112,11 +112,11 @@
 	        	<if test='type == "UP"'>
 	        		ASC 
 	        	</if>
-	        	<if test="sort == null and sort == '' and type == null and type == ''">
-	        		DEAL_STRT_DT ASC
-	        	</if>
 	        </if>
-<!-- 	        LIMIT 6 OFFSET #{startRow} -->
+	        <if test='(sort == null or sort == "") and (type == null or type =="")'>
+	        	ORDER BY DEAL_STRT_DT DESC
+	        </if>
+ 	        <!-- LIMIT 6 OFFSET #{startRow} -->
 	</select>
 	<select id="dealDetail" parameterType="String" resultType="hashMap">
 		/*거래상세*/

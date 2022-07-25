@@ -58,6 +58,8 @@ public class AuctionScheduler {
 				smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
 				//회원아이디
 				smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+				//회원활동명
+				smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 				//등록일시	
 				smsParam.put("regDt", successfulBidList.get(i).get("dealStrtDt"));
 				//낙찰일시
@@ -78,6 +80,8 @@ public class AuctionScheduler {
 				smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
 				//회원아이디
 				smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+				//회원활동명
+				smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 				//등록일시	
 				smsParam.put("regDt", successfulBidList.get(i).get("dealStrtDt"));
 				//낙찰일시
@@ -98,6 +102,8 @@ public class AuctionScheduler {
 					smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
 					//회원아이디
 					smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+					//회원활동명
+					smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 					//작품명
 					smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
 					//만료일시
@@ -118,12 +124,14 @@ public class AuctionScheduler {
 				smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
 				//회원아이디
 				smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+				//회원활동명
+				smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 				//작품명
 				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
 				//만료일시
 				smsParam.put("dealEndngDt", successfulBidList.get(i).get("dealEndngDt"));
 				//대상코드 수정 중요@@@
-				smsParam.put("sndConCd", "SRE");
+				smsParam.put("sndConCd", "SREA");
 				
 				sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
 			}
@@ -138,12 +146,14 @@ public class AuctionScheduler {
 			smsParam.put("mbrCpNum", commonService.decrypt(mbrInfoVo.getMbrCpNum()).replaceAll("-", ""));
 			//회원아이디
 			smsParam.put("mbrId", commonService.decrypt(mbrInfoVo.getMbrId()));
+			//회원활동명
+			smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 			//작품명
 			smsParam.put("workNm", successfulSaleList.get(i).get("workNm"));
 			//만료일시
 			smsParam.put("dealEndngDt", successfulSaleList.get(i).get("dealEndngDt"));
 			//대상코드 수정 중요@@@
-			smsParam.put("sndConCd", "SRE");
+			smsParam.put("sndConCd", "SRES");
 			
 			sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
 		}

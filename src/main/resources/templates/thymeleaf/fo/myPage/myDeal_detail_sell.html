@@ -153,11 +153,14 @@
 									
 										<div class="mbox-1">
 											<div class="pay-link">
-												<a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a>
-												<!-- <a href="#" class="pay-2" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-3.png" /><span>무통장입금</span></a> -->
-												<!-- <a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a> -->
-												<a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a>
-												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
+												<div class="r-checks rch-1">
+													<input type="radio" id="rd1" name="paymethod" value="CARD" onclick="btn_paymethod_onclick(this)">
+													<label for="rd1">신용카드</label>
+												</div>
+												<div class="r-checks rch-4">
+													<input type="radio" id="rd4" name="paymethod" value="VACCT" onclick="btn_paymethod_onclick(this)">
+													<label for="rd4">가상계좌</label>
+												</div>
 											</div>
 											<!-- <div class="bat-box3 mg_t30">
 												<span class="c-reds">※ 오픈 이벤트 (거래 수수료 할인)</span>
@@ -641,7 +644,7 @@ function searchAddr(){
   * 결제 수단 클릭시
   */
 function btn_paymethod_onclick(obj){
-	result.dealInfo.paymethod = obj.attributes.value.value;
+	result.dealInfo.paymethod = $('input[name=paymethod]:checked').val();
 }
  
 /*

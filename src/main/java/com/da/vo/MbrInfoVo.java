@@ -10,7 +10,7 @@ public class MbrInfoVo {
 	private String mbrEmail;
 	private String mbrPasswrd;
 	private String mbrNm;
-	private String mbrNckmm;
+	private String mbrNcknm;
 	private String mbrBirth;
 	private String mbrSexCd;
 	private String mbrHomeAddr;
