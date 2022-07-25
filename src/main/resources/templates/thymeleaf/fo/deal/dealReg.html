@@ -988,53 +988,49 @@ function event(cd){
 			},
 	        success: function(data) {
 	        	var myCouponList = null;
-	        	var myCouponListHtml = "";
-	        	
-	        	if(data.result != null && data.result.length > 0){
-	        		myCouponList = data.result;	
-	        		var cuponYn = "N";
-	        		for(var i=0; i<myCouponList.length; i++){
-	        			
-	        			if(myCouponList[i].cuponSq == "5"){
-	        				cuponYn = "Y";
-	        				break;
-	        			}else{
-	        				cuponYn = "N";
-	        			}
-	        		}
-	        		if(cuponYn == "N"){
-	        			
-	        			$.ajax({
-        			        type: "post",
-        			        url: "/myRegCoupon",
-        			        data:{
-        						mbrSq : sMbrSqVal,
-        						cuponIdntfctnNum : "82X9-JB4L-FSOS-E66S"
-        					},
-        			        success: function(data) {
-        			        	console.log(data);
-        			        	if(workTypCd == "COLL"){
-        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myCollection");
-        		        		}else if(workTypCd == "WORK"){
-        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myWork");
-        		        		}else{
-        		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "main");
-        		        		}
-        			        },           
-        			        error: function(error) {
-        			            alert("오류 발생" + error);
-        			        }
-        				});	
+	        	var cuponYn = "N";
+        		myCouponList = data.result;	
+        		for(var i=0; i<myCouponList.length; i++){
+        			
+        			if(myCouponList[i].cuponSq == "5"){
+        				cuponYn = "Y";
+        				break;
+        			}else{
+        				cuponYn = "N";
+        			}
+        		}
+        		if(cuponYn == "N"){
+        			
+        			$.ajax({
+       			        type: "post",
+       			        url: "/myRegCoupon",
+       			        data:{
+       						mbrSq : sMbrSqVal,
+       						cuponIdntfctnNum : "82X9-JB4L-FSOS-E66S"
+       					},
+       			        success: function(data) {
+       			        	console.log(data);
+       			        	if(workTypCd == "COLL"){
+       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myCollection");
+       		        		}else if(workTypCd == "WORK"){
+       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myWork");
+       		        		}else{
+       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "main");
+       		        		}
+       			        },           
+       			        error: function(error) {
+       			            alert("오류 발생" + error);
+       			        }
+       				});	
+        		}else{
+        			if(workTypCd == "COLL"){
+	        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
+	        		}else if(workTypCd == "WORK"){
+	        			modalAlertShow("거래가 등록되었습니다.", "myWork");
 	        		}else{
-	        			if(workTypCd == "COLL"){
-		        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
-		        		}else if(workTypCd == "WORK"){
-		        			modalAlertShow("거래가 등록되었습니다.", "myWork");
-		        		}else{
-		        			modalAlertShow("거래가 등록되었습니다.", "main");
-		        		}
+	        			modalAlertShow("거래가 등록되었습니다.", "main");
 	        		}
-	        	}
+        		}
 	        },           
 	        error: function(error) {
 	            alert("오류 발생" + error);
