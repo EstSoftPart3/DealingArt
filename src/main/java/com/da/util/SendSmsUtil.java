@@ -177,9 +177,10 @@ public class SendSmsUtil {
 		/*
 		1) 작가신청완료 	: SAA
 		2) 낙찰알림		: SSA
-		3) 정찰-거래종료	: SRE
-		4) 경매-거래종료	: SAE
-		5) 경매-낙찰완료	: SSE
+		3) 정찰-거래종료	: SRES
+		4) 경매-거래종료	: SREA
+		5) 경매-거래종료	: SAE
+		6) 경매-낙찰완료	: SSE
 		*/
 		
 		getParam.put("sndTyp", sndTyp);
@@ -208,7 +209,7 @@ public class SendSmsUtil {
 						+ "□응찰 일시 : "+regDt+" \n"
 						+ "□낙찰 일시 : "+sBidDt+" \n"
 						+ "□작품명 : "+workNm+" \n"
-						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n"
+						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
 						+ "낙찰된 작품의 결제는 48시간 안에 진행해 주세요. 결제가 완료되면 운송 일정 및 부가 서비스 확인을 위해 고객센터에서 연락 드릴 예정입니다. 꼭! 받아주세요.\n"
 						+ "[유의 사항]\n"
 						+ "- 운송 방법은 프리미엄 운송 서비스와 직접 운송 중 필수로 이용해야 되며 설치, 포장이 필요한 경우 추가 선택이 가능합니다.\n"
@@ -219,32 +220,32 @@ public class SendSmsUtil {
 						+ "□등록 일시 : "+regDt+" \n"
 						+ "□낙찰 일시 : "+sBidDt+" \n"
 						+ "□작품명 : "+workNm+" \n"
-						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n"
+						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
 						+ mbrNcknm +"님! 등록하신 거래가 낙찰 되었습니다.\n"
 						+ "구매자가 48시간 이내 결제를 완료하면 고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
 			} else if(sndConCd.equals("SRES")) {
 				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□판매 형식 : 정찰 \n"
-						+ "□거래 종료 일시 : "+dealEndngDt+"\n"
-						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 구매자가 없어 아쉽게도 유찰 되었습니다. 마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
+						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
+						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 구매자가 없어 아쉽게도 유찰 되었습니다.\n 마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
 			} else if(sndConCd.equals("SREA")) {
 				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□판매 형식 : 경매 \n"
-						+ "□거래 종료 일시 : "+dealEndngDt+"\n"
-						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 응찰이 없어 아쉽게도 유찰 되었습니다. 마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
+						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
+						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 응찰이 없어 아쉽게도 유찰 되었습니다.\n 마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
 			} else if(sndConCd.equals("SAE")) {
 				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□구매형식 : 경매 \n"
 						+ "□응찰일시 : "+bidDt+"\n"
-						+ "□거래종료일시 : "+dealEndngDt+"\n"
+						+ "□거래종료일시 : "+dealEndngDt+"\n\n"
 						+ mbrNcknm+"님! 응찰 하신 미술품이 아쉽게도 다른 회원님께 낙찰되었습니다.";
 			}
 			
 			
-			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SRE") || sndConCd.equals("SAE") || sndConCd.equals("SSE") ) {
+			if( (sndConCd.equals("SAA") && notiCount == 0) || sndConCd.equals("SSA") || sndConCd.equals("SREA") || sndConCd.equals("SRES") || sndConCd.equals("SAE") || sndConCd.equals("SSE") ) {
 				
 				tomap.put("to", sndNumber);
 				mList.add(tomap);
