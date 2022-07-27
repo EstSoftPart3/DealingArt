@@ -133,4 +133,7 @@ public interface MyPageService {
 	
 	//나의작품 / 소장품 거래등록 확인
 	public int dealWorkCount(Map<String, Object> param);
+	
+	//소장품 삭제
+	public int delCollection(String workSq);
 }

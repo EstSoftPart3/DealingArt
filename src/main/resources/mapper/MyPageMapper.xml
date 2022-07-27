@@ -865,6 +865,7 @@
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		WHERE 
 				A.WORK_TYP_CD = 'WORK'
+				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
@@ -1176,7 +1177,8 @@
 				TBL_DA_ARTST_M AS B
 			ON	A.ARTST_SQ = B.ARTST_SQ
 		WHERE 
-				A.WORK_TYP_CD = 'COLL'
+				A.WORK_TYP_CD = 'COLL' AND
+				A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
@@ -1535,6 +1537,7 @@
 				A.MBR_SQ = D.MBR_SQ 
 				AND A.ARTST_SQ = C.ARTST_SQ
 				AND A.WORK_SALE_YN = 'N'
+				AND A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
@@ -2270,4 +2273,14 @@
 					</if>
 					) A
    </select>
+   
+   <update id="delCollection" parameterType="String">
+		/* 소장품 삭제  */
+		UPDATE 
+				TBL_DA_WORK_M 
+		SET		
+				DEL_YN = 'Y'
+		WHERE  
+				WORK_SQ = #{workSq}
+   </update>
 </mapper>

@@ -120,10 +120,12 @@
 									</a>
 								</li>
 							</ul>
-							<div class="med-ic">
+							<div class="med-ic" id="delCollection">
 								<div class="por">
-<!-- 									<div class="tootip-5">설정/공유</div> -->
-<!-- 									<img src="resources/img/mypage/icon-8.png" class="med-me"> -->
+									<!-- <div class="tootip-5">삭제</div> -->
+									<a href="javascript:delCollectionBtn();" class="">
+										<img src="resources/img/mypage/icon-8.png" class="med-me">									
+									</a>									
 								</div>
 							</div>
 						</div>
@@ -210,6 +212,10 @@ function collectionRegMove() {
 function myCollectionList(){
 	console.log(result);
     if(result.length > 0){
+    	
+    	//소장품이 있다면 설정 버튼 보여주기
+    	$("#delCollection").show();
+    	
 		var html = "";
     	
     	$("#grid").empty();
@@ -426,7 +432,7 @@ function myCollectionList(){
 			
 			if(result[i].dealTypCd == null || result[i].dealTypCd == "" || result[i].dealSttsCd == "FB"){
 			
-				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
+				html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';				
 				html += '<div >';
 				html += '<div class="item-div-img reg" style="cursor:pointer;">';
 				//작품 이미지
@@ -434,8 +440,8 @@ function myCollectionList(){
 				html += '	<div class="item-ho3 reg-div">';
 				html += '		<div class="regs" >';
 				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
-				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정</span></a>';
-				html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';
+				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="collectionMod(this)"><span>소장품 수정/삭제</span></a>';				
+				html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';				
 				html += '		</div>';
 				html += '	</div>';
 				html += '</div>';
@@ -491,6 +497,8 @@ function myCollectionList(){
     	masonryLayout();
     }else{
     	$("#div_noneCollection").css("display", "");
+    	//소장품이 없다면 설정 버튼 숨기기
+    	$("#delCollection").hide();
 		//modalAlertShow("등록된 소장품이 없습니다.");
     }
 }
@@ -658,6 +666,7 @@ $(document).on("click", ".heart", function(){
   	function workDetailMove(workSq){
   	 	location.href="/workDetail?workSq="+workSq;
   	}
+  	
 </script>
     
 	

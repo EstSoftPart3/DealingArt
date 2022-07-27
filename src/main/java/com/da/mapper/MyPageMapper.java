@@ -318,5 +318,8 @@ public interface MyPageMapper {
 	 * return : 총 결제 금액
 	 */
 	public Long beforeApplyCupon(Object param);
+
+	//소장품 삭제
+	public int delCollection(String workSq);
 	
 }

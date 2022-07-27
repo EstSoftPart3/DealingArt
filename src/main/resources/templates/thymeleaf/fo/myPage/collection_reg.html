@@ -871,7 +871,7 @@ var storage = new Object();
 work.workTypCd = 'COLL';
 $(function() {   
 	if(sessionStorage.getItem("work") != null){
-		modalConfirm("알림", "임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
+		modalConfirm("임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
 			function(confirm){
 				if(confirm){
 					storage = JSON.parse(sessionStorage.getItem("work"));
@@ -1003,7 +1003,7 @@ function collectionReg(){
 	    formData.append("work", new Blob([JSON.stringify(work)], {type: "application/json"}));
 	
 	    
-	    modalConfirm("알림", "딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
+	    modalConfirm("딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
 
     		function(confirm){
     			if(confirm){
@@ -1164,7 +1164,7 @@ function checkValid(){
 }
 
 function collectionStorage(){
-	modalConfirm("알림", "임시저장시 파일은 저장되지 않습니다. 임시저장하시겠습니까?", 
+	modalConfirm("임시저장시 파일은 저장되지 않습니다. 임시저장하시겠습니까?", 
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({

@@ -394,4 +394,11 @@ public class MyPageDao {
 		return dealWorkCount;
 	}
 	
+	//소장품 삭제
+	public int delCollection(String workSq) {	
+		int result;
+		result = myPageMapper.delCollection(workSq);
+		return result;
+	}
+	
 }
