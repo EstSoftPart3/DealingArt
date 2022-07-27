@@ -107,9 +107,10 @@
 		WHERE 1=1 
 			<!-- AND B.DEAL_STTS_CD != 'TC' -->
 			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
+			AND A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
 			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
-		
+			
 			
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 			
@@ -214,11 +215,11 @@
 		INNER JOIN 	
 				TBL_DA_MBR_M AS B
 			ON 	A.MBR_SQ = B.MBR_SQ
-		/*
+		
 		INNER JOIN 
 				TBL_DA_WORK_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ
-		*/
+		
 		LEFT JOIN 
 				TBL_DA_ARTST_EDUCTN_S AS D
 			ON	A.ARTST_SQ = D.ARTST_SQ 
@@ -228,12 +229,14 @@
 		LEFT JOIN 
 				TBL_DA_ARTST_EXHBTN_S AS F 
 			ON 	A.ARTST_SQ = F.ARTST_SQ 
-		WHERE 
-				A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') 
+		WHERE 	
+				C.DEL_YN = 'N'	
+			AND	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') 
 			OR  YEAR (B.MBR_BIRTH) LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  D.EDUCTN_NM LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  E.CAREER_NM LIKE CONCAT('%',#{searchKeyword},'%')
+			
 			<!-- OR  B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') -->
 		GROUP BY A.ARTST_SQ
 	</select>
@@ -285,6 +288,7 @@
 		WHERE
 				1=1
 				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -403,6 +407,7 @@
 				WHERE
 						1=1
 						AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+						AND A.DEL_YN = 'N' 		 /*작품 삭제 여부*/
 					<if test="searchKeyword != null and searchKeyword != ''">
 						AND 
 						(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')

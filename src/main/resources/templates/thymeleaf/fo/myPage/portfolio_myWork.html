@@ -261,7 +261,7 @@ function myWorkList(){
 						html += '<h4>입찰가 0 KRW</h4>';
 					}
  			     }
-				html += '<h4>- <a href="javascript:myWorkMod('+result[i].workSq+')">작품 수정</a></h4>';
+				html += '<h4>- <a href="javascript:myWorkMod('+result[i].workSq+')">작품 수정/삭제</a></h4>';
  				html += '<h4>- <a href="javascript:workDetailMove('+result[i].workSq+')">상세보기</a></h4>';
 				html += '</div>'
 				
@@ -314,7 +314,7 @@ function myWorkList(){
 				
 				html += '<h4>판매가 '+ formatComma(result[i].dealStrtPrc) +' KRW</h4>';
 				
-				html += '<h4>- <a href="javascript:myWorkMod('+result[i].workSq+')">작품 수정</a></h4>';
+				html += '<h4>- <a href="javascript:myWorkMod('+result[i].workSq+')">작품 수정/삭제</a></h4>';
  				html += '<h4>- <a href="javascript:workDetailMove('+result[i].workSq+')">상세보기</a></h4>';
  				
 				html += '</div>'
@@ -391,7 +391,7 @@ function myWorkList(){
 				html += '	<div class="item-ho3 reg-div">';
 				html += '		<div class="regs" >';
 				html += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'" onclick="dealReg(this)"><span>거래 등록</span></a>';
-				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="myWorkMod('+ result[i].workSq +')"><span>작품 수정</span></a>';
+				html += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'" onclick="myWorkMod('+ result[i].workSq +')"><span>작품 수정/삭제</span></a>';
 				html += '			<a href="javascript:workDetailMove('+ result[i].workSq +')" class="cor-a"><span>상세보기</span></a>';
 				html += '		</div>';
 				html += '	</div>';

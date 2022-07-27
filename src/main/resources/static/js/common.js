@@ -55,7 +55,7 @@ function modalForm(msg,obj) {
 	Html +=	'<div class="modal-content">';
 	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
 	Html +=	'<div class="baegs">';
-	//Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
 	Html +=	'</div>';
 	Html +=	'</div>';
 	Html +=	'<div class="modal-body">';
@@ -159,29 +159,28 @@ function modalAlertClose(obj) {
 ***********************************************************************************************************
 */
 //Modal Confirm Form
-function modalConfirm(title, msg, callback){
-	var Html = '';
-	Html += '<div class="modal-dialog modal-baeg max-w530">';
-	Html += '	<div class="modal-content">';
-	Html += '		<div class="modal-header">';
-	Html += '			<div class="baegs">';
-	Html += '				<h2>'+ title +'</h2>';
-	Html += '		    	<img src="resources/img/ba/icon-1.png" class="con-img" />';
-	Html += '			</div>';
-	Html += '		</div>';
-	Html += '		<div class="modal-body">';
-	Html += '			<div class="md-box-1">';
-	Html += '				<h4 class="min-h240">';
-	Html += msg;
-	Html += '				<h4>';
-	Html += '				<div class="baeg-btn mg_t30">';
-	Html += '					<a href="#"><button type="button" class="baeg-b1" id="ModalConfirm_Ok">확인</button></a>';
-	Html += '					<a href="#" data-dismiss="modal" aria-label="Close" id="ModalConfirm_Cancel"><button type="button" class="baeg-b2">취소</button></a>';
-	Html += '				</div>';
-	Html += '			</div>';
-	Html += '		</div>';
-	Html += '	</div>';
-	Html += '</div>';
+function modalConfirm(msg, callback){
+	var Html = "";
+	Html +=	'<div class="modal-dialog modal-baeg max-w530">';
+	Html +=	'<div class="modal-content">';
+	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	Html +=	'<div class="baegs">';
+	Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'<div class="modal-body">';
+	Html +=	'<div class="md-box-1">';
+	Html +=	'<div class="md-ds" style="color:#333;">';
+	Html +=	msg;
+	Html +=	'</div>';
+	Html +=	'<div class="baeg-btn mg_t30">';  //onclick="testing(\'' + text  + '\')"
+	Html +=	'<button type="button" class="baeg-b1" id="ModalConfirm_Ok">확인</button>';
+	Html +=	'<button type="button" class="baeg-b2" id="ModalConfirm_Cancel">취소</button>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
+	Html +=	'</div>';
 	$("#ModalConfirm").empty();
 	$("#ModalConfirm").append(Html).trigger("create");
 	$("#ModalConfirm").modal("show");

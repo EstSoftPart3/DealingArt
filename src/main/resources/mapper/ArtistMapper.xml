@@ -332,6 +332,7 @@
 		WHERE 
 				A.WORK_SALE_YN = 'N'
 				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN
 					<foreach collection="workSq" item="item" index="idex"  open="(" close=")" separator=",">
@@ -397,6 +398,7 @@
 				A.WORK_TYP_CD = 'WORK'
 			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 			AND A.ARTST_SQ = #{artstSq}
+			AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 
 </mapper>

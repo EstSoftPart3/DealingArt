@@ -412,7 +412,8 @@
 					
 					<div class="bat-box5">
 						<button type="button" class="ba-btn1" onclick="collectionReg()"><span>등록하기</span></button>
-						<button type="button" class="ba-btn3" onclick="collectionStorage()"><span>임시저장</span></button>
+						<button type="button" class="ba-btn3" onclick="delCollection(result.workSq)"><span>삭제하기</span></button>
+						<button type="button" class="ba-btn3" onclick="collectionStorage()"><span>임시저장</span></button>						
 						<button type="button" class="ba-btn3" onclick='javascript:pageGoPost({url:"/myCollection",target:"_self",vals:[["mbrSq", sMbrSqVal]]});'><span>취소</span></button>
 					</div>
 					
@@ -746,7 +747,7 @@ function readImg(input, imgId){
 
 $(function() {   
 	if(sessionStorage.getItem("work") != null){
-		modalConfirm("알림", "임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
+		modalConfirm("임시저장된 작품 정보가 있습니다. <br/> 임시저장된 작품 정보를 불러오시겠습니까?", 
 			function(confirm){
 				if(confirm){
 					storage = JSON.parse(sessionStorage.getItem("work"));
@@ -992,7 +993,7 @@ function collectionReg(){
 			}
 		}
 	    formData.append("work", new Blob([JSON.stringify(result)], {type: "application/json"}));
-	    modalConfirm("알림", "딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
+	    modalConfirm("딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
 
 	    	function(confirm){
 	    		if(confirm){
@@ -1150,7 +1151,7 @@ function checkValid(){
 }
 
 function collectionStorage(){
-	modalConfirm("알림", "임시저장시 파일은 저장되지 않습니다. 임시저장하시겠습니까?", 
+	modalConfirm("임시저장시 파일은 저장되지 않습니다. 임시저장하시겠습니까?", 
 		function(confirm){
 			if(confirm){
 				sessionStorage.setItem("work", JSON.stringify({
@@ -1502,6 +1503,31 @@ $(document).ready(function () {
 	    // therefore delegated events won't be fired
 	    event.stopPropagation();
 	});
+	 
+	//작품 삭제
+	 function delCollection(workSq){
+		modalConfirm("정말 삭제 하시겠습니까?",function(confirm){
+			if(confirm){
+				deletePro(workSq);
+			}
+		});		
+	 }
+	 function deletePro(workSq){
+	 	$.ajax({
+	         type: "post",
+	         url: "/deleteCollection",
+	         data: { "workSq" : workSq },
+	         async: false,
+	         success: function(data) {
+	         	modalAlertShow("정상적으로 삭제 되었습니다.","myCollection")
+	         },
+	         error: function(error) {
+	             alert("오류 발생" + error);
+	         }
+	         
+	 	});
+	 	
+	 }
 	 
 </script>
     

@@ -225,4 +225,11 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return dealWorkCount;
 	}
+	
+	//소장품 삭제
+	@Override
+	public int delCollection(String workSq) {
+		int result = myPageDao.delCollection(workSq);
+		return result;
+	}
 }

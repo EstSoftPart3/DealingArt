@@ -1288,7 +1288,7 @@ function fn_declaration(){
 		
 		$(".close").trigger("click");
 				
-		modalConfirm("알림", "로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+		modalConfirm("로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 			if(confrim){
 				$("#loginModal").modal("show");	
 			}
@@ -1355,13 +1355,13 @@ function fn_decIns(){
 function btn_purchaseOrBid_onclick(){
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		if(result.deal.dealTypCd == "S"){
-			modalConfirm("알림", "로그인 후 구매할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+			modalConfirm("로그인 후 구매할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 				if(confrim){
 					$("#loginModal").modal("show");	
 				}
 			});
 		}else{
-			modalConfirm("알림", "로그인 후 응찰할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+			modalConfirm("로그인 후 응찰할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 				if(confrim){
 					$("#loginModal").modal("show");	
 				}
@@ -1404,7 +1404,7 @@ function btn_agree_onclick(){
 		param.mbrSq = sMbrSqVal; //멤버 순번
 		var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
 		if(index > 1){ //바로 위의 응찰가보다 높으면
-			modalConfirm("알림", "인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+			modalConfirm("인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
 				if(confrim){
 					param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
 					param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
@@ -1440,7 +1440,7 @@ function bidReg(param){
 	        	modalAlertShow("자동 응찰에 실패했습니다. 다시 시도해주세요.", "reload");
         	}
         	if(data.result == 10){
-        		modalConfirm("알림", "자동 응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+        		modalConfirm("자동 응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
 						location.href = "/myDeal";
 					}else{
@@ -1449,7 +1449,7 @@ function bidReg(param){
 				});
         	}
         	if(data.result == 11){
-        		modalConfirm("알림", "회원님보다 높은 자동 응찰가가 있어서 높은 자동 응찰가로 자동 입찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+        		modalConfirm("회원님보다 높은 자동 응찰가가 있어서 높은 자동 응찰가로 자동 입찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
 						location.href = "/myDeal";
 					}else{
@@ -1458,7 +1458,7 @@ function bidReg(param){
 				});
         	}
         	if(data.result == 12){
-        		modalConfirm("알림", "회원님과 같은 금액을 자동 응찰 설정한 자동입찰자가 있지만,<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+        		modalConfirm("회원님과 같은 금액을 자동 응찰 설정한 자동입찰자가 있지만,<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
 						location.href = "/myDeal";
 					}else{
@@ -1467,7 +1467,7 @@ function bidReg(param){
 				});
         	}
         	if(data.result == 2){
-        		modalConfirm("알림", "응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+        		modalConfirm("응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
 						location.href = "/myDeal";
 					}else{

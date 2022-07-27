@@ -1582,7 +1582,7 @@ $(document).on("click",".workMore",function(){
 	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
 		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
 	}else{
-		modalConfirm("알림", "작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+		modalConfirm("작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
 			if(confrim){
 				pageGoPost({
 					url:"/totalSearch_work",
@@ -1600,7 +1600,7 @@ $(document).on("click",".artistMore",function(){
 	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
 		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
 	}else{
-		modalConfirm("알림", "작가 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+		modalConfirm("작가 검색 결과 페이지로 이동하겠습니까?", function(confrim){
 			if(confrim){
 				pageGoPost({
 					url:"/totalSearch_artist",
@@ -1619,7 +1619,7 @@ $(document).on("click",".contentMore",function(){
 	if($("#ibx_search").val() == null || $("#ibx_search").val() == ""){
 		modalAlertShow("검색 키워드를 입력해주세요.", "ibx_search");
 	}else{
-		modalConfirm("알림", "컨텐츠 검색 결과 페이지로 이동하겠습니까?", function(confrim){
+		modalConfirm("컨텐츠 검색 결과 페이지로 이동하겠습니까?", function(confrim){
 			if(confrim){
 				pageGoPost({
 					url:"/totalSearch_content",

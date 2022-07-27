@@ -947,4 +947,14 @@ public class MyPageController {
 		return mv;
 	}
 	
+	//소장품 삭제
+	@RequestMapping("/deleteCollection")	
+	public ModelAndView deleteCollection (@RequestParam("workSq") String workSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		myPageService.delCollection(workSq);
+		String result = "/myCollection";
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 }
