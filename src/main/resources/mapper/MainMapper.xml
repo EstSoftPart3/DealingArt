@@ -100,7 +100,8 @@
 				TBL_DA_WORK_M AS A
 		LEFT JOIN
 				TBL_DA_DEAL_M AS B
-			ON A.WORK_SQ = B.WORK_SQ
+			ON	A.WORK_SQ = B.WORK_SQ
+			AND B.DEAL_STTS_CD != 'FB'
 		<!-- INNER JOIN  
 				TBL_DA_KEYWRD_S AS B 
 			ON 	A.WORK_SQ = B.WORK_SQ -->
@@ -109,7 +110,7 @@
 			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
-		
+			
 			
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 			

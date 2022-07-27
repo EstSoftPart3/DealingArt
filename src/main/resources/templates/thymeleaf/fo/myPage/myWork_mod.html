@@ -329,6 +329,15 @@
 									</td>
 								</tr>
 								<tr>
+									<th><span class="">작품 상태</span></th>
+									<td>
+										<input type="text" class="input-4" id="workState" th:value="${result.workState}"/>
+										<p class="table-p">
+											※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 내용을 입력해주세요.  <br/>
+										</p>
+									</td>
+								</tr>
+								<tr>
 									<th><span class="">소장가</span></th>
 									<td>
 										<input type="text" class="input-4" id="workPrc" th:value="${result.workPrc}"/>
@@ -685,6 +694,7 @@ $(function() {
 							});
 						}
 					}
+					$("#workState").val(storage.workState);
 					$("#workPrc").val(storage.workPrc);
 					$("#workSizeWidth").val(storage.workSizeWidth);
 					$("#workSizeDepth").val(storage.workSizeDepth);
@@ -725,6 +735,7 @@ function myWorkStorage(){
 																workClrCd : $('input[name=workClrCd]:checked').val(),
 																workShpCd : $('input[name=workShpCd]:checked').val(),
 																workClsfcCd : result.workClsfcCd,
+																workState : $("#workState").val(),
 																workPrc : $("#workPrc").val(),
 																workSizeWidth : $("#workSizeWidth").val(),
 																workSizeDepth : $("#workSizeDepth").val(),
@@ -886,7 +897,8 @@ function myWorkReg(){
 		result.workVideoUrl = $("#workVideoUrl").val();
 		result.workIntrdc = $("#workIntrdc").val();
 		result.workLake = $("#workLake").val();
-		//result.workLake = $("#workLake").val();
+		result.workState = $("#workState").val();
+		
 		//공개여부
 		result.workOpenYn = $('input[name=workOpenYn]:checked').val();
 		

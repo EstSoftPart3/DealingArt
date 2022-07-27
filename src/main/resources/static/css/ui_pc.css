@@ -5476,3 +5476,6 @@ position: relative;background-color: #fbfbfb;}
 .r-checks.rch-3 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-3-on.jpg);width: 92px;height: 76px;background-size: 100%;position: absolute;left: 0;top: 0;}
 .r-checks.rch-4 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-4-on.jpg);width: 92px;height: 76px;background-size: 100%;position: absolute;left: 0;top: 0;}
 .r-checks.rch-5 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-5-on.jpg);width: 92px;height: 76px;background-size: 100%;position: absolute;left: 0;top: 0;}
+
+/* 0727 */
+.max-w600 {max-width:600px;}

@@ -290,6 +290,15 @@
 									</td>
 								</tr>
 								<tr>
+									<th><span class="">작품 상태</span></th>
+									<td>
+										<input type="text" class="input-4" id="workState" th:value="${result.workState}"/>
+										<p class="table-p">
+											※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 내용을 입력해주세요.  <br/>
+										</p>
+									</td>
+								</tr>
+								<tr>
 									<th><span class="my-red">소재/기법</span></th>
 									<td><input type="text" class="input-4" id="workMatrl" th:value="${result.workMatrl}"/></td>
 								</tr>
@@ -768,6 +777,7 @@ $(function() {
 							});
 						}
 					}
+					$("#workState").val(storage.workState);
 					$("#workPrc").val(storage.workPrc);
 					$("#workSizeWidth").val(storage.workSizeWidth);
 					$("#workSizeDepth").val(storage.workSizeDepth);
@@ -914,6 +924,7 @@ function collectionReg(){
 		result.workIntrdc = $("#workIntrdc").val();
 		result.keywrd = $("#keywrd").val();
 		result.workLake = $("#workLake").val();
+		result.workState = $("#workState").val();
 		
 		//공개여부
 		result.workOpenYn = $('input[name=workOpenYn]:checked').val();
@@ -1164,6 +1175,7 @@ function collectionStorage(){
 																workClrCd : $('input[name=workClrCd]:checked').val(),
 																workShpCd : $('input[name=workShpCd]:checked').val(),
 																workClsfcCd : result.workClsfcCd,
+																workState : $("#workState").val(),
 																workPrc : $("#workPrc").val(),
 																workSizeWidth : $("#workSizeWidth").val(),
 																workSizeDepth : $("#workSizeDepth").val(),
@@ -1223,7 +1235,7 @@ function searchArtst(){
 				var result = data.result;
 				var html = '';
 				for(var i=0; i<result.length; i++){
-					html += '<li artstSq="'+result[i].artstSq+'" artstActvtyNm="'+result[i].artstActvtyNm+'" artstBirthYear="'+result[i].artstBirthYear+'" onclick="selectArtst(this)" style="cursor:pointer;">';
+					html += '<li artstSq="'+result[i].artstSq+'" artstActvtyNm="'+result[i].artstActvtyNm+'" artstEnglsNm="'+result[i].artstEnglsNm+'" artstBirthYear="'+result[i].artstBirthYear+'" onclick="selectArtst(this)" style="cursor:pointer;">';
 					html += '	<div class="collsearch">';
 					html += '		<div class="collsear-img"><img src="'+result[i].artstProfileImgUrl+'" class="colls-i2" /></div>';
 					html += '		<div class="collsear-text">';
@@ -1255,8 +1267,8 @@ function searchArtst(){
 function selectArtst(obj){
 	var artstActvtyNm = obj.attributes.artstActvtyNm.value;
 	var artstBirthYear = obj.attributes.artstBirthYear.value;
-	work.artstEnglsNm = obj.attributes.artstEnglsNm.value;
-	work.artstSq = obj.attributes.artstSq.value;
+	result.artstEnglsNm = obj.attributes.artstEnglsNm.value;
+	result.artstSq = obj.attributes.artstSq.value;
 	$("#artstActvtyNm").val(artstActvtyNm);
 	$("#artstYear").val(artstBirthYear);
 	$("#searchArtstModal").modal("hide");

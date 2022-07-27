@@ -267,6 +267,10 @@
 										</td>
 									</tr>
 									<tr>
+										<th><span class="my-red">작품 상태</span></th>
+										<td><input type="text" class="input-4" id="workState" th:value="${result.work.workState}"/></td>
+									</tr>
+									<tr>
 										<th><span class="my-red">소재/기법</span></th>
 										<td><input type="text" class="input-4" id="workMatrl" th:value="${result.work.workMatrl}"/></td>
 									</tr>
@@ -1507,6 +1511,7 @@ function dealRegNotesModal(){
 	result.work.workSizeDepth = $("#workSizeDepth").val();
 	result.work.workMatrl = $("#workMatrl").val();
 	result.work.workProdcYear = $("#workProdcYear").val();
+	result.work.workState = $("#workState").val();
 	
 	if(vaild()){
 		$('body').css("overflow", "hidden");

@@ -717,8 +717,11 @@
 		     					
 		     					
 		     					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-		     					
-		     					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					if(dealList[i].artstBirthYear == null || dealList[i].artstBirthYear == ""){
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +'</h3>';
+		     					}else{
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					}
 		     					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
@@ -777,8 +780,11 @@
 		     					
 		     					
 		     					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-		     					
-		     					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					if(dealList[i].artstBirthYear == null || dealList[i].artstBirthYear == ""){
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +'</h3>';
+		     					}else{
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					}
 		     					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
@@ -824,8 +830,11 @@
 		     					
 		     					
 		     					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
-		     					
-		     					html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					if(dealList[i].artstBirthYear == null || dealList[i].artstBirthYear == ""){
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +'</h3>';
+		     					}else{
+		     						html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     					}
 		     					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
 		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
 		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';

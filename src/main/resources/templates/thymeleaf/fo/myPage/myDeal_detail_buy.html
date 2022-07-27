@@ -622,10 +622,13 @@ workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
 //$("#mainPayCall").val(1);
 
 var historyYn = "Y";
-history.pushState(null, null, '');
+var referrer = document.referrer;
 window.onpopstate = function(e) {    
-	if(historyYn == "Y"){  
-		history.back(-1);    
+	if(historyYn != "Y"){  
+		history.pushState(null, null, '');
+		//history.back(-1);    
+	}else{
+		window.location.href = referrer;
 	}
 };
 /*

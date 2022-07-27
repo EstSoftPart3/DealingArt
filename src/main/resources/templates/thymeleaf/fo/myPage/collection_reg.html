@@ -284,12 +284,21 @@
 									</td>
 								</tr>
 								<tr>
+									<th><span class="">작품 상태</span></th>
+									<td>
+										<input type="text" class="input-4" id="workState"/>
+										<p class="table-p">
+											※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 내용을 입력해주세요.  <br/>
+										</p>
+									</td>
+								</tr>
+								<tr>
 									<th><span class="my-red">소재/기법</span></th>
 									<td><input type="text" class="input-4" id="workMatrl"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="text" class="input-4" id="workProdcYear"/></td>
+									<td><input type="number" class="input-4" id="workProdcYear" oninput="this.value = this.value.replace('.', ''); if(this.value.length > 5){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">사이즈</span></th>
@@ -884,6 +893,7 @@ $(function() {
 							});
 						}
 					}
+					$("#workState").val(storage.workState);
 					$("#workPrc").val(storage.workPrc);
 					$("#workSizeWidth").val(storage.workSizeWidth);
 					$("#workSizeDepth").val(storage.workSizeDepth);
@@ -912,6 +922,7 @@ function collectionReg(){
 		work.workIntrdc = $("#workIntrdc").val();
 		work.keywrd = $("#keywrd").val();
 		work.workLake = $("#workLake").val();
+		work.workState = $("#workState").val();
 		
 		//공개여부
 		work.workOpenYn = $('input[name=workOpenYn]:checked').val();
@@ -1167,6 +1178,7 @@ function collectionStorage(){
 																workClrCd : $('input[name=workClrCd]:checked').val(),
 																workShpCd : $('input[name=workShpCd]:checked').val(),
 																workClsfcCd : result.workClsfcCd,
+																workState : $("#workState").val(),
 																workPrc : $("#workPrc").val(),
 																workSizeWidth : $("#workSizeWidth").val(),
 																workSizeDepth : $("#workSizeDepth").val(),

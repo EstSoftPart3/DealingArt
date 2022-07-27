@@ -5619,3 +5619,6 @@ p.dib{display:inline-block !important;}
 .r-checks.rch-4 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-4-on.jpg);background-size: 100%;position: absolute;left: 0;top: 0;width: 20.7rem;height: 16.9rem;}
 .r-checks.rch-5 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-5-on.jpg);background-size: 100%;position: absolute;left: 0;top: 0;width: 20.7rem;height: 16.9rem;}
 
+/* 0727 */
+.max-w600 {max-width:600px;}
+

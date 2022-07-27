@@ -188,6 +188,10 @@
 									<td th:if="${result.deal.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
 									<td th:if="${result.deal.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
 								</tr>
+								<tr th:if="${not #strings.isEmpty(result.deal.workState)}">
+									<th>작품 상태</th>
+									<td th:text="${result.deal.workState}"></td>
+								</tr>
 								<tr>
 									<th>닉네임</th>
 									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor: pointer;">[[${result.deal.mbrNcknm}]] 

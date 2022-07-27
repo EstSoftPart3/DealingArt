@@ -386,9 +386,10 @@ public class MemberController {
 			//회원정보 가져오기
 			List<Map<String, Object>> memberContent = memberMapper.memberContent(param);
 			
-			String mbrCpNum = commonService.decrypt((String) memberContent.get(0).get("mbrCpNum")).replace("-", "");
-			String mbrId = commonService.decrypt((String) memberContent.get(0).get("mbrId"));
-			String mbrNm = (String) memberContent.get(0).get("mbrNm");
+			String mbrCpNum = commonService.decrypt(memberContent.get(0).get("mbrCpNum").toString()).replace("-", "");
+			String mbrId = commonService.decrypt(memberContent.get(0).get("mbrId").toString());
+			String mbrNcknm = commonService.decrypt(memberContent.get(0).get("mbrNcknm").toString());
+			//String mbrNm = memberContent.get(0).get("mbrNm").toString();
 			
 			//등록일시	
 			//String regDt = (String) param.get("regDt");
@@ -408,6 +409,7 @@ public class MemberController {
 									
 			sendParams.put("mbrCpNum", mbrCpNum);
 			sendParams.put("mbrId", mbrId);
+			sendParams.put("mbrNcknm", mbrNcknm);
 			sendParams.put("sndConCd", "SAA");
 			
 			sendSmsUtil.sendSmsProc(sendParams);

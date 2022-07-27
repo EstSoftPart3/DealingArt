@@ -4191,7 +4191,7 @@ input-bg{
 
 .modal-sech3{
     width: 100%;
-    height: 50%;
+    height: auto; /* 정영우 수정 0725*/
     margin: 0;
     border-radius: 0;
 }
@@ -5994,3 +5994,6 @@ p.dib{display:inline-block !important;}
 .r-checks.rch-3 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-3-on.jpg);background-size: 100%;position: absolute;left: 0;top: 0;width: 17.7rem;height: 14.6rem;}
 .r-checks.rch-4 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-4-on.jpg);background-size: 100%;position: absolute;left: 0;top: 0;width: 17.7rem;height: 14.6rem;}
 .r-checks.rch-5 input[type="radio"]:checked + label:before{content:'';background-image: url(../img/icon/ro-5-on.jpg);background-size: 100%;position: absolute;left: 0;top: 0;width: 17.7rem;height: 14.6rem;}
+
+/* 0727 */
+.mo_width {max-width:75rem;}

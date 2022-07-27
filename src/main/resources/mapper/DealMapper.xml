@@ -13,7 +13,7 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = " " ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR,'~',C.ARTST_YOD)) AS artstBirthYear, /*작가생년월일*//* 작가생년월일+작가사망연도*/
+				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR,'~',C.ARTST_YOD)) AS artstBirthYear, /*작가생년월일*//* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -165,7 +165,8 @@
 				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작날짜*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료날짜*/
-				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+				D.DEAL_ENDNG_DT AS dealEndngDateTime, /*거래종료날짜시간*/
+				A.WORK_STATE AS workState
 		FROM 
 				TBL_DA_WORK_M AS A
 		LEFT JOIN
@@ -446,7 +447,8 @@
 	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
 	            A.WORK_LAKE AS workLake,
 				FORMAT(A.WORK_PRC, 0) AS workPrc,
-				B.MBR_NCKNM AS mbrNcknm
+				B.MBR_NCKNM AS mbrNcknm,
+				A.WORK_STATE AS workState
 		FROM
 				TBL_DA_WORK_M AS A
 		INNER JOIN

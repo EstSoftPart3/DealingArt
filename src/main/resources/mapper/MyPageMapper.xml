@@ -560,6 +560,9 @@
 						<if test="workLake != null and workLake != ''">
 							,WORK_LAKE
 						</if>
+						<if test="workState != null and workState != ''">
+							,WORK_STATE
+						</if>
 						,WORK_OPEN_YN
 					)
 				VALUES (
@@ -629,6 +632,9 @@
 						</if>
 						<if test="workLake != null and workLake != ''">
 							,#{workLake}
+						</if>
+						<if test="workState != null and workState != ''">
+							,#{workState}
 						</if>
 						,#{workOpenYn}
 				)
@@ -717,6 +723,9 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,WORK_INTRDC
 									</if>
+									<if test="workState != null and workState != ''">
+										,WORK_STATE
+									</if>
 									,WORK_OPEN_YN
 					)
 					VALUE(
@@ -771,6 +780,9 @@
 							<if test="workIntrdc != null and workIntrdc != ''">
 								,#{workIntrdc}
 							</if>
+							<if test="workState != null and workState != ''">
+								,#{workState}
+							</if>
 							,#{workOpenYn}
 					)
 					
@@ -821,6 +833,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				A.WORK_TYP_CD = 'WORK'
+				AND D.DEAL_STTS_CD != 'FB'
 				AND A.ARTST_SQ = #{value}
 	</select>
 	<select id="myWorkListNonSale" resultType="hashMap" parameterType="hashMap">
@@ -894,7 +907,8 @@
 				A.WORK_INTRDC AS workIntrdc,
 				(SELECT B.KEYWRD_SQ FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
 				(SELECT B.KEYWRD FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
-				A.WORK_OPEN_YN AS workOpenYn 
+				A.WORK_OPEN_YN AS workOpenYn,
+				A.WORK_STATE AS workState 
 				 
 		FROM 
 				TBL_DA_WORK_M AS A
@@ -958,6 +972,9 @@
 									<if test="workIntrdc != null and workIntrdc != ''">
 										,WORK_INTRDC
 									</if>
+									<if test="workState != null and workState != ''">
+										,WORK_STATE
+									</if>
 									,WORK_OPEN_YN
 					) VALUES (
 								#{workSq},
@@ -1010,6 +1027,9 @@
 								<if test="workIntrdc != null and workIntrdc != ''">
 									,#{workIntrdc}
 								</if>
+								<if test="workState != null and workState != ''">
+									,#{workState}
+								</if>
 								,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
@@ -1061,6 +1081,9 @@
 								</if>
 								<if test="workIntrdc != null and workIntrdc != ''">
 									,WORK_INTRDC = #{workIntrdc}
+								</if>
+								<if test="workState != null and workState != ''">
+									,WORK_STATE = #{workState}
 								</if>
 								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>
@@ -1127,6 +1150,7 @@
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
 				A.WORK_TYP_CD = 'COLL'
+				AND D.DEAL_STTS_CD != 'FB'
 				AND A.MBR_SQ = #{mbrSq}
 	</select>
 	<select id="myCollectionNonSale" resultType="hashMap" parameterType="String">
@@ -1198,7 +1222,8 @@
 				(SELECT B.KEYWRD
 				 FROM TBL_DA_KEYWRD_S AS B
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
-				 WORK_OPEN_YN AS workOpenYn
+				A.WORK_OPEN_YN AS workOpenYn,
+				A.WORK_STATE AS workState
 		FROM 
 				TBL_DA_WORK_M AS A
 				
@@ -1277,6 +1302,9 @@
 									<if test="workLake != null and workLake != ''">
 										,WORK_LAKE
 									</if>
+									<if test="workState != null and workState != ''">
+										,WORK_STATE
+									</if>
 									,WORK_OPEN_YN
 								)
 							VALUES (
@@ -1346,6 +1374,9 @@
 									<if test="workLake != null and workLake != ''">
 										,#{workLake}
 									</if>
+									<if test="workState != null and workState != ''">
+										,#{workState}
+									</if>
 									,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
@@ -1360,7 +1391,7 @@
 								UPDT_DT = NOW(),
 								UPDT_MBR_SQ = #{mbrSq}
 								<if test="artstEnglsNm != null and artstEnglsNm != ''">
-										,ARTST_ENGLS_NM = #{artstEnglsNm}
+									,ARTST_ENGLS_NM = #{artstEnglsNm}
 								</if>
 								<if test="artstSq != null and artstSq != ''">
 									,ARTST_SQ = #{artstSq}
@@ -1412,6 +1443,9 @@
 								</if>
 								<if test="workLake != null and workLake != ''">
 									,WORK_LAKE = #{workLake}
+								</if>
+								<if test="workState != null and workState != ''">
+									,WORK_STATE = #{workState}
 								</if>
 								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>

@@ -185,6 +185,10 @@
 								<td th:if="${result.work.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
 								<td th:if="${result.work.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
 							</tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workState)}">
+								<th>작품 상태</th>
+								<td th:text="${result.work.workState}"></td>
+							</tr>
 							<!-- <tr>
 								<th>소장가(판매가)</th>
 								<td th:text="${result.work.workPrc}+' KRW'"></td>
