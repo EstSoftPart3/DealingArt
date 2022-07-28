@@ -24,7 +24,7 @@
 				<div class="con-wrap">
 					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
 					
-					<div class="con-right m-max1300">
+					<div class="con-right m-max1300" style="display:none">
 						<div class="me-left">
 							<div class="med">
 								<h2 class="">거래정보</h2>
@@ -459,12 +459,20 @@
 </div>
 <script th:inline="javascript">
 $(function(){
+	$(".con-right").hide();
+	
 	const url = new URL(window.location.href);
 	const urlParam = url.searchParams;
+	console.log("MbrSqVal :"+sMbrSqVal);
 	if(sMbrSqVal != urlParam.get('mbrSq')){
-		location.href="/main";
+		//location.href="/main";
+		 modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
+		return;
+	} else {
+		$(".con-right").show();
 	}
 });
+
 
 var result = /*[[${result}]]*/ 'default';
 var amount = 0; //할인 전 금액
