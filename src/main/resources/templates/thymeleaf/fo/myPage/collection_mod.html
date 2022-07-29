@@ -1519,7 +1519,7 @@ $(document).ready(function () {
 	
 	//작품 삭제 하기전에 거래중인지 확인
 	function dealCheck (workSq){
-		
+		//debugger;
 		var result;	//ajax response 결과값 저장할 변수
 		$.ajax({
 	         type: "post",
@@ -1537,7 +1537,7 @@ $(document).ready(function () {
 		result = 1 이상 : 거래 등록 된 작품
 		result = 0 : 거래 등록 되지 않은 작품
 		*/
-		if (result => 1){
+		if (result > 0){			
 			modalConfirm("거래 등록된 소장품은 삭제 하실수 없습니다.",function(confirm){
 				if(confirm){
 					location.reload();
@@ -1547,7 +1547,7 @@ $(document).ready(function () {
 			});
 		}else{
 			delCollection(workSq);
-		}
+		};
 	}
 	
 	//작품 삭제
