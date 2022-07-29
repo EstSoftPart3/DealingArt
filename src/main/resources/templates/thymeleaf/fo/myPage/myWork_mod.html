@@ -1392,12 +1392,12 @@ function dealWorkCount(workSq){
 	    		result = 0 : 거래 등록 되지 않은 작품
 	    		*/
 	    		
-	         	modalConfirm("소장품을 삭제 하시겠습니까?",function(confirm){
+	         	modalConfirm("작품을 삭제 하시겠습니까?",function(confirm){
 				
 	         		if(confirm){
 						//소장품 삭제 승인
 						if(dealCheckValue > 0) {
-							modalAlertShow("해당 소장품이 거래중입니다. <br> 거래중인 소장품은 삭제 하실 수 없습니다. ");
+							modalAlertShow("해당 작품이 거래중입니다. <br> 거래중인 작품은 삭제 하실 수 없습니다. ");
 							return;
 						} else if(dealCheckValue == 0) {
 							//소장품 삭제 Function Call
@@ -1405,7 +1405,7 @@ function dealWorkCount(workSq){
 						}	
 					}else{
 						//소장품 삭제 취소
-						modalAlertShow("소장품 삭제를 취소하셨습니다.");
+						modalAlertShow("나의 작품 삭제를 취소하셨습니다.");
 						return;
 					}
 					
@@ -1428,7 +1428,7 @@ function dealWorkCount(workSq){
 	        data: { "workSq" : workSq },
 	        async: false,
 	        success: function(data) {
-	        	modalAlertShow("정상적으로 삭제 되었습니다.","myCollection")
+	        	modalAlertShow("정상적으로 삭제 되었습니다.","myWork")
 	        },
 	        error: function(error) {
 	            alert("오류 발생" + error);
