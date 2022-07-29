@@ -497,6 +497,7 @@ html, body{font-size: calc(100vw / 152);}
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    object-fit:contain;
 }
 .hd-div .hd-text{
     display: none;
