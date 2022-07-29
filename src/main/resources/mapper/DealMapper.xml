@@ -585,7 +585,8 @@
 				(SELECT B.KEYWRD
 				 FROM TBL_DA_KEYWRD_S AS B
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
-				 WORK_OPEN_YN AS workOpenYn
+				 WORK_OPEN_YN AS workOpenYn,
+				 A.WORK_STATE AS workState
 		FROM 
 				TBL_DA_WORK_M AS A
 				
