@@ -1702,7 +1702,7 @@
 				TBL_DA_DEAL_M AS B
 		WHERE 
 				 A.WORK_SQ = B.WORK_SQ
-			AND B.DEAL_SQ = #{dealSq}.
+			AND B.DEAL_SQ = #{dealSq}
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		GROUP BY B.DEAL_SQ
 	</select>
