@@ -147,6 +147,7 @@
 			,WORK_PRC AS workPrc
 		FROM TBL_DA_WORK_M
 		WHERE 1=1
+		AND	DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		AND WORK_SQ = #{workSq}
    </select>
    

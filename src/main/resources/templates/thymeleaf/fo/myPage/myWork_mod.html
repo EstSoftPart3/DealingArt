@@ -429,7 +429,7 @@
 					
 					<div class="bat-box5">
 						<button type="button" class="ba-btn1" onclick="myWorkReg()"><span>등록하기</span></button>
-						<button type="button" class="ba-btn3" onclick="delCollection(result.workSq)"><span>삭제하기</span></button>
+						<button type="button" class="ba-btn3" onclick="dealCheck(result.workSq)"><span>삭제하기</span></button>
 						<button type="button" class="ba-btn3" onclick="myWorkStorage()"><span>임시저장</span></button>
 						<button type="button" class="ba-btn3" onclick='javascript:pageGoPost({url:"/myWork",target:"_self",vals:[["artstSq", artstSq]]});'><span>취소</span></button>
 					</div>
@@ -1372,9 +1372,42 @@ function dealWorkCount(workSq){
     event.stopPropagation();
 });
  
+//작품 삭제 하기전에 거래중인지 확인
+function dealCheck (workSq){	
+	
+	var result;	//ajax response 결과값 저장할 변수
+	$.ajax({
+         type: "post",
+         url: "/dealCheck",
+         data: { "workSq" : workSq },
+         async: false,
+         success: function(response) {
+         	result = response;
+         },
+         error: function(error) {
+             alert("오류 발생" + error);
+         }	         
+ 	});
+	/*
+	result = 1 이상 : 거래 등록 된 작품
+	result = 0 : 거래 등록 되지 않은 작품
+	*/
+	if (result => 1){
+		modalConfirm("거래 등록된 소장품은 삭제 하실수 없습니다.",function(confirm){
+			if(confirm){
+				location.reload();
+			}else{
+				history.back();
+			}		
+		});
+	}else{
+		delCollection(workSq)
+	}
+}
+ 
 //작품 삭제
 function delCollection(workSq){
-
+	//삭제 여부 추가 확인
 	modalConfirm("정말 삭제 하시겠습니까?",function(confirm){
 		if(confirm){
 			deletePro(workSq);
@@ -1382,6 +1415,7 @@ function delCollection(workSq){
 	});		
 	 
 }
+//작품 삭제 확인시 실행
 function deletePro(workSq){
 	$.ajax({
         type: "post",

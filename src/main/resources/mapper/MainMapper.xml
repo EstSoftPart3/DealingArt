@@ -37,6 +37,7 @@
 		WHERE
 				C.DEAL_SQ IS NOT NULL
 			AND C.DEAL_STTS_CD = "TP"
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<select id="mainTodayBid" resultType="hashMap">
@@ -63,6 +64,7 @@
 		<!--  AND 	DATE_FORMAT(B.DEAL_ENDNG_DT, '%Y-%m-%d') = #{now} --> 
 		AND 	B.WORK_SQ = A.WORK_SQ
 		AND		A.ARTST_SQ = C.ARTST_SQ
+		AND		A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		LIMIT #{pageSize}
 		OFFSET #{page};
 		
@@ -107,11 +109,11 @@
 			ON 	A.WORK_SQ = B.WORK_SQ -->
 		WHERE 1=1 
 			<!-- AND B.DEAL_STTS_CD != 'TC' -->
-			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
-			AND A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
-			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
-			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
-			
+			AND (A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') 
+ 			OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+			OR A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
+		    AND A.WORK_OPEN_YN = 'Y'
+		    AND A.DEL_YN = 'N'		
 			
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 			
@@ -142,6 +144,7 @@
 			ON A.WORK_SQ = C.WORK_SQ
 			
 		WHERE 1=1
+			AND A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
 		    AND C.DEAL_STTS_CD != 'TC'
 			AND (A.WORK_OPEN_YN = 'Y' AND A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%'))
 			OR  (A.WORK_OPEN_YN = 'Y' AND A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%'))
@@ -231,7 +234,7 @@
 				TBL_DA_ARTST_EXHBTN_S AS F 
 			ON 	A.ARTST_SQ = F.ARTST_SQ 
 		WHERE 	
-				C.DEL_YN = 'N'	
+				C.DEL_YN = 'N'	/*작품 삭제 여부 확인 */
 			AND	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') 
 			OR  YEAR (B.MBR_BIRTH) LIKE CONCAT('%',#{searchKeyword},'%')
 			OR  A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
