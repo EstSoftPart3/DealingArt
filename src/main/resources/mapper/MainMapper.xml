@@ -36,7 +36,7 @@
 			ON 	A.WORK_SQ = C.WORK_SQ 
 		WHERE
 				C.DEAL_SQ IS NOT NULL
-			AND C.DEAL_STTS_CD = "TP"
+			AND C.DEAL_STTS_CD = 'TP'
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	

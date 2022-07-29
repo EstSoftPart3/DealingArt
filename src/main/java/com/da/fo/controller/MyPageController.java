@@ -951,9 +951,7 @@ public class MyPageController {
 	@RequestMapping("/dealCheck")
 	public ModelAndView dealCheck (@RequestParam("workSq") String workSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
-				
 		int result = myPageService.dealCheck(workSq);
-		
 		mv.addObject("result", result);
 		return mv;
 	}
