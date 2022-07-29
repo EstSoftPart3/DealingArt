@@ -1373,65 +1373,70 @@ function dealWorkCount(workSq){
 });
  
 //작품 삭제 하기전에 거래중인지 확인
-function dealCheck (workSq){	
-	
-	var result;	//ajax response 결과값 저장할 변수
-	$.ajax({
-         type: "post",
-         url: "/dealCheck",
-         data: { "workSq" : workSq },
-         async: false,
-         success: function(response) {
-         	result = response;
-         },
-         error: function(error) {
-             alert("오류 발생" + error);
-         }	         
- 	});
-	/*
-	result = 1 이상 : 거래 등록 된 작품
-	result = 0 : 거래 등록 되지 않은 작품
-	*/
-	if (result => 1){
-		modalConfirm("거래 등록된 소장품은 삭제 하실수 없습니다.",function(confirm){
-			if(confirm){
-				location.reload();
-			}else{
-				history.back();
-			}		
-		});
-	}else{
-		delCollection(workSq)
+	function dealCheck(workSq){
+		
+		var result;	//ajax response 결과값 저장할 변수
+		$.ajax({
+	         type: "post",
+	         url: "/dealCheck",
+	         data: { "workSq" : workSq },
+	         async: false,
+	         success: function(response) {
+	         	
+	         	/* var responseJson = JSON.stringify(response);
+	         	console.log("response :"+responseJson); */
+	         	var dealCheckValue = response.result;
+	         	
+	         	/*
+	    		result = 1 이상 : 거래 등록 된 작품
+	    		result = 0 : 거래 등록 되지 않은 작품
+	    		*/
+	    		
+	         	modalConfirm("소장품을 삭제 하시겠습니까?",function(confirm){
+				
+	         		if(confirm){
+						//소장품 삭제 승인
+						if(dealCheckValue > 0) {
+							modalAlertShow("해당 소장품이 거래중입니다. <br> 거래중인 소장품은 삭제 하실 수 없습니다. ");
+							return;
+						} else if(dealCheckValue == 0) {
+							//소장품 삭제 Function Call
+							collDeletePro(workSq);
+						}	
+					}else{
+						//소장품 삭제 취소
+						modalAlertShow("소장품 삭제를 취소하셨습니다.");
+						return;
+					}
+					
+				});
+	    		
+	         },
+	         error: function(error) {
+	        	 console.log("오류 발생" + error);
+	         }	         
+	 	});
+		
+		
 	}
-}
- 
-//작품 삭제
-function delCollection(workSq){
-	//삭제 여부 추가 확인
-	modalConfirm("정말 삭제 하시겠습니까?",function(confirm){
-		if(confirm){
-			deletePro(workSq);
-		}
-	});		
-	 
-}
-//작품 삭제 확인시 실행
-function deletePro(workSq){
-	$.ajax({
-        type: "post",
-        url: "/deleteCollection",
-        data: { "workSq" : workSq },
-        async: false,
-        success: function(data) {
-        	modalAlertShow("정상적으로 삭제 되었습니다.","myWork")
-        },
-        error: function(error) {
-            alert("오류 발생" + error);
-        }
-        
-	});
 	
-}
+	//작품 삭제 확인시 실행
+	function collDeletePro(workSq){
+		$.ajax({
+	        type: "post",
+	        url: "/deleteCollection",
+	        data: { "workSq" : workSq },
+	        async: false,
+	        success: function(data) {
+	        	modalAlertShow("정상적으로 삭제 되었습니다.","myCollection")
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+	         
+		});
+	 	
+	 }
  
  
 </script>

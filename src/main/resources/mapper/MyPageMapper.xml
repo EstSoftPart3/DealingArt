@@ -2303,7 +2303,8 @@
 		UPDATE 
 				TBL_DA_WORK_M 
 		SET		
-				DEL_YN = 'Y'
+				DEL_YN = 'Y',
+				UPDT_DT = NOW()
 		WHERE  
 				WORK_SQ = #{workSq}
    </update>
