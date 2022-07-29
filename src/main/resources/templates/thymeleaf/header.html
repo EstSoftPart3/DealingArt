@@ -1537,7 +1537,12 @@ function ibx_search_onkeyup(e){
 				var contentHtml = '';
 				
 				for(i=0; i<work.length; i++){
-					workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
+					if(work[i].workProdcYear == null || work[i].workProdcYear == 'null') {
+						workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+' - '+work[i].artstActvtyNm+'</a></li>';	
+					} else {
+						workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
+					}
+					
 				}
 				$("#work").append(workHtml).trigger("create");
 				
