@@ -101,6 +101,12 @@
 			,UPDT_MBR_SQ          AS updtMbrSq
 			,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
 			,USE_YN               AS useYn
+			,(
+				CASE
+					WHEN USE_YN = 'Y' THEN '예'
+					WHEN USE_YN = 'N' THEN '아니오'
+				END			
+			) AS useYnRplc
 			,DEL_YN				  AS delYn
 
         FROM

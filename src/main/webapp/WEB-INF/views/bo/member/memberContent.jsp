@@ -14,6 +14,9 @@
     {
     	background-color:#efefef;
     	width:100px;
+    }
+    .dataValue{
+    	background-color:#ffffff;
     }	
 </style>
 
@@ -119,45 +122,39 @@
                 <table class="table table-bordered">	                
 					<tr class="col-form-label sTitle LabelStyle" >
 						<td class="col-sm-1" align="center" >회원 구분</td>
-						<td id="authSqTxt" class="col-sm-2"></td>
-						
+						<td id="authSqTxt" class="col-sm-2 dataValue"></td>						
 						<td class="col-sm-1" align="center">사용 여부</td>
-						<td id="useYn" class="col-sm-2"></td>
+						<td id="useYn" class="col-sm-2 dataValue"></td>
 					</tr>
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center">아이디</td>
-						<td id="mbrId" class="col-sm-2"></td>
-						
+						<td id="mbrId" class="col-sm-2 dataValue"></td>						
 						<td class="col-sm-1" align="center">닉네임</td>
-						<td id="mbrNcknm" class="col-sm-2"></td>						
+						<td id="mbrNcknm" class="col-sm-2 dataValue"></td>						
 					</tr>
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center">성명</td>
-						<td id="mbrNm" class="col-sm-2"></td>
-						
+						<td id="mbrNm" class="col-sm-2 dataValue"></td>						
 						<td class="col-sm-1" align="center">성별</td>
-						<td id="mbrSexCd" class="col-sm-2"></td>						
+						<td id="mbrSexCd" class="col-sm-2 dataValue"></td>						
 					</tr>	
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center">생년월일</td>
-						<td id="mbrBirth" class="col-sm-2"></td>
-						
+						<td id="mbrBirth" class="col-sm-2 dataValue"></td>						
 						<td class="col-sm-1" align="center">휴대폰 번호</td>
-						<td id="mbrCpNum" class="col-sm-2"></td>						
+						<td id="mbrCpNum" class="col-sm-2 dataValue"></td>						
 					</tr>	
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center">집 주소</td>
-						<td id="mbrHomeAddr" class="col-sm-2"></td>
-						
+						<td id="mbrHomeAddr" class="col-sm-2 dataValue" ></td>						
 						<td class="col-sm-1" align="center">배송지 주소</td>
-						<td id="mbrDelivryAddr" class="col-sm-2"></td>						
+						<td id="mbrDelivryAddr" class="col-sm-2 dataValue"></td>						
 					</tr>	
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center">이메일</td>
-						<td id="mbrEmail" class="col-sm-2"></td>
-						
+						<td id="mbrEmail" class="col-sm-2 dataValue"></td>						
 						<td class="col-sm-1" align="center">가입일</td>
-						<td id="regDt" class="col-sm-2"></td>						
+						<td id="regDt" class="col-sm-2 dataValue"></td>						
 					</tr>				
                 </table>
                 
@@ -222,7 +219,7 @@
 		        	 var regDt = dataContent.regDt						//회원등록일시
 		        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
-		        	 var useYn = dataContent.useYn						//사용여부
+		        	 var useYn = dataContent.useYnRplc					//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
 		        	 var mbrPasswrd = dataContent.mbrPasswrd					//회원구분
