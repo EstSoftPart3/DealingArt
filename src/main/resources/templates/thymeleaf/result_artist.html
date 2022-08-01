@@ -127,17 +127,19 @@
 								<div class="hd-bg3"><img th:src="${artstList.artstWorkImgUrl}" style="width:100%; height:100%;"/></div>
 								<div class="user-1"><img th:src="${artstList.artstProfileImgUrl}" style="width:100%; height:100%; border-radius:40%;"></div>
 								<div class="hd-text">
-									<h4 th:text="${artstList.artstActvtyNm}">김미숙 
-										<span class="h4-span" th:text="${artstList.artistBirthYear}">1982년생</span>
+									<h4 th:text="${artstList.artstActvtyNm}"><!-- 김미숙 --> 
+										<!-- 1982년생 -->
+										<span class="h4-span" th:text="${artstList.artistBirthYear}"></span>
 									</h4>
-									<div class="hd-d1 ellipsis" th:text="${artstList.artstSelfIntro}">손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움...</div>
+									<!-- 손의 수고로움으로 빚어낸 천 년의 아름다움, 옻칠화손의 수고로움... -->
+									<div class="hd-d1 ellipsis" th:text="${artstList.artstSelfIntro}"></div>
 								</div>
 							</a>
 						</li>
 					</ul>
 				</div>
 				
-				<<div class="text-center">
+				<div class="text-center">
 					<!-- <button type="button" class="btn-more ta-no"><span>more</span></button> -->
 				</div>
 			</div>
