@@ -103,8 +103,8 @@
 			,USE_YN               AS useYn
 			,(
 				CASE
-					WHEN USE_YN = 'Y' THEN '예'
-					WHEN USE_YN = 'N' THEN '아니오'
+					WHEN USE_YN = 'Y' THEN '사용중'
+					WHEN USE_YN = 'N' THEN '사용중지'
 				END			
 			) AS useYnRplc
 			,DEL_YN				  AS delYn
@@ -262,6 +262,43 @@
        </if>
     </select>
    
-    
+    <select id="wthdrMemContent" resultType="hashMap">
+    	SELECT
+				AUTH_SQ               AS authSq
+				,MBR_SQ               AS mbrSq
+				,MBR_ID               AS mbrId
+				,MBR_EMAIL            AS mbrEmail
+				,MBR_PASSWRD          AS mbrPasswrd
+				,MBR_NM               AS mbrNm
+				,MBR_NCKNM            AS mbrNcknm
+				,MBR_NATN_CD          AS mbrNatnCd
+				,MBR_BIRTH            AS mbrBirth
+				,(
+					CASE 
+						WHEN MBR_SEX_CD = 'MALE' THEN '남'
+						WHEN MBR_SEX_CD = 'FEMALE' THEN '여' 
+					END
+			 	) AS mbrSexCd
+				,MBR_SEX_CD AS mbrSexCdChk
+				,MBR_HOME_ADDR        AS mbrHomeAddr
+				,MBR_DELIVRY_ADDR     AS mbrDelivryAddr				
+				,REG_MBR_SQ           AS regMbrSq
+				,DATE_FORMAT(REG_DT,'%Y-%m-%d')  AS regDt
+				,UPDT_MBR_SQ          AS updtMbrSq
+				,DATE_FORMAT(UPDT_DT,'%Y-%m-%d')  AS updtDt
+				,USE_YN               AS useYn
+				,(
+					CASE
+						WHEN USE_YN = 'Y' THEN '사용중'
+						WHEN USE_YN = 'N' THEN '사용중지'
+					END			
+				) AS useYnRplc
+				,DEL_YN				  AS delYn
+
+        FROM
+            	TBL_DA_MBR_M
+        WHERE 1=1
+          AND MBR_SQ = #{mbrSq}
+    </select>
     
 </mapper>
