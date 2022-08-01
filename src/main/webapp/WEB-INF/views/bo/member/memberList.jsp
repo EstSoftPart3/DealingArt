@@ -2,6 +2,18 @@
 
 <%@ include file="/WEB-INF/views/boInclude/include_top.jspf"%>
 
+<style type="text/css">
+	a:link {
+	  color : #0000FF;
+	}
+	a:visited {
+	  color : #000000;
+	}
+	a:hover {
+	  color : #E9625C;
+	}
+	
+</style>
 
 <body class="hold-transition sidebar-mini">
 
@@ -51,21 +63,21 @@
 	              	
 	              	 <div class="card-body table-responsive p-0" style="height: 850px;font-size:11px;">
 	              	 
-		                <table class="table table-bordered"">
-		                  <thead>
-		                    <tr align="center" style="background-color:#efefef">
-		                      <th>회원구분</th>
-		                      <th>이름</th>
-		                      <th>아이디(이메일)</th>
-		                      <th>휴대전화</th>
-		                      <th>등록일</th>
-		                      <th>작가정보등록</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody id="dataList">
-		                   		                    
-		                  </tbody>
-		                </table>
+						<table class="table table-bordered">
+							<thead>
+								<tr align="center" style="background-color:#efefef;">
+									<th>회원구분</th>
+									<th>이름</th>
+									<th>아이디(이메일)</th>
+									<th>휴대전화</th>
+									<th>등록일</th>
+									<th>작가정보등록</th>
+								</tr>
+							</thead>
+							<tbody id="dataList" >
+									                   		                    
+							</tbody>
+						</table>
 		            </div>
     			
     			</div>
@@ -133,8 +145,8 @@
 		        		   	}
    		        			
    			        	   	strHtml += '<tr align="center" style="height:20px;">';
-   			        		strHtml += '<td>'+ authGubun + ' ' + dataList[i].mbrSocialSort +'</td>';
-   			        	   	strHtml += '<td onclick="memberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">'+ dataList[i].mbrNm +'</td>';
+   			        		strHtml += '<td>'+ authGubun + ' ' + dataList[i].mbrSocialSort +'</td>';   			        					        		
+   			        	   	strHtml += '<td style="cursor:pointer; color: #0000ff;"><a href="javascript:void(0)" onclick="memberContent('+ dataList[i].mbrSq +')">'+ dataList[i].mbrNm +'</td>';
    			        	   	//strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>';
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>';

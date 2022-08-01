@@ -33,6 +33,7 @@
 				
 				<form class="form-horizontal">
 				
+				<!-- 
                 <div class="card-body" style="background-color:#ffffff;">
                 	
                 	<div class="card-body table-responsive p-0" style="overflow:hidden;">
@@ -111,9 +112,55 @@
                   		<hr>
                   		
                     </div>
-                  
+				
                 </div>
+                -->
                 <!--card-body -->
+                <table class="table table-bordered">	                
+					<tr class="col-form-label sTitle LabelStyle" >
+						<td class="col-sm-1" align="center" >회원 구분</td>
+						<td id="authSqTxt" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">사용 여부</td>
+						<td id="useYn" class="col-sm-2"></td>
+					</tr>
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">아이디</td>
+						<td id="mbrId" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">닉네임</td>
+						<td id="mbrNcknm" class="col-sm-2"></td>						
+					</tr>
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">성명</td>
+						<td id="mbrNm" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">성별</td>
+						<td id="mbrSexCd" class="col-sm-2"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">생년월일</td>
+						<td id="mbrBirth" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">휴대폰 번호</td>
+						<td id="mbrCpNum" class="col-sm-2"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">집 주소</td>
+						<td id="mbrHomeAddr" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">배송지 주소</td>
+						<td id="mbrDelivryAddr" class="col-sm-2"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">이메일</td>
+						<td id="mbrEmail" class="col-sm-2"></td>
+						
+						<td class="col-sm-1" align="center">가입일</td>
+						<td id="regDt" class="col-sm-2"></td>						
+					</tr>				
+                </table>
+                
                 
                 <!--card-footer -->
                 <div class="card-footer" style="text-align:right;background-color:#ffffff">
@@ -198,18 +245,18 @@
 		        		 authSqTxt = '전체관리자'; 
 		        	 }
 		        	 
-		        	 $("#authSqTxt").val(authSqTxt);
-		        	 $("#mbrNm").val(mbrNm);
-		        	 $("#mbrNm").val(mbrNm);
-		        	 $("#mbrId").val(mbrId);
-		        	 $("#mbrNcknm").val(mbrNcknm);
-		        	 $("#mbrEmail").val(mbrEmail);
-		        	 $("#mbrBirth").val(mbrBirth);
-		        	 $("#mbrSexCd").val(mbrSexCd);
-		        	 $("#mbrCpNum").val(mbrCpNum);
-		        	 $("#regDt").val(regDt);
-		        	 $("#mbrHomeAddr").val(mbrHomeAddr);
-		        	 $("#mbrDelivryAddr").val(mbrDelivryAddr);
+		        	 $("#authSqTxt").text(authSqTxt);
+		        	 $("#mbrNm").text(mbrNm);
+		        	 $("#useYn").text(useYn);
+		        	 $("#mbrId").text(mbrId);
+		        	 $("#mbrNcknm").text(mbrNcknm);
+		        	 $("#mbrEmail").text(mbrEmail);
+		        	 $("#mbrBirth").text(mbrBirth);
+		        	 $("#mbrSexCd").text(mbrSexCd);
+		        	 $("#mbrCpNum").text(mbrCpNum);
+		        	 $("#regDt").text(regDt);
+		        	 $("#mbrHomeAddr").text(mbrHomeAddr);
+		        	 $("#mbrDelivryAddr").text(mbrDelivryAddr);
 		        	 
 		        	
 		        	 
