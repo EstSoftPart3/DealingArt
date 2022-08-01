@@ -107,9 +107,7 @@
 		});
 		
 		//회원 정보 호출
-		function memberContentData(mbrSq) {
-			
-			console.log("memberUpdateData : "+ mbrSq);
+		function memberContentData(mbrSq) {			
 			
 			$.ajax({
 		           type: "post",
@@ -117,9 +115,8 @@
 		           data: {
 		        	   mbrSq : mbrSq
 		            },
-		           success: function(data) {
-		        	   
-		        	 console.log(data);   
+		           success: function(data) {		        	   
+		        	  
 		        	 dataContent = data.wthdrMemContent.wthdrMemContent[0];
 		        	 
 		        	 console.log(dataContent);

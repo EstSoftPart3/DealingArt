@@ -263,6 +263,7 @@
     </select>
    
     <select id="wthdrMemContent" resultType="hashMap">
+    	/* 탈퇴 회원 정보 조회 */
     	SELECT
 				AUTH_SQ               AS authSq
 				,MBR_SQ               AS mbrSq
