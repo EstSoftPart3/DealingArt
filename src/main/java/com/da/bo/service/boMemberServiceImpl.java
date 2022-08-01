@@ -88,5 +88,14 @@ public class boMemberServiceImpl implements boMemberService {
 		return result;
 	}
 	
-	
+	//탈퇴 회원 정보 상세 페이지
+	@Override
+	public Map<String, Object> wthdrMemContent(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boMemberDao.wthdrMemContent(param);
+		
+		return result;
+	}
 }

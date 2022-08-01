@@ -26,6 +26,7 @@ public interface boMemberMapper {
 	//회원 목록
 	public List artistApp(Map<String, Object> param);
 	
-	
+	//탈퇴 회원 정보 상세 페이지
+	public List wthdrMemContent(Map<String, Object> param);
 
 }

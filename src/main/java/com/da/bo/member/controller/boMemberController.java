@@ -291,4 +291,23 @@ public class boMemberController {
 		
 		return mv;
 	}
+	
+	//탈퇴 회원 정보 상세 페이지
+	@RequestMapping("/admin/member/wthdrMemberContent")
+	public String withdrMemberContent () {
+		return "bo/member/wthdrMemberContent";
+	}
+	@RequestMapping("/admin/member/wthdrMemberContentData")
+	@ResponseBody
+	public ModelAndView withdrMemberContentData (@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = boMemberService.wthdrMemContent(param);
+		
+		mv.addObject("wthdrMemContent", result);
+		return mv;
+	}
 }
