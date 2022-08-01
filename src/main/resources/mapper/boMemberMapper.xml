@@ -107,7 +107,10 @@
 					WHEN USE_YN = 'N' THEN '아니오'
 				END			
 			) AS useYnRplc
-			,DEL_YN				  AS delYn
+			,DEL_YN				AS delYn
+			,MBR_BANK_CD		AS mbrBankCd
+			,MBR_ACCOUNT_NO		AS mbrAccountNo
+			,MBR_BANK_NM		AS mbrBankNm
 
         FROM
             TBL_DA_MBR_M A 
