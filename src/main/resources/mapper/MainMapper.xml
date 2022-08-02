@@ -109,11 +109,13 @@
 			ON 	A.WORK_SQ = B.WORK_SQ -->
 		WHERE 1=1 
 			<!-- AND B.DEAL_STTS_CD != 'TC' -->
-			AND (A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%') 
- 			OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
-			OR A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
-		    AND A.WORK_OPEN_YN = 'Y'
-		    AND A.DEL_YN = 'N'		
+			AND A.WORK_OPEN_YN = 'Y'
+			AND A.DEL_YN = 'N'
+			AND (
+					A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					OR A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
+					OR A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
+				)
 			
 			<!-- OR  B.KEYWRD LIKE CONCAT('%',#{searchKeyword},'%') -->
 			
