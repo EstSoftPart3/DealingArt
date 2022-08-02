@@ -26,6 +26,13 @@ public interface DealService {
 	public int dealReg(Object param);
 	
 	/*
+	 * 거래수정
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealMod(Object param);
+	
+	/*
 	 * 응찰 테이블에 응찰 정보 insert
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int

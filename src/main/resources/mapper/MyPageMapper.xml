@@ -929,26 +929,38 @@
 		/*나의 작품 등록 수정*/
 		INSERT INTO 
 					TBL_DA_WORK_M(
-									WORK_SQ,
-									MBR_SQ,
-									ARTST_SQ,
-									ARTST_ACTVTY_NM,
-									ARTST_BIRTH_YEAR,
-									WORK_TYP_CD,
-									WORK_NM,
-									WORK_SIZE_WIDTH,
-									WORK_SIZE_DEPTH,
-									WORK_LAKE,
-									WORK_MATRL,
-									WORK_PRODC_YEAR,
-									WORK_IMG_FRT_URL,
-									WORK_FRM_YN,
-									WORK_SALE_YN,
-									WORK_CLR_CD,
-									WORK_SHP_CD,
-									WORK_CLSFC_CD,
-									UPDT_DT,
-									UPDT_MBR_SQ
+									WORK_SQ
+									,MBR_SQ
+									,ARTST_ACTVTY_NM
+									,WORK_TYP_CD
+									,WORK_NM
+									,WORK_SIZE_WIDTH
+									,WORK_SIZE_DEPTH
+									,WORK_MATRL
+									,WORK_PRODC_YEAR
+									,WORK_IMG_FRT_URL
+									,WORK_FRM_YN
+									,WORK_SALE_YN
+									,UPDT_DT
+									,UPDT_MBR_SQ
+									<if test="artstSq != null and artstSq != ''">
+										,ARTST_SQ
+									</if>
+									<if test="artstBirthYear != null and artstBirthYear != ''">
+										,ARTST_BIRTH_YEAR
+									</if>
+									<if test="workLake != null and workLake != ''">
+										,WORK_LAKE
+									</if>
+									<if test="workClrCd != null and workClrCd != ''">
+										,WORK_CLR_CD
+									</if>
+									<if test="workShpCd != null and workShpCd != ''">
+										,WORK_SHP_CD
+									</if>
+									<if test="workClsfcCd != null and workClsfcCd != ''">
+										,WORK_CLSFC_CD
+									</if>
 									<if test="workMainImgUrl != null and workMainImgUrl != ''">
 										,WORK_MAIN_IMG_URL
 									</if>
@@ -984,26 +996,39 @@
 									</if>
 									,WORK_OPEN_YN
 					) VALUES (
-								#{workSq},
-			     				#{mbrSq},
-								#{artstSq},
-								#{artstActvtyNm},
-								#{artstBirthYear},
-								#{workTypCd},
-								#{workNm},
-								#{workSizeWidth},
-								#{workSizeDepth},
-								#{workLake},
-								#{workMatrl},
-								#{workProdcYear},
-								#{workImgFrtUrl},
-								#{workFrmYn},
-								#{workSaleYn},
-								#{workClrCd},
-								#{workShpCd},
-								#{workClsfcCd},
-								NOW(),
-								#{mbrSq}
+								#{workSq}
+			     				,#{mbrSq}
+								,#{artstActvtyNm}
+								,#{workTypCd}
+								,#{workNm}
+								,#{workSizeWidth}
+								,#{workSizeDepth}
+								,#{workMatrl}
+								,#{workProdcYear}
+								,#{workImgFrtUrl}
+								,#{workFrmYn}
+								,#{workSaleYn}
+								,NOW()
+								,#{mbrSq}
+								
+								<if test="artstSq != null and artstSq != ''">
+									,#{artstSq}
+								</if>
+								<if test="artstBirthYear != null and artstBirthYear != ''">
+									,#{artstBirthYear}
+								</if>
+								<if test="workLake != null and workLake != ''">
+									,#{workLake}
+								</if>
+								<if test="workClrCd != null and workClrCd != ''">
+									,#{workClrCd}
+								</if>
+								<if test="workShpCd != null and workShpCd != ''">
+									,#{workShpCd}
+								</if>
+								<if test="workClsfcCd != null and workClsfcCd != ''">
+									,#{workClsfcCd}
+								</if>
 								<if test="workMainImgUrl != null and workMainImgUrl != ''">
 									,#{workMainImgUrl}
 								</if>
@@ -1040,25 +1065,37 @@
 								,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
-		    					MBR_SQ = #{mbrSq},
-								ARTST_SQ = #{artstSq},
-								ARTST_ACTVTY_NM = #{artstActvtyNm},
-								ARTST_BIRTH_YEAR = #{artstBirthYear},
-								WORK_TYP_CD = #{workTypCd},
-								WORK_NM = #{workNm},
-								WORK_SIZE_WIDTH = #{workSizeWidth},
-								WORK_SIZE_DEPTH = #{workSizeDepth},
-								WORK_LAKE = #{workLake},
-								WORK_MATRL = #{workMatrl},
-								WORK_PRODC_YEAR = #{workProdcYear},
-								WORK_IMG_FRT_URL = #{workImgFrtUrl},
-								WORK_FRM_YN = #{workFrmYn},
-								WORK_SALE_YN = #{workSaleYn},
-								WORK_CLR_CD = #{workClrCd},
-								WORK_SHP_CD = #{workShpCd},
-								WORK_CLSFC_CD = #{workClsfcCd},
-								UPDT_DT = NOW(),
-								UPDT_MBR_SQ = #{mbrSq}
+		    					MBR_SQ = #{mbrSq}
+								,ARTST_ACTVTY_NM = #{artstActvtyNm}
+								,WORK_TYP_CD = #{workTypCd}
+								,WORK_NM = #{workNm}
+								,WORK_SIZE_WIDTH = #{workSizeWidth}
+								,WORK_SIZE_DEPTH = #{workSizeDepth}
+								,WORK_MATRL = #{workMatrl}
+								,WORK_PRODC_YEAR = #{workProdcYear}
+								,WORK_IMG_FRT_URL = #{workImgFrtUrl}
+								,WORK_FRM_YN = #{workFrmYn}
+								,WORK_SALE_YN = #{workSaleYn}
+								,UPDT_DT = NOW()
+								,UPDT_MBR_SQ = #{mbrSq}
+								<if test="artstSq != null and artstSq != ''">
+									,ARTST_SQ = #{artstSq}
+								</if>
+								<if test="artstBirthYear != null and artstBirthYear != ''">
+									,ARTST_BIRTH_YEAR = #{artstBirthYear}
+								</if>
+								<if test="workLake != null and workLake != ''">
+									,WORK_LAKE = #{workLake}
+								</if>
+								<if test="workClrCd != null and workClrCd != ''">
+									,WORK_CLR_CD = #{workClrCd}
+								</if>
+								<if test="workShpCd != null and workShpCd != ''">
+									,WORK_SHP_CD = #{workShpCd}
+								</if>
+								<if test="workClsfcCd != null and workClsfcCd != ''">
+									,WORK_CLSFC_CD = #{workClsfcCd}
+								</if>
 								<if test="workMainImgUrl != null and workMainImgUrl != ''">
 									,WORK_MAIN_IMG_URL = #{workMainImgUrl}
 								</if>
