@@ -1251,10 +1251,10 @@ var biddingInterval = setInterval(function() {
 		 pageReload();
 	}
   	var gap = dday - today;
-  	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-  	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-  	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-  	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+  	var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+  	var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+  	var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+  	var sec = Math.floor((gap % (1000 * 60)) / 1000);
   	
   	//객체 존재 확인
   	if(document.getElementById('dealCount')){
