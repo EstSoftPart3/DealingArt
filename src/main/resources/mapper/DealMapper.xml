@@ -544,7 +544,8 @@
 				DATE_FORMAT(DEAL_STRT_DT, '%Y.%m.%d') AS dealStrtDate,
 				DATE_FORMAT(DEAL_ENDNG_DT, '%Y.%m.%d') AS dealEndngDate,
 				DATE_FORMAT(DEAL_STRT_DT, '%H:%i') AS dealStrtTime,
-				DATE_FORMAT(DEAL_ENDNG_DT, '%H:%i') AS dealEndngTime
+				DATE_FORMAT(DEAL_ENDNG_DT, '%H:%i') AS dealEndngTime,
+				DEAL_AUCTN_PRC AS dealAuctnPrc
 		FROM 
 				TBL_DA_DEAL_M
 		WHERE 

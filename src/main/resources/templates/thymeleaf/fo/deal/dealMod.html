@@ -134,7 +134,7 @@
 						
 						<div class="med">
 							<h2>기간설정</h2>
-							<div class="med-box radio-2">
+							<div class="med-box radio-2" id="div_dealPeriod">
 								<input type="radio" id="w1" name="dealPeriod" value="start">
 								<label for="w1" class="wd-145"><span></span>즉시 시작</label>
 								<input type="radio" id="w2" name="dealPeriod" value="choice" checked>
@@ -160,7 +160,7 @@
 						
 						<div class="med">
 							<h2 id="bidOrSale">낙찰 희망가</h2>
-							<div class="med-box radio-2">
+							<div class="med-box radio-2" id="div_dealStrtPrc">
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
 									<th:block th:if="${result.deal.dealTypCd.toString().equals('A')}">
@@ -267,7 +267,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th><span class="my-red">작품 상태</span></th>
+										<th><span class="">작품 상태</span></th>
 										<td><input type="text" class="input-4" id="workState" th:value="${result.work.workState}"/></td>
 									</tr>
 									<tr>
@@ -987,6 +987,7 @@ $(function() {
 	}
 });
 var result = /*[[${result}]]*/ 'default';
+
 //계좌구분
 /* $("input[name=strGbn]").click(function(){
 	if(this.value != "1"){
@@ -1107,7 +1108,44 @@ jQuery(document).ready(function() {
         defaultTime: result.deal.dealEndngTime,
         interval: 10
     });
-	result.deal.dealEndngDate
+	
+	if(result.deal.dealTypCd == "S"){
+    	$("#sell").prop("checked", true);
+	}else{
+		$("#auctn").prop("checked", true);
+	}
+	$("input:radio[name='dealTypCd']").change();
+	/* var dealAuctnPrc = result.deal.dealAuctnPrc;
+	var dealSttsCd = result.deal.dealSttsCd;
+	
+	if(dealAuctnPrc != null && dealAuctnPrc != ""){
+		if(result.deal.dealTypCd == "S"){
+	    	$("#sell").prop("checked", true);
+		}else{
+			$("#auctn").prop("checked", true);
+		}
+	    $("input:radio[name='dealTypCd']").change();
+	    $("#sell").attr("disabled", true);
+	    $("#auctn").attr("disabled", true);
+	    $("#div_dealPeriod *").attr("disabled", true);
+	    $("#div_dealStrtPrc *").attr("disabled", true);
+	    $("#sell").attr("readonly", true);
+	    $("#auctn").attr("readonly", true);
+	    $("#div_dealPeriod *").attr("readonly", true);
+	    $("#div_dealStrtPrc *").attr("readonly", true);
+	}else{
+	    if(result.deal.dealTypCd == "S"){
+	    	$("#sell").prop("checked", true);
+		}else{
+			$("#auctn").prop("checked", true);
+		}
+	    $("input:radio[name='dealTypCd']").change();
+	} 
+	
+	if(dealSttsCd != "TP"){
+		modalAlertShow("현재 거래 중이 아닙니다. 거래내역 페이지로 이동합니다.", "myDeal");
+	} */
+	
 	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
 		$(".home-1").css("display", "none");
 		$(".home-2").css("display", "");
@@ -1116,12 +1154,6 @@ jQuery(document).ready(function() {
 		$("#q2").prop("checked", "true");
 	}
 	
-    if(result.deal.dealTypCd == "S"){
-    	$("#sell").prop("checked", true);
-	}else{
-		$("#auctn").prop("checked", true);
-	}
-    $("input:radio[name='dealTypCd']").change();
     //autoLake();
 });
 
