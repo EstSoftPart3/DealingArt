@@ -419,10 +419,10 @@ setInterval(function() {
 			dealSearch();
 		}
 	  	var gap = dday - today;
-		var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-		var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-		var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-		var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+		var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+		var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+		var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+		var sec = Math.floor((gap % (1000 * 60)) / 1000);
 		html += '<li>'+ day +'<span>day</span></li>';
 		html += '<li>'+ hour +'<span>hrs</span></li>';
 		html += '<li>'+ min +'<span>min</span></li>';
