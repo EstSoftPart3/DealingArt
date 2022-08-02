@@ -314,7 +314,7 @@
 					
 					<div class="swiper mySwiperIn" >
 						
-						<div class="swiper-wrapper" id="mainInsights">
+						<div class="swiper-wrapper" id="mainInsights" style="border: #ececec 2px solid">
 						
 						</div>
 						
@@ -708,13 +708,15 @@
 
 	        		   insightsHtml +='<div class="swiper-slide">';
 	        		   insightsHtml +='<div>';
-	        		   insightsHtml += '	<a href="/insights?mgzSq='+mainInsights[i].mgzSq+'">';
-	        		   insightsHtml += '<div class="cns-box">';
+	        		   
+	        		   insightsHtml += '<div class="cns-box" >';
+	        		   insightsHtml += '<a href="/insights?mgzSq='+mainInsights[i].mgzSq+'">';
 	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" />';
-	 				   insightsHtml += '<div class="cns-sb">';
+	        		   insightsHtml +='</a>';
+	        		   insightsHtml += '<div class="cns-sb">';
 	 				   insightsHtml += '<p class="cns-p1">'+mainInsights[i].mgzTitle+'</p>';
 	 				   insightsHtml += '<p class="cns-p2 ellipsis">'+mainInsights[i].mgzDescrptn+'</p>';
-	 				   insightsHtml +='</a>';
+	 				   
 	 				   insightsHtml +='</div>';
 	 				   insightsHtml +='<div>';
 	 				   insightsHtml +='</div>';
