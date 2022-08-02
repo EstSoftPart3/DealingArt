@@ -91,6 +91,7 @@
 		
 		/* #lp_mgz9Dtl { font-size: 12px; } */
 		
+		.no-drag {-ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;}
 
     </style>
     
@@ -100,7 +101,7 @@
     
 </head>
 
-<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false" >
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		
@@ -163,7 +164,7 @@
 			
 			<!-- 상세내용 font-size: 15px !important;-->
 			<div  style="display: flex;justify-content: center">
-			<div id="lp_mgz9Dtl_cntnt" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners post-body" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+			<div id="lp_mgz9Dtl_cntnt" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners post-body no-drag" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
 				
 <!-- 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt" style="font:inherit;"></div> -->
 				
