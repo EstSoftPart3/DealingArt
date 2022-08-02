@@ -956,7 +956,6 @@ html, body{font-size: calc(100vw / 75);}
 
 
 .bashow{right:0 !important;}
-.dib{display:block !important;}
 .ta-t60{margin-top:6rem;}
 
 .af-dn:after{display:none;}
@@ -5583,7 +5582,7 @@ position: relative;background-color: #fbfbfb;}
 .tstyle4 tr:last-child th{padding-bottom:0;}
 .tstyle4 tr:last-child td{padding-bottom:0;}
 p.dib{display:inline-block !important;}
-#myModal5 .check-info{width: calc(100% - 17.5rem);/* white-space: nowrap; */}
+#dealRegNotesModal .check-info{width: calc(100% - 17.5rem);/* white-space: nowrap; */}
 #myModal6 .check-info{}
 .terms-body{padding-top:5rem;}
 

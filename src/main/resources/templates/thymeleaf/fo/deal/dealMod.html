@@ -981,11 +981,6 @@
 <!-- 0702 끝 -->
 
 <script th:inline="javascript">
-$(function() {
-	if(sMbrSqVal == null || sMbrSqVal == ""){
-		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
-	}
-});
 var result = /*[[${result}]]*/ 'default';
 
 //계좌구분
@@ -1108,15 +1103,20 @@ jQuery(document).ready(function() {
         defaultTime: result.deal.dealEndngTime,
         interval: 10
     });
-	
-	if(result.deal.dealTypCd == "S"){
-    	$("#sell").prop("checked", true);
-	}else{
-		$("#auctn").prop("checked", true);
-	}
-	$("input:radio[name='dealTypCd']").change();
-	/* var dealAuctnPrc = result.deal.dealAuctnPrc;
+	var dealAuctnPrc = result.deal.dealAuctnPrc;
 	var dealSttsCd = result.deal.dealSttsCd;
+	
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
+		return;
+	}else{
+		if(dealSttsCd != "TP"){
+			modalAlertShow("현재 거래 중이 아닙니다. 거래내역 페이지로 이동합니다.", "myDeal");
+			return;
+		}else{
+			$("#myModal3").modal("show");
+		}
+	}
 	
 	if(dealAuctnPrc != null && dealAuctnPrc != ""){
 		if(result.deal.dealTypCd == "S"){
@@ -1141,10 +1141,6 @@ jQuery(document).ready(function() {
 		}
 	    $("input:radio[name='dealTypCd']").change();
 	} 
-	
-	if(dealSttsCd != "TP"){
-		modalAlertShow("현재 거래 중이 아닙니다. 거래내역 페이지로 이동합니다.", "myDeal");
-	} */
 	
 	if(result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == ""){
 		$(".home-1").css("display", "none");
@@ -1617,27 +1613,26 @@ function dealReg(){
 	    
 	    $.ajax({
 	        type: "post",
-	        url: "/dealReg/reg",
+	        url: "/dealMod/Mod",
 	        data: formData,
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
 	        	if(data > 0){
 	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
+	        			modalAlertShow("거래가 수정되었습니다.", "myCollection");
 	        		}else if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myWork");
+	        			modalAlertShow("거래가 수정되었습니다.", "myWork");
 	        		}else{
-	        			modalAlertShow("거래가 등록되었습니다.", "main");
+	        			modalAlertShow("거래가 수정되었습니다.", "main");
 	        		}
-	        		
-	        	}
-	        	if(data == -2){
+	        	}else{
 	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("해당 작품은 이미 거래 등록 되어있습니다.", "myCollection");
-	        		}
-	        		if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("해당 작품은 이미 거래 등록 되어있습니다.", "myWork");
+	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "myCollection");
+	        		}else if(result.work.workTypCd == "WORK"){
+	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "myWork");
+	        		}else{
+	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "main");
 	        		}
 	        	}
 	        },
@@ -1769,7 +1764,7 @@ function setTodayTime(){
 	   	    function(){ $(this).removeClass('gis') }
 	   	  )
 	   	  
-	   	  $("#myModal3").modal("show");
+	   	  //$("#myModal3").modal("show");
       });
       
       $(function() {                      

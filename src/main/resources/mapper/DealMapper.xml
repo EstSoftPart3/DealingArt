@@ -607,7 +607,7 @@
 						TBL_DA_DEAL_M
 				WHERE 
 						DEAL_SQ = #{dealSq}
-					AND (DEAL_STTS_CD = 'TC' OR DEAL_AUCTN_PRC IS NOT NULL)
+					AND (DEAL_STTS_CD != 'TP' OR DEAL_AUCTN_PRC IS NOT NULL)
 				) A
 	</select>
 	
