@@ -201,7 +201,7 @@
 		                    		<span id="sellMbrDelivryAddr"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
-		                    		<span id="sellMbrBankCd"></span>
+		                    		<span id="sellMbrBankNm"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
 		                    		<span id="sellMbrAccountNo"></span>
@@ -250,7 +250,7 @@
 		                    		<span id="buyMbrDelivryAddr"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
-		                    		<span id="#buyMbrBankName"></span>
+		                    		<span id="#buyMbrBankNm"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
 		                    		<span id="#buyMbrAccountNo"></span>
@@ -610,7 +610,7 @@
 					 $("#sellMbrEmail").html(mbrEmail);
 					 $("#sellMbrHomeAddr").html(mbrHomeAddr);
 					 $("#sellMbrDelivryAddr").html(mbrDelivryAddr);
-					 $("#sellMbrBankCd").html(mbrBankNm);
+					 $("#sellMbrBankNm").html(mbrBankNm);
 					 $("#sellMbrAccountNo").html(mbrAccountNo);
 		           },
 		           error: function(error) {
@@ -619,10 +619,6 @@
 		           }
 			});
 	 	}
-	 	
-	 	
-	 	
-	 	
 	 	
 	 	//구매자 정보
 	  	function fn_buyMbr(mbrSq){
@@ -657,7 +653,7 @@
 					 $("#buyMbrEmail").html(mbrEmail);
 					 $("#buyMbrHomeAddr").html(mbrHomeAddr);
 					 $("#buyMbrDelivryAddr").html(mbrDelivryAddr);
-					 $("#buyMbrBankName").html(mbrBankNm);
+					 $("#buyMbrBankNm").html(mbrBankNm);
 					 $("#buyMbrAccountNo").html(mbrAccountNo);
 		           },
 		           error: function(error) {
