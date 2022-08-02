@@ -65,7 +65,7 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//관리자 계정 로그아웃
 	@RequestMapping("/admin/logout")
-	@ResponseBody
+	//@ResponseBody
 	public ModelAndView adminLogout (HttpSession session) {		
 		
 		ModelAndView mv = new ModelAndView();
