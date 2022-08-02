@@ -619,7 +619,7 @@ columns figure {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    object-fit:cotain;
+    object-fit:contain;
 }
 
 .footer-icon a img {

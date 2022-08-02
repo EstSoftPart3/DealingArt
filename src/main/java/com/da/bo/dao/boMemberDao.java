@@ -197,4 +197,45 @@ public class boMemberDao {
 		return result;
 	}
 
+	//탈퇴 회원 정보 상세 페이지
+	public Map<String, Object> wthdrMemContent (Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> wthdrMemContent = boMemberMapper.wthdrMemContent(param);
+		
+		//암호화된 회원 정보 복호화
+		for(int z=0; z<wthdrMemContent.size(); z++){
+		 	
+			 String mbrIdDecrypt = (String) wthdrMemContent.get(z).get("mbrId");	
+			 String mbrEmailDecrypt = (String) wthdrMemContent.get(z).get("mbrEmail");	
+			 String mbrCpNumDecrypt = (String) wthdrMemContent.get(z).get("mbrCpNum");	
+			 String mbrHomeAddrDecrypt = (String) wthdrMemContent.get(z).get("mbrHomeAddr");
+			 String mbrPasswrdDecrypt = commonService.decrypt((String) wthdrMemContent.get(z).get("mbrPasswrd"));
+			
+			 //아이디 복호화
+			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
+			 //이메일 복호화
+			 mbrEmailDecrypt = commonService.decrypt(mbrEmailDecrypt);
+			 //휴대전화번호 복호화
+			 mbrCpNumDecrypt = commonService.decrypt(mbrCpNumDecrypt);
+			 
+			 if(mbrHomeAddrDecrypt != null && !mbrHomeAddrDecrypt.equals("")) {
+				 //집주소 복호화
+				 mbrHomeAddrDecrypt = commonService.decrypt(mbrHomeAddrDecrypt);
+			 }
+			 
+			 String authSq = String.valueOf( wthdrMemContent.get(z).get("authSq"));
+			 			
+			 wthdrMemContent.get(z).put("mbrPasswrd1", mbrPasswrdDecrypt);
+			 
+			 wthdrMemContent.get(z).put("authSq", authSq);
+			 wthdrMemContent.get(z).put("mbrId", mbrIdDecrypt);
+			 wthdrMemContent.get(z).put("mbrEmail", mbrEmailDecrypt);
+			 wthdrMemContent.get(z).put("mbrCpNum", mbrCpNumDecrypt);
+			 wthdrMemContent.get(z).put("mbrHomeAddr", mbrHomeAddrDecrypt);
+		  }
+		result.put("wthdrMemContent", wthdrMemContent);
+		return result;
+	}
 }

@@ -195,6 +195,7 @@
 				TBL_DA_DEAL_M AS B
 		WHERE 
 				A.WORK_SQ = B.WORK_SQ 
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			AND B.DEAL_TYP_CD = 'S'
 			<if test="buyOrSell == 'BUY'">
 				AND B.BUY_MBR_SQ = #{mbrSq}
@@ -290,6 +291,7 @@
 			</if> -->
 		WHERE 
 				B.DEAL_TYP_CD = 'S'
+		  AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="dealSttsCd == 'ALL'">
 				AND B.DEAL_STTS_CD = 'TP'
 			</if>
@@ -376,6 +378,7 @@
 		WHERE 	
 				C.DEAL_TYP_CD = 'A'
 			AND	D.MBR_SQ IN (#{mbrSq})
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="dealSttsCd == 'TP'">
 				AND C.DEAL_STTS_CD = 'TP'
 			</if>
@@ -455,6 +458,7 @@
 		WHERE 	
 				C.DEAL_TYP_CD = 'A'
 			AND	C.SELL_MBR_SQ = #{mbrSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="dealSttsCd == 'TP'">
 				AND C.DEAL_STTS_CD = 'TP'
 			</if>
@@ -835,6 +839,7 @@
 				A.WORK_TYP_CD = 'WORK'
 				AND D.DEAL_STTS_CD != 'FB'
 				AND A.ARTST_SQ = #{value}
+				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	<select id="myWorkListNonSale" resultType="hashMap" parameterType="hashMap">
 		/*나의 작품 판매중 아닌 것 검색*/
@@ -909,13 +914,14 @@
 				(SELECT B.KEYWRD_SQ FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
 				(SELECT B.KEYWRD FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
 				A.WORK_OPEN_YN AS workOpenYn,
-				A.WORK_STATE AS workState 
+				A.WORK_STATE AS workState
 				 
 		FROM 
 				TBL_DA_WORK_M AS A
 				
 		WHERE 
 				A.WORK_SQ = #{value}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<!-- AND A.WORK_TYP_CD = 'WORK' -->
 	</select>
 	
@@ -1153,6 +1159,7 @@
 				A.WORK_TYP_CD = 'COLL'
 				AND D.DEAL_STTS_CD != 'FB'
 				AND A.MBR_SQ = #{mbrSq}
+				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	<select id="myCollectionNonSale" resultType="hashMap" parameterType="String">
 		/*나의 소장품 판매전 검색*/
@@ -1231,6 +1238,7 @@
 				
 		WHERE 
 				A.WORK_SQ = #{value}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<!-- AND A.WORK_TYP_CD = 'COLL' -->
 	</select>
 	
@@ -1504,9 +1512,10 @@
 		INNER JOIN 
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
-		WHERE
-				A.WORK_SQ IN
-				
+		WHERE 1=1
+				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */	
+				AND A.WORK_SQ IN
+			
 				<foreach collection="list" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item.workSq}
 		        </foreach>
@@ -1640,6 +1649,7 @@
 		WHERE 
 				 A.WORK_SQ = B.WORK_SQ
 			AND B.DEAL_SQ = #{dealSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		GROUP BY B.DEAL_SQ
 	</select>
 	
@@ -1694,6 +1704,7 @@
 		WHERE 
 				 A.WORK_SQ = B.WORK_SQ
 			AND B.DEAL_SQ = #{dealSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		GROUP BY B.DEAL_SQ
 	</select>
 	
@@ -2274,12 +2285,27 @@
 					) A
    </select>
    
+   <select id="dealCheck" parameterType="String" resultType="int">
+   		/*소장품 삭제 선택시 거래 등록 여부 확인*/
+   		SELECT 
+   				COUNT(*) 
+		  FROM 
+		  		TBL_DA_WORK_M AS A
+		 		
+		 INNER JOIN 
+		 		TBL_DA_DEAL_M AS B ON A.WORK_SQ = B.WORK_SQ 
+		  		  
+		 WHERE 1=1 
+		   AND A.WORK_SQ = #{workSq}
+   </select>
+   
    <update id="delCollection" parameterType="String">
 		/* 소장품 삭제  */
 		UPDATE 
 				TBL_DA_WORK_M 
 		SET		
-				DEL_YN = 'Y'
+				DEL_YN = 'Y',
+				UPDT_DT = NOW()
 		WHERE  
 				WORK_SQ = #{workSq}
    </update>

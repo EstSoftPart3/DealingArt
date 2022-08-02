@@ -319,7 +319,18 @@ public interface MyPageMapper {
 	 */
 	public Long beforeApplyCupon(Object param);
 
-	//소장품 삭제
+	/*
+	 * 소장품 삭제 선택시 거래 등록 여부 확인
+	 * param : workSq
+	 * return :
+	 */
+	public int dealCheck(String workSq);
+	
+	/*
+	 * 소장품 삭제
+	 * param : workSq
+	 * return :
+	 */
 	public int delCollection(String workSq);
 	
 }

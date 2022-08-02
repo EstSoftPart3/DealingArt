@@ -293,6 +293,7 @@
 									<th><span class="">작품 상태</span></th>
 									<td>
 										<input type="text" class="input-4" id="workState" th:value="${result.workState}"/>
+										
 										<p class="table-p">
 											※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 내용을 입력해주세요.  <br/>
 										</p>
@@ -421,7 +422,7 @@
 					
 					<div class="bat-box5">
 						<button type="button" class="ba-btn1" onclick="collectionReg()"><span>등록하기</span></button>
-						<button type="button" class="ba-btn3" onclick="delCollection(result.workSq)"><span>삭제하기</span></button>
+						<button type="button" class="ba-btn3" onclick="dealCheck(result.workSq)"><span>삭제하기</span></button>
 						<button type="button" class="ba-btn3" onclick="collectionStorage()"><span>임시저장</span></button>						
 						<button type="button" class="ba-btn3" onclick='javascript:pageGoPost({url:"/myCollection",target:"_self",vals:[["mbrSq", sMbrSqVal]]});'><span>취소</span></button>
 					</div>
@@ -1515,38 +1516,75 @@ $(document).ready(function () {
 	    // therefore delegated events won't be fired
 	    event.stopPropagation();
 	});
-	 
-	//작품 삭제
-	 function delCollection(workSq){
-		modalConfirm("정말 삭제 하시겠습니까?",function(confirm){
-			if(confirm){
-				deletePro(workSq);
-			}
-		});		
-	 }
-	 function deletePro(workSq){
-	 	$.ajax({
+	
+	//작품 삭제 하기전에 거래중인지 확인
+	function dealCheck(workSq){
+		
+		var result;	//ajax response 결과값 저장할 변수
+		$.ajax({
 	         type: "post",
-	         url: "/deleteCollection",
+	         url: "/dealCheck",
 	         data: { "workSq" : workSq },
 	         async: false,
-	         success: function(data) {
-	         	modalAlertShow("정상적으로 삭제 되었습니다.","myCollection")
+	         success: function(response) {
+	         	
+	         	/* var responseJson = JSON.stringify(response);
+	         	console.log("response :"+responseJson); */
+	         	var dealCheckValue = response.result;
+	         	
+	         	/*
+	    		result = 1 이상 : 거래 등록 된 작품
+	    		result = 0 : 거래 등록 되지 않은 작품
+	    		*/
+	    		
+	         	modalConfirm("소장품을 삭제 하시겠습니까?",function(confirm){
+				
+	         		if(confirm){
+						//소장품 삭제 승인
+						if(dealCheckValue > 0) {
+							modalAlertShow("해당 소장품이 거래중입니다. <br> 거래중인 소장품은 삭제 하실 수 없습니다. ");
+							return;
+						} else if(dealCheckValue == 0) {
+							//소장품 삭제 Function Call
+							collDeletePro(workSq);
+						}	
+					}else{
+						//소장품 삭제 취소
+						modalAlertShow("소장품 삭제를 취소하셨습니다.");
+						return;
+					}
+					
+				});
+	    		
 	         },
 	         error: function(error) {
-	             alert("오류 발생" + error);
-	         }
-	         
+	        	 console.log("오류 발생" + error);
+	         }	         
 	 	});
+		
+		
+	}
+	
+	//작품 삭제 확인시 실행
+	function collDeletePro(workSq){
+		$.ajax({
+	        type: "post",
+	        url: "/deleteCollection",
+	        data: { "workSq" : workSq },
+	        async: false,
+	        success: function(data) {
+	        	modalAlertShow("정상적으로 삭제 되었습니다.","myCollection")
+	        },
+	        error: function(error) {
+	        	console.log("오류 발생" + error);
+	        }
+	         
+		});
 	 	
 	 }
 	 
 </script>
-    
-	
-	
-	
-	
+   
 </body>
 
 </html>

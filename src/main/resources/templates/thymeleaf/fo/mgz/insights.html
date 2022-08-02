@@ -79,13 +79,22 @@
    			max-height: calc(100vh - 180px); 
    			overflow-y: auto;
    		}
+   		
+   		.post-body {
+		  -webkit-user-drag: none;
+		  -webkit-touch-callout: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
     </style>
     
     <link rel="icon" type="image/png" href="resources/img/favicon.png">
     
 </head>
 
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap coll-mobile">
@@ -136,7 +145,7 @@
 			
 			<!-- 상세내용 font-size: 15px !important;-->
 			<div  style="display: flex;justify-content: center">
-			<div id="lp_mgz9Dtl_cntnt" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+			<div id="lp_mgz9Dtl_cntnt" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners post-body" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
 				
 <!-- 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt" style="font:inherit;"></div> -->
 				

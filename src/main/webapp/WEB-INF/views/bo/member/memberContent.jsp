@@ -14,6 +14,9 @@
     {
     	background-color:#efefef;
     	width:100px;
+    }
+    .dataValue{
+    	background-color:#ffffff;
     }	
 </style>
 
@@ -33,87 +36,47 @@
 				
 				<form class="form-horizontal">
 				
-                <div class="card-body" style="background-color:#ffffff;">
-                	
-                	<div class="card-body table-responsive p-0" style="overflow:hidden;">
-	              	   <hr>
-	              	   <div class="form-group row">
-	              	   	 <label class="col-form-label sTitle LabelStyle" style="text-align: center;">회원구분</label>
-	              	   	 <div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="authSqTxt" readonly>
-                    		</div>
-	              	   </div>
-	              	   <hr>
-		               <div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성명</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrNm" readonly>
-                    		</div>
-		               		
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">아이디</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrId" readonly>
-                    		</div>
-		               		
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">성별</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrSexCd" readonly>
-                    		</div>
-                    		
-                  		</div>
-                  		
-                  		
-                  		<hr>
-                  		<div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">닉네임</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrNcknm" readonly>
-                    		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">이메일</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrEmail" readonly>
-                    		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">생년월일</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrBirth" readonly>
-                    		</div>
-                  		</div>
-                  		<hr>
-                  		<div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">휴대폰번호</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrCpNum" readonly>
-                    		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">등록일시</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="regDt" readonly>
-                    		</div>
-                    		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">사용여부</label>
-                    		<div class="col-sm-3">
-                      			<input type="text" class="form-control sTitle classname"  id="useYn" readonly>
-                    		</div>
-                  		</div>
-                  		<hr>
-                  		<div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">집주소</label>
-                    		<div class="col-sm-10">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrHomeAddr" readonly>
-                    		</div>
-                  		</div>
-                  		<hr>
-                  		<div class="form-group row">
-		               		<label class="col-form-label sTitle LabelStyle" style="text-align: center;">배송지 주소</label>
-                    		<div class="col-sm-10">
-                      			<input type="text" class="form-control sTitle classname"  id="mbrDelivryAddr" readonly>
-                      			
-                    		</div>
-                  		</div>
-                  		<hr>
-                  		
-                    </div>
-                  
-                </div>
+				
                 <!--card-body -->
+                <table class="table table-bordered">	                
+					<tr class="col-form-label sTitle LabelStyle" >
+						<td class="col-sm-1" align="center" >회원 구분</td>
+						<td id="authSqTxt" class="col-sm-2 dataValue"></td>						
+						<td class="col-sm-1" align="center">사용 여부</td>
+						<td id="useYn" class="col-sm-2 dataValue"></td>
+					</tr>
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">아이디</td>
+						<td id="mbrId" class="col-sm-2 dataValue"></td>						
+						<td class="col-sm-1" align="center">닉네임</td>
+						<td id="mbrNcknm" class="col-sm-2 dataValue"></td>						
+					</tr>
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">성명</td>
+						<td id="mbrNm" class="col-sm-2 dataValue"></td>						
+						<td class="col-sm-1" align="center">성별</td>
+						<td id="mbrSexCd" class="col-sm-2 dataValue"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">생년월일</td>
+						<td id="mbrBirth" class="col-sm-2 dataValue"></td>						
+						<td class="col-sm-1" align="center">휴대폰 번호</td>
+						<td id="mbrCpNum" class="col-sm-2 dataValue"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">집 주소</td>
+						<td id="mbrHomeAddr" class="col-sm-2 dataValue" ></td>						
+						<td class="col-sm-1" align="center">배송지 주소</td>
+						<td id="mbrDelivryAddr" class="col-sm-2 dataValue"></td>						
+					</tr>	
+					<tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center">이메일</td>
+						<td id="mbrEmail" class="col-sm-2 dataValue"></td>						
+						<td class="col-sm-1" align="center">가입일</td>
+						<td id="regDt" class="col-sm-2 dataValue"></td>						
+					</tr>				
+                </table>
+                
                 
                 <!--card-footer -->
                 <div class="card-footer" style="text-align:right;background-color:#ffffff">
@@ -175,7 +138,7 @@
 		        	 var regDt = dataContent.regDt						//회원등록일시
 		        	 var mbrHomeAddr = dataContent.mbrHomeAddr			//집주소
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
-		        	 var useYn = dataContent.useYn						//사용여부
+		        	 var useYn = dataContent.useYnRplc					//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
 		        	 
 		        	 var mbrPasswrd = dataContent.mbrPasswrd					//회원구분
@@ -198,18 +161,18 @@
 		        		 authSqTxt = '전체관리자'; 
 		        	 }
 		        	 
-		        	 $("#authSqTxt").val(authSqTxt);
-		        	 $("#mbrNm").val(mbrNm);
-		        	 $("#mbrNm").val(mbrNm);
-		        	 $("#mbrId").val(mbrId);
-		        	 $("#mbrNcknm").val(mbrNcknm);
-		        	 $("#mbrEmail").val(mbrEmail);
-		        	 $("#mbrBirth").val(mbrBirth);
-		        	 $("#mbrSexCd").val(mbrSexCd);
-		        	 $("#mbrCpNum").val(mbrCpNum);
-		        	 $("#regDt").val(regDt);
-		        	 $("#mbrHomeAddr").val(mbrHomeAddr);
-		        	 $("#mbrDelivryAddr").val(mbrDelivryAddr);
+		        	 $("#authSqTxt").text(authSqTxt);
+		        	 $("#mbrNm").text(mbrNm);
+		        	 $("#useYn").text(useYn);
+		        	 $("#mbrId").text(mbrId);
+		        	 $("#mbrNcknm").text(mbrNcknm);
+		        	 $("#mbrEmail").text(mbrEmail);
+		        	 $("#mbrBirth").text(mbrBirth);
+		        	 $("#mbrSexCd").text(mbrSexCd);
+		        	 $("#mbrCpNum").text(mbrCpNum);
+		        	 $("#regDt").text(regDt);
+		        	 $("#mbrHomeAddr").text(mbrHomeAddr);
+		        	 $("#mbrDelivryAddr").text(mbrDelivryAddr);
 		        	 
 		        	
 		        	 

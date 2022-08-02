@@ -61,6 +61,7 @@
 			ON 	A.MBR_SQ = D.MBR_SQ
 			
 			WHERE 1=1
+			  AND	B.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			
 			 <if test="rprtSq != null">
 			 	AND A.RPRT_SQ = #{rprtSq}

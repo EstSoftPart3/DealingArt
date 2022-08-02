@@ -54,7 +54,7 @@
 	   
 	   $("#dealMainList").jsGrid({
 		   locale:"ko",
-	       height: "400px",
+	       height: "900px",
 	       width: "100%",
 	       inserting: false,
 	       editing: false,

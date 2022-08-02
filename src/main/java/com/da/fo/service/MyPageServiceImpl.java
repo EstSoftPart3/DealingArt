@@ -226,7 +226,23 @@ public class MyPageServiceImpl implements MyPageService{
 		return dealWorkCount;
 	}
 	
-	//소장품 삭제
+	/*
+	 * 소장품 삭제 선택시 거래 등록 여부 확인
+	 * param : workSq
+	 * return :
+	 */
+	@Override
+	public int dealCheck (String workSq) {
+		int result;
+		result = myPageDao.dealCheck(workSq);
+		return result;
+	}
+	
+	/*
+	 * 소장품 삭제
+	 * param : workSq
+	 * return :
+	 */
 	@Override
 	public int delCollection(String workSq) {
 		int result = myPageDao.delCollection(workSq);

@@ -277,6 +277,7 @@
 				A.ARTST_SQ = #{artstSq}
 			AND D.DEAL_STTS_CD = 'TP'
 			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		<if test="sort != null and sort != ''">
         	<if test='sort == "PY"'>
         		ORDER BY A.WORK_PRODC_YEAR

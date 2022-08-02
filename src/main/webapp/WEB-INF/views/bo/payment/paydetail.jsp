@@ -179,6 +179,8 @@
 		                      <th>이메일</th>
 		                      <th>주소</th>
 		                      <th>배송지주소</th>
+		                      <th>은행</th>
+		                      <th>계좌번호</th>
 		                    </tr>
 		                  <thead>  
 		                  <tbody>
@@ -199,7 +201,10 @@
 		                    		<span id="sellMbrDelivryAddr"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
-		                    		
+		                    		<span id="sellMbrBankCd"></span>
+		                    	</td>
+		                    	<td style="width:auto;">
+		                    		<span id="sellMbrAccountNo"></span>
 		                    	</td>	
 		                    </tr>
 		                  </tbody>
@@ -223,6 +228,8 @@
 		                      <th>이메일</th>
 		                      <th>주소</th>
 		                      <th>배송지주소</th>
+		                      <th>은행</th>
+		                      <th>계좌번호</th>
 		                    </tr>
 		                  <thead>  
 		                  <tbody>
@@ -243,7 +250,10 @@
 		                    		<span id="buyMbrDelivryAddr"></span>
 		                    	</td>
 		                    	<td style="width:auto;">
-		                    		
+		                    		<span id="#buyMbrBankName"></span>
+		                    	</td>
+		                    	<td style="width:auto;">
+		                    		<span id="#buyMbrAccountNo"></span>
 		                    	</td>	
 		                    </tr>
 		                  </tbody>
@@ -593,12 +603,15 @@
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
 		        	 var useYn = dataContent.useYn						//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
-		        	 
+		        	 var mbrBankNm = dataContent.mbrBankNm				//은행코드
+		        	 var mbrAccountNo = dataContent.mbrAccountNo		//은행계좌번호
 		        	 $("#sellMbrNm").html(mbrNm);
 					 $("#sellMbrCpNum").html(mbrCpNum);
 					 $("#sellMbrEmail").html(mbrEmail);
 					 $("#sellMbrHomeAddr").html(mbrHomeAddr);
 					 $("#sellMbrDelivryAddr").html(mbrDelivryAddr);
+					 $("#sellMbrBankCd").html(mbrBankNm);
+					 $("#sellMbrAccountNo").html(mbrAccountNo);
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
@@ -606,6 +619,9 @@
 		           }
 			});
 	 	}
+	 	
+	 	
+	 	
 	 	
 	 	
 	 	//구매자 정보
@@ -633,12 +649,16 @@
 		        	 var mbrDelivryAddr = dataContent.mbrDelivryAddr	//배송지 주소
 		        	 var useYn = dataContent.useYn						//사용여부
 		        	 var authSq = dataContent.authSq					//회원구분
+		        	 var mbrBankNm = dataContent.mbrBankNm				//은행코드
+		        	 var mbrAccountNo = dataContent.mbrAccountNo		//은행계좌번호
 		        	 
 		        	 $("#buyMbrNm").html(mbrNm);
 					 $("#buyMbrCpNum").html(mbrCpNum);
 					 $("#buyMbrEmail").html(mbrEmail);
 					 $("#buyMbrHomeAddr").html(mbrHomeAddr);
 					 $("#buyMbrDelivryAddr").html(mbrDelivryAddr);
+					 $("#buyMbrBankName").html(mbrBankNm);
+					 $("#buyMbrAccountNo").html(mbrAccountNo);
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);

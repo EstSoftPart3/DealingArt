@@ -51,6 +51,7 @@
 		WHERE
 				1=1
 				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -178,6 +179,7 @@
 		WHERE 
 				A.WORK_SQ = #{workSq}
 			AND DEAL_STTS_CD != 'FB'
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<insert id="dealReg">
@@ -355,6 +357,7 @@
 				A.DEAL_TYP_CD = 'A'
 			AND A.DEAL_STTS_CD = 'TP'
 			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW() + INTERVAL 5 SECOND
+			AND	B.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<select id="selectNotSoldSaleList" resultType="hashMap">
@@ -378,6 +381,7 @@
 				A.DEAL_TYP_CD = 'S'
 			AND A.DEAL_STTS_CD = 'TP'
 			AND A.DEAL_ENDNG_DT <![CDATA[<=]]> NOW() + INTERVAL 5 SECOND
+			AND	B.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<select id="selectSuccessfulBidBuyMbrSq" resultType="String">
@@ -456,6 +460,7 @@
 			ON	A.MBR_SQ = B.MBR_SQ
 		WHERE 
 				A.WORK_SQ = #{workSq}
+		  AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	<select id="selectAutoBid" resultType="hashMap" parameterType="hashMap">
 		/*자동응찰 내용 조회*/
@@ -580,12 +585,14 @@
 				(SELECT B.KEYWRD
 				 FROM TBL_DA_KEYWRD_S AS B
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
-				 WORK_OPEN_YN AS workOpenYn
+				 WORK_OPEN_YN AS workOpenYn,
+				 A.WORK_STATE AS workState
 		FROM 
 				TBL_DA_WORK_M AS A
 				
 		WHERE 
 				A.WORK_SQ = #{workSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<select id="selectDealSttsCd" resultType="int" parameterType="hashMap">
@@ -696,6 +703,7 @@
 			ON	A.WORK_SQ = B.WORK_SQ
 		WHERE 
 				B.DEAL_SQ = #{dealSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	<insert id="insertCollectionAll" parameterType="hashMap">
 		/*구매 확정 된 작품 소장품으로 등록*/
@@ -899,5 +907,6 @@
 				C.DEAL_CALC_PRC = #{dealCalcPrc}
 		WHERE  
 				B.DEAL_SQ = #{dealSq}
+			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</update>
 </mapper>

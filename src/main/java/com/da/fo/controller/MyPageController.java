@@ -947,6 +947,15 @@ public class MyPageController {
 		return mv;
 	}
 	
+	//소장품 삭제시 거래중 여부 확인
+	@RequestMapping("/dealCheck")
+	public ModelAndView dealCheck (@RequestParam("workSq") String workSq) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = myPageService.dealCheck(workSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	//소장품 삭제
 	@RequestMapping("/deleteCollection")	
 	public ModelAndView deleteCollection (@RequestParam("workSq") String workSq) {

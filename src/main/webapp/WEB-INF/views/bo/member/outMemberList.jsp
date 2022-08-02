@@ -107,7 +107,7 @@
    		        			
    			        	   	strHtml += '<tr align="center" style="height:20px;">';
    			        		strHtml += '<td>'+ authGubun + ' ' + dataList[i].mbrSocialSort +'</td>';
-   			        	   	strHtml += '<td>'+ dataList[i].mbrNm +'</td>';
+   			        	   	strHtml += '<td style="cursor:pointer; color: #0000ff;"><a href="javascript:void(0)" onclick="wthdrMemberContent('+ dataList[i].mbrSq +')">'+ dataList[i].mbrNm +'</td>';
    			        	   	//strHtml += '<td>'+ dataList[i].mbrSexCd +'</td>'
    			        	 	strHtml += '<td>'+ dataList[i].mbrId +'</td>';
    			        	 	strHtml += '<td>'+ dataList[i].mbrCpNum +'</td>';
@@ -185,13 +185,13 @@
 		});
    		
    		//회원 상세정보 이동
-   		function memberContent(mbrSq) {
+   		function wthdrMemberContent(mbrSq) {
    			
    			let param = {
    				mbrSqParam : mbrSq
    			}
    		
-   			var contentUrl = "/admin/member/memberContent";
+   			var contentUrl = "/admin/member/wthdrMemberContent";
    			postForm(contentUrl, param);
    			
    		}
