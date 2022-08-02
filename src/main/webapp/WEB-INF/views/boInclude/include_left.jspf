@@ -203,22 +203,29 @@
 		           </ul>
           	</li>
           	-->
-          	<li class="nav-item has-treeview menu-open">
-          	 	<li class="nav-header">공통관리</li>
-          	 		<li class="nav-item has-treeview">
-          	 			<a href="/admin/comCode" class="nav-link" target="_blank">
-			              <i class="nav-icon fas fa-circle"></i>
-			              <p class="sTitle">
-			                공통코드
-			                <i class="right fas fa-angle-left"></i>
-			              </p>
-			            </a>
-          	 		</li>
-          	 </li>
+				<li class="nav-item has-treeview menu-open">
+					<li class="nav-header">공통관리</li>
+					<li class="nav-item has-treeview">
+						<a href="/admin/comCode" class="nav-link" target="_blank">
+							<i class="nav-icon fas fa-circle"></i>
+							<p class="sTitle">공통코드<i class="right fas fa-angle-left"></i></p>
+						</a>
+					</li>
+				</li>
+				<li class="nav-item has-treeview menu-open">
+					<li class="nav-header">로그아웃</li>
+					<li class="nav-item has-treeview">
+						<a href="/admin/logout" onclick="return confirm('로그아웃 하시겠습니까?');"class="nav-link">
+							<i class="nav-icon fas fa-circle"></i>
+							<p class="sTitle">로그아웃<i class="right fas fa-angle-left"></i></p>
+						</a>
+					</li>
+				</li>
 
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>
+

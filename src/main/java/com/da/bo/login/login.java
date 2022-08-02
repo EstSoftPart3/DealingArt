@@ -1,10 +1,8 @@
 package com.da.bo.login;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.loginService;
-import com.da.common.AwsS3Service;
 import com.da.util.CommonService;
 
 @Controller
@@ -64,6 +61,21 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 		return mbrSq;
 		
 		
+	}
+	
+	//관리자 계정 로그아웃
+	@RequestMapping("/admin/logout")
+	@ResponseBody
+	public ModelAndView adminLogout (HttpSession session) {		
+		
+		ModelAndView mv = new ModelAndView();
+		//접속중인지 확인하기 위해 세션의 mbrSq의 값이 null 혹은 공백인지 확인
+		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
+			
+			session.invalidate();
+			mv.setViewName("redirect:/admin");				
+		}
+		return mv;
 	}
 
 }
