@@ -590,7 +590,7 @@
 			<div class="modal-body">
 				<div class="md-box-1">
 					<div class="md-ds" style="color:#333;">
-						할인이 적용되어 결제하실 금액이 0원입니다.<br/>결제 완료 처리를 하시겠습니까?
+						결제하실 금액이 0원입니다.<br/>결제 완료 처리를 하시겠습니까?
 					</div>
 					
 					<div class="baeg-btn mg_t30">
@@ -1159,7 +1159,7 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			$('#sbx_trnsprtAreaCd').val("null"); //초기값 선택
 			$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
 			$("#sbx_couponList_TD").val("null");
-			$("#sbx_couponList_TD").attr("disabled", false);
+			$("#sbx_couponList_TD").attr("disabled", true);
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			//운송 가격 표시하기
 			var innerText = "";

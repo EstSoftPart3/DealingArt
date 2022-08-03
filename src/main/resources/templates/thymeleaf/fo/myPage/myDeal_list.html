@@ -544,9 +544,19 @@ function myDealSearchList(){
 	    				}
 	    				myDealListHtml += '				<dt>응찰수</dt>';
 	    				myDealListHtml += '				<dd>'+ myDealList[i].bidCnt +'</dd>';
-	    				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+	    				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != "" && myDealList[i].buyMbrSq == sMbrSqVal){ //예상 수수료 구매자
 		    				myDealListHtml += '				<dt>예상 수수료</dt>';
-		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.1))+' 원</dd>';
+		    				var fee = Math.round(myDealList[i].maxBidPrc.replaceAll(/,/g, '') * 0.06); //구매 수수료 6프로
+		    				var feeTax = fee * 0.10;
+		    				myDealListHtml += '				<dd>'+formatComma(fee+feeTax)+' KRW</dd>';
+		    				//myDealListHtml += '				<dt>예상배송비</dt>';
+		    				//myDealListHtml += '				<dd></dd>';
+	    				}
+	    				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != "" && myDealList[i].sellMbrSq == sMbrSqVal){ //예상 수수료 구매자
+		    				myDealListHtml += '				<dt>예상 수수료</dt>';
+		    				var fee = Math.round(myDealList[i].maxBidPrc.replaceAll(/,/g, '') * 0.03); //판매 수수료 3프로
+		    				var feeTax = fee * 0.10;
+		    				myDealListHtml += '				<dd>'+formatComma(fee+feeTax)+' KRW</dd>';
 		    				//myDealListHtml += '				<dt>예상배송비</dt>';
 		    				//myDealListHtml += '				<dd></dd>';
 	    				}
@@ -564,14 +574,22 @@ function myDealSearchList(){
 	        				myDealListHtml += '			<div class="div_dealCount"><dt>남은 시간</dt>';
 	        				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
         				}
-        				if(myDealList[i].maxBidPrc != null && myDealList[i].maxBidPrc != ""){
+        				if(myDealList[i].dealFinalPrc != null && myDealList[i].dealFinalPrc != "" && myDealList[i].buyMbrSq == sMbrSqVal){ //예상 수수료 구매자
 		    				myDealListHtml += '				<dt>예상 수수료</dt>';
-		    				myDealListHtml += '				<dd>'+formatComma(Math.round(parseInt(myDealList[i].maxBidPrc.replaceAll(/,/g, ''))*0.1))+' 원</dd>';
+		    				var fee = Math.round(myDealList[i].dealFinalPrc.replaceAll(/,/g, '') * 0.06); //구매 수수료 6프로
+		    				var feeTax = fee * 0.10;
+		    				myDealListHtml += '				<dd>'+formatComma(fee+feeTax)+' KRW</dd>';
 		    				//myDealListHtml += '				<dt>예상배송비</dt>';
 		    				//myDealListHtml += '				<dd></dd>';
 	    				}
-        				myDealListHtml += '			</dl>';
-        				myDealListHtml += '		</div>';
+	    				if(myDealList[i].dealFinalPrc != null && myDealList[i].dealFinalPrc != "" && myDealList[i].sellMbrSq == sMbrSqVal){ //예상 수수료 구매자
+		    				myDealListHtml += '				<dt>예상 수수료</dt>';
+		    				var fee = Math.round(myDealList[i].dealFinalPrc.replaceAll(/,/g, '') * 0.03); //판매 수수료 3프로
+		    				var feeTax = fee * 0.10;
+		    				myDealListHtml += '				<dd>'+formatComma(fee+feeTax)+' KRW</dd>';
+		    				//myDealListHtml += '				<dt>예상배송비</dt>';
+		    				//myDealListHtml += '				<dd></dd>';
+	    				}
         			}
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-te3">';
@@ -767,7 +785,7 @@ var dealCount = setInterval(function() {
 		}else{
 			var gap = dday - today;
 			var day = Math.floor(gap / (1000 * 60 * 60 * 24));
-			var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+			var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 			var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
 			var sec = Math.floor((gap % (1000 * 60)) / 1000);
 			elements[i].textContent = day + " 일 " + hour + " : " + min + " : " + sec;

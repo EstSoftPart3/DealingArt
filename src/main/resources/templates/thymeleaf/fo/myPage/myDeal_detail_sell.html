@@ -444,7 +444,7 @@
 			<div class="modal-body">
 				<div class="md-box-1">
 					<div class="md-ds" style="color:#333;">
-						할인이 적용되어 결제하실 금액이 0원입니다.<br/>결제 완료 처리를 하시겠습니까?
+						결제하실 금액이 0원입니다.<br/>결제 완료 처리를 하시겠습니까?
 					</div>
 					
 					<div class="baeg-btn mg_t30">
@@ -506,9 +506,14 @@ jQuery(document).ready(function() {
 	$("#myDeal").addClass("active");
 	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
 	
-	if(result.dealInfo.sellPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TP"){ //판매자 결제 미완료면
-		$("#dealSttsCdDetail").text("경매 진행 중 입니다.");
+	if(result.dealInfo.sellPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TP" && result.dealInfo.dealTypCd == "A"){ //판매자 결제 미완료면
+		$("#dealSttsCdDetail").text("현재 회원님의 작품이 경매 진행중입니다.");
 		$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
+	}
+	
+	if(result.dealInfo.sellPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TP" && result.dealInfo.dealTypCd == "S"){ //판매자 결제 미완료면
+		$("#dealSttsCdDetail").text("현재 회원님의 작품이 판매중입니다.");
+		$("#dealSttsCdDetail").append("<span>판매 중</span>"); 
 	}
         
 	if(result.dealInfo.sellPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TC"){ //판매자 결제 미완료면
@@ -686,7 +691,7 @@ function btn_payment(){
 			buyMbrSq : result.dealInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
-			paymntFeeAmt : null, //결제 수수료
+			paymntFeeAmt : 0, //결제 수수료
 			paymntDiscAmt : parseInt(disc), //할인할 금액
 			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
 			paymntDivCd : "S" //결제 구분 코드 (B 구매자/S 판매자)
@@ -771,7 +776,7 @@ function paymntCompleted(){
 			/*메인 페이에 보낼 파라미터*/
 			mbrRefNo : "", //주문번호
 			amount : parseInt(totalAmount), //메인페이에서 결제할 금액
-			paymethod : result.dealInfo.paymethod, //지불수단
+			paymethod : "NONE", //지불수단
 			goodsName : result.dealInfo.workNm, //상품명
 			/*DB에 저장할 파라미터*/
 			dealSq : result.dealInfo.dealSq, //거래 순번
@@ -781,7 +786,7 @@ function paymntCompleted(){
 			buyMbrSq : result.dealInfo.buyMbrSq, //결제 회원 순번
 			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
 			paymntAmt : parseInt(totalAmount), //총 결제 금액
-			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료
+			paymntFeeAmt : 0, //결제 수수료
 			paymntDiscAmt : parseInt(disc), //할인할 금액
 			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
 			paymntDivCd : "S" //결제 구분 코드 (B 구매자/S 판매자)
@@ -799,7 +804,7 @@ function paymntCompleted(){
         dataType: 'json',
         data: JSON.stringify(data),
         async: false,
-		success:function(response){
+		success:function(data){
 			if (data.result == 'OK') {
 				modalAlertShow("결제 완료 처리되었습니다.");
 				call("200");
@@ -907,7 +912,7 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			$('#sbx_trnsprtAreaCd').val("null"); //초기값 선택
 			$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
 			$("#sbx_couponList").val("null");
-			$("#sbx_couponList").attr("disabled", false);
+			$("#sbx_couponList").attr("disabled", true);
 			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			//운송 가격 표시하기
 			var innerText = "";

@@ -1,9 +1,13 @@
 package com.da.common;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,15 +37,27 @@ public class AuctionScheduler {
 	//거래 종료된 경매 정보 가져와서 낙찰/거래종료로 10분마다 실행한다
 	@Scheduled(cron="0 */10 * * * *")
 	public void successfulBid () {
+		
+		InetAddress local = null;
+		String ip = "";
+		try {
+			local = InetAddress.getLocalHost();
+			ip = local.getHostAddress();
+			System.out.println("@@@@@@@@@ IP :"+ip);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		
 		List<Map<String, Object>> successfulBidList = dealMapper.selectSuccessfulBidList(); //거래 종료 시간 만료한 경매 정보 가져오기
 		List<Map<String, Object>> successfulSaleList = dealMapper.selectNotSoldSaleList(); //판매 종료 시간이 만료했지만 판매되지 않은 정찰가 거래 정보 가져오기
 		MbrInfoVo mbrInfoVo = new MbrInfoVo();
+		
 		Map<String, Object> smsParam = new HashMap<String, Object>();
 		Map<String, Object> updateParamMap = new HashMap<String, Object>();
+		
 		String bidDealSq;
 		String bidBuyMbrSq;
-		String saleDealSq;
-		String saleBuyMbrSq;
+		
 		for(int i=0; i<successfulBidList.size(); i++) {
 			bidDealSq = successfulBidList.get(i).get("dealSq").toString(); //거래 순번 가져오기
 			bidBuyMbrSq = dealMapper.selectSuccessfulBidBuyMbrSq(bidDealSq); //거래 순번으로 낙찰자 가져오기
@@ -70,8 +86,10 @@ public class AuctionScheduler {
 				smsParam.put("bidPrc", successfulBidList.get(i).get("dealAuctnPrc"));
 				//대상코드 수정 중요@@@@
 				smsParam.put("sndConCd", "SSA");
-							
-				sendSmsUtil.sendSmsProc(smsParam); //낙찰자에게 낙찰 알림 메세지를 보낸다
+				
+				if(ip == "52.79.246.17"){
+					sendSmsUtil.sendSmsProc(smsParam); //낙찰자에게 낙찰 알림 메세지를 보낸다
+				}			
 				
 				mbrInfoVo = new MbrInfoVo();
 				smsParam = new HashMap<String, Object>();
@@ -93,7 +111,10 @@ public class AuctionScheduler {
 				//대상코드 수정 중요@@@@
 				smsParam.put("sndConCd", "SSE");
 				
-				sendSmsUtil.sendSmsProc(smsParam); //판매자에게 낙찰 알림 메세지를 보낸다
+				if(ip == "52.79.246.17"){
+					sendSmsUtil.sendSmsProc(smsParam); //판매자에게 낙찰 알림 메세지를 보낸다
+				}
+				
 				
 				List<Map<String, Object>> auctioneer = dealMapper.selectAuctioneerByMbrSq(bidDealSq, bidBuyMbrSq); //유찰자를 조회한다
 				for(int j=0; j<auctioneer.size(); j++) { //유찰자 만큼
@@ -112,8 +133,10 @@ public class AuctionScheduler {
 					smsParam.put("bidDt", auctioneer.get(j).get("bidDate"));
 					//대상코드 수정 중요@@@
 					smsParam.put("sndConCd", "SAE");
-								
-					sendSmsUtil.sendSmsProc(smsParam); //유찰자에게 경매종료 메세지를 보낸다
+					
+					if(ip == "52.79.246.17"){
+						sendSmsUtil.sendSmsProc(smsParam); //유찰자에게 경매종료 메세지를 보낸다
+					}
 				}
 			}else{
 				
@@ -133,7 +156,9 @@ public class AuctionScheduler {
 				//대상코드 수정 중요@@@
 				smsParam.put("sndConCd", "SREA");
 				
-				sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
+				if(ip == "52.79.246.17"){
+					sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
+				}
 			}
 		}
 		
@@ -155,7 +180,9 @@ public class AuctionScheduler {
 			//대상코드 수정 중요@@@
 			smsParam.put("sndConCd", "SRES");
 			
-			sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
+			if(ip == "52.79.246.17"){
+				sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
+			}
 		}
 	}
 }

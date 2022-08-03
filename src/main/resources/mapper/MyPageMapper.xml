@@ -1836,35 +1836,35 @@
 	/*운송 테이블에 운송 정보 입력*/
 	INSERT INTO
 				TBL_DA_DEAL_TRNSPRT_S(
-					DEAL_SQ,
-					BUY_MBR_SQ,
-					SELL_MBR_SQ,
-					ARTST_SQ,
-					TRNSPRT_DIV_CD,
-					TRNSPRT_DIV_CD_NM,
-					TRNSPRT_TYP_CD,
-					TRNSPRT_TYP_CD_NM,
-					TRNSPRT_AREA_CD,
-					TRNSPRT_AREA_CD_NM,
-					TRNSPRT_SERVICE_CD,
-					TRNSPRT_SERVICE_CD_NM,
-					TRNSPRT_PRC 
+					DEAL_SQ
+					,BUY_MBR_SQ
+					,SELL_MBR_SQ
+					,ARTST_SQ
+					,TRNSPRT_DIV_CD
+					,TRNSPRT_DIV_CD_NM
+					,TRNSPRT_TYP_CD
+					,TRNSPRT_TYP_CD_NM
+					,TRNSPRT_AREA_CD
+					,TRNSPRT_AREA_CD_NM
+					,TRNSPRT_SERVICE_CD
+					,TRNSPRT_SERVICE_CD_NM
+					,TRNSPRT_PRC 
 				)VALUES
 				<foreach collection="list" item="item" index="idex" separator=",">
 				(
-					#{item.dealSq},
-					#{item.buyMbrSq},
-					#{item.sellMbrSq},
-					#{item.artstSq},
-					#{item.trnsprtDivCd},
-					#{item.trnsprtDivCdNm},
-					#{item.trnsprtTypCd},
-					#{item.trnsprtTypCdNm},
-					#{item.trnsprtAreaCd},
-					#{item.trnsprtAreaCdNm},
-					#{item.trnsprtServiceCd},
-					#{item.trnsprtServiceCdNm},
-					#{item.trnsprtPrc}
+					#{item.dealSq}
+					,#{item.buyMbrSq}
+					,#{item.sellMbrSq}
+					,#{item.artstSq}
+					,#{item.trnsprtDivCd}
+					,#{item.trnsprtDivCdNm}
+					,#{item.trnsprtTypCd}
+					,#{item.trnsprtTypCdNm}
+					,#{item.trnsprtAreaCd}
+					,#{item.trnsprtAreaCdNm}
+					,#{item.trnsprtServiceCd}
+					,#{item.trnsprtServiceCdNm}
+					,#{item.trnsprtPrc}
 				)
 				</foreach>
 	</insert>

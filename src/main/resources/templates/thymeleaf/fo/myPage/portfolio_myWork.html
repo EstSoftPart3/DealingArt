@@ -453,7 +453,7 @@ setInterval(function() {
 		}
 	  	var gap = dday - today;
 		var day = Math.floor(gap / (1000 * 60 * 60 * 24));
-		var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
+		var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
 		var sec = Math.floor((gap % (1000 * 60)) / 1000);
 		html += '<li>'+ day +'<span>day</span></li>';
