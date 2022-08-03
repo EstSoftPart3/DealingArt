@@ -35,7 +35,7 @@ public class AuctionScheduler {
 	private SendSmsUtil sendSmsUtil;
 	
 	//거래 종료된 경매 정보 가져와서 낙찰/거래종료로 10분마다 실행한다
-	@Scheduled(cron="0 */1 * * * *")
+	@Scheduled(cron="0 */10 * * * *")
 	public void successfulBid () {
 		
 //		InetAddress local = null;
