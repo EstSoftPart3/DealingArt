@@ -525,7 +525,7 @@ function myDealSearchList(){
 		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'"bidMbrSq="'+myDealList[i].bidMbrSq+'" onclick="bidReg(this)">응찰하기</button>';
 		    				myDealListHtml += '				</div>';
 		    				myDealListHtml += '			</dd>';
-		    				myDealListHtml += '			<div class="div_dealCount"><<dt>남은 시간</dt>';
+		    				myDealListHtml += '			<div class="div_dealCount"><dt>남은 시간</dt>';
 		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
 	    				}
 	    				if(myDealList[i].dealSttsCd == "TP" && myDealList[i].sellMbrSq == sMbrSqVal){ //경매 진행중이며 판매자면
@@ -590,6 +590,8 @@ function myDealSearchList(){
 		    				//myDealListHtml += '				<dt>예상배송비</dt>';
 		    				//myDealListHtml += '				<dd></dd>';
 	    				}
+	    				myDealListHtml += '			</dl>';
+	    				myDealListHtml += '		</div>';
         			}
     				myDealListHtml += '	</div>';
     				myDealListHtml += '	<div class="myd-te3">';

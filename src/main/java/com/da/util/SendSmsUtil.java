@@ -224,11 +224,11 @@ public class SendSmsUtil {
 						+ mbrNcknm +"님! 등록하신 거래가 낙찰 되었습니다.\n"
 						+ "구매자가 48시간 이내 결제를 완료하면 고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
 			} else if(sndConCd.equals("SRES")) {
-				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
+				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□판매 형식 : 정찰 \n"
 						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
-						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 구매자가 없어 아쉽게도 유찰 되었습니다.\n마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
+						+ mbrNcknm +"님! 등록하신 미술품의 판매 기간이 만료되어 아쉽게도 판매가 종료되었습니다.\n다시 판매 하시려면 마이 페이지에서 거래 등록을 진행해주세요. ";
 			} else if(sndConCd.equals("SREA")) {
 				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
