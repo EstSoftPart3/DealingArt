@@ -182,7 +182,7 @@
                       							<input type="text" class="form-control sTitle classname"  id="artstSelfIntro" name="artstSelfIntro" cols="40" rows="5" value="">
                     						</div>
                     					</div>
-                    					<div class="form-group row" style="display:none">
+                    					<div class="form-group row">
 		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">홍보영상</label>
                     						<div class="col-sm-7">
                       							<input type="text" class="form-control sTitle classname"  id="artstPromtnVideoUrl" name="artstPromtnVideoUrl" value="">
