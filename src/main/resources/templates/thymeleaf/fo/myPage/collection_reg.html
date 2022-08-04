@@ -104,7 +104,7 @@
 				<div class="sub-title">
 					<h3 class="mo-no">소장품 등록</h3>
 				</div>
-				
+				<form id="form">
 				<div class="baeg-wrap">
 					<div class="med">
 						<h2 class="">작가 정보 <span class="c-reds">* 필수 정보</span></h2>
@@ -120,11 +120,15 @@
 							<table class="mstyle-2">
 								<tr>
 									<th><span class="my-red">작가명</span></th>
-									<td><input type="text" class="input-4" id="artstActvtyNm"/></td>
+									<td><input type="text" class="input-4" id="artstActvtyNm" placeholder="작가명 또는 작가의 활동명을 입력해주세요."/></td>
 								</tr>
 								<tr>
 									<th>출생년도</th>
-									<td><input type="text" class="input-4" id="artstYear"/></td>
+									<td><input type="number" class="input-4" id="artstBirthYear" placeholder="작가의 출생년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+								</tr>
+								<tr>
+									<th>작고</th>
+									<td><input type="number" class="input-4" id="artstYod" placeholder="작가의 사망년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
 								</tr>
 							</table>
 						</div>
@@ -151,7 +155,7 @@
 							<table class="mstyle-2">
 								<tr>
 									<th><span class="my-red">작품명</span></th>
-									<td><input type="text" class="input-4" id="workNm"/></td>
+									<td><input type="text" class="input-4" id="workNm" placeholder="작품 이름 또는 제목을 입력해주세요."/></td>
 								</tr>
 								<tr>
 									<th><span class="">작품 대표 사진</span></th>
@@ -246,7 +250,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th><span class="my-red">공개여부</span></th>
+									<th><span class="my-red">공개 여부</span></th>
 									<td>
 										<div class="radio-2">
 											<!-- 오픈 기본 값 -->
@@ -298,7 +302,7 @@
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="number" class="input-4" id="workProdcYear" oninput="this.value = this.value.replace('.', ''); if(this.value.length > 5){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+									<td><input type="number" class="input-4" id="workProdcYear" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">사이즈</span></th>
@@ -325,7 +329,7 @@
 								<tr>
 									<th><span class="">소장가</span></th>
 									<td>
-										<input type="text" class="input-4" id="workPrc"/>
+										<input type="text" class="input-4" id="workPrc" onkeyup="workPrcCal(this)"/>
 										<p class="table-p">
 											※작품 소장가는 거래 등록 후 노출되지 않습니다.
 										</p>
@@ -419,6 +423,7 @@
 					
 					
 				</div>
+				</form>
 			</div>
 			
 			
@@ -876,7 +881,8 @@ $(function() {
 				if(confirm){
 					storage = JSON.parse(sessionStorage.getItem("work"));
 					$("#artstActvtyNm").val(storage.artstActvtyNm);
-					$("#artstYear").val(storage.artstBirthYear);
+					$("#artstBirthYear").val(storage.artstBirthYear);
+					$("#artstYod").val(storage.artstYod);
 					$("#workNm").val(storage.workNm);
 					$('input:radio[name="workFrmYn"][value="'+storage.workFrmYn+'"]').prop('checked', true);
 					$('input:radio[name="workSaleYn"][value="'+storage.workSaleYn+'"]').prop('checked', true);
@@ -912,7 +918,8 @@ function collectionReg(){
 
 	if(checkValid()){
 		work.mbrSq = sMbrSqVal;
-		work.artstBirthYear = $("#artstYear").val();
+		work.artstBirthYear = $("#artstBirthYear").val();
+		work.artstYod = $("#artstYod").val();
 		work.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		work.workSizeWidth = $("#workSizeWidth").val();
 		work.workSizeDepth = $("#workSizeDepth").val();
@@ -1171,7 +1178,8 @@ function collectionStorage(){
 																artstSq : work.artstSq,
 																artstActvtyNm : $("#artstActvtyNm").val(),
 																artstEnglsNm : work.artstEnglsNm,
-																artstBirthYear : $("#artstYear").val(),
+																artstBirthYear : $("#artstBirthYear").val(),
+																artstYod : $("#artstYod").val(),
 																workNm : $("#workNm").val(),
 																workFrmYn : $('input[name=workFrmYn]:checked').val(),
 																workSaleYn : $('input[name=workSaleYn]:checked').val(),
@@ -1238,14 +1246,22 @@ function searchArtst(){
 				var result = data.result;
 				var html = '';
 				for(var i=0; i<result.length; i++){
-					html += '<li artstSq="'+result[i].artstSq+'" artstActvtyNm="'+result[i].artstActvtyNm+'" artstEnglsNm="'+result[i].artstEnglsNm+'" artstBirthYear="'+result[i].artstBirthYear+'" onclick="selectArtst(this)" style="cursor:pointer;">';
+					html += '<li artstSq="'+result[i].artstSq+'" artstActvtyNm="'+result[i].artstActvtyNm+'" artstEnglsNm="'+result[i].artstEnglsNm+'" artstBirthYear="'+result[i].artstBirthYear+'" artstYod="'+result[i].artstYod+'" onclick="selectArtst(this)" style="cursor:pointer;">';
 					html += '	<div class="collsearch">';
 					html += '		<div class="collsear-img"><img src="'+result[i].artstProfileImgUrl+'" class="colls-i2" /></div>';
 					html += '		<div class="collsear-text">';
 					if(result[i].artstEnglsNm != null && result[i].artstEnglsNm != ""){
-						html += '			<h2>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h2>';
+						if(result[i].artstYod != null && result[i].artstYod != ""){
+							html += '			<h2>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'~'+result[i].artstYod+'</h2>';
+						}else{
+							html += '			<h2>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h2>';
+						}
 					}else{
-						html += '			<h2>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+'</h2>';
+						if(result[i].artstYod != null && result[i].artstYod != ""){
+							html += '			<h2>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+' ~ '+result[i].artstYod+'</h2>';
+						}else{
+							html += '			<h2>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+'</h2>';
+						}
 					}
 					if(result[i].artstSelfIntro != null && result[i].artstSelfIntro != ""){
 						html += '			<p>'+result[i].artstSelfIntro+'</p>';
@@ -1268,12 +1284,23 @@ function searchArtst(){
 }
 
 function selectArtst(obj){
+	$("#artstActvtyNm").val("");
+	$("#artstBirthYear").val("");
+	$("#artstYod").val("");
+	
 	var artstActvtyNm = obj.attributes.artstActvtyNm.value;
 	var artstBirthYear = obj.attributes.artstBirthYear.value;
+	var artstYod = obj.attributes.artstYod.value;
+	
 	work.artstEnglsNm = obj.attributes.artstEnglsNm.value;
 	work.artstSq = obj.attributes.artstSq.value;
+	
 	$("#artstActvtyNm").val(artstActvtyNm);
-	$("#artstYear").val(artstBirthYear);
+	$("#artstBirthYear").val(artstBirthYear);
+	if(artstYod != "" && artstYod != "null" && artstYod != null){
+		$("#artstYod").val(artstYod);
+	}
+	
 	$("#searchArtstModal").modal("hide");
 }
 
@@ -1294,8 +1321,25 @@ function searchWork(){
 				html += '	<div class="collsearch">';
 				html += '		<div class="collsear-img"><img src="'+result[i].workMainImgUrl+'" class="colls-i2" /></div>';
 				html += '		<div class="collsear-text">';
-				html += '			<h2>'+result[i].workNm+'('+result[i].workProdcYear+')</h2>';
-				html += '			<h3>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h3>';
+				if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+					html += '			<h2>'+result[i].workNm+'('+result[i].workProdcYear+')</h2>';
+				}else{
+					html += '			<h2>'+result[i].workNm+'</h2>';
+				}
+				if(result[i].artstEnglsNm != null && result[i].artstEnglsNm != ""){
+					if(result[i].artstYod != null && result[i].artstYod != ""){
+						html += '			<h3>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+' ~ '+result[i].artstYod+'</h3>';
+					}else{
+						html += '			<h3>'+result[i].artstActvtyNm+'('+result[i].artstEnglsNm+') / '+result[i].artstBirthYear+'</h3>';
+					}
+				}else{
+					if(result[i].artstYod != null && result[i].artstYod != ""){
+						html += '			<h3>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+' ~ '+result[i].artstYod+'</h3>';
+					}else{
+						html += '			<h3>'+result[i].artstActvtyNm+' / '+result[i].artstBirthYear+'</h3>';
+					}
+				}
+				
 				if(result[i].workIntrdc == null || result[i].workIntrdc == ""){
 					html += '			<p>작품 소개가 없습니다.</p>';
 				}else{
@@ -1323,11 +1367,21 @@ function selectWork(obj){
       	workSq : workSq
       },
 		success: function(data){
+			$("#form")[0].reset();
+			$("#workMainImgUrl1").attr("src", "");
+			$("#workImgFrtUrl1").attr("src", "");
+			$("#workImgRerUrl1").attr("src", "");
+			$("#workImgLefUrl1").attr("src", "");
+			$("#workImgRitUrl1").attr("src", "");
+			$("#workImgTopUrl1").attr("src", "");
+			$("#workImgTopUrl1").attr("src", "");
+			
 			var result = data.result;
 			work.artstSq = result.artstSq;
 			work.artstEnglsNm = result.artstEnglsNm;
 			$("#artstActvtyNm").val(result.artstActvtyNm);
-			$("#artstYear").val(result.artstBirthYear);
+			$("#artstBirthYear").val(result.artstBirthYear);
+			$("#artstYod").val(result.artstYod);
 			$("#workNm").val(result.workNm);
 			$('input:radio[name="workFrmYn"][value="'+result.workFrmYn+'"]').prop('checked', true);
 			$('input:radio[name="workSaleYn"][value="'+result.workSaleYn+'"]').prop('checked', true);
@@ -1361,11 +1415,18 @@ function selectWork(obj){
 			$("#workImgTopUrl1").attr("src", result.workImgTopUrl);
 			$("#workImgTopUrl1").attr("src", result.workImgBotUrl);
 			$('input:radio[name="workClrCd"][value="'+result.workSaleYn+'"]').prop('checked', true);
+			$("#workLake").val(result.workLake);
 		},
 		error: function(error) {
             alert("오류 발생" + error);
         }
 	}); 
+}
+
+function workPrcCal(obj){
+	obj.value = obj.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+	obj.value = obj.value.replace(/,/g,'');          // ,값 공백처리
+    obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
 }
 
 $(window).on("resize", function () {

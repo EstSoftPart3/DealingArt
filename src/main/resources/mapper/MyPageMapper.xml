@@ -567,6 +567,9 @@
 						<if test="workState != null and workState != ''">
 							,WORK_STATE
 						</if>
+						<if test="artstYod != null and artstYod != ''">
+							,ARTST_YOD
+						</if>
 						,WORK_OPEN_YN
 					)
 				VALUES (
@@ -639,6 +642,9 @@
 						</if>
 						<if test="workState != null and workState != ''">
 							,#{workState}
+						</if>
+						<if test="artstYod != null and artstYod != ''">
+							,#{artstYod}
 						</if>
 						,#{workOpenYn}
 				)
@@ -730,6 +736,9 @@
 									<if test="workState != null and workState != ''">
 										,WORK_STATE
 									</if>
+									<if test="artstYod != null and artstYod != ''">
+										,ARTST_YOD
+									</if>
 									,WORK_OPEN_YN
 					)
 					VALUE(
@@ -787,6 +796,9 @@
 							<if test="workState != null and workState != ''">
 								,#{workState}
 							</if>
+							<if test="artstYod != null and artstYod != ''">
+								,#{artstYod}
+							</if>
 							,#{workOpenYn}
 					)
 					
@@ -801,7 +813,7 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = '', YEAR (B.MBR_BIRTH) ,CONCAT(YEAR (B.MBR_BIRTH), '~' ,C.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -850,7 +862,7 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				C.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = '', YEAR (B.MBR_BIRTH) ,CONCAT(YEAR (B.MBR_BIRTH), '~' ,C.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				A.WORK_NM AS workNm, /*작품명*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
@@ -914,7 +926,8 @@
 				(SELECT B.KEYWRD_SQ FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrdSq,
 				(SELECT B.KEYWRD FROM TBL_DA_KEYWRD_S AS B WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
 				A.WORK_OPEN_YN AS workOpenYn,
-				A.WORK_STATE AS workState
+				A.WORK_STATE AS workState,
+				A.ARTST_YOD AS artstYod
 				 
 		FROM 
 				TBL_DA_WORK_M AS A
@@ -994,6 +1007,9 @@
 									<if test="workState != null and workState != ''">
 										,WORK_STATE
 									</if>
+									<if test="artstYod != null and artstYod != ''">
+										,ARTST_YOD
+									</if>
 									,WORK_OPEN_YN
 					) VALUES (
 								#{workSq}
@@ -1062,6 +1078,9 @@
 								<if test="workState != null and workState != ''">
 									,#{workState}
 								</if>
+								<if test="artstYod != null and artstYod != ''">
+									,#{artstYod}
+								</if>
 								,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
@@ -1129,6 +1148,9 @@
 								<if test="workState != null and workState != ''">
 									,WORK_STATE = #{workState}
 								</if>
+								<if test="artstYod != null and artstYod != ''">
+									,ARTST_YOD = #{artstYod}
+								</if>
 								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>
 	
@@ -1158,7 +1180,7 @@
 				B.AUTH_SQ AS authSq, /*작가구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
-				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
@@ -1205,7 +1227,7 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
-				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
+				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/
 				B.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl,
 				A.WORK_NM AS workNm, /*작품명*/
 				FORMAT(A.WORK_PRC, 0) AS workPrc, /*작품가격*/
@@ -1269,7 +1291,8 @@
 				 FROM TBL_DA_KEYWRD_S AS B
 				 WHERE A.WORK_SQ = B.WORK_SQ) AS keywrd,
 				A.WORK_OPEN_YN AS workOpenYn,
-				A.WORK_STATE AS workState
+				A.WORK_STATE AS workState,
+				A.ARTST_YOD AS artstYod
 		FROM 
 				TBL_DA_WORK_M AS A
 				
@@ -1352,6 +1375,9 @@
 									<if test="workState != null and workState != ''">
 										,WORK_STATE
 									</if>
+									<if test="artstYod != null and artstYod != ''">
+										,ARTST_YOD
+									</if>
 									,WORK_OPEN_YN
 								)
 							VALUES (
@@ -1424,6 +1450,9 @@
 									<if test="workState != null and workState != ''">
 										,#{workState}
 									</if>
+									<if test="artstYod != null and artstYod != ''">
+										,#{artstYod}
+									</if>
 									,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
@@ -1493,6 +1522,9 @@
 								</if>
 								<if test="workState != null and workState != ''">
 									,WORK_STATE = #{workState}
+								</if>
+								<if test="artstYod != null and artstYod != ''">
+									,ARTST_YOD = #{artstYod}
 								</if>
 								,WORK_OPEN_YN = #{workOpenYn}
 	</insert>

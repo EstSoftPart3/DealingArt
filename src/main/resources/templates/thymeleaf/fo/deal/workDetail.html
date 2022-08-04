@@ -158,7 +158,7 @@
 							</tr>
 							<tr>
 								<th>사이즈</th>
-								<td th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
+								<td th:if="${not #strings.isEmpty(result.work.workSizeWidth) and not #strings.isEmpty(result.work.workSizeDepth)}" th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
 							</tr>
 							<tr th:if="${not #strings.isEmpty(result.work.workLake)}">
 								<th>호수</th>

@@ -984,6 +984,7 @@ var artstSq = "";
 var artstActvtyNm = "";
 var artstEnglsNm = "";
 var artstBirthYear = "";
+var artstYod = "";
 var workSq = "";
 var loginBf = document.getElementById("loginBf");
 var loginAf = document.getElementById("loginAf");
@@ -1005,6 +1006,7 @@ jQuery(document).ready(function() {
         			artstActvtyNm = data.artstActvtyNm;
         			artstEnglsNm = data.artstEnglsNm;
         			artstBirthYear = data.artstBirthYear;
+        			artstYod = data.artstYod;
         			$("#artstReg").css("display", "none");
         		}
         	}else{
@@ -1054,6 +1056,7 @@ function login(){
 	        			artstActvtyNm = data.artstActvtyNm;
 	        			artstEnglsNm = data.artstEnglsNm;
 	        			artstBirthYear = data.artstBirthYear;
+	        			artstYod = data.artstYod;
 	        			$("#artstReg").css("display", "none");
 	        		}
 				}else if (login == 2){
@@ -1537,17 +1540,22 @@ function ibx_search_onkeyup(e){
 				var contentHtml = '';
 				
 				for(i=0; i<work.length; i++){
-					if(work[i].workProdcYear == null || work[i].workProdcYear == 'null') {
-						workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+' - '+work[i].artstActvtyNm+'</a></li>';	
-					} else {
+					if(work[i].workProdcYear != null && work[i].workProdcYear != '') {
 						workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+'('+work[i].workProdcYear+')'+' - '+work[i].artstActvtyNm+'</a></li>';
+					} else {
+						workHtml +=	'<li><a href="javascript:void(0);" class="work" sq="'+work[i].workSq+'" dealSttsCd="'+work[i].dealSttsCd+'">'+work[i].workNm+' - '+work[i].artstActvtyNm+'</a></li>';	
 					}
 					
 				}
 				$("#work").append(workHtml).trigger("create");
 				
 				for(i=0; i<artist.length; i++){
-					artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artstBirthYear+')</a></li>';
+					if(artist[i].artstYod != null && artist[i].artstYod != ''){
+						artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artstBirthYear+'~'+artist[i].artstYod+')</a></li>';
+					}else{
+						artstHtml += '<li><a href="javascript:void(0);" class="artst" sq="'+artist[i].artstSq+'">'+artist[i].artstActvtyNm+' ('+artist[i].artstBirthYear+')</a></li>';
+					}
+					
 				}
 				$("#artst").append(artstHtml).trigger("create");
 				for(i=0; i<content.length; i++){
