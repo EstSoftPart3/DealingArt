@@ -189,7 +189,8 @@ public class SendSmsUtil {
 		getParam.put("sndNumber", sndNumber);
 		
 		
-		if(!sndNumber.equals("01000000000") || !sndNumber.equals("01000001111") || !sndNumber.equals("01000002222")) {
+		if(sndNumber.equals("01000000000") || sndNumber.equals("01000001111") || sndNumber.equals("01000002222")) {
+		}else {
 				
 			int notiCount = NotiMapper.notiCount(getParam);
 		
