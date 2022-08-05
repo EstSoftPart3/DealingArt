@@ -52,6 +52,8 @@ public class artistMemberController {
 		String artstFacebookUrl 	= (String) param.get("artstFacebookUrl");		//페이스북 URL
 		String artstInstagramUrl 	= (String) param.get("artstInstagramUrl");		//인스타그램 URL
 		
+		String artstYod 			= (String) param.get("artstYod");				//사망년도(작고)
+		
 		
 		Map<String, Object> requestData = new HashMap<>();
 		
@@ -90,6 +92,9 @@ public class artistMemberController {
 		}
 		if(!CommonService.isEmpty(artstInstagramUrl)) {
 			requestData.put("artstInstagramUrl", artstInstagramUrl);
+		}
+		if(!CommonService.isEmpty(artstYod)) {
+			requestData.put("artstYod", artstYod);
 		}
 		resultState = artistMemberService.artistMemberInsert(requestData);
 		return resultState;

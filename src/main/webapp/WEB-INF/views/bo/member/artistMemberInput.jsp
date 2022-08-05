@@ -156,7 +156,7 @@
 		               		   			
 		               		   			<div class="form-group row">
 		               						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">활동분야</label>
-                    						<div class="col-sm-7">
+                    						<div class="col-sm-3">
                       							<div style="padding-left:10px;float:left;">
                       								<input type="radio" id="a1" name="artstActvtyPartCd" class="artstActvtyPartCd" value="PNTNG">
 													<label for="a1" class="col-form-label sTitle">회화</label>
@@ -173,6 +173,10 @@
 													<input type="radio" id="a4" name="artstActvtyPartCd" class="artstActvtyPartCd" value="INSTL">
 													<label for="a4" class="col-form-label sTitle">설치</label>
 												</div>
+                    						</div>
+                    						<label class="col-form-label sTitle LabelStyle" style="text-align: center;">작고(年)</label>
+                    						<div class="col-sm-3">
+                      							<input type="text" class="form-control sTitle classname"  id="artstYod" name="artstYod" value="">
                     						</div>
 		               		   			</div>
 		               		   			
@@ -1431,6 +1435,8 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 				        	var artstFacebookUrl		= dataInfo.artstFacebookUrl;
 				        	var artstInstagramUrl		= dataInfo.artstInstagramUrl;
 				        	
+				        	var artstYod				= dataInfo.artstYod;
+				        	
 				        	/* 작가순번 */
 					        $("#artstSq").val(artstSq);
 				        	/* 작가횔동명 */
@@ -1458,6 +1464,9 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 				        	$("#artstHmpgUrl").val(artstHmpgUrl);
 				        	$("#artstFacebookUrl").val(artstFacebookUrl);
 				        	$("#artstInstagramUrl").val(artstInstagramUrl);
+				        	
+				        	$("#artstYod").val(artstYod);
+				        	
 				        	
 				        	
 				        	//작가학력정보

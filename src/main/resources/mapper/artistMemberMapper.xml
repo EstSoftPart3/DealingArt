@@ -9,7 +9,8 @@
           	 MBR_SQ					AS mbrSq              
 			,ARTST_SQ				AS artstSq           
 			,ARTST_ACTVTY_NM		AS artstActvtyNm      
-			,ARTST_ENGLS_NM			AS artstEnglsNm       
+			,ARTST_ENGLS_NM			AS artstEnglsNm
+			,ARTST_YOD				AS artstYod       
 			,ARTST_ACTVTY_PART_CD	AS artstActvtyPartCd  
 			,ARTST_ACTVTY_NATN_CD	AS artstActvtyNatnCd
 			,ARTST_ACTVTY_CITY_CD	AS artstActvtyCityCd      
@@ -68,6 +69,7 @@
 			,UPDT_DT
 			,USE_YN
 			,DEL_YN
+			,ARTST_YOD
 
        	) 
         VALUES
@@ -91,6 +93,7 @@
 			,NOW()
 			,'Y'
 			,'N'
+			,#{artstYod}
 
         )
     </insert>
@@ -109,8 +112,9 @@
 			<if test="artstProfileImgUrl  != null">ARTST_PROFILE_IMG_URL= #{artstProfileImgUrl},</if>
 			<if test="artstHmpgUrl    	  != null">ARTST_HMPG_URL		= #{artstHmpgUrl},</if>
 			<if test="artstPromtnVideoUrl != null">ARTST_PROMTN_VIDEO_URL= #{artstPromtnVideoUrl},</if>
-			<if test="artstFacebookUrl     != null">ARTST_FACEBOOK_URL	= #{artstFacebookUrl},</if>
-			<if test="artstInstagramUrl    != null">ARTST_INSTAGRAM_URL	= #{artstInstagramUrl},</if>
+			<if test="artstFacebookUrl    != null">ARTST_FACEBOOK_URL	= #{artstFacebookUrl},</if>
+			<if test="artstInstagramUrl   != null">ARTST_INSTAGRAM_URL	= #{artstInstagramUrl},</if>
+			<if test="artstYod    		  != null">ARTST_YOD			= #{artstYod},</if>
 			UPDT_DT = NOW(),
 		</trim>
    		WHERE MBR_SQ = #{mbrSq}
