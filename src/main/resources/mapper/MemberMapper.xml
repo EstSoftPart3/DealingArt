@@ -189,7 +189,8 @@
 			B.ARTST_SQ AS artstSq,
 			B.ARTST_ACTVTY_NM AS artstActvtyNm,
 			B.ARTST_ENGLS_NM AS artstEnglsNm,
-			YEAR (A.MBR_BIRTH) AS artstBirthYear
+			YEAR (A.MBR_BIRTH) AS artstBirthYear,
+			B.ARTST_YOD AS artstYod
 		FROM 
 				TBL_DA_MBR_M AS A,
 				TBL_DA_ARTST_M AS B

@@ -229,14 +229,14 @@ html, body{font-size: calc(100vw / 152);}
     /* display: none; */
 }
 .mab-rb .mab-a{
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     background: #fff;
     display: inline-block;
     border-radius: 50%;
-    padding: 16px 0px;
-    margin: 48px 0 90px 0;
-    display: none;
+    padding: 30px 0px;
+    margin: 25px auto 0;
+    display: block;
 }
 .mab-rb .mab-a span{
     font-size: 13px;
@@ -248,7 +248,7 @@ html, body{font-size: calc(100vw / 152);}
     top: 0;
     right: 0;
     z-index: 2;
-    height: 59rem;
+    height: 75rem;
     background-color: #323232;
     width: 16rem;
     text-align: center;

@@ -173,7 +173,7 @@
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="text" class="input-4" id="workProdcYear"/></td>
+									<td><input type="number" class="input-4" id="workProdcYear" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
 								</tr>
 								<tr>
 									<th><span class="">작품 대표 사진</span></th>
@@ -328,7 +328,7 @@
 								<tr>
 									<th><span class="">소장가</span></th>
 									<td>
-										<input type="text" class="input-4" id="workPrc"/>
+										<input type="text" class="input-4" id="workPrc" onkeyup="workPrcCal(this)"/>
 										<p class="table-p">
 											※작품 소장가는 거래 등록 후 노출되지 않습니다.
 										</p>
@@ -884,6 +884,7 @@ function myWorkReg(){
 		work.artstActvtyNm = artstActvtyNm;
 		work.artstEnglsNm = artstEnglsNm;
 		work.artstBirthYear = artstBirthYear;
+		work.artstYod = artstYod;
 		work.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		work.workLake = $("#workLake").val();
 		work.workVideoUrl = $("#workVideoUrl").val();
@@ -1178,7 +1179,11 @@ $(document).ready(function(){
     });
 }); 
 
-
+function workPrcCal(obj){
+	obj.value = obj.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+	obj.value = obj.value.replace(/,/g,'');          // ,값 공백처리
+    obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
+}
      
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
