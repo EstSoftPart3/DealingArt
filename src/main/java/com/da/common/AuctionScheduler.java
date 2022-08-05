@@ -35,8 +35,9 @@ public class AuctionScheduler {
 	private SendSmsUtil sendSmsUtil;
 	
 	//거래 종료된 경매 정보 가져와서 낙찰/거래종료로 10분마다 실행한다
-	@Scheduled(cron="0 */10 * * * *")
-	public void successfulBid () {
+	//@Scheduled(cron="0 */10 * * * *")
+	@Scheduled(cron="0 */1 * * * *")
+	public void successfulBid() {
 		
 //		InetAddress local = null;
 //		String ip = "";
@@ -82,6 +83,8 @@ public class AuctionScheduler {
 				smsParam.put("sBidDt", successfulBidList.get(i).get("dealEndngDt"));
 				//작품명
 				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+				//작품번호
+				smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
 				//최종낙찰가
 				smsParam.put("bidPrc", successfulBidList.get(i).get("dealAuctnPrc"));
 				//대상코드 수정 중요@@@@
@@ -104,6 +107,8 @@ public class AuctionScheduler {
 				smsParam.put("sBidDt", successfulBidList.get(i).get("dealEndngDt"));
 				//작품명
 				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+				//작품번호
+				smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
 				//최종낙찰가
 				smsParam.put("bidPrc", successfulBidList.get(i).get("dealAuctnPrc"));
 				//대상코드 수정 중요@@@@
@@ -123,6 +128,8 @@ public class AuctionScheduler {
 					smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 					//작품명
 					smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+					//작품번호
+					smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
 					//만료일시
 					smsParam.put("dealEndngDt", successfulBidList.get(i).get("dealEndngDt"));
 					//응찰일시
@@ -145,6 +152,8 @@ public class AuctionScheduler {
 				smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 				//작품명
 				smsParam.put("workNm", successfulBidList.get(i).get("workNm"));
+				//작품번호
+				smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
 				//만료일시
 				smsParam.put("dealEndngDt", successfulBidList.get(i).get("dealEndngDt"));
 				//대상코드 수정 중요@@@
@@ -167,6 +176,8 @@ public class AuctionScheduler {
 			smsParam.put("mbrNcknm", mbrInfoVo.getMbrNcknm());
 			//작품명
 			smsParam.put("workNm", successfulSaleList.get(i).get("workNm"));
+			//작품번호
+			smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
 			//만료일시
 			smsParam.put("dealEndngDt", successfulSaleList.get(i).get("dealEndngDt"));
 			//대상코드 수정 중요@@@
@@ -175,4 +186,5 @@ public class AuctionScheduler {
 			sendSmsUtil.sendSmsProc(smsParam); //판매자에게 판매종료 메세지를 보낸다
 		}
 	}
+
 }
