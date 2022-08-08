@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.da.mapper.NotiMapper;
 
+import com.da.util.CommonService;
 
 @Component
 public class SendSmsUtil {
@@ -27,6 +28,9 @@ public class SendSmsUtil {
 	
 	@Autowired
 	private EncryptUtil encryptUtil;
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@Autowired
 	NotiMapper NotiMapper;
@@ -112,8 +116,12 @@ public class SendSmsUtil {
 		//보낸 회원 번호
 		String sndNumber = params.get("mbrCpNum").toString();
 		//작품 번호
-		String workSq = params.get("workSq").toString();
 		
+		//중복체크위해 작품번호를 가져온다.
+		String workSq = null;
+		if(!commonService.isEmpty((String) params.get("workSq"))) {
+			workSq = (String) params.get("workSq");
+		}
 		
 		String regDt = null;
 		String sBidDt = null;
