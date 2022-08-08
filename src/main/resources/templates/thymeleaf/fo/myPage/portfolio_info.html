@@ -1543,11 +1543,17 @@
 		    	
 		    	if(data == 1) {
 		    		
+		    		if(useYn == "Y"){
+		    			//modalAlertShow("작가 정보등록 완료했습니다.","");
+			    		alert("작가 신청이 완료되었습니다. \n\n 관리자 승인 후 포트폴리오 메뉴 이용이 가능합니다.");
+			    		
+			    		AuthorInfoSaveView(2);
+		    		}else{
+						alert("작가 정보가 임시 저장되었습니다.");
+			    		
+			    		AuthorInfoSaveView(1);
+		    		}
 		    		
-		    		//modalAlertShow("작가 정보등록 완료했습니다.","");
-		    		alert("작가 신청이 완료되었습니다. \n\n 관리자 승인 후 포트폴리오 메뉴 이용이 가능합니다.")
-		    		
-		    		AuthorInfoSaveView(2);
 		    		
 		    	}
 		   	 },

@@ -38,6 +38,10 @@
 	    	<section class="content">
 	    	
 	    		<input type="hidden" name="dealSq" id="dealSq" value="<%=dealSq%>">
+	    		<input type="hidden" name="sellMbrSq" id="sellMbrSq" value="">
+	    		<input type="hidden" name="buyMbrSq" id="buyMbrSq" value="">
+	    		<input type="hidden" name="workSq" id="workSq" value="">
+	    		<input type="hidden" name="artstSq" id="artstSq" value="">
 	    		
 	    		<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
@@ -155,6 +159,7 @@
 	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
 		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>결제정보</b></a></li>
+		           		<li><a href="javascript:void(0);" class="sTitle" id="btn_orderFormDown" onclick="orderFormExcelDown();" style="padding-left:10px; display:none;"><b>[발주서 엑셀 파일 다운로드]</b></a></li>
 		           	</ul>
 				 </div>
 				 
@@ -430,6 +435,10 @@
 		        	 //작품정보
 		        	 fn_workInfo(workSqNum);
 		        	 
+		        	 $("#sellMbrSq").val(sellMbrSq);
+		        	 $("#buyMbrSq").val(buyMbrSq);
+		        	 $("#artstSq").val(artstSq);
+		        	 $("#workSq").val(workSqNum);
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
@@ -831,6 +840,14 @@
 		        	 var dealMemo = dataContent.dealMemo;
 		        	 $('#dealMemo').val(dealMemo);
 		        	 
+		        	 //발주서 엑셀 다운로드 버튼 활성화 / 비활성화
+		        	 if(sellPaymntSttsCd != "2PC" && buyPaymntSttsCd != "2PC"){
+		        		 $("#btn_orderFormDown").css("display", "none");
+		        	 }else{
+		        		 $("#btn_orderFormDown").css("display", "");
+		        	 }
+		        	 
+		        	 
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
@@ -839,10 +856,64 @@
 			})
 		 }
 			
-			
-		 
-	    	 
-	   
+		function orderFormExcelDown(){
+			var param = {
+					dealSq : $("#dealSq").val(),
+					workSq : $("#workSq").val(),
+					sellMbrSq : $("#sellMbrSq").val(),
+					buyMbrSq : $("#buyMbrSq").val(),
+					artstSq : $("#artstSq").val()
+			};
+			$.ajax({
+				url:"/oderFormDownload",
+				type:"post",
+				data: param,
+				cache: false,
+			    xhrFields: {
+			        responseType: "blob",
+			    },
+				success: function (data, message, xhr) { 
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// 성공했을때만 파일 다운로드 처리하고
+						let disposition = xhr.getResponseHeader('Content-Disposition'); 
+						let filename; 
+						if (disposition && disposition.indexOf('attachment') !== -1) { 
+							let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/; 
+							let matches = filenameRegex.exec(disposition); 
+							if (matches != null && matches[1]){ 
+								filename = decodeURI(matches[1].replace(/['"]/g, '')); 
+							}
+						}
+						// for IE
+				        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+				            window.navigator.msSaveOrOpenBlob(data, filename);
+				        } else {
+				            var URL = window.URL || window.webkitURL;
+				            var downloadUrl = URL.createObjectURL(data);
+
+				            if (filename) {
+				                var a = document.createElement("a");
+
+				                // for safari
+				                if (a.download === undefined) {
+				                    window.location.href = downloadUrl;
+				                } else {
+				                    a.href = downloadUrl;
+				                    a.download = filename;
+				                    document.body.appendChild(a);
+				                    a.click();
+				                }
+				            } else {
+				                window.location.href = downloadUrl;
+				            }
+				        }
+					}else{   
+					    //실패했을때는 alert 메시지 출력
+						alertPopup("다운로드에 실패하였습니다."); 
+					} 
+				}
+			}); 
+		}
 
 	 </script>
  

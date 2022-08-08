@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.ExcelMapper">
+	<select id="oderFormDownload" parameterType="hashMap" resultType="com.da.vo.OrderFormVo">
+	/*발주서 엑셀 다운로드*/
+	SELECT 
+			A.MBR_REF_NO AS mbrRefNo,
+			A.WORK_SQ AS workSq,
+			(SELECT 
+					PAYMNT_DT
+			FROM
+					TBL_DA_PAYMNT_H
+			WHERE
+					DEAL_SQ = #{dealSq}
+				AND PAYMNT_TYP_CD = '2'
+				AND PAYMNT_DIV_CD = 'B'
+				AND MBR_SQ = #{buyMbrSq}
+			) AS paymntDt,
+			FORMAT(A.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+			IF (A.SELL_PAYMNT_STTS_CD = '2PC', 'Y', 'N') AS sellYn2PC,
+			IF (A.BUY_PAYMNT_STTS_CD = '2PC', 'Y', 'N') AS buyYn2PC,
+			(SELECT
+					(CASE
+						WHEN TRNSPRT_TYP_CD = 'P' THEN '프리미엄 운송'
+						WHEN TRNSPRT_TYP_CD = 'D' THEN '직접 운송'
+					END)
+			FROM 
+					TBL_DA_DEAL_TRNSPRT_S
+			WHERE 
+					DEAL_SQ = #{dealSq}
+				AND SELL_MBR_SQ = #{sellMbrSq}
+				AND BUY_MBR_SQ = #{buyMbrSq}
+			LIMIT 1
+			) AS trnsprtTypNm,
+			(SELECT
+					(CASE
+						WHEN TRNSPRT_AREA_CD = 'MA' THEN '수도권'
+						WHEN TRNSPRT_AREA_CD = 'NA' THEN '비수도권'
+						ELSE '없음'
+					END)
+			FROM 
+					TBL_DA_DEAL_TRNSPRT_S
+			WHERE 
+					DEAL_SQ = #{dealSq}
+				AND SELL_MBR_SQ = #{sellMbrSq}
+				AND BUY_MBR_SQ = #{buyMbrSq}
+			LIMIT 1
+			) AS trnsprtAreaNm,
+			(SELECT
+					(CASE 
+						WHEN TRNSPRT_SERVICE_CD = 'EC1' THEN '작업 할증(야갼/공휴일, 1인)'
+						WHEN TRNSPRT_SERVICE_CD = 'EC2' THEN '작업 할증(야간/공휴일, 2인)'
+						ELSE '없음'
+					END)
+			FROM 
+					TBL_DA_DEAL_TRNSPRT_S
+			WHERE 
+					SELL_MBR_SQ = #{sellMbrSq}
+				AND	DEAL_SQ = #{dealSq}
+				AND TRNSPRT_DIV_CD = 'S'
+			)AS sellEC,
+			(SELECT
+					(CASE 
+						WHEN TRNSPRT_SERVICE_CD = 'IS1' THEN '작품 설치 (80호 미만, 1인)'
+						WHEN TRNSPRT_SERVICE_CD = 'IS2' THEN '작품 설치 (80호 이상, 2인)'
+						ELSE '없음'
+					END)
+			FROM 
+					TBL_DA_DEAL_TRNSPRT_S
+			WHERE 
+					BUY_MBR_SQ = #{buyMbrSq}
+				AND	DEAL_SQ = #{dealSq}
+				AND TRNSPRT_DIV_CD = 'B'
+			)AS buyIS,
+			(SELECT
+					(CASE 
+						WHEN TRNSPRT_SERVICE_CD = 'EC1' THEN '작업 할증(야갼/공휴일, 1인)'
+						WHEN TRNSPRT_SERVICE_CD = 'EC2' THEN '작업 할증(야간/공휴일, 2인)'
+						ELSE '없음'
+					END)
+			FROM 
+					TBL_DA_DEAL_TRNSPRT_S
+			WHERE 
+					BUY_MBR_SQ = #{buyMbrSq}
+				AND	DEAL_SQ = #{dealSq}
+				AND TRNSPRT_DIV_CD = 'B'
+			)AS buyEC,
+			B.WORK_NM AS workNm,
+			B.ARTST_ACTVTY_NM AS artstActvtyNm,
+			B.WORK_PRODC_YEAR AS workProdcYear,
+			CONCAT(B.WORK_SIZE_WIDTH, ' x ', B.WORK_SIZE_DEPTH) AS workSize,
+			B.WORK_MATRL AS workMatrl,
+			IF(B.WORK_MAIN_IMG_URL IS NULL, B.WORK_IMG_FRT_URL, B.WORK_MAIN_IMG_URL) AS workMainImgUrl,
+			(SELECT
+					MBR_NM 
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{sellMbrSq}
+			)AS sellMbrNm,
+			(SELECT
+					IF (MBR_DELIVRY_CP_NUM IS NULL, MBR_CP_NUM, MBR_DELIVRY_CP_NUM)
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{sellMbrSq}
+			)AS sellMbrDelivryCpNum,
+			(SELECT
+					MBR_DELIVRY_ADDR
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{sellMbrSq}
+			)AS sellDelivryAddr,
+			(SELECT
+					MBR_NM 
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{buyMbrSq}
+			)AS buyMbrNm,
+			(SELECT
+					IF (MBR_DELIVRY_CP_NUM IS NULL, MBR_CP_NUM, MBR_DELIVRY_CP_NUM)
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{buyMbrSq}
+			)AS buyMbrDelivryCpNum,
+			(SELECT
+					MBR_DELIVRY_ADDR
+			FROM
+					TBL_DA_MBR_M
+			WHERE
+					MBR_SQ = #{buyMbrSq}
+			)AS buyDelivryAddr
+	FROM 
+			TBL_DA_DEAL_M AS A
+	INNER JOIN 
+			TBL_DA_WORK_M AS B
+		ON 	A.WORK_SQ = B.WORK_SQ 
+	WHERE 
+			A.DEAL_SQ = #{dealSq}
+		AND A.WORK_SQ = '204'
+		AND A.SELL_MBR_SQ = #{sellMbrSq}
+		AND A.BUY_MBR_SQ = #{buyMbrSq}
+		<if test="artstSq != null and artstSq != ''">
+		AND A.ARTST_SQ = #{artstSq}
+		</if>
+	</select>
+</mapper>
