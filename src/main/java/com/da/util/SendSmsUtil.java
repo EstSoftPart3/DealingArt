@@ -207,49 +207,6 @@ public class SendSmsUtil {
 						+ "[안내사항]\n"
 						+ "- 작가 등록 등록이 완료된 후 포트폴리오 메뉴가 활성화 됩니다.\n"
 						+ "- 학력, 경력, 소속, 전시정보를 허위로 입력하는 경우 작가 등록이 보류 될 수 있으니 유의해주세요.";
-			} else if(sndConCd.equals("SSA") && notiCount == 0) {
-				smsContent = "[딜링아트] "+mbrNcknm+"님, 콜렉팅 성공!\n"
-						+ "□구매 형식 : 경매 \n"
-						+ "□응찰 일시 : "+regDt+" \n"
-						+ "□낙찰 일시 : "+sBidDt+" \n"
-						+ "□작품명 : "+workNm+" \n"
-						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
-						+ "낙찰된 작품의 결제는 48시간 안에 진행해 주세요. 결제가 완료되면 운송 일정 및 부가 서비스 확인을 위해 고객센터에서 연락 드릴 예정입니다. 꼭! 받아주세요.\n"
-						+ "[유의 사항]\n"
-						+ "- 운송 방법은 프리미엄 운송 서비스와 직접 운송 중 필수로 이용해야 되며 설치, 포장이 필요한 경우 추가 선택이 가능합니다.\n"
-						+ "- 작품/부가 서비스 미 결제, 운송 일정 조율에 대한 응답 거부, 작품 운송의 인계 및 수취 거부, 미술품 또는 보증서 의 허위, 변조, 조작, 딜링아트 서비스 이용 약관에 위반되는 행위가 발생되는 경우 거래가 취소 될 수 있습니다.";
-			} else if(sndConCd.equals("SSE") && notiCount == 0) {
-				smsContent = "[딜링아트]낙찰 완료 안내\n"
-						+ "□판매형식 : 경매 \n"
-						+ "□등록 일시 : "+regDt+" \n"
-						+ "□낙찰 일시 : "+sBidDt+" \n"
-						+ "□작품명 : "+workNm+" \n"
-						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
-						+ mbrNcknm +"님! 등록하신 거래가 낙찰 되었습니다.\n"
-						+ "구매자가 48시간 이내 결제를 완료하면 고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
-			} else if(sndConCd.equals("SRES") && notiCount == 0) {
-				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
-						+ "□작품명 : "+workNm+"\n"
-						+ "□판매 형식 : 정찰 \n"
-						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
-						+ mbrNcknm +"님! 등록하신 미술품의 판매 기간이 만료되어 아쉽게도 판매가 종료되었습니다.\n다시 판매 하시려면 마이 페이지에서 거래 등록을 진행해주세요. ";
-			} else if(sndConCd.equals("SREA") && notiCount == 0) {
-				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
-						+ "□작품명 : "+workNm+"\n"
-						+ "□판매 형식 : 경매 \n"
-						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
-						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 응찰이 없어 아쉽게도 유찰 되었습니다.\n마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
-			} else if(sndConCd.equals("SAE") && notiCount == 0) {
-				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
-						+ "□작품명 : "+workNm+"\n"
-						+ "□구매형식 : 경매 \n"
-						+ "□응찰일시 : "+bidDt+"\n"
-						+ "□거래종료일시 : "+dealEndngDt+"\n\n"
-						+ mbrNcknm+"님! 응찰 하신 미술품이 아쉽게도 다른 회원님께 낙찰되었습니다.";
-			}
-			
-			
-			if( (sndConCd.equals("SAA") && notiCount == 0) || (sndConCd.equals("SSA") && notiCount == 0) || (sndConCd.equals("SREA") && notiCount == 0) || (sndConCd.equals("SRES") && notiCount == 0) || (sndConCd.equals("SAE") && notiCount == 0) || (sndConCd.equals("SSE") && notiCount == 0) ) {
 				
 				tomap.put("to", sndNumber);
 				mList.add(tomap);
@@ -263,8 +220,128 @@ public class SendSmsUtil {
 				
 				//히스토리 저장
 				NotiMapper.notiInsert(getParam);
-			
+				
 			}
+			if(sndConCd.equals("SSA") && notiCount == 0) {
+				smsContent = "[딜링아트] "+mbrNcknm+"님, 콜렉팅 성공!\n"
+						+ "□구매 형식 : 경매 \n"
+						+ "□응찰 일시 : "+regDt+" \n"
+						+ "□낙찰 일시 : "+sBidDt+" \n"
+						+ "□작품명 : "+workNm+" \n"
+						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
+						+ "낙찰된 작품의 결제는 48시간 안에 진행해 주세요. 결제가 완료되면 운송 일정 및 부가 서비스 확인을 위해 고객센터에서 연락 드릴 예정입니다. 꼭! 받아주세요.\n"
+						+ "[유의 사항]\n"
+						+ "- 운송 방법은 프리미엄 운송 서비스와 직접 운송 중 필수로 이용해야 되며 설치, 포장이 필요한 경우 추가 선택이 가능합니다.\n"
+						+ "- 작품/부가 서비스 미 결제, 운송 일정 조율에 대한 응답 거부, 작품 운송의 인계 및 수취 거부, 미술품 또는 보증서 의 허위, 변조, 조작, 딜링아트 서비스 이용 약관에 위반되는 행위가 발생되는 경우 거래가 취소 될 수 있습니다.";
+				
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				System.out.println("######params:"+params);
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
+				
+			}
+			if(sndConCd.equals("SSE") && notiCount == 0) {
+				smsContent = "[딜링아트]낙찰 완료 안내\n"
+						+ "□판매형식 : 경매 \n"
+						+ "□등록 일시 : "+regDt+" \n"
+						+ "□낙찰 일시 : "+sBidDt+" \n"
+						+ "□작품명 : "+workNm+" \n"
+						+ "□최종 낙찰가 : "+bidPrc+" KRW 축하합니다.\n\n"
+						+ mbrNcknm +"님! 등록하신 거래가 낙찰 되었습니다.\n"
+						+ "구매자가 48시간 이내 결제를 완료하면 고객센터에서 운송 일정 확인을 위해 연락 드립니다.";
+				
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				System.out.println("######params:"+params);
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
+				
+			}
+			if(sndConCd.equals("SRES") && notiCount == 0) {
+				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
+						+ "□작품명 : "+workNm+"\n"
+						+ "□판매 형식 : 정찰 \n"
+						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
+						+ mbrNcknm +"님! 등록하신 미술품의 판매 기간이 만료되어 아쉽게도 판매가 종료되었습니다.\n다시 판매 하시려면 마이 페이지에서 거래 등록을 진행해주세요. ";
+				
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				System.out.println("######params:"+params);
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
+				
+			}
+			if(sndConCd.equals("SREA") && notiCount == 0) {
+				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
+						+ "□작품명 : "+workNm+"\n"
+						+ "□판매 형식 : 경매 \n"
+						+ "□거래 종료 일시 : "+dealEndngDt+"\n\n"
+						+ mbrNcknm +"님! 등록하신 미술품이 기간 내에 응찰이 없어 아쉽게도 유찰 되었습니다.\n마이페이지 > 나의작품/소장품 메뉴에서 다시 거래 등록이 가능합니다.";
+				
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				System.out.println("######params:"+params);
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
+				
+			}
+			if(sndConCd.equals("SAE") && notiCount == 0) {
+				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
+						+ "□작품명 : "+workNm+"\n"
+						+ "□구매형식 : 경매 \n"
+						+ "□응찰일시 : "+bidDt+"\n"
+						+ "□거래종료일시 : "+dealEndngDt+"\n\n"
+						+ mbrNcknm+"님! 응찰 하신 미술품이 아쉽게도 다른 회원님께 낙찰되었습니다.";
+				
+				tomap.put("to", sndNumber);
+				mList.add(tomap);
+					
+				params.put("content", smsContent);
+				params.put("messages", mList);
+				
+				System.out.println("######params:"+params);
+				rtnMap = this.sendSms(params);
+				
+				
+				//히스토리 저장
+				NotiMapper.notiInsert(getParam);
+			}
+			
+			
+			//if( (sndConCd.equals("SAA") && notiCount == 0) || (sndConCd.equals("SSA") && notiCount == 0) || (sndConCd.equals("SREA") && notiCount == 0) || (sndConCd.equals("SRES") && notiCount == 0) || (sndConCd.equals("SAE") && notiCount == 0) || (sndConCd.equals("SSE") && notiCount == 0) ) {
+				
+				
+			
+			//}
 		}
 		
 		return params;

@@ -260,12 +260,12 @@ public class MemberController {
 					session.setAttribute("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
 					session.setAttribute("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
 					session.setAttribute("artstBirthYear", artstInfo.get("artstBirthYear").toString());
-					session.setAttribute("artstYod", artstInfo.get("artstYod").toString());
+					//session.setAttribute("artstYod", artstInfo.get("artstYod").toString());
 					mv.addObject("artstSq", artstInfo.get("artstSq").toString());
 					mv.addObject("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
 					mv.addObject("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
 					mv.addObject("artstBirthYear", artstInfo.get("artstBirthYear").toString());
-					mv.addObject("artstYod", artstInfo.get("artstYod").toString());
+					//mv.addObject("artstYod", artstInfo.get("artstYod").toString());
 				}
 				session.setAttribute("mbrSq", mbrSq);
 				session.setAttribute("authSq", authSq);
@@ -335,7 +335,7 @@ public class MemberController {
 		    	mv.addObject("artstActvtyNm", session.getAttribute("artstActvtyNm").toString());
 		    	mv.addObject("artstEnglsNm", session.getAttribute("artstEnglsNm").toString());
 		    	mv.addObject("artstBirthYear", session.getAttribute("artstBirthYear").toString());
-		    	mv.addObject("artstYod", session.getAttribute("artstYod").toString());
+		    	//mv.addObject("artstYod", session.getAttribute("artstYod").toString());
 		    }
 		    session.setAttribute("sMbrSqVal", mbrSq);
 		    session.setAttribute("authSq", authSq);

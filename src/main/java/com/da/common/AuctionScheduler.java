@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.da.mapper.DealMapper;
 import com.da.mapper.MemberMapper;
@@ -36,7 +37,7 @@ public class AuctionScheduler {
 	
 	//거래 종료된 경매 정보 가져와서 낙찰/거래종료로 10분마다 실행한다
 	//@Scheduled(cron="0 */10 * * * *")
-	@Scheduled(cron="0 */1 * * * *")
+	@Scheduled(cron="0 */10 * * * *")
 	public void successfulBid() {
 		
 //		InetAddress local = null;
@@ -177,7 +178,7 @@ public class AuctionScheduler {
 			//작품명
 			smsParam.put("workNm", successfulSaleList.get(i).get("workNm"));
 			//작품번호
-			smsParam.put("workSq", successfulBidList.get(i).get("workSq"));
+			smsParam.put("workSq", successfulSaleList.get(i).get("workSq"));
 			//만료일시
 			smsParam.put("dealEndngDt", successfulSaleList.get(i).get("dealEndngDt"));
 			//대상코드 수정 중요@@@
