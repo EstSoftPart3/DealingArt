@@ -138,7 +138,10 @@ public class MemberDao {
 			 //닉네임
 			 String mbrNcknm = memberContent.get(z).get("mbrNcknm").toString();
 			 //회원 휴대폰 인증 DI
-			 String mbrCpCertDi = memberContent.get(z).get("mbrCpCertDi").toString();
+			 String mbrCpCertDi = "";
+			 if(memberContent.get(z).get("mbrCpCertDi") != null) {
+				 mbrCpCertDi = memberContent.get(z).get("mbrCpCertDi").toString();
+			 }
 			 //정산 계좌 정보
 			 String mbrAccountNo = "";
 			 String mbrBankCd = "";
