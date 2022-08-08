@@ -1720,8 +1720,7 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod, /*결제 수단*/
-				PAYMNT_DT AS paymntDt
+				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -1776,8 +1775,7 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod, /*결제 수단*/
-				PAYMNT_DT AS paymntDt
+				) AS payMethod /*결제 수단*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
