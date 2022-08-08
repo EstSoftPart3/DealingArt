@@ -124,11 +124,11 @@
 								</tr>
 								<tr>
 									<th>출생년도</th>
-									<td><input type="number" class="input-4" id="artstBirthYear" th:value="${result.artstBirthYear}" placeholder="작가의 출생년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+									<td><input type="number" class="input-4" id="artstBirthYear" th:value="${result.artstBirthYear}" placeholder="작가의 출생년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';}"/></td>
 								</tr>
 								<tr>
 									<th>작고</th>
-									<td><input type="number" class="input-4" id="artstYod" th:value="${result.artstYod}" placeholder="작가의 사망년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+									<td><input type="number" class="input-4" id="artstYod" th:value="${result.artstYod}" placeholder="작가의 사망년도를 입력해주세요." onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';}"/></td>
 								</tr>
 							</table>
 						</div>
@@ -309,7 +309,7 @@
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="number" class="input-4" id="workProdcYear" th:value="${result.workProdcYear}" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+									<td><input type="number" class="input-4" id="workProdcYear" th:value="${result.workProdcYear}" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';}"/></td>
 								</tr>
 								<tr>
 									<th><span class="my-red">사이즈</span></th>

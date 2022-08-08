@@ -175,7 +175,7 @@
 								</tr>
 								<tr>
 									<th><span class="my-red">제작년도</span></th>
-									<td><input type="number" class="input-4" id="workProdcYear" th:value="${result.workProdcYear}" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';modalAlertShow('년도 4자리만 입력해주세요.');}"/></td>
+									<td><input type="number" class="input-4" id="workProdcYear" th:value="${result.workProdcYear}" onblur="this.value = this.value.replace('.', ''); if(this.value.length != 4){this.value='';}"/></td>
 								</tr>
 								<tr>
 									<th><span class="">작품 대표 사진</span></th>
