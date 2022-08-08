@@ -112,6 +112,7 @@
 			,	TAX_AMOUNT			as	taxAmount
 			,	FEE_AMOUNT			as	feeAmount
 			,	FORMAT(TAX_FREE_AMOUNT,0)			as	taxFreeAmount
+			,A.PAYMNT_DT AS paymntDt
 		FROM
             TBL_DA_PAYMNT_H PH
         WHERE 1=1

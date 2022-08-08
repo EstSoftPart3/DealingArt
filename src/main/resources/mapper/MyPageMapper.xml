@@ -703,6 +703,9 @@
 									REG_MBR_SQ,
 									UPDT_DT,
 									UPDT_MBR_SQ
+									<if test="artstEnglsNm != null and artstEnglsNm != ''">
+										,ARTST_ENGLS_NM
+									</if>
 									<if test="workMainImgUrl != null and workMainImgUrl != ''">
 										,WORK_MAIN_IMG_URL
 									</if>
@@ -763,6 +766,9 @@
 							#{mbrSq},
 							NOW(),
 							#{mbrSq}
+							<if test="artstEnglsNm != null and artstEnglsNm != ''">
+								,#{artstEnglsNm}
+							</if>
 							<if test="workMainImgUrl != null and workMainImgUrl != ''">
 								,#{workMainImgUrl}
 							</if>
@@ -909,7 +915,7 @@
 				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
 				A.WORK_IMG_RER_URL AS workImgRerUrl,
 				A.WORK_FRM_YN AS workFrmYn,
@@ -944,6 +950,7 @@
 					TBL_DA_WORK_M(
 									WORK_SQ
 									,MBR_SQ
+									,ARTST_SQ
 									,ARTST_ACTVTY_NM
 									,WORK_TYP_CD
 									,WORK_NM
@@ -956,8 +963,8 @@
 									,WORK_SALE_YN
 									,UPDT_DT
 									,UPDT_MBR_SQ
-									<if test="artstSq != null and artstSq != ''">
-										,ARTST_SQ
+									<if test="artstEnglsNm != null and artstEnglsNm != ''">
+										,ARTST_ENGLS_NM
 									</if>
 									<if test="artstBirthYear != null and artstBirthYear != ''">
 										,ARTST_BIRTH_YEAR
@@ -1014,6 +1021,7 @@
 					) VALUES (
 								#{workSq}
 			     				,#{mbrSq}
+			     				,#{artstSq}
 								,#{artstActvtyNm}
 								,#{workTypCd}
 								,#{workNm}
@@ -1026,9 +1034,8 @@
 								,#{workSaleYn}
 								,NOW()
 								,#{mbrSq}
-								
-								<if test="artstSq != null and artstSq != ''">
-									,#{artstSq}
+								<if test="artstEnglsNm != null and artstEnglsNm != ''">
+									,#{artstEnglsNm}
 								</if>
 								<if test="artstBirthYear != null and artstBirthYear != ''">
 									,#{artstBirthYear}
@@ -1084,7 +1091,9 @@
 								,#{workOpenYn}
 							)
 	ON DUPLICATE KEY UPDATE
-		    					MBR_SQ = #{mbrSq}
+								WORK_SQ = #{workSq}
+		    					,MBR_SQ = #{mbrSq}
+		    					,ARTST_SQ = #{artstSq}
 								,ARTST_ACTVTY_NM = #{artstActvtyNm}
 								,WORK_TYP_CD = #{workTypCd}
 								,WORK_NM = #{workNm}
@@ -1097,8 +1106,8 @@
 								,WORK_SALE_YN = #{workSaleYn}
 								,UPDT_DT = NOW()
 								,UPDT_MBR_SQ = #{mbrSq}
-								<if test="artstSq != null and artstSq != ''">
-									,ARTST_SQ = #{artstSq}
+								<if test="artstEnglsNm != null and artstEnglsNm != ''">
+									,ARTST_ENGLS_NM = #{artstEnglsNm}
 								</if>
 								<if test="artstBirthYear != null and artstBirthYear != ''">
 									,ARTST_BIRTH_YEAR = #{artstBirthYear}
@@ -1711,7 +1720,8 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod /*결제 수단*/
+				) AS payMethod, /*결제 수단*/
+				PAYMNT_DT AS paymntDt
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -1766,7 +1776,8 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod /*결제 수단*/
+				) AS payMethod, /*결제 수단*/
+				PAYMNT_DT AS paymntDt
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -1955,7 +1966,8 @@
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
-				A.TRAN_DATE AS tranDate
+				A.TRAN_DATE AS tranDate,
+				A.PAYMNT_DT AS paymntDt
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -2022,7 +2034,8 @@
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
-				A.TRAN_DATE AS tranDate
+				A.TRAN_DATE AS tranDate,
+				A.PAYMNT_DT AS paymntDt
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -2089,7 +2102,8 @@
 				FORMAT(A.PAYMNT_DISC_AMT, 0)AS paymntDiscAmt, /*할인 금액*/
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
-				A.TRAN_DATE AS tranDate
+				A.TRAN_DATE AS tranDate,
+				A.PAYMNT_DT AS paymntDt
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
@@ -2378,4 +2392,40 @@
 		WHERE  
 				WORK_SQ = #{workSq}
    </update>
+   
+   <select id="getArtstInfo" parameterType="hashMap" resultType="hashMap">
+   		/*작가 정보*/
+   		SELECT
+          	 A.MBR_SQ					AS mbrSq              
+			,A.ARTST_SQ					AS artstSq           
+			,A.ARTST_ACTVTY_NM			AS artstActvtyNm      
+			,A.ARTST_ENGLS_NM			AS artstEnglsNm
+			,YEAR(B.MBR_BIRTH)			AS artstBirthYear
+			,A.ARTST_YOD				AS artstYod       
+			,A.ARTST_ACTVTY_PART_CD		AS artstActvtyPartCd  
+			,A.ARTST_ACTVTY_NATN_CD		AS artstActvtyNatnCd
+			,A.ARTST_ACTVTY_CITY_CD		AS artstActvtyCityCd      
+			,A.ARTST_SELF_INTRO			AS artstSelfIntro     
+			,A.ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
+			,A.ARTST_WORK_IMG_URL		AS artstWorkImgUrl 
+			,A.ARTST_HMPG_URL			AS artstHmpgUrl       
+			,A.ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
+			,A.ARTST_FACEBOOK_URL		AS artstFacebookUrl    
+			,A.ARTST_INSTAGRAM_URL		AS artstInstagramUrl   
+			,A.REG_MBR_SQ				AS regMbrSq           
+			,A.REG_DT					AS regDt              
+			,A.UPDT_MBR_SQ				AS updtMbrSq          
+			,A.UPDT_DT					AS updtDt             
+			,A.USE_YN					AS useYn              
+			,A.DEL_YN					AS delYn  
+
+        FROM 
+        		TBL_DA_ARTST_M AS A
+        INNER JOIN 
+        		TBL_DA_MBR_M AS B
+        	ON	A.MBR_SQ = B.MBR_SQ
+        WHERE 
+        		A.MBR_SQ = #{mbrSq}
+        	AND A.ARTST_SQ = #{artstSq}
+   </select>
 </mapper>

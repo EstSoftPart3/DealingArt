@@ -317,29 +317,36 @@
   <!-- 작가기본정보 내용보기 -->
   <select id="authorBaseInfo" resultType="hashMap">
         SELECT
-          	 MBR_SQ					AS mbrSq              
-			,ARTST_SQ				AS artstSq           
-			,ARTST_ACTVTY_NM		AS artstActvtyNm      
-			,ARTST_ENGLS_NM			AS artstEnglsNm       
-			,ARTST_ACTVTY_PART_CD	AS artstActvtyPartCd  
-			,ARTST_ACTVTY_NATN_CD	AS artstActvtyNatnCd
-			,ARTST_ACTVTY_CITY_CD	AS artstActvtyCityCd      
-			,ARTST_SELF_INTRO		AS artstSelfIntro     
-			,ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
-			,ARTST_WORK_IMG_URL		AS artstWorkImgUrl 
-			,ARTST_HMPG_URL			AS artstHmpgUrl       
-			,ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
-			,ARTST_FACEBOOK_URL		AS artstFacebookUrl    
-			,ARTST_INSTAGRAM_URL	AS artstInstagramUrl   
-			,REG_MBR_SQ				AS regMbrSq           
-			,REG_DT					AS regDt              
-			,UPDT_MBR_SQ			AS updtMbrSq          
-			,UPDT_DT				AS updtDt             
-			,USE_YN					AS useYn              
-			,DEL_YN					AS delYn  
+          	 A.MBR_SQ					AS mbrSq              
+			,A.ARTST_SQ					AS artstSq           
+			,A.ARTST_ACTVTY_NM			AS artstActvtyNm      
+			,A.ARTST_ENGLS_NM			AS artstEnglsNm
+			,YEAR(B.MBR_BIRTH)			AS artstBirthYear
+			,A.ARTST_YOD				AS artstYod       
+			,A.ARTST_ACTVTY_PART_CD		AS artstActvtyPartCd  
+			,A.ARTST_ACTVTY_NATN_CD		AS artstActvtyNatnCd
+			,A.ARTST_ACTVTY_CITY_CD		AS artstActvtyCityCd      
+			,A.ARTST_SELF_INTRO			AS artstSelfIntro     
+			,A.ARTST_PROFILE_IMG_URL	AS artstProfileImgUrl 
+			,A.ARTST_WORK_IMG_URL		AS artstWorkImgUrl 
+			,A.ARTST_HMPG_URL			AS artstHmpgUrl       
+			,A.ARTST_PROMTN_VIDEO_URL	AS artstPromtnVideoUrl
+			,A.ARTST_FACEBOOK_URL		AS artstFacebookUrl    
+			,A.ARTST_INSTAGRAM_URL		AS artstInstagramUrl   
+			,A.REG_MBR_SQ				AS regMbrSq           
+			,A.REG_DT					AS regDt              
+			,A.UPDT_MBR_SQ				AS updtMbrSq          
+			,A.UPDT_DT					AS updtDt             
+			,A.USE_YN					AS useYn              
+			,A.DEL_YN					AS delYn  
 
-        FROM TBL_DA_ARTST_M
-        WHERE MBR_SQ = #{mbrSq}
+        FROM 
+        		TBL_DA_ARTST_M AS A
+        INNER JOIN 
+        		TBL_DA_MBR_M AS B
+        	ON	A.MBR_SQ = B.MBR_SQ
+        WHERE 
+        		A.MBR_SQ = #{mbrSq}
   </select>
   <!-- 작가기본정보 카운터 -->
   <select id="authorBaseInfoCount" resultType="int">

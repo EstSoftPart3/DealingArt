@@ -333,4 +333,11 @@ public interface MyPageMapper {
 	 */
 	public int delCollection(String workSq);
 	
+	/*
+	 * 작가 정보
+	 * param : mbrSq, artstSq
+	 * return :
+	 */
+	public Map<String, Object> getArtstInfo(Object param);
+	
 }

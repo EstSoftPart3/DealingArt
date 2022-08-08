@@ -65,16 +65,16 @@
 		                  			판매자
 		                  		</td>
 			       				<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','buy')" disabled>
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','buy')" disabled>
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','buy')" disabled>
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','buy')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','buy')" disabled>
+			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','buy')" disabled>
 			                  	</td>
 			                  	
 			                  </tr>
@@ -83,16 +83,16 @@
 		                  			구매자
 		                  		</td>
 			       				<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','sell')" disabled>
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PW','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','sell')" disabled>
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="1PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','1PC','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','sell')" disabled>
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PW" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PW','sell')" disabled>
 			                  	</td>
 			                  	<td>
-			                  		<input type="radio" name="sellPaymntSttsCd" class="sellPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','sell')" disabled>
+			                  		<input type="radio" name="buyPaymntSttsCd" class="buyPaymntSttsCd" value="2PC" onclick="dealMainSttsCdUpdate('<%=dealSq%>','2PC','sell')" disabled>
 			                  	</td>
 			                  	
 			                  </tr>

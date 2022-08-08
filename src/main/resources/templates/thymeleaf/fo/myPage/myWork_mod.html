@@ -890,10 +890,10 @@ function myWorkReg(){
 	if(checkValid()){
 		result.keywrd = $("#keywrd").val();
 		result.mbrSq = sMbrSqVal;
-		result.artstSq = artstSq;
+		/* result.artstSq = artstSq;
 		result.artstActvtyNm = artstActvtyNm;
 		result.artstEnglsNm = artstEnglsNm;
-		result.artstBirthYear = artstBirthYear;
+		result.artstBirthYear = artstBirthYear; */
 		result.workPrc = $("#workPrc").val().replaceAll(/,/g, '');
 		result.workVideoUrl = $("#workVideoUrl").val();
 		result.workIntrdc = $("#workIntrdc").val();
@@ -997,7 +997,7 @@ function myWorkReg(){
 				        }
 					});
 				}
-		})
+		});
 	}
 }
 

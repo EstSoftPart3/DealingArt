@@ -666,7 +666,7 @@ jQuery(document).ready(function() {
 		}
 	}
 	
-	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TP"){ //정찰가 1차 결제/구매하기
+	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TP" && result.dealInfo.dealTypCd == "S"){ //정찰가 1차 결제/구매하기
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
 		$("#1PW").css("display", ""); //1차 결제 div
@@ -681,7 +681,7 @@ jQuery(document).ready(function() {
 			$("#btn_payment").css("display", "none") //결제 버튼
 		}
 	}
-	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TC"){ //낙찰자면서 1차 결제 미완료면
+	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TC" && result.dealInfo.dealTypCd == "A"){ //낙찰자면서 1차 결제 미완료면
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
 		$("#1PW").css("display", ""); //1차 결제 div

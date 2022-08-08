@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.da.mapper.DealMapper;
+import com.da.mapper.MemberMapper;
 import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 
@@ -173,6 +174,15 @@ public class MyPageDao {
 	 */
 	public int myWorkReg(Map<String, Object> param) {
 		int result = -1;
+		Map<String, Object> artstInfo = myPageMapper.getArtstInfo(param);
+		param.put("artstActvtyNm", artstInfo.get("artstActvtyNm"));
+		param.put("artstBirthYear", artstInfo.get("artstBirthYear"));
+		if(artstInfo.get("artstEnglsNm") != null) {
+			param.put("artstEnglsNm", artstInfo.get("artstEnglsNm"));
+		}
+		if(artstInfo.get("artstYod") != null) {
+			param.put("artstYod", artstInfo.get("artstYod"));
+		}
 		result = myPageMapper.myWorkReg(param);
 		if(result == 1) {
 			if(param.get("keywrd") != null && param.get("keywrd") != "") {

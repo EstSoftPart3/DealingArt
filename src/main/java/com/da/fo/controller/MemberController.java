@@ -392,7 +392,7 @@ public class MemberController {
 			
 			String mbrCpNum = commonService.decrypt(memberContent.get(0).get("mbrCpNum").toString()).replace("-", "");
 			String mbrId = commonService.decrypt(memberContent.get(0).get("mbrId").toString());
-			String mbrNcknm = commonService.decrypt(memberContent.get(0).get("mbrNcknm").toString());
+			String mbrNcknm = memberContent.get(0).get("mbrNcknm").toString();
 			//String mbrNm = memberContent.get(0).get("mbrNm").toString();
 			
 			//등록일시	

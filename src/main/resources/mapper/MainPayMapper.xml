@@ -132,38 +132,38 @@
   <insert id="insertPayMnt" parameterType="hashMap">
   		INSERT INTO
 			TBL_DA_PAYMNT_H(
-				MBR_SQ,
-				DEAL_SQ,
-				DEAL_TYP_CD,
-				WORK_SQ,
-				PAYMNT_DIV_CD,
-				PAYMNT_TYP_CD,
-				MBR_REF_NO,
-				REF_NO,
-				AUTH_TOKEN,
-				AID,
-				GOODS_NAME,
-				PAYMETHOD,
-				AMOUNT,
-				TRAN_DATE,
-				TRAN_TIME,
-				APPL_NO,
-				CARD_NO,
-				INSTALLMENT,
-				PAY_TYPE,
-				ISSUE_COMPANY_NO,
-				ISSUE_COMPANY_NAME,
-				ISSUE_CARD_NAME,
-				ACQ_COMPANY_NO,
-				ACQ_COMPANY_NAME,
-				BANK_CODE,
-				ACCOUNT_NO,
-				ACCOUNT_CLOSE_DATE,
-				TAX_AMOUNT,
-				FEE_AMOUNT,
-				TAX_FREE_AMOUNT,
-				PAYMNT_AMT,
-				PAYMNT_FEE_AMT
+				,MBR_SQ
+				,DEAL_SQ
+				,DEAL_TYP_CD
+				,WORK_SQ
+				,PAYMNT_DIV_CD
+				,PAYMNT_TYP_CD
+				,MBR_REF_NO
+				,REF_NO
+				,AUTH_TOKEN
+				,AID
+				,GOODS_NAME
+				,PAYMETHOD
+				,AMOUNT
+				,TRAN_DATE
+				,TRAN_TIME
+				,APPL_NO
+				,CARD_NO
+				,INSTALLMENT
+				,PAY_TYPE
+				,ISSUE_COMPANY_NO
+				,ISSUE_COMPANY_NAME
+				,ISSUE_CARD_NAME
+				,ACQ_COMPANY_NO
+				,ACQ_COMPANY_NAME
+				,BANK_CODE
+				,ACCOUNT_NO
+				,ACCOUNT_CLOSE_DATE
+				,TAX_AMOUNT
+				,FEE_AMOUNT
+				,TAX_FREE_AMOUNT
+				,PAYMNT_AMT
+				,PAYMNT_FEE_AMT
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,PAYMNT_DISC_AMT
 				</if>
@@ -172,45 +172,46 @@
 				</if> 
 				<if test="artstSq != null and artstSq != ''">
 					,ARTST_SQ
-				</if> 
+				</if>
+				,PAYMNT_DT
 			) VALUES (
 				<if test='paymntDivCd == "S"'>
-					#{sellMbrSq},
+					,#{sellMbrSq}
 				</if>
 				<if test='paymntDivCd == "B"'>
-					#{buyMbrSq},
+					,#{buyMbrSq}
 				</if>
-				#{dealSq},
-				#{dealTypCd},
-				#{workSq},
-				#{paymntDivCd},
-				#{paymntTypCd},
-				#{mbrRefNo},
-				#{refNo},
-				#{authToken},
-				#{aid},
-				#{goodsName},
-				#{paymethod},
-				#{amount},
-				#{tranDate},
-				#{tranTime},
-				#{applNo},
-				#{cardNo},
-				#{installment},
-				#{payType},
-				#{issueCompanyNo},
-				#{issueCompanyName},
-				#{issueCardName},
-				#{acqCompanyNo},
-				#{acqCompanyName},
-				#{bankCode},
-				#{accountNo},
-				#{accountCloseDate},
-				#{taxAmount},
-				#{feeAmount},
-				#{taxFreeAmount},
-				#{paymntAmt},
-				#{paymntFeeAmt}
+				,#{dealSq}
+				,#{dealTypCd}
+				,#{workSq}
+				,#{paymntDivCd}
+				,#{paymntTypCd}
+				,#{mbrRefNo}
+				,#{refNo}
+				,#{authToken}
+				,#{aid}
+				,#{goodsName}
+				,#{paymethod}
+				,#{amount}
+				,#{tranDate}
+				,#{tranTime}
+				,#{applNo}
+				,#{cardNo}
+				,#{installment}
+				,#{payType}
+				,#{issueCompanyNo}
+				,#{issueCompanyName}
+				,#{issueCardName}
+				,#{acqCompanyNo}
+				,#{acqCompanyName}
+				,#{bankCode}
+				,#{accountNo}
+				,#{accountCloseDate}
+				,#{taxAmount}
+				,#{feeAmount}
+				,#{taxFreeAmount}
+				,#{paymntAmt}
+				,#{paymntFeeAmt}
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,#{paymntDiscAmt}
 				</if>
@@ -220,6 +221,7 @@
 				<if test="artstSq != null and artstSq != ''">
 					,#{artstSq}
 				</if> 
+				,NOW()
 			)
   </insert>
   
@@ -302,7 +304,8 @@
 			TRDATE = #{trDate},
 			TRTIME = #{trTime},
 			TAX_AMOUNT = #{taxAmount},
-			REPLYCODE = #{replyCode}
+			REPLYCODE = #{replyCode},
+			PAYMNT_DT = NOW()
 	WHERE 
 			MBR_REF_NO  = #{ordNo}
 		AND REF_NO = #{refNo}
@@ -352,7 +355,8 @@
   			TAX_AMOUNT AS taxAmount,
   			FEE_AMOUNT AS feeAmount,
   			TAX_FREE_AMOUNT AS taxFreeAmount,
-  			SERVICE_AMOUNT AS serviceAmount
+  			SERVICE_AMOUNT AS serviceAmount,
+  			PAYMNT_DT AS paymntDt
   	FROM
   			TBL_DA_PAYMNT_H
   	WHERE
