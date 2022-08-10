@@ -487,6 +487,18 @@
 		ORDER BY AUTO_BID_PRC DESC
 		LIMIT 1
 	</select>
+	
+	<select id="checkAutoBid" resultType="int" parameterType="hashMap">
+		/*자동응찰 중복 체크*/
+		SELECT
+				COUNT(AUTO_BID_SQ)
+		FROM
+				TBL_DA_AUTO_BID_H
+		WHERE
+				MBR_SQ = #{mbrSq}
+			AND AUTO_BID_PRC = #{autoBidPrc}
+	</select>
+	
 	<insert id="insertAutoBid">
 		/*자동응찰 등록*/
 		INSERT INTO

@@ -374,7 +374,7 @@
 				<div class="baegs">
 					<h2>응찰 히스토리</h2>
 				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -1160,19 +1160,45 @@ function chart() {
 	var bidPrc = [];
 	var bidMbrNcknm = [];
 	var stepSize = "";
-	bidDate.push(result.deal.dealStrtDate);
-	bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
-	bidMbrNcknm.push("시작가");
-	for(var i=0; i<result.auctnBid.length; i++){
-		bidDate.push(result.auctnBid[i].bidDate);
-		bidPrc.push(result.auctnBid[i].bidPrc);
-		bidMbrNcknm.push(result.auctnBid[i].mbrNcknm);
-	}
+	
 	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
 		stepSize = 0;
+	
+		$.ajax({
+	        type: "post",
+	        url: "/myDealList/bidHistory",
+	        data: {
+	        	dealSq : result.deal.dealSq
+	        },
+	        success: function(data) {
+	        	
+	        	bidDate.push(data.result[0].dealStrtDate);
+	        	bidPrc.push(data.result[0].dealStrtPrc);
+	        	bidMbrNcknm.push("시작가");
+	        	for(var i=0; i<data.result.length; i++){
+	        		bidDate.push(data.result[i].bidDate);
+	        		bidPrc.push(data.result[i].bidPrc);
+	        		bidMbrNcknm.push(data.result[i].mbrNcknm);
+	        	}
+	        	
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
 	}else{ //입찰가가 없다면
 		stepSize = 10;
+	
+	    bidDate.push(result.deal.dealStrtDate);
+	    bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
+	    bidMbrNcknm.push("시작가");
+	    for(var i=0; i<result.auctnBid.length; i++){
+	        bidDate.push(result.auctnBid[i].bidDate);
+	        bidPrc.push(result.auctnBid[i].bidPrc);
+	        bidMbrNcknm.push(result.auctnBid[i].mbrNcknm);
+	    }
 	}
+	
 	const bidHistory = new Chart(document.getElementById("canvas"), {
 	    type: 'line',
 	    data: {
@@ -1223,6 +1249,7 @@ function chart() {
 			}
 		}
 	});
+	
 }
 
 
@@ -1398,6 +1425,7 @@ function btn_purchaseOrBid_onclick(){
 }
 //응찰 유의 사항 동의
 function btn_agree_onclick(){
+	$("#bidNotesModal").modal("hide");
 	if(!$("#cbx_bidAgree1").is(":checked") || !$("#cbx_bidAgree2").is(":checked") 
 			|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
 		$('body').css("overflow", "scroll");
@@ -1441,6 +1469,9 @@ function bidReg(param){
         success: function(data) {
         	if(data.result == -1){
 	        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+        	}
+        	if(data.result == 9){
+        		modalAlertShow("이미 같은 금액으로 자동응찰 하셨습니다.", "reload");
         	}
         	if(data.result == -11){
 	        	modalAlertShow("자동 응찰에 실패했습니다. 다시 시도해주세요.", "reload");

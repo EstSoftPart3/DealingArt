@@ -139,20 +139,25 @@ public class DealDao {
 	 */
 	public int bidReg(Map<String, Object> param) {
 		if(param.get("autoBidPrc") != null) { //자동응찰이면
-			dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
-			int autoBidResult = autoBid(param);
-			if(autoBidResult != -1) { //자동응찰 실패가 아니면
-				if(autoBidResult == 0) { //자동응찰이 성공적으로 등록 되었으면
-					return 10;
+			int check = dealMapper.checkAutoBid(param);
+			if(check > 0){
+				return 9;
+			}else {
+				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
+				int autoBidResult = autoBid(param);
+				if(autoBidResult != -1) { //자동응찰 실패가 아니면
+					if(autoBidResult == 0) { //자동응찰이 성공적으로 등록 되었으면
+						return 10;
+					}
+					if(autoBidResult == 1) { //자동응찰이 성공적으로 등록 되었지만 더 높은 응찰자가 있으면
+						return 11;
+					}
+					if(autoBidResult == 2) { //자동응찰이며 같은 금액으로 자동응찰 내역이 있으며 자동응찰 일시가 늦으면
+						return 12;
+					}
 				}
-				if(autoBidResult == 1) { //자동응찰이 성공적으로 등록 되었지만 더 높은 응찰자가 있으면
-					return 11;
-				}
-				if(autoBidResult == 2) { //자동응찰이며 같은 금액으로 자동응찰 내역이 있으며 자동응찰 일시가 늦으면
-					return 12;
-				}
+				return -11;
 			}
-			return -11;
 		}else{	
 			int checkResult = dealMapper.bidRegCheck(param); //응찰가 현재 응찰가보다 낮거나 같으면
 			if(checkResult > 0) {

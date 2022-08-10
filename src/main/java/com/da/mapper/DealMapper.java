@@ -105,6 +105,13 @@ public interface DealMapper {
 	public List<Map<String, Object>> selectAutoBid(Object param);
 	
 	/*
+	 * 자동응찰 중복 체크
+	 * param : dealSq, mbrSq, autoBidPrc
+	 * return : null
+	 */
+	public int checkAutoBid(Object param);
+	
+	/*
 	 * 자동응찰 등록
 	 * param : dealSq, mbrSq, autoBidPrc
 	 * return : null
