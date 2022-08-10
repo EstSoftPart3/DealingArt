@@ -182,18 +182,17 @@ public class DealDao {
 	public int autoBid(Map<String, Object> param) {
 		List<Map<String, Object>> result = dealMapper.selectAutoBid(param);
 		if(!ListUtils.isEmpty(result)) {
-			Map<String, Object> paramMap = new HashMap<>();
 				
 			long maxBidPrc = Long.parseLong(result.get(0).get("autoBidPrc").toString()); //최고 자동응찰 금액
 			long maxBidMbrSq = Long.parseLong(result.get(0).get("mbrSq").toString()); //최고 자동응찰 회원 순번
-			long bidPrc = 0;
+			long bidPrc = 0L;
 			if(param.get("autoBidPrc") != null) {
 				bidPrc = Long.parseLong(param.get("autoBidPrc").toString()); //요청한 자동응찰 금액
 			}
 			long mbrSq = Long.parseLong(param.get("mbrSq").toString()); //요청한 자동응찰 회원 순번
 			long prc = Long.parseLong(param.get("bidPrc").toString()); //일반 응찰금액
 			
-			if(maxBidPrc > bidPrc) { //요청한 자동응찰 금액보다 더 높은 자동응찰 금액이 있으면
+			if(maxBidPrc > bidPrc && bidPrc > 0L) { //요청한 자동응찰 금액보다 더 높은 자동응찰 금액이 있으면
 				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				//요청한 자동응찰 금액으로 응찰
 				param.put("bidPrc", bidPrc);
@@ -208,7 +207,7 @@ public class DealDao {
 				return 1;
 			}
 			
-			if(maxBidPrc == bidPrc) { //자동응찰 최고 금액과 자동응찰 요청 금액이 같으면 먼저 자동응찰 설정한 회원으로 응찰된다 
+			if(maxBidPrc == bidPrc && bidPrc > 0L) { //자동응찰 최고 금액과 자동응찰 요청 금액이 같으면 먼저 자동응찰 설정한 회원으로 응찰된다 
 				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				bidPrc -= askingPrice(bidPrc);
 				param.put("bidPrc", bidPrc);
@@ -222,7 +221,7 @@ public class DealDao {
 				return 2;
 			}
 			
-			if(maxBidPrc < bidPrc) {
+			if(maxBidPrc < bidPrc && bidPrc > 0L) {
 				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				//기존에 있떤 최고 자동응찰을 응찰내역에 추가한다
 				param.put("bidPrc", maxBidPrc);
