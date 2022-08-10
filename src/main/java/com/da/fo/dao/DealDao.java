@@ -168,6 +168,7 @@ public class DealDao {
 			}else{ //응찰가 현재 응찰가보다 높으면
 				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
 				regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				autoBid(param);
 				return regResult;
 			}
 		}
@@ -187,6 +188,7 @@ public class DealDao {
 			long maxBidMbrSq = Long.parseLong(result.get(0).get("mbrSq").toString()); //최고 자동응찰 회원 순번
 			long bidPrc = Long.parseLong(param.get("autoBidPrc").toString()); //요청한 자동응찰 금액
 			long mbrSq = Long.parseLong(param.get("mbrSq").toString()); //요청한 자동응찰 회원 순번
+			long prc = Long.parseLong(param.get("bidPrc").toString()); //일반 응찰금액
 			
 			if(maxBidPrc > bidPrc) { //요청한 자동응찰 금액보다 더 높은 자동응찰 금액이 있으면
 				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
@@ -232,6 +234,17 @@ public class DealDao {
 				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
 				
 				return 3;
+			}
+			
+			if((param.get("autoBidPrc") == null || param.get("autoBidPrc").toString().equals(""))
+					&& (maxBidPrc > prc)) { //일반 응찰인데 자동응찰 금액이 있을경우
+				
+				prc += askingPrice(prc); //자동응찰 금액보다 한 단계 높은 호가로 응찰 금액 설정
+				param.put("bidPrc", prc);
+				param.put("mbrSq", maxBidMbrSq); //최고 자동응찰자 회원 순번
+				dealMapper.bidReg(param); //응찰내역에 추가한다
+				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				
 			}
 				
 		}else{
