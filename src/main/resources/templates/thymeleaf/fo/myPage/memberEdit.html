@@ -333,9 +333,6 @@ $(document).ready(function() {
 			method: "POST",
 			url: "/main/auth/phone"
 		}).done(function(data) {
-			
-			console.log("Nice_id :"+data);
-			
 			document.form_chk.EncodeData.value = data;
 			window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
 			document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
@@ -448,7 +445,6 @@ function userAddress(inputId) {
 
 //회원 정보 호출
 function memberContentData(mbrSq) {
-	console.log("memberContentData : "+ mbrSq);
 	$.ajax({
            type: "post",
            url: "/myPage/memberContentData",
@@ -458,10 +454,9 @@ function memberContentData(mbrSq) {
            success: function(data) {
         	 
         	 if (typeof data != "undefined") {
-        	 
-        		console.log(data);   
+        	 	 
         	 	dataContent = data.memberContentData.memberContent[0];
-        	 	console.log(dataContent);
+        	 	
         	 	originalMbrSq = dataContent.mbrSq;								//회원순번
         	 	originalMbrNm = dataContent.mbrNm;								//이름
         	 	originalMbrId = dataContent.mbrId;								//아이디
@@ -611,7 +606,7 @@ $("#EmailCertification").on('click', function(event){
 	     url: "/myPage/memberUpdatEmailCertification",
 	     data: params,
 	     success: function(data) {
-	    	 console.log(data);
+	    	 
 	    	 modalAlertShow("인증번호 발송이 완료되었습니다.<br>입력한 이메일에서 인증번호 확인을 해주십시오.","");
 	    	 $("#emailCertCode").show();
 	    	 $("#emailCertChk").val(data);
@@ -629,9 +624,6 @@ $("#emailCertBtn").click(function(){
 	
 	var emailCertChk = $("#emailCertChk").val();
 	var emailCert	= $("#emailCert").val();
-	
-	console.log("emailCertChk :"+emailCertChk);
-	console.log("emailCert :"+emailCert);
 	
 	if(emailCert == emailCertChk){
 		modalAlertShow("인증번호가 일치 합니다.","");
