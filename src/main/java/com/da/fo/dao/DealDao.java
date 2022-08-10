@@ -234,6 +234,11 @@ public class DealDao {
 				
 		}else{
             dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
+            long bidPrc = Long.parseLong(param.get("bidPrc").toString()); //요청한 자동응찰 금액
+            bidPrc += askingPrice(bidPrc);
+            param.put("bidPrc", bidPrc);
+			dealMapper.bidReg(param); //응찰내역에 추가한다
+			dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
 			return 0;
 		}
 		
