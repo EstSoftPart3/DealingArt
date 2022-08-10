@@ -1508,7 +1508,7 @@ function bidReg(param){
 				});
         	}
         	if(data.result == 13){
-        		modalConfirm("회원님 보다 낮은 응찰금액의 자동응찰자가 있어 낮은 응찰 금액까지 자동응찰 되었습니다.<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+        		modalConfirm("회원님 보다 낮은 응찰금액의 자동응찰자가 있어 낮은 응찰 금액까지 자동응찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
 						location.href = "/myDeal";
 					}else{
