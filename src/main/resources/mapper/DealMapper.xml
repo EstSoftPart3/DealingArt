@@ -163,7 +163,7 @@
 				(SELECT MBR_SQ 
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ
-				ORDER BY BID_DATE DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
+				ORDER BY BID_PRC DESC LIMIT 1) AS bidMbrSq, /*마지막 응찰 회원 순번*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작날짜*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료날짜*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime, /*거래종료날짜시간*/
