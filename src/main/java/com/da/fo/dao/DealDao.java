@@ -213,14 +213,14 @@ public class DealDao {
 				loop :
 					for(int j=0; j<30; j++) {
 						for(int i=0; i<result.size(); i++) {
+							if(bidPrc >= autoBidPrc1) {
+								break loop;
+							}
 							bidPrc += askingPrice(bidPrc);
 							paramMap.put("mbrSq", result.get(i).get("mbrSq"));
 							paramMap.put("dealSq", result.get(i).get("dealSq"));
 							paramMap.put("bidPrc", bidPrc);
 							dealMapper.bidReg(paramMap);
-							if(bidPrc > autoBidPrc1) {
-								break loop;
-							}
 						}
 						dealMapper.updateDealAuctnPrc(paramMap);
 					}
