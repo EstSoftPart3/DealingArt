@@ -189,6 +189,7 @@ public class DealDao {
 			long mbrSq = Long.parseLong(param.get("mbrSq").toString()); //요청한 자동응찰 회원 순번
 			
 			if(maxBidPrc > bidPrc) { //요청한 자동응찰 금액보다 더 높은 자동응찰 금액이 있으면
+				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				//요청한 자동응찰 금액으로 응찰
 				param.put("bidPrc", bidPrc);
 				param.put("mbrSq", mbrSq);
@@ -203,7 +204,7 @@ public class DealDao {
 			}
 			
 			if(maxBidPrc == bidPrc) { //자동응찰 최고 금액과 자동응찰 요청 금액이 같으면 먼저 자동응찰 설정한 회원으로 응찰된다 
-				
+				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				bidPrc -= askingPrice(bidPrc);
 				param.put("bidPrc", bidPrc);
 				param.put("mbrSq", mbrSq);
@@ -216,7 +217,8 @@ public class DealDao {
 				return 2;
 			}
 			
-			if(maxBidPrc > bidPrc) {
+			if(maxBidPrc < bidPrc) {
+				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 				//기존에 있떤 최고 자동응찰을 응찰내역에 추가한다
 				param.put("bidPrc", maxBidPrc);
 				param.put("mbrSq", maxBidMbrSq);
