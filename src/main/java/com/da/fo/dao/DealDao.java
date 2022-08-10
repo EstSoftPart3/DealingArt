@@ -186,7 +186,10 @@ public class DealDao {
 				
 			long maxBidPrc = Long.parseLong(result.get(0).get("autoBidPrc").toString()); //최고 자동응찰 금액
 			long maxBidMbrSq = Long.parseLong(result.get(0).get("mbrSq").toString()); //최고 자동응찰 회원 순번
-			long bidPrc = Long.parseLong(param.get("autoBidPrc").toString()); //요청한 자동응찰 금액
+			long bidPrc = 0;
+			if(param.get("autoBidPrc") != null) {
+				bidPrc = Long.parseLong(param.get("autoBidPrc").toString()); //요청한 자동응찰 금액
+			}
 			long mbrSq = Long.parseLong(param.get("mbrSq").toString()); //요청한 자동응찰 회원 순번
 			long prc = Long.parseLong(param.get("bidPrc").toString()); //일반 응찰금액
 			
