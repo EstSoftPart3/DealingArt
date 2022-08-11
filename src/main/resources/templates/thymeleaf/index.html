@@ -667,7 +667,6 @@
 	        	   
 	        	   mainTodayBid = data.mainData.todayBid;
 	        	   mainInsights = data.mainData.insights;
-	        	   console.log(mainInsights);
 	        	   
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
@@ -830,8 +829,6 @@
 	        	   pageSize : 1
 	           },
 	           success: function(data) {
-	        	  
-	        	   console.log(data.emBoard.DetailData[0]);
 	        	   
 	        	   if(typeof data.emBoard.DetailData[0] != "undefined") {
 		        	   var emBoardDetailData = data.emBoard.DetailData[0];
