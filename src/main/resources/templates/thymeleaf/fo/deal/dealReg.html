@@ -315,7 +315,8 @@
 												<input type="file" id="workImgLefUrl" class="upload-hidden" th:value="${result.work.workImgLefUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -332,7 +333,8 @@
 												<input type="file" id="workImgRitUrl" class="upload-hidden" th:value="${result.work.workImgRitUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -349,7 +351,8 @@
 												<input type="file" id="workImgTopUrl" class="upload-hidden" th:value="${result.work.workImgTopUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -366,7 +369,8 @@
 												<input type="file" id="workImgBotUrl" class="upload-hidden" th:value="${result.work.workImgBotUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -1170,7 +1174,7 @@ jQuery(document).ready(function() {
 
 $("input:radio[name='dealTypCd']").change(function(){
 	if($("input:radio[name='dealTypCd']:checked").val() == "S"){
-		$("#dealRegTitle").text("거래등록 (정찰가)");
+		$("#dealRegTitle").text("판매등록 (정찰가)");
 		$("#bidOrSale").text("판매가");
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
@@ -1179,7 +1183,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$(".md-ds").empty();
 		$(".md-ds").html("판매가 시작되면 거래를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}else{
-		$("#dealRegTitle").text("거래등록 (경매)");
+		$("#dealRegTitle").text("판매등록 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
 		$("#bidOrSale2").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
@@ -1429,7 +1433,7 @@ function vaild(){
 	var workOpenYn = $("#workOpenYn").val();
 	
 	if(workOpenYn == "N") {
-		modalAlertShow("비공개 작품일 경우 거래 등록이 제한됩니다. <br> 작품 수정 페이지에서 공개로 전환 후 거래등록 해주세요.");
+		modalAlertShow("비공개 작품일 경우 거래 등록이 제한됩니다. <br> 작품 수정 페이지에서 공개로 전환 후 판매등록 해주세요.");
 		return false;
 	} 
 		
@@ -1666,10 +1670,10 @@ function dealReg(){
 	        	}
 	        	if(data == -2){
 	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("해당 작품은 이미 거래 등록 되어있습니다.", "myCollection");
+	        			modalAlertShow("해당 작품은 이미 판매 등록 되어있습니다.", "myCollection");
 	        		}
 	        		if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("해당 작품은 이미 거래 등록 되어있습니다.", "myWork");
+	        			modalAlertShow("해당 작품은 이미 판매 등록 되어있습니다.", "myWork");
 	        		}
 	        	}
 	        },

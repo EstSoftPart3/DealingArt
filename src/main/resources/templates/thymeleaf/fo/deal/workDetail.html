@@ -709,7 +709,9 @@ function workList(){
 			html +='				<br/>';
 			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
 			html +='				<br/>';
-			html +='				가격 '+result.workList[i].workPrc+' KRW';
+			if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
+				html +='				가격 '+result.workList[i].workPrc+' KRW';
+			}
 			html +='			</div>';
 			html +='		</div>';
 			html +='	</a>';

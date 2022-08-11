@@ -321,7 +321,8 @@
 												<input type="file" id="workImgLefUrl" class="upload-hidden" th:value="${result.work.workImgLefUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -338,7 +339,8 @@
 												<input type="file" id="workImgRitUrl" class="upload-hidden" th:value="${result.work.workImgRitUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -355,7 +357,8 @@
 												<input type="file" id="workImgTopUrl" class="upload-hidden" th:value="${result.work.workImgTopUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -372,7 +375,8 @@
 												<input type="file" id="workImgBotUrl" class="upload-hidden" th:value="${result.work.workImgBotUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요. (최대5장)<br/>
+												※ 작품 사진은 정방형 이미지를 권장합니다.<br/>
+												※ 작품의 질감, 액자의 파손, 크랙, 찢어짐 등 작품 상태와 관련된 사진을 등록해 주세요.<br/>
 												※ 배송 완료 시점에 사진과 다른 경우 구매자는 수취를 거부할 수 있습니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
@@ -400,8 +404,8 @@
 					</div>
 						
 						<div class="bat-box2">
-							<button type="button" class="ba-btn1" data-toggle="modal" data-target="#myModal4" id="btn_dealReg"><span>경매 시작하기</span></button>
-							<button type="button" class="ba-btn2" id="btn_dealReg" onclick="bidSuspension()"><span>거래 중단하기</span></button>
+							<button type="button" class="ba-btn1" data-toggle="modal" data-target="#myModal4" id="btn_dealReg"><span>판매 수정하기</span></button>
+							<button type="button" class="ba-btn2" id="btn_dealStop" onclick="bidSuspension()"><span>판매 중단하기</span></button>
 							<button type="button" class="ba-btn2" onclick="javascript:window.history.back();"><span>돌아가기</span></button>
 						</div>
 						
@@ -1160,7 +1164,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
 		$("#dealStrtPrcS").css("display", "");
-		$("#btn_dealReg").text("판매 등록하기");
+		$("#btn_dealReg").text("판매 수정하기");
 		$(".md-ds").empty();
 		$(".md-ds").html("판매가 되면 거래를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}else{
@@ -1169,7 +1173,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$("#bidOrSale2").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
 		$("#dealStrtPrcS").css("display", "none");
-		$("#btn_dealReg").text("경매 시작하기");
+		$("#btn_dealReg").text("판매 수정하기");
 		$(".md-ds").empty();
 		$(".md-ds").html("응찰이 되면 경매를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}

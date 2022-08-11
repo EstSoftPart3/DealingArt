@@ -253,7 +253,7 @@
 					<div class="login-chs">
 						<div class="login-tt">
 							<a href="#" onclick="openFindIdModal()" data-toggle="modal">아이디 찾기</a>
-							<p class="lb-p2"><a href="#" onclick="openFindPwdModal()" data-toggle="modal">비밀번호 찾기</a></p>
+							<p class="lb-p2"><a href="#" onclick="openFindPwdModal()" data-toggle="modal">비밀번호 재설정</a></p>
 							<!-- <p class="lb-p2"><a href="#" data-toggle="modal" data-target="#memberModal"><span>회원가입</span></a></p> -->
 <!-- 							<p class="lb-p2"><a href="javascript:fnModalAlert();"><span>회원가입</span></a> -->
 							<a style="cursor:pointer;" class="lb-p2" data-toggle="modal" data-target="#memberModal">회원가입</a>
@@ -316,7 +316,7 @@
 					
 					<div class="bat-box3 mg_t30">
 						<button type="button" class="ba-btn1" id="findIdLoginBtn" style="display:none;"><span>로그인</span></button>
-						<button type="button" class="ba-btn2" id="findIdFindPwdBtn" style="display:none;"><span>비밀번호 찾기</span></button>
+						<button type="button" class="ba-btn2" id="findIdFindPwdBtn" style="display:none;"><span>비밀번호 재설정</span></button>
 					</div>
 					<input type="hidden" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 					<input type="hidden" name="EncodeData">					<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
@@ -394,7 +394,7 @@ $("#findIdLoginBtn").click(function() {
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="baegs">
-					<h2>비밀번호찾기</h2>
+					<h2>비밀번호 재설정</h2>
 				    <img src="resources/img/ba/icon-3.png" class="con-img" />
 				    <div class="close" data-dismiss="modal" aria-label="Close" onclick="findPwrModalClose()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
@@ -406,12 +406,12 @@ $("#findIdLoginBtn").click(function() {
 						<input type="text" class="input-3" placeholder="아이디(email)" id="findPwdMbrId"/>
 					</div>
 					<div class="input-box" style="display:none;" id="findPwdMbrPwdForm1">
-						<input type="password" class="input-3" id="findPwdMbrPwd1" placeholder="새 비빌번호" />
+						<input type="password" class="input-3" id="findPwdMbrPwd1" placeholder="새 비밀번호" />
 						<p class="inp-p" id="findPwdMbrPwdCheck1" style="text-align:left;">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
 						<p class="inp-p" id="findPwdMbrPwdCheck2" style="text-align:left;">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
 					</div>
 					<div class="input-box" style="display:none;" id="findPwdMbrPwdForm2">
-						<input type="password" class="input-3" id="findPwdMbrPwd2" placeholder="새 비빌번호 확인" />
+						<input type="password" class="input-3" id="findPwdMbrPwd2" placeholder="새 비밀번호 확인" />
 						<p class="inp-p" id="findPwdMbrPwdCheck3" style="text-align:left;">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
 					</div>
 					<!-- <div class="input-box input-group">
