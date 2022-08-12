@@ -118,10 +118,10 @@ public class SendSmsUtil {
 		//작품 번호
 		
 		//중복체크위해 작품번호를 가져온다.
-		String workSq = null;
-		if(!commonService.isEmpty((String) params.get("workSq"))) {
-			workSq = (String) params.get("workSq");
-		}
+		String workSq = "";
+//		if(!commonService.isEmpty((String) params.get("workSq"))) {
+//			workSq = (String) params.get("workSq");
+//		}
 		
 		String regDt = null;
 		String sBidDt = null;

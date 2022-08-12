@@ -340,14 +340,13 @@
 				</div>
 			</div>
 			
-			
-			<div class="contents conbg">
+			<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
+			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
 				<div class="cont-title2 max-1500">
 					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
 					<button type="button" class="the-more" onclick="openArtstInfoModal()">더보기</button>
 				</div>
-				<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
-				<th:block th:if="${not #strings.isEmpty(result.workList)}">
+				
 					<div class="swi-box max-1500">
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper"  id="swiper_workList">
@@ -357,9 +356,8 @@
 						<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
 						<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
 					</div>
-				</th:block>
-				<!-- 영역 끝 -->
 			</div>
+			<!-- 영역 끝 -->
 		</div>
 	</div>
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
@@ -1134,8 +1132,8 @@ function workList(){
 		$("#swiper_workList").empty();
 		var html = '';
 		for(var i=0; i<result.workList.length; i++){
-			html +='<div class="swiper-slide" onclick="javascript:location.href=/workDetail?workSq='+result.workList[i].workSq+'">	';
-			html +='	<a class="hd-div hd-tablet">';
+			html +='<div class="swiper-slide">';
+			html +='	<a class="hd-div hd-tablet" href="/workDetail?workSq='+result.workList[i].workSq+'">';
 			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100%;"/>';
 			html +='		<div class="hd-text">';
 			html +='			<h4>'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
@@ -1144,7 +1142,9 @@ function workList(){
 			html +='				<br/>';
 			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
 			html +='				<br/>';
-			html +='				가격 '+result.workList[i].workPrc+' KRW';
+			if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
+				html +='				가격 '+result.workList[i].workPrc+' KRW';
+			}
 			html +='			</div>';
 			html +='		</div>';
 			html +='	</a>';

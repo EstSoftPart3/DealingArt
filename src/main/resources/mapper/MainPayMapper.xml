@@ -132,7 +132,7 @@
   <insert id="insertPayMnt" parameterType="hashMap">
   		INSERT INTO
 			TBL_DA_PAYMNT_H(
-				,MBR_SQ
+				MBR_SQ
 				,DEAL_SQ
 				,DEAL_TYP_CD
 				,WORK_SQ
@@ -176,10 +176,10 @@
 				,PAYMNT_DT
 			) VALUES (
 				<if test='paymntDivCd == "S"'>
-					,#{sellMbrSq}
+					#{sellMbrSq}
 				</if>
 				<if test='paymntDivCd == "B"'>
-					,#{buyMbrSq}
+					#{buyMbrSq}
 				</if>
 				,#{dealSq}
 				,#{dealTypCd}
