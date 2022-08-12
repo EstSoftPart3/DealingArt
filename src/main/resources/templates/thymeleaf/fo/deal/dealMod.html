@@ -107,7 +107,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="" id="dealRegTitle">거래 수정 (경매)</h3>
+					<h3 class="" id="dealRegTitle">판매 수정 (경매)</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -120,7 +120,7 @@
 							<h2 class="mo-mt100">판매방식</h2>
 							<div class="med-ic">
 								<div class="por">
-									<div class="tootip-4">거래 전<br/>꼭! 확인하세요</div>
+									<div class="tootip-4">판매 전<br/>꼭! 확인하세요</div>
 									<img src="resources/img/ba/me-icon.png" class="med-me" />
 								</div>
 							</div>
@@ -149,10 +149,10 @@
 								</ul>
 								<div class="input-box" id="choiceDate">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
-									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="거래 시작 날짜"/></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="판매 시작 날짜"/></div>
 									<input type="text" class="timepicker" id="dealStrtTime" required>
 									<span class="is-span">~</span> 
-									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="거래 종료 날짜"></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="판매 종료 날짜"></div>
 									<input type="text" class="timepicker" id="dealEndngTime" required>
 								</div>
 							</div>
@@ -238,7 +238,7 @@
 						</div>
 					<div id="auctionInfo">
 						<div class="med col_t85" style="padding:15px;">
-							<h2 class="">거래 등록 정보 <span class="c-gra">등록된 작품을 거래로 전환할 때 필요한 정보 입니다.</span></h2>
+							<h2 class="">판매 등록 정보 <span class="c-gra">등록된 작품을 거래로 전환할 때 필요한 정보 입니다.</span></h2>
 						</div>
 						<div class="myd-box">
 							<div class="myd-box-2">
@@ -261,7 +261,7 @@
 												<input type="file" id="workGrtUrl" class="upload-hidden" accept=".jpeg, .jpg, .png, .pdf" th:value="${result.work.workGrtUrl}"> 
 											</div>
 											<p class="table-p">
-												※ 향후에 거래로 등록 할 때에는 보증서 등록이 필요합니다. 보증서를 분실하셨다면 구매처에 재발급을 요청하시기 바랍니다.<br/>
+												※ 향후에 판매로 등록 할 때에는 보증서 등록이 필요합니다. 보증서를 분실하셨다면 구매처에 재발급을 요청하시기 바랍니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.
 											</p>
 										</td>
@@ -419,13 +419,13 @@
 	</div>
 
 
-<!-- 거래 등록 전 꼭! 확인하세요 -->
+<!-- 판매 등록 전 꼭! 확인하세요 -->
 <div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-baeg max-w530">
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="baegs">
-					<h2>거래 등록 전 <br/>꼭! 확인하세요</h2>
+					<h2>판매 등록 전 <br/>꼭! 확인하세요</h2>
 				    <img src="resources/img/ba/icon-1.png" class="con-img" />
 				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
 				</div>
@@ -1159,7 +1159,7 @@ jQuery(document).ready(function() {
 
 $("input:radio[name='dealTypCd']").change(function(){
 	if($("input:radio[name='dealTypCd']:checked").val() == "S"){
-		$("#dealRegTitle").text("거래 수정 (정찰가)");
+		$("#dealRegTitle").text("판매 수정 (정찰가)");
 		$("#bidOrSale").text("판매가");
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
