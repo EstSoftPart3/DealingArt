@@ -516,15 +516,15 @@ function myDealSearchList(){
 	    					}else{
 	    						myDealListHtml += '			<dd>0 KRW</dd>';
 	    					}
-		    				myDealListHtml += '			<dt>응찰가</dt>';
-		    				myDealListHtml += '			<dd>';
-		    				myDealListHtml += '				<div class="is-sum2">';
-		    				myDealListHtml += '					<select class="selectpicker" name="askingPrice" maxBidPrc="'+myDealList[i].maxBidPrc+'" id="sbx_bidPrc'+myDealList[i].dealSq+'" data-width="fit">';
-		    				myDealListHtml += '						<option value="null" style="font-size:18px;">-선택-</option>';
-		    				myDealListHtml += '					</select>';
-		    				myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'"bidMbrSq="'+myDealList[i].bidMbrSq+'" onclick="bidReg(this)">응찰하기</button>';
-		    				myDealListHtml += '				</div>';
-		    				myDealListHtml += '			</dd>';
+		    				//myDealListHtml += '			<dt>응찰가</dt>';
+		    				//myDealListHtml += '			<dd>';
+		    				//myDealListHtml += '				<div class="is-sum2">';
+		    				//myDealListHtml += '					<select class="selectpicker" name="askingPrice" maxBidPrc="'+myDealList[i].maxBidPrc+'" id="sbx_bidPrc'+myDealList[i].dealSq+'" data-width="fit">';
+		    				//myDealListHtml += '						<option value="null" style="font-size:18px;">-선택-</option>';
+		    				//myDealListHtml += '					</select>';
+		    				//myDealListHtml += '					<button type="button" dealSq="'+myDealList[i].dealSq+'"bidMbrSq="'+myDealList[i].bidMbrSq+'" onclick="bidReg(this)">응찰하기</button>';
+		    				//myDealListHtml += '				</div>';
+		    				//myDealListHtml += '			</dd>';
 		    				myDealListHtml += '			<div class="div_dealCount"><dt>남은 시간</dt>';
 		    				myDealListHtml += '			<dd class="dealCount" date="'+myDealList[i].dealEndngDateTime+'"></dd></div>';
 	    				}
@@ -784,6 +784,7 @@ var dealCount = setInterval(function() {
 		var today = new Date().getTime();
 		if(today >= dday){
 			divElements[i].style.display = "none";
+			
 		}else{
 			var gap = dday - today;
 			var day = Math.floor(gap / (1000 * 60 * 60 * 24));
