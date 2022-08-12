@@ -55,7 +55,7 @@ function modalForm(msg,obj) {
 	Html +=	'<div class="modal-content">';
 	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
 	Html +=	'<div class="baegs">';
-	Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'<div class="close" onclick="modalAlertClose(\''+obj+'\')"><img src="resources/img/ba/icon-end.png" /></div>';
 	Html +=	'</div>';
 	Html +=	'</div>';
 	Html +=	'<div class="modal-body">';
@@ -75,14 +75,15 @@ function modalForm(msg,obj) {
 }
 
 function modalAlertShow(msg,obj) {
-	 //Modal Form Call
-	 modalForm(msg,obj)
-	 
-	$("#ModalAlert").modal("show");
+	//Modal Form Call
+	modalForm(msg,obj)
+	$('body').css("overflow", "hidden");
+	$('#ModalAlert').modal({backdrop: 'static', keyboard: false})  
+	$("#ModalAlert").modal("show"); 
 }
 
 function modalAlertClose(obj) {
-	
+	$('body').css("overflow", "scroll");
 	$('#ModalAlert').modal('hide');
 	
 	if(obj == "main"){
@@ -169,7 +170,7 @@ function modalConfirm(msg, callback){
 	Html +=	'<div class="modal-content">';
 	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
 	Html +=	'<div class="baegs">';
-	Html +=	'<div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'<div class="close" id="modalConfirmClose"><img src="resources/img/ba/icon-end.png" /></div>';
 	Html +=	'</div>';
 	Html +=	'</div>';
 	Html +=	'<div class="modal-body">';
@@ -187,20 +188,31 @@ function modalConfirm(msg, callback){
 	Html +=	'</div>';
 	$("#ModalConfirm").empty();
 	$("#ModalConfirm").append(Html).trigger("create");
+	
+	$('body').css("overflow", "hidden");
+	$('#ModalConfirm').modal({backdrop: 'static', keyboard: false})  
 	$("#ModalConfirm").modal("show");
 	
 
 	$("#ModalConfirm_Ok").on("click", function(){
+		$('body').css("overflow", "scroll");
 		$("#ModalConfirm").modal("hide");
 		callback(true);
 	});
 
 	$("#ModalConfirm_Cancel").on("click", function(){
+		$('body').css("overflow", "scroll");
 		$("#ModalConfirm").modal("hide");
 		callback(false);
 	});
-
+	
+	$("#modalConfirmClose").on("click", function(){
+		$('body').css("overflow", "scroll");
+		$("#ModalConfirm").modal("hide");
+		callback(false);
+	});
 }
+
 
 /*
  * -----------------------------------------------------------------------------
