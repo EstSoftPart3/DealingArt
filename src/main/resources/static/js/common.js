@@ -129,6 +129,10 @@ function modalAlertClose(obj) {
 		location.href='/myDeal';
 	}
 	
+	if(obj == "deal"){
+		location.href='/deal';
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');

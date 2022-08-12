@@ -48,6 +48,14 @@ public interface DealMapper {
 	 */
 	public int bidRegCheck(Object param);
 	
+	
+	/*
+	 * 응찰 전 사용자 응찰시간과 거래 종료 시간 비교
+	 * param : dealSq
+	 * return : int
+	 */
+	public int checkDealEndngTime(Object param);
+	
 	/*
 	 * 응찰 테이블에 응찰 정보를 insert한다
 	 * param : dealSq, mbrSq, bidPrc

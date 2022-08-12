@@ -307,6 +307,17 @@
 				) A
 	</select>
 	
+	<select id="checkDealEndngTime" parameterType="hashMap" resultType="int">
+		/*응찰 시간과 거래 종료시간을 체크한다*/
+		SELECT 
+				COUNT(DEAL_SQ)
+		FROM
+				TBL_DA_DEAL_M
+		WHERE
+				DEAL_SQ = #{dealSq} 
+			AND	DEAL_ENDNG_DT <![CDATA[<=]]> NOW() + INTERVAL 1 SECOND
+	</select>
+	
 	<insert id="bidReg" parameterType="hashMap">
 		/*응찰 테이블에 insert한다*/
 		INSERT INTO 

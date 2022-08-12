@@ -1273,9 +1273,9 @@ var biddingInterval = setInterval(function() {
 	var today = new Date().getTime();
 	
 	if(today >= dday){
-		//location.reload();
-		//페이지 한번만 RELOAD 호출
-		 pageReload();
+		$("#btn_purchaseOrBid").css("display", "none");
+		clearInterval(biddingInterval);
+		modalAlertShow("거래가 종료되었습니다.", "deal");
 	}
   	var gap = dday - today;
   	var day = Math.floor(gap / (1000 * 60 * 60 * 24));
@@ -1283,13 +1283,8 @@ var biddingInterval = setInterval(function() {
   	var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
   	var sec = Math.floor((gap % (1000 * 60)) / 1000);
   	
-  	//객체 존재 확인
-  	if(document.getElementById('dealCount')){
-  			document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
-  	} else {
-  		//객체가 없다면 setInterval 중지한다.
-  		clearInterval(biddingInterval);
-  	}
+  	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+  		
   	
 }, 1000);
 
@@ -1473,6 +1468,9 @@ function bidReg(param){
         success: function(data) {
         	if(data.result == -1){
 	        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+        	}
+        	if(data.result == -2){
+	        	modalAlertShow("거래가 종료되었습니다.", "deal");
         	}
         	if(data.result == 9){
         		modalAlertShow("이미 같은 금액으로 자동응찰 하셨습니다.", "reload");
