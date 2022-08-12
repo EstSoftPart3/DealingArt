@@ -230,7 +230,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 				
 			}
-			if(sndConCd.equals("SSA") && notiCount == 0) {
+			if(sndConCd.equals("SSA")) {
 				smsContent = "[딜링아트] "+mbrNcknm+"님, 콜렉팅 성공!\n"
 						+ "□구매 형식 : 경매 \n"
 						+ "□응찰 일시 : "+regDt+" \n"
@@ -256,7 +256,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 				
 			}
-			if(sndConCd.equals("SSE") && notiCount == 0) {
+			if(sndConCd.equals("SSE")) {
 				smsContent = "[딜링아트]낙찰 완료 안내\n"
 						+ "□판매형식 : 경매 \n"
 						+ "□등록 일시 : "+regDt+" \n"
@@ -280,7 +280,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 				
 			}
-			if(sndConCd.equals("SRES") && notiCount == 0) {
+			if(sndConCd.equals("SRES")) {
 				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□판매 형식 : 정찰 \n"
@@ -301,7 +301,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 				
 			}
-			if(sndConCd.equals("SREA") && notiCount == 0) {
+			if(sndConCd.equals("SREA")) {
 				smsContent = "[딜링아트]미술품 유찰 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□판매 형식 : 경매 \n"
@@ -322,7 +322,7 @@ public class SendSmsUtil {
 				NotiMapper.notiInsert(getParam);
 				
 			}
-			if(sndConCd.equals("SAE") && notiCount == 0) {
+			if(sndConCd.equals("SAE")) {
 				smsContent = "[딜링아트]미술품 거래 종료 안내\n\n"
 						+ "□작품명 : "+workNm+"\n"
 						+ "□구매형식 : 경매 \n"

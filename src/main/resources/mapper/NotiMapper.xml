@@ -15,8 +15,6 @@
 			,MBR_ID
 			,SND_ADDRESS
 			,SND_NUMBER
-			,WORK_SQ
-			
        	) 
         VALUES
         (
@@ -26,7 +24,6 @@
 			,#{mbrId}
 			,#{sndAddress}
 			,#{sndNumber}
-			,#{workSq}
 		)
     </insert>
     
@@ -39,7 +36,6 @@
 		   ,MBR_ID AS mbrId
 		   ,SND_ADDRESS AS sndAddress
 		   ,SND_NUMBER AS sndNumber
-		   ,WORK_SQ AS workSq 
         FROM
             TBL_DA_SND_H A 
         WHERE 1=1
@@ -57,9 +53,6 @@
         </if>
         <if test="sndNumber != null"> 
         	AND A.SND_NUMBER = #{sndNumber}
-        </if>
-        <if test="workSq != null"> 
-        	AND A.WORK_SQ = #{workSq}
         </if>
     </select>
     
@@ -83,9 +76,6 @@
         </if>
         <if test="sndNumber != null"> 
         	AND A.SND_NUMBER = #{sndNumber}
-        </if>
-         <if test="workSq != null"> 
-        	AND A.WORK_SQ = #{workSq}
         </if>
   </select>
    
