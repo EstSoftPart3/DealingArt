@@ -71,8 +71,6 @@
           <if test="useYn != null">
           	AND A.USE_YN = #{useYn}
           </if>
-               
-                   
       	ORDER BY MBR_SQ DESC
     </select>
     <!-- 회원 상세 -->
