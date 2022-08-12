@@ -403,7 +403,6 @@
 				TBL_DA_AUCTN_BID_H
 		WHERE 
 				 DEAL_SQ = #{dealSq}
-		GROUP BY DEAL_SQ 
 		ORDER BY BID_PRC DESC
 		LIMIT 1
 	</select>
