@@ -49,6 +49,7 @@
 	                          <option value="mbrNm">이름</option>
 	                          <option value="mbrId">아이디</option>
 	                          <option value="mbrNcknm">닉네임</option>
+	                          <option value="mbrSq">회원순번</option>
 	                        </select>
 		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색" style="width:200px;">
 		

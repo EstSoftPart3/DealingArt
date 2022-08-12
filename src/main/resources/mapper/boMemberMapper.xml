@@ -61,6 +61,9 @@
 	          <if test="searchGubun == 'mbrNcknm' and searchWord != null">
 	          	AND A.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
 	          </if>
+	          <if test="searchGubun == 'mbrSq' and searchWord != null">
+	          	AND A.MBR_SQ LIKE CONCAT('%',#{searchWord},'%')
+	          </if>
 	       </if>
           <if test="mbrSq != null">
           	AND A.MBR_SQ = #{mbrSq}
