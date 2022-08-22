@@ -1545,8 +1545,11 @@ function vaild(){
 }
 //거래 등록 유의사항 팝업
 function dealRegNotesModal(){
+	//판매방식
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
+	//회원번호
 	result.deal.mbrSq = sMbrSqVal;
+	//경매일때
 	if(result.deal.dealTypCd == "A"){
 		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll(" KRW", "");
 		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
@@ -1554,6 +1557,7 @@ function dealRegNotesModal(){
 		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 	}
+	//새로운 주소를 선택했다면..
 	if($("input:radio[name='delivryAddr']:checked").val() == "N"){
 		if($("#mbrDelivryAddr").val() != "" && $("#mbrDelivryAddr").val() != null){
 			if($("#mbrDelivryAddrDetail").val() != "" && $("#mbrDelivryAddrDetail").val() != null){
@@ -1564,6 +1568,7 @@ function dealRegNotesModal(){
 			}
 		}
 	}
+	//기간설정
 	if($("input:radio[name='dealPeriod']:checked").val() == "choice"){
 		result.deal.dealStrtDt = $("#dealStrtDt").val() + $("#dealStrtTime").val();
 		result.deal.dealEndngDt = $("#dealEndngDt").val() + $("#dealEndngTime").val();

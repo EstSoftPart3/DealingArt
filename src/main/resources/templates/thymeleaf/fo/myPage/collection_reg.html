@@ -114,7 +114,9 @@
 							
 							<div class="input-gra" data-toggle="modal" data-target="#searchArtstModal">
 								<input type="text" placeholder="작가명으로 검색해 보세요." style="cursor:pointer"/>
-								<a href="javascript:void(0);" onclick=><img src="resources/img/mypage/icon-sech.png" /></a>
+								<!-- <a href="javascript:void(0);" onclick=><img src="resources/img/mypage/icon-sech.png" /></a> -->
+								<!-- onclick= 제거  -->
+								<a href="javascript:void(0);"><img src="resources/img/mypage/icon-sech.png" /></a>
 							</div>
 							
 							<table class="mstyle-2">
@@ -1037,9 +1039,16 @@ function collectionReg(){
     			        contentType : false,
     			        processData : false,
     			        success: function(data) {
-    			        	if(data != 0 || data != null || data != ""){
+    			        	/* if(data != 0 || data != null || data != ""){
     			        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
+      			        	} */
+    			        	
+    			        	if(data == 1 ){
+    			        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
+      			        	} else {
+      			        		modalAlertShow("소장품 등록에 실패했습니다. 다시 한번 등록해 주세요!!", "myCollection");
       			        	}
+    			        	
     			        },
     			        error: function(error) {
     			            alert("오류 발생" + error);
