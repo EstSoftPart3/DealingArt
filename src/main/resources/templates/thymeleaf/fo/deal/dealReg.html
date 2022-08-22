@@ -105,7 +105,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="" id="dealRegTitle">거래 등록 (경매)</h3>
+					<h3 class="" id="dealRegTitle">판매 등록 (경매)</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -232,7 +232,7 @@
 					<div id="auctionInfo">
 						<div class="med col_t85" style="padding:15px;">
 							<input type="hidden" name="workOpenYn" id="workOpenYn" th:value="${result.work.workOpenYn}">
-							<h2 class="">거래 등록 정보 <span class="c-gra">등록된 작품을 거래로 전환할 때 필요한 정보 입니다.</span></h2>
+							<h2 class="">판매 등록 정보 <span class="c-gra">등록된 작품을 판매로 전환할 때 필요한 정보 입니다.</span></h2>
 						</div>
 						<div class="myd-box">
 							<div class="myd-box-2">
@@ -1174,7 +1174,7 @@ jQuery(document).ready(function() {
 
 $("input:radio[name='dealTypCd']").change(function(){
 	if($("input:radio[name='dealTypCd']:checked").val() == "S"){
-		$("#dealRegTitle").text("판매등록 (정찰가)");
+		$("#dealRegTitle").text("판매 등록 (정찰가)");
 		$("#bidOrSale").text("판매가");
 		$("#bidOrSale2").css("display", "none");
 		$("#dealStrtPrcA1").css("display", "none");
@@ -1183,7 +1183,7 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$(".md-ds").empty();
 		$(".md-ds").html("판매가 시작되면 거래를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}else{
-		$("#dealRegTitle").text("판매등록 (경매)");
+		$("#dealRegTitle").text("판매 등록 (경매)");
 		$("#bidOrSale").text("낙찰 희망가");
 		$("#bidOrSale2").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
@@ -1793,30 +1793,16 @@ function setTodayTime(){
 	   	  $("#myModal3").modal("show");
       });
       
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	  
-    	  $(".user-on").click(function() {   
-        	    $('.home-1').show();  
-        	    $('.home-2').hide()
-        	  });
-    	  
-    	  $(".home-on").click(function() {  
-      	    $('.home-1').hide();  
-      	    $('.home-2').show()
-      	  });
-    	  
-    	});
-      
-      
+$(".user-on").click(function() {   
+	$('.home-1').show();  
+	$('.home-2').hide()
+});
+
+$(".home-on").click(function() {  
+    $('.home-1').hide();  
+    $('.home-2').show()
+});
+
       
       
       /* 메뉴바 FIXED */

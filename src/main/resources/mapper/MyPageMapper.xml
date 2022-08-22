@@ -1623,7 +1623,7 @@
 		WHERE 
 				A.MBR_SQ = D.MBR_SQ 
 				AND A.ARTST_SQ = C.ARTST_SQ
-				AND A.WORK_SALE_YN = 'N'
+				<!-- AND A.WORK_SALE_YN = 'N' -->
 				AND A.DEL_YN = 'N' /* 작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN

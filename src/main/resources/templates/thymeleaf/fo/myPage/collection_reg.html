@@ -271,7 +271,7 @@
 					</div>
 					
 					<div class="med col_t85">
-						<h2 class="">거래 등록 정보 <span class="c-gra">등록된 작품을 거래로 전환할 때 필요한 정보 입니다.  미리 등록 할 수도, 거래를 등록할 때 입력하셔도 괜찮습니다.</span></h2>
+						<h2 class="">판매 등록 정보 <span class="c-gra">등록된 작품을 판매로 전환할 때 필요한 정보 입니다.  미리 등록 할 수도, 판매 등록할 때 입력하셔도 괜찮습니다.</span></h2>
 					</div>
 					<div class="myd-box">
 						<div class="myd-box-2">
@@ -345,7 +345,7 @@
 									<td>
 										<input type="text" class="input-4" id="workPrc" onkeyup="workPrcCal(this)"/>
 										<p class="table-p">
-											※작품 소장가는 거래 등록 후 노출되지 않습니다.
+											※작품 소장가는 판매 등록 후 노출되지 않습니다.
 										</p>
 									</td>
 								</tr>
@@ -1542,21 +1542,6 @@ $(window).on("resize", function () {
     function(){ $(this).removeClass('gis') }
   )
  });
- 
- $(function() {                      
-  $(".bab-bo").click(function() { 
-    $(this).toggleClass("bashow");     
-  });
-  
-  $(".lg-my").click(function() { 
- 	    $('.bg-sh').toggleClass('bg-show');     
- 	 	 $('.s-hov').toggleClass('s-hov-show');     
- 	  });
-  
-});
- 
- 
- 
  
  /* 메뉴바 FIXED */
  if (jQuery(window).width() > 0) {

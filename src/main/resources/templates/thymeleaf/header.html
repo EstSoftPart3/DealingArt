@@ -14,8 +14,8 @@
 	<link type="text/css" rel="stylesheet" href="resources/css/common_pc.css"/>
 	
 	<link type="text/css" media="screen and (max-width: 750px)" rel="stylesheet" href="resources/css/ui_mo.css" />
-	<link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" />
-	<link type="text/css" media="screen and (min-width: 1537px)" rel="stylesheet" href="resources/css/ui_pc.css" />
+	<!-- <link type="text/css" media="screen and (min-width: 751px) and (max-width: 1536px)" rel="stylesheet" href="resources/css/ui_tablet.css" /> -->
+	<link type="text/css" media="screen and (min-width: 751px)" rel="stylesheet" href="resources/css/ui_pc.css" />
 	
 	<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.css">
 	
@@ -91,6 +91,7 @@
 			<div class="h-gnb">
 				<div class="navbox">
 					<nav>
+						<li><a href="/main" class="logo_mo"><img src="resources/img/logo_mo.jpg" width="26px"></a></li>
 						<li><a href="/deal">Deal</a></li>
 						<!-- <li><a href="/insights"><img src="resources/img/mgz/link-text.png" class="link-text" /></a></li> -->
 						<li><a href="/insights">Magazine<span style="color:#ea5514;">9</span></a></li>
@@ -110,22 +111,41 @@
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
-					<span class="sog-1 scrap"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
-					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/icon-2.png" /></a></span>
+					<span class="sog-1"><a href="/myCollection"><img src="resources/img/icon-2.png" /></a></span>
+					<!-- <span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/tablet/icon-3.png" /></a></span> -->
+					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="resources/img/tablet/icon-3.png" /></a></span>
+					
+					
 					<div class="s-hov">
-						<ul>
+						<!-- <ul>
 							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
 							<li><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
-							<!-- class="myCollection" -->
+							class="myCollection"
 							<li><a href="javascript:void(0);" class="myWork"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
+							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li>
+							class="scrap"
+							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
+							/customerService
+							<li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
+							<li><a href="/alarm"><img src="resources/img/ic-5.jpg" /><span>알림 설정</span></a></li>
+							<li><a href="/coupon" class="scrap"><img src="resources/img/ic-4.jpg" /><span>쿠폰</span></a></li>
+							<li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li>
+						</ul> -->
+						<ul>
+							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li style="display:none"><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
+							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
+							<!-- class="myCollection" -->
+							<li><a href="/myCollection"><img src="resources/img/ic-3.jpg" /><span>My Collection</span></a></li>
 							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li> -->
 							<!-- class="scrap" -->
 							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
 							<!-- /customerService -->
 							<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li> -->
-							<li><a href="/alarm"><img src="resources/img/ic-5.jpg" /><span>알림 설정</span></a></li>
-							<li><a href="/coupon" class="scrap"><img src="resources/img/ic-4.jpg" /><span>쿠폰</span></a></li>
+							<!-- <li><a href="/alarm"><img src="resources/img/ic-5.jpg" /><span>알림 설정</span></a></li> -->
+							<li><a href="/serviceIntro"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
+							<li style="display:none"><a href="/coupon" class="scrap"><img src="resources/img/ic-4.jpg" /><span>쿠폰</span></a></li>
 							<!-- <li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li> -->
 						</ul>
 						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
@@ -139,17 +159,78 @@
 				
 			</div>
 		</div>
-		<div class="bab-bo">
+		<!-- 모바일시 하단바 --> <!-- 0808 -->
+		<div class="mobile-bar">
+			<div class="mb-foot">
+				<div class="login-show2 h-img">
+					<span class="sog-1" onclick="javascript:location.href='/main'"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-2" onclick="javascript:history.back();"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-3 lg-my2"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-4 myCollection"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
+					<span class="sog-5 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
+					<div class="s-hov" id="loginAfMB">
+						<ul>
+							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li style="display:none"><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
+							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
+							<!-- class="myCollection" -->
+							<li><a href="/myCollection"><img src="resources/img/ic-3.jpg" /><span>My Collection</span></a></li>
+							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li> -->
+							<!-- class="scrap" -->
+							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
+							<!-- /customerService -->
+							<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li> -->
+							<!-- <li><a href="/alarm"><img src="resources/img/ic-5.jpg" /><span>알림 설정</span></a></li> -->
+							<li><a href="/serviceIntro"><img src="resources/img/ic-5.jpg" /><span>고객센터</span></a></li>
+							<li style="display:none"><a href="/coupon" class="scrap"><img src="resources/img/ic-4.jpg" /><span>쿠폰</span></a></li>
+							<!-- <li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li> -->
+						</ul>
+						<button type="button" class="btn-1" onclick="logout()">로그아웃</button>
+					</div>
+					<div class="s-hov2">
+						<div class="bab-bo">
+							<div class="mab-rb">
+								<a href="#" class="mab-a"><span data-toggle="modal" data-target="#guide_1">Guide</span></a>
+								<ul class="mab-ul">
+									<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><span>작가등록</span></a></li>
+									<li><a href="#" onclick="workReg()"><span>작품등록</span></a></li>
+									<!-- <li><a href="#" onclick="collectionReg()"><span>판매하기</span></a></li> -->
+									<li><a href="/myCollection" ><span>판매하기</span></a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="mb-bg"></div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="bab-bo">
 			<div class="ta-sho">
 				<a href="javascript:void(0);"><span>Guide</span></a>
 			</div>
 			<div class="mab-rb">
 				<a href="javascript:void(0);" onclick="openGuide()" class="mab-a"><span>Guide</span></a>
 				<ul class="mab-ul">
-					<!-- <li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li> -->
+					<li><a href="javascript:fnModalAlert();"><img src="resources/img/icon-4.png" /> <span>거래방법</span></a></li>
 					<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-5.png" /> <span>작가등록</span></a></li>
 					<li><a href="javascript:void(0);" class="workReg"><img src="resources/img/icon-6.png" /> <span>작품 등록</span></a></li>
 					<li><a href="javascript:void(0);" class="collectionReg"><img src="resources/img/icon-6.png" /> <span>소장품 등록</span></a></li>
+				</ul>
+			</div>
+		</div> -->
+		<!-- 0808 -->
+		<div class="bab-bo mo-no">
+			<div class="mab-rb">
+				<a href="javascript:void(0);" onclick="openGuide()" class="mab-a"><span>Guide</span></a>
+				<ul class="mab-ul">
+					<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-4.png" /> <span>작가등록</span></a></li>
+					<li><a href="javascript:void(0);" onclick="workReg()"><img src="resources/img/icon-5.png" /> <span>작품등록</span></a></li>
+					<!-- <li><a href="javascript:void(0);" onclick="collectionReg()"><img src="resources//img/icon-6.png" /> <span>판매하기</span></a></li> -->
+					
+					<li><a href="/myCollection"><img src="resources//img/icon-6.png" /> <span>판매하기</span></a></li>
+					
+					
 				</ul>
 			</div>
 		</div>
@@ -178,7 +259,7 @@
 									<option>작가명</option>
 								</select>
 							</div> -->
-							<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);" style="outline: none;"/>
+							<input type="text" id="ibx_search" onkeydown="javascript: if (event.keyCode == 13) {btn_search_onclick();}" onkeyup="ibx_search_onkeyup(this);" style="outline: none;" placeholder="작품이나 작가명으로 검색해보세요."/>
 							<a href="javascript:void(0);" onclick="btn_search_onclick();"><img src="resources/img/icon-2.jpg" /></a>
 						</div>
 						<div id="autocomplete">
@@ -833,7 +914,7 @@ function changePasswrd(){
 					</div>
 					
 					<div class="baeg-btn mg_t30">
-						<a href="/information"><button type="button" class="baeg-b1">등록하러 가기</button></a>
+						<a href="#" onclick="information()"><button type="button" class="baeg-b1">등록하러 가기</button></a>
 						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
 					</div>
 					
@@ -996,11 +1077,15 @@ jQuery(document).ready(function() {
         async: false,
         success: function(data) {
         	if (typeof data != "undefined" && data.sMbrSqVal != null) {
-        		loginBf.setAttribute("style", "display:none;");
-				loginAf.setAttribute("style", "");
-				sMbrSqVal = data.sMbrSqVal;
+        		sMbrSqVal = data.sMbrSqVal;
 				sAuthSqVal = data.sAuthSqVal;
         		$("#sMbrSqVal").val(data.sMbrSqVal);	
+        		
+       	    	if(!isMobile) {
+       	    		loginBf.setAttribute("style", "display:none;");
+    				loginAf.setAttribute("style", "");
+       	    	}
+        		
         		if(data.artstSq != null){
         			artstSq = data.artstSq;
         			artstActvtyNm = data.artstActvtyNm;
@@ -1012,8 +1097,11 @@ jQuery(document).ready(function() {
         	}else{
         		sMbrSqVal = data.sMbrSqVal;
 				sAuthSqVal = data.sAuthSqVal;
-        		loginBf.setAttribute("style", "");
-				loginAf.setAttribute("style", "display:none;");
+				if(!isMobile){
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
+				}
+        		
         	}
         },
         error: function(error) {
@@ -1049,8 +1137,12 @@ function login(){
 					$("#sMbrSqVal").val(data.sMbrSqVal);
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
-					loginBf.setAttribute("style", "display:none;");
-					loginAf.setAttribute("style", "");
+					
+					if(!isMobile){
+						loginBf.setAttribute("style", "display:none;");
+						loginAf.setAttribute("style", "");
+					}
+					
 					if(data.artstSq != null){
 	        			artstSq = data.artstSq;
 	        			artstActvtyNm = data.artstActvtyNm;
@@ -1063,20 +1155,31 @@ function login(){
 					modalAlertShow("탈퇴한 회원입니다.");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
-					loginBf.setAttribute("style", "");
-					loginAf.setAttribute("style", "display:none;");
+					
+					if(!isMobile){
+						loginBf.setAttribute("style", "");
+						loginAf.setAttribute("style", "display:none;");
+					}
+					
 				}else if (login == "nonId"){
 					modalAlertShow("존재하지 않는 아이디입니다.");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
-					loginBf.setAttribute("style", "");
-					loginAf.setAttribute("style", "display:none;");
+					
+					if(!isMobile){
+						loginBf.setAttribute("style", "");
+						loginAf.setAttribute("style", "display:none;");
+					}
+					
 				}else if (login == "nonPwd"){
 					modalAlertShow("비밀번호가 틀립니다.");
 					sMbrSqVal = data.sMbrSqVal;
 					sAuthSqVal = data.sAuthSqVal;
-					loginBf.setAttribute("style", "");
-					loginAf.setAttribute("style", "display:none;");
+					
+					if(!isMobile){
+						loginBf.setAttribute("style", "");
+						loginAf.setAttribute("style", "display:none;");
+					}
 				}
 			},
 			error: function(request, status, error){
@@ -1094,8 +1197,10 @@ function logout(){
 		success:function(data){
 			if(data != null && data != ""){
 				sMbrSqVal = null;
-				loginBf.setAttribute("style", "");
-				loginAf.setAttribute("style", "display:none;");3
+				if(!isMobile){
+					loginBf.setAttribute("style", "");
+					loginAf.setAttribute("style", "display:none;");
+				}
 				sessionStorage.clear();
 				modalAlertShow("로그아웃 되었습니다.", "main");
 	    	}
@@ -1725,13 +1830,18 @@ $(document).on("click", ".myWork", function(){
 	}
 });
 $(document).on("click", ".myCollection", function(){
-	pageGoPost({
-		url:"/myCollection",
-		target:"_self",
-		vals:[
-			["mbrSq", sMbrSqVal]
-		]
-	});
+	if(sMbrSqVal != null){
+		pageGoPost({
+			url:"/myCollection",
+			target:"_self",
+			vals:[
+				["mbrSq", sMbrSqVal]
+			]
+		});
+	}else{
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+	}
+	
 });
 $(document).on("click", ".scrap", function(){
 	pageGoPost({
@@ -1742,21 +1852,23 @@ $(document).on("click", ".scrap", function(){
 		]
 	});
 });
-$(document).on("click", ".workReg", function(){
-	if(sAuthSqVal != "2"){
+function workReg(){
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("로그인 후 이용할 수 있습니다.", "login");
+	}else if(sAuthSqVal != "2"){
 		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
 	}else{
 		window.location.href = "/myWork_reg";
 	}
-});
+};
 
-$(document).on("click", ".collectionReg", function(){
+function collectionReg(){
 	if(sMbrSqVal == null || sMbrSqVal == ""){
-		modalAlertShow("로그인 후 이용할 수 있습니다.");
+		modalAlertShow("로그인 후 이용할 수 있습니다.", "login");
 	}else{
 		window.location.href = "/collection_reg";
 	}
-});
+};
 //Input Box Null Check
 function isEmpty(str){
     
@@ -1775,7 +1887,14 @@ $('#myModal').on('shown.bs.modal', function (e) {
 
 });
 
-
+function information(){
+	if(sMbrSqVal != null){
+		location.href="/information";
+	}else{
+		$("#authorModal1").modal("hide");
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+	}
+}
 
 $(document).ready(function() {
 	$("#checkboxAll").click(function() {
@@ -1786,7 +1905,47 @@ $(document).ready(function() {
 
 });
 
-
+$(function() {                      
+	$(".bab-bo").click(function() { 
+		$(this).toggleClass("bashow");     
+	});
+	  
+	//0808
+	$(".sog-5").click(function() {
+		if(sMbrSqVal != null){
+			$('.bg-sh').toggleClass('bg-show');     
+	        $('.s-hov').toggleClass('s-hov-show'); 
+	        $('.s-hov2').removeClass('s-hov-show'); 
+	        $('.login-show2').toggleClass('after-show');
+		}else{
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		}
+        
+    });
+	
+	//0808
+	$(".sog-2").click(function() { 
+        $('.bg-sh').toggleClass('bg-show');     
+        $('.s-hov').toggleClass('s-hov-show'); 
+        $('.s-hov2').removeClass('s-hov-show'); 
+        $('.login-show2').toggleClass('after-show');
+    });
+   
+	$(".sog-3").click(function() { 
+        $('.bg-sh').toggleClass('bg-show');   
+        $('.s-hov').removeClass('s-hov-show');
+        $('.s-hov2').toggleClass('s-hov-show'); 
+        $('.login-show2').toggleClass('after-show');
+    });
+   
+    //0808
+	$(".mb-bg").click(function() { 
+		$('.bg-sh').removeClass('bg-show');     
+        $('.s-hov').removeClass('s-hov-show'); 
+        $('.s-hov2').removeClass('s-hov-show'); 
+        $('.login-show2').removeClass('after-show');
+    });
+});
 
 </script>
 

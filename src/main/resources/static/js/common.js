@@ -145,10 +145,19 @@ function modalAlertClose(obj) {
 		return;
 	}
 	
+	if(obj == "login"){
+		$('body').css('overflow', 'hidden');
+		$('#loginModal').modal({backdrop: 'static', keyboard: false});
+		$('#loginModal').modal('show');
+		return;
+	}
+	
 	if(obj) {
 		$('#'+obj).focus();
 		return;
 	}
+	
+
 	
 	
 }

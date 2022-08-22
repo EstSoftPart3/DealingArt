@@ -99,7 +99,7 @@
 								<div class="panel-heading" role="tab" id="heading1">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-											Deal wtith
+											Deal with
 										</a>
 									</h4>
 								</div>
@@ -283,7 +283,7 @@
 										<ul class="dropdown-menu drop-ul" role="menu" aria-labelledby="dropdownMenu2">
 											<li role="presentation">
 												<div class="drop-title">
-													<span>Deal wtith</span>
+													<span>Deal with</span>
 												</div>
 												<div class="drop-body">
                                                     <input type="radio" id="m3" name="authSq" value="1" class="searchOption" checked/>
@@ -450,7 +450,7 @@
 				<ul class="drop-ul">
 					<li role="presentation">
 						<div class="drop-title">
-							<span>Deal wtith</span>
+							<span>Deal with</span>
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
@@ -929,21 +929,6 @@
 	   	  )
       });
       
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
-      
       /* 메뉴바 FIXED */
       if (jQuery(window).width() > 0) {
           jQuery(window).on("scroll",function(ev){
@@ -1079,6 +1064,19 @@
 			}
 		
 		}
+	});
+	
+	 
+	$(function() {                      
+		$(".bab-bo").click(function() { 
+	    	$(this).toggleClass("bashow");     
+		});
+	  
+		$(".lg-my").click(function() { 
+		    $('.bg-sh').toggleClass('bg-show');     
+			$('.s-hov').toggleClass('s-hov-show');     
+		});
+	  
 	});
 	
 </script>	

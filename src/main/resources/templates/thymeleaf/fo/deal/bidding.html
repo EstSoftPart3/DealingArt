@@ -1142,9 +1142,9 @@ function workList(){
 			html +='				<br/>';
 			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
 			html +='				<br/>';
-			if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
+			/* if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
 				html +='				가격 '+result.workList[i].workPrc+' KRW';
-			}
+			} */
 			html +='			</div>';
 			html +='		</div>';
 			html +='	</a>';
@@ -1652,19 +1652,6 @@ function askingPrice(prc){
     function(){ $(this).removeClass('gis') }
   )
  });
- 
- $(function() {                      
-  $(".bab-bo").click(function() { 
-    $(this).toggleClass("bashow");     
-  });
-  
-  $(".lg-my").click(function() { 
- 	    $('.bg-sh').toggleClass('bg-show');     
- 	 	 $('.s-hov').toggleClass('s-hov-show');     
- 	  });
-  
-});
- 
  
  
  /* 메뉴바 FIXED */

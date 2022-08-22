@@ -19,7 +19,21 @@ public interface MainMapper {
 	public List mainTodayBid(Object param);
 	
 	/*
-	 * 메인화면 인사이트 데이터
+	 * 메인화면 NEW DEAL
+	 * param : null
+	 * return : List
+	 */
+	public List mainNewDeal();
+	
+	/*
+	 * 메인화면 UPDATED ARTIST
+	 * param : null
+	 * return : List
+	 */
+	public List mainUpdatedArtist();
+	
+	/*
+	 * 메인화면 NEW DEAL
 	 * param : null
 	 * return : List
 	 */
