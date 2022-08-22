@@ -155,7 +155,7 @@ function myWorkList(){
 			myWorkListHtml += '	<img src="'+ result[i].workMainImgUrl +'" style="height:320px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px">';
 			myWorkListHtml += '	<div class="item-ho3 reg-div">';
 			myWorkListHtml += '		<div class="regs" >';
-			myWorkListHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>거래 등록</span></a>';
+			myWorkListHtml += '			<a href="#" class="reg-a" workSq="'+ result[i].workSq +'"><span>판매 등록</span></a>';
 			myWorkListHtml += '			<a href="#" class="cor-a" workSq="'+ result[i].workSq +'"><span>작품 수정</span></a>';
 			myWorkListHtml += '		</div>';
 			myWorkListHtml += '	</div>';
@@ -380,19 +380,6 @@ $(document).on("click", ".heart", function(){
     function(){ $(this).removeClass('gis') }
   )
  });
- 
- $(function() {                      
-  $(".bab-bo").click(function() { 
-    $(this).toggleClass("bashow");     
-  });
-  
-  $(".lg-my").click(function() { 
- 	    $('.bg-sh').toggleClass('bg-show');     
- 	 	 $('.s-hov').toggleClass('s-hov-show');     
- 	  });
-  
-});
- 
  
  
  

@@ -332,7 +332,7 @@
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		WHERE 
 				<!-- A.WORK_SALE_YN = 'N' -->
-				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 				AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 				<if test="workSq.size != 0 and workSq != null">
 					AND A.WORK_SQ NOT IN

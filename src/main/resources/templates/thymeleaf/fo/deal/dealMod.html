@@ -1679,6 +1679,15 @@ function setTodayTime(){
 	
 }
 
+$(".user-on").click(function() {   
+	$('.home-1').show();  
+	$('.home-2').hide()
+});
+
+$(".home-on").click(function() {  
+    $('.home-1').hide();  
+    $('.home-2').show()
+});
       
       $(window).on("resize", function () {
 	   	    if(window.matchMedia('(min-width: 1537px)').matches)
@@ -1770,31 +1779,6 @@ function setTodayTime(){
 	   	  
 	   	  //$("#myModal3").modal("show");
       });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	  
-    	  $(".user-on").click(function() {   
-        	    $('.home-1').show();  
-        	    $('.home-2').hide()
-        	  });
-    	  
-    	  $(".home-on").click(function() {  
-      	    $('.home-1').hide();  
-      	    $('.home-2').show()
-      	  });
-    	  
-    	});
-      
-      
       
       
       /* 메뉴바 FIXED */

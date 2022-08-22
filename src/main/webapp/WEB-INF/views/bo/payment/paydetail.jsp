@@ -314,6 +314,47 @@
 				</div>
 				
 				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+		           	<ul class="nav nav-pills">
+			       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>거래 관련 파일 업로드</b></a></li>
+			       	</ul>
+				</div>
+				
+				<div class="card">
+				
+						<table class="table table-bordered" style="font-size:11px;">
+		                	<thead>                  
+		                  		<tr align="center" style="background-color:#efefef">
+		                    		<th>거래확인서</th>
+		                    		<th>거래명세서</th>
+		                    		<th>거래계약서</th>
+		                    		<th>컨디션체크리포트</th>
+		                    		<th></th>
+		                    	</tr>
+		                  	<thead>  
+			    		  	<tbody>
+			    		  		<tr align="center">
+			    		  			<td>
+			    		  				<input type="file" id="dealConfirmation">
+			    		  			</td>
+			    		  			<td>
+			    		  				<input type="file" id="dealStatement">
+			    		  			</td>
+			    		  			<td>
+			    		  				<input type="file" id="dealContract">
+			    		  			</td>
+			    		  			<td>
+			    		  				<input type="file" id="dealConditionCheck">
+			    		  			</td>
+			    		  			<td>
+			    		  				<button type="button" class="btn btn-info sTitle" onclick="dealFileUpload()">저장</button>
+			    		  			</td>
+			    		  		</tr>
+			    		  </tbody>
+			         	</table>	
+			 
+				</div>
+				
+				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
 		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>결제 CS 메모</b></a></li>
 		           	</ul>
@@ -913,6 +954,10 @@
 					} 
 				}
 			}); 
+		}
+		
+		function dealFileUpload(){
+			
 		}
 
 	 </script>

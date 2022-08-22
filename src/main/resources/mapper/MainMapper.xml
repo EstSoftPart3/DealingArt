@@ -38,6 +38,9 @@
 				C.DEAL_SQ IS NOT NULL
 			AND C.DEAL_STTS_CD = 'TP'
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+			AND	C.DEAL_TYP_CD = 'A'
+		ORDER BY C.DEAL_ENDNG_DT ASC
+		LIMIT 20
 	</select>
 	
 	<select id="mainTodayBid" resultType="hashMap">
@@ -68,6 +71,48 @@
 		LIMIT #{pageSize}
 		OFFSET #{page};
 		
+	</select>
+	
+	<select id="mainNewDeal" resultType="hashMap">
+		/*메인 NEW DEAL*/
+		SELECT 
+				A.WORK_SQ AS workSq,
+				IF(B.WORK_MAIN_IMG_URL IS NULL, B.WORK_IMG_FRT_URL, B.WORK_MAIN_IMG_URL) AS workMainImgUrl,
+				B.ARTST_ACTVTY_NM AS artstActvtyNm,
+				B.WORK_NM AS workNm,
+				B.WORK_PRODC_YEAR AS workProdcYear,
+				B.WORK_MATRL AS workMatrl,
+				B.WORK_SIZE_WIDTH AS workSizeWidth,
+				B.WORK_SIZE_DEPTH AS workSizeDepth
+		FROM 
+				TBL_DA_DEAL_M AS A
+		INNER JOIN
+				TBL_DA_WORK_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
+		WHERE 
+				DEAL_STTS_CD = 'TP'
+		ORDER BY DEAL_STRT_DT DESC
+		LIMIT 10
+	</select>
+	
+	<select id="mainUpdatedArtist" resultType="hashMap">
+		/*메인 UPDATED ARTIST*/
+		SELECT 
+				A.ARTST_SQ AS artstSq,
+				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm
+		FROM 
+				TBL_DA_ARTST_M AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+			AND B.AUTH_SQ = '2'
+			AND B.USE_YN = 'Y'
+		WHERE
+				A.ARTST_PROFILE_IMG_URL IS NOT NULL
+			AND A.ARTST_ACTVTY_NM NOT IN('207', '151', '358', '293', '334', '335', '184')
+		ORDER BY A.ARTST_SQ DESC
+		LIMIT 20
 	</select>
 	
 	<select id="mainInsights" resultType="hashMap">
