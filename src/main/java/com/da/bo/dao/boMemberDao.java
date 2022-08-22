@@ -38,6 +38,7 @@ public class boMemberDao {
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> memberList = boMemberMapper.memberList(param);
+		//Map데이터를 List에 삽입
 		
 		 for(int z=0; z<memberList.size(); z++){
 			 String mbrIdDecrypt = (String) memberList.get(z).get("mbrId");	

@@ -99,16 +99,20 @@ public class DealDao {
 	 * return : int
 	 */
 	public int dealReg(Object param) {
+		//박상현 : 응찰 또는 판매됬는지 확인
 		int suspension = dealMapper.selectDealSttsCd(param);
 		if(suspension > 0) {
 			return -1;
 		}else{
+			// 박상현 : 거래 등록 전 중복체크 따로 객체화 해야하는건 아닌지...
 			int dealCount = dealMapper.dealRegOverlapChk(param);
 			if(dealCount > 0) {
 				return -2;
 			}
+			//박상현 : useGeneratedKeys="true" keyProperty="id" 로 DEAL_SQ value를 가져와야 하는지..
 			int result = dealMapper.dealReg(param);
 			if(result > 0) {
+				//박상현 : 주문번호 생성  
 				int result2 = dealMapper.updateMbrRefNo();
 				return result2;
 			}
@@ -122,10 +126,12 @@ public class DealDao {
 	 * return : int
 	 */
 	public int dealMod(Object param) {
+		//박상현 : 응찰 또는 판매됬는지 확인
 		int dealSttsCd = dealMapper.selectDealSttsCd(param);
 		if(dealSttsCd > 0) {
 			return -1;
 		}else{
+			//박상현 : auto_increment pk 값으로 updateMbrRefNo 실행 
 			int result = dealMapper.dealReg(param);
 			result += dealMapper.updateMbrRefNo();
 			return result;

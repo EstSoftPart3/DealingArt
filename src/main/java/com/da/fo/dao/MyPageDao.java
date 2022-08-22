@@ -159,6 +159,8 @@ public class MyPageDao {
 	public int collectionReg(Map<String, Object> param) {
 		int result = -1;
 		result = myPageMapper.collectionReg(param);
+		//박상현 : 결과값 1 이면 소장품이 정상등록 되어 있고 키워드가 등록 되어져 있다면
+		//키워드를 등록해라
 		if(result == 1) {
 			if(param.get("keywrd") != null && param.get("keywrd") != "") {
 				result = myPageMapper.keywrdReg(param);

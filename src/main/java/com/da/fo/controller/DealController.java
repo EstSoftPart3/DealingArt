@@ -116,6 +116,9 @@ public class DealController {
 		System.out.println("##################### collectionReg param : " + param);
 		System.out.println("##################### collectionReg file : " + workGrtUrl + workImgLefUrl + workImgRitUrl + workImgTopUrl + workImgBotUrl);
 		JSONObject jsonObject = new JSONObject(new Gson().toJson(param));
+		
+		//박상현 : Gson JSON을 HashMap으로 변경
+		
 		//회원 정보
 		Map<String, Object> mbrInfo = new Gson().fromJson(jsonObject.getJSONObject("mbrInfo").toString(), new HashMap().getClass());
 		//회원 배송받을 핸드폰 번호
@@ -149,10 +152,12 @@ public class DealController {
 			FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+mbrInfo.get("mbrSq").toString());
 			work.put("workImgBotUrl", file.getFileUrl());
 		}
+		//작품정보중 변경된것 있다면 수정한다.
 		int result1 = myPageService.myWorkCor(work); 
 		int result2 = 0;
 		int result3 = 0;
 		if(result1 > 0) {
+			//박상현 : 배송주소 등록후 거래를 등록한다.
 			result2 = memberService.mbrDelivryAddrCor(mbrInfo);
 			if(result2 > 0) {
 				result3 = dealService.dealReg(deal);

@@ -278,7 +278,7 @@
 	</update>
 	
 	<select id="dealRegOverlapChk" resultType="int" parameterType="hashMap">
-		/* 거랟 등록 전 중복체크 */
+		/* 거래 등록 전 중복체크 */
 		SELECT 
 				COUNT(WORK_SQ)
 		FROM

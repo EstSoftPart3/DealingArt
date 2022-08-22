@@ -562,6 +562,9 @@ public class MyPageController {
 			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
 			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
 			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+		
+		//박상현 : 파일업로드 객체화 했으면??
+		
 		//작품 메인 사진
 		if (workMainImgUrl != null) {
 			FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/collection/"+param.get("mbrSq").toString());

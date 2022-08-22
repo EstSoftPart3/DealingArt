@@ -150,7 +150,7 @@ public class MainPayUtil {
 		}	
 	    		 
 		System.out.println("responseJson:"+responseJson);
-				
+		//박상현	ParseUtils ??
 		Map<String, Object> responseMap = ParseUtils.fromJson(responseJson, Map.class);        
 		String resultCode = responseMap.get("resultCode").toString();        
 		String resultMessage = responseMap.get("resultMessage").toString();
