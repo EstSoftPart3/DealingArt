@@ -310,48 +310,52 @@
 			    		  	</tr>
 			    		  </tbody>
 			         	</table>	
-			 
-				</div>
-				
-				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
-		           	<ul class="nav nav-pills">
-			       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>거래 관련 파일 업로드</b></a></li>
-			       	</ul>
-				</div>
-				
-				<div class="card">
-				
-						<table class="table table-bordered" style="font-size:11px;">
-		                	<thead>                  
-		                  		<tr align="center" style="background-color:#efefef">
-		                    		<th>거래확인서</th>
-		                    		<th>거래명세서</th>
-		                    		<th>거래계약서</th>
-		                    		<th>컨디션체크리포트</th>
-		                    		<th></th>
-		                    	</tr>
-		                  	<thead>  
-			    		  	<tbody>
-			    		  		<tr align="center">
-			    		  			<td>
-			    		  				<input type="file" id="dealConfirmation">
-			    		  			</td>
-			    		  			<td>
-			    		  				<input type="file" id="dealStatement">
-			    		  			</td>
-			    		  			<td>
-			    		  				<input type="file" id="dealContract">
-			    		  			</td>
-			    		  			<td>
-			    		  				<input type="file" id="dealConditionCheck">
-			    		  			</td>
-			    		  			<td>
-			    		  				<button type="button" class="btn btn-info sTitle" onclick="dealFileUpload()">저장</button>
-			    		  			</td>
-			    		  		</tr>
-			    		  </tbody>
-			         	</table>	
-			 
+			 	</div>
+				<div id="dealFileUpload" style="display:none;">
+					<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+			           	<ul class="nav nav-pills">
+				       		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>거래 관련 파일 업로드</b></a></li>
+				       	</ul>
+					</div>
+					
+					<div class="card">
+					
+							<table class="table table-bordered" style="font-size:11px;">
+			                	<thead>                  
+			                  		<tr align="center" style="background-color:#efefef">
+			                    		<th>거래확인서</th>
+			                    		<th>거래명세서</th>
+			                    		<th>거래계약서</th>
+			                    		<th>컨디션체크리포트</th>
+			                    		<th></th>
+			                    	</tr>
+			                  	<thead>  
+				    		  	<tbody>
+				    		  		<tr align="center">
+				    		  			<td>
+				    		  				<input type="file" id="dealConfirmation">
+				    		  				<br/><a href="" id="dealConfirmationDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  			</td>
+				    		  			<td>
+				    		  				<input type="file" id="dealStatement">
+				    		  				<br/><a href="" id="dealStatementDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  			</td>
+				    		  			<td>
+				    		  				<input type="file" id="dealContract">
+				    		  				<br/><a href="" id="dealContractDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  			</td>
+				    		  			<td>
+				    		  				<input type="file" id="dealConditionCheck">
+				    		  				<br/><a href="" id="dealConditionCheckDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  			</td>
+				    		  			<td>
+				    		  				<button type="button" class="btn btn-info sTitle" onclick="dealFileUpload()">저장</button>
+				    		  			</td>
+				    		  		</tr>
+				    		  </tbody>
+				         	</table>	
+				 
+					</div>
 				</div>
 				
 				<div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
@@ -377,6 +381,7 @@
 	    	</section>
 	  	
 	</div>
+</div>
 	   
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
@@ -450,14 +455,13 @@
 		        	   dealSq : dealSq
 		           },
 		           success: function(ref) {
-		        	   	        	    
 		        	 dataContent = ref.data.dealInfo[0];
 		        	 
 		        	 var sellMbrSq 	= dataContent.sellMbrSq;//판매자_순번
 		        	 var buyMbrSq 	= dataContent.buyMbrSq;	//구매자_순번
 		        	 var artstSq 	= dataContent.artstSq;	//작가_순번
 		        	 var workSqNum 	= dataContent.workSqNum;//작품_순번
-		        	
+		        	 var dealSttsCd = dataContent.dealSttsCd; //거래상태
 		        	 //판매자 정보 호출
 		        	 fn_sellMbr(sellMbrSq);
 		        	 
@@ -480,6 +484,46 @@
 		        	 $("#buyMbrSq").val(buyMbrSq);
 		        	 $("#artstSq").val(artstSq);
 		        	 $("#workSq").val(workSqNum);
+		        	 
+		        	 //거래 관련 파일 업로드 div
+		        	 if(dealSttsCd == "TC" || dealSttsCd == "FB"){
+		        		 $("#dealFileUpload").css("display", "none");
+		        	 }else{
+		        		 $("#dealFileUpload").css("display", "");
+		        	 }
+		        	 
+		        	 if(dataContent.dealConfirmation != null && dataContent.dealConfirmation != ""){
+		        		 $("#dealConfirmationDown").attr("href", dataContent.dealConfirmation);
+		        		 $("#dealConfirmationDown").css("display", "");
+		        	 }else{
+		        		 $("#dealConfirmationDown").attr("href", "");
+		        		 $("#dealConfirmationDown").css("display", "none");
+		        	 }
+		        	 
+					 if(dataContent.dealStatement != null && dataContent.dealStatement != ""){
+						 $("#dealStatementDown").attr("href", dataContent.dealStatement);
+		        		 $("#dealStatementDown").css("display", "");
+		        	 }else{
+		        		 $("#dealStatementDown").attr("href", "");
+		        		 $("#dealStatementDown").css("display", "none");
+		        	 }
+		        	 
+					 if(dataContent.dealContract != null && dataContent.dealContract != ""){
+						 $("#dealContractDown").attr("href", dataContent.dealContract);
+		        		 $("#dealContractDown").css("display", "");
+					 }else{
+						 $("#dealContractDown").attr("href", "");
+		        		 $("#dealContractDown").css("display", "none");
+					 }
+					 
+					 if(dataContent.dealConditionCheck != null && dataContent.dealConditionCheck != ""){
+						 $("#dealConditionCheckDown").attr("href", dataContent.dealConditionCheck);
+		        		 $("#dealConditionCheckDown").css("display", "");
+		        	 }else{
+		        		 $("#dealConditionCheckDown").attr("href", "");
+		        		 $("#dealConditionCheckDown").css("display", "none");
+		        	 }
+
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
@@ -957,7 +1001,72 @@
 		}
 		
 		function dealFileUpload(){
+			var result = new Object();
+			result.dealSq = $("#dealSq").val();
+			const formData = new FormData();
 			
+			//거래 확인서
+			const dealConfirmation = document.getElementById("dealConfirmation");
+			if(dealConfirmation.files[0] == null && $("#dealConfirmation").val() != null){
+				result.dealConfirmation = $("#dealConfirmation").val();
+			}else{
+				if(dealConfirmation.files[0] != null){
+					formData.append("dealConfirmation", dealConfirmation.files[0]);
+				}
+			}
+			
+			//거래 명세서
+			const dealStatement = document.getElementById("dealStatement");
+			if(dealStatement.files[0] == null && $("#dealStatement").val() != null){
+				result.dealStatement = $("#dealStatement").val();
+			}else{
+				if(dealStatement.files[0] != null){
+					formData.append("dealStatement", dealStatement.files[0]);
+				}
+			}
+			
+			//거래 계약서
+			const dealContract = document.getElementById("dealContract");
+			if(dealContract.files[0] == null && $("#dealContract").val() != null){
+				result.dealContract = $("#dealContract").val();
+			}else{
+				if(dealContract.files[0] != null){
+					formData.append("dealContract", dealContract.files[0]);
+				}
+			}
+			
+			//컨디션 체크 리포트
+			const dealConditionCheck = document.getElementById("dealConditionCheck");
+			if(dealConditionCheck.files[0] == null && $("#dealConditionCheck").val() != null){
+				result.dealConditionCheck = $("#dealConditionCheck").val();
+			}else{
+				if(dealConditionCheck.files[0] != null){
+					formData.append("dealConditionCheck", dealConditionCheck.files[0]);
+				}
+			}
+			
+			formData.append("param", new Blob([JSON.stringify(result)], {type: "application/json"}));
+			
+			 $.ajax({
+	  	           type: "post",
+	  	           url: "/admin/payment/dealFileUpload",
+	  	           data: formData,
+		  	       contentType : false,
+		 	       processData : false,
+	  	           success: function(data) {
+	  	        	   if(data == "Success"){
+	  	        		   alert("파일 업로드가 완료되었습니다.");
+	  	        		   location.reload();
+	  	        	   }else{
+	  	        		 alert("파일 업로드를 실패하였습니다. 다시 시도해주세요.");
+	  	        		   location.reload();
+	  	        	   }
+	  			   },
+	  	           error: function(error) {
+	  	        	   var errorJson = JSON.stringify(error);
+	  	               console.log(errorJson);
+	  	           }
+	  		});
 		}
 
 	 </script>

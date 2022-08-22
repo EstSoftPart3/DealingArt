@@ -39,10 +39,14 @@
 		 	,DEAL_STTS_CD   AS dealSttsCd
 		 	,BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd
 		 	,SELL_PAYMNT_STTS_CD as sellPaymntSttsCd
+		 	,DEAL_CONFIRMATION AS dealConfirmation /*거래 확인서*/
+		 	,DEAL_STATEMENT AS dealStatement /*거래 명세서*/
+		 	,DEAL_CONTRACT AS dealContract /*거래 계약서*/
+		 	,DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM
             TBL_DA_DEAL_M TBL 
         WHERE 1=1
-             <if test="dealSq != null">
+             <if test="dealSq != null and dealSq != ''">
              	AND DEAL_SQ = #{dealSq}
              </if>
 	</select>
@@ -151,5 +155,19 @@
 		AND	DEL_YN = 'N' /*작품 삭제 여부 확인 */
 		AND WORK_SQ = #{workSq}
    </select>
+   
+   <update id="dealFileUpload" parameterType="hashMap">
+   		/*거래 관련 파일 업로드*/
+   		UPDATE 
+   			TBL_DA_DEAL_M
+			<trim prefix="SET" suffixOverrides=",">
+      			<if test="dealConfirmation != null and dealConfirmation != ''">DEAL_CONFIRMATION = #{dealConfirmation},</if>
+				<if test="dealStatement != null and dealStatement != ''">DEAL_STATEMENT = #{dealStatement},</if>
+				<if test="dealContract != null and dealContract != ''">DEAL_CONTRACT = #{dealContract},</if>
+				<if test="dealConditionCheck != null and dealConditionCheck != ''">DEAL_CONDITIONCHECK = #{dealConditionCheck},</if>
+			</trim>
+			
+   		WHERE DEAL_SQ = #{dealSq}
+   </update>
    
 </mapper>

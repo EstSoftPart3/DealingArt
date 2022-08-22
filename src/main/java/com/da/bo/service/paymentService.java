@@ -25,6 +25,8 @@ public interface paymentService {
 	
 	public Map<String, Object> trnsprtList(Map<String, Object> param);
 	
+	//거래 관련 파일 업로드
+	public int dealFileUpload(Map<String, Object> param);
 	
 
 }

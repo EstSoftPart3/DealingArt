@@ -87,5 +87,10 @@ public class paymentServiceImpl implements paymentService {
 	public void dealMainMemoUpdate(Map<String, Object> param){
 		paymentDao.dealMainMemoUpdate(param);
 	}
-
+	
+	//거래 관련 파일 업로드
+	@Override
+	public int dealFileUpload(Map<String, Object> param) {
+		return paymentDao.dealFileUpload(param);
+	}
 }

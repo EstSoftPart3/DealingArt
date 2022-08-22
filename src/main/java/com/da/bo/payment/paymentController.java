@@ -1,21 +1,27 @@
 package com.da.bo.payment;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
-
+import com.da.vo.FileVo;
+import com.google.gson.Gson;
 import com.da.bo.service.paymentService;
 
 @Controller
@@ -162,6 +168,52 @@ public class paymentController {
 		mv.addObject("data", result);
 		
 		return mv;
+	}
+	
+	//거래 관련 파일 업로드
+	@RequestMapping("/admin/payment/dealFileUpload")
+	@ResponseBody
+	public String dealFileUpload(@RequestPart(value = "param") Map<String, Object> param, 
+			@RequestPart(value = "dealConfirmation") @Nullable MultipartFile dealConfirmation,
+			@RequestPart(value = "dealStatement") @Nullable MultipartFile dealStatement,
+			@RequestPart(value = "dealContract") @Nullable MultipartFile dealContract,
+			@RequestPart(value = "dealConditionCheck") @Nullable MultipartFile dealConditionCheck) throws IOException {
+		
+		System.out.println("##################### collectionReg param : " + param);
+		System.out.println("##################### collectionReg file : " + dealConfirmation + dealStatement + dealContract + dealConditionCheck);
+		//거래 순번
+		String dealSq = param.get("dealSq").toString();
+		//db에 담을 Map
+		Map<String, Object> deal = new HashMap<String, Object>();
+		deal.put("dealSq", dealSq);
+		
+		//거래 확인서
+		if(dealConfirmation != null){
+			FileVo file = awsS3Service.upload(dealConfirmation, "dealingart/dealFile/"+dealSq);
+			deal.put("dealConfirmation", file.getFileUrl());
+		}
+		//거래 명세서
+		if(dealStatement != null){
+			FileVo file = awsS3Service.upload(dealStatement, "dealingart/dealFile/"+dealSq);
+			deal.put("dealStatement", file.getFileUrl());
+		}
+		//거래 계약서
+		if(dealContract != null){
+			FileVo file = awsS3Service.upload(dealContract, "dealingart/dealFile/"+dealSq);
+			deal.put("dealContract", file.getFileUrl());
+		}
+		//컨디션 체크 리포트
+		if(dealConditionCheck != null){
+			FileVo file = awsS3Service.upload(dealConditionCheck, "dealingart/dealFile/"+dealSq);
+			deal.put("dealConditionCheck", file.getFileUrl());
+		}
+		
+		int result = paymentService.dealFileUpload(deal);
+		if(result > 0) {
+			return "Success";
+		}else {
+			return "Fail";
+		}
 	}
 
 }

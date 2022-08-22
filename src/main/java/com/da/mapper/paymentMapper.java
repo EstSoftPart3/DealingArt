@@ -25,5 +25,8 @@ public interface paymentMapper {
 	
 	//거래 운송 목록
 	public List trnsprtList(Map<String, Object> param);
+	
+	//거래 관련 파일 업로드
+	public int dealFileUpload(Map<String, Object> param);
 
 }

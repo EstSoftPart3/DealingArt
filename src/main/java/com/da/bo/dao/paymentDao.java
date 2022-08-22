@@ -122,5 +122,9 @@ public class paymentDao {
 	public void dealMainMemoUpdate(Map<String, Object> param){
 		paymentMapper.dealMainMemoUpdate(param);
 	}
+	
+	public int dealFileUpload(Map<String, Object> param) {
+		return paymentMapper.dealFileUpload(param);
+	}
 
 }
