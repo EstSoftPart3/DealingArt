@@ -1236,7 +1236,14 @@ function chart() {
 	                    	return title;
 	                    },
 	            		footer: function(tooltipItems) {
-	            			var footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
+	            			
+	            			var footer = "";
+	            			if(tooltipItems[0].dataIndex == 0) {
+	            				footer = "";
+	            			} else {
+	            				footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];	
+	            			}
+	            			
 	            			return footer;
 	            		}
 	                }
