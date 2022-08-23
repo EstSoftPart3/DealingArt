@@ -93,4 +93,10 @@ public class paymentServiceImpl implements paymentService {
 	public int dealFileUpload(Map<String, Object> param) {
 		return paymentDao.dealFileUpload(param);
 	}
+	
+	//거래 관련 파일 삭제
+	@Override
+	public int dealFileDelte(Map<String, Object> param) {
+		return paymentDao.dealFileDelte(param);
+	}
 }

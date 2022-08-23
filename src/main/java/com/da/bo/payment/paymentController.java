@@ -215,5 +215,19 @@ public class paymentController {
 			return "Fail";
 		}
 	}
+	
+	//거래 관련 파일 업로드
+	@RequestMapping("/admin/payment/dealFileDelete")
+	@ResponseBody
+	public String dealFileDelete(@RequestParam Map<String, Object> param) {
+		System.out.println("delete Param : "+param);
+		int result = paymentService.dealFileDelte(param);
+		if(result > 0) {
+			return "Success";
+		}else{
+			return "Fail";
+		}
+		
+	}
 
 }

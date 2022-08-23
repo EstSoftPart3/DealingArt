@@ -516,10 +516,10 @@
 										
 										<div class="mbtn-box">
 											<a href="javascript:void(0);" class="btns-3" onclick="openReceipt2()">영수증</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">거래 명세서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">거래 계약서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">거래 확인서</a>
-											<a href="javascript:fnModalAlert();" class="btns-3">컨디션 체크</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealConfirmation)}" th:href="${result.payMntInfo2.dealConfirmation}" target="_blank" class="btns-3">거래 확인서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealStatement)}" th:href="${result.payMntInfo2.dealStatement}" target="_blank" class="btns-3">거래 명세서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealContract)}" th:href="${result.payMntInfo2.dealContract}" target="_blank" class="btns-3">거래 계약서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealConditionCheck)}" th:href="${result.payMntInfo2.dealConditionCheck}" target="_blank" class="btns-3">컨디션 체크</a>
 										</div>
 									</div>
 								</div>
