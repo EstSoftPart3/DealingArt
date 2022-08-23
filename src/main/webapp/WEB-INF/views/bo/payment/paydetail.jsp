@@ -326,7 +326,7 @@
 			                    		<th>거래확인서</th>
 			                    		<th>거래명세서</th>
 			                    		<th>거래계약서</th>
-			                    		<th>컨디션체크리포트</th>
+			                    		<th>컨디션 체크 리포트</th>
 			                    		<th></th>
 			                    	</tr>
 			                  	<thead>  
@@ -335,18 +335,22 @@
 				    		  			<td>
 				    		  				<input type="file" id="dealConfirmation">
 				    		  				<br/><a href="" id="dealConfirmationDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealConfirmationDelete" onclick="dealConfirmationDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
 				    		  				<input type="file" id="dealStatement">
 				    		  				<br/><a href="" id="dealStatementDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealStatementDelete" onclick="dealStatementDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
 				    		  				<input type="file" id="dealContract">
 				    		  				<br/><a href="" id="dealContractDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealContractDelete" onclick="dealContractDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
 				    		  				<input type="file" id="dealConditionCheck">
 				    		  				<br/><a href="" id="dealConditionCheckDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealConditionCheckDelete" onclick="dealConditionCheckDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
 				    		  				<button type="button" class="btn btn-info sTitle" onclick="dealFileUpload()">저장</button>
@@ -486,7 +490,7 @@
 		        	 $("#workSq").val(workSqNum);
 		        	 
 		        	 //거래 관련 파일 업로드 div
-		        	 if(dealSttsCd == "TC" || dealSttsCd == "FB"){
+		        	 if(dealSttsCd == "TP" || dealSttsCd == "FB"){
 		        		 $("#dealFileUpload").css("display", "none");
 		        	 }else{
 		        		 $("#dealFileUpload").css("display", "");
@@ -495,33 +499,41 @@
 		        	 if(dataContent.dealConfirmation != null && dataContent.dealConfirmation != ""){
 		        		 $("#dealConfirmationDown").attr("href", dataContent.dealConfirmation);
 		        		 $("#dealConfirmationDown").css("display", "");
+		        		 $("#dealConfirmationDelete").css("display", "");
 		        	 }else{
 		        		 $("#dealConfirmationDown").attr("href", "");
 		        		 $("#dealConfirmationDown").css("display", "none");
+		        		 $("#dealConfirmationDelete").css("display", "none");
 		        	 }
 		        	 
 					 if(dataContent.dealStatement != null && dataContent.dealStatement != ""){
 						 $("#dealStatementDown").attr("href", dataContent.dealStatement);
 		        		 $("#dealStatementDown").css("display", "");
+		        		 $("#dealStatementDelete").css("display", "");
 		        	 }else{
 		        		 $("#dealStatementDown").attr("href", "");
 		        		 $("#dealStatementDown").css("display", "none");
+		        		 $("#dealStatementDelete").css("display", "none");
 		        	 }
 		        	 
 					 if(dataContent.dealContract != null && dataContent.dealContract != ""){
 						 $("#dealContractDown").attr("href", dataContent.dealContract);
 		        		 $("#dealContractDown").css("display", "");
+		        		 $("#dealContractDelete").css("display", "");
 					 }else{
 						 $("#dealContractDown").attr("href", "");
 		        		 $("#dealContractDown").css("display", "none");
+		        		 $("#dealContractDelete").css("display", "none");
 					 }
 					 
 					 if(dataContent.dealConditionCheck != null && dataContent.dealConditionCheck != ""){
 						 $("#dealConditionCheckDown").attr("href", dataContent.dealConditionCheck);
 		        		 $("#dealConditionCheckDown").css("display", "");
+		        		 $("#dealConditionCheckDelete").css("display", "");
 		        	 }else{
 		        		 $("#dealConditionCheckDown").attr("href", "");
 		        		 $("#dealConditionCheckDown").css("display", "none");
+		        		 $("#dealConditionCheckDelete").css("display", "none");
 		        	 }
 
 		           },
@@ -1047,7 +1059,7 @@
 			
 			formData.append("param", new Blob([JSON.stringify(result)], {type: "application/json"}));
 			
-			 $.ajax({
+			$.ajax({
 	  	           type: "post",
 	  	           url: "/admin/payment/dealFileUpload",
 	  	           data: formData,
@@ -1067,6 +1079,118 @@
 	  	               console.log(errorJson);
 	  	           }
 	  		});
+		}
+		
+		function dealConfirmationDelete(){
+			if(confirm("거래 확인서를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealConfirmation";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("거래 확인서가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("거래 확인서 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
+		}
+		
+		function dealStatementDelete(){
+			if(confirm("거래 명세서를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealStatement";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("거래 명세서가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("거래 명세서 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
+		}
+		
+		function dealContractDelete(){
+			if(confirm("거래 계약서를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealContract";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("거래 확인서가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("거래 확인서 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
+		}
+		
+		function dealConditionCheckDelete(){
+			if(confirm("컨디션 체크 리포트를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealConditionCheck";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("컨디션 체크 리포트가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("컨디션 체크 리포트 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
 		}
 
 	 </script>

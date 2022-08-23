@@ -2033,12 +2033,19 @@
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
 				A.TRAN_DATE AS tranDate,
-				A.PAYMNT_DT AS paymntDt
+				A.PAYMNT_DT AS paymntDt,
+				C.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
+				C.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				C.DEAL_CONTRACT AS dealContract, /*거래계약서*/
+				C.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
 				TBL_DA_CUPON_M B
 			ON	A.CUPON_SQ = B.CUPON_SQ 
+		INNER JOIN
+				TBL_DA_DEAL_M C
+			ON	A.DEAL_SQ = C.DEAL_SQ
 		WHERE 
 				A.DEAL_SQ = #{dealSq}
 			AND MBR_SQ = #{mbrSq}
@@ -2101,12 +2108,20 @@
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
 				A.TRAN_DATE AS tranDate,
-				A.PAYMNT_DT AS paymntDt
+				A.PAYMNT_DT AS paymntDt,
+				C.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
+				C.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				C.DEAL_CONTRACT AS dealContract, /*거래계약서*/
+				C.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
+				
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
 				TBL_DA_CUPON_M B
-			ON	A.CUPON_SQ = B.CUPON_SQ 
+			ON	A.CUPON_SQ = B.CUPON_SQ
+		INNER JOIN
+				TBL_DA_DEAL_M C
+			ON	A.DEAL_SQ = C.DEAL_SQ
 		WHERE 
 				A.DEAL_SQ = #{dealSq}
 			AND MBR_SQ = #{mbrSq}
@@ -2146,15 +2161,22 @@
 	<select id="selectCalcInfo" resultType="hashMap" parameterType="String">
 		/* 판매자 정산 정보를 가져온다 */
 		SELECT 
-				DEAL_FINAL_PRC AS dealFinalPrc,
-				DEAL_SELL_FEE AS dealSellFee,
-				DEAL_CALC_PRC AS dealCalcPrc,
-				DATE_FORMAT(LAST_DAY(DATE_ADD(DEAL_ENDNG_DT, INTERVAL 1 MONTH)), '%Y.%m.%d') AS dealCalcDate
+				FORMAT(A.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				FORMAT(A.DEAL_SELL_FEE, 0) AS dealSellFee,
+				FORMAT(A.DEAL_CALC_PRC, 0) AS dealCalcPrc,
+				DATE_FORMAT(LAST_DAY(DATE_ADD(A.DEAL_ENDNG_DT, INTERVAL 1 MONTH)), '%Y.%m.%d') AS dealCalcDate,
+				B.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
+				B.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				B.DEAL_CONTRACT AS dealContract, /*거래계약서*/
+				B.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM 
-				TBL_DA_WORK_DEAL_H
+				TBL_DA_WORK_DEAL_H A
+		INNER JOIN
+				TBL_DA_DEAL_M B
+			ON	A.DEAL_SQ = B.DEAL_SQ
 		WHERE
-				DEAL_SQ = #{dealSq}
-			AND SELL_MBR_SQ = #{mbrSq}
+				A.DEAL_SQ = #{dealSq}
+			AND A.SELL_MBR_SQ = #{mbrSq}
 	</select>
    <!-- 나의작품 / 소장품 거래등록 확인  -->
    <select id="dealWorkCount" resultType="int">

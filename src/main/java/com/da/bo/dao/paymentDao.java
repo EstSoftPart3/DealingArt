@@ -123,8 +123,14 @@ public class paymentDao {
 		paymentMapper.dealMainMemoUpdate(param);
 	}
 	
+	//거래 관련 파일 업로드
 	public int dealFileUpload(Map<String, Object> param) {
 		return paymentMapper.dealFileUpload(param);
+	}
+	
+	//거래 관련 파일 삭제
+	public int dealFileDelte(Map<String, Object> param) {
+		return paymentMapper.dealFileDelte(param);
 	}
 
 }

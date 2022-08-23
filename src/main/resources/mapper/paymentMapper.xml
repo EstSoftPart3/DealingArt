@@ -172,4 +172,18 @@
    		WHERE DEAL_SQ = #{dealSq}
    </update>
    
+   <update id="dealFileDelte" parameterType="hashMap">
+   		/*거래 관련 해당 파일 삭제*/
+   		UPDATE 
+   				TBL_DA_DEAL_M 
+   			<trim prefix="SET" suffixOverrides=",">
+      			<if test='columnNm == "dealConfirmation"'>DEAL_CONFIRMATION = NULL,</if>
+				<if test='columnNm == "dealStatement"'>DEAL_STATEMENT = NULL,</if>
+				<if test='columnNm == "dealContract"'>DEAL_CONTRACT = NULL,</if>
+				<if test='columnNm == "dealConditionCheck"'>DEAL_CONDITIONCHECK = NULL,</if>
+			</trim>
+   		WHERE 
+   				DEAL_SQ = #{dealSq}
+   </update>
+   
 </mapper>
