@@ -577,9 +577,10 @@ function artistLibraryList(){
         		}else{
         			$("#div_seniorArtist").css("display", "none");
         		}
+        		//대가작가
         		if(masterArtist.length > 0){
 	        		for(var i=0; i<masterArtist.length; i++){
-	        			masterArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ masterArtist[i].artstSq +'">';
+	        			masterArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ masterArtist[i].artstSq +'" artistBirthYear="'+masterArtist[i].artistBirthYear+'">';
 		        		masterArtistHtml += '	<a class="hd-div3">';
 		        		if(masterArtist[i].artstWorkImgUrl != null && masterArtist[i].artstWorkImgUrl != ""){
 		        			masterArtistHtml += '		<div class="hd-bg3"><img src="'+ masterArtist[i].artstWorkImgUrl +'" /></div>';
@@ -614,18 +615,20 @@ function artistLibraryList(){
       
 $(document).on("click", ".swiper-slide", function(){
 	var artstSq= $(this).attr("artstSq");
+	var artistBirthYear= $(this).attr("artistBirthYear");
     
-	location.href = "/artistDetail?artstSq="+artstSq;
+	//location.href = "/artistDetail?artstSq="+artstSq;
 	
-	/*
+	
 	pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
 		vals:[
-			["artstSq", artstSq]
+			["artstSq", artstSq],
+			["artistBirthYear", artistBirthYear]
 		]
 	});
-    */
+    
 });
       
 </script>

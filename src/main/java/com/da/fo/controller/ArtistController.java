@@ -41,10 +41,14 @@ public class ArtistController {
 	
 	@RequestMapping("/artistDetail")
 	@ResponseBody
-	public ModelAndView artistDetail(@RequestParam(value="artstSq", required = false) @Nullable int artstSq) {
+	public ModelAndView artistDetail(@RequestParam(value="artstSq", required = false) @Nullable int artstSq,@RequestParam(value="artistBirthYear", required = false) @Nullable String artistBirthYear) {
 		System.out.println("################## artstSq : "+artstSq);
+		System.out.println("################## artistBirthYear : "+artistBirthYear);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetail");
+		
 		Map<String, Object> result = artistService.artistDetail(artstSq);
+		//mv.addObject("artistBirthYear", artistBirthYear);
+		result.put("artistBirthYear", artistBirthYear);
 		mv.addObject("result", result);
 		return mv;
 		
