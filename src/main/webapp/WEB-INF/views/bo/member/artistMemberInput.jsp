@@ -1568,13 +1568,16 @@ function AuthorAwardsInfoList(mbrSq,artstSq){
 		function uploadResource(fileObject) {
 			
 			var file = null;
-			
 			const formData = new FormData();
+			
+			var mbrSq = $("#mbrSq").val();
+			formData.append("url", "dealingart/artist/"+mbrSq);
 			
 			if (fileObject != null) {
 				// 파일 Drag 이용하여 등록시
 				file = fileObject[0];
 				formData.append("file", file);
+				
 				console.log(file);
 			} else {
 				file = document.getElementById("file");
