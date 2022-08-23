@@ -155,7 +155,7 @@
 						</div>
 						
 						<div class="med">
-							<h2 id="bidOrSale">낙찰 희망가</h2>
+							<h2 id="bidOrSale">경매 시작가</h2>
 							<div class="med-box radio-2">
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
@@ -163,7 +163,7 @@
 									<span class="to-red" style="font-size:12px;">판매 희망가의 70%로 자동 설정 됩니다.</span>
 								</div>
 								<div class="input-box">
-									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="희망가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px;"/>
+									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="경매 희망가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px;"/>
 									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px; display:none;"/>
 								</div>
 							</div>
@@ -1182,7 +1182,8 @@ $("input:radio[name='dealTypCd']").change(function(){
 		$(".md-ds").html("판매가 시작되면 거래를 취소할 수 없습니다.<br/>신중히 결정해 주세요.");
 	}else{
 		$("#dealRegTitle").text("판매 등록 (경매)");
-		$("#bidOrSale").text("낙찰 희망가");
+		//$("#bidOrSale").text("낙찰 희망가");
+		$("#bidOrSale").text("경매 시작가");
 		$("#bidOrSale2").css("display", "");
 		$("#dealStrtPrcA1").css("display", "");
 		$("#dealStrtPrcS").css("display", "none");
