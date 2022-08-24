@@ -41,7 +41,9 @@
 		 	,BUY_PAYMNT_STTS_CD AS buyPaymntSttsCd
 		 	,SELL_PAYMNT_STTS_CD as sellPaymntSttsCd
 		 	,DEAL_CONFIRMATION AS dealConfirmation /*거래 확인서*/
-		 	,DEAL_STATEMENT AS dealStatement /*거래 명세서*/
+		 	,DEAL_STATEMENT_S AS dealStatementS /*판매자 거래 명세서*/
+		 	,DEAL_STATEMENT_B1 AS dealStatementB1 /*구매자 1차 거래 명세서*/
+		 	,DEAL_STATEMENT_B2 AS dealStatementB2 /*구매자 2차 거래 명세서*/
 		 	,DEAL_CONTRACT AS dealContract /*거래 계약서*/
 		 	,DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM
@@ -164,7 +166,9 @@
    			TBL_DA_DEAL_M
 			<trim prefix="SET" suffixOverrides=",">
       			<if test="dealConfirmation != null and dealConfirmation != ''">DEAL_CONFIRMATION = #{dealConfirmation},</if>
-				<if test="dealStatement != null and dealStatement != ''">DEAL_STATEMENT = #{dealStatement},</if>
+				<if test="dealStatementB1 != null and dealStatementB1 != ''">DEAL_STATEMENT_B1 = #{dealStatementB1},</if>
+				<if test="dealStatementB2 != null and dealStatementB2 != ''">DEAL_STATEMENT_B2 = #{dealStatementB2},</if>
+				<if test="dealStatementS != null and dealStatementS != ''">DEAL_STATEMENT_S = #{dealStatementS},</if>
 				<if test="dealContract != null and dealContract != ''">DEAL_CONTRACT = #{dealContract},</if>
 				<if test="dealConditionCheck != null and dealConditionCheck != ''">DEAL_CONDITIONCHECK = #{dealConditionCheck},</if>
 			</trim>
@@ -178,7 +182,9 @@
    				TBL_DA_DEAL_M 
    			<trim prefix="SET" suffixOverrides=",">
       			<if test='columnNm == "dealConfirmation"'>DEAL_CONFIRMATION = NULL,</if>
-				<if test='columnNm == "dealStatement"'>DEAL_STATEMENT = NULL,</if>
+				<if test='columnNm == "dealStatementB1"'>DEAL_STATEMENT_B1 = NULL,</if>
+				<if test='columnNm == "dealStatementB2"'>DEAL_STATEMENT_B2 = NULL,</if>
+				<if test='columnNm == "dealStatementS"'>DEAL_STATEMENT_S = NULL,</if>
 				<if test='columnNm == "dealContract"'>DEAL_CONTRACT = NULL,</if>
 				<if test='columnNm == "dealConditionCheck"'>DEAL_CONDITIONCHECK = NULL,</if>
 			</trim>

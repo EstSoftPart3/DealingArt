@@ -1965,12 +1965,16 @@
 				B.CUPON_NM AS cuponNm, /*쿠폰 내용*/
 				A.REF_NO AS refNo,
 				A.TRAN_DATE AS tranDate,
-				A.PAYMNT_DT AS paymntDt
+				A.PAYMNT_DT AS paymntDt,
+				C.DEAL_STATEMENT_B1 AS dealStatementB1 /*거래명세서_구매자_1차*/
 		FROM 
 				TBL_DA_PAYMNT_H A
 		LEFT JOIN 
 				TBL_DA_CUPON_M B
 			ON	A.CUPON_SQ = B.CUPON_SQ 
+		INNER JOIN
+				TBL_DA_DEAL_M C
+			ON	A.DEAL_SQ = C.DEAL_SQ
 		WHERE 
 				A.DEAL_SQ = #{dealSq}
 			AND MBR_SQ = #{mbrSq}
@@ -2035,7 +2039,7 @@
 				A.TRAN_DATE AS tranDate,
 				A.PAYMNT_DT AS paymntDt,
 				C.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
-				C.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				C.DEAL_STATEMENT_B2 AS dealStatementB2, /*거래명세서_구매자_2차*/
 				C.DEAL_CONTRACT AS dealContract, /*거래계약서*/
 				C.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM 
@@ -2110,7 +2114,7 @@
 				A.TRAN_DATE AS tranDate,
 				A.PAYMNT_DT AS paymntDt,
 				C.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
-				C.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				C.DEAL_STATEMENT_S AS dealStatementS, /*거래명세서_판매자*/
 				C.DEAL_CONTRACT AS dealContract, /*거래계약서*/
 				C.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 				
@@ -2166,7 +2170,7 @@
 				FORMAT(A.DEAL_CALC_PRC, 0) AS dealCalcPrc,
 				DATE_FORMAT(LAST_DAY(DATE_ADD(A.DEAL_ENDNG_DT, INTERVAL 1 MONTH)), '%Y.%m.%d') AS dealCalcDate,
 				B.DEAL_CONFIRMATION AS dealConfirmation, /*거래확인서*/
-				B.DEAL_STATEMENT AS dealStatement, /*거래명세서*/
+				B.DEAL_STATEMENT_S AS dealStatementS, /*거래명세서_판매자*/
 				B.DEAL_CONTRACT AS dealContract, /*거래계약서*/
 				B.DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
 		FROM 

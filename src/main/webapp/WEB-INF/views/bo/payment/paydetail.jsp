@@ -324,9 +324,11 @@
 			                	<thead>                  
 			                  		<tr align="center" style="background-color:#efefef">
 			                    		<th>거래확인서</th>
-			                    		<th>거래명세서</th>
+			                    		<th>거래명세서<b style="color:red;">(구매자 1차)</b></th>
+			                    		<th>거래명세서<b style="color:red;">(구매자 2차)</b></th>
+			                    		<th>거래명세서<b style="color:red;">(판매자)</b></th>
 			                    		<th>거래계약서</th>
-			                    		<th>컨디션 체크 리포트</th>
+			                    		<th>컨디션체크리포트</th>
 			                    		<th></th>
 			                    	</tr>
 			                  	<thead>  
@@ -338,9 +340,19 @@
 				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealConfirmationDelete" onclick="dealConfirmationDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
-				    		  				<input type="file" id="dealStatement">
-				    		  				<br/><a href="" id="dealStatementDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
-				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealStatementDelete" onclick="dealStatementDelete()">삭제</button>
+				    		  				<input type="file" id="dealStatementB1">
+				    		  				<br/><a href="" id="dealStatementB1Down" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealStatementB1Delete" onclick="dealStatementB1Delete()">삭제</button>
+				    		  			</td>
+				    		  			<td>
+				    		  				<input type="file" id="dealStatementB2">
+				    		  				<br/><a href="" id="dealStatementB2Down" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealStatementB2Delete" onclick="dealStatementB2Delete()">삭제</button>
+				    		  			</td>
+				    		  			<td>
+				    		  				<input type="file" id="dealStatementS">
+				    		  				<br/><a href="" id="dealStatementSDown" target="_blank" style="display:none;"><b>DOWNLOAD</b></a> 
+				    		  				<br/><button type="button" class="btn btn-info sTitle" style="display:none;" id="dealStatementSDelete" onclick="dealStatementSDelete()">삭제</button>
 				    		  			</td>
 				    		  			<td>
 				    		  				<input type="file" id="dealContract">
@@ -506,14 +518,34 @@
 		        		 $("#dealConfirmationDelete").css("display", "none");
 		        	 }
 		        	 
-					 if(dataContent.dealStatement != null && dataContent.dealStatement != ""){
-						 $("#dealStatementDown").attr("href", dataContent.dealStatement);
-		        		 $("#dealStatementDown").css("display", "");
-		        		 $("#dealStatementDelete").css("display", "");
+					 if(dataContent.dealStatementB1 != null && dataContent.dealStatementB1 != ""){
+						 $("#dealStatementB1Down").attr("href", dataContent.dealStatementB1);
+		        		 $("#dealStatementB1Down").css("display", "");
+		        		 $("#dealStatementB1Delete").css("display", "");
 		        	 }else{
-		        		 $("#dealStatementDown").attr("href", "");
-		        		 $("#dealStatementDown").css("display", "none");
-		        		 $("#dealStatementDelete").css("display", "none");
+		        		 $("#dealStatementB1Down").attr("href", "");
+		        		 $("#dealStatementB1Down").css("display", "none");
+		        		 $("#dealStatementB1Delete").css("display", "none");
+		        	 }
+					 
+					 if(dataContent.dealStatementB2 != null && dataContent.dealStatementB2 != ""){
+						 $("#dealStatementB2Down").attr("href", dataContent.dealStatementB2);
+		        		 $("#dealStatementB2Down").css("display", "");
+		        		 $("#dealStatementB2Delete").css("display", "");
+		        	 }else{
+		        		 $("#dealStatementB2Down").attr("href", "");
+		        		 $("#dealStatementB2Down").css("display", "none");
+		        		 $("#dealStatementB2Delete").css("display", "none");
+		        	 }
+					 
+					 if(dataContent.dealStatementS != null && dataContent.dealStatementS != ""){
+						 $("#dealStatementSDown").attr("href", dataContent.dealStatementS);
+		        		 $("#dealStatementSDown").css("display", "");
+		        		 $("#dealStatementSDelete").css("display", "");
+		        	 }else{
+		        		 $("#dealStatementSDown").attr("href", "");
+		        		 $("#dealStatementSDown").css("display", "none");
+		        		 $("#dealStatementSDelete").css("display", "none");
 		        	 }
 		        	 
 					 if(dataContent.dealContract != null && dataContent.dealContract != ""){
@@ -1027,13 +1059,33 @@
 				}
 			}
 			
-			//거래 명세서
-			const dealStatement = document.getElementById("dealStatement");
-			if(dealStatement.files[0] == null && $("#dealStatement").val() != null){
-				result.dealStatement = $("#dealStatement").val();
+			//거래 명세서 구매자 1차
+			const dealStatementB1 = document.getElementById("dealStatementB1");
+			if(dealStatementB1.files[0] == null && $("#dealStatementB1").val() != null){
+				result.dealStatementB1 = $("#dealStatementB1").val();
 			}else{
-				if(dealStatement.files[0] != null){
-					formData.append("dealStatement", dealStatement.files[0]);
+				if(dealStatementB1.files[0] != null){
+					formData.append("dealStatementB1", dealStatementB1.files[0]);
+				}
+			}
+			
+			//거래 명세서 구매자 1차
+			const dealStatementB2 = document.getElementById("dealStatementB2");
+			if(dealStatementB2.files[0] == null && $("#dealStatementB2").val() != null){
+				result.dealStatementB2 = $("#dealStatementB2").val();
+			}else{
+				if(dealStatementB2.files[0] != null){
+					formData.append("dealStatementB2", dealStatementB2.files[0]);
+				}
+			}
+			
+			//거래 명세서 판매자
+			const dealStatementS = document.getElementById("dealStatementS");
+			if(dealStatementS.files[0] == null && $("#dealStatementS").val() != null){
+				result.dealStatementS = $("#dealStatementS").val();
+			}else{
+				if(dealStatementS.files[0] != null){
+					formData.append("dealStatementS", dealStatementS.files[0]);
 				}
 			}
 			
@@ -1109,10 +1161,10 @@
 		    }
 		}
 		
-		function dealStatementDelete(){
-			if(confirm("거래 명세서를 삭제하시겠습니까?")){
+		function dealStatementB1Delete(){
+			if(confirm("거래 명세서(구매자 1차)를 삭제하시겠습니까?")){
 				var param = new Object();
-				param.columnNm = "dealStatement";
+				param.columnNm = "dealStatementB1";
 				param.dealSq = $("#dealSq").val();
 				$.ajax({
 		  	           type: "post",
@@ -1120,10 +1172,66 @@
 		  	           data: param,
 		  	           success: function(data) {
 		  	        	   if(data == "Success"){
-		  	        		   alert("거래 명세서가 삭제되었습니다.");
+		  	        		   alert("거래 명세서(구매자 1차)가 삭제되었습니다.");
 		  	        		   location.reload();
 		  	        	   }else{
-		  	        		 alert("거래 명세서 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		 alert("거래 명세서(구매자 1차) 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
+		}
+		
+		function dealStatementB2Delete(){
+			if(confirm("거래 명세서(구매자 2차)를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealStatementB2";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("거래 명세서(구매자 2차)가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("거래 명세서(구매자 2차) 삭제에 실패했습니다. 다시 시도해주세요.");
+		  	        		   location.reload();
+		  	        	   }
+		  			   },
+		  	           error: function(error) {
+		  	        	   var errorJson = JSON.stringify(error);
+		  	               console.log(errorJson);
+		  	           }
+		  		});
+		    }else{
+		        return;
+		    }
+		}
+		
+		function dealStatementSDelete(){
+			if(confirm("거래 명세서(판매자)를 삭제하시겠습니까?")){
+				var param = new Object();
+				param.columnNm = "dealStatementS";
+				param.dealSq = $("#dealSq").val();
+				$.ajax({
+		  	           type: "post",
+		  	           url: "/admin/payment/dealFileDelete",
+		  	           data: param,
+		  	           success: function(data) {
+		  	        	   if(data == "Success"){
+		  	        		   alert("거래 명세서(판매자)가 삭제되었습니다.");
+		  	        		   location.reload();
+		  	        	   }else{
+		  	        		 alert("거래 명세서(판매자) 삭제에 실패했습니다. 다시 시도해주세요.");
 		  	        		   location.reload();
 		  	        	   }
 		  			   },
