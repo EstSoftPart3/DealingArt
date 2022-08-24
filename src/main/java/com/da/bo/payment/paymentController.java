@@ -175,12 +175,13 @@ public class paymentController {
 	@ResponseBody
 	public String dealFileUpload(@RequestPart(value = "param") Map<String, Object> param, 
 			@RequestPart(value = "dealConfirmation") @Nullable MultipartFile dealConfirmation,
-			@RequestPart(value = "dealStatement") @Nullable MultipartFile dealStatement,
+			@RequestPart(value = "dealStatementB1") @Nullable MultipartFile dealStatementB1,
+			@RequestPart(value = "dealStatementB2") @Nullable MultipartFile dealStatementB2,
+			@RequestPart(value = "dealStatementS") @Nullable MultipartFile dealStatementS,
 			@RequestPart(value = "dealContract") @Nullable MultipartFile dealContract,
 			@RequestPart(value = "dealConditionCheck") @Nullable MultipartFile dealConditionCheck) throws IOException {
 		
 		System.out.println("##################### collectionReg param : " + param);
-		System.out.println("##################### collectionReg file : " + dealConfirmation + dealStatement + dealContract + dealConditionCheck);
 		//거래 순번
 		String dealSq = param.get("dealSq").toString();
 		//db에 담을 Map
@@ -192,10 +193,20 @@ public class paymentController {
 			FileVo file = awsS3Service.upload(dealConfirmation, "dealingart/dealFile/"+dealSq);
 			deal.put("dealConfirmation", file.getFileUrl());
 		}
-		//거래 명세서
-		if(dealStatement != null){
-			FileVo file = awsS3Service.upload(dealStatement, "dealingart/dealFile/"+dealSq);
-			deal.put("dealStatement", file.getFileUrl());
+		//거래 명세서 구매자 1차
+		if(dealStatementB1 != null){
+			FileVo file = awsS3Service.upload(dealStatementB1, "dealingart/dealFile/"+dealSq);
+			deal.put("dealStatementB1", file.getFileUrl());
+		}
+		//거래 명세서 구매자 2차
+		if(dealStatementB2 != null){
+			FileVo file = awsS3Service.upload(dealStatementB2, "dealingart/dealFile/"+dealSq);
+			deal.put("dealStatementB2", file.getFileUrl());
+		}
+		//거래 명세서 판매자 
+		if(dealStatementS != null){
+			FileVo file = awsS3Service.upload(dealStatementS, "dealingart/dealFile/"+dealSq);
+			deal.put("dealStatementS", file.getFileUrl());
 		}
 		//거래 계약서
 		if(dealContract != null){
