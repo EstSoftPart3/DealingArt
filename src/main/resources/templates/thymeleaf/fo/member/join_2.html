@@ -326,7 +326,7 @@
   }
   
   var mbrIdOverlapChk = false;
-  var memberInputBtnClick = 0;
+  
   //회원가입
   $("#memberInputBtn").on('click', function(event){
   	memberInputBtnClick += 1;
@@ -372,7 +372,7 @@
   		$('#mbrPwdCheckU').css('color','red');
   		$('#mbrPwdCheckD').css('color','#999999');
   		$("#mbrPasswrd").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	} 
   	/*
@@ -381,7 +381,7 @@
   		$('#mbrPwdCheckU').css('color','red');
   		$('#mbrPwdCheckD').css('color','#999999');
   		$("#mbrPasswrd").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	*/
@@ -396,7 +396,7 @@
   		$('#mbrPwdCheckU').css('color','red');
   		$('#mbrPwdCheckD').css('color','#999999');
   		$("#mbrPasswrd").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	 */
@@ -406,7 +406,7 @@
   		$('#mbrPwdCheckU').css('color','red');
   		$('#mbrPwdCheckD').css('color','#999999');
   		$("#mbrPasswrd").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	  	  	 
@@ -415,7 +415,7 @@
   		$('#mbrPwdCheckU').css('color','#999999');
   		$('#mbrPwdCheckD').css('color','red');
   		$("#mbrPasswrd").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	
@@ -452,7 +452,7 @@
   		 $('#mbrPwdCheckU').css('color','#999999');
   		 $('#mbrPwdCheckD').css('color','red');
   		 $("#mbrPasswrd").focus();
-  		 memberInputBtnClick = 0;
+  		 
   		 return;
   	 } // if
   	 
@@ -460,7 +460,7 @@
   		 $('#mbrPwdCheckU').css('color','#999999');
   		 $('#mbrPwdCheckD').css('color','red');
   		 $("#mbrPasswrd").focus();
-  		 memberInputBtnClick = 0;
+  		 
   		 return;
   	 }
   	
@@ -470,7 +470,7 @@
   		 $('#mbrPwdCheckU').css('color','#999999');
   		 $('#mbrPwdCheckD').css('color','red');
   		 $("#mbrPasswrd").focus();
-  		 memberInputBtnClick = 0;
+  		 
   		  return;
   	 } else {
   		 $('#mbrPwdCheckU').css('color','#999999');
@@ -482,7 +482,7 @@
   	if(mbrPasswrd != mbrPasswrdConfirm) {
   		fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
   		$("#mbrPasswrdConfirm").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	
@@ -494,7 +494,7 @@
   	 if(isEmpty(mbrNm)) {
   		 fn_validation('mbrNmCheck','이름을 정확히 입력하세요', 'R');
   		 $("#mbrNm").val();
-  		 memberInputBtnClick = 0;
+  		 
   		 return;
   	 }
   	 fn_validation('mbrNmCheck','', 'B');
@@ -503,7 +503,7 @@
   	 if(isEmpty(mbrCpNum)) {
   		 fn_validation('mbrCpNumCheck','휴대폰번호를 정확히 입력하세요.', 'R');
   		 $("#mbrCpNum").val();
-  		 memberInputBtnClick = 0;
+  		 
   		 return;
   	 }
   	 
@@ -514,14 +514,14 @@
   		$("#mainSmsCertificationCheck").show();
   		fn_validation('mainSmsCertificationCheck','휴대폰 본인 인증을 해주세요.', 'R');
   		$("#mbrCpNum").val();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	
   	//중복회원 여부
   	if($("#mainSmsCertificationCheck").text() == '이미 등록된 회원입니다.') {
   		$("#mbrCpNum").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	
@@ -529,7 +529,7 @@
   	if(mbrNcknmCheckYn == "N"){
   		fn_validation('mbrNcknmCheck','활동명 중복체크를 해주세요.', 'R');		
   		$("#mbrNcknm").focus();
-  		memberInputBtnClick = 0;
+  		
   		return;
   	}
   	
@@ -542,19 +542,19 @@
 	
 	if(s1Check == false) {
 		modalAlertShow("만 18세 이상인것은 확인해주세요.","");
-		memberInputBtnClick = 0;
+		
 		return;
 	}
 	
 	if(s2Check == false) {
 		modalAlertShow("이용약관을 읽고 확인해 주세요.","");
-		memberInputBtnClick = 0;
+		
 		return;
 	}
 	
 	if(s3Check == false) {
 		modalAlertShow("개인정보처리방침을 읽고 확인해 주세요.","");
-		memberInputBtnClick = 0;
+		
 		return;
 	}
   	
@@ -563,14 +563,9 @@
   	if(s4Check == true) {
   		mbrEmlAlarm = 'Y';
   		mbrCpAlarm = 'Y'
-  		memberInputBtnClick = 0;
+  		
   	}
   	
-	/* if(memberInputBtnClick > 1){
-  		modalAlertShow("회원 가입 처리중입니다. 잠시만 기다려주세요.");
-  		return;
-  	} */
-  	 
   	 let memParams = {
   		  "mbrId" : mbrId,
   		  "mbrPasswrd" : mbrPasswrd,
