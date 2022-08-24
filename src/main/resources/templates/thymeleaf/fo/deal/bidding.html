@@ -1172,7 +1172,9 @@ function chart() {
 	        	
 	        	bidDate.push(data.result[0].dealStrtDate);
 	        	bidPrc.push(data.result[0].dealStrtPrc);
-	        	bidMbrNcknm.push("시작가");
+	        	//bidMbrNcknm.push("시작가");
+	        	//2022-08-24 : 입찰자 닉네임 추가 : 박상현
+	        	bidMbrNcknm.push(data.result[0].sellMbrNcknm);
 	        	for(var i=0; i<data.result.length; i++){
 	        		bidDate.push(data.result[i].bidDate);
 	        		bidPrc.push(data.result[i].bidPrc);
@@ -1231,15 +1233,31 @@ function chart() {
 	            		size: 13
 	            	},
 	            	callbacks: {
+	            		//2022-08-24 : 라벨 분기 추가 : 박상현
+	            		label: function(data) {
+	            			var label = "";
+	            			if(data.dataIndex == 0) {
+	            				label = "시작가: "+data.formattedValue;
+	            			}else{
+	            				label = "응찰가: "+data.formattedValue;
+	            			}
+	            			return label;
+	                    },
+	                    //2022-08-24 : 시작시간 분기 추가 : 박상현
 	                    title: function(context) {
-	                    	var title = "응찰시간: " + context[0].label;
+	                    	var title = "";
+	                    	if(context[0].dataIndex == 0) {
+	                    		title = "시작시간: " + context[0].label;
+	                    	} else {
+	                    		title = "응찰시간: " + context[0].label;
+	                    	}
 	                    	return title;
 	                    },
+	                    //2022-08-24 : 입찰자,응찰자 분기 추가 : 박상현
 	            		footer: function(tooltipItems) {
-	            			
 	            			var footer = "";
 	            			if(tooltipItems[0].dataIndex == 0) {
-	            				footer = "";
+	            				footer = "입찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
 	            			} else {
 	            				footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];	
 	            			}

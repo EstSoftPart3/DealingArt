@@ -541,7 +541,8 @@
 				DATE_FORMAT(A.BID_DATE, '%Y.%m.%d %H:%i:%s') AS bidDate,
 				B.MBR_NCKNM AS mbrNcknm,
 				C.DEAL_STRT_PRC AS dealStrtPrc,
-				DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d %H:%i:%s') AS dealStrtDate
+				DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d %H:%i:%s') AS dealStrtDate,
+				(SELECT MBR_NCKNM FROM TBL_DA_MBR_M WHERE MBR_SQ = C.SELL_MBR_SQ) AS sellMbrNcknm
 		FROM 
 				TBL_DA_AUCTN_BID_H AS A
 		INNER JOIN
