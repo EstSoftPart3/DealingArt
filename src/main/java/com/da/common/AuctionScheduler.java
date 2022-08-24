@@ -45,7 +45,7 @@ public class AuctionScheduler {
 			e.printStackTrace();
 			
 		}
-		if(hostName == "Dealling-Art") {
+		if(hostName == "Dealing-Art") {
 		
 			List<Map<String, Object>> successfulBidList = dealMapper.selectSuccessfulBidList(); //거래 종료 시간 만료한 경매 정보 가져오기
 			List<Map<String, Object>> successfulSaleList = dealMapper.selectNotSoldSaleList(); //판매 종료 시간이 만료했지만 판매되지 않은 정찰가 거래 정보 가져오기
