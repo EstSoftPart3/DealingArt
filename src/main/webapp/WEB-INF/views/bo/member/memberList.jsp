@@ -51,7 +51,7 @@
 	                          <option value="mbrNcknm">닉네임</option>
 	                          <option value="mbrSq">회원순번</option>
 	                        </select>
-		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색" style="width:200px;">
+		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색" style="width:200px;" >
 		
 		                    <div class="input-group-append">
 		                      <button type="button" data-action="memberSearch" data-id="search-id" class="btn btn-default" id="searchBtn"><i class="fas fa-search"></i></button>
@@ -197,6 +197,14 @@
    			
    			return result;
 		}
+   		
+   		//검색 input Box enter Key Press
+   		$("#searchWord").on("keydown",function(key){         
+   			if(key.keyCode==13) {             
+   				searchMemberData();   
+   			}     
+   		});
+   		
    		
    		//검색
    		$("#searchBtn").on('click', function(){

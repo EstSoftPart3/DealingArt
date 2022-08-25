@@ -501,7 +501,7 @@ function artistLibraryList(){
         		
         		if(upAndComingArtist.length > 0){
 	        		for(var i=0; i<upAndComingArtist.length; i++){
-	        			upAndComingArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ upAndComingArtist[i].artstSq +'">';
+	        			upAndComingArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ upAndComingArtist[i].artstSq +'" artistBirthYear="'+upAndComingArtist[i].artistBirthYear+'">';
 		        		upAndComingArtistHtml += '	<a class="hd-div3">';
 		        		if(upAndComingArtist[i].artstWorkImgUrl != null && upAndComingArtist[i].artstWorkImgUrl != ""){
 		        			upAndComingArtistHtml += '		<div class="hd-bg3"><img src="'+ upAndComingArtist[i].artstWorkImgUrl +'" /></div>';
@@ -527,7 +527,7 @@ function artistLibraryList(){
         		}
         		if(middleAgedArtist.length > 0){
 	        		for(var i=0; i<middleAgedArtist.length; i++){
-	        			middleAgedArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ middleAgedArtist[i].artstSq +'">';
+	        			middleAgedArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ middleAgedArtist[i].artstSq +'" artistBirthYear="'+middleAgedArtist[i].artistBirthYear+'">';
 		        		middleAgedArtistHtml += '	<a class="hd-div3">';
 		        		if(middleAgedArtist[i].artstWorkImgUrl != null && middleAgedArtist[i].artstWorkImgUrl != ""){
 		        			middleAgedArtistHtml += '		<div class="hd-bg3"><img src="'+ middleAgedArtist[i].artstWorkImgUrl +'" /></div>';
@@ -553,7 +553,7 @@ function artistLibraryList(){
         		}
         		if(seniorArtist.length > 0){
 	        		for(var i=0; i<seniorArtist.length; i++){
-	        			seniorArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ seniorArtist[i].artstSq +'">';
+	        			seniorArtistHtml += '<div class="swiper-slide" style="cursor:pointer;" artstSq="'+ seniorArtist[i].artstSq +'" artistBirthYear="'+seniorArtist[i].artistBirthYear+'">';
 		        		seniorArtistHtml += '	<a class="hd-div3">';
 		        		if(seniorArtist[i].artstWorkImgUrl != null && seniorArtist[i].artstWorkImgUrl != ""){
 		        			seniorArtistHtml += '		<div class="hd-bg3"><img src="'+ seniorArtist[i].artstWorkImgUrl +'" /></div>';
