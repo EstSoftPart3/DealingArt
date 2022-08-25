@@ -1725,14 +1725,14 @@ $(document).on("click",".work",function(){
 
 $(document).on("click",".artst",function(){
 	var artstSq= $(this).attr("sq");
-	
-	pageGoPost({
+	location.href='/artistDetail?artstSq='+artstSq;
+	/* pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
 		vals:[
 			["artstSq", artstSq]
 		]
-	});
+	}); */
 });
 
 $(document).on("click",".contents",function(){
@@ -1756,13 +1756,15 @@ $(document).on("click",".workMore",function(){
 	}else{
 		modalConfirm("작품 검색 결과 페이지로 이동하겠습니까?", function(confrim){
 			if(confrim){
+				var ibx_search = $("#ibx_search").val();
+				
 				pageGoPost({
 					url:"/totalSearch_work",
 					target:"_self",
 					vals:[
 						["searchKeyword", $("#ibx_search").val()]
 					]
-				});
+				}); 
 			}
 		});
 	}
