@@ -1187,6 +1187,7 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				B.AUTH_SQ AS authSq, /*작가구분*/
+				A.WORK_TYP_CD AS workTypCd, /*작품구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/
@@ -1234,6 +1235,7 @@
 		SELECT 
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.WORK_TYP_CD AS workTypCd, /*작품구분*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /* 작가생년월일+작가사망연도*/

@@ -313,7 +313,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeLoginModal()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 			</div>
 			<div class="modal-body login-body">
@@ -993,6 +993,10 @@ $('#loginModal').on('hidden.bs.modal', function () {
 	$("#txt_Pw").val('');
 })
 
+function closeLoginModal(){
+	$('body').css("overflow", "scroll");
+	$("#loginModal").modal("hide");
+}
 
 //휴대폰 인증 실패
 /*

@@ -67,9 +67,9 @@ public class DealController {
 	
 	@RequestMapping("/bidding")
 	@ResponseBody
-	public ModelAndView bidding(@RequestParam(value="workSq", required=false) String workSq) {
+	public ModelAndView bidding(@RequestParam(value="dealSq", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
-		Map<String, Object> result = dealService.dealDetail(workSq);
+		Map<String, Object> result = dealService.dealDetail(dealSq);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -270,6 +270,15 @@ public class DealController {
 	public ModelAndView workDetail(@RequestParam(value="workSq", required=false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/workDetail");
 		Map<String, Object> result = dealService.workDetail(workSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	@RequestMapping("/soldoutDetail")
+	@ResponseBody
+	public ModelAndView soldoutDetail(@RequestParam(value="dealSq", required=false) String dealSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/soldoutDetail");
+		Map<String, Object> result = dealService.soldoutDetail(dealSq);
 		mv.addObject("result", result);
 		return mv;
 	}

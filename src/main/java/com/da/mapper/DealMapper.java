@@ -106,6 +106,13 @@ public interface DealMapper {
 	public Map<String, Object> workDetail(Object param);
 	
 	/*
+	 * 작품 상세페이지 (판매완료)
+	 * param : workSq
+	 * return : 작품 상세 정보
+	 */
+	public Map<String, Object> soldoutDetail(Object param);
+	
+	/*
 	 * 자동응찰 있는지 조회
 	 * param : dealSq, bidPrc
 	 * return : autoBidPrc

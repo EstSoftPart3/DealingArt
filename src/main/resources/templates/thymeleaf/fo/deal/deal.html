@@ -103,9 +103,9 @@
 								</div>
 								<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 									<div class="panel-body">
-										<input type="radio" id="r3" name="authSq" value="1" class="searchOption" onclick="dealSearch()" checked/>
+										<input type="radio" id="r3" name="workTypCd" value="COLL" class="searchOption" onclick="dealSearch()" />
                                         <label for="r3"><span></span>Collector</label><br/>
-                                        <input type="radio" id="r4" name="authSq" value="2" class="searchOption" onclick="dealSearch()" />
+                                        <input type="radio" id="r4" name="workTypCd" value="WORK" class="searchOption" onclick="dealSearch()" />
                                         <label for="r4"><span></span>Artist</label>
 									</div>
 								</div>
@@ -120,7 +120,7 @@
 								</div>
 								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 									<div class="panel-body">
-										<input type="checkbox" id="a11" name="dealSttsCd" value="TP" class="searchOption" onclick="dealSearch()"/>
+										<input type="checkbox" id="a11" name="dealSttsCd" value="TP" class="searchOption" onclick="dealSearch()" />
                                         <label for="a11"><span></span>판매중</label><br/>
                                         <input type="checkbox" id="a22" name="dealSttsCd" value="TC" class="searchOption" onclick="dealSearch()"/>
                                         <label for="a22"><span></span>판매 종료</label><br/>
@@ -284,9 +284,9 @@
 													<span>Deal with</span>
 												</div>
 												<div class="drop-body">
-                                                    <input type="radio" id="m3" name="authSq" value="1" class="searchOption" checked/>
+                                                    <input type="radio" id="m3" name="workTypCd" value="COLL" class="searchOption" />
                                                     <label for="m3"><span></span>Collector</label><br/>
-                                                    <input type="radio" id="m4" name="authSq" value="2" class="searchOption"/>
+                                                    <input type="radio" id="m4" name="workTypCd" value="WORK" class="searchOption"/>
                                                     <label for="m4"><span></span>Artist</label>
 												</div>
 											</li>
@@ -295,7 +295,7 @@
 													<span>거래</span>
 												</div>
 												<div class="drop-body">
-                                                    <input type="checkbox" id="p1" name="dealSttsCd" value="TP" class="searchOption"/>
+                                                    <input type="checkbox" id="p1" name="dealSttsCd" value="TP" class="searchOption" />
 													<label for="p1"><span></span>판매중</label><br/>
                                                     <input type="checkbox" id="p2" name="dealSttsCd" value="TC" class="searchOption"/>
 													<label for="p2"><span></span>판매 종료</label><br/>
@@ -452,11 +452,11 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-                                <input type="radio" id="s5" name ="authSq" value="1" class="searchOption" checked/>
+                                <input type="radio" id="s5" name ="workTypCd" value="COLL" class="searchOption" />
                                 <label for="s5"><span></span>Collector</label>
 							</div>
 							<div class="db-div">
-                                <input type="radio" id="s6" name="authSq" value="2" class="searchOption"/>
+                                <input type="radio" id="s6" name="workTypCd" value="WORK" class="searchOption"/>
                                 <label for="s6"><span></span>Artist</label>
 							</div>
 						</div>
@@ -467,7 +467,7 @@
 						</div>
 						<div class="drop-body">
 							<div class="db-div">
-                                <input type="checkbox" id="z1" name="dealSttsCd" value="TP" class="searchOption"/>
+                                <input type="checkbox" id="z1" name="dealSttsCd" value="TP" class="searchOption" />
 								<label for="z1"><span></span>판매중</label>
 							</div>
 							<div class="db-div">
@@ -616,8 +616,8 @@
 		searchOptions.searchKeyword = $("#searchKeyword").val();
 		
 		//회원구분
-		if($('input[name=authSq]:checked').val() != null && $('input[name=authSq]:checked').val() != ""){
-			searchOptions.authSq = $('input[name=authSq]:checked').val();
+		if($('input[name=workTypCd]:checked').val() != null && $('input[name=workTypCd]:checked').val() != ""){
+			searchOptions.workTypCd = $('input[name=workTypCd]:checked').val();
 		}
 		//거래유형코드
 		var dealTypCds = new Array();
@@ -630,7 +630,15 @@
 		//거래상태코드
 		var dealSttsCds = new Array();
 		document.querySelectorAll('input[name=dealSttsCd]:checked').forEach((el) => {
-			dealSttsCds.push(el.value);
+			if(el.value == "TC"){
+				dealSttsCds.push("TC");
+				dealSttsCds.push("PD");
+				dealSttsCds.push("DS");
+				dealSttsCds.push("DC");
+				dealSttsCds.push("PC");
+			}else{
+				dealSttsCds.push(el.value);
+			}
 		});
 		if(dealSttsCds.length > 0){
 			searchOptions.dealSttsCds = dealSttsCds;
@@ -685,7 +693,7 @@
 	     						
 	     						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;" >';
 		     					html += '<div>';
-		     					html += '<div class="item-div-img active" onclick="workDetail('+ dealList[i].workSq +')" style="cursor:pointer">'
+		     					html += '<div class="item-div-img active" onclick="dealDetail('+ dealList[i].dealSq +')" style="cursor:pointer">'
 		     					//작품 이미지
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					
@@ -739,10 +747,10 @@
 		     					
 		     					html += '</div>';
 		     					
-		     					if(dealList[i].authSq == 2){
+		     					if(dealList[i].workTypCd == "WORK"){
 		    	     				html += '<div class="artist active"><span>Artist</span></div>';
 		    	     			}
-		    	     			if(dealList[i].authSq == 1){
+		    	     			if(dealList[i].workTypCd == "COLL"){
 		    	     				html += '<div class="artist"><span>Artist</span></div>';
 		    	     			}
 		     					
@@ -758,7 +766,7 @@
 	     						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 		     					html += '<div>';
 		     					//작품 이미지
-		     					html += '<div class="item-div-img sale" onclick="workDetail('+ dealList[i].workSq +')"  style="cursor:pointer">';
+		     					html += '<div class="item-div-img sale" onclick="dealDetail('+ dealList[i].dealSq +')"  style="cursor:pointer">';
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '		<div class="item-ho2 sale-div">';
 		    	     			html += '			<h3>판매중</h3>';
@@ -791,10 +799,10 @@
 		     					
 		     					html += '</div>';
 		     					
-		     					if(dealList[i].authSq == 2){
+		     					if(dealList[i].workTypCd == "WORK"){
 		    	     				html += '<div class="artist active"><span>Artist</span></div>';
 		    	     			}
-		    	     			if(dealList[i].authSq == 1){
+		    	     			if(dealList[i].workTypCd == "COLL"){
 		    	     				html += '<div class="artist"><span>Artist</span></div>';
 		    	     			}
 		     					
@@ -806,11 +814,11 @@
 	     					}
 	     					
 	     					//거래종료
-	     					if(dealList[i].dealSttsCd == "TC"){
+	     					if(dealList[i].dealSttsCd == "TC" || dealList[i].dealSttsCd == "PD" || dealList[i].dealSttsCd == "DS" || dealList[i].dealSttsCd == "DC" || dealList[i].dealSttsCd == "PC"){
 		     					
 	     						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 		     					html += '<div >';
-		     					html += '<div class="item-div-img sold-3">';
+		     					html += '<div class="item-div-img sold-3" onclick="soldoutDetail('+ dealList[i].dealSq +')"  style="cursor:pointer"">';
 		     					//작품 이미지
 		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 		     					html += '</div>';
@@ -841,10 +849,10 @@
 		     					
 		     					html += '</div>';
 		     					
-		     					if(dealList[i].authSq == 2){
+		     					if(dealList[i].workTypCd == "WORK"){
 		    	     				html += '<div class="artist active"><span>Artist</span></div>';
 		    	     			}
-		    	     			if(dealList[i].authSq == 1){
+		    	     			if(dealList[i].workTypCd == "COLL"){
 		    	     				html += '<div class="artist"><span>Artist</span></div>';
 		    	     			}
 		     					
@@ -1015,10 +1023,13 @@
 		}
 	});
     
-	function workDetail(workSq){
-		window.location.href = "/bidding?workSq="+workSq;
+	function dealDetail(dealSq){
+		window.location.href = "/bidding?dealSq="+dealSq;
 	}
 	
+	function soldoutDetail(dealSq){
+		window.location.href = "/soldoutDetail?dealSq="+dealSq;
+	}
 	
 	/* $(document).on("click", ".heartsoldout", function(){
 		modalAlertShow("판매가 완료된 상품은 [스크랩]을 할 수 없습니다.");

@@ -10,13 +10,13 @@
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
-				B.AUTH_SQ AS authSq, /*작가구분*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				IF(C.ARTST_YOD IS NULL OR C.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR,'~',C.ARTST_YOD)) AS artstBirthYear, /*작가생년월일*//* 작가생년월일+작가사망연도*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_TYP_CD AS workTypCd, /*작품타입*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
@@ -39,9 +39,6 @@
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A
-		INNER JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.MBR_SQ = B.MBR_SQ
 		LEFT JOIN
 				TBL_DA_ARTST_M AS C
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
@@ -49,8 +46,7 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
-				1=1
-				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
@@ -61,28 +57,28 @@
 				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
 			</if>
-			<if test="authSq != null and authSq != ''">
-				AND B.AUTH_SQ = #{authSq}
+			<if test="workTypCd != null and workTypCd != ''">
+				AND A.WORK_TYP_CD = #{workTypCd}
         	</if>	
-			<if test="dealTypCds != null">
+			<if test="dealTypCds != null and dealTypCds != ''">
 				AND D.DEAL_TYP_CD IN
 				<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-        	<if test="dealSttsCds != null">
+        	<if test="dealSttsCds != null and dealSttsCds != ''">
 				AND D.DEAL_STTS_CD IN
 				<foreach collection="dealSttsCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-			<if test="workShpCds != null">
+			<if test="workShpCds != null and workShpCds != ''">
 				AND A.WORK_SHP_CD IN
 				<foreach collection="workShpCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
         	</if>
-	        <if test="workClsfcCds != null">
+	        <if test="workClsfcCds != null and workClsfCds != ''">
 				AND A.WORK_CLSFC_CD IN
 				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
@@ -115,7 +111,7 @@
 	        	</if>
 	        </if>
 	        <if test='(sort == null or sort == "") and (type == null or type =="")'>
-	        	ORDER BY DEAL_STRT_DT DESC
+	        	ORDER BY D.DEAL_STRT_DT DESC
 	        </if>
  	        <!-- LIMIT 6 OFFSET #{startRow} -->
 	</select>
@@ -177,8 +173,8 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE 
-				A.WORK_SQ = #{workSq}
-			AND DEAL_STTS_CD != 'FB'
+				D.DEAL_SQ = #{dealSq}
+			AND D.DEAL_STTS_CD != 'FB'
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
@@ -472,6 +468,57 @@
 				A.WORK_SQ = #{workSq}
 		  AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>
+	
+	<select id="soldoutDetail" resultType="hashMap" parameterType="String">
+		/*작품 상세 정보 가져오기*/
+		SELECT 
+				A.WORK_SQ AS workSq,
+				A.ARTST_SQ AS artstSq,
+				A.MBR_SQ AS mbrSq,
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				A.WORK_NM AS workNm,
+				A.WORK_PRODC_YEAR AS workProdcYear,
+				A.WORK_MATRL AS workMatrl,
+				A.WORK_FRM_YN AS workFrmYn,
+				A.WORK_SIZE_WIDTH AS workSizeWidth,
+				A.WORK_SIZE_DEPTH AS workSizeDepth,
+				A.WORK_SALE_YN AS workSaleYn,
+				A.WORK_CLR_CD AS workClrCd,
+				A.ARTST_ENGLS_NM AS artstEnglsNm,
+				A.WORK_IMG_FRT_URL AS workImgFrtUrl, /*전면이미지주소*/
+	            A.WORK_IMG_RER_URL AS workImgRerUrl, /*후면이미지주소*/
+	            A.WORK_IMG_TOP_URL AS workImgTopUrl, /*상 이미지주소*/
+	            A.WORK_IMG_BOT_URL AS workImgBotUrl, /*히 이미지주소*/
+	            A.WORK_IMG_LEF_URL AS workImgLefUrl, /*좌 이미지주소*/
+	            A.WORK_IMG_RIT_URL AS workImgRitUrl, /*우 이미지주소*/
+	            A.WORK_LAKE AS workLake,
+				FORMAT(A.WORK_PRC, 0) AS workPrc,
+				B.MBR_NCKNM AS mbrNcknm,
+				A.WORK_STATE AS workState,
+				C.DEAL_TYP_CD AS dealTypCd,
+				FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				DATE_FORMAT(C.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDt,
+				(SELECT
+						MBR_NCKNM
+				FROM
+						TBL_DA_MBR_M
+				WHERE
+						MBR_SQ = C.BUY_MBR_SQ) AS buyNcknm
+				
+		FROM
+				TBL_DA_WORK_M AS A
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+		INNER JOIN
+				TBL_DA_DEAL_M AS C
+			ON	A.WORK_SQ = C.WORK_SQ
+		WHERE 
+				C.DEAL_SQ = #{dealSq}
+		  AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+	</select>
+	
 	<select id="selectAutoBid" resultType="hashMap" parameterType="hashMap">
 		/*자동응찰 내용 조회*/
 		SELECT

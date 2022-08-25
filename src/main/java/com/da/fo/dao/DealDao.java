@@ -347,6 +347,37 @@ public class DealDao {
 	}
 	
 	/*
+	 * 작품 상세 페이지 (판매완료)
+	 * param : workSq
+	 * return : 작품 상세 정보
+	 */
+	public Map<String, Object> soldoutDetail(String param){
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> work = dealMapper.soldoutDetail(param);
+ 		Map<String, Object> artistInfo = new HashMap<>();
+
+		result.put("work", work);
+		if(work.get("artstSq") != null) {
+			artistInfo = artistMapper.artistInfo(work.get("artstSq").toString());
+			List eductn = artistMapper.artistInfoEductn(work.get("artstSq").toString());
+			List career = artistMapper.artistInfoCareer(work.get("artstSq").toString());
+			List exhbtn = artistMapper.artistInfoExhbtn(work.get("artstSq").toString());
+			List exhbtnAword = artistMapper.artistInfoExhbtnAword(work.get("artstSq").toString());
+			List workList = artistMapper.artistWorkListAll(work.get("artstSq").toString());
+			result.put("artistInfo", artistInfo);
+			result.put("eductn", eductn);
+			result.put("career", career);
+			result.put("exhbtn", exhbtn);
+			result.put("exhbtnAword", exhbtnAword);
+			result.put("workList", workList);
+		} else {
+			result.put("artistInfo", artistInfo);
+			return result;
+		}
+		return result;
+	}
+	
+	/*
 	 * 거래 정보 가져오기 (거래 수정)
 	 * param : dealSq
 	 * return : deal 테이블

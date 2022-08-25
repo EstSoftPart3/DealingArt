@@ -181,10 +181,10 @@ function myCollectionList(){
 			myCollectionHtml += '			<h4>가격 '+ formatComma(result[i].workPrc) +'</h4>';
 		}
 		myCollectionHtml += '		</div>';
-		if(result[i].authSq == 2){
+		if(result[i].workTypCd == "WORK"){
 			myCollectionHtml += '	<div class="artist active"><span>Artist</span></div>';
 		}
-		if(result[i].authSq == 1){
+		if(result[i].workTypCd == "COLL"){
 			myCollectionHtml += '	<div class="artist"><span>Artist</span></div>';
 		}
 		myCollectionHtml += '	</div>';

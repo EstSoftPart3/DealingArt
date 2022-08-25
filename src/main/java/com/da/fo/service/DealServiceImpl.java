@@ -72,6 +72,15 @@ public class DealServiceImpl implements DealService{
 	}
 	
 	/*
+	 * 작품 상세 페이지 (판매완료)
+	 * param : workSq
+	 * return : 작품 상세 정보
+	 */
+	public Map<String, Object> soldoutDetail(String param){
+		return dealDao.soldoutDetail(param);
+	}
+	
+	/*
 	 * 거래 정보 가져오기 (거래 수정)
 	 * param : dealSq
 	 * return : deal 테이블

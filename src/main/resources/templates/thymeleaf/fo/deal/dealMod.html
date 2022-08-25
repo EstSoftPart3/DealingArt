@@ -162,15 +162,17 @@
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
 									<th:block th:if="${result.deal.dealTypCd.toString().equals('A')}">
-										<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA" th:text="${result.deal.dealStrtPrc}+' KRW'"></div></label>
+										<!-- <label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA" th:text="${result.deal.dealStrtPrc}+' KRW'"></div></label> -->
+										<label for="t1" class="c-red" ><span></span>경매 시작가 </label>
 									</th:block>
 									<th:block th:if="${result.deal.dealTypCd.toString().equals('S')}">
-										<label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA"></div></label>
+										<!-- <label for="t1" class="c-red" ><span></span>경매 시작가 <div class="mg_l30 di-b" id="dealStrtPrcA"></div></label> -->
+										<label for="t1" class="c-red" ><span></span>경매 시작가</label>
 									</th:block>
-									<span class="to-red" style="font-size:12px;">판매 희망가의 70%로 자동 설정 됩니다.</span>
+									<!-- <span class="to-red" style="font-size:12px;">판매 희망가의 70%로 자동 설정 됩니다.</span> -->
 								</div>
 								<div class="input-box">
-									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="희망가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" style="font-size:15px;"/>
+									<input type="text" class="input-1" id="dealStrtPrcA1" placeholder="경매 시작가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" th:value="${result.deal.dealStrtPrc}" style="font-size:15px;"/>
 									<input type="text" class="input-1" id="dealStrtPrcS" placeholder="판매가를 입력해주세요" onkeyup="comma(this)" onblur="dealStrtPrcCal(this)" th:value="${result.deal.dealStrtPrc}" style="font-size:15px;"/>
 								</div>
 							</div>
@@ -1318,13 +1320,13 @@ function dealStrtPrcCal(obj){
 			if(n != 0 || obj.value == 0){
 				modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
 				obj.value = '';
-				$("#dealStrtPrcA").text("");
+				//$("#dealStrtPrcA").text("");
 			}else{
-				var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
-				var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
-				$("#dealStrtPrcA").text(val2+" KRW");
+				//var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
+				//var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+				//$("#dealStrtPrcA").text(val2+" KRW");
+				obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
-			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 	}else{
 		if(obj.value != null && obj.value != ""){
@@ -1334,7 +1336,7 @@ function dealStrtPrcCal(obj){
 			if(n != 0 || obj.value == 0){
 				modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
 				obj.value = '';
-				$("#dealStrtPrcA").text("");
+				//$("#dealStrtPrcA").text("");
 			}
 			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
@@ -1511,8 +1513,9 @@ function dealRegNotesModal(){
 	result.deal.dealTypCd = $("input:radio[name='dealTypCd']:checked").val();
 	result.deal.mbrSq = sMbrSqVal;
 	if(result.deal.dealTypCd == "A"){
-		var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll(" KRW", "");
-		result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
+		//var dealStrtPrc = $("#dealStrtPrcA").text().replaceAll(" KRW", "");
+		//result.deal.dealStrtPrc = dealStrtPrc.replaceAll(/,/g,'');
+		result.deal.dealStrtPrc = $("#dealStrtPrcA1").val().replaceAll(/,/g,'');
 	}else{
 		result.deal.dealFinalPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');
 		result.deal.dealStrtPrc = $("#dealStrtPrcS").val().replaceAll(/,/g,'');

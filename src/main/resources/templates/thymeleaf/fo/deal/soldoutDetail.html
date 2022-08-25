@@ -1,0 +1,879 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- <script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script> -->
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="DeailngArt">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="zrw9l0gyn4u5jja4qv7kpleb4i914k" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	.ellipsis{
+			overflow:hidden;
+			text-overflow: ellipsis;
+			width:1200px;
+  			display: -webkit-box;
+  			-webkit-box-orient: vertical;
+  			-webkit-line-clamp: 5;
+  			line-height: 29.15px;    /* 추가 */
+  			height: 145.75px;        /* line-height x line */
+    	};
+    	[name=workClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+    </style>
+    
+    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+</head>
+
+<body>
+	<div class="wrap">
+		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
+		<div class="body-wrap">
+			
+			<div class="contents max-1500">
+				<div class="sub-title">
+					<h3 class="mo-no" id="pageTitle">작품정보</h3>
+				</div>
+				
+				<div class="baeg-wrap">
+					<div class="baeg-left">
+						<div class="contentbox">
+							<div class="bigImages">
+								<img class="big big1" th:src="${result.work.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
+							</div>
+								<div class="smallImages">
+								<!-- 메인 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+								<!-- 전면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" />
+								<!-- 후면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+								<!-- 좌 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+								<!-- 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+								<!-- 하 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
+							</div>
+						</div>
+					</div>
+					<div class="baeg-right">
+						<div class="be-title">
+								<th:block th:if="${not #strings.isEmpty(result.work.artstEnglsNm)}">
+								<h3 th:text="${result.work.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${result.work.artstEnglsNm}+')'"></h3>
+							</th:block>
+							<h3 th:if="${#strings.isEmpty(result.work.artstEnglsNm)}" th:text="${result.work.artstActvtyNm}"></h3>
+							<h4 th:text="${result.work.workNm}"></h4>
+							
+<!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
+<!-- 								<div class="tootip-1">신고하기</div> -->
+<!-- 								<img src="resources/img/de/popo-1.png" /> -->
+<!-- 							</a> -->
+						</div>
+						
+						<table class="tstyle1">
+							<tr>
+								<th>제작년도</th>
+								<td th:text="${result.work.workProdcYear}"></td>
+							</tr>
+							<tr>
+								<th>소재/기법</th>
+								<td th:text="${result.work.workMatrl}">canvas</td>
+							</tr>
+							<tr>
+								<th>액자</th>
+								<td th:if="${result.work.workFrmYn == 'Y'}">있음</td>
+								<td th:if="${result.work.workFrmYn == 'N' or result.work.workFrmYn == '' }">없음</td>
+							</tr>
+							<tr>
+								<th>사이즈</th>
+								<td th:if="${not #strings.isEmpty(result.work.workSizeWidth) and not #strings.isEmpty(result.work.workSizeDepth)}" th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workLake)}">
+								<th>호수</th>
+								<td th:utext="|${result.work.workLake} 
+								<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
+							</tr>
+							<tr>
+								<th>판매 여부</th>
+								<td th:if="${result.work.workSaleYn == 'Y'}">판매 완료</td>
+								<td th:if="${result.work.workSaleYn == 'N'}">미판매</td>
+							</tr>
+							<tr>
+								<th>메인 컬러</th>
+								<td th:if="${result.work.workClrCd == 'MIX'}"><div class="color-box"><input type="radio" id="mc-1" name="workClrCd" value="MIX" checked><label for="mc-1" class="mc-1 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'RED'}"><div class="color-box"><input type="radio" id="mc-2" name="workClrCd" value="RED" checked><label for="mc-2" class="mc-2 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'ORANGE'}"><div class="color-box"><input type="radio" id="mc-3" name="workClrCd" value="ORANGE" checked><label for="mc-3" class="mc-3 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'YELLOW'}"><div class="color-box"><input type="radio" id="mc-4" name="workClrCd" value="YELLOW" checked><label for="mc-4" class="mc-4 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GREEN'}"><div class="color-box"><input type="radio" id="mc-5" name="workClrCd" value="GREEN" checked><label for="mc-5" class="mc-5 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'SKY'}"><div class="color-box"><input type="radio" id="mc-6" name="workClrCd" value="SKY" checked><label for="mc-6" class="mc-6 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLUE'}"><div class="color-box"><input type="radio" id="mc-7" name="workClrCd" value="BLUE" checked><label for="mc-7" class="mc-7 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'PURPLE'}"><div class="color-box"><input type="radio" id="mc-8" name="workClrCd" value="PURPLE" checked><label for="mc-8" class="mc-8 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BROWN'}"><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked><label for="mc-9" class="mc-9 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'WHITE'}"><div class="color-box"><input type="radio" id="mc-10" name="workClrCd" value="WHITE" checked><label for="mc-10" class="mc-10 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workState)}">
+								<th>작품 상태</th>
+								<td th:text="${result.work.workState}"></td>
+							</tr>
+							<!-- <tr>
+								<th>소장가(판매가)</th>
+								<td th:text="${result.work.workPrc}+' KRW'"></td>
+							</tr> -->
+							<tr>
+								<th>판매자</th>
+								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.mbrNcknm}]]
+										<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
+									<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+							</tr>
+							<tr>
+								<th th:if="${result.work.dealTypCd == 'S'}">구매자</th>
+								<th th:if="${result.work.dealTypCd == 'A'}">낙찰자</th>
+								<td>
+									[[${result.work.buyNcknm}]]
+								</td>
+							</tr>
+							<tr>
+								<th th:if="${result.work.dealTypCd == 'S'}">구매가격</th>
+								<th th:if="${result.work.dealTypCd == 'A'}">낙찰가격</th>
+								<td>
+									[[${result.work.dealFinalPrc}]] KRW
+								</td>
+							</tr>
+							<tr>
+								<th th:if="${result.work.dealTypCd == 'S'}">구매일시</th>
+								<th th:if="${result.work.dealTypCd == 'A'}">낙찰일시</th>
+								<td>
+									[[${result.work.dealEndngDt}]]
+								</td>
+							</tr>
+						</table>
+						<div class="bat-box">
+							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
+							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
+							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
+							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
+							<div class="clearboth"></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+				
+		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
+			<div class="artist-wrap">
+				<div class="artist-box max-1500">
+					<div class="sub-title mg_t77">
+						<h3>Artist Information</h3>
+					</div>
+					<div class="sub-user">
+						<div class="su-l">
+							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:100%; border-radius:15%;"/></span>
+						</div>
+						<div class="su-r">
+							<p class="sup-1" th:text="${result.artistInfo.artstActvtyNm}"></p>
+							<p class="sup-2" th:text="${result.artistInfo.artstEnglsNm}"></p>
+							<div class="sup-3 ellipsis" th:text="${result.artistInfo.artstSelfIntro}"></div>
+							 
+							 
+  							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
+			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
+				<div class="cont-title2 max-1500">
+					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
+					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
+				</div>
+				
+					<div class="swi-box max-1500">
+						<div class="swiper mySwiper2">
+							<div class="swiper-wrapper"  id="swiper_workList">
+							</div>
+							<div class="swiper-pagination swpa-2 pc-no"></div>
+						</div>
+						<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+					</div>
+				</th:block>
+			</div>
+			<!-- 영역 끝 -->
+		</div>
+	</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+</div>
+
+
+<!-- 신고하기 -->
+<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>신고하기</h2>
+				    <img src="resources/img/ba/icon-2.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p>
+					위작, 허위판매 등 신고 사유를 가능한 상세히 작성해 주시기 바랍니다.<br />
+					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
+					</p>
+					
+					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요."></textarea>
+					
+					<!-- <div class="text-center  mg_b40">
+						<input type="checkbox" id="w1" name="cc">
+						<label for="w1" style="color:#e9625c;"><span></span> 경매약관 주요 사항 팝업 및 약관 동의 사실 확인</label>
+					</div> -->
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#" data-toggle="modal" data-target="#myModal4"><button type="button" class="baeg-b1">제출하기</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 신고하기 완료 -->
+<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="md-ds">
+						서비스 준비중입니다.
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${not #maps.isEmpty(result.artistInfo)}">
+	<div class="modal-dialog modal-baeg max-w1200">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body pd60 h850-o" id="artstInfoModal">
+				<div class="ad-text">
+					<h3 th:text="${result.artistInfo.artstActvtyNm}"></h3>
+					<h4 th:text="${result.artistInfo.artstEnglsNm}"></h4>
+					<p th:text="${result.artistInfo.artstSelfIntro}" id="artstSelfIntro"></p>
+				</div>
+				
+				<dl class="ad-dl">
+					<dt>SNS</dt>
+					<dd>
+						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstInstagramUrl)}">
+							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="resources/img/icon/i-1.png"/></a>
+						</th:block>
+						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstfacebookUrl)}">
+							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="resources/img/icon/i-2.png"/></a>
+						</th:block>
+						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="resources/img/icon/i-2.png" /></a> -->
+						<!-- <a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>
+						<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>
+						<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>
+						<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a> -->
+					</dd>
+				</dl>
+				<dl class="ad-dl">
+					<dt>홈페이지</dt>
+					<dd>
+						<p th:text="${result.artistInfo.artstHmpgUrl}">https://mansion9.co.kr/</p>
+					</dd>
+				</dl>
+				<dl class="ad-dl">
+					<dt>학력</dt>
+					<dd>
+					<th:block th:each="eductn: ${result.eductn}">
+						<p th:text="${eductn.eductnNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
+				<dl class="ad-dl">
+					<dt>경력</dt>
+					<dd>
+					<th:block th:each="career: ${result.career}">
+						<p th:text="${career.careerNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
+				<dl class="ad-dl">
+					<dt>전시 정보</dt>
+					<dd>
+					<th:block th:each="exhbtn: ${result.exhbtn}">
+						<p th:text="${exhbtn.exhbtnNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
+				<dl class="ad-dl">
+					<dt>수상</dt>
+					<dd>
+					<th:block th:each="exhbtnAword: ${result.exhbtnAword}">
+						<p th:text="${exhbtnAword.exhbtnNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
+<!-- 				<dl class="ad-dl"> -->
+<!-- 					<dt>인터뷰영상</dt> -->
+<!-- 					<dd> -->
+<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->
+<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->
+<!-- 					</dd> -->
+<!-- 				</dl> -->
+<!-- 				<dl class="ad-dl"> -->
+<!-- 					<dt>논문, 평론, 기사</dt> -->
+<!-- 					<dd> -->
+<!-- 						<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p> -->
+<!-- 						<p>2013 50만원 전, 경민미술관</p> -->
+<!-- 						<p>2013 가미갤러리 초대작가전, 가미갤러리</p> -->
+<!-- 						<p>2013 블라블라, 인사토포하우스</p> -->
+<!-- 					</dd> -->
+<!-- 				</dl> -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 0702 시작 -->
+<div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content big-content">
+			<div class="modal-header">
+				<div class="conts">
+				    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="contentbox baeg-left">
+					<div class="bigImages">
+						<img class="big big2" th:src="${result.work.workMainImgUrl}"/>
+					</div>
+					<div class="smallImages">
+						<!-- 메인 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+						<!-- 전면 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" />
+						<!-- 후면 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+						<!-- 좌 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+						<!-- 우 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+						<!-- 상 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+						<!-- 하 -->
+						<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 호수 안내표 -->
+<!-- table -->
+<div class="modal fade modal-s" id="lakeHelpModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w480" style="max-width:600px !important;">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+				<div class="baegs">
+				    <div class="close" onclick="closeLakeHelp()"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
+
+				<div class="login-box" style="margin-top:30px;">
+					<p class="lb-p1">작품 사이즈 기준표 (cm)</p>
+					<div class="text-box1">
+						
+						<table class="tstyle4">
+						  <tr>
+						    <td> 호수 </td>
+						    <td> F형(인물) </td>
+						    <td> P형(풍경) </td>
+						    <td> M형(해경) </td>
+						    <td> S형(정방형) </td>
+						  </tr>
+						  <tr>
+						    <td> 0 </td>
+						    <td> 18.0x14.0 </td>
+						    <td> - </td>
+						    <td> - </td>
+						    <td> - </td>
+						  </tr>
+						  <tr>
+						    <td> 1 </td>
+						    <td> 22.7x15.8 </td>
+						    <td> 22.7x14.0 </td>
+						    <td> 22.7x12.0 </td>
+						    <td> 15.8x15.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 2 </td>
+						    <td> 25.8x17.9 </td>
+						    <td> 25.8x16.0 </td>
+						    <td> 25.8x14.0 </td>
+						    <td> 17.9x17.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 3 </td>
+						    <td> 27.3x22.0 </td>
+						    <td> 27.3x19.0 </td>
+						    <td> 27.3x16.0 </td>
+						    <td> 22.0x22.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 4 </td>
+						    <td> 33.4x24.2 </td>
+						    <td> 33.4x21.2 </td>
+						    <td> 33.4x19.0 </td>
+						    <td> 24.2x24.2 </td>
+						  </tr>
+						  <tr>
+						    <td> 5 </td>
+						    <td> 34.8x27.3 </td>
+						    <td> 34.8x24.2 </td>
+						    <td> 34.8x21.2 </td>
+						    <td> 27.3x27.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 6 </td>
+						    <td> 40.9x31.8 </td>
+						    <td> 40.9x27.3 </td>
+						    <td> 40.9x24.2 </td>
+						    <td> 31.8x31.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 8 </td>
+						    <td> 45.5x37.9 </td>
+						    <td> 45.5x33.4 </td>
+						    <td> 45.5x27.3 </td>
+						    <td> 37.9x37.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 10 </td>
+						    <td> 53.0x45.0 </td>
+						    <td> 53.0x40.9 </td>
+						    <td> 53.0x33.4 </td>
+						    <td> 45.0x45.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 12 </td>
+						    <td> 60.6x50.0 </td>
+						    <td> 60.6x45.5 </td>
+						    <td> 60.6x40.9 </td>
+						    <td> 50.0x50.5 </td>
+						  </tr>
+						  <tr>
+						    <td> 15 </td>
+						    <td> 65.1x53.0 </td>
+						    <td> 65.1x50.5 </td>
+						    <td> 65.1x45.5 </td>
+						    <td> 53.0x53.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 20 </td>
+						    <td> 72.7x60.6 </td>
+						    <td> 72.7x53.0 </td>
+						    <td> 72.7x50.0 </td>
+						    <td> 60.6x60.6 </td>
+						  </tr>
+						  <tr>
+						    <td> 25 </td>
+						    <td> 80.3x65.1 </td>
+						    <td> 80.3x60.6 </td>
+						    <td> 80.3x53.0 </td>
+						    <td> 65.1x65.1 </td>
+						  </tr>
+						  <tr>
+						    <td> 30 </td>
+						    <td> 90.9x72.7 </td>
+						    <td> 90.9x65.1 </td>
+						    <td> 90.9x60.6 </td>
+						    <td> 72.7x72.7 </td>
+						  </tr>
+						  <tr>
+						    <td> 40 </td>
+						    <td> 100.0x80.3 </td>
+						    <td> 100.0x72.7 </td>
+						    <td> 100.0x65.1 </td>
+						    <td> 80.3x80.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 50 </td>
+						    <td> 116.8x91.0 </td>
+						    <td> 116.8x80.3 </td>
+						    <td> 116.8x72.7 </td>
+						    <td> 91.0x91.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 60 </td>
+						    <td> 130.3x97.0 </td>
+						    <td> 130.3x89.4 </td>
+						    <td> 130.3x80.3 </td>
+						    <td> 97.0x97.0 </td>
+						  </tr>
+						  <tr>
+						    <td> 80 </td>
+						    <td> 145.5x112.1 </td>
+						    <td> 145.5x97.0 </td>
+						    <td> 145.5x89.4 </td>
+						    <td> 112.1x112.1 </td>
+						  </tr>
+						  <tr>
+						    <td> 100 </td>
+						    <td> 162.2x130.3 </td>
+						    <td> 162.2x112.1 </td>
+						    <td> 162.2x97.0 </td>
+						    <td> 130.3x130.3 </td>
+						  </tr>
+						  <tr>
+						    <td> 120 </td>
+						    <td> 193.9x130.3 </td>
+						    <td> 193.9x112.1 </td>
+						    <td> 193.9x97.0 </td>
+						    <td> - </td>
+						  </tr>
+						  <tr>
+						    <td> 150 </td>
+						    <td> 227.3x181.8 </td>
+						    <td> 227.3x162.1 </td>
+						    <td> 227.3x145.5 </td>
+						    <td> 181.8x181.8 </td>
+						  </tr>
+						  <tr>
+						    <td> 200 </td>
+						    <td> 259.1x193.9 </td>
+						    <td> 259.1x181.9 </td>
+						    <td> 259.1x162.1 </td>
+						    <td> 193.9x193.9 </td>
+						  </tr>
+						  <tr>
+						    <td> 300 </td>
+						    <td> 290.9x218.2 </td>
+						    <td> 290.9x197.0 </td>
+						    <td> 290.9x181.8 </td>
+						    <td> 218.2x218.2 </td>
+						  </tr>
+						  <tr>
+						    <td> 500 </td>
+						    <td> 333.3x248.5 </td>
+						    <td> 333.3x218.2 </td>
+						    <td> 333.3x197.0 </td>
+						    <td> 248.5x248.5 </td>
+						  </tr>
+						</table>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script th:inline="javascript">
+
+var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+
+jQuery(document).ready(function($){
+     
+	if(isMobile) {
+		
+		var baseW = $(window).width();
+		
+		var ww = 0;
+		
+		if(baseW < 399) {
+			ww = $(window).width()-50;	
+		} else {
+			ww = $(window).width()-250;
+		}
+		
+		$(".ellipsis").width(ww);
+		$(".ellipsis").height('320px');
+		
+		$(".ellipsis").css('padding',20);
+    }
+	workList();
+});
+
+$('.selectpicker').selectpicker('render');
+
+var result = /*[[${result}]]*/ 'default';
+//호수 안내 팝업 오픈
+function openLakeHelp(){
+	$('body').css("overflow", "hidden");
+	$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false})  
+	$("#lakeHelpModal").modal("show");
+}
+//호수 안내 팝업 닫기
+function closeLakeHelp(){
+	$('body').css("overflow", "scroll");
+	$("#lakeHelpModal").modal("hide");
+}
+//작가의 다른 작품 리스트
+function workList(){
+	if(result.workList.length > 0){
+		$("#swiper_workList").empty();
+		var html = '';
+		for(var i=0; i<result.workList.length; i++){
+			html +='<div class="swiper-slide">';
+			html +='	<a class="hd-div hd-tablet" href="/workDetail?workSq='+result.workList[i].workSq+'">';
+			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100%;"/>';
+			html +='		<div class="hd-text">';
+			html +='			<h4>'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" th:inline="text">';
+			html +='				'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+			html +='				<br/>';
+			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
+			html +='				<br/>';
+			/* if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
+				html +='				가격 '+result.workList[i].workPrc+' KRW';
+			} */
+			html +='			</div>';
+			html +='		</div>';
+			html +='	</a>';
+			html +='</div>';
+		}
+		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+
+ $(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches)
+    {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 4,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       	  /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	        });
+    	
+    }  else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 3,
+	          spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+    	
+    	
+     } else {
+    	var swiper = new Swiper(".mySwiper2", {
+	          slidesPerView: 2,
+	       	  spaceBetween: 30,
+	          slidesPerGroup: 1,
+	          loop: true,
+	          loopFillGroupWithBlank: true,
+	       /* autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          }, */
+	          pagination: {
+	            el: ".swiper-pagination",
+	            clickable: true,
+	          },
+	          navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev",
+	          },
+	     });
+    	
+     };
+}).resize();
+ 
+ 
+ 
+ $(document).ready(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+  )
+  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+    function(){ $(this).removeClass('gis') }
+  )
+ });
+ /* 메뉴바 FIXED */
+ if (jQuery(window).width() > 0) {
+     jQuery(window).on("scroll",function(ev){
+         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+             jQuery('.head-wrap').addClass('fixed');
+         }
+         else{
+             jQuery('.head-wrap').removeClass('fixed');
+         }
+         return false;
+     });
+ }
+ 
+ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+/* 0702 시작 */
+/* 상세 왼쪽이미지 */
+var bigPic1 = document.querySelector(".big1")
+var smallPics1 = document.querySelectorAll(".small1")
+
+for(var i = 0 ; i < smallPics1.length ; i++){
+  smallPics1[i].addEventListener("mouseover", changepic1);
+  
+}
+
+function changepic1(){
+  var smallPic1Attribute = this.getAttribute("src");
+  bigPic1.setAttribute("src", smallPic1Attribute);
+}
+
+/* 모달 상세 왼쪽이미지 */
+var bigPic2 = document.querySelector(".big2")
+var smallPics2 = document.querySelectorAll(".small2")
+
+for(var i = 0 ; i < smallPics2.length ; i++){
+  smallPics2[i].addEventListener("mouseover", changepic2);
+  
+}
+
+function changepic2(){
+  var smallPic2Attribute = this.getAttribute("src");
+  bigPic2.setAttribute("src", smallPic2Attribute);
+}
+/* 0702 끝 */
+</script>
+
+	
+	
+	
+</body>
+</html>
