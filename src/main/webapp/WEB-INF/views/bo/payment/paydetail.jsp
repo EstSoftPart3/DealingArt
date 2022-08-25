@@ -463,7 +463,7 @@
 	 	
 	 	//거래 메인
 	 	function fn_dealMainContent(dealSq) {
-	 		
+	 		console.log("dealSq :"+dealSq);
 	 		$.ajax({
 		           type: "post",
 		           url: "/admin/payment/dealMainListData",
@@ -664,7 +664,7 @@
 	 	
 	 	//작가정보
 		function artistMemberInfoData(artstSq) {
-	 		
+	 		console.log("artstSq :"+artstSq);
 			$.ajax({
 		           type: "post",
 		           url: "/admin/member/artistMemberInfoData",
