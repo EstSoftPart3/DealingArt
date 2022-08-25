@@ -584,7 +584,7 @@ html, body{font-size: calc(100vw / 75);}
 .cns-div ul li:last-child{padding-right:0;}
 .cns-box{
     width: 315px;
-    height: 215px;
+    height: 100%;
     border: #ececec 0px solid;
 }
 .cns-box > img{
