@@ -260,6 +260,9 @@
 		INNER JOIN 	TBL_DA_MBR_M AS B ON A.MBR_SQ = B.MBR_SQ
 		LEFT JOIN  TBL_DA_WORK_M AS C ON 	A.ARTST_SQ = C.ARTST_SQ
 		WHERE 	1=1
+			AND B.USE_YN = 'Y'
+			AND B.DEL_YN = 'N'
+			AND B.AUTH_SQ = '2'
 			AND ( 
 					A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')  
 					OR B.MBR_NM LIKE CONCAT('%',#{searchKeyword},'%') 
