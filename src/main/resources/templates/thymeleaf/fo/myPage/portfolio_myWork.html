@@ -584,6 +584,18 @@ $(document).on("click", ".heart", function(){
   	}
 
 
+	function biddingMove(workSq) {
+		
+		pageGoPost({
+			url:"/bidding",
+			target:"_self",
+			vals:[
+				["dealSq", dealSq]
+			]
+		});
+		
+	}
+	*/
 	function biddingMove(dealSq) {
 		
 		pageGoPost({
@@ -595,7 +607,6 @@ $(document).on("click", ".heart", function(){
 		});
 		
 	}
-	
 	
 	//작품수정
   	function myWorkMod(workSq){
