@@ -243,7 +243,7 @@ $(function() {
 					
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div  >';
-					html += '<div class="item-div-img active-on" onclick="dealDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img active-on" onclick="dealDetail('+ result[i].dealSq +')">';
 					//작품 이미지
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;" >';
 					//마우스 호버 부분
@@ -303,7 +303,7 @@ $(function() {
 					html += '<div class="griditem '+gtText+'" style="border:0px solid #222;">';
 					html += '<div>';
 					//작품 이미지
-					html += '<div class="item-div-img sale" onclick="dealDetail('+ result[i].workSq +')">';
+					html += '<div class="item-div-img sale" onclick="dealDetail('+ result[i].dealSq +')">';
 					html += '<img src="'+ result[i].workMainImgUrl +'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
 					html += '		<div class="item-ho2 sale-div">';
 	     			html += '			<h3>판매중</h3>';
@@ -334,7 +334,7 @@ $(function() {
 					html += '</div>';
 					
 					if(result[i].workTypCd == "WORK"){
-	 				html += '<div class="artist active" onclick="dealDetail('+ result[i].workSq +')"><span>Artist</span></div>';
+	 				html += '<div class="artist active" onclick="dealDetail('+ result[i].dealSq +')"><span>Artist</span></div>';
 	 				}
 	 				if(result[i].workTypCd == "COLL"){
 	 				html += '<div class="artist"><span>Artist</span></div>';
@@ -565,8 +565,13 @@ if(window.matchMedia('(min-width: 1537px)').matches) {
 		$(".grid").width( '1200px' );
  }
 
-function dealDetail(workSq){
- 	location.href="/bidding?workSq="+workSq;
+// 2022-08-26 : 박상현 : 주석
+// function dealDetail(workSq){
+//  	location.href="/bidding?workSq="+workSq;
+// }
+
+function dealDetail(dealSq){
+ 	location.href="/bidding?dealSq="+dealSq;
 }
 
 function workDetail(workSq){
