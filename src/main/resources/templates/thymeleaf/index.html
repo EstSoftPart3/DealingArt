@@ -745,7 +745,7 @@
 	        	   var hotestHtml = '';
 	        	   for(i=0; i<mainHotest.length; i++){
 	        		hotestHtml +='<div class="swiper-slide hd-div">';
-					hotestHtml +='	<a href="javascript:void(0);" onclick="workDetail('+ mainHotest[i].workSq +')">';
+					hotestHtml +='	<a href="javascript:void(0);" onclick="dealDetail('+ mainHotest[i].dealSq +')">';
 					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:250px; heigth:280px;"/>';
 					hotestHtml +='		<div class="hd-text">';
 					hotestHtml +='			<h4 style="height:100px;">'+mainHotest[i].artstActvtyNm+'<br>('+mainHotest[i].workNm+')</h4>';
@@ -824,7 +824,7 @@
 	        	   var newDealHtml = '';
 	        	   for(j=0; j<mainNewDeal.length; j++){
 			   	       newDealHtml += '<div class="swiper-slide hd-div">';
-					   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="workDetail('+mainNewDeal[j].workSq+')">';
+					   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+mainNewDeal[j].dealSq+')">';
 					   newDealHtml += '		<img src="'+mainNewDeal[j].workMainImgUrl+'" class="hd-img" style="width:270px;"/>';
 					   newDealHtml += '		<div class="hd-text">';
 					   newDealHtml += '			<h4>'+mainNewDeal[j].artstActvtyNm+'</h4>';
@@ -862,6 +862,11 @@
     //응찰하기 페이지로 이동
     function workDetail(workSq){
   		location.href = "/bidding?workSq="+workSq;
+  	}
+    
+    //비딩페이지로 이동
+    function dealDetail(dealSq){
+  		location.href = "/bidding?dealSq="+dealSq;
   	}
     
     function artstDetail(artstSq){

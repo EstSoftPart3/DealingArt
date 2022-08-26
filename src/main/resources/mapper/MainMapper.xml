@@ -76,6 +76,7 @@
 	<select id="mainNewDeal" resultType="hashMap">
 		/*메인 NEW DEAL*/
 		SELECT 
+				A.DEAL_SQ AS dealSq,
 				A.WORK_SQ AS workSq,
 				IF(B.WORK_MAIN_IMG_URL IS NULL, B.WORK_IMG_FRT_URL, B.WORK_MAIN_IMG_URL) AS workMainImgUrl,
 				B.ARTST_ACTVTY_NM AS artstActvtyNm,
