@@ -192,7 +192,7 @@
 								</tr>
 								<tr>
 									<th>닉네임</th>
-									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor: pointer;">[[${result.deal.mbrNcknm}]] 
+									<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor: pointer;" id="sellMbrNcknm">[[${result.deal.mbrNcknm}]] 
 									<!--<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
 									<!--<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 									</td>
@@ -1191,7 +1191,12 @@ function chart() {
 	
 	    bidDate.push(result.deal.dealStrtDate);
 	    bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
-	    bidMbrNcknm.push("시작가");
+	    
+	    var sellMbrNcknm = $("#sellMbrNcknm").text();
+	    
+	    bidMbrNcknm.push(sellMbrNcknm);
+	    //bidMbrNcknm.push("시작가");
+	   
 	    for(var i=0; i<result.auctnBid.length; i++){
 	        bidDate.push(result.auctnBid[i].bidDate);
 	        bidPrc.push(result.auctnBid[i].bidPrc);

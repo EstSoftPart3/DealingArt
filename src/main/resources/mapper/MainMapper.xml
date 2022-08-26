@@ -132,6 +132,7 @@
 	<select id="totalSearchAutocompleteWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 자동완성*/
 		SELECT	
+				B.DEAL_SQ AS dealSq,
 				A.MBR_SQ AS mbrSq,
 				A.ARTST_SQ AS artstSq,
 				A.WORK_SQ AS workSq,

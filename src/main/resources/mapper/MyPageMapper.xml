@@ -1183,6 +1183,7 @@
 	<select id="myCollectionSale" resultType="hashMap" parameterType="String">
 		/*나의 소장품 판매중 검색*/
 		SELECT 
+				D.DEAL_SQ AS dealSq,
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
