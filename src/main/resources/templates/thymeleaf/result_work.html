@@ -433,14 +433,14 @@
 										<!-- <div class="uli-img uli-hart-on"> 하트 온 -->
 										<div class="uli-img">
 											<th:block th:if="${workList.dealTypCd.toString().equals('A') }"><!-- 경매면 -->
-												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|dealDetail('${workList.workSq}')|"/>
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|dealDetail('${workList.dealSq}')|"/>
 											</th:block>
 											
 											<th:block th:if="${workList.dealTypCd.toString().equals('S')}"><!-- 정찰가 -->
-												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.dealSq}')|" />
 											</th:block>
 											
-											<th:block th:if="${workList.dealTypCd.toString().equals('X')}"><!-- 정찰가 -->
+											<th:block th:if="${workList.dealTypCd.toString().equals('X')}">
 												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
 											</th:block>
 											
@@ -910,8 +910,12 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     event.stopPropagation();
 });
 
-function dealDetail(workSq){
- 	location.href="/bidding?workSq="+workSq;
+// function dealDetail(workSq){
+//  	location.href="/bidding?workSq="+workSq;
+// }
+
+function dealDetail(dealSq){
+ 	location.href="/bidding?dealSq="+dealSq;
 }
 
 function workDetail(workSq){
