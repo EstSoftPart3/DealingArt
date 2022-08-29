@@ -583,18 +583,6 @@ $(document).on("click", ".heart", function(){
   	 	location.href="/workDetail?workSq="+workSq;
   	}
 
-
-	function biddingMove(workSq) {
-		
-		pageGoPost({
-			url:"/bidding",
-			target:"_self",
-			vals:[
-				["dealSq", dealSq]
-			]
-		});
-		
-	}
 	
 	function biddingMove(dealSq) {
 		
