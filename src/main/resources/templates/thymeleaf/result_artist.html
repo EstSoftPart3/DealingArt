@@ -162,13 +162,14 @@ $(function() {
 
 $(document).on("click", ".artstInfo", function(){ 
 	var artstSq= $(this).attr("id");
-    pageGoPost({
+	location.href = '/artistDetail?artstSq='+artstSq;
+    /* pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
 		vals:[
 			["artstSq", parseInt(artstSq)]
 		]
-	});
+	}); */
 });
 
 /*
