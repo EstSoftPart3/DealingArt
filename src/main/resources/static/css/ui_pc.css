@@ -35,6 +35,8 @@
     height: 100%;
     /* padding-top: 26px; */
 }
+
+.box_pt20 {padding-top:20px;}
 .h-gnb nav {
     width: auto;
     display: table;

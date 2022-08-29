@@ -57,9 +57,14 @@
 				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
 			</if>
-			<if test="workTypCd != null and workTypCd != ''">
+			<choose>
+			<when test="workTypCd != null and workTypCd != ''">
 				AND A.WORK_TYP_CD = #{workTypCd}
-        	</if>	
+        	</when>
+        	<otherwise>
+				AND A.WORK_TYP_CD = 'COLL'
+        	</otherwise>	
+        	</choose>
 			<if test="dealTypCds != null and dealTypCds != ''">
 				AND D.DEAL_TYP_CD IN
 				<foreach collection="dealTypCds" item="item" index="idex"  open="(" close=")" separator=",">
