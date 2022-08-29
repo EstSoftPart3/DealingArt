@@ -189,15 +189,14 @@
 <script th:inline="javascript">
 
 
-var param = location.search
+var param = location.search;
 
 var param = new URLSearchParams(param);
  
 var getParamMore= param.get('more');
 var getParamArtstSq= param.get('artstSq');
 
-console.log("getParamMore :"+getParamMore);
-console.log("getParamArtstSq :"+getParamArtstSq);
+
 
 if(getParamMore == getParamArtstSq && getParamMore != null && getParamMore != ''){
 	openArtstInfoModal()
@@ -348,7 +347,7 @@ $(function() {
 		*/
 		$("#artstInfo").append(artstInfoHtml2).trigger("create");
 		$("#artstInfo").append(artstInfoHtml).trigger("create");
-		var artstInfoButton = '<button type="button" class="the-more2 mg_t60" onclick="openArtstInfoModal()">더보기</button>';
+		var artstInfoButton = '<button type="button" class="the-more2 mg_t60" id="openArtstInfoModal">더보기</button>';
 		$("#artstInfo").append(artstInfoButton).trigger("create");
 		$("#artstInfoModal").append(artstInfoHtml).trigger("create");
 		var moreButton = '<button type="button" class="btn-more"><span>more</span></button>';
@@ -356,6 +355,8 @@ $(function() {
 	}
 	
 	onload();
+	
+	//onclick="openArtstInfoModal()" 
 });
 function sorting(obj){ //정렬
 	var val = obj.attributes.name.value;
@@ -654,6 +655,16 @@ setInterval(function() {
 	}
 }, 1000);
 
+
+//openArtstInfoModal
+$(document).on("click", "#openArtstInfoModal", function(){
+	
+	var urlParam = location.search;
+	var params = new URLSearchParams(urlParam);
+	var artstSq= param.get('artstSq');
+	
+	location.href = '/artistDetail?artstSq='+artstSq+'&more='+artstSq;
+});
 
 	 
 if(window.matchMedia('(min-width: 1537px)').matches) {
