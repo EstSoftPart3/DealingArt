@@ -615,19 +615,19 @@ function artistLibraryList(){
       
 $(document).on("click", ".swiper-slide", function(){
 	var artstSq= $(this).attr("artstSq");
-	var artistBirthYear= $(this).attr("artistBirthYear");
+	
     
-	//location.href = "/artistDetail?artstSq="+artstSq;
+	location.href = "/artistDetail?artstSq="+artstSq;
 	
 	
-	pageGoPost({
+	/* pageGoPost({
 		url:"/artistDetail",
 		target:"_self",
 		vals:[
 			["artstSq", artstSq],
 			["artistBirthYear", artistBirthYear]
 		]
-	});
+	}); */
     
 });
       

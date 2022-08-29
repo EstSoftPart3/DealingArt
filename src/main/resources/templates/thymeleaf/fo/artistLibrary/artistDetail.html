@@ -187,6 +187,21 @@
 </div>
 
 <script th:inline="javascript">
+
+
+var param = location.search
+
+var param = new URLSearchParams(param);
+ 
+var getParamMore= param.get('more');
+var getParamArtstSq= param.get('artstSq');
+
+console.log("getParamMore :"+getParamMore);
+console.log("getParamArtstSq :"+getParamArtstSq);
+
+if(getParamMore == getParamArtstSq && getParamMore != null && getParamMore != ''){
+	openArtstInfoModal()
+}
       
       $(document).ready(function () {
 	      
