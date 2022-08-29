@@ -1049,6 +1049,14 @@ function event(cd){
 	            alert("오류 발생" + error);
 	        }
 		});
+	}else{
+		if(workTypCd == "COLL"){
+			modalAlertShow("거래가 등록되었습니다.", "myCollection");
+		}else if(workTypCd == "WORK"){
+			modalAlertShow("거래가 등록되었습니다.", "myWork");
+		}else{
+			modalAlertShow("거래가 등록되었습니다.", "main");
+		}
 	}
 }
 var result = /*[[${result}]]*/ 'default';

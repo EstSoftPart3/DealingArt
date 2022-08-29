@@ -98,7 +98,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no" id="pageTitle">작품정보</h3>
+					<h3 class="mo-no" id="pageTitle">판매완료</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -225,7 +225,7 @@
 						<div class="bat-box">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
-							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
+							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory" style="display:none;"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
 							<div class="clearboth"></div>
 						</div>
@@ -669,7 +669,29 @@
 		</div>
 	</div>
 </div>
+<!-- 차트 -->
+<div class="modal fade modal-s" id="bidHistory" tabindex="-1" role="dialog" aria-labelledby="bidHistoryLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w1023">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>응찰 히스토리</h2>
+				    <img src="resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
 
+			</div>
+			<div class="modal-body">
+				<div class="text-right mg_t25">
+					<!-- <input type="checkbox" id="a1" name="cc">
+					<label for="a1"><span></span>내 응찰만 보기</label> -->
+				</div>
+				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<canvas id="canvas"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script th:inline="javascript">
 
@@ -711,6 +733,139 @@ function closeLakeHelp(){
 	$('body').css("overflow", "scroll");
 	$("#lakeHelpModal").modal("hide");
 }
+
+$(function() {
+	debugger;
+	if(result.work.artstSq == null || result.work.artstSq == ""){
+		$("#artstInfo").css("display", "none");
+	}
+	if(result.work.dealTypCd == "S"){ //정찰가면
+		$("#pageTitle").text("구매하기");
+		$("#spn_dealStrtPrc").text("판매가");
+		$("#tr_priceUnit").css("display", "none");
+		$("#spn_period").text("판매기간");
+		$("#tr_maxBidPrc").css("display", "none");
+		$("#tr_bidPrc").css("display", "none");
+		$("#sbx_bidPrc").css("display", "none");
+		$("#btn_purchaseOrBid").text("구매하기");
+		$("#btn_history").css("display", "none");
+	}
+	if(result.work.dealTypCd == "A"){ //경매면
+		$("#btn_history").css("display", "");
+		chart();
+	}
+	workList();
+});
+
+/* 응찰 히스토리 */
+function chart() {
+	var bidDate = [];
+	var bidPrc = [];
+	var bidMbrNcknm = [];
+	var stepSize = "";
+	stepSize = 0;
+	
+		$.ajax({
+	        type: "post",
+	        url: "/myDealList/bidHistory",
+	        data: {
+	        	dealSq : result.work.dealSq
+	        },
+	        success: function(data) {
+	        	
+	        	bidDate.push(data.result[0].dealStrtDate);
+	        	bidPrc.push(data.result[0].dealStrtPrc);
+	        	//bidMbrNcknm.push("시작가");
+	        	//2022-08-24 : 입찰자 닉네임 추가 : 박상현
+	        	bidMbrNcknm.push(data.result[0].sellMbrNcknm);
+	        	for(var i=0; i<data.result.length; i++){
+	        		bidDate.push(data.result[i].bidDate);
+	        		bidPrc.push(data.result[i].bidPrc);
+	        		bidMbrNcknm.push(data.result[i].mbrNcknm);
+	        	}
+	        	
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	
+	const bidHistory = new Chart(document.getElementById("canvas"), {
+	    type: 'line',
+	    data: {
+	        labels: bidDate,
+	        datasets: [{
+	            label: '응찰가',
+	            data: bidPrc,
+	            borderColor: "rgba(50, 50, 50, 50)",
+	            backgroundColor: "rgba(50, 50, 50, 50)",
+	            borderWidth: 3,
+	            pointRadius: 5,
+	            fill: false,
+	            lineTension: 0
+	        }]
+	    },
+	    options: {
+	    	scales: {
+	    		yAxes: {
+	   	            ticks: {
+		   	            stepSize: stepSize,
+	   	            }
+	    	   }
+	    	},
+	    	plugins: {
+	            tooltip: {
+	            	titleFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	bodyFont: {
+	            		weight: 'normal',
+	            		size: 13
+	            	},
+	            	callbacks: {
+	            		//2022-08-24 : 라벨 분기 추가 : 박상현
+	            		label: function(data) {
+	            			var label = "";
+	            			if(data.dataIndex == 0) {
+	            				label = "시작가: "+data.formattedValue;
+	            			}else{
+	            				label = "응찰가: "+data.formattedValue;
+	            			}
+	            			return label;
+	                    },
+	                    //2022-08-24 : 시작시간 분기 추가 : 박상현
+	                    title: function(context) {
+	                    	var title = "";
+	                    	if(context[0].dataIndex == 0) {
+	                    		title = "시작시간: " + context[0].label;
+	                    	} else {
+	                    		title = "응찰시간: " + context[0].label;
+	                    	}
+	                    	return title;
+	                    },
+	                    //2022-08-24 : 입찰자,응찰자 분기 추가 : 박상현
+	            		footer: function(tooltipItems) {
+	            			var footer = "";
+	            			if(tooltipItems[0].dataIndex == 0) {
+	            				footer = "입찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
+	            			} else {
+	            				footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];	
+	            			}
+	            			
+	            			return footer;
+	            		}
+	                }
+	            },
+	            legend: {
+	        		display: false
+	        	}
+			}
+		}
+	});
+	
+}
+
 //작가의 다른 작품 리스트
 function workList(){
 	if(result.workList.length > 0){

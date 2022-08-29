@@ -474,6 +474,7 @@
 		SELECT 
 				A.WORK_SQ AS workSq,
 				A.ARTST_SQ AS artstSq,
+				C.DEAL_SQ AS dealSq,
 				A.MBR_SQ AS mbrSq,
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
@@ -505,7 +506,6 @@
 						TBL_DA_MBR_M
 				WHERE
 						MBR_SQ = C.BUY_MBR_SQ) AS buyNcknm
-				
 		FROM
 				TBL_DA_WORK_M AS A
 		INNER JOIN
