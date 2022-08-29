@@ -263,17 +263,15 @@
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
-		FROM 
-				TBL_DA_WORK_M AS A
-		INNER JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.MBR_SQ = B.MBR_SQ
-		INNER JOIN
-				TBL_DA_ARTST_M AS C
-			ON 	A.ARTST_SQ = C.ARTST_SQ 
+		FROM  TBL_DA_WORK_M AS A
+			
+		INNER JOIN TBL_DA_ARTST_M AS C ON A.ARTST_SQ = C.ARTST_SQ
+		
+		INNER JOIN TBL_DA_MBR_M AS B ON B.MBR_SQ = C.MBR_SQ 
+		
 		INNER JOIN 
-				TBL_DA_DEAL_M AS D
-			ON 	A.WORK_SQ = D.WORK_SQ 
+			TBL_DA_DEAL_M AS D ON A.WORK_SQ = D.WORK_SQ 
+		
 		WHERE
 				A.ARTST_SQ = #{artstSq}
 			AND D.DEAL_STTS_CD = 'TP'
@@ -326,12 +324,9 @@
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
 		FROM 
 				TBL_DA_WORK_M AS A
-		INNER JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.MBR_SQ = B.MBR_SQ
-		INNER JOIN
-				TBL_DA_ARTST_M AS C
-			ON 	A.ARTST_SQ = C.ARTST_SQ 
+		INNER JOIN TBL_DA_ARTST_M AS C ON A.ARTST_SQ = C.ARTST_SQ
+		INNER JOIN TBL_DA_MBR_M AS B ON	C.MBR_SQ = B.MBR_SQ
+		 
 		WHERE 
 				<!-- A.WORK_SALE_YN = 'N' -->
 				A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
@@ -389,14 +384,11 @@
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
-		FROM 
-				TBL_DA_WORK_M AS A
-		INNER JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.MBR_SQ = B.MBR_SQ
-		INNER JOIN
-				TBL_DA_ARTST_M AS C
-			ON 	A.ARTST_SQ = C.ARTST_SQ 
+		FROM  TBL_DA_WORK_M AS A
+		INNER JOIN TBL_DA_ARTST_M AS C ON A.ARTST_SQ = C.ARTST_SQ
+		
+		INNER JOIN TBL_DA_MBR_M AS B ON C.MBR_SQ = B.MBR_SQ
+		 
 		WHERE 
 				A.WORK_TYP_CD = 'WORK'
 			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
