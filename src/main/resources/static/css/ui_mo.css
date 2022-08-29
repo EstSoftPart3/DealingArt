@@ -6447,3 +6447,7 @@ p.dib{display:inline-block !important;}
 .logo_mo {
 	display: block;
 }
+
+/*0829*/
+.box_con1 {height:750px; overflow:auto;}
+.max-img {max-width:75rem;}
