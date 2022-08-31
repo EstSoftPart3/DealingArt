@@ -255,7 +255,8 @@
   */
   function selectMgz9Dtl(mgzSq){
 
-  	
+  	console.log("mgzSq :"+mgzSq);
+	  
   	$.ajax({
           type: "post",
           url: "/selectMgz9Dtl",
@@ -288,6 +289,10 @@
             	$("#lp_mgz9Dtl").modal("show");
         
             	//$("#lp_mgz9Dtl").modal();
+            	
+            	//2022-08-29 : 브라우져 URL 변경
+            	history.pushState(null, null, '?mgzSq='+mgzSq);
+
             	
         	}else{
         		modalAlertShow("검색 결과가 없습니다."); 
@@ -401,12 +406,12 @@
   console.log("getParam :"+getParam);
   
   if(getParam !="" && getParam != null){
- 	
-	  //selectMgz9Dtl(getParam);
  	  
 	  setTimeout(function() {
 		  $(".mgz-youtube_"+getParam).trigger("click");
 		}, 1000);
+	  
+	  //selectMgz9Dtl(getParam);
   }
   
  });

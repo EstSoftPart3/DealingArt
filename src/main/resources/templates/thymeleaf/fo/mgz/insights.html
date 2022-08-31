@@ -221,6 +221,7 @@ $(document).ready(function(){
          		for(var i=0; i<mgz9List.length; i++){
          			mgz9ListHtml += '<li>';
 	         		mgz9ListHtml += '	<a href="javascript:void(0);" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+	         		//mgz9ListHtml += '	<a href="/insights?mgzSq='+mgz9List[i].mgzSq+'">';
 	         		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
 	         		mgz9ListHtml += '		<div class="ml-div">';
 	         		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
@@ -304,6 +305,9 @@ $(document).ready(function(){
               	$("body").css("overflow", "hidden");
               	$('#lp_mgz9Dtl').modal({backdrop: 'static', keyboard: false})  
               	$("#lp_mgz9Dtl").modal("show");
+              	//2022-08-29 : 브라우져 URL 변경
+              	history.pushState(null, null, '?mgzSq='+mgzSq);
+              	
           	}else{
           		modalAlertShow("검색 결과가 없습니다."); 
           		$("#lp_mgz9Dtl_cntnt").empty();

@@ -168,7 +168,7 @@
      * RETURN : MGZ9 목록
      */
      function selectMgz9List(mgzTypCd){
-     	
+    	 
      	$.ajax({
              type: "post",
              url: "/selectMgz9List",
@@ -258,6 +258,10 @@
                   	
                   	
                   	$("#lp_mgz9Dtl").modal("show");
+                  	
+                    //2022-08-29 : 브라우져 URL 변경
+                  	history.pushState(null, null, '?mgzSq='+mgzSq);
+                  	
                   	
               	}else{
               		modalAlertShow("검색 결과가 없습니다."); 
