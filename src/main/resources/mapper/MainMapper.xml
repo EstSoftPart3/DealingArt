@@ -38,7 +38,7 @@
 				C.DEAL_SQ IS NOT NULL
 			AND C.DEAL_STTS_CD = 'TP'
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
-			AND	C.DEAL_TYP_CD = 'A'
+			AND	C.DEAL_TYP_CD IN ('A','S')
 		ORDER BY C.DEAL_ENDNG_DT ASC
 		LIMIT 20
 	</select>
