@@ -2223,8 +2223,10 @@ input[type="radio"]:checked + label span {
     left: auto;
     text-shadow: none;
     opacity: 1;
-    top: 5.6rem;
+    top: 6.6rem;
     z-index: 9;
+    font-size:3rem;
+    color:#fff;
 }
 .modal-baeg .modal-content .modal-header .baegs .close img{width:4rem; display: block;}
 
@@ -6451,3 +6453,5 @@ p.dib{display:inline-block !important;}
 /*0829*/
 .box_con1 {height:750px; overflow:auto;}
 .max-img {max-width:75rem;}
+
+.hidden {display:none;}

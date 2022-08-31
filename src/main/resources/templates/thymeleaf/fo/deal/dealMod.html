@@ -573,10 +573,40 @@
 										<input type="checkbox" id="cbx_bidAgree3"/>
 										<label for="cbx_bidAgree3"><span></span>
 											<div class="check-info">
-												<p>작품 판매에 대한 수수료가 부과됩니다.</p>
-												판매자 : 3%, 구매자 6% (부가세 제외) 
+												<p>
+													작품 판매에 대한 수수료가 부과됩니다.
+													<button id="btn_toggle"><img src="resources/img/ba/me-icon.png"></button>
+												</p>
 											</div>
 										</label>
+										
+										<!--0830_판매수수료-->
+										<div id="Toggle" style="display:none">
+											<div class="toggle_box1">
+												<div class="toggle_bar1">판매수수료</div>
+												<div class="toggle_close" id="toggle_close"><img src="resources/img/ba/icon-end_1.png"></div>
+											</div>
+											<div class="toggle_con1">
+												<table>
+													<thead>
+														<tr>
+															<td style="text-align: center;">판매 수수료</td>
+															<td style="text-align: center;">거래대금정산</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>5%</td>
+															<td>구매자가 거래 대금을 결제 완료한<br/> 
+																시점으로 14일 이내 지급(영업일 기준)
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<p>※ 부가세 및 이벤트 할인 별도</p>
+											</div>
+										</div>
+									
 									</div>
 									<!-- <div class="collapsdiv">보기</div> -->
 							        </a>
@@ -613,7 +643,7 @@
 										■ 운송 유의사항<br/>
 											
 										-고객센터에서 운송서비스를 안내 받은 후 48시간 이내에 결제를 해야 됩니다.<br/>
-										-운송방법은 프리미엄 운송서비스와 직접운송 중 필수로 이용해야 되며 추가적으로 설치, 포장이 필요한 경우 선택이 가능합니다. <br/>
+										-운송방법은 프리미엄, 일반, 셀프 운송 중 필수로 이용해야 되며 추가적으로 설치, 포장이 필요한 경우 선택이 가능합니다.<br/>
 										-작품가/부가서비스 미결제, 운송일정조율에 대한 응답거부, 작품운송의 인계 및 수취거부, 미술품 또는 보증서의 허위, 변조, 조작, 딜링아트 서비스 이용약관에 위반되는 행위가 발생되는 경우 거래가 취소 될 수 있습니다. <br/>
 										-미술품의 소유권은 구매자에게 운송이 완료 되기 전까지 판매자에게 있습니다. <br/>
 										-해외운송은 불가하며 제주도, 도서산간 지역, 조형작품은 별도문의를 통해 안내해드립니다.
@@ -1682,6 +1712,19 @@ function setTodayTime(){
 	return year+'-'+month+'-'+date+' '+hours+':'+minutes;
 	
 }
+
+//0830 토글팝업
+$(function (){
+	$("#btn_toggle").click(function (){
+	$("#Toggle").toggle();
+	});
+});
+
+$(function (){
+	$('#toggle_close').click(function() {
+		 $('#Toggle').hide(); 
+	});
+});
 
 $(".user-on").click(function() {   
 	$('.home-1').show();  

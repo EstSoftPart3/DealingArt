@@ -2090,7 +2090,7 @@ input[type="radio"]:checked + label span {
 .modal-baeg .modal-content .modal-header .baegs{
     position: relative;
 }
-.modal-baeg_1 .modal-content_1 .modal-header_1 .baegs_1{
+.modal-baeg .modal-content .modal-header .baegs_1{
     position:fixed;
 }
 .modal-baeg .modal-content .modal-header .baegs h2{
@@ -2112,8 +2112,8 @@ input[type="radio"]:checked + label span {
     text-shadow: none;
     opacity: 1;
 }
-.modal-baeg_1 .modal-content_1 .modal-header_1 .baegs_1 .close_1{
-    position:fixed; 
+.modal-baeg .modal-content .modal-header .baegs_1 .close_1{
+/*     position:fixed; 
     top:19px; 
     text-shadow:none; 
     opacity:1; 
@@ -2121,7 +2121,18 @@ input[type="radio"]:checked + label span {
     width:100%; 
     text-align:right; 
     padding-right:10px; 
-    padding-top:3px;
+    padding-top:3px; */
+    top:6px; 
+    opacity:1; 
+    text-shadow:none; 
+    background:#e9625c; 
+    color:#fff; 
+    text-align:right; 
+    padding-top:3px; 
+    padding-right:20px;
+    position: fixed; 
+    width: 100%; 
+    left:600px;
 }
 
 .modal-baeg .modal-content .modal-header .close::before, .modal-baeg .modal-content .modal-header .close::after{display:none;}
@@ -2508,8 +2519,11 @@ input[type="radio"]:checked + label span {
 .ait-l{ left: -25px; opacity:0;}
 
 
-.ad-sty{}
-.ad-sty{}
+/*0828*/
+.ad-sty {
+	height:1400px;
+    overflow: hidden;
+}
 .ad-user{
     width: 321px;
     height: 321px;
@@ -5842,4 +5856,48 @@ position: relative;background-color: #fbfbfb;}
 	height:765px; 
 	overflow: auto; 
 	margin-top: 33px;
+}
+
+/*0830*/
+#Toggle {
+    position: absolute;
+    top:-10px;
+    left:280px;
+    background: #fff;
+    border:1px solid #eaeaea;
+    z-index: 999;
+    box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
+}
+
+#Toggle .toggle_box1 {
+    background: #e9625c;
+    padding:15px;
+}
+.toggle_bar1 {
+    display: inline-block;
+    color:#fff;
+    font-size: 14px;
+}
+.toggle_close {
+    float:right;
+    display: inline-block;
+}
+.toggle_close img {
+    width:15px;
+    cursor: pointer;
+}
+#Toggle table {
+    margin:15px;
+}
+#Toggle table tr td {
+    border:1px solid #cfcfcf;
+    padding:10px;
+    font-size:13px;
+    color:#999;
+    word-break: keep-all;
+    text-align:center;
+}
+.toggle_con1 p {
+    padding-left:15px;
+    color:#808080;
 }

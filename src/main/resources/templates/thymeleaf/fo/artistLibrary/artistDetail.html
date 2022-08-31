@@ -251,12 +251,13 @@ $(function() {
 		
 		$("#artstInfo").empty();
 		$("#artstInfoModal").empty();
-		artstInfoHtml2 += '<div class="cont-title3 mg-at">';
-		artstInfoHtml2 += '<h3>Artist library</h3>';
-		artstInfoHtml2 += '</div>';
-		artstInfoHtml2 += '<div class="ad-sty">';
+		
+		artstInfoHtml += '<div class="cont-title3 mg-at">';
+		artstInfoHtml += '<h3>Artist library</h3>';
+		artstInfoHtml += '</div>';
+		artstInfoHtml += '<div class="ad-sty">';
 		//artstInfoHtml2 += '<div class="ad-user"><img src="resources/img/icon/user-2.png" /></div>';
-		artstInfoHtml2 += '<div class="ad-user" style="margin-bottom:100px;"><img src="'+ artstInfo.artistInfo.artstProfileImgUrl +'"/></div>';
+		artstInfoHtml += '<div class="ad-user" style="margin-bottom:100px;"><img src="'+ artstInfo.artistInfo.artstProfileImgUrl +'"/></div>';
 		artstInfoHtml += '<div class="ad-text">';
 		artstInfoHtml += '	<h3>'+ artstInfo.artistInfo.artstActvtyNm +'</h3>';
 		artstInfoHtml += '	<h4>'+ artstInfo.artistInfo.artstEnglsNm +'</h4>';
@@ -334,6 +335,7 @@ $(function() {
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
+		artstInfoHtml += '</div>';
 		/*
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>논문, 평론, 기사</dt>';
@@ -345,11 +347,102 @@ $(function() {
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		*/
-		$("#artstInfo").append(artstInfoHtml2).trigger("create");
+		
+		/*더보기 모달*/
+		artstInfoHtml2 += '<div class="ad-text">';
+		artstInfoHtml2 += '	<h3>'+ artstInfo.artistInfo.artstActvtyNm +'</h3>';
+		artstInfoHtml2 += '	<h4>'+ artstInfo.artistInfo.artstEnglsNm +'</h4>';
+		artstInfoHtml2 += '	<p>'+ artstInfo.artistInfo.artstSelfIntro +'</p>';
+		artstInfoHtml2 += '</div>';
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '<dt>SNS</dt>';
+		artstInfoHtml2 += '<dd>';
+		if(artstInfo.artistInfo.artstInstagramUrl != null && artstInfo.artistInfo.artstInstagramUrl != ""){
+			artstInfoHtml2 += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" target="_blank" class="if-img"><img src="resources/img/icon/i-1.png" /></a>';
+		}
+		if(artstInfo.artistInfo.artstfacebookUrl != null && artstInfo.artistInfo.artstfacebookUrl != ""){
+			artstInfoHtml2 += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" target="_blank" class="if-img"><img src="resources/img/icon/i-2.png" /></a>';
+		}
+		/* artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>'; */
+		artstInfoHtml2 += '</dd>';
+		artstInfoHtml2 += '</dl>';
+		
+		if(artstInfo.artistInfo.artstHmpgUrl != null && artstInfo.artistInfo.artstHmpgUrl != ""){
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>홈페이지</dt>';
+		artstInfoHtml2 += '	<dd>';
+		artstInfoHtml2 += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		}
+		artstInfoHtml2 += '	<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>학력</dt>';
+		artstInfoHtml2 += '	<dd>';
+		for(var i=0; i<eductn.length; i++){
+			artstInfoHtml2 += '		<p>'+ eductn[i].eductnNm +'</p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>경력</dt>';
+		artstInfoHtml2 += '	<dd>';
+		for(var i=0; i<career.length; i++){
+			artstInfoHtml2 += '		<p>'+ career[i].careerNm +'</p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>전시 정보</dt>';
+		artstInfoHtml2 += '	<dd>';
+		for(var i=0; i<exhbtn.length; i++){
+			artstInfoHtml2 += '		<p>'+ exhbtn[i].exhbtnNm +'</p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>수상</dt>';
+		artstInfoHtml2 += '	<dd>';
+		for(var i=0; i<exhbtnAword.length; i++){
+			artstInfoHtml2 += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
+		}
+		/*
+		artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
+		artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
+		artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
+		artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
+		artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
+		artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
+		*/
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>인터뷰영상</dt>';
+		artstInfoHtml2 += '	<dd>';
+		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
+			artstInfoHtml2 += '        <p><a href = "'+ artstInfo.artistInfo.artstPromtnVideoUrl +'" target="_blank">'+ artstInfo.artistInfo.artstPromtnVideoUrl +' </a></p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		//artstInfoHtml2 += '</div>';
+		/*
+		artstInfoHtml += '<dl class="ad-dl">';
+		artstInfoHtml += '	<dt>논문, 평론, 기사</dt>';
+		artstInfoHtml += '	<dd>';
+		artstInfoHtml += '		<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p>';
+		artstInfoHtml += '		<p>2013 50만원 전, 경민미술관</p>';
+		artstInfoHtml += '		<p>2013 가미갤러리 초대작가전, 가미갤러리</p>';
+		artstInfoHtml += '		<p>2013 블라블라, 인사토포하우스</p>';
+		artstInfoHtml += '	</dd>';
+		artstInfoHtml += '</dl>';
+		*/
+		
 		$("#artstInfo").append(artstInfoHtml).trigger("create");
-		var artstInfoButton = '<button type="button" class="the-more2 mg_t60" id="openArtstInfoModal">더보기</button>';
+		var artstInfoButton = '<button type="button" class="the-more2 mg_t60 hidden" id="openArtstInfoModal">더보기</button>';
 		$("#artstInfo").append(artstInfoButton).trigger("create");
-		$("#artstInfoModal").append(artstInfoHtml).trigger("create");
+		$("#artstInfoModal").append(artstInfoHtml2).trigger("create");
 		var moreButton = '<button type="button" class="btn-more"><span>more</span></button>';
 		$("#moreButton").append(moreButton).trigger("create");
 	}
