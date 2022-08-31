@@ -286,7 +286,7 @@
 				TBL_DA_DEAL_M
 		WHERE 
 				WORK_SQ = #{workSq}
-			AND DEAL_STTS_CD != 'FB'
+			AND DEAL_STTS_CD NOT IN ('FB', 'ST')
 	</select>
 	
 	<select id="bidRegCheck" resultType="int" parameterType="hashMap">

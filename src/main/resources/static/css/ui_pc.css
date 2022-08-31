@@ -119,8 +119,8 @@
 
 /* 0701 정영우 메인 배너 겹치는 문제 수정*/
 .contents {
-	/* margin-top:-6px; */
-    margin-top:0px;
+	margin-top:-6px;
+    /* margin-top:0px; */
 }
 .main-banner {
 	height:430px;
@@ -2076,7 +2076,11 @@ input[type="radio"]:checked + label span {
 .modal-baeg{
     width: 100%;
 }
-.modal-baeg .modal-content{}
+.modal-baeg .modal-content{
+}
+.modal-baeg_1 .modal-content_1{
+	height:800px; 
+}
 .modal-baeg .modal-content .modal-header{
     background-color: #e9625c;
     border: none;
@@ -2085,6 +2089,9 @@ input[type="radio"]:checked + label span {
 }
 .modal-baeg .modal-content .modal-header .baegs{
     position: relative;
+}
+.modal-baeg_1 .modal-content_1 .modal-header_1 .baegs_1{
+    position:fixed;
 }
 .modal-baeg .modal-content .modal-header .baegs h2{
     font-size: 22px;
@@ -2104,6 +2111,17 @@ input[type="radio"]:checked + label span {
     left: auto;
     text-shadow: none;
     opacity: 1;
+}
+.modal-baeg_1 .modal-content_1 .modal-header_1 .baegs_1 .close_1{
+    position:fixed; 
+    top:19px; 
+    text-shadow:none; 
+    opacity:1; 
+    background:rgb(233 98 92); 
+    width:100%; 
+    text-align:right; 
+    padding-right:10px; 
+    padding-top:3px;
 }
 
 .modal-baeg .modal-content .modal-header .close::before, .modal-baeg .modal-content .modal-header .close::after{display:none;}
@@ -5816,4 +5834,12 @@ position: relative;background-color: #fbfbfb;}
 /*0820*/
 .logo_mo {
 	display: none;
+}
+
+/*0828*/
+.box_pt20 {
+	padding-top:20px; 
+	height:765px; 
+	overflow: auto; 
+	margin-top: 33px;
 }
