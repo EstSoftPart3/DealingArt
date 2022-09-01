@@ -21,7 +21,7 @@
 	<!-- google -->
     <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
     <!-- faceBook -->
-    <meta name="facebook-domain-verification" content="zrw9l0gyn4u5jja4qv7kpleb4i914k" />
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
 	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
@@ -647,11 +647,11 @@
 										</table>
 										<table class="mstyle-2 perDoinGroup" id="perDonginList">
 											<tr>
-												<th>개인전/단체전</th>
+												<th><span class="my-red">개인전/단체전</span></th>
 												<td>
 													<input type="hidden" name="exhbtnSq" class="exhbtnSq"/>
 													<input type="hidden" name="exhbtnTypCd" class="exhbtnTypCd" value="SLXBT"/>
-													<input type="text" class="input-5" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
+													<input type="text" class="input-5 exhbtnNm" name="exhbtnNm" style="width: 480px" placeholder="연도 및 내역" />
 													<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 perDonginAddBtn" style="cursor:pointer"/>
 												</td>
 											</tr>
@@ -1235,11 +1235,8 @@
 	//작가기본정보 VIEW
 	function AuthorInfoSaveView(proc) {
 		
-		
-		
-		//proc : 2 라면 입력,수정후 프로세서 이다.
-		
-		
+		// proc : 2 라면 입력,수정후 프로세서 이다. 
+    	
 		var mbrSq = $("#mbrSq").html(); //회원순번
 		
 		let viewBaseParams = {
@@ -1258,6 +1255,7 @@
 		    	$("#artstSq").val(dataContent.artstSq);
 		    	/* 프로필 이미지 */
 		    	$("#dropZone_artstProfileImgUrl").prop("src",dataContent.artstProfileImgUrl)
+		    	
 		    	$("#artstProfileImgUrl").val(dataContent.artstProfileImgUrl);
 		    	/* 작가 대표 작품 이미지*/
 		     	$("#dropZone_artstWorkImgUrl").prop("src",dataContent.artstWorkImgUrl)
@@ -1269,7 +1267,7 @@
 		    	/* 활동분야 */
 		    	/* Form checked Clear */
 		    	$(".artstActvtyPartCd").prop('checked' , false);
-		    	console.log("artstActvtyPartCd :"+dataContent.artstActvtyPartCd);
+		    	
 		    	$(".artstActvtyPartCd:input[value='"+dataContent.artstActvtyPartCd+"']").prop("checked", true);
 		    	/* 활동지역 : 국가 */
 		      	$('select[name=artstActvtyNatnCd]').val(dataContent.artstActvtyNatnCd);
@@ -1286,6 +1284,8 @@
 		    	$("#artstFacebookUrl").val(dataContent.artstFacebookUrl);
 		    	/* 인스타그램 */
 		    	$("#artstInstagramUrl").val(dataContent.artstInstagramUrl);
+		    	
+		    	
 		    	
 		    	var mbrSq = dataContent.mbrSq;
 		    	var artstSq = dataContent.artstSq;
@@ -1513,6 +1513,13 @@
 				modalAlertShow("대표 작품 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
 				return false;
 			}
+		}
+		
+		var exhbtnNm = $(".exhbtnNm").val();
+		
+		if(isEmpty(exhbtnNm)) {
+			modalAlertShow("개인전/단체전 한개 이상의 이력이 필요합니다.","reload");
+			return;
 		}
 		
 		let baseParams = {
@@ -1769,7 +1776,7 @@
 			    		strHtml += '<td>';
 			    		strHtml += '<input type="hidden" name="exhbtnSq" value="'+dataList[x].exhbtnSq+'"/>';
 			    		strHtml += '<input type="hidden" name="exhbtnTypCd" value="'+dataList[x].exhbtnTypCd+'"/>';
-			    		strHtml += '<input type="text" class="input-5" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
+			    		strHtml += '<input type="text" class="input-5 exhbtnNm" style="width: 480px"  name="exhbtnNm" value="'+dataList[x].exhbtnNm+'"/>';
 			    		if(x == 0) {
 			    			strHtml += '<img src="/resources/img/mypage/icon-p.png" class="ic-dp mg_l10 perDonginAddBtn" style="cursor:pointer"/>';	
 			    			strHtml += '<img src="/resources/img/mypage/icon-d.png" class="ic-dp mg_l10 perDonginMinusBtn" style="cursor:pointer"/>';

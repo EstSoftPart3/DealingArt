@@ -6455,3 +6455,45 @@ p.dib{display:inline-block !important;}
 .max-img {max-width:75rem;}
 
 .hiddenMobile {display:none;}
+
+.Toggle {
+    position: absolute;
+    background: #fff;
+    border:1px solid #eaeaea;
+    z-index: 999;
+    box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
+    left:-1rem;
+    z-index:1;
+}
+
+.Toggle .toggle_box1 {
+    background: #e9625c;
+    padding:15px;
+}
+.toggle_bar1 {
+    display: inline-block;
+    color:#fff;
+    font-size: 14px;
+}
+.toggle_close {
+    float:right;
+    display: inline-block;
+}
+.toggle_close img {
+    width:15px;
+    cursor: pointer;
+}
+.Toggle table {
+    margin:15px;
+}
+.Toggle table tr td {
+    border:1px solid #cfcfcf;
+    padding:10px;
+    font-size:13px;
+    color:#999;
+    word-break: keep-all;
+}
+.toggle_con1 p {
+    padding-left:15px;
+    color:#808080;
+}
