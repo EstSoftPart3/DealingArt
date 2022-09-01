@@ -899,33 +899,37 @@ function updateNewAddr(){
  */
 function btn_paymethod_onclick(obj){
 	result.dealInfo.paymethod = $('input[name=paymethod]:checked').val();
-	if(result.dealInfo.buyPaymntSttsCd != "2PW"){
+	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
 		if(result.dealInfo.paymethod == "CARD"){
-			feeCal();
+			//feeCal();
 			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.075); //거래 수수료 2.5프로 할인
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
-			$("#sbx_couponList_DD").val("null");
-			$("#div_couponList_DD").empty();
-			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
-			feeCal();
+			//feeCal();
 			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.06); //거래 수수료 4프로 할인 
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
-			$("#sbx_couponList_DD").val("null");
-			$("#div_couponList_DD").empty();
-			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
 			feeCal();
 		}
-		totalTrnsprtPrc();
+		$("#sbx_couponList_DD").val("null");
+		$("#div_couponList_DD").empty();
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+		totalAmount = 0;
+		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
+		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
+		totalAmount += feeTax;
+		$("#fee").text(formatComma(fee)+" KRW");
+		$("#feeTax").text(formatComma(feeTax)+" KRW");
+		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
 	}
 }
 
@@ -1439,7 +1443,6 @@ function getCouponList(cuponTypCd){
 
 //1차 결제 쿠폰 셀렉트 박스 선택시
 $("#sbx_couponList_DD").on("change", function(){
-	debugger;
 	var checked = $("#sbx_couponList_DD option:selected").val();
 	var cuponNm = $("#sbx_couponList_DD option:selected").text();
 	if(checked != "null"){
@@ -1595,7 +1598,7 @@ function totalTrnsprtPrc(){
 	/*1차 결제 최종 금액 구하기*/
 	/*********************/
 	}else if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
-        if(document.querySelector("#div_couponVal_DD") == null && result.dealInfo.paymethod == null){
+        if(document.querySelector("#div_couponVal_DD") == null){
 			//disc = 0;
 			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
 			feeTax = fee * 0.10;
@@ -1615,7 +1618,7 @@ function totalTrnsprtPrc(){
 				}
 			}else{ //쿠폰 할인 금액이 원화이면
 				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
-				disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc.replaceAll(/,/g, '')); //쿠폰 할인 금액을 가져온다
 				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
 				if(fee < 0){
 					fee = 0;
