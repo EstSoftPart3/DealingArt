@@ -1377,13 +1377,23 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 
 //쿠폰 목록 가져오기
 function getCouponList(cuponTypCd){
+	var data = {};
+	if(cuponTypCd == "DD"){
+		data = {
+				mbrSq : sMbrSqVal,
+				cuponTypCd : cuponTypCd,
+				cuponDetailCd : "BFEE"
+		}
+	}else if(cuponTypCd == "TD"){
+		data = {
+				mbrSq : sMbrSqVal,
+				cuponTypCd : cuponTypCd
+		}
+	}
 	$.ajax({
 		url:"/myCouponList_payment",
 		type:"post",
-        data: {
-        	mbrSq : sMbrSqVal,
-        	cuponTypCd : cuponTypCd
-        },
+        data: data,
 		success: function(data){
 			var target = document.getElementById("sbx_couponList_"+cuponTypCd); //쿠폰 셀렉트 박스 가져오기
 			if(data != null && data.result.length > 0){

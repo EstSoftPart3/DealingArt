@@ -101,13 +101,12 @@ public class paymentDao {
 			Map<String, Object> workInfo = dealMapper.selectWorkAll(param.get("dealSq").toString());
 			//7월18일18시~ 8월31일24시 판매수수료 이벤트 적용
 			String dealFinalPrc = workInfo.get("dealFinalPrc").toString().replaceAll("\\,","");
-			long dealSellFee = 0;
+			long dealSellFee = Math.round(Long.parseLong(dealFinalPrc) * 0.05); //판매 수수료 5프로를 구한다
 			if(workInfo.get("eventYn").toString().equals("Y")) {
-				dealSellFee = 0; //판매 수수료 0원 이벤트
+				long dealSellFeeEvnet = Math.round(dealSellFee * 0.5); //판매수수료 50프로 할인 이벤트
+				dealSellFee = dealSellFeeEvnet;
 			}else{
 				dealSellFee = Math.round(Long.parseLong(dealFinalPrc) * 0.05); //판매 수수료 5프로를 구한다
-				long dealSellFeeEvnet = Math.round(dealSellFee * 0.5);
-				dealSellFee = dealSellFeeEvnet;
 			}
 			long dealSellFee2 = dealSellFee + (Math.round(dealSellFee * 0.10)); //판매 수수료에 부과세를 더한다
 			long dealCalcPrc = Long.parseLong(dealFinalPrc) - dealSellFee2; //작품 금액에서 최종 판매 수수료를 빼고 정산 금액을 구한다
