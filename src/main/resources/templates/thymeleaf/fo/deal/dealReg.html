@@ -156,8 +156,44 @@
 						
 						<div class="med">
 							<h2 id="bidOrSale" style="display:inline-block;">경매 시작가</h2>
-							<!-- <div style="margin-left:15px;display:inline-block;">판매수수료 <img src="resources/img/ba/me-icon.png" class="med-me" /></div> -->
-							 
+							<div style="margin-left:15px;display:inline-block;">판매수수료 
+								<button id="btn_bidOrSale"><img src="resources/img/ba/me-icon.png" class="med-me" /></button>
+								
+								<div class="Toggle" style="display:none">
+									<div class="toggle_box1">
+										<div class="toggle_bar1">판매수수료</div>
+										<div class="toggle_close" id="bidOrSale_close"><img src="resources/img/ba/icon-end_1.png"></div>
+									</div>
+									<div class="toggle_con1">
+										<table>
+											<thead>
+												<tr>
+													<td style="text-align: center;">결제수단</td>
+													<td style="text-align: center;">판매수수료</td>
+													<td style="text-align: center;">구매수수료</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>가상계좌</td>
+													<td>5%</td>
+													<td>10%</td>
+												</tr>
+												<tr>
+													<td>신용카드</td>
+													<td>6%</td>
+													<td>11%</td>
+												</tr>
+											</tbody>
+										</table>
+										<p>※ 부가세 및 이벤트 할인 미적용</p>
+									</div>
+								</div>
+										
+							</div>
+							<!--0831_판매수수료-->
+						
+						 
 							<div class="med-box radio-2">
 								<div id="bidOrSale2">
 									<input type="radio" id="t1" name="cc" checked>
@@ -171,6 +207,9 @@
 								</div>
 							</div>
 						</div>
+						
+					
+					
 						
 						<div class="med">
 							<h2>배송 시작 주소</h2>
@@ -1013,6 +1052,8 @@
 </div>
 <!-- 0702 끝 -->
 
+	
+
 <script th:inline="javascript">
 $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
@@ -1757,6 +1798,19 @@ $(function (){
 $(function (){
 	$('#toggle_close').click(function() {
 		 $('#Toggle').hide(); 
+	});
+});
+
+
+$(function (){
+	$("#btn_bidOrSale").click(function (){
+		$(".Toggle").toggle();
+	});
+});
+
+$(function (){
+	$('#bidOrSale_close').click(function() {
+		 $('.Toggle').hide(); 
 	});
 });
       
