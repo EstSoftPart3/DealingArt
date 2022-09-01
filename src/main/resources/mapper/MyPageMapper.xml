@@ -67,7 +67,9 @@
 		)
 		AND MCR.MBR_SQ = #{mbrSq}
 		AND CM.CUPON_TYP_CD = #{cuponTypCd}
+		<if test="cuponDetailCd != null and cuponDetailCd != ''">
 		AND CM.CUPON_DETAIL_CD = #{cuponDetailCd}
+		</if>
 		AND MCR.CUPON_USE_YN = 'N'
 	</select>
 

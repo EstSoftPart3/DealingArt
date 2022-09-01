@@ -906,6 +906,9 @@ function btn_paymethod_onclick(obj){
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#sbx_couponList_DD").val("null");
+			$("#div_couponList_DD").empty();
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
@@ -914,6 +917,9 @@ function btn_paymethod_onclick(obj){
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#sbx_couponList_DD").val("null");
+			$("#div_couponList_DD").empty();
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
@@ -1421,6 +1427,7 @@ function getCouponList(cuponTypCd){
 					target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
 					sbx_couponList.push(object); //쿠폰 Array에 쿠폰 옵션 추가
 				}
+				$("#sbx_couponList_TD").attr("disabled", true);
 				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
 			}
 		},
@@ -1432,6 +1439,7 @@ function getCouponList(cuponTypCd){
 
 //1차 결제 쿠폰 셀렉트 박스 선택시
 $("#sbx_couponList_DD").on("change", function(){
+	debugger;
 	var checked = $("#sbx_couponList_DD option:selected").val();
 	var cuponNm = $("#sbx_couponList_DD option:selected").text();
 	if(checked != "null"){
@@ -1441,7 +1449,7 @@ $("#sbx_couponList_DD").on("change", function(){
 		if(cuponNm.indexOf("%") > -1){
 			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
 		}else{
-			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+' KRW</div>';
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+formatComma($("#sbx_couponList_DD option:selected").val())+' KRW</div>';
 		}
 		//innerText += '	<div class="cmy-end">X</div>';
 		innerText += '</div>';
@@ -1573,7 +1581,7 @@ function totalTrnsprtPrc(){
 	/*********************/
 	/*2차 결제 최종 금액 구하기*/
 	/*********************/
-	if(fee == 0){ //거래 수수료가 없으면 2차 결제
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
 		var trnsprtPrc = 0; //부가 서비스 금액
 		var cmyWonList = document.querySelectorAll(".cmy-won"); //부가 서비스 내역을 불러온다
 		for(var i=0; i<cmyWonList.length; i++){ //부가 서비스 갯수만큼
@@ -1586,29 +1594,40 @@ function totalTrnsprtPrc(){
 	/*********************/
 	/*1차 결제 최종 금액 구하기*/
 	/*********************/
-	}else{ //거래 수수료가 있으면 1차 결제
-		if(document.querySelector("#div_couponVal_DD") == null){
-			disc = 0;
-		}else{
+	}else if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
+        if(document.querySelector("#div_couponVal_DD") == null && result.dealInfo.paymethod == null){
+			//disc = 0;
+			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+			feeTax = fee * 0.10;
+			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+		}else if(document.querySelector("#div_couponVal_DD") != null){
 			disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
 			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
 				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
 				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
 				disc = fee * disc; //쿠폰 할인 금액을 가져온다
 				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				if(fee < 0){
+					fee = 0;
+					feeTax = fee * 0.10;
+				}
 			}else{ //쿠폰 할인 금액이 원화이면
 				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
 				disc = parseInt(disc); //쿠폰 할인 금액을 가져온다
 				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				if(fee < 0){
+					fee = 0;
+					feeTax = fee * 0.10;
+				}
 			}
 		}
-		fee = $("#fee").text().replaceAll(/,/g, '');
-		fee = parseInt(fee.replaceAll(' KRW', ''));
-		feeTax = $("#feeTax").text().replaceAll(/,/g, '');
-		feeTax = parseInt(feeTax.replaceAll(' KRW', ''));
 		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
 		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
 		totalAmount += feeTax;
+		$("#fee").text(formatComma(fee)+" KRW");
+		$("#feeTax").text(formatComma(feeTax)+" KRW");
 		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
 		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
 	}
