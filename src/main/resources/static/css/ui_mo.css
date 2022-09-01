@@ -6463,6 +6463,7 @@ p.dib{display:inline-block !important;}
     z-index: 999;
     box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
     left:-1rem;
+    z-index:1;
 }
 
 .Toggle .toggle_box1 {
