@@ -1612,6 +1612,7 @@ function totalTrnsprtPrc(){
 				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
 				disc = fee * disc; //쿠폰 할인 금액을 가져온다
 				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				feeTax = fee * 0.10;
 				if(fee < 0){
 					fee = 0;
 					feeTax = fee * 0.10;
@@ -1620,6 +1621,7 @@ function totalTrnsprtPrc(){
 				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
 				disc = parseInt(disc.replaceAll(/,/g, '')); //쿠폰 할인 금액을 가져온다
 				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				feeTax = fee * 0.10;
 				if(fee < 0){
 					fee = 0;
 					feeTax = fee * 0.10;

@@ -139,15 +139,15 @@ public class MyPageDao {
 		List<Map<String, Object>> resultSale = myPageMapper.myCollectionSale(param);
 		Map<String, Object> paramMap = new HashMap<>();
 		List<String> workSq = new ArrayList<String>();
-		List<String> dealSq = new ArrayList<String>();
+		//List<String> dealSq = new ArrayList<String>();
 		if(resultSale.size() > 0) {
 			for(int i=0; i<resultSale.size(); i++) {
 				workSq.add(resultSale.get(i).get("workSq").toString());
-				dealSq.add(resultSale.get(i).get("dealSq").toString());
+				//dealSq.add(resultSale.get(i).get("dealSq").toString());
 			}
 		}
 		paramMap.put("workSq", workSq);
-		paramMap.put("dealSq", dealSq);
+		//paramMap.put("dealSq", dealSq);
 		paramMap.put("mbrSq", param);
 		List<Map<String, Object>> resultNonSale = myPageMapper.myCollectionNonSale(paramMap);
 		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
@@ -206,13 +206,13 @@ public class MyPageDao {
 		List<Map<String, Object>> resultSale = myPageMapper.myWorkListSale(param);
 		Map<String, Object> paramMap = new HashMap<>();
 		List<String> workSq = new ArrayList<String>();
-		List<String> dealSq = new ArrayList<String>();
+		//List<String> dealSq = new ArrayList<String>();
 		if(resultSale.size() > 0) {
 			for(int i=0; i<resultSale.size(); i++) {
-				dealSq.add(resultSale.get(i).get("dealSq").toString());
+				workSq.add(resultSale.get(i).get("workSq").toString());
 			}
 		}
-		paramMap.put("dealSq", dealSq);
+		//paramMap.put("dealSq", dealSq);
 		paramMap.put("workSq", workSq);
 		paramMap.put("artstSq", param);
 		List<Map<String, Object>> resultNonSale = myPageMapper.myWorkListNonSale(paramMap);
