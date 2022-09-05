@@ -9,7 +9,7 @@
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="theme-color" content="#000000">
-	<meta name="description" content="">
+	
 	<meta name="author" content="">
 	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
 	<meta name="description" content="개인간 미술품 거래 마켓플레이스">
@@ -91,7 +91,7 @@
 						<div class="con-btn">
 							<a href="#" data-toggle="modal" data-target="#paintModal"><img src="resources/img/de/paint_new.png" /></a>
 						</div>
-					
+						<span style="color:red;font-weight: bold;">※ 필터를 이용하여 작품을 검색해 보세요.</span>
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading1">
@@ -328,7 +328,7 @@
 													<input type="checkbox" id="i22" name="workClsfcCd" value="EDITION" class="searchOption"/>
 													<label for="i22"><span></span>에디션</label>
 													<input type="checkbox" id="i33" name="workClsfcCd" value="PICTURE" class="searchOption"/>
-													<label for="i33"><span></span>사진</label>
+													<label for="i33"><span></span>사진..</label>
                                                     <!-- <input type="checkbox" id="i1" name="workClsfcCd" value="ORNTPAI" class="searchOption"/>
 													<label for="i1"><span></span>동양화</label><br/>
                                                     <input type="checkbox" id="i2" name="workClsfcCd" value="WSTNPAI" class="searchOption"/>
@@ -357,10 +357,14 @@
 												
 												</div>
 											</li> -->
+											
 											<div class="drop-btnb">
                                                 <button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
                                                 <button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
 											</div>
+											
+											
+											
 										</ul>
 									</div>
 								</li>
@@ -559,8 +563,12 @@
 						</div>
 					</li> -->
 					<div class="drop-btnb">
+						
+						<span style="color:red;font-weight: bold;">※ 필터를 이용하여 작품을 검색해 보세요.</span>
+						<br><br>
                         <button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
                         <button type="button" class="dbtn-2" onclick="searchOptionReset()">reset</button>
+                        
 					</div>
 				</ul>
 			</div>
@@ -569,9 +577,19 @@
 </div>
 
 <script type="text/javascript"> 
+	
+	if(isMobile == true){
+		$("#r3").prop("checked", false);   //체크해제하기
+	} else {
+		$("#r3").prop("checked", true);   //체크하기
+	}
+	
+	
 	var more = 1;
 	$(function () {
 		dealSearch('LT', 'DOWN');
+		
+		
 	});
 	
 	function sorting(obj){ //pc 정렬
@@ -1074,6 +1092,9 @@
 		
 		}
 	});
+	
+	
+	
 	
 </script>	
     
