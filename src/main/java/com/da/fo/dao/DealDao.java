@@ -172,7 +172,7 @@ public class DealDao {
 			int checkTime = dealMapper.checkDealEndngTime(param); //거래 종료시간과 응찰 시간 체크
 			if(checkResult > 0) {
 				return -1; //-1를 리턴해준다
-			}else if(checkTime > 0){ //거래 종료시간이 지난 응찰이면ㄴ
+			}else if(checkTime > 0){ //거래 종료시간이 지난 응찰이면
 				return -2;
 			}else {//응찰가 현재 응찰가보다 높으면
 				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
@@ -262,7 +262,7 @@ public class DealDao {
 			if(param.get("autoBidPrc") != null) {
 	            dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
 	            long bidPrc = Long.parseLong(param.get("bidPrc").toString()); //요청한 자동응찰 금액
-	            bidPrc += askingPrice(bidPrc);
+	            //bidPrc += askingPrice(bidPrc);
 	            param.put("bidPrc", bidPrc);
 				dealMapper.bidReg(param); //응찰내역에 추가한다
 				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
