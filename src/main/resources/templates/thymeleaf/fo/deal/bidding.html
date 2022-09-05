@@ -1499,6 +1499,7 @@ function btn_agree_onclick(){
 						param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
 					}else{ //입찰이 안되었으면
 						param.bidPrc = result.deal.dealStrtPrc.replaceAll(/,/g, ''); //거래 시작가를 구한다
+						param.firstBid = "Y";
 					}
 					bidReg(param); //응찰을 한다
 				}else{
