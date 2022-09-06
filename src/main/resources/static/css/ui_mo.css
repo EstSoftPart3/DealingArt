@@ -6497,3 +6497,62 @@ p.dib{display:inline-block !important;}
     padding-left:15px;
     color:#808080;
 }
+
+/* 0823 통합 나의 작품*/
+.beag-bnal{width: 100%;margin: 0 0 4rem 0;}
+.beag-bnal .beag-bnal-box{width: auto;margin: 0 auto;text-align: center;display: inline-block;}
+.beag-bnal .beag-bnal-box .bnal-btn{padding: 0.5rem 1.7rem 0.7rem 1.7rem;font-size: 2.2rem;background: #eee;border-radius: 12px;margin: 0 5px;}
+.beag-bnal .beag-bnal-box .bnal-btn.active{background: #e9625c; color: #fff;}
+
+.toogbtn{ text-align: center; padding: 65px 0 0 0;}
+.toogbtn h3{width: auto;display: inline-block;position: relative;padding: 1.3rem;cursor: pointer;}
+.toogbtn h3:after{content:'▲';position: absolute;top: -3.2rem;left: 50%;transform: translateX(-50%);background-color: #e9625c;border-radius: 50%;color: #fff;font-size: 2.2rem;padding: 1rem;}
+.toogbtn h3.toff:after{content:'▼';position: absolute;top: -3.3rem;left: 50%;transform: translateX(-50%);background-color: #e9625c;border-radius: 50%;color: #fff;font-size: 2.2rem;padding: 1rem;}
+.toogbtn p{ font-size: 1.6rem;}
+.trtoggle{ display: none;}
+.trtoggle.trShow{}
+.textoog{ font-size: 2.6rem;}
+.textoog:after{content:'지금 입력하기';}
+.textoog.active:after{content:'나중에 입력하기';}
+
+
+
+.myd-box-4{width: 100%;max-width: 75rem;margin: 3rem auto 5rem auto;}
+.work-drp{ display: inline-block; vertical-align: middle; position: relative;}
+.work-drp .work-div{ margin-left: 15px; cursor: pointer;}
+.work-drp .work-div span{ font-size: 14px; display: inline-block; vertical-align: middle; padding-right: 5px; font-weight: 500;}
+.work-drp .work-div img{ vertical-align: middle;}
+
+.work-hov{display:none;position: absolute;top: 5rem;left: 50%;width: 26rem;background-color: #e9625c;padding: 0.6rem;text-align: left;z-index: 2;transform: translateX(-50%);}
+.work-hov ul{ clear: both; border-left: #e8e8e8 1px solid; border-top: #e8e8e8 1px solid;}
+.work-hov ul li{ display: inline-block; width: 50%; text-align: center; float: left; background: #fff;}
+.work-hov ul li a{display: block;padding: 0.8rem 0;border-bottom: #e8e8e8 1px solid;border-right: #e8e8e8 1px solid;}
+.work-hov ul li a img{ vertical-align: middle;}
+.work-hov ul li a span{display: inline-block;vertical-align: middle;color: #e9625c;font-weight: 600;font-size: 1.5rem;}
+.work-hov ul:after{content:'';display: block;clear: both;}
+.work-hov ul li:last-child:after{content:'';display: block;clear: both;}
+.work-hov:after{content:'';background-image: url(../img/banci.png);position: absolute;left: 50%;top: -1.7rem;background-size: 100%;width: 4.1rem;height: 2rem;transform: translateX(-50%);background-repeat: no-repeat;}
+.work-hov.active{display:block;}
+
+.work-drp-2{}
+.work-drp-2:after{content:'';}
+.work-drp-2 .wd-box{max-width: 75rem;width: 100%;margin: 0 auto;background: #e9625c;border-top: #eee 2px solid;padding: 2rem 0;border-radius: 11px;margin-top: 1.4rem;text-align: center;}
+.work-drp-2 .wd-box .wd-btns{padding: 0.3rem 1.6rem 0.5rem 1.6rem;font-size: 1.9rem;background: #fff;border-radius: 12px;margin: 0 0.5rem;min-width: 12rem;}
+.dp_n{display:none;}
+.wd-btns{display:none;}
+.wd-btns.active{display:inline-block;}
+.wdb-all{display:inline-block}
+
+.chediv{}
+.chediv .check-div{display:block;}
+.chediv .check-div img{width: 8.5rem;}
+
+.iv-span:after{content:'공개';}
+.iv-span.active:after{content:'비공개';}
+.item-view{ position: absolute; right: 15px; bottom: 15px; z-index: 999999;}
+.item-view button .iv-span{font-size: 2.3rem;z-index: 9999999;background: #fff;padding: 0.3rem 1rem;border-radius: 7px;}
+
+.mana-check{position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 999999; padding: 0;width: 100%; height: 100%;}
+.mana-check input[type="checkbox"] + label span{background:none;}
+.mana-check input[type="checkbox"]:checked + label span{background: url(../img/cehck-icon.png);width: 7.4rem;height: 7.4rem;background-size: 100%;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);margin: 0;}
+.mana-check input[type="checkbox"] + label{width: 100%; height: 100%;}

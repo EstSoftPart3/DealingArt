@@ -107,6 +107,13 @@ public interface MyPageMapper {
 	public int myWorkReg(Map<String, Object> param);
 	
 	/*
+	 * 나의 작품 리스트
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myWorkList(String param);
+	
+	/*
 	 * 나의 작품 판매중 리스트
 	 * param : 나의 작품 정보가 들어있는 param
 	 * return : List

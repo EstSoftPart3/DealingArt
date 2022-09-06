@@ -56,6 +56,13 @@ public interface MyPageService {
 	
 	/*
 	 * 나의 작품 리스트
+	 * param : mbrSq
+	 * return : List
+	 */
+	List<Map<String, Object>> myWorkList(String param);
+	
+	/*
+	 * 나의 작품 리스트
 	 * param : artstSq
 	 * return : List
 	 */

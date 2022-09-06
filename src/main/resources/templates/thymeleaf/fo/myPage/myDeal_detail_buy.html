@@ -249,9 +249,8 @@
 												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
 											</div>
 											<div class="bat-box3 mg_t30">
-												<span class="c-reds2">※ 오픈 이벤트 (거래 수수료 할인)</span>
-												<br/><span class="c-reds2">카드결제 : 거래수수료 2.5% 할인</span>
-												<br/><span class="c-reds2">가상계좌 : 거래수수료 4% 할인</span>
+												<span class="c-reds2">카드결제 : 거래수수료 11.5%</span>
+												<br/><span class="c-reds2">가상계좌 : 거래수수료 10%</span>
 											</div>
 											<!-- <div class="pay-check">
 												<input type="checkbox" id="a1" name="cc" />
@@ -812,13 +811,15 @@ function feeCal(){
 /*
  * 남은 시간 초 단위로 불러온다 
  */
- var dealCount = setInterval(function(){
-	var endngDate = result.dealInfo.dealEndngDate.replaceAll(".", "-");
-	var dday = new Date(endngDate).getTime();
+//거래 남은 시간 1초마다 계산해서 표현하기
+
+var dealCount = setInterval(function(){
+	//var endngDate = result.dealInfo.dealEndngDateTime.replaceAll(".", "-");
+	var dday = new Date(result.dealInfo.dealEndngDateTime).getTime();
 	var today = new Date().getTime();
 	var element = document.getElementById("dealCount");
 	//거래 남은 시간이 현재 시간보다 작으면
-	if(dday <= today || result.dealInfo.dealSttsCd != "TP"){
+	if(dday <= today){
 		stopDealCount();
 	}else{
 		var gap = dday - today;
@@ -832,6 +833,9 @@ function feeCal(){
 
 function stopDealCount(){
 	clearInterval(dealCount);
+	if(result.dealInfo.dealSttsCd == "TP"){
+		modalAlertShow("거래가 종료되었습니다.", "reload");
+	}
 }
 /*
  * 보증서 보기 팝업
@@ -902,19 +906,19 @@ function btn_paymethod_onclick(obj){
 	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
 		if(result.dealInfo.paymethod == "CARD"){
 			//feeCal();
-			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.075); //거래 수수료 2.5프로 할인
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.115); //거래 수수료 11.5%
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
-			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+			//modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
 			//feeCal();
-			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.06); //거래 수수료 4프로 할인 
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.10); //거래 수수료 10%
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
-			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+			//modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
 		}
 		if(result.dealInfo.paymethod == "ACCT"){
 			feeCal();
@@ -1598,14 +1602,28 @@ function totalTrnsprtPrc(){
 	/*1차 결제 최종 금액 구하기*/
 	/*********************/
 	}else if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
-        if(document.querySelector("#div_couponVal_DD") == null){
-			//disc = 0;
+        //if(document.querySelector("#div_couponVal_DD") == null){
+        if($("#sbx_couponList_DD").val() == "null"){
+        	$("input[name=paymethod]:checked").prop("checked",false);
+			disc = 0;
 			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
 			amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
-		}else if(document.querySelector("#div_couponVal_DD") != null){
+        	//$('input[name=paymethod]').val(null);
+        	//$('input:radio[name=playrtList]:input[value="son"]').attr("checked", true);	// 선택	
+        	
+        	//if(result.dealInfo.paymethod == "CARD"){
+        		//$("input[name=paymethod]:input[value='CARD']").prop("checked",true);
+        	//}else if(result.dealInfo.paymethod == "VACCT"){
+        		//$("input[name=paymethod]:input[value='VACCT']").prop("checked",true);
+        	//}else{
+        		//$("input[name=paymethod]:checked").prop("checked",false);
+        	//}
+        	//btn_paymethod_onclick();
+        	//feeCal();
+		}else if($("#sbx_couponList_DD").val() != "null"){
 			disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
 			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
 				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다

@@ -150,6 +150,17 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	//통합 나의 작품
+	@RequestMapping("/myWorkList")
+	@ResponseBody
+	public ModelAndView myWorkList(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ mbrSq : " + mbrSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myWorkList");
+		List<Map<String, Object>> result = myPageService.myWorkList(mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 
 	// 스크랩
 	@RequestMapping("/scrap")

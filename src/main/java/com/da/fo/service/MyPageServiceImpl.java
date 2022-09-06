@@ -120,6 +120,15 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	/*
 	 * 나의 작품 리스트
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myWorkList(String param) {
+		return myPageDao.myWorkList(param);
+	}
+	
+	/*
+	 * 나의 작품 리스트
 	 * param : artstSq
 	 * return : List
 	 */
