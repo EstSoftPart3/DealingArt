@@ -87,6 +87,7 @@
 					 			<%
 					 			if(!brdTypCd.equals("NT")) {
 					 			%>
+					 			<input type="radio" id="t1" name="brdAnTypCd" class="brdAnTypCd" value="GE" checked style="display:none">
 					 			<div class="form-group row">
 		               				<label class="col-form-label sTitle LabelStyle" style="text-align: center;">구분</label>
                     				<div class="col-sm-7">
