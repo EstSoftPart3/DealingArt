@@ -99,6 +99,12 @@ public class MyPageController {
 	public String coupon() {
 		return "thymeleaf/fo/myPage/coupon";
 	}
+	
+	//모바일 마이페이지
+	@RequestMapping("/mMyPage")
+	public String mobileMyPage() {
+		return "thymeleaf/fo/myPage/mypage_mobile";
+	}
 
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
