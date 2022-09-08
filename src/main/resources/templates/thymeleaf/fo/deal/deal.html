@@ -681,7 +681,7 @@
 		$.ajax({
 	        type: "post",
 	        url: "/dealSearch",
-	        contentType:"application/json;",
+	        contentType:"application/json",
 	        data: JSON.stringify(searchOptions),
 	        success: function(data) {
 	        	var dealList;
@@ -893,7 +893,7 @@
 	        error: function(error) {
 	            alert("오류 발생" + error); 
 	        }
-		})
+		});
 	}
 	
 	function dealSearchMore(){

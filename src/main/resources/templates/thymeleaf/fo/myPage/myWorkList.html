@@ -102,14 +102,14 @@
 						<!-- 0823 start -->
 						<div class="myd-box-4">
 							<div class="input-gra" data-toggle="modal" data-target="#collModal2">
-								<input type="text" placeholder="나의 작품 검색"/>
-								<a href="#"><img src="resources/img/mypage/icon-sech.png" /></a>
+								<input type="text" placeholder="작품명이나 작가명으로 검색하세요." id="searchKeyword" onkeydown="enter(event)"/>
+								<a href="javascript:void(0);" onclick="searchMyWork()"><img src="resources/img/mypage/icon-sech.png" /></a>
 							</div>
 						</div>
 						
 						<div class="beag-bnal">
 							<div class="beag-bnal-box">
-								<button type="button" id="bnal1" class="bnal-btn active">전체선택</button>
+								<button type="button" id="bnal1" class="bnal-btn active">전체</button>
 								<button type="button" id="bnal2" class="bnal-btn">나의 창작 작품</button>
 								<button type="button" id="bnal3" class="bnal-btn">소장중인 작품</button>
 							</div>
@@ -491,7 +491,9 @@
 
 
 <script th:inline="javascript">
-var result = /*[[${result}]]*/ 'default';
+//var result = /*[[${result}]]*/ 'default';
+var result = new Object();
+var searchOptions = new Object();
 
 jQuery(document).ready(function() {
 	if(sAuthSqVal == 2){
@@ -507,19 +509,372 @@ jQuery(document).ready(function() {
 	//conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
 	conBtn.innerHTML += '<a href="javascript:collectionRegMove();"><img src="resources/img/mypage/mycon-3.png" /></a>';
 	$("#totalCollection").addClass("active");
-	
 	workList();
 	masonryLayout();
 });     
+
+//나의 작품 검색 엔터키 누르면
+function enter(e){
+	if(e.keyCode == 13){
+		searchMyWork();
+	}
+}
+//나의 작품 검색
+function searchMyWork(){
+	var keyword = $("#searchKeyword").val();
+	if(keyword != "" && keyword.length > 1){
+		searchOptions.keyword = keyword;
+		workList();
+	}
+	if(keyword == ""){
+		searchOptions.keyword = null;
+		workList();
+	}
+	if(keyword != "" && keyword.length < 2){
+		modalAlertShow("검색어를 2글자 이상 입력해주세요.", "searchKeyword");
+	}
+}
+//작품 상세 페이지 이동
+function workDetail(sq){
+	location.href = "/workDetail?workSq="+sq;
+}
+//구매 상세 페이지 이동
+function dealDetail(sq){
+	location.href = "/bidding?dealSq="+sq;
+}
+//판매완료 상세 페이지 이동
+function soldoutDetail(sq){
+	location.href = "/soldoutDetail?dealSq="+sq;	
+}
+//작품 공개 버튼 클릭시
+function openYn(obj){
+	var workSqList = new Array();
+	workSqList.push(obj.attributes.workSq.value);
+	if(obj.classList.value.indexOf('active') > -1){
+		modalConfirm("선택한 작품을 <b class='c-red dib'>공개</b> 처리 하시겠습니까?", function(confrim){
+			if(confrim){
+				workOpenYn(workSqList, "Y");
+			}
+		});
+		
+	}else{
+		modalConfirm("선택한 작품을 <b class='c-red dib'>비공개</b> 처리 하시겠습니까?", function(confrim){
+			if(confrim){
+				workOpenYn(workSqList, "N");
+			}
+		});
+	}
+}
+//작품 공개 비공개 처리
+function workOpenYn(list, yn){
+	var param = {
+			workSqList : list,
+			workOpenYn : yn
+	};
+	//공개처리 ajax후 reload
+	$.ajax({
+        type: "post",
+        url: "/myWorkOpenYn",
+        data: param,
+        success: function(data) {
+        	if(data.result > 0 && yn == "Y"){
+        		modalAlertShow("선택한 작품 공개처리가 완료되었습니다.", "reload");
+        	}else if(data.result > 0 && yn == "N"){
+        		modalAlertShow("선택한 작품 비공개처리가 완료되었습니다.", "reload");
+        	}else if(data.result < 1 && yn == "Y"){
+        		modalAlertShow("공개처리에 실패했습니다.<br/>다시 시도해주세요.", "reload");
+        	}else if(data.result < 1 && yn == "N"){
+        		modalAlertShow("비공개처리에 실패했습니다.<br/>다시 시도해주세요.", "reload");
+        	}
+        },
+        error: function(error) {
+            alert("공개/비공개에 실패했습니다. 관리자에게 문의해주세요."); 
+        }
+	});
+}
+function workList(callback){
+	searchOptions.mbrSq = sMbrSqVal;
+	$.ajax({
+        type: "post",
+        url: "/myWorkListSearch",
+        data: searchOptions,
+        success: function(data) {
+        	result = data.result;
+        	if(result.length > 0){
+        		var workListHtml = '';
+        		for(var i=0; i<result.length; i++){
+    				var z = i+1
+    				var gtText = "gt"+z;
+    				
+    				//경매
+    				if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
+    					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+    					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+    					workListHtml += '	<div class="item-div-img active"><!-- 0823 start chediv 추가 -->';
+    					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+    					workListHtml += '		<div class="item-ho" onclick="dealDetail('+result[i].dealSq+')">';
+    					workListHtml += '			<p>'+result[i].dealStrtDate+' – '+result[i].dealEndngDate+'</p>';
+    					if(result[i].bidcnt != null && result[i].bidcnt != ""){
+    						workListHtml += '			<p>응찰수 : '+result[i].bidcnt+'</p>';
+    					}else{
+    						workListHtml += '			<p>응찰수 : 0</p>';
+    					}
+    					workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
+    					workListHtml += '			<h4>시작가  '+result[i].dealStrtPrc+' KRW</h4>';
+    					workListHtml += '		</div>';
+    					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+    					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+    					workListHtml += '			<div class="pay-check mana-check">';
+    					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'">';
+    					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+    					workListHtml += '			</div>';
+    					workListHtml += '		</div>';
+    					/* workListHtml += '		<div class="item-view">';
+    					if(result[i].workOpenYn != "N"){
+    						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}else{
+    						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}
+    					workListHtml += '		</div>'; */
+    					workListHtml += '		<!-- 0823 end -->';
+    					workListHtml += '	</div>';
+    					workListHtml += '	<!-- 하단텍스트 -->';
+    					workListHtml += '	<div class="item-body">';
+    					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+    					workListHtml += '		<div class="heart"></div>'; */
+    					workListHtml += '		<div class="uesr-s">';
+    					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+    						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else{
+    						workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+    					}
+    					workListHtml += '		</div>';
+    					workListHtml += '		<div class="text-s">';
+    					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+    						workListHtml += '		<h3>'+result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+    					}else{
+    						workListHtml += '		<h3>'+result[i].artstActvtyNm+'</h3>';	
+    					}
+    					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+    					}else{
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+    					}
+    					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+    					workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
+    					if(result[i].maxBidPrc != null && result[i].maxBidPrc != "") {
+    						workListHtml += '		<h4>입찰가 '+result[i].maxBidPrc+' KRW</h4>';
+    					}else{
+    						workListHtml += '		<h4>입찰가 0 KRW</h4>';
+    					}
+    					workListHtml += '		</div>';
+    					if(result[i].workTypCd == "WORK"){
+    						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+    					}else{
+    						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+    					}
+    					workListHtml += '	</div>';
+    					workListHtml += '</figure>';
+    				}
+    				//정찰가
+    				if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
+    					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+    					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+    					workListHtml += '	<div class="item-div-img sale" ><!-- 0823 start chediv 추가 -->';
+    					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+    					workListHtml += '		<div class="item-ho2 sale-div" onclick="dealDetail('+result[i].dealSq+')">';
+    					workListHtml += '			<h3>판매중</h3>';
+    					workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
+    					workListHtml += '		</div>';
+    					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+    					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+    					workListHtml += '			<div class="pay-check mana-check">';
+    					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'">';
+    					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+    					workListHtml += '			</div>';
+    					workListHtml += '		</div>';
+    					/* workListHtml += '		<div class="item-view">';
+    					if(result[i].workOpenYn != "N"){
+    						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}else{
+    						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}
+    					workListHtml += '		</div>'; */
+    					workListHtml += '		<!-- 0823 end -->';
+    					workListHtml += '	</div>';
+    					workListHtml += '	<!-- 하단텍스트 -->';
+    					workListHtml += '	<div class="item-body">';
+    					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+    					workListHtml += '		<div class="heart"></div>'; */
+    					workListHtml += '		<div class="uesr-s">';
+    					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+    						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else{
+    						workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+    					}
+    					workListHtml += '		</div>';
+    					workListHtml += '		<div class="text-s">';
+    					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+    					}else{
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+    					}
+    					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+    					}else{
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+    					}
+    					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+    					workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
+    					workListHtml += '			<h4>판매가 '+result[i].dealStrtPrc+' KRW</h4>';
+    					workListHtml += '		</div>';
+    					if(result[i].workTypCd == "WORK"){
+    						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+    					}else{
+    						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+    					}
+    					workListHtml += '	</div>';
+    					workListHtml += '</figure>';
+    				}
+    				
+    				//판매완료
+    				if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != "" && result[i].dealSttsCd != "FB"){
+    					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+    					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+    					workListHtml += '	<div class="item-div-img sold-3" onclick="soldoutDetail('+result[i].dealSq+')"><!-- 0823 start chediv 추가 -->';	
+    					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+    					/* workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+    					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+    					workListHtml += '			<div class="pay-check mana-check">';
+    					workListHtml += '				<input type="checkbox" id="a11" name="cc">';
+    					workListHtml += '				<label for="a11"><span></span></label>';
+    					workListHtml += '			</div>';
+    					workListHtml += '		</div>'; 
+    					workListHtml += '		<div class="item-view">';
+    					if(result[i].workOpenYn != "N"){
+    						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}else{
+    						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}
+    					workListHtml += '		</div>'; */
+    					workListHtml += '	</div>';
+    					workListHtml += '	<!-- 하단텍스트 -->';
+    					workListHtml += '	<div class="item-body">';
+    					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+    					workListHtml += '		<div class="heart on"></div>'; */
+    					workListHtml += '		<div class="uesr-s">';
+    					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+    						workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    		 			}else{
+    		 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+    		 			}
+    					workListHtml += '		</div>';
+    					workListHtml += '		<div class="text-s">';
+    					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+    					}else{
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+    					}
+    					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+    					}else{
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+    					}
+    					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+    					workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+    					workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
+    					workListHtml += '		</div>';
+    					workListHtml += '		<!-- artist active넣어야지나옴 -->';
+    					if(result[i].workTypCd == "WORK"){
+    						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+    					}else{
+    						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+    					}
+    					workListHtml += '	</div>';
+    					workListHtml += '</figure>';
+    				}
+    				
+    				//등록한 작품
+    				if(result[i].dealTypCd == null || result[i].dealTypCd == "" || result[i].dealSttsCd == "FB"){
+    					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+    					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+    					workListHtml += '	<div class="item-div-img chediv" ><!-- 0823 start chediv 추가 -->';	
+    					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" onclick="workDetail('+result[i].workSq+')"; class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"">';
+    					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+    					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+    					workListHtml += '			<div class="pay-check mana-check">';
+    					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'">';
+    					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+    					workListHtml += '			</div>';
+    					workListHtml += '		</div>'; 
+    					workListHtml += '		<div class="item-view">';
+    					if(result[i].workOpenYn != "N"){
+    						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}else{
+    						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+    					}
+    					workListHtml += '		</div>';
+    					workListHtml += '		<!-- 0823 end -->'; 
+    					workListHtml += '	</div>';
+    					workListHtml += '	<!-- 하단텍스트 -->';
+    					workListHtml += '	<div class="item-body">';
+    					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+    					workListHtml += '		<div class="heart on"></div>'; */
+    					workListHtml += '		<div class="uesr-s">';
+    					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+    						workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    		 			}else{
+    		 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+    		 			}
+    					workListHtml += '		</div>';
+    					workListHtml += '		<div class="text-s">';
+    					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+    					}else{
+    						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+    					}
+    					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+    					}else{
+    						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+    					}
+    					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+    					workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+    					//workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
+    					workListHtml += '		</div>';
+    					workListHtml += '		<!-- artist active넣어야지나옴 -->';
+    					if(result[i].workTypCd == "WORK"){
+    						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+    					}else{
+    						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+    					}
+    					workListHtml += '	</div>';
+    					workListHtml += '</figure>';
+    				}
+    			}
+    			$("#columns2").empty();
+    			$("#columns2").append(workListHtml).trigger("create");;
+    			masonryLayout(callback);
+        	}else{
+        		modalAlertShow("검색 결과가 없습니다.");
+        		$("#columns2").empty();
+        	}
+        },
+        error: function(error) {
+            alert("오류 발생" + error); 
+        }
+	});
+}
 //거래 남은 시간 1초마다 계산해서 표현하기
 setInterval(function() {
 	var elements = document.querySelectorAll(".dealCount");
 	for(var i=0; i<elements.length; i++){
 		var html = '';
-		var dday = new Date(elements[i].attributes.dday.value).getTime();
+		var dday = parseInt(elements[i].attributes.dday.value);
+		dday = new Date(dday).getTime();
 		var today = new Date().getTime();
 		if(today >= dday){
-			dealSearch();
+			location.reload;
 		}
 	  	var gap = dday - today;
 		var day = Math.floor(gap / (1000 * 60 * 60 * 24));
@@ -534,245 +889,8 @@ setInterval(function() {
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
 }, 1000);
-function onclickTest(){
-	alert("click!!!");
-}
-function workList(){
-	var workListHtml = '';
-	for(var i=0; i<result.length; i++){
-		var z = i+1
-		var gtText = "gt"+z;
-		
-		//경매
-		if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
-			workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
-			workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-			workListHtml += '	<div class="item-div-img active"><!-- 0823 start chediv 추가 -->';
-			workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-			workListHtml += '		<div class="item-ho" onclick="onclickTest()">';
-			workListHtml += '			<p>'+result[i].dealStrtDate+' – '+result[i].dealEndngDate+'</p>';
-			if(result[i].bidcnt != null && result[i].bidcnt != ""){
-				workListHtml += '			<p>응찰수 : '+result[i].bidcnt+'</p>';
-			}else{
-				workListHtml += '			<p>응찰수 : 0</p>';
-			}
-			
-			workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
-			workListHtml += '			<h4>시작가  '+result[i].dealStrtPrc+' KRW</h4>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- 0823 start 체크아이콘 -->';
-			workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
-			workListHtml += '			<div class="pay-check mana-check">';
-			workListHtml += '				<input type="checkbox" id="chkWorkSq" name="'+result[i].workSq+'">';
-			workListHtml += '				<label for="chkWorkSq"><span></span></label>';
-			workListHtml += '			</div>';
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="item-view">';
-			workListHtml += '			<button type="button" class=""><span class="iv-span"></span></button>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- 0823 end -->';
-			workListHtml += '	</div>';
-			workListHtml += '	<!-- 하단텍스트 -->';
-			workListHtml += '	<div class="item-body">';
-			workListHtml += '		<!-- 하트 on하면 색상 -->';
-			workListHtml += '		<div class="heart"></div>';
-			workListHtml += '		<div class="uesr-s">';
-			if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-				workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-			}else{
-				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
-			}
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="text-s">';
-			if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
-				workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
-			}else{
-				workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
-			}
-			if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
-			}else{
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
-			}
-			workListHtml += '			<p>'+result[i].workMatrl+'</p>';
-			workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
-			if(result[i].maxBidPrc != null && result[i].maxBidPrc != "") {
-				workListHtml += '		<h4>입찰가 '+result[i].maxBidPrc+' KRW</h4>';
-			}else{
-				workListHtml += '		<h4>입찰가 0 KRW</h4>';
-			}
-			workListHtml += '		</div>';
-			if(result[i].workTypCd == "WORK"){
-				workListHtml += '		<div class="artist active"><span>Artist</span></div>';
-			}else{
-				workListHtml += '		<div class="artist"><span>Artist</span></div>';
-			}
-			workListHtml += '	</div>';
-			workListHtml += '</figure>';
-		}
-		//정찰가
-		if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
-			workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
-			workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-			workListHtml += '	<div class="item-div-img sale" ><!-- 0823 start chediv 추가 -->';
-			workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-			workListHtml += '		<div class="item-ho2 sale-div onclick="onclickTest()">';
-			workListHtml += '			<h3>판매중</h3>';
-			workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'"></ul>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- 0823 start 체크아이콘 -->';
-			workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
-			workListHtml += '			<div class="pay-check mana-check">';
-			workListHtml += '				<input type="checkbox" id="chkWorkSq" name="'+result[i].workSq+'">';
-			workListHtml += '				<label for="chkWorkSq"><span></span></label>';
-			workListHtml += '			</div>';
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="item-view">';
-			workListHtml += '			<button type="button" class=""><span class="iv-span"></span></button>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- 0823 end -->';
-			workListHtml += '	</div>';
-			workListHtml += '	<!-- 하단텍스트 -->';
-			workListHtml += '	<div class="item-body">';
-			workListHtml += '		<!-- 하트 on하면 색상 -->';
-			workListHtml += '		<div class="heart"></div>';
-			workListHtml += '		<div class="uesr-s">';
-			if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-				workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-			}else{
-				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
-			}
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="text-s">';
-			if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
-				workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
-			}else{
-				workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
-			}
-			if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
-			}else{
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
-			}
-			workListHtml += '			<p>'+result[i].workMatrl+'</p>';
-			workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
-			workListHtml += '			<h4>판매가 '+result[i].dealStrtPrc+' KRW</h4>';
-			workListHtml += '		</div>';
-			if(result[i].workTypCd == "WORK"){
-				workListHtml += '		<div class="artist active"><span>Artist</span></div>';
-			}else{
-				workListHtml += '		<div class="artist"><span>Artist</span></div>';
-			}
-			workListHtml += '	</div>';
-			workListHtml += '</figure>';
-		}
-		
-		//판매완료
-		if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != "" && result[i].dealSttsCd != "FB"){
-			workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
-			workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-			workListHtml += '	<div class="item-div-img sold-3" ><!-- 0823 start chediv 추가 -->';	
-			workListHtml += '		<img src="'+result[i].workMainImgUrl+'" onclick="onclickTest()" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-			/* workListHtml += '		<!-- 0823 start 체크아이콘 -->';
-			workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
-			workListHtml += '			<div class="pay-check mana-check">';
-			workListHtml += '				<input type="checkbox" id="a11" name="cc">';
-			workListHtml += '				<label for="a11"><span></span></label>';
-			workListHtml += '			</div>';
-			workListHtml += '		</div>'; 
-			workListHtml += '		<div class="item-view">';
-			workListHtml += '			<button type="button" class=""><span class="iv-span"></span></button>';
-			workListHtml += '		</div>'; 
-			workListHtml += '		<!-- 0823 end -->'; */
-			workListHtml += '	</div>';
-			workListHtml += '	<!-- 하단텍스트 -->';
-			workListHtml += '	<div class="item-body">';
-			/* workListHtml += '		<!-- 하트 on하면 색상 -->';
-			workListHtml += '		<div class="heart on"></div>'; */
-			workListHtml += '		<div class="uesr-s">';
-			if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-				workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}else{
- 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
- 			}
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="text-s">';
-			if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
-			}else{
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
-			}
-			workListHtml += '			<p>'+result[i].workMatrl+'</p>';
-			workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
-			workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- artist active넣어야지나옴 -->';
-			if(result[i].workTypCd == "WORK"){
-				workListHtml += '		<div class="artist active"><span>Artist</span></div>';
-			}else{
-				workListHtml += '		<div class="artist"><span>Artist</span></div>';
-			}
-			workListHtml += '	</div>';
-			workListHtml += '</figure>';
-		}
-		
-		//등록한 작품
-		if(result[i].dealTypCd == null || result[i].dealTypCd == "" || result[i].dealSttsCd == "FB"){
-			workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
-			workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-			workListHtml += '	<div class="item-div-img chediv" ><!-- 0823 start chediv 추가 -->';	
-			workListHtml += '		<img src="'+result[i].workMainImgUrl+'" onclick="onclickTest()"; class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"">';
-			workListHtml += '		<!-- 0823 start 체크아이콘 -->';
-			workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
-			workListHtml += '			<div class="pay-check mana-check">';
-			workListHtml += '				<input type="checkbox" id="chkWorkSq" name="'+result[i].workSq+'">';
-			workListHtml += '				<label for="chkWorkSq"><span></span></label>';
-			workListHtml += '			</div>';
-			workListHtml += '		</div>'; 
-			workListHtml += '		<div class="item-view">';
-			workListHtml += '			<button type="button" onclick=""><span class="iv-span"></span></button>';
-			workListHtml += '		</div>'; 
-			workListHtml += '		<!-- 0823 end -->'; 
-			workListHtml += '	</div>';
-			workListHtml += '	<!-- 하단텍스트 -->';
-			workListHtml += '	<div class="item-body">';
-			/* workListHtml += '		<!-- 하트 on하면 색상 -->';
-			workListHtml += '		<div class="heart on"></div>'; */
-			workListHtml += '		<div class="uesr-s">';
-			if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-				workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
- 			}else{
- 				workListHtml += '		<img src="resources/img/de/ues-icon.png"/>';
- 			}
-			workListHtml += '		</div>';
-			workListHtml += '		<div class="text-s">';
-			if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
-			}else{
-				workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
-			}
-			workListHtml += '			<p>'+result[i].workMatrl+'</p>';
-			workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
-			//workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
-			workListHtml += '		</div>';
-			workListHtml += '		<!-- artist active넣어야지나옴 -->';
-			if(result[i].workTypCd == "WORK"){
-				workListHtml += '		<div class="artist active"><span>Artist</span></div>';
-			}else{
-				workListHtml += '		<div class="artist"><span>Artist</span></div>';
-			}
-			workListHtml += '	</div>';
-			workListHtml += '</figure>';
-		}
-	}
-	$("#columns2").empty();
-	$("#columns2").append(workListHtml).trigger("create");;
-	masonryLayout();
-	
-}
-
 //화면 레이아웃 추가
-function masonryLayout() {
+function masonryLayout(callback) {
  	var msnry = new Masonry( '.columns-wrap2', {
   		itemSelector: '.griditem',
   	  	columnWidth: 360,
@@ -786,41 +904,83 @@ function masonryLayout() {
 	imagesLoaded( '.columns-wrap2' ).on( 'progress', function() {
 		msnry.layout();
 	});
+	
+	if(callback == "wrh1"){
+		wrh1Callback();
+	}
+	if(callback == "wrh2"){
+		wrh2Callback();
+	}
+	if(callback == "wrh3"){
+		wrh3Callback();
+	}
+	if(callback == "wrh4"){
+		wrh4Callback();
+	}
+	if(callback == "wrh5"){
+		wrh5Callback();
+	}
+	if(callback == "wrh6"){
+		wrh6Callback();
+	}
 }
       
 /* 0823 start */
 			
-/* 버튼*/
+//전체 버튼 클릭시
 $("#bnal1").click(function() { 
 	$('#bnal1').addClass('active');
 	$('#bnal2').removeClass('active');
 	$('#bnal3').removeClass('active');
+	searchOptions.dealYn = null;
+	searchOptions.workTypCd = null;
+	searchOptions.dealBidYn = null;
+	workList();
 });
+
+//나의 창작 작품 클릭시
 $("#bnal2").click(function() { 
+	//workTypCd WORK로 sorting
 	$('#bnal1').removeClass('active'); 
 	$('#bnal2').addClass('active'); 
 	$('#bnal3').removeClass('active'); 
+	searchOptions.workTypCd = "WORK";
+	workList();
 });
+
+//소장중인 작품 클릭시
 $("#bnal3").click(function() { 
+	//workTypCd COLL로 sorting
 	$('#bnal1').removeClass('active'); 
 	$('#bnal2').removeClass('active'); 
 	$('#bnal3').addClass('active'); 
+	searchOptions.workTypCd = "COLL";
+	workList();
 });
 
 $(".work-click").click(function() { 
 	$('.work-hov').toggleClass('active');
 });
 
-$(".iv-span").click(function() { 
-	$('.iv-span').toggleClass('active');
+//공개/비공개 컨트롤 패널 클릭
+$(".wrh-1").click(function() {
+	//판매중, 거래완료 상태빼고 sorting
+	searchOptions.dealYn = null;
+	searchOptions.dealBidYn = null;
+	searchOptions.dealYn = "N";
+	workList("wrh1");
 });
 
-$(".wrh-1").click(function() {
-	debugger;
-	var chkWorkSq = document.querySelectorAll("#chkWorkSq");
-	for(var i=0; i<chkWorkSq.length; i++){
-		chkWorkSq[i].style.display = "";
-	}
+//공개/비공개 컨트롤 패널 클릭 콜백
+function wrh1Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//체크박스로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "checkbox";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').addClass('active'); 
@@ -829,8 +989,56 @@ $(".wrh-1").click(function() {
 	$('.wdb-4').removeClass('active'); 
 	$('.wdb-5').removeClass('active'); 
 	$('.wdb-6').removeClass('active'); 
+}
+
+//공개/비공개 버튼 클릭
+$('.wdb-1').click(function(e){
+	var workSqList = new Array();
+	document.querySelectorAll('input[name=chkWorkSq]:checked').forEach((el) => {
+		workSqList.push(el.id);
+	});
+	if(e.target.innerHTML == "공개"){
+		if(workSqList.length < 1){
+			modalAlertShow("작품을 선택하지 않았습니다.");
+		}else{
+			modalConfirm("선택한 작품을 <b class='c-red dib'>공개</b> 처리 하시겠습니까?", function(confrim){
+				if(confrim){
+					//alert("공개 처리 workSq:" + workSq);
+					workOpenYn(workSqList, "Y");
+				}
+			});
+		}
+	}else if (e.target.innerHTML == "비공개"){
+		if(workSqList.length < 1){
+			modalAlertShow("작품을 선택하지 않았습니다.");
+		}else{
+			modalConfirm("선택한 작품을 <b class='c-red dib'>비공개</b> 처리 하시겠습니까?", function(confrim){
+				if(confrim){
+					//alert("비공개 처리 workSq:" + workSq);
+					workOpenYn(workSqList, "N");
+				}
+			});
+		}
+	}
 });
+//판매등록 컨트롤 패널 클릭
 $(".wrh-2").click(function() { 
+	//판매중, 거래완료 상태빼고 sorting
+	searchOptions.dealYn = null;
+	searchOptions.dealBidYn = null;
+	searchOptions.dealYn = "N";
+	workList("wrh2");
+});
+//판매등록 컨트롤 패널 클릭 콜백
+function wrh2Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//라디오 버튼으로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "radio";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').removeClass('active'); 
@@ -839,8 +1047,38 @@ $(".wrh-2").click(function() {
 	$('.wdb-4').removeClass('active'); 
 	$('.wdb-5').removeClass('active'); 
 	$('.wdb-6').removeClass('active'); 
+}
+//판매등록 버튼 클릭
+$('.wdb-2').click(function(){
+	var workSq = document.querySelector('input[name=chkWorkSq]:checked').id;
+	if(workSq == null || workSq == ""){
+		modalAlertShow("작품을 선택하지 않았습니다.");
+	}else{
+		modalConfirm("판매등록 페이지로 이동합니다.", function(confrim){
+			if(confrim){
+				location.href = "/dealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal;
+			}
+		});
+	}
 });
+//작품정보수정 컨트롤 패널 클릭
 $(".wrh-3").click(function() { 
+	//판매중, 거래완료 상태빼고 sorting
+	searchOptions.dealYn = null;
+	searchOptions.dealBidYn = null;
+	searchOptions.dealYn = "N";
+	workList("wrh3");
+});
+//작품정보수정 컨트롤 패널 클릭 콜백
+function wrh3Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//라디오 버튼으로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "radio";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').removeClass('active'); 
@@ -849,8 +1087,38 @@ $(".wrh-3").click(function() {
 	$('.wdb-4').removeClass('active'); 
 	$('.wdb-5').removeClass('active'); 
 	$('.wdb-6').removeClass('active'); 
+}
+//작품정보수정 버튼 클릭시
+$('.wdb-3').click(function(e){
+	var workSq = document.querySelector('input[name=chkWorkSq]:checked').id;
+	if(workSq == null || workSq == ""){
+		modalAlertShow("작품을 선택하지 않았습니다.");
+	}else{
+		modalConfirm("작품수정 페이지로 이동합니다.", function(confrim){
+			if(confrim){
+				//location.href = "/dealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal;
+			}
+		});
+	}
 });
+//판매정보수정 컨트롤 패널 클릭시
 $(".wrh-4").click(function() { 
+	//판매중인 것만 sorting
+	searchOptions.deaYn = null;
+	searchOptions.dealBidYn = null;
+	searchOptions.dealYn = "Y";
+	workList("wrh4");
+});
+//판매정보수정 컨트롤 패널 클릭 콜백
+function wrh4Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//라디오 버튼으로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "radio";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').removeClass('active'); 
@@ -859,8 +1127,38 @@ $(".wrh-4").click(function() {
 	$('.wdb-4').addClass('active'); 
 	$('.wdb-5').removeClass('active'); 
 	$('.wdb-6').removeClass('active'); 
+}
+//판매정보수정 버튼 클릭시
+$('.wdb-4').click(function(e){
+	var dealSq = document.querySelector('input[name=chkWorkSq]:checked').value;
+	if(dealSq == null || dealSq == ""){
+		modalAlertShow("작품을 선택하지 않았습니다.");
+	}else{
+		modalConfirm("판매정보수정 페이지로 이동합니다.", function(confrim){
+			if(confrim){
+				location.href="/dealMod?dealSq="+dealSq;
+			}
+		});
+	}
 });
+//삭제 컨트롤 패널 클릭시
 $(".wrh-5").click(function() { 
+	//판매중, 거래완료 상태빼고 sorting
+	searchOptions.dealYn = null;
+	searchOptions.dealBidYn = null;
+	searchOptions.dealYn = "N";
+	workList("wrh5");
+});
+//삭제 컨트롤 패널 클릭 콜백
+function wrh5Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//체크박스로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "checkbox";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').removeClass('active'); 
@@ -869,8 +1167,58 @@ $(".wrh-5").click(function() {
 	$('.wdb-4').removeClass('active'); 
 	$('.wdb-5').addClass('active'); 
 	$('.wdb-6').removeClass('active'); 
+}
+//삭제 버튼 클릭시
+$('.wdb-5').click(function(e){
+	var workSqList = new Array();
+	document.querySelectorAll('input[name=chkWorkSq]:checked').forEach((el) => {
+		workSqList.push(el.id);
+	});
+	if(workSqList.length < 1){
+		modalAlertShow("작품을 선택하지 않았습니다.");
+	}else{
+		modalConfirm("선택한 작품을 정말 <b class='c-red dib'>삭제</b>하시겠습니까?</br>(삭제 후 복구할 수 없습니다.)", function(confrim){
+			if(confrim){
+				//삭제 처리 ajax후 reload
+				$.ajax({
+			        type: "post",
+			        url: "/myWorkDelYn",
+			        data: {
+			        	workSqList : workSqList
+			        },
+			        success: function(data) {
+			        	if(data.result > 0){
+			        		modalAlertShow("선택한 작품 삭제가 완료되었습니다.", "reload");
+			        	}else{
+			        		modalAlertSHow("작품 삭제에 실패했습니다.<br/>다시 시도해주세요.", "reload");
+			        	}
+			        },
+			        error: function(error) {
+			            alert("삭제처리에 실패했습니다. 관리자에게 문의해주세요."); 
+			        }
+				});
+			}
+		});
+	}
 });
+//판매중단 컨트롤 패널 클릭시
 $(".wrh-6").click(function() { 
+	//판매중인 것만 sorting
+	searchOptions.dealYn = null;
+	searchOptions.dealYn = "Y";
+	searchOptions.dealBidYn = "Y";
+	workList("wrh6");
+});
+//판매중단 컨트롤 패널 클릭 콜백
+function wrh6Callback(){
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "";
+	});
+	//체크박스로 바꾼다
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "checkbox";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').removeClass('dp_n'); 
 	$('.wdb-1').removeClass('active'); 
@@ -879,10 +1227,63 @@ $(".wrh-6").click(function() {
 	$('.wdb-4').removeClass('active'); 
 	$('.wdb-5').removeClass('active'); 
 	$('.wdb-6').addClass('active'); 
+}
+//판매중단 버튼 클릭시
+$('.wdb-6').click(function(e){
+	var dealSqList = new Array();
+	document.querySelectorAll('input[name=chkWorkSq]:checked').forEach((el) => {
+		dealSqList.push(el.value);
+	});
+	if(dealSqList.length < 1){
+		modalAlertShow("작품을 선택하지 않았습니다.");
+	}else{
+		modalConfirm("선택한 작품을 <b class='c-red dib'>판매중단</b>하시겠습니까?", function(confrim){
+			if(confrim){
+				//판매중단 처리 ajax후 reload
+				$.ajax({
+			        type: "post",
+			        url: "/myWorkDealDelete",
+			        data: {
+			        	dealSqList : ["384","334"]
+			        },
+			        success: function(data) {
+			        	debugger;
+			        	var result = data.result;
+			        	var resultHtml = "";
+			        	if(result.length > 0){
+			        		for(var i=0; i<result.length; i++){
+			        			resultHtml += "<br/>(작품명:<b class='c-red dib'>"+result[i].workNm+"</b>,작가명:<b class='c-red dib'>"+result[i].artstActvtyNm+" ("+result[i].artstBirthYear+")</b>)"
+			        		}
+			        		modalAlertShow("판매/응찰이 된 작품 <b class='c-red dib'>제외</b>하고 판매중단 처리되었습니다."+resultHtml, "reload");
+			        	}else{
+			        		modalAlertShow("선택하신 작품이 판매중단되었습니다.");
+			        	}
+			        	
+			        },
+			        error: function(error) {
+			            alert("판매중단에 실패했습니다. 관리자에게 문의해주세요."); 
+			        }
+				});
+			}
+		});
+	}
 });
+//취소 컨트롤 패널 클릭시
 $(".wdb-all").click(function() { 
+	searchOptions.dealYn = null;
+	searchOptions.dealBidYn = null;
+	workList();
+	document.querySelectorAll(".check-div").forEach((el) => {
+		el.style.display = "none";
+	});
+	//체크박스로 바꾸고 선택 초기화
+	document.getElementsByName('chkWorkSq').forEach((el) => {
+		el.type = "checkbox";
+		el.checked = false;
+	});
 	$('.work-hov').removeClass('active'); 
 	$('.work-drp-2').addClass('dp_n'); 
+	//공개 버튼
 	$('.wdb-1').removeClass('active'); 
 	$('.wdb-2').removeClass('active'); 
 	$('.wdb-3').removeClass('active'); 

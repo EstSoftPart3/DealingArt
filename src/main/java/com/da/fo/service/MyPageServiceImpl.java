@@ -123,8 +123,35 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : mbrSq
 	 * return : List
 	 */
-	public List<Map<String, Object>> myWorkList(String param) {
+	public List<Map<String, Object>> myWorkList(Map<String, Object> param) {
 		return myPageDao.myWorkList(param);
+	}
+	
+	/*
+	 * 나의 작품 공개/비공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkOpenYn(List<Map<String, Object>> param) {
+		return myPageDao.myWorkOpenYn(param);
+	}
+	
+	/*
+	 * 나의 작품 삭제 처리
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkDelYn(List<String> param) {
+		return myPageDao.myWorkDelYn(param);
+	}
+	
+	/*
+	 * 나의 작품 판매중단 처리
+	 * parameter : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myWorkDealDelete(List<String> param) {
+		return myPageDao.myWorkDealDelete(param);
 	}
 	
 	/*

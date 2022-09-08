@@ -111,7 +111,21 @@ public interface MyPageMapper {
 	 * param : mbrSq
 	 * return : List
 	 */
-	public List<Map<String, Object>> myWorkList(String param);
+	public List<Map<String, Object>> myWorkList(Map<String, Object> param);
+	
+	/*
+	 * 나의 작품 공개/비공개 설정
+	 * param : List
+	 * return : int
+	 */
+	public int myWorkOpenYn(List<Map<String, Object>> param);
+	
+	/*
+	 * 나의 작품 삭제 처리
+	 * param : List
+	 * return : int
+	 */
+	public int myWorkDelYn(List<String> param);
 	
 	/*
 	 * 나의 작품 판매중 리스트

@@ -183,6 +183,13 @@ public interface DealMapper {
 	public int deleteDeal(Object param);
 	
 	/*
+	 * 거래 중단 실패한 작품 정보
+	 * param : dealSq
+	 * return : Map
+	 */
+	public Map<String, Object> deleteDealFailedList(Object param);
+	
+	/*
 	 * 거래 종료된 유찰자 조회
 	 * param : dealSq
 	 * return : mbrSq

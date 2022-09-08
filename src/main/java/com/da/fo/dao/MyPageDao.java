@@ -201,8 +201,62 @@ public class MyPageDao {
 	 * param : mbrSq
 	 * return : List
 	 */
-	public List<Map<String, Object>> myWorkList(String param){
+	public List<Map<String, Object>> myWorkList(Map<String, Object> param){
 		return myPageMapper.myWorkList(param);
+	}
+	
+	/*
+	 * 나의 작품 공개/비공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkOpenYn(List<Map<String, Object>> param) {
+		return myPageMapper.myWorkOpenYn(param);
+	}
+	
+	/*
+	 * 나의 작품 삭제 처리
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkDelYn(List<String> param) {
+		return myPageMapper.myWorkDelYn(param);
+	}
+	
+	/*
+	 * 판매중인 작품 판매 중단
+	 * parameter : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myWorkDealDelete(List<String> param) {
+		//판매 중단에 실패한 dealSq List
+		List<String> failedList = new ArrayList<String>();
+		
+		for(int i=0; i<param.size(); i++) {
+			String dealSq = param.get(i);
+			//판매되었거나 응찰되었는지 확인
+			int failed = dealMapper.selectDealSttsCd(dealSq);
+			//판매되었거나 응찰되었으면
+			if(failed > 0) {
+				//판매 중단에 실패한 dealSq List에 dealSq를 담는다
+				failedList.add(dealSq);
+			}else{
+				//판매 중단 처리를 한다
+				dealMapper.deleteDeal(dealSq);
+			}
+		}
+		//판매 중단에 실패한 dealSq가 존재하면
+		if(failedList.size() > 0) {
+			List<Map<String, Object>> failed = new ArrayList<Map<String,Object>>();
+			for(int i=0; i<failedList.size(); i++) {
+				Map<String, Object> result = dealMapper.deleteDealFailedList(failedList.get(i));
+				failed.add(result);
+			}
+			return failed;
+		}else{
+			List<Map<String, Object>> success = new ArrayList<Map<String,Object>>();
+			return success;
+		}
 	}
 	
 	/*

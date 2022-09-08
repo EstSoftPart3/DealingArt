@@ -78,17 +78,18 @@ public class DealController {
 	@RequestMapping("/dealReg")
 	@ResponseBody
 	public ModelAndView openDealReg(@RequestParam(value="workSq", required=false) String workSq,
-								@RequestParam(value="workTypCd", required=false) String workTypCd,
-								@RequestParam(value="mbrSq", required=false) String mbrSq) {
+									@RequestParam(value="mbrSq", required=false) String mbrSq) {
+									//@RequestParam(value="workTypCd", required=false) String workTypCd)
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/dealReg");
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = new HashMap<>(); 
-		if(workTypCd.equals("WORK")) {
-			work = myPageService.myWorkMod(workSq);
-		}
-		if(workTypCd.equals("COLL")) {
-			work = myPageService.myCollectionMod(workSq);
-		}
+		work = myPageService.myWorkMod(workSq);
+//		if(workTypCd.equals("WORK")) {
+//			work = myPageService.myWorkMod(workSq);
+//		}
+//		if(workTypCd.equals("COLL")) {
+//			work = myPageService.myCollectionMod(workSq);
+//		}
 		MbrInfoVo mbrInfo = memberService.mbrInfo(mbrSq);
 		
 		if(mbrInfo.getMbrDelivryCpNum() == null) {

@@ -820,6 +820,8 @@
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
 				B.AUTH_SQ AS authSq, /*작가구분*/
+				A.WORK_TYP_CD AS workTypCd, /*작품구분*/
+				A.WORK_OPEN_YN AS workOpenYn, /*작품공개여부*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
 				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /*작가생년월일+작가사망연도*/
@@ -860,8 +862,54 @@
 			AND D.DEAL_STTS_CD != 'FB'
 		WHERE
 				A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
-				AND A.MBR_SQ = #{value}
+				AND A.MBR_SQ = #{mbrSq}
+				<if test='workTypCd != null and workTypCd != ""'>
+					AND A.WORK_TYP_CD = #{workTypCd}
+				</if>
+				<if test='keyword != null and keywork != ""'>
+					AND (
+							A.WORK_NM LIKE CONCAT('%',#{keyword},'%')
+						OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{keyword},'%')
+						OR 	A.ARTST_ENGLS_NM LIKE CONCAT('%',#{keyword},'%')
+					)
+				</if>
+				<if test='dealYn == "Y"'>
+					AND DEAL_SQ IS NOT NULL
+					AND DEAL_STTS_CD = 'TP'
+				</if>
+				<if test='dealYn == "N"'>
+					AND DEAL_SQ IS NULL
+				</if>
+				<if test='dealBidYn == "Y"'>
+					HAVING bidCnt = 0;
+				</if>
+				
 	</select>
+	
+	<update id="myWorkOpenYn" parameterType="hashMap">
+		/*작품 공개/비공개 설정*/
+		<foreach collection="list" item="item" index="index">
+		UPDATE 
+				TBL_DA_WORK_M 
+		SET		
+				WORK_OPEN_YN = #{item.workOpenYn}
+		WHERE  
+				WORK_SQ = #{item.workSq};
+		</foreach>
+	</update>
+	
+	<update id="myWorkDelYn" parameterType="hashMap">
+		/*작품 삭제 설정*/
+		<foreach collection="list" item="item" index="index">
+		UPDATE 
+				TBL_DA_WORK_M 
+		SET		
+				DEL_YN = 'Y'
+		WHERE  
+				WORK_SQ = #{item};
+		</foreach>
+	</update>
+	
 	<select id="myWorkListSale" resultType="hashMap" parameterType="String">
 		/*나의 작품 판매중 검색*/
 		SELECT 
@@ -968,7 +1016,7 @@
 				A.WORK_LAKE AS workLake,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_PRODC_YEAR AS workProdcYear,
-				A.WORK_MAIN_IMG_URL AS workMainImgUrl, /*작품대표이미지주소*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_IMG_FRT_URL AS workImgFrtUrl,
 				A.WORK_IMG_RER_URL AS workImgRerUrl,
 				A.WORK_FRM_YN AS workFrmYn,

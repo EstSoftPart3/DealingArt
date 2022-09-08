@@ -150,14 +150,60 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
-	
-	//통합 나의 작품
+
+	//통합 나의 작품 화면 오픈
 	@RequestMapping("/myWorkList")
+	public String myWorkList() {
+		return "thymeleaf/fo/myPage/myWorkList";
+	}
+	
+	//통합 나의 작품 검색
+	@RequestMapping("/myWorkListSearch")
 	@ResponseBody
-	public ModelAndView myWorkList(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ mbrSq : " + mbrSq);
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myWorkList");
-		List<Map<String, Object>> result = myPageService.myWorkList(mbrSq);
+	public ModelAndView myWorkListSearch(@RequestParam Map<String, Object> param) {
+		System.out.println(param);
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = myPageService.myWorkList(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//통합 나의 작품 작품 공개/비공개 처리
+	@RequestMapping("/myWorkOpenYn")
+	@ResponseBody
+	public ModelAndView myWorkOpenYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList,
+									@RequestParam(value = "workOpenYn", required = false) String workOpenYn) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> paramList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<workSqList.size(); i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("workOpenYn", workOpenYn);
+			param.put("workSq", workSqList.get(i));
+			paramList.add(param);
+		}
+		int result = myPageService.myWorkOpenYn(paramList);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//통합 나의 작품 삭제 처리
+	@RequestMapping("/myWorkDelYn")
+	@ResponseBody
+	public ModelAndView myWorkDelYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println(workSqList);
+		int result = myPageService.myWorkDelYn(workSqList);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//통합 나의 작품 삭제 처리
+	@RequestMapping("/myWorkDealDelete")
+	@ResponseBody
+	public ModelAndView myWorkDealDelete(@RequestParam(value = "dealSqList[]", required = false) List<String> dealSqList) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		System.out.println(dealSqList);
+		List<Map<String, Object>> result = myPageService.myWorkDealDelete(dealSqList);
 		mv.addObject("result", result);
 		return mv;
 	}

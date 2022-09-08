@@ -693,6 +693,24 @@
 		WHERE DEAL_SQ = #{dealSq}
 	</delete>
 	
+	<select id="deleteDealFailedList" parameterType="String" resultType="hashMap">
+		/*판매 중단 실패한 작품 리스트*/
+		SELECT
+				B.DEAL_SQ AS dealSq,
+				A.WORK_SQ AS workSq,
+				IF(A.WORK_PRODC_YEAR IS NULL OR A.WORK_PRODC_YEAR = '', A.WORK_NM, CONCAT(A.WORK_NM, ' (', A.WORK_PRODC_YEAR, ')')) AS workNm,
+				A.ARTST_ACTVTY_NM AS artstActvtyNm,
+				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '', A.ARTST_BIRTH_YEAR, CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear
+		FROM
+				TBL_DA_WORK_M A
+		INNER JOIN
+				TBL_DA_DEAL_M B
+			ON	A.WORK_SQ = B.WORK_SQ
+			AND B.DEAL_STTS_CD != 'FB'
+		WHERE
+				B.DEAL_SQ = #{dealSq}
+	</select>
+	
 	<select id="selectAuctioneerByMbrSq" resultType="hashMap" parameterType="String">
 		/* 거래 종료된 경매 유찰자 조회*/
 		SELECT 

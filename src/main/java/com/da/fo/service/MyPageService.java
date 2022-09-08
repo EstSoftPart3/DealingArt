@@ -59,7 +59,28 @@ public interface MyPageService {
 	 * param : mbrSq
 	 * return : List
 	 */
-	List<Map<String, Object>> myWorkList(String param);
+	List<Map<String, Object>> myWorkList(Map<String, Object> param);
+	
+	/*
+	 * 나의 작품 공개/비공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkOpenYn(List<Map<String, Object>> param);
+	
+	/*
+	 * 나의 작품 삭제 처리
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myWorkDelYn(List<String> param);
+	
+	/*
+	 * 나의 작품 판매중단 처리
+	 * parameter : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myWorkDealDelete(List<String> param);
 	
 	/*
 	 * 나의 작품 리스트
