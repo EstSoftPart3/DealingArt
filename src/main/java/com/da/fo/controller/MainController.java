@@ -85,6 +85,12 @@ public class MainController {
 		return "thymeleaf/naver31b27d248ba6c35c148f71e04a92cef6.html";
 	}
 	
+	//페이스북 SEO
+	@RequestMapping("/bgotqya9tcsrgrmspnq0uywh85kjzh.html")
+	public String faceBookSeoHtml() {
+		return "thymeleaf/bgotqya9tcsrgrmspnq0uywh85kjzh.html";
+	}
+	
 	@RequestMapping("/naver6e452542a97ecbfc50130958195020e5.html")
 	public String naverSeoHtml2() {
 		return "thymeleaf/naver6e452542a97ecbfc50130958195020e5.html";
