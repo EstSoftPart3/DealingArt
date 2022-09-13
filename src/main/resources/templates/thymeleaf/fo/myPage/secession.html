@@ -267,7 +267,7 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     	}else if(loginPw == null || loginPw == "" || loginPw == undefined){
     		modalAlertShow("비밀번호를 입력해주세요.", "txt_password");
     	}else{
-    		modalConfirm("알림", "정말 회원탈퇴를 하시겠습니까?", function(callback){
+    		modalConfirm("정말 회원탈퇴를 하시겠습니까?", function(callback){
     			if(callback){
     				$.ajax({
     		    		type: "post",
