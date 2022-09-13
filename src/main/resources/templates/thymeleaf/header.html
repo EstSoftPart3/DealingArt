@@ -167,11 +167,14 @@
 					<span class="sog-1" onclick="javascript:location.href='/main'"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
 					<span class="sog-2" onclick="javascript:history.back();"><a href="javascript:void(0);"><img src="resources/img/icon-1.png" /></a></span>
 					<span class="sog-3 lg-my2"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
-					<span class="sog-4 myCollection"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
+					<!-- <span class="sog-4 myCollection"><a href="#"><img src="resources/img/icon-1.png" /></a></span> -->
+					<span class="sog-4 myPage"><a href="#"><img src="resources/img/icon-1.png" /></a></span>
+					
 					<span class="sog-5 lg-my"><a href="#"><img src="resources/img/icon-2.png" /></a></span>
 					<div class="s-hov" id="loginAfMB">
 						<ul>
-							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li> -->
+							<li><a href="/mMyPage"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
 							<li style="display:none"><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
@@ -1853,6 +1856,16 @@ $(document).on("click", ".myCollection", function(){
 	}
 	
 });
+
+$(document).on("click", ".myPage", function(){
+	if(sMbrSqVal != null){
+		location.href = "/mMyPage";
+	}else{
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+	}
+	
+});
+
 $(document).on("click", ".scrap", function(){
 	pageGoPost({
 		url:"/scrap",

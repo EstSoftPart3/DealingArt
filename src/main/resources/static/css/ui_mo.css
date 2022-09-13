@@ -6456,6 +6456,33 @@ p.dib{display:inline-block !important;}
 
 .hiddenMobile {display:none;}
 
+#Toggle {
+    position: absolute;
+    top:-10px;
+    left:0px;
+    background: #fff;
+    border:1px solid #eaeaea;
+    z-index: 999;
+    box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
+}
+
+#Toggle .toggle_box1 {
+    background: #e9625c;
+    padding:15px;
+}
+
+#Toggle table {
+    margin:15px;
+}
+#Toggle table tr td {
+    border:1px solid #cfcfcf;
+    padding:10px;
+    font-size:13px;
+    color:#999;
+    word-break: keep-all;
+    text-align:center;
+}
+
 .Toggle {
     position: absolute;
     background: #fff;
@@ -6558,4 +6585,23 @@ p.dib{display:inline-block !important;}
 .mana-check input[type="checkbox"] + label{width: 100%; height: 100%;}
 .mana-check input[type="radio"] + label span{background:none;}
 .mana-check input[type="radio"]:checked + label span{background: url(../img/cehck-icon.png);width: 7.4rem;height: 7.4rem;background-size: 100%;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);margin: 0;}
-.mana-check input[type="radio"] + label{width: 100%; height: 100%;}
+.mana-check input[type="radio"] + label{width: 100%; height: 100%;}/*0901*/
+.call_box {
+    font-size:16px;
+    color:#fff;
+    background: #e9625c;
+    padding: 15px;
+    text-align: left;
+}
+
+.call_box_con1 {
+    font-size:14px;
+    color: #808080;
+    padding: 20px;
+    text-align: left;
+}
+.call_box_con1 > li {
+    list-style: auto;
+    padding: 10px 20px;
+    text-indent : -13px;
+}

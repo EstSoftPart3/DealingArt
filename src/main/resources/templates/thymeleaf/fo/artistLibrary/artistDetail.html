@@ -283,10 +283,11 @@ $(function() {
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>홈페이지</dt>';
 		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+		artstInfoHtml += '		<p>'+ artstInfo.artistInfo.artstHmpgUrl +'</p>';
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
 		}
+		
 		artstInfoHtml += '	<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>학력</dt>';
 		artstInfoHtml += '	<dd>';
@@ -295,6 +296,16 @@ $(function() {
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
+		
+		artstInfoHtml += '<dl class="ad-dl">';
+		artstInfoHtml += '	<dt>인터뷰영상</dt>';
+		artstInfoHtml += '	<dd>';
+		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
+			artstInfoHtml += '<p><a href = "'+ artstInfo.artistInfo.artstPromtnVideoUrl +'" target="_blank">'+ artstInfo.artistInfo.artstPromtnVideoUrl +' </a></p>';
+		}
+		artstInfoHtml += '	</dd>';
+		artstInfoHtml += '</dl>';
+		
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>경력</dt>';
 		artstInfoHtml += '	<dd>';
@@ -303,6 +314,18 @@ $(function() {
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
+		
+		artstInfoHtml += '<dl class="ad-dl">';
+		artstInfoHtml += '	<dt>수상</dt>';
+		artstInfoHtml += '	<dd>';
+		for(var i=0; i<exhbtnAword.length; i++){
+			artstInfoHtml += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
+		}
+		artstInfoHtml += '	</dd>';
+		artstInfoHtml += '</dl>';
+		
+		
+		
 		artstInfoHtml += '<dl class="ad-dl">';
 		artstInfoHtml += '	<dt>전시 정보</dt>';
 		artstInfoHtml += '	<dd>';
@@ -311,42 +334,10 @@ $(function() {
 		}
 		artstInfoHtml += '	</dd>';
 		artstInfoHtml += '</dl>';
-		artstInfoHtml += '<dl class="ad-dl">';
-		artstInfoHtml += '	<dt>수상</dt>';
-		artstInfoHtml += '	<dd>';
-		for(var i=0; i<exhbtnAword.length; i++){
-			artstInfoHtml += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
-		}
-		/*
-		artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
-		artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
-		artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
-		artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
-		artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
-		artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
-		*/
-		artstInfoHtml += '	</dd>';
-		artstInfoHtml += '</dl>';
-		artstInfoHtml += '<dl class="ad-dl">';
-		artstInfoHtml += '	<dt>인터뷰영상</dt>';
-		artstInfoHtml += '	<dd>';
-		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
-			artstInfoHtml += '        <p><a href = "'+ artstInfo.artistInfo.artstPromtnVideoUrl +'" target="_blank">'+ artstInfo.artistInfo.artstPromtnVideoUrl +' </a></p>';
-		}
-		artstInfoHtml += '	</dd>';
-		artstInfoHtml += '</dl>';
+		
+		
 		artstInfoHtml += '</div>';
-		/*
-		artstInfoHtml += '<dl class="ad-dl">';
-		artstInfoHtml += '	<dt>논문, 평론, 기사</dt>';
-		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p>';
-		artstInfoHtml += '		<p>2013 50만원 전, 경민미술관</p>';
-		artstInfoHtml += '		<p>2013 가미갤러리 초대작가전, 가미갤러리</p>';
-		artstInfoHtml += '		<p>2013 블라블라, 인사토포하우스</p>';
-		artstInfoHtml += '	</dd>';
-		artstInfoHtml += '</dl>';
-		*/
+		
 		
 		/*더보기 모달*/
 		artstInfoHtml2 += '<div class="ad-text">';
@@ -374,7 +365,7 @@ $(function() {
 		artstInfoHtml2 += '<dl class="ad-dl">';
 		artstInfoHtml2 += '	<dt>홈페이지</dt>';
 		artstInfoHtml2 += '	<dd>';
-		artstInfoHtml2 += '		<p>https://'+ artstInfo.artistInfo.artstHmpgUrl +'/</p>';
+		artstInfoHtml2 += '		<p>'+ artstInfo.artistInfo.artstHmpgUrl +'</p>';
 		artstInfoHtml2 += '	</dd>';
 		artstInfoHtml2 += '</dl>';
 		}
@@ -384,6 +375,16 @@ $(function() {
 		for(var i=0; i<eductn.length; i++){
 			artstInfoHtml2 += '		<p>'+ eductn[i].eductnNm +'</p>';
 		}
+		
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>인터뷰영상</dt>';
+		artstInfoHtml2 += '	<dd>';
+		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
+			artstInfoHtml2 += '        <p><a href = "'+ artstInfo.artistInfo.artstPromtnVideoUrl +'" target="_blank">'+ artstInfo.artistInfo.artstPromtnVideoUrl +' </a></p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		
 		artstInfoHtml2 += '	</dd>';
 		artstInfoHtml2 += '</dl>';
 		artstInfoHtml2 += '<dl class="ad-dl">';
@@ -394,6 +395,17 @@ $(function() {
 		}
 		artstInfoHtml2 += '	</dd>';
 		artstInfoHtml2 += '</dl>';
+		
+		
+		artstInfoHtml2 += '<dl class="ad-dl">';
+		artstInfoHtml2 += '	<dt>수상</dt>';
+		artstInfoHtml2 += '	<dd>';
+		for(var i=0; i<exhbtnAword.length; i++){
+			artstInfoHtml2 += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
+		}
+		artstInfoHtml2 += '	</dd>';
+		artstInfoHtml2 += '</dl>';
+		
 		artstInfoHtml2 += '<dl class="ad-dl">';
 		artstInfoHtml2 += '	<dt>전시 정보</dt>';
 		artstInfoHtml2 += '	<dd>';
@@ -402,42 +414,10 @@ $(function() {
 		}
 		artstInfoHtml2 += '	</dd>';
 		artstInfoHtml2 += '</dl>';
-		artstInfoHtml2 += '<dl class="ad-dl">';
-		artstInfoHtml2 += '	<dt>수상</dt>';
-		artstInfoHtml2 += '	<dd>';
-		for(var i=0; i<exhbtnAword.length; i++){
-			artstInfoHtml2 += '		<p>'+ exhbtnAword[i].exhbtnNm +'</p>';
-		}
-		/*
-		artstInfoHtml += '		<p>2020 Fly High, 충무로갤러리</p>';
-		artstInfoHtml += '		<p>2019 크리스마스 아트마켓, 갤러리오</p>';
-		artstInfoHtml += '		<p>2019 Falling in Animal, 비움갤러리</p>';
-		artstInfoHtml += '		<p>2019 취하다 아트페어, 프로타주갤러리</p>';
-		artstInfoHtml += '		<p>2019 be coming a collector, 연희예술극장</p>';
-		artstInfoHtml += '		<p>2019 이원생중계, 갤러리라메르</p>';
-		*/
-		artstInfoHtml2 += '	</dd>';
-		artstInfoHtml2 += '</dl>';
-		artstInfoHtml2 += '<dl class="ad-dl">';
-		artstInfoHtml2 += '	<dt>인터뷰영상</dt>';
-		artstInfoHtml2 += '	<dd>';
-		if(artstInfo.artistInfo.artstPromtnVideoUrl != null && artstInfo.artistInfo.artstPromtnVideoUrl != ""){
-			artstInfoHtml2 += '        <p><a href = "'+ artstInfo.artistInfo.artstPromtnVideoUrl +'" target="_blank">'+ artstInfo.artistInfo.artstPromtnVideoUrl +' </a></p>';
-		}
-		artstInfoHtml2 += '	</dd>';
-		artstInfoHtml2 += '</dl>';
+		
+		
 		//artstInfoHtml2 += '</div>';
-		/*
-		artstInfoHtml += '<dl class="ad-dl">';
-		artstInfoHtml += '	<dt>논문, 평론, 기사</dt>';
-		artstInfoHtml += '	<dd>';
-		artstInfoHtml += '		<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p>';
-		artstInfoHtml += '		<p>2013 50만원 전, 경민미술관</p>';
-		artstInfoHtml += '		<p>2013 가미갤러리 초대작가전, 가미갤러리</p>';
-		artstInfoHtml += '		<p>2013 블라블라, 인사토포하우스</p>';
-		artstInfoHtml += '	</dd>';
-		artstInfoHtml += '</dl>';
-		*/
+		
 		
 		$("#artstInfo").append(artstInfoHtml).trigger("create");
 		var artstInfoButton = '<button type="button" class="the-more2 mg_t60 hiddenMobile" id="openArtstInfoModal">더보기</button>';
