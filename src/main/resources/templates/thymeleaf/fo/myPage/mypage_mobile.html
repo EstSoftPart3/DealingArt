@@ -117,7 +117,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default">
+							<div class="panel panel-default" id="portfolio" style="display:none;">
 								<div class="panel-heading" role="tab" id="heading2">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
@@ -138,7 +138,7 @@
 								<div class="panel-heading" role="tab" id="heading3">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
-											My Gallery
+											 My Collection
 										</a>
 									</h4>
 								</div>
@@ -221,7 +221,8 @@
 		});
 	});
       
-      $(window).on("resize", function () {
+    /*  
+	$(window).on("resize", function () {
 	   	    if(window.matchMedia('(min-width: 1537px)').matches)
 	   	    {
 		   	    document.querySelectorAll(".item").forEach((item) => {
@@ -273,7 +274,7 @@
 	       	  
 	   	     };
 	   	}).resize();
-      
+      */
       
       
       $(document).ready(function () {
@@ -351,7 +352,14 @@
     	    event.stopPropagation();
     	});
       
-      
+     
+       //작가권한이 있다면 portfolio 활성화
+      jQuery(document).ready(function() {
+    	    if(sAuthSqVal == 2){
+    			document.getElementById("portfolio").style.display="";
+    		}
+    		
+    	}); 
       
     </script>
     
