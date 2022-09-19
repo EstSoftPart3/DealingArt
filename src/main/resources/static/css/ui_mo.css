@@ -6605,3 +6605,19 @@ p.dib{display:inline-block !important;}
     padding: 10px 20px;
     text-indent : -13px;
 }
+
+/*0915*/
+.bat-box6{
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+}
+.bat-box6 button{
+    width: 250px;
+    border-radius: 35px;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 11px 0 14px 0;
+    margin-bottom: 13px;
+    max-height: 60px;
+}

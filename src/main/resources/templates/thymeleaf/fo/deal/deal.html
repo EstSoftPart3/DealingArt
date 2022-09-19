@@ -214,7 +214,7 @@
 					<div class="con-right">
 					
 						<div class="sea-won2">
-							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" onkeydown="javascript: if (event.keyCode == 13) {dealSearch();}"/>
+							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" onkeydown="javascript: if (event.keyCode == 13) {dealSearch();}" style="outline: none;" autocomplete="off"/>
 							<a href="javascript:void(0);" onclick="dealSearch()"><img src="resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
@@ -403,6 +403,10 @@
 							<button type="button" class="btn-more"><span>more</span></button>
 						</div>
 						  -->
+						  
+						<div class="bat-box6" id="lstBackBtn" style="display:none">
+							<button type="button" class="ba-btn1" onclick="lstBack()">목록으로 돌아가기</button>
+						</div>
 						
 					</div>
 				</div>
@@ -578,6 +582,7 @@
 
 <script type="text/javascript"> 
 	
+	
 	if(isMobile == true){
 		$("#r3").prop("checked", false);  //체크해제하기
 		$("#s5").prop("checked", true);   //체크하기
@@ -591,8 +596,16 @@
 	$(function () {
 		dealSearch('LT', 'DOWN');
 		
-		
+		//2022-09-19 검색 돌아기기 버튼 보이지 않게 설정 : 박상현
+		$("#lstBackBtn").hide();
 	});
+	
+	//2022-09-19 검색 뒤돌아가기 기능 : 박상현
+	function lstBack(){
+		$("#searchKeyword").val('');
+		dealSearch();
+	}
+	
 	
 	function sorting(obj){ //pc 정렬
 		var val = obj.attributes.name.value;
@@ -622,6 +635,11 @@
 	}
 	
 	function dealSearch(sort, type){
+		
+		//2021-09-19 : 검색 이벤트 후 목록으로 돌아가기 버튼 활성화 : 박상현
+		$("#lstBackBtn").show();
+		
+		
 		$("#myModal1").modal("hide");
 		//검색옵션이 담긴 JSON
 		var searchOptions = new Object();
