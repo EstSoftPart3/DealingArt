@@ -43,10 +43,15 @@ public class MainController {
 		return "thymeleaf/index";
 	}
 	
-	//이벤트 랜딩
+	//오픈 이벤트 이벤트 랜딩
+//	@RequestMapping("/event")
+//	public String openEvent() {
+//		return "thymeleaf/fo/event/event_v1";
+//	}
+	
 	@RequestMapping("/event")
 	public String openEvent() {
-		return "thymeleaf/fo/event/event_v1";
+		return "thymeleaf/fo/event/event_v2";
 	}
 	
 	//회원가입 본인인증
