@@ -180,7 +180,7 @@
 		</div>
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
-
+</body>
 <!-- 모달검색 -->
 
 
@@ -188,10 +188,12 @@
 <script type="text/javascript">     
 
 	$(function() {
-		if(sMbrSqVal == null || sMbrSqVal == ""){
-			modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
 		
+		if(sMbrSqVal == null || sMbrSqVal == ""){
+		
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
 		}else if(sAuthSqVal == 2){ //작가권한이 있다면 portfolio 활성화
+			
 			document.getElementById("portfolio").style.display="";
 		}
 	});
@@ -218,13 +220,6 @@
 	$(document).on("click", ".myWorkList", function(){
 		location.href="/myWorkList"
 	});
-      
-     
-    
-	
-	
-	
-	
-</body>
 
+</script>	
 </html>
