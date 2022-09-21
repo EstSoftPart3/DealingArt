@@ -118,13 +118,7 @@ $(document).on("click", ".scrap", function(){
 });
 
 $(document).on("click", ".myWorkList", function(){
-	pageGoPost({
-		url:"/myWorkList",
-		target:"_self",
-		vals:[
-			["mbrSq", sMbrSqVal]
-		]
-	});
+	location.href="/myWorkList"
 });
 </script>
 </th:blcok>	
