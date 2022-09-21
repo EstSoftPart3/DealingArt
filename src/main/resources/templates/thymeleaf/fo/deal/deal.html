@@ -88,8 +88,8 @@
 				
 				<div class="con-wrap">
 					<div class="con-left">
-						<div class="con-btn">
-							<a href="#" data-toggle="modal" data-target="#paintModal"><img src="resources/img/de/paint_new.png" /></a>
+						<div class="con-btn" style="margin-top: 75px;">
+							<a href="javascript:void(0);" onclick="myWorkListPage()"><img src="resources/img/de/paint_new.png" /></a>
 						</div>
 						<span style="color:red;font-weight: bold;">※ 필터를 이용하여 작품을 검색해 보세요.</span>
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -593,7 +593,19 @@
 		
 		
 	});
-	
+	function myWorkListPage(){
+		if(sMbrSqVal != null && sMbrSqVal != ""){
+			modalConfirm("나의 작품 페이지로 이동합니다.", 
+					function(confirm){
+						if(confirm){
+							location.href="/myWorkList";
+						}
+				}
+			);
+		}else{
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		}
+	}
 	function sorting(obj){ //pc 정렬
 		var val = obj.attributes.name.value;
 		var className = obj.className;

@@ -75,7 +75,7 @@
     	.hd-div{background-color:#fff;}
     	input[type="radio"] + label{margin-bottom:0;}
     	.timepicker{
-    		width: 50px;
+    		width: 100px;
     		height: 32px;
   			border: #cccccc 1px solid;
     		font-size: 14px;
@@ -1130,17 +1130,24 @@ $("#workGrtUrl").change(function(){
 });
 
 jQuery(document).ready(function() {
-	$("#dealStrtDt").datepicker().datepicker("setDate", result.deal.dealStrtDate);
-	$("#dealEndngDt").datepicker().datepicker("setDate", result.deal.dealEndngDate);
+	$("#dealStrtDt").datepicker({
+		minDate: 0
+	}).datepicker("setDate", result.deal.dealStrtDate);
+	$("#dealEndngDt").datepicker({
+		minDate: 0
+	}).datepicker("setDate", result.deal.dealEndngDate);
 	$("#dealStrtDt").calendar($("#dealEndngDt"));
 	$("#dealStrtTime").timepicker({
         timeFormat: "HH:mm",
-        defaultTime: result.deal.dealStrtTime
+        defaultTime: result.deal.dealStrtTime,
+        interval: 10,
+        scrollbar: true
     });
 	$("#dealEndngTime").timepicker({
         timeFormat: "HH:mm",
         defaultTime: result.deal.dealEndngTime,
-        interval: 10
+        interval: 10,
+        scrollbar: true
     });
 	var dealAuctnPrc = result.deal.dealAuctnPrc;
 	var dealSttsCd = result.deal.dealSttsCd;
@@ -1657,21 +1664,9 @@ function dealReg(){
 	        processData : false,
 	        success: function(data) {
 	        	if(data > 0){
-	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("거래가 수정되었습니다.", "myCollection");
-	        		}else if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("거래가 수정되었습니다.", "myWork");
-	        		}else{
-	        			modalAlertShow("거래가 수정되었습니다.", "main");
-	        		}
+	        		modalAlertShow("판매 정보가 수정되었습니다.", "myWorkList");
 	        	}else{
-	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "myCollection");
-	        		}else if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "myWork");
-	        		}else{
-	        			modalAlertShow("거래 수정에 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "main");
-	        		}
+	        		modalAlertShow("판매 정보 수정을 실패하였습니다.<br/>응찰 또는 판매가 된 거래입니다.", "myWorkList");
 	        	}
 	        },
 	        error: function(error) {
@@ -1682,23 +1677,29 @@ function dealReg(){
 }
 
 function bidSuspension(){
-	$.ajax({
-		type : "post",
-	    url : "/dealMod/bidSuspension",
-	    data : {
-	    	dealSq : result.deal.dealSq
-	    },
-	    success : function(data) {
-	    	if(data.result > 0){
-	       		modalAlertShow("거래가 중단 되었습니다.", "myDeal");
-        	}else{
-        		modalAlertShow("응찰 또는 판매가 되어서 수정이 불가합니다.", "myDeal");
-        	}
-	    },
-	    error : function(error) {
-	       alert("오류 발생" + error);
-	    }
-	});
+	modalConfirm("판매를 중단하시겠습니까?", 
+		function(confirm){
+			if(confirm){
+				$.ajax({
+					type : "post",
+				    url : "/dealMod/bidSuspension",
+				    data : {
+				    	dealSq : result.deal.dealSq
+				    },
+				    success : function(data) {
+				    	if(data.result > 0){
+				       		modalAlertShow("판매가 중단 되었습니다.", "myWorkList");
+			        	}else{
+			        		modalAlertShow("응찰 또는 판매가 되어서 수정이 불가합니다.", "myWorkList");
+			        	}
+				    },
+				    error : function(error) {
+				       alert("오류 발생" + error);
+				    }
+				});
+			}
+		}
+	);
 }
 
 function setTodayTime(){

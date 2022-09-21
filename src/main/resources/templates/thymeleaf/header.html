@@ -133,12 +133,12 @@
 							<li><a href="/withdrawal"><img src="resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li>
 						</ul> -->
 						<ul>
-							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li><a href="javascript:void(0);" class="myWorkList"><img src="resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
 							<li style="display:none"><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
-							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>My Collection</span></a></li>
-							<li><a href="/collection_reg"><img src="resources/img/ic-3.jpg" /><span>소장품 등록</span></a></li>
+							<li><a href="javascript:void(0);" class="myWorkList"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
+							<li><a href="/myWorkListReg"><img src="resources/img/ic-3.jpg" /><span>작품 등록</span></a></li>
 							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li> -->
 							<!-- class="scrap" -->
 							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
@@ -178,8 +178,8 @@
 							<li style="display:none"><a href="/memberEdit"><img src="resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myDeal"><img src="resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
-							<li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>My Collection</span></a></li>
-							<li><a href="/collection_reg"><img src="resources/img/ic-3.jpg" /><span>소장품 등록</span></a></li>
+							<li><a href="javascript:void(0);" class="myWorkList"><img src="resources/img/ic-3.jpg" /><span>나의 작품</span></a></li>
+							<li><a href="/myWorkListReg"><img src="resources/img/ic-3.jpg" /><span>작품 등록</span></a></li>
 							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="resources/img/ic-3.jpg" /><span>나의 소장품</span></a></li> -->
 							<!-- class="scrap" -->
 							<li><a href="javascript:void(0);" class="scrap"><img src="resources/img/ic-4.jpg" /><span>스크랩</span></a></li>
@@ -200,7 +200,7 @@
 									<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><span>작가등록</span></a></li>
 									<li><a href="#" onclick="workReg()"><span>작품등록</span></a></li>
 									<!-- <li><a href="#" onclick="collectionReg()"><span>판매하기</span></a></li> -->
-									<li><a href="javascript:void(0);" class="myCollection" ><span>판매하기</span></a></li>
+									<li><a href="javascript:void(0);" class="myWorkList" ><span>판매하기</span></a></li>
 									
 								</ul>
 							</div>
@@ -231,7 +231,7 @@
 				<ul class="mab-ul">
 					<li><a href="#" id="artstReg" data-toggle="modal" data-target="#authorModal1"><img src="resources/img/icon-4.png" /> <span>작가등록</span></a></li>
 					<li><a href="javascript:void(0);" onclick="workReg()"><img src="resources/img/icon-5.png" /> <span>작품등록</span></a></li>
-					<li><a href="javascript:void(0);" class="myCollection"><img src="resources//img/icon-6.png" /> <span>판매하기</span></a></li>
+					<li><a href="javascript:void(0);" class="myWorkList"><img src="resources//img/icon-6.png" /> <span>판매하기</span></a></li>
 					<!-- onclick="collectionReg()" -->
 					<!-- <li><a href="/myCollection"><img src="resources//img/icon-6.png" /> <span>판매하기</span></a></li> -->
 					
@@ -1842,6 +1842,7 @@ $(document).on("click", ".myWork", function(){
 		});
 	}
 });
+
 $(document).on("click", ".myCollection", function(){
 	if(sMbrSqVal != null){
 		pageGoPost({
@@ -1854,7 +1855,14 @@ $(document).on("click", ".myCollection", function(){
 	}else{
 		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 	}
-	
+});
+
+$(document).on("click", ".myWorkList", function(){
+	if(sMbrSqVal != null){
+		location.href="/myWorkList"
+	}else{
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+	}
 });
 
 $(document).on("click", ".myPage", function(){
@@ -1876,12 +1884,17 @@ $(document).on("click", ".scrap", function(){
 	});
 });
 function workReg(){
-	if(sMbrSqVal == null || sMbrSqVal == ""){
+/* 	if(sMbrSqVal == null || sMbrSqVal == ""){
 		modalAlertShow("로그인 후 이용할 수 있습니다.", "login");
 	}else if(sAuthSqVal != "2"){
 		modalAlertShow("작가로 등록된 회원만 이용할 수 있습니다.");
 	}else{
 		window.location.href = "/myWork_reg";
+	} */
+	if(sMbrSqVal != null && sMbrSqVal != ""){
+		location.href="/myWorkListReg"
+	}else{
+		modalAlertShow("로그인 후 이용할 수 있습니다.", "login");
 	}
 };
 

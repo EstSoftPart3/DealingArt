@@ -500,19 +500,19 @@
 		/*소장품 등록*/
 		INSERT INTO 
 					TBL_DA_WORK_M (
-						MBR_SQ,
-						WORK_TYP_CD,
-						ARTST_ACTVTY_NM,
-						WORK_NM,
-						WORK_FRM_YN,
-						WORK_CLR_CD,
-						WORK_SHP_CD,
-						WORK_CLSFC_CD,
-						WORK_IMG_FRT_URL, 
-						REG_DT,
-						REG_MBR_SQ,
-						UPDT_DT,
-						UPDT_MBR_SQ
+						MBR_SQ
+						,WORK_TYP_CD
+						,ARTST_ACTVTY_NM
+						,WORK_NM
+						,WORK_FRM_YN
+						,WORK_CLR_CD
+						,WORK_SHP_CD
+						,WORK_CLSFC_CD
+						,WORK_IMG_FRT_URL
+						,REG_DT
+						,REG_MBR_SQ
+						,UPDT_DT
+						,UPDT_MBR_SQ
 						<if test="artstEnglsNm != null and artstEnglsNm != ''">
 							,ARTST_ENGLS_NM
 						</if>
@@ -576,19 +576,19 @@
 						,WORK_OPEN_YN
 					)
 				VALUES (
-						#{mbrSq}, 
-						#{workTypCd}, 
-						#{artstActvtyNm}, 
-						#{workNm}, 
-						#{workFrmYn}, 
-						#{workClrCd},
-						#{workShpCd},
-						#{workClsfcCd},
-						#{workImgFrtUrl}, 
-						NOW(),
-						#{mbrSq},
-						NOW(),
 						#{mbrSq}
+						,#{workTypCd}
+						,#{artstActvtyNm}
+						,#{workNm}
+						,#{workFrmYn}
+						,#{workClrCd}
+						,#{workShpCd}
+						,#{workClsfcCd}
+						,#{workImgFrtUrl}
+						,NOW()
+						,#{mbrSq}
+						,NOW()
+						,#{mbrSq}
 						<if test="artstEnglsNm != null and artstEnglsNm != ''">
 							,#{artstEnglsNm}
 						</if>
@@ -685,27 +685,27 @@
 		/*나의 작품 등록*/
 		INSERT INTO 
 					TBL_DA_WORK_M(
-									MBR_SQ,
-									ARTST_SQ,
-									ARTST_ACTVTY_NM,
-									ARTST_BIRTH_YEAR,
-									WORK_TYP_CD,
-									WORK_NM,
-									WORK_SIZE_WIDTH,
-									WORK_SIZE_DEPTH,
-									WORK_LAKE,
-									WORK_MATRL,
-									WORK_PRODC_YEAR,
-									WORK_IMG_FRT_URL,
-									WORK_FRM_YN,
-									WORK_SALE_YN,
-									WORK_CLR_CD,
-									WORK_SHP_CD,
-									WORK_CLSFC_CD,
-									REG_DT,
-									REG_MBR_SQ,
-									UPDT_DT,
-									UPDT_MBR_SQ
+									MBR_SQ
+									,ARTST_SQ
+									,ARTST_ACTVTY_NM
+									,ARTST_BIRTH_YEAR
+									,WORK_TYP_CD
+									,WORK_NM
+									,WORK_SIZE_WIDTH
+									,WORK_SIZE_DEPTH
+									,WORK_LAKE
+									,WORK_MATRL
+									,WORK_PRODC_YEAR
+									,WORK_IMG_FRT_URL
+									,WORK_FRM_YN
+									,WORK_SALE_YN
+									,WORK_CLR_CD
+									,WORK_SHP_CD
+									,WORK_CLSFC_CD
+									,REG_DT
+									,REG_MBR_SQ
+									,UPDT_DT
+									,UPDT_MBR_SQ
 									<if test="artstEnglsNm != null and artstEnglsNm != ''">
 										,ARTST_ENGLS_NM
 									</if>
@@ -748,27 +748,27 @@
 									,WORK_OPEN_YN
 					)
 					VALUE(
-							#{mbrSq},
-							#{artstSq},
-							#{artstActvtyNm},
-							#{artstBirthYear},
-							#{workTypCd},
-							#{workNm},
-							#{workSizeWidth},
-							#{workSizeDepth},
-							#{workLake},
-							#{workMatrl},
-							#{workProdcYear},
-							#{workImgFrtUrl},
-							#{workFrmYn},
-							#{workSaleYn},
-							#{workClrCd},
-							#{workShpCd},
-							#{workClsfcCd},
-							NOW(),
-							#{mbrSq},
-							NOW(),
 							#{mbrSq}
+							,#{artstSq}
+							,#{artstActvtyNm}
+							,#{artstBirthYear}
+							,#{workTypCd}
+							,#{workNm}
+							,#{workSizeWidth}
+							,#{workSizeDepth}
+							,#{workLake}
+							,#{workMatrl}
+							,#{workProdcYear}
+							,#{workImgFrtUrl}
+							,#{workFrmYn}
+							,#{workSaleYn}
+							,#{workClrCd}
+							,#{workShpCd}
+							,#{workClsfcCd}
+							,NOW()
+							,#{mbrSq}
+							,NOW()
+							,#{mbrSq}
 							<if test="artstEnglsNm != null and artstEnglsNm != ''">
 								,#{artstEnglsNm}
 							</if>

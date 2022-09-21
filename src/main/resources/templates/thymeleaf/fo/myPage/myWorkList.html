@@ -80,7 +80,7 @@
     	.pseudo-img {
 			border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px
 		}
-		.grid{border:0px solid #222;text-align:center;margin: 0 auto;}
+		/* .grid{border:0px solid #222;text-align:center;margin: 0 auto;} */
 		.griditem{ margin-bottom:40px;}
     </style>
     
@@ -143,7 +143,7 @@
 					
 						
 						<div>
-							<div class="columns-wrap2" id="columns2">
+							<div class="grid" id="columns2">
 								
 								<!-- <figure class="item">
 									
@@ -507,11 +507,15 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>통합 나의 작품</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	//conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
-	conBtn.innerHTML += '<a href="javascript:collectionRegMove();"><img src="resources/img/mypage/mycon-3.png" /></a>';
+	conBtn.innerHTML += '<a href="javascript:myWorkRegBtn();"><img src="resources/img/mypage/mycon-1.png" /></a>';
 	$("#totalCollection").addClass("active");
 	workList();
 	masonryLayout();
 });     
+
+function myWorkRegBtn(){
+	location.href="/myWorkListReg"
+}
 
 //나의 작품 검색 엔터키 누르면
 function enter(e){
@@ -610,7 +614,7 @@ function workList(callback){
     				if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
     					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
     					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-    					workListHtml += '	<div class="item-div-img active"><!-- 0823 start chediv 추가 -->';
+    					workListHtml += '	<div class="item-div-img active-on"><!-- 0823 start chediv 추가 -->';
     					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
     					workListHtml += '		<div class="item-ho" onclick="dealDetail('+result[i].dealSq+')">';
     					workListHtml += '			<p>'+result[i].dealStrtDate+' – '+result[i].dealEndngDate+'</p>';
@@ -680,7 +684,7 @@ function workList(callback){
     				if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
     					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
     					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
-    					workListHtml += '	<div class="item-div-img sale" ><!-- 0823 start chediv 추가 -->';
+    					workListHtml += '	<div class="item-div-img sale-on" ><!-- 0823 start chediv 추가 -->';
     					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
     					workListHtml += '		<div class="item-ho2 sale-div" onclick="dealDetail('+result[i].dealSq+')">';
     					workListHtml += '			<h3>판매중</h3>';
@@ -891,7 +895,7 @@ setInterval(function() {
 }, 1000);
 //화면 레이아웃 추가
 function masonryLayout(callback) {
- 	var msnry = new Masonry( '.columns-wrap2', {
+ 	var msnry = new Masonry( '.grid', {
   		itemSelector: '.griditem',
   	  	columnWidth: 360,
   	  	gutter: 10,
@@ -901,7 +905,7 @@ function masonryLayout(callback) {
   	  	transitionDuration: '0.2s' //위치 전환 시간
 	});
 
-	imagesLoaded( '.columns-wrap2' ).on( 'progress', function() {
+	imagesLoaded( '.grid' ).on( 'progress', function() {
 		msnry.layout();
 	});
 	
@@ -1096,7 +1100,7 @@ $('.wdb-3').click(function(e){
 	}else{
 		modalConfirm("작품수정 페이지로 이동합니다.", function(confrim){
 			if(confrim){
-				//location.href = "/dealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal;
+				location.href = "/myWorkListMod?workSq="+workSq;
 			}
 		});
 	}
