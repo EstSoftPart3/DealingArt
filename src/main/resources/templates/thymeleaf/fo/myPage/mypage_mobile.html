@@ -117,23 +117,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default" id="portfolio" style="display:none;">
-								<div class="panel-heading" role="tab" id="heading2">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-											포트폴리오
-										</a>
-									</h4>
-								</div>
-								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
-									<div class="panel-body">
-										<ul class="mypage-ul">
-											<li><a href="/information">작가 정보</a></li>
-											<li class="myWork" id="myWork"><a href="#">나의작품</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading3">
 									<h4 class="panel-title">
@@ -145,8 +128,26 @@
 								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 									<div class="panel-body">
 										<ul class="mypage-ul">
-											<li class="myCollection" id="myCollection"><a href="#">소장품</a></li>
+											<!-- <li class="myCollection" id="myCollection"><a href="#">소장품</a></li> -->
+											<li class="myWorkList" id="myWorkList"><a href="#">나의 작품</a></li>
 											<li class="scrap" id="scrap"><a href="#">스크랩</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default" id="portfolio" style="display:none;">
+								<div class="panel-heading" role="tab" id="heading2">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+											Artist
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+									<div class="panel-body">
+										<ul class="mypage-ul">
+											<li><a href="/information">작가 정보</a></li>
+											<!-- <li class="myWork" id="myWork"><a href="#">나의작품</a></li> -->
 										</ul>
 									</div>
 								</div>
@@ -155,7 +156,7 @@
 								<div class="panel-heading" role="tab" id="heading3">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
-											설정
+											My Information
 										</a>
 									</h4>
 								</div>
@@ -179,16 +180,20 @@
 		</div>
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
-
 <!-- 모달검색 -->
 
 
 
-<script type="text/javascript">     
+<script th:inline="javascript">
 
 	$(function() {
+		
 		if(sMbrSqVal == null || sMbrSqVal == ""){
-		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
+		
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
+		}else if(sAuthSqVal == 2){ //작가권한이 있다면 portfolio 활성화
+			
+			document.getElementById("portfolio").style.display="";
 		}
 	});
 	
@@ -212,161 +217,9 @@
 	});
 
 	$(document).on("click", ".myWorkList", function(){
-		pageGoPost({
-			url:"/myWorkList",
-			target:"_self",
-			vals:[
-				["mbrSq", sMbrSqVal]
-			]
-		});
+		location.href="/myWorkList"
 	});
-      
-    /*  
-	$(window).on("resize", function () {
-	   	    if(window.matchMedia('(min-width: 1537px)').matches)
-	   	    {
-		   	    document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 353px)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	  
-		       	  
-	   	    	
-	   	    	
-	   	    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-	   	    	
-		   	      document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, 65rem)";
-		       	  wrap.style.gridAutoRows = "1px";
-		       	
-	   	    	
-	   	     } else {
-	   	    	var swiper = new Swiper(".mySwiper2", {
-	   	          slidesPerView: 1,
-	   	          slidesPerGroup: 1,
-	   	          loop: true,
-	   	          loopFillGroupWithBlank: true,
-	   	          pagination: {
-	   	            el: ".swiper-pagination",
-	   	            clickable: true,
-	   	          },
-	   	          navigation: {
-	   	            nextEl: ".swiper-button-next",
-	   	            prevEl: ".swiper-button-prev",
-	   	          },
-	   	     });
-	   	    	
-	   	    	document.querySelectorAll(".item").forEach((item) => {
-		       	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
-		       	  });
-		       	  const wrap = document.querySelector(".columns-wrap2");
-		       	  wrap.style.display = "grid";
-		       	  wrap.style.gridTemplateColumns = "repeat(auto-fill, )";
-		       	  wrap.style.gridAutoRows = "1px";
-	   	    	
-	       	  
-	   	     };
-	   	}).resize();
-      */
-      
-      
-      $(document).ready(function () {
-	      $(".elm").hover(
-	    	function(){ $(this).addClass('hover') },
-	   	    function(){ $(this).removeClass('hover') }
-	   	  )
-	   	  $(".cn-b").hover(
-	    	function(){ $(this).addClass('gis') },
-	   	    function(){ $(this).removeClass('gis') }
-	   	  )
-      });
-      
-      $(function() {                      
-    	  $(".bab-bo").click(function() { 
-    	    $(this).toggleClass("bashow");     
-    	  });
-    	  
-    	  $(".lg-my").click(function() { 
-      	    $('.bg-sh').toggleClass('bg-show');     
-      	 	 $('.s-hov').toggleClass('s-hov-show');     
-      	  });
-    	  
-    	});
-      
-      
-      
-      
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-      
-      /* jQuery(function($) {
 
-    	    window.onresize = function(){
-    	      document.location.reload();
-    	    };
-
-    	}); */
-      
-      
-      
-      var delay = 300;
-      var timer = null;
-
-      //Javascript
-      window.addEventListener('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-
-      //jQuery
-      $(window).on('resize', function(){
-      	clearTimeout(timer);
-      	timer = setTimeout(function(){
-      		document.location.reload();
-      	}, delay);
-      });
-      
-      $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    	    // The event won't be propagated up to the document NODE and 
-    	    // therefore delegated events won't be fired
-    	    event.stopPropagation();
-    	});
-      
-     
-       //작가권한이 있다면 portfolio 활성화
-      jQuery(document).ready(function() {
-    	    if(sAuthSqVal == 2){
-    			document.getElementById("portfolio").style.display="";
-    		}
-    		
-    	}); 
-      
-    </script>
-    
-	
-	
-	
-	
+</script>	
 </body>
-
 </html>

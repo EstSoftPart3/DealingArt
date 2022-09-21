@@ -134,6 +134,10 @@ function modalAlertClose(obj) {
 		location.href='/deal';
 	}
 	
+	if(obj == "myWorkList"){
+		location.href="/myWorkList"
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');

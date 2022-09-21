@@ -46,7 +46,8 @@
 				TBL_DA_DEAL_M AS D
 			ON 	A.WORK_SQ = D.WORK_SQ 
 		WHERE
-				A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+				D.DEAL_STRT_DT <![CDATA[<=]]> NOW()
+				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 

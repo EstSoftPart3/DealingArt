@@ -27,23 +27,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default" id="portfolio" style="display:none;">
-			<div class="panel-heading" role="tab" id="heading2">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-						포트폴리오
-					</a>
-				</h4>
-			</div>
-			<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
-				<div class="panel-body">
-					<ul class="mypage-ul">
-						<li class="" id="information"><a href="/information">작가 정보</a></li>
-						<li class="myWork" id="myWork"><a href="#">나의 작품</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading3">
 				<h4 class="panel-title">
@@ -55,9 +38,26 @@
 			<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class="myCollection" id="myCollection"><a href="#">소장품</a></li>
+						<!-- <li class="myCollection" id="myCollection"><a href="#">소장품</a></li> -->
+						<li class="myWorkList" id="myWorkList"><a href="#">나의 작품</a></li>
 						<li class="scrap" id="scrap"><a href="#">스크랩</a></li>
-						<!-- <li class="myWorkList" id="myWorkList"><a href="#">나의 작품(통합)</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" id="portfolio" style="display:none;">
+			<div class="panel-heading" role="tab" id="heading2">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+						Artist
+					</a>
+				</h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+				<div class="panel-body">
+					<ul class="mypage-ul">
+						<li class="" id="information"><a href="/information">작가 정보</a></li>
+						<!-- <li class="myWork" id="myWork"><a href="#">나의 작품</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 			<div class="panel-heading" role="tab" id="heading3">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion4" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
-						설정
+						My Information
 					</a>
 				</h4>
 			</div>
@@ -118,13 +118,7 @@ $(document).on("click", ".scrap", function(){
 });
 
 $(document).on("click", ".myWorkList", function(){
-	pageGoPost({
-		url:"/myWorkList",
-		target:"_self",
-		vals:[
-			["mbrSq", sMbrSqVal]
-		]
-	});
+	location.href="/myWorkList"
 });
 </script>
 </th:blcok>	

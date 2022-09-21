@@ -79,6 +79,7 @@
     		height: 32px;
   			border: #cccccc 1px solid;
     		font-size: 14px;
+    		text-align: center;
     	}
     	/* Chrome, Safari, Edge, Opera */
 		input::-webkit-outer-spin-button,
@@ -1097,27 +1098,14 @@ function event(cd){
        						cuponIdntfctnNum : "82X9-JB4L-FSOS-E66S"
        					},
        			        success: function(data) {
-       			        	console.log(data);
-       			        	if(workTypCd == "COLL"){
-       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myCollection");
-       		        		}else if(workTypCd == "WORK"){
-       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myWork");
-       		        		}else{
-       		        			modalAlertShow("거래가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "main");
-       		        		}
+       		        		modalAlertShow("판매가 등록되었습니다.<br/>딜링아트 그랜드오픈 이벤트<br/>프리미엄배송 운송비 무료 쿠폰이 발급되었습니다.", "myWorkList");
        			        },           
        			        error: function(error) {
        			            alert("오류 발생" + error);
        			        }
        				});	
         		}else{
-        			if(workTypCd == "COLL"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myCollection");
-	        		}else if(workTypCd == "WORK"){
-	        			modalAlertShow("거래가 등록되었습니다.", "myWork");
-	        		}else{
-	        			modalAlertShow("거래가 등록되었습니다.", "main");
-	        		}
+	        		modalAlertShow("판매가 등록되었습니다.", "myWorkList");
         		}
 	        },           
 	        error: function(error) {
@@ -1125,13 +1113,7 @@ function event(cd){
 	        }
 		});
 	}else{
-		if(workTypCd == "COLL"){
-			modalAlertShow("거래가 등록되었습니다.", "myCollection");
-		}else if(workTypCd == "WORK"){
-			modalAlertShow("거래가 등록되었습니다.", "myWork");
-		}else{
-			modalAlertShow("거래가 등록되었습니다.", "main");
-		}
+		modalAlertShow("판매가 등록되었습니다.", "myWorkList");
 	}
 }
 var result = /*[[${result}]]*/ 'default';
@@ -1233,7 +1215,9 @@ $("#workGrtUrl").change(function(){
 });
 
 jQuery(document).ready(function() {
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({ 
+		minDate: 0
+	}).datepicker("setDate", new Date());
 	$("#dealStrtDt").calendar($("#dealEndngDt"));
 	if((result.mbrInfo.mbrDelivryAddr == null || result.mbrInfo.mbrDelivryAddr == "")
 			|| (result.mbrInfo.mbrAccountNo == null || result.mbrInfo.mbrAccountNo == "")){
@@ -1243,18 +1227,23 @@ jQuery(document).ready(function() {
 		$(".user-on").css("display", "none");
 		$("#q2").prop("checked", "true");
 	}
-	
+	var setTime = new Date();
+    var m = setTime.getMinutes();
+    m = (Math.round(m/10) * 10) % 60;
+    setTime.setMinutes(m);
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm',
         interval: 10,
 //         minTime: '10',
 //         maxTime: '6:00pm',
-        defaultTime: '0',
-        startTime: '12:00',
+        defaultTime: setTime,
+        startTime: setTime,
         dynamic: false,
         dropdown: true,
         scrollbar: true
     });
+    //$('.timepicker').timepicker("setTime", setTime);
+    //$('.timepicker').timepicker("startTime", setTime.getTime());
     //autoLake();
 	
 });
@@ -1764,12 +1753,7 @@ function dealReg(){
 	        		event(result.work.workTypCd);
 	        	}
 	        	if(data == -2){
-	        		if(result.work.workTypCd == "COLL"){
-	        			modalAlertShow("해당 작품은 이미 판매 등록 되어있습니다.", "myCollection");
-	        		}
-	        		if(result.work.workTypCd == "WORK"){
-	        			modalAlertShow("해당 작품은 이미 판매 등록 되어있습니다.", "myWork");
-	        		}
+	        		modalAlertShow("해당 작품은 이미 판매 등록 되어있습니다.", "myWorkList");
 	        	}
 	        },
 	        error: function(error) {
