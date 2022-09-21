@@ -180,12 +180,11 @@
 		</div>
 		<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 	</div>
-</body>
 <!-- 모달검색 -->
 
 
 
-<script type="text/javascript">     
+<script th:inline="javascript">
 
 	$(function() {
 		
@@ -222,4 +221,5 @@
 	});
 
 </script>	
+</body>
 </html>
