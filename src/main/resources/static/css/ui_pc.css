@@ -36,7 +36,8 @@
     /* padding-top: 26px; */
 }
 
-.box_pt20 {padding-top:20px;}
+.box_pt20 {padding-top:20px}
+
 .h-gnb nav {
     width: auto;
     display: table;
@@ -5852,10 +5853,10 @@ position: relative;background-color: #fbfbfb;}
 
 /*0828*/
 .box_pt20 {
-	padding-top:20px; 
-	height:765px; 
-	overflow: auto; 
-	margin-top: 33px;
+   padding-top:20px; 
+   height:90vh; 
+   overflow: auto; 
+   margin-top: 20px;
 }
 
 /*0830*/
