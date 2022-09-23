@@ -25,6 +25,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+	
+	<script>
+	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+	jQuery(document).ready(function($){
+	     if(!isMobile) {
+	    	 var nowZoom = '60';
+	    	 document.body.style.zoom = nowZoom + "%";
+	     }
+	});
+	</script>
+	
 </head>
 
 <body>
