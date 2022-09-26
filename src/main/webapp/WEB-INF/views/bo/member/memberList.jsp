@@ -300,10 +300,10 @@
    		
    		$(function() {
 			$("#excelDown").click(function(){
-			$("#table2excel").table2excel({
-				exclude: ".noExl",
-				name: "Excel Document Name"
-			}); 
+				$("#table2excel").table2excel({
+					exclude: ".noExl",
+					name: "memExl"
+				}); 
 			 });
 		});
    		
