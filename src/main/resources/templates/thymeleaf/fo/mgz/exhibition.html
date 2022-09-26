@@ -216,16 +216,12 @@
      
 	
 	var paramMz9 = location.search;
+	var params = new URLSearchParams(paramMz9);
+	var getParam= params.get('mgzSq');
 	 
-	 var params = new URLSearchParams(paramMz9);
-	  
-	 var getParam= params.get('mgzSq');
-	  
-	 console.log("getParam :"+getParam);
-	 
-	 if(getParam !="" && getParam != null){
+	if(getParam !="" && getParam != null){
 		selectMgz9Dtl(getParam);
-	 }
+	}
      
      /*
       * MGZ9 상세 조회
