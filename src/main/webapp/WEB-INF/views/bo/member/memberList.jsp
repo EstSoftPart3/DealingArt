@@ -55,6 +55,9 @@
 		
 		                    <div class="input-group-append">
 		                      <button type="button" data-action="memberSearch" data-id="search-id" class="btn btn-default" id="searchBtn"><i class="fas fa-search"></i></button>
+		                      
+		                      <button type="button" class="exportToExcel" id="excelDown">EXCEL</button>
+		                      
 		                    </div>
 		                    
 		                  </div>
@@ -62,17 +65,17 @@
 	              	
 	              	</div>
 	              	
-	              	 <div class="card-body table-responsive p-0" style="height: 850px;font-size:11px;">
+	              	 <div class="card-body table-responsive p-0 " style="height: 850px;font-size:11px;" >
 	              	 
-						<table class="table table-bordered">
+						<table class="table table-bordered exportToExcel" id="table2excel" >
 							<thead>
-								<tr align="center" style="background-color:#efefef;">
+								<tr align="center" style="background-color:#efefef;" >
 									<th>회원구분</th>
 									<th>이름</th>
 									<th>아이디(이메일)</th>
 									<th>휴대전화</th>
 									<th>등록일</th>
-									<th>작가정보등록</th>
+									<th class="noExl">작가정보등록</th>
 								</tr>
 							</thead>
 							<tbody id="dataList" >
@@ -154,7 +157,7 @@
    			        	 	strHtml += '<td>'+ dataList[i].regDt +'</td>';
    			        	 	
    			        	 	//if(dataList[i].authSq  == '2') {
-   			        	 	strHtml += '<td><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">작가정보확인</button></td>';	
+   			        	 	strHtml += '<td class="noExl"><button onclick="artistMemberContent('+ dataList[i].mbrSq +')" style="cursor:pointer">작가정보확인</button></td>';	
    			        	 	//} else {
    			        	 	//strHtml += '<td></td>';
    			        	 	//}
@@ -293,7 +296,26 @@
    		function goMemberInput() {
    			location.href = '/admin/member/memberInput';	
    		}
-	</script>
+   		
+   		
+   		$(function() {
+			$("#excelDown").click(function(){
+			$("#table2excel").table2excel({
+				exclude: ".noExl",
+				name: "Excel Document Name"
+			}); 
+			 });
+		});
+   		
+   		
+   	
+   			
+   	
+   	</script>
+	
+
+
+
 	 
 </body>
 </html>
