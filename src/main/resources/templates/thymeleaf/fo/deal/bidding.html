@@ -535,14 +535,6 @@
 					</dd>
 				</dl>
 				<dl class="ad-dl">
-					<dt>전시 정보</dt>
-					<dd>
-					<th:block th:each="exhbtn: ${result.exhbtn}">
-						<p th:text="${exhbtn.exhbtnNm}"></p>
-					</th:block>
-					</dd>
-				</dl>
-				<dl class="ad-dl">
 					<dt>수상</dt>
 					<dd>
 					<th:block th:each="exhbtnAword: ${result.exhbtnAword}">
@@ -550,6 +542,15 @@
 					</th:block>
 					</dd>
 				</dl>
+				<dl class="ad-dl">
+					<dt>전시 정보</dt>
+					<dd>
+					<th:block th:each="exhbtn: ${result.exhbtn}">
+						<p th:text="${exhbtn.exhbtnNm}"></p>
+					</th:block>
+					</dd>
+				</dl>
+				
 <!-- 				<dl class="ad-dl"> -->
 <!-- 					<dt>인터뷰영상</dt> -->
 <!-- 					<dd> -->
