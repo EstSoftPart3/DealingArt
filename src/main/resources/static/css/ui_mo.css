@@ -3979,7 +3979,7 @@ display: none;}
   background-color: #999999;
 }
 .color-box{}
-.color-box label{width: 6rem;height: 6rem;display: inline-block;border-radius: 50%;margin-right: 1.2rem;position: relative;}
+.color-box label{width: 3rem;height: 3rem;display: inline-block;border-radius: 50%;margin-right: 1.2rem;position: relative;}
 .color-box label:last-child{margin-right:0;}
 .color-box label.mc-1{background: linear-gradient(#ff0101, #ff7519, #ffcc19, #b1ff19, #19fff7, #3065b4, #9426c7);}
 .color-box label.mc-2{background:#e24537;}

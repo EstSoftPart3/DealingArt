@@ -3695,7 +3695,7 @@ display: inline-block;margin-left: 13px;}
   background-color: #999999;
 }
 .color-box{}
-.color-box label{width: 36px;height: 36px;display: inline-block;border-radius: 50%;margin-right: 13px;position: relative;}
+.color-box label{width: 23px;height: 23px;display: inline-block;border-radius: 50%;margin-right: 13px;position: relative;}
 .color-box label:last-child{margin-right:0;}
 .color-box label.mc-1{background: linear-gradient(#ff0101, #ff7519, #ffcc19, #b1ff19, #19fff7, #3065b4, #9426c7);}
 .color-box label.mc-2{background:#e24537;}
