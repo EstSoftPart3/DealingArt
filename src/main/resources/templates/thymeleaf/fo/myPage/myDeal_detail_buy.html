@@ -531,7 +531,7 @@
 							<div class="bat-box5">
 								<!-- <a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="call(200)"><span>결제하기</span></a> -->
 								<a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="btn_payment()"><span>결제하기</span></a>
-								<a href="javascript:location.href='/myDeal';" class="ba-btn2" ><span>돌아가기</span></a>
+								<a href="javascript:history.back();" class="ba-btn2" ><span>돌아가기</span></a>
 								
 							</div>
 						</div>
@@ -970,6 +970,8 @@ function openReceipt2(){
 			/*메인 페이에 보낼 파라미터*/
 			mbrRefNo : "", //주문번호
 			amount : parseInt(totalAmount), //메인페이에서 결제할 금액
+			isCombinedTaxation : "Y", //비과세
+			taxFreeAmt : parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')), //비과세 적용할 금액
 			paymethod : result.dealInfo.paymethod, //지불수단
 			goodsName : result.dealInfo.workNm, //상품명
 			/*DB에 저장할 파라미터*/

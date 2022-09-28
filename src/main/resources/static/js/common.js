@@ -138,6 +138,15 @@ function modalAlertClose(obj) {
 		location.href="/myWorkList"
 	}
 	
+	if(obj == "checkbox"){
+		$("input[name=chkWorkSq]").attr("disabled", false);
+		$('.iv-span').css('display', '');
+	}
+	
+	if(obj == "radio"){
+		$("input[name=chkWorkSq]").attr("disabled", false);
+	}
+	
 	if(obj == "memberInput") {
 		//회원가입 모달
 		$('#memberModal').modal('hide');

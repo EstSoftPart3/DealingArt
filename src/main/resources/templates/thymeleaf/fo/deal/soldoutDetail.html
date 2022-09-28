@@ -200,28 +200,73 @@
 									<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 							</tr>
-							<tr>
-								<th th:if="${result.work.dealTypCd == 'S'}">구매자</th>
-								<th th:if="${result.work.dealTypCd == 'A'}">낙찰자</th>
-								<td>
-									[[${result.work.buyNcknm}]]
-								</td>
-							</tr>
-							<tr>
-								<th th:if="${result.work.dealTypCd == 'S'}">구매가격</th>
-								<th th:if="${result.work.dealTypCd == 'A'}">낙찰가격</th>
-								<td>
-									[[${result.work.dealFinalPrc}]] KRW
-								</td>
-							</tr>
-							<tr>
-								<th th:if="${result.work.dealTypCd == 'S'}">구매일시</th>
-								<th th:if="${result.work.dealTypCd == 'A'}">낙찰일시</th>
-								<td>
-									[[${result.work.dealEndngDt}]]
-								</td>
-							</tr>
 						</table>
+						<ul class="baeg-ul">
+								<li class="li-1">
+									<table class="tstyle2">
+										<tr>
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span>시작가</span>
+												</div>
+											</th>
+											<td>[[${result.work.dealStrtPrc}]] KRW</td>
+										</tr>
+										<tr>
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span>판매기간</span>
+												</div>
+											</th>
+											<td>[[${result.work.dealStrtDt}]] ~ [[${result.work.dealEndngDt}]]</td>
+										</tr>
+										<tr>
+											<th>
+												<div class="tsc-1">
+													<img src="resources/img/de/check-off.jpg" /><span>남은시간</span>
+												</div>
+											</th>
+											<td>종료</td>
+										</tr>
+									</table>
+								</li>
+								<li class="li-1">
+									<table class="tstyle2">
+										<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>낙찰가</span>
+												</div>
+											</th>
+											<td>[[${result.work.dealSbidPrc}]] KRW</td>
+										</tr>
+										<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>판매가</span>
+												</div>
+											</th>
+											<td>[[${result.work.dealFinalPrc}]] KRW</td>
+										</tr>
+										<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>낙찰자</span>
+												</div>
+											</th>
+											<td>[[${result.work.buyNcknm}]]</td>
+										</tr>
+										<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
+											<th>
+												<div class="tsc-2">
+													<img src="resources/img/de/check-on.jpg" /><span>구매자</span>
+												</div>
+											</th>
+											<td>[[${result.work.buyNcknm}]]</td>
+										</tr>
+									</table>
+								</li>
+							</ul>
 						<div class="bat-box">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
@@ -248,9 +293,6 @@
 							<p class="sup-1" th:text="${result.artistInfo.artstActvtyNm}"></p>
 							<p class="sup-2" th:text="${result.artistInfo.artstEnglsNm}"></p>
 							<div class="sup-3 ellipsis" th:text="${result.artistInfo.artstSelfIntro}"></div>
-							 
-							 
-  							
 						</div>
 					</div>
 				</div>
@@ -260,19 +302,17 @@
 			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
 				<div class="cont-title2 max-1500">
 					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
-					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
+					<button type="button" class="the-more" onclick="openArtstInfoModal()">더보기</button>
 				</div>
-				
-					<div class="swi-box max-1500">
-						<div class="swiper mySwiper2">
-							<div class="swiper-wrapper"  id="swiper_workList">
-							</div>
-							<div class="swiper-pagination swpa-2 pc-no"></div>
+				<div class="swi-box max-1500">
+					<div class="swiper mySwiper2">
+						<div class="swiper-wrapper"  id="swiper_workList">
 						</div>
-						<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
-						<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
-				</th:block>
+					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+				</div>
 			</div>
 			<!-- 영역 끝 -->
 		</div>
@@ -348,7 +388,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeArtstInfoModal()"><img src="resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -696,6 +736,7 @@
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+var result = /*[[${result}]]*/ 'default';
 
 jQuery(document).ready(function($){
      
@@ -721,7 +762,19 @@ jQuery(document).ready(function($){
 
 $('.selectpicker').selectpicker('render');
 
-var result = /*[[${result}]]*/ 'default';
+//아티스트 정보 더보기 버튼 클릭
+function openArtstInfoModal(){ 
+	$('body').css("overflow", "hidden");
+	$('#artstInfoMore').modal({backdrop: 'static', keyboard: false})  
+	$("#artstInfoMore").modal("show");
+}
+
+//아티스트 더보기 모달 닫기
+function closeArtstInfoModal(){ 
+	$('body').css("overflow", "scroll");
+	$("#artstInfoMore").modal("hide");
+}
+
 //호수 안내 팝업 오픈
 function openLakeHelp(){
 	$('body').css("overflow", "hidden");
@@ -737,17 +790,6 @@ function closeLakeHelp(){
 $(function() {
 	if(result.work.artstSq == null || result.work.artstSq == ""){
 		$("#artstInfo").css("display", "none");
-	}
-	if(result.work.dealTypCd == "S"){ //정찰가면
-		$("#pageTitle").text("구매하기");
-		$("#spn_dealStrtPrc").text("판매가");
-		$("#tr_priceUnit").css("display", "none");
-		$("#spn_period").text("판매기간");
-		$("#tr_maxBidPrc").css("display", "none");
-		$("#tr_bidPrc").css("display", "none");
-		$("#sbx_bidPrc").css("display", "none");
-		$("#btn_purchaseOrBid").text("구매하기");
-		$("#btn_history").css("display", "none");
 	}
 	if(result.work.dealTypCd == "A"){ //경매면
 		$("#btn_history").css("display", "");
@@ -893,6 +935,19 @@ function workList(){
 	}
 }
 
+//0830 토글팝업
+$(function (){
+	$("#btn_toggle").click(function (){
+	$("#Toggle").toggle();
+	});
+});
+
+$(function (){
+	$('#toggle_close').click(function() {
+		 $('#Toggle').hide(); 
+	});
+});
+
  $(window).on("resize", function () {
     if(window.matchMedia('(min-width: 1537px)').matches)
     {
@@ -938,7 +993,7 @@ function workList(){
 	            prevEl: ".swiper-button-prev",
 	          },
 	     });
-    	
+    	workList();
     	
     	
      } else {
@@ -961,40 +1016,10 @@ function workList(){
 	            prevEl: ".swiper-button-prev",
 	          },
 	     });
-    	
+    	workList();
      };
 }).resize();
  
- 
- 
- $(document).ready(function () {
-  $(".elm").hover(
-	function(){ $(this).addClass('hover') },
-    function(){ $(this).removeClass('hover') }
-  )
-  $(".cn-b").hover(
-	function(){ $(this).addClass('gis') },
-    function(){ $(this).removeClass('gis') }
-  )
- });
- /* 메뉴바 FIXED */
- if (jQuery(window).width() > 0) {
-     jQuery(window).on("scroll",function(ev){
-         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-             jQuery('.head-wrap').addClass('fixed');
-         }
-         else{
-             jQuery('.head-wrap').removeClass('fixed');
-         }
-         return false;
-     });
- }
- 
- $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
-    // The event won't be propagated up to the document NODE and 
-    // therefore delegated events won't be fired
-    event.stopPropagation();
-});
 /* 0702 시작 */
 /* 상세 왼쪽이미지 */
 var bigPic1 = document.querySelector(".big1")

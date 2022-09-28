@@ -10,24 +10,24 @@
   		/*메인페이 결제준비 응답 등록*/
   		INSERT INTO
 			TBL_DA_MAINPAY_REQUEST_S(
-				SELL_MBR_SQ,
-				BUY_MBR_SQ,
-				DEAL_SQ, 
-				DEAL_TYP_CD,
-				WORK_SQ,
-				PAYMNT_DIV_CD,
-				PAYMNT_TYP_CD,
-				MBR_REF_NO,
-				PAYMETHOD,
-				AMOUNT,
-				PAYMNT_AMT,
-				PAYMNT_FEE_AMT,
-				GOODS_NAME,
-				AID,
-				RESULT_CODE,
-				RESULT_MESSAGE,
-				CREATE_TIME,
-				EXPIRE_TIME
+				SELL_MBR_SQ
+				,BUY_MBR_SQ
+				,DEAL_SQ
+				,DEAL_TYP_CD
+				,WORK_SQ
+				,PAYMNT_DIV_CD
+				,PAYMNT_TYP_CD
+				,MBR_REF_NO
+				,PAYMETHOD
+				,AMOUNT
+				,PAYMNT_AMT
+				,PAYMNT_FEE_AMT
+				,GOODS_NAME
+				,AID
+				,RESULT_CODE
+				,RESULT_MESSAGE
+				,CREATE_TIME
+				,EXPIRE_TIME
 				<if test="cuponSq != null and cuponSq != ''">
 					,CUPON_SQ
 				</if> 
@@ -37,25 +37,31 @@
 				<if test="artstSq != null and artstSq != ''">
 					,ARTST_SQ
 				</if> 
+				<if test="isCombinedTaxation != null and isCombinedTaxation != ''">
+					,COMBINED_TAXATION
+				</if>
+				<if test="taxFreeAmt != null and taxFreeAmt != ''">
+					,TAX_FREE_AMT
+				</if>
 			) VALUES (
-				#{sellMbrSq},
-				#{buyMbrSq},
-				#{dealSq},
-				#{dealTypCd},
-				#{workSq},
-				#{paymntDivCd},
-				#{paymntTypCd},
-				#{mbrRefNo},
-				#{paymethod},
-				#{amount},
-				#{paymntAmt},
-				#{paymntFeeAmt},
-				#{goodsName},
-				#{aid},
-				#{resultCode},
-				#{resultMessage},
-				#{createTime},
-				#{expireTime}
+				#{sellMbrSq}
+				,#{buyMbrSq}
+				,#{dealSq}
+				,#{dealTypCd}
+				,#{workSq}
+				,#{paymntDivCd}
+				,#{paymntTypCd}
+				,#{mbrRefNo}
+				,#{paymethod}
+				,#{amount}
+				,#{paymntAmt}
+				,#{paymntFeeAmt}
+				,#{goodsName}
+				,#{aid}
+				,#{resultCode}
+				,#{resultMessage}
+				,#{createTime}
+				,#{expireTime}
 				<if test="cuponSq != null and cuponSq != ''">
 					,#{cuponSq}
 				</if> 
@@ -64,7 +70,13 @@
 				</if>
 				<if test="artstSq != null and artstSq != ''">
 					,#{artstSq}
-				</if> 
+				</if>
+				<if test="isCombinedTaxation != null and isCombinedTaxation != ''">
+					,#{isCombinedTaxation}
+				</if>
+				<if test="taxFreeAmt != null and taxFreeAmt != ''">
+					,#{taxFreeAmt}
+				</if>
 			)
   </insert>
   

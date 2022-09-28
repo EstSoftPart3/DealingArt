@@ -847,6 +847,7 @@
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
+				D.DEAL_STRT_DT AS dealStrtDateTime, /*거래시작날짜시간*/
 				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
 				TBL_DA_WORK_M AS A

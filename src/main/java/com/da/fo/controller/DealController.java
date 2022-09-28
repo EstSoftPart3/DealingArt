@@ -33,6 +33,7 @@ import com.da.common.AwsS3Service;
 import com.da.fo.service.DealService;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
+import com.da.mapper.DealMapper;
 import com.da.util.CommonService;
 import com.da.vo.FileVo;
 import com.da.vo.MbrInfoVo;
@@ -58,6 +59,9 @@ public class DealController {
 	
 	@Autowired
 	private AwsS3Service awsS3Service;
+	
+	@Autowired
+	private DealMapper dealMapper;
 	
 	@RequestMapping("/deal")
 	public String goDeal() {
@@ -169,7 +173,18 @@ public class DealController {
 		
 		return result3;
 	}
-	
+	//응찰 또는 판매 되었는지 확인
+	@RequestMapping("/dealTPyn")
+	@ResponseBody
+	public String dealTPyn(@RequestParam(value="dealSq", required=false) String dealSq) {
+		String dealTPyn = "Y";
+		//응찰 또는 판매되었는지 확인
+		int failed = dealMapper.selectDealSttsCd(dealSq);
+		if(failed > 0) {
+			dealTPyn = "N";
+		}
+		return dealTPyn;
+	}
 	//거래 수정 페이지 오픈
 	@RequestMapping("/dealMod")
 	@ResponseBody

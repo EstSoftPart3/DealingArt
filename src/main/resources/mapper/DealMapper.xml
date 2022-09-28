@@ -504,7 +504,10 @@
 				B.MBR_NCKNM AS mbrNcknm,
 				A.WORK_STATE AS workState,
 				C.DEAL_TYP_CD AS dealTypCd,
+				FORMAT(C.DEAL_STRT_PRC, 0) AS dealStrtPrc,
+				FORMAT(C.DEAL_SBID_PRC, 0) AS dealSbidPrc,
 				FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
+				DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDt,
 				DATE_FORMAT(C.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDt,
 				(SELECT
 						MBR_NCKNM

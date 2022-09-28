@@ -147,12 +147,15 @@
 								</ul>
 								<div class="input-box" id="choiceDate">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
-									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="판매 시작 날짜"/></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="판매 시작 날짜" onchange="setDealEndngDt(this)"/></div>
 									<input type="text" class="timepicker" id="dealStrtTime" required>
 									<span class="is-span">~</span> 
 									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="판매 종료 날짜"></div>
 									<input type="text" class="timepicker" id="dealEndngTime" required>
 								</div>
+								<p class="table-p">
+									※ 판매 기간은 최대 3주까지 설정할 수 있습니다.
+								</p>
 							</div>
 						</div>
 						
@@ -1133,10 +1136,18 @@ jQuery(document).ready(function() {
 	$("#dealStrtDt").datepicker({
 		minDate: 0
 	}).datepicker("setDate", result.deal.dealStrtDate);
+	
 	$("#dealEndngDt").datepicker({
 		minDate: 0
 	}).datepicker("setDate", result.deal.dealEndngDate);
+	
 	$("#dealStrtDt").calendar($("#dealEndngDt"));
+	
+	var dealStrtDt = new Date($('#dealStrtDt').val().replaceAll(".", "-"));
+	var maxDealEndngDt = new Date(dealStrtDt);
+	maxDealEndngDt.setDate(dealStrtDt.getDate() + 21);
+	$('#dealEndngDt').datepicker("option", "maxDate", maxDealEndngDt);	
+	
 	$("#dealStrtTime").timepicker({
         timeFormat: "HH:mm",
         defaultTime: result.deal.dealStrtTime,
@@ -1196,6 +1207,14 @@ jQuery(document).ready(function() {
 	
     //autoLake();
 });
+
+function setDealEndngDt(obj){
+	var dealStrtDt = new Date(obj.value.replaceAll(".", "-"));
+	var maxDealEndngDt = new Date(dealStrtDt);
+	maxDealEndngDt.setDate(dealStrtDt.getDate() + 21);
+	$('#dealEndngDt').datepicker("option", "maxDate", maxDealEndngDt);	
+}
+
 
 $("input:radio[name='dealTypCd']").change(function(){
 	if($("input:radio[name='dealTypCd']:checked").val() == "S"){

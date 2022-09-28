@@ -390,8 +390,7 @@
 		INNER JOIN TBL_DA_MBR_M AS B ON C.MBR_SQ = B.MBR_SQ
 		 
 		WHERE 
-				A.WORK_TYP_CD = 'WORK'
-			AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+			A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 			AND A.ARTST_SQ = #{artstSq}
 			AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 	</select>

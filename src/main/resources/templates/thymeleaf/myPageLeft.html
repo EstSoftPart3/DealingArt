@@ -84,7 +84,16 @@
 <script th:inline="javascript">
 $(function() {
 	if(sMbrSqVal == null || sMbrSqVal == ""){
-		modalAlertShow("로그인 후 이용하실 수 있습니다.", "main");
+		if(!isMobile){
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		}else{
+			alert("로그인 후 이용하실 수 있습니다.");
+			location.href="/main";
+		}
+	}else{
+		if(sAuthSqVal == 2){
+			document.getElementById("portfolio").style.display="";
+		}
 	}
 });
 /*

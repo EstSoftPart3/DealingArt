@@ -432,16 +432,16 @@
 									<div class="uli-list">
 										<!-- <div class="uli-img uli-hart-on"> 하트 온 -->
 										<div class="uli-img">
-											<th:block th:if="${workList.dealTypCd.toString().equals('A') }"><!-- 경매면 -->
-												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|dealDetail('${workList.dealSq}')|"/>
+											<th:block th:if="${workList.dealSttsCd == 'TP'}"><!-- 판매중이면 -->
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; cursor:pointer;" th:attr="onclick=|dealDetail('${workList.dealSq}')|"/>
 											</th:block>
 											
-											<th:block th:if="${workList.dealTypCd.toString().equals('S')}"><!-- 정찰가 -->
-												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
+											<th:block th:if="${workList.dealSttsCd != 'TP' and workList.dealSttsCd != 'FB' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 판매 종료면 -->
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; cursor:pointer;" th:attr="onclick=|soldOutDetail('${workList.dealSq}')|" />
 											</th:block>
 											
-											<th:block th:if="${workList.dealTypCd.toString().equals('X')}">
-												<img th:src="${workList.workMainImgUrl}" style="width:100%; height:100%;cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
+											<th:block th:if="${#strings.isEmpty(workList.dealSttsCd)}">
+												<img th:src="${workList.workMainImgUrl}" style="width:100%; cursor:pointer;" th:attr="onclick=|workDetail('${workList.workSq}')|" />
 											</th:block>
 											
 												<!-- <div class="uho"></div> -->
@@ -461,51 +461,74 @@
 										<div class="uli-ste">
 											
 											
-											<th:block th:if="${workList.dealTypCd.toString().equals('A')}"><!-- 경매면 -->
-											
+											<th:block th:if="${workList.dealSttsCd == 'TP'}"><!-- 판매중이면 -->
+												<div class="ste-div">
+													<img src="resources/img/about/icon-a.png" class="ste-img"/>
+													<p class="ste-p1">판매상태</p>
+													<p class="ste-p2" th:text="판매중"></p>
+												</div>
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
-													<p class="ste-p1">경매기간</p>
-													<p class="ste-p2" th:text="${workList.dealStrtDate}+' ~ '+${workList.dealEndngDate}"></p>
+													<p class="ste-p1">판매시작</p>
+													<p class="ste-p2" th:text="${workList.dealStrtDate}"></p>
 												</div>
-												<div class="ste-div" th:if="${workList.dealSttsCd.toString().equals('TP')}">
+												<div class="ste-div">
+													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<p class="ste-p1">판매종료</p>
+													<p class="ste-p2" th:text="${workList.dealEndngDate}"></p>
+												</div>
+												<div class="ste-div">
 													<img src="resources/img/about/icon-s2.png" class="ste-img"/>
 													<p class="ste-p1">남은시간</p>
 													<p class="ste-p2 dealCount" th:name="${workList.dealEndngDateTime}"></p>
 												</div>
-											
-												<div class="ste-div">
+												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}">
 													<img src="resources/img/about/icon-s3.png" class="ste-img"/>
 													<p class="ste-p1">시작가</p>
 													<p class="ste-p2" th:text="${workList.dealStrtPrc}+' KRW'"></p>
 												</div>
-												<th:block th:if="${workList.dealSttsCd.toString().equals('TP')}"><!-- 판매 중이면 -->
-													<div class="ste-div">
-														<img src="resources/img/about/icon-s4.png" class="ste-img"/>
-														<p class="ste-p1">입찰가</p>
-														<p class="ste-p2" th:if="${not #strings.isEmpty(workList.maxBidPrc)}" th:text="${workList.maxBidPrc}+' KRW'"></p>
-														<p class="ste-p2" th:unless="${not #strings.isEmpty(workList.maxBidPrc)}">0 KRW</p>
-													</div>
-													<div class="ste-div">
-														<img src="resources/img/about/icon-s5.png" class="ste-img"/>
-														<p class="ste-p1">응찰수</p>
-														<p class="ste-p2" th:text="${workList.bidCnt}"></p>
-													</div>
-												</th:block>
-												<th:block th:if="${workList.dealSttsCd.toString().equals('TC')}"><!-- 경매며 거래 종료면 -->
-													<div class="ste-div">
-														<img src="resources/img/about/icon-s4.png" class="ste-img"/>
-														<p class="ste-p1">낙찰가</p>
-														<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
-													</div>
-												</th:block>
-											</th:block>
-											
-											<th:block th:if="${workList.dealTypCd.toString().equals('S')}"><!-- 정찰가면 -->
-												<div class="ste-div">
+												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}"> <!-- 경매면 -->
+													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<p class="ste-p1">입찰가</p>
+													<p class="ste-p2" th:if="${not #strings.isEmpty(workList.maxBidPrc)}" th:text="${workList.maxBidPrc}+' KRW'"></p>
+													<p class="ste-p2" th:unless="${not #strings.isEmpty(workList.maxBidPrc)}">0 KRW</p>
+												</div>
+												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}"> <!-- 경매면 -->
+													<img src="resources/img/about/icon-s5.png" class="ste-img"/>
+													<p class="ste-p1">응찰수</p>
+													<p class="ste-p2" th:text="${workList.bidCnt}"></p>
+												</div>
+												<div class="ste-div" th:if="${workList.dealTypCd == 'S'}"><!-- 정찰가면 -->
 													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">판매가</p>
 													<p class="ste-p2" th:text="${workList.dealFinalPrc}+' KRW'"></p>
+												</div>
+											</th:block>
+											<th:block th:if="${workList.dealSttsCd != 'TP' and workList.dealSttsCd != 'FB' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 경매며 거래 종료면 -->
+												<div class="ste-div">
+													<img src="resources/img/about/icon-a.png" class="ste-img"/>
+													<p class="ste-p1">판매상태</p>
+													<p class="ste-p2" th:text="판매완료"></p>
+												</div>
+												<div class="ste-div">
+													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<p class="ste-p1">판매시작</p>
+													<p class="ste-p2" th:text="${workList.dealStrtDate}"></p>
+												</div>
+												<div class="ste-div">
+													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<p class="ste-p1">판매종료</p>
+													<p class="ste-p2" th:text="${workList.dealEndngDate}"></p>
+												</div>
+												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}">
+													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<p class="ste-p1">낙찰가</p>
+													<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
+												</div>
+												<div class="ste-div" th:if="${workList.dealTypCd == 'S'}">
+													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<p class="ste-p1">판매가</p>
+													<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
 												</div>
 											</th:block>
 										</div>
@@ -778,11 +801,11 @@ setInterval(function() {
 		if(today >= dday){
 			//myDealSearchList();
 		}
-	  	var gap = dday - today;
-		var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
-		var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) - 1);
-		var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
-		var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+		var gap = dday - today;
+		var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+		var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+		var sec = Math.floor((gap % (1000 * 60)) / 1000);
 		elements[i].textContent = day + " 일 " + hour + " : " + min + " : " + sec;
 	  	//document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
 	}
@@ -921,7 +944,9 @@ function dealDetail(dealSq){
 function workDetail(workSq){
  	location.href="/workDetail?workSq="+workSq;
 }
-      
+function soldOutDetail(dealSq){
+	location.href="/soldoutDetail?dealSq="+dealSq;
+}      
 </script>
     
 	

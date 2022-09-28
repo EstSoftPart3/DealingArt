@@ -131,6 +131,13 @@ public class MainPayUtil {
 		parameters.put("approvalUrl", returnUrl + "/payment/approval"); //인증결과 수신페이지 예) https://상점도메인/approval (주의) URL내에 &,=등의 특수문자 허용안됨)
 		/*결제창 close시 호출 URL*/
 		parameters.put("closeUrl", returnUrl + "/payment/close"); //결제종료 수신페이지 URL 예) https://상점도메인/close (주의) URL내에 &,=등의 특수문자 허용안됨)
+		if((paramMap.get("isCombinedTaxation") != null && paramMap.get("isCombinedTaxation").toString().equals(""))
+				&& (paramMap.get("taxFreeAmt") != null && paramMap.get("taxFreeAmt").toString().equals(""))) {
+			/* 비과세 적용 유무 설정 */
+			parameters.put("isCombinedTaxation", paramMap.get("isCombinedTaxation").toString()); //면세 대상금액 사용유무 (isCombinedTaxation=Y 고정)
+			/* 비과세 적용 금액 */
+			parameters.put("taxFreeAmt", paramMap.get("taxFreeAmt").toString()); //면세상품의 금액(총 금액 amount에서 차지하는 면세금액)
+		}
 		
 	    /*=================================================================================================
 	     *	READY API 호출 (**테스트 후 반드시 리얼-URL로 변경해야 합니다.**) 
@@ -228,6 +235,13 @@ public class MainPayUtil {
 		param.put("authToken", paramMap.get("authToken").toString()); //거래인증용 토큰, approvalUrl에서 수신한 값사용
 		param.put("paymethod", paramMap.get("paymethod").toString());
 		param.put("amount", parameters.get("amount").toString());
+		if((parameters.get("isCombinedTaxation") != null && parameters.get("isCombinedTaxation").toString().equals(""))
+				&& (parameters.get("taxFreeAmt") != null && parameters.get("taxFreeAmt").toString().equals(""))) {
+			/* 비과세 적용 유무 설정 */
+			parameters.put("isCombinedTaxation", parameters.get("isCombinedTaxation").toString()); //면세 대상금액 사용유무 (isCombinedTaxation=Y 고정)
+			/* 비과세 적용 금액 */
+			parameters.put("taxFreeAmt", parameters.get("taxFreeAmt").toString()); //면세상품의 금액(총 금액 amount에서 차지하는 면세금액)
+		}
 		
 		String responseJson = "";
 		Map<String, Object> responseMap = new HashMap<>();
