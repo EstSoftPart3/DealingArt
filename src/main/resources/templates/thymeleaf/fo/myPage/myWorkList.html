@@ -820,11 +820,19 @@ function workList(callback){
     			$("#columns2").append(workListHtml).trigger("create");;
     			masonryLayout(callback);
         	}else{
-        		if(!isMobile){
-        			modalAlertShow("검색 결과가 없습니다.", "reload");
+        		if(searchOptions.workTypCd === undefined && searchOptions.dealYn === undefined && searchOptions.keyword === undefined){
+        			if(!isMobile){
+            			modalAlertShow("검색 결과가 없습니다.");
+            		}else{
+            			alert("검색 결과가 없습니다.");
+            		}
         		}else{
-        			alert("검색 결과가 없습니다.");
-        			location.reload();
+        			if(!isMobile){
+            			modalAlertShow("검색 결과가 없습니다.", "reload");
+            		}else{
+            			alert("검색 결과가 없습니다.");
+            			location.reload();
+            		}
         		}
         		$("#columns2").empty();
         	}
