@@ -265,13 +265,14 @@ public class TestController {
 	 */
 	@RequestMapping("/payment/close")
 	@ResponseBody
-	public void paymentClose(@RequestParam(name = "aid") String aid, HttpServletResponse response) throws IOException {
+	public void paymentClose(HttpServletResponse response) throws IOException {
+		System.out.println("MainPayClose!!");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script> opener.parent.location.reload(); window.close(); </script>");
 		out.flush();
 	}
-	
+
 	/**
 	 * MainPay 가상계좌 중복 체크
 	 * @return

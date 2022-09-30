@@ -6,4 +6,10 @@
 	  상점에서 필요한 로직 추가	
 	********************************************************************************/
 %>
-종료페이지
+<html>
+<head>
+<script src="https://api-std.mainpay.co.kr/js/mainpay.pc-1.1.js"></script>
+<script type='text/javascript'> 
+opener.parent.location.reload(); 
+window.close();
+</script>

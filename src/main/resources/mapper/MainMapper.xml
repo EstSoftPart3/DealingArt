@@ -277,7 +277,7 @@
 	<select id="totalSearchWork" resultType="hashMap" parameterType="hashMap">
 		/*작품 통합검색*/
 		SELECT 
-				IFNULL(D.DEAL_SQ,0) AS dealSq, /*거래번호*/
+				D.DEAL_SQ AS dealSq, /*거래번호*/
 				A.WORK_SQ AS workSq, /*작품번호*/
 				A.MBR_SQ AS mbrSq, /*멤버번호*/
 				A.ARTST_SQ AS artstSq, /*작가번호*/
@@ -286,8 +286,8 @@
 				C.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
 				A.ARTST_BIRTH_YEAR AS artstBirthYear, /*작가생년월일*/
 				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
-				IFNULL(D.DEAL_TYP_CD,'X') AS dealTypCd, /*거래유형*/
-				IFNULL(D.DEAL_STTS_CD,'X') AS dealSttsCd, /*거래상태*/
+				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				A.WORK_MATRL AS workMatrl, /*작품소재*/
