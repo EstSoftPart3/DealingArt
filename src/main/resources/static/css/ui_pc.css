@@ -382,7 +382,23 @@ top:0;
     background-color: rgb(255, 255, 255);
     left: -1500px;
     z-index: 2;
-}.sbn {
+}
+/*10.04 정영우 추가*/
+.swi-box1 {
+    position: relative;
+}
+.swi-box1::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color:#f9f9f9;
+    left: -1500px;
+    z-index: 2;
+}
+/*10.04 추가 끝*/
+.sbn {
     right: -56px !important;
     width: 56px !important;
     height: 56px !important;

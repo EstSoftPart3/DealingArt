@@ -70,7 +70,6 @@
     
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
-    	.swi-box::before{background-color:#f9f9f9;}
     	.footer-wrap{margin-top:0;}
     	.hd-div{background-color:#fff;}
     	.ellipsis{
@@ -242,7 +241,7 @@
 					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
 				</div>
 				
-					<div class="swi-box max-1500">
+					<div class="swi-box1 max-1500">
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper"  id="swiper_workList">
 							</div>
@@ -696,98 +695,77 @@ function workList(){
 		$("#swiper_workList").empty();
 		var html = '';
 		for(var i=0; i<result.workList.length; i++){
-			html +='<div class="swiper-slide">';
-			html +='	<a class="hd-div hd-tablet" href="/workDetail?workSq='+result.workList[i].workSq+'">';
-			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100%;"/>';
+			html +='<div class="swiper-slide hd-div">';
+			html +='	<a href="/workDetail?workSq='+result.workList[i].workSq+'">';
+			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
 			html +='		<div class="hd-text">';
-			html +='			<h4>'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
-			html +='			<div class="hd-d1" th:inline="text">';
-			html +='				'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
-			html +='				<br/>';
-			html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
-			html +='				<br/>';
-			/* if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
-				html +='				가격 '+result.workList[i].workPrc+' KRW';
-			} */
-			html +='			</div>';
-			html +='		</div>';
-			html +='	</a>';
-			html +='</div>';
+			html +='			<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" >'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+			html +='			<br/>소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth+'cm</div>';
+				/* if(mainHotest[i].dealTypCd == "A"){
+					if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
+						hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
+					}else{
+						hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
+					}
+     	    }
+     	    if(mainHotest[i].dealTypCd == "S"){
+					hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
+     	    } */
+     	   	html +='		</div>';
+     	  	html +='	</a>';
+     	 	html +='</div>';
 		}
 		$("#swiper_workList").append(html).trigger("create");
 	}
 }
 
- $(window).on("resize", function () {
-    if(window.matchMedia('(min-width: 1537px)').matches)
-    {
-    	
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 4,
-	          spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       	  /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	        });
-    	
-    }  else if(window.matchMedia('(min-width: 751px)').matches) {
-    	
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 3,
-	          spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	     });
-    	
-    	
-    	
-     } else {
-    	var swiper = new Swiper(".mySwiper2", {
-	          slidesPerView: 2,
-	       	  spaceBetween: 30,
-	          slidesPerGroup: 1,
-	          loop: true,
-	          loopFillGroupWithBlank: true,
-	       /* autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          }, */
-	          pagination: {
-	            el: ".swiper-pagination",
-	            clickable: true,
-	          },
-	          navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev",
-	          },
-	     });
-    	
-     };
+$(window).on("resize", function () {
+	 /*작가의 다른 작품 리스트*/
+	 let ww = window.innerWidth;
+	 var mySwiper2 = 4;
+	 var swiper = new Swiper(".mySwiper2", {
+	   	   
+	 		slidesPerView: "auto",
+	 	   	loop: false,
+	 	   	/* autoplay: {
+	 	          	delay: 3000,
+	 	          	disableOnInteraction: false,
+	 	   	}, */
+	 		navigation: {
+	 			 nextEl: ".swiper-button-next",
+	 			 prevEl: ".swiper-button-prev",
+	 		},
+	 	     
+	   });
+	   
+	   responsiveSwiper2(mySwiper2);
+	   
+	   function responsiveSwiper2(mySwiper2) {
+	 		
+	   	if (ww >= 1200) {
+	 			
+	 			swiper = new Swiper('.mySwiper2', {
+	 				slidesPerView: mySwiper2,
+	 				loop: false,
+	 				effect: 'slide',
+	 				navigation: {
+	 					 nextEl: ".swiper-button-next",
+	 					 prevEl: ".swiper-button-prev",
+	 				},
+	 				
+	 			});
+	 			
+	 		} else if (ww < 1200) {
+	 			
+	 			
+	 			swiper = new Swiper('.mySwiper2', {
+	 				slidesPerView: 1,
+	 				loop: false
+	 				 
+	 			});
+	 		}
+	 	}
 }).resize();
  
  

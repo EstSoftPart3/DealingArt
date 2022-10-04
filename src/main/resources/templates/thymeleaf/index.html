@@ -107,10 +107,9 @@
 								<img src="resources/img/banner-16_pc.jpg" onclick="javascript:location.href='/event';" style="cursor:pointer;"/>
 							</div>
 							<!-- 이벤트 베너 2022-07-22 -->
-							<div class="swiper-slide" align="center" style="background-color:#f0eddc;">
-								<!-- <img src="resources/img/banner-11_pc.jpg" onclick="javascript:location.href='/event';" style="cursor:pointer;"/> -->
+							<!-- <div class="swiper-slide" align="center" style="background-color:#f0eddc;">
 								<img src="resources/img/banner-15_pc.jpg" class="myCollection" style="cursor:pointer;"/>
-							</div>
+							</div> -->
 							<div class="swiper-slide" align="center" style="background-color:#ececec;">
 								<img src="resources/img/banner-12_pc.jpg" onclick="javascript:location.href='/insights';" style="cursor:pointer;"/>
 							</div>
@@ -133,10 +132,9 @@
 								<img src="resources/img/banner-16_pc.jpg" onclick="javascript:location.href='/event';" style="cursor:pointer;"/>
 							</div>
 							<!-- 이벤트 베너 2022-07-22 -->
-							<div class="swiper-slide">
+							<!-- <div class="swiper-slide">
 								<img src="resources/img/banner-15_pc.jpg" class="myCollection" style="cursor:pointer;"/>
-								<!-- <img src="resources/img/banner-11_tablet.jpg" onclick="javascript:location.href='/event';" style="cursor:pointer;"/> -->
-							</div>
+							</div> -->
 							<!--
 							<div class="swiper-slide">
 								<img src="resources/img/banner-11_tablet.jpg" onclick="javascript:location.href='/totalSearch_work?searchKeyword=사전출품';" style="cursor:pointer;"/>
@@ -168,10 +166,9 @@
 							</div>
 							
 							<!-- 이벤트 베너 2022-07-22 -->
-							<div class="swiper-slide">
+							<!-- <div class="swiper-slide">
 								<img src="resources/img/banner-15_mobile.jpg" class="myCollection" style="cursor:pointer;"/>
-								<!-- <img src="resources/img/banner-14_mobile.jpg" onclick="javascript:location.href='/event';" style="cursor:pointer;"/> -->
-							</div>
+							</div> -->
 							<!-- 
 							<div class="swiper-slide">
 								<img src="resources/img/banner-11_mobile.jpg" onclick="javascript:location.href='/totalSearch_work?searchKeyword=사전출품';" style="cursor:pointer;"/>
@@ -657,20 +654,6 @@
 // 	  	}, delay);
 // 	  });
 	  
-      /* 메뉴바 FIXED */
-      if (jQuery(window).width() > 0) {
-          jQuery(window).on("scroll",function(ev){
-              if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
-                  jQuery('.head-wrap').addClass('fixed');
-              }
-              else{
-                  jQuery('.head-wrap').removeClass('fixed');
-              }
-              return false;
-          });
-      }
-      
-    
       function searchMainData(page) {
 		$.ajax({
 	           type: "post",
