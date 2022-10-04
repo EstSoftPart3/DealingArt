@@ -652,7 +652,12 @@
 	function dealSearch(sort, type){
 		
 		//2021-09-19 : 검색 이벤트 후 목록으로 돌아가기 버튼 활성화 : 박상현
-		$("#lstBackBtn").show();
+		if($("#searchKeyword").val() != "" && $("#searchKeyword").val() != null){
+			$("#lstBackBtn").show();
+		}else{
+			$("#lstBackBtn").hide();
+		}
+		
 		
 		
 		$("#myModal1").modal("hide");
@@ -723,7 +728,8 @@
 	        	var html = "";
 	        	var dealListHtml = "";
 	     		if(data.result.length == 0){
-	     			modalAlertShow("검색 결과가 없습니다.");
+	     			//2022-10-04 : 검색 결과 없을 시에 새로고침 : 정영우
+	     			modalAlertShow("검색 결과가 없습니다." , "dealSearch");
 	     			$(".grid").empty();
 	     		}else{
 	     			if(more == 1){

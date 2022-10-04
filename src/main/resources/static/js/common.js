@@ -165,6 +165,10 @@ function modalAlertClose(obj) {
 		return;
 	}
 	
+	if(obj == "dealSearch"){
+		lstBack();
+	}
+	
 	if(obj) {
 		$('#'+obj).focus();
 		return;
