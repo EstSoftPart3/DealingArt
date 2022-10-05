@@ -147,10 +147,10 @@
 								</ul>
 								<div class="input-box" id="choiceDate">
 									<label style="margin: 0; padding: 0 10px 0 0px; display: inline-block; font-size: 14px; color: #333; vertical-align: middle;">기간선택</label>
-									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="판매 시작 날짜" onchange="setDealEndngDt(this)"/></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealStrtDt" placeholder="판매 시작 날짜" onchange="setDealEndngDt()"/></div>
 									<input type="text" class="timepicker" id="dealStrtTime" required>
 									<span class="is-span">~</span> 
-									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="판매 종료 날짜"></div>
+									<div class="input-cand"><input type="text" class="datepicker" id="dealEndngDt" placeholder="판매 종료 날짜" onchange="setDealEndngDt()"></div>
 									<input type="text" class="timepicker" id="dealEndngTime" required>
 								</div>
 								<p class="table-p">
@@ -1145,8 +1145,11 @@ jQuery(document).ready(function() {
 	
 	var dealStrtDt = new Date($('#dealStrtDt').val().replaceAll(".", "-"));
 	var maxDealEndngDt = new Date(dealStrtDt);
+	var minDealEndngDt = new Date(dealStrtDt);
 	maxDealEndngDt.setDate(dealStrtDt.getDate() + 21);
+	minDealEndngDt.setDate(dealStrtDt.getDate() + 3);
 	$('#dealEndngDt').datepicker("option", "maxDate", maxDealEndngDt);	
+	$('#dealEndngDt').datepicker("option", "minDate", minDealEndngDt);	
 	
 	$("#dealStrtTime").timepicker({
         timeFormat: "HH:mm",
@@ -1208,11 +1211,14 @@ jQuery(document).ready(function() {
     //autoLake();
 });
 
-function setDealEndngDt(obj){
-	var dealStrtDt = new Date(obj.value.replaceAll(".", "-"));
+function setDealEndngDt(){
+	var dealStrtDt = new Date($("#dealStrtDt").val().replaceAll(".", "-"));
 	var maxDealEndngDt = new Date(dealStrtDt);
+	var minDealEndngDt = new Date(dealStrtDt);
 	maxDealEndngDt.setDate(dealStrtDt.getDate() + 21);
+	minDealEndngDt.setDate(dealStrtDt.getDate() + 3);
 	$('#dealEndngDt').datepicker("option", "maxDate", maxDealEndngDt);	
+	$('#dealEndngDt').datepicker("option", "minDate", minDealEndngDt);	
 }
 
 

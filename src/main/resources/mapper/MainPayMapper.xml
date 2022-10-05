@@ -100,8 +100,9 @@
 				A.PAYMETHOD AS paymethod,
 				A.AMOUNT AS amount,
 				A.GOODS_NAME AS goodsName,
-				A.AID AS aid
-				
+				A.AID AS aid,
+				A.TAX_FREE_AMT AS taxFreeAmt,
+				A.COMBINED_TAXATION AS isCombinedTaxation
 		FROM 
 				TBL_DA_MAINPAY_REQUEST_S AS A
 		INNER JOIN
@@ -176,6 +177,7 @@
 				,TAX_FREE_AMOUNT
 				,PAYMNT_AMT
 				,PAYMNT_FEE_AMT
+				,PAYMNT_DT
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,PAYMNT_DISC_AMT
 				</if>
@@ -185,7 +187,12 @@
 				<if test="artstSq != null and artstSq != ''">
 					,ARTST_SQ
 				</if>
-				,PAYMNT_DT
+				<if test="isCombinedTaxation != null and isCombinedTaxation != ''">
+					,COMBINED_TAXATION
+				</if>
+				<if test="taxFreeAmt != null and taxFreeAmt != ''">
+					,TAX_FREFF_AMT
+				</if>
 			) VALUES (
 				<if test='paymntDivCd == "S"'>
 					#{sellMbrSq}
@@ -224,6 +231,7 @@
 				,#{taxFreeAmount}
 				,#{paymntAmt}
 				,#{paymntFeeAmt}
+				,NOW()
 				<if test="paymntDiscAmt != null and paymntDiscAmt != ''">
 					,#{paymntDiscAmt}
 				</if>
@@ -233,7 +241,12 @@
 				<if test="artstSq != null and artstSq != ''">
 					,#{artstSq}
 				</if> 
-				,NOW()
+				<if test="isCombinedTaxation != null and isCombinedTaxation != ''">
+					,#{isCombinedTaxation}
+				</if>
+				<if test="taxFreeAmt != null and taxFreeAmt != ''">
+					,#{taxFreeAmt}
+				</if>
 			)
   </insert>
   

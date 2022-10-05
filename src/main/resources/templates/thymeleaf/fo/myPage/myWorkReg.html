@@ -1087,7 +1087,7 @@ function readImg(input, imgId){
     }
 }
 
-$("#workGrtUrl").change(function(){
+$("#COLLworkGrtUrl").change(function(){
 	//파일 경로.
 	var filePath = this.value;
 	//전체경로를 \ 나눔.
@@ -1103,8 +1103,29 @@ $("#workGrtUrl").change(function(){
 	//var fileExt = fileNameSplit[1];
 	//파일 크기
 	//var fileSize = file.files[0].size;
-	$("#workGrtUrl1").val(fileName);
+	$("#COLLworkGrtUrl1").val(fileName);
 });
+
+
+$("#WORKworkGrtUrl").change(function(){
+	//파일 경로.
+	var filePath = this.value;
+	//전체경로를 \ 나눔.
+	var filePathSplit = filePath.split('\\'); 
+	//전체경로를 \로 나눈 길이.
+	var filePathLength = filePathSplit.length;
+	var fileName = filePathSplit[filePathLength-1];
+	//마지막 경로를 .으로 나눔.
+	//var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+	//파일명 : .으로 나눈 앞부분
+	//var fileName = fileNameSplit[0];
+	//파일 확장자 : .으로 나눈 뒷부분
+	//var fileExt = fileNameSplit[1];
+	//파일 크기
+	//var fileSize = file.files[0].size;
+	$("#WORKworkGrtUrl1").val(fileName);
+});
+
 
 var work = new Object();
 var storage = new Object();
