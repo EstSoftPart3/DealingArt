@@ -856,7 +856,7 @@ setInterval(function() {
 		if(today >= dday){
 			location.reload;
 		}else if(today < sday){
-			html += '<li>'+elements[i].attributes.strtDt.value+'<span>판매 예정</span></li>';
+			html += '<li>'+elements[i].attributes.strtDt.value+'<span>거래 시작 예정</span></li>';
 		}else{
 			var gap = dday - today;
 			var day = Math.floor(gap / (1000 * 60 * 60 * 24));

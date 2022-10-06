@@ -436,7 +436,7 @@
 												<img th:src="${workList.workMainImgUrl}" style="width:100%; cursor:pointer;" th:attr="onclick=|dealDetail('${workList.dealSq}')|"/>
 											</th:block>
 											
-											<th:block th:if="${workList.dealSttsCd != 'TP' and workList.dealSttsCd != 'FB' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 판매 종료면 -->
+											<th:block th:if="${workList.dealSttsCd != 'TP' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 판매 종료면 -->
 												<img th:src="${workList.workMainImgUrl}" style="width:100%; cursor:pointer;" th:attr="onclick=|soldOutDetail('${workList.dealSq}')|" />
 											</th:block>
 											
@@ -446,6 +446,7 @@
 											
 												<!-- <div class="uho"></div> -->
 										</div>
+										
 										<div class="uli-text">
 											<h3 class="ut-h3" th:text="${workList.artstActvtyNm}+'('+${workList.artstBirthYear}+')'"></h3>
 												<div class="ut-div" th:text="${workList.workNm}+'('+${workList.workProdcYear}+')'"></div>
@@ -456,10 +457,9 @@
 											<th:block th:if="${not #strings.isEmpty(workSizeWidth)}"><!-- 경매면 -->
 												<div class="ut-div" th:text="${workList.workSizeWidth}+' X '+${workList.workSizeDepth}"></div>
 											</th:block>
-											
 										</div>
+										
 										<div class="uli-ste">
-											
 											
 											<th:block th:if="${workList.dealSttsCd == 'TP'}"><!-- 판매중이면 -->
 												<div class="ste-div">
@@ -480,7 +480,7 @@
 												<div class="ste-div">
 													<img src="resources/img/about/icon-s2.png" class="ste-img"/>
 													<p class="ste-p1">남은시간</p>
-													<p class="ste-p2 dealCount" th:name="${workList.dealEndngDateTime}"></p>
+													<p class="ste-p2 dealCount" th:name="${workList.dealEndngDate}"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}">
 													<img src="resources/img/about/icon-s3.png" class="ste-img"/>
@@ -504,7 +504,7 @@
 													<p class="ste-p2" th:text="${workList.dealFinalPrc}+' KRW'"></p>
 												</div>
 											</th:block>
-											<th:block th:if="${workList.dealSttsCd != 'TP' and workList.dealSttsCd != 'FB' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 경매며 거래 종료면 -->
+											<th:block th:if="${workList.dealSttsCd != 'TP' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 경매며 거래 종료면 -->
 												<div class="ste-div">
 													<img src="resources/img/about/icon-a.png" class="ste-img"/>
 													<p class="ste-p1">판매상태</p>
@@ -796,7 +796,8 @@ function searchOptionReset(){
 setInterval(function() {
 	var elements = document.querySelectorAll(".dealCount");
 	for(var i=0; i<elements.length; i++){
-		var dday = new Date(elements[i].attributes.name.value).getTime();
+		var enddate = elements[i].attributes.name.value.replaceAll(".", "-");
+		var dday = new Date(enddate).getTime();
 		var today = new Date().getTime();
 		if(today >= dday){
 			//myDealSearchList();

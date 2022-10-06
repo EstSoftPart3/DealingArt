@@ -194,10 +194,12 @@
 				FORMAT(B.DEAL_FINAL_PRC, 0) AS dealFinalPrc,
 				B.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
 		FROM 
-				TBL_DA_WORK_M AS A,
+				TBL_DA_WORK_M AS A
+		INNER JOIN 
 				TBL_DA_DEAL_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
 		WHERE 
-				A.WORK_SQ = B.WORK_SQ 
+				B.DEAL_STRT_DT <![CDATA[<=]]> NOW()
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			AND B.DEAL_TYP_CD = 'S'
 			<if test="buyOrSell == 'BUY'">
@@ -380,6 +382,7 @@
 			ON C.DEAL_SQ = D.DEAL_SQ 
 		WHERE 	
 				C.DEAL_TYP_CD = 'A'
+			AND C.DEAL_STRT_DT <![CDATA[<=]]> NOW()
 			AND	D.MBR_SQ IN (#{mbrSq})
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="dealSttsCd == 'TP'">
@@ -460,6 +463,7 @@
 			ON 	A.WORK_SQ = C.WORK_SQ 
 		WHERE 	
 				C.DEAL_TYP_CD = 'A'
+			AND C.DEAL_STRT_DT <![CDATA[<=]]> NOW()
 			AND	C.SELL_MBR_SQ = #{mbrSq}
 			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
 			<if test="dealSttsCd == 'TP'">

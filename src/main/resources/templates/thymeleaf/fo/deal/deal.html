@@ -751,58 +751,61 @@
 	     					if(dealList[i].dealTypCd == "A" && dealList[i].dealSttsCd == "TP"){
 	     						
 	     						html += '<div class="griditem '+gtText+'" style="border:0px solid #222;" >';
-		     					html += '<div>';
-		     					html += '<div class="item-div-img active" onclick="dealDetail('+ dealList[i].dealSq +')" style="cursor:pointer">'
+		     					html += '	<div class="item-div-img auction" onclick="dealDetail('+ dealList[i].dealSq +')" style="cursor:pointer">'
 		     					//작품 이미지
-		     					html += '<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
-		     					
-		     					html += '<div class="item-ho">';
-		     					
-		     					html += '<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
-			     				html += '<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
-			     				html += '<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
+		     					html += '		<img src="'+ dealList[i].workMainImgUrl +'" class="pseudo-img" width="360px;"  style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+		     					//경매 정보
+		     					/* html += '		<div class="item-ho">';
+		     					html += '		<p>'+ dealList[i].dealStrtDate +' - '+ dealList[i].dealEndngDate +'</p>';
+			     				html += '		<p> 응찰수 : '+ dealList[i].bidCnt +'</p>';
+			     				html += '		<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
 			     				if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
-	    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+	    	     					html += '		<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
 	     						}else{
-	     							html += '<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
+	     							html += '		<h4>시작가 '+ dealList[i].dealStrtPrc +' KRW</h4>';
 	     						}
-		     					html += '</div>';
-		     					html += '</div>'
+		     					html += '		</div>'; */
+		     					html += '		<div class="item-ho2 auction-div">';
+								html += '			<h3 style="color:#ffc000;">시작가 '+dealList[i].dealStrtPrc+' KRW</h3>';
+								html += '			<ul class="dealCount" dday="'+dealList[i].dealEndngDateTime+'"></ul>';
+								html += '		</div>';
 		     					
-		     					html += '<div class="item-body">';
-		     					html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-		     					html += '<div>';
-		     					html += '<div class="uesr-s">';
+								html += '	</div>'
+
+								html += '	<div class="item-body">';
+		     					html += '		<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					html += '		<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-		    	     				html += '<img src="resources/img/de/ues-icon.png"/>';
+		    	     				html += '		<img src="resources/img/de/ues-icon.png"/>';
 		    	     			}else{
-		    	     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+		    	     				html += '		<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 		    	     			}
-		     					html += '</div>';
+		     					html += '		</div>';
 		     					
 		     					
-		     					html += '<div class="text-s" style="padding-left:5px;text-align:left">';
+		     					html += '		<div class="text-s" style="padding-left:5px;text-align:left">';
 		     					if(dealList[i].artstBirthYear == null || dealList[i].artstBirthYear == ""){
-		     						html += '<h3>'+ dealList[i].artstActvtyNm +'</h3>';
+		     						html += '		<h3>'+ dealList[i].artstActvtyNm +'</h3>';
 		     					}else{
-		     						html += '<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
+		     						html += '		<h3>'+ dealList[i].artstActvtyNm +' ('+ dealList[i].artstBirthYear +')</h3>';
 		     					}
-		     					html += '<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
-		     					html += '<p>'+ dealList[i].workMatrl +'</p>';
-		     					html += '<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
+		     					html += '			<p class="ts-1">'+ dealList[i].workNm +' ('+ dealList[i].workProdcYear +')</p>';
+		     					html += '			<p>'+ dealList[i].workMatrl +'</p>';
+		     					html += '			<p>'+ dealList[i].workSizeDepth +'x'+ dealList[i].workSizeWidth +'</p>';
 		     					
 	     						if(dealList[i].maxBidPrc != null && dealList[i].maxBidPrc != "") {
-	    	     					html += '<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
+	    	     					html += '		<h4>입찰가 '+ dealList[i].maxBidPrc +' KRW</h4>';
 	     						}else{
-	     							html += '<h4>입찰가 0 KRW</h4>';
+	     							html += '		<h4>입찰가 0 KRW</h4>';
 	     						}
+	     						html += '			<h4>응찰수 : '+dealList[i].bidCnt+'</h4>'
 	    	     				/* html += '<p class="ts-2">';
 	    	     				html += ''+ dealList[i].dealStrtDate +' – '+ dealList[i].dealEndngDate +'<br/>';
 	    	     				html += '응찰수 : '+ dealList[i].bidCnt +'<br/>';
 	    	     				html += ''+ dealList[i].dealRemainingDay +'일 '+ dealList[i].dealRemainingHour +'시 '+ dealList[i].dealRemainingMin +'분 '+ dealList[i].dealRemainingSec +'초';
 	    	     				html += '</p>'; */
 		     					
-		     					html += '</div>'
+		     					html += '		</div>'
 		     					
 		     					html += '</div>';
 		     					
