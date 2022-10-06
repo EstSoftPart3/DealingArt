@@ -293,8 +293,11 @@ $(function() {
 		artstInfoHtml += '	<dd>';
 		
 		if(eductn.length > 1) {
-			var eductnLength = 2
+			var eductnLength = 2;
+		} else if (eductn.length == 1 ) {
+			var eductnLength = 1;
 		}
+		
 		for(var i=0; i<eductnLength; i++){
 			artstInfoHtml += '		<p>'+ eductn[i].eductnNm +'</p>';
 		}
