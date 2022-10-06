@@ -119,6 +119,7 @@
 
 <!-- 모달검색 -->
 <!-- Modal -->
+<!--
 <div class="modal fade modal-s" id="lp_mgz9Dtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-baeg max-w1200">
 		<div class="modal-content">
@@ -128,7 +129,7 @@
 				</div>
 			</div>
 			
-			<!-- 상세내용 -->
+			
 			<div id="editor" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt"></div>
 			</div>
@@ -136,10 +137,38 @@
 		</div>
 	</div>
 </div>
+-->
+
+<div class="modal fade modal-s" id="lp_mgz9Dtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style=" width: auto;">
+	<div class="modal-dialog modal-baeg max-w1200 ">
+		<div class="modal-content">
+			<div class="modal-header lp_mgz9DtlModalHearder" style="padding: 0;min-height: 0;">
+				<div class="baegs baegs_1">
+				    <div class="close close_1" onclick="closeMgz9Dtl()">닫기</div>
+				</div>
+			</div>
+			
+			<!-- 상세내용 font-size: 15px !important;-->
+			<div style="display: flex;justify-content: center" class="box_pt20 box_con1 ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+			<div id="lp_mgz9Dtl_cntnt" style="max-width:900px;padding-left:20px;padding-right:20px;" class=" ck-blurred ck ck-content ck-rounded-corners post-body no-drag" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
+				
+<!-- 				<div class="modal-body pd60 h850-o" id="lp_mgz9Dtl_cntnt" style="font:inherit;"></div> -->
+				
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 <script type="text/javascript">      
 
-
+	function closeMgz9Dtl(){
+		  
+		  $("body").css("overflow", "scroll");
+		  $("#lp_mgz9Dtl").modal("hide");
+	}
 
 
 	/* 파일업로드 */
@@ -238,7 +267,7 @@
       		},
               success: function(data) {
               	var mgzDtl = null;
-              	console.log(data);
+              	
               	if(data.result != null){
               		
               		var mgzContent = data.result.mgzContent; 
