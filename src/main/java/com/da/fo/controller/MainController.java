@@ -60,6 +60,11 @@ public class MainController {
 		return "thymeleaf/fo/member/join_1";
 	}
 	
+	@RequestMapping("/evening")
+	public String openLanding1006() {
+		return "thymeleaf/fo/landing/1006/index";
+	}
+	
 	
 	//회원가입 본인인증
 	@RequestMapping("/joinStep2")
