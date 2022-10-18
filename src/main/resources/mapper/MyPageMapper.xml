@@ -162,10 +162,10 @@
 			,#{mbrSq} 
 			,'N'
 			<if test="useStrtDt != null and useStrtDt != ''">
-			,#{useStrtDt}
+			,${useStrtDt}
 			</if>
 			<if test="useEndDt != null and useEndDt != ''">
-			,#{useEndDt}
+			,${useEndDt}
 			</if>
 			
 		);

@@ -49,7 +49,7 @@ public class MyPageServiceImpl implements MyPageService{
 		Map<String, Object> cuponMap = myPageDao.searchCuponIdntfctnNum(param);
 		//List<Map<String, Object>> listMap = cuponList; 
 		
-		if(!cuponMap.isEmpty() && cuponMap != null) {
+		if(cuponMap != null) {
 			
 			String cuponSq = cuponMap.get("cuponSq").toString(); //쿠폰순번
 			//int diffDay = Integer.parseInt(cuponMap.get("diffDay").toString()); //쿠폰 사용기한
