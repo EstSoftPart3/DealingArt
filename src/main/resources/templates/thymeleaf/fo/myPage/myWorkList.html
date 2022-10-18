@@ -802,8 +802,13 @@ function workList(callback){
     					}else{
     						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
     					}
-    					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
-    					workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+    					if(result[i].workMatrl != null && result[i].workMatrl != ""){
+    						workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+    					}
+    					if(result[i].workSizeDepth != null && result[i].workSizeDepth != "" && result[i].workSizeWidth != null && result[i].workSizeWidth){
+    						workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+    					}
+    					
     					//workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
     					workListHtml += '		</div>';
     					workListHtml += '		<!-- artist active넣어야지나옴 -->';

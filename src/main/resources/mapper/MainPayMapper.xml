@@ -115,15 +115,19 @@
   <update id="updateDealBuyMbrSq" parameterType="String">
   		/*1차 결제 구매자 순번, 구매 수수료 등록*/
   		UPDATE 
-				TBL_DA_DEAL_M 
+				TBL_DA_DEAL_M A,
+				TBL_DA_WORK_M B
 		SET		
-				BUY_MBR_SQ = #{buyMbrSq}
-				,DEAL_STTS_CD = 'TC'
+				A.BUY_MBR_SQ = #{buyMbrSq}
+				,A.DEAL_STTS_CD = 'TC'
 				<if test='dealTypCd == "S"'>
-					,DEAL_ENDNG_DT = NOW()
+					,A.DEAL_ENDNG_DT = NOW()
 				</if>
+				,B.WORK_SALE_YN = 'Y'
 		WHERE  
-				DEAL_SQ = #{dealSq}
+				A.WORK_SQ = B.WORK_SQ
+			AND A.SELL_MBR_SQ = B.MBR_SQ
+			AND A.DEAL_SQ = #{dealSq}
   </update>
   <update id="updateCouponUseYn">
   		/* 쿠폰 사용시 쿠폰 사용 완료로 바꾼다*/

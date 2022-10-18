@@ -986,6 +986,16 @@ public class MyPageController {
 		return mv;
 	}
 	
+	//거래내역 구매자 상세 페이지 이동
+	@RequestMapping("/myDealDetailBuy2")
+	@ResponseBody
+	public ModelAndView openMyDealDetailBuy2(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy2");
+		Map<String, Object> result = myPageService.openMyDealDetailBuy(dealSq, mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	//판매내역 상세 페이지 이동
 	@RequestMapping("/myDealDetailSell")
 	@ResponseBody

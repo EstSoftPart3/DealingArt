@@ -1,0 +1,1939 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="resources/js/com.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:description" content="개인간 미술품 거래 마켓플레이스">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="DeailngArt">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
+    	@media screen and (min-width: 1px) and (max-width: 1536px){
+    	.con-left{display:none}
+    	}
+    </style>
+    
+    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    
+    
+    
+</head>
+<body>
+	<div class="wrap">
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  	
+	
+		<div class="body-wrap">
+			<div class="contents">
+				<div class="con-wrap">
+					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					
+					<div class="con-right m-max1300" style="display:none">
+						<div class="me-left">
+							<div class="med">
+								<h2 class="">거래정보</h2>
+									<div class="med-ic">
+										<div class="por d_i_b">
+										<div class="tootip-4">거래 계약 안내</div>
+										<img src="resources/img/mypage/icon-1.png" class="med-me">
+									</div>
+									<div class="por d_i_b mg_l30" th:if="${not #strings.equals(result.dealInfo.dealSttsCd, 'TP')}">
+										<a href="javascript:openWorkGrtUrl();" class="mg_l30 por" >
+										<div class="tootip-2">보증서 보기</div>
+										<img src="resources/img/de/print-icon.jpg"></a>
+									</div>
+								</div>
+							<div class="myd-box">
+								<div class="myd-img baeg-left">
+									<img th:src="${result.dealInfo.workMainImgUrl}" />
+								</div>
+								<div class="myd-2">
+									<div class="myd-te1">
+										<h4 th:text="${result.dealInfo.artstActvtyNm}">작가명</h4>
+										<h5 th:text="|${result.dealInfo.workNm} (${result.dealInfo.workProdcYear})|">작품명 입니다작품명입니다작품명입니다(2021)</h5>
+										<!-- <button type="button" class="btns-1">응찰 히스토리</button> -->
+									</div>
+									<div class="myd-te2">
+										<dl class="myd-dl1">
+										<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('S')}">
+											<dt>판매 기간</dt>
+											<dd th:text="${result.dealInfo.dealStrtDate}+' ~ '+${result.dealInfo.dealEndngDate}"></dd>
+											<dt>판매가</dt>
+											<dd th:text="${result.dealInfo.dealFinalPrc}+' KRW'">2,200,000 원</dd>
+										</th:block>
+										<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('A')}">
+											<dt>경매 기간</dt>
+											<dd th:text="${result.dealInfo.dealStrtDate}+' ~ '+${result.dealInfo.dealEndngDate}">2021.10.31 – 2021.11.31</dd>
+											<dt>시작가</dt>
+											<dd th:text="${result.dealInfo.dealStrtPrc}+' KRW'">1,700,000 원</dd>
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
+												<dt>현재 입찰가</dt>
+												<dd th:if="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}" th:text="${result.dealInfo.dealAuctnPrc}+' KRW'">2,300,000 원</dd>
+												<dd th:unless="${not #strings.isEmpty(result.dealInfo.dealAuctnPrc)}">0 KRW</dd>
+											</th:block>
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TC')}">
+												<dt>낙찰가</dt>
+												<dd th:text="${result.dealInfo.dealSbidPrc}+' KRW'">2,200,000 원</dd>
+											</th:block>
+										</th:block>	
+										</dl>
+										<dl class="myd-dl2">
+											<th:block th:if="${result.dealInfo.dealSttsCd.toString().equals('TP')}">
+												<dt>남은시간</dt>
+												<dd id="dealCount"></dd>
+											</th:block>
+											<th:block th:if="${result.dealInfo.dealTypCd.toString().equals('A')}">
+												<dt>응찰수</dt>
+												<dd th:text="${result.dealInfo.bidCnt}">12</dd>
+											</th:block>
+											<!-- <dt>예상수수료</dt>
+											<dd >250,000원</dd>
+											<dt>예상배송비</dt>
+											<dd></dd> -->
+										</dl>
+									</div>
+								</div>
+								<div class="myd-te3">
+									<div class="myd-table">
+										<div class="myd-won">
+											<p class="won-p" id="dealSttsCdDetail">
+											</p>
+											<!-- <button type="button" class="btns-2">구매확정</button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="med">
+								<h2 class="h2-con">받는사람 정보</h2>
+							</div>
+							<div class="myd-box">
+								<div class="myd-box-1">
+									<div class="mtext">
+										<p>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</p>
+										<button type="button" class="btns-1" data-toggle="modal" data-target="#newAddrModal" >받는사람 정보 수정하기</button>
+									</div>
+									
+									<div class="mg_t40">
+										<table class="mstyle-1">
+											<tr>
+												<th>받는 사람</th>
+												<td th:text="${result.mbrInfo.mbrNm}">성명</td>
+											</tr>
+											<tr>
+												<th>이메일</th>
+												<td th:text="${result.mbrInfo.mbrEmail}">010-0000-0000</td>
+											</tr>
+											<tr>
+												<th>핸드폰 번호</th>
+												<td th:text="${result.mbrInfo.mbrCpNum}">010-0000-0000</td>
+											</tr>
+											<tr>
+												<th>주소</th>
+												<td th:text="${result.mbrInfo.mbrDelivryAddr}"></td>
+											</tr>
+											<!-- <tr>
+												<th>배송 요청 사항</th>
+												<td>배송 요청 사항</td>
+											</tr>
+											<tr>
+												<th>배송예정일</th>
+												<td>2021. 10. 31</td>
+											</tr> -->
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 결제 수단 -->
+							<div id="paymethod" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">결제 수단</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<div class="pay-link">
+												<div class="r-checks rch-1">
+													<input type="radio" id="rd1" name="paymethod" value="CARD" onclick="btn_paymethod_onclick(this)">
+													<label for="rd1">신용카드</label>
+												</div>
+												<div class="r-checks rch-4">
+													<input type="radio" id="rd4" name="paymethod" value="VACCT" onclick="btn_paymethod_onclick(this)">
+													<label for="rd4">가상계좌</label>
+												</div>
+												<!-- <div class="r-checks rch-2">
+													<input type="radio" id="rd2" name="paymethod">
+													<label for="rd2">무통장입금</label>
+												</div> -->
+												<!-- <div class="r-checks rch-3">
+													<input type="radio" id="rd3" name="paymethod">
+													<label for="rd3">실시간계좌이체</label>
+												</div> -->
+												<!-- <div class="r-checks rch-5">
+													<input type="radio" id="rd5" name="paymethod">
+													<label for="rd5">카카오페이</label>
+												</div> -->
+												<!-- <a href="javascript:void(0);" class="pay-1" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-2.png" /><span>신용카드</span></a> -->
+												<!-- <a href="#" class="pay-2" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-3.png" /><span>무통장입금</span></a> -->
+												<!-- <a href="javascript:void(0);" class="pay-3" value="ACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-6.png" /><span>실시간계좌이체</span></a> -->
+												<!-- <a href="javascript:void(0);" class="pay-4" value="VACCT" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-4.png" /><span>가상계좌</span></a> -->
+												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
+											</div>
+											<div class="bat-box3 mg_t30">
+												<span class="c-reds2">카드결제 : 거래수수료 11.5%</span>
+												<br/><span class="c-reds2">가상계좌 : 거래수수료 10%</span>
+											</div>
+											<!-- <div class="pay-check">
+												<input type="checkbox" id="a1" name="cc" />
+												<label for="a1"><span></span>결재수단과 입력정보를 다음에도 사용</label>
+											</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 1차 결제 -->
+							<div id="1PW" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">결제 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+										<div class="mg_t40">
+											<table class="mstyle-1">
+												<tr>
+													<th>작품가</th>
+													<td th:text="${result.dealInfo.dealFinalPrc} + ' KRW'"></td>
+												</tr>
+												<tr>
+													<th>거래 수수료</th>
+													<td id="fee"></td>
+												</tr>
+												<tr>
+													<th>거래 수수료<br>부가세 (10%)</th>
+													<td id="feeTax"></td>
+												</tr>
+											</table>
+											<table class="mstyle-2">
+												<tr>
+													<th><span class="my-red">쿠폰 선택</span></th>
+													<td class="pd_t17">
+														<!-- <div class="selec-box bg-st"> -->
+															<!-- <select class="selectpicker" id="sbx_couponList_DD" style="min-width:300px !important;" disabled> -->
+															<select class="selectpicker" id="sbx_couponList_DD" disabled>
+																<option value="null">-선택-</option>
+															</select>
+														<!-- </div> -->
+														<div id="div_couponList_DD">
+														</div>
+														<div class="comy-sum" id="div_totalAmount_1">
+														</div>
+													</td>
+												</tr>
+											</table>
+											<!-- <table class="mstyle-3">
+												<tr>
+													<th>총금액</th>
+													<td id="amount"></td>
+												</tr>
+											</table> -->
+											<p class="msy-p">※ 작품 결제가 완료되면 운송 일정과 부가서비스(설치, 포장 등)확인을 위해 고객센터에서 연락 드립니다.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 2차 결제 부가서비스 선택 전 -->
+							<div id="1PC" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">운송선택</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+										<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+											<div class="panel-body">
+												<input type="radio" id="r1" name="rr" />
+												<label for="r1"><span></span>프리미엄 운송</label><span>(1,000만원 이상 작품 권장)</span>
+												<button onclick="$('#pToggle').toggle(); $('#gToggle').hide(); $('#dToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
+	
+												<!--0901_프리미엄운송-->
+												<div id="pToggle" style="display:none" class="div_toggle">
+													<div class="toggle_box1">
+														<div class="toggle_bar1">프리미엄 운송</div>
+														<div class="toggle_close" onclick="$('#pToggle').hide();"><img src="resources/img/ba/icon-end_1.png"></div>
+													</div>
+													<div class="toggle_con1">
+														<table>
+															<thead>
+																<tr>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">프리미엄 운송(편도)</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">수도권</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">비수도권</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>운송비</td>
+																	<td>130,000</td>
+																	<td>297,000</td>
+																</tr>
+																<tr>
+																	<td>기본 포장비</td>
+																	<td>8,000</td>
+																	<td>8,000</td>
+																</tr>
+																<tr>
+																	<td>작품 컨디션 체크</td>
+																	<td>35,000</td>
+																	<td>35,000</td>
+																</tr>
+																<tr>
+																	<td>운송 보험</td>
+																	<td>46,000</td>
+																	<td>34,000</td>
+																</tr>
+																<tr>
+																	<td style="text-decoration:underline; font-weight:bold;">합계 (vat 별도)</td>
+																	<td style="text-decoration:underline; font-weight:bold;">219,000</td>
+																	<td style="text-decoration:underline; font-weight:bold;">374,000</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+	
+												<input type="radio" id="r2" name="rr" />
+												<label for="r2"><span></span>일반 운송</label>
+												<button onclick="$('#gToggle').toggle(); $('#pToggle').hide(); $('#dToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
+												
+												<div id="gToggle" style="display:none" class="div_toggle">
+													<div class="toggle_box1">
+														<div class="toggle_bar1">일반 운송</div>
+														<div class="toggle_close" onclick="$('#gToggle').hide();"><img src="resources/img/ba/icon-end_1.png"></div>
+													</div>
+													<div class="toggle_con1">
+														<table>
+															<thead>
+																<tr>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">일반 운송(편도)</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">가격 (vat별도)</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">비고</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>서울특별시</td>
+																	<td>70,000</td>
+																	<td rowspan="11" style="color:#e9625c; font-weight:bold;">포장포함<br/>(운송보험, 컨디션체크 리포트 이용불가)</td>
+																</tr>
+																<tr>
+																	<td>경기도 1권역<br/>
+																		(김포, 고양, 의정보 등)
+																	</td>
+																	<td>90,000</td>
+																</tr>
+																<tr>
+																	<td>경기도 2권역<br/>
+																		(인천, 부천, 안양 등)
+																	</td>
+																	<td>180,000</td>
+																</tr>
+																<tr>
+																	<td>대전</td>
+																	<td>350,000</td>
+																</tr>
+																<tr>
+																	<td>강원도</td>
+																	<td>400,000</td>
+																</tr>
+																<tr>
+																	<td>대구</td>
+																	<td>450,000</td>
+																</tr>
+																<tr>
+																	<td>광주, 경주, 포항</td>
+																	<td>470,000</td>
+																</tr>
+																<tr>
+																	<td>부산, 울산</td>
+																	<td>570,000</td>
+																</tr>
+																<tr>
+																	<td>목포</td>
+																	<td>580,000</td>
+																</tr>
+																<tr>
+																	<td>남해</td>
+																	<td>620,000</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												
+												<input type="radio" id="r3" name="rr" />
+												<label for="r3"><span></span>셀프 운송</label>
+												<button onclick="$('#dToggle').toggle(); $('#pToggle').hide(); $('#gToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
+												
+												<div id="dToggle" style="display:none" class="div_toggle">
+													<div class="toggle_box1">
+														<div class="toggle_bar1">셀프 운송</div>
+														<div class="toggle_close" onclick="$('#dToggle').hide();"><img src="resources/img/ba/icon-end_1.png"></div>
+													</div>
+													<div class="toggle_con1">
+														<table>
+															<thead>
+																<tr>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">스토리지</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">주소</td>
+																	<td style="background-color:#fbfbfb; text-align:center; font-weight:bold;">운영 시간</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>서초 스토리지</td>
+																	<td>서울시 서초구 방배동 226, 3층</td>
+																	<td>월요일 ~ 토요일<br/>(오전 10시 ~ 오후 7시)</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 2차 결제0 부가서비스 선택 후 -->		
+							<div id="2PW" style="display:none;">
+								<div class="med">
+									<h2 class="h2-con">결제정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-2">
+										<table class="mstyle-2">
+											<tr>
+												<th><span class="my-red">부가서비스(필수)</span></th>
+												<td class="pd_t17">
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtTypCd" style="min-width:300px !important;"> -->
+														<select class="selectpicker" id="sbx_trnsprtTypCd">
+															<option value="null">-선택-</option>
+															<option value="P">프리미엄운송</option>
+															<option value="D">직접운송</option>
+														</select>
+													<!-- </div> -->
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtAreaCd" style="min-width:300px !important;"> -->
+														<select class="selectpicker" id="sbx_trnsprtAreaCd">
+															<option value="null">-선택-</option>
+															<option value="MA">수도권</option>
+															<option value="NA">비수도권</option>
+														</select>
+													<!-- </div> -->
+													<div id="div_trnsprtTypCd">
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th><span class="">부가서비스(선택)</span></th>
+												<td class="pd_t17">
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_trnsprtServiceCd" style="min-width:300px !important;" disabled> -->
+														<select class="selectpicker" id="sbx_trnsprtServiceCd" disabled>	
+															<option value="null">-선택-</option>
+														</select>
+													<!-- </div> -->
+													<div id="div_trnsprtServiceCd">
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th><span class="">쿠폰 선택</span></th>
+												<td class="pd_t17">
+													<!-- <div class="selec-box bg-st"> -->
+														<!-- <select class="selectpicker" id="sbx_couponList_TD" style="min-width:300px !important;" disabled> -->
+														<select class="selectpicker" id="sbx_couponList_TD" disabled>
+															<option value="null">-선택-</option>
+														</select>
+													<!-- </div> -->
+													<div id="div_couponList_TD">
+													</div>
+													<div class="comy-sum" id="div_totalAmount_2">
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 가상 계좌 정보 -->
+							<div id="VACCT" style="display:none;" th:if="${not #maps.isEmpty(result.vacctInfo)}">
+								<div class="med">
+									<h2 class="h2-con">가상 계좌 입금 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>입금 은행</th>
+													<td th:text="${result.vacctInfo.bankName}">신한은행</td>
+												</tr>
+												<tr>
+													<th>입금 계좌번호</th>
+													<td th:text="${result.vacctInfo.accountNo}">000-000-0000</td>
+												</tr>
+												<tr>
+													<th>입금할 금액</th>
+													<td th:text="|${result.vacctInfo.paymntAmt} KRW|">000-000-0000</td>
+												</tr>
+												<tr>
+													<th>입금만료 일시</th>
+													<td th:text="${result.vacctInfo.accountCloseDate}">000-000-0000</td>
+												</tr>
+												<!-- <tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr> -->
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 2차 결제 완료 -->
+							<div id="2PC" style="display:none;"  th:if="${not #maps.isEmpty(result.payMntInfo1)}">
+								<div class="med">
+									<h2 class="h2-con">1차 결제 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>결제 수단</th>
+													<td th:if="${#strings.equals(result.payMntInfo1.payMethod, '신용카드')} and ${not #strings.isEmpty(result.payMntInfo1.payType)}" th:text="|[${result.payMntInfo1.payType}] ${result.payMntInfo1.issueCompanyName}카드 카드번호 ${result.payMntInfo1.cardNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.banknName}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo1.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo1.payMethod} ${result.payMntInfo1.bankName} ${result.payMntInfo1.accountNo}|">신한은행 000-000-0000</td>
+												</tr>
+												<tr>
+													<th>결제 내역</th>
+													<td>
+														<div class="tbx-1">
+															<dl class="tbx-dl1">
+																<dt>작품</dt>
+																<dd th:text="|${result.payMntInfo1.paymntWorkAmt} KRW|">2,300,000 원</dd>
+																<dt>거래 수수료</dt>
+																<dd th:text="|${result.payMntInfo1.paymntFeeAmt} KRW|">2,300,000 원</dd>
+																<dt>거래 수수료 할인</dt>
+																<dd th:if="${not #strings.isEmpty(result.payMntInfo1.paymntDiscAmt)}" th:text="|${result.payMntInfo1.paymntDiscAmt} KRW|">2,300,000 원</dd>
+																<dd th:unless="${not #strings.isEmpty(result.payMntInfo1.paymntDiscAmt)}">0 KRW</dd>
+															</dl>
+															<dl class="tbx-dl2">
+																<dt>총 결제금액</dt>
+																<dd th:text="|${result.payMntInfo1.paymntAmt} KRW|">2,300,000 원</dd>
+															</dl>
+														</div>
+													
+													</td>
+												</tr>
+												<!-- <tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr> -->
+											</table>
+										</div>
+										
+										<div class="mbtn-box">
+											<a href="javascript:void(0);" class="btns-3" onclick="openReceipt1()">영수증</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo1.dealStatementB1)}" th:href="${result.payMntInfo1.dealStatementB1}" target="_blank" class="btns-3">거래 명세서</a>
+											<a th:unless="${not #strings.isEmpty(result.payMntInfo1.dealStatementB1)}" href="jacascript:void(0);" onclick="modalAlertShow('거래 명세서가 준비되면 안내해드립니다.');" class="btns-3">거래 명세서</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="med">
+									<h2 class="h2-con">2차 결제 정보</h2>
+								</div>
+								<div class="myd-box">
+									<div class="myd-box-1">
+									
+										<div class="mbox-1">
+											<table class="mstyle-1">
+												<tr>
+													<th>결제 수단</th>
+													<td th:if="${#strings.equals(result.payMntInfo2.payMethod, '신용카드')} and ${not #strings.isEmpty(result.payMntInfo1.payType)}" th:text="|[${result.payMntInfo2.payType}] ${result.payMntInfo2.issueCompanyName}카드 카드번호 ${result.payMntInfo2.cardNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('계좌이체')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankName}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('가상계좌')}" th:text="|${result.payMntInfo2.payMethod} ${result.payMntInfo2.bankName} ${result.payMntInfo2.accountNo}|">신한은행 000-000-0000</td>
+													<td th:if="${result.payMntInfo2.payMethod.toString().equals('결제완료')}" th:text="|자동 결제완료 처리 (결제 금액 0원)|">신한은행 000-000-0000</td>
+												</tr>
+												<tr>
+													<th>결제 내역</th>
+													<td>
+														<div class="tbx-1">
+															<dl class="tbx-dl1">
+																<th:block th:each="trnsprtInfo: ${result.trnsprtInfo}">
+																	<dt th:if="${trnsprtInfo.trnsprtTypCd} == 'P'" th:text="|${trnsprtInfo.trnsprtTypCdNm}(${trnsprtInfo.trnsprtAreaCdNm})<br/> ${trnsprtInfo.trnsprtServiceCdNm}|">부가서비스</dt>
+																	<dt th:if="${trnsprtInfo.trnsprtTypCd} == 'D'" th:text="|${trnsprtInfo.trnsprtTypCdNm}, ${trnsprtInfo.trnsprtServiceCdNm}|">부가서비스</dt>
+																	<dd th:text="|${trnsprtInfo.trnsprtPrc} KRW|">2,300,000 원</dd>
+																</th:block>
+																<dt>배송료 할인</dt>
+																<dd th:if="${not #strings.isEmpty(result.payMntInfo2.paymntDiscAmt)}" th:text="|${result.payMntInfo2.paymntDiscAmt} KRW|">2,300,000 원</dd>
+																<dd th:unless="${not #strings.isEmpty(result.payMntInfo2.paymntDiscAmt)}">0 KRW</dd>
+															</dl>
+															<dl class="tbx-dl2">
+																<dt>총 결제금액</dt>
+																<dd th:text="|${result.payMntInfo2.paymntAmt} KRW|">2,300,000 원</dd>
+															</dl>
+														</div>
+													
+													</td>
+												</tr>
+												<!-- <tr>
+													<th>정산 예정일</th>
+													<td>
+														2021,10.11
+													</td>
+												</tr> -->
+											</table>
+										</div>
+										
+										<div class="mbtn-box">
+											<a href="javascript:void(0);" class="btns-3" onclick="openReceipt2()">영수증</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealConfirmation)}" th:href="${result.payMntInfo2.dealConfirmation}" target="_blank" class="btns-3">거래 확인서</a>
+											<a th:unless="${not #strings.isEmpty(result.payMntInfo2.dealConfirmation)}" href="jacascript:void(0);" data-toggle="modal" data-target="#dealConfirmationAlert" class="btns-3">거래 확인서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealStatementB2)}" th:href="${result.payMntInfo2.dealStatementB2}" target="_blank" class="btns-3">거래 명세서</a>
+											<a th:unless="${not #strings.isEmpty(result.payMntInfo2.dealStatementB2)}" href="jacascript:void(0);" onclick="modalAlertShow('거래 명세서가 준비되면 안내해드립니다.');" class="btns-3">거래 명세서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealContract)}" th:href="${result.payMntInfo2.dealContract}" target="_blank" class="btns-3">거래 계약서</a>
+											<a th:unless="${not #strings.isEmpty(result.payMntInfo2.dealContract)}" href="jacascript:void(0);" onclick="modalAlertShow('거래 계약서가 준비되면 안내해드립니다.');" class="btns-3">거래 계약서</a>
+											<a th:if="${not #strings.isEmpty(result.payMntInfo2.dealConditionCheck)}" th:href="${result.payMntInfo2.dealConditionCheck}" target="_blank" class="btns-3">컨디션 체크</a>
+											<a th:unless="${not #strings.isEmpty(result.payMntInfo2.dealConditionCheck)}" href="jacascript:void(0);" data-toggle="modal" data-target="#dealConditionCheckAlert" class="btns-3">컨디션 체크</a>
+										</div>
+									</div>
+								</div>
+							</div>
+					
+							<div class="bat-box5">
+								<!-- <a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="call(200)"><span>결제하기</span></a> -->
+								<a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="btn_payment()"><span>결제하기</span></a>
+								<a href="javascript:history.back();" class="ba-btn2" ><span>돌아가기</span></a>
+								
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	</div>
+</div>
+<!-- 새로운 주소 모달창 -->
+<div class="modal fade modal-s" id="newAddrModal" tabindex="-1" role="dialog" aria-labelledby="newAddrModal" aria-hidden="true">
+	<form id="findId" name="findId" method="post">
+	<div class="modal-dialog modal-baeg max-w480">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>주소 변경</h2>
+				    <img src="resources/img/ba/icon-3.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body login-body">
+				<div class="id-box">
+					<div class="input-box input-group">
+						<div class="input-drox">
+							<input type="text" class="input-3" id="txt_newAddr" placeholder="주소를 검색하세요." readonly disabled/>
+						</div>
+						<button type="button" class="group-btn" id="btn_searchAddr" onclick="searchAddr()">주소 검색</button>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-3" id="txt_newAddrDetail" placeholder="상세주소를 입력하세요." readonly disabled/>
+					</div>
+					<div class="bat-box3 mg_t30">
+						<span class="c-reds">※ 회원의 주소와 배송지의 주소가 동일해야 합니다.<br>※ 본 거래의 주소를 수정하시면 회원정보도 함께 변경됩니다.</span>
+					</div>
+					<div class="bat-box3 mg_t30">
+						<button type="button" class="ba-btn1" onclick="updateNewAddr()"><span>저장</span></button>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+				<div class="baegs">
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="md-ds" style="color:#333;">
+						결제하실 금액이 0원입니다.<br/>결제 완료 처리를 하시겠습니까?
+					</div>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1" onclick="paymntCompleted()">확인</button></a>
+						<a href="#" data-dismiss="modal" aria-label="Close"><button type="button" class="baeg-b2">취소</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 거래 확인서 안내 -->
+<div class="modal fade modal-s" id="dealConfirmationAlert" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>거래 확인서가 준비되면<br/>안내해 드립니다.</h2>
+				    <img src="resources/img/ba/icon-1.png" class="con-img" />
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p class="min-h240">
+					딜링아트에서 거래된 모든 작품은 구매확정시 거래확인서가 발급됩니다.<br/><br/>
+					1. 거래 확인서는 작품운송에 대한 출고, 수령내역을 증명하는 문서 입니다.<br/>
+					2. 구매확정 시 거래내역상세 페이지에서 확인하실 수 있습니다.<br/>
+					</p>
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1" data-dismiss="modal" aria-label="Close">확인</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 컨디션 체크 리포트 안내 -->
+<div class="modal fade modal-s" id="dealConditionCheckAlert" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>컨디션 체크가 준비되면<br/>안내해 드립니다.</h2>
+				    <img src="resources/img/ba/icon-1.png" class="con-img" />
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<p class="min-h240">
+					판매자로부터 작품 픽업 후 컨디션 체크를 진행합니다.<br/><br/>
+					1. 픽업 시 작품 사진 촬영, 보존 상태 검수를 합니다.<br/>
+					2. 픽업 후 영업일 기준 3~5일이 소요 됩니다.<br/>
+					3. 리포트가 작성되면 거래내역상세 메뉴에서 확인하실 수 있습니다.
+					</p>
+					
+					<div class="baeg-btn mg_t30">
+						<a href="#"><button type="button" class="baeg-b1" data-dismiss="modal" aria-label="Close">확인</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+var result = /*[[${result}]]*/ 'default';
+var fee = 0; //거래 수수료
+var feeTax = 0; //거래 수수료 부과세
+var amount = 0; //할인 전 금액
+var disc = 0; //할인할 금액
+var totalAmount = 0; //최종 결제 금액
+var sbx_couponList = []; //쿠폰 옵션 JSON 리스트
+var trnsprt = new Object(); //운송 테이블
+var workGrtUrl = new Image(); //보증서
+workGrtUrl.src = result.dealInfo.workGrtUrl; //보증서 주소
+//$("#mainPayCall").val(1);
+
+var historyYn = "Y";
+var referrer = document.referrer;
+window.onpopstate = function(e) {    
+	if(historyYn != "Y"){  
+		history.pushState(null, null, '');
+		//history.back(-1);    
+	}else{
+		window.location.href = referrer;
+	}
+};
+/*
+ * 화면 오픈시
+ */
+jQuery(document).ready(function() {
+	
+	$(".selectpicker").selectpicker(); //셀렉트피커 활성화
+	
+	$("#conTitle").empty();
+	const conBtn = document.getElementById("conBtn");
+	conBtn.remove();
+	var conTitleHtml = "";
+	conTitleHtml += '<h3>거래 계약 상세</h3>';
+	$("#conTitle").append(conTitleHtml).trigger("create");
+	$("#myDeal").addClass("active");
+	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
+	if(result.dealInfo.dealTypCd == "A" && result.dealInfo.dealSttsCd == "TP"){ //경매면서 판매중이면
+		if(result.dealInfo.bidMbrSq == sMbrSqVal){ //가장 높은 입찰자면
+			$("#dealSttsCdDetail").text("현재 가장 높은 입찰가로 입찰 중 입니다.");
+			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
+		}else{ 
+			$("#dealSttsCdDetail").text("현재 회원님보다 높은 입찰가가 있습니다.");
+			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
+		}
+	}
+	
+	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TP" && result.dealInfo.dealTypCd == "S"){ //정찰가 1차 결제/구매하기
+		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
+		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
+		$("#1PW").css("display", ""); //1차 결제 div
+		$("#paymethod").css("display", ""); //결제 수단 div
+		$("#btn_payment").css("display", "") //결제 버튼
+		feeCal();
+		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
+		if(result.vacctInfo.payMethod != null){
+			$("#VACCT").css("display", "");
+			$("#1PW").css("display", "none"); //1차 결제 div
+			$("#paymethod").css("display", "none"); //결제 수단 div
+			$("#btn_payment").css("display", "none") //결제 버튼
+		}
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TC" && result.dealInfo.dealTypCd == "A"){ //낙찰자면서 1차 결제 미완료면
+		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
+		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
+		$("#1PW").css("display", ""); //1차 결제 div
+		$("#paymethod").css("display", ""); //결제 수단 div
+		$("#btn_payment").css("display", "") //결제 버튼
+		feeCal();
+		getCouponList("DD"); //거래 수수료 할인 쿠폰 목록 가져오기
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "1PC" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 부가서시브 선택 전
+		$("#dealSttsCdDetail").text("구매자 배송서비스 선택 중입니다.");
+		$("#dealSttsCdDetail").append("<span>배송서비스 선택</span>"); 
+		$("#1PC").css("display", ""); //2차 결제 div
+		//$("#paymethod").css("display", "");
+		//$("#btn_payment").css("display", "");
+		//getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
+		//if(result.vacctInfo.payMethod != null){
+			//$("#VACCT").css("display", "");
+			//$("#2PW").css("display", "none"); //2차 결제 div
+			//$("#paymethod").css("display", "none");
+			//$("#btn_payment").css("display", "none");
+		//}
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 미완료면
+		$("#dealSttsCdDetail").text("구매자 2차 결제를 대기중입니다.");
+		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
+		$("#2PW").css("display", ""); //2차 결제 div
+		$("#paymethod").css("display", "");
+		$("#btn_payment").css("display", "");
+		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
+		if(result.vacctInfo.payMethod != null){
+			$("#VACCT").css("display", "");
+			$("#2PW").css("display", "none"); //2차 결제 div
+			$("#paymethod").css("display", "none");
+			$("#btn_payment").css("display", "none");
+		}
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 완료면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>2차 결제 완료</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PD"){ //2차 결제 완료고 배송준비 중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송 준비중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DS"){ //2차 결제 완료고 배송중이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송중</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "DC"){ //2차 결제 완료고 배송완료이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>배송완료</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PC" && result.dealInfo.dealSttsCd == "PC"){ //2차 결제 완료고 구매확정이면
+		$("#dealSttsCdDetail").text("구매자 2차 결제가 완료되었습니다.");
+		$("#dealSttsCdDetail").append("<span>구매확정</span>"); 
+		$("#2PC").css("display", ""); //2차 결제 완료 div
+	}
+	if(result.dealInfo.dealSttsCd == "ST"){ //2차 결제 완료고 거래중지면
+		$("#dealSttsCdDetail").text("거래 중지 상태입니다.");
+		$("#dealSttsCdDetail").append("<span>거래중지</span>"); 
+	}
+	if(result.dealInfo.dealSttsCd == "FB"){ //유찰이면
+		$("#dealSttsCdDetail").text("유찰되었습니다.");
+		$("#dealSttsCdDetail").append("<span>유찰</span>"); 
+	}
+});
+//1차 결제 거래 수수료 구하기
+function feeCal(){
+	fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+	feeTax = fee * 0.10;
+	$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+	$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+	amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+	totalTrnsprtPrc();
+}
+/*
+ * 남은 시간 초 단위로 불러온다 
+ */
+//거래 남은 시간 1초마다 계산해서 표현하기
+
+var dealCount = setInterval(function(){
+	//var endngDate = result.dealInfo.dealEndngDateTime.replaceAll(".", "-");
+	var dday = new Date(result.dealInfo.dealEndngDateTime).getTime();
+	var today = new Date().getTime();
+	var element = document.getElementById("dealCount");
+	//거래 남은 시간이 현재 시간보다 작으면
+	if(dday <= today){
+		stopDealCount();
+	}else{
+		var gap = dday - today;
+	  	var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+	  	var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  	var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+	  	var sec = Math.floor((gap % (1000 * 60)) / 1000);
+	  	element.innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+	}
+}, 1000);
+
+function stopDealCount(){
+	clearInterval(dealCount);
+	if(result.dealInfo.dealSttsCd == "TP"){
+		modalAlertShow("거래가 종료되었습니다.", "reload");
+	}
+}
+/*
+ * 보증서 보기 팝업
+ */
+function openWorkGrtUrl(){
+ 	var img_width = workGrtUrl.width;
+ 	var win_width = workGrtUrl.width + 25;
+ 	var img_height = workGrtUrl.height;
+ 	var win = workGrtUrl.height + 25;
+ 	var OpenWindow = window.open('','_blank', 'width='+win_width+', height='+win+', menubars=no, scrollbars=auto');
+ 	OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+workGrtUrl.src+"' width='"+img_width+" height='"+img_height+"'>");
+ }
+/*
+ * 주소 검색 클릭 시 
+ */
+ function searchAddr(){
+	$("#txt_newAddr").attr("disabled", false);
+	new daum.Postcode({
+    	oncomplete: function(data) { //선택시 입력값 세팅
+		$("#txt_newAddr").val(data.address); // 주소 넣기
+		$("#txt_newAddrDetail").attr("readonly", false);
+		$("#txt_newAddrDetail").attr("disabled", false);
+		$('#txt_newAddrDetail').focus();
+    	}
+	}).open();
+}
+/*
+ * 새로운 주소 등록 모달 저장 클릭시
+ */
+function updateNewAddr(){
+	if($("#txt_newAddr").val() == null || $("#txt_newAddr").val() == ""){
+		$("#newAddrModal").modal("hide");
+		modalAlertShow("주소 검색을 해주세요.", "btn_searchAddr");
+		return;
+	}
+	if($("#txt_newAddrDetail").val() == null || $("#txt_newAddrDetail").val() == ""){
+		$("#newAddrModal").modal("hide");
+		modalAlertShow("상세 주소를 입력해주세요.", "txt_newAddrDetail");
+		return;
+	}
+	var mbrDelivryAddr = $("#txt_newAddr").val()+" "+$("#txt_newAddrDetail").val(); 
+	$.ajax({
+		type: "POST",
+        url: "/updateNewAddr",
+        data: {
+        	mbrSq : sMbrSqVal,
+        	mbrDelivryAddr : mbrDelivryAddr
+        },
+		success:function(data){
+			if(data.result > 0){
+				$("#newAddrModal").modal("hide");
+				modalAlertShow("새로운 주소가 정상적으로 등록되었습니다.", "reload");
+			}else{
+				$("#newAddrModal").modal("hide");
+				modalAlertShow("주소 변경에 실패했습니다.", "reload");
+			} 
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
+/*
+ * 결제 수단 클릭시
+ */
+function btn_paymethod_onclick(obj){
+	result.dealInfo.paymethod = $('input[name=paymethod]:checked').val();
+	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
+		if(result.dealInfo.paymethod == "CARD"){
+			//feeCal();
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.115); //거래 수수료 11.5%
+			feeTax = fee * 0.10;
+			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			//modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+		}
+		if(result.dealInfo.paymethod == "VACCT"){
+			//feeCal();
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.10); //거래 수수료 10%
+			feeTax = fee * 0.10;
+			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			//modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+		}
+		if(result.dealInfo.paymethod == "ACCT"){
+			feeCal();
+		}
+		$("#sbx_couponList_DD").val("null");
+		$("#div_couponList_DD").empty();
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+		totalAmount = 0;
+		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
+		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
+		totalAmount += feeTax;
+		$("#fee").text(formatComma(fee)+" KRW");
+		$("#feeTax").text(formatComma(feeTax)+" KRW");
+		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+	}
+}
+
+/*
+ * 1차 결제 영수증 
+ */
+function openReceipt1(){
+	var refNo = result.payMntInfo1.refNo;
+	var tranDate = result.payMntInfo1.tranDate;
+	if(refNo != null && refNo != "" && tranDate != null && tranDate != ""){
+		window.open("https://cp.mainpay.co.kr/salesReceipt/salesReceipt_popup.do?ref_no="+refNo+"&&tran_date="+tranDate);
+	}else{
+		modalAlertShow("결제 이력이 없습니다.");
+	}
+}
+/*
+ * 2차 결제 영수증 
+ */
+function openReceipt2(){
+	var refNo = result.payMntInfo2.refNo;
+	var tranDate = result.payMntInfo2.tranDate;
+	if(refNo != null && refNo != "" && tranDate != null && tranDate != ""){
+		window.open("https://cp.mainpay.co.kr/salesReceipt/salesReceipt_popup.do?ref_no="+refNo+"&&tran_date="+tranDate);
+	}else{
+		modalAlertShow("결제 이력이 없습니다.");
+	}
+}
+/*
+ * 결제하기
+ */
+ function btn_payment(){
+	historyYn = "N";
+	var data = {
+			/*메인 페이에 보낼 파라미터*/
+			mbrRefNo : "", //주문번호
+			amount : parseInt(totalAmount), //메인페이에서 결제할 금액
+			isCombinedTaxation : "Y", //비과세
+			taxFreeAmt : parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')), //비과세 적용할 금액
+			paymethod : result.dealInfo.paymethod, //지불수단
+			goodsName : result.dealInfo.workNm, //상품명
+			/*DB에 저장할 파라미터*/
+			dealSq : result.dealInfo.dealSq, //거래 순번
+			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
+			workSq : result.dealInfo.workSq, //작품 순번
+			artstSq : result.dealInfo.artstSq, //아티스트 순번
+			buyMbrSq : sMbrSqVal, //결제 회원 순번
+			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
+			paymntAmt : parseInt(totalAmount), //총 결제 금액
+			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료
+			paymntDiscAmt : parseInt(disc), //할인할 금액
+			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
+			paymntDivCd : "B" //결제 구분 코드 (B 구매자/S 판매자)
+			};
+	if(result.dealInfo.paymethod == null || result.dealInfo.paymethod == ""){
+		modalAlertShow("결제 수단이 선택되지 않았습니다.");
+		return false;
+	}
+	if(result.dealInfo.paymethod == "VACCT"){
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+	        url: "/payment/VACCTOverlapChk",
+	        dataType: 'json',
+	        data: JSON.stringify(data),
+	        async: false,
+			success:function(response){
+				if(response.result != null){
+					modalAlertShow("동일한 거래에 가상계좌 입금 신청이 있습니다. <br/>입금 은행 : "+response.result.bankName+"<br/>입금 계좌 : "+response.result.accountNo+"<br/>입금 금액 : "+response.result.amount);
+					return false;
+				}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
+		data.paymntTypCd = "1"; //거래 차수
+		data.mbrRefNo = result.dealInfo.mbrRefNo + "-1"; //거래 순번
+		var index = $("#sbx_couponList_DD option").index($("#sbx_couponList_DD option:selected")) - 1; //선택된 1차 쿠폰 index를 가져온다
+		if(index > -1){
+			data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+		}
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+	        url: "/payment/readyApi",
+	        dataType: 'json',
+	        data: JSON.stringify(data),
+	        async: false,
+			success:function(response){
+				console.log(response);
+				if (response.resultCode == '200') {
+					/* 결제창 호출 */
+					if(!isMobile){
+						Mainpay.open(response.data.nextPcUrl);
+					}else{
+						//$("#mobileMainPayUrl").attr("href", response.data.nextPcUrl.replace("pc", "mobile"));
+						//$("#mobileMainPayUrl").trigger("click");
+						//window.location.href = response.data.nextPcUrl.replace("pc", "mobile");
+						window.open(response.data.nextMobileUrl);
+					}
+					return false;
+				}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+	}
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
+		data.paymntTypCd = "2"; //거래 차수
+		data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
+		var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
+		if(index > -1){
+			data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+		}
+		if($("#sbx_trnsprtTypCd option:selected").val() == "" || $("#sbx_trnsprtTypCd option:selected").val() == "null"){
+			modalAlertShow("부가서비스가 선택되지 않았습니다.", "sbx_trnsprtTypCd");
+			return false;
+		}else{
+			if($("#sbx_trnsprtTypCd option:selected").val() == "P"){
+				if($("#sbx_trnsprtAreaCd option:selected").val() == "" || $("#sbx_trnsprtAreaCd option:selected").val() == "null"){
+					modalAlertShow("부가서비스가 선택되지 않았습니다.", "sbx_trnsprtTypCd");
+					return false;
+				}
+			}
+			if(totalAmount == 0){
+				$("#myModal4").modal("show");
+			}else{
+				$.ajax({
+					type: "POST",
+					contentType: 'application/json',
+			        url: "/payment/readyApi",
+			        dataType: 'json',
+			        data: JSON.stringify(data),
+			        async: false,
+					success:function(response){
+						console.log(response);
+						if (response.resultCode == '200') {
+							/* 결제창 호출 */
+							if(!isMobile){
+								Mainpay.open(response.data.nextPcUrl);
+							}else{
+								//location.href = response.data.nextPcUrl.replace("pc", "mobile");
+								window.open(response.data.nextMobileUrl);
+							}
+							return false;
+						}
+					},
+					error: function(error) {
+			            alert("오류 발생" + error);
+			        }
+				}); 
+			}
+		}
+	}
+}
+/*
+ * 결제 금액이 0원인 경우 바로 결제완료 처리가 된다. 
+ */
+function paymntCompleted(){
+	$("#myModal4").modal("hide");
+	var data = {
+			/*메인 페이에 보낼 파라미터*/
+			mbrRefNo : "", //주문번호
+			amount : parseInt(totalAmount), //메인페이에서 결제할 금액
+			paymethod : "NONE", //지불수단
+			goodsName : result.dealInfo.workNm, //상품명
+			/*DB에 저장할 파라미터*/
+			dealSq : result.dealInfo.dealSq, //거래 순번
+			dealTypCd : result.dealInfo.dealTypCd, //거래 유형 코드
+			workSq : result.dealInfo.workSq, //작품 순번
+			artstSq : result.dealInfo.artstSq, //아티스트 순번
+			buyMbrSq : result.dealInfo.buyMbrSq, //결제 회원 순번
+			sellMbrSq : result.dealInfo.sellMbrSq, //판매 회원 순번
+			paymntAmt : parseInt(totalAmount), //총 결제 금액
+			paymntFeeAmt : parseInt(fee+feeTax), //결제 수수료
+			paymntDiscAmt : parseInt(disc), //할인할 금액
+			paymntTypCd : "", //결제 유형 코드 (1 1차결제/2 2차결제)
+			paymntDivCd : "B" //결제 구분 코드 (B 구매자/S 판매자)
+			};
+	data.paymntTypCd = "2"; //거래 차수
+	data.mbrRefNo = result.dealInfo.mbrRefNo + "-2"; //거래 순번
+	var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 2차 쿠폰 index를 가져온다
+	if(index > -1){
+		data.cuponSq = sbx_couponList[index].cuponSq; //1차 결제 쿠폰 순번을 가져온다
+	}
+	$.ajax({
+		type: "POST",
+		contentType: 'application/json',
+        url: "/payment/paymentCompleted",
+        dataType: 'json',
+        data: JSON.stringify(data),
+        async: false,
+		success:function(data){
+			if (data.result == 'OK') {
+				modalAlertShow("결제 완료 처리되었습니다.");
+				call("200");
+			}
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
+/*
+ * 결제 완료/실패 시 리로드 된다
+ */
+window.call = function (data) {
+	historyYn = "N";
+	//2차 결제면 운송 정보를 입력한다.
+	if(data == "200" && result.dealInfo.buyPaymntSttsCd == "2PW"){
+		var trnsprtInfo = [];
+		var getTrnsprt = []; //운송 정보 조회해올 Array
+		var trnsprtPrc = 0; //부가 서비스 금액
+		var trnsprtServiceCdNm = ''; //부가서비스 이름
+		var cmyWonList = document.querySelectorAll(".cmy-won"); //부가 서비스 금액을 불러온다
+		var cmyTextList = document.querySelectorAll(".cmy-text"); //부가 서비스 이름을 불러온다
+		for(var i=0; i<cmyWonList.length; i++){ //부가 서비스 갯수만큼
+			trnsprtPrc = cmyWonList[i].innerText.replaceAll(/,/g, ''); //부가서비스 금액을 가져온다
+			trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' KRW', '')); //부가서비스 금액을 가져온다
+			trnsprtServiceCdNm = cmyTextList[i].innerText;
+			var data = {
+					trnsprtDivCd : "B",
+					trnsprtServiceCdNm : trnsprtServiceCdNm,
+					trnsprtPrc : trnsprtPrc,
+					trnsprtTypCd : $("#sbx_trnsprtTypCd option:selected").val(),
+					trnsprtAreaCd : $("#sbx_trnsprtAreaCd option:selected").val()
+			};
+			getTrnsprt.push(data);
+		}
+		//부가서비스 내역에 저장을 위해 부가서비스 코드를 조회해온다.
+		$.ajax({
+			type: "POST",
+			contentType: "application/json",
+	        url: "/getTrnsprt",
+	        data: JSON.stringify(getTrnsprt),
+	        async: false,
+			success:function(data){
+				trnsprtInfo = data.result;
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+		//조회해온 부가서비스 코드를 저장한다.
+		if(trnsprtInfo.length > 0){
+			var param = new Object();
+			param.trnsprtInfo = trnsprtInfo;
+			param.dealSq = result.dealInfo.dealSq;
+			param.buyMbrSq = result.dealInfo.buyMbrSq; 
+			param.sellMbrSq = result.dealInfo.sellMbrSq; 
+			param.artstSq = result.dealInfo.artstSq;
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+		        url: "/insertTrnsprt",
+		        data: JSON.stringify(param),
+		        async: false,
+				success:function(data){
+				},
+				error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});
+		}
+	}
+	location.reload();
+};
+
+//운송 구분 선택시
+$("#sbx_trnsprtTypCd").on("change", function(){
+	$("#div_trnsprtServiceCd").empty();
+	$("#div_couponList_TD").empty();
+	var selected = $(this).val(); //선택된 값 가져오기
+	if(selected == "null"){
+		$("#div_trnsprtTypCd").empty();
+		$('#sbx_trnsprtAreaCd').val("null");
+		$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
+		$("#sbx_trnsprtServiceCd").val("null");
+		$("#sbx_trnsprtServiceCd").attr("disabled", true);
+		$("#sbx_couponList_TD").val("null");
+		$("#sbx_couponList_TD").attr("disabled", true);
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+	}else{
+		if(selected == "P"){ //프리니엄 운송이면
+			$("#sbx_trnsprtAreaCd").selectpicker("show"); //지역 셀렉트박스 보이기
+			$("#sbx_trnsprtServiceCd").attr("disabled", true); //서비스 선택 셀렉트 박스 비활성화
+			$('#sbx_trnsprtAreaCd').val("null"); //초기값 선택
+			$('#sbx_trnsprtServiceCd').val("null"); //초기값 선택
+			$("#div_trnsprtTypCd").empty();
+			$("#sbx_couponList_TD").val("null");
+			$("#sbx_couponList_TD").attr("disabled", true);
+			$("#div_couponList_TD").empty();
+			$(".selectpicker").selectpicker("refresh");
+			$('#sbx_trnsprtAreaCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
+		}else{ //일반 운송이면
+			$('#sbx_trnsprtServiceCd').val("null"); //초기값 선택
+			$("#sbx_trnsprtServiceCd").attr("disabled", true); //서비스 선택 셀렉트 박스 비활성화
+			$('#sbx_trnsprtAreaCd').val("null"); //초기값 선택
+			$("#sbx_trnsprtAreaCd").selectpicker("hide"); //지역 셀렉트박스 숨기기
+			$("#sbx_couponList_TD").val("null");
+			$("#sbx_couponList_TD").attr("disabled", true);
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			//운송 가격 표시하기
+			var innerText = "";
+			$.ajax({
+				type: "POST",
+		        url: "/selectTrnsprtInfo",
+		        data: {
+		        	trnsprtDivCd : "B", //구매자
+		    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
+		    		trnsprtReqYn : "Y" //부가서비스 필수 여부
+		        },
+		        async: false,
+				success: function(data){
+					for(var i=0; i<data.result.length; i++){
+						innerText += '<div class="comy-box">';
+						innerText += '	<div class="cmy-text">'+data.result[i].text+'</div>';
+						innerText += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
+						//innerText += '	<div class="cmy-end">X</div>';
+						innerText += '</div>';
+					}
+					$("#div_trnsprtTypCd").empty();
+					$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+				},
+				error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});
+		}
+	}
+	totalTrnsprtPrc(); //총 금액 자동계산
+});
+
+//운송 지역 구분 선택시
+$("#sbx_trnsprtAreaCd").on("change", function(){
+	$("#div_trnsprtServiceCd").empty();
+	var selected = $(this).val(); //선택된 값 가져오기
+	$("#sbx_couponList_TD").val("null");
+	$("#div_couponList_TD").empty();
+	if(selected == "null"){
+		$("#div_trnsprtTypCd").empty();
+		$("#sbx_couponList_TD").attr("disabled", true);
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+	}else{
+		$("#sbx_couponList_TD").attr("disabled", false);
+		var target = document.getElementById("sbx_trnsprtServiceCd");
+		var innerText = "";
+		//부가서비스 선택 셀렉트 박스에 text, value 넣기
+		$.ajax({
+			type: "POST",
+	        url: "/selectTrnsprtInfo",
+	        data: {
+	        	trnsprtDivCd : "B", //구매자
+	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
+	    		trnsprtAreaCd : selected, //지역 코드
+	    		trnsprtReqYn : "N" //부가서비스 필수 여부
+	        },
+	        async: false,
+			success: function(data){
+				target.options.length = 1; //서비스 선택 셀렉트박스 옵션 초기화
+				for(var i=0; i<data.result.length; i++){ //서비스 셀렉트 박스에 옵션 추가
+					var opt = document.createElement("option");
+					opt.value = data.result[i].value;
+					opt.text = data.result[i].text;
+					target.appendChild(opt); //서비스 선택 셀렉트박스 옵션 추가
+				}
+				/* for(var i=0; i<target.options.length; i++){
+					if(result.dealInfo.workLake < 80){
+						if(target.options[i].text.indexOf("80호 이상") > -1){
+							target.options[i].disabled = true;
+						}
+					}else{
+						if(target.options[i].text.indexOf("80호 미만") > -1){
+							target.options[i].disabled = true;
+						}
+					}
+				} */
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+		//운송 가격 표시하기
+		$.ajax({
+			type: "POST",
+	        url: "/selectTrnsprtInfo",
+	        data: {
+	        	trnsprtDivCd : "B", //구매자
+	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
+	    		trnsprtAreaCd : selected, //지역 코드
+	    		trnsprtReqYn : "Y" //부가서비스 필수 여부
+	        },
+	        async: false,
+			success: function(data){
+				for(var i=0; i<data.result.length; i++){
+					innerText += '<div class="comy-box">';
+					innerText += '	<div class="cmy-text">'+data.result[i].text+'</div>';
+					innerText += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
+					//innerText += '	<div class="cmy-end">X</div>';
+					innerText += '</div>';
+				}
+				$("#div_trnsprtTypCd").empty();
+				$("#div_trnsprtTypCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+		target.disabled = false; //서비스 선택 셀렉트 박스 활성화
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+		$('#sbx_trnsprtServiceCd').data('selectpicker').$button.focus(); //서비스 셀렉트 박스에 포커스 주기
+		
+		
+	}
+	totalTrnsprtPrc(); //총 금액 자동계산
+});
+
+//서비스 구분 셀렉트 박스 선택시
+$("#sbx_trnsprtServiceCd").on("change", function(){
+	$("#sbx_couponList_TD").val("null");
+	$("#div_couponList_TD").empty();
+	$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+	var selected = $(this).val(); //선택된 값 가져오기
+	if(selected == "null"){
+		$("#div_trnsprtServiceCd").empty();
+	}else{
+		var textOverlap = false;
+		var text = $("#sbx_trnsprtServiceCd option:selected").text().substr(0, 5);
+		var cmyTextList = document.querySelectorAll(".cmy-text"); //부가 서비스 이름을 불러온다
+		for(var i=0; i<cmyTextList.length; i++){ //부가 서비스 갯수만큼
+			var text2 = cmyTextList[i].innerText.substr(0, 5);; //부가서비스 이름을 가져온다
+			if(text == text2){
+				textOverlap = true;
+				break;
+			}
+		}
+		if(textOverlap){
+			$("#sbx_trnsprtServiceCd").val("null");
+			$("#div_trnsprtServiceCd").empty();
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			modalAlertShow("동일한 유형의 부가서비스는 선택할 수 없습니다.");
+		}else{
+			var innerText = '';
+			innerText += '<div class="comy-box">';
+			innerText += '	<div class="cmy-text">'+$("#sbx_trnsprtServiceCd option:selected").text()+'</div>';
+			innerText += '	<div class="cmy-won">'+$("#sbx_trnsprtServiceCd option:selected").val()+' KRW</div>';
+			//innerText += '	<div class="cmy-end">X</div>';
+			innerText += '</div>';
+			$("#div_trnsprtServiceCd").append(innerText).trigger("create"); //운송 가격 정보 추가
+		}
+	}
+	$("#sbx_couponList_TD").trigger("change");
+});
+
+//쿠폰 목록 가져오기
+function getCouponList(cuponTypCd){
+	var data = {};
+	if(cuponTypCd == "DD"){
+		data = {
+				mbrSq : sMbrSqVal,
+				cuponTypCd : cuponTypCd,
+				cuponDetailCd : "BFEE"
+		}
+	}else if(cuponTypCd == "TD"){
+		data = {
+				mbrSq : sMbrSqVal,
+				cuponTypCd : cuponTypCd
+		}
+	}
+	$.ajax({
+		url:"/myCouponList_payment",
+		type:"post",
+        data: data,
+		success: function(data){
+			var target = document.getElementById("sbx_couponList_"+cuponTypCd); //쿠폰 셀렉트 박스 가져오기
+			if(data != null && data.result.length > 0){
+				target.disabled = false; //쿠폰 셀렉트 박스 활성화
+				target.options.length = 1; //쿠폰 셀렉트박스 옵션 초기화
+				
+				for(var i=0; i<data.result.length; i++){ //쿠폰 박스에 옵션 추가
+					
+					var opt = document.createElement("option"); //셀렉트 박스 옵션 추가
+					var object = new Object(); //쿠폰 리스트에 넣을 JSON 값
+					object.cuponSq = data.result[i].cuponSq; //쿠폰 SQ
+					object.cuponTypCd = data.result[i].cuponTypCd; //쿠폰 할인 유형
+					object.discTypCd = data.result[i].discTypCd; //쿠폰 할인 방식
+					if(data.result[i].cuponDetailCd != null){ //쿠폰 할인 디테일 코드
+						object.cuponDetailCd = data.result[i].cuponDetailCd;
+					}
+					
+					if(data.result[i].discTypCd != "AD"){ //금액 할인이면
+						opt.value = data.result[i].cuponDr;
+					}else{ //퍼센트 할인이면
+						opt.value = data.result[i].cuponDiscAmt;
+					}
+					opt.text = data.result[i].cuponNm; //쿠폰 이름
+					
+					target.appendChild(opt); //쿠폰 셀렉트박스 옵션 추가
+					sbx_couponList.push(object); //쿠폰 Array에 쿠폰 옵션 추가
+				}
+				$("#sbx_couponList_TD").attr("disabled", true);
+				$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			}
+		},
+		error: function(error) {
+            alert("오류 발생" + error);
+        }
+	}); 
+}
+
+//1차 결제 쿠폰 셀렉트 박스 선택시
+$("#sbx_couponList_DD").on("change", function(){
+	var checked = $("#sbx_couponList_DD option:selected").val();
+	var cuponNm = $("#sbx_couponList_DD option:selected").text();
+	if(checked != "null"){
+		var innerText = '';
+		innerText += '<div class="comy-box">';
+		innerText += '	<div class="cmy-text">'+$("#sbx_couponList_DD option:selected").text()+'</div>';
+		if(cuponNm.indexOf("%") > -1){
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+$("#sbx_couponList_DD option:selected").val()+'%</div>';
+		}else{
+			innerText += '	<div id="div_couponVal_DD" class="cmy-coupon">'+formatComma($("#sbx_couponList_DD option:selected").val())+' KRW</div>';
+		}
+		//innerText += '	<div class="cmy-end">X</div>';
+		innerText += '</div>';
+		$("#div_couponList_DD").empty();
+		$("#div_couponList_DD").append(innerText).trigger("create"); //쿠폰 추가
+	}else{
+		$("#div_couponList_DD").empty();
+	}
+	totalTrnsprtPrc();
+});
+
+//2차 결제 쿠폰 셀렉트 박스 선택시
+$("#sbx_couponList_TD").on("change", function(){
+	var param = new Object();
+	var index = $("#sbx_couponList_TD option").index($("#sbx_couponList_TD option:selected")) - 1; //선택된 쿠폰 index를 가져온다
+	if(index > -1){
+		param.cuponDiscAmt = $("#sbx_couponList_TD option:selected").val(); //선택한 쿠폰의 할인 값
+		param.cuponNm = $("#sbx_couponList_TD option:selected").text(); //선택판 쿠폰의 이름
+		param.cuponSq = sbx_couponList[index].cuponSq;
+		param.cuponTypCd = sbx_couponList[index].cuponTypCd;
+		param.discTypCd = sbx_couponList[index].discTypCd;
+		param.cuponDetailCd = sbx_couponList[index].cuponDetailCd;
+		
+		if(param.cuponDetailCd == "PSF" && $("#sbx_trnsprtTypCd option:selected").val() != "P" && 
+			$("#sbx_trnsprtAreaCd option:selected").val() == "null"){
+			modalAlertShow("선택하신 쿠폰은 사용 조건이 맞지 않습니다.");
+			$("#sbx_couponList_TD").val("null"); //쿠폰 셀렉트박스 초기화
+			$("#div_couponList_TD").empty();//쿠폰(선택) 영역 초기화
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			totalTrnsprtPrc();
+			return;
+		}
+		var dealFinalPrc = 0;
+		dealFinalPrc = result.dealInfo.dealFinalPrc.replaceAll(/,/g, '');
+		if(param.cuponDetailCd == "PSF" && dealFinalPrc < 5000000){
+			modalAlertShow("판매가 500만원 이상이여야 사용 가능한 쿠폰입니다.");
+			$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
+			$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
+			$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+			totalTrnsprtPrc();
+			return;
+		}
+	}
+	param.trnsprtDivCd = "B";
+	param.trnsprtTypCd = $("#sbx_trnsprtTypCd option:selected").val();
+	param.trnsprtAreaCd = $("#sbx_trnsprtAreaCd option:selected").val();
+	param.trnsprtServiceCdNm = $("#sbx_trnsprtServiceCd option:selected").text();
+	
+	$.ajax({
+		url:"/applyCupon",
+		type:"post",
+		data: param,
+		success: function(data){
+			var trnsprtTypCdHtml = '';
+			var trnsprtServiceCdHtml = '';
+			var couponListHtml = '';
+			if(data.result.length > 0){
+				for(var i=0; i<data.result.length; i++){
+					//부가서비스(필수) 영역
+					if(data.result[i].regYn ==  "Y"){
+						trnsprtTypCdHtml += '<div class="comy-box">';
+						trnsprtTypCdHtml += '	<div class="cmy-text">'+data.result[i].text+'</div>';
+						trnsprtTypCdHtml += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
+						//trnsprtTypCdHtml += '	<div class="cmy-end">X</div>';
+						trnsprtTypCdHtml += '</div>';
+					}
+					//부가서비스(선택) 영역
+					if(data.result[i].regYn ==  "N"){
+						trnsprtServiceCdHtml += '<div class="comy-box">';
+						trnsprtServiceCdHtml += '	<div class="cmy-text">'+data.result[i].text+'</div>';
+						trnsprtServiceCdHtml += '	<div class="cmy-won">'+data.result[i].value+' KRW</div>';
+						//trnsprtServiceCdHtml += '	<div class="cmy-end">X</div>';
+						trnsprtServiceCdHtml += '</div>';
+					}
+					
+				}
+				$("#div_trnsprtTypCd").empty();
+				$("#div_trnsprtTypCd").append(trnsprtTypCdHtml).trigger("create"); //운송 가격 정보 추가
+				$("#div_trnsprtServiceCd").empty();
+				$("#div_trnsprtServiceCd").append(trnsprtServiceCdHtml).trigger("create"); //운송 가격 정보 추가
+				if($("#sbx_couponList_TD option:selected").val() != "null"){
+					//쿠폰 영역
+					couponListHtml += '<div class="comy-box">';
+					couponListHtml += '	<div class="cmy-text">'+$("#sbx_couponList_TD option:selected").text()+'</div>';
+					if(param.discTypCd == "DR"){
+						couponListHtml += '	<div id="div_couponVal" class="cmy-coupon">'+$("#sbx_couponList_TD option:selected").val()+'%</div>';
+					}else if(param.discTypCd == "AD"){
+						couponListHtml += '	<div id="div_couponVal" class="cmy-coupon">'+formatComma($("#sbx_couponList_TD option:selected").val())+' KRW</div>';
+					}
+					//couponListHtml += '	<div class="cmy-end">X</div>';
+					couponListHtml += '</div>';
+				}
+				$("#div_couponList_TD").empty();
+				$("#div_couponList_TD").append(couponListHtml).trigger("create"); //쿠폰 추가
+				//총 금액 영역
+				$("#div_totalAmount_2").empty(); //2차 최종 결제 금액 표시 영역을 초기화 시킨다.
+				disc = data.discAmt;
+				if(data.totalAmt < 0){
+					data.totalAmt = 0;
+				}
+				totalAmount = data.totalAmt;
+				$("#div_totalAmount_2").append("총 금액<span>"+formatComma(data.totalAmt)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+			}
+		},
+		error: function(error) {
+	    	alert("오류 발생" + error);
+	    }
+	}); 
+	/* if($("#sbx_couponList option:selected").val() == "null"){
+		$("#sbx_trnsprtTypCd").val("null"); //부가서비스 셀렉트박스 초기화
+		$("#div_trnsprtTypCd").empty(); //부가서비스(필수) 초기화
+		$("#sbx_trnsprtAreaCd").val("null"); //부가서비스 지역 셀렉트박스 초기화
+		$("#sbx_trnsprtAreaCd").selectpicker("hide"); //부가서비스 지역 셀렉트박스 숨기기
+		$("#sbx_trnsprtServiceCd").val("null"); //부가서비스(선택) 셀렉트박스 초기화
+		$("#sbx_trnsprtServiceCd").attr("disabled", true); //부가서비스(선택) 셀렉트박스 비활성화
+		$("#div_trnsprtServiceCd").empty(); //부가서비스(선택) 초기화
+		$("#sbx_couponList").val("null"); //쿠폰 셀렉트박스 초기화
+		$("#sbx_couponList").attr("disabled", true); //쿠폰 셀렉트박스 비활성화
+		$("#div_couponList").empty();//쿠폰(선택) 영역 초기화
+		$(".selectpicker").selectpicker("refresh"); //셀렉트픽커 새로고침
+		totalTrnsprtPrc();
+	} */
+});
+
+//최종 결제 금액 자동 표시
+function totalTrnsprtPrc(){
+	totalAmount = 0; //최종 결제 금액 초기화
+	disc = 0;
+	/*********************/
+	/*2차 결제 최종 금액 구하기*/
+	/*********************/
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){ //2차 결제
+		var trnsprtPrc = 0; //부가 서비스 금액
+		var cmyWonList = document.querySelectorAll(".cmy-won"); //부가 서비스 내역을 불러온다
+		for(var i=0; i<cmyWonList.length; i++){ //부가 서비스 갯수만큼
+			trnsprtPrc = cmyWonList[i].innerText.replaceAll(/,/g, ''); //부가서비스 금액을 가져온다
+			trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' KRW', '')); //부가서비스 금액을 가져온다
+			totalAmount += trnsprtPrc; ///최종 부가서비스 금액을 가져온다
+		}
+		$("#div_totalAmount_2").empty(); //2차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_2").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+	/*********************/
+	/*1차 결제 최종 금액 구하기*/
+	/*********************/
+	}else if(result.dealInfo.buyPaymntSttsCd == "1PW"){ //1차 결제
+        //if(document.querySelector("#div_couponVal_DD") == null){
+        if($("#sbx_couponList_DD").val() == "null"){
+        	$("input[name=paymethod]:checked").prop("checked",false);
+			disc = 0;
+			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+			feeTax = fee * 0.10;
+			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+			amount = parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')); //작품가를 정수형으로 가져온다
+        	//$('input[name=paymethod]').val(null);
+        	//$('input:radio[name=playrtList]:input[value="son"]').attr("checked", true);	// 선택	
+        	
+        	//if(result.dealInfo.paymethod == "CARD"){
+        		//$("input[name=paymethod]:input[value='CARD']").prop("checked",true);
+        	//}else if(result.dealInfo.paymethod == "VACCT"){
+        		//$("input[name=paymethod]:input[value='VACCT']").prop("checked",true);
+        	//}else{
+        		//$("input[name=paymethod]:checked").prop("checked",false);
+        	//}
+        	//btn_paymethod_onclick();
+        	//feeCal();
+		}else if($("#sbx_couponList_DD").val() != "null"){
+			disc = document.querySelector("#div_couponVal_DD").innerText; //쿠폰 할인 금액을 가져온다
+			if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+				disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
+				disc = fee * disc; //쿠폰 할인 금액을 가져온다
+				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				feeTax = fee * 0.10;
+				if(fee < 0){
+					fee = 0;
+					feeTax = fee * 0.10;
+				}
+			}else{ //쿠폰 할인 금액이 원화이면
+				disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
+				disc = parseInt(disc.replaceAll(/,/g, '')); //쿠폰 할인 금액을 가져온다
+				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+				feeTax = fee * 0.10;
+				if(fee < 0){
+					fee = 0;
+					feeTax = fee * 0.10;
+				}
+			}
+		}
+		totalAmount += amount; //최종 결제 금액에 작품가를 더한다
+		totalAmount += fee; //최종 결제 금액에서 할인된 거래 수수료를 더한다
+		totalAmount += feeTax;
+		$("#fee").text(formatComma(fee)+" KRW");
+		$("#feeTax").text(formatComma(feeTax)+" KRW");
+		$("#div_totalAmount_1").empty(); //1차 최종 결제 금액 표시 영역을 초기화 시킨다.
+		$("#div_totalAmount_1").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
+	}
+}
+
+/*
+ * 퍼블리싱 영역
+ */
+$(window).on("resize", function () {
+    if(window.matchMedia('(min-width: 1537px)').matches){
+  	    document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 0}`;
+      	  });
+  	    
+    }else if(window.matchMedia('(min-width: 751px)').matches) {
+    	
+  	      document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 280}`;
+      	  });
+    	
+    }else{
+    	var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+     });
+    	
+    	document.querySelectorAll(".item").forEach((item) => {
+      	     item.style.gridRowEnd = `span ${item.clientHeight + 150}`;
+      	  });
+  	  
+     }
+}).resize();
+
+//배송서비스 물음표 토글팝업
+$("#btn_gToggle").click(function (){
+	$("#Toggle").toggle();
+});
+
+$('#toggle_close').click(function() {
+	 $('#Toggle').hide(); 
+});
+
+$(function () {
+  $(".elm").hover(
+	function(){ $(this).addClass('hover') },
+	    function(){ $(this).removeClass('hover') }
+	  )
+	  $(".cn-b").hover(
+	function(){ $(this).addClass('gis') },
+	    function(){ $(this).removeClass('gis') }
+	  )
+});
+
+$(function() {
+	/* 메뉴바 FIXED */
+	if (jQuery(window).width() > 0) {
+	  jQuery(window).on("scroll",function(ev){
+	      if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+	          jQuery('.head-wrap').addClass('fixed');
+	      }else{
+	          jQuery('.head-wrap').removeClass('fixed');
+	      }
+	      return false;
+	  });
+	}
+});
+
+/* jQuery(function($) {
+
+    window.onresize = function(){
+      document.location.reload();
+    };
+
+}); */
+
+
+
+var delay = 300;
+var timer = null;
+
+//Javascript
+// window.addEventListener('resize', function(){
+// 	clearTimeout(timer);
+// 	timer = setTimeout(function(){
+// 		document.location.reload();
+// 	}, delay);
+// });
+
+//jQuery
+// $(window).on('resize', function(){
+// 	clearTimeout(timer);
+// 	timer = setTimeout(function(){
+// 		document.location.reload();
+// 	}, delay);
+// });
+
+$('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+    // The event won't be propagated up to the document NODE and 
+    // therefore delegated events won't be fired
+    event.stopPropagation();
+});
+
+jQuery(document).ready(function() {
+	if(sAuthSqVal == 2){
+		document.getElementById("portfolio").style.display="";
+	}
+});
+</script>
+    
+	
+	
+	
+	
+</body>
+
+</html>

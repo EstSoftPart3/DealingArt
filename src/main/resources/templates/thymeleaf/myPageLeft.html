@@ -82,8 +82,8 @@
 		</div>
 	</div>
 <script th:inline="javascript">
-$(function() {
-	if(sMbrSqVal == null || sMbrSqVal == ""){
+$(document).ready(function(){
+	if(sMbrSqVal == null || sMbrSqVal == "" || sMbrSqVal == undefined){
 		if(!isMobile){
 			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 		}else{
@@ -91,10 +91,29 @@ $(function() {
 			location.href="/main";
 		}
 	}else{
+
+		const url = new URL(window.location.href);
+		const urlParam = url.searchParams;
+
+		if(url.pathname == "/myDealDetailBuy2" || url.pathname == "/myDealDetailSell2"){
+			
+			$(".con-right").hide();
+			$(".con-left2").hide();
+			
+			if(sMbrSqVal != null && sMbrSqVal != "" && sMbrSqVal != urlParam.get('mbrSq')){
+				modalAlertShow("잘못된 접근입니다. 메인페이지로 이동합니다.", "main");
+				//location.href="/main";
+			} else {
+				$(".con-right").show();
+				$(".con-left2").show();
+			}
+		}
+		
 		if(sAuthSqVal == 2){
 			document.getElementById("portfolio").style.display="";
 		}
 	}
+	
 });
 /*
 $(document).on("click", ".myWork", function(){

@@ -239,7 +239,8 @@ public class TestController {
 			String dealSq = param.get("dealSq").toString();
 			String dealTypCd = param.get("dealTypCd").toString();
 			mainPayMapper.updateDealBuyMbrSq(buyMbrSq, dealSq, dealTypCd); //딜 테이블에 1차 구매자 순번 등록
-			myPageMapper.updateBuyPaymntSttsCd(dealSq, "2PW"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+			//myPageMapper.updateBuyPaymntSttsCd(dealSq, "2PW"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+			myPageMapper.updateBuyPaymntSttsCd(dealSq, "1PC"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다 (2022-10-12 정영우 변경)
 			mainPayMapper.updateWorkSaleYn(param.get("workSq").toString()); //작품 테이블에 판매 여부를 Y로 바꿔준다
 		}
 		if(paymntOrder.equals("2")){ //구매자 2차 결제 이면

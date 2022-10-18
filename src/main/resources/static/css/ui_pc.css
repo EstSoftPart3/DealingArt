@@ -5876,7 +5876,7 @@ position: relative;background-color: #fbfbfb;}
 }
 
 /*0830*/
-#Toggle {
+.div_toggle {
     position: absolute;
     top:-10px;
     left:280px;
@@ -5886,7 +5886,7 @@ position: relative;background-color: #fbfbfb;}
     box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
 }
 
-#Toggle .toggle_box1 {
+.div_toggle  .toggle_box1 {
     background: #e9625c;
     padding:15px;
 }
@@ -5903,10 +5903,10 @@ position: relative;background-color: #fbfbfb;}
     width:15px;
     cursor: pointer;
 }
-#Toggle table {
+.div_toggle table {
     margin:15px;
 }
-#Toggle table tr td {
+.div_toggle table tr td {
     border:1px solid #cfcfcf;
     padding:10px;
     font-size:13px;
