@@ -2,6 +2,7 @@ package com.da.bo.payment;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -53,6 +55,16 @@ public class paymentController {
 		return "bo/payment/transitproc";
 	}
 	
+	//판매자 운송서비스 선택시
+	@RequestMapping("/admin/payment/selectTrnsprtPrcMtrx")
+	@ResponseBody
+	public ModelAndView selectTrnsprtPrcMtrx(@RequestBody Map<String, Object> param) {
+		System.out.println(param);
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = paymentService.selectTrnsprtPrcMtrx(param);
+		mv.addObject("result", result);
+		return mv;
+	}
 	
 	//거래 메인
 	@RequestMapping("/admin/payment/dealMainListData")

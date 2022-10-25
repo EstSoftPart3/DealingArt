@@ -320,7 +320,7 @@
 									<div class="myd-box-1">
 										<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 											<div class="panel-body">
-												<input type="radio" id="r1" name="rr" />
+												<input type="radio" id="r1" name="buyTrnsprtTypCd" value="P"/>
 												<label for="r1"><span></span>프리미엄 운송</label><span>(1,000만원 이상 작품 권장)</span>
 												<button onclick="$('#pToggle').toggle(); $('#gToggle').hide(); $('#dToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
 	
@@ -370,7 +370,7 @@
 													</div>
 												</div>
 	
-												<input type="radio" id="r2" name="rr" />
+												<input type="radio" id="r2" name="buyTrnsprtTypCd" value="G"/>
 												<label for="r2"><span></span>일반 운송</label>
 												<button onclick="$('#gToggle').toggle(); $('#pToggle').hide(); $('#dToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
 												
@@ -439,7 +439,7 @@
 													</div>
 												</div>
 												
-												<input type="radio" id="r3" name="rr" />
+												<input type="radio" id="r3" name="buyTrnsprtTypCd" value="D"/>
 												<label for="r3"><span></span>셀프 운송</label>
 												<button onclick="$('#dToggle').toggle(); $('#pToggle').hide(); $('#gToggle').hide();"><img src="resources/img/ba/me-icon.png"></button><br/>
 												
@@ -1096,8 +1096,43 @@ function updateNewAddr(){
  * 딜링 콜 요청 버튼 클릭시
  */
  function btn_dealingCall(){
-	debugger;
-	$("#callModal").modal("show");
+	var param = new Object();
+	if($('input[name="buyTrnsprtTypCd"]:checked').val() != null && $('input[name="buyTrnsprtTypCd"]:checked').val() != ""){
+		
+		param.buyTrnsprtTypCd = $('input[name="buyTrnsprtTypCd"]:checked').val();
+		param.dealSq = result.dealInfo.dealSq;
+		
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+	        url: "/buyTrnsprtTypCdUpdate",
+	        dataType: 'json',
+	        data: JSON.stringify(param),
+	        async: false,
+			success:function(data){
+				if(data.result != null && data.result > 0){
+					$("#callModal").modal("show");
+				}else{
+					if(!isMobile){
+						modalAlertShow("새로고침 후 다시 시도해주세요.");
+					}else{
+						alert("새로고침 후 다시 시도해주세요.");
+					}
+				}
+			},
+			error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		}); 
+		
+		
+	}else{
+		if(!isMobile){
+			modalAlertShow("운송 서비스를 선택해주세요.");
+		}else{
+			alert("운송 서비스를 선택해주세요.");
+		}
+	}
 }
 /*
  * 결제 수단 클릭시

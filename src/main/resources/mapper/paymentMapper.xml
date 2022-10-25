@@ -2,7 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.da.mapper.paymentMapper">
-
+	<select id="selectTrnsprtPrcMtrx" resultType="hashMap" parameterType="hashMap">
+		/*판매자 운송서비스 매트리스 조회*/
+		SELECT
+				TRNSPRT_DIV_CD
+				,TRNSPRT_DIV_CD_NM
+				,TRNSPRT_TYP_CD
+				,TRNSPRT_TYP_CD_NM
+				,TRNSPRT_REQ_YN
+				,TRNSPRT_AREA_CD
+				,TRNSPRT_AREA_CD_NM
+				,TRNSPRT_SERVICE_CD
+				,TRNSPRT_SERVICE_CD_NM
+				,TRNSPRT_PRC
+		FROM
+				TBL_DA_TRNSPRT_PRC_MTRX
+		WHERE
+				1=1
+			<if test="trnsprtDivCd != null and trnsprtDivCd != ''">
+			AND TRNSPRT_DIV_CD = #{trnsprtDivCd}
+			</if>
+			<if test="trnsprtTypCd != null and trnsprtTypCd != ''">
+			AND TRNSPRT_TYP_CD = #{trnsprtTypCd}
+			</if>
+			<if test="trnsprtReqYn != null and trnsprtReqYn != ''">
+			AND TRNSPRT_REQ_YN = #{trnsprtReqYn}
+			</if>
+			<if test="trnsprtAreaCd != null and trnsprtAreaCd != ''">
+			AND TRNSPRT_AREA_CD = #{trnsprtAreaCd}
+			</if>
+			<if test="trnsprtServiceCd != null and trnsprtServiceCd != ''">
+			AND TRNSPRT_SERVICE_CD = #{trnsprtServiceCd}
+			</if>
+	</select>
 
    <!-- 거래 메인/작품거래 내역  -->
    <select id="workDealhList" resultType="hashMap">

@@ -1,6 +1,7 @@
 package com.da.bo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class paymentServiceImpl implements paymentService {
 	
 	@Autowired
 	paymentDao paymentDao;
+	
+	//운송서비스 매트리스 조회
+	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param){
+		return paymentDao.selectTrnsprtPrcMtrx(param);
+	}
 	
 	//작품 거래 내역
 	@Override

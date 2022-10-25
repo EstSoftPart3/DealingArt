@@ -166,7 +166,7 @@ function modalAlertClose(obj) {
 	}
 	
 	if(obj == "dealSearch"){
-		lstBack();
+		searchOptionReset();
 	}
 	
 	if(obj) {

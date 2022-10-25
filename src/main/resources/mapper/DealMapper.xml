@@ -49,6 +49,7 @@
 				D.DEAL_STRT_DT <![CDATA[<=]]> NOW()
 				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
 				AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+				AND DEAL_STTS_CD NOT IN ('ST', 'FB')
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
@@ -87,6 +88,12 @@
 	        <if test="workClsfcCds != null and workClsfCds != ''">
 				AND A.WORK_CLSFC_CD IN
 				<foreach collection="workClsfcCds" item="item" index="idex"  open="(" close=")" separator=",">
+		        	#{item}
+		        </foreach>
+	        </if>
+	        <if test="workClrCds != null and workClrCds != ''">
+				AND A.WORK_CLR_CD IN
+				<foreach collection="workClrCds" item="item" index="idex"  open="(" close=")" separator=",">
 		        	#{item}
 		        </foreach>
 	        </if>

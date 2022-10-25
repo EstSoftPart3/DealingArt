@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.da.mapper.DealMapper;
 import com.da.mapper.MemberMapper;
+import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 import com.da.util.SendSmsUtil;
 import com.da.vo.MbrInfoVo;
@@ -31,9 +32,17 @@ public class AuctionScheduler {
 	@Autowired
 	private SendSmsUtil sendSmsUtil;
 	
+	@Autowired
+	private MyPageMapper myPageMapper;
+	
 	//거래 종료된 경매 정보 가져와서 낙찰/거래종료로 10분마다 실행한다
 	@Scheduled(cron="0 */10 * * * *")
 	public void successfulBid() {
+		//쿠폰 발급 중지
+		Map<String, Object> cuponMap = new HashMap<String, Object>();
+		cuponMap.put("cuponIdntfctnNum", "DAEVENING");
+		cuponMap.put("endDate", "2022-11-01 00:00:00");
+		myPageMapper.cuponStop(cuponMap);
 		
 		List<Map<String, Object>> successfulBidList = dealMapper.selectSuccessfulBidList(); //거래 종료 시간 만료한 경매 정보 가져오기
 		List<Map<String, Object>> successfulSaleList = dealMapper.selectNotSoldSaleList(); //판매 종료 시간이 만료했지만 판매되지 않은 정찰가 거래 정보 가져오기
