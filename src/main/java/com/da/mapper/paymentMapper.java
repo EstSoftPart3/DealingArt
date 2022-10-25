@@ -5,6 +5,9 @@ import java.util.Map;
 
 public interface paymentMapper {
 	
+	//운송서비스 매트리스 조회
+	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param);
+	
 	//작품 거래 내역
 	public List workDealhList(Map<String, Object> param);
 	

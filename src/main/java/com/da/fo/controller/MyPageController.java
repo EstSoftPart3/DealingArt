@@ -65,6 +65,18 @@ public class MyPageController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@RequestMapping("/buyTrnsprtTypCdUpdate")
+	@ResponseBody
+	public ModelAndView buyTrnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
+		System.out.println(param);
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = myPageService.buyTrnsprtTypCdUpdate(param);
+		System.out.println(result);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+
 	@RequestMapping("/withdrawal")
 	public String withdrawal() {
 		return "thymeleaf/fo/myPage/secession";

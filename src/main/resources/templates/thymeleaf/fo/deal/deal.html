@@ -74,6 +74,9 @@
     	.footer-wrap{margin-top:0;}
     	.hd-div{background-color:#fff;}
     	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
+    	[name=workClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
     </style>
     
     <link rel="icon" type="image/png" href="resources/img/favicon.png">
@@ -207,6 +210,39 @@
 									</div>
 								</div>
 							</div> -->
+							
+							<!--1006메인컬러-->
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading7">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion3" href="#collapse7" aria-expanded="true" aria-controls="collapse7">
+											메인컬러
+										</a>
+									</h4>
+								</div>
+								<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading7">
+									<div class="panel-body">
+										<div class="color-box">
+											<input type="checkbox" id="mc-1" name="workClrCd" value="MIX" class="searchOption" onclick="dealSearch()"><label for="mc-1" class="mc-1"></label>
+											<input type="checkbox" id="mc-2" name="workClrCd" value="RED" class="searchOption" onclick="dealSearch()"><label for="mc-2" class="mc-2"></label>
+											<input type="checkbox" id="mc-3" name="workClrCd" value="ORANGE" class="searchOption" onclick="dealSearch()"><label for="mc-3" class="mc-3"></label>
+											<input type="checkbox" id="mc-4" name="workClrCd" value="YELLOW" class="searchOption" onclick="dealSearch()"><label for="mc-4" class="mc-4"></label>
+											<input type="checkbox" id="mc-5" name="workClrCd" value="GREEN" class="searchOption" onclick="dealSearch()"><label for="mc-5" class="mc-5"></label>
+											<input type="checkbox" id="mc-6" name="workClrCd" value="SKY" class="searchOption" onclick="dealSearch()"><label for="mc-6" class="mc-6"></label>
+											<input type="checkbox" id="mc-7" name="workClrCd" value="BLUE" class="searchOption" onclick="dealSearch()"><label for="mc-7" class="mc-7"></label>
+											<input type="checkbox" id="mc-8" name="workClrCd" value="PURPLE" class="searchOption" onclick="dealSearch()"><label for="mc-8" class="mc-8"></label>
+											<input type="checkbox" id="mc-9" name="workClrCd" value="BROWN" class="searchOption" onclick="dealSearch()"><label for="mc-9" class="mc-9"></label>
+											<input type="checkbox" id="mc-10" name="workClrCd" value="WHITE" class="searchOption" onclick="dealSearch()"><label for="mc-10" class="mc-10"></label>
+											<input type="checkbox" id="mc-11" name="workClrCd" value="GRAY" class="searchOption" onclick="dealSearch()"><label for="mc-11" class="mc-11"></label>
+											<input type="checkbox" id="mc-12" name="workClrCd" value="BLACK" class="searchOption" onclick="dealSearch()"><label for="mc-12" class="mc-12"></label>
+										 </div>
+										 <!-- <div style="padding-top:30px" class="color-box">
+											<input type="radio" id="mc-bold" name="workClrCd-1" value="bold"><label for="mc-bold" class="mc-1 mc-bold active"></label>
+										 </div> -->
+									</div>
+								</div>
+							</div>
+							
 						</div>
                    			<button type="button" class="btn-more2" onclick="searchOptionReset()"><span>reset</span></button>
 					</div>
@@ -357,6 +393,31 @@
 												
 												</div>
 											</li> -->
+											<!--1006메인컬러-->
+											<li role="presentation">
+												<div class="drop-title">
+													<span>메인컬러</span>
+												</div>
+												<div class="drop-body">
+													<div class="color-box">
+														<input type="checkbox" id="mc-13" name="workClrCd" value="MIX" class="searchOption"><label for="mc-13" class="mc-1"></label>
+														<input type="checkbox" id="mc-14" name="workClrCd" value="RED" class="searchOption"><label for="mc-14" class="mc-2"></label>
+														<input type="checkbox" id="mc-15" name="workClrCd" value="ORANGE" class="searchOption"><label for="mc-15" class="mc-3"></label>
+														<input type="checkbox" id="mc-16" name="workClrCd" value="YELLOW" class="searchOption"><label for="mc-16" class="mc-4"></label>
+														<input type="checkbox" id="mc-17" name="workClrCd" value="GREEN" class="searchOption"><label for="mc-17" class="mc-5"></label>
+														<input type="checkbox" id="mc-18" name="workClrCd" value="SKY" class="searchOption"><label for="mc-18" class="mc-6"></label>
+														<input type="checkbox" id="mc-19" name="workClrCd" value="BLUE" class="searchOption"><label for="mc-19" class="mc-7"></label>
+														<input type="checkbox" id="mc-20" name="workClrCd" value="PURPLE" class="searchOption"><label for="mc-20" class="mc-8"></label>
+														<input type="checkbox" id="mc-21" name="workClrCd" value="BROWN" class="searchOption"><label for="mc-21" class="mc-9"></label>
+														<input type="checkbox" id="mc-22" name="workClrCd" value="WHITE" class="searchOption"><label for="mc-22" class="mc-10"></label>
+														<input type="checkbox" id="mc-23" name="workClrCd" value="GRAY" class="searchOption"><label for="mc-23" class="mc-11"></label>
+														<input type="checkbox" id="mc-24" name="workClrCd" value="BLACK" class="searchOption"><label for="mc-24" class="mc-12"></label>
+													 </div>
+													 <!-- <div style="padding-top:30px" class="color-box">
+														<input type="radio" id="mc-bold" name="workClrCd-1" value="bold"><label for="mc-bold" class="mc-1 mc-bold active"></label>
+													 </div> -->
+												</div>
+											</li>
 											
 											<div class="drop-btnb">
                                                 <button type="button" class="dbtn-1" onclick="dealSearch()">선택</button>
@@ -405,7 +466,7 @@
 						  -->
 						  
 						<div class="bat-box6" id="lstBackBtn" style="display:none">
-							<button type="button" class="ba-btn1" onclick="lstBack()">목록으로 돌아가기</button>
+							<button type="button" class="ba-btn1" onclick="searchOptionReset()">목록으로 돌아가기</button>
 						</div>
 						
 					</div>
@@ -566,6 +627,33 @@
 						
 						</div>
 					</li> -->
+					
+					<!--1006메인컬러-->
+					<li role="presentation">
+						<div class="drop-title">
+							<span>메인컬러</span>
+						</div>
+						<div class="drop-body">
+							<div class="color-box">
+								<input type="checkbox" id="mc-25" name="workClrCd" value="MIX" class="searchOption"><label for="mc-25" class="mc-1"></label>
+								<input type="checkbox" id="mc-26" name="workClrCd" value="RED" class="searchOption"><label for="mc-26" class="mc-2"></label>
+								<input type="checkbox" id="mc-27" name="workClrCd" value="ORANGE" class="searchOption"><label for="mc-27" class="mc-3"></label>
+								<input type="checkbox" id="mc-28" name="workClrCd" value="YELLOW" class="searchOption"><label for="mc-28" class="mc-4"></label>
+								<input type="checkbox" id="mc-29" name="workClrCd" value="GREEN" class="searchOption"><label for="mc-29" class="mc-5"></label>
+								<input type="checkbox" id="mc-30" name="workClrCd" value="SKY" class="searchOption"><label for="mc-30" class="mc-6"></label>
+								<input type="checkbox" id="mc-31" name="workClrCd" value="BLUE" class="searchOption"><label for="mc-31" class="mc-7"></label>
+								<input type="checkbox" id="mc-32" name="workClrCd" value="PURPLE" class="searchOption"><label for="mc-32" class="mc-8"></label>
+								<input type="checkbox" id="mc-33" name="workClrCd" value="BROWN" class="searchOption"><label for="mc-33" class="mc-9"></label>
+								<input type="checkbox" id="mc-34" name="workClrCd" value="WHITE" class="searchOption"><label for="mc-34" class="mc-10"></label>
+								<input type="checkbox" id="mc-35" name="workClrCd" value="GRAY" class="searchOption"><label for="mc-35" class="mc-11"></label>
+								<input type="checkbox" id="mc-36" name="workClrCd" value="BLACK" class="searchOption"><label for="mc-36" class="mc-12"></label>
+							 </div>
+							 <!-- <div style="padding-top:30px" class="color-box">
+								<input type="radio" id="mc-bold" name="workClrCd-1" value="bold"><label for="mc-bold" class="mc-1 mc-bold active"></label>
+							 </div> -->
+						</div>
+					</li>
+					
 					<div class="drop-btnb">
 						
 						<span style="color:red;font-weight: bold;font-size:15px;">※ 필터를 이용하여 작품을 검색해 보세요.</span>
@@ -599,14 +687,6 @@
 		//2022-09-19 검색 돌아기기 버튼 보이지 않게 설정 : 박상현
 		$("#lstBackBtn").hide();
 	});
-	
-	//2022-09-19 검색 뒤돌아가기 기능 : 박상현
-	function lstBack(){
-		$("#searchKeyword").val('');
-		dealSearch();
-		//2022-09-28 검색 돌아기기 버튼 보이지 않게 설정 : 박상현
-		$("#lstBackBtn").hide();
-	}
 	
 	function myWorkListPage(){
 		if(sMbrSqVal != null && sMbrSqVal != ""){
@@ -717,6 +797,15 @@
 		if(workClsfcCds.length > 0){
 			searchOptions.workClsfcCds = workClsfcCds;
 		}
+		//메인컬러코드
+		var workClrCds = new Array();
+		document.querySelectorAll('input[name=workClrCd]:checked').forEach((el) => {
+			workClrCds.push(el.value);
+		});
+		if(workClrCds.length > 0){
+			searchOptions.workClrCds = workClrCds;
+		}
+		
 		
 		$.ajax({
 	        type: "post",
@@ -929,7 +1018,7 @@
 		     		
 		     			
 		     		
-		     		$(".grid").append(html);
+		     		$(".grid").append(html).triger("create");
 		     		masonryLayout();
 	     		}
 	     		

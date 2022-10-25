@@ -28,6 +28,11 @@ public class paymentDao {
 	@Autowired
 	DealMapper dealMapper;
 	
+	//운송서비스 매트리스 조회
+	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param){
+		return paymentMapper.selectTrnsprtPrcMtrx(param);
+	}
+	
 	//작품 거래 내역
 	public Map<String, Object> workDealhList(Map<String, Object> param){
 		

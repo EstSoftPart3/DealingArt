@@ -6624,3 +6624,7 @@ p.dib{display:inline-block !important;}
     margin-bottom: 13px;
     max-height: 60px;
 }
+/* 1025 메인컬러 필터 검색*/
+.color-box label.mc-bold {
+    border:2px solid #000;
+}

@@ -4,7 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface MyPageService {
-	
+	/*
+	 * 구매자 운송 서비스 운송 타입 업데이트
+	 * param : buyTrnsprtTypCd, dealSq
+	 * return : int
+	 */
+	int buyTrnsprtTypCdUpdate(Object param);
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
 	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)

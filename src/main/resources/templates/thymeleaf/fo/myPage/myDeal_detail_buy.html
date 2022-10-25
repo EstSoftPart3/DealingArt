@@ -754,10 +754,11 @@ jQuery(document).ready(function() {
 	if(result.dealInfo.buyPaymntSttsCd == "2PW" && result.dealInfo.dealSttsCd == "TC"){ //2차 결제 미완료면
 		$("#dealSttsCdDetail").text("구매자 2차 결제를 대기중입니다.");
 		$("#dealSttsCdDetail").append("<span>2차 결제 대기</span>"); 
-		$("#2PW").css("display", ""); //2차 결제 div
-		$("#paymethod").css("display", "");
-		$("#btn_payment").css("display", "");
-		getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
+		//$("#2PW").css("display", ""); //2차 결제 div
+		//$("#paymethod").css("display", "");
+		//$("#btn_payment").css("display", "");
+		//getCouponList("TD"); //운송 수수료 할인 쿠폰 목록 가져오기
+		modalAlertShow("현재 2차 결제 시스템 변경 작업중입니다. 2차 결제는 1533-3024로 문의주세요.");
 		if(result.vacctInfo.payMethod != null){
 			$("#VACCT").css("display", "");
 			$("#2PW").css("display", "none"); //2차 결제 div

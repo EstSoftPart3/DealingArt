@@ -8,6 +8,13 @@ import org.apache.ibatis.annotations.Param;
 public interface MyPageMapper {
 	
 	/*
+	 * 구매자 운송 서비스 운송 타입 업데이트
+	 * param : buyTrnsprtTypCd, dealSq
+	 * return : int
+	 */
+	public int buyTrnsprtTypCdUpdate(Object param);
+	
+	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
 	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
 	 * return : 쿠폰목록
@@ -41,6 +48,13 @@ public interface MyPageMapper {
 	 * return : 쿠폰 등록
 	 */
 	public int insertCouponReg(Object param);
+	
+	/*
+	 * 쿠폰 발급 중지
+	 * param : cuponIdntfctnNum, endDate
+	 * return : 쿠폰 등록
+	 */
+	public int cuponStop(Object param);
 	
 	/*
 	 * 거래내역 정찰가 리스트를 보여준다.
