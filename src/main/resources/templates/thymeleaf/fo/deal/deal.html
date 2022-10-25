@@ -583,19 +583,19 @@
 <script type="text/javascript"> 
 	
 	
-	if(isMobile == true){
-		$("#r3").prop("checked", false);  //체크해제하기
-		$("#s5").prop("checked", true);   //체크하기
-	} else {
-		$("#r3").prop("checked", true);   //체크하기
-		$("#s5").prop("checked", false);  //체크해제하기
-	}
+// 	if(isMobile == true){
+// 		$("#r3").prop("checked", false);  //체크해제하기
+// 		$("#s5").prop("checked", true);   //체크하기
+// 	} else {
+// 		$("#r3").prop("checked", true);   //체크하기
+// 		$("#s5").prop("checked", false);  //체크해제하기
+// 	}
 	
 	
 	var more = 1;
 	$(function () {
-		dealSearch('LT', 'DOWN');
-		
+		//dealSearch('LT', 'DOWN');
+		dealSearch();
 		//2022-09-19 검색 돌아기기 버튼 보이지 않게 설정 : 박상현
 		$("#lstBackBtn").hide();
 	});

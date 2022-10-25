@@ -62,9 +62,7 @@
 			<when test="workTypCd != null and workTypCd != ''">
 				AND A.WORK_TYP_CD = #{workTypCd}
         	</when>
-        	<otherwise>
-				AND A.WORK_TYP_CD = 'COLL'
-        	</otherwise>	
+        	
         	</choose>
 			<if test="dealTypCds != null and dealTypCds != ''">
 				AND D.DEAL_TYP_CD IN
