@@ -300,16 +300,9 @@
 		SELECT 
 		    	COUNT(*) 
 		FROM
-			    (
-			    SELECT 
-			    		*
-			    FROM 
-			    		TBL_DA_AUCTN_BID_H 
-				WHERE 
-				     	DEAL_SQ = #{dealSq}
-				    AND BID_PRC >= #{bidPrc}
-				    GROUP BY DEAL_SQ
-				) A
+			    (SELECT MAX(BID_PRC) AS MAX_BID_PRC FROM TBL_DA_AUCTN_BID_H WHERE DEAL_SQ = #{dealSq} GROUP BY DEAL_SQ) A
+		WHERE 
+				A.MAX_BID_PRC <![CDATA[>=]]> #{bidPrc}
 	</select>
 	
 	<select id="checkDealEndngTime" parameterType="hashMap" resultType="int">
@@ -541,7 +534,7 @@
 				TBL_DA_AUTO_BID_H
 		WHERE 
 				DEAL_SQ = #{dealSq}
-				AND AUTO_BID_PRC <![CDATA[>]]> #{bidPrc}
+				AND AUTO_BID_PRC <![CDATA[>=]]> #{bidPrc}
 		ORDER BY AUTO_BID_DT ASC, AUTO_BID_PRC ASC 
 	</select>
 	<select id="selectMaxAutoBidPrc" resultType="hashMap" parameterType="long">
@@ -565,6 +558,7 @@
 				TBL_DA_AUTO_BID_H
 		WHERE
 				MBR_SQ = #{mbrSq}
+			AND DEAL_SQ = #{dealSq}
 			AND AUTO_BID_PRC = #{autoBidPrc}
 	</select>
 	
@@ -612,6 +606,7 @@
 			ON	A.DEAL_SQ = C.DEAL_SQ
 		WHERE 
 				A.DEAL_SQ = #{dealSq}
+		GROUP BY A.MBR_SQ, A.BID_PRC
 	</select>
 	
 	<select id="selectDeal" resultType="hashMap" parameterType="String">

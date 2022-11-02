@@ -216,6 +216,73 @@
 		                 </table>
 				 	
 				 </div>
+				 
+				 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
+	             	<ul class="nav nav-pills">
+		           		<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>판매자 운송서비스 </b></a></li>
+		           		
+		            </ul>
+				 </div>
+				 <div class="card">
+				 	<table class="table table-bordered" style="font-size:11px;" style="width:900px;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th colspan="4">운송 타입</th>
+		                    </tr>
+		                  <thead>  
+		                  <tbody>
+		                  	<tr align="center">
+		                    	<td style="width:100px;">
+		                    		<input type="radio" name="sellTrnsprtTypCd" id="cd1" value="MA"><br/>
+		           	 				<label for="cd1"><span>프리미엄 운송(수도권)</span></label>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		<input type="radio" name="sellTrnsprtTypCd" id="cd2" value="NA"><br/>
+		          					<label for="cd2"><span>프리미엄 운송(비수도권)</span></label>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		<input type="radio" name="sellTrnsprtTypCd" id="cd3" value="G"><br/>
+		           					<label for="cd3"><span>일반 운송</span></label>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		 <input type="radio" name="sellTrnsprtTypCd" id="cd4" value="D"><br/>
+		           					 <label for="cd4"><span>셀프 운송</span></label>
+		                    	</td>
+		                    </tr>
+		                  </tbody>
+		            </table>
+		            
+		           
+				 	<table id="reqYtable" class="table table-bordered" style="font-size:11px; width:900px; display:none;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>필수 서비스</th>
+		                      <th>가격</th>
+		                    </tr>
+		                  <thead>  
+		                  <tbody id="reqYtbody">
+		                  </tbody>
+		         	</table>
+				 	
+				 	<table id="reqYtable" class="table table-bordered" style="font-size:11px; width:900px; display:none;">
+		                  <thead>                  
+		                    <tr align="center" style="background-color:#efefef">
+		                      <th>부가 서비스</th>
+		                      <th>가격</th>
+		                    </tr>
+		                  <thead>  
+		                  <tbody id="reqYtbody">
+		                  	<tr align="center">
+		                    	<td style="width:100px;">
+		                    		<select></select>
+		                    	</td>
+		                    	<td style="width:100px;">
+		                    		<select></select>
+		                    	</td>
+		                    </tr>
+		                  </tbody>
+		         	</table>
+				 </div>
 	    		 
 	    		 <div class="card-header p-2" style="border: 1px solid rgba(0,0,0,.125);">
 	             	<ul class="nav nav-pills">
@@ -415,6 +482,58 @@
 	 		//fn_workDealh(dealSq);
 	 		
 	    });
+	 	
+	 	$("input[name='sellTrnsprtTypCd']").change(function(){
+	 		var param = new Object();
+	 		param.trnsprtDivCd = "S";
+	 		var cd = $("input[name='sellTrnsprtTypCd']:checked").val();
+	 		
+	 		if(cd == "MA" || cd == "NA"){
+	 			param.trnsprtTypCd = "P";
+	 			param.trnsprtAreaCd = cd;
+	 		}else{
+	 			param.trnsprtTypCd = cd;
+	 		}
+	 		
+	 		$.ajax({
+		    	type: "post",
+		        url: "/admin/payment/selectTrnsprtPrcMtrx",
+		        dataType: 'json',
+		        contentType: 'application/json',
+		        async: false,
+		        data: JSON.stringify(param),
+		        success: function(data) {
+		        	debugger;
+		        	var reqYhtml = '';
+		        	var reqNhtml = '';
+		        	for(var i=0; i<data.result.length; i++){
+			        	//필수 부가서비스
+			        	if(data.result[i].trnsprtReqYn == "Y"){
+				        		
+				        	reqYhtml += '<tr align="center">';
+			                reqYhtml += '	<td style="width:100px;">';
+			                reqYhtml += data.result[i].trnsprtServiceCdNm;
+			                reqYhtml += '	</td>';
+			                reqYhtml += '	<td style="width:100px;">';
+			                reqYhtml += data.result[i].trnsprtPrc;
+			                reqYhtml += '	</td>';
+			                reqYhtml += '</tr>';
+			        	}
+		                //선택 부가서비스
+		                
+		        	}
+		        	$("#reqYtbody").empty();
+	                $("#reqYtbody").append(reqYhtml).trigger("create");
+	                $("#reqYtable").css("display", "");
+	                $("#reqNbody").empty();
+	                $("#reqNtable").css("display", "");
+		        	
+		        },
+		        error: function(error) {
+		        	console.log(error);
+		        }
+			});
+	 	});
 	 	
 	 	//작품 거래 내역
 	 	function fn_workDealh(dealSq) {

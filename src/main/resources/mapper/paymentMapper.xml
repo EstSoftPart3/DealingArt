@@ -5,16 +5,16 @@
 	<select id="selectTrnsprtPrcMtrx" resultType="hashMap" parameterType="hashMap">
 		/*판매자 운송서비스 매트리스 조회*/
 		SELECT
-				TRNSPRT_DIV_CD
-				,TRNSPRT_DIV_CD_NM
-				,TRNSPRT_TYP_CD
-				,TRNSPRT_TYP_CD_NM
-				,TRNSPRT_REQ_YN
-				,TRNSPRT_AREA_CD
-				,TRNSPRT_AREA_CD_NM
-				,TRNSPRT_SERVICE_CD
-				,TRNSPRT_SERVICE_CD_NM
-				,TRNSPRT_PRC
+				TRNSPRT_DIV_CD AS trnsprtDivCd
+				,TRNSPRT_DIV_CD_NM AS trnsprtDivCdNm
+				,TRNSPRT_TYP_CD AS trnsprtTypCd
+				,TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm
+				,TRNSPRT_REQ_YN AS trnsprtReqYn
+				,TRNSPRT_AREA_CD AS trnsprtAreaCd
+				,TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm
+				,TRNSPRT_SERVICE_CD AS trnsprtServiceCd
+				,TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm
+				,FORMAT(TRNSPRT_PRC,0) AS trnsprtPrc
 		FROM
 				TBL_DA_TRNSPRT_PRC_MTRX
 		WHERE

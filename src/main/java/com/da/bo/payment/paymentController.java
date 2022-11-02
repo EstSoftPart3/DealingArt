@@ -77,7 +77,6 @@ public class paymentController {
 		Map<String, Object> result = new HashMap<>();
 		
 		result = paymentService.dealMainList(param);
-									
 		mv.addObject("data", result);
 		
 		return mv;

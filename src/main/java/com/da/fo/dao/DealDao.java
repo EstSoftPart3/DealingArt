@@ -143,7 +143,7 @@ public class DealDao {
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
 	 */
-	public int bidReg(Map<String, Object> param) {
+	public synchronized int bidReg(Map<String, Object> param) {
 		if(param.get("autoBidPrc") != null) { //자동응찰이면
 			int check = dealMapper.checkAutoBid(param); //같은 금액 같은 회원 자동응찰 중복 체크
 			if(check > 0){
@@ -164,6 +164,15 @@ public class DealDao {
 					if(autoBidResult == 3) { //기존에 자동응찰이 있지만 요청한 자동응찰 금액이 더 크면
 						return 13;
 					}
+					if(autoBidResult == 4) { //일반 응찰인데 자동응찰 금액이 있을경우
+						return 11;
+					}
+					if(autoBidResult == 5) { //일반 응찰인데 자동응찰 금액과 같을 경우
+						return 11;
+					}
+					if(autoBidResult == 6) { //일반 응찰일 경우
+						return 2;
+					}
 				}
 				return -11;
 			}
@@ -175,10 +184,33 @@ public class DealDao {
 			}else if(checkTime > 0){ //거래 종료시간이 지난 응찰이면
 				return -2;
 			}else {//응찰가 현재 응찰가보다 높으면
-				int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
-				regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
-				autoBid(param);
-				return regResult;
+				int autoBidResult = autoBid(param);
+				//int regResult = dealMapper.bidReg(param); //응찰내역에 추가한다
+				//regResult += dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				if(autoBidResult != -1) { //자동응찰 실패가 아니면
+					if(autoBidResult == 0) { //자동응찰이 성공적으로 등록 되었으면
+						return 10;
+					}
+					if(autoBidResult == 1) { //자동응찰이 성공적으로 등록 되었지만 더 높은 응찰자가 있으면
+						return 11;
+					}
+					if(autoBidResult == 2) { //자동응찰이며 같은 금액으로 자동응찰 내역이 있으며 자동응찰 일시가 늦으면
+						return 12;
+					}
+					if(autoBidResult == 3) { //기존에 자동응찰이 있지만 요청한 자동응찰 금액이 더 크면
+						return 13;
+					}
+					if(autoBidResult == 4) { //일반 응찰인데 자동응찰 금액이 있을경우
+						return 11;
+					}
+					if(autoBidResult == 5) { //일반 응찰인데 자동응찰 금액과 같을 경우
+						return 11;
+					}
+					if(autoBidResult == 6) { //일반 응찰일 경우
+						return 2;
+					}
+				}
+				return -11;
 			}
 		}
 	}
@@ -232,7 +264,7 @@ public class DealDao {
 			
 			if(maxBidPrc < bidPrc && bidPrc > 0L) {
 				dealMapper.insertAutoBid(param); //자동응찰 테이블에 등록한다
-				//기존에 있떤 최고 자동응찰을 응찰내역에 추가한다
+				//기존에 있던 최고 자동응찰을 응찰내역에 추가한다
 				param.put("bidPrc", maxBidPrc);
 				param.put("mbrSq", maxBidMbrSq);
 				dealMapper.bidReg(param); //응찰내역에 추가한다
@@ -248,14 +280,43 @@ public class DealDao {
 			}
 			
 			if((param.get("autoBidPrc") == null || param.get("autoBidPrc").toString().equals(""))
-					&& (maxBidPrc > prc)) { //일반 응찰인데 자동응찰 금액이 있을경우
-				
+					&& (maxBidPrc > prc)) { //일반 응찰인데 더 큰 자동응찰 금액이 있을경우
+				//일반 응찰자를 응찰 내역에 추가한다
+				param.put("bidPrc", prc);
+				param.put("mbrSq", mbrSq);
+				dealMapper.bidReg(param); //응찰내역에 추가한다
+				//자동 응찰자를 응찰 내역에 추가한다
 				prc += askingPrice(prc); //자동응찰 금액보다 한 단계 높은 호가로 응찰 금액 설정
 				param.put("bidPrc", prc);
 				param.put("mbrSq", maxBidMbrSq); //최고 자동응찰자 회원 순번
 				dealMapper.bidReg(param); //응찰내역에 추가한다
 				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
 				
+				return 4;
+			}
+			
+			if((param.get("autoBidPrc") == null || param.get("autoBidPrc").toString().equals(""))
+					&& (maxBidPrc == prc)) { //일반 응찰인데 자동응찰 금액과 같을 경우
+				
+				//prc += askingPrice(prc); //자동응찰 금액보다 한 단계 높은 호가로 응찰 금액 설정
+				param.put("bidPrc", prc);
+				param.put("mbrSq", maxBidMbrSq); //최고 자동응찰자 회원 순번
+				dealMapper.bidReg(param); //응찰내역에 추가한다
+				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				
+				return 5;
+			}
+			
+			if((param.get("autoBidPrc") == null || param.get("autoBidPrc").toString().equals(""))
+					&& (maxBidPrc == prc)) { //일반 응찰인데 자동응찰 금액과 같을 경우
+				
+				//prc += askingPrice(prc); //자동응찰 금액보다 한 단계 높은 호가로 응찰 금액 설정
+				param.put("bidPrc", prc);
+				param.put("mbrSq", maxBidMbrSq); //최고 자동응찰자 회원 순번
+				dealMapper.bidReg(param); //응찰내역에 추가한다
+				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				
+				return 5;
 			}
 				
 		}else{
@@ -272,6 +333,11 @@ public class DealDao {
 				dealMapper.bidReg(param); //응찰내역에 추가한다
 				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
 				return 0;
+			}else{ //일반 응찰 일 경우
+				dealMapper.bidReg(param); //응찰내역에 추가한다
+				dealMapper.updateDealAuctnPrc(param); //딜 테이블에 응찰 금액을 업데이트해준다
+				
+				return 6;
 			}
 		}
 		

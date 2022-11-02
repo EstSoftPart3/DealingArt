@@ -324,7 +324,7 @@ public class MemberController {
 		    	mv.addObject("artstActvtyNm", artstInfo.get("artstActvtyNm").toString());
 		    	mv.addObject("artstEnglsNm", artstInfo.get("artstEnglsNm").toString());
 		    	mv.addObject("artstBirthYear", artstInfo.get("artstBirthYear").toString());
-		    	mv.addObject("artstYod", artstInfo.get("artstYod").toString());
+		    	//mv.addObject("artstYod", artstInfo.get("artstYod").toString());
 		    }
 		}
 		if(cookie == null && session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {        

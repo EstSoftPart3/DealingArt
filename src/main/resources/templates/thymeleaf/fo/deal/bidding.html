@@ -247,8 +247,7 @@
 										<tr class="t-red" id="tr_maxBidPrc">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>현재
-														입찰가</span>
+													<img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span>
 												</div>
 											</th>
 											<th:block
@@ -1496,7 +1495,7 @@ function btn_purchaseOrBid_onclick(){
 			return;
 		}
 		if(result.deal.bidMbrSq == sMbrSqVal){
-			modalAlertShow("가장 높은 입찰자인 경우 중복 응찰이 불가합니다.");
+			modalAlertShow("가장 높은 입찰자인 경우 중복 응찰이 불가합니다.<br/>확인 버튼을 누리시면 새로고침 됩니다.", "reload");
 			return;
 		}
 		if($("#btn_purchaseOrBid").text() == "구매하기"){
@@ -1515,6 +1514,7 @@ function btn_purchaseOrBid_onclick(){
 }
 //응찰 유의 사항 동의
 function btn_agree_onclick(){
+	console.log(new Date());
 	$("#bidNotesModal").modal("hide");
 	if(!$("#cbx_bidAgree1").is(":checked") || !$("#cbx_bidAgree2").is(":checked") 
 			|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
