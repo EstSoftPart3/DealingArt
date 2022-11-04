@@ -271,6 +271,16 @@ public class DealController {
 		return mv;
 	}
 	
+	//응찰하기 전 실시간 응찰가와 현재 화면의 응찰가를 비교한다
+	@RequestMapping("/bidRegCheck")
+	@ResponseBody
+	public ModelAndView bidRegCheck(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = dealMapper.bidRegCheck1(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+		
 	//응찰버튼 클릭하면 응찰 테이블에 마지막 응찰가랑 비교를 하고 응찰 테이블에 응찰정보를 insert한다.
 	@RequestMapping("/bidReg")
 	@ResponseBody

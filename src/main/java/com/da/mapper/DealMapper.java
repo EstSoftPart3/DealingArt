@@ -42,11 +42,18 @@ public interface DealMapper {
 	public int dealRegOverlapChk(Object param);
 	
 	/*
-	 * 응찰 전 사용자 응찰값과 저장된 응찰가 비교
+	 * 응찰 전 화면의 응찰가와 실시간 응찰가 비교
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int
 	 */
-	public int bidRegCheck(Object param);
+	public int bidRegCheck1(Object param);
+	
+	/*
+	 * 응찰 전 사용자 요청 응찰값과 저장된 응찰가 비교
+	 * param : dealSq, mbrSq, bidPrc
+	 * return : int
+	 */
+	public int bidRegCheck2(Object param);
 	
 	
 	/*

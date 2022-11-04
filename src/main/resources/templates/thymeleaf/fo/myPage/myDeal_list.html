@@ -490,10 +490,10 @@ function myDealSearchList(){
     				if(myDealList[i].buyMbrSq == sMbrSqVal){ //구매자이면
     					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailBuy(this)"/>';
     				}
-    				if(myDealList[i].buyMbrSq == null && myDealList[i].sellMbrSq != sMbrSqVal){ //경매중이면
+    				if(myDealList[i].buyMbrSq == null && myDealList[i].sellMbrSq != sMbrSqVal && myDealList[i].dealSttsCd == "TP"){ //경매중이면
     					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'" onclick="myDealDetailBuy(this)"/>';
     				}
-    				if(myDealList[i].buyMbrSq != sMbrSqVal && myDealList[i].sellMbrSq != sMbrSqVal){ //낙찰자가 아니면
+    				if(myDealList[i].buyMbrSq != sMbrSqVal && myDealList[i].sellMbrSq != sMbrSqVal && myDealList[i].dealSttsCd != "TP"){ //낙찰자가 아니면
     					myDealListHtml += '		<img src="'+ myDealList[i].workMainImgUrl+'" dealSq="'+ myDealList[i].dealSq+'"/>';
     				}
     				if(myDealList[i].dealTypCd == "A"){ //경매면 응찰 히스토리 버튼 추가
@@ -654,7 +654,7 @@ function myDealSearchList(){
 	    					myDealListHtml += '					낙찰 되었습니다!!!<br>2차 결제가 완료되었습니다.';
 	    					myDealListHtml += '					<span>구매확정</span>';
 	    				}
-	    				if(myDealList[i].buyMbrSq != sMbrSqVal && myDealList[i].dealSttsCd != "ST" && myDealList[i].dealSttsCd != "FB"){ //유찰자이면
+	    				if(myDealList[i].buyMbrSq != sMbrSqVal && myDealList[i].dealSttsCd != "ST" && myDealList[i].dealSttsCd != "FB" && myDealList[i].dealSttsCd != "TP"){ //유찰자이면
 	    					myDealListHtml += '					아쉽게도 낙찰에 실패하였습니다.';
 	    					myDealListHtml += '					<span>경매 종료</span>';
 	    				}

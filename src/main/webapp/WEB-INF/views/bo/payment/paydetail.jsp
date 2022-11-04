@@ -22,8 +22,18 @@
   width: 100%;
   min-height: 30px;
  }
- 
- 
+ /* Chrome, Safari, Edge, Opera */
+ input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ }
+
+ /* Firefox */
+ input[type=number] {
+   -moz-appearance: textfield;
+ }
+
  </style>
 
 <body class="hold-transition sidebar-mini">
@@ -264,14 +274,14 @@
 		                  </tbody>
 		         	</table>
 				 	
-				 	<table id="reqYtable" class="table table-bordered" style="font-size:11px; width:900px; display:none;">
+				 	<table id="reqNtable" class="table table-bordered" style="font-size:11px; width:900px; display:none;">
 		                  <thead>                  
 		                    <tr align="center" style="background-color:#efefef">
 		                      <th>부가 서비스</th>
 		                      <th>가격</th>
 		                    </tr>
 		                  <thead>  
-		                  <tbody id="reqYtbody">
+		                  <tbody id="reqNtbody">
 		                  	<tr align="center">
 		                    	<td style="width:100px;">
 		                    		<select></select>
@@ -483,7 +493,14 @@
 	 		
 	    });
 	 	
+	 	function comma(obj){
+	 		obj.value = obj.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+	 		obj.value = obj.value.replace(/,/g,'');        // ,값 공백처리
+	 	    obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
+	 	}
+	 	
 	 	$("input[name='sellTrnsprtTypCd']").change(function(){
+	 		
 	 		var param = new Object();
 	 		param.trnsprtDivCd = "S";
 	 		var cd = $("input[name='sellTrnsprtTypCd']:checked").val();
@@ -503,29 +520,62 @@
 		        async: false,
 		        data: JSON.stringify(param),
 		        success: function(data) {
-		        	debugger;
+		        	var reqYresult = data.reqYresult; //필수 부가서비스 목록
+		        	var reqNresult = data.reqNresult; //선택 부가서비스 목록
 		        	var reqYhtml = '';
 		        	var reqNhtml = '';
-		        	for(var i=0; i<data.result.length; i++){
-			        	//필수 부가서비스
-			        	if(data.result[i].trnsprtReqYn == "Y"){
-				        		
+		        	if(param.trnsprtTypCd == "P"){
+		        		//필수 부가서비스 프리미엄 운송
+		        		for(var i=0; i<reqYresult.length; i++){
+				        	
 				        	reqYhtml += '<tr align="center">';
 			                reqYhtml += '	<td style="width:100px;">';
-			                reqYhtml += data.result[i].trnsprtServiceCdNm;
+			                reqYhtml += reqYresult[i].trnsprtServiceCdNm;
 			                reqYhtml += '	</td>';
 			                reqYhtml += '	<td style="width:100px;">';
-			                reqYhtml += data.result[i].trnsprtPrc;
+			                reqYhtml += reqYresult[i].trnsprtPrc;
 			                reqYhtml += '	</td>';
 			                reqYhtml += '</tr>';
-			        	}
-		                //선택 부가서비스
-		                
+		        		}
+		        		//선택 부가서비스 프리미엄 운송
+		        		reqNhtml += '<tr align="center">';
+			        	reqNhtml += '	<td style="width:100px;">';
+			        	reqNhtml += '	<select id="p_trnsprtServiceCd">';
+		        		for(var i=0; i<reqNresult.length; i++){
+				        	reqNhtml += '		<option value="'+reqNresult[i].trnsprtServiceCd+'" prc="'+reqNresult[i].trnsprtPrc+'">'+reqNresult[i].trnsprtServiceCdNm+'</option>';
+		        		}
+			        	reqNhtml += '	</select>';
+			        	reqNhtml += '	</td>';
+			        	reqNhtml += '	<td style="width:100px;">';
+			        	reqNhtml += '	<input type="text" id="p_trnsprtPrc" onkeyup="comma(this)">';
+			        	reqNhtml += '	</td>';
+			        	reqNhtml += '</tr>';
 		        	}
+		        	if(param.trnsprtTypCd == "G"){
+		        		reqYhtml += '<tr align="center">';
+		                reqYhtml += '	<td style="width:100px;">';
+		                reqYhtml += '	<select id="g_trnsprtAreaCd">';
+		        		for(var i=0; i<data.result.length; i++){
+			        		//필수 부가서비스 일반운송
+				        	if(data.result[i].trnsprtReqYn == "Y"){
+				                reqYhtml += '		<option value="'+data.result[i].trnsprtAreaCd+'">'+data.result[i].trnsprtAreaCdNm+'</option>';
+				        	}
+		        		}
+		        		reqYhtml += '	</select>';
+		                reqYhtml += data.result[0].trnsprtServiceCdNm;
+		                reqYhtml += '	</td>';
+		                reqYhtml += '	<td style="width:100px;">';
+		                reqYhtml += '	<input type="text" id="g_trnsprtPrc" onkeyup="comma(this)">';
+		                reqYhtml += '	</td>';
+		                reqYhtml += '</tr>';
+		        	}
+			        	
+		                //선택 부가서비스
 		        	$("#reqYtbody").empty();
 	                $("#reqYtbody").append(reqYhtml).trigger("create");
 	                $("#reqYtable").css("display", "");
-	                $("#reqNbody").empty();
+	                $("#reqNtbody").empty();
+	                $("#reqNtbody").append(reqNhtml).trigger("create");
 	                $("#reqNtable").css("display", "");
 		        	
 		        },

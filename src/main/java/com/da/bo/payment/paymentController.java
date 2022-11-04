@@ -61,8 +61,16 @@ public class paymentController {
 	public ModelAndView selectTrnsprtPrcMtrx(@RequestBody Map<String, Object> param) {
 		System.out.println(param);
 		ModelAndView mv = new ModelAndView("jsonView");
-		List<Map<String, Object>> result = paymentService.selectTrnsprtPrcMtrx(param);
-		mv.addObject("result", result);
+		//필수 부가서비스
+		param.put("trnsprtReqYn", "Y");
+		List<Map<String, Object>> reqYresult = paymentService.selectTrnsprtPrcMtrx(param);
+		//선택 부가서비스
+		param.put("trnsprtReqYn", "N");
+		List<Map<String, Object>> reqNresult = paymentService.selectTrnsprtPrcMtrx(param);
+		
+		mv.addObject("reqYresult", reqYresult);
+		mv.addObject("reqNresult", reqNresult);
+		
 		return mv;
 	}
 	
@@ -70,7 +78,6 @@ public class paymentController {
 	@RequestMapping("/admin/payment/dealMainListData")
 	@ResponseBody
 	public ModelAndView dealMainListData(@RequestParam Map<String, Object> param) {
-		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
 		

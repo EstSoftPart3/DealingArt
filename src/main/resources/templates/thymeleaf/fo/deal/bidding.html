@@ -1523,9 +1523,59 @@ function btn_agree_onclick(){
 		modalAlertShow("모든 사항에 동의가 되어있지 않습니다!<br/>모든 사항에 동의를 해야 응찰이 가능합니다.");
 		return;
 	}else{
-		var param = new Object(); //컨트롤러에 보낼 파라미터 
-		param.dealSq = result.deal.dealSq; //거래 순번
-		param.mbrSq = sMbrSqVal; //멤버 순번
+			bidRegCheck();
+	}
+}
+//응찰 유의사항 모달창 닫기
+function bidNotesModalClose(){
+	$('body').css("overflow", "scroll");
+	$("#bidNotesModal").modal("hide");
+}
+//현재 화면의 응찰가와 DB에 실시간 응찰가를 비교한다
+function bidRegCheck(){
+	var param = new Object(); //컨트롤러에 보낼 파라미터 
+	param.dealSq = result.deal.dealSq; //거래 순번
+	param.mbrSq = sMbrSqVal; //멤버 순번
+	if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){
+		var bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
+		$.ajax({
+	        type: "post",
+	        url: "/bidRegCheck",
+	        data : {
+	        	dealSq : result.deal.dealSq,
+	        	bidPrc : bidPrc
+	        }, 
+	        success: function(data) {
+	        	if(data.result > 0){
+	        		var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
+	        		if(index > 1){ //바로 위의 응찰가보다 높으면
+	        			modalConfirm("인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+	        				if(confrim){
+	        					param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
+	        					if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰이 되었으면
+	        						param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
+	        					}else{ //입찰이 안되었으면
+	        						param.bidPrc = result.deal.dealStrtPrc.replaceAll(/,/g, ''); //거래 시작가를 구한다
+	        						param.firstBid = "Y";
+	        					}
+	        					bidReg(param); //응찰을 한다
+	        				}else{
+	        					return;
+	        				}
+	        			});
+	        		}else{
+	        			param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
+	            		bidReg(param);
+	        		}
+	        	}else{
+	        		modalAlertShow("실시간 응찰가가 변경되었습니다. 다시 응찰해주세요.", "reload");
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});		
+	}else{
 		var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
 		if(index > 1){ //바로 위의 응찰가보다 높으면
 			modalConfirm("인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
@@ -1544,19 +1594,14 @@ function btn_agree_onclick(){
 			});
 		}else{
 			param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
-			bidReg(param);
+    		bidReg(param);
 		}
 	}
 }
-//응찰 유의사항 모달창 닫기
-function bidNotesModalClose(){
-	$('body').css("overflow", "scroll");
-	$("#bidNotesModal").modal("hide");
-}
-
 //응찰 한다
 function bidReg(param){
 	bidNotesModalClose();
+	console.log("응찰시간 : "+new Date());
 	$.ajax({
         type: "post",
         url: "/bidReg",
@@ -1567,6 +1612,9 @@ function bidReg(param){
         	}
         	if(data.result == -2){
 	        	modalAlertShow("거래가 종료되었습니다.", "deal");
+        	}
+        	if(data.result == -3){
+	        	modalAlertShow("요청한 자동응찰 금액이 실시간 응찰가와 맞지않습니다. 자동응찰 금액을 다시 입력해주세요.", "reload");
         	}
         	if(data.result == 9){
         		modalAlertShow("이미 같은 금액으로 자동응찰 하셨습니다.", "reload");
@@ -1619,6 +1667,7 @@ function bidReg(param){
 					}
 				});
         	}
+        	
         },
         error: function(error) {
             alert("오류 발생" + error);
