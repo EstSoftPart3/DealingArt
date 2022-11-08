@@ -6,10 +6,18 @@
 	<select id="artistWorkList" resultType="hashMap">
 		/*작가 작품*/
 		 SELECT 
-			A.MBR_NM,
-			B.MBR_SQ,
-			B.ARTST_SQ,
-			B.ARTST_WORK_IMG_URL 
+			A.MBR_NM AS mbrNm,
+			A.MBR_SQ AS mbrSq,
+			A.MBR_BIRTH AS mbrBirth,
+			B.ARTST_SQ AS artstSq,
+			B.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+			(CASE 
+				WHEN B.ARTST_ACTVTY_PART_CD = 'PNTNG' THEN '회화'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'MLDNG' THEN '조형'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'VDMD' THEN '영상/미디어'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'INSTL' THEN '설치'
+				ELSE ''
+			END) AS artstActvtyPartCdTxt
  		FROM TBL_DA_MBR_M A
  		INNER JOIN TBL_DA_ARTST_M B ON A.MBR_SQ = B.MBR_SQ 
  		WHERE 1=1
