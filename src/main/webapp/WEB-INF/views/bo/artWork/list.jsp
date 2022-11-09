@@ -87,7 +87,7 @@
 		        		
 		        		z += 1;
 		        		
-		        		strHtml += '<td valign="top">';
+		        		strHtml += '<td valign="top" onclick="artDetail('+dataList[j].artstSq+')" style="cursor:pointer">';
 	        			
 						strHtml += '<table border="1" style="height:250px;font-weight: bold;" cellspacing="15" cellpadding="15">';
 							/*
@@ -138,13 +138,6 @@
 		        	
 		        	$("#dataList").empty();
 		        	$("#dataList").append(strHtml).trigger("create");
-		        	
-// 		        	 for(i=0; i<dataList.length; i++){
-		        		 
-		        		 
-		        		 
-// 		        	 }
-		        	 
 				
 		           },
 		           error: function(error) {
@@ -154,6 +147,11 @@
 		           }
 			})
 		}
+
+   function artDetail(artstSq) {
+	   location.href = '/admin/artDetailInfo?artstSq='+artstSq
+   }
+   
    
    </script>
  

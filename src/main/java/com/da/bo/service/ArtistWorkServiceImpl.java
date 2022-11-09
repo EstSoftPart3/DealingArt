@@ -15,6 +15,7 @@ public class ArtistWorkServiceImpl implements ArtistWorkService{
 	@Autowired
 	ArtistWorkDao artistWorkDao;
 	
+	//작가 정보 리스트
 	@Override
 	public Map<String, Object> artistWorkList(Map<String, Object> param){
 		
@@ -24,5 +25,14 @@ public class ArtistWorkServiceImpl implements ArtistWorkService{
 		
 		return result;
 	}
-
+	
+	//작가 정보 상세
+	public Map<String, Object> artistWorkDetail(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = artistWorkDao.artistWorkDetail(param);
+		
+		return result;
+	}
 }

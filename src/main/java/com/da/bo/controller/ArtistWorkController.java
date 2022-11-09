@@ -27,15 +27,16 @@ public class ArtistWorkController {
 	@Autowired
 	private ArtistWorkService artistWorkService;
 	
+	//작가 리스트 
 	@RequestMapping("/admin/artWorkList")
 	public String openArtWorkList() {
 		return "bo/artWork/list";
 	}
 	
-	
+	//작가 리스트 DATA
 	@RequestMapping("/admin/artWorkList/artWorkListData")
 	@ResponseBody
-	public ModelAndView memberData(@RequestParam Map<String, Object> param) {
+	public ModelAndView artWorkListData(@RequestParam Map<String, Object> param) {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
@@ -45,6 +46,29 @@ public class ArtistWorkController {
 		result = artistWorkService.artistWorkList(param);
 									
 		mv.addObject("workData", result);
+		
+		return mv;
+	}
+	
+	
+	//작가 내용
+	@RequestMapping("/admin/artDetailInfo")
+	public String openArtDetailInfo() {
+		return "bo/artWork/detail";
+	}
+	
+	@RequestMapping("/admin/artWorkList/artWorkContentData")
+	@ResponseBody
+	public ModelAndView artWorkContentData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = artistWorkService.artistWorkDetail(param);
+									
+		mv.addObject("artist", result);
 		
 		return mv;
 	}

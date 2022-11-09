@@ -4,7 +4,7 @@
 <mapper namespace="com.da.mapper.ArtistWorkMapper">
 
 	<select id="artistWorkList" resultType="hashMap">
-		/*작가 작품*/
+		/*작가 작품 리스트*/
 		 SELECT 
 			A.MBR_NM AS mbrNm,
 			A.MBR_SQ AS mbrSq,
@@ -24,6 +24,33 @@
  			AND A.AUTH_SQ = '2'
  			AND A.USE_YN = 'Y'
         	AND A.DEL_YN = 'N'
+ 		ORDER BY A.MBR_NM ASC
+	</select>
+	
+	
+	
+	<select id="artistWorkDetail" resultType="hashMap">
+		/*작가 정보 상세*/
+		 SELECT 
+			A.MBR_NM AS mbrNm,
+			A.MBR_SQ AS mbrSq,
+			A.MBR_BIRTH AS mbrBirth,
+			B.ARTST_SQ AS artstSq,
+			B.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+			(CASE 
+				WHEN B.ARTST_ACTVTY_PART_CD = 'PNTNG' THEN '회화'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'MLDNG' THEN '조형'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'VDMD' THEN '영상/미디어'
+				WHEN B.ARTST_ACTVTY_PART_CD = 'INSTL' THEN '설치'
+				ELSE ''
+			END) AS artstActvtyPartCdTxt
+ 		FROM TBL_DA_MBR_M A
+ 		INNER JOIN TBL_DA_ARTST_M B ON A.MBR_SQ = B.MBR_SQ 
+ 		WHERE 1=1
+ 			AND A.AUTH_SQ = '2'
+ 			AND A.USE_YN = 'Y'
+        	AND A.DEL_YN = 'N'
+        	AND B.ARTST_SQ = #{artstSq}
  		ORDER BY A.MBR_NM ASC
 	</select>
 	

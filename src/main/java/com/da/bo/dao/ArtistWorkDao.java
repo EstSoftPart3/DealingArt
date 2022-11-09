@@ -22,13 +22,24 @@ public class ArtistWorkDao {
 	@Autowired
 	private ArtistWorkMapper artistWorkMapper;
 	
-
+	//작가 정보 리스트
 	public Map<String, Object> artistWorkList(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
 		
 		List<Map<String, Object>> workList = artistWorkMapper.artistWorkList(param);
 		
 		result.put("List", workList);
+				
+		return result;
+	}
+	
+	//작가 정보 상세
+	public Map<String, Object> artistWorkDetail(Map<String, Object> param) {
+		Map<String, Object> result = new HashMap<>();
+		
+		List<Map<String, Object>> artDetailInfo = artistWorkMapper.artistWorkDetail(param);
+		
+		result.put("artDetailInfo", artDetailInfo);
 				
 		return result;
 	}
