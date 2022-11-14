@@ -241,9 +241,11 @@
 				// 파일 Drag 이용하여 등록시
 				file = fileObject[0];
 				formData.append("file", file);
+				formData.append("url", "dealingart/mgz/");
 				console.log(file);
 			} else {
 				file = document.getElementById("file");
+				
 				formData.append("file", file.files[0]);
 			}
 			

@@ -127,7 +127,7 @@ public class boardDao {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		System.out.println("DATA = " + param);
+		//System.out.println("DATA = " + param);
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> magazineDetailData = boardMapper.magazineDetail(param);
