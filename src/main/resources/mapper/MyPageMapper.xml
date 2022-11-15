@@ -4,12 +4,17 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MyPageMapper">
 
-	<update id="buyTrnsprtTypCdUpdate" parameterType="hashMap">
+	<update id="trnsprtTypCdUpdate" parameterType="hashMap">
 		/*운송 서비스 1차 등록*/
 		UPDATE 
 				TBL_DA_DEAL_M
 		SET
+		<if test="buyTrnsprtTypCd != null and buyTrnsprtTypCd != ''">
 				BUY_TRNSPRT_TYP_CD = #{buyTrnsprtTypCd}
+		</if>
+		<if test="sellTrnsprtTypCd != null and sellTrnsprtTypCd != ''">
+				SELL_TRNSPRT_TYP_CD = #{sellTrnsprtTypCd}
+		</if>
 		WHERE 
 				DEAL_SQ = #{dealSq}
 	</update>
@@ -1853,7 +1858,8 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod /*결제 수단*/
+				) AS payMethod, /*결제 수단*/
+				B.BUY_TRNSPRT_TYP_CD AS buyTrnsprtTypCd /*구매자 배송서비스 코드*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -1909,7 +1915,8 @@
 										ELSE NULL
 									END)
 				GROUP BY PAYMNT_SQ
-				) AS payMethod /*결제 수단*/
+				) AS payMethod, /*결제 수단*/
+				B.SELL_TRNSPRT_TYP_CD AS sellTrnsprtTypCd /*판매자 배송서비스 코드*/
 		FROM 
 				TBL_DA_WORK_M AS A,
 				TBL_DA_DEAL_M AS B
@@ -2008,40 +2015,70 @@
 	</select>
 	
 	<insert id="insertTrnsprt" parameterType="hashMap">
-	/*운송 테이블에 운송 정보 입력*/
-	INSERT INTO
-				TBL_DA_DEAL_TRNSPRT_S(
-					DEAL_SQ
-					,BUY_MBR_SQ
-					,SELL_MBR_SQ
-					,ARTST_SQ
-					,TRNSPRT_DIV_CD
-					,TRNSPRT_DIV_CD_NM
-					,TRNSPRT_TYP_CD
-					,TRNSPRT_TYP_CD_NM
-					,TRNSPRT_AREA_CD
-					,TRNSPRT_AREA_CD_NM
-					,TRNSPRT_SERVICE_CD
-					,TRNSPRT_SERVICE_CD_NM
-					,TRNSPRT_PRC 
-				)VALUES
-				<foreach collection="list" item="item" index="idex" separator=",">
-				(
-					#{item.dealSq}
-					,#{item.buyMbrSq}
-					,#{item.sellMbrSq}
-					,#{item.artstSq}
-					,#{item.trnsprtDivCd}
-					,#{item.trnsprtDivCdNm}
-					,#{item.trnsprtTypCd}
-					,#{item.trnsprtTypCdNm}
-					,#{item.trnsprtAreaCd}
-					,#{item.trnsprtAreaCdNm}
-					,#{item.trnsprtServiceCd}
-					,#{item.trnsprtServiceCdNm}
-					,#{item.trnsprtPrc}
-				)
-				</foreach>
+		/*운송 테이블에 운송 정보 입력*/
+		REPLACE INTO
+					TBL_DA_DEAL_TRNSPRT_S(
+						DEAL_SQ
+						,BUY_MBR_SQ
+						,SELL_MBR_SQ
+						,ARTST_SQ
+						,TRNSPRT_DIV_CD
+						,TRNSPRT_DIV_CD_NM
+						,TRNSPRT_TYP_CD
+						,TRNSPRT_TYP_CD_NM
+						,TRNSPRT_REQ_YN
+						,TRNSPRT_AREA_CD
+						,TRNSPRT_AREA_CD_NM
+						,TRNSPRT_SERVICE_CD
+						,TRNSPRT_SERVICE_CD_NM
+						,TRNSPRT_PRC 
+					)VALUES
+					<foreach collection="list" item="item" index="idex" separator=",">
+					(
+						#{item.dealSq}
+						,#{item.buyMbrSq}
+						,#{item.sellMbrSq}
+						<choose>
+							<when test="item.artstSq != null and item.artstSq != ''">
+						,#{item.artstSq}	
+							</when>
+							<otherwise>
+						,NULL
+							</otherwise>
+						</choose>
+						,#{item.trnsprtDivCd}
+						,#{item.trnsprtDivCdNm}
+						,#{item.trnsprtTypCd}
+						,#{item.trnsprtTypCdNm}
+						,#{item.trnsprtReqYn}
+						<choose>
+							<when test="item.trnsprtAreaCd != null and item.trnsprtAreaCd != ''">
+						,#{item.trnsprtAreaCd}
+							</when>
+							<otherwise>
+						,NULL
+							</otherwise>
+						</choose>
+						<choose>
+							<when test="item.trnsprtAreaCdNm != null and item.trnsprtAreaCdNm != ''">
+						,#{item.trnsprtAreaCdNm}
+							</when>
+							<otherwise>
+						,NULL
+							</otherwise>
+						</choose>
+						,#{item.trnsprtServiceCd}
+						,#{item.trnsprtServiceCdNm}
+						<choose>
+							<when test="item.trnsprtPrc != null and item.trnsprtPrc != ''">
+						,${item.trnsprtPrc}	
+							</when>
+							<otherwise>
+						,NULL
+							</otherwise>
+						</choose>
+					)
+					</foreach>
 	</insert>
 	
 	<select id="selectPaymntBuy1" parameterType="hashMap" resultType="hashMap">
@@ -2268,11 +2305,16 @@
 	<select id="selectTrnsprtInfoBuy" resultType="hashMap" parameterType="hashMap">
 		/* 구매자 운송 정보 가져오기 */
 		SELECT
-				TRNSPRT_TYP_CD AS trnsprtTypCd,
-				TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm,
-				TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm,
-				TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm,
-				FORMAT(TRNSPRT_PRC, 0) AS trnsprtPrc
+				TRNSPRT_DIV_CD AS trnsprtDivCd
+				,TRNSPRT_DIV_CD_NM AS trnsprtDivCdNm
+				,TRNSPRT_TYP_CD AS trnsprtTypCd
+				,TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm
+				,TRNSPRT_REQ_YN AS trnsprtReqYn
+				,TRNSPRT_AREA_CD AS trnsprtAreaCd
+				,TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm
+				,TRNSPRT_SERVICE_CD AS trnsprtServiceCd
+				,TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm
+				,FORMAT(TRNSPRT_PRC,0) AS trnsprtPrc
 		FROM 
 				TBL_DA_DEAL_TRNSPRT_S
 		WHERE 
@@ -2283,11 +2325,16 @@
 	<select id="selectTrnsprtInfoSell" resultType="hashMap" parameterType="hashMap">
 		/* 판매자 운송 정보 가져오기 */
 		SELECT
-				TRNSPRT_TYP_CD AS trnsprtTypCd,
-				TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm,
-				TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm,
-				TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm,
-				FORMAT(TRNSPRT_PRC, 0) AS trnsprtPrc
+				TRNSPRT_DIV_CD AS trnsprtDivCd
+				,TRNSPRT_DIV_CD_NM AS trnsprtDivCdNm
+				,TRNSPRT_TYP_CD AS trnsprtTypCd
+				,TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm
+				,TRNSPRT_REQ_YN AS trnsprtReqYn
+				,TRNSPRT_AREA_CD AS trnsprtAreaCd
+				,TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm
+				,TRNSPRT_SERVICE_CD AS trnsprtServiceCd
+				,TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm
+				,FORMAT(TRNSPRT_PRC,0) AS trnsprtPrc
 		FROM 
 				TBL_DA_DEAL_TRNSPRT_S
 		WHERE 

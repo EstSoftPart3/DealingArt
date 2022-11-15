@@ -9,7 +9,7 @@ public interface MyPageService {
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
 	 */
-	int buyTrnsprtTypCdUpdate(Object param);
+	int trnsprtTypCdUpdate(Object param);
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
 	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
@@ -162,7 +162,7 @@ public interface MyPageService {
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 
 	 */
-	public void insertTrnsprt(Object param);
+	public int insertTrnsprt(List<Map<String, Object>> param);
 	
 	//나의작품 / 소장품 거래등록 확인
 	public int dealWorkCount(Map<String, Object> param);

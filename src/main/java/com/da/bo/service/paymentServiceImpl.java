@@ -18,6 +18,11 @@ public class paymentServiceImpl implements paymentService {
 	@Autowired
 	paymentDao paymentDao;
 	
+	//배송 부가서비스 삭제
+	public int deleteTrnsprt(List<Map<String, Object>> param) {
+		return paymentDao.deleteTrnsprt(param);
+	}
+	
 	//운송서비스 매트리스 조회
 	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param){
 		return paymentDao.selectTrnsprtPrcMtrx(param);
@@ -34,6 +39,11 @@ public class paymentServiceImpl implements paymentService {
 		return result;
 	}
 	
+	//배송 서비스 정보 조회
+	@Override
+	public List<Map<String, Object>> trnsprtInfo(String dealSq){
+		return paymentDao.trnsprtInfo(dealSq);
+	}
 	
 	//거래 운송 목록
 	@Override

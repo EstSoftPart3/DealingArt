@@ -28,6 +28,16 @@ public class paymentDao {
 	@Autowired
 	DealMapper dealMapper;
 	
+	//배송 부가서비스 삭제
+	public int deleteTrnsprt(List<Map<String, Object>> param) {
+		return paymentMapper.deleteTrnsprt(param);
+	}
+	
+	//배송 서비스 정보 조회
+	public List<Map<String, Object>> trnsprtInfo(String dealSq){
+		return paymentMapper.trnsprtInfo(dealSq);
+	}
+	
 	//운송서비스 매트리스 조회
 	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param){
 		return paymentMapper.selectTrnsprtPrcMtrx(param);

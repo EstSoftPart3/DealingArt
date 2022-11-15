@@ -54,6 +54,30 @@ public class paymentController {
 	public String openTransit() {
 		return "bo/payment/transitproc";
 	}
+	//운송 서비스 정보 조회
+	@RequestMapping("/admin/payment/trnsprtInfo")
+	@ResponseBody
+	public ModelAndView trnsprtInfo(@RequestParam(value="dealSq", required=false) String dealSq){
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> result = paymentService.trnsprtInfo(dealSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//배송 부가서비스 삭제
+	@RequestMapping("/admin/payment/deleteTrnsprt")
+	@ResponseBody
+	public int deleteTrnsprt(@RequestBody Map<String, Object> param) {
+		List<Map<String, Object>> paramList = (List<Map<String, Object>>) param.get("trnsprtInfo");
+		for(int i=0; i<paramList.size(); i++) {
+			paramList.get(i).put("dealSq", param.get("dealSq"));
+			paramList.get(i).put("buyMbrSq", param.get("buyMbrSq"));
+			paramList.get(i).put("sellMbrSq", param.get("sellMbrSq"));
+			paramList.get(i).put("artstSq", param.get("artstSq"));
+		}
+		int result = paymentService.deleteTrnsprt(paramList);
+		return result;
+	}
 	
 	//판매자 운송서비스 선택시
 	@RequestMapping("/admin/payment/selectTrnsprtPrcMtrx")

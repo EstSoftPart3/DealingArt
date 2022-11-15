@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface paymentMapper {
+	//배송 부가서비스 삭제
+	public int deleteTrnsprt(Object param);
+	
+	//배송 서비스 정보 조회
+	public List<Map<String, Object>> trnsprtInfo(String dealSq);
 	
 	//운송서비스 매트리스 조회
 	public List<Map<String, Object>> selectTrnsprtPrcMtrx(Object param);

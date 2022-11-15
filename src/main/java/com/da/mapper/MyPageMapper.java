@@ -12,7 +12,7 @@ public interface MyPageMapper {
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
 	 */
-	public int buyTrnsprtTypCdUpdate(Object param);
+	public int trnsprtTypCdUpdate(Object param);
 	
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
@@ -279,7 +279,7 @@ public interface MyPageMapper {
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 
 	 */
-	public void insertTrnsprt(Object param);
+	public int insertTrnsprt(Object param);
 	
 	/*
 	 * 거래 내역 조회

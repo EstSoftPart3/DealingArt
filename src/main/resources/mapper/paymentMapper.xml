@@ -2,6 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.da.mapper.paymentMapper">
+	<select id="trnsprtInfo" parameterType="String" resultType="hashMap">
+		/*배송서비스 목록 조회*/
+		SELECT 
+				A.SELL_MBR_SQ AS sellMbrSq
+				,A.BUY_MBR_SQ AS buyMbrSq
+				,A.ARTST_SQ AS artstSq
+				,A.TRNSPRT_DIV_CD AS trnsprtDivCd
+				,A.TRNSPRT_DIV_CD_NM AS trnsprtDivCdNm
+				,A.TRNSPRT_TYP_CD AS trnsprtTypCd
+				,A.TRNSPRT_TYP_CD_NM AS trnsprtTypCdNm
+				,A.TRNSPRT_REQ_YN AS trnsprtReqYn
+				,A.TRNSPRT_AREA_CD AS trnsprtAreaCd
+				,A.TRNSPRT_AREA_CD_NM AS trnsprtAreaCdNm
+				,A.TRNSPRT_SERVICE_CD AS trnsprtServiceCd
+				,A.TRNSPRT_SERVICE_CD_NM AS trnsprtServiceCdNm
+				,FORMAT(A.TRNSPRT_PRC, 0) AS trnsprtPrc
+		FROM 
+				TBL_DA_DEAL_TRNSPRT_S A
+		WHERE 
+				DEAL_SQ = #{dealSq}
+	
+	</select>
+	
+	<delete id="deleteTrnsprt" parameterType="hashMap">
+		/*운송 테이블 부가서비스 삭제*/
+		DELETE FROM TBL_DA_DEAL_TRNSPRT_S 
+		WHERE 
+		<foreach collection="list" item="item" index="idex" separator="OR">
+		(
+				DEAL_SQ = #{item.dealSq} 
+			AND	BUY_MBR_SQ = #{item.buyMbrSq}
+			AND	SELL_MBR_SQ = #{item.sellMbrSq}
+			<if test="item.artstSq != null and item.artstSq != ''">
+			AND	ARTST_SQ = #{item.artstSq}
+			</if>
+			AND	TRNSPRT_DIV_CD = #{item.trnsprtDivCd}
+			AND	TRNSPRT_DIV_CD_NM = #{item.trnsprtDivCdNm}
+			AND	TRNSPRT_TYP_CD = #{item.trnsprtTypCd}
+			AND	TRNSPRT_TYP_CD_NM = #{item.trnsprtTypCdNm}
+			AND	TRNSPRT_REQ_YN = #{item.trnsprtReqYn}
+			<if test="item.trnsprtAreaCdNm != null and item.trnsprtAreaCdNm != ''">
+			AND	TRNSPRT_AREA_CD = #{item.trnsprtAreaCd}
+			</if>
+			<if test="item.trnsprtAreaCdNm != null and item.trnsprtAreaCdNm != ''">
+			AND	TRNSPRT_AREA_CD_NM = #{item.trnsprtAreaCdNm}
+			</if>
+			AND	TRNSPRT_SERVICE_CD = #{item.trnsprtServiceCd}
+			AND	TRNSPRT_SERVICE_CD_NM = #{item.trnsprtServiceCdNm}
+			<if test="item.trnsprtPrc != null and item.trnsprtPrc != ''">
+			AND	TRNSPRT_PRC = ${item.trnsprtPrc}
+			</if>
+		)
+		</foreach>
+	</delete>
+	
 	<select id="selectTrnsprtPrcMtrx" resultType="hashMap" parameterType="hashMap">
 		/*판매자 운송서비스 매트리스 조회*/
 		SELECT
@@ -78,6 +133,8 @@
 		 	,DEAL_STATEMENT_B2 AS dealStatementB2 /*구매자 2차 거래 명세서*/
 		 	,DEAL_CONTRACT AS dealContract /*거래 계약서*/
 		 	,DEAL_CONDITIONCHECK AS dealConditionCheck /*컨디션체크리포트*/
+		 	,SELL_TRNSPRT_TYP_CD AS sellTrnsprtTypCd /*판매자 부가서비스 타입 코드*/
+		 	,BUY_TRNSPRT_TYP_CD AS buyTrnsprtTypCd /*구매자 부가서비스 타입 코드*/
 		FROM
             TBL_DA_DEAL_M TBL 
         WHERE 1=1

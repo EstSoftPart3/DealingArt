@@ -23,8 +23,8 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
 	 */
-	public int buyTrnsprtTypCdUpdate(Object param) {
-		return myPageDao.buyTrnsprtTypCdUpdate(param);
+	public int trnsprtTypCdUpdate(Object param) {
+		return myPageDao.trnsprtTypCdUpdate(param);
 	}
 	
 	/*
@@ -258,8 +258,8 @@ public class MyPageServiceImpl implements MyPageService{
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 
 	 */
-	public void insertTrnsprt(Object param) {
-		myPageDao.insertTrnsprt(param);
+	public int insertTrnsprt(List<Map<String, Object>> param) {
+		return myPageDao.insertTrnsprt(param);
 	}
 	
 	//나의작품 / 소장품 거래등록 확인

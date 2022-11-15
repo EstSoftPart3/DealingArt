@@ -37,8 +37,8 @@ public class MyPageDao {
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
 	 */
-	public int buyTrnsprtTypCdUpdate(Object param) {
-		return myPageMapper.buyTrnsprtTypCdUpdate(param);
+	public int trnsprtTypCdUpdate(Object param) {
+		return myPageMapper.trnsprtTypCdUpdate(param);
 	}
 	
 	/*
@@ -379,6 +379,9 @@ public class MyPageDao {
 		Map<String, Object> payMntInfo2 = new HashMap<>();
 		Map<String, Object> vacctInfo = new HashMap<>();
 		List<Map<String, Object>> trnsprtInfo = new ArrayList<Map<String,Object>>();
+		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PW")) {
+			trnsprtInfo = myPageMapper.selectTrnsprtInfoBuy(dealSq, mbrSq);
+		}
 		if(dealInfo.get("buyPaymntSttsCd").toString().equals("2PC")) {
 			payMntInfo1 = myPageMapper.selectPaymntBuy1(dealSq, mbrSq);
 			payMntInfo2 = myPageMapper.selectPaymntBuy2(dealSq, mbrSq);
@@ -422,6 +425,9 @@ public class MyPageDao {
 		Map<String, Object> vacctInfo = new HashMap<>(); //가상계좌 입금 정보
 		Map<String, Object> workDealInfo = new HashMap<>(); //정산 정보
 		List<Map<String, Object>> trnsprtInfo = new ArrayList<Map<String,Object>>();
+		if(dealInfo.get("sellPaymntSttsCd").toString().equals("2PW")) { //2차 결제 대기면
+			trnsprtInfo = myPageMapper.selectTrnsprtInfoSell(dealSq, mbrSq); //부가서비스 정보를 가져온다
+		}
 		if(dealInfo.get("sellPaymntSttsCd").toString().equals("2PC")) { //2차 결제 완료면
 			payMntInfo = myPageMapper.selectPaymntSell(dealSq, mbrSq); //결제 정보를 가져온다
 			trnsprtInfo = myPageMapper.selectTrnsprtInfoSell(dealSq, mbrSq); //부가서비스 정보를 가져온다
@@ -466,12 +472,13 @@ public class MyPageDao {
 	}
 	
 	/*
-	 * 운송 테이블에 판매자 운송 정보 입력
+	 * 운송 테이블에 운송 정보 입력
 	 * param : trnsprtDivCd trnsprtTypCd trnsprtAreaCd trnsprtServiceCd
 	 * return : 
 	 */
-	public void insertTrnsprt(Object param) {
-		myPageMapper.insertTrnsprt(param);
+	public int insertTrnsprt(List<Map<String, Object>> param) {
+		myPageMapper.updateBuyPaymntSttsCd(param.get(0).get("dealSq").toString(), "2PW"); //딜 테이블에 구매자 결제 상태 코드를 변경해준다
+		return myPageMapper.insertTrnsprt(param);
 	}
 	
 	//나의작품 / 소장품 거래등록 확인

@@ -65,12 +65,12 @@ public class MyPageController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping("/buyTrnsprtTypCdUpdate")
+	@RequestMapping("/trnsprtTypCdUpdate")
 	@ResponseBody
-	public ModelAndView buyTrnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
+	public ModelAndView trnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
 		System.out.println(param);
 		ModelAndView mv = new ModelAndView("jsonView");
-		int result = myPageService.buyTrnsprtTypCdUpdate(param);
+		int result = myPageService.trnsprtTypCdUpdate(param);
 		System.out.println(result);
 		mv.addObject("result", result);
 		return mv;
@@ -998,16 +998,6 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//거래내역 구매자 상세 페이지 이동
-	@RequestMapping("/myDealDetailBuy2")
-	@ResponseBody
-	public ModelAndView openMyDealDetailBuy2(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy2");
-		Map<String, Object> result = myPageService.openMyDealDetailBuy(dealSq, mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
 	//판매내역 상세 페이지 이동
 	@RequestMapping("/myDealDetailSell")
 	@ResponseBody
@@ -1071,7 +1061,7 @@ public class MyPageController {
 	//운송 정보 저장
 	@RequestMapping("/insertTrnsprt")
 	@ResponseBody
-	public void insertTrnsprt(@RequestBody Map<String, Object> param) {
+	public int insertTrnsprt(@RequestBody Map<String, Object> param) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ param : "+param);
 		List<Map<String, Object>> paramList = (List<Map<String, Object>>) param.get("trnsprtInfo");
 		for(int i=0; i<paramList.size(); i++) {
@@ -1081,7 +1071,8 @@ public class MyPageController {
 			paramList.get(i).put("artstSq", param.get("artstSq"));
 		}
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ paramList : "+paramList);
-		myPageService.insertTrnsprt(paramList);
+		int result = myPageService.insertTrnsprt(paramList);
+		return result;
 	}
 	
 	//해당 운송 정보 가져오기
