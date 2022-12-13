@@ -8,5 +8,8 @@ Disallow: /memberEdit
 Disallow: /alarm
 Disallow: /api
 Disallow: /admin
+Disallow: /myWorkListReg
+Disallow: /myDeal
+Disallow: /scrap
 Allow: /
 Sitemap: https://dealing-art.com/sitemap.xml
