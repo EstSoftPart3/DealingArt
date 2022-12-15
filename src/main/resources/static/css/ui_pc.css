@@ -4326,6 +4326,7 @@ code{
 .mgz-top{width: 100%;height: 448px;}
 .mgz-top2{width: 100%;height: 304px;}
 .mgz-bg-1{
+    /*background-image: url('../img/mgz/title-bg1.png');*/
     background-image: url('../img/mgz/title-bg1.png');
     background-position: center;
 }

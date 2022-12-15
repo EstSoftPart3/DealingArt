@@ -50,7 +50,7 @@ public class Mgz9Controller {
 	@ResponseBody
 	public ModelAndView selectMgz9List(@RequestParam(value = "mgzTypCd", required = true) String mgzTypCd) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		logger.debug("############# mgzTypCd : " + mgzTypCd);
+		//logger.debug("############# mgzTypCd : " + mgzTypCd);
 		
 		List result = mgz9Service.selectMgz9List(mgzTypCd);
 		mv.addObject("result", result);
@@ -66,7 +66,7 @@ public class Mgz9Controller {
 	@ResponseBody
 	public ModelAndView selectMgz9Dtl(@RequestParam(value = "mgzSq", required = true) String mgzSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		logger.debug("############# mgzSq : " + mgzSq);
+		//logger.debug("############# mgzSq : " + mgzSq);
 		
 		Map<String, Object> result = mgz9Service.selectMgz9Dtl(mgzSq);
 		mv.addObject("result", result);
