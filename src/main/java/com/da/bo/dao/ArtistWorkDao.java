@@ -43,5 +43,17 @@ public class ArtistWorkDao {
 				
 		return result;
 	}
+	
+	
+	//작가 작품 리스트
+	public Map<String, Object> workList(Map<String, Object> param) {
+		Map<String, Object> result = new HashMap<>();
+		
+		List<Map<String, Object>> list = artistWorkMapper.workList(param);
+		
+		result.put("list", list);
+				
+		return result;
+	}
 
 }

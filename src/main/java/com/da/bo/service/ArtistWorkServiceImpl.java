@@ -35,4 +35,15 @@ public class ArtistWorkServiceImpl implements ArtistWorkService{
 		
 		return result;
 	}
+	
+	
+	//작가 정보 상세
+	public Map<String, Object> workList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = artistWorkDao.workList(param);
+		
+		return result;
+	}
 }

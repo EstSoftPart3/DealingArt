@@ -51,12 +51,13 @@ public class ArtistWorkController {
 	}
 	
 	
-	//작가 내용
+	//작가 정보 내용
 	@RequestMapping("/admin/artDetailInfo")
 	public String openArtDetailInfo() {
 		return "bo/artWork/detail";
 	}
 	
+	//작가정보리스트
 	@RequestMapping("/admin/artWorkList/artWorkContentData")
 	@ResponseBody
 	public ModelAndView artWorkContentData(@RequestParam Map<String, Object> param) {
@@ -69,6 +70,23 @@ public class ArtistWorkController {
 		result = artistWorkService.artistWorkDetail(param);
 									
 		mv.addObject("artist", result);
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("/admin/artWorkList/artWorkData")
+	@ResponseBody
+	public ModelAndView artWorkData(@RequestParam Map<String, Object> param) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = artistWorkService.workList(param);
+									
+		mv.addObject("work", result);
 		
 		return mv;
 	}

@@ -10,5 +10,8 @@ public interface ArtistWorkMapper {
 	
 	/* 작가 정보 상세 */
 	public List artistWorkDetail(Object param);
+	
+	/* 작가 작품 리스트 */
+	public List workList(Object param);
 
 }

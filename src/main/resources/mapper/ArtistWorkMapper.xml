@@ -33,17 +33,21 @@
 		/*작가 정보 상세*/
 		 SELECT 
 			A.MBR_NM AS mbrNm,
+			B.ARTST_ACTVTY_NM AS artstActvtyNm,
 			A.MBR_SQ AS mbrSq,
 			A.MBR_BIRTH AS mbrBirth,
 			B.ARTST_SQ AS artstSq,
 			B.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+			B.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, 
+			B.ARTST_YOD AS artstYod,
 			(CASE 
 				WHEN B.ARTST_ACTVTY_PART_CD = 'PNTNG' THEN '회화'
 				WHEN B.ARTST_ACTVTY_PART_CD = 'MLDNG' THEN '조형'
 				WHEN B.ARTST_ACTVTY_PART_CD = 'VDMD' THEN '영상/미디어'
 				WHEN B.ARTST_ACTVTY_PART_CD = 'INSTL' THEN '설치'
 				ELSE ''
-			END) AS artstActvtyPartCdTxt
+			END) AS artstActvtyPartCdTxt,
+			B.ARTST_SELF_INTRO AS artstSelfIntro
  		FROM TBL_DA_MBR_M A
  		INNER JOIN TBL_DA_ARTST_M B ON A.MBR_SQ = B.MBR_SQ 
  		WHERE 1=1
@@ -51,7 +55,33 @@
  			AND A.USE_YN = 'Y'
         	AND A.DEL_YN = 'N'
         	AND B.ARTST_SQ = #{artstSq}
- 		ORDER BY A.MBR_NM ASC
+ 	</select>
+	
+	
+	<select id="workList" resultType="hashMap">
+		/*작가 작품 리스트*/
+		SELECT 
+			WORK_NM AS workNm,
+			WORK_MAIN_IMG_URL AS workMainImgUrl,
+			WORK_MATRL AS workMatrl,
+			WORK_SIZE_WIDTH AS workSizeWidth,
+			WORK_SIZE_DEPTH AS workSizeDepth,
+			WORK_PRODC_YEAR AS workProdcYear,
+			WORK_SALE_YN AS workSalen,
+			
+			(CASE 
+				WHEN WORK_SALE_YN = 'Y' THEN '판매가능'
+				WHEN WORK_SALE_YN = 'N' THEN '미판매'
+				ELSE ''
+			END) AS WorkSaleYn,
+			WORK_INTRDC AS workIntrdc
+			
+ 		FROM TBL_DA_WORK_M
+ 		WHERE 1=1
+ 		 	AND USE_YN = 'Y'
+        	AND DEL_YN = 'N'
+        	AND ARTST_SQ = #{artstSq}
+ 		
 	</select>
 	
 	
