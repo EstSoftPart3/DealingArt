@@ -11,6 +11,7 @@
 			A.MBR_BIRTH AS mbrBirth,
 			B.ARTST_SQ AS artstSq,
 			B.ARTST_WORK_IMG_URL AS artstWorkImgUrl,
+			B.ARTST_ACTVTY_NM AS artstActvtyNm,
 			(CASE 
 				WHEN B.ARTST_ACTVTY_PART_CD = 'PNTNG' THEN '회화'
 				WHEN B.ARTST_ACTVTY_PART_CD = 'MLDNG' THEN '조형'
@@ -24,7 +25,19 @@
  			AND A.AUTH_SQ = '2'
  			AND A.USE_YN = 'Y'
         	AND A.DEL_YN = 'N'
- 		ORDER BY A.MBR_NM ASC
+        
+        <if test="searchWord != null and searchWord !=''">
+        	<if test="searchGubun == 'mbrNm' and searchWord != null">
+        		AND A.MBR_NM LIKE CONCAT('%',#{searchWord},'%')
+        	</if>
+        	<if test="searchGubun == 'mbrId' and searchWord != null">
+	          	AND B.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchWord},'%')
+	         </if>
+        </if>
+        	
+ 		ORDER BY B.ARTST_SQ DESC
+ 		LIMIT 0 , #{page}
+ 		
 	</select>
 	
 	

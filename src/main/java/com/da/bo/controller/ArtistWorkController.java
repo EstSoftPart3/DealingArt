@@ -1,7 +1,6 @@
 package com.da.bo.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -43,6 +42,10 @@ public class ArtistWorkController {
 		
 		Map<String, Object> result = new HashMap<>();
 		
+		int page = Integer.parseInt((String) param.get("page"));
+		
+		param.put("page", page);
+		
 		result = artistWorkService.artistWorkList(param);
 									
 		mv.addObject("workData", result);
@@ -66,6 +69,8 @@ public class ArtistWorkController {
 		mv.setViewName("jsonView");
 		
 		Map<String, Object> result = new HashMap<>();
+		
+		
 		
 		result = artistWorkService.artistWorkDetail(param);
 									

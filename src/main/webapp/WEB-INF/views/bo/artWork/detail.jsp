@@ -124,6 +124,17 @@
     				<div class="card-header">
     				
     					<h3 class="card-title bTitle"><b>작품</b></h3>
+    					
+    					<div class="card-tools">
+		                  <div class="input-group input-group-sm" style="width: 650px;">
+		                  
+		                  
+	                           <button type="button" id="returnBtn" onclick="javascript:history.back();">리스트로 돌아가기</button>
+		                      
+		                  
+		                    
+		                  </div>
+		                </div>
     							
     				</div>
     				

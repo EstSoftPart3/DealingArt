@@ -19,7 +19,7 @@
 	}
 </style>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" id="mainPage" style="padding-bottom:50px;">
 
 	<div class="wrapper">
 	
@@ -36,16 +36,41 @@
     				
     					<h3 class="card-title bTitle"><b>작가회원 작품</b></h3>
     				
-    				</div>
+    				
+    				
+    					<div class="card-tools">
+		                  <div class="input-group input-group-sm" style="width: 650px;">
+		                  
+		                   
+		                    <select class="custom-select bTitle" id="searchGubun">
+	                          <option value="">선택</option>
+	                          <option value="mbrNm">작가명</option>
+	                          <option value="artstActvtyNm">활동명</option>
+	                       </select>
+	                       
+		                    <input type="text" name="table_search" id="searchWord" class="form-control float-right bTitle" placeholder="검색" style="width:200px;" >
+		
+		                    <div class="input-group-append">
+		                     
+		                      <button type="button" data-action="memberSearch" data-id="search-id" class="btn btn-default" id="searchBtn"><i class="fas fa-search"></i></button>
+		                      
+		                    </div>
+		                    
+		                  </div>
+		                </div>
     				
     			</div>
     			
-    			<div class="card-body table-responsive p-0 " style="font-size:13px;">
-    				
-    				<table border="0" align="center" cellspacing="10px" cellpadding="10px" id="dataList">
-
-    				</table>
-    				
+    			<div class="card">
+    			
+	    			<div class="card-body table-responsive p-0 " style="font-size:13px;">
+	    				
+	    				<table border="0" align="center" cellspacing="10px" cellpadding="10px" id="dataList">
+	
+	    				</table>
+	    				
+	    			</div>
+    			
     			</div>
     			 
     		</section>
@@ -58,17 +83,37 @@
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
+   
+   var scrollPage  = 10;
+   
    $(document).ready(function(){
-	   workData();
+	   
+	   
+	   
+	   workData(scrollPage);
+	   
+	   // Scroll
+	    $(window).scroll(function(){
+	        var scrollNow = $(window).scrollTop();
+
+	        if (scrollNow + $(window).height() + 250 >= $('#mainPage').height()){
+	        	
+	        	workData(scrollPage);
+	        }
+	    });
+	   
+	    $("#mainPage").scrollTop(0);
+	    
    });
    
-   function workData() {
+   function workData(page) {
 			$.ajax({
 		           type: "post",
 		           url: "/admin/artWorkList/artWorkListData",
 		           data: {
-		        	   page : 1,
-		        	   pageSize : 10,
+		        	   page : page,
+		        	   searchWord : $("#searchWord").val(),
+   		        	   searchGubun : $("#searchGubun").val()
 		        	},
 		           success: function(data) {
 		        	   
@@ -89,7 +134,7 @@
 		        		
 		        		strHtml += '<td valign="top" onclick="artDetail('+dataList[j].artstSq+')" style="cursor:pointer">';
 	        			
-						strHtml += '<table border="1" style="height:250px;font-weight: bold;" cellspacing="15" cellpadding="15">';
+						strHtml += '<table border="1" style="height:250px;font-weight: bold; border-color:#eeeeee;" cellspacing="10" cellpadding="10">';
 							/*
 							strHtml += '<tr>';
 								strHtml += '<td>';
@@ -110,6 +155,11 @@
 							strHtml += '<tr>';
 								strHtml += '<td>';
 								strHtml += '작가이름 : '+  dataList[j].mbrNm +'';
+								strHtml += '</td>';
+							strHtml += '</tr>';
+							strHtml += '<tr>';
+								strHtml += '<td>';
+								strHtml += '활동명 : '+  dataList[j].artstActvtyNm +'';
 								strHtml += '</td>';
 							strHtml += '</tr>';
 							strHtml += '<tr>';
@@ -136,6 +186,10 @@
 		        		
 		        	}
 		        	
+		        	scrollPage += 5;
+		        	
+		        	
+		        	
 		        	$("#dataList").empty();
 		        	$("#dataList").append(strHtml).trigger("create");
 				
@@ -148,9 +202,21 @@
 			})
 		}
 
-   function artDetail(artstSq) {
-	   location.href = '/admin/artDetailInfo?artstSq='+artstSq
-   }
+	   function artDetail(artstSq) {
+		   location.href = '/admin/artDetailInfo?artstSq='+artstSq
+	   }
+   
+ 		//검색 input Box enter Key Press
+		$("#searchWord").on("keydown",function(key){         
+			if(key.keyCode==13) {             
+				workData(scrollPage);  
+			}     
+		});
+		
+		//검색
+		$("#searchBtn").on('click', function(){
+				workData(scrollPage);
+		 });
    
    
    </script>
