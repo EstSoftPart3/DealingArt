@@ -14,7 +14,7 @@ public interface Mgz9Mapper {
 			EBI - EXHIBITION
 	 * RETURN : MGZ9 목록
 	 */
-	public List selectMgz9List(String param);
+	public List selectMgz9List(Object param);
 	
 	/*
 	 * MGZ9 상세 조회

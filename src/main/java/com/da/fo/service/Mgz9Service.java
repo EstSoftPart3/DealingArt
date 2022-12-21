@@ -14,13 +14,13 @@ public interface Mgz9Service {
 			EBI - EXHIBITION
 	 * RETURN : MGZ9 목록
 	 */
-	List selectMgz9List(String param);
+	public Map<String, Object> selectMgz9List(Map<String, Object> param);
 	
 	/*
 	 * MGZ9 상세 조회
 	 * PARAM : MGZ_SQ
 	 * RETURN : MGZ9 상세
 	 */
-	Map<String, Object> selectMgz9Dtl(String param);
+	public Map<String, Object> selectMgz9Dtl(String param);
 	
 }

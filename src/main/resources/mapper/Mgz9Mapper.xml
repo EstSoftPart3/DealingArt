@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.Mgz9Mapper">
 
-	<select id="selectMgz9List" resultType="hashMap" parameterType="String">
+	<select id="selectMgz9List" resultType="hashMap" parameterType="hashMap">
 	/* MGZ9 리스트 */
 		SELECT
 			 MGZ_SQ             as mgzSq          
@@ -25,6 +25,7 @@
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND MGZ_TYP_CD = #{mgzTypCd}
 		ORDER BY MGZ_SQ DESC
+		LIMIT #{pagestart} , #{page}
 	</select>
 	
 	<select id="selectMgz9Dtl" resultType="hashMap" parameterType="String">

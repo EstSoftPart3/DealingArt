@@ -196,7 +196,6 @@
 		           },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
-		               //alert("오류 발생" + errorJson);
 		               console.log(errorJson);
 		           }
 			})

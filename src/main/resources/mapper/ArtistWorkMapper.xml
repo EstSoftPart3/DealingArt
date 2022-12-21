@@ -36,7 +36,7 @@
         </if>
         	
  		ORDER BY B.ARTST_SQ DESC
- 		LIMIT 0 , #{page}
+ 		LIMIT 1 , #{page}
  		
 	</select>
 	

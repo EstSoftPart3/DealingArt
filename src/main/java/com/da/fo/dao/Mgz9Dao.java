@@ -1,5 +1,6 @@
 package com.da.fo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +32,16 @@ public class Mgz9Dao {
 			EBI - EXHIBITION
 	 * RETURN : MGZ9 목록
 	 */
-	public List selectMgz9List(String param) {
-		return mgz9Mapper.selectMgz9List(param);
+	public Map<String, Object> selectMgz9List(Map<String, Object> param) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		List<Map<String, Object>> workList = mgz9Mapper.selectMgz9List(param);
+		
+		result.put("info", workList);
+		
+		return result;
+	
 	}
 	
 	/*

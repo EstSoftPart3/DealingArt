@@ -83,7 +83,7 @@
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap coll-mobile">
-			
+			<input type="hidden" id="pageStart">
 			<div class="contents">
 				<div class="mgz-wrap">
 					<div class="mgz-top mgz-bg-3">
@@ -105,7 +105,7 @@
 						
 						
 						<div class="text-center">
-							<button type="button" class="btn-more mg_t0"><span>more</span></button>
+							<button type="button" class="btn-more mg_t0" id="btnMore"><span>more</span></button>
 						</div>
 						
 					</div>
@@ -162,7 +162,12 @@
 
 
 
-<script type="text/javascript">      
+<script type="text/javascript">  
+
+	var pageStart = 0;
+	var pageSize  = 6;
+	
+	$("#pageStart").val(pageStart);
 
 	function closeMgz9Dtl(){
 		  
@@ -173,6 +178,9 @@
 
 	/* 파일업로드 */
 	$(document).ready(function(){
+		
+	selectMgz9List("EBI",pageStart,pageSize);
+		
 	  var fileTarget = $('.filebox .upload-hidden');
 	
 	    fileTarget.on('change', function(){
@@ -184,6 +192,9 @@
 	
 	        $(this).siblings('.upload-name').val(filename);
 	    });
+	    
+	    
+	    
 	}); 
 	
 	
@@ -196,21 +207,24 @@
     		EBI - EXHIBITION
      * RETURN : MGZ9 목록
      */
-     function selectMgz9List(mgzTypCd){
+     function selectMgz9List(mgzTypCd,pageStart,page){
     	 
      	$.ajax({
              type: "post",
              url: "/selectMgz9List",
              data:{
+            	 pagestart : pageStart,
+            	 page : page,
             	 mgzTypCd : mgzTypCd
-     		},
+     		 },
              success: function(data) {
+            	 
              	var mgz9List = null;
              	var mgz9ListHtml = "";
              	
-             	if(data.result != null && data.result.length > 0){
-             		mgz9List = data.result;	
-             		console.log(data);
+             	mgz9List = data.list.info;
+             	
+             	if(mgz9List != null && mgz9List.length > 0){
              		
              		for(var i=0; i<mgz9List.length; i++){
              			mgz9ListHtml += '<li>';
@@ -227,10 +241,22 @@
     	         		mgz9ListHtml += '</li>';
                  	}
              		
-                 	$("#mgz9List").empty();
+             		if($("#pageStart").val() == 0) {
+             			var pageStartValue = parseInt($("#pageStart").val()) + pageSize;	
+             		} else {
+             			var pageStartValue = parseInt($("#pageStart").val()) + 3;
+             		}
+             		
+             		scrollPageStart = pageStartValue;  
+             		$("#pageStart").val(pageStartValue);
+             		
+                 	//$("#mgz9List").empty();
                  	$("#mgz9List").append(mgz9ListHtml).trigger("create");
                  	
                  	fn_styleNone();
+                 	
+                 	
+                 	
                  	
              	}else{
              		modalAlertShow("검색 결과가 없습니다."); 
@@ -238,11 +264,21 @@
              	}
              },           
              error: function(error) {
-                 alert("오류 발생" + error);
+            	 var errorJson = JSON.stringify(error);
+                 console.log(errorJson);
              }
      	});
      }
      
+	
+   //More Btn
+     $("#btnMore").on('click', function(){
+     	 
+     	 var pageStart = $("#pageStart").val();
+     	 
+     	 selectMgz9List("EBI",pageStart,3);
+     });
+
 	
 	var paramMz9 = location.search;
 	var params = new URLSearchParams(paramMz9);
@@ -388,9 +424,7 @@
 	    	function(){ $(this).addClass('gis') },
 	   	    function(){ $(this).removeClass('gis') }
 	   	  )
-	   	  
-	   	selectMgz9List("EBI");
-      });
+	   	});
       
       /* 메뉴바 FIXED */
       if (jQuery(window).width() > 0) {

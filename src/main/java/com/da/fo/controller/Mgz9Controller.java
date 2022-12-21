@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,12 +49,27 @@ public class Mgz9Controller {
 	 */
 	@RequestMapping("/selectMgz9List")
 	@ResponseBody
-	public ModelAndView selectMgz9List(@RequestParam(value = "mgzTypCd", required = true) String mgzTypCd) {
-		ModelAndView mv = new ModelAndView("jsonView");
-		//logger.debug("############# mgzTypCd : " + mgzTypCd);
+	//public ModelAndView selectMgz9List(@RequestParam(value = "mgzTypCd", required = true) String mgzTypCd) {
+	public ModelAndView selectMgz9List(@RequestParam Map<String, Object> param) {
 		
-		List result = mgz9Service.selectMgz9List(mgzTypCd);
-		mv.addObject("result", result);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int pagestart = Integer.parseInt((String) param.get("pagestart"));
+		int page = Integer.parseInt((String) param.get("page"));
+		String mgzTypCd = (String) param.get("mgzTypCd");
+		
+		
+		param.put("pagestart", pagestart);
+		param.put("page", page);
+		param.put("mgzTypCd", mgzTypCd);
+		
+		result = mgz9Service.selectMgz9List(param);
+		
+		mv.addObject("list", result);
+		
 		return mv;
 	}
 	

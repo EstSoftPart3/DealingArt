@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,14 @@ public class Mgz9ServiceImpl implements Mgz9Service{
 			EBI - EXHIBITION
 	 * RETURN : MGZ9 목록
 	 */
-	public List selectMgz9List(String param) {
-		return mgz9Dao.selectMgz9List(param);
+	@Override
+	public Map<String, Object> selectMgz9List(Map<String, Object> param) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = mgz9Dao.selectMgz9List(param);
+		
+		return result;
 	}
 	
 	/*
