@@ -249,8 +249,13 @@
 												<!-- <a href="#" class="pay-5" value="CARD" onclick="btn_paymethod_onclick(this)"><img src="resources/img/mypage/icon-5.png" /><span>카카오페이</span></a> -->
 											</div>
 											<div class="bat-box3 mg_t30">
-												<span class="c-reds2">카드결제 : 거래수수료 11.5%</span>
-												<br/><span class="c-reds2">가상계좌 : 거래수수료 10%</span>
+												<!-- 
+												* [수수료 변경 Task]
+												* 해당 작품 구매(http://localhost/myDealDetailBuy)
+												* 내용 : 결제 정보 관련 거래 수수료 거래수수료 부가세 (변수명 fee, feeTax) 로직 변경
+												-->
+												<span class="c-reds2">카드결제 : 거래수수료 6.5%</span> <!-- 11.5% -> 6.5% 변경 (2023-01-16) : 정대현 -->
+												<br/><span class="c-reds2">가상계좌 : 거래수수료 5%</span> <!-- 10% -> 5% 변경 (2023-01-16) : 정대현 -->
 											</div>
 											<!-- <div class="pay-check">
 												<input type="checkbox" id="a1" name="cc" />
@@ -859,6 +864,14 @@
 </div>
 
 <script th:inline="javascript">
+
+/* 
+* [수수료 변경 Task]
+* 해당 작품 구매(http://localhost/myDealDetailBuy)
+* 내용 : 결제 정보 관련 거래 수수료 거래수수료 부가세 (변수명 fee, feeTax) 로직 변경
+*/
+
+
 var result = /*[[${result}]]*/ 'default';
 var fee = 0; //거래 수수료
 var feeTax = 0; //거래 수수료 부과세
@@ -902,13 +915,13 @@ jQuery(document).ready(function() {
 			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
 		}else{ 
 			$("#dealSttsCdDetail").text("현재 회원님보다 높은 입찰가가 있습니다.");
-			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>"); 
+			$("#dealSttsCdDetail").append("<span>경매 진행 중</span>");
 		}
 	}
 	
 	if(result.dealInfo.buyPaymntSttsCd == "1PW" && result.dealInfo.dealSttsCd == "TP" && result.dealInfo.dealTypCd == "S"){ //정찰가 1차 결제/구매하기
 		$("#dealSttsCdDetail").text("구매자 1차 결제를 대기중입니다.");
-		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>"); 
+		$("#dealSttsCdDetail").append("<span>1차 결제 대기</span>");
 		$("#1PW").css("display", ""); //1차 결제 div
 		$("#paymethod").css("display", ""); //결제 수단 div
 		$("#btn_payment").css("display", "") //결제 버튼
@@ -1017,7 +1030,7 @@ jQuery(document).ready(function() {
 });
 //1차 결제 거래 수수료 구하기
 function feeCal(){
-	fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+	fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.05); //작품가의 10프로인 수수료를 구한다 -> 5% 변경 (2023-01-16) : 정대현
 	feeTax = fee * 0.10;
 	$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 	$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
@@ -1164,7 +1177,7 @@ function btn_paymethod_onclick(obj){
 	if(result.dealInfo.buyPaymntSttsCd == "1PW"){
 		if(result.dealInfo.paymethod == "CARD"){
 			//feeCal();
-			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.115); //거래 수수료 11.5%
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.065); //거래 수수료 11.5% -> 6.5%로 변경 (2023-01-16) : 정대현
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
@@ -1172,7 +1185,7 @@ function btn_paymethod_onclick(obj){
 		}
 		if(result.dealInfo.paymethod == "VACCT"){
 			//feeCal();
-			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.10); //거래 수수료 10%
+			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.05); //거래 수수료 10% -> 5%로 변경 (2023-01-16) : 정대현
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
@@ -1916,7 +1929,7 @@ function totalTrnsprtPrc(){
         if($("#sbx_couponList_DD").val() == "null"){
         	$("input[name=paymethod]:checked").prop("checked",false);
 			disc = 0;
-			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.10); //작품가의 10프로인 수수료를 구한다
+			fee = Math.round(parseInt(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '')) * 0.05); //작품가의 10프로인 수수료를 구한다 ->  5% 변경 (2023-01-16) : 정대현
 			feeTax = fee * 0.10;
 			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
 			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
