@@ -109,7 +109,11 @@ public class paymentDao {
 				
 		return result;
 	}
-	
+	/*
+	 * [수수료 변경 Task]
+	 * 관리자 주문 관리(paymentDao.java)
+	 * 내용 : 거래 메인 수정 클래스에서 판매 수수료 구하는 로직 변경
+	 */
 	//거래 메인 수정 : 거래_상태_코드
 	public void dealMainSttsCdUpdate(Map<String, Object> param){
 		if(param.get("dealSttsCd").toString().equals("PC")) {
