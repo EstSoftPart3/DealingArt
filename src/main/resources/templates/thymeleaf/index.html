@@ -109,6 +109,9 @@
 							</div> -->
 							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
 							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<img src="resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
 							</div>
 							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
@@ -117,8 +120,6 @@
 							<div class="swiper-slide" align="center" style="background-color:#fe4d01;">
 								<img src="resources/img/banner-13_pc.jpg" onclick="javascript:location.href='/media';" style="cursor:pointer;"/>
 							</div>
-							
-							
 						</div>
 						<div class="swiper-pagination swpa-1"></div>
 					</div>
@@ -135,6 +136,9 @@
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="resources/img/banner-20_pc.jpg" border="0"/></a>
 							</div> -->
 							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
+							<div class="swiper-slide">
+								<img src="resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
+							</div>
 							<div class="swiper-slide">
 								<img src="resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet';" style="cursor:pointer;"/>
 							</div>
@@ -163,6 +167,9 @@
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="resources/img/banner-20_mobile.jpg" border="0"/></a>
 							</div> -->
 							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
+							<div class="swiper-slide">
+								<img src="resources/img/DA_banner_mobile_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
+							</div>
 							<div class="swiper-slide">
 								<img src="resources/img/banner-21_mobile.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
 							</div>
@@ -711,7 +718,7 @@
 	        		   insightsHtml +='<div>';
 	        		   
 	        		   insightsHtml += '<div class="cns-box" >';
-	        		   insightsHtml += '<a href="/insights?mgzSq='+mainInsights[i].mgzSq+'">';
+	        		   insightsHtml +='	<a href="javascript:void(0);" onclick="mgzDetail('+ mainInsights[i].mgzSq +')">';
 	        		   insightsHtml +='<img src="'+mainInsights[i].mgzMainImgUrl+'" class="hd-img" />';
 	        		   insightsHtml +='</a>';
 	        		   insightsHtml += '<div class="cns-sb">';
@@ -794,11 +801,44 @@
     
     //비딩페이지로 이동
     function dealDetail(dealSq){
-  		location.href = "/bidding?dealSq="+dealSq;
+    	if(sMbrSqVal == "" || sMbrSqVal == null){
+    		$(".close").trigger("click");
+    		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+    			if(confrim){
+    				$("#loginModal").modal("show");	
+    			}
+    		});
+    	}else{
+	  		location.href = "/bidding?dealSq="+dealSq;
+    	}
+  	}
+    
+  //mgz>Insights 이동
+    function mgzDetail(mgzSq){
+    	if(sMbrSqVal == "" || sMbrSqVal == null){
+    		$(".close").trigger("click");
+    		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+    			if(confrim){
+    				$("#loginModal").modal("show");	
+    			}
+    		});
+    	}else{
+	  		location.href = "insights?mgzSq="+mgzSq;
+    	}
   	}
     
     function artstDetail(artstSq){
-    	location.href = "/artistDetail?artstSq="+artstSq;
+    	if(sMbrSqVal == "" || sMbrSqVal == null){
+    		$(".close").trigger("click");
+    		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+    			if(confrim){
+    				$("#loginModal").modal("show");	
+    			}
+    		});
+    	}else{
+    		location.href = "/artistDetail?artstSq="+artstSq;
+    	}
+    	
     }
   	/*
      * MGZ9 상세 조회
