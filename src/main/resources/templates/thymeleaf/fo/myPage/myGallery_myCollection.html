@@ -79,7 +79,7 @@
     	}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
 </head>
 
@@ -122,7 +122,7 @@
 								<div class="por">
 									<!-- <div class="tootip-5">설정</div> 
 									<a href="javascript:void(0)" class="">
-										<img src="resources/img/mypage/icon-8.png" class="med-me">									
+										<img src="/resources/img/mypage/icon-8.png" class="med-me">									
 									</a>-->									
 								</div>
 							</div>
@@ -185,8 +185,8 @@ jQuery(document).ready(function() {
 	var conTitleHtml = "";
 	conTitleHtml += '<h3>My Collection</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
-	//conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
-	conBtn.innerHTML += '<a href="javascript:collectionRegMove();"><img src="resources/img/mypage/mycon-3.png" /></a>';
+	//conBtn.innerHTML += '<a href="/myPage/collection_reg"><img src="/resources/img/mypage/mycon-3.png" /></a>';
+	conBtn.innerHTML += '<a href="javascript:collectionRegMove();"><img src="/resources/img/mypage/mycon-3.png" /></a>';
 	$("#myCollection").addClass("active");
 	
 	myCollectionList();
@@ -195,16 +195,16 @@ jQuery(document).ready(function() {
 
 function collectionRegMove() {
 	
-	//location.href = "/collection_reg";
+	//location.href = "/myPage/collection_reg";
 	
-	location.href = '/myWorkListReg';
+	location.href = '/myPage/myWorkListReg';
 	
 	/*
 	modalConfirm("알림", "시스템 기능 개선으로 인하여 삭제 및 비공개 처리가 불가능합니다. 등록하시겠습니까?", 
 	
 	function(confirm){
 		if(confirm){
-				location.href = "/collection_reg";					
+				location.href = "/myPage/collection_reg";					
 		}
 	});
 	*/
@@ -264,7 +264,7 @@ function myCollectionList(){
 				
 				html += '<div class="uesr-s">';
 				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
- 					html += '<img src="resources/img/de/ues-icon.png"/>';
+ 					html += '<img src="/resources/img/de/ues-icon.png"/>';
  				}else{
  					html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
  				}
@@ -344,7 +344,7 @@ function myCollectionList(){
 				html += '<div>';
 				html += '<div class="uesr-s">';
 				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
+ 				html += '<img src="/resources/img/de/ues-icon.png"/>';
  			}else{
  				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
  			}
@@ -401,7 +401,7 @@ function myCollectionList(){
 				html += '<div>';
 				html += '<div class="uesr-s">';
 				if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
+ 				html += '<img src="/resources/img/de/ues-icon.png"/>';
  			}else{
  				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
  			}
@@ -453,7 +453,7 @@ function myCollectionList(){
 			if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
  			}else{
- 				html += '<img src="resources/img/de/ues-icon.png"/>';
+ 				html += '<img src="/resources/img/de/ues-icon.png"/>';
  			}
 				html += '</div>';
 				
@@ -530,12 +530,12 @@ setInterval(function() {
 
 function collectionMod(obj){
 	var workSq = obj.getAttribute("workSq");
-    location.href = "/myCollectionMod?workSq="+workSq;
+    location.href = "/myPage/myCollectionMod?workSq="+workSq;
 }
 
 function dealReg(obj){
 	var workSq = obj.getAttribute("workSq");
-	location.href = "/dealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal;
+	location.href = "/deal/openDealReg?workSq="+workSq+"&&mbrSq="+sMbrSqVal;
 }
 
 $(document).on("click", ".heart", function(){
@@ -546,7 +546,7 @@ $(document).on("click", ".heart", function(){
 	if($(this).hasClass("on")){
 		$.ajax({
 	        type: "post",
-	        url: "/scrapDel",
+	        url: "/member/myPage/scrapDel",
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
@@ -559,7 +559,7 @@ $(document).on("click", ".heart", function(){
 	}else{
 		$.ajax({
 	        type: "post",
-	        url: "/scrapAdd",
+	        url: "/member/myPage/scrapAdd",
 	        data: param,
 	        success: function(data) {
 	        	if(data == 1){
@@ -629,7 +629,7 @@ $(document).on("click", ".heart", function(){
      
      
 	function workDetailMove(workSq){
-  	 	location.href="/workDetail?workSq="+workSq;
+  	 	location.href="/deal/workDetail?SqNumber="+workSq;
   	}
 
 //2022-08-26 주석처리 : 박상현
@@ -648,10 +648,10 @@ $(document).on("click", ".heart", function(){
 	function biddingMove(dealSq) {
   		
   		pageGoPost({
-  			url:"/bidding",
+  			url:"/deal/bidding",
   			target:"_self",
   			vals:[
-  				["dealSq", dealSq]
+  				["SqNumber", dealSq]
   			]
   		});
   		
@@ -659,11 +659,11 @@ $(document).on("click", ".heart", function(){
   	
   	//작품수정
   	function myCollectionMod(workSq){
-  		location.href = "/myCollectionMod?workSq="+workSq;
+  		location.href = "/myPage/myCollectionMod?workSq="+workSq;
   	}
   	//상세보기
   	function workDetailMove(workSq){
-  	 	location.href="/workDetail?workSq="+workSq;
+  	 	location.href="/deal/workDetail?SqNumber="+workSq;
   	}
   	
 </script>

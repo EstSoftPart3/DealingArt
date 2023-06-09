@@ -84,7 +84,7 @@
     	};
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -138,7 +138,7 @@
 								<!--<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">-->
 								<a href="javascript:fn_decModalCall();" class="phos">
 									<div class="tootip-1">신고하기</div> <img
-									src="resources/img/de/popo-1.png" />
+									src="/resources/img/de/popo-1.png" />
 								</a>
 
 							</div>
@@ -208,7 +208,7 @@
 										<tr>
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span
+													<img src="/resources/img/de/check-off.jpg" /><span
 														id="spn_dealStrtPrc">시작가</span>
 												</div>
 											</th>
@@ -217,7 +217,7 @@
 										<tr id="tr_priceUnit">
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span>호가단위</span>
+													<img src="/resources/img/de/check-off.jpg" /><span>호가단위</span>
 												</div>
 											</th>
 											<td id="td_askingPrice"></td>
@@ -225,7 +225,7 @@
 										<tr>
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span
+													<img src="/resources/img/de/check-off.jpg" /><span
 														id="spn_period">경매기간</span>
 												</div>
 											</th>
@@ -235,7 +235,7 @@
 										<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span>남은시간</span>
+													<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>
 												</div>
 											</th>
 											<td id="dealCount"></td>
@@ -247,7 +247,7 @@
 										<tr class="t-red" id="tr_maxBidPrc">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>현재 입찰가</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>현재 입찰가</span>
 												</div>
 											</th>
 											<th:block
@@ -261,14 +261,14 @@
 										</tr>
 										<!-- <tr class="t-red">
 										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
+											<div class="tsc-2"><img src="/resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
 										</th>
 										<td>100,000</td>
 									</tr> -->
 										<tr class="t-red" id="tr_bidPrc">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>응찰가</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>응찰가</span>
 												</div>
 											</th>
 											<td>
@@ -281,7 +281,7 @@
 										</tr>
 										<!-- <tr class="t-red" id="tr_bidPrc">
 										<th>
-											<div class="tsc-2"><img src="resources/img/de/check-on.jpg" /><span>정산받을 계좌번호</span></div>
+											<div class="tsc-2"><img src="/resources/img/de/check-on.jpg" /><span>정산받을 계좌번호</span></div>
 										</th>
 									</tr> -->
 									</table>
@@ -295,11 +295,11 @@
 								<!--
 								<button type="button" class="ba-btn2"
 									onclick="javascript:fnModalAlert();">
-									<img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span>
+									<img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span>
 								</button>
 								  -->
 								<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory">
-									<img src="resources/img/de/mo/icon-2.jpg" />
+									<img src="/resources/img/de/mo/icon-2.jpg" />
 									<span>응찰히스토리</span>
 								</button>
 								<button type="button" class="ba-btn3" onclick="javascript:history.back();">
@@ -347,8 +347,8 @@
 							<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
 							<div class="swiper-pagination swpa-2 pc-no"></div>	
 						</div>
-						<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
-						<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
 					</div>
 			</div>
 			<!-- 영역 끝 -->
@@ -365,8 +365,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>응찰 히스토리</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -375,7 +375,7 @@
 					<!-- <input type="checkbox" id="a1" name="cc">
 					<label for="a1"><span></span>내 응찰만 보기</label> -->
 				</div>
-				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<!-- <img src="/resources/img/ba/chart-img.png" class="mdimg" /> -->
 				<canvas id="canvas"></canvas>
 			</div>
 		</div>
@@ -390,8 +390,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>신고하기</h2>
-				    <img src="resources/img/ba/icon-2.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <img src="/resources/img/ba/icon-2.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -428,7 +428,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -454,7 +454,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -482,7 +482,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" onclick="closeArtstInfoModal()"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" onclick="closeArtstInfoModal()"><img src="/resources/img/ba/icon-end_1.png" /></div>
 				</div>
 
 			</div>
@@ -497,16 +497,16 @@
 					<dt>SNS</dt>
 					<dd>
 						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstInstagramUrl)}">
-							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="resources/img/icon/i-1.png"/></a>
+							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="/resources/img/icon/i-1.png"/></a>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstfacebookUrl)}">
-							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="resources/img/icon/i-2.png"/></a>
+							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="/resources/img/icon/i-2.png"/></a>
 						</th:block>
-						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="resources/img/icon/i-2.png" /></a> -->
-						<!-- <a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a> -->
+						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="/resources/img/icon/i-2.png" /></a> -->
+						<!-- <a href="#" class="if-img"><img src="/resources/img/icon/i-3.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-4.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-5.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-6.png" /></a> -->
 					</dd>
 				</dl>
 				<dl class="ad-dl">
@@ -577,7 +577,7 @@
 				<div class="baegs">
 					<h2>응찰 유의사항</h2>
 				    <img src="/resources/img/ba/icon-2.png" class="con-img" />
-				    <div class="close" onclick="bidNotesModalClose()"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" onclick="bidNotesModalClose()"><img src="/resources/img/ba/icon-end_1.png" /></div>
 				</div>
 
 			</div>
@@ -664,7 +664,7 @@
 											<div class="check-info">
 												<p>
 													작품 구매에 대한 수수료가 부과됩니다.
-													<button id="btn_toggle"><img src="resources/img/ba/me-icon.png"></button>
+													<button id="btn_toggle"><img src="/resources/img/ba/me-icon.png"></button>
 												</p>
 											</div>
 										</label>
@@ -678,7 +678,7 @@
 												* 내용 : 응찰 유의사항 작품 관련 수수료 텍스트 변경
 												-->
 												<div class="toggle_bar1">구매수수료</div>
-												<div class="toggle_close" id="toggle_close"><img src="resources/img/ba/icon-end_1.png"></div>
+												<div class="toggle_close" id="toggle_close"><img src="/resources/img/ba/icon-end_1.png"></div>
 											</div>
 											<div class="toggle_con1">
 												<table>
@@ -1182,7 +1182,7 @@ function workList(){
 			//html +='	</a>';
 			//html +='</div>';
 			html +='<div class="swiper-slide hd-div">';
-			html +='	<a href="/workDetail?workSq='+result.workList[i].workSq+'">';
+			html +='	<a href="/deal/workDetail?SqNumber='+result.workList[i].workSq+'">';
 			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
 			html +='		<div class="hd-text">';
 			html +='			<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
@@ -1220,7 +1220,7 @@ function chart() {
 	
 		$.ajax({
 	        type: "post",
-	        url: "/myDealList/bidHistory",
+	        url: "/myPage/myDealList/bidHistory",
 	        data: {
 	        	dealSq : result.deal.dealSq
 	        },
@@ -1454,7 +1454,7 @@ function fn_decIns(){
 			
 			$.ajax({
 				type: "POST",
-		        url: "/admin/reportInsData",
+		        url: "/admin/report/reportInsData",
 		        data: {
 		        	workSq : workSqVal,  //작품번호
 		        	mbrSq : mbrSqVal,	 //회원번호
@@ -1504,7 +1504,7 @@ function btn_purchaseOrBid_onclick(){
 			return;
 		}
 		if($("#btn_purchaseOrBid").text() == "구매하기"){
-			location.href="/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
+			location.href="/myPage/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
 		}else{
 			if($("#sbx_bidPrc").val() != "null"){
 				$('body').css("overflow", "hidden");
@@ -1545,7 +1545,7 @@ function bidRegCheck(){
 		var bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
 		$.ajax({
 	        type: "post",
-	        url: "/bidRegCheck",
+	        url: "/deal/bidRegCheck",
 	        data : {
 	        	dealSq : result.deal.dealSq,
 	        	bidPrc : bidPrc
@@ -1609,7 +1609,7 @@ function bidReg(param){
 	console.log("응찰시간 : "+new Date());
 	$.ajax({
         type: "post",
-        url: "/bidReg",
+        url: "/deal/bidReg",
         data : param, 
         success: function(data) {
         	if(data.result == -1){
@@ -1630,7 +1630,7 @@ function bidReg(param){
         	if(data.result == 10){
         		modalConfirm("자동 응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
-						location.href = "/myDeal";
+						location.href = "/myPage/myDeal";
 					}else{
 						location.reload();
 					}
@@ -1639,7 +1639,7 @@ function bidReg(param){
         	if(data.result == 11){
         		modalConfirm("회원님보다 높은 자동 응찰가가 있어서 높은 자동 응찰가로 자동 입찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
-						location.href = "/myDeal";
+						location.href = "/myPage/myDeal";
 					}else{
 						location.reload();
 					}
@@ -1648,7 +1648,7 @@ function bidReg(param){
         	if(data.result == 12){
         		modalConfirm("회원님과 같은 금액을 자동 응찰 설정한 자동입찰자가 있지만,<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
-						location.href = "/myDeal";
+						location.href = "/myPage/myDeal";
 					}else{
 						location.reload();
 					}
@@ -1657,7 +1657,7 @@ function bidReg(param){
         	if(data.result == 13){
         		modalConfirm("회원님 보다 낮은 응찰금액의 자동응찰자가 있어 낮은 응찰 금액까지 자동응찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
-						location.href = "/myDeal";
+						location.href = "/myPage/myDeal";
 					}else{
 						location.reload();
 					}
@@ -1666,7 +1666,7 @@ function bidReg(param){
         	if(data.result == 2){
         		modalConfirm("응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
 					if(confrim){
-						location.href = "/myDeal";
+						location.href = "/myPage/myDeal";
 					}else{
 						location.reload();
 					}

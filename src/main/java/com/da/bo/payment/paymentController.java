@@ -38,19 +38,19 @@ public class paymentController {
 	private paymentService paymentService;
 	
 	//주문리스트
-	@RequestMapping("/admin/payment")
+	@RequestMapping("/admin/payment/paymentListPage")
 	public String openPayment() {
 		return "bo/payment/payproc";
 	}
 	
 	//주문상세
-	@RequestMapping("/admin/paydetail")
+	@RequestMapping("/admin/payment/paydetailPage")
 	public String openPaymentDetail() {
 		return "bo/payment/paydetail";
 	}
 	
 	//배송리스트
-	@RequestMapping("/admin/transit")
+	@RequestMapping("/admin/payment/transit")
 	public String openTransit() {
 		return "bo/payment/transitproc";
 	}

@@ -87,7 +87,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -127,7 +127,7 @@
 						<div class="myd-box-2">
 							<div class="input-gra">
 								<input type="text" placeholder="작가명을 입력하세요."/>
-								<a href="#"><img src="resources/img/mypage/icon-sech.png" /></a>
+								<a href="#"><img src="/resources/img/mypage/icon-sech.png" /></a>
 							</div>
 						</div>
 					</div> -->
@@ -427,7 +427,7 @@
 					<div class="bat-box5">
 						<button type="button" class="ba-btn1" onclick="myWorkReg()"><span>등록하기</span></button>
 						<button type="button" class="ba-btn3" onclick="myWorkStorage()"><span>임시저장</span></button>
-						<button type="button" class="ba-btn3" onclick='javascript:pageGoPost({url:"/myWork",target:"_self",vals:[["artstSq", artstSq]]});'><span>취소</span></button>
+						<button type="button" class="ba-btn3" onclick='javascript:pageGoPost({url:"/myPage/myWork",target:"_self",vals:[["SqNumber", artstSq]]});'><span>취소</span></button>
 					</div>
 					
 					
@@ -987,7 +987,7 @@ function myWorkReg(){
     			if(confirm){
     				$.ajax({
     			        type: "post",
-    			        url: "/myWorkReg",
+    			        url: "/myPage/myWorkReg",
     			        data: formData,
     			        contentType : false,
     			        processData : false,

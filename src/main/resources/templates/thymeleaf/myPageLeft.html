@@ -20,8 +20,8 @@
 			<div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class="" id="myDeal"><a href="/myDeal">거래 내역</a></li>
-						<li class="" id="coupon"><a href="/coupon">쿠폰</a></li>
+						<li class="" id="myDeal"><a href="/myPage/myDeal">거래 내역</a></li>
+						<li class="" id="coupon"><a href="/myPage/coupon">쿠폰</a></li>
 						<!-- <li class=""><a href="javascript:fnModalAlert();">문의 내역</a></li> -->
 					</ul>
 				</div>
@@ -56,7 +56,7 @@
 			<div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 				<div class="panel-body">
 					<ul class="mypage-ul">
-						<li class="" id="information"><a href="/information">작가 정보</a></li>
+						<li class="" id="information"><a href="/myPage/information">작가 정보</a></li>
 						<!-- <li class="myWork" id="myWork"><a href="#">나의 작품</a></li> -->
 					</ul>
 				</div>
@@ -73,9 +73,9 @@
 			<div id="collapse4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading4">
 				<div class="panel-body">
 					<ul class="mypage-ul"><!--class="active"-->
-						<li class="" id="memberEdit"><a href="/memberEdit">회원 정보 수정</a></li>
-						<li class="" id="withdrawal"><a href="/withdrawal">회원탈퇴</a></li>
-						<li class="" id="alarm"><a href="/alarm">알림 설정</a></li>
+						<li class="" id="memberEdit"><a href="/myPage/memberEdit">회원 정보 수정</a></li>
+						<li class="" id="withdrawal"><a href="/myPage/withdrawal">회원탈퇴</a></li>
+						<li class="" id="alarm"><a href="/myPage/alarm">알림 설정</a></li>
 					</ul>
 				</div>
 			</div>
@@ -95,7 +95,7 @@ $(document).ready(function(){
 		const url = new URL(window.location.href);
 		const urlParam = url.searchParams;
 
-		if(url.pathname == "/myDealDetailBuy" || url.pathname == "/myDealDetailSell"){
+		if(url.pathname == "/myPage/myDealDetailBuy" || url.pathname == "/myPage/myDealDetailSell"){
 			
 			$(".con-right").hide();
 			$(".con-left2").hide();
@@ -118,26 +118,26 @@ $(document).ready(function(){
 /*
 $(document).on("click", ".myWork", function(){
 	pageGoPost({
-		url:"/myWork",
+		url:"/myPage/myWork",
 		target:"_self",
 		vals:[
-			["artstSq", artstSq]
+			["SqNumber", artstSq]
 		]
 	});
 }); 
 */
 $(document).on("click", ".myCollection", function(){
 	pageGoPost({
-		url:"/myCollection",
+		url:"/myPage/myCollection",
 		target:"_self",
 		vals:[
-			["mbrSq", sMbrSqVal]
+			["SqNumber", sMbrSqVal]
 		]
 	});
 });
 $(document).on("click", ".scrap", function(){
 	pageGoPost({
-		url:"/scrap",
+		url:"/myPage/scrap",
 		target:"_self",
 		vals:[
 			["mbrSq", sMbrSqVal]
@@ -146,7 +146,7 @@ $(document).on("click", ".scrap", function(){
 });
 
 $(document).on("click", ".myWorkList", function(){
-	location.href="/myWorkList"
+	location.href="/myPage/myWorkList"
 });
 </script>
 </th:blcok>	

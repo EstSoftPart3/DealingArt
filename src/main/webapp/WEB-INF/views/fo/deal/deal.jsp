@@ -749,7 +749,7 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 		}
 		$.ajax({
 	        type: "post",
-	        url: "/dealSearch",
+	        url: "/deal/dealSearch",
 	        data: searchOptions,
 	        success: function(data) {
 	     	   

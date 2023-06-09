@@ -78,7 +78,7 @@
     	}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
 </head>
 
@@ -139,7 +139,7 @@ function memberContentData(mbrSq) {
 	
 	$.ajax({
            type: "post",
-           url: "/myPage/memberContentData",
+           url: "/member/myPage/memberContentData",
            data: {
         	   mbrSq : mbrSq
             },
@@ -188,7 +188,7 @@ $( document ).ready(function() {
 	       
 	        $.ajax({
 	            type: "post",
-	            url: "/myPage/memberAlarmData",
+	            url: "/member/myPage/memberAlarmData",
 	            data: params,
 	            success: function(data) {
 	         	 
@@ -216,7 +216,7 @@ $( document ).ready(function() {
 	       
 	        $.ajax({
 	            type: "post",
-	            url: "/myPage/memberAlarmData",
+	            url: "/member/myPage/memberAlarmData",
 	            data: params,
 	            success: function(data) {
 	         	 

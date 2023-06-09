@@ -90,7 +90,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -131,7 +131,7 @@
 								
 								<div class="input-gra" data-toggle="modal" data-target="#searchArtstModal" id="artstSearchDiv" style="display:none;">
 									<input type="text" placeholder="작가명으로 검색해 보세요." style="cursor:pointer" disabled="disabled"/>
-									<a href="javascript:void(0);"><img src="resources/img/mypage/icon-sech.png" /></a>
+									<a href="javascript:void(0);"><img src="/resources/img/mypage/icon-sech.png" /></a>
 								</div>
 								
 								<table class="mstyle-2">
@@ -158,7 +158,7 @@
 							<div class="myd-box-2">
 								<div class="input-gra" data-toggle="modal" data-target="#searchWorkModal">
 									<input type="text" placeholder="작품명으로 검색해 보세요." style="cursor:pointer" disabled="disabled"/>
-									<a href="javascript:void(0);"><img src="resources/img/mypage/icon-sech.png" /></a>
+									<a href="javascript:void(0);"><img src="/resources/img/mypage/icon-sech.png" /></a>
 								</div>
 							</div>
 						</div>
@@ -813,7 +813,7 @@
 				<!-- 검색버튼 클릭시 -->
 				<div class="search-show">
 					<div class="sea-box">
-						<img src="resources/img/newdalogo.png" class="sea-img" width="237"/>
+						<img src="/resources/img/newdalogo.png" class="sea-img" width="237"/>
 						
 						<div class="sea-won">
 							<!-- <div class="select-box">
@@ -822,7 +822,7 @@
 								</select>
 							</div> -->
 							<input type="text" id="txt_searchArtst" placeholder="작가명으로 검색해 보세요." onkeyup="searchArtst()"/>
-							<a href="#" style="cursor:default;"><img src="resources/img/icon-2.jpg" /></a>
+							<a href="#" style="cursor:default;"><img src="/resources/img/icon-2.jpg" /></a>
 						</div>
 						<ul class="collsul" id="ul_searchArtst">
 						</ul>
@@ -848,7 +848,7 @@
 				<!-- 검색버튼 클릭시 -->
 				<div class="search-show">
 					<div class="sea-box">
-						<img src="resources/img/newdalogo.png" class="sea-img" width="237"/>
+						<img src="/resources/img/newdalogo.png" class="sea-img" width="237"/>
 						
 						<div class="sea-won">
 							<!-- <div class="select-box">
@@ -857,7 +857,7 @@
 								</select>
 							</div> -->
 							<input type="text" id="txt_searchWork" placeholder="작품명으로 검색해 보세요." onkeyup="searchWork()"/>
-							<a href="#" style="cursor:default;"><img src="resources/img/icon-2.jpg" /></a>
+							<a href="#" style="cursor:default;"><img src="/resources/img/icon-2.jpg" /></a>
 						</div>
 						<ul class="collsul" id="ul_searchWork">
 						</ul>
@@ -1393,7 +1393,7 @@ function keywrdSet(obj){
 	var keywrdList = obj.value.split(',');
 	var keywrdHtml = '';
 	for(var i=0; i<keywrdList.length; i++){
-		keywrdHtml += '<div id="keywrd'+i+'"><span>'+keywrdList[i]+'</span><img src="resources/img/mypage/icon-x.png" class="keywrdList" keywrdSq="'+i+'" value="'+keywrdList[i]+'"/></div>';
+		keywrdHtml += '<div id="keywrd'+i+'"><span>'+keywrdList[i]+'</span><img src="/resources/img/mypage/icon-x.png" class="keywrdList" keywrdSq="'+i+'" value="'+keywrdList[i]+'"/></div>';
 	}
 	$(".key-box").empty();
 	$(".key-box").append(keywrdHtml).trigger("create");
@@ -1696,7 +1696,7 @@ function myWorkReg(){
     			if(confirm){
     				$.ajax({
     			        type: "post",
-    			        url: "/myWorkCor",
+    			        url: "/myPage/myWorkCor",
     			        data: formData,
     			        contentType : false,
     			        processData : false,
@@ -1780,7 +1780,7 @@ function dealCheck(workSq){
 	var result;	//ajax response 결과값 저장할 변수
 	$.ajax({
          type: "post",
-         url: "/dealCheck",
+         url: "/myPage/dealCheck",
          data: { "workSq" : workSq },
          async: false,
          success: function(response) {
@@ -1826,7 +1826,7 @@ function dealCheck(workSq){
 function collDeletePro(workSq){
 	$.ajax({
         type: "post",
-        url: "/deleteCollection",
+        url: "/myPage/deleteCollection",
         data: { "workSq" : workSq },
         async: false,
         success: function(data) {
@@ -1846,7 +1846,7 @@ function searchArtst(){
 	var wordLength = $("#txt_searchArtst").val().trim().length;
 	if(wordLength > 1){
 		$.ajax({
-			url:"/searchArtst",
+			url:"/myPage/searchArtst",
 			type:"post",
 	      data: {
 	      	searchKeyword : searchKeyword
@@ -1917,7 +1917,7 @@ function selectArtst(obj){
 function searchWork(){
 	var searchKeyword = $("#txt_searchWork").val();
 	$.ajax({
-		url:"/searchWork",
+		url:"/myPage/searchWork",
 		type:"post",
       data: {
       	searchKeyword : searchKeyword
@@ -1971,7 +1971,7 @@ function selectWork(obj){
 	$("#searchWorkModal").modal("hide");
 	var workSq = obj.attributes.workSq.value;
 	$.ajax({
-		url:"/selectWork",
+		url:"/myPage/selectWork",
 		type:"post",
       data: {
       	workSq : workSq

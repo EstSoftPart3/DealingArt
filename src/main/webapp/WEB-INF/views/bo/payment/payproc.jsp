@@ -108,7 +108,7 @@
 	   });
 	   
 	   function fn_SubBrdPage(getData) {
-		   location.href='/admin/paydetail?dealSq='+getData;
+		   location.href='/admin/payment/paydetailPage?dealSq='+getData;
 		}
    }
    </script>

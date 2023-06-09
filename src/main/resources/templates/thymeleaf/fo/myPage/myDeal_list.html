@@ -81,7 +81,7 @@
     	}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
 </head>
 
@@ -167,7 +167,7 @@
 							<div id="myDealList">
 								<!-- <div class="myd-box myd-mobile">
 									<div class="myd-img">
-										<img src="resources/img/mypage/img_bg.png"  class="" />
+										<img src="/resources/img/mypage/img_bg.png"  class="" />
 										<button type="button" class="btns-4">응찰 히스토리</button>
 										<button type="button" class="btns-4">거래 계약 안내 및 상세</button>
 									</div>
@@ -231,8 +231,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>응찰 히스토리</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -241,7 +241,7 @@
 					<!-- <input type="checkbox" id="a1" name="cc">
 					<label for="a1"><span></span>내 응찰만 보기</label> -->
 				</div>
-				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<!-- <img src="/resources/img/ba/chart-img.png" class="mdimg" /> -->
 				<canvas id="canvas"></canvas>
 			</div>
 		</div>
@@ -338,7 +338,7 @@ function bidHistory(dealSq) {
 	
 	$.ajax({
         type: "post",
-        url: "/myDealList/bidHistory",
+        url: "/myPage/myDealList/bidHistory",
         data: {
         	dealSq : dealSq
         },
@@ -476,7 +476,7 @@ function myDealSearchList(){
 	searchOptions.dealSttsCd = $("#dealSttsCd").val();
 	$.ajax({
         type: "post",
-        url: "/myDealSearchList",
+        url: "/myPage/myDealSearchList",
         data: searchOptions,
         success: function(data) {
         	var myDealList = null;
@@ -824,13 +824,13 @@ var dealCount = setInterval(function() {
 //거래 계약 안내 및 상세 페이지 (구매자)로 이동
 function myDealDetailBuy(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	location.href="/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	location.href="/myPage/myDealDetailBuy?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 }
 
 //거래 계약 안내 및 상세 페이지 (판매자)로 이동
 function myDealDetailSell(obj){
 	var dealSq = obj.getAttribute("dealSq");
-	location.href="/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
+	location.href="/myPage/myDealDetailSell?dealSq="+dealSq+"&&mbrSq="+sMbrSqVal;
 	
 }
 
@@ -950,7 +950,7 @@ function bidReg(obj){
 	if(bidPrc != null && bidPrc != ""){
 		$.ajax({
 	        type: "post",
-	        url: "/bidReg",
+	        url: "/deal/bidReg",
 	        data : {
 	        	dealSq : dealSq,
 	        	mbrSq : sMbrSqVal,
@@ -981,7 +981,7 @@ function dealMod(obj){
 		modalAlertShow("응찰이 된 거래는 수정할 수 없습니다.");
 		return;
 	}
-	location.href="/dealMod?dealSq="+dealSq;
+	location.href="/deal/openDealMod?dealSq="+dealSq;
 }
 </script>
     

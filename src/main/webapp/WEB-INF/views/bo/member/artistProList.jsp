@@ -242,7 +242,7 @@
    	   				mbrSqParam : mbrSq,
    	   				mbrAuthSq : '2'
    	   			}
-   			var contentUrl = "/admin/member/artistMemberInput";
+   			var contentUrl = "/admin/member/insertArtistMemberPage";
    			postForm(contentUrl, param);
    		}
    		   		

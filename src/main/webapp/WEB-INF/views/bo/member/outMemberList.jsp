@@ -201,7 +201,7 @@
    			let param = {
    	   				mbrSqParam : mbrSq
    	   			}
-   			var contentUrl = "/admin/member/artistMemberInput";
+   			var contentUrl = "/admin/member/insertArtistMemberPage";
    			postForm(contentUrl, param);
    		}
    		   		

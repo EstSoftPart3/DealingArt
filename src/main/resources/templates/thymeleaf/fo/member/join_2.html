@@ -76,7 +76,7 @@
     	}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -125,12 +125,12 @@
 		                    <input type="checkbox" id="s1" name="s1">
 							<label for="s1"><span></span>(필수) 만 18세 이상입니다.</label><br/>
 							<input type="checkbox" id="s2" name="s2">
-							<label for="s2"><span></span>(필수) 이용 약관</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/termOfService" target="_blank">[읽기]</a></label><br/>
+							<label for="s2"><span></span>(필수) 이용 약관</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/about/termOfService" target="_blank">[읽기]</a></label><br/>
 							<input type="checkbox" id="s3" name="s3">
-							<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/privacyPolicy" target="_blank">[읽기]</a></label><br/>
+							<label for="s3"><span></span>(필수) 개인정보 수집 및 이용 동의</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/about/privacyPolicy" target="_blank">[읽기]</a></label><br/>
 							
 		                    <input type="checkbox" id="s4" name="s4">
-							<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/marketing" target="_blank">[읽기]</a></label>
+							<label for="s4"><span></span>(선택) 이벤트, 프로모션 알림 메일 및 SMS 수신</label>&nbsp;&nbsp;<label style="font-size:11px;"><a href="/about/marketing" target="_blank">[읽기]</a></label>
 	                    </div>
 	                    <div class="bat-box3" style="margin-top:15px;">
 							<button type="button" class="ba-btn1" id="memberInputBtn"><span>회원 가입하기</span></button>
@@ -213,7 +213,7 @@
       	
       	$.ajax({
               type: "post",
-              url: "/memberDuplicateCheck",
+              url: "/member/DuplicateCheck",
               data: {
               		mbrCpCertDi : mbrCpCertDi
               },
@@ -300,7 +300,7 @@
   function mbrNcknmCheck(obj){
   	$.ajax({
           type: "post",
-          url: "/mbrNcknmCheck",
+          url: "/member/mbrNcknmCheck",
           data: {
           	mbrNcknm : document.getElementById("mbrNcknm").value
           },
@@ -599,7 +599,7 @@
   		    		 alert("회원가입이 완료 되었습니다.")
   		    		 
   		    		 //로그인 페이지로 이동	    		 
-  		    		 location.href = "/mlogin";
+  		    		 location.href = "/main/mlogin";
   		    		 
   		    		 //modalAlertShow("회원가입이 완료 되었습니다.","memberInput");
   		    		 
@@ -635,7 +635,7 @@
 			
 			$.ajax({
 				   type: "post",
-				   url: "/myPage/memberIdChkData",
+				   url: "/member/memberIdChkData",
 				   data: param,
 				   success: function(data) {
 					   

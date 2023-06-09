@@ -75,7 +75,7 @@
     	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
 </head>
 
@@ -88,16 +88,16 @@
 				<div class="mgz-wrap">
 					<div class="mgz-top mgz-bg-3">
 						<div class="mgz-title">
-							<img src="resources/img/mgz/title.png" />
+							<img src="/resources/img/mgz/title.png" />
 							<div class="mgz-text"><span>최신 전시 소식부터 가장 HOT한 전시 추천까지</span></div>
 						</div>
 					</div>
 					<div class="mgz-body max-1500">
 						<div class="mgz-link">
 							<ul class="mgz-ul">
-								<li><a href="/insights">Insights</a></li>
-								<li><a href="/media">Artist Film</a></li>
-								<li class="active"><a href="/exhibition">Exhibition</a></li>
+								<li><a href="/mgz9/insights">Insights</a></li>
+								<li><a href="/mgz9/media">Artist Film</a></li>
+								<li class="active"><a href="/mgz9/exhibition">Exhibition</a></li>
 							</ul>
 						</div>
 						
@@ -125,7 +125,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 			</div>
 			
@@ -211,7 +211,7 @@
     	 
      	$.ajax({
              type: "post",
-             url: "/selectMgz9List",
+             url: "/mgz9/selectMgz9List",
              data:{
             	 pagestart : pageStart,
             	 page : page,
@@ -297,7 +297,7 @@
       	
       	$.ajax({
               type: "post",
-              url: "/selectMgz9Dtl",
+              url: "/mgz9/selectMgz9Dtl",
               data:{
              	 mgzSq : mgzSq
       		},

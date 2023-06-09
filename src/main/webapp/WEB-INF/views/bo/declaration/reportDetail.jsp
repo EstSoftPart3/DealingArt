@@ -121,7 +121,7 @@
 		
 		$.ajax({
 	           type: "post",
-	           url: "/admin/reportSearch",
+	           url: "/admin/report/reportSearch",
 	           data: {
 	        	   rprtSq : <%=rprtSq%>
 	        },
@@ -154,7 +154,7 @@
 	 
    
    function reportList() {
-	   location.href = "/admin/reportList";
+	   location.href = "/admin/report/reportList";
    }
    
    
@@ -174,7 +174,7 @@
 	        
 	    	$.ajax({
 				type: "POST",
-		        url: "/admin/reportUpdateData",
+		        url: "/admin/report/reportUpdateData",
 		        data: {
 		        	rprtSq : <%=rprtSq%>,
 		        	rprtRsltTypCd : rprtRsltTypCdVal

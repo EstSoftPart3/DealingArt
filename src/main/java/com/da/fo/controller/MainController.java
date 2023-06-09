@@ -38,7 +38,7 @@ public class MainController {
 	}
 	
 	//로그인 페이지
-	@RequestMapping("/mlogin")
+	@RequestMapping("/main/mlogin")
 	public String openLogin() {
 		return "thymeleaf/index";
 	}
@@ -55,7 +55,7 @@ public class MainController {
 	}
 	
 	//회원가입 본인인증
-	@RequestMapping("/joinStep1")
+	@RequestMapping("/main/joinStep1")
 	public String openJoinStep1() {
 		return "thymeleaf/fo/member/join_1";
 	}
@@ -67,7 +67,7 @@ public class MainController {
 	
 	
 	//회원가입 본인인증
-	@RequestMapping("/joinStep2")
+	@RequestMapping("/main/joinStep2")
 	public String openJoinStep2() {
 		return "thymeleaf/fo/member/join_2";
 	}
@@ -118,7 +118,7 @@ public class MainController {
 		return "thymeleaf/sitemap.xml";
 	}
 	
-	@RequestMapping("/totalSearch_artist")
+	@RequestMapping("/main/totalSearch_artist")
 	@ResponseBody
 	public ModelAndView totalSearchArtist(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_artist");
@@ -135,7 +135,7 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/totalSearch_work")
+	@RequestMapping("/main/totalSearch_work")
 	@ResponseBody
 	public ModelAndView totalSearchWork(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_work");
@@ -158,7 +158,7 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/totalSearch_content")
+	@RequestMapping("/main/totalSearch_content")
 	@ResponseBody
 	public ModelAndView totalSearchContent(@RequestParam(value="searchKeyword", required = false) String searchKeyword) {
 		ModelAndView mv = new ModelAndView("thymeleaf/result_content");
@@ -171,7 +171,7 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/totalSearchAutocomplete")
+	@RequestMapping("/main/totalSearchAutocomplete")
 	@ResponseBody
 	public ModelAndView totalSearchAutocomplete(@RequestParam String searchKeyword) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -180,7 +180,7 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/totalSearch_work/searchOptions")
+	@RequestMapping("/main/totalSearch_work/searchOptions")
 	public String totalSearchWorkSearchOptions(Model model, @RequestBody Map<String, Object> param) {
 		Map<String,Object> result = new HashMap<>();
 		int page = Integer.parseInt(param.get("page").toString());

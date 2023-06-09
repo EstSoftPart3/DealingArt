@@ -126,7 +126,7 @@ public class MemberController {
 	
 	
 	//회원수정
-	@RequestMapping("/myPage/memberUpdateData")
+	@RequestMapping("/member/myPage/memberUpdateData")
 	@ResponseBody
 	public void memberUpdateData(@RequestParam Map<String, Object> param) {
 		
@@ -165,7 +165,7 @@ public class MemberController {
 	}
 	
 	//회원 알림설정
-	@RequestMapping("/myPage/memberAlarmData")
+	@RequestMapping("/member/myPage/memberAlarmData")
 	@ResponseBody
 	public void memberAlarmData(@RequestParam Map<String, Object> param) {
 		//회원 아이디.이메일
@@ -190,7 +190,7 @@ public class MemberController {
 	}
 		
 	//회원상세
-	@RequestMapping("/myPage/memberContentData")
+	@RequestMapping("/member/myPage/memberContentData")
 	@ResponseBody
 	public ModelAndView memberContentData(@RequestParam Map<String, Object> param,HttpServletRequest request) {
 		
@@ -211,11 +211,15 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("/login")
+	@RequestMapping("/member/login")
 	@ResponseBody
 	public ModelAndView login(@RequestParam Map<String, Object> param, HttpServletRequest request, HttpServletResponse response) {
+		
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("jsonView");
+		//로그인 후 원래 있던 페이지로 돌아가기 위해 접속해있던 url 가져옴
+		
+		
 		String loginId = commonService.encrypt((String) param.get("loginId"));
 		String loginPw = commonService.encrypt((String) param.get("loginPw"));
 		String autoLoginYn = (String) param.getOrDefault("autoLoginYn", "N");
@@ -284,7 +288,7 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping("/member/logout")
 	@ResponseBody
 	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		if(session.getAttribute("mbrSq") != null && session.getAttribute("mbrSq") != "") {
@@ -307,7 +311,7 @@ public class MemberController {
 	}
 	
 	//Session GET
-	@RequestMapping(value = "/loginSession")
+	@RequestMapping(value = "/member/loginSession")
 	public ModelAndView loginSession(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -350,7 +354,7 @@ public class MemberController {
 	}
 
 	//회원 아이디중복.닉네임 중복체크
-	@RequestMapping("/myPage/memberIdChkData")
+	@RequestMapping("/member/memberIdChkData")
 	@ResponseBody
 	public ModelAndView memberIdCheck(@RequestParam Map<String, Object> param) {
 		
@@ -372,7 +376,7 @@ public class MemberController {
 	
 	
 	//작가기본정보 입력
-	@RequestMapping("/myPage/authorInfoBaseSaveData")
+	@RequestMapping("/member/author/InfoBaseSaveData")
 	@ResponseBody
 	public int authorInfoBaseSaveData(@RequestParam Map<String, Object> param) {
 		
@@ -430,7 +434,7 @@ public class MemberController {
 	}
 	
 	//작가기본정보 VIEW
-	@RequestMapping("/myPage/authorInfoBaseViewData")
+	@RequestMapping("/member/author/InfoBaseViewData")
 	@ResponseBody
 	public ModelAndView authorBaseInfoView(@RequestParam Map<String, Object> param) {
 		
@@ -447,7 +451,7 @@ public class MemberController {
 	}
 	
 	//작가학력정보 입력
-	@RequestMapping("/myPage/authorEduInfoSaveData")
+	@RequestMapping("/member/author/EduInfoSaveData")
 	@ResponseBody
 	public int authoreduInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
 		
@@ -476,7 +480,7 @@ public class MemberController {
 	}
 	
 	//작가학력정보 리스트
-	@RequestMapping("/myPage/authorEduInfoViewData")
+	@RequestMapping("/member/author/EduInfoViewData")
 	@ResponseBody
 	public ModelAndView authorEduInfoList(@RequestParam Map<String, Object> param) {
 		
@@ -493,7 +497,7 @@ public class MemberController {
 	}
 	
 	//작가학력정보 삭제
-	@RequestMapping("/myPage/authorEudInfoDeleteData")
+	@RequestMapping("/member/author/EudInfoDeleteData")
 	@ResponseBody
 	public int authorEudInfoDelete(@RequestParam Map<String, Object> param) {
 		
@@ -505,7 +509,7 @@ public class MemberController {
 	}
 	
 	//작가경력정보 입력
-	@RequestMapping("/myPage/authorCareerInfoSaveData")
+	@RequestMapping("/member/author/CareerInfoSaveData")
 	@ResponseBody
 	public int authorCareerInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
 		
@@ -534,7 +538,7 @@ public class MemberController {
 	}
 	
 	//작가경력 - 경력 리스트
-	@RequestMapping("/myPage/authorCarrerInfoViewData")
+	@RequestMapping("/member/author/CarrerInfoViewData")
 	@ResponseBody
 	public ModelAndView authorCarrerInfoList(@RequestParam Map<String, Object> param) {
 		
@@ -551,7 +555,7 @@ public class MemberController {
 	}
 	
 	//작가경력 - 경력 삭제
-	@RequestMapping("/myPage/authorCarrerInfoDeleteData")
+	@RequestMapping("/member/author/CarrerInfoDeleteData")
 	@ResponseBody
 	public int authorCarrerInfoDelete(@RequestParam Map<String, Object> param) {
 		
@@ -563,7 +567,7 @@ public class MemberController {
 	}
 	
 	//작가경력정보 입력
-	@RequestMapping("/myPage/authorExhbtnInfoSaveData")
+	@RequestMapping("/member/author/ExhbtnInfoSaveData")
 	@ResponseBody
 	public int authorExhbtnInfoSaveData(HttpServletRequest request, @RequestBody List<Map<String, Object>> list) throws Exception {
 		
@@ -592,7 +596,7 @@ public class MemberController {
 	}
 	
 	//작가경력 - 경력 리스트
-	@RequestMapping("/myPage/authorExhbtnInfoViewData")
+	@RequestMapping("/member/author/ExhbtnInfoViewData")
 	@ResponseBody
 	public ModelAndView authorExhbtnInfoList(@RequestParam Map<String, Object> param) {
 		
@@ -609,7 +613,7 @@ public class MemberController {
 	}
 	
 	//작가경력 - 경력 삭제
-	@RequestMapping("/myPage/authorExhbtnInfoDeleteData")
+	@RequestMapping("/member/author/ExhbtnInfoDeleteData")
 	@ResponseBody
 	public int authorExhbtnInfoDelete(@RequestParam Map<String, Object> param) {
 		
@@ -620,14 +624,14 @@ public class MemberController {
 		return deleteState;
 	}
 	
-	@RequestMapping("/scrapAdd")
+	@RequestMapping("/member/myPage/scrapAdd")
 	@ResponseBody
 	public int scrapAdd(@RequestParam Map<String, Object> param) {
 		int result = memberService.scrapAdd(param);
 		return result;
 	}
 	
-	@RequestMapping("/scrapDel")
+	@RequestMapping("/member/myPage/scrapDel")
 	@ResponseBody
 	public int scrapDel(@RequestParam Map<String, Object> param) {
 		int result = memberService.scrapDel(param);
@@ -635,7 +639,7 @@ public class MemberController {
 	}
 	
 	//회원 아이디 찾기
-	@RequestMapping("/findId")
+	@RequestMapping("/member/findId")
 	@ResponseBody
 	public ModelAndView findId(@RequestParam String mbrCpCertDi) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -650,7 +654,7 @@ public class MemberController {
 	}
 	
 	//회원 비밀번호 찾기
-	@RequestMapping("/findPwd")
+	@RequestMapping("/member/findPwd")
 	@ResponseBody
 	public ModelAndView findPwd(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -666,7 +670,7 @@ public class MemberController {
 	}
 	
 	//회원 중복체크
-	@RequestMapping("/memberDuplicateCheck")
+	@RequestMapping("/member/DuplicateCheck")
 	@ResponseBody
 	public int memberDuplicateCheck(@RequestParam String mbrCpCertDi) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@ mbrCpCertDi :" + mbrCpCertDi);
@@ -674,7 +678,7 @@ public class MemberController {
 	}
 	
 	//회원 비밀번호변경
-	@RequestMapping("/changePasswrd")
+	@RequestMapping("/member/changePasswrd")
 	@ResponseBody
 	public int changePasswrd(@RequestParam Map<String, Object> param) {
 		param.put("mbrId", commonService.encrypt(param.get("mbrId").toString()));
@@ -683,7 +687,7 @@ public class MemberController {
 	}
 	
 	//회원 활동명 중복체크
-	@RequestMapping("/mbrNcknmCheck")
+	@RequestMapping("/member/mbrNcknmCheck")
 	@ResponseBody
 	public ModelAndView mbrNcknmCheck(@RequestParam String mbrNcknm) {
 		ModelAndView mv = new ModelAndView("jsonView");

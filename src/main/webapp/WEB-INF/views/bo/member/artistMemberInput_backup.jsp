@@ -358,7 +358,7 @@
 	        	   var d = $.Deferred();
 	               $.ajax({
 	      	    	 type: "post",
-	    	    	 url: "/myPage/authorEduInfoViewData",
+	    	    	 url: "/member/author/EduInfoViewData",
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
@@ -385,7 +385,7 @@
 	        	   
 	        	   return $.ajax({
 	                   type: "POST",
-	                   url: "/myPage/authorEduInfoSaveData",
+	                   url: "/member/author/EduInfoSaveData",
 	                   data: JSON.stringify(edulist),
 	                   dataType: "json",
 	                   contentType : "application/json; charset=UTF-8"
@@ -411,7 +411,7 @@
 	        	   console.log(item);
 	        	   return $.ajax({
 	        		   type: "POST",
-	                   url: "/myPage/authorEduInfoSaveData",
+	                   url: "/member/author/EduInfoSaveData",
 	                   data: JSON.stringify(edulist),
 	                   dataType: "json",
 	                   contentType : "application/json; charset=UTF-8"
@@ -429,7 +429,7 @@
 	        	   
 	        	   return $.ajax({
 	                   type: "POST",
-	                   url: "/myPage/authorEudInfoDeleteData",
+	                   url: "/member/author/EudInfoDeleteData",
 	                   data: eduDeleteParam
 	               }).done(function(response) {
 	            	   $("#eductnList").jsGrid("loadData");
@@ -479,7 +479,7 @@
 	        	   var d = $.Deferred();
 	               $.ajax({
 	      	    	 type: "post",
-	    	    	 url: "/myPage/authorCarrerInfoViewData",
+	    	    	 url: "/member/author/CarrerInfoViewData",
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
@@ -504,7 +504,7 @@
 	        	   
 	        	   return $.ajax({
 	                   type: "POST",
-	                   url: "/myPage/authorCareerInfoSaveData",
+	                   url: "/member/author/CareerInfoSaveData",
 	                   data: JSON.stringify(careerlist),
 	                   dataType: "json",
 	                   contentType : "application/json; charset=UTF-8"
@@ -533,7 +533,7 @@
 	        	   
 	        	   return $.ajax({
 	        		   type: "POST",
-	                   url: "/myPage/authorCareerInfoSaveData",
+	                   url: "/member/author/CareerInfoSaveData",
 	                   data: JSON.stringify(careerlist),
 	                   dataType: "json",
 	                   processData : true,
@@ -553,7 +553,7 @@
 	        	   return $.ajax({
 	                   type: "POST",
 	                   
-	                   url: "/myPage/authorCarrerInfoDeleteData",
+	                   url: "/member/author/CarrerInfoDeleteData",
 	                   data: careerDeleteParam
 	               }).done(function(response) {
 	            	   $("#careerList").jsGrid("loadData");
@@ -601,7 +601,7 @@
 		        	   var d = $.Deferred();
 		               $.ajax({
 		      	    	 type: "post",
-		    	    	 url: "/myPage/authorCarrerInfoViewData",
+		    	    	 url: "/member/author/CarrerInfoViewData",
 		    	         data: params,
 		    	         dataType: "json"
 		    	      }).done(function(response) {
@@ -626,7 +626,7 @@
 		        	   
 		        	   return $.ajax({
 		                   type: "POST",
-		                   url: "/myPage/authorCareerInfoSaveData",
+		                   url: "/member/author/CareerInfoSaveData",
 		                   data: JSON.stringify(careerlist),
 		                   dataType: "json",
 		                   contentType : "application/json; charset=UTF-8"
@@ -655,7 +655,7 @@
 		        	   
 		        	   return $.ajax({
 		        		   type: "POST",
-		                   url: "/myPage/authorCareerInfoSaveData",
+		                   url: "/member/author/CareerInfoSaveData",
 		                   data: JSON.stringify(careerlist),
 		                   dataType: "json",
 		                   processData : true,
@@ -675,7 +675,7 @@
 		        	   return $.ajax({
 		                   type: "POST",
 		                   
-		                   url: "/myPage/authorCarrerInfoDeleteData",
+		                   url: "/member/author/CarrerInfoDeleteData",
 		                   data: careerDeleteParam
 		               }).done(function(response) {
 		            	   $("#belongList").jsGrid("loadData");
@@ -724,7 +724,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		        	   var d = $.Deferred();
 		               $.ajax({
 		      	    	 type: "post",
-		    	    	 url: "/myPage/authorExhbtnInfoViewData",
+		    	    	 url: "/member/author/ExhbtnInfoViewData",
 		    	         data: params,
 		    	         dataType: "json"
 		    	      }).done(function(response) {
@@ -749,7 +749,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		        	   
 		        	   return $.ajax({
 		                   type: "POST",
-		                   url: "/myPage/authorExhbtnInfoSaveData",
+		                   url: "/member/author/ExhbtnInfoSaveData",
 		                   data: JSON.stringify(exhbtnlist),
 		                   dataType: "json",
 		                   contentType : "application/json; charset=UTF-8"
@@ -776,7 +776,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		        	   
 		        	   return $.ajax({
 		        		   type: "POST",
-		                   url: "/myPage/authorExhbtnInfoSaveData",
+		                   url: "/member/author/ExhbtnInfoSaveData",
 		                   data: JSON.stringify(exhbtnlist),
 		                   dataType: "json",
 		                   processData : true,
@@ -794,7 +794,7 @@ function AuthorSlxbtInfoList(mbrSq,artstSq){
 		        	    console.log(perDonginDeleteParam);
 		        	   return $.ajax({
 		                   type: "POST",
-		                   url: "/myPage/authorExhbtnInfoDeleteData",
+		                   url: "/member/author/ExhbtnInfoDeleteData",
 		                   data: perDonginDeleteParam
 		               }).done(function(response) {
 		            	   $("#perDonginList").jsGrid("loadData");
@@ -842,7 +842,7 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	        	   var d = $.Deferred();
 	               $.ajax({
 	      	    	 type: "post",
-	    	    	 url: "/myPage/authorExhbtnInfoViewData",
+	    	    	 url: "/member/author/ExhbtnInfoViewData",
 	    	         data: params,
 	    	         dataType: "json"
 	    	      }).done(function(response) {
@@ -867,7 +867,7 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	        	   
 	        	   return $.ajax({
 	                   type: "POST",
-	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   url: "/member/author/ExhbtnInfoSaveData",
 	                   data: JSON.stringify(exhbtnlist),
 	                   dataType: "json",
 	                   contentType : "application/json; charset=UTF-8"
@@ -894,7 +894,7 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	        	   
 	        	   return $.ajax({
 	        		   type: "POST",
-	                   url: "/myPage/authorExhbtnInfoSaveData",
+	                   url: "/member/author/ExhbtnInfoSaveData",
 	                   data: JSON.stringify(exhbtnlist),
 	                   dataType: "json",
 	                   processData : true,
@@ -912,7 +912,7 @@ function AuthorArtFairInfoList(mbrSq,artstSq){
 	        	    console.log(perDonginDeleteParam);
 	        	   return $.ajax({
 	                   type: "POST",
-	                   url: "/myPage/authorExhbtnInfoDeleteData",
+	                   url: "/member/author/ExhbtnInfoDeleteData",
 	                   data: perDonginDeleteParam
 	               }).done(function(response) {
 	            	   $("#artFairList").jsGrid("loadData");

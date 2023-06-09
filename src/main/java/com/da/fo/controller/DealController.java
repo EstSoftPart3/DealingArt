@@ -69,9 +69,9 @@ public class DealController {
 		return "thymeleaf/fo/deal/deal";
 	}
 	
-	@RequestMapping("/bidding")
+	@RequestMapping("/deal/bidding")
 	@ResponseBody
-	public ModelAndView bidding(@RequestParam(value="dealSq", required=false) String dealSq) {
+	public ModelAndView bidding(@RequestParam(value="SqNumber", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/bidding");
 		Map<String, Object> result = dealService.dealDetail(dealSq);
 		mv.addObject("result", result);
@@ -79,7 +79,7 @@ public class DealController {
 	}
 	
 	//거래 등록 페이지 오픈
-	@RequestMapping("/dealReg")
+	@RequestMapping("/deal/openDealReg")
 	@ResponseBody
 	public ModelAndView openDealReg(@RequestParam(value="workSq", required=false) String workSq,
 									@RequestParam(value="mbrSq", required=false) String mbrSq) {
@@ -109,7 +109,7 @@ public class DealController {
 	}
 	
 	//거래 등록 기능
-	@RequestMapping("/dealReg/reg")
+	@RequestMapping("/deal/dealReg")
 	@ResponseBody
 	public int dealReg(@RequestPart(value = "param") Map<String, Object> param, 
 			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
@@ -174,7 +174,7 @@ public class DealController {
 		return result3;
 	}
 	//응찰 또는 판매 되었는지 확인
-	@RequestMapping("/dealTPyn")
+	@RequestMapping("/deal/dealTPyn")
 	@ResponseBody
 	public String dealTPyn(@RequestParam(value="dealSq", required=false) String dealSq) {
 		String dealTPyn = "Y";
@@ -186,7 +186,7 @@ public class DealController {
 		return dealTPyn;
 	}
 	//거래 수정 페이지 오픈
-	@RequestMapping("/dealMod")
+	@RequestMapping("/deal/openDealMod")
 	@ResponseBody
 	public ModelAndView openDealMod(@RequestParam(value="dealSq", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/dealMod");
@@ -196,7 +196,7 @@ public class DealController {
 	}
 	
 	//거래 수정
-	@RequestMapping("/dealMod/Mod")
+	@RequestMapping("/deal/dealMod")
 	@ResponseBody
 	public int dealMod(@RequestPart(value = "param") Map<String, Object> param, 
 			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
@@ -256,7 +256,7 @@ public class DealController {
 		return result3;
 	}
 	
-	@RequestMapping("/dealSearch")
+	@RequestMapping("/deal/dealSearch")
 	@ResponseBody
 	public ModelAndView dealSerach(@RequestBody @Nullable Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -272,7 +272,7 @@ public class DealController {
 	}
 	
 	//응찰하기 전 실시간 응찰가와 현재 화면의 응찰가를 비교한다
-	@RequestMapping("/bidRegCheck")
+	@RequestMapping("/deal/bidRegCheck")
 	@ResponseBody
 	public ModelAndView bidRegCheck(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -282,7 +282,7 @@ public class DealController {
 	}
 		
 	//응찰버튼 클릭하면 응찰 테이블에 마지막 응찰가랑 비교를 하고 응찰 테이블에 응찰정보를 insert한다.
-	@RequestMapping("/bidReg")
+	@RequestMapping("/deal/bidReg")
 	@ResponseBody
 	public ModelAndView bidReg(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -291,25 +291,25 @@ public class DealController {
 		return mv;
 	}
 	
-	@RequestMapping("/workDetail")
+	@RequestMapping("/deal/workDetail")
 	@ResponseBody
-	public ModelAndView workDetail(@RequestParam(value="workSq", required=false) String workSq) {
+	public ModelAndView workDetail(@RequestParam(value="SqNumber", required=false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/workDetail");
 		Map<String, Object> result = dealService.workDetail(workSq);
 		mv.addObject("result", result);
 		return mv;
 	}
 	
-	@RequestMapping("/soldoutDetail")
+	@RequestMapping("/deal/soldoutDetail")
 	@ResponseBody
-	public ModelAndView soldoutDetail(@RequestParam(value="dealSq", required=false) String dealSq) {
+	public ModelAndView soldoutDetail(@RequestParam(value="SqNumber", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/soldoutDetail");
 		Map<String, Object> result = dealService.soldoutDetail(dealSq);
 		mv.addObject("result", result);
 		return mv;
 	}
 	
-	@RequestMapping("/dealMod/bidSuspension")
+	@RequestMapping("/deal/dealMod/bidSuspension")
 	@ResponseBody
 	public ModelAndView bidSuspension(@RequestParam(value="dealSq", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("jsonView");

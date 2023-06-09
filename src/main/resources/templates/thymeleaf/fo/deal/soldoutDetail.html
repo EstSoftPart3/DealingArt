@@ -87,7 +87,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -135,7 +135,7 @@
 							
 <!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
 <!-- 								<div class="tootip-1">신고하기</div> -->
-<!-- 								<img src="resources/img/de/popo-1.png" /> -->
+<!-- 								<img src="/resources/img/de/popo-1.png" /> -->
 <!-- 							</a> -->
 						</div>
 						
@@ -195,7 +195,7 @@
 								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.mbrNcknm}]]
 										<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
-								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artist/artistDetail(SqNumber=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
 									<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
 								</td>
 							</tr>
@@ -206,7 +206,7 @@
 										<tr>
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span>시작가</span>
+													<img src="/resources/img/de/check-off.jpg" /><span>시작가</span>
 												</div>
 											</th>
 											<td>[[${result.work.dealStrtPrc}]] KRW</td>
@@ -214,7 +214,7 @@
 										<tr>
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span>판매기간</span>
+													<img src="/resources/img/de/check-off.jpg" /><span>판매기간</span>
 												</div>
 											</th>
 											<td>[[${result.work.dealStrtDt}]] ~ [[${result.work.dealEndngDt}]]</td>
@@ -222,7 +222,7 @@
 										<tr>
 											<th>
 												<div class="tsc-1">
-													<img src="resources/img/de/check-off.jpg" /><span>남은시간</span>
+													<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>
 												</div>
 											</th>
 											<td>종료</td>
@@ -234,7 +234,7 @@
 										<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>낙찰가</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>낙찰가</span>
 												</div>
 											</th>
 											<td>[[${result.work.dealSbidPrc}]] KRW</td>
@@ -242,7 +242,7 @@
 										<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>판매가</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>판매가</span>
 												</div>
 											</th>
 											<td>[[${result.work.dealFinalPrc}]] KRW</td>
@@ -250,7 +250,7 @@
 										<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>낙찰자</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>낙찰자</span>
 												</div>
 											</th>
 											<td>[[${result.work.buyNcknm}]]</td>
@@ -258,7 +258,7 @@
 										<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
 											<th>
 												<div class="tsc-2">
-													<img src="resources/img/de/check-on.jpg" /><span>구매자</span>
+													<img src="/resources/img/de/check-on.jpg" /><span>구매자</span>
 												</div>
 											</th>
 											<td>[[${result.work.buyNcknm}]]</td>
@@ -268,8 +268,8 @@
 							</ul>
 						<div class="bat-box">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
-							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
-							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory" style="display:none;"><img src="resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
+							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
+							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory" style="display:none;"><img src="/resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button>
 							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
 							<div class="clearboth"></div>
 						</div>
@@ -309,8 +309,8 @@
 						</div>
 						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
-					<div class="swiper-button-next sbn ta-no"><span><img src="resources/img/arr-r.jpg"></span></div>
-					<div class="swiper-button-prev sbp ta-no"><span><img src="resources/img/arr-l.jpg"></span></div>
+					<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
 				</div>
 			</div>
 			<!-- 영역 끝 -->
@@ -327,8 +327,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>신고하기</h2>
-				    <img src="resources/img/ba/icon-2.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <img src="/resources/img/ba/icon-2.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -362,7 +362,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -387,7 +387,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" onclick="closeArtstInfoModal()"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" onclick="closeArtstInfoModal()"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -402,16 +402,16 @@
 					<dt>SNS</dt>
 					<dd>
 						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstInstagramUrl)}">
-							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="resources/img/icon/i-1.png"/></a>
+							<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="/resources/img/icon/i-1.png"/></a>
 						</th:block>
 						<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstfacebookUrl)}">
-							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="resources/img/icon/i-2.png"/></a>
+							<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="/resources/img/icon/i-2.png"/></a>
 						</th:block>
-						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="resources/img/icon/i-2.png" /></a> -->
-						<!-- <a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>
-						<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a> -->
+						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="/resources/img/icon/i-2.png" /></a> -->
+						<!-- <a href="#" class="if-img"><img src="/resources/img/icon/i-3.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-4.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-5.png" /></a>
+						<a href="#" class="if-img"><img src="/resources/img/icon/i-6.png" /></a> -->
 					</dd>
 				</dl>
 				<dl class="ad-dl">
@@ -715,8 +715,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>응찰 히스토리</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -725,7 +725,7 @@
 					<!-- <input type="checkbox" id="a1" name="cc">
 					<label for="a1"><span></span>내 응찰만 보기</label> -->
 				</div>
-				<!-- <img src="resources/img/ba/chart-img.png" class="mdimg" /> -->
+				<!-- <img src="/resources/img/ba/chart-img.png" class="mdimg" /> -->
 				<canvas id="canvas"></canvas>
 			</div>
 		</div>
@@ -807,7 +807,7 @@ function chart() {
 	
 		$.ajax({
 	        type: "post",
-	        url: "/myDealList/bidHistory",
+	        url: "/myPage/myDealList/bidHistory",
 	        data: {
 	        	dealSq : result.work.dealSq
 	        },
@@ -913,7 +913,7 @@ function workList(){
 		var html = '';
 		for(var i=0; i<result.workList.length; i++){
 			html +='<div class="swiper-slide hd-div">';
-			html +='	<a href="/workDetail?workSq='+result.workList[i].workSq+'">';
+			html +='	<a href="/deal/workDetail?SqNumber='+result.workList[i].workSq+'">';
 			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
 			html +='		<div class="hd-text">';
 			html +='			<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';

@@ -65,7 +65,7 @@ public class MyPageController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping("/trnsprtTypCdUpdate")
+	@RequestMapping("/myPage/trnsprtTypCdUpdate")
 	@ResponseBody
 	public ModelAndView trnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
 		System.out.println(param);
@@ -76,44 +76,44 @@ public class MyPageController {
 		return mv;
 	}
 	
-
-	@RequestMapping("/withdrawal")
+	//회원 탈퇴
+	@RequestMapping("/myPage/withdrawal")
 	public String withdrawal() {
 		return "thymeleaf/fo/myPage/secession";
 	}
 
 	// 회원수정 페이지
-	@RequestMapping("/memberEdit")
+	@RequestMapping("/myPage/memberEdit")
 	public String memberEdit() {
 		return "thymeleaf/fo/myPage/memberEdit";
 	}
 
 	// 소장품 등록 페이지 오픈
-	@RequestMapping("/collection_reg")
+	@RequestMapping("/myPage/collection_reg")
 	public String collectionReg() {
 		return "thymeleaf/fo/myPage/collection_reg";
 	}
 
 	// 나의 작품 등록 페이지 오픈
-	@RequestMapping("/myWork_reg")
+	@RequestMapping("/myPage/myWork_reg")
 	public String myWorkReg() {
 		return "thymeleaf/fo/myPage/myWork_reg";
 	}
 
 	// 알림
-	@RequestMapping("/alarm")
+	@RequestMapping("/myPage/alarm")
 	public String alarm() {
 		return "thymeleaf/fo/myPage/alarm";
 	}
 
 	// 쿠폰
-	@RequestMapping("/coupon")
+	@RequestMapping("/myPage/coupon")
 	public String coupon() {
 		return "thymeleaf/fo/myPage/coupon";
 	}
 	
 	//모바일 마이페이지
-	@RequestMapping("/mMyPage")
+	@RequestMapping("/myPage/mMyPage")
 	public String mobileMyPage() {
 		return "thymeleaf/fo/myPage/mypage_mobile";
 	}
@@ -123,7 +123,7 @@ public class MyPageController {
 	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
 	 * return : 쿠폰목록
 	 */
-	@RequestMapping("/myCouponList_payment")
+	@RequestMapping("/myPage/myCouponList_payment")
 	@ResponseBody
 	public ModelAndView myCouponList_payment(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -136,7 +136,7 @@ public class MyPageController {
 	}
 	
 	// 쿠폰 리스트 조회
-	@RequestMapping("/myCouponList")
+	@RequestMapping("/myPage/myCouponList")
 	@ResponseBody
 	public ModelAndView myCouponList(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -147,7 +147,7 @@ public class MyPageController {
 	}
 	
 	// 쿠폰 등록
-	@RequestMapping("/myRegCoupon")
+	@RequestMapping("/myPage/myRegCoupon")
 	@ResponseBody
 	public ModelAndView myRegCoupon(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -159,9 +159,9 @@ public class MyPageController {
 	}
 	
 	// 소장품
-	@RequestMapping("/myCollection")
+	@RequestMapping("/myPage/myCollection")
 	@ResponseBody
-	public ModelAndView myCollection(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
+	public ModelAndView myCollection(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ mbrSq : " + mbrSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_myCollection");
 		List result = myPageService.myCollection(mbrSq);
@@ -170,13 +170,13 @@ public class MyPageController {
 	}
 
 	//통합 나의 작품 화면 오픈
-	@RequestMapping("/myWorkList")
+	@RequestMapping("/myPage/myWorkList")
 	public String myWorkList() {
 		return "thymeleaf/fo/myPage/myWorkList";
 	}
 	
 	//통합 나의 작품 검색
-	@RequestMapping("/myWorkListSearch")
+	@RequestMapping("/myPage/myWorkListSearch")
 	@ResponseBody
 	public ModelAndView myWorkListSearch(@RequestParam Map<String, Object> param) {
 		System.out.println(param);
@@ -187,7 +187,7 @@ public class MyPageController {
 	}
 	
 	//통합 나의 작품 작품 공개/비공개 처리
-	@RequestMapping("/myWorkOpenYn")
+	@RequestMapping("/myPage/myWorkOpenYn")
 	@ResponseBody
 	public ModelAndView myWorkOpenYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList,
 									@RequestParam(value = "workOpenYn", required = false) String workOpenYn) {
@@ -205,7 +205,7 @@ public class MyPageController {
 	}
 	
 	//통합 나의 작품 삭제 처리
-	@RequestMapping("/myWorkDelYn")
+	@RequestMapping("/myPage/myWorkDelYn")
 	@ResponseBody
 	public ModelAndView myWorkDelYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -216,7 +216,7 @@ public class MyPageController {
 	}
 	
 	//통합 나의 작품 판매중단 처리
-	@RequestMapping("/myWorkDealDelete")
+	@RequestMapping("/myPage/myWorkDealDelete")
 	@ResponseBody
 	public ModelAndView myWorkDealDelete(@RequestParam(value = "dealSqList[]", required = false) List<String> dealSqList) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -227,15 +227,15 @@ public class MyPageController {
 	}
 	
 	//통합 나의 작품 화면 오픈
-	@RequestMapping("/myWorkListReg")
+	@RequestMapping("/myPage/myWorkListReg")
 	public String myWorkListReg() {
 		return "thymeleaf/fo/myPage/myWorkReg";
 	}
 
 	// 스크랩
-	@RequestMapping("/scrap")
+	@RequestMapping("/myPage/scrap")
 	@ResponseBody
-	public ModelAndView scrap(@RequestParam(value = "mbrSq", required = false) String mbrSq) {
+	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
 		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
 		mv.addObject("result", result);
@@ -243,9 +243,9 @@ public class MyPageController {
 	}
 
 	// 나의 작품
-	@RequestMapping("/myWork")
+	@RequestMapping("/myPage/myWork")
 	@ResponseBody
-	public ModelAndView myWork(@RequestParam(value = "artstSq", required = false) String artstSq) {
+	public ModelAndView myWork(@RequestParam(value = "SqNumber", required = false) String artstSq) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ artstSq : " + artstSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/portfolio_myWork");
 		List result = myPageService.myWork(artstSq);
@@ -254,12 +254,12 @@ public class MyPageController {
 	}
 
 	//거래내역
-	@RequestMapping("/myDeal")
+	@RequestMapping("/myPage/myDeal")
 	public String myDeal() {
 		return "thymeleaf/fo/myPage/myDeal_list";
 	}
 
-	@RequestMapping("/myDealSearchList")
+	@RequestMapping("/myPage/myDealSearchList")
 	@ResponseBody
 	public ModelAndView myDealSearchList(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -270,12 +270,13 @@ public class MyPageController {
 	}
 
 	// 작가정보등록
-	@RequestMapping("/information")
+	@RequestMapping("/myPage/information")
 	public String information() {
 		return "thymeleaf/fo/myPage/portfolio_info";
 	}
 
-	@RequestMapping("/withdrawalSubmit")
+	//회원탈퇴
+	@RequestMapping("/myPage/withdrawalSubmit")
 	@ResponseBody
 	public int withdrawalSubmit(@RequestParam @Nullable Map<String, Object> param, HttpSession session) {
 		System.out.println("############## param : " + param);
@@ -632,7 +633,7 @@ public class MyPageController {
 		}
 	
 	// 소장품 등록
-	@PostMapping("/collectionReg")
+	@PostMapping("/myPage/collectionReg")
 	@ResponseBody
 	public int collectionReg(@RequestPart(value = "work") Map<String, Object> param,
 			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
@@ -691,7 +692,7 @@ public class MyPageController {
 	}
 
 	// 나의 작품 등록
-	@PostMapping("/myWorkReg")
+	@PostMapping("/myPage/myWorkReg")
 	@ResponseBody
 	public int myWorkReg(@RequestPart(value = "work") Map<String, Object> param,
 			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
@@ -798,7 +799,7 @@ public class MyPageController {
 	}
 	
 	//통합 나의 작품 수정 페이지 오픈
-	@RequestMapping("/myWorkListMod")
+	@RequestMapping("/myPage/myWorkListMod")
 	@ResponseBody
 	public ModelAndView myWorkListMod(@RequestParam(value="workSq", required=false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myWorkMod");
@@ -808,7 +809,7 @@ public class MyPageController {
 	}
 
 	// 나의 작품 수정 페이지 오픈
-	@RequestMapping("/myWorkMod")
+	@RequestMapping("/myPage/myWorkMod")
 	@ResponseBody
 	public ModelAndView myWorkMod(@RequestParam(value = "workSq", required = false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myWork_mod");
@@ -818,7 +819,7 @@ public class MyPageController {
 	}
 
 	// 나의 작품 수정
-	@PostMapping("/myWorkCor")
+	@PostMapping("/myPage/myWorkCor")
 	@ResponseBody
 	public int myWorkCor(@RequestPart(value = "work") Map<String, Object> param, 
 			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
@@ -922,7 +923,7 @@ public class MyPageController {
 	}
 	
 	// 나의 소장품 수정 페이지 오픈
-	@RequestMapping("/myCollectionMod")
+	@RequestMapping("/myPage/myCollectionMod")
 	@ResponseBody
 	public ModelAndView myCollectionMod(@RequestParam(value = "workSq", required = false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/collection_mod");
@@ -932,7 +933,7 @@ public class MyPageController {
 	}
 	
 	// 소장품 등록
-	@PostMapping("/collectionCor")
+	@PostMapping("/myPage/collectionCor")
 	@ResponseBody
 	public int collectionCor(@RequestPart(value = "work") Map<String, Object> param, 
 			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
@@ -989,7 +990,7 @@ public class MyPageController {
 	
 	
 	//구매내역 상세 페이지 이동
-	@RequestMapping("/myDealDetailBuy")
+	@RequestMapping("/myPage/myDealDetailBuy")
 	@ResponseBody
 	public ModelAndView openMyDealDetailBuy(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_buy");
@@ -999,7 +1000,7 @@ public class MyPageController {
 	}
 	
 	//판매내역 상세 페이지 이동
-	@RequestMapping("/myDealDetailSell")
+	@RequestMapping("/myPage/myDealDetailSell")
 	@ResponseBody
 	public ModelAndView openMyDealDetailSell(@RequestParam(value="dealSq", required=false)String dealSq, @RequestParam(value="mbrSq", required=false)String mbrSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myDeal_detail_sell");
@@ -1009,7 +1010,7 @@ public class MyPageController {
 	}
 	
 	//운송 매트리스 운송 가격, 코드 네임 가져오기
-	@RequestMapping("/selectTrnsprtInfo")
+	@RequestMapping("/myPage/selectTrnsprtInfo")
 	@ResponseBody
 	public ModelAndView selectTrnsprtPrc(@RequestParam Map<String, Object> paramMap) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1019,7 +1020,7 @@ public class MyPageController {
 	}
 	
 	//배송 주소 변경
-	@RequestMapping("/updateNewAddr")
+	@RequestMapping("/myPage/updateNewAddr")
 	@ResponseBody
 	public ModelAndView updateNewAddr(@RequestParam Map<String, Object> paramMap) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1029,7 +1030,7 @@ public class MyPageController {
 	}
 	
 	//거래내역 응찰 히스토리 가져오기
-	@RequestMapping("/myDealList/bidHistory")
+	@RequestMapping("/myPage/myDealList/bidHistory")
 	@ResponseBody
 	public ModelAndView myDealListBidHistory(@RequestParam("dealSq") String dealSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1039,7 +1040,7 @@ public class MyPageController {
 	}
 	
 	//소장품 등록 작가 검색 모달창 자동완성
-	@RequestMapping("/searchArtst")
+	@RequestMapping("/myPage/searchArtst")
 	@ResponseBody
 	public ModelAndView searchArtst(@RequestParam("searchKeyword") String searchKeyword) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1049,7 +1050,7 @@ public class MyPageController {
 	}
 	
 	//소장품 등록 작품 검색 모달창 자동완성
-	@RequestMapping("/searchWork")
+	@RequestMapping("/myPage/searchWork")
 	@ResponseBody
 	public ModelAndView searchWork(@RequestParam("searchKeyword") String searchKeyword) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1059,7 +1060,7 @@ public class MyPageController {
 	}
 	
 	//운송 정보 저장
-	@RequestMapping("/insertTrnsprt")
+	@RequestMapping("/myPage/insertTrnsprt")
 	@ResponseBody
 	public int insertTrnsprt(@RequestBody Map<String, Object> param) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ param : "+param);
@@ -1076,7 +1077,7 @@ public class MyPageController {
 	}
 	
 	//해당 운송 정보 가져오기
-	@RequestMapping("/getTrnsprt")
+	@RequestMapping("/myPage/getTrnsprt")
 	@ResponseBody
 	public ModelAndView getTrnsprt(@RequestBody List<Map<String, Object>> paramMap) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1097,7 +1098,7 @@ public class MyPageController {
 	}
 	
 	//소장품 등록 작품 검색 결과 클릭시
-	@RequestMapping("/selectWork")
+	@RequestMapping("/myPage/selectWork")
 	@ResponseBody
 	public ModelAndView selectWork(@RequestParam("workSq") String workSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -1124,7 +1125,7 @@ public class MyPageController {
 	}
 	
 	//나의작품 / 소장품 거래등록 확인
-	@RequestMapping("/applyCupon")
+	@RequestMapping("/myPage/applyCupon")
 	@ResponseBody
 	public ModelAndView applyCupon(@RequestParam Map<String, Object> param) {
 		System.out.println(param);
@@ -1140,7 +1141,7 @@ public class MyPageController {
 	}
 	
 	//소장품 삭제시 거래중 여부 확인
-	@RequestMapping("/dealCheck")
+	@RequestMapping("/myPage/dealCheck")
 	public ModelAndView dealCheck (@RequestParam("workSq") String workSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		int result = myPageService.dealCheck(workSq);
@@ -1149,7 +1150,7 @@ public class MyPageController {
 	}
 	
 	//소장품 삭제
-	@RequestMapping("/deleteCollection")	
+	@RequestMapping("/myPage/deleteCollection")	
 	public ModelAndView deleteCollection (@RequestParam("workSq") String workSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		myPageService.delCollection(workSq);

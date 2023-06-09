@@ -93,7 +93,7 @@
 
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
     
     
@@ -123,16 +123,16 @@
 				<div class="mgz-wrap">
 					<div class="mgz-top mgz-bg-1">
 						<div class="mgz-title">
-							<img src="resources/img/mgz/newtitle.png" />
+							<img src="/resources/img/mgz/newtitle.png" />
 							<div class="mgz-text mt-bgs"><span>미술을 읽는 아홉가지 새로운 시각</span></div>
 						</div>
 					</div>
 					<div class="mgz-body max-1500">
 						<div class="mgz-link">
 							<ul class="mgz-ul">
-								<li class="active"><a href="/insights">Insights</a></li>
-								<li><a href="/media">Artist Film</a></li>
-								<li><a href="/exhibition">Exhibition</a></li>
+								<li class="active"><a href="/mgz9/insights">Insights</a></li>
+								<li><a href="/mgz9/media">Artist Film</a></li>
+								<li><a href="/mgz9/exhibition">Exhibition</a></li>
 							</ul>
 						</div>
 						
@@ -218,7 +218,7 @@ $(document).ready(function(){
  	
  	$.ajax({
          type: "post",
-         url: "/selectMgz9List",
+         url: "/mgz9/selectMgz9List",
          data:{
         	 pagestart : pageStart,
         	 page : page,
@@ -306,7 +306,7 @@ $(document).ready(function(){
 	  
   	$.ajax({
           type: "post",
-          url: "/selectMgz9Dtl",
+          url: "/mgz9/selectMgz9Dtl",
           data:{
          	 mgzSq : mgzSq
   		},

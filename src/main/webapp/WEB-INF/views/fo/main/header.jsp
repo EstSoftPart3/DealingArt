@@ -282,7 +282,7 @@ function login(){
 		modalAlertShow("비밀번호가 입력되지 않았습니다.", "txt_Pw");
 	}else{
 		$.ajax({
-			url:"/login",
+			url:"/member/login",
 			type:"post",
 			data: {
 				loginId : loginId,
@@ -312,7 +312,7 @@ function login(){
 //로그아웃
 function logout(){
 	$.ajax({
-		url:"/logout",
+		url:"/member/logout",
 		type:"post",
 		success:function(data){
 			if(data != null && data != ""){
@@ -641,7 +641,7 @@ function ibx_search_onkeyup(e){
 	var wordLength = $("#ibx_search").val().trim().length;
 	if(wordLength > 1){
 		$.ajax({
-			url:"/totalSearchAutocomplete",
+			url:"/main/totalSearchAutocomplete",
 			type:"post",
 			data: {
 				searchKeyword : "*"+$("#ibx_search").val()+"*" 

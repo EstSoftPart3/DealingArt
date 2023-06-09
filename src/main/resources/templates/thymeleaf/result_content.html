@@ -78,7 +78,7 @@
     	};
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -93,9 +93,9 @@
 				
 				<div class="aut-top">
 					<ul class="mgz-ul3 aut-none">
-						<li><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
-						<li><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
-						<li class="active"><a th:href="@{/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
+						<li><a th:href="@{/main/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
+						<li><a th:href="@{/main/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
+						<li class="active"><a th:href="@{/main/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
 					</ul>
 				</div>
 				
@@ -121,7 +121,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="conts">
-				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"></div>
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="/resources/img/ba/icon-end_1.png" style="width:20px;"></div>
 				</div>
 			</div>
 			<div id="editor_MDA" class="ck-blurred ck ck-content ck-rounded-corners" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
@@ -136,7 +136,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="/resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
 				</div>
 			</div>
 			
@@ -154,7 +154,7 @@
 		<div class="modal-content ">
 			<div class="modal-header lp_mgz9DtlModalHearder" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" onclick="closeMgz9Dtl()"><img src="resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
+				    <div class="close" onclick="closeMgz9Dtl()"><img src="/resources/img/ba/icon-end_1.png" style="width:20px;"/></div>
 				</div>
 			</div>
 			
@@ -244,7 +244,7 @@ function selectMgz9Dtl(mgzSq){
 	//MDA 
   	$.ajax({
           type: "post",
-          url: "/selectMgz9Dtl",
+          url: "/mgz9/selectMgz9Dtl",
           data:{
          	 mgzSq : mgzSq
   		},
