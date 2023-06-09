@@ -1344,10 +1344,11 @@ var param = new URLSearchParams(param);
 var getParamMore= param.get('more');
 var getParamDealSq= param.get('dealSq');
 
+
 //2022-09-26 DealSq와 More 파라미터가 같다면 작가 이력 Modal POPUP Active
-if(getParamMore == getParamDealSq){
+/* if(getParamMore == getParamDealSq){
 	openArtstInfoModal();
-}
+} */
 
 
 //부모창 스크롤 방지
@@ -1356,8 +1357,8 @@ function openArtstInfoModal(){
 	$('#artstInfoMore').modal({backdrop: 'static', keyboard: false})  
 	$("#artstInfoMore").modal("show");
 	
-	//URL 파라미터 생성
-	history.pushState(null, null, '?dealSq='+getParamDealSq+'&more='+getParamDealSq);
+	//URL 파라미터 생성(주석처리함 2023-06-09 손승완)
+	//history.pushState(null, null, '?dealSq='+getParamDealSq+'&more='+getParamDealSq);
 }
 
 function closeArtstInfoModal(){ 
