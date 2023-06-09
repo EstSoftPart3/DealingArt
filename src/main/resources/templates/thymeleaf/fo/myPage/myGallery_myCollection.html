@@ -98,23 +98,13 @@
 						<div class="reds-box mg_t150 por">
 							<ul class="pc-on">
 								<li>
-									<a href="javascript:fnModalAlert();" class="up-on">
+									<a href="javascript:void(0);" name="regDt" onclick="sorting(this)" class="">
 										최신 순
 									</a>
 								</li>
 								<li>
-									<a href="javascript:fnModalAlert();" class="down-on">
+									<a href="javascript:void(0);" name="workProdcYear" onclick="sorting(this)" class="">
 										제작년도
-									</a>
-								</li>
-								<li>
-									<a href="javascript:fnModalAlert();" class="">
-										작가명 <span>ㄱ</span> - <span>ㅎ</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:fnModalAlert();" class="">
-										작가명 <span>A</span> - <span>Z</span>
 									</a>
 								</li>
 							</ul>
@@ -210,6 +200,57 @@ function collectionRegMove() {
 	*/
 }
 
+function sorting(obj){ //pc 정렬
+	var val = obj.attributes.name.value;
+	var className = obj.className;
+	var classList = document.querySelectorAll(".down-on, .up-on");
+	if(classList.length > 0){
+		classList[0].className = "";
+	}
+	switch(className){
+	
+		case "" :
+			obj.className = "down-on";
+			myCollectionSorting(val, "DOWN");
+			break;
+			
+		case "down-on" :
+			obj.className = "up-on";
+			myCollectionSorting(val, "UP");
+			break;
+		
+		case "up-on" :
+			obj.className = "";
+			myCollectionSorting();
+			break;
+		
+	}
+}
+// MyCollection Sorting
+function myCollectionSorting(sort, type){
+	var searchOptions = new Object();
+	//정렬 정보
+	if(sort != null && type != null){
+		searchOptions.sort = sort;
+		searchOptions.type = type;
+	}
+	searchOptions.mbrSq = sMbrSqVal;
+	$.ajax({
+        type: "post",
+        url: "/myCollectionSorting",
+        contentType:"application/json",
+        data: JSON.stringify(searchOptions),
+        success: function(data) {
+        	// 그리드 초기화
+        	$(".grid").empty();
+       		// MyCollection 생성
+        	result = data.result;
+        	myCollectionList()
+        }
+	})
+}
+	
+	
 function myCollectionList(){
 	
     if(result.length > 0){

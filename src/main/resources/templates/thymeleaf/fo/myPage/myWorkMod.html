@@ -448,7 +448,7 @@
 									</tr>
 									<tr class="trchk trtoggle">
 										<th><span class="">작품 소개</span></th>
-										<td><textarea class="textarea-2" id="COLLworkIntrdc" placeholder="작품소개를 입력해주세요." th:text="${work.workIntrdc}" th:value="${work.workIntrdc}"></textarea></td>
+										<td><textarea class="textarea-2" id="COLLworkIntrdc" maxlength="100" placeholder="작품소개를 입력해주세요. (한/영, 공백 포함 100자 이내)" th:text="${work.workIntrdc}" th:value="${work.workIntrdc}"></textarea></td>
 									</tr>
 									<tr class="trchk trtoggle">
 										<th><span class="">작품 키워드</span></th>
@@ -757,7 +757,7 @@
 									</tr>
 									<tr class="trchk trtoggle">
 										<th>작품소개</th>
-										<td><textarea class="textarea-2" id="WORKworkIntrdc" placeholder="작품소개를 입력해주세요." th:text="${work.workIntrdc}" th:value="${work.workIntrdc}"></textarea></td>
+										<td><textarea class="textarea-2" id="WORKworkIntrdc" maxlength="100" placeholder="작품소개를 입력해주세요. (한/영, 공백 포함 100자 이내)" th:text="${work.workIntrdc}" th:value="${work.workIntrdc}"></textarea></td>
 									</tr>
 									<tr class="trchk trtoggle">
 										<th><span class="">작품 키워드</span></th>

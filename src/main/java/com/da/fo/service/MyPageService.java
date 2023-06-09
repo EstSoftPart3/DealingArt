@@ -46,6 +46,13 @@ public interface MyPageService {
 	List myCollection(String param);
 	
 	/*
+	 * 나의 소장품 목록
+	 * param : sorting 정보
+	 * return : 소장품 목록이 들어있는 리스트
+	 */
+	List myCollectionSorting(Map<String, Object> param);
+	
+	/*
 	 * 소장품 등록
 	 * param : 소장품 정보가 들어있는 param
 	 * return : int

@@ -102,11 +102,8 @@
 	        	<if test='sort == "PY"'>
 	        		ORDER BY A.WORK_PRODC_YEAR
 	        	</if>
-	        	<if test='sort == "KN"'>
-	        		ORDER BY A.ARTST_ACTVTY_NM
-	        	</if>
-	        	<if test='sort == "EN"'>
-	        		ORDER BY C.ARTST_ENGLS_NM
+	        	<if test='sort == "BC"'>
+	        		ORDER BY bidCnt
 	        	</if>
 	        	<if test='sort == "PC"'>
 	        		ORDER BY maxBidPrc, dealFinalPrc
@@ -142,6 +139,7 @@
 				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
 				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
 				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_INTRDC AS workIntrdc, /*작품소개*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_IMG_FRT_URL AS workImgFrtUrl, /*전면이미지주소*/
@@ -453,6 +451,7 @@
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
+				A.WORK_INTRDC AS workIntrdc,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_FRM_YN AS workFrmYn,
@@ -491,6 +490,7 @@
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.ARTST_ACTVTY_NM AS artstActvtyNm,
 				A.WORK_NM AS workNm,
+				A.WORK_INTRDC AS workIntrdc,
 				A.WORK_PRODC_YEAR AS workProdcYear,
 				A.WORK_MATRL AS workMatrl,
 				A.WORK_FRM_YN AS workFrmYn,
