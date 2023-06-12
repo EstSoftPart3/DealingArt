@@ -168,17 +168,6 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
-	
-	// 정렬
-	@RequestMapping("/myCollectionSorting")
-	@ResponseBody
-	public ModelAndView myCollectionSort(@RequestBody @Nullable Map<String, Object> param) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ param : " + param);
-		ModelAndView mv = new ModelAndView("jsonView");
-		List result = myPageService.myCollectionSorting(param);
-		mv.addObject("result", result);
-		return mv;
-	}
 
 	//통합 나의 작품 화면 오픈
 	@RequestMapping("/myWorkList")

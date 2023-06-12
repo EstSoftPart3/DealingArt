@@ -117,14 +117,7 @@ public class MyPageServiceImpl implements MyPageService{
 	public List myCollection(String param) {
 		return myPageDao.myCollection(param);
 	}
-	/*
-	 * 나의 소장품 목록
-	 * param : sorting 정보
-	 * return : 소장품 목록이 들어있는 리스트
-	 */
-	public List myCollectionSorting(Map<String, Object> param) {
-		return myPageDao.myCollectionSorting(param);
-	}
+	
 	/*
 	 * 나의 작품 등록
 	 * param : 나의 작품 정보가 들어있는 param
