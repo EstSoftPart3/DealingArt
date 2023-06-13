@@ -100,6 +100,11 @@ public class DealDao {
 	 */
 	public int dealReg(Object param) {
 		//박상현 : 응찰 또는 판매됬는지 확인
+		System.out.println("param ="+param);                                                              
+		int sessionDealCount = dealMapper.dealRegCount(param);
+		if(sessionDealCount >= 5) {
+			return -3;
+		}
 		int suspension = dealMapper.selectDealSttsCd(param);
 		if(suspension > 0) {
 			return -1;
@@ -117,6 +122,7 @@ public class DealDao {
 				return result2;
 			}
 		}
+		
 		return 0;
 	}
 	

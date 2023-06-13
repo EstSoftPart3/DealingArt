@@ -295,6 +295,17 @@
 			AND DEAL_STTS_CD NOT IN ('FB', 'ST')
 	</select>
 	
+	<select id="dealRegCount" resultType="int" parameterType="hashMap">
+		/* 등록된 작품 개수 카운트 */
+		SELECT 
+				COUNT(SELL_MBR_SQ)
+		FROM
+				TBL_DA_DEAL_M
+		WHERE 
+				SELL_MBR_SQ = #{mbrSq}
+			AND DEAL_STTS_CD NOT IN ('FB', 'ST')
+	</select>
+	
 	<select id="bidRegCheck1" resultType="int" parameterType="hashMap">
 		/*화면에 입력된 응찰가와 실시간 응찰가를 비교한다.*/
 		SELECT 
