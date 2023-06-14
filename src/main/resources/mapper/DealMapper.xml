@@ -53,8 +53,6 @@
 			<if test="searchKeyword != null and searchKeyword != ''">
 				AND 
 				(	A.WORK_NM LIKE CONCAT('%',#{searchKeyword},'%')
-				OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchKeyword},'%')
-				OR 	C.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.WORK_PRODC_YEAR LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.WORK_MATRL LIKE CONCAT('%',#{searchKeyword},'%')
 				OR 	A.ARTST_BIRTH_YEAR LIKE CONCAT('%',#{searchKeyword},'%'))
@@ -102,11 +100,8 @@
 	        	<if test='sort == "PY"'>
 	        		ORDER BY A.WORK_PRODC_YEAR
 	        	</if>
-	        	<if test='sort == "KN"'>
-	        		ORDER BY A.ARTST_ACTVTY_NM
-	        	</if>
-	        	<if test='sort == "EN"'>
-	        		ORDER BY C.ARTST_ENGLS_NM
+	        	<if test='sort == "BC"'>
+	        		ORDER BY bidCnt
 	        	</if>
 	        	<if test='sort == "PC"'>
 	        		ORDER BY maxBidPrc, dealFinalPrc
