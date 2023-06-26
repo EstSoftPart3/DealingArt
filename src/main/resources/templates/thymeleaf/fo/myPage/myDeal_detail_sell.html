@@ -233,6 +233,16 @@
 													<label for="rd4">가상계좌</label>
 												</div>
 											</div>
+											<div class="bat-box3 mg_t30">
+												<!-- 
+												* [수수료 변경 Task]
+												* 해당 작품 구매(http://localhost/myDealDetailBuy)
+												* 내용 : 결제 정보 관련 거래 수수료 거래수수료 부가세 (변수명 fee, feeTax) 로직 변경
+												-->
+<!-- 												<span id="paymentFee" class="c-reds2">※결제 수단에 따라 구매 수수료가 다르게 적용 됩니다.</span> 11.5% -> 6.5% 변경 (2023-01-16) : 정대현 --><!-- 안내문구 변경 요청으로 변경(2023-06-08) -->
+												<span class="c-reds2" style="font-size:17px; font-weight: bold;">카드결제 : 거래수수료 6%</span>
+												<br/><span class="c-reds2" style="font-size:17px; font-weight: bold;">가상계좌 : 거래수수료 5%</span>
+											</div>
 											<!-- <div class="bat-box3 mg_t30">
 												<span class="c-reds2">※ 9월의 혜택 : 판매 수수료 50% 할인(~9/30)</span>
 											</div> -->
@@ -483,6 +493,16 @@
 									<div class="myd-box-2">
 										<table class="mstyle-2">
 											<tr>
+												<th>쿠폰 선택</th>
+												<td>
+													<select class="selectpicker" id="sbx_couponList">
+														<option value="null">-선택-</option>
+													</select>
+													<div id="div_couponList">
+													</div>
+												</td>
+											</tr>
+											<tr>
 												<th><span class="my-red">운송 서비스</span></th>
 												<td th:if="${not #strings.isEmpty(result.trnsprtInfo[0].trnsprtAreaCdNm)}" th:text="|${result.trnsprtInfo[0].trnsprtTypCdNm} (${result.trnsprtInfo[0].trnsprtAreaCdNm})|"></td>
 												<td th:unless="${not #strings.isEmpty(result.trnsprtInfo[0].trnsprtAreaCdNm)}" th:text="|${result.trnsprtInfo[0].trnsprtTypCdNm}|"></td>
@@ -520,18 +540,12 @@
 												</td>
 											</tr>
 											<tr>
-												<th>쿠폰 선택</th>
-												<td>
-													<select class="selectpicker" id="sbx_couponList" disabled>
-														<option value="null">-선택-</option>
-													</select>
-													<div id="div_couponList">
-													</div>
-													<div class="comy-sum" id="div_totalAmount">
-													</div>
-												</td>
-											</tr>
+												<th>쿠폰 할인</th><!--김한슬  -->
+												<td style="color:red" id="cuponSale"></td>
+											<tr>
 										</table>
+										<div class="comy-sum" id="div_totalAmount">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1113,14 +1127,21 @@ function searchAddr(){
  		}
  	}
  }
- 
+// //수수료 팝업창 열기
+//   $(function (){
+//   	$("#btn_payFee").click(function (){
+//   		$(".Toggle").toggle();
+//   	});
+//   });
+
+//    //수수료 팝업창 닫기
+//   $(function (){
+//   	$('#btn_payFee_close').click(function() {
+//   		 $('.Toggle').hide(); 
+//   	});
+//   }); 
  /*
-  * 결제 수단 클릭시
-  */
-function btn_paymethod_onclick(obj){
-	result.dealInfo.paymethod = $('input[name=paymethod]:checked').val();
-}
- 
+
 /*
  * 결제 영수증 
  */
@@ -1652,6 +1673,40 @@ function getCouponList(cuponTypCd){
 	    }
 	}); 
 }); */
+/*
+* 결제 수단 클릭시
+*/
+function btn_paymethod_onclick(obj){
+	result.dealInfo.paymethod = $('input[name=paymethod]:checked').val();
+	if(result.dealInfo.buyPaymntSttsCd == "2PW"){
+		if(result.dealInfo.paymethod == "CARD"){
+			//feeCal();
+//			paymentFee.innerText = "구매수수료 50% 할인 이벤트";//결제수단 선택이 아래 나오는 문구
+//			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.06); //거래 수수료 11.5% -> 6.5%로 변경 (2023-01-16) : 정대현
+//			feeTax = fee * 0.11;
+//			feeDc = fee * 0.50;
+//			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+//			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+//			$("#feeDc").text('- ' + formatComma(feeDc) + ' KRW');//수수료 할인 영역에 입력한다
+//			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+		}
+		if(result.dealInfo.paymethod == "VACCT"){
+			//feeCal();
+//			paymentFee.innerText = "구매수수료 50% 할인 이벤트";//결제수단 선택이 아래 나오는 문구
+//			fee = Math.round(result.dealInfo.dealFinalPrc.replaceAll(/,/g, '') * 0.05); //거래 수수료 10% -> 5%로 변경 (2023-01-16) : 정대현
+//			feeTax = fee * 0.10;
+//			feeDc = fee * 0.50;
+//			$("#fee").text(formatComma(fee) + ' KRW'); //작품 수수료 영역에 입력한다
+//			$("#feeTax").text(formatComma(feeTax) + ' KRW'); //작품 수수료 영역에 입력한다
+//			$("#feeDc").text('- ' + formatComma(feeDc) + ' KRW');//수수료 할인 영역에 입력한다
+//			modalAlertShow("오픈 이벤트 거래 수수료 할인이 적용 되었습니다.");
+		}
+//		if(result.dealInfo.paymethod == "ACCT"){
+//			feeCal();
+//		}
+	}
+	totalTrnsprtPrc();
+}
 
 //쿠폰 셀렉트 박스 선택시 (2022-11-12 정영우)
 $("#sbx_couponList").on("change", function(){
@@ -1692,17 +1747,19 @@ $("#sbx_couponList").on("change", function(){
 				totalAmount = 0;
 			}
 			couponListHtml += '	<div id="div_couponVal" class="cmy-coupon">'+formatComma(returnValue.cuponDiscAmt)+' KRW</div>';
+			$("#cuponSale").text("- " + formatComma(returnValue.cuponDiscAmt)+' KRW');//이주호
 		}
 		//couponListHtml += '	<div class="cmy-end">X</div>';
 		couponListHtml += '</div>';
 		$("#div_couponList").empty();
 		$("#div_couponList").append(couponListHtml).trigger("create"); //쿠폰 추가
-		$("#div_totalAmount").empty();
-		$("#div_totalAmount").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //총 금액에 쿠폰 적용
+// 		$("#div_totalAmount").empty();
+// 		$("#div_totalAmount").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //총 금액에 쿠폰 적용
 	}else{
 		$("#div_couponList").empty();
-		totalTrnsprtPrc();
+		$("#cuponSale").empty();
 	}
+	totalTrnsprtPrc();
 });
 
 //최종 결제 금액 자동 표시
@@ -1719,6 +1776,40 @@ function totalTrnsprtPrc(){
 		trnsprtPrc = parseInt(trnsprtPrc.replaceAll(' KRW', '')); //부가서비스 금액을 가져온다
 		totalAmount += trnsprtPrc; ///최종 부가서비스 금액을 가져온다
 	}
+	if($("#sbx_couponList").val() == "null"){
+		disc = 0;
+	}else if($("#sbx_couponList").val() != "null"){
+		disc = document.querySelector("#div_couponVal").innerText; //쿠폰 할인 금액을 가져온다
+		if(disc.indexOf("%", 0) > 0){ //쿠폰 할인 금액이 퍼센트이면
+			disc = disc.replaceAll('%', ''); //쿠폰 할인 금액을 가져온다
+			disc = parseInt(disc)*0.01; //쿠폰 할인 금액을 가져온다
+// 			disc = fee * disc; //쿠폰 할인 금액을 가져온다
+			$("#cuponSale").text("- " + formatComma(disc) +' KRW');//김한슬
+			//쿠폰할인가는 최종결제 금액에서 할인하기위해 주석처리 -김한슬-
+//				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+//				feeTax = fee * 0.10;
+//				feeDc = fee * 0.50;
+// 			if(fee < 0){
+// 				fee = 0;
+// 				feeTax = fee * 0.10;
+// 				feeDc = fee * 0.50;
+// 			}
+		}else{ //쿠폰 할인 금액이 원화이면
+			disc = disc.replaceAll(' KRW', '') //쿠폰 할인 금액을 가져온다
+			disc = parseInt(disc.replaceAll(/,/g, '')); //쿠폰 할인 금액을 가져온다
+			//쿠폰할인가는 최종결제 금액에서 할인하기위해 주석처리 -김한슬-
+//				fee -= disc; //작품 거래 수수료 금액에 할인 금액을 뺀다
+//				feeTax = fee * 0.10;
+//				feeDc = fee * 0.50;
+// 			if(fee < 0){
+// 				fee = 0;
+// 				feeTax = fee * 0.10;
+// 				feeDc = fee * 0.50;
+// 			}
+		}
+	}
+	totalAmount -= disc;
+	console.log(totalAmount);
 	$("#div_totalAmount").empty(); //2차 최종 결제 금액 표시 영역을 초기화 시킨다.
 	$("#div_totalAmount").append("총 금액<span>"+formatComma(totalAmount)+" KRW</span>").trigger("create"); //부가서비스 총 가격 추가
 }
