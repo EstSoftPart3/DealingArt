@@ -1346,7 +1346,8 @@
 				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
 				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
 				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
-				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+				D.DEAL_ENDNG_DT AS dealEndngDateTime, /*거래종료날짜시간*/
+				A.REG_DT AS regDt /*등록일*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		INNER JOIN
@@ -1381,7 +1382,8 @@
 				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
-				A.WORK_PRODC_YEAR AS workProdcYear /*작품제작년도*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.REG_DT AS regDt /*등록일*/
 		FROM 
 				TBL_DA_WORK_M AS A
 		LEFT JOIN
