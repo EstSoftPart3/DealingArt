@@ -2,7 +2,6 @@ package com.da.fo.dao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,42 +160,6 @@ public class MyPageDao {
 		paramMap.put("mbrSq", param);
 		List<Map<String, Object>> resultNonSale = myPageMapper.myCollectionNonSale(paramMap);
 		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
-		//result = result.stream().sorted((o1, o2) -> o2.get("date").toString().compareTo(o1.get("date").toString()) ).collect(Collectors.toList());
-		System.out.println(result);
-		System.out.println(param);
-		return result;
-	}
-	
-	/*
-	 * 나의 소장품 목록Sorting
-	 * param : sorting시킬 정보가 들어있는 param
-	 * return : 소장품 목록이 들어있는 리스트
-	 */
-	public List myCollectionSorting(Map<String, Object> param) {
-		List<Map<String, Object>> resultSale = myPageMapper.myCollectionSale((String) param.get("mbrSq"));
-		Map<String, Object> paramMap = new HashMap<>();
-		List<String> workSq = new ArrayList<String>();
-		//List<String> dealSq = new ArrayList<String>();
-		if(resultSale.size() > 0) {
-			for(int i=0; i<resultSale.size(); i++) {
-				workSq.add(resultSale.get(i).get("workSq").toString());
-				//dealSq.add(resultSale.get(i).get("dealSq").toString());
-			}
-		}
-		paramMap.put("workSq", workSq);
-		//paramMap.put("dealSq", dealSq);
-		paramMap.put("mbrSq", (String) param.get("mbrSq"));
-		List<Map<String, Object>> resultNonSale = myPageMapper.myCollectionNonSale(paramMap);
-		List<Map<String, Object>> result = Stream.concat(resultSale.stream(), resultNonSale.stream()).collect(Collectors.toList());
-		System.out.println(param.get("sort"));
-		if(param.get("sort") != null) {			
-			if(param.get("type").equals("DOWN")) {			
-				result = result.stream().sorted((o1, o2) -> o2.get(param.get("sort")).toString().compareTo(o1.get(param.get("sort")).toString()) ).collect(Collectors.toList());
-			}
-			if(param.get("type").equals("UP")) {			
-				result = result.stream().sorted((o2, o1) -> o2.get(param.get("sort")).toString().compareTo(o1.get(param.get("sort")).toString()) ).collect(Collectors.toList());
-			}
-		}
 		return result;
 	}
 	
