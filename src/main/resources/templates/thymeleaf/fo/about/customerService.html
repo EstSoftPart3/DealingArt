@@ -76,7 +76,7 @@
     	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -96,7 +96,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading1">
 									<h4 class="panel-title">
-										<a href="/serviceIntro">
+										<a href="/about/serviceIntro">
 											서비스 소개
 										</a>
 									</h4>
@@ -105,7 +105,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading2">
 									<h4 class="panel-title">
-										<a href="/notice">
+										<a href="/about/notice">
 											공지사항
 										</a>
 									</h4>
@@ -114,7 +114,7 @@
 							<div class="panel panel-default active">
 								<div class="panel-heading" role="tab" id="heading3">
 									<h4 class="panel-title">
-										<a href="/customerService">
+										<a href="/about/customerService">
 											자주 묻는 질문
 										</a>
 									</h4>
@@ -248,7 +248,7 @@ $(".cn-b").hover(
  	
  	$.ajax({
          type: "post",
-         url: "/selectBrdList",
+         url: "/about/selectBrdList",
          data:{
         	 brdTypCd : brdTypCd,
         	 brdConTypCd : brdConTypCd

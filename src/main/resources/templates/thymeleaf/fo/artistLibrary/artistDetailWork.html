@@ -75,7 +75,7 @@
     	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 <body>
 	<div class="wrap">
@@ -171,7 +171,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="padding: 0;min-height: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end_1.png" /></div>
 				</div>
 
 			</div>
@@ -260,7 +260,7 @@ $(function() {
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	     			}else{
 	     			html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	     			}
@@ -315,7 +315,7 @@ $(function() {
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	 				}else{
 	 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	 				}
@@ -361,7 +361,7 @@ $(function() {
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	 				}else{
 	 				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	 				}
@@ -404,7 +404,7 @@ $(function() {
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	     			}else{
 	     				html += '<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	     			}
@@ -444,7 +444,7 @@ $(function() {
 		artstInfoHtml2 += '<h3>Artist library</h3>';
 		artstInfoHtml2 += '</div>';
 		artstInfoHtml2 += '<div class="ad-sty">';
-		//artstInfoHtml2 += '<div class="ad-user"><img src="resources/img/icon/user-2.png" /></div>';
+		//artstInfoHtml2 += '<div class="ad-user"><img src="/resources/img/icon/user-2.png" /></div>';
 		artstInfoHtml2 += '<div class="ad-user"><img src="'+ artstInfo.artistInfo.artstProfileImgUrl +'" /></div>';
 		artstInfoHtml += '<div class="ad-text">';
 		artstInfoHtml += '	<h3>'+ artstInfo.artistInfo.artstActvtyNm +'</h3>';
@@ -455,15 +455,15 @@ $(function() {
 		artstInfoHtml += '<dt>SNS</dt>';
 		artstInfoHtml += '<dd>';
 		if(artstInfo.artistInfo.artstInstagramUrl != null && artstInfo.artistInfo.artstInstagramUrl != ""){
-			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" target="_blank" class="if-img"><img src="resources/img/icon/i-1.png" /></a>';
+			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstInstagramUrl +'" target="_blank" class="if-img"><img src="/resources/img/icon/i-1.png" /></a>';
 		}
 		if(artstInfo.artistInfo.artstfacebookUrl != null && artstInfo.artistInfo.artstfacebookUrl != ""){
-			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" target="_blank" class="if-img"><img src="resources/img/icon/i-2.png" /></a>';
+			artstInfoHtml += '	<a href="'+ artstInfo.artistInfo.artstfacebookUrl +'" target="_blank" class="if-img"><img src="/resources/img/icon/i-2.png" /></a>';
 		}
-		/* artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-3.png" /></a>';
-		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-4.png" /></a>';
-		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-5.png" /></a>';
-		artstInfoHtml += '	<a href="#" class="if-img"><img src="resources/img/icon/i-6.png" /></a>'; */
+		/* artstInfoHtml += '	<a href="#" class="if-img"><img src="/resources/img/icon/i-3.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="/resources/img/icon/i-4.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="/resources/img/icon/i-5.png" /></a>';
+		artstInfoHtml += '	<a href="#" class="if-img"><img src="/resources/img/icon/i-6.png" /></a>'; */
 		artstInfoHtml += '</dd>';
 		artstInfoHtml += '</dl>';
 		
@@ -571,11 +571,11 @@ if(window.matchMedia('(min-width: 1537px)').matches) {
 // }
 
 function dealDetail(dealSq){
- 	location.href="/bidding?dealSq="+dealSq;
+ 	location.href="/deal/bidding?SqNumber="+dealSq;
 }
 
 function workDetail(workSq){
- 	location.href="/workDetail?workSq="+workSq;
+ 	location.href="/deal/workDetail?SqNumber="+workSq;
 }
 
 $(document).on("click", ".heart", function(){
@@ -586,7 +586,7 @@ $(document).on("click", ".heart", function(){
 	if($(this).hasClass("on")){
 		$.ajax({
 	        type: "post",
-	        url: "/scrapDel",
+	        url: "/member/myPage/scrapDel",
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
@@ -598,7 +598,7 @@ $(document).on("click", ".heart", function(){
 	}else{
 		$.ajax({
 	        type: "post",
-	        url: "/scrapAdd",
+	        url: "/member/myPage/scrapAdd",
 	        data: param,
 	        success: function(data) {
 	        	if(data == 1){
@@ -640,10 +640,10 @@ function workDetailGo(){
 	var artstSq= $("#artstSq").val();
 	 
 	  pageGoPost({
-			url:"/artistDetail",
+			url:"/artist/artistDetail",
 			target:"_self",
 			vals:[
-				["artstSq", artstSq]
+				["SqNumber", artstSq]
 			]
 		});
 	

@@ -30,7 +30,7 @@ public class ArtistController {
 		return "thymeleaf/fo/artistLibrary/artist";
 	}
 	
-	@RequestMapping("/openArtistLibrary")
+	@RequestMapping("/artist/openArtistLibrary")
 	@ResponseBody
 	public ModelAndView openArtistLibrary() {
 		ModelAndView mv = new ModelAndView("jsonView");
@@ -39,9 +39,9 @@ public class ArtistController {
 		return mv;
 	}
 	
-	@RequestMapping("/artistDetail")
+	@RequestMapping("/artist/artistDetail")
 	@ResponseBody
-	public ModelAndView artistDetail(@RequestParam(value="artstSq", required = false) @Nullable int artstSq) {
+	public ModelAndView artistDetail(@RequestParam(value="SqNumber", required = false) @Nullable int artstSq) {
 		
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/artistLibrary/artistDetail");
 		
@@ -53,7 +53,7 @@ public class ArtistController {
 	}
 	
 	
-	@RequestMapping("/artistDetailWork")
+	@RequestMapping("/artist/artistDetailWork")
 	@ResponseBody
 	public ModelAndView artistDetailWork(@RequestParam(value="artstSq", required = false) @Nullable int artstSq) {
 		System.out.println("################## artstSq : "+artstSq);
@@ -64,7 +64,7 @@ public class ArtistController {
 		
 	}
 	
-	@RequestMapping("/artistDetail/sort")
+	@RequestMapping("/artist/artistDetail/sort")
 	@ResponseBody
 	public ModelAndView artistDetailSort(@RequestBody @Nullable Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");

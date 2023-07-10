@@ -142,7 +142,7 @@ public class MobileAuthController {
 	    		+ "	<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r\n"
 	    		+ " </head>\r\n"
 	    		+ " <body>\r\n"
-	    		+ "	<form name=\"thisForm\" action=\"/joinStepProc\" target=\"join1\" method=\"post\">\r\n"
+	    		+ "	<form name=\"thisForm\" action=\"/auth/joinStepProc\" target=\"join1\" method=\"post\">\r\n"
 	    		+ "		<input type=\"hidden\" name=\"sName\" id=\"sName\" value='"+sName+"' th:field=\"*{sName}\">\r\n"
 	    		+ "		<input type=\"hidden\" name=\"sBirthDate\" id=\"sBirthDate\" value='"+sBirthDate+"'>\r\n"
 	    		+ "		<input type=\"hidden\" name=\"sDupInfo\" id=\"sDupInfo\" value='"+sDupInfo+"'>\r\n"
@@ -179,7 +179,7 @@ public class MobileAuthController {
 	}
 	
 
-	 @RequestMapping("/joinStepProc")
+	 @RequestMapping("/auth/joinStepProc")
 	 public ModelAndView doJoinStepProc(HttpServletRequest request,HttpServletResponse response, RedirectAttributes redirect, Model model) throws Exception {
 		 
 		 Map<String, String> map = new HashMap<String, String>();
@@ -201,7 +201,7 @@ public class MobileAuthController {
 		 model.addAttribute("sMobileNo", sMobileNo);
 		 model.addAttribute("sCipherTime", sCipherTime);
 
-	    return new ModelAndView("forward:/joinStep2");
+	    return new ModelAndView("forward:/main/joinStep2");
 		 
 		
 	 }

@@ -94,7 +94,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -119,7 +119,7 @@
 							<div class="med-ic">
 								<div class="por">
 									<div class="tootip-4">판매 전<br/>꼭! 확인하세요</div>
-									<img src="resources/img/ba/me-icon.png" class="med-me" />
+									<img src="/resources/img/ba/me-icon.png" class="med-me" />
 								</div>
 							</div>
 							<div class="med-box radio-2">
@@ -434,8 +434,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>판매 등록 전 <br/>꼭! 확인하세요</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="/resources/img/ba/icon-end.png" /></div> -->
 				</div>
 
 			</div>
@@ -462,7 +462,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -490,7 +490,7 @@
 				<div class="baegs">
 					<h2>거래 등록 유의사항</h2>
 				    <img src="/resources/img/ba/icon-2.png" class="con-img" />
-				    <div class="close" onclick="dealRegNotesModalClose()"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <div class="close" onclick="dealRegNotesModalClose()"><img src="/resources/img/ba/icon-end_1.png" /></div>
 				</div>
 
 			</div>
@@ -578,7 +578,7 @@
 											<div class="check-info">
 												<p>
 													작품 판매에 대한 수수료가 부과됩니다.
-													<button id="btn_toggle"><img src="resources/img/ba/me-icon.png"></button>
+													<button id="btn_toggle"><img src="/resources/img/ba/me-icon.png"></button>
 												</p>
 											</div>
 										</label>
@@ -587,7 +587,7 @@
 										<div id="Toggle" style="display:none">
 											<div class="toggle_box1">
 												<div class="toggle_bar1">판매수수료</div>
-												<div class="toggle_close" id="toggle_close"><img src="resources/img/ba/icon-end_1.png"></div>
+												<div class="toggle_close" id="toggle_close"><img src="/resources/img/ba/icon-end_1.png"></div>
 											</div>
 											<div class="toggle_con1">
 												<table>
@@ -1444,7 +1444,7 @@ function keywrdSet(obj){
 	var keywrdList = obj.value.split(',');
 	var keywrdHtml = '';
 	for(var i=0; i<keywrdList.length; i++){
-		keywrdHtml += '<div id="keywrd'+i+'"><span>'+keywrdList[i]+'</span><img src="resources/img/mypage/icon-x.png" class="keywrdList" keywrdSq="'+i+'" value="'+keywrdList[i]+'"/></div>';
+		keywrdHtml += '<div id="keywrd'+i+'"><span>'+keywrdList[i]+'</span><img src="/resources/img/mypage/icon-x.png" class="keywrdList" keywrdSq="'+i+'" value="'+keywrdList[i]+'"/></div>';
 	}
 	$(".key-box").empty();
 	$(".key-box").append(keywrdHtml).trigger("create");
@@ -1688,7 +1688,7 @@ function dealReg(){
 	    
 	    $.ajax({
 	        type: "post",
-	        url: "/dealMod/Mod",
+	        url: "/deal/dealMod",
 	        data: formData,
 	        contentType : false,
 	        processData : false,
@@ -1712,7 +1712,7 @@ function bidSuspension(){
 			if(confirm){
 				$.ajax({
 					type : "post",
-				    url : "/dealMod/bidSuspension",
+				    url : "/deal/dealMod/bidSuspension",
 				    data : {
 				    	dealSq : result.deal.dealSq
 				    },

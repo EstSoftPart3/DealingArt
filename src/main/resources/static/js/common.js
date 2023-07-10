@@ -19,10 +19,10 @@ function buttonStyleFix() {
 *********************************************************************************************************
 * 함수설명	: post 방식으로 페이지 이동과 파라미터를 넘긴다
 * 예제	: pageGoPost({
-				url:"/artistDetail",
+				url:"/artist/artistDetail",
 				target:"_self",
 				vals:[
-					["artstSq", artstSq]
+					["SqNumber", artstSq]
 				]
 			});
 ***********************************************************************************************************
@@ -55,7 +55,7 @@ function modalForm(msg,obj) {
 	Html +=	'<div class="modal-content">';
 	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
 	Html +=	'<div class="baegs">';
-	Html +=	'<div class="close" onclick="modalAlertClose(\''+obj+'\')"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'<div class="close" onclick="modalAlertClose(\''+obj+'\')"><img src="/resources/img/ba/icon-end.png" /></div>';
 	Html +=	'</div>';
 	Html +=	'</div>';
 	Html +=	'<div class="modal-body">';
@@ -100,34 +100,34 @@ function modalAlertClose(obj) {
 	
 	if(obj == "myWork"){
 		pageGoPost({
-			url:"/myWork",
+			url:"/myPage/myWork",
 			target:"_self",
 			vals:[
-				["artstSq", artstSq]
+				["SqNumber", artstSq]
 			]
 		});
 	}
 	
 	if(obj == "myCollection"){
 		pageGoPost({
-			url:"/myCollection",
+			url:"/myPage/myCollection",
 			target:"_self",
 			vals:[
-				["mbrSq", sMbrSqVal]
+				["SqNumber", sMbrSqVal]
 			]
 		});
 	}
 	
 	if(obj == "termOfService"){
-		window.open("/termOfService","_blank");
+		window.open("/about/termOfService","_blank");
 	}
 	
 	if(obj == "privacyPolicy"){
-		window.open("/privacyPolicy","_blank");
+		window.open("/about/privacyPolicy","_blank");
 	}
 	
 	if(obj == "myDeal"){
-		location.href='/myDeal';
+		location.href='/myPage/myDeal';
 	}
 	
 	if(obj == "deal"){
@@ -135,7 +135,7 @@ function modalAlertClose(obj) {
 	}
 	
 	if(obj == "myWorkList"){
-		location.href="/myWorkList"
+		location.href="/myPage/myWorkList"
 	}
 	
 	if(obj == "checkbox"){
@@ -196,7 +196,7 @@ function modalConfirm(msg, callback){
 	Html +=	'<div class="modal-content">';
 	Html +=	'<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
 	Html +=	'<div class="baegs">';
-	Html +=	'<div class="close" id="modalConfirmClose"><img src="resources/img/ba/icon-end.png" /></div>';
+	Html +=	'<div class="close" id="modalConfirmClose"><img src="/resources/img/ba/icon-end.png" /></div>';
 	Html +=	'</div>';
 	Html +=	'</div>';
 	Html +=	'<div class="modal-body">';

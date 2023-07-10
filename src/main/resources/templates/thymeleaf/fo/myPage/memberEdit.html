@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
+<link type="text/css" rel="stylesheet" href="/resources/css/bootstrap-select2.css">
 <head>
 	<title>딜링아트</title>
 	<meta charset="utf-8">
@@ -89,7 +89,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -196,7 +196,7 @@
 									</div>
 									
 <!-- 									<div class="mypage-btn"> -->
-<!-- 										<a href="/withdrawal" class="my-btn">회원탈퇴</a> -->
+<!-- 										<a href="/myPage/withdrawal" class="my-btn">회원탈퇴</a> -->
 <!-- 									</div> -->
 								</div>
 							</div>
@@ -445,7 +445,7 @@ function userAddress(inputId) {
 function memberContentData(mbrSq) {
 	$.ajax({
            type: "post",
-           url: "/myPage/memberContentData",
+           url: "/member/myPage/memberContentData",
            data: {
         	   mbrSq : mbrSq
             },
@@ -549,7 +549,7 @@ function uMbrNcknmLength(obj){
 function uMbrNcknmCheck(obj){
 	$.ajax({
       type: "post",
-      url: "/mbrNcknmCheck",
+      url: "/member/mbrNcknmCheck",
       data: {
       	mbrNcknm : document.getElementById("uMbrNcknm").value
       },
@@ -818,7 +818,7 @@ $("#memberUpdateBtn").on('click', function(event){
 	
 	 $.ajax({
 	     type: "post",
-	     url: "/myPage/memberUpdateData",
+	     url: "/member/myPage/memberUpdateData",
 	     data: memParams,
 	     success: function(data) {
 	    	 modalAlertShow("회원수정이 완료 되었습니다.","reload");

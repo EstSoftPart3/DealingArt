@@ -925,7 +925,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -952,7 +952,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -977,7 +977,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -1205,7 +1205,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -1232,7 +1232,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -1257,7 +1257,7 @@
 					$.ajax({
 						type: "POST",
 						contentType: "application/json",
-				        url: "/insertTrnsprt",
+				        url: "/myPage/insertTrnsprt",
 				        data: JSON.stringify(param),
 				        async: false,
 						success:function(data){
@@ -1877,7 +1877,7 @@
 					artstSq : $("#artstSq").val()
 			};
 			$.ajax({
-				url:"/oderFormDownload",
+				url:"/excel/oderFormDownload",
 				type:"post",
 				data: param,
 				cache: false,

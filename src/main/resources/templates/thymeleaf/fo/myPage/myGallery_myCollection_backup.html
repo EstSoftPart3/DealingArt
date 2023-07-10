@@ -46,7 +46,7 @@
 							<div class="med-ic">
 								<div class="por">
 <!-- 									<div class="tootip-5">설정/공유</div> -->
-<!-- 									<img src="resources/img/mypage/icon-8.png" class="med-me"> -->
+<!-- 									<img src="/resources/img/mypage/icon-8.png" class="med-me"> -->
 								</div>
 							</div>
 						</div>
@@ -98,7 +98,7 @@ jQuery(document).ready(function() {
 	var conTitleHtml = "";
 	conTitleHtml += '<h3>My Collection</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
-	conBtn.innerHTML += '<a href="/collection_reg"><img src="resources/img/mypage/mycon-3.png" /></a>';
+	conBtn.innerHTML += '<a href="/myPage/collection_reg"><img src="/resources/img/mypage/mycon-3.png" /></a>';
 	$("#myCollection").addClass("active");
 	myCollectionList();
 });   
@@ -156,7 +156,7 @@ function myCollectionList(){
 		myCollectionHtml += '		<div class="heart off" workSq="'+ result[i].workSq +'" style="cursor:pointer;"></div>';
 		myCollectionHtml += '		<div class="uesr-s">';
 		//if(result[i].artstProfileImgUrl == null || result[i].artstProfileImgUrl == ""){
-			myCollectionHtml += '		<img src="resources/img/de/ues-icon.png"/>';
+			myCollectionHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
 		//}else{
 			//myCollectionHtml += '		<img src="'+ result[i].artstProfileImgUrl +'"/>';
 		//}
@@ -195,7 +195,7 @@ function myCollectionList(){
 
 $(document).on("click", ".cor-a", function(){
 	var workSq= $(this).attr("workSq");
-    location.href = "/myCollectionMod?workSq="+workSq;
+    location.href = "/myPage/myCollectionMod?workSq="+workSq;
 });
 
 $(document).on("click", ".reg-a", function(){
@@ -211,7 +211,7 @@ $(document).on("click", ".heart", function(){
 	if($(this).hasClass("on")){
 		$.ajax({
 	        type: "post",
-	        url: "/scrapDel",
+	        url: "/member/myPage/scrapDel",
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
@@ -224,7 +224,7 @@ $(document).on("click", ".heart", function(){
 	}else{
 		$.ajax({
 	        type: "post",
-	        url: "/scrapAdd",
+	        url: "/member/myPage/scrapAdd",
 	        data: param,
 	        success: function(data) {
 	        	if(data == 1){

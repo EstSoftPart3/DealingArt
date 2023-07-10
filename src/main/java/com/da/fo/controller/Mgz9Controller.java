@@ -23,17 +23,17 @@ public class Mgz9Controller {
 	@Autowired
 	private Mgz9Service mgz9Service;
 	
-	@RequestMapping("/insights")
+	@RequestMapping("/mgz9/insights")
 	public String openInsights() {
 		return "thymeleaf/fo/mgz/insights";
 	}
 	
-	@RequestMapping("/media")
+	@RequestMapping("/mgz9/media")
 	public String openMedia() {
 		return "thymeleaf/fo/mgz/media";
 	}
 	
-	@RequestMapping("/exhibition")
+	@RequestMapping("/mgz9/exhibition")
 	public String openExhibition() {
 		return "thymeleaf/fo/mgz/exhibition";
 	}
@@ -47,7 +47,7 @@ public class Mgz9Controller {
 			EBI - EXHIBITION
 	 * RETURN : MGZ9 목록
 	 */
-	@RequestMapping("/selectMgz9List")
+	@RequestMapping("/mgz9/selectMgz9List")
 	@ResponseBody
 	//public ModelAndView selectMgz9List(@RequestParam(value = "mgzTypCd", required = true) String mgzTypCd) {
 	public ModelAndView selectMgz9List(@RequestParam Map<String, Object> param) {
@@ -78,7 +78,7 @@ public class Mgz9Controller {
 	 * PARAM : MGZ_SQ
 	 * RETURN : MGZ9 상세
 	 */
-	@RequestMapping("/selectMgz9Dtl")
+	@RequestMapping("/mgz9/selectMgz9Dtl")
 	@ResponseBody
 	public ModelAndView selectMgz9Dtl(@RequestParam(value = "mgzSq", required = true) String mgzSq) {
 		ModelAndView mv = new ModelAndView("jsonView");

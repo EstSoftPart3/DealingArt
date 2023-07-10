@@ -108,13 +108,13 @@
 	            </a>
 		         <ul class="nav nav-treeview">
 		            <li class="nav-item">
-		              <a href="/admin/payment" class="nav-link">
+		              <a href="/admin/payment/paymentListPage" class="nav-link">
 		                <i class="far fa-circle nav-icon sTitle"></i>
 		                <p class="sTitle">주문</p>
 		              </a>
 		            </li>
 <!-- 		            <li class="nav-item"> -->
-<!-- 		              <a href="/admin/transit" class="nav-link"> -->
+<!-- 		              <a href="/admin/payment/transit" class="nav-link"> -->
 <!-- 		                <i class="far fa-circle nav-icon sTitle"></i> -->
 <!-- 		                <p class="sTitle">배송</p> -->
 <!-- 		              </a> -->
@@ -178,7 +178,7 @@
           	<li class="nav-item has-treeview menu-open">
           	 	<li class="nav-header">신고하기</li>
           	 		<li class="nav-item has-treeview">
-          	 			<a href="/admin/reportList" class="nav-link">
+          	 			<a href="/admin/report/reportList" class="nav-link">
 			              <i class="nav-icon fas fa-circle"></i>
 			              <p class="sTitle">
 			                신고하기

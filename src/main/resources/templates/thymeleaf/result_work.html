@@ -80,7 +80,7 @@
     	};
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
 <body>
@@ -218,9 +218,9 @@
 					
 						<div class="aut-top resu-t60">
 							<ul class="mgz-ul3 aut-none">
-								<li class="active"><a th:href="@{/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
-								<li><a th:href="@{/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
-								<li><a th:href="@{/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
+								<li class="active"><a th:href="@{/main/totalSearch_work(searchKeyword = ${result.searchKeyword})}">작품</a></li>
+								<li><a th:href="@{/main/totalSearch_artist(searchKeyword = ${result.searchKeyword})}">작가</a></li>
+								<li><a th:href="@{/main/totalSearch_content(searchKeyword = ${result.searchKeyword})}">컨텐츠</a></li>
 							</ul>
 							<div id="searchResult">
 								<h4 class="aut-h4" th:if="${result.totalCount} > 0"><span class="c-red" th:text="|&quot;${result.searchKeyword}&quot;|"></span> 검색결과 총 <span class="c-red" th:text="${result.totalCount}"></span>개</h4>
@@ -465,70 +465,70 @@
 											
 											<th:block th:if="${workList.dealSttsCd == 'TP'}"><!-- 판매중이면 -->
 												<div class="ste-div">
-													<img src="resources/img/about/icon-a.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-a.png" class="ste-img"/>
 													<p class="ste-p1">판매상태</p>
 													<p class="ste-p2" th:text="판매중"></p>
 												</div>
 												<div class="ste-div">
-													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s1.png" class="ste-img"/>
 													<p class="ste-p1">판매시작</p>
 													<p class="ste-p2" th:text="${workList.dealStrtDate}"></p>
 												</div>
 												<div class="ste-div">
-													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s1.png" class="ste-img"/>
 													<p class="ste-p1">판매종료</p>
 													<p class="ste-p2" th:text="${workList.dealEndngDate}"></p>
 												</div>
 												<div class="ste-div">
-													<img src="resources/img/about/icon-s2.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s2.png" class="ste-img"/>
 													<p class="ste-p1">남은시간</p>
 													<p class="ste-p2 dealCount" th:name="${workList.dealEndngDate}"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}">
-													<img src="resources/img/about/icon-s3.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s3.png" class="ste-img"/>
 													<p class="ste-p1">시작가</p>
 													<p class="ste-p2" th:text="${workList.dealStrtPrc}+' KRW'"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}"> <!-- 경매면 -->
-													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">입찰가</p>
 													<p class="ste-p2" th:if="${not #strings.isEmpty(workList.maxBidPrc)}" th:text="${workList.maxBidPrc}+' KRW'"></p>
 													<p class="ste-p2" th:unless="${not #strings.isEmpty(workList.maxBidPrc)}">0 KRW</p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}"> <!-- 경매면 -->
-													<img src="resources/img/about/icon-s5.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s5.png" class="ste-img"/>
 													<p class="ste-p1">응찰수</p>
 													<p class="ste-p2" th:text="${workList.bidCnt}"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'S'}"><!-- 정찰가면 -->
-													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">판매가</p>
 													<p class="ste-p2" th:text="${workList.dealFinalPrc}+' KRW'"></p>
 												</div>
 											</th:block>
 											<th:block th:if="${workList.dealSttsCd != 'TP' and not #strings.isEmpty(workList.dealSttsCd)}"><!-- 경매며 거래 종료면 -->
 												<div class="ste-div">
-													<img src="resources/img/about/icon-a.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-a.png" class="ste-img"/>
 													<p class="ste-p1">판매상태</p>
 													<p class="ste-p2" th:text="판매완료"></p>
 												</div>
 												<div class="ste-div">
-													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s1.png" class="ste-img"/>
 													<p class="ste-p1">판매시작</p>
 													<p class="ste-p2" th:text="${workList.dealStrtDate}"></p>
 												</div>
 												<div class="ste-div">
-													<img src="resources/img/about/icon-s1.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s1.png" class="ste-img"/>
 													<p class="ste-p1">판매종료</p>
 													<p class="ste-p2" th:text="${workList.dealEndngDate}"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'A'}">
-													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">낙찰가</p>
 													<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
 												</div>
 												<div class="ste-div" th:if="${workList.dealTypCd == 'S'}">
-													<img src="resources/img/about/icon-s4.png" class="ste-img"/>
+													<img src="/resources/img/about/icon-s4.png" class="ste-img"/>
 													<p class="ste-p1">판매가</p>
 													<p class="ste-p2" th:text="${workList.dealSbidPrc}+' KRW'"></p>
 												</div>
@@ -772,7 +772,7 @@ function dealSearch(sort, type){
 		searchOptions.workClsfcCds = workClsfcCds;
 	} 
 	$.ajax({
-        url: "/totalSearch_work/searchOptions",
+        url: "/main/totalSearch_work/searchOptions",
         contentType:"application/json;",
         data: JSON.stringify(searchOptions),
         type: "POST",
@@ -941,14 +941,20 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 // }
 
 function dealDetail(dealSq){
- 	location.href="/bidding?dealSq="+dealSq;
+	//상세페이지로 이동(로그인 상태 체크 공통함수 사용loginCheck.js)
+	var requestUrl = "/deal/bidding";
+	loginCheck(requestUrl,dealSq);
 }
 
 function workDetail(workSq){
- 	location.href="/workDetail?workSq="+workSq;
+	//상세페이지로 이동(로그인 상태 체크 공통함수 사용loginCheck.js)
+ 	var requestUrl = "/deal/workDetail";
+	loginCheck(requestUrl,workSq);
 }
 function soldOutDetail(dealSq){
-	location.href="/soldoutDetail?dealSq="+dealSq;
+	//상세페이지로 이동(로그인 상태 체크 공통함수 사용loginCheck.js)
+	var requestUrl = "/deal/soldoutDetail";
+	loginCheck(requestUrl,dealSq);
 }      
 </script>
     

@@ -27,13 +27,13 @@ public class artistMemberController {
 	private artistMemberService artistMemberService;
 	
 	
-	@RequestMapping("/admin/member/artistMemberInput")
-	public String openArtistMemberInput() {
+	@RequestMapping("/admin/member/insertArtistMemberPage")
+	public String insertArtistMemberPage() {
 		return "bo/member/artistMemberInput";
 	}
 	
 	//작가정보 입력
-	@RequestMapping("/admin/member/artistMemberInputData")
+	@RequestMapping("/admin/member/insertArtistMemberData")
 	@ResponseBody
 	public int artistMemberInputData(@RequestParam Map<String, Object> param) {
 		

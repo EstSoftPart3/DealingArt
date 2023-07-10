@@ -28,6 +28,8 @@
 	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
 	
+	
+	
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
@@ -79,7 +81,7 @@
 		}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 <body>
 	<div class="wrap">
@@ -92,7 +94,7 @@
 				<div class="con-wrap">
 					<div class="con-left">
 						<div class="con-btn" style="margin-top: 75px;">
-							<a href="javascript:void(0);" onclick="myWorkListPage()"><img src="resources/img/de/paint_new.png" /></a>
+							<a href="javascript:void(0);" onclick="myWorkListPage()"><img src="/resources/img/de/paint_new.png" /></a>
 						</div>
 						<span style="color:red;font-weight: bold;">※ 필터를 이용하여 작품을 검색해 보세요.</span>
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -251,7 +253,7 @@
 					
 						<div class="sea-won2">
 							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" onkeydown="javascript: if (event.keyCode == 13) {dealSearch();}" style="outline: none;" autocomplete="off"/>
-							<a href="javascript:void(0);" onclick="dealSearch()"><img src="resources/img/de/sech-icon.jpg" /></a>
+							<a href="javascript:void(0);" onclick="dealSearch()"><img src="/resources/img/de/sech-icon.jpg" /></a>
 						</div>
 					
 						<div class="reds-box">
@@ -267,13 +269,8 @@
 									</a>
 								</li>
 								<li>
-									<a href="javascript:void(0);" name="KN" onclick="sorting(this)" class="">
-										작가명 <span>ㄱ</span> - <span>ㅎ</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:void(0);" name="EN" onclick="sorting(this)" class="">
-										작가명 <span>A</span> - <span>Z</span>
+									<a href="javascript:void(0);" name="BC" onclick="sorting(this)" class="">
+										응찰수
 									</a>
 								</li>
 								<li>
@@ -298,8 +295,7 @@
 													<div class="drop-select">
 														<a href="javascript:void(0);" onclick="sorting(this)" name="LT" class="">등록 일시</a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="PY" class="">제작년도</a>
-														<a href="javascript:void(0);" onclick="sorting(this)" name="KN" class="">작가명 <span>ㄱ</span> - <span>ㅎ</span></a>
-														<a href="javascript:void(0);" onclick="sorting(this)" name="EN" class="">작가명 <span>A</span> - <span>Z</span></a>
+														<a href="javascript:void(0);" onclick="sorting(this)" name="BC" class="">응찰수</a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="PC" class="">가격</a>
 														<a href="javascript:void(0);" onclick="sorting(this)" name="RT" class="">종료 일시</a>
 													</div>
@@ -668,7 +664,6 @@
 		</div>
 	</div>
 </div>
-
 <script type="text/javascript"> 
 	
 	
@@ -694,7 +689,7 @@
 			modalConfirm("나의 작품 페이지로 이동합니다.", 
 					function(confirm){
 						if(confirm){
-							location.href="/myWorkList";
+							location.href="/myPage/myWorkList";
 						}
 				}
 			);
@@ -810,7 +805,7 @@
 		
 		$.ajax({
 	        type: "post",
-	        url: "/dealSearch",
+	        url: "/deal/dealSearch",
 	        contentType:"application/json",
 	        data: JSON.stringify(searchOptions),
 	        success: function(data) {
@@ -866,7 +861,7 @@
 		     					html += '		<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
 		     					html += '		<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-		    	     				html += '		<img src="resources/img/de/ues-icon.png"/>';
+		    	     				html += '		<img src="/resources/img/de/ues-icon.png"/>';
 		    	     			}else{
 		    	     				html += '		<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 		    	     			}
@@ -930,7 +925,7 @@
 		     					html += '<div>';
 		     					html += '<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-		    	     				html += '<img src="resources/img/de/ues-icon.png"/>';
+		    	     				html += '<img src="/resources/img/de/ues-icon.png"/>';
 		    	     			}else{
 		    	     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 		    	     			}
@@ -980,7 +975,7 @@
 		     					html += '<div>';
 		     					html += '<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-		    	     				html += '<img src="resources/img/de/ues-icon.png"/>';
+		    	     				html += '<img src="/resources/img/de/ues-icon.png"/>';
 		    	     			}else{
 		    	     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 		    	     			}
@@ -1075,8 +1070,9 @@
 	 }).resize();
 
 	 
-      
+	 
       $(document).ready(function () {
+    	  //modalAlertShow('test222','');
 	      $(".elm").hover(
 	    	function(){ $(this).addClass('hover') },
 	   	    function(){ $(this).removeClass('hover') }
@@ -1143,10 +1139,10 @@
 			modalConfirm("포토폴리오 > 나의 작품 페이지로 이동합니다.", function(confrim){
 				if(confrim){
 					pageGoPost({
-						url:"/myWork",
+						url:"/myPage/myWork",
 						target:"_self",
 						vals:[
-							["artstSq", artstSq]
+							["SqNumber", artstSq]
 						]
 					});
 				}
@@ -1164,10 +1160,10 @@
 				$("#paintModal").modal("hide");
 				if(confrim){
 					pageGoPost({
-						url:"/myCollection",
+						url:"/myPage/myCollection",
 						target:"_self",
 						vals:[
-							["mbrSq", sMbrSqVal]
+							["SqNumber", sMbrSqVal]
 						]
 					});
 				}
@@ -1176,11 +1172,15 @@
 	});
     
 	function dealDetail(dealSq){
-		window.location.href = "/bidding?dealSq="+dealSq;
+		//상세페이지로 이동(로그인 상태 체크 공통함수 사용loginCheck.js)
+		var requestUrl = "/deal/bidding";
+		loginCheck(requestUrl,dealSq);
 	}
 	
 	function soldoutDetail(dealSq){
-		window.location.href = "/soldoutDetail?dealSq="+dealSq;
+		//상세페이지로 이동(로그인 상태 체크 공통함수 사용loginCheck.js)
+		var requestUrl = "/deal/soldoutDetail";
+		loginCheck(requestUrl,dealSq);
 	}
 	
 	/* $(document).on("click", ".heartsoldout", function(){
@@ -1197,7 +1197,7 @@
 			if($(this).hasClass("on")){
 				$.ajax({
 			        type: "post",
-			        url: "/scrapDel",
+			        url: "/member/myPage/scrapDel",
 			        data: param,
 			        success: function(data) {
 			        	element.removeClass("on");
@@ -1209,7 +1209,7 @@
 			}else{
 				$.ajax({
 			        type: "post",
-			        url: "/scrapAdd",
+			        url: "/member/myPage/scrapAdd",
 			        data: param,
 			        success: function(data) {
 			        	if(data == 1){
@@ -1226,10 +1226,6 @@
 		
 		}
 	});
-	
-	
-	
-	
 </script>	
     
 <!-- 네이버 광고 로그분석 추적 코드 -->

@@ -26,7 +26,7 @@ public class reportController {
 	private reportService reportService;
 	
 	//신고접수 입력
-	@RequestMapping("/admin/reportInsData")
+	@RequestMapping("/admin/report/reportInsData")
 	@ResponseBody
 	public int report(@RequestParam Map<String, Object> param)throws IOException  {
 		
@@ -38,7 +38,7 @@ public class reportController {
 	}
 	
 	//신고하기 리스트
-	@RequestMapping("/admin/reportList")
+	@RequestMapping("/admin/report/reportList")
 	public ModelAndView reportPage() {
 		
 		ModelAndView mv = new ModelAndView("bo/declaration/reportMain");
@@ -47,7 +47,7 @@ public class reportController {
 	}
 	
 	//신고하기 리스트
-	@RequestMapping("/admin/reportDetail")
+	@RequestMapping("/admin/report/reportDetail")
 	public ModelAndView reportDetailPage() {
 		
 		ModelAndView mv = new ModelAndView("bo/declaration/reportDetail");
@@ -55,7 +55,7 @@ public class reportController {
 		return mv;
 	}
 	
-	@RequestMapping("/admin/reportSearch")
+	@RequestMapping("/admin/report/reportSearch")
 	@ResponseBody
 	public ModelAndView reportSearch(@RequestParam Map<String, Object> param) {
 		
@@ -71,7 +71,7 @@ public class reportController {
 	}
 	
 	
-	@RequestMapping("/admin/reportUpdateData")
+	@RequestMapping("/admin/report/reportUpdateData")
 	@ResponseBody
 	public int boardUpdateData(@RequestParam Map<String, Object> param) {
 		

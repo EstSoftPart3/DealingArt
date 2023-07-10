@@ -47,7 +47,7 @@
 		function searchMemberData() {
    			$.ajax({
    		           type: "post",
-   		           url: "/admin/reportSearch",
+   		           url: "/admin/report/reportSearch",
    		           data: {
    		        	   useYn : 'Y',
    		           },
@@ -106,7 +106,7 @@
 		        	   var d = $.Deferred();
 		               $.ajax({
 		      	    	 type: "post",
-		    	    	 url: "/admin/reportSearch",
+		    	    	 url: "/admin/report/reportSearch",
 		    	         data: data ,
 		    	         dataType: "json"
 		    	      }).done(function(response) {
@@ -153,7 +153,7 @@
 		
 		 function fn_SubDetailPage(getData) {
 		
-			   location.href='/admin/reportDetail?rprtSq='+getData;
+			   location.href='/admin/report/reportDetail?rprtSq='+getData;
 		}
 		   
 

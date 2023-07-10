@@ -81,7 +81,7 @@
     	}
     </style>
     
-    <link rel="icon" type="image/png" href="resources/img/favicon.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     
 </head>
 
@@ -107,21 +107,11 @@
 										제작년도
 									</a>
 								</li>
-								<li>
-									<a href="javascript:fnModalAlert();" class="up-on">
-										작가명 <span>ㄱ</span> - <span>ㅎ</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:fnModalAlert();" class="down-on">
-										작가명 <span>A</span> - <span>Z</span>
-									</a>
-								</li>
 							</ul>
 							<div class="med-ic">
 								<div class="por">
 <!-- 									<div class="tootip-5">설정/공유</div> -->
-<!-- 									<img src="resources/img/mypage/icon-8.png" class="med-me"> -->
+<!-- 									<img src="/resources/img/mypage/icon-8.png" class="med-me"> -->
 								</div>
 							</div>
 						</div>
@@ -223,7 +213,7 @@ function scrapList(){
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	 				}else{
 	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	 				}
@@ -280,7 +270,7 @@ function scrapList(){
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	 				}else{
 	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	 				}
@@ -327,7 +317,7 @@ function scrapList(){
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	 			}else{
 	 				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	 			}
@@ -373,7 +363,7 @@ function scrapList(){
 					html += '<div>';
 					html += '<div class="uesr-s">';
 					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
-	 				html += '<img src="resources/img/de/ues-icon.png"/>';
+	 				html += '<img src="/resources/img/de/ues-icon.png"/>';
 	     			}else{
 	     				html += '<img src="'+ dealList[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
 	     			}
@@ -462,7 +452,7 @@ $(document).on("click", ".heart", function(){
 	if($(this).hasClass("on")){
 		$.ajax({
 	        type: "post",
-	        url: "/scrapDel",
+	        url: "/member/myPage/scrapDel",
 	        data: param,
 	        success: function(data) {
 	        	element.removeClass("on");
@@ -476,7 +466,7 @@ $(document).on("click", ".heart", function(){
 	}else{
 		$.ajax({
 	        type: "post",
-	        url: "/scrapAdd",
+	        url: "/member/myPage/scrapAdd",
 	        data: param,
 	        success: function(data) {
 	        	if(data == 1){
@@ -543,7 +533,7 @@ $(document).on("click", ".heart", function(){
  
  
  function dealDetail(dealSq){
-		window.location.href = "/bidding?dealSq="+dealSq;
+		window.location.href = "/deal/bidding?SqNumber="+dealSq;
 	}
       
 </script>

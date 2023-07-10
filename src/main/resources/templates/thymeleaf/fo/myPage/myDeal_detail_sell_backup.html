@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="resources/js/com.js"></script>
-<link type="text/css" rel="stylesheet" href="resources/css/bootstrap-select2.css">
+<script type="text/javascript" src="/resources/js/com.js"></script>
+<link type="text/css" rel="stylesheet" href="/resources/css/bootstrap-select2.css">
 <head>
     <style>
     	.head-wrap{border-bottom:#e9e9e9 1px solid;}
@@ -31,12 +31,12 @@
 									<div class="med-ic">
 										<div class="por d_i_b">
 										<div class="tootip-4">거래 계약 안내</div>
-										<img src="resources/img/mypage/icon-1.png" class="med-me">
+										<img src="/resources/img/mypage/icon-1.png" class="med-me">
 									</div>
 									<div class="por d_i_b mg_l30">
 										<a href="javascript:openWorkGrtUrl();" class="mg_l30 por">
 										<div class="tootip-2">보증서 보기</div>
-										<img src="resources/img/de/print-icon.jpg"></a>
+										<img src="/resources/img/de/print-icon.jpg"></a>
 									</div>
 								</div>
 							<div class="myd-box">
@@ -352,7 +352,7 @@
 												<tr>
 													<th>지급 수단</th>
 													<td th:if="${not #strings.isEmpty(result.mbrInfo.mbrAccountNo)}" th:text="|${result.mbrInfo.mbrBankNm} ${result.mbrInfo.mbrAccountNo}|">신한은행 000-000-0000</td>
-													<td th:unless="${not #strings.isEmpty(result.mbrInfo.mbrAccountNo)}"><a href="/memberEdit">정산 정보를 등록해주세요.</a></td>
+													<td th:unless="${not #strings.isEmpty(result.mbrInfo.mbrAccountNo)}"><a href="/myPage/memberEdit">정산 정보를 등록해주세요.</a></td>
 												</tr>
 												<tr>
 													<th>정산 내역</th>
@@ -398,7 +398,7 @@
 							<div class="bat-box5">
 								<!-- <a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="call(200)"><span>결제하기</span></a> -->
 								<a href="#" class="ba-btn1" id="btn_payment" style="display:none;" onclick="btn_payment()"><span>결제하기</span></a>
-								<a href="javascript:location.href='/myDeal';" class="ba-btn2" ><span>돌아가기</span></a>
+								<a href="javascript:location.href='/myPage/myDeal';" class="ba-btn2" ><span>돌아가기</span></a>
 							</div>
 						</div>
 						
@@ -418,8 +418,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>주소 변경</h2>
-				    <img src="resources/img/ba/icon-3.png" class="con-img" />
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end_1.png" /></div>
+				    <img src="/resources/img/ba/icon-3.png" class="con-img" />
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end_1.png" /></div>
 				</div>
 			</div>
 			<div class="modal-body login-body">
@@ -450,7 +450,7 @@
 		<div class="modal-content">
 			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
 				<div class="baegs">
-				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="resources/img/ba/icon-end.png" /></div>
+				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
 				</div>
 
 			</div>
@@ -477,8 +477,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>거래 확인서가 준비되면<br/>안내해 드립니다.</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="/resources/img/ba/icon-end.png" /></div> -->
 				</div>
 
 			</div>
@@ -504,8 +504,8 @@
 			<div class="modal-header">
 				<div class="baegs">
 					<h2>컨디션 체크가 준비되면<br/>안내해 드립니다.</h2>
-				    <img src="resources/img/ba/icon-1.png" class="con-img" />
-				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="resources/img/ba/icon-end.png" /></div> -->
+				    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+				    <!-- <div class="close" onclick="javascript:window.history.back();"><img src="/resources/img/ba/icon-end.png" /></div> -->
 				</div>
 
 			</div>
@@ -708,7 +708,7 @@ function searchAddr(){
  	var mbrDelivryAddr = $("#txt_newAddr").val()+" "+$("#txt_newAddrDetail").val(); 
  	$.ajax({
  		type: "POST",
-         url: "/updateNewAddr",
+         url: "/myPage/updateNewAddr",
          data: {
          	mbrSq : sMbrSqVal,
          	mbrDelivryAddr : mbrDelivryAddr
@@ -919,7 +919,7 @@ window.call = function (data) {
 		$.ajax({
 			type: "POST",
 			contentType: "application/json",
-	        url: "/getTrnsprt",
+	        url: "/myPage/getTrnsprt",
 	        data: JSON.stringify(getTrnsprt),
 	        async: false,
 			success:function(data){
@@ -940,7 +940,7 @@ window.call = function (data) {
 			$.ajax({
 				type: "POST",
 				contentType: "application/json",
-		        url: "/insertTrnsprt",
+		        url: "/myPage/insertTrnsprt",
 		        data: JSON.stringify(param),
 		        async: false,
 				success:function(data){
@@ -992,7 +992,7 @@ $("#sbx_trnsprtTypCd").on("change", function(){
 			var innerText = "";
 			$.ajax({
 				type: "POST",
-		        url: "/selectTrnsprtInfo",
+		        url: "/myPage/selectTrnsprtInfo",
 		        data: {
 		        	trnsprtDivCd : "S", //판매자
 		    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
@@ -1036,7 +1036,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 		//부가서비스 선택 셀렉트 박스에 text, value 넣기
 		$.ajax({
 			type: "POST",
-	        url: "/selectTrnsprtInfo",
+	        url: "/myPage/selectTrnsprtInfo",
 	        data: {
 	        	trnsprtDivCd : "S", //판매자
 	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
@@ -1060,7 +1060,7 @@ $("#sbx_trnsprtAreaCd").on("change", function(){
 		//운송 가격 표시하기
 		$.ajax({
 			type: "POST",
-	        url: "/selectTrnsprtInfo",
+	        url: "/myPage/selectTrnsprtInfo",
 	        data: {
 	        	trnsprtDivCd : "S", //판매자
 	    		trnsprtTypCd : document.getElementById("sbx_trnsprtTypCd").value, //운송 구분 코드
@@ -1129,7 +1129,7 @@ $("#sbx_trnsprtServiceCd").on("change", function(){
 //쿠폰 목록 가져오기
 function getCouponList(cuponTypCd){
 	$.ajax({
-		url:"/myCouponList_payment",
+		url:"/myPage/myCouponList_payment",
 		type:"post",
       data: {
       	mbrSq : sMbrSqVal,
@@ -1209,7 +1209,7 @@ $("#sbx_couponList").on("change", function(){
 	param.trnsprtServiceCdNm = $("#sbx_trnsprtServiceCd option:selected").text();
 	
 	$.ajax({
-		url:"/applyCupon",
+		url:"/myPage/applyCupon",
 		type:"post",
 		data: param,
 		success: function(data){

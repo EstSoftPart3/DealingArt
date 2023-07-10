@@ -42,6 +42,13 @@ public interface DealMapper {
 	public int dealRegOverlapChk(Object param);
 	
 	/*
+	 * 등록된 작품 개수 카운트
+	 * param : 거래 정보가 담긴 Map
+	 * return : int
+	 */
+	public int dealRegCount(Object param);
+	
+	/*
 	 * 응찰 전 화면의 응찰가와 실시간 응찰가 비교
 	 * param : dealSq, mbrSq, bidPrc
 	 * return : int

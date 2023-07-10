@@ -49,7 +49,7 @@ public class ExcelController {
 	@Autowired
 	private CommonService commonService;
 	
-	@RequestMapping("/oderFormDownload")
+	@RequestMapping("/excel/oderFormDownload")
 	@ResponseBody
 	public ResponseEntity<InputStreamResource> oderFormDownload(HttpServletResponse response, @RequestParam Map<String, Object> param) throws IOException{
 		
