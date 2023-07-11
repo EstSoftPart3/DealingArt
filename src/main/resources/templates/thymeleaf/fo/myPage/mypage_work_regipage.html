@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../../../../../resources/static/css/common_new.css"/>
+    <title>Dealing Art</title>
+</head>
+<body>
+    <div id="container">
+        <div class="mypage_wrap">
+            <h2>작품등록</h2>
+            <div class="mypage_contents">
+                <div class="mypage_tap_wrap">
+                    <ul class="tap">
+                        <li class="on bg_no">소장중인 작품</li>
+                        <li class="bg_no">나의 창작 작품</li>
+                        <li class="bg_no curpoint_no"></li>
+                        <li class="bg_no curpoint_no"></li>
+                    </ul>
+                </div>
+                <h3>작품 등록정보<em>* 작품등록을 위한 필수정보 입니다.</em></h3>
+                <div class="mypage_collectcreate_wrap">
+                    <div class="first">
+                        <form action="" method="" id="" name="">
+                            <legend>작품 등록정보 입력 폼</legend>
+                            <p>
+                                <label for="worksName"><strong>*</strong>작품명</label>
+                                <input type="text" id="worksName" name="" required placeholder="">
+                            </p>
+                            <p>
+                                <label for="worksSize"><strong>*</strong>사이즈</label>
+                                <input type="text" id="worksSize" name="" required placeholder="" class="width20per"><span>X</span><input type="text" id="" name="" required placeholder="" class="width20per">
+                            </p>
+                            <p class="size_guide">
+                                ※ 캔버스 규격을 기준으로 측정해주세요.<br>
+                                ※ 사이즈 단위는 cm 입니다.                            
+                            </p>
+                            <p class="question_mark">
+                                <label for="picSize" class="pl13">호수</label>
+                                <input type="text" id="picSize" name="" required placeholder=""><a href="#"><img src="../../../../../resources/static/img/mypage/ico_quest_mark.png" alt=""></a>
+                            </p>
+                            <p>
+                                <label for="worksName"><strong>*</strong>소재/기법</label>
+                                <input type="text" id="worksName" name="" required placeholder="">
+                            </p>
+                            <p>
+                                <label for="productionYear"><strong>*</strong>제작년도</label>
+                                <input type="text" id="productionYear" name="" required placeholder="">
+                            </p>
+                        </form>
+                    </div>
+                    <hr class="line">
+                    <div class="second">
+                        <form action="" method="" id="" name="">
+                            <div class="public_nondis">                                    
+                                <span><strong>*</strong>공개여부</span>
+                                <ul>
+                                    <li>                                            
+                                        <input type="checkbox" id="a1" name="공개">
+                                        <label for="a1"><span>공개</span></label>
+                                    </li>
+                                    <li>                                            
+                                        <input type="checkbox" id="a2" name="공개">
+                                        <label for="a2"><span>비공개</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>                        
+                        <div class="showing_off">                                    
+                            <span><strong>*</strong>자랑하기</span>
+                            <div class="showingoff_file_area">
+                                <p>드래그 앤 드롭이나 추가하기 버튼으로<br>
+                                    대표 사진을 업로드 해주세요.<br>
+                                    <span>
+                                        * 권장 사이즈<br> 
+                                        모바일 : 390 x 844<br>
+                                        PC : 1440 x 1024
+                                    </span>
+                                </p>
+                                <button class="btn_reprepic_add">대표사진 추가하기</button>
+                            </div>
+                        </div>
+                        <!--편집기 영역 시작-->
+                        <div class="edit_area">
+                            <span><strong>*</strong>편집기</span>
+                            편집기 영역
+                        </div>
+                        <!--편집기 영역 끝-->                       
+                        <div class="btn_add"><button>+ 추가하기</button></div>
+                        <form action="" method="" id="" name="">
+                            <div class="add_area">  
+                                <span class="vh"><strong>*</strong>추가영역</span>                                  
+                                <ul class="width82per">
+                                    <li>                                            
+                                        <div class="pic_movie">                                            
+                                            <div class="icon_modify_box">
+                                                <ul>
+                                                    <li><a href="#"><p class="ico_rotate"></p></a></li>
+                                                    <li><a href="#"><p class="ico_wbasket"></p></a></li>
+                                                    <li><a href="#"><p class="ico_up"></p></a></li>
+                                                    <li> <a href="#"><p class="ico_down"></p></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="area"><img src="../../../../../resources/static/img/mypage/sample_registration_pic.jpg" alt=""></div>
+                                        </div>
+                                    </li>
+                                    <li class="width66per">
+                                        <div class="picmovie_form">
+                                            <input type="text" id="" name="" required placeholder="제목">
+                                            <textarea cols="50" rows="10" placeholder="내용 입력하기"></textarea>
+                                            <div class="keyword"><a href="#" class="box"><span># 딜링아트 <img src="../../../../../resources/static/img/mypage/ico_keyword_close.png" alt=""></span></a><a href="#"><span># 키워드</span></a></div>
+                                        </div>                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                        <form action="" method="" id="" name="">
+                            <div class="getting_sale_offer">                                    
+                                <span><strong>*</strong>판매 제안받기</span>
+                                <ul>
+                                    <li>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="chkTog">
+                                            <label for="chkTog">
+                                                <span class="toggle-track"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                        <form action="" method="" id="" name="">
+                            <div class="sns_allow_sharing">                                    
+                                <span><strong>*</strong>SNS 공유허용</span>
+                                <ul>
+                                    <li>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="chkTog1">
+                                            <label for="chkTog1">
+                                                <span class="toggle-track"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>                       
+                    </div>
+                </div>
+                <h3>판매 등록정보<em style="color: #999999;">등록된 작품을 판매로 전환 할 때 필요한 정보 입니다. 미리 등록 할 수도, 판매 등록 할 떄 하셔도 괜찮습니다. </em></h3>
+                <div class="mypage_collectcreate_wrap01">
+                    <p class="mb16">지금 입력하기</p>
+                    <span>작품 판매시 필요한 정보를 입력해 주세요</span>
+                    <div class="br"></div>
+                    <span>판매시 입력하셔도 괜찮습니다.</span>                    
+                </div>
+                <div class="btn_regi_area">
+                    <ul>
+                        <li><button class="registration">등록</button></li>
+                        <li><button>임시저장</button></li>
+                        <li><button>미리보기</button></li>
+                        <li><button>취소</button></li>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
+</body>
+</html>
