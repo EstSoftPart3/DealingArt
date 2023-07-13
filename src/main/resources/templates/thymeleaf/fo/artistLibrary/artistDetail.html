@@ -188,13 +188,10 @@
 
 <script th:inline="javascript">
 
-
 var param = location.search;
-
 var param = new URLSearchParams(param);
- 
 var getParamMore= param.get('more');
-var getParamArtstSq= param.get('artstSq');
+var getParamArtstSq= param.get('SqNumber');
 
 
 
@@ -741,11 +738,7 @@ setInterval(function() {
 
 //openArtstInfoModal
 $(document).on("click", "#openArtstInfoModal", function(){
-	
-	var urlParam = location.search;
-	var params = new URLSearchParams(urlParam);
-	var artstSq= param.get('artstSq');
-	
+	var artstSq = artstInfo.artistInfo.artstSq
 	location.href = '/artist/artistDetail?SqNumber='+artstSq+'&more='+artstSq;
 });
 
