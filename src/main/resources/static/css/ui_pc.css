@@ -3989,6 +3989,21 @@ display: inline-block;margin-left: 13px;}
 }
 /* .content:after{content:'';background-image: url("../img/mypage/icon-u.png");position: absolute;top: 50%;left: 50%;width: 100px;height: 112px;background-size: 100px 112px;transform: translate(-50%, -50%);z-index: -1;}
  */
+ /* 같은content 파일인경우 위는 사람아이콘 */
+.contentfile{
+	    border: #cccccc 1px solid;
+    background-color: #fff;
+    text-align: center;
+    transition: all .15s ease-in-out;
+    width: 200px;
+    height: 200px;
+    background-image: url("../img/mypage/ico_upload_photo.png");
+    background-size: 100px 112px;
+    background-repeat: no-repeat;
+    background-position: center;
+	
+}
+ 
 .content img, .content video{
     width:100%;
     height:100%;
