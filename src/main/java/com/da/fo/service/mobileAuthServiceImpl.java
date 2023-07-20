@@ -11,7 +11,9 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import lombok.AllArgsConstructor;
 import NiceID.Check.CPClient;
-
+import java.util.Iterator;
+import java.security.Security;
+import java.security.Provider;
 
 @Service
 @AllArgsConstructor
@@ -82,7 +84,10 @@ public class mobileAuthServiceImpl implements mobileAuthService {
 				+ sGender.getBytes().length + ":" + sGender;
 
 		String sEncData = "";
-
+		System.out.println("@@@@@@@@ sSiteCode : "+sSiteCode);
+		System.out.println("@@@@@@@@ sSitePassword : "+sSitePassword);
+		System.out.println("@@@@@@@@ sPlainData : "+sPlainData);
+		
 		int iReturn = niceCheck.fnEncode(sSiteCode, sSitePassword, sPlainData);
 		sPlainData = niceCheck.getPlainData();
 		if (iReturn == 0) {
