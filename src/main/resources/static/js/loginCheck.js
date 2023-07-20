@@ -21,11 +21,13 @@
 				window.location.href = requestUrl+"?SqNumber="+SqNumber;
 			}else{
 				$(".close").trigger("click");
-	        		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+	        	modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", 
+        			function(confrim){
 	        			if(confrim){
 	        				$("#loginModal").modal("show");	
 	        			}
-	        		});
+        			}
+	        	);
 			}
 		},
 		error: function(error) {
@@ -47,11 +49,13 @@
 				window.location.href = requestUrl;
 			}else{
 				$(".close").trigger("click");
-	        		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+        		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", 
+        			function(confrim){
 	        			if(confrim){
 	        				$("#loginModal").modal("show");	
 	        			}
-	        		});
+        			}
+        		);
 			}
 		},
 		error: function(error) {
