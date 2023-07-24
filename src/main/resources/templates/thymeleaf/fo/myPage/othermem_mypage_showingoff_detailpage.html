@@ -99,7 +99,40 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="mypage_wrap">
-            <div class="works_showingoff_detail_page_wrap mb30">                                  
+            <div class="works_showingoff_detail_page_wrap">
+                <div class="picture">
+                    <img src="/resources/img/mypage/sample_works_showingoff_detail00.jpg" alt="">
+                </div>                
+                <h3>두고두고 봐도 행복한 이미소 작가의 작품!!!</h3>
+                <div class="user_wrap">
+                    <div class="user">
+                        <ul>
+                            <li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>
+                            <li class="user_name"><span>딜링아트</span></li>
+                            <li class="mem_type">회원유형<span>컬렉터</span></li>
+                            <li class="following"><button>+팔로잉</button></li>
+                        </ul>
+                    </div>
+                    <div class="icon_box">
+                        <ul>
+                            <li class="time">1시간 전</li>
+                            <li><p class="ico_good"></p><span>99</span></li>
+                            <li><p class="ico_scrap"></p><span>99</span></li>
+                            <li><p class="ico_hits"></p><span>99</span></li>
+                            <li><p class="ico_comments"></p><span>99</span></li>
+                            <li><p class="ico_report"></p><span>99</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="picture_detail">
+                    <p class="method">평면 / 회화 / 컬러</p>
+                    <img src="/resources/img/mypage/sample_works_showingoff_detail01.jpg" alt="">
+                    <p>
+                        저는 찾아낸 작품들을 나만의 컬렉션에 추가하면서, 예술 작품의 가치와 역사에 대해 깊은 이해를 얻게 되었습니다. <br>
+                        그는 작품의 배경 이야기와 예술가의 창작 과정에 대해 탐구하며, <br>
+                        전문가 들과의 대화를 통해 미술품의 가치를 평가하는 방법을 배웠습니다.
+                    </p>
+                </div>                   
                 <h2 class="mt50">작품정보</h2>
                 <div class="works_info_wrap">
                     <div class="works_info_left">
@@ -122,24 +155,6 @@
                         <div class="tit_wrap">
                             <div class="tit_01">alex katz</div>
                             <div class="tit_02">[사전출품]December(ADA) (Edi 48/100)</div>
-                        </div>
-                        <div class="user_wrap mt30">
-                            <div class="user">
-                                <ul>
-                                    <li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>
-                                    <li class="user_name pr10"><span>딜링아트</span></li>
-                                    <li class="mem_type"><span class="ml0">컬렉터</span></li>
-                                </ul>
-                            </div>
-                            <div class="icon_box">
-                                <ul>
-                                    <li><p class="ico_good"></p><span>99</span></li>
-                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                    <li><p class="ico_report"></p><span>99</span></li>
-                                </ul>
-                            </div>
                         </div>
                         <table class="tstyle1">
 							<tbody>
@@ -174,93 +189,18 @@
 								    <td><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked=""><label for="mc-9" class="mc-9 active"></label></div></td>
 								</tr>
 							    <tr>
-								    <th>작품상태</th>
-								    <td>작품상태는 매우 좋습니다.</td>								
-							    </tr>
-                                <tr>
-								    <th>작품 키워드</th>
-								    <td class="keyword"><a href="#">#딜링아트</a> <a href="#">#미술품 직거래</a> <a href="#">#봄 인테리어</a> <a href="#">#작품구매</a> <a href="#">#작품판매</a> <a href="#">#희망</a></td>								
+								    <th>닉네임</th>
+								    <td onclick="" style="cursor:pointer;">아우라</td>								
 							    </tr>
 						    </tbody>
                         </table>
-                        <div class="selling_price">
-                            <table class="tstyle2">
-                                <tbody>
-                                    <tr>
-                                        <th>
-                                            <div class="tsc-1">
-                                                <img src="/resources/img/mypage/check-off.jpg"><span id="spn_dealStrtPrc">판매가</span>
-                                            </div>
-                                        </th>
-                                        <td>1,000,000 KRW</td>
-                                    </tr>                                    
-                                    <tr>
-                                        <th>
-                                            <div class="tsc-1">
-                                                <img src="/resources/img/mypage/check-off.jpg"><span id="spn_period">판매기간</span>
-                                            </div>
-                                        </th>
-                                        <td>2023.06.29 10:59 ~ 2023.07.20 10:00</td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <div class="tsc-1">
-                                                <img src="/resources/img/mypage/check-off.jpg"><span>남은시간</span>
-                                            </div>
-                                        </th>
-                                        <td id="dealCount">6 일 22 : 56 : 40</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="btn_worksInfo_wrap mt30">
-                            <button class="width32per">구매하기</button>
-                            <button class="width32per ml14">요청하기</button>
-                            <button class="btn_list width32per ml13">목록</button>
+                        <div class="btn_worksInfo_wrap">
+                            <button>판매 제안하기</button>
                         </div>
                     </div>
-                </div>
-                <h2 class="mt50">자랑하기</h2>
-                <div class="contents_showingoff_wrap">
-                    <div class="showingoff_con_left">
-                        <div class="img">
-                            <img src="/resources/img/mypage/sample_showingoff00.jpg" alt="">
-                        </div>
-                        <div class="con_r">
-                            <h4>컬린이의 도전</h4>
-                            <span class="day">23.07.07</span>
-                            <p>
-                                국내 미술 시장은 고속 성장 중임에도 불구하고
-                                제한된 채널, 일방향의 거래 방식, 높은 수수료 등
-                                현행의 미술품 거래 방식은 시장 성장의 제약으로 작용하고 있습니다.
-                                전통적인 미술품 거래 방식의 선호는 유지하되,
-                                투명하고 상식적인, 불편을 제거한 온라인 미술품 거래 구조 개선을 통해 누구나 미술을 접하고 나눌 수 있는
-                                서비스 제공을 목표로 합니다.
-                            </p>
-                            <button class="btn_more">더보기</button>
-                        </div>
-                    </div>
-                    <div class="showingoff_con_right">
-                        <div class="img">
-                            <img src="/resources/img/mypage/sample_showingoff00.jpg" alt="">
-                        </div>
-                        <div class="con_r">
-                            <h4>컬린이의 도전</h4>
-                            <span class="day">23.07.07</span>
-                            <p>
-                                국내 미술 시장은 고속 성장 중임에도 불구하고
-                                제한된 채널, 일방향의 거래 방식, 높은 수수료 등
-                                현행의 미술품 거래 방식은 시장 성장의 제약으로 작용하고 있습니다.
-                                전통적인 미술품 거래 방식의 선호는 유지하되,
-                                투명하고 상식적인, 불편을 제거한 온라인 미술품 거래 구조 개선을 통해 누구나 미술을 접하고 나눌 수 있는
-                                서비스 제공을 목표로 합니다.
-                            </p>
-                            <button class="btn_more">더보기</button>
-                        </div>
-                    </div>
-                </div>                 
+                </div> 
             </div>
-            <div class="works_showingoff_detai2_page_wrap">
+            <div class="works_showingoff_detai2_page_wrap pb0">
                 <h2 class="mt50">작가정보</h2>
                 <div class="artist_info_wrap">
                     <div class="artist_info_left">
@@ -309,6 +249,64 @@
                         </div>
                     </div>                   
                 </div>                
+            </div>
+            <div class="comments_box_wrap">
+                <form action="" method="" id="" name="">
+                    <legend>댓글 입력 폼</legend>
+                    <p>
+                        <label for="comments_tit">댓글 <strong>1</strong></label>
+                        <input type="text" id="comments_tit" name="" required placeholder="">
+                    </p>                            
+                </form>
+                <div class="comments_box">
+                    <div class="user_wrap">
+                        <div class="user_img">
+                            <img src="/resources/img/mypage/ico_dauser.png" alt="">
+                        </div>
+                        <div class="user">
+                            <ul>
+                                <li class="user_name"><span>딜링아트</span></li>
+                                <li>
+                                    <ul>
+                                        <li>1시간전</li>
+                                        <li>   <a href="#">♡ 좋아요</a></li>
+                                        <li><a href="#">답글달기</a></li>
+                                        <li><a href="#">신고</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>                                                        
+                    </div>
+                    <div class="comments">
+                        <p>작품이 예쁩니다.</p>
+                    </div>
+                </div>
+                <div class="answer_comments_box">
+                    <div class="user_wrap">
+                        <div class="ico_answer_comments">
+                            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">
+                        </div>
+                        <div class="user_img">
+                            <img src="/resources/img/mypage/ico_dauser01.png" alt="">
+                        </div>
+                        <div class="user">
+                            <ul>
+                                <li class="user_name"><span>AI 인공지능</span></li>
+                                <li>
+                                    <ul>
+                                        <li>20분 전</li>
+                                        <li>   <a href="#">♡ 좋아요</a></li>
+                                        <li><a href="#">답글달기</a></li>
+                                        <li><a href="#">신고</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>                                                        
+                    </div>
+                    <div class="comments">
+                        <p>너무 너무 감사합니다.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
