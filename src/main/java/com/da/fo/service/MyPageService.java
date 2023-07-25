@@ -78,7 +78,7 @@ public interface MyPageService {
 	 * parameter : List
 	 * return : integer
 	 */
-	public int myWorkDelYn(List<String> param);
+	public int myWorkDelYn(List<Map<String, Object>> param);
 	
 	/*
 	 * 나의 작품 판매중단 처리
@@ -177,5 +177,18 @@ public interface MyPageService {
 	 * param : workSq
 	 * return : 
 	 */
-	public int delCollection(String workSq);
+	public int delCollection(Map<String, Object> param);
+	
+	/* 작품, 자랑하기 등록
+	 * param : 
+	 * return : 
+	 */
+	public int regWorkAndComtBoa(Map<String, Object> param);
+	
+	/* 커뮤니티 등록
+	 * param :
+	 * return :
+	 */
+	public int myComtReg(Map<String, Object> param);
+	
 }

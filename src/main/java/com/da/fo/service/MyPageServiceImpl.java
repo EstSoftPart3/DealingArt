@@ -150,7 +150,7 @@ public class MyPageServiceImpl implements MyPageService{
 	 * parameter : List
 	 * return : integer
 	 */
-	public int myWorkDelYn(List<String> param) {
+	public int myWorkDelYn(List<Map<String, Object>> param) {
 		return myPageDao.myWorkDelYn(param);
 	}
 	
@@ -289,8 +289,26 @@ public class MyPageServiceImpl implements MyPageService{
 	 * return :
 	 */
 	@Override
-	public int delCollection(String workSq) {
-		int result = myPageDao.delCollection(workSq);
+	public int delCollection(Map<String, Object> param) {
+		int result = myPageDao.delCollection(param);
 		return result;
+	}
+	
+	/* 작품, 자랑하기 등록
+	 * param : 
+	 * return : 
+	 */
+	@Override
+	public int regWorkAndComtBoa(Map<String, Object> param) {
+		int result = myPageDao.regWorkAndComtBoa(param);
+		return result;
+	}
+	
+	/* 커뮤니티 등록
+	 * param :
+	 * return :
+	 */
+	public int myComtReg(Map<String, Object> param) {
+		return myPageDao.myComtReg(param);
 	}
 }

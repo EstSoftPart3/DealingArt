@@ -1,6 +1,6 @@
 package com.da.fo.dao;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.da.mapper.DealMapper;
-import com.da.mapper.MemberMapper;
 import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 
@@ -163,6 +163,26 @@ public class MyPageDao {
 		return result;
 	}
 	
+//	/*
+//	 * 소장품 등록
+//	 * param : 소장품 정보가 들어있는 param
+//	 * return : int
+//	 */
+//	public int collectionReg(Map<String, Object> param) {
+//		int result = -1;
+//		result = myPageMapper.collectionReg(param);
+//		System.out.println("방금 insert한 행의 아이디 : " + result);
+//		//박상현 : 결과값 1 이면 소장품이 정상등록 되어 있고 키워드가 등록 되어져 있다면
+//		//키워드를 등록해라
+//		if(result == 1) {
+//			if(param.get("keywrd") != null && param.get("keywrd") != "") {
+//				result = myPageMapper.keywrdReg(param);
+//			}
+//		}
+//		System.out.println("방금 insert한 행의 아이디 : " + (String)param.get("workSq"));
+//		return result;
+//	}
+	
 	/*
 	 * 소장품 등록
 	 * param : 소장품 정보가 들어있는 param
@@ -178,7 +198,10 @@ public class MyPageDao {
 				result = myPageMapper.keywrdReg(param);
 			}
 		}
-		return result;
+		
+		BigInteger re = (BigInteger)param.get("workSq");
+		
+		return re.intValue();
 	}
 	
 	/*
@@ -198,11 +221,12 @@ public class MyPageDao {
 			param.put("artstYod", artstInfo.get("artstYod"));
 		}
 		result = myPageMapper.myWorkReg(param);
-		if(result == 1) {
+		if(result > 0) {
 			if(param.get("keywrd") != null && param.get("keywrd") != "") {
 				result = myPageMapper.keywrdReg(param);
 			}
 		}
+		System.out.println("방금 insert한 행의 아이디 : " + result);
 		return result;	
 	}
 	/*
@@ -228,8 +252,12 @@ public class MyPageDao {
 	 * parameter : List
 	 * return : integer
 	 */
-	public int myWorkDelYn(List<String> param) {
-		return myPageMapper.myWorkDelYn(param);
+	public int myWorkDelYn(List<Map<String, Object>> param) {
+		int result = 0;
+		for (int i = 0; i < param.size(); i++) {
+			result += myPageMapper.myWorkDelYn(param.get(i));
+		}
+		return result;
 	}
 	
 	/*
@@ -505,9 +533,54 @@ public class MyPageDao {
 	 * param : workSq
 	 * return :
 	 */
-	public int delCollection(String workSq) {	
+	public int delCollection(Map<String, Object> param) {	
 		int result;
-		result = myPageMapper.delCollection(workSq);
+		result = myPageMapper.delCollection(param);
+		return result;
+	}
+	
+	/* 작품, 자랑하기 등록
+	 * param : 
+	 * return : 
+	 */
+	public int regWorkAndComtBoa(Map<String, Object> param) {
+		
+		int result = 0;
+		String workTypCd = param.get("workTypCd").toString();
+		
+		// 작품 등록
+		if(workTypCd.equals("WORK")) {
+			result = myWorkReg(param);
+		} else if(workTypCd.equals("COLL")) {
+			result = collectionReg(param);
+		} else {
+			result = 0;
+		}
+
+		// 자랑하기 등록
+		String comtOpenYn = (String) param.get("comtOpenYn");
+
+		if(comtOpenYn.equals("Y")) {
+			result = myComtReg(param);
+		}
+
+		return result;
+	}
+	
+	/* 커뮤니티 등록
+	 * param :
+	 * return :
+	 */
+	public int myComtReg(Map<String, Object> param) {
+		
+		// 커뮤니티 등록
+		int result = myPageMapper.myComtReg(param);
+		
+		// 커뮤니티 키워드 등록
+		if(!param.get("comtKeywrd").equals("")) {
+			myPageMapper.comtKeywrdReg(param);
+		}
+		
 		return result;
 	}
 	

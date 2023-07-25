@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface MyPageMapper {
 	
@@ -139,7 +140,7 @@ public interface MyPageMapper {
 	 * param : List
 	 * return : int
 	 */
-	public int myWorkDelYn(List<String> param);
+	public int myWorkDelYn(Map<String, Object> param);
 	
 	/*
 	 * 나의 작품 판매중 리스트
@@ -366,7 +367,7 @@ public interface MyPageMapper {
 	 * param : workSq
 	 * return :
 	 */
-	public int delCollection(String workSq);
+	public int delCollection(Map<String, Object> param);
 	
 	/*
 	 * 작가 정보
@@ -374,5 +375,16 @@ public interface MyPageMapper {
 	 * return :
 	 */
 	public Map<String, Object> getArtstInfo(Object param);
+
+	/* 자랑하기 키워드 등록
+	 * param : 
+	 * return : 
+	 */
+	public int comtKeywrdReg(Map<String, Object> param);
 	
+	/* 커뮤니티 등록
+	 * param : 
+	 * return : 
+	 */
+	public int myComtReg(Map<String, Object> param);
 }

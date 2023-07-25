@@ -527,7 +527,7 @@
 		GROUP BY C.DEAL_SQ;
 	</select>
 	
-	<insert id="collectionReg">
+	<insert id="collectionReg" parameterType="hashMap" useGeneratedKeys="true" keyProperty="workSq">
 		/*소장품 등록*/
 		INSERT INTO 
 					TBL_DA_WORK_M (
@@ -712,7 +712,7 @@
 					
 	</insert>
 	
-	<insert id="myWorkReg">
+	<insert id="myWorkReg" parameterType="hashMap" useGeneratedKeys="true" keyProperty="workSq">
 		/*나의 작품 등록*/
 		INSERT INTO 
 					TBL_DA_WORK_M(
@@ -932,14 +932,14 @@
 	
 	<update id="myWorkDelYn" parameterType="hashMap">
 		/*작품 삭제 설정*/
-		<foreach collection="list" item="item" index="index">
 		UPDATE 
 				TBL_DA_WORK_M 
 		SET		
 				DEL_YN = 'Y'
+				, UPDT_DT = NOW()
+				, UPDT_MBR_SQ = #{mbrSq}
 		WHERE  
-				WORK_SQ = #{item};
-		</foreach>
+				WORK_SQ = #{workSq};
 	</update>
 	
 	<select id="myWorkListSale" resultType="hashMap" parameterType="String">
@@ -2587,13 +2587,14 @@
 		   AND A.WORK_SQ = #{workSq}
    </select>
    
-   <update id="delCollection" parameterType="String">
-		/* 소장품 삭제  */
+   <update id="delCollection" parameterType="hashMap">
+		/* 소장품 삭제 */
 		UPDATE 
 				TBL_DA_WORK_M 
 		SET		
-				DEL_YN = 'Y',
-				UPDT_DT = NOW()
+				DEL_YN = 'Y'
+				, UPDT_DT = NOW()
+				, UPDT_MBR_SQ = #{mbrSq}
 		WHERE  
 				WORK_SQ = #{workSq}
    </update>
@@ -2633,4 +2634,66 @@
         		A.MBR_SQ = #{mbrSq}
         	AND A.ARTST_SQ = #{artstSq}
    </select>
+
+   <insert id="comtKeywrdReg" parameterType="hashMap">
+   		INSERT INTO TBL_DA_COMT_KEYWRDS_R(
+   			COMT_SQ,
+   			COMT_KEYWRD
+   		) 
+   		VALUES(
+   			#{comtSq},
+   			#{comtKeywrd}
+   		)
+   </insert>
+   
+   <insert id="myComtReg"  parameterType="hashMap" useGeneratedKeys="true" keyProperty="comtSq">
+   		INSERT INTO TBL_DA_COMT_M(MBR_SQ,
+   				<if test='workSq != null and workSq != ""'>
+   					WORK_SQ,
+   				</if>
+   				COMT_TYP_CD,
+   				COMT_IMG_URL,
+   				COMT_TITLE,
+   				COMT_CONTENT,
+   				REG_DT,
+   				REG_MBR_SQ,
+   				UPDT_DT,
+   				UPDT_MBR_SQ,
+   				<if test='comtSalesYn != null and comtSalesYn != ""'>
+   					COMT_SALES_YN,
+   				</if>
+   				<if test='exhibitTypCd != null and exhibitTypCd != ""'>
+   					EXHIBIT_TYP_CD,
+   				</if>
+   				<if test='exhibitRegionCd != null and exhibitRegionCd != ""'>
+   					EXHIBIT_REGION_CD,
+   				</if>
+   				COMT_SNS_YN,
+   				OPEN_YN)
+   		VALUES(#{mbrSq}, 
+   				<if test='workSq != null and workSq != ""'>
+   					#{workSq},
+   				</if>
+   				#{comtTypCd},
+   				#{comtImgUrl},
+   				#{comtTitle},
+   				#{comtContent},
+   				NOW(),
+   				#{mbrSq},
+   				NOW(),
+   				#{mbrSq},   	
+   				<if test='comtSalesYn != null and comtSalesYn != ""'>
+   					#{comtSalesYn},
+   				</if>	
+   				<if test='exhibitTypCd != null and exhibitTypCd != ""'>
+   					#{exhibitTypCd},
+   				</if>
+   				<if test='exhibitRegionCd != null and exhibitRegionCd != ""'>
+   					#{exhibitRegionCd},
+   				</if>
+   				#{comtSnsYn},
+   				#{comtOpenYn}			
+   		)
+   </insert>
+
 </mapper>

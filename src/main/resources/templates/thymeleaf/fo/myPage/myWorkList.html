@@ -1652,7 +1652,7 @@ $('.wdb-5').click(function(e){
 				        },
 				        success: function(data) {
 				        	if(data.result > 0){
-				        		modalAlertShow("선택한 작품 삭제가 완료되었습니다.", "reload");
+				        		modalAlertShow("선택한 작품 " + data.result + "개 삭제가 완료되었습니다.", "reload");
 				        	}else{
 				        		modalAlertSHow("작품 삭제에 실패했습니다.<br/>다시 시도해주세요.", "reload");
 				        	}

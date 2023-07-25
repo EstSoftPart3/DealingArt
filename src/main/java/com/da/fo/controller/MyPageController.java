@@ -1,13 +1,17 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
@@ -32,6 +37,7 @@ import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
+import com.google.gson.Gson;
 
 @Controller
 public class MyPageController {
@@ -207,10 +213,18 @@ public class MyPageController {
 	//통합 나의 작품 삭제 처리
 	@RequestMapping("/myPage/myWorkDelYn")
 	@ResponseBody
-	public ModelAndView myWorkDelYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList) {
+	public ModelAndView myWorkDelYn(@RequestParam(value = "workSqList[]", required = false) List<String> workSqList, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		System.out.println(workSqList);
-		int result = myPageService.myWorkDelYn(workSqList);
+		HttpSession session = request.getSession();
+		List<Map<String, Object>> paramList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<workSqList.size(); i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("mbrSq", session.getAttribute("mbrSq").toString());
+			param.put("workSq", workSqList.get(i));
+			paramList.add(param);
+		}
+		
+		int result = myPageService.myWorkDelYn(paramList);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -226,11 +240,12 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//통합 나의 작품 화면 오픈
-	@RequestMapping("/myPage/myWorkListReg")
-	public String myWorkListReg() {
-		return "thymeleaf/fo/myPage/myWorkReg";
-	}
+	/*
+	 * //통합 나의 작품 화면 오픈
+	 * 
+	 * @RequestMapping("/myPage/myWorkListReg") public String myWorkListReg() {
+	 * return "thymeleaf/fo/myPage/myWorkReg"; }
+	 */
 
 	// 스크랩
 	@RequestMapping("/myPage/scrap")
@@ -691,6 +706,113 @@ public class MyPageController {
 		return result;
 	}
 
+//	// 나의 작품 등록
+//	@PostMapping("/myPage/myWorkReg")
+//	@ResponseBody
+//	public int myWorkReg(@RequestPart(value = "work") Map<String, Object> param,
+//			@RequestPart(value = "workMainImgUrl") @Nullable MultipartFile workMainImgUrl,
+//			@RequestPart(value = "workImgFrtUrl") @Nullable MultipartFile workImgFrtUrl,
+//			@RequestPart(value = "workImgRerUrl") @Nullable MultipartFile workImgRerUrl,
+//			@RequestPart(value = "workGrtUrl") @Nullable MultipartFile workGrtUrl,
+//			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
+//			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
+//			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
+//			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
+//		//작품 타입
+//		String workTypCd = param.get("workTypCd").toString();
+//		//결과값
+//		int result = 0;
+//		if(workTypCd.equals("WORK")) {
+//			//작품 메인 사진
+//			if (workMainImgUrl != null) {
+//				FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workMainImgUrl", file.getFileUrl());
+//			}
+//			//작품 전면 사진
+//			if (workImgFrtUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgFrtUrl", file.getFileUrl());
+//			}
+//			//작품 후면 사진
+//			if (workImgRerUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgRerUrl", file.getFileUrl());
+//			}
+//			//보증서
+//			if (workGrtUrl != null) {
+//				FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workGrtUrl", file.getFileUrl());
+//			}
+//			//작품 사진 좌
+//			if (workImgLefUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgLefUrl", file.getFileUrl());
+//			}
+//			//작품 사진 우
+//			if (workImgRitUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgRitUrl", file.getFileUrl());
+//			}
+//			//작품 사진 상
+//			if (workImgTopUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgTopUrl", file.getFileUrl());
+//			}
+//			//작품 사진 하
+//			if (workImgBotUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+param.get("mbrSq").toString());
+//				param.put("workImgBotUrl", file.getFileUrl());
+//			}
+//			result = myPageService.myWorkReg(param);
+//		}else if(workTypCd.equals("COLL")){
+//			//작품 메인 사진
+//			if (workMainImgUrl != null) {
+//				FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workMainImgUrl", file.getFileUrl());
+//			}
+//			//작품 전면 사진
+//			if (workImgFrtUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgFrtUrl", file.getFileUrl());
+//			}
+//			//작품 후면 사진
+//			if (workImgRerUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgRerUrl", file.getFileUrl());
+//			}
+//			//보증서
+//			if (workGrtUrl != null) {
+//				FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workGrtUrl", file.getFileUrl());
+//			}
+//			//작품 사진 좌
+//			if (workImgLefUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgLefUrl", file.getFileUrl());
+//			}
+//			//작품 사진 우
+//			if (workImgRitUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgRitUrl", file.getFileUrl());
+//			}
+//			//작품 사진 상
+//			if (workImgTopUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgTopUrl", file.getFileUrl());
+//			}
+//			//작품 사진 하
+//			if (workImgBotUrl != null) {
+//				FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/collection/"+param.get("mbrSq").toString());
+//				param.put("workImgBotUrl", file.getFileUrl());
+//			}
+//			result = myPageService.collectionReg(param);
+//		}else{
+//			result = 0;
+//		}
+//		
+//		return result;
+//	}
+	
 	// 나의 작품 등록
 	@PostMapping("/myPage/myWorkReg")
 	@ResponseBody
@@ -702,98 +824,51 @@ public class MyPageController {
 			@RequestPart(value = "workImgLefUrl") @Nullable MultipartFile workImgLefUrl,
 			@RequestPart(value = "workImgRitUrl") @Nullable MultipartFile workImgRitUrl,
 			@RequestPart(value = "workImgTopUrl") @Nullable MultipartFile workImgTopUrl,
-			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl) throws IOException {
-		//작품 타입
+			@RequestPart(value = "workImgBotUrl") @Nullable MultipartFile workImgBotUrl,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		
+		// 작품 타입
 		String workTypCd = param.get("workTypCd").toString();
-		//결과값
+		// 결과값
 		int result = 0;
+		String directory = "";
+		
 		if(workTypCd.equals("WORK")) {
-			//작품 메인 사진
-			if (workMainImgUrl != null) {
-				FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workMainImgUrl", file.getFileUrl());
-			}
-			//작품 전면 사진
-			if (workImgFrtUrl != null) {
-				FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgFrtUrl", file.getFileUrl());
-			}
-			//작품 후면 사진
-			if (workImgRerUrl != null) {
-				FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgRerUrl", file.getFileUrl());
-			}
-			//보증서
-			if (workGrtUrl != null) {
-				FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workGrtUrl", file.getFileUrl());
-			}
-			//작품 사진 좌
-			if (workImgLefUrl != null) {
-				FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgLefUrl", file.getFileUrl());
-			}
-			//작품 사진 우
-			if (workImgRitUrl != null) {
-				FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgRitUrl", file.getFileUrl());
-			}
-			//작품 사진 상
-			if (workImgTopUrl != null) {
-				FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgTopUrl", file.getFileUrl());
-			}
-			//작품 사진 하
-			if (workImgBotUrl != null) {
-				FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/work/"+param.get("mbrSq").toString());
-				param.put("workImgBotUrl", file.getFileUrl());
-			}
-			result = myPageService.myWorkReg(param);
-		}else if(workTypCd.equals("COLL")){
-			//작품 메인 사진
-			if (workMainImgUrl != null) {
-				FileVo file = awsS3Service.upload(workMainImgUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workMainImgUrl", file.getFileUrl());
-			}
-			//작품 전면 사진
-			if (workImgFrtUrl != null) {
-				FileVo file = awsS3Service.upload(workImgFrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgFrtUrl", file.getFileUrl());
-			}
-			//작품 후면 사진
-			if (workImgRerUrl != null) {
-				FileVo file = awsS3Service.upload(workImgRerUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgRerUrl", file.getFileUrl());
-			}
-			//보증서
-			if (workGrtUrl != null) {
-				FileVo file = awsS3Service.upload(workGrtUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workGrtUrl", file.getFileUrl());
-			}
-			//작품 사진 좌
-			if (workImgLefUrl != null) {
-				FileVo file = awsS3Service.upload(workImgLefUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgLefUrl", file.getFileUrl());
-			}
-			//작품 사진 우
-			if (workImgRitUrl != null) {
-				FileVo file = awsS3Service.upload(workImgRitUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgRitUrl", file.getFileUrl());
-			}
-			//작품 사진 상
-			if (workImgTopUrl != null) {
-				FileVo file = awsS3Service.upload(workImgTopUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgTopUrl", file.getFileUrl());
-			}
-			//작품 사진 하
-			if (workImgBotUrl != null) {
-				FileVo file = awsS3Service.upload(workImgBotUrl, "dealingart/collection/"+param.get("mbrSq").toString());
-				param.put("workImgBotUrl", file.getFileUrl());
-			}
-			result = myPageService.collectionReg(param);
-		}else{
-			result = 0;
+			directory = "work";
+		} else if(workTypCd.equals("COLL")) {
+			directory = "collection";
+		} else {
+			directory = "fail";
 		}
+		
+		Map<String, MultipartFile> imgUrlParams = new HashMap<String, MultipartFile>();
+		
+		imgUrlParams.put("workMainImgUrl", workMainImgUrl);
+		imgUrlParams.put("workImgFrtUrl", workImgFrtUrl);
+		imgUrlParams.put("workImgRerUrl", workImgRerUrl);
+		imgUrlParams.put("workGrtUrl", workGrtUrl);
+		imgUrlParams.put("workImgLefUrl", workImgLefUrl);
+		imgUrlParams.put("workImgRitUrl", workImgRitUrl);
+		imgUrlParams.put("workImgTopUrl", workImgTopUrl);
+		imgUrlParams.put("workImgBotUrl", workImgBotUrl);
+		
+		// 작품 이미지 파일 서버에 올리기
+		for (String key : imgUrlParams.keySet()) {
+			MultipartFile imgUrl = imgUrlParams.get(key);
+			
+			if (imgUrl != null) {
+				FileVo file = awsS3Service.upload(imgUrl, "dealingart/"+directory+"/"+param.get("mbrSq").toString());
+				param.put(key, file.getFileUrl());
+			}
+		}
+		
+		// 커뮤니티 자랑하기 이미지 파일 서버에 올리기 
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/boa/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.regWorkAndComtBoa(param);
 		
 		return result;
 	}
@@ -1151,12 +1226,88 @@ public class MyPageController {
 	
 	//소장품 삭제
 	@RequestMapping("/myPage/deleteCollection")	
-	public ModelAndView deleteCollection (@RequestParam("workSq") String workSq) {
+	public ModelAndView deleteCollection (@RequestParam("workSq") String workSq, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("jsonView");
-		myPageService.delCollection(workSq);
+		HttpSession session = request.getSession();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("workSq", workSq);
+		param.put("mbrSq", session.getAttribute("REQ_SEQ").toString());
+		myPageService.delCollection(param);
 		String result = "/myCollection";
 		mv.addObject("result", result);
 		return mv;
 	}
 	
+	// 작품 & 자랑하기 등록 페이지 오픈
+	@RequestMapping("/myPage/myWorkList_reg")
+	public String myWorkList_reg() {
+		return "thymeleaf/fo/myPage/mypage_work_regipage";
+	}
+	
+	// 전시후기/소개 등록 페이지 오픈
+	@RequestMapping("/myPage/myExhibit_reg")
+	public String myExhibit_reg() {
+		return "thymeleaf/fo/myPage/mypage_exhint_page";
+	}
+	
+	// 노하우 등록 페이지 오픈
+	@RequestMapping("/myPage/myKnowhow_reg")
+	public String myKnowhow_reg() {
+		return "thymeleaf/fo/myPage/mypage_knowhow_page";
+	}
+	
+	// 전시후기/소개 등록
+	@RequestMapping("/myPage/myexhibitReg")	
+	@ResponseBody
+	public int myexhibitReg(@RequestPart("exhibit") Map<String, Object> param,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		int result = 0;
+		System.out.println(param);
+		
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/exhibit/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.myComtReg(param);
+		
+		return result;
+	}
+	
+	// 노하우 등록
+	@RequestMapping("/myPage/myKnowhowReg")	
+	@ResponseBody
+	public int myKnowhowReg(@RequestPart("knowhow") Map<String, Object> param,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		int result = 0;
+		System.out.println(param);
+		
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/knowhow/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.myComtReg(param);
+		
+		return result;
+	}
+	
+	// 작품 & 자랑하기 등록 페이지 오픈
+	@RequestMapping("/myPage/myWorkList_reg2")
+	public String myWorkList_reg2() {
+		return "thymeleaf/fo/myPage/mypage_work_regipage";
+	}
+	
+	// 전시후기/소개 등록 페이지 오픈
+	@RequestMapping("/myPage/myExhibit_reg2")
+	public String myExhibit_reg2() {
+		return "thymeleaf/fo/myPage/mypage_exhint_knowhow_page";
+	}
+	
+	// 노하우 등록 페이지 오픈
+	@RequestMapping("/myPage/myKnowhow_reg2")
+	public String myKnowhow_reg2() {
+		return "thymeleaf/fo/myPage/mypage_knowhow_page";
+	}
+
 }
