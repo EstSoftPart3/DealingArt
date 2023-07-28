@@ -45,4 +45,39 @@ public interface MainService {
 	 * return : 작품, 작가에 관한 정보
 	 */
 	Map<String, Object> totalSearchAutocomplete(String searchKeyword);
+	
+	/*
+	 * 메인 화면 로드시 지금 거래중인 작품 정보를 가져온다.
+	 * param : 
+	 * return :
+	 */
+	List<Map<String, Object>> mainNowDealWorks();
+	
+	/*
+	 * 메인 화면 로드시 매거진9 정보를 가져온다.
+	 * param : 
+	 * return :
+	 */
+	List<Map<String, Object>> mainMgz9s();
+	
+	/*
+	 * 메인 화면 로드시 인기 회원 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	List<Map<String, Object>> mainPopularMbr();
+	
+	/*
+	 * 메인 화면 로드시 인기 전시후기/소개 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	List<Map<String, Object>> mainPopularExhibit();
+	
+	/*
+	 * 메인 화면 로드시 자랑하기 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	List<Map<String, Object>> mainBoa();
 }
