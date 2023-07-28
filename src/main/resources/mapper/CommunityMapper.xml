@@ -176,6 +176,7 @@
 	</select>
 	
 	<select id="communityListData" resultType="hashMap">
+		/* 커뮤니티 리스트 */
 		SELECT 
 				COMT.COMT_SQ AS comtSq
 				, COMT.COMT_IMG_URL AS comtImgUrl
@@ -233,6 +234,7 @@
 	</select>
 	
 	<select id="getTotalCount" resultType="hashMap">
+		/* 페이지네이션 만들기 위한 총 커뮤니티 게시글 수 */
 		SELECT 
 				COUNT(COMT.COMT_SQ) AS totalCount
 		FROM 
@@ -299,12 +301,16 @@
 				, COMT.COMT_CMTS AS comtCmts
 				, COMT.COMT_SCRAPS AS comtScraps
 				, COMT.EXHIBIT_REGION_CD AS comtExhibitRegionCd 
+				, COMT.COMT_TYP_CD AS comtTypCd
 				, DTLCD.DTL_CD_NM AS comtExhibitRegionCdNm
 				, COMT.REG_DT AS comtRegDt
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, COUNT(RPRT.COMT_SQ) AS rpptCount
+				, KEYWRDS.COMT_KEYWRD AS comtKeywrd
+				, ARTST.ARTST_SQ AS artstSq
+				, SCRAP.MBR_SQ AS scrapMbrSq
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
@@ -316,11 +322,121 @@
 		LEFT JOIN 
 				TBL_DA_COMN_DTL_CD_S AS DTLCD
 			ON COMT.EXHIBIT_REGION_CD = DTLCD.DTL_CD
+		LEFT JOIN 
+				TBL_DA_COMT_KEYWRDS_R AS KEYWRDS
+			ON COMT.COMT_SQ = KEYWRDS.COMT_SQ
+		LEFT JOIN 
+				TBL_DA_ARTST_M AS ARTST
+			ON COMT.MBR_SQ = ARTST.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_MBR_SCRAP_R AS SCRAP
+			ON COMT.MBR_SQ = SCRAP.FW_MBR_SQ 
 		WHERE 
 				COMT.USE_YN = 'Y'
 			AND COMT.DEL_YN = 'N'
 			AND COMT.OPEN_YN = 'Y'
 			AND COMT.COMT_SQ = #{comtSq}
 	</select>
+	
+	<select id="writerOtherComt" resultType="hashMap">
+		/* 작성자의 다른 커뮤니티 정보 */
+		SELECT 
+				COMT.COMT_SQ AS comtSq
+				, COMT.COMT_IMG_URL AS comtImgUrl
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		WHERE 
+				COMT.USE_YN = 'Y'
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+			AND COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.MBR_SQ = #{mbrSq}
+			AND NOT COMT.COMT_SQ = #{comtSq}
+		ORDER BY 
+				COMT.COMT_SQ DESC
+		LIMIT 
+				4
+	</select>
+	
+	<select id="communityComment" resultType="hashMap">
+		/* 커뮤니티 댓글 */
+		SELECT
+				CMTS.CMT_SQ AS cmtSq
+				, CMTS.CMT_CONTENT AS cmtContent
+				, CMTS.REG_MBR_SQ AS cmtMbrSq
+				, CMTS.REG_DT AS cmtRegDt
+				, MBR.MBR_SQ AS mbrSq
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+		FROM 
+				TBL_DA_COMT_CMTS_R AS CMTS
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON CMTS.REG_MBR_SQ = MBR.MBR_SQ 
+		WHERE 
+				CMTS.DEL_YN = 'N'
+			AND CMTS.COMT_SQ = #{comtSq}
+	</select>
+	
+	<select id="communityReply" resultType="hashMap">
+		/* 커뮤니티 대댓글 */
+		SELECT
+				REPLYS.CMT_SQ AS cmtSq
+				, REPLYS.REPLY_SQ AS replySq
+				, REPLYS.REPLY_CONTENT AS replyContent
+				, REPLYS.REG_MBR_SQ AS replyMbrSq
+				, REPLYS.REG_DT AS replyRegDt
+				, MBR.MBR_SQ AS mbrSq
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+		FROM 
+				TBL_DA_COMT_REPLYS_R AS REPLYS
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON REPLYS.REG_MBR_SQ = MBR.MBR_SQ 
+		WHERE 
+				REPLYS.DEL_YN = 'N'
+			AND REPLYS.COMT_SQ = #{comtSq}
+	</select>
+	
+	<update id="delCommentAndReply">
+		/* 커뮤니티 댓글, 대댓글 삭제 */
+		UPDATE 
+				<if test="commentType == 'cmt'">
+				TBL_DA_COMT_CMTS_R 
+				</if>
+				<if test="commentType == 'reply'">
+				TBL_DA_COMT_REPLYS_R
+				</if>
+				<if test="commentType == 'autoDelReply'">
+				TBL_DA_COMT_REPLYS_R
+				</if>
+			SET 
+				DEL_YN = 'Y'
+		WHERE 
+				<if test="commentType == 'cmt'">
+				CMT_SQ = #{commentSq}
+				</if>
+				<if test="commentType == 'reply'">
+				REPLY_SQ = #{commentSq}
+				</if>
+				<if test="commentType == 'autoDelReply'">
+				CMT_SQ = #{commentSq}
+				</if>
+	</update>
+	
+	<select id="findFollow">
+	<!-- 팔로우버튼 클릭시 팔로우 되어 있는지 먼저 확인하는 작업
+		mapper.xml 파일만 만들었음
+	 -->
+		SELECT 
+				COUNT(SCRAP.MBR_SQ) AS isFollow
+		FROM 
+				TBL_DA_MBR_SCRAP_R AS SCRAP
+		WHERE 
+				SCRAP.FW_MBR_SQ = #{fwMbrSq}
+			AND SCRAP.MBR_SQ = #{mbrSq}
+	</select>
+
 	
 </mapper>

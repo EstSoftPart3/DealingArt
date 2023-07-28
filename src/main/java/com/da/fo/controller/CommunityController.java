@@ -174,4 +174,26 @@ public class CommunityController {
 		return mv;
 	}
 	
+	// 댓글, 대댓글 삭제
+	@RequestMapping("/community/delCommentAndReply")
+	@ResponseBody
+	public ModelAndView communityDelComment(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+
+		int result = communityService.delCommentAndReply(param);
+		mv.addObject("result", result);
+
+		return mv;
+	}
+		
+	// 팔로우 하기 
+	@RequestMapping("/community/follow")
+	public ModelAndView communityFollow(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		// 팔로우되어 있으면 삭제하고 안되있으면 추가하기
+		// 현재 mapper.xml에 검색쿼리만 작성되어 있음 
+		
+		return mv;
+	}
+	
 }

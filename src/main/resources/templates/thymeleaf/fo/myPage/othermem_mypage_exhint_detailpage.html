@@ -95,135 +95,303 @@
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
 </head>
+
 <body>
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+	
     <div id="container">
         <div class="mypage_wrap">
             <div class="works_showingoff_detail_page_wrap mb0">
                 <h2 class="mt50">전시 후기/소개</h2>
-                <div class="picture">
-                    <img src="/resources/img/mypage/sample_works_showingoff_detail00.jpg" alt="">
-                </div>                
-                <h3>나를 돌아보는 전시</h3>
-                <div class="user_wrap">
-                    <div class="user">
-                        <ul>
-                            <li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>
-                            <li class="user_name pr10"><span>딜링아트</span></li>
-                            <li class="mem_type"><span class="ml0">컬렉터</span></li>
-                            <li class="following"><button>+팔로잉</button></li>
-                        </ul>
-                    </div>
-                    <div class="icon_box">
-                        <ul>
-                            <li class="day">23.06.05</li>
-                            <li><p class="ico_good"></p><span>99</span></li>
-                            <li><p class="ico_scrap"></p><span>99</span></li>
-                            <li><p class="ico_hits"></p><span>99</span></li>
-                            <li><p class="ico_comments"></p><span>99</span></li>
-                            <li><p class="ico_report"></p><span>99</span></li>
-                        </ul>
-                    </div>
+                
+                <div id="comtFirstBox">
+                
                 </div>
-                <div class="gallery_keyword_wrap">
-                    <span>서울 갤러리</span>
-                    <p><a href="#">#딜링아트</a> <a href="#">#미술품 직거래</a> <a href="#">#봄 인테리어</a> <a href="#">#작품구매</a> <a href="#">#작품판매</a> <a href="#">#희망</a></p>
-                </div>
-                <div class="picture_detail">
-                    <p class="small_tit">감각적인 공간으로</p>
-                    <img src="/resources/img/mypage/sample_works_showingoff_detail01.jpg" alt="">
-                    <p>오늘 주말 나들이는 전시를 보고왔어요.</p>
-                </div> 
+                
                 <div class="artist_contents mt0">
                     <div class="contents_tit">
-                        <h4>지금 핫한 거래</h4>
-                        <button>+더보기</button>
+                        <h4>작성자의 다른 전시 소개/후기 보기</h4>
+                        <a href="주소입력하기"><button type="button">+더보기</button></a>
                     </div>
-                    <div class="swipe_box">
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>                   
-                </div>                
+                    <div class="swipe_box" id="comtSecondBox">
+                        
+                    </div>
+                                   
+                </div>
             </div>
-            <div class="comments_box_wrap">
+            <div class="comments_box_wrap" id="commentBox">
                 <form action="" method="" id="" name="">
                     <legend>댓글 입력 폼</legend>
                     <p>
-                        <label for="comments_tit">댓글 <strong>1</strong></label>
+                        <label for="comments_tit">댓글 <strong id="commentCount"></strong></label>
                         <input type="text" id="comments_tit" name="" required placeholder="">
                     </p>                            
                 </form>
-                <div class="comments_box">
-                    <div class="user_wrap">
-                        <div class="user_img">
-                            <img src="/resources/img/mypage/ico_dauser.png" alt="">
-                        </div>
-                        <div class="user">
-                            <ul>
-                                <li class="user_name"><span>딜링아트</span></li>
-                                <li>
-                                    <ul>
-                                        <li>1시간전</li>
-                                        <li>   <a href="#">♡ 좋아요</a></li>
-                                        <li><a href="#">답글달기</a></li>
-                                        <li><a href="#">신고</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>                                                        
-                    </div>
-                    <div class="comments">
-                        <p>작품이 예쁩니다.</p>
-                    </div>
-                </div>
-                <div class="answer_comments_box">
-                    <div class="user_wrap">
-                        <div class="ico_answer_comments">
-                            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">
-                        </div>
-                        <div class="user_img">
-                            <img src="/resources/img/mypage/ico_dauser01.png" alt="">
-                        </div>
-                        <div class="user">
-                            <ul>
-                                <li class="user_name"><span>AI 인공지능</span></li>
-                                <li>
-                                    <ul>
-                                        <li>20분 전</li>
-                                        <li>   <a href="#">♡ 좋아요</a></li>
-                                        <li><a href="#">답글달기</a></li>
-                                        <li><a href="#">신고</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>                                                        
-                    </div>
-                    <div class="comments">
-                        <p>너무 너무 감사합니다.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    
+    <script th:inline="javascript">
+    
+    /*<![CDATA[*/ /*]]>*/
+    
+    $(document).ready(function(){
+    	setComtDetailInfo();
+    	setOtherComt();
+    	setComment();
+    });
+    
+    // 커뮤니티 정보 셋팅
+    function setComtDetailInfo(){
+    	var comt = /*[[${comt}]]*/ 'default';
+    	
+    	var strHtml = '';
+    	
+    	strHtml += '<div class="picture">';
+	    strHtml += '    <img src="'+ comt.comtImgUrl +'" alt="">';
+	    strHtml += '</div>';
+	    strHtml += '<h3>'+ comt.comtTitle +'</h3>';
+	    strHtml += '<div class="user_wrap">';
+	    strHtml += '    <div class="user">';
+	    strHtml += '        <ul>';
+	    strHtml += '            <li class="pt5"><img src="'+ comt.mbrProfileImgUrl +'" alt=""></li>';
+	    strHtml += '            <li class="user_name pr10"><span>'+ comt.mbrNcknm +'</span></li>';
+	    
+	    // 작성자가 아티스트인지 컬렉터인지 
+	    if(null != comt.artstSq){
+		    strHtml += '            <li class="mem_type"><span class="ml0">아티스트</span></li>';
+	    } else {
+	    	strHtml += '            <li class="mem_type"><span class="ml0">컬렉터</span></li>';
+	    }
+	    
+	    // 팔로우한 사람이면 팔로잉 / 아니면 팔로우
+	    if(null != comt.scrapMbrSq){
+	    	strHtml += '            <li class="following"><button type="button" onclick="clickFollow('+ comt.mbrSq +')">팔로잉</button></li>';
+	    } else {
+		    strHtml += '            <li class="following"><button type="button">+팔로우</button></li>';
+	    }
+	    
+	    strHtml += '        </ul>';
+	    strHtml += '    </div>';
+	    strHtml += '    <div class="icon_box">';
+	    strHtml += '        <ul>';
+	    strHtml += '            <li class="day">'+ comt.comtRegDt.substr(0,10) +'</li>';
+	    strHtml += '            <li><p class="ico_good"></p><span>'+ comt.comtLikes +'</span></li>';
+	    strHtml += '            <li><p class="ico_scrap"></p><span>'+ comt.comtScraps +'</span></li>';
+	    strHtml += '            <li><p class="ico_hits"></p><span>'+ comt.comtViews +'</span></li>';
+	    strHtml += '            <li><p class="ico_comments"></p><span>'+ comt.comtCmts +'</span></li>';
+	    strHtml += '            <li><p class="ico_report"></p><span>'+ comt.rpptCount +'</span></li>';
+	    strHtml += '        </ul>';
+	    strHtml += '    </div>';
+	    strHtml += '</div>';
+	    strHtml += '<div class="gallery_keyword_wrap">';
+	    strHtml += '    <span>'+ comt.comtExhibitRegionCdNm +'</span>';
+	   	strHtml += '    <p>';
+	    
+	   	if(null != comt.comtKeywrd){
+		   	// 키워드 for문 돌리기
+		   	var keywords = comt.comtKeywrd.split(',');
+		   	
+		   	keywords.forEach( function ( keyword ){
+			    strHtml += '    <a href="#"># '+ keyword +'</a>';
+		   	});
+	   	}
+
+	   	strHtml += '    </p>';
+	    strHtml += '</div>';
+	    strHtml += '<div class="picture_detail">';
+	    strHtml += '    ' + comt.comtContent;
+	    strHtml += '</div>';
+	    
+	    $("#comtFirstBox").append(strHtml);
+	    $("#commentCount").text(comt.comtViews);
+    }
+    
+    // 팔로우하기
+    function clickFollow(mbrSq){
+    	
+    	$.ajax({
+    		url: "",
+    		success: ( function ( response ) {
+    			
+    		}),
+    		error: ( function ( response ) {
+    			
+    		})
+    	});
+    	
+    }
+    
+    // 작성자의 다른 커뮤니티 정보 셋팅
+    function setOtherComt(){
+    	var otherComt = /*[[${otherComt}]]*/ 'default';
+    	
+    	var strHtml = '';
+		
+    	otherComt.forEach( function( comt ){
+    		
+		    strHtml += '<div class="box_wrap">';
+		    strHtml += '    <div class="pic_box00">';
+		    strHtml += '        <a href="/community/exhibitDetail?comtSq='+ comt.comtSq +'">';
+		    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
+		    strHtml += '        </a>';
+		    strHtml += '    </div>';
+		    strHtml += '</div>';
+    		
+    	});
+
+	    $("#comtSecondBox").append(strHtml);
+    }
+    
+    // 댓글 셋팅
+    function setComment(){
+    	var comments = /*[[${comments}]]*/ 'default';
+    	var replys = /*[[${replys}]]*/ 'default';
+    	
+    	var strHtml = '';
+    	
+    	// 댓글
+    	comments.forEach( function ( comment ){
+    		
+    		strHtml += '<div class="comments_box">';
+	        strHtml += '    <div class="user_wrap">';
+	        strHtml += '        <div class="user_img">';
+	        
+	        if(null != comment.mbrProfileImgUrl){
+		        strHtml += '            <img src="'+ comment.mbrProfileImgUrl +'" alt="">';
+	        } else {
+	        	strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+	        }
+	        
+	        strHtml += '        </div>';
+	        strHtml += '        <div class="user">';
+	        strHtml += '            <ul>';
+	        strHtml += '                <li class="user_name"><span>'+ comment.mbrNcknm +'</span></li>';
+	        strHtml += '                <li>';
+	        strHtml += '                    <ul>';
+	        strHtml += '                        <li>'+ comment.cmtRegDt +'</li>';
+	        strHtml += '                        <li><a href="#">♡ 좋아요</a></li>';
+	        
+	        // 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+	        if(comment.mbrSq == sMbrSqVal){
+	        	strHtml += '                        <li><a href="javascript:deleteComment('+ comment.cmtSq +');">댓글삭제</a></li>';
+		        strHtml += '                        <li><a href="#">댓글수정</a></li>';
+	        }
+	        
+	        strHtml += '                        <li><a href="#">답글달기</a></li>';
+	        strHtml += '                        <li><a href="#">신고</a></li>';
+	        strHtml += '                    </ul>';
+	        strHtml += '                </li>';
+	        strHtml += '            </ul>';
+	        strHtml += '        </div>';                 
+	        strHtml += '    </div>';
+	        strHtml += '    <div class="comments">';
+	        strHtml += '        <p>'+ comment.cmtContent +'</p>';
+	        strHtml += '    </div>';
+	        strHtml += '</div>';
+	        
+	        // 대댓글
+	        replys.forEach( function ( reply ){
+	        	
+	        	if(comment.cmtSq == reply.cmtSq){
+		        	
+	        		strHtml += '<div class="answer_comments_box">';
+	                strHtml += '    <div class="user_wrap">';
+	                strHtml += '        <div class="ico_answer_comments">';
+	                strHtml += '            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">';
+	                strHtml += '        </div>';
+	                strHtml += '        <div class="user_img">';
+	                
+	                if(null != reply.mbrProfileImgUrl){
+	                	strHtml += '            <img src="'+ reply.mbrProfileImgUrl +'" alt="">';
+	                } else {
+		                strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+	                }
+	                
+	                strHtml += '        </div>';
+	                strHtml += '        <div class="user">';
+	                strHtml += '            <ul>';
+	                strHtml += '                <li class="user_name"><span>'+ reply.mbrNcknm +'</span></li>';
+	                strHtml += '                <li>';
+	                strHtml += '                    <ul>';
+	                strHtml += '                        <li>'+ reply.replyRegDt +'</li>';
+	                strHtml += '                        <li><a href="#">♡ 좋아요</a></li>';
+	             	
+	                // 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+	    	        if(reply.mbrSq == sMbrSqVal){
+	    	        	strHtml += '                        <li><a href="javascript:delReply('+ reply.replySq +');">댓글삭제</a></li>';
+	    		        strHtml += '                        <li><a href="#">댓글수정</a></li>';
+	    	        }
+	             
+	                strHtml += '                        <li><a href="#">답글달기</a></li>';
+	                strHtml += '                        <li><a href="#">신고</a></li>';
+	                strHtml += '                    </ul>';
+	                strHtml += '                </li>';
+	                strHtml += '            </ul>';
+	                strHtml += '        </div>';
+	                strHtml += '    </div>';
+	                strHtml += '    <div class="comments">';
+	                strHtml += '        <p>'+ reply.replyContent +'</p>';
+	                strHtml += '    </div>';
+	                strHtml += '</div>';
+	        		
+		        }
+	        });
+    		
+    	});
+    	
+    	$("#commentBox").append(strHtml);
+    	
+    }
+    
+    // 댓글 삭제 
+    function deleteComment(cmtSq){
+    	var commentType = "cmt";
+    	delCommentModal(cmtSq, commentType);
+    }
+    
+    // 대댓글 삭제
+    function delReply(replySq){
+    	var commentType = "reply";
+    	delCommentModal(replySq, commentType);
+    }
+    
+    // 댓글 삭제 모달, 삭제 처리
+    function delCommentModal(commentSq, commentType){
+    	
+		modalConfirm( "댓글을 삭제하시겠습니까?" , function ( confirm ) {
+    		
+			if(confirm){
+				
+				$.ajax({
+			        type: "POST",
+			        url: "/community/delCommentAndReply",
+			        data: {
+			        	commentType : commentType,
+			        	commentSq: commentSq
+			        },
+			        success: function(data) {
+			        	if(data.result > 0){
+			        		modalAlertShow("댓글이 삭제되었습니다.", "reload");
+			        	}else{
+			        		modalAlertShow("댓글 삭제에 실패했습니다.<br/>다시 시도해주세요.", "reload");
+			        	}
+			        },
+			        error: function(error) {
+			            alert("삭제처리에 실패했습니다.\n관리자에게 문의해주세요."); 
+			            location.reload();
+			        }
+				});
+			} 
+		});
+    }
+    
+    /* 
+    	댓글 수정, 답글 달기 작업해야함
+    
+    */
+    
+    </script>
 </body>
 </html>

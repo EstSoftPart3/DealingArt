@@ -235,15 +235,21 @@
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><a href="/community/exhibitDetail?comtSq='+ exhibit.comtSq +'"><img src="'+ exhibit.comtImgUrl +'" alt=""></a></div>';
+   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" onclick="opneExhibitDetail('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
-   	        strHtml += '            <li>';
-   	        strHtml += '                <div class="tit">';
-   	        strHtml += '                    <a href="/community/exhibitDetail?comtSq='+ exhibit.comtSq +'"><em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div></a>';
-   	        strHtml += '                </div>';
-   	        strHtml += '            </li>';
-   	        strHtml += '            <li class="pt20 height114"><a href="/community/exhibitDetail?comtSq='+ exhibit.comtSq +'"><p>'+ exhibit.comtContent +'</p></a></li>';
+   	        
+   	     	strHtml += '			<div onclick="opneExhibitDetail('+exhibit.comtSq+');" style="cursor: pointer;">';
+   	        strHtml += '            	<li>';
+   	        strHtml += '                	<div class="tit">';
+   	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
+   	        strHtml += '                	</div>';
+   	        strHtml += '            	</li>';
+   	        strHtml += '            	<li class="pt20 height114">';
+   	        strHtml += '            		<p>'+ exhibit.comtContent +'</p></li>';
+   	        strHtml += '            	</li>';
+   	        strHtml += '            </div>';
+   	        
    	        strHtml += '            <li>';
    	        strHtml += '                <div class="user_wrap">';
    	        strHtml += '                    <div class="user">';
@@ -276,6 +282,10 @@
    		
         $("#listBox").prepend(strHtml);
    	}
+   	
+   	function opneExhibitDetail(sqNumber){
+		location.href = "/community/exhibitDetail?comtSq="+sqNumber;
+	}
 
    	// ajax로 공통코드 들고와서 뿌려주기
    	function getDtlCdNm(url, selectBoxId, cdSq){

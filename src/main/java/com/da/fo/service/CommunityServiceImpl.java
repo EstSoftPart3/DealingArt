@@ -83,4 +83,54 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 	
+	/*
+	 * 커뮤니티 전시후시/소개, 노하우 상세페이지에서 작성자의 다른 글 들고오기 
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> writerOtherComt(Map<String, Object> param){
+		List<Map<String, Object>> result = communityDao.writerOtherComt(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 댓글 가져오기
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> communityComment(Map<String, Object> param){
+		List<Map<String, Object>> result = communityDao.communityComment(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 대댓글 가져오기
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> communityReply(Map<String, Object> param){
+		List<Map<String, Object>> result = communityDao.communityReply(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 댓글, 대댓글 삭제하기
+	 * param : 
+	 * return : 
+	 */
+	public int delCommentAndReply(Map<String, Object> param) {
+		
+		int result = communityDao.delCommentAndReply(param);
+
+		String commentType = param.get("commentType").toString();
+		if(commentType.equals("cmt")) {
+			
+			// 댓글을 삭제한거면 대댓글 삭제해주기 
+			param.put("commentType", "autoDelReply");
+			result = communityDao.delCommentAndReply(param);
+		}
+		
+		return result;
+	}
+	
 }
