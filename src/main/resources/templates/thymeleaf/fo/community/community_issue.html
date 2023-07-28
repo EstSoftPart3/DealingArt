@@ -204,21 +204,28 @@
    	function setKnowhowHtml(list){
 		
    		var strHtml = '';
-
+   		
    		window.scrollTo({top:0});
    		$("#listBox .exhint_row").empty();
    		
    		list.forEach( function (knowhow) {
    			strHtml += '<div class="exhint_row">';
-	        strHtml += '    <div class="exhint_list_img"><a href="/community/knowhowDetail?comtSq='+ knowhow.comtSq +'"><img src="'+ knowhow.comtImgUrl +'" alt=""></a></div>';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" onclick="opneKnowhowDetail('+knowhow.comtSq+');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
-	        strHtml += '            <li>';
-	        strHtml += '                <div class="tit">';
-	        strHtml += '                    <a href="/community/knowhowDetail?comtSq='+ knowhow.comtSq +'"><em>'+ knowhow.comtTitle +'</em><div class="ico_new">NEW</div></a>';
-	        strHtml += '                </div>';
-	        strHtml += '            </li>';
-	        strHtml += '            <li class="pt20 height114"><a href="/community/knowhowDetail?comtSq='+ knowhow.comtSq +'"><p>'+ knowhow.comtContent +'</p></a></li>';
+	        
+	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+');" style="cursor: pointer;">';
+	        strHtml += '            	<li>';
+	        strHtml += '                	<div class="tit">';
+	        strHtml += '                    	<em>'+ knowhow.comtTitle +'</em>';
+	        strHtml += '						<div class="ico_new">NEW</div>';
+	        strHtml += '                	</div>';
+	        strHtml += '            	</li>';
+	        strHtml += '            	<li class="pt20 height114">';
+	        strHtml += '					<p>'+ knowhow.comtContent +'</p>';
+	        strHtml += '				</li>';
+	        strHtml += '			</div>';
+	        
 	        strHtml += '            <li>';
 	        strHtml += '                <div class="user_wrap">';
 	        strHtml += '                    <div class="user">';
@@ -251,6 +258,10 @@
    		
         $("#listBox").prepend(strHtml);
    	}
+	
+	function opneKnowhowDetail(sqNumber){
+		location.href = "/community/knowhowDetail?comtSq="+sqNumber;
+	}
     
  	// 캘린더 선택시 조회하기 
    	function checkCalendar(){

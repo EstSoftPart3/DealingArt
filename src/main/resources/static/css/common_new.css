@@ -137,7 +137,14 @@ input[type="password"] {
 .exhint_wrap{margin-top: 80px;}
 .exhint_row{margin-top: 30px;}
 .exhint_row:after{content: "";display: block;clear: both;}
-.exhint_row .exhint_list_img{float: right;position: relative;}
+/*2023-07-28 정영우 수정*/
+.exhint_row .exhint_list_img {
+    float: right;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
 .exhint_row .contents{float: left;width: 80%;}
 .exhint_row .contents .tit{display: flex; justify-content: flex-start;}
 .exhint_row .contents ul li .tit em{font-size: 30px;font-weight: 500;letter-spacing: -1.5px;}
