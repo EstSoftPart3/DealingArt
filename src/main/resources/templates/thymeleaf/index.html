@@ -268,7 +268,7 @@
 			</div>
 			
 			<!-- New deal --> <!-- 0808 -->
-			<div class="contents max-1500">
+			<div class="contents max-1500" id="newDeal_title">
 				<div class="cont-title">
 					<h3>New Deal</h3>
 				</div>
@@ -757,21 +757,26 @@
 	        	   }
 	        	   $("#columns").append(todayBidHtml).trigger("create"); */
 	        	   var newDealHtml = '';
-	        	   for(j=0; j<mainNewDeal.length; j++){
-			   	       newDealHtml += '<div class="swiper-slide hd-div">';
-					   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+mainNewDeal[j].dealSq+')">';
-					   newDealHtml += '		<img src="'+mainNewDeal[j].workMainImgUrl+'" class="hd-img" style="width:270px;"/>';
-					   newDealHtml += '		<div class="hd-text">';
-					   newDealHtml += '			<h4>'+mainNewDeal[j].artstActvtyNm+'</h4>';
-				       newDealHtml += '			<div class="hd-d1">'+mainNewDeal[j].workNm +'('+ mainNewDeal[j].workProdcYear+')';
-				       newDealHtml += '         <br/>'+mainNewDeal[j].workMatrl+', '+mainNewDeal[j].workSizeWidth +'x'+ mainNewDeal[j].workSizeDepth+'</div>';
-					   //newDealHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
-				       newDealHtml += '		</div>';
-					   newDealHtml += '	</a>';
-					   newDealHtml += '</div>';
+	        	   if(mainNewDeal.length > 0){
+	        		   for(j=0; j<mainNewDeal.length; j++){
+				   	       newDealHtml += '<div class="swiper-slide hd-div">';
+						   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+mainNewDeal[j].dealSq+')">';
+						   newDealHtml += '		<img src="'+mainNewDeal[j].workMainImgUrl+'" class="hd-img" style="width:270px;"/>';
+						   newDealHtml += '		<div class="hd-text">';
+						   newDealHtml += '			<h4>'+mainNewDeal[j].artstActvtyNm+'</h4>';
+					       newDealHtml += '			<div class="hd-d1">'+mainNewDeal[j].workNm +'('+ mainNewDeal[j].workProdcYear+')';
+					       newDealHtml += '         <br/>'+mainNewDeal[j].workMatrl+', '+mainNewDeal[j].workSizeWidth +'x'+ mainNewDeal[j].workSizeDepth+'</div>';
+						   //newDealHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
+					       newDealHtml += '		</div>';
+						   newDealHtml += '	</a>';
+						   newDealHtml += '</div>';
+		        	   }
+		        	   $("#newDeal").empty();
+		        	   $("#newDeal").append(newDealHtml).trigger("create");
+	        	   }else{
+	        		   $("#newDeal_title").css("display", "none");
 	        	   }
-	        	   $("#newDeal").empty();
-	        	   $("#newDeal").append(newDealHtml).trigger("create");
+	        	   
 	        	   
 	        	   var updatedArtistHtml = '';
 	        	   for(k=0; k<mainUpdatedArtist.length; k++){

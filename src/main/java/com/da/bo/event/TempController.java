@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // 임시로 만든 컨트롤러. 페이지만 연결시켜놓음. 나중에 삭제 예정
 @Controller
 public class TempController {
+
+	// 메인 리뉴얼
+	@RequestMapping("/temp/main")
+	public String main() {
+		return "thymeleaf/da_main";
+	}
 	
 	// 커뮤니티 홈
 	@RequestMapping("/temp/community_home")

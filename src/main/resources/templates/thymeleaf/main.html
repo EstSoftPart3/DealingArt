@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	
+	<meta name="description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="딜링아트">
+	
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<link type="text/css" rel="stylesheet" href="/resources/css/common_pc.css"/>
+	
+	<!-- 캐쉬 삭제 -->
+	   <!-- 1990년 이후 이 페이지의 캐시를 만료시킴. -->
+    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
+
+    <!-- 캐시를 바로 만료시킴. -->
+    <meta http-equiv="Expires" content="-1" />
+
+    <!-- 페이지 로드시마다 페이지를 캐싱하지 않음. (HTTP 1.0) -->
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- 페이지 로드시마다 페이지를 캐싱하지 않음. (HTTP 1.1) -->
+    <meta http-equiv="Cache-Control" content="no-cache" />
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
+    </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+</head>
+
+<body>
+    <div id="container">
+        <div class="main_wrap">
+        <th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+            <div class="visual">
+                <p>
+                    딜링아트에서<br> 
+                    당신만의 아트 컬렉션을<br> 
+                    자유롭게 자랑해보세요.
+                </p>
+                <button>시작하기</button>
+            </div>
+            <div class="member_works_showingoff_wrap">
+                <div class="tit_wrap">
+                    <h2>회원들이 작품 자랑하기</h2>
+                    <button class="btn_more">더보기</button>
+                </div>                
+                <div class="works_layout">
+                    <div class="left">
+                        <img src="/resources/img/img_new/main_works_showingoff_sample00.jpg" alt="">
+                        <div class="bottom">
+                            <img src="/resources/img/img_new/main_works_showingoff_sample02.jpg" alt="">
+                            <img src="/resources/img/img_new/main_works_showingoff_sample03.jpg" alt="">    
+                        </div>
+                    </div>
+                    <div class="right"><img src="/resources/img/img_new/main_works_showingoff_sample01.jpg" alt=""></div>
+                </div>
+            </div>
+            <div class="market_work_wrap">
+                <div class="tit_wrap">
+                    <h2>지금 거래중인 작품</h2>
+                    <button class="btn_more">더보기</button>
+                </div>
+                <div class="btn_swipe_left"></div>
+                <ul>
+                    <li>
+                        <a href="#"><img src="/resources/img/img_new/main_market_work_sample00.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/resources/img/img_new/main_market_work_sample01.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/resources/img/img_new/main_market_work_sample02.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/resources/img/img_new/main_market_work_sample03.jpg" alt=""></a>
+                    </li>                        
+                </ul>
+                <div class="btn_swipe_right"></div>
+            </div>
+            <div class="magazine9_wrap">
+                <div class="tit_wrap">
+                    <h2>매거진 9</h2>
+                    <button class="btn_more">더보기</button>
+                </div>
+                <div class="btn_swipe_left"></div>
+                <div class="magazine9">
+                    <div class="contents">
+                        <p class="tit">매거진9  Insights 2023 / 6월호</p>
+                        <p class="text">전시에 관한 거의 모든 것에 대하여</p>
+                        <p class="text pt0">All about Exhibition</p>
+                        <span>Art-ist 박혜미</span>
+                    </div>
+                </div>
+                <div class="btn_swipe_right"></div>
+            </div>
+            <div class="popular_member_wrap">
+                <div class="tit_wrap">
+                    <h2>인기 회원</h2>
+                    <button class="btn_more">더보기</button>
+                </div>
+                <div class="btn_swipe_left"></div>
+                <ul>
+                    <li>
+                        <div class="public_member">        
+                            <div class="logo"></div>                                                                      
+                            <div class="name"><span>딜링아트</span></div>
+                            <div class="text">소중한 애장품을 기록합니다.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="public_member">        
+                            <div class="logo"></div>                                                                      
+                            <div class="name"><span>딜링아트</span></div>
+                            <div class="text">소중한 애장품을 기록합니다.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="public_member">        
+                            <div class="logo"></div>                                                                      
+                            <div class="name"><span>딜링아트</span></div>
+                            <div class="text">소중한 애장품을 기록합니다.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="public_member">        
+                            <div class="logo"></div>                                                                      
+                            <div class="name"><span>딜링아트</span></div>
+                            <div class="text">소중한 애장품을 기록합니다.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="public_member">        
+                            <div class="logo"></div>                                                                      
+                            <div class="name"><span>딜링아트</span></div>
+                            <div class="text">소중한 애장품을 기록합니다.</div>
+                        </div>
+                    </li>                        
+                </ul>
+                <div class="btn_swipe_right"></div>
+            </div>
+            <div class="exhint_rewview_wrap">
+                <div class="tit_wrap">
+                    <h2>전시소개/후기</h2>
+                    <button class="btn_more">더보기</button>
+                </div>
+                <div class="btn_swipe_left"></div>
+                <ul>
+                    <li>
+                        <div class="exhint_review">        
+                            <div class="pic"><a href="#"><img src="/resources/img/img_new/main_exhint_review_sample00.jpg" alt=""></a></div>                                                                      
+                            <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>딜링아트</span></div>
+                            <div class="text">나를 돌아보는 전시</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exhint_review">        
+                            <div class="pic"><a href="#"><img src="/resources/img/img_new/main_exhint_review_sample01.jpg" alt=""></a></div>                                                                      
+                            <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>딜링아트</span></div>
+                            <div class="text">나를 돌아보는 전시</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exhint_review">        
+                            <div class="pic"><a href="#"><img src="/resources/img/img_new/main_exhint_review_sample02.jpg" alt=""></a></div>                                                                      
+                            <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>딜링아트</span></div>
+                            <div class="text">나를 돌아보는 전시</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exhint_review">        
+                            <div class="pic"><a href="#"><img src="/resources/img/img_new/main_exhint_review_sample03.jpg" alt=""></a></div>                                                                      
+                            <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>딜링아트</span></div>
+                            <div class="text">나를 돌아보는 전시</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="btn_swipe_right"></div>
+            </div>
+            <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block> 
+        </div>        
+    </div>
+</body>
+</html>
