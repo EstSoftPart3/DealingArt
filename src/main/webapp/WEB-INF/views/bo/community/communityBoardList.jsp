@@ -64,6 +64,10 @@
 						<td class="col-sm-1" align="center" style="background-color: #efefef;">작성일</td>
 						<td id="" class="col-sm-2 dataValue">
 							<div class="noExl" style="text-align:left; display: inline;">
+								<button type="button" style="border: 1px solid grey" onclick="setDate('0')">오늘</button>
+								<button type="button" style="border: 1px solid grey" onclick="setDate('1')">3일</button>
+								<button type="button" style="border: 1px solid grey" onclick="setDate('7')">7일</button>
+								<button type="button" style="border: 1px solid grey" onclick="setDate('30')">1개월</button>
 			                  	<input id="firstDate" type="date">
 			                  	<input id="lastDate" type="date">
 			                </div>
@@ -90,7 +94,7 @@
 		                        		<option value="id">아이디</option>
 		                        		<option value="nickname">닉네임</option>
 	                        		</select>
-	                        		<input type="text" id="cmMgSrchTxt" class="form-control float-right bTitle" placeholder="검색" value="임의의 값">
+	                        		<input type="text" id="cmMgSrchTxt" class="form-control float-right bTitle" placeholder="검색">
                         		</div>
 							</td>						
 						</tr>
@@ -200,13 +204,49 @@
 	
 	<script>
 	$(document).ready(function(){
+		//초기 날짜 설정
+		setDate("3");
+		
 		// 게시물 리스트 ( 검색버튼 클릭시 보여줘야 함. 현재 확인하기 위해 동작 ) 
 		boardList();
 		
 		clickBoardTabBtn($('#commuBorTypCd').val());
 		getParamater('ABL');
 	});
+	/* 화면 초기 설정 */
+	function setDate(date){
+		var today = new Date();   
+		var firstDate;
+		var lastDate = simpleDateFormat(today);
+		if(date == "1"){
+			//한달 전
+			firstDate = simpleDateFormat(new Date(today.setMonth(today.getMonth() - date)));
+		}else{
+			firstDate = simpleDateFormat(new Date(today.setDate(today.getDate() - date)));	
+		}
+		
+		//오늘 날짜 셋팅
+		$("#lastDate").val(lastDate);
+		//3일 전 날짜 셋팅
+		$("#firstDate").val(firstDate);
+	}
 	
+	/* 날짜 ISO 표기법으로 변환 */
+	function simpleDateFormat(date) {
+		var todayString = date.getFullYear() + "-";
+		var todayMonth = date.getMonth() + 1;
+		if (todayMonth < 10) {
+			todayString += "0";
+		}
+		todayString += todayMonth + "-";
+		var todayDate = date.getDate();
+		if (todayDate < 10) {
+			todayString += "0";
+		}
+		todayString += todayDate;
+		
+		return todayString;
+	}
 	/* 게시글 관리 탭 클릭시 색상 변화 */
 	function clickBoardTabBtn(commuBorTypCd){
 		var btn;
@@ -230,12 +270,39 @@
 			commuBorTypCd 값을 받아와서 값에 따른 파라미터 값 리턴하는 함수 만들기 -> getParamater(menuType)
 		*/
 		var commuBorTypCd = $('#commuBorTypCd').val();
-		   
 		console.log("commuBorTypCd :"+commuBorTypCd);
-		commuBorTypCd = "NT"
 
-		var params = {
-			commuBorTypCd: commuBorTypCd
+		var params;
+		debugger;
+		if(commuBorTypCd == "ABL"){
+			var firstDate = $("#firstDate").val();
+			var lastDate = $("#lastDate").val();
+			var cmMgMenuTyp = $('input:radio[name="cmMgMenuTyp"]:checked').val();
+			
+			var cmMgSrchTyp = $("#cmMgSrchTyp").val();
+			var cmMgSrchTxt = $("#cmMgSrchTxt").val();
+			
+			var cmMgComntYn = $('input:radio[name="cmMgComntYn"]:checked').val();
+			var cmMgRepSts = $('input:radio[name="cmMgRepSts"]:checked').val();
+			
+			params = {
+				commuBorTypCd: commuBorTypCd,
+				firstDate: firstDate,
+				lastDate: lastDate,
+				cmMgMenuTyp: cmMgMenuTyp,
+				cmMgSrchTyp: cmMgSrchTyp,
+				cmMgSrchTxt: cmMgSrchTxt,
+				cmMgComntYn: cmMgComntYn,
+				cmMgRepSts: cmMgRepSts,
+			}
+		}else if(commuBorTypCd == "ABR"){
+			params = {
+				commuBorTypCd: commuBorTypCd
+			}
+		}else{
+			params = {
+				commuBorTypCd: commuBorTypCd
+			}
 		}
 		
 		$("#boardList").jsGrid({
@@ -260,7 +327,7 @@
 		     		var d = $.Deferred();
 		            $.ajax({
 		            	type: "post",
-		 	    	 	url: "/admin/board/boardListData",
+		 	    	 	url: "/admin/community/boardListData",
 		 	         	data: params,
 		 	         	dataType: "json"
 			 	     }).done(function(response) {
@@ -297,13 +364,13 @@
 	    	          .attr({id: "checkRow" + item.brdSq});
 	    	      }
 		    	 },
-				{ name: "", title: "순서", type: "text", width: 80, align: "center", visible: true},
-				{ name: "brdConTypCdTxt", title:"분류", type: "text", width: 200, align:"center", visible: true},
-				{ name: "", title:"작성자", type: "text", width: 80, align:"center", visible: false},
-				{ name: "", title:"닉네임", type: "text", width: 80,align:"center", visible: true},
-				{ name: "", title:"아이디", type: "text", width: 100, align:"center", visible: true},
-				{ name: "", title:"제목", type: "text", width: 200, align:"left", visible: true}, /* key: true 무엇 */
-				{ name: "", title:"작성일", type: "text", width: 100, align:"center", visible: true},
+				{ name: "no", title: "순서", type: "text", width: 80, align: "center", visible: true},
+				{ name: "comtTypNm", title:"분류", type: "text", width: 200, align:"center", visible: true},
+				{ name: "regMbrSq", title:"작성자", type: "text", width: 80, align:"center", visible: false},
+				{ name: "regMbrNckNm", title:"닉네임", type: "text", width: 80,align:"center", visible: true},
+				{ name: "regMbrId", title:"아이디", type: "text", width: 100, align:"center", visible: true},
+				{ name: "comtTitle", title:"제목", type: "text", width: 200, align:"left", visible: true}, /* key: true 무엇 */
+				{ name: "regDt", title:"작성일", type: "text", width: 100, align:"center", visible: true},
 				
 				{ name: "", title:"신고일", type: "text", width: 100, align:"center", visible: false},
 				{ name: "", title:"신고사유", type: "text", width: 200, align:"center", visible: false},

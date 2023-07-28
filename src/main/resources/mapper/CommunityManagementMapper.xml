@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.da.mapper.CommunityManagementMapper">
+	<select id="communityManagementList" resultType="hashMap">
+		/*게시판 관리 리스트*/
+		SELECT 
+			A.CM_MG_SQ,								/*게시판 관리 순번 (아이디)*/
+			A.AUTH_SQ,								/*권한 순번*/
+			A.CM_MG_NM,								/*게시판 관리 이름 (제목)*/
+			A.CM_MG_OD_DIV_CD,						/*게시판 정렬 구분 코드*/
+			A.CM_MG_OD_TYP_CD,						/*게시판 정렬 차순*/
+			A.CM_MG_NEW_SET,						/*게시판 새 글 기준 (분)*/
+			A.CM_MG_START_DT,						/*게시판 시작 일자*/
+			A.CM_MG_END_DT,							/*게시판 종료 일자*/
+			COUNT(CASE WHEN TIMESTAMPDIFF(HOUR, B.REG_DT, NOW()) <![CDATA[<=]]> A.CM_MG_NEW_SET THEN 1 end ) AS CM_MG_NEW_CNT,		/*게시물 새 글 갯수*/
+			COUNT(B.COMT_TYP_CD) AS CM_MG_TOT_CNT,	/*게시물 총 갯수*/
+			B.COMT_TYP_CD,							/*게시판 구분 코드 (유형)*/
+			C.DTL_CD_NM,							/*게시판 구분 코드명*/
+			CASE WHEN NOW() BETWEEN A.CM_MG_START_DT AND A.CM_MG_END_DT THEN '표시' ELSE '미표시' END AS CM_MG_SHOW_YN
+		FROM
+			TBL_DA_COMT_MGMT_M AS A
+		JOIN TBL_DA_COMT_M AS B 
+			ON A.COMT_TYP_CD = B.COMT_TYP_CD 
+		JOIN TBL_DA_COMN_DTL_CD_S AS C 
+			ON A.COMT_TYP_CD = C.DTL_CD AND C.CD_SQ = '34'
+		GROUP BY B.COMT_TYP_CD
+	</select>
+	<select id="communityManagementDtlList" resultType="hashMap" parameterType="hashMap">
+		/*게시판 관리 상세정보*/
+		SELECT
+			A.CM_MG_SQ,
+			A.AUTH_SQ,
+			A.CM_MG_NM,
+			A.CM_MG_OD_DIV_CD,
+			A.CM_MG_OD_TYP_CD,
+			A.CM_MG_REGDT_YN,
+			A.CM_MG_CMT_YN,
+			A.CM_MG_VIEWS_YN,
+			A.CM_MG_SCRAPS_YN,
+			A.CM_MG_LIKES_YN,
+			A.CM_MG_SNS_YN,
+			A.CM_MG_NEW_SET,
+			A.CM_MG_START_DT,
+			A.CM_MG_END_DT,
+			A.COMT_TYP_CD,
+			CASE WHEN NOW() BETWEEN A.CM_MG_START_DT AND A.CM_MG_END_DT THEN '표시' ELSE '미표시' END AS CM_MG_SHOW_YN
+		FROM
+			TBL_DA_COMT_MGMT_M AS A
+		WHERE A.COMT_TYP_CD = #{comtTypCd}
+	</select>
+	
+	<update id="communityManagementSave" parameterType="hashMap">
+		UPDATE TBL_DA_COMT_MGMT_M 
+   		<trim prefix="SET" suffixOverrides=",">
+      		<if test="cmMgOdDivCd  != null">CM_MG_OD_DIV_CD =#{cmMgOdDivCd},</if>
+      		<if test="cmMgRegdtYn  != null">CM_MG_REGDT_YN =#{cmMgRegdtYn},</if>
+      		<if test="cmMgCmtYn  != null">CM_MG_CMT_YN =#{cmMgCmtYn},</if>
+      		<if test="cmMgViewsYn  != null">CM_MG_VIEWS_YN =#{cmMgViewsYn},</if>
+      		<if test="cmMgScrapsYn  != null">CM_MG_SCRAPS_YN =#{cmMgScrapsYn},</if>
+      		<if test="cmMgLikesYn  != null">CM_MG_LIKES_YN =#{cmMgLikesYn},</if>
+      		<if test="cmMgSnsYn  != null">CM_MG_SNS_YN =#{cmMgSnsYn},</if>
+      		<if test="cmMgNewSet  != null">CM_MG_NEW_SET =#{cmMgNewSet},</if>
+  		</trim>
+   		WHERE CM_MG_SQ = #{cmMgSq}
+	</update>
+	
+	<select id="boardList" resultType="hashMap" parameterType="hashMap">
+        SELECT
+        	row_number() over(order by A.REG_DT DESC) as no
+           	,A.COMT_SQ             			  AS comtSq
+			,A.COMT_TITLE         				  AS comtTitle
+			,A.COMT_CONTENT      				  AS comtContent
+			,A.COMT_TYP_CD        				  AS comtTypCd
+			,C.DTL_CD_NM						AS comtTypNm		/*게시판 구분 코드명*/
+			,A.REG_MBR_SQ        				  AS reqMbrSq
+			,B.MBR_ID						  AS regMbrId
+			,B.MBR_NCKNM					  AS regMbrNckNm
+			,DATE_FORMAT(A.REG_DT, "%Y-%m-%d")  AS regDt
+			,A.UPDT_MBR_SQ                      AS updtMbrSq
+			,DATE_FORMAT(A.UPDT_DT, "%Y-%m-%d") AS updtDt
+			,A.USE_YN			   				  AS useYn
+			,A.DEL_YN			   				  AS delYn
+			,A.RPRT_YN							AS rprtYn
+			,A.OPEN_YN							AS openYn
+			,A.COMT_CMTS 					AS comtCmts
+		FROM
+            TBL_DA_COMT_M AS A
+        INNER JOIN TBL_DA_MBR_M AS B 
+        	ON A.REG_MBR_SQ = B.MBR_SQ
+        INNER JOIN TBL_DA_COMN_DTL_CD_S AS C 
+			ON A.COMT_TYP_CD = C.DTL_CD AND C.CD_SQ = '34'
+        WHERE 1=1
+        	AND A.DEL_YN = 'N'
+        	<if test="firstDate != null and lastDate != null">
+         		AND A.REG_DT BETWEEN #{firstDate} AND #{lastDate}
+         	</if>
+        	<if test="cmMgMenuTyp eq 'BOA'.toString()">
+         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
+         	</if>
+        	<if test="cmMgMenuTyp eq 'EXH'.toString()">
+         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
+         	</if>
+        	<if test="cmMgMenuTyp eq 'KNO'.toString()">
+         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
+         	</if>
+        	<if test="cmMgSrchTyp eq 'title'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
+         		AND A.COMT_TITLE LIKE CONCAT('%',#{cmMgSrchTxt},'%')
+         	</if>
+        	<if test="cmMgSrchTyp eq 'content'.toString() and cmMgSrchTxt != null  and cmMgSrchTxt != ''">
+         		AND A.COMT_CONTENT LIKE CONCAT('%',#{cmMgSrchTxt},'%')
+         	</if>
+        	<if test="cmMgSrchTyp eq 'id'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
+         		AND B.MBR_ID LIKE CONCAT('%',#{cmMgSrchTxt},'%')
+         	</if>
+        	<if test="cmMgSrchTyp eq 'nickname'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
+         		AND B.MBR_NCKNM LIKE CONCAT('%',#{cmMgSrchTxt},'%')
+         	</if>    
+         	   
+        	<if test="cmMgComntYn eq 'Y'.toString()">
+         		AND A.COMT_CMTS <![CDATA[>]]> 0
+         	</if>
+         	
+         	<if test="cmMgComntYn eq 'N'.toString()">
+         		AND A.COMT_CMTS <![CDATA[=]]> 0
+         	</if>
+         	
+        	<if test="cmMgRepSts eq'hide'.toString()">
+         		AND A.RPRT_YN = 'Y'
+         	</if>
+         	
+         	<if test="cmMgRepSts eq 'nonHide'.toString()">
+         		AND A.RPRT_YN = 'N'
+         	</if>
+         	
+	</select>
+</mapper>
