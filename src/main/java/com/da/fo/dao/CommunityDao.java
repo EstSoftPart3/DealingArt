@@ -167,4 +167,34 @@ public class CommunityDao {
 		return result;
 	}
 	
+	/*
+	 * 커뮤니티 팔로우되어 있는지 확인하기
+	 * param : 
+	 * return : 
+	 */
+	public int findFollow(Map<String, Object> param) {
+		int result = communityMapper.findFollow(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 팔로우 삭제하기
+	 * param : 
+	 * return : 
+	 */
+	public int delFollow(Map<String, Object> param) {
+		int result = communityMapper.delFollow(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 팔로우하기
+	 * param : 
+	 * return : 
+	 */
+	public int insertFollow(Map<String, Object> param) {
+		int result = communityMapper.insertFollow(param);
+		return result;
+	}
+	
 }

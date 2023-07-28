@@ -164,13 +164,13 @@
 	    } else {
 	    	strHtml += '            <li class="mem_type"><span class="ml0">컬렉터</span></li>';
 	    }
-	    
-	    // 팔로우한 사람이면 팔로잉 / 아니면 팔로우
-	    if(null != comt.scrapMbrSq){
+
+	    // 팔로우한 사람이면 팔로잉 / 아니면 팔로우 확인해서 화면 뿌려주기
+	    /* if(){
 	    	strHtml += '            <li class="following"><button type="button" onclick="clickFollow('+ comt.mbrSq +')">팔로잉</button></li>';
 	    } else {
 		    strHtml += '            <li class="following"><button type="button">+팔로우</button></li>';
-	    }
+	    } */
 	    
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
@@ -209,10 +209,17 @@
     }
     
     // 팔로우하기
-    function clickFollow(mbrSq){
+    function clickFollow(fwMbrSq, mbrSq){
+    	/* 
+    		팔로우 확인 값 가져와서 버튼 모양 바꿔주기
+    	*/
     	
     	$.ajax({
-    		url: "",
+    		url: "/community/follow",
+    		data: {
+    			fwMbrSq: fwMbrSq,
+    			mbrSq: mbrSq
+    		},
     		success: ( function ( response ) {
     			
     		}),

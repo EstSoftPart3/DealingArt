@@ -310,7 +310,6 @@
 				, COUNT(RPRT.COMT_SQ) AS rpptCount
 				, KEYWRDS.COMT_KEYWRD AS comtKeywrd
 				, ARTST.ARTST_SQ AS artstSq
-				, SCRAP.MBR_SQ AS scrapMbrSq
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
@@ -426,9 +425,7 @@
 	</update>
 	
 	<select id="findFollow">
-	<!-- 팔로우버튼 클릭시 팔로우 되어 있는지 먼저 확인하는 작업
-		mapper.xml 파일만 만들었음
-	 -->
+		/* 팔로우 버튼 클릭시 팔로우되어 있는지 확인 */
 		SELECT 
 				COUNT(SCRAP.MBR_SQ) AS isFollow
 		FROM 
@@ -437,6 +434,23 @@
 				SCRAP.FW_MBR_SQ = #{fwMbrSq}
 			AND SCRAP.MBR_SQ = #{mbrSq}
 	</select>
-
+	
+	<delete id="delFollow">
+		/* 언팔로우 */
+		DELETE 
+		FROM 
+				TBL_DA_MBR_SCRAP_R AS SCRAP
+		WHERE
+				SCRAP.FW_MBR_SQ = #{fwMbrSq}
+			AND SCRAP.MBR_SQ = #{mbrSq}
+	</delete>
+	
+	<insert id="insertFollow">
+		/* 팔로우하기 */
+		INSERT INTO 
+				TBL_DA_MBR_SCRAP_R(MBR_SQ, FW_MBR_SQ)
+		VALUES
+				(#{mbrSq}, #{fwMbrSq})
+	</insert>
 	
 </mapper>

@@ -133,4 +133,24 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 	
+	/*
+	 * 커뮤니티 팔로우하기, 팔로우 취소하기
+	 * param : 
+	 * return : 
+	 */
+	public int communityFollow(Map<String, Object> param) {
+		// 팔로우되어 있는지 확인하기 
+		int result = communityDao.findFollow(param);
+		
+		if(result > 0) {
+			// 조회가 되면 팔로우 취소 
+			result = communityDao.delFollow(param);
+			
+		} else {
+			// 조회 안되면 팔로우하기
+			result = communityDao.insertFollow(param);
+		}
+		return result;
+	}
+	
 }

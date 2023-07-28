@@ -72,4 +72,11 @@ public interface CommunityService {
 	 */
 	public int delCommentAndReply(Map<String, Object> param);
 	
+	/*
+	 * 커뮤니티 팔로우
+	 * param : 
+	 * return : 
+	 */
+	public int communityFollow(Map<String, Object> param);
+	
 }
