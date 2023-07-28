@@ -4,10 +4,323 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.CommunityMapper">
 
-	<select id="popularShowingOffThisWeek" resultType="hashMap">
-		/* 이 주의 인기 작품자랑(아직 테스트 중) */
-		SELECT *
-		  FROM TBL_DA_COMT_M
+	<select id="searchHomeList" resultType="hashMap">
+		/* 커뮤니티 홈 리스트 조회 */
+		SELECT CM.COMT_SQ		AS comtSq,		-- 커뮤니티 순번
+			   CM.MBR_SQ		AS mbrSq,		-- 회원 순번
+			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
+			   CM.WORK_SQ		AS workSq,		-- 작품 순번
+			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
+			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
+			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
+		  FROM TBL_DA_COMT_M CM
+		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
+		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
+		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
+		   AND CM.COMT_TYP_CD = #{comtTypCd}
+		   AND CM.OPEN_YN = 'Y'
+		   AND CM.USE_YN = 'Y'
+		   AND CM.DEL_YN = 'N'
+		   AND AM.USE_YN = 'Y'
+		   AND AM.DEL_YN = 'N'
+		 ORDER BY
+		 <!-- 정렬 구분 -->
+		 <if test="ordCondition != null and ordCondition != ''">
+			 <choose>
+				 <when test="ordCondition == 'COMT_LIKES'">COMT_LIKES</when>
+				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
+				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
+				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
+			 </choose>
+		 </if>
+		 <!-- 정렬 기준 -->
+		 <if test="ordSortBy != null and ordSortBy != ''">
+			 <choose>
+				 <when test="ordSortBy == 'ASC'">ASC</when>
+				 <when test="ordSortBy == 'DES'">DESC</when>
+			 </choose>
+		 </if>
+		 LIMIT #{limitNum}
 	</select>
-
+	
+	<select id="boardManageDetail" resultType="hashMap">
+		/* 게시판 관리 상세 조건 조회 */
+		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
+					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
+					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
+					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+			   END 											AS ordCondition,	-- 정렬 구분
+			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
+			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
+			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
+			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
+			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
+			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 5
+			   END											AS limitNum			-- 조회 갯수
+		  FROM TBL_DA_COMT_MGMT_M
+		 WHERE COMT_TYP_CD = #{comtTypCd}
+	</select>
+	
+	<select id="showingOffDetail" resultType="hashMap">
+		/* 자랑하기 상세 조회 */
+		SELECT CM.COMT_IMG_URL 															AS comtImgUrl,		-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE 															AS comtTitle,		-- 커뮤니티 제목
+			   CM.COMT_CONTENT 															AS comtContent,		-- 커뮤니티 내용
+			   CM.COMT_LIKES 															AS comtLikes,		-- 커뮤니티 좋아요수
+			   CM.COMT_VIEWS 															AS comtViews,		-- 커뮤니티 조회수
+			   CM.COMT_CMTS 															AS comtCmts,		-- 커뮤니티 댓글수
+			   CM.COMT_SCRAPS 															AS comtScraps,		-- 커뮤니티 스크랩수
+			   CM.REG_DT 																AS regDt,			-- 커뮤니티 등록 일시
+			   <!-- ( SELECT COUNT(*) FROM TB_DA_RPRT_M RM WHERE CM.RPRT_SQ = RM.RPRT_SQ )	AS rprtCnt,		 신고 수 -->
+		   	   CM.COMT_SALES_YN 														AS comtSalesYn,		-- 커뮤니티 판매제안 여부
+			   MM.MBR_NCKNM 															AS mbrNcknm,		-- 회원 닉네임
+			   MM.MBR_PROFILE_IMG_URL 													AS mbrProfileImgUrl	-- 회원 프로필 이미지 URL
+		  FROM TBL_DA_COMT_M CM
+		  	   INNER JOIN TBL_DA_MBR_M MM ON CM.MBR_SQ = MM.MBR_SQ
+		 WHERE CM.COMT_TYP_CD = 'BOA'
+		   AND CM.OPEN_YN = 'Y'
+		   AND CM.USE_YN = 'Y'
+		   AND CM.DEL_YN = 'N'
+		   AND CM.COMT_SQ = #{comtSq}
+		   AND MM.USE_YN = 'Y'
+		   AND MM.DEL_YN = 'N'
+	</select>
+	
+	<select id="searchEventList" resultType="hashMap">
+		/* 커뮤니티 이벤트 리스트 조회 */
+		SELECT A.BNN_SQ AS bnnSq,
+			   A.BNN_TITLE AS bnnTitle,
+			   A.BNN_MP_IMG_URL AS bnnMpImgUrl,
+			   A.BNN_EP_IMG_URL AS bnnEpImgUrl,
+			   A.BNN_MM_IMG_URL AS bnnMmImgUrl,
+			   A.BNN_EM_IMG_URL AS bnnEmImgUrl,
+			   A.BNN_M_LND_URL AS bnnMLndUrl,
+			   A.BNN_E_LND_URL AS bnnELndUrl,
+			   DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt,
+			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt,
+			   IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) AS isEventEnd
+		  FROM TBL_DA_BNN_MGMT_M A
+		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
+		 WHERE A.BNN_DIV_CD = 'EVH'
+		   AND A.USE_YN = 'Y'
+		   AND A.DEL_YN = 'N'
+		   AND B.USE_YN = 'Y'
+		   AND B.DEL_YN = 'N'
+		   <if test="type != null and type != ''">
+		       <choose>
+		           <when test="type == 0">AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 0</when>
+		           <when test="type == 1">AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 1</when>
+		       </choose>
+		   </if>
+		 ORDER BY A.BNN_END_DT DESC
+		 LIMIT #{pageStart} , #{pageSize}
+	</select>
+	
+	<select id="searchHomeBnnList" resultType="hashMap">
+		/* 커뮤니티 홈 배너 조회 */
+		SELECT A.BNN_SQ AS bnnSq,
+			   A.BNN_TITLE AS bnnTitle,
+			   A.BNN_MP_IMG_URL AS bnnMpImgUrl,
+			   A.BNN_EP_IMG_URL AS bnnEpImgUrl,
+			   A.BNN_MM_IMG_URL AS bnnMmImgUrl,
+			   A.BNN_EM_IMG_URL AS bnnEmImgUrl,
+			   A.BNN_M_LND_URL AS bnnMLndUrl,
+			   A.BNN_E_LND_URL AS bnnELndUrl,
+			   DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt,
+			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt
+		  FROM TBL_DA_BNN_MGMT_M A
+		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
+		 WHERE A.BNN_DIV_CD = #{bnnDivCd}
+		   AND A.USE_YN = 'Y'
+		   AND A.DEL_YN = 'N'
+		   AND B.USE_YN = 'Y'
+		   AND B.DEL_YN = 'N'
+		   AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 1
+		 ORDER BY A.BNN_END_DT DESC
+		 LIMIT 1
+	</select>
+	
+	<select id="searchComtCmtsList" resultType="hashMap">
+		/* 자랑하기 댓글 조회 */
+		SELECT A.CMT_SQ AS cmtSq,
+			   A.COMT_SQ AS comtSq,
+			   A.CMT_CONTENT AS cmtContent,
+			   DATE_FORMAT(A.REG_DT, '%Y-%m-%d %T') AS regDt,
+			   B.MBR_NCKNM AS mbrNcknm,
+			   B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+		  FROM TBL_DA_COMT_CMTS_R A
+		  	   LEFT JOIN TBL_DA_MBR_M B ON A.REG_MBR_SQ = B.MBR_SQ
+		 WHERE A.COMT_SQ = #{comtSq}
+		   AND A.DEL_YN = 'N'
+		   AND B.USE_YN = 'Y'
+		   AND B.DEL_YN = 'N'
+		 ORDER BY A.REG_DT
+	</select>
+	
+	<select id="searchComtReplysList" resultType="hashMap">
+		/* 자랑하기 대댓글 조회 */
+		SELECT A.CMT_SQ AS cmtSq,
+			   A.COMT_SQ AS comtSq,
+			   A.REPLY_CONTENT AS replyContent,
+			   DATE_FORMAT(A.REG_DT, '%Y-%m-%d %T') AS regDt,
+			   B.MBR_NCKNM AS mbrNcknm,
+			   B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+		  FROM TBL_DA_COMT_REPLYS_R A
+		  	   LEFT JOIN TBL_DA_MBR_M B ON A.REG_MBR_SQ = B.MBR_SQ
+		 WHERE A.COMT_SQ = #{comtSq}
+		   AND A.DEL_YN = 'N'
+		   AND B.USE_YN = 'Y'
+		   AND B.DEL_YN = 'N'
+		 ORDER BY A.REG_DT
+	</select>
+	
+	<select id="communityListData" resultType="hashMap">
+		SELECT 
+				COMT.COMT_SQ AS comtSq
+				, COMT.COMT_IMG_URL AS comtImgUrl
+				, COMT.COMT_TITLE AS comtTitle
+				, COMT.COMT_CONTENT AS comtContent
+				, COMT.COMT_LIKES AS comtLikes
+				, COMT.COMT_VIEWS AS comtViews
+				, COMT.COMT_CMTS AS comtCmts
+				, COMT.COMT_SCRAPS AS comtScraps
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+				, MBR.MBR_INTRO AS mbrIntro
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		WHERE 
+				COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+		<if test="startDate != '' and endDate != '' and startDate != null and endDate != null">
+			AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
+		</if>
+		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
+			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
+		</if>
+		<if test="exhibitTypCd != '' and exhibitTypCd != null">
+			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
+		</if>
+		<if test="comSort == 'byRecentPopularity'">
+			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
+		ORDER BY 
+				comtLikes DESC
+		</if>
+		<if test="comtSort == 'allTimePopularity'">
+		ORDER BY 
+				comtLikes DESC
+		</if>
+		<if test="comtSort == 'newest'">
+		ORDER BY 
+				comtSq DESC
+		</if>
+		<if test="comtSort == 'pastOrder'">
+		ORDER BY
+				comtSq ASC
+		</if>
+		<if test="offset != null">
+		LIMIT
+				#{limit}
+		OFFSET
+				#{offset}
+		</if>
+		
+	</select>
+	
+	<select id="getTotalCount" resultType="hashMap">
+		SELECT 
+				COUNT(COMT.COMT_SQ) AS totalCount
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		WHERE 
+				COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+		<if test="startDate != '' and endDate != '' and startDate != null and endDate != null">
+			AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
+		</if>
+		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
+			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
+		</if>
+		<if test="exhibitTypCd != '' and exhibitTypCd != null">
+			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
+		</if>
+		<if test="comSort == 'byRecentPopularity'">
+			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
+		ORDER BY 
+				comtLikes DESC
+		</if>
+		<if test="comtSort == 'allTimePopularity'">
+		ORDER BY 
+				comtLikes DESC
+		</if>
+		<if test="comtSort == 'newest'">
+		ORDER BY 
+				comtSq DESC
+		</if>
+		<if test="comtSort == 'pastOrder'">
+		ORDER BY
+				comtSq ASC
+		</if>		
+	</select>
+	
+	<select id="getDtlCdNm" parameterType="String" resultType="hashMap">
+		/* 커뮤니티 등록 페이지 selectBox 구분코드 들고오기 */
+		SELECT
+				B.DTL_CD AS dtlCd
+				, B.DTL_CD_NM AS dtlCdNm
+		FROM 
+				TBL_DA_COMN_CD_M AS A
+		LEFT JOIN
+				TBL_DA_COMN_DTL_CD_S AS B 
+			ON 	
+				A.CD_SQ = B.CD_SQ
+		WHERE 
+				A.CD_SQ = #{cdSqS}
+	</select>
+	
+	<select id="communityExhKnoDetail" resultType="hashMap">
+		/* 커뮤니티 전시후기, 노하우 상세 페이지 */
+		SELECT
+				COMT.COMT_SQ AS comtSq
+				, COMT.COMT_TITLE AS comtTitle
+				, COMT.COMT_IMG_URL AS comtImgUrl
+				, COMT.COMT_CONTENT AS comtContent
+				, COMT.COMT_LIKES AS comtLikes
+				, COMT.COMT_VIEWS AS comtViews
+				, COMT.COMT_CMTS AS comtCmts
+				, COMT.COMT_SCRAPS AS comtScraps
+				, COMT.EXHIBIT_REGION_CD AS comtExhibitRegionCd 
+				, DTLCD.DTL_CD_NM AS comtExhibitRegionCdNm
+				, COMT.REG_DT AS comtRegDt
+				, MBR.MBR_SQ AS mbrSq
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, COUNT(RPRT.COMT_SQ) AS rpptCount
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		LEFT JOIN 
+				TBL_DA_RPRT_M AS RPRT
+			ON COMT.COMT_SQ = RPRT.COMT_SQ
+		LEFT JOIN 
+				TBL_DA_COMN_DTL_CD_S AS DTLCD
+			ON COMT.EXHIBIT_REGION_CD = DTLCD.DTL_CD
+		WHERE 
+				COMT.USE_YN = 'Y'
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+			AND COMT.COMT_SQ = #{comtSq}
+	</select>
+	
 </mapper>

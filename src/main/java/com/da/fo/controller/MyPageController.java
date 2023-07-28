@@ -1241,19 +1241,19 @@ public class MyPageController {
 	// 작품 & 자랑하기 등록 페이지 오픈
 	@RequestMapping("/myPage/myWorkList_reg")
 	public String myWorkList_reg() {
-		return "thymeleaf/fo/myPage/mypage_work_regipage";
+		return "thymeleaf/fo/myPage/mypage_work_regipage2";
 	}
 	
 	// 전시후기/소개 등록 페이지 오픈
 	@RequestMapping("/myPage/myExhibit_reg")
 	public String myExhibit_reg() {
-		return "thymeleaf/fo/myPage/mypage_exhint_page";
+		return "thymeleaf/fo/myPage/mypage_exhint_page2";
 	}
 	
 	// 노하우 등록 페이지 오픈
 	@RequestMapping("/myPage/myKnowhow_reg")
 	public String myKnowhow_reg() {
-		return "thymeleaf/fo/myPage/mypage_knowhow_page";
+		return "thymeleaf/fo/myPage/mypage_knowhow_page2";
 	}
 	
 	// 전시후기/소개 등록
@@ -1290,24 +1290,6 @@ public class MyPageController {
 		result = myPageService.myComtReg(param);
 		
 		return result;
-	}
-	
-	// 작품 & 자랑하기 등록 페이지 오픈
-	@RequestMapping("/myPage/myWorkList_reg2")
-	public String myWorkList_reg2() {
-		return "thymeleaf/fo/myPage/mypage_work_regipage";
-	}
-	
-	// 전시후기/소개 등록 페이지 오픈
-	@RequestMapping("/myPage/myExhibit_reg2")
-	public String myExhibit_reg2() {
-		return "thymeleaf/fo/myPage/mypage_exhint_knowhow_page";
-	}
-	
-	// 노하우 등록 페이지 오픈
-	@RequestMapping("/myPage/myKnowhow_reg2")
-	public String myKnowhow_reg2() {
-		return "thymeleaf/fo/myPage/mypage_knowhow_page";
 	}
 
 }

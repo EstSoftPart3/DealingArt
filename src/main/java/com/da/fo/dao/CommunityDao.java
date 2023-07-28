@@ -26,9 +26,104 @@ public class CommunityDao {
 	/*
 	 * 커뮤니티 홈 목록 테스트 중
 	 */
-	public Map<String, Object> communityHomeList() {
+	public Map<String, Object> searchHomeList() {
+		String BOA = "BOA"; // 자랑하기
+		String EXH = "EXH"; // 전기후기/소개
+		String KNO = "KNO"; // 노하우
+		String EVH = "EVH"; // 이벤트
+		String CMH = "CMH"; // 커뮤니티 홈
+		
 		Map<String, Object> result = new HashMap<>();
-		result.put("popList", communityMapper.popularShowingOffThisWeek()); // 이 주의 인기 작품자랑
+		
+		Map<String, Object> popWrkThisWeek = communityMapper.boardManageDetail(BOA); // 이 주의 인기 작품자랑 상세 조건
+		result.put("popList", communityMapper.searchHomeList(popWrkThisWeek)); // 이 주의 인기 작품자랑
+		
+		Map<String, Object> boastMst = communityMapper.boardManageDetail(BOA); // 자랑하기 고수 상세 조건
+		result.put("boastMstList", communityMapper.searchHomeList(boastMst)); // 자랑하기 고수
+		
+		Map<String, Object> bestExhibit = communityMapper.boardManageDetail(EXH); // 전시후기/소개 베스트 게시물 상세 조건
+		result.put("bestExhibitList", communityMapper.searchHomeList(bestExhibit)); // 전시후기/소개 베스트 게시물
+		
+		Map<String, Object> bestIssue = communityMapper.boardManageDetail(KNO); // 이슈 베스트 게시물 상세 조건
+		result.put("bestIssueList", communityMapper.searchHomeList(bestIssue)); // 이슈 베스트 게시물
+		
+		Map<String, Object> bigBnn = communityMapper.searchHomeBnnList(CMH);
+		result.put("bigBnn", bigBnn);
+		
+		Map<String, Object> eventBnn = communityMapper.searchHomeBnnList(EVH);
+		result.put("eventBnn", eventBnn);
+		
+		return result;
+	}
+	
+	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> showOffDtl = communityMapper.showingOffDetail(param); // 자랑하기 상세
+		result.put("showOffDtl", showOffDtl);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 이벤트 리스트 조회
+	 */
+	public Map<String, Object> searchEventList(Map<String, Object> param) {
+		Map<String, Object> result = new HashMap<>();
+		param.put("pageStart", Integer.parseInt((String)param.get("pageStart")));
+		param.put("pageSize", Integer.parseInt((String)param.get("pageSize")));
+		List<Map<String, Object>> eventList = communityMapper.searchEventList(param);
+		result.put("eventList", eventList);
+		return result;
+	}
+	
+	/*
+	 * 댓글, 대댓글 조회
+	 */
+	public Map<String, Object> searchCmtsList(Map<String, Object> param) {
+		Map<String, Object> result = new HashMap<>();
+		List<Map<String, Object>> cmtsList = communityMapper.searchComtCmtsList(param); // 자랑하기 댓글
+		List<Map<String, Object>> replysList = communityMapper.searchComtReplysList(param); // 자랑하기 대댓글
+		result.put("cmtsList", cmtsList);
+		result.put("replysList", replysList);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 자랑하기 리스트 조회
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> communityWorksListData(Map<String, Object> param) {
+		List<Map<String, Object>> result = communityMapper.communityListData(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 페이지 총 개수 가져오기
+	 * param : 
+	 * return : 
+	 */
+	public Map<String, Object> getCommunityTotalCount(Map<String, Object> param){
+		Map<String, Object> totalCount = communityMapper.getTotalCount(param);
+		return totalCount;
+	}
+
+	/*
+	 * 커뮤니티 전시후시/소개 공통코드 들고오기
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> getDtlCdNm(String cdSq) {
+		List<Map<String, Object>> result = communityMapper.getDtlCdNm(cdSq);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 전시후시/소개, 노하우 상세 정보 들고오기 
+	 * param : 
+	 * return : 
+	 */
+	public Map<String, Object> communityExhKnoDetail(String comtSq){
+		Map<String, Object> result = communityMapper.communityExhKnoDetail(comtSq);
 		return result;
 	}
 	

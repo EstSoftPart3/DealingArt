@@ -37,6 +37,11 @@ public class MainController {
 		return "thymeleaf/index";
 	}
 	
+	@RequestMapping("/main_2")
+	public String openMain2() {
+		return "thymeleaf/da_main";
+	}
+	
 	//로그인 페이지
 	@RequestMapping("/main/mlogin")
 	public String openLogin() {
@@ -204,5 +209,33 @@ public class MainController {
 		model.addAttribute("result", result);
 		System.out.println("result:"+result);
 		return "thymeleaf/result_work :: fragment-resultWork";
+	}
+	
+	@RequestMapping("/main/totalContent")
+	@ResponseBody
+	public ModelAndView totalContent() {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		// 자랑하기 정보
+		List<Map<String, Object>> boas = mainService.mainBoa();
+		mv.addObject("boas", boas);
+		
+		// 지금 거래중인 작품 정보 
+		List<Map<String, Object>> nowDealWorks = mainService.mainNowDealWorks();
+		mv.addObject("nowDealWorks", nowDealWorks);
+		
+		// 매거진9 정보
+		List<Map<String, Object>> mgz9s = mainService.mainMgz9s();
+		mv.addObject("mgz9s", mgz9s);
+		
+		// 인기회원 정보
+		List<Map<String, Object>> popularMbr = mainService.mainPopularMbr();
+		mv.addObject("popularMbr", popularMbr);
+		
+		// 인기있는 전시후기/소개 정보
+		List<Map<String, Object>> popularExhibit = mainService.mainPopularExhibit();
+		mv.addObject("popularExhibit", popularExhibit);
+		
+		return mv;
 	}
 }

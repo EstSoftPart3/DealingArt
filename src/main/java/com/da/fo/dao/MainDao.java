@@ -108,4 +108,54 @@ public class MainDao {
 		
 		return result;
 	}
+	
+	/*
+	 * 메인 화면 로드시 지금 거래중인 작품 정보를 가져온다.
+	 * param : 
+	 * return :
+	 */
+	public List<Map<String, Object>> mainNowDealWorks(){
+		List<Map<String, Object>> result = mainMapper.mainNowDealWorks();
+		return result;
+	}
+	
+	/*
+	 * 메인 화면 로드시 매거진9 정보를 가져온다.
+	 * param : 
+	 * return :
+	 */
+	public List<Map<String, Object>> mainMgz9s(){
+		List<Map<String, Object>> result = mainMapper.mainMgz9s();
+		return result;
+	}
+	
+	/*
+	 * 메인 화면 로드시 인기 회원 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	public List<Map<String, Object>> mainPopularMbr(){
+		List<Map<String, Object>> result = mainMapper.mainPopularMbr();
+		return result;
+	}
+	
+	/*
+	 * 메인 화면 로드시 인기 전시후기/소개 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	public List<Map<String, Object>> mainPopularExhibit(){
+		List<Map<String, Object>> result = mainMapper.mainPopularExhibit();
+		return result;
+	}
+	
+	/*
+	 * 메인 화면 로드시 자랑하기 정보를 가져온다.
+	 * param:
+	 * return :
+	 */
+	public List<Map<String, Object>> mainBoa(){
+		List<Map<String, Object>> result = mainMapper.mainBoa();
+		return result;
+	}
 }

@@ -31,7 +31,7 @@ input[type="password"] {
 #nav{width: 100%;height: 70px;border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9;}
 #nav ul li{float: left;width: 16.66666666666667%;text-align: center;font-size: 24px;color: #111111;font-weight: bold;padding-top: 16px;letter-spacing: -1.5px;}
 #nav ul li .over{color: #af1c2a !important;}
-.btn_recording{width: 180px; height: 50px;padding-left:37px;color: #ffffff;font-size: 22px;font-weight: 700;background: #bf1e2e url("../images/ico_recording.png") 30px 11px no-repeat;}
+.btn_recording{width: 180px; height: 50px;padding-left:37px;color: #ffffff;font-size: 22px;font-weight: 700;background: #bf1e2e url("../img/mypage/ico_recording.png") 30px 11px no-repeat;}
 .community_wrap{margin:0 auto;width: 1500px;height: 100%;}
 .community_visual_wrap{position: relative;width: 100%;height: 600px;margin-top: 30px;}
 .community_visual{float: left;}
@@ -104,7 +104,7 @@ input[type="password"] {
 .sel_sorting select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_sorting:after{content: '';background-image: url(../img/mypage/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
 
-.sel_form{position: absolute;top: 25%;right: 16px;}
+/* .sel_form{position: absolute;top: 25%;right: 16px;}  수정 2023-07-26 */
 .sel_form select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_form:after{content: '';background-image: url(../img/mypage/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
 
@@ -120,16 +120,17 @@ input[type="password"] {
 .works_pic .header .user_name{float: left;}
 .works_pic .header .user_name li{padding: 0 0 10px 20px;}
 .works_pic .header .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
-.works_pic .pic{position: relative;}
+/* .works_pic .pic{position: relative;} */ /* 수정 2023-07-25 */
+.works_pic .pic{position: relative; width: 360px; height: 360px;}
 .works_pic .ico_new{position: absolute;width: 50px;height: 50px;background: #ec3c3c;border-radius: 999px;top: 10px;right: 10px;font-family: 'Roboto Condensed';font-style: italic;font-size: 18px;font-weight: 500;color: #ffffff;text-align: center;padding-top: 14px;}
 .works_pic .icon_box{background: #f5f5f5;}
 .works_pic .icon_box:after{content: "";display: block;clear: both;}
 .works_pic .icon_box ul li{float: left;text-align: center;font-size: 16px;padding: 15px;}
 .works_pic .icon_box ul li:first-child{float: left;text-align: center;font-size: 16px;padding-left: 30px;}
-.works_pic .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../images/ico_good.png") 50% 50% no-repeat;}
-.works_pic .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../images/ico_scrap.png") 50% 50% no-repeat;}
-.works_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../images/ico_alarm.png") 50% 50% no-repeat;}
-.works_pic .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../images/ico_comments.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/mypage/ico_good.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/mypage/ico_scrap.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/mypage/ico_alarm.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/mypage/ico_comments.png") 50% 50% no-repeat;}
 .works_pic .text{font-size: 18px;color: #111111;padding: 20px;text-align: center;}
 .btn_area{padding: 80px 0;text-align: center;}
 .btn_area button{font-size: 20px;color: #828282;font-weight: 500; border: 2px solid #f1f1f1;padding: 15px 130px;}

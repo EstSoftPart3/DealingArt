@@ -535,4 +535,110 @@
 			OR 	MGZ_DESCRPTN LIKE CONCAT('%',#{searchKeyword},'%'))
 		ORDER BY MGZ_SQ DESC
 	</select>
+	
+	<select id="mainNowDealWorks" resultType="hashMap">
+		/* 지금 거래중인 작품 */
+		SELECT
+				WORK_SQ AS workSq
+				, WORK_MAIN_IMG_URL AS workMainImgUrl
+		FROM 
+				TBL_DA_WORK_M 
+		WHERE 
+				WORK_OPEN_YN = 'Y'
+			AND DEL_YN ='N'
+			AND USE_YN = 'Y'
+			AND WORK_SALE_YN = 'Y'
+		LIMIT 
+				10
+	</select>
+	
+	<select id="mainMgz9s" resultType="hashMap">
+		/* 매거진 정보 */
+		SELECT
+				MGZ_SQ AS mgzSq
+				, MGZ_TITLE AS mgzTitle
+				, MGZ_DESCRPTN AS mgzDescrptn
+				, MGZ_CONTENT AS mgzContent
+				, MGZ_MAIN_IMG_URL AS mgzMainImgUrl
+				, MGZ_TYP_CD AS mgzTypCd
+		FROM 
+				TBL_DA_MGZ_M 
+		WHERE 
+				USE_YN = 'Y'
+			AND DEL_YN = 'N'
+			AND MGZ_TYP_CD = 'IST' OR MGZ_TYP_CD = 'MDA' 
+			
+		LIMIT 
+				10
+	</select>
+	
+	<select id="mainPopularMbr" resultType="hashMap">
+		/* 인기회원 조회 */
+		SELECT 
+				MBR.MBR_SQ AS mbrSq
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, MBR.MBR_INTRO AS mbrIntro
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+				, COUNT(SCRAP.FW_MBR_SQ) AS folowCount
+		FROM 
+				TBL_DA_MBR_M AS MBR
+		LEFT JOIN
+				TBL_DA_MBR_SCRAP_R AS SCRAP
+			ON	MBR.MBR_SQ = SCRAP.FW_MBR_SQ
+		WHERE 
+				MBR.MBR_SQ IN ( SELECT FW_MBR_SQ 
+							 	FROM TBL_DA_MBR_SCRAP_R
+							 GROUP BY FW_MBR_SQ
+							 ORDER BY COUNT(FW_MBR_SQ) DESC) 
+			AND MBR.USE_YN = 'Y'
+			AND MBR.DEL_YN = 'N'
+		GROUP BY 
+				SCRAP.FW_MBR_SQ
+		ORDER BY 
+				folowCount DESC
+		LIMIT 10
+	</select>
+	
+	<select id="mainPopularExhibit" resultType="hashMap">
+		/* 인기있는 전시후기/소개 정보 */
+		SELECT 
+				COMT.COMT_SQ AS comtSq
+				, COMT.COMT_IMG_URL AS comtImgUrl
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, COMT.COMT_TITLE AS comtTitle
+				, COMT.COMT_LIKES AS comtLikes
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON 
+				COMT.MBR_SQ = MBR.MBR_SQ
+		WHERE 
+				COMT.USE_YN = 'Y'
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+			AND COMT.COMT_TYP_CD = 'EXH'
+		ORDER BY 
+				COMT_LIKES DESC
+		LIMIT 
+				10
+	</select>
+	
+	<select id="mainBoa" resultType="hashMap">
+		/* 자랑하기 정보 */
+		SELECT 
+				COMT.COMT_SQ AS comtSq
+				, COMT.COMT_IMG_URL AS comtImgUrl
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		WHERE 
+				COMT.USE_YN = 'Y'
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+			AND COMT.COMT_TYP_CD = 'BOA'
+		LIMIT 
+				10
+	</select>
+	
 </mapper>
