@@ -19,6 +19,12 @@ public class TempController {
 		return "thymeleaf/fo/community/community_home";
 	}
 	
+	// 커뮤니티 홈 백업
+	@RequestMapping("/temp/community_home_back")
+	public String community_home_back() {
+		return "thymeleaf/fo/community/community_home_back";
+	}
+	
 	// 커뮤니티 작품자랑
 	@RequestMapping("/temp/community_works")
 	public String community_works() {
@@ -35,6 +41,12 @@ public class TempController {
 	@RequestMapping("/temp/community_issue")
 	public String community_issue() {
 		return "thymeleaf/fo/community/community_issue";
+	}
+	
+	// 커뮤니티 이슈 백업
+	@RequestMapping("/temp/community_issue_back")
+	public String community_issue_back() {
+		return "thymeleaf/fo/community/community_issue_back";
 	}
 	
 	// 커뮤니티 이벤트
