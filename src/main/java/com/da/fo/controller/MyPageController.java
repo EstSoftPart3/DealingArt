@@ -70,7 +70,38 @@ public class MyPageController {
 	private MainPayMapper mainPayMapper;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	//마이페이지 메인 데이터
+	@RequestMapping("/myPage/main/myInfo")
+	@ResponseBody
+	public ModelAndView myPageMain_MyInfo(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("jsonView");
+		HttpSession session = request.getSession();
+		
+		String mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
+		
+		Map<String, Object> myInfo = myPageService.myPageMain_myInfo(mbrSq); //나의 정보 조회
+		
+		List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
+		int myWorksTotal = myPageService.myPageMain_myWorksTotal(mbrSq); //나의 작품 총 갯수 조회
+		
+		paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
+		List<Map<String, Object>> myBoast = myPageService.myPageMain_myCommunitys(paramMap); //나의 자랑하기 조회
+		int myBoastTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 자랑하기 총 갯수 조회
+		
+		
+		mv.addObject("myInfo", myInfo);
+		mv.addObject("myWorks", myWorks);
+		mv.addObject("myWorksTotal", myWorksTotal);
+		mv.addObject("myBoast", myBoast);
+		mv.addObject("myBoastTotal", myBoastTotal);
+		
+		return mv;
+	}	
+	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
 	@ResponseBody
 	public ModelAndView trnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
