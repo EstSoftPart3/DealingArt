@@ -196,8 +196,15 @@ input[type="password"] {
 .mypage_contents .contents_left{width: 300px;float: left;}
 .mypage_contents .contents_left .myinfo_wrap{background: #f5f5f5;border-radius: 30px 0 0 30px;}
 .mypage_contents .contents_left .myinfo_wrap:after{content: "";display: block;clear: both;}
-
-.mypage_contents .contents_left .myinfo_wrap .myinfo_pic{width: 300px;height: 243px;background: url("../img/mypage/myinfo_da_pic.png") 50% 50% no-repeat;}
+/* 2023-07-31 정영우 수정 (회원 프로필사진 동적으로 넣기 위해)*/
+.mypage_contents .contents_left .myinfo_wrap .myinfo_pic{
+	width: 300px;
+	height: 243px;
+	background-image: url("../img/mypage/myinfo_da_pic.png");
+	background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 140px 140px;
+}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name{text-align: center;font-size: 24px;font-weight: bold;letter-spacing: -1px;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name span{display: inline-block;width: 30px;height: 38px;background: url("../img/mypage/ico_badge.png") 0 0 no-repeat;vertical-align: bottom;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .email{text-align: center;font-size: 18px;font-weight: 400;padding: 14px 0;}
@@ -227,8 +234,10 @@ input[type="password"] {
 .mypage_contents .contents_left .myinfo_wrap .icon_sns_box ul li .ico_twitter{width: 30px;height: 30px;border-radius: 999px;background: #ffffff url("../img/mypage/ico_twitter.png") 50% 50% no-repeat;}
 
 .left_nav{margin-top: 32px;}
-.left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;background: url("../img/mypage/ico_nav_plus.png") 98% 50% no-repeat;}
+.left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;}
 .left_nav ul li.on{background: url("../img/mypage/ico_nav_minus.png") 98% 22px no-repeat;}
+/*2023-07-31 정영우 off 클래스 추가*/
+.left_nav ul li.off{background: url("../img/mypage/ico_nav_plus.png") 98% 50% no-repeat;}
 .left_nav ul li:last-child{border-bottom: 1px solid #e8e8e8;}
 .left_nav ul li ul li{font-size: 14px;font-weight: 300;padding: 8px 0;background: none;border: none;}
 .left_nav ul li ul li:last-child{border-bottom: none;}
@@ -243,9 +252,29 @@ input[type="password"] {
 .mypage_works_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_works_wrap ul{width: 100%;margin-top: 22px;}
 .mypage_works_wrap ul li{float: left;margin-right: 10px;}
+
+/* 
+2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_works_wrap ul li:last-child{margin-right: 0;background: #000000;}
-.mypage_works_wrap ul li:last-child img{opacity: 0.3;}
-.mypage_works_wrap ul .pic_more{position: relative;}
+.mypage_works_wrap ul li:last-child img{opacity: 0.3;} 
+*/
+
+/* 2023-08-01 정영우 마이페이지 메인 작품 사이즈 조정 */
+.mypage_works_wrap ul li img {
+	width: 360px;
+ 	height: 360px;
+ 	object-fit: contain;
+}
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+.mypage_works_wrap ul .pic_more{
+	margin-right: 0;
+	background: #000000;
+	position: relative;
+}
+.mypage_works_wrap ul .pic_more img{
+	opacity: 0.3;
+}
+
 .mypage_works_wrap ul .pic_more a span{position: absolute;font-size: 26px;font-weight: bold;color: #ffffff; top: 45%;left: 45%;}
 
 .mypage_showingoff_wrap{position: relative;margin-top: 50px;}
@@ -254,10 +283,26 @@ input[type="password"] {
 .mypage_showingoff_wrap .tit_wrap h2 span{font-size: 26px;font-weight: bold;color: #b81d2c;margin-left: 10px;}
 .mypage_showingoff_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_showingoff_wrap ul{width: 100%;margin-top: 17px;}
+/* 2023-08-01 정영우 마이페이지 메인 자랑하기 사이즈 조정 */
+.mypage_showingoff_wrap ul li img {
+	width: 360px;
+ 	height: 360px;
+ 	object-fit: contain;
+}
 .mypage_showingoff_wrap ul li{float: left;margin-right: 10px;}
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_showingoff_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_showingoff_wrap ul li:last-child img{opacity: 0.3;}
-.mypage_showingoff_wrap ul .pic_more{position: relative;}
+*/
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+.mypage_showingoff_wrap ul .pic_more{
+	position: relative;
+	margin-right: 0;
+	background: #000000;
+}
+.mypage_showingoff_wrap ul .pic_more img{
+	opacity: 0.3;
+}
 .mypage_showingoff_wrap ul .pic_more a span{position: absolute;font-size: 26px;font-weight: bold;color: #ffffff; top: 45%;left: 45%;}
 
 .mypage_posts_warp{position: relative;margin-top: 44px;}
@@ -297,9 +342,19 @@ input[type="password"] {
 .mypage_scrap_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_scrap_wrap ul{width: 100%;margin-top: 17px;}
 .mypage_scrap_wrap ul li{float: left;margin-right: 10px;}
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_scrap_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_scrap_wrap ul li:last-child img{opacity: 0.3;}
-.mypage_scrap_wrap ul .pic_more{position: relative;}
+*/
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+.mypage_scrap_wrap ul .pic_more{
+	position: relative;
+	margin-right: 0;
+	background: #000000;
+}
+.mypage_scrap_wrap ul .pic_more img{
+	opacity: 0.3;
+}
 .mypage_scrap_wrap ul .pic_more a span{position: absolute;font-size: 26px;font-weight: bold;color: #ffffff; top: 45%;left: 45%;}
 
 .mypage_following_wrap{position: relative;margin-top: 50px;}
@@ -310,9 +365,20 @@ input[type="password"] {
 .mypage_following_wrap ul{width: 100%;margin-top: 17px;}
 .mypage_following_wrap ul li{float: left;margin-right: 10px;}
 .mypage_following_wrap ul li a img{border-radius: 999px;}
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_following_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_following_wrap ul li:last-child img{opacity: 0.3;}
-.mypage_following_wrap ul .pic_more{position: relative;border-radius: 999px;}
+*/
+/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+.mypage_following_wrap ul .pic_more{
+	position: relative;
+	border-radius: 999px;
+	margin-right: 0;
+	background: #000000;
+}
+.mypage_following_wrap ul .pic_more img{
+	opacity: 0.3;
+}
 .mypage_following_wrap ul .pic_more a span{position: absolute;font-size: 26px;font-weight: bold;color: #ffffff; top: 45%;left: 45%;}
 
 .mypage_posts_warp{position: relative;margin-top: 44px;}

@@ -153,8 +153,8 @@ public class CommunityController {
 		return mv;
 	}
 	
-	// 커뮤니티 노하우 페이지
-	@RequestMapping("/community/knowhowList")
+	// 커뮤니티 이슈 페이지
+	@RequestMapping("/community/issueList")
 	public String communityKnowhowListPage() {
 		return "thymeleaf/fo/community/community_issue";
 	}
