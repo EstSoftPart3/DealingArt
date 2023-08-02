@@ -17,29 +17,30 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	CommunityDao communityDao;
 
+	/*
+	 * 커뮤니티 홈 목록 조회
+	 */
 	@Override
 	public Map<String, Object> searchHomeList() {
 		return communityDao.searchHomeList();
 	}
 
+	/*
+	 * 자랑하기 상세
+	 */
 	@Override
 	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
 		return communityDao.showingOffDetail(param);
 	}
 
+	/*
+	 * 커뮤니티 이벤트 리스트 조회
+	 */
 	@Override
 	public Map<String, Object> searchEventList(Map<String, Object> param) {
 		return communityDao.searchEventList(param);
 	}
 
-	/*
-	 * 댓글, 대댓글 조회
-	 */
-	@Override
-	public Map<String, Object> searchCmtsList(Map<String, Object> param) {
-		return communityDao.searchCmtsList(param);
-	}
-	
 	/*
 	 * 커뮤니티 자랑하기 리스트 조회
 	 * param : 
@@ -127,7 +128,7 @@ public class CommunityServiceImpl implements CommunityService {
 			
 			// 댓글을 삭제한거면 대댓글 삭제해주기 
 			param.put("commentType", "autoDelReply");
-			result = communityDao.delCommentAndReply(param);
+			result += communityDao.delCommentAndReply(param);
 		}
 		
 		return result;
@@ -150,6 +151,53 @@ public class CommunityServiceImpl implements CommunityService {
 			// 조회 안되면 팔로우하기
 			result = communityDao.insertFollow(param);
 		}
+		return result;
+	}
+	
+	/*
+	 * 댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int comtReg(Map<String, Object> param) {
+		return communityDao.comtReg(param);
+	}
+
+	/*
+	 * 해당 상품의 판매 상태 확인
+	 * param :
+	 * return :
+	 */
+	public Map<String, Object> searchDealProgress(Map<String, Object> param) {
+		return communityDao.searchDealProgress(param);
+	}
+	
+	/*
+	 * 대댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int replyReg(Map<String, Object> param) {
+		return communityDao.replyReg(param);
+	}
+	
+	/*
+	 * 댓글, 대댓글 수정
+	 * param :
+	 * return :
+	 */
+	public int modCommentAndReply(Map<String, Object> param) {
+		return communityDao.modCommentAndReply(param);
+	}
+	
+	/*
+	 * 커뮤니티 팔로우하기, 팔로우 취소하기
+	 * param : 
+	 * return : 
+	 */
+	public int followCheck(Map<String, Object> param) {
+		// 팔로우되어 있는지 확인하기 
+		int result = communityDao.findFollow(param);
 		return result;
 	}
 	

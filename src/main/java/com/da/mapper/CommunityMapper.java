@@ -35,16 +35,6 @@ public interface CommunityMapper {
 	public Map<String, Object> searchHomeBnnList(String bnnDivCd);
 	
 	/*
-	 * 자랑하기 댓글 조회
-	 */
-	public List<Map<String, Object>> searchComtCmtsList(Map<String, Object> param);
-	
-	/*
-	 * 자랑하기 대댓글 조회
-	 */
-	public List<Map<String, Object>> searchComtReplysList(Map<String, Object> param);
-	
-	/*
 	 * 커뮤니티 리스트 조회
 	 * param : 
 	 * return : 
@@ -121,5 +111,53 @@ public interface CommunityMapper {
 	 */
 	public int insertFollow(Map<String, Object> param);
 	
+	/*
+	 * 댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int comtReg(Map<String, Object> param);
+
+	/*
+	 * 해당 상품의 판매 상태 확인
+	 * param :
+	 * return :
+	 */
+	public Map<String, Object> searchDealProgress(Map<String, Object> param);
+	
+	/*
+	 * 대댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int replyReg(Map<String, Object> param);
+	
+	/*
+	 * 작품 키워드 조회
+	 * param :
+	 * return :
+	 */
+	public Map<String, Object> searchWorkKeywrd(Map<String, Object> param);
+	
+	/*
+	 * 댓글 수정
+	 * param :
+	 * return :
+	 */
+	public int modComment(Map<String, Object> param);
+	
+	/*
+	 * 대댓글 수정
+	 * param :
+	 * return :
+	 */
+	public int modReply(Map<String, Object> param);
+	
+	/*
+	 * 커뮤니티 댓글수 업데이트
+	 * param :
+	 * return :
+	 */
+	public int updateCmtCnt(Map<String, Object> param);
 	
 }

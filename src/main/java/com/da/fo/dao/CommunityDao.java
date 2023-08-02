@@ -24,7 +24,7 @@ public class CommunityDao {
 	CommunityMapper communityMapper;
 	
 	/*
-	 * 커뮤니티 홈 목록 테스트 중
+	 * 커뮤니티 홈 목록 조회
 	 */
 	public Map<String, Object> searchHomeList() {
 		String BOA = "BOA"; // 자랑하기
@@ -56,10 +56,13 @@ public class CommunityDao {
 		return result;
 	}
 	
+	/*
+	 * 자랑하기 상세 정보
+	 */
 	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
-		Map<String, Object> showOffDtl = communityMapper.showingOffDetail(param); // 자랑하기 상세
-		result.put("showOffDtl", showOffDtl);
+		result.put("showOff", communityMapper.showingOffDetail(param));
+		result.put("workKeywrd", communityMapper.searchWorkKeywrd(param)); // 작품 키워드 (자랑하기 키워드 아님)
 		return result;
 	}
 	
@@ -72,18 +75,6 @@ public class CommunityDao {
 		param.put("pageSize", Integer.parseInt((String)param.get("pageSize")));
 		List<Map<String, Object>> eventList = communityMapper.searchEventList(param);
 		result.put("eventList", eventList);
-		return result;
-	}
-	
-	/*
-	 * 댓글, 대댓글 조회
-	 */
-	public Map<String, Object> searchCmtsList(Map<String, Object> param) {
-		Map<String, Object> result = new HashMap<>();
-		List<Map<String, Object>> cmtsList = communityMapper.searchComtCmtsList(param); // 자랑하기 댓글
-		List<Map<String, Object>> replysList = communityMapper.searchComtReplysList(param); // 자랑하기 대댓글
-		result.put("cmtsList", cmtsList);
-		result.put("replysList", replysList);
 		return result;
 	}
 	
@@ -164,6 +155,8 @@ public class CommunityDao {
 	 */
 	public int delCommentAndReply(Map<String, Object> param) {
 		int result = communityMapper.delCommentAndReply(param);
+		param.put("cnt", -result); // 삭제의 경우는 삭제한 갯수를 뻄
+		communityMapper.updateCmtCnt(param);
 		return result;
 	}
 	
@@ -197,4 +190,48 @@ public class CommunityDao {
 		return result;
 	}
 	
+	/*
+	 * 댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int comtReg(Map<String, Object> param) {
+		int result = communityMapper.comtReg(param);
+		param.put("cnt", result);
+		communityMapper.updateCmtCnt(param);
+		return result;
+	}
+
+	/*
+	 * 해당 상품의 판매 상태 확인
+	 * param :
+	 * return :
+	 */
+	public Map<String, Object> searchDealProgress(Map<String, Object> param) {
+		Map<String, Object> result = communityMapper.searchDealProgress(param);
+		return result;
+	}
+	
+	/*
+	 * 대댓글 등록
+	 * param :
+	 * return :
+	 */
+	public int replyReg(Map<String, Object> param) {
+		int result = communityMapper.replyReg(param);
+		param.put("cnt", result);
+		communityMapper.updateCmtCnt(param);
+		return result;
+	}
+	
+	/*
+	 * 댓글, 대댓글 수정
+	 * param :
+	 * return :
+	 */
+	public int modCommentAndReply(Map<String, Object> param) {
+		int result = communityMapper.modComment(param);
+		return result;
+	}
+	   
 }

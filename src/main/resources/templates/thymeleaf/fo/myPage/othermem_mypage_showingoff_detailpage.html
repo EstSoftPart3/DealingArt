@@ -94,6 +94,19 @@
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+    
+    <style>
+    	.ellipsis{
+			overflow:hidden;
+			text-overflow: ellipsis;
+			width:1200px;
+  			display: -webkit-box;
+  			-webkit-box-orient: vertical;
+  			-webkit-line-clamp: 5;
+  			line-height: 29.15px;    /* 추가 */
+  			height: 145.75px;        /* line-height x line */
+    	};
+    </style>	
 </head>
 <body>
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
@@ -101,215 +114,2398 @@
         <div class="mypage_wrap">
             <div class="works_showingoff_detail_page_wrap">
                 <div class="picture">
-                    <img src="/resources/img/mypage/sample_works_showingoff_detail00.jpg" alt="">
-                </div>                
-                <h3>두고두고 봐도 행복한 이미소 작가의 작품!!!</h3>
+                    <img th:src="${showOffDtl.showOff.comtImgUrl}" alt="" style="height: 500px; object-fit: contain;">
+                </div>
+                <h3 th:text="${showOffDtl.showOff.comtTitle}"></h3>
                 <div class="user_wrap">
                     <div class="user">
                         <ul>
-                            <li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>
-                            <li class="user_name"><span>딜링아트</span></li>
-                            <li class="mem_type">회원유형<span>컬렉터</span></li>
-                            <li class="following"><button>+팔로잉</button></li>
+                            <li class="pt5">
+                            	<img th:if="${showOffDtl.showOff.mbrProfileImgUrl == null or showOffDtl.showOff.mbrProfileImgUrl == ''}" src="/resources/img/mypage/ico_dauser.png" alt="">
+                            	<img th:unless="${showOffDtl.showOff.mbrProfileImgUrl == null or showOffDtl.showOff.mbrProfileImgUrl == ''}" th:src="${showOffDtl.showOff.mbrProfileImgUrl}" alt="">
+                            </li>
+                            <li class="user_name"><span th:text="${showOffDtl.showOff.mbrNcknm}"></span></li>
+                            <li class="mem_type">회원유형<span th:text="${param.artstSq} ? '아티스트' : '컬렉터'"></span></li>
+                            <li class="following"><button type="button" onclick="clickFollow();">+팔로잉</button></li>
                         </ul>
                     </div>
                     <div class="icon_box">
                         <ul>
-                            <li class="time">1시간 전</li>
-                            <li><p class="ico_good"></p><span>99</span></li>
-                            <li><p class="ico_scrap"></p><span>99</span></li>
-                            <li><p class="ico_hits"></p><span>99</span></li>
-                            <li><p class="ico_comments"></p><span>99</span></li>
-                            <li><p class="ico_report"></p><span>99</span></li>
+                            <li class="time"></li>
+                            <!-- <li class="time" th:text="${#temporals.format(showOffDtl.showOff.regDt, 'yyyy-MM-dd HH:mm:ss')}"></li> -->
+                            <li><p class="ico_good"></p><span th:text="${showOffDtl.showOff.comtLikes}"></span></li>
+                            <li><p class="ico_scrap"></p><span th:text="${showOffDtl.showOff.comtScraps}"></span></li>
+                            <li><p class="ico_hits"></p><span th:text="${showOffDtl.showOff.comtViews}"></span></li>
+                            <li><p class="ico_comments"></p><span th:text="${showOffDtl.showOff.comtCmts}"></span></li>
+                            <li><p class="ico_report"></p><span th:text="${showOffDtl.showOff.rprtCnt}"></span></li>
                         </ul>
                     </div>
                 </div>
-                <div class="picture_detail">
-                    <p class="method">평면 / 회화 / 컬러</p>
-                    <img src="/resources/img/mypage/sample_works_showingoff_detail01.jpg" alt="">
-                    <p>
-                        저는 찾아낸 작품들을 나만의 컬렉션에 추가하면서, 예술 작품의 가치와 역사에 대해 깊은 이해를 얻게 되었습니다. <br>
-                        그는 작품의 배경 이야기와 예술가의 창작 과정에 대해 탐구하며, <br>
-                        전문가 들과의 대화를 통해 미술품의 가치를 평가하는 방법을 배웠습니다.
-                    </p>
-                </div>                   
+                <div class="picture_detail" th:utext="${showOffDtl.showOff.comtContent}"></div>                   
                 <h2 class="mt50">작품정보</h2>
                 <div class="works_info_wrap">
-                    <div class="works_info_left">
+                    <div class="works_info_left" th:if="${result.work != null and result.work != ''}">
                         <div class="contents_box">
                             <div class="big_img">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
+                                <img class="big big1" th:src="${result.work.workMainImgUrl}" alt="" data-toggle="modal" data-target="#bigImageModal" >
                             </div>
                             <div class="small_img">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
+                                <!-- 메인 -->
+                                <img class="small small1" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+								<!-- 전면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" />
+								<!-- 후면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+								<!-- 좌 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+								<!-- 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+								<!-- 하 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
                             </div>
                         </div>
                     </div>
-                    <div class="works_info_right">
+                    <div class="works_info_left"  th:if="${result.deal != null and result.deal != ''}">
+						<div class="contentbox">
+							<div class="big_img">
+								<img class="big big1" th:src="${result.deal.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
+							</div>
+							<div class="small_img">
+								<!-- 메인 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+								<!-- 전면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" />
+								<!-- 후면 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
+								<!-- 좌 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+								<!-- 우 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
+								<!-- 하 -->
+								<img class="small small1" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
+							</div>
+						</div>
+					</div>
+                    <div class="works_info_right" th:if="${result.work != null and result.work != ''}">
                         <div class="tit_wrap">
-                            <div class="tit_01">alex katz</div>
-                            <div class="tit_02">[사전출품]December(ADA) (Edi 48/100)</div>
+                            <div class="tit_01">
+                            	<th:block th:if="${not #strings.isEmpty(result.work.artstEnglsNm)}">
+									<h3 th:text="${result.work.artstActvtyNm}"></h3>
+									<h3 th:text="'('+${result.work.artstEnglsNm}+')'"></h3>
+								</th:block>
+								<h3 th:if="${#strings.isEmpty(result.work.artstEnglsNm)}" th:text="${result.work.artstActvtyNm}"></h3>
+                            </div>
+                            <div class="tit_02" th:text="${result.work.workNm}"></div>
                         </div>
                         <table class="tstyle1">
-							<tbody>
-                                <tr>
-                                    <th>제작년도</th>
-                                    <td>2020</td>
-                                </tr>
-                                <tr>
-                                    <th>소재/기법</th>
-                                    <td>Pigment print</td>
-                                </tr>
-                                <tr>
-                                    <th>액자</th>
-                                    
-                                    <td>없음</td>
-                                </tr>
-                                <tr>
-                                    <th>사이즈</th>
-                                    <td>24 X 29</td>
-                                </tr>
-                                <tr>
-                                    <th>호수</th>
-                                    <td>4 
-                                    <img src="/resources/img/mypage/ico_worksInfo_quest_mark.png" style="cursor:pointer;vertical-align: bottom;margin-left: 5px;" onclick="openLakeHelp()"></td>
-                                </tr>
-                                <tr>
-                                    <th>판매 여부</th>                                    
-                                    <td>미판매</td>
-                                </tr>
-                                <tr>
-                                    <th>메인 컬러</th>
-								    <td><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked=""><label for="mc-9" class="mc-9 active"></label></div></td>
-								</tr>
-							    <tr>
-								    <th>닉네임</th>
-								    <td onclick="" style="cursor:pointer;">아우라</td>								
-							    </tr>
-						    </tbody>
-                        </table>
+							<tr>
+								<th>제작년도</th>
+								<td th:text="${result.work.workProdcYear}"></td>
+							</tr>
+							<tr>
+								<th>소재/기법</th>
+								<td th:text="${result.work.workMatrl}">canvas</td>
+							</tr>
+							<tr>
+								<th>액자</th>
+								<td th:if="${result.work.workFrmYn == 'Y'}">있음</td>
+								<td th:if="${result.work.workFrmYn == 'N' or result.work.workFrmYn == '' }">없음</td>
+							</tr>
+							<tr>
+								<th>사이즈</th>
+								<td th:if="${not #strings.isEmpty(result.work.workSizeWidth) and not #strings.isEmpty(result.work.workSizeDepth)}" th:text="${result.work.workSizeWidth} + ' X ' + ${result.work.workSizeDepth}"></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workLake)}">
+								<th>호수</th>
+								<td th:utext="|${result.work.workLake} 
+								<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
+							</tr>
+							<tr>
+								<th>판매 여부</th>
+								<td th:if="${result.work.workSaleYn == 'Y'}">판매 완료</td>
+								<td th:if="${result.work.workSaleYn == 'N'}">미판매</td>
+							</tr>
+							<tr>
+								<th>메인 컬러</th>
+								<td th:if="${result.work.workClrCd == 'MIX'}"><div class="color-box"><input type="radio" id="mc-1" name="workClrCd" value="MIX" checked><label for="mc-1" class="mc-1 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'RED'}"><div class="color-box"><input type="radio" id="mc-2" name="workClrCd" value="RED" checked><label for="mc-2" class="mc-2 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'ORANGE'}"><div class="color-box"><input type="radio" id="mc-3" name="workClrCd" value="ORANGE" checked><label for="mc-3" class="mc-3 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'YELLOW'}"><div class="color-box"><input type="radio" id="mc-4" name="workClrCd" value="YELLOW" checked><label for="mc-4" class="mc-4 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GREEN'}"><div class="color-box"><input type="radio" id="mc-5" name="workClrCd" value="GREEN" checked><label for="mc-5" class="mc-5 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'SKY'}"><div class="color-box"><input type="radio" id="mc-6" name="workClrCd" value="SKY" checked><label for="mc-6" class="mc-6 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLUE'}"><div class="color-box"><input type="radio" id="mc-7" name="workClrCd" value="BLUE" checked><label for="mc-7" class="mc-7 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'PURPLE'}"><div class="color-box"><input type="radio" id="mc-8" name="workClrCd" value="PURPLE" checked><label for="mc-8" class="mc-8 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BROWN'}"><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked><label for="mc-9" class="mc-9 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'WHITE'}"><div class="color-box"><input type="radio" id="mc-10" name="workClrCd" value="WHITE" checked><label for="mc-10" class="mc-10 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
+								<td th:if="${result.work.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.work.workState)}">
+								<th>작품 상태</th>
+								<td th:text="${result.work.workState}"></td>
+							</tr>
+							<tr th:if="${dealProgress != null and dealProgress != ''}">
+								<th>판매자</th>
+								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}">[[${result.work.mbrNcknm}]]
+										<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artist/artistDetail(SqNumber=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
+									<!-- <img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(showOffDtl.workKeywrd?.keywrd)}">
+								<th>작품 키워드</th>
+								<td>
+									<strong th:each="keywrd : ${#strings.arraySplit(showOffDtl.workKeywrd.keywrd, ',')}" style="color: red;">
+										#[[${keywrd}]]
+									</strong>
+								</td>
+							</tr>
+							<!-- <tr>
+								<th>소장가(판매가)</th>
+								<td th:text="${result.work.workPrc}+' KRW'"></td>
+							</tr> -->
+							<!-- <tr>
+								<th>닉네임</th>
+								<td th:if="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artist/artistDetail(SqNumber=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.mbrNcknm}]]
+										<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								</td>
+								<td th:unless="${not #strings.isEmpty(result.work.mbrNcknm)}" th:onclick="|location.href='@{/artist/artistDetail(SqNumber=${result.work.artstSq})}'|" style="cursor:pointer;">[[${result.work.artstActvtyNm}]]
+									<img th:src="${result.artistInfo.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.work.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5">
+								</td>
+							</tr> -->
+						</table>
+						<ul class="baeg-ul" th:if="${dealProgress != null and dealProgress != ''}">
+							<li class="li-1">
+								<table class="tstyle2">
+									<tr>
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>시작가</span>
+											</div>
+										</th>
+										<td>[[${result.work.dealStrtPrc}]] KRW</td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>판매기간</span>
+											</div>
+										</th>
+										<td>[[${result.work.dealStrtDt}]] ~ [[${result.work.dealEndngDt}]]</td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>
+											</div>
+										</th>
+										<td>종료</td>
+									</tr>
+								</table>
+							</li>
+							<li class="li-1">
+								<table class="tstyle2">
+									<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>낙찰가</span>
+											</div>
+										</th>
+										<td>[[${result.work.dealSbidPrc}]] KRW</td>
+									</tr>
+									<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>판매가</span>
+											</div>
+										</th>
+										<td>[[${result.work.dealFinalPrc}]] KRW</td>
+									</tr>
+									<tr class="t-red" th:if="${result.work.dealTypCd == 'A'}">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>낙찰자</span>
+											</div>
+										</th>
+										<td>[[${result.work.buyNcknm}]]</td>
+									</tr>
+									<tr class="t-red" th:if="${result.work.dealTypCd == 'S'}">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>구매자</span>
+											</div>
+										</th>
+										<td>[[${result.work.buyNcknm}]]</td>
+									</tr>
+								</table>
+							</li>
+						</ul>
                         <div class="btn_worksInfo_wrap">
-                            <button>판매 제안하기</button>
+                            <button th:if="${showOffDtl.showOff.comtSalesYn == 'Y' and dealProgress == null or dealProgress == ''}">판매 제안하기</button>
+                            <button th:if="${showOffDtl.showOff.comtSalesYn == 'N'}" disabled>판매 제안하기</button>
+							<button th:if="${dealProgress != null and dealProgress != ''}" type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>                            
                         </div>
                     </div>
+                    <div class="works_info_right" th:if="${result.deal != null and result.deal != ''}">
+						<div class="be-title">
+							<th:block
+								th:if="${not #strings.isEmpty(result.deal.artstEnglsNm)}">
+								<h3 th:text="${result.deal.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${result.deal.artstEnglsNm}+')'"></h3>
+							</th:block>
+							<h3 th:if="${#strings.isEmpty(result.deal.artstEnglsNm)}"
+								th:text="${result.deal.artstActvtyNm}"></h3>
+							<h4 th:text="${result.deal.workNm}"></h4>
+
+							<!--<a href="#" class="phos" data-toggle="modal" data-target="#myModal3">-->
+							<a href="javascript:fn_decModalCall();" class="phos">
+								<div class="tootip-1">신고하기</div> <img
+								src="/resources/img/de/popo-1.png" />
+							</a>
+
+						</div>
+						<table class="tstyle1">
+							<tr>
+								<th>제작년도</th>
+								<td th:text="${result.deal.workProdcYear}"></td>
+							</tr>
+							<tr>
+								<th>소재/기법</th>
+								<td th:text="${result.deal.workMatrl}">canvas</td>
+							</tr>
+							<tr style="display: none">
+								<th>보증서</th>
+								<td th:if="${not #strings.isEmpty(result.deal.workGrtUrl)}">있음</td>
+								<td th:if="${#strings.isEmpty(result.deal.workGrtUrl)}">없음</td>
+							</tr>
+							<tr>
+								<th>액자</th>
+								<td th:if="${result.deal.workFrmYn == 'Y'}">있음</td>
+								<td th:if="${result.deal.workFrmYn == 'N' or result.deal.workFrmYn == ''}">없음</td>
+							</tr>
+							<tr>
+								<th>사이즈</th>
+								<td th:text="${result.deal.workSizeWidth} + ' X ' + ${result.deal.workSizeDepth}"></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.deal.workLake)}">
+								<th>호수</th>
+								<td th:utext="|${result.deal.workLake} 
+								<img src='/resources/img/ba/me-icon.png' style='cursor:pointer;' onclick='openLakeHelp()'></img>|"></td>
+							</tr>
+							<tr>
+								<th>메인 컬러</th>
+								<td th:if="${result.deal.workClrCd == 'MIX'}"><div class="color-box"><input type="radio" id="mc-1" name="workClrCd" value="MIX" checked><label for="mc-1" class="mc-1 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'RED'}"><div class="color-box"><input type="radio" id="mc-2" name="workClrCd" value="RED" checked><label for="mc-2" class="mc-2 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'ORANGE'}"><div class="color-box"><input type="radio" id="mc-3" name="workClrCd" value="ORANGE" checked><label for="mc-3" class="mc-3 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'YELLOW'}"><div class="color-box"><input type="radio" id="mc-4" name="workClrCd" value="YELLOW" checked><label for="mc-4" class="mc-4 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'GREEN'}"><div class="color-box"><input type="radio" id="mc-5" name="workClrCd" value="GREEN" checked><label for="mc-5" class="mc-5 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'SKY'}"><div class="color-box"><input type="radio" id="mc-6" name="workClrCd" value="SKY" checked><label for="mc-6" class="mc-6 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'BLUE'}"><div class="color-box"><input type="radio" id="mc-7" name="workClrCd" value="BLUE" checked><label for="mc-7" class="mc-7 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'PURPLE'}"><div class="color-box"><input type="radio" id="mc-8" name="workClrCd" value="PURPLE" checked><label for="mc-8" class="mc-8 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'BROWN'}"><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked><label for="mc-9" class="mc-9 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'WHITE'}"><div class="color-box"><input type="radio" id="mc-10" name="workClrCd" value="WHITE" checked><label for="mc-10" class="mc-10 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
+								<td th:if="${result.deal.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(result.deal.workState)}">
+								<th>작품 상태</th>
+								<td th:text="${result.deal.workState}"></td>
+							</tr>
+							<tr>
+								<th>닉네임</th>
+								<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" style="cursor: pointer;" id="sellMbrNcknm">[[${result.deal.mbrNcknm}]] 
+								<!--<td th:if="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;">[[${result.deal.mbrNcknm}]] -->
+								<!--<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+								<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}">[[${result.deal.artstActvtyNm}]]
+								<!--<td th:unless="${not #strings.isEmpty(result.deal.mbrNcknm)}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|">[[${result.deal.artstActvtyNm}]] -->
+								<!--<img th:if="${not #strings.isEmpty(result.deal.artstProfileImgUrl)}" th:src="${result.deal.artstProfileImgUrl}" th:onclick="|location.href='@{/artistDetail(artstSq=${result.deal.artstSq})}'|" style="cursor:pointer;width:28px;height:28px;border-radius:50%;" class="mg_l5"> -->
+								</td>
+							</tr>
+						</table>
+
+						<ul class="baeg-ul">
+							<li class="li-1">
+								<table class="tstyle2">
+									<tr>
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span
+													id="spn_dealStrtPrc">시작가</span>
+											</div>
+										</th>
+										<td th:text="${result.deal.dealStrtPrc} + ' KRW'"></td>
+									</tr>
+									<tr id="tr_priceUnit">
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>호가단위</span>
+											</div>
+										</th>
+										<td id="td_askingPrice"></td>
+									</tr>
+									<tr>
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span
+													id="spn_period">경매기간</span>
+											</div>
+										</th>
+										<td
+											th:text="${result.deal.dealStrtDate} + ' ~ ' + ${result.deal.dealEndngDate}"></td>
+									</tr>
+									<tr th:if="${result.deal.dealSttsCd.toString().equals('TP')}">
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>
+											</div>
+										</th>
+										<td id="dealCount"></td>
+									</tr>
+									<tr th:unless="${result.deal.dealSttsCd.toString().equals('TP')}">
+										<th>
+											<div class="tsc-1">
+												<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>
+											</div>
+										</th>
+										<td>종료</td>
+									</tr>
+								</table>
+							</li>
+							<li class="li-1">
+								<table class="tstyle2">
+									<tr class="t-red" id="tr_maxBidPrc">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>현재 입찰가</span>
+											</div>
+										</th>
+										<th:block
+											th:if="${not #strings.isEmpty(result.deal.maxBidPrc)}">
+											<td th:text="${result.deal.maxBidPrc} + ' KRW'"></td>
+										</th:block>
+										<th:block
+											th:unless="${not #strings.isEmpty(result.deal.maxBidPrc)}">
+											<td>0 KRW</td>
+										</th:block>
+									</tr>
+									<!-- <tr class="t-red">
+									<th>
+										<div class="tsc-2"><img src="/resources/img/de/check-on.jpg" /><span>예상 배송비</span></div>
+									</th>
+									<td>100,000</td>
+								</tr> -->
+									<tr class="t-red" id="tr_bidPrc">
+										<th>
+											<div class="tsc-2">
+												<img src="/resources/img/de/check-on.jpg" /><span>응찰가</span>
+											</div>
+										</th>
+										<td>
+											<div class="selec-box">
+												<select class="selectpicker" id="sbx_bidPrc" data-size="11">
+													<option value="null" style="font-size: 18px;">-선택-</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<!-- <tr class="t-red" id="tr_bidPrc">
+									<th>
+										<div class="tsc-2"><img src="/resources/img/de/check-on.jpg" /><span>정산받을 계좌번호</span></div>
+									</th>
+								</tr> -->
+								</table>
+							</li>
+						</ul>
+						<div class="bat-box">
+							<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"
+								onclick="btn_purchaseOrBid_onclick()">
+								<span>응찰하기</span>
+							</button>
+							<!--
+							<button type="button" class="ba-btn2"
+								onclick="javascript:fnModalAlert();">
+								<img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span>
+							</button>
+							  -->
+							<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory">
+								<img src="/resources/img/de/mo/icon-2.jpg" />
+								<span>응찰히스토리</span>
+							</button>
+							<button type="button" class="ba-btn3" onclick="javascript:history.back();">
+								<span>목록으로 돌아가기</span>
+							</button>
+							<div class="clearboth"></div>
+						</div>
+
+					</div>
                 </div> 
             </div>
-            <div class="works_showingoff_detai2_page_wrap pb0">
-                <h2 class="mt50">작가정보</h2>
-                <div class="artist_info_wrap">
-                    <div class="artist_info_left">
-                        <img src="/resources/img/mypage/sample_artistInfo_photo00.jpg" alt="">
-                    </div>
-                    <div class="artist_info_right">
-                        <span class="artist_name">이미소 (Lee Mi-so)</span>
-                        <p>
-                            이미소 작가는 다채로운 색감을 통해 세상을 바라본다. 시간이 지나면 금세 잊혀지는 감정들을 기록하고,<br>
-                            현대인의 억압된 감정을 해소시키기 위해 작품에 감정을 심었으며, 이는 나무의 형태로 나타난다. 나뭇잎이 자라났다 떨어지는 순환의 모습을<br>
-                            인간이 느끼는 감정의 선과 동일시한다.<br>
-                            배경에 등장하는 풍경은 마음의 위로를 더 해주고 일상의 찰나에서 얻은 사소한 감정을 오아시스로 표현한다.<br> 
-                            감성을 자극하는 작가의 작품은 파스텔 톤의 따듯한 분위기를 가지고 있으며 매끄럽고 부드러운 동화적 표현으로 평온을 선물해왔다.<br> 
-                            작가는 이보다 더 나아가 시선을 더 넓게 하여, 거친 현 사회와 주변 환경을 작품에 담는다. 유화에 대한 이해도가 높은 작가는 터치감을 극대화한 나무를 추가하고<br>
-                            더 나아가 숲을 만들며 여러 미디엄에 대한 질감표현 연구를 통해 발전하고 있다.
-                        </p>
-                    </div>                    
-                    <button class="btn_more">더보기</button>
-                </div>
-                <div class="artist_contents">
-                    <div class="contents_tit">
-                        <h4>지금 핫한 거래</h4>
-                        <button>+더보기</button>
-                    </div>
-                    <div class="swipe_box">
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="box_wrap">
-                            <div class="pic_box00">
-                                <a href="#">
-                                    <img src="/resources/img/mypage/sample_works_info_bimg00.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>                   
-                </div>                
+            <div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">
+	            <div class="works_showingoff_detai2_page_wrap pb0">
+	                <h2 class="mt50">작가정보</h2>
+	                <div class="artist_info_wrap">
+	                    <div class="artist_info_left">
+	                        <img th:src="${result.artistInfo.artstProfileImgUrl}" alt="">
+	                    </div>
+	                    <div class="artist_info_right">
+	                        <span class="artist_name" th:text="|${result.artistInfo.artstActvtyNm} (${result.artistInfo.artstEnglsNm})|"></span>
+	                        <p th:text="${result.artistInfo.artstSelfIntro}"></p>
+	                    </div>                    
+	                    <button class="btn_more" onclick="openArtstInfoModal()">더보기</button>
+	                </div>
+	                <div class="artist_contents" th:if="${not #maps.isEmpty(otherComt)}">
+	                    <div class="contents_tit">
+	                        <h4>작성자의 다른 자랑하기 보기</h4>
+	                        <button>+더보기</button>
+	                    </div>
+						<div class="swipe_box" id="comtSecondBox"></div>
+	                </div>
+	            </div>
             </div>
-            <div class="comments_box_wrap">
-                <form action="" method="" id="" name="">
-                    <legend>댓글 입력 폼</legend>
-                    <p>
-                        <label for="comments_tit">댓글 <strong>1</strong></label>
-                        <input type="text" id="comments_tit" name="" required placeholder="">
-                    </p>                            
-                </form>
-                <div class="comments_box">
-                    <div class="user_wrap">
-                        <div class="user_img">
-                            <img src="/resources/img/mypage/ico_dauser.png" alt="">
-                        </div>
-                        <div class="user">
-                            <ul>
-                                <li class="user_name"><span>딜링아트</span></li>
-                                <li>
-                                    <ul>
-                                        <li>1시간전</li>
-                                        <li>   <a href="#">♡ 좋아요</a></li>
-                                        <li><a href="#">답글달기</a></li>
-                                        <li><a href="#">신고</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>                                                        
-                    </div>
-                    <div class="comments">
-                        <p>작품이 예쁩니다.</p>
-                    </div>
-                </div>
-                <div class="answer_comments_box">
-                    <div class="user_wrap">
-                        <div class="ico_answer_comments">
-                            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">
-                        </div>
-                        <div class="user_img">
-                            <img src="/resources/img/mypage/ico_dauser01.png" alt="">
-                        </div>
-                        <div class="user">
-                            <ul>
-                                <li class="user_name"><span>AI 인공지능</span></li>
-                                <li>
-                                    <ul>
-                                        <li>20분 전</li>
-                                        <li>   <a href="#">♡ 좋아요</a></li>
-                                        <li><a href="#">답글달기</a></li>
-                                        <li><a href="#">신고</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>                                                        
-                    </div>
-                    <div class="comments">
-                        <p>너무 너무 감사합니다.</p>
-                    </div>
-                </div>
-            </div>
+            <div class="comments_box_wrap" id="commentBox"></div>
         </div>
     </div>
+    
+    <th:block th:if="${result.deal != null and result.deal != ''}">
+	    <!-- 응찰하기 -->
+		<div class="modal fade modal-s" id="bidNotesModal" tabindex="-1" role="dialog" aria-labelledby="myModal5Label" aria-hidden="true">
+			<div class="modal-dialog modal-baeg max-w800">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="baegs">
+							<h2>응찰 유의사항</h2>
+						    <img src="/resources/img/ba/icon-2.png" class="con-img" />
+						    <div class="close" onclick="bidNotesModalClose()"><img src="/resources/img/ba/icon-end_1.png" /></div>
+						</div>
+		
+					</div>
+					<div class="modal-body">
+						<div class="md-box-1">
+							<h4 class="infat-h4"><span class="c-red">응찰</span>하시기 전에 꼭 확인을 해주세요. </h4>
+							
+							<div class="wrapper center-block">
+									<div class="panel-group2" id="accordion" role="tablist" aria-multiselectable="true">
+										<div class="panel panel-default2">
+											<div class="panel-heading2" role="tab" id="headingOne">
+												<h4 class="panel-title2">
+													<a>
+														<div class="db-div">
+															<input type="checkbox" id="cbx_bidAgree1"/>
+															<label for="cbx_bidAgree1"><span></span>
+																<div class="check-info">
+																	<p>응찰하려는 작품 정보를 확인하였습니다.<br/>
+																	<b class="c-red " th:utext="|(작품명:${result.deal.workNm}, 작가명:${result.deal.artstActvtyNm})|"></b></p>
+																	낙찰 시 48시간 이내 결제
+																</div>
+															</label>
+														</div>
+													<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">보기</div>
+													</a>
+												</h4>
+											</div>
+										<div id="collapseOne" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingOne">
+											<div class="panel-body">
+												<div class="coll-text">
+													■ 응찰방법<br/>
+													-응찰은 최종 경매 마감시간전까지 여러 번 신청은 가능하나 취소는 불가능 합니다. <br/>
+													-응찰방법은 희망하는 가격으로 응찰하거나 자동 응찰의 방법을 이용할 수 있습니다.<br/> 
+													-모든 작품은 해당 작품의 최종 경매 마감시간전까지 자동 응찰을 할 수 있습니다. <br/><br/>
+													
+													■ 회사는 아래 사항으로 인한 응찰의 오류나 누락에 대해서 책임을 지지 않습니다. <br/>
+													-판매자 또는 구매자측 소프트웨어의 고장 및 이와 관련된 문제의 발생하는 경우 <br/>
+													-판매자 또는 구매자측 컴퓨터 또는 전자장치의 고장 및 문제의 발생하는 경우 <br/><br/>
+													
+													■ 어떤 미술품에 관하여 최고 가격을 응찰한 자동 응찰 방식의 회원이 둘 이상이 있는 경우 해당 미술품은 자동 응찰을 통한 구매의사를 가장 먼저 표시한 회원이 낙찰을 받습니다. <br/>
+													
+													■ 낙찰을 받은 회원은 회사가 발송하는 이메일(또는 회원이 입력한 휴대전화번호로 발송되는 SMS문자 또는 카카오톡 SNS 등)를 통해 낙찰을 확인 받을 수 있습니다. <br/>
+													
+													■ 판매자가 제공하는 미술품에 대한 정보는 회원에 대한 참고자료에 불과하므로 구매자는 구매를 희망하는 미술품에 대해 신중하게 응찰을 해야 됩니다<br/>
+		
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default2">
+										<div class="panel-heading2" role="tab" id="headingTwo">
+											<h4 class="panel-title2">
+												<a>
+													<div class="db-div">
+														<input type="checkbox" id="cbx_bidAgree2"/>
+														<label for="cbx_bidAgree2"><span></span>
+															<div class="check-info">
+																<p>주문완료 또는 낙찰된 작품에 대한<b class="c-red "> 취소가 불가 </b>합니다.</p>
+																주문이 완료되었거나 낙찰된 작품에 대한 중도 거래 취소가 불가하며,<br/>
+																취소 시 <b class="c-red ">거래취소수수료 10%</b>가 부과됩니다.
+															</div>
+														</label>
+													</div>
+													<!-- <div class="collapsdiv">보기</div> -->
+												</a>
+											</h4>
+										</div>
+										<div id="collapseTwo" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div class="panel-body">
+										        <div class="coll-text">
+													
+		
+												</div>
+											</div>
+										</div>
+									</div>
+									  <div class="panel panel-default2">
+									    <div class="panel-heading2" role="tab" id="headingThree">
+									      <h4 class="panel-title2">
+									        <a>
+									         <div class="db-div">
+												<input type="checkbox" id="cbx_bidAgree3"/>
+												<label for="cbx_bidAgree3"><span></span>
+													<div class="check-info">
+														<p>
+															작품 구매에 대한 수수료가 부과됩니다.
+															<button id="btn_toggle"><img src="/resources/img/ba/me-icon.png"></button>
+														</p>
+													</div>
+												</label>
+												
+												<!--0830_구매수수료-->
+												<div id="Toggle" style="display:none">
+													<div class="toggle_box1">
+														<!-- 
+														* [수수료 변경 Task]
+														* 응찰 시작 전 모달창 유의사항(http://localhost/bidding)
+														* 내용 : 응찰 유의사항 작품 관련 수수료 텍스트 변경
+														-->
+														<div class="toggle_bar1">구매수수료</div>
+														<div class="toggle_close" id="toggle_close"><img src="/resources/img/ba/icon-end_1.png"></div>
+													</div>
+													<div class="toggle_con1">
+														<table>
+															<thead>
+																<tr>
+																	<td style="text-align: center;">결제 수단</td>
+																	<td style="text-align: center;">구매 수수료</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>가상계좌</td>
+																	<td>5%</td> <!-- 가상계좌 10% -> 5% 변경 (2023-01-16) : 정대현 -->
+																</tr>
+																<tr>
+																	<td>신용카드</td>
+																	<td>6.5%</td> <!-- 신용카드 11% -> 6.5% 변경 (2023-01-16) : 정대현 -->
+																</tr>
+															</tbody>
+														</table>
+														<p>※ 부가세 및 이벤트 할인 별도</p>
+													</div>
+												</div>
+												
+											</div>
+											<!-- <div class="collapsdiv">보기</div> -->
+									        </a>
+									      </h4>
+									    </div>
+									    <!-- <div id="collapseThree" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingThree">
+									      <div class="panel-body">
+									       <div class="coll-text">
+											</div>
+									      </div>
+									    </div> -->
+									  </div>
+									  
+									  <div class="panel panel-default2">
+									    <div class="panel-heading2" role="tab" id="headingfor">
+									      <h4 class="panel-title2">
+									        <a>
+									         <div class="db-div">
+												<input type="checkbox" id="cbx_bidAgree4"/>
+												<label for="cbx_bidAgree4"><span></span>
+													<div class="check-info">
+														<p>모든 미술품의 <b class="c-red ">운송</b>은 <b class="c-red ">직거래</b>가 불가능합니다.</p>
+														구매자는 회사가 제공하는 <b class="c-red ">운송서비스를</b>를 필수로 사용해야 됩니다. 
+													</div>
+												</label>
+											</div>
+											<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFor" aria-expanded="true" aria-controls="collapseOne">보기</div>
+									        </a>
+									      </h4>
+									    </div>
+									    <div id="collapseFor" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingfor">
+									      <div class="panel-body">
+									       <div class="coll-text">
+												■ 운송 유의사항<br/>
+													
+												-고객센터에서 운송서비스를 안내 받은 후 48시간 이내에 결제를 해야 됩니다.<br/>
+												-운송방법은 프리미엄, 일반, 셀프 운송 중 필수로 이용해야 되며 추가적으로 설치, 포장이 필요한 경우 선택이 가능합니다.<br/>
+												-작품가/부가서비스 미결제, 운송일정조율에 대한 응답거부, 작품운송의 인계 및 수취거부, 미술품 또는 보증서의 허위, 변조, 조작, 딜링아트 서비스 이용약관에 위반되는 행위가 발생되는 경우 거래가 취소 될 수 있습니다. <br/>
+												-미술품의 소유권은 구매자에게 운송이 완료 되기 전까지 판매자에게 있습니다. <br/>
+												-해외운송은 불가하며 제주도, 도서산간 지역, 조형작품은 별도문의를 통해 안내해드립니다.
+											</div>
+									      </div>
+									    </div>
+									</div>
+									
+									<div class="panel panel-default2">
+									    <div class="panel-heading2" role="tab" id="headingThree">
+									      <h4 class="panel-title2">
+									        <a>
+									         <div class="db-div">
+												<input type="checkbox" id="cbx_bidAgree5"/>
+												<label for="cbx_bidAgree5"><span></span>
+													<div class="check-info">
+														<p>딜링아트의 최신 이용정책을 모두 확인했습니다.</p>
+														안전한 거래를 위해 반드시 숙지해야 될 패널티규정,<br> 부적절행위 등에 대한 이용정책을 확인했습니다. 
+													</div>
+												</label>
+											</div>
+											<div class="collapsdiv" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseOne">보기</div>
+									        </a>
+									      </h4>
+									    </div>
+									    <div id="collapseThree" class="panel-collapse2 collapse" role="tabpanel" aria-labelledby="headingThree">
+									      <div class="panel-body">
+									       <div class="coll-text">
+												■페널티 규정 <br/>
+												판매자와 구매자의 안전한 거래를 위해 아래 사유에 따라 거래 철회비가 부과됩니다.<br/>
+												<table class="tstyle4">
+													<tr>
+														<th>작품가, 부가서비스 미결제</th>
+														<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+													</tr>
+													<tr>
+														<th>최종 납입 통보 후 12시간 이내 미결제</th>
+													</tr>
+													<tr>
+														<th>응답거부 </th>
+														<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+													</tr>
+													<tr>
+														<th>48시간 이내 운송 일정 조율 불가 </th>
+													</tr>
+													<tr>
+														<th>작품인계 및 수취거부</th>
+														<td rowspan="2"><b class="c-red dib">작품가의 10.0%</b></td>
+													</tr>
+													<tr>
+														<th>협의된 운송일정에 연락이 두절 또는 작품의 인수/인계 거부</th>
+													</tr>
+													<tr>
+														<th>허위거래</th>
+														<td rowspan="2"><b class="c-red dib">작품가의 전액환불.<br/>작품가의 10.0%</b></td>
+													</tr>
+													<tr>
+														<th>미술품이나 보증서에 허위, 위조, 변조 및 기타 조작</th>
+													</tr>
+													<tr>
+														<th>거래약관위반</th>
+														<td rowspan="2"><b class="c-red dib">영구이용 정지,<br/>작품가의 10.0%</b></td>
+													</tr>
+													<tr>
+														<th>딜링아트 서비스 이용약관 위반</th>
+													</tr>
+												</table>
+												*거래 철회 사유를 야기한 책임 당사는 해당 미술품의 정찰가 혹은 낙찰가의 10%가 부과됩니다.<br/>
+												* 거래 철회 수수료가 딜링아트에 지급이 된 후 3%의 금액을 피해 당사자에게 환급을 해드립니다. 
+		
+											</div>
+									      </div>
+									    </div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="baeg-btn mg_t30">
+								<button type="button" class="baeg-b1" onclick="btn_agree_onclick()">동의</button>
+								<button type="button" class="baeg-b2" onclick="bidNotesModalClose()">취소</button>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 0702 시작 -->
+		<div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content big-content">
+					<div class="modal-header">
+						<div class="conts">
+						    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="contentbox baeg-left">
+							<div class="bigImages">
+								<img class="big big2" th:src="${result.deal.workMainImgUrl}"/>
+							</div>
+							<div class="smallImages">
+								<!-- 메인 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workMainImgUrl)}" th:src="${result.deal.workMainImgUrl}" />
+								<!-- 전면 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgFrtUrl)}" th:src="${result.deal.workImgFrtUrl}" />
+								<!-- 후면 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRerUrl)}" th:src="${result.deal.workImgRerUrl}" />
+								<!-- 좌 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgLefUrl)}" th:src="${result.deal.workImgLefUrl}" />
+								<!-- 우 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgRitUrl)}" th:src="${result.deal.workImgRitUrl}" />
+								<!-- 상 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgTopUrl)}" th:src="${result.deal.workImgTopUrl}" />
+								<!-- 하 -->
+								<img class="small small2" th:if="${not #strings.isEmpty(result.deal.workImgBotUrl)}" th:src="${result.deal.workImgBotUrl}" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 0702 끝 -->
+	</th:block>
+    
+    <th:block th:if="${result.work != null and result.work != ''}">
+	    <div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content big-content">
+					<div class="modal-header">
+						<div class="conts">
+						    <div class="close" data-dismiss="modal" aria-label="Close"></div>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div class="contentbox baeg-left">
+							<div class="bigImages">
+								<img class="big big2" th:src="${result.work.workMainImgUrl}"/>
+							</div>
+							<div class="smallImages">
+								메인
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workMainImgUrl)}" th:src="${result.work.workMainImgUrl}" />
+								전면
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgFrtUrl)}" th:src="${result.work.workImgFrtUrl}" />
+								후면
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRerUrl)}" th:src="${result.work.workImgRerUrl}" />
+								좌
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgLefUrl)}" th:src="${result.work.workImgLefUrl}" />
+								우
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgRitUrl)}" th:src="${result.work.workImgRitUrl}" />
+								상
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgTopUrl)}" th:src="${result.work.workImgTopUrl}" />
+								하
+								<img class="small small2" th:if="${not #strings.isEmpty(result.work.workImgBotUrl)}" th:src="${result.work.workImgBotUrl}" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:if="${not #maps.isEmpty(result.artistInfo)}">
+		<div class="modal-dialog modal-baeg max-w1200">
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 0;min-height: 0;">
+					<div class="baegs">
+					    <div class="close" onclick="closeArtstInfoModal()"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+	
+				</div>
+				<div class="modal-body pd60 h850-o" id="artstInfoModal">
+					<div class="ad-text">
+						<h3 th:text="${result.artistInfo.artstActvtyNm}"></h3>
+						<h4 th:text="${result.artistInfo.artstEnglsNm}"></h4>
+						<p th:text="${result.artistInfo.artstSelfIntro}" id="artstSelfIntro"></p>
+					</div>
+					
+					<dl class="ad-dl">
+						<dt>SNS</dt>
+						<dd>
+							<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstInstagramUrl)}">
+								<a class="if-img" th:href="${result.artistInfo.artstInstagramUrl}" target="_blank"><img src="/resources/img/icon/i-1.png"/></a>
+							</th:block>
+							<th:block th:if="${not #strings.isEmpty(result.artistInfo.artstfacebookUrl)}">
+								<a class="if-img" th:href="${result.artistInfo.artstfacebookUrl}" target="_blank"><img src="/resources/img/icon/i-2.png"/></a>
+							</th:block>
+							<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="/resources/img/icon/i-2.png" /></a> -->
+							<!-- <a href="#" class="if-img"><img src="/resources/img/icon/i-3.png" /></a>
+							<a href="#" class="if-img"><img src="/resources/img/icon/i-4.png" /></a>
+							<a href="#" class="if-img"><img src="/resources/img/icon/i-5.png" /></a>
+							<a href="#" class="if-img"><img src="/resources/img/icon/i-6.png" /></a> -->
+						</dd>
+					</dl>
+					<dl class="ad-dl">
+						<dt>홈페이지</dt>
+						<dd>
+							<p th:text="${result.artistInfo.artstHmpgUrl}">https://mansion9.co.kr/</p>
+						</dd>
+					</dl>
+					<dl class="ad-dl">
+						<dt>학력</dt>
+						<dd>
+						<th:block th:each="eductn: ${result.eductn}">
+							<p th:text="${eductn.eductnNm}"></p>
+						</th:block>
+						</dd>
+					</dl>
+					<dl class="ad-dl">
+						<dt>경력</dt>
+						<dd>
+						<th:block th:each="career: ${result.career}">
+							<p th:text="${career.careerNm}"></p>
+						</th:block>
+						</dd>
+					</dl>
+					<dl class="ad-dl">
+						<dt>전시 정보</dt>
+						<dd>
+						<th:block th:each="exhbtn: ${result.exhbtn}">
+							<p th:text="${exhbtn.exhbtnNm}"></p>
+						</th:block>
+						</dd>
+					</dl>
+					<dl class="ad-dl">
+						<dt>수상</dt>
+						<dd>
+						<th:block th:each="exhbtnAword: ${result.exhbtnAword}">
+							<p th:text="${exhbtnAword.exhbtnNm}"></p>
+						</th:block>
+						</dd>
+					</dl>
+	<!-- 				<dl class="ad-dl"> -->
+	<!-- 					<dt>인터뷰영상</dt> -->
+	<!-- 					<dd> -->
+	<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->
+	<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->
+	<!-- 					</dd> -->
+	<!-- 				</dl> -->
+	<!-- 				<dl class="ad-dl"> -->
+	<!-- 					<dt>논문, 평론, 기사</dt> -->
+	<!-- 					<dd> -->
+	<!-- 						<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p> -->
+	<!-- 						<p>2013 50만원 전, 경민미술관</p> -->
+	<!-- 						<p>2013 가미갤러리 초대작가전, 가미갤러리</p> -->
+	<!-- 						<p>2013 블라블라, 인사토포하우스</p> -->
+	<!-- 					</dd> -->
+	<!-- 				</dl> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 호수 안내표 -->
+	<!-- table -->
+	<div class="modal fade modal-s" id="lakeHelpModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w480" style="max-width:600px !important;">
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+					<div class="baegs">
+					    <div class="close" onclick="closeLakeHelp()"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+				</div>
+				<div class="modal-body login-body">
+	
+					<div class="login-box" style="margin-top:30px;">
+						<p class="lb-p1">작품 사이즈 기준표 (cm)</p>
+						<div class="text-box1">
+							
+							<table class="tstyle4">
+							  <tr>
+							    <td> 호수 </td>
+							    <td> F형(인물) </td>
+							    <td> P형(풍경) </td>
+							    <td> M형(해경) </td>
+							    <td> S형(정방형) </td>
+							  </tr>
+							  <tr>
+							    <td> 0 </td>
+							    <td> 18.0x14.0 </td>
+							    <td> - </td>
+							    <td> - </td>
+							    <td> - </td>
+							  </tr>
+							  <tr>
+							    <td> 1 </td>
+							    <td> 22.7x15.8 </td>
+							    <td> 22.7x14.0 </td>
+							    <td> 22.7x12.0 </td>
+							    <td> 15.8x15.8 </td>
+							  </tr>
+							  <tr>
+							    <td> 2 </td>
+							    <td> 25.8x17.9 </td>
+							    <td> 25.8x16.0 </td>
+							    <td> 25.8x14.0 </td>
+							    <td> 17.9x17.9 </td>
+							  </tr>
+							  <tr>
+							    <td> 3 </td>
+							    <td> 27.3x22.0 </td>
+							    <td> 27.3x19.0 </td>
+							    <td> 27.3x16.0 </td>
+							    <td> 22.0x22.0 </td>
+							  </tr>
+							  <tr>
+							    <td> 4 </td>
+							    <td> 33.4x24.2 </td>
+							    <td> 33.4x21.2 </td>
+							    <td> 33.4x19.0 </td>
+							    <td> 24.2x24.2 </td>
+							  </tr>
+							  <tr>
+							    <td> 5 </td>
+							    <td> 34.8x27.3 </td>
+							    <td> 34.8x24.2 </td>
+							    <td> 34.8x21.2 </td>
+							    <td> 27.3x27.3 </td>
+							  </tr>
+							  <tr>
+							    <td> 6 </td>
+							    <td> 40.9x31.8 </td>
+							    <td> 40.9x27.3 </td>
+							    <td> 40.9x24.2 </td>
+							    <td> 31.8x31.8 </td>
+							  </tr>
+							  <tr>
+							    <td> 8 </td>
+							    <td> 45.5x37.9 </td>
+							    <td> 45.5x33.4 </td>
+							    <td> 45.5x27.3 </td>
+							    <td> 37.9x37.9 </td>
+							  </tr>
+							  <tr>
+							    <td> 10 </td>
+							    <td> 53.0x45.0 </td>
+							    <td> 53.0x40.9 </td>
+							    <td> 53.0x33.4 </td>
+							    <td> 45.0x45.0 </td>
+							  </tr>
+							  <tr>
+							    <td> 12 </td>
+							    <td> 60.6x50.0 </td>
+							    <td> 60.6x45.5 </td>
+							    <td> 60.6x40.9 </td>
+							    <td> 50.0x50.5 </td>
+							  </tr>
+							  <tr>
+							    <td> 15 </td>
+							    <td> 65.1x53.0 </td>
+							    <td> 65.1x50.5 </td>
+							    <td> 65.1x45.5 </td>
+							    <td> 53.0x53.0 </td>
+							  </tr>
+							  <tr>
+							    <td> 20 </td>
+							    <td> 72.7x60.6 </td>
+							    <td> 72.7x53.0 </td>
+							    <td> 72.7x50.0 </td>
+							    <td> 60.6x60.6 </td>
+							  </tr>
+							  <tr>
+							    <td> 25 </td>
+							    <td> 80.3x65.1 </td>
+							    <td> 80.3x60.6 </td>
+							    <td> 80.3x53.0 </td>
+							    <td> 65.1x65.1 </td>
+							  </tr>
+							  <tr>
+							    <td> 30 </td>
+							    <td> 90.9x72.7 </td>
+							    <td> 90.9x65.1 </td>
+							    <td> 90.9x60.6 </td>
+							    <td> 72.7x72.7 </td>
+							  </tr>
+							  <tr>
+							    <td> 40 </td>
+							    <td> 100.0x80.3 </td>
+							    <td> 100.0x72.7 </td>
+							    <td> 100.0x65.1 </td>
+							    <td> 80.3x80.3 </td>
+							  </tr>
+							  <tr>
+							    <td> 50 </td>
+							    <td> 116.8x91.0 </td>
+							    <td> 116.8x80.3 </td>
+							    <td> 116.8x72.7 </td>
+							    <td> 91.0x91.0 </td>
+							  </tr>
+							  <tr>
+							    <td> 60 </td>
+							    <td> 130.3x97.0 </td>
+							    <td> 130.3x89.4 </td>
+							    <td> 130.3x80.3 </td>
+							    <td> 97.0x97.0 </td>
+							  </tr>
+							  <tr>
+							    <td> 80 </td>
+							    <td> 145.5x112.1 </td>
+							    <td> 145.5x97.0 </td>
+							    <td> 145.5x89.4 </td>
+							    <td> 112.1x112.1 </td>
+							  </tr>
+							  <tr>
+							    <td> 100 </td>
+							    <td> 162.2x130.3 </td>
+							    <td> 162.2x112.1 </td>
+							    <td> 162.2x97.0 </td>
+							    <td> 130.3x130.3 </td>
+							  </tr>
+							  <tr>
+							    <td> 120 </td>
+							    <td> 193.9x130.3 </td>
+							    <td> 193.9x112.1 </td>
+							    <td> 193.9x97.0 </td>
+							    <td> - </td>
+							  </tr>
+							  <tr>
+							    <td> 150 </td>
+							    <td> 227.3x181.8 </td>
+							    <td> 227.3x162.1 </td>
+							    <td> 227.3x145.5 </td>
+							    <td> 181.8x181.8 </td>
+							  </tr>
+							  <tr>
+							    <td> 200 </td>
+							    <td> 259.1x193.9 </td>
+							    <td> 259.1x181.9 </td>
+							    <td> 259.1x162.1 </td>
+							    <td> 193.9x193.9 </td>
+							  </tr>
+							  <tr>
+							    <td> 300 </td>
+							    <td> 290.9x218.2 </td>
+							    <td> 290.9x197.0 </td>
+							    <td> 290.9x181.8 </td>
+							    <td> 218.2x218.2 </td>
+							  </tr>
+							  <tr>
+							    <td> 500 </td>
+							    <td> 333.3x248.5 </td>
+							    <td> 333.3x218.2 </td>
+							    <td> 333.3x197.0 </td>
+							    <td> 248.5x248.5 </td>
+							  </tr>
+							</table>
+	
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 차트 -->
+	<div class="modal fade modal-s" id="bidHistory" tabindex="-1" role="dialog" aria-labelledby="bidHistoryLabel" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w1023">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="baegs">
+						<h2>응찰 히스토리</h2>
+					    <img src="/resources/img/ba/icon-1.png" class="con-img" />
+					    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+	
+				</div>
+				<div class="modal-body">
+					<div class="text-right mg_t25">
+						<!-- <input type="checkbox" id="a1" name="cc">
+						<label for="a1"><span></span>내 응찰만 보기</label> -->
+					</div>
+					<!-- <img src="/resources/img/ba/chart-img.png" class="mdimg" /> -->
+					<canvas id="canvas"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 신고하기 -->
+	<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w530">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="baegs">
+						<h2>신고하기</h2>
+					    <img src="/resources/img/ba/icon-2.png" class="con-img" />
+					    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+	
+				</div>
+				<div class="modal-body">
+					<div class="md-box-1">
+						<p>
+						위작, 허위판매 등 신고 사유를 가능한 상세히 작성해 주시기 바랍니다.<br />
+						허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
+						</p>
+						
+						<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>
+						
+						<!-- <div class="text-center  mg_b40">
+							<input type="checkbox" id="w1" name="cc">
+							<label for="w1" style="color:#e9625c;"><span></span> 경매약관 주요 사항 팝업 및 약관 동의 사실 확인</label>
+						</div> -->
+						
+						<div class="baeg-btn mg_t30">
+							<!--
+							<a href="#" data-toggle="modal" data-target="#myModal4"><button type="button" class="baeg-b1">제출하기</button></a>
+							-->
+							<button type="button" class="baeg-b1" onclick="fn_declaration();">제출하기</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 신고하기 완료 -->
+	<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w530">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+					<div class="baegs">
+					    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+	
+				</div>
+				<div class="modal-body">
+					<div class="md-box-1">
+						<div class="md-ds">
+							해당 작품에 관한 신고하기가 완료 되었습니다.
+						</div>
+						
+						<div class="baeg-btn mg_t30">
+							<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 신고하기 오류 -->
+	<div class="modal fade modal-s" id="myModal4_4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w530">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">
+					<div class="baegs">
+					    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+	
+				</div>
+				<div class="modal-body">
+					<div class="md-box-1">
+						<div class="md-ds">
+							신고하기가 완료 되지 않았습니다. <BR><BR>
+							대표번호 1533-3024 문의해 주세요.<BR><BR>
+							감사합니다.<BR><BR>
+						</div>
+						
+						<div class="baeg-btn mg_t30">
+							<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    
+    <script th:inline="javascript">
+    	// 커뮤니티 순번
+		var comtSq = /*[[${param.comtSq[0]}]]*/ 'default';
+
+    	$(document).ready(function() {
+    		$(".time").text(getCmtRegTime(/*[[${showOffDtl.showOff.regDt}]]*/));
+    		setOtherComt();
+    		setComment();
+    		followCheck();
+    		fn_styleNone();
+    	});
+    	
+		//ckEditor Mouse Over Class Remove
+		function fn_styleNone() {
+			/* $(".ck-widget__type-around__button").css("display","none");
+			$(".ck-widget").css("outline-style","none");
+			$(".ck-widget__selection-handle").css("display","none"); */
+			$(".ck-reset_all").css("display","none");
+		}
+    	
+		// 댓글 셋팅
+		function setComment() {
+			$.ajax({
+    			type: "post",
+    			url: "/community/searchComtCmtsList",
+    			data: {
+    				comtSq: comtSq
+    			},
+    			success: function(data) {
+    				var comments = data.comments;
+    				var replys = data.replys;
+    				var strHtml = '';
+					
+    				strHtml += '<form action="" method="" id="" name="">';
+    				strHtml += '	<legend>댓글 입력 폼</legend>';
+    				strHtml += '	<p>';
+    				strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">'+ (comments.length + replys.length) +'</strong></label>';
+    				strHtml += '		<input type="text" id="comments_tit" name="" required placeholder="">';
+    				strHtml += '		<button type="button" class="reg_btn" onclick="comtReg();">등록</button>';
+    				strHtml += '	</p>';
+    				strHtml += '</form>';
+    				
+    				// 댓글
+    				comments.forEach(function(comment) {
+    					strHtml += '<div class="comments_box">';
+    					strHtml += '    <div class="user_wrap">';
+    					strHtml += '        <div class="user_img">';
+
+    					if (null != comment.mbrProfileImgUrl) {
+    						strHtml += '            <img src="'+ comment.mbrProfileImgUrl +'" alt="">';
+    					} else {
+    						strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+    					}
+
+    					strHtml += '        </div>';
+    					strHtml += '        <div class="user">';
+    					strHtml += '            <ul>';
+    					strHtml += '                <li class="user_name"><span>'+ comment.mbrNcknm +'</span></li>';
+    					strHtml += '                <li>';
+    					strHtml += '                    <ul>';
+    					strHtml += '                        <li>'+ getCmtRegTime(comment.cmtRegDt) +'</li>';
+    					strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
+    					strHtml += '                        <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', this)">답글달기</a></li>';
+    					strHtml += '                        <li><a href="#">신고</a></li>';
+    					
+    					// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+    			        if(comment.mbrSq == sMbrSqVal){
+    			        	strHtml += '						<li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', this, \'cmt\')">수정</a></li>';
+    			        	strHtml += '                        <li><a href="javascript:delComment('+ comment.cmtSq +');">삭제</a></li>';
+    			        }
+    					
+    					strHtml += '                    </ul>';
+    					strHtml += '                </li>';
+    					strHtml += '            </ul>';
+    					strHtml += '        </div>';
+    					strHtml += '    </div>';
+    					strHtml += '    <div class="comments">';
+    					strHtml += '        <p>'+ comment.cmtContent +'</p>';
+    					strHtml += '    </div>';
+    					strHtml += '</div>';
+
+    					// 대댓글
+    					replys.forEach(function(reply) {
+							if (comment.cmtSq == reply.cmtSq) {
+								strHtml += '<div class="answer_comments_box">';
+								strHtml += '    <div class="user_wrap">';
+								strHtml += '        <div class="ico_answer_comments">';
+								strHtml += '            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">';
+								strHtml += '        </div>';
+								strHtml += '        <div class="user_img">';
+
+								if (null != reply.mbrProfileImgUrl) {
+									strHtml += '            <img src="'+ reply.mbrProfileImgUrl +'" alt="">';
+								} else {
+									strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+								}
+
+								strHtml += '        </div>';
+								strHtml += '        <div class="user">';
+								strHtml += '            <ul>';
+								strHtml += '                <li class="user_name"><span>'+ reply.mbrNcknm +'</span></li>';
+								strHtml += '                <li>';
+								strHtml += '                    <ul>';
+								strHtml += '                        <li>'+ getCmtRegTime(reply.replyRegDt) +'</li>';
+								strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
+								/* strHtml += '                        <li><a href="#">답글달기</a></li>'; */
+								strHtml += '                        <li><a href="#">신고</a></li>';
+								
+								// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+				    	        if(reply.mbrSq == sMbrSqVal){
+				    		        strHtml += '                        <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ reply.replySq +', this, \'reply\')">수정</a></li>';
+				    	        	strHtml += '                        <li><a href="javascript:delReply('+ reply.replySq +');">삭제</a></li>';
+				    	        }
+								
+								strHtml += '                    </ul>';
+								strHtml += '                </li>';
+								strHtml += '            </ul>';
+								strHtml += '        </div>';
+								strHtml += '    </div>';
+								strHtml += '    <div class="comments">';
+								strHtml += '        <p>'+ reply.replyContent +'</p>';
+								strHtml += '    </div>';
+								strHtml += '</div>';
+							}
+						});
+					});
+    				
+    				$("#commentBox").empty();
+   					$("#commentBox").append(strHtml).trigger("create");
+    			}
+    		});
+		}
+		
+		// 작성자의 다른 커뮤니티 정보 셋팅
+	    function setOtherComt(){
+	    	var otherComt = /*[[${otherComt}]]*/ 'default';
+			var artstSq = /*[[${param.artstSq[0]}]]*/ 'default';
+	    	var strHtml = '';
+			
+	    	otherComt.forEach( function( comt ){
+	    		
+			    strHtml += '<div class="box_wrap">';
+			    strHtml += '    <div class="pic_box00">';
+			    strHtml += '        <a href="javascript:void(0);" data-comtsq='+ comt.comtSq +' data-worksq='+ comt.workSq +' data-comttypcd="BOA" data-mbrsq='+ comt.mbrSq +' data-artstsq='+ artstSq +' onclick="openComtDetail(this);">';
+			    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
+			    strHtml += '        </a>';
+			    strHtml += '    </div>';
+			    strHtml += '</div>';
+	    		
+	    	});
+
+		    $("#comtSecondBox").append(strHtml);
+	    }
+		
+		// 커뮤니티 상세 페이지 이동
+    	function openComtDetail(obj) {
+    		pageGoPost({
+				url: "/community/showingOffDetail",
+				target:"_self",
+				vals:[
+					["mbrSq", $(obj).data("mbrsq")],
+					["comtSq", $(obj).data("comtsq")],
+					["artstSq", $(obj).data("artstsq")],
+					["workSq", $(obj).data("worksq")],
+					["comtTypCd", $(obj).data("comttypcd")]
+				]
+			});
+    	}
+		
+		// 대댓글 등록 폼, 댓글 대댓글 수정 폼 생성
+		function openReplyAndModForm(cmtSq, obj, cmtType) {
+			var box = ".comments_box";
+			
+			if(cmtType == 'reply') {
+				box = ".answer_comments_box";
+			}
+			
+			var allReplyForm = $(box).find(".comments_box_wrap");
+			var curReplyForm = $(obj).closest(box).find(".comments_box_wrap");
+			var content = $(obj).closest(box).find(".comments p").text();
+			
+			// 대댓글 등록 폼이 이미 있으면 모든 등록 폼 없앰
+			if(allReplyForm.length) {
+				allReplyForm.remove();
+			}
+			
+			if(curReplyForm.length) {
+				allReplyForm.remove();
+				return;
+			}
+			
+			var html = "";
+            html += "<div class='comments_box_wrap'>";
+            html += "	<form>";
+			html += "		<p id='reply_form'>";
+			if(cmtType) {
+				html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" style='margin-left: 90px;'>";
+				html += "		<button type='button' class='reg_btn' onclick='modComment("+ cmtSq +", \""+ cmtType +"\", this);'>수정</button>";
+			} else {
+				html += "		<input type='text' id='replyAndModComment' style='margin-left: 90px;'>";
+				html += "		<button type='button' class='reg_btn' onclick='replyReg("+ cmtSq +", this);'>등록</button>";
+			}
+			html += "		</p>";
+			html += "	</form>";
+			html += "</div>";
+			
+			$(obj).closest(box).append(html);
+		}
+		
+		// 댓글 등록
+		function comtReg() {
+			$.ajax({
+				type : "post",
+				url : "/community/cmtReg",
+				data : {
+					comtSq : comtSq,
+					cmtContent : $("#comments_tit").val(),
+					mbrSq : sMbrSqVal
+				},
+				success : function() {
+					setComment();
+					$("#comments_tit").val("");
+				}
+			});
+		}
+		
+		// 대댓글 등록
+		function replyReg(cmtSq, obj) {
+			$.ajax({
+				type : "post",
+				url : "/community/replyReg",
+				data : {
+					cmtSq: cmtSq,
+					comtSq : comtSq,
+					replyContent : $(obj).siblings("#replyAndModComment").val(),
+					mbrSq : sMbrSqVal
+				},
+				success : function() {
+					setComment();
+				}
+			});
+		}
+		
+		// 댓글 수정
+		function modComment(cmtSq, cmtType, obj) {
+			var content = $(obj).siblings("#replyAndModComment").val();
+			console.log(content);
+			
+			modalConfirm( "댓글을 수정하시겠습니까?" , function ( confirm ) {
+				if(confirm){
+					$.ajax({
+				        type: "POST",
+				        url: "/community/modCommentAndReply",
+				        data: {
+				        	cmtType : cmtType,
+							content : content,
+				        	sq : cmtSq
+				        },
+				        success: function(data) {
+				        	if(data.result > 0){
+				        		modalAlertShow("댓글이 수정되었습니다.");
+				        		setComment();
+				        	}else{
+				        		modalAlertShow("댓글 수정에 실패했습니다.<br/>다시 시도해주세요.");
+				        	}
+				        },
+				        error: function(error) {
+				            alert("수정처리에 실패했습니다.\n관리자에게 문의해주세요."); 
+				            location.reload();
+				        }
+					});
+				}
+			});
+		}
+		
+		// 댓글 삭제 
+	    function delComment(cmtSq){
+	    	var commentType = "cmt";
+	    	delCommentModal(cmtSq, commentType);
+	    }
+	    
+	    // 대댓글 삭제
+	    function delReply(replySq){
+	    	var commentType = "reply";
+	    	delCommentModal(replySq, commentType);
+	    }
+	    
+	    // 댓글 삭제 모달, 삭제 처리
+	    function delCommentModal(commentSq, commentType){
+	    	
+			modalConfirm( "댓글을 삭제하시겠습니까?" , function ( confirm ) {
+	    		
+				if(confirm){
+					
+					$.ajax({
+				        type: "POST",
+				        url: "/community/delCommentAndReply",
+				        data: {
+				        	commentType : commentType,
+				        	commentSq: commentSq,
+				        	comtSq: comtSq
+				        },
+				        success: function(data) {
+				        	if(data.result > 0){
+				        		modalAlertShow("댓글이 삭제되었습니다.");
+				        		setComment();
+				        	}else{
+				        		modalAlertShow("댓글 삭제에 실패했습니다.<br/>다시 시도해주세요.");
+				        	}
+				        },
+				        error: function(error) {
+				            alert("삭제처리에 실패했습니다.\n관리자에게 문의해주세요."); 
+				            location.reload();
+				        }
+					});
+				} 
+			});
+	    }
+		
+		// 댓글 등록 시간 구하기
+		function getCmtRegTime(cmtRegDate) {
+			var now = new Date();
+			var regDate = new Date(cmtRegDate);
+			var dateDiff = now.getTime() - regDate.getTime();
+			var result = "";
+			var seconds = [
+				{ type : "년",	milSec : 1000 * 60 * 60 * 24 * 365 },
+				{ type : "달",	milSec : 1000 * 60 * 60 * 24 * 30 },
+				{ type : "주",	milSec : 1000 * 60 * 60 * 24 * 7 },
+				{ type : "일",	milSec : 1000 * 60 * 60 * 24 },
+				{ type : "시간",	milSec : 1000 * 60 * 60 },
+				{ type : "분",	milSec : 1000 * 60 },
+				{ type : "초",	milSec : 1000 }
+			];
+
+			for (var i in seconds) {
+				var dateDiffVal = Math.floor(dateDiff / seconds[i].milSec);
+				if (dateDiffVal > 0) {
+					result = dateDiffVal + seconds[i].type + " 전";
+					break;
+				}
+			}
+
+			return result || "방금 전";
+		}
+		
+		// 팔로우하기
+	    function clickFollow(){
+	    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+	    	var fwMbrSq = sMbrSqVal;
+	    	
+			modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
+				if(confirm){
+					$.ajax({
+			    		url: "/community/follow",
+			    		data: {
+			    			fwMbrSq: fwMbrSq,
+			    			mbrSq: mbrSq
+			    		},
+			    		success: ( function ( response ) {
+			    			if(response.result > 0){
+				        		modalAlertShow("팔로우 되었습니다.");
+				        		$(".following").hide();
+				        	}else{
+				        		modalAlertShow("팔로우에 실패했습니다.<br/>다시 시도해주세요.");
+				        	}
+			    		}),
+			    		error: ( function ( response ) {
+			    			alert("오류가 발생했습니다.\n관리자에게 문의해주세요."); 
+				            location.reload();
+			    		})
+			    	});
+				} 
+			});
+	    }
+		
+	 	// 팔로우 돼있는지 체크
+	    function followCheck(){
+	    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+	    	var fwMbrSq = sMbrSqVal;
+			
+	    	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
+	    		$(".following").hide();
+	    	}
+	    	
+	    	$.ajax({
+	    		url: "/community/followCheck",
+	    		data: {
+	    			fwMbrSq: fwMbrSq,
+	    			mbrSq: mbrSq
+	    		},
+	    		success: ( function ( response ) {
+	    			if(response.result) {
+	    				$(".following").hide();
+	    			}
+	    		}),
+	    		error: ( function ( response ) {
+	    			
+	    		})
+	    	});
+	    	
+	    }
+	 	
+		var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+
+		jQuery(document).ready(function($){
+		     
+			if(isMobile) {
+				
+				var baseW = $(window).width();
+				
+				var ww = 0;
+				
+				if(baseW < 399) {
+					ww = $(window).width()-50;	
+				} else {
+					ww = $(window).width()-250;
+				}
+				
+				$(".ellipsis").width(ww);
+				$(".ellipsis").height('100%');
+				
+				$(".ellipsis").css('padding', '10');
+		     }
+		});
+
+		$('.selectpicker').selectpicker('render');
+
+		var result = /*[[${result}]]*/ 'default';
+
+		//호수 안내 팝업 오픈
+		function openLakeHelp(){
+			$('body').css("overflow", "hidden");
+			$('#lakeHelpModal').modal({backdrop: 'static', keyboard: false});
+			$("#lakeHelpModal").modal("show");
+		}
+		//호수 안내 팝업 닫기
+		function closeLakeHelp(){
+			$('body').css("overflow", "scroll");
+			$("#lakeHelpModal").modal("hide");
+		}
+		$(function() {
+			
+			$("#sbx_bidPrc").selectpicker("refresh");
+			if(sMbrSqVal != null && sMbrSqVal != ""){
+				if(result.deal.bidMbrSq == sMbrSqVal){
+					$(".ba-btn1").append('<div class="tootip-3">현재 가장 높은 응찰자 입니다 </div>').trigger("create");
+				}
+			}
+			if(result.deal.artstSq == null || result.deal.artstSq == ""){
+				$("#artstInfo").css("display", "none");
+			}
+			if(result.deal.dealTypCd == "S"){ //정찰가면
+				$("#pageTitle").text("구매하기");
+				$("#spn_dealStrtPrc").text("판매가");
+				$("#tr_priceUnit").css("display", "none");
+				$("#spn_period").text("판매기간");
+				$("#tr_maxBidPrc").css("display", "none");
+				$("#tr_bidPrc").css("display", "none");
+				$("#sbx_bidPrc").css("display", "none");
+				$("#btn_purchaseOrBid").text("구매하기");
+				$("#btn_history").css("display", "none");
+			}
+			if(result.deal.dealTypCd == "A" && result.deal.dealSttsCd == "TP"){ //경매면
+				selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
+				chart();
+			}
+			if(result.deal.dealSttsCd == "TC"){ //판매종료면
+				$("#btn_purchaseOrBid").css("display", "none");
+				chart();
+			}
+			workList();
+		});
+		//호가 단위
+		function selectBoxWriteAskingPrice(){
+			var bidPrc = 0; //입찰가
+			var askingPrc = 0; //호가단위
+			if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+				bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
+				askingPrc = askingPrice(bidPrc);
+				$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+			}else{ //입찰가가 없다면
+				bidPrc = parseInt(result.deal.dealStrtPrc.replaceAll(/,/g, ''));
+				askingPrc = askingPrice(bidPrc);
+				$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.
+				$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc)+"</option>");
+			}
+			for(i=0; i<30; i++){
+				askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
+				$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
+			}
+			$("#sbx_bidPrc").selectpicker("refresh");
+		}
+		//작가의 다른 작품 리스트
+		function workList(){
+			if(result.workList.length > 0){
+				$("#swiper_workList").empty();
+				var html = '';
+				for(var i=0; i<result.workList.length; i++){
+					//html +='<div class="swiper-slide">';
+					//html +='	<a class="hd-div hd-tablet" href="/workDetail?workSq='+result.workList[i].workSq+'">';
+					//html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100%;"/>';
+					//html +='		<div class="hd-text">';
+					//html +='			<h4>'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+					//html +='			<div class="hd-d1" th:inline="text">';
+					//html +='				'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+					//html +='				<br/>';
+					//html +='				소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth;
+					//html +='				<br/>';
+					/* if(result.workList[i].workPrc != null && result.workList[i].workPrc != ""){
+						html +='				가격 '+result.workList[i].workPrc+' KRW';
+					} */
+					//html +='			</div>';
+					//html +='		</div>';
+					//html +='	</a>';
+					//html +='</div>';
+					html +='<div class="swiper-slide hd-div">';
+					html +='	<a href="/deal/workDetail?SqNumber='+result.workList[i].workSq+'">';
+					html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
+					html +='		<div class="hd-text">';
+					html +='			<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+					html +='			<div class="hd-d1" >'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+					html +='			<br/>소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth+'cm</div>';
+						/* if(mainHotest[i].dealTypCd == "A"){
+							if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
+								hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
+							}else{
+								hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
+							}
+		     	    }
+		     	    if(mainHotest[i].dealTypCd == "S"){
+							hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
+		     	    } */
+		     	   	html +='		</div>';
+		     	  	html +='	</a>';
+		     	 	html +='</div>';
+				}
+				
+				$("#swiper_workList").append(html).trigger("create");
+			}
+		}
+
+		  
+		/* 응찰 히스토리 */
+		function chart() {
+			var bidDate = [];
+			var bidPrc = [];
+			var bidMbrNcknm = [];
+			var stepSize = "";
+			
+			if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰가가 있다면
+				stepSize = 0;
+			
+				$.ajax({
+			        type: "post",
+			        url: "/myPage/myDealList/bidHistory",
+			        data: {
+			        	dealSq : result.deal.dealSq
+			        },
+			        success: function(data) {
+			        	
+			        	bidDate.push(data.result[0].dealStrtDate);
+			        	bidPrc.push(data.result[0].dealStrtPrc);
+			        	//bidMbrNcknm.push("시작가");
+			        	//2022-08-24 : 입찰자 닉네임 추가 : 박상현
+			        	bidMbrNcknm.push(data.result[0].sellMbrNcknm);
+			        	for(var i=0; i<data.result.length; i++){
+			        		bidDate.push(data.result[i].bidDate);
+			        		bidPrc.push(data.result[i].bidPrc);
+			        		bidMbrNcknm.push(data.result[i].mbrNcknm);
+			        	}
+			        	
+			        },
+			        error: function(error) {
+			            alert("오류 발생" + error);
+			        }
+				});
+			}else{ //입찰가가 없다면
+				stepSize = 10;
+			
+			    bidDate.push(result.deal.dealStrtDate);
+			    bidPrc.push(result.deal.dealStrtPrc.replaceAll(",",""));
+			    
+			    var sellMbrNcknm = $("#sellMbrNcknm").text();
+			    
+			    bidMbrNcknm.push(sellMbrNcknm);
+			    //bidMbrNcknm.push("시작가");
+			   
+			    for(var i=0; i<result.auctnBid.length; i++){
+			        bidDate.push(result.auctnBid[i].bidDate);
+			        bidPrc.push(result.auctnBid[i].bidPrc);
+			        bidMbrNcknm.push(result.auctnBid[i].mbrNcknm);
+			    }
+			}
+			
+			const bidHistory = new Chart(document.getElementById("canvas"), {
+			    type: 'line',
+			    data: {
+			        labels: bidDate,
+			        datasets: [{
+			            label: '응찰가',
+			            data: bidPrc,
+			            borderColor: "rgba(50, 50, 50, 50)",
+			            backgroundColor: "rgba(50, 50, 50, 50)",
+			            borderWidth: 3,
+			            pointRadius: 5,
+			            fill: false,
+			            lineTension: 0
+			        }]
+			    },
+			    options: {
+			    	scales: {
+			    		yAxes: {
+			   	            ticks: {
+				   	            stepSize: stepSize,
+			   	            }
+			    	   }
+			    	},
+			    	plugins: {
+			            tooltip: {
+			            	titleFont: {
+			            		weight: 'normal',
+			            		size: 13
+			            	},
+			            	bodyFont: {
+			            		weight: 'normal',
+			            		size: 13
+			            	},
+			            	callbacks: {
+			            		//2022-08-24 : 라벨 분기 추가 : 박상현
+			            		label: function(data) {
+			            			var label = "";
+			            			if(data.dataIndex == 0) {
+			            				label = "시작가: "+data.formattedValue;
+			            			}else{
+			            				label = "응찰가: "+data.formattedValue;
+			            			}
+			            			return label;
+			                    },
+			                    //2022-08-24 : 시작시간 분기 추가 : 박상현
+			                    title: function(context) {
+			                    	var title = "";
+			                    	if(context[0].dataIndex == 0) {
+			                    		title = "시작시간: " + context[0].label;
+			                    	} else {
+			                    		title = "응찰시간: " + context[0].label;
+			                    	}
+			                    	return title;
+			                    },
+			                    //2022-08-24 : 입찰자,응찰자 분기 추가 : 박상현
+			            		footer: function(tooltipItems) {
+			            			var footer = "";
+			            			if(tooltipItems[0].dataIndex == 0) {
+			            				footer = "입찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];
+			            			} else {
+			            				footer = "응찰자: "+bidMbrNcknm[tooltipItems[0].dataIndex];	
+			            			}
+			            			
+			            			return footer;
+			            		}
+			                }
+			            },
+			            legend: {
+			        		display: false
+			        	}
+					}
+				}
+			});
+			
+		}
+
+
+
+		//URL 파라미터
+		var param = location.search;
+		var param = new URLSearchParams(param);
+		var getParamMore= param.get('more');
+		var getParamDealSq= param.get('dealSq');
+
+
+		//2022-09-26 DealSq와 More 파라미터가 같다면 작가 이력 Modal POPUP Active
+		/* if(getParamMore == getParamDealSq){
+			openArtstInfoModal();
+		} */
+
+
+		//부모창 스크롤 방지
+		function openArtstInfoModal(){ 
+			$('body').css("overflow", "hidden");
+			$('#artstInfoMore').modal({backdrop: 'static', keyboard: false})  
+			$("#artstInfoMore").modal("show");
+			
+			//URL 파라미터 생성(주석처리함 2023-06-09 손승완)
+			//history.pushState(null, null, '?dealSq='+getParamDealSq+'&more='+getParamDealSq);
+		}
+
+		function closeArtstInfoModal(){ 
+			$('body').css("overflow", "scroll");
+			$("#artstInfoMore").modal("hide");
+		}
+		//거래 남은 시간 1초마다 계산해서 표현하기
+		var dday = new Date(result.deal.dealEndngDateTime).getTime();
+
+		var biddingInterval = setInterval(function() {
+			console.log("biddingInterval");
+			var today = new Date().getTime();
+			
+			if(today >= dday){
+				$("#btn_purchaseOrBid").css("display", "none");
+				clearInterval(biddingInterval);
+				modalAlertShow("거래가 종료되었습니다.", "deal");
+			}
+		  	var gap = dday - today;
+		  	var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+		  	var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		  	var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+		  	var sec = Math.floor((gap % (1000 * 60)) / 1000);
+		  	
+		  	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+		  		
+		  	
+		}, 1000);
+
+
+		//페이지 한번만 RELOAD
+		function pageReload(){
+			console.log("pageReload");
+			$(document).ready(function(){
+			    if(document.URL.indexOf("#")==-1){
+			    
+			        url = document.URL+"#";
+			        location = "#";
+			        location.reload(true);
+			    }
+			});
+		}
+
+		function fn_decModalCall(){
+			
+			$('#rprtDtl').val('');
+			
+			$('#myModal3').modal('show');
+		}
+
+		//신고하기
+		function fn_declaration(){
+			
+			if(sMbrSqVal == "" || sMbrSqVal == null){
+				
+				$(".close").trigger("click");
+						
+				modalConfirm("로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+					if(confrim){
+						$("#loginModal").modal("show");	
+					}
+				});
+			} else {
+				
+				//신고하기 입력
+				fn_decIns();				
+
+			}
+		}
+
+
+
+		//신고하기 입력
+		function fn_decIns(){
+			
+			//로그인 체크 확인
+			if(sMbrSqVal != "" || sMbrSqVal != null){
+				
+				var workSqVal = result.deal.workSq;
+				var mbrSqVal = sMbrSqVal;
+				var rprtDtlVal = $("#rprtDtl").val();
+				
+				if(rprtDtlVal == "" || rprtDtlVal == null ) {
+					
+					alert("신고내역을 입력주세요.");
+					$("#rprtDtl").focus();			
+					return;
+				} else {
+				
+					console.log("workSqVal :"+workSqVal);
+					console.log("mbrSqVal :"+mbrSqVal);
+					console.log("rprtDtlVal :"+rprtDtlVal);
+					
+					
+					$.ajax({
+						type: "POST",
+				        url: "/admin/report/reportInsData",
+				        data: {
+				        	workSq : workSqVal,  //작품번호
+				        	mbrSq : mbrSqVal,	 //회원번호
+				        	rprtDtl : rprtDtlVal //신고내용
+				        },
+				        async: false,
+						success: function(data){
+							$('#myModal3').modal('hide');
+							$('#myModal4').modal('show');
+						},
+						error: function(error) {
+				            //alert("오류 발생" + error);
+				            $('#myModal3').modal('hide');
+							$('#myModal4_4').modal('show');
+				        }
+					});
+					
+				}
+				
+				
+			}
+		}
+
+		//응찰하기/구매하기 버튼 클릭
+		function btn_purchaseOrBid_onclick(){
+			if(sMbrSqVal == "" || sMbrSqVal == null){
+				if(result.deal.dealTypCd == "S"){
+					modalConfirm("로그인 후 구매할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+						if(confrim){
+							$("#loginModal").modal("show");	
+						}
+					});
+				}else{
+					modalConfirm("로그인 후 응찰할 수 있습니다.<br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+						if(confrim){
+							$("#loginModal").modal("show");	
+						}
+					});
+				}
+			}else{
+				if(result.deal.sellMbrSq == sMbrSqVal){
+					modalAlertShow("본인이 등록한 거래는 구매 할 수 없습니다.");
+					return;
+				}
+				if(result.deal.bidMbrSq == sMbrSqVal){
+					modalAlertShow("가장 높은 입찰자인 경우 중복 응찰이 불가합니다.<br/>확인 버튼을 누리시면 새로고침 됩니다.", "reload");
+					return;
+				}
+				if($("#btn_purchaseOrBid").text() == "구매하기"){
+					location.href="/myPage/myDealDetailBuy?dealSq="+result.deal.dealSq+"&&mbrSq="+sMbrSqVal;
+				}else{
+					if($("#sbx_bidPrc").val() != "null"){
+						$('body').css("overflow", "hidden");
+						$('#bidNotesModal').modal({backdrop: 'static', keyboard: false})  
+						$("#bidNotesModal").modal("show");
+					}else{
+						modalAlertShow("응찰가가 입력되지 않았습니다.", "sbx_bidPrc");
+					}
+				}
+			}
+			
+		}
+		//응찰 유의 사항 동의
+		function btn_agree_onclick(){
+			console.log(new Date());
+			$("#bidNotesModal").modal("hide");
+			if(!$("#cbx_bidAgree1").is(":checked") || !$("#cbx_bidAgree2").is(":checked") 
+					|| !$("#cbx_bidAgree3").is(":checked") || !$("#cbx_bidAgree4").is(":checked") || !$("#cbx_bidAgree5").is(":checked")){
+				$('body').css("overflow", "scroll");
+				$("#bidNotesModal").modal("hide");
+				modalAlertShow("모든 사항에 동의가 되어있지 않습니다!<br/>모든 사항에 동의를 해야 응찰이 가능합니다.");
+				return;
+			}else{
+					bidRegCheck();
+			}
+		}
+		//응찰 유의사항 모달창 닫기
+		function bidNotesModalClose(){
+			$('body').css("overflow", "scroll");
+			$("#bidNotesModal").modal("hide");
+		}
+		//현재 화면의 응찰가와 DB에 실시간 응찰가를 비교한다
+		function bidRegCheck(){
+			var param = new Object(); //컨트롤러에 보낼 파라미터 
+			param.dealSq = result.deal.dealSq; //거래 순번
+			param.mbrSq = sMbrSqVal; //멤버 순번
+			if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){
+				var bidPrc = parseInt(result.deal.maxBidPrc.replaceAll(/,/g, ''));
+				$.ajax({
+			        type: "post",
+			        url: "/deal/bidRegCheck",
+			        data : {
+			        	dealSq : result.deal.dealSq,
+			        	bidPrc : bidPrc
+			        }, 
+			        success: function(data) {
+			        	if(data.result > 0){
+			        		var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
+			        		if(index > 1){ //바로 위의 응찰가보다 높으면
+			        			modalConfirm("인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+			        				if(confrim){
+			        					param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
+			        					if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰이 되었으면
+			        						param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
+			        					}else{ //입찰이 안되었으면
+			        						param.bidPrc = result.deal.dealStrtPrc.replaceAll(/,/g, ''); //거래 시작가를 구한다
+			        						param.firstBid = "Y";
+			        					}
+			        					bidReg(param); //응찰을 한다
+			        				}else{
+			        					return;
+			        				}
+			        			});
+			        		}else{
+			        			param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
+			            		bidReg(param);
+			        		}
+			        	}else{
+			        		modalAlertShow("실시간 응찰가가 변경되었습니다. 다시 응찰해주세요.", "reload");
+			        	}
+			        },
+			        error: function(error) {
+			            alert("오류 발생" + error);
+			        }
+				});		
+			}else{
+				var index = $("#sbx_bidPrc option").index($("#sbx_bidPrc option:selected")); //선택된 호가의 인덱스를 가져온다
+				if(index > 1){ //바로 위의 응찰가보다 높으면
+					modalConfirm("인접한 응찰가보다 높은 금액입니다.<br>설정하신 금액까지 자동 응찰됩니다.<br>자동 응찰 하시겠습니까?", function(confrim){
+						if(confrim){
+							param.autoBidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, '')); //자동응찰 금액을 구한다
+							if(result.deal.maxBidPrc != null && result.deal.maxBidPrc != ""){ //입찰이 되었으면
+								param.bidPrc = result.deal.maxBidPrc.replaceAll(/,/g, ''); //현재 입찰가를 구한다
+							}else{ //입찰이 안되었으면
+								param.bidPrc = result.deal.dealStrtPrc.replaceAll(/,/g, ''); //거래 시작가를 구한다
+								param.firstBid = "Y";
+							}
+							bidReg(param); //응찰을 한다
+						}else{
+							return;
+						}
+					});
+				}else{
+					param.bidPrc = parseInt($("#sbx_bidPrc").val().replaceAll(/,/g, ''));
+		    		bidReg(param);
+				}
+			}
+		}
+		//응찰 한다
+		function bidReg(param){
+			bidNotesModalClose();
+			console.log("응찰시간 : "+new Date());
+			$.ajax({
+		        type: "post",
+		        url: "/deal/bidReg",
+		        data : param, 
+		        success: function(data) {
+		        	if(data.result == -1){
+			        	modalAlertShow("실시간 응찰가보다 낮습니다. 응찰 금액을 다시 입력해주세요.", "reload");
+		        	}
+		        	if(data.result == -2){
+			        	modalAlertShow("거래가 종료되었습니다.", "deal");
+		        	}
+		        	if(data.result == -3){
+			        	modalAlertShow("요청한 자동응찰 금액이 실시간 응찰가와 맞지않습니다. 자동응찰 금액을 다시 입력해주세요.", "reload");
+		        	}
+		        	if(data.result == 9){
+		        		modalAlertShow("이미 같은 금액으로 자동응찰 하셨습니다.", "reload");
+		        	}
+		        	if(data.result == -11){
+			        	modalAlertShow("자동 응찰에 실패했습니다. 다시 시도해주세요.", "reload");
+		        	}
+		        	if(data.result == 10){
+		        		modalConfirm("자동 응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+							if(confrim){
+								location.href = "/myPage/myDeal";
+							}else{
+								location.reload();
+							}
+						});
+		        	}
+		        	if(data.result == 11){
+		        		modalConfirm("회원님보다 높은 자동 응찰가가 있어서 높은 자동 응찰가로 자동 입찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+							if(confrim){
+								location.href = "/myPage/myDeal";
+							}else{
+								location.reload();
+							}
+						});
+		        	}
+		        	if(data.result == 12){
+		        		modalConfirm("회원님과 같은 금액을 자동 응찰 설정한 자동입찰자가 있지만,<br>먼저 자동입찰한 회원님이 있어서 우선순위에서 밀렸습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+							if(confrim){
+								location.href = "/myPage/myDeal";
+							}else{
+								location.reload();
+							}
+						});
+		        	}
+		        	if(data.result == 13){
+		        		modalConfirm("회원님 보다 낮은 응찰금액의 자동응찰자가 있어 낮은 응찰 금액까지 자동응찰 되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+							if(confrim){
+								location.href = "/myPage/myDeal";
+							}else{
+								location.reload();
+							}
+						});
+		        	}
+		        	if(data.result == 2){
+		        		modalConfirm("응찰이 완료되었습니다.<br>거래내역 페이지로 이동하시겠습니까?", function(confrim){
+							if(confrim){
+								location.href = "/myPage/myDeal";
+							}else{
+								location.reload();
+							}
+						});
+		        	}
+		        	
+		        },
+		        error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});		
+		} 
+
+		//경매일 경우 호가 단위를 자동으로 리턴해준다.
+		function askingPrice(prc){
+			var returnVal;
+			if (prc > 0 && prc < 300000) {
+				returnVal = 20000;
+			}
+			if (prc >= 300000 && prc < 1000000) {
+				returnVal = 50000;
+			}
+			if (prc >= 1000000 && prc < 3000000) {
+				returnVal = 100000;
+			}
+			if (prc >= 3000000 && prc < 5000000) {
+				returnVal = 200000;
+			}
+			if (prc >= 5000000 && prc < 10000000) {
+				returnVal = 500000;
+			}
+			if (prc >= 10000000 && prc < 30000000) {
+				returnVal = 1000000;
+			}
+			if (prc >= 30000000 && prc < 50000000) {
+				returnVal = 2000000;
+			}
+			if (prc >= 50000000 && prc < 200000000) {
+				returnVal = 5000000;
+			}
+			if (prc >= 200000000 && prc < 500000000) {
+				returnVal = 10000000;
+			}
+			if (prc >= 500000000) {
+				returnVal = 20000000;
+			}
+			return returnVal;
+		}
+
+		//0830 토글팝업
+		$(function (){
+			$("#btn_toggle").click(function (){
+			$("#Toggle").toggle();
+			});
+		});
+
+		$(function (){
+			$('#toggle_close').click(function() {
+				 $('#Toggle').hide(); 
+			});
+		});
+
+		$(window).on("resize", function () {
+			 /*작가의 다른 작품 리스트*/
+			 let ww = window.innerWidth;
+			 var mySwiper2 = 4;
+			 var swiper = new Swiper(".mySwiper2", {
+			   	   
+			 		slidesPerView: "auto",
+			 	   	loop: false,
+			 	   	/* autoplay: {
+			 	          	delay: 3000,
+			 	          	disableOnInteraction: false,
+			 	   	}, */
+			 		navigation: {
+			 			 nextEl: ".swiper-button-next",
+			 			 prevEl: ".swiper-button-prev",
+			 		},
+			 	     
+			   });
+			   
+			   responsiveSwiper2(mySwiper2);
+			   
+			   function responsiveSwiper2(mySwiper2) {
+			 		
+			   	if (ww >= 1200) {
+			 			
+			 			swiper = new Swiper('.mySwiper2', {
+			 				slidesPerView: mySwiper2,
+			 				loop: false,
+			 				effect: 'slide',
+			 				navigation: {
+			 					 nextEl: ".swiper-button-next",
+			 					 prevEl: ".swiper-button-prev",
+			 				},
+			 				
+			 			});
+			 			
+			 		} else if (ww < 1200) {
+			 			
+			 			
+			 			swiper = new Swiper('.mySwiper2', {
+			 				slidesPerView: 1,
+			 				loop: false
+			 				 
+			 			});
+			 		}
+			 	}
+		}).resize();
+		 
+		 
+		 
+		 $(document).ready(function () {
+		  $(".elm").hover(
+			function(){ $(this).addClass('hover') },
+		    function(){ $(this).removeClass('hover') }
+		  )
+		  $(".cn-b").hover(
+			function(){ $(this).addClass('gis') },
+		    function(){ $(this).removeClass('gis') }
+		  )
+		 });
+		 
+		 
+		 /* 메뉴바 FIXED */
+		 if (jQuery(window).width() > 0) {
+		     jQuery(window).on("scroll",function(ev){
+		         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+		             jQuery('.head-wrap').addClass('fixed');
+		         }
+		         else{
+		             jQuery('.head-wrap').removeClass('fixed');
+		         }
+		         return false;
+		     });
+		 }
+		 
+		 $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+		    // The event won't be propagated up to the document NODE and 
+		    // therefore delegated events won't be fired
+		    event.stopPropagation();
+		});
+		/* 0702 시작 */
+		/* 상세 왼쪽이미지 */
+		var bigPic1 = document.querySelector(".big1")
+		var smallPics1 = document.querySelectorAll(".small1")
+
+		for(var i = 0 ; i < smallPics1.length ; i++){
+		  smallPics1[i].addEventListener("mouseover", changepic1);
+		  
+		}
+
+		function changepic1(){
+		  var smallPic1Attribute = this.getAttribute("src");
+		  bigPic1.setAttribute("src", smallPic1Attribute);
+		}
+
+		/* 모달 상세 왼쪽이미지 */
+		var bigPic2 = document.querySelector(".big2")
+		var smallPics2 = document.querySelectorAll(".small2")
+
+		for(var i = 0 ; i < smallPics2.length ; i++){
+		  smallPics2[i].addEventListener("mouseover", changepic2);
+		  
+		}
+
+		function changepic2(){
+		  var smallPic2Attribute = this.getAttribute("src");
+		  bigPic2.setAttribute("src", smallPic2Attribute);
+		}
+		/* 0702 끝 */
+	</script>
+	
+	<!-- 네이버 광고 로그분석 추적 코드 -->
+	<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script> 
+	<script type="text/javascript">
+	if(!wcs_add) var wcs_add = {}; 
+	wcs_add["wa"] = "s_17cc71bb9b8f";
+	if (!_nasa) var _nasa={}; 
+	if (window.wcs) {
+	wcs.inflow("www.dealing-art.com"); 
+	wcs_do(_nasa);
+	}
+	</script>
 </body>
 </html>
