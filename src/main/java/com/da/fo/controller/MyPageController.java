@@ -1306,7 +1306,7 @@ public class MyPageController {
 	}
 	
 	// 노하우 등록
-	@RequestMapping("/myPage/myKnowhowReg")	
+	@PostMapping("/myPage/myknowhowReg")
 	@ResponseBody
 	public int myKnowhowReg(@RequestPart("knowhow") Map<String, Object> param,
 			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {

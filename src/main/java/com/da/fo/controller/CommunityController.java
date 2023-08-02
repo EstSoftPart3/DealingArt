@@ -1,5 +1,6 @@
 package com.da.fo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +37,41 @@ public class CommunityController {
 	@RequestMapping("/community/showingOffDetail")
 	public ModelAndView showingOffDetail(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
-		Map<String, Object> result = communityService.showingOffDetail(param);
-		Map<String, Object> workDtl = dealService.workDetail((String)param.get("workSq")); // 작품 상세 정보
+		// 자랑하기 상세 정보
+		Map<String, Object> showOffDtl = communityService.showingOffDetail(param);
+		// 해당 작성자의 다른 커뮤니티 정보
+		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+		// 해당 작품 판매 상태 가져오기
+		Map<String, Object> dealProgress = communityService.searchDealProgress(param);
+		Map<String, Object> result = new HashMap<>();
+
+		// 판매중인 작품이 아닐 경우 작품 정보만 출력
+		if(dealProgress == null) {
+			// 작품 상세 정보
+			result = dealService.workDetail((String) param.get("workSq"));
+			result.put("deal", null);
+		} else { // 판매중이거나 거래종료인 경우 거래 관련 정보도 출력
+			// 거래 상태 코드
+			String dealSttsCd = (String) dealProgress.get("dealSttsCd");
+			String dealSq = String.valueOf(dealProgress.get("dealSq"));
+			
+			switch(dealSttsCd) {
+			case "TP": // 거래진행중
+				result = dealService.dealDetail(dealSq);
+				result.put("work", null);
+				break;
+			case "TC": case "PD": case "DS": case "DC": case "PC": // 거래종료
+				result = dealService.soldoutDetail(dealSq);
+				result.put("deal", null);
+				break;
+			}
+		}
+		
+		mv.addObject("showOffDtl", showOffDtl);
+		mv.addObject("otherComt", otherComt);
+		mv.addObject("dealProgress", dealProgress);
 		mv.addObject("result", result);
-		mv.addObject("workDtl", workDtl);
+		
 		return mv;
 	}
 	
@@ -65,16 +97,6 @@ public class CommunityController {
 	public ModelAndView searchEventList(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		Map<String, Object> result = communityService.searchEventList(param);
-		mv.addObject("result", result);
-		return mv;
-	}
-	
-	// 자랑하기 댓글, 대댓글 조회
-	@RequestMapping("/community/searchCmtsList")
-	@ResponseBody
-	public ModelAndView searchCmtsList(@RequestParam Map<String, Object> param) {
-		ModelAndView mv = new ModelAndView("jsonView");
-		Map<String, Object> result = communityService.searchCmtsList(param);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -151,11 +173,15 @@ public class CommunityController {
 	// 전시후기/소개 상세페이지
 	@RequestMapping("/community/exhibitDetail")
 	@ResponseBody
-	public ModelAndView communityExhibitDetailPage(@RequestParam String comtSq) {
+	public ModelAndView communityExhibitDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_exhint_detailpage");
 
-		Map<String, Object> exhibit = communityService.communityExhKnoDetail(comtSq);
+		Map<String, Object> exhibit = communityService.communityExhKnoDetail((String) param.get("comtSq"));
 		mv.addObject("exhibit", exhibit);
+		
+		// 해당 작성자의 다른 커뮤니티 정보
+		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+		mv.addObject("otherComt", otherComt);
 		
 		return mv;
 	}
@@ -163,11 +189,15 @@ public class CommunityController {
 	// 노하우 상세페이지
 	@RequestMapping("/community/knowhowDetail")
 	@ResponseBody
-	public ModelAndView communityKnowhowDetailPage(@RequestParam String comtSq) {
+	public ModelAndView communityKnowhowDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_knowhow_detailpage");
 		
-		Map<String, Object> knowhow = communityService.communityExhKnoDetail(comtSq);
+		Map<String, Object> knowhow = communityService.communityExhKnoDetail((String) param.get("comtSq"));
 		mv.addObject("knowhow", knowhow);
+		
+		// 해당 작성자의 다른 커뮤니티 정보
+		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+		mv.addObject("otherComt", otherComt);
 		
 		return mv;
 	}
@@ -190,6 +220,64 @@ public class CommunityController {
 		ModelAndView mv = new ModelAndView("jsonView");
 		
 		int result = communityService.communityFollow(param);
+		mv.addObject("result", result);
+		
+		return mv;
+	}
+	
+	// 댓글 등록
+	@RequestMapping("/community/cmtReg")
+	@ResponseBody
+	public ModelAndView comtReg(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = communityService.comtReg(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	// 댓글, 대댓글 조회
+	@RequestMapping("/community/searchComtCmtsList")
+	@ResponseBody
+	public ModelAndView searchComtCmtsList(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		// 댓글 리스트
+		List<Map<String, Object>> comments = communityService.communityComment(param);
+		// 대댓글 리스트
+		List<Map<String, Object>> replys = communityService.communityReply(param);
+		
+		mv.addObject("comments", comments);
+		mv.addObject("replys", replys);
+		
+		return mv;
+	}
+	
+	// 대댓글 등록
+	@RequestMapping("/community/replyReg")
+	@ResponseBody
+	public ModelAndView replyReg(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = communityService.replyReg(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	// 댓글, 대댓글 수정
+	@RequestMapping("/community/modCommentAndReply")
+	@ResponseBody
+	public ModelAndView modCommentAndReply(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = communityService.modCommentAndReply(param);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	// 팔로우 했는지 체크
+	@RequestMapping("/community/followCheck")
+	public ModelAndView followCheck(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		int result = communityService.followCheck(param);
 		mv.addObject("result", result);
 		
 		return mv;

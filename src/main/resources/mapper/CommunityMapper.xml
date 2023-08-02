@@ -13,6 +13,7 @@
 			   CM.WORK_SQ		AS workSq,		-- 작품 순번
 			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
 			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
+			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
 			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
 		  FROM TBL_DA_COMT_M CM
 		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
@@ -56,7 +57,7 @@
 			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
 			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
 			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
-			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 5
+			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 4
 			   END											AS limitNum			-- 조회 갯수
 		  FROM TBL_DA_COMT_MGMT_M
 		 WHERE COMT_TYP_CD = #{comtTypCd}
@@ -64,20 +65,27 @@
 	
 	<select id="showingOffDetail" resultType="hashMap">
 		/* 자랑하기 상세 조회 */
-		SELECT CM.COMT_IMG_URL 															AS comtImgUrl,		-- 커뮤니티 이미지 URL
-			   CM.COMT_TITLE 															AS comtTitle,		-- 커뮤니티 제목
-			   CM.COMT_CONTENT 															AS comtContent,		-- 커뮤니티 내용
-			   CM.COMT_LIKES 															AS comtLikes,		-- 커뮤니티 좋아요수
-			   CM.COMT_VIEWS 															AS comtViews,		-- 커뮤니티 조회수
-			   CM.COMT_CMTS 															AS comtCmts,		-- 커뮤니티 댓글수
-			   CM.COMT_SCRAPS 															AS comtScraps,		-- 커뮤니티 스크랩수
-			   CM.REG_DT 																AS regDt,			-- 커뮤니티 등록 일시
-			   <!-- ( SELECT COUNT(*) FROM TB_DA_RPRT_M RM WHERE CM.RPRT_SQ = RM.RPRT_SQ )	AS rprtCnt,		 신고 수 -->
-		   	   CM.COMT_SALES_YN 														AS comtSalesYn,		-- 커뮤니티 판매제안 여부
-			   MM.MBR_NCKNM 															AS mbrNcknm,		-- 회원 닉네임
-			   MM.MBR_PROFILE_IMG_URL 													AS mbrProfileImgUrl	-- 회원 프로필 이미지 URL
+		SELECT CM.WORK_SQ						AS workSq,			-- 작품 순번
+			   CM.COMT_IMG_URL 					AS comtImgUrl,		-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE 					AS comtTitle,		-- 커뮤니티 제목
+			   CM.COMT_CONTENT 					AS comtContent,		-- 커뮤니티 내용
+			   CM.COMT_LIKES 					AS comtLikes,		-- 커뮤니티 좋아요수
+			   CM.COMT_VIEWS 					AS comtViews,		-- 커뮤니티 조회수
+			   CM.COMT_CMTS 					AS comtCmts,		-- 커뮤니티 댓글수
+			   CM.COMT_SCRAPS 					AS comtScraps,		-- 커뮤니티 스크랩수
+			   CM.REG_DT 						AS regDt,			-- 커뮤니티 등록 일시
+			   (
+			    SELECT COUNT(*)
+			      FROM TBL_DA_RPRT_M RM
+			     WHERE CM.RPRT_SQ = RM.RPRT_SQ
+	   		   )								AS rprtCnt,		 	-- 신고 수
+		   	   CM.COMT_SALES_YN 				AS comtSalesYn,		-- 커뮤니티 판매제안 여부
+			   MM.MBR_NCKNM 					AS mbrNcknm,		-- 회원 닉네임
+			   MM.MBR_PROFILE_IMG_URL 			AS mbrProfileImgUrl,-- 회원 프로필 이미지 URL
+			   CKR.COMT_KEYWRD					AS comtKeywrd		-- 커뮤니티 키워드
 		  FROM TBL_DA_COMT_M CM
 		  	   INNER JOIN TBL_DA_MBR_M MM ON CM.MBR_SQ = MM.MBR_SQ
+		  	   LEFT JOIN TBL_DA_COMT_KEYWRDS_R CKR ON CM.COMT_SQ = CKR.COMT_SQ
 		 WHERE CM.COMT_TYP_CD = 'BOA'
 		   AND CM.OPEN_YN = 'Y'
 		   AND CM.USE_YN = 'Y'
@@ -141,40 +149,6 @@
 		 LIMIT 1
 	</select>
 	
-	<select id="searchComtCmtsList" resultType="hashMap">
-		/* 자랑하기 댓글 조회 */
-		SELECT A.CMT_SQ AS cmtSq,
-			   A.COMT_SQ AS comtSq,
-			   A.CMT_CONTENT AS cmtContent,
-			   DATE_FORMAT(A.REG_DT, '%Y-%m-%d %T') AS regDt,
-			   B.MBR_NCKNM AS mbrNcknm,
-			   B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
-		  FROM TBL_DA_COMT_CMTS_R A
-		  	   LEFT JOIN TBL_DA_MBR_M B ON A.REG_MBR_SQ = B.MBR_SQ
-		 WHERE A.COMT_SQ = #{comtSq}
-		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
-		 ORDER BY A.REG_DT
-	</select>
-	
-	<select id="searchComtReplysList" resultType="hashMap">
-		/* 자랑하기 대댓글 조회 */
-		SELECT A.CMT_SQ AS cmtSq,
-			   A.COMT_SQ AS comtSq,
-			   A.REPLY_CONTENT AS replyContent,
-			   DATE_FORMAT(A.REG_DT, '%Y-%m-%d %T') AS regDt,
-			   B.MBR_NCKNM AS mbrNcknm,
-			   B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
-		  FROM TBL_DA_COMT_REPLYS_R A
-		  	   LEFT JOIN TBL_DA_MBR_M B ON A.REG_MBR_SQ = B.MBR_SQ
-		 WHERE A.COMT_SQ = #{comtSq}
-		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
-		 ORDER BY A.REG_DT
-	</select>
-	
 	<select id="communityListData" resultType="hashMap">
 		/* 커뮤니티 리스트 */
 		SELECT 
@@ -186,6 +160,7 @@
 				, COMT.COMT_VIEWS AS comtViews
 				, COMT.COMT_CMTS AS comtCmts
 				, COMT.COMT_SCRAPS AS comtScraps
+				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
 				, MBR.MBR_INTRO AS mbrIntro
@@ -303,6 +278,8 @@
 				, COMT.EXHIBIT_REGION_CD AS comtExhibitRegionCd 
 				, COMT.COMT_TYP_CD AS comtTypCd
 				, DTLCD.DTL_CD_NM AS comtExhibitRegionCdNm
+				, COMT.EXHIBIT_TYP_CD AS comtExhibitTypCd
+				, DTLCD2.DTL_CD_NM AS comtExhibitTypCdNm
 				, COMT.REG_DT AS comtRegDt
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
@@ -321,6 +298,9 @@
 		LEFT JOIN 
 				TBL_DA_COMN_DTL_CD_S AS DTLCD
 			ON COMT.EXHIBIT_REGION_CD = DTLCD.DTL_CD
+		LEFT JOIN 
+				TBL_DA_COMN_DTL_CD_S AS DTLCD2
+			ON COMT.EXHIBIT_TYP_CD = DTLCD2.DTL_CD
 		LEFT JOIN 
 				TBL_DA_COMT_KEYWRDS_R AS KEYWRDS
 			ON COMT.COMT_SQ = KEYWRDS.COMT_SQ
@@ -341,7 +321,9 @@
 		/* 작성자의 다른 커뮤니티 정보 */
 		SELECT 
 				COMT.COMT_SQ AS comtSq
+				, COMT.MBR_SQ AS mbrSq
 				, COMT.COMT_IMG_URL AS comtImgUrl
+				, COMT.WORK_SQ AS workSq
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		WHERE 
@@ -363,7 +345,7 @@
 				CMTS.CMT_SQ AS cmtSq
 				, CMTS.CMT_CONTENT AS cmtContent
 				, CMTS.REG_MBR_SQ AS cmtMbrSq
-				, CMTS.REG_DT AS cmtRegDt
+				, DATE_FORMAT(CMTS.REG_DT, '%Y.%m.%d %T') AS cmtRegDt
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
@@ -375,6 +357,8 @@
 		WHERE 
 				CMTS.DEL_YN = 'N'
 			AND CMTS.COMT_SQ = #{comtSq}
+		ORDER BY
+				CMTS.REG_DT DESC
 	</select>
 	
 	<select id="communityReply" resultType="hashMap">
@@ -384,7 +368,7 @@
 				, REPLYS.REPLY_SQ AS replySq
 				, REPLYS.REPLY_CONTENT AS replyContent
 				, REPLYS.REG_MBR_SQ AS replyMbrSq
-				, REPLYS.REG_DT AS replyRegDt
+				, DATE_FORMAT(REPLYS.REG_DT, '%Y.%m.%d %T') AS replyRegDt
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
@@ -396,6 +380,8 @@
 		WHERE 
 				REPLYS.DEL_YN = 'N'
 			AND REPLYS.COMT_SQ = #{comtSq}
+		ORDER BY
+				REPLYS.REG_DT DESC
 	</select>
 	
 	<update id="delCommentAndReply">
@@ -424,7 +410,7 @@
 				</if>
 	</update>
 	
-	<select id="findFollow">
+	<select id="findFollow" resultType="int">
 		/* 팔로우 버튼 클릭시 팔로우되어 있는지 확인 */
 		SELECT 
 				COUNT(SCRAP.MBR_SQ) AS isFollow
@@ -452,5 +438,88 @@
 		VALUES
 				(#{mbrSq}, #{fwMbrSq})
 	</insert>
+	
+	<insert id="comtReg">
+		/* 커뮤니티 댓글 등록 */
+		INSERT INTO TBL_DA_COMT_CMTS_R (
+			COMT_SQ,
+			CMT_CONTENT,
+			REG_DT,
+			REG_MBR_SQ,
+			UPDT_DT,
+			UPDT_MBR_SQ
+		) VALUES (
+			#{comtSq},
+			#{cmtContent},
+			NOW(),
+			#{mbrSq},
+			NOW(),
+			#{mbrSq}
+		)
+	</insert>
+	
+	<select id="searchDealProgress" resultType="hashMap">
+		/* 해당 작품의 판매 상태 확인 */
+		SELECT B.DEAL_SQ AS dealSq,
+			   B.DEAL_STTS_CD AS dealSttsCd
+		  FROM TBL_DA_WORK_M A
+		  	   INNER JOIN TBL_DA_DEAL_M B ON A.WORK_SQ = B.WORK_SQ
+		 WHERE B.DEAL_STRT_DT <![CDATA[<=]]> NOW()
+		   AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
+		   AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+		   AND B.DEAL_STTS_CD NOT IN ('ST', 'FB')
+		   AND A.WORK_SQ = #{workSq}
+	</select>
+	
+	<insert id="replyReg">
+		/* 커뮤니티 대댓글 등록 */
+		INSERT INTO TBL_DA_COMT_REPLYS_R (
+			CMT_SQ,
+			COMT_SQ,
+			REPLY_CONTENT,
+			REG_DT,
+			REG_MBR_SQ,
+			UPDT_DT,
+			UPDT_MBR_SQ
+		) VALUES (
+			#{cmtSq},
+			#{comtSq},
+			#{replyContent},
+			NOW(),
+			#{mbrSq},
+			NOW(),
+			#{mbrSq}
+		)
+	</insert>
+	
+	<select id="searchWorkKeywrd" resultType="hashMap">
+		/* 작품 키워드 조회 */
+		SELECT B.KEYWRD AS keywrd
+		  FROM TBL_DA_WORK_M AS A
+		  	   INNER JOIN TBL_DA_KEYWRD_S AS B ON A.WORK_SQ = B.WORK_SQ
+		 WHERE A.WORK_SQ = #{workSq}
+		   AND A.DEL_YN = 'N'
+	</select>
+	
+	<update id="modComment">
+		/* 커뮤니티 댓글, 대댓글 수정 */
+		<if test="cmtType == 'cmt'">
+			UPDATE TBL_DA_COMT_CMTS_R
+			   SET CMT_CONTENT = #{content}
+			 WHERE CMT_SQ = #{sq}
+		</if>
+		<if test="cmtType == 'reply'">
+			UPDATE TBL_DA_COMT_REPLYS_R
+			   SET REPLY_CONTENT = #{content}
+			 WHERE REPLY_SQ = #{sq}
+		</if>
+	</update>
+	
+	<update id="updateCmtCnt">
+		/* 커뮤니티 댓글수 업데이트 */
+		UPDATE TBL_DA_COMT_M
+		   SET COMT_CMTS = COMT_CMTS + #{cnt}
+		 WHERE COMT_SQ = #{comtSq}
+	</update>
 	
 </mapper>
