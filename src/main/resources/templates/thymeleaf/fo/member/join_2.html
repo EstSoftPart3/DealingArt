@@ -97,7 +97,7 @@
 						<div class="input-box">
 							<div class="input-drox"><input type="password" class="input-3" placeholder="비밀번호" id="mbrPasswrd" name="mbrPasswrd"/></div>
 							<p class="inp-p" id="mbrPwdCheckU">영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>
-							<p class="inp-p" id="mbrPwdCheckD">3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외</p>
+							<p class="inp-p" id="mbrPwdCheckD">아이디(이메일) 제외</p>
 						</div>
 						<div class="input-box">
 							<div class="input-drox"><input type="password" class="input-3" placeholder="비밀번호 확인" id="mbrPasswrdConfirm" name="mbrPasswrdConfirm" required/></div>
@@ -418,7 +418,7 @@
   		return;
   	}
   	
-  	 
+/*   	 
   	 var SamePass_0 = 0; //동일문자 카운트
   	 var SamePass_1 = 0; //연속성(+) 카운드
   	 var SamePass_2 = 0; //연속성(-) 카운드
@@ -461,11 +461,10 @@
   		 $("#mbrPasswrd").focus();
   		 
   		 return;
-  	 }
+  	 } */
   	
   	 // 비밀번호 아이디 포함 여부
-  	 if(mbrPasswrd.search(mbrId)>-1)
-  	 {
+  	 if(mbrPasswrd.search(mbrId)>-1){
   		 $('#mbrPwdCheckU').css('color','#999999');
   		 $('#mbrPwdCheckD').css('color','red');
   		 $("#mbrPasswrd").focus();
