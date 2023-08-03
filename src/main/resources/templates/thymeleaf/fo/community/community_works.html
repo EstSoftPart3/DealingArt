@@ -110,17 +110,11 @@
                 </ul>
             </div>
             <div class="input_wrap">
-                <div class="input_cal ml10" style="display: inline; position: static;">
-                	<span>기간검색</span>
+                <div class="input_cal" style="display: inline; position: static;">
                 	<input type="date" id="startDate" onchange="checkCalendar()">
-                	<span>~</span>
+                	<span class="">~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
-                </div>
-            </div>
-            <div class="notice">
-                <div class="tit">공 지</div>
-                <div class="contents">작품자랑 작성 가이드 라인 ver 1.0
-                    <div class="sel_sorting">
+                	<div class="sel_sorting">
                         <select name="comtSort" id="comtSort">
                             <option value="">정렬</option>
                             <option value="newest">최신순</option>
@@ -140,12 +134,13 @@
                     </div>
                 </div>
             </div>
-            <div class="workspic_wrap">
-                <div class="workspic_row">
-                    <ul id="worksBox">
-                    
-                    </ul>
+            <div class="notice dp-flex">
+                <div class="tit">공 지</div>
+                <div class="contents mt0">
+                	<div>작품자랑 작성 가이드 라인 ver 1.0</div>
                 </div>
+            </div>
+            <div class="workspic_wrap">
                 <div class="btn_area">
                     <button type="button" onclick="communityWorksList()">더보기</button>
                 </div>
@@ -172,7 +167,6 @@
    		$("#comtSort").on("change", function(){
    			comtSort = $(this).val();
    			offset = 0;
-   			$("#worksBox").empty();
    			communityWorksList();
    		});
    	});
@@ -187,7 +181,6 @@
    		
    		if(startDate != '' && endDate != ''){
    			offset = 0;
-   			$("#worksBox").empty();
    			communityWorksList();
    		}
    	}
@@ -221,40 +214,81 @@
    	
    	function workHtml(list){
    		var strHtml = '';
-   		list.forEach(function(work){
-   			strHtml += '<li id="work_'+ work.comtSq +'">';
-            strHtml += '    <div class="works_pic">';
-            strHtml += '        <div class="header">';
+   		
+   		list.forEach(function(work, idx){
+   			var cnt = idx + 1;
+   			
+   			if(cnt == 1 || cnt % 5 == 0) {
+	   			strHtml += '<div class="workspic_row">';
+	   			strHtml += '	<ul id="worksBox">';
+   			}
+   			
+   			strHtml += '		<li id="work_'+ work.comtSq +'">';
+            strHtml += '    		<div class="works_pic">';
+            strHtml += '        		<div class="header">';
             
             if(null != work.mbrProfileImgUrl){
-            	strHtml += '            <div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
+            	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
             } else {
-	            strHtml += '            <div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
+	            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
             }
             
-            strHtml += '            <ul class="user_name">';
-            strHtml += '                <li><span>'+ work.mbrNcknm +'</span></li>';
-            strHtml += '                <li>'+ work.mbrIntro +'</li>';
-            strHtml += '            </ul>';
-            strHtml += '        </div>';
-            strHtml += '        <div class="pic"><div class="ico_new">NEW</div><a href="/community/workDetail?comtSq='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt=""></a></div>';
-            strHtml += '        <div class="icon_box">';
-            strHtml += '            <ul>';
-            strHtml += '                <li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';
-            strHtml += '                <li><p class="ico_scrap"></p><span>'+ work.comtScraps +'</span></li>';
-            strHtml += '                <li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
-            strHtml += '                <li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
-            strHtml += '            </ul>';
-            strHtml += '        </div>';
-            strHtml += '        <div class="text">'+ work.comtTitle +'</div>';
-            strHtml += '    </div>';
-            strHtml += '</li>';
-  	        
+            strHtml += '            		<ul class="user_name">';
+            strHtml += '                		<li><span>'+ work.mbrNcknm +'</span></li>';
+            strHtml += '                		<li>'+ (work.mbrIntro || "") +'</li>';
+            strHtml += '            		</ul>';
+            strHtml += '        		</div>';
+            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="javascript:void(0);" data-mbrSq='+ work.mbrSq +' data-comtSq='+ work.comtSq +' data-workSq='+ work.workSq +' data-artstsq='+ work.artstSq +' onclick="openComtDetail(this, \'BOA\');"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+            strHtml += '        		<div class="icon_box">';
+            strHtml += '           			<ul>';
+            strHtml += '                		<li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';
+            strHtml += '                		<li><p class="ico_scrap"></p><span>'+ work.comtScraps +'</span></li>';
+            strHtml += '                		<li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
+            strHtml += '                		<li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
+            strHtml += '            		</ul>';
+            strHtml += '        		</div>';
+            strHtml += '        		<div class="text ellipsis-w-360">'+ work.comtTitle +'</div>';
+            strHtml += '    		</div>';
+            strHtml += '		</li>';
+            
+            if(cnt != 1 && cnt % 4 == 0 || list.length == cnt) {
+	   			strHtml += '	</ul>';
+	            strHtml += '</div>';
+            }
    		});
    		
-   		$("#worksBox").append(strHtml);
-
+   		$("#workspic_wrap .workspic_row").remove();
+   		$(".workspic_wrap").prepend(strHtml);
    	}
+   	
+ 	// 커뮤니티 상세 페이지 이동
+	function openComtDetail(obj, type) {
+		var url = "";
+		
+		switch(type) {
+		case "BOA":
+			url = "/community/showingOffDetail";
+			break;
+		case "EXH":
+			url = "/community/exhibitDetail";
+			break;
+		case "KNO":
+			url = "/community/knowhowDetail";
+			break;
+		}
+		
+		pageGoPost({
+			url: url,
+			target:"_self",
+			vals:[
+				["mbrSq", $(obj).data("mbrsq")],
+				["comtSq", $(obj).data("comtsq")],
+				["artstSq", $(obj).data("artstsq")],
+				["workSq", $(obj).data("worksq")],
+				["comtTypCd", type]
+			]
+		});
+	}
 
     </script>
 </body>
