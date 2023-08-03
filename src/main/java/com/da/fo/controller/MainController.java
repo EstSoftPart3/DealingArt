@@ -41,6 +41,11 @@ public class MainController {
 		return "thymeleaf/da_main";
 	}
 	
+	@RequestMapping("/main_3")
+	public String openMain3() {
+		return "thymeleaf/main";
+	}
+	
 	//로그인 페이지
 	@RequestMapping("/main/mlogin")
 	public String openLogin() {

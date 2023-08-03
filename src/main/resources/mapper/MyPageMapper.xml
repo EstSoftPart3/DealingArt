@@ -86,9 +86,16 @@
 				, COMT.WORK_SQ AS workSq /*작품_순번*/
 				, COMT.ARTST_SQ AS artstSq /*작가_순번*/
 				, COMT.DEAL_SQ AS dealSq /*거래_순번*/
+				, COMT.COMT_TYP_CD AS comtTypCd /*커뮤니티_타입_코드*/
+				, CDDTL.DTL_CD_NM AS comtTypCdNm /*커뮤니티_타입_코드_이름*/
 				, COMT.COMT_IMG_URL AS comtImgUrl /*커뮤니티_이미지_URL*/
 				, COMT_TITLE AS comtTitle /*커뮤니티_제목*/
-				, COUNT(CMTS.CMT_SQ)+COUNT(REPLYS.REPLY_SQ) AS comtCmtTotal /*커뮤니티_댓글_총갯수*/
+				, IFNULL((SELECT COUNT(CMT_SQ) FROM TBL_DA_COMT_CMTS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) 
+					+ IFNULL((SELECT COUNT(REPLY_SQ) FROM TBL_DA_COMT_REPLYS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) AS cmtTotalCount /*커뮤니티_댓글_총갯수*/
+				, COMT.REG_DT AS regDt /*등록_일시*/
+				, COMT.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, COMT.UPDT_DT AS  updtDt /*수정_일시*/
+				, COMT.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
@@ -104,11 +111,12 @@
 				TBL_DA_DEAL_M AS DEAL
 			ON	COMT.DEAL_SQ = DEAL.DEAL_SQ
 		LEFT JOIN 
-				TBL_DA_COMT_CMTS_R AS CMTS
-			ON	COMT.COMT_SQ = CMTS.COMT_SQ
+				TBL_DA_COMN_CD_M AS CD
+			ON	CD.CD = 'COMT_TYP_CD'
 		LEFT JOIN 
-				TBL_DA_COMT_REPLYS_R AS REPLYS
-			ON	CMTS.CMT_SQ = REPLYS.CMT_SQ
+				TBL_DA_COMN_DTL_CD_S AS CDDTL
+			ON	CD.CD_SQ = CDDTL.CD_SQ
+			AND CDDTL.DTL_CD = COMT.COMT_TYP_CD
 		WHERE 
 				COMT.MBR_SQ = #{mbrSq}
 			AND COMT.COMT_TYP_CD = #{comtTypCd}

@@ -61,7 +61,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 .main_wrap .market_work_wrap .tit_wrap h2{font-size: 26px;letter-spacing: -1.5px;}
 .main_wrap .market_work_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .main_wrap .market_work_wrap ul{width: 100%;margin-top: 22px;}
-.main_wrap .market_work_wrap ul li{float: left;margin-right: 20px;}
+.main_wrap .market_work_wrap ul li{float: left;margin-right: 20px;width: 360px !important;height: 360px;}
 .main_wrap .market_work_wrap ul li:last-child{margin-right: 0;}
 .main_wrap .market_work_wrap ul li p{text-align: center;font-size: 20px;color: #111111;padding: 26px 0;}
 
