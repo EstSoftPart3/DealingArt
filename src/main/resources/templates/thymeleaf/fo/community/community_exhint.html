@@ -99,7 +99,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="community_wrap">
-            <div id="nav">
+            <!-- <div id="nav">
             	<ul>
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
@@ -108,19 +108,32 @@
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
+            </div> -->
+            <!-- mobile html 시작 -->
+            <div id="nav">
+                <ul>
+                    <li><a href="/community/main">홈</a></li>
+                    <li><a href="/community/worksList">작품자랑</a></li>
+                    <li><a href="/community/exhintList" class="over">전시후기&소개</a></li>
+                    <li><a href="/community/knowhowList">노하우</a></li>
+                    <li><a href="/community/event">이벤트</a></li>
+                </ul>
             </div>
+            <button class="btn_recording">기록하기</button>
+            <!-- mobile html 끝 -->
             <div class="input_wrap">
-                <div class="input_cal ml10" style="display: inline; position: static;">
-                	<span>기간검색</span>
+                <div class="input_cal" style="display: inline; position: static;">
+                	<span class="hidden">기간검색</span>
                 	<input type="date" id="startDate" onchange="checkCalendar()">
                 	<span>~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
                 </div>
             </div>
-            <div class="notice">
+            <!-- <div class="notice">
                 <div class="tit">공 지</div>
-                <div class="contents">작품자랑 작성 가이드 라인 ver 1.0</div>
-                <div class="sel_sorting">
+                <div class="contents">
+                	작품자랑 작성 가이드 라인 ver 1.0
+                	<div class="sel_sorting">
                     <select class="exhSelectBox" name="comtSort" id="comtSort">
                         <option value="">정렬</option>
                         <option value="newest">최신순</option>
@@ -139,15 +152,78 @@
                         <option value="">구분</option>
                     </select>
                 </div>
+                </div>                
+            </div> -->
+            <!-- mobile html 시작-->
+            <div class="notice">
+                <div class="tit">공 지</div>
+                <div class="contents">
+                	작품자랑 작성 가이드 라인 ver 1.0                	
+                </div>                                
             </div>
+            <div class="sel_sorting width34per">
+                    <select class="exhSelectBox" name="comtSort" id="comtSort">
+                        <option value="">정렬</option>
+                        <option value="newest">최신순</option>
+                        <option value="byRecentPopularity">최근 인기 순</option>
+                        <option value="allTimePopularity">역대 인기 순</option>
+                        <option value="pastOrder">과거 순</option>
+                    </select>
+            </div>
+            <div class="sel_form width33per">
+                <select class="exhSelectBox" name="exhibitRegionCd" id="exhibitRegionCd">
+                    <option value="">지역</option>
+                </select>
+            </div>
+            <div class="sel_form width33per">
+                <select class="exhSelectBox" name="exhibitTypCd" id="exhibitTypCd">
+                    <option value="">구분</option>
+                </select>
+            </div>
+            <!-- mobile html 시작 -->
             <div class="exhint_wrap" id="listBox">
-                
-                <div class="pagination">
+                <div class="exhint_row" id="exhibit_34">
+                	<div class="contents">
+                		<ul>			
+    						<div class="exhint_list_img"><img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/community/exhibit/330/af3e9413-05d6-421f-bfb9-6393c395d0datestImg1.jpg" onclick="opneExhibitDetail(34)" style="cursor: pointer;" alt=""></div>
+    						<div onclick="opneExhibitDetail(34);" style="cursor: pointer;">
+    						<li>
+    							<div class="tit"><em>aaaaaaaa</em><div class="ico_new">NEW</div></div>
+    						</li>
+    						<li class="pt20 height121">
+    							<p></p>
+    							<p>aaaaaaaaaaaaaaaaa</p>
+    							<p></p>
+    						</li>
+    						</div>
+    						<li>
+    							<div class="user_wrap">
+									<div class="user">
+										<ul>
+											<li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>
+											<li class="user_name"><span>정영우</span></li>
+										</ul>
+									</div>
+									<div class="icon_box">
+										<ul>
+											<li><p class="ico_good"></p><span>5</span></li>
+											<li><p class="ico_scrap"></p><span>0</span></li>
+											<li><p class="ico_hits"></p><span>10</span></li>
+											<li><p class="ico_comments"></p><span>0</span></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+            </div>
+            <!-- mobile html 끝 -->
+            <div class="pagination">
                     <div class="paginate" id="paginate">                        
                         
                     </div>
-                </div>
-            </div>  
+                </div>  
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
@@ -245,7 +321,7 @@
    	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
    	        strHtml += '                	</div>';
    	        strHtml += '            	</li>';
-   	        strHtml += '            	<li class="pt20 height114">';
+   	        strHtml += '            	<li class="pt20 height121">';
    	        strHtml += '            		<p>'+ exhibit.comtContent +'</p></li>';
    	        strHtml += '            	</li>';
    	        strHtml += '            </div>';

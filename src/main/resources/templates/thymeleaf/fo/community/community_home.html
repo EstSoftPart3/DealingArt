@@ -99,7 +99,7 @@
     <th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="community_wrap">
-            <div id="nav">
+            <!-- <div id="nav">
                 <ul>
                     <li><a href="/community/main" class="over">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
@@ -108,7 +108,19 @@
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
+            </div> -->
+            <!-- mobile html 시작 -->
+            <div id="nav">
+                <ul>
+                    <li><a href="/community/main" class="over">홈</a></li>
+                    <li><a href="/community/worksList">작품자랑</a></li>
+                    <li><a href="/community/exhintList">전시후기&소개</a></li>
+                    <li><a href="/community/knowhowList">노하우</a></li>
+                    <li><a href="/community/event">이벤트</a></li>
+                </ul>
             </div>
+            <button class="btn_recording">기록하기</button>
+            <!-- mobile html 끝 -->
             <div class="community_visual_wrap">
                 <!-- <div class="community_visual"><a href="#"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
                 <div class="community_visual_event">
@@ -117,14 +129,14 @@
                         <li><a href="#"><img src="/resources/img/img_new/btn_event_more.png" alt=""></a></li>
                     </ul>  
                 </div> -->
-            </div>
-            <div class="works_wrap">
+            </div>             
+            <!-- <div class="works_wrap">
                 <div class="tit_wrap">
                     <h2>이주의 인기 작품자랑</h2>
                     <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
                 </div>
                 <ul>
-                    <!-- <li>
+                    <li>
                       <a href="#"><img src="/resources/img/img_new/sample_works01.jpg" alt=""></a>
                       <p>희망을 주는 그림</p>
                     </li>
@@ -139,16 +151,42 @@
                     <li>
                       <a href="#"><img src="/resources/img/img_new/sample_works04.jpg" alt=""></a>
                       <p>희망을 주는 그림</p>
-                    </li> -->
+                    </li> 
                   </ul>
+            </div> -->
+            <!-- mobile html 시작 -->
+            <div class="works_wrap">
+                <div class="tit_wrap">
+                    <h2>이주의 인기 작품자랑</h2>
+                    <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
+                </div>
+                <div class="works_box_wrap">
+                	<div class="works_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works01.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="works_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works02.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="works_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works03.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="works_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works04.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                </div>                  
             </div>
-            <div class="master_wrap">
+            <!-- mobile html 끝 -->
+            <!-- <div class="master_wrap">
                 <div class="tit_wrap">
                     <h2>자랑하기의 고수</h2>
                     <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
                 </div>
                 <ul>
-                    <!-- <li>
+                    <li>
                       <a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a>
                       <p>전시를 다녀 왔어요</p>
                     </li>
@@ -163,9 +201,35 @@
                     <li>
                       <a href="#"><img src="/resources/img/img_new/sample_master04.jpg" alt=""></a>
                       <p>전시를 다녀 왔어요</p>
-                    </li> -->
+                    </li>
                   </ul>
+            </div> -->
+            <!-- mobile html 시작 -->
+            <div class="master_wrap">
+                <div class="tit_wrap">
+                    <h2>자랑하기의 고수</h2>
+                    <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
+                </div>
+                <div class="master_box_wrap">
+                	<div class="master_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="master_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master02.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="master_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                	<div class="master_box">
+                		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a></div>
+                		<div class="text">희망을 주는 그림</div>
+                	</div>
+                </div>
             </div>
+            <!-- mobile html 끝 -->            
             <div class="posts_warp">
                 <div class="intro_posts">
                     <div class="tit_wrap">

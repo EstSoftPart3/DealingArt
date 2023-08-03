@@ -99,7 +99,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="community_wrap">
-            <div id="nav">
+            <!-- <div id="nav">
                 <ul>
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
@@ -108,19 +108,32 @@
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
+            </div> -->
+            <!-- mobile html 시작 -->
+            <div id="nav">
+                <ul>
+                    <li><a href="/community/main">홈</a></li>
+                    <li><a href="/community/worksList">작품자랑</a></li>
+                    <li><a href="/community/exhintList">전시후기&소개</a></li>
+                    <li><a href="/community/knowhowList" class="over">노하우</a></li>
+                    <li><a href="/community/event">이벤트</a></li>
+                </ul>
             </div>
+            <button class="btn_recording">기록하기</button>
+            <!-- mobile html 끝 -->
             <div class="input_wrap">
-                <div class="input_cal ml10" style="display: inline; position: static;">
-                	<span>기간검색</span>
+                <div class="input_cal" style="display: inline; position: static;">
+                	<span class="hidden">기간검색</span>
                 	<input type="date" id="startDate" onchange="checkCalendar()">
                 	<span>~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
                 </div>
             </div>
-            <div class="notice">
+            <!-- <div class="notice">
                 <div class="tit">공 지</div>
-                <div class="contents">작품자랑 작성 가이드 라인 ver 1.0</div>
-                <div class="sel_sorting">
+                <div class="contents">
+                	작품자랑 작성 가이드 라인 ver 1.0
+                	<div class="sel_sorting right16">
                     <select class="knoSelectBox" name="comtSort" id="comtSort">
                         <option value="">정렬</option>
                         <option value="newest">최신순</option>
@@ -128,8 +141,26 @@
                         <option value="allTimePopularity">역대 인기 순</option>
                         <option value="pastOrder">과거 순</option>
                     </select>
-                </div>
+                	</div>                
+                </div>                
+            </div> -->
+            <!-- mobile html 시작-->
+            <div class="notice">
+                <div class="tit">공 지</div>
+                <div class="contents">
+                	작품자랑 작성 가이드 라인 ver 1.0                	                
+                </div>                
             </div>
+            <div class="sel_sorting width100per">
+                    <select class="knoSelectBox" name="comtSort" id="comtSort">
+                        <option value="">정렬</option>
+                        <option value="newest">최신순</option>
+                        <option value="byRecentPopularity">최근 인기 순</option>
+                        <option value="allTimePopularity">역대 인기 순</option>
+                        <option value="pastOrder">과거 순</option>
+                    </select>
+           	</div>
+            <!-- mobile html 끝-->
             <div class="exhint_wrap" id="listBox">
                 
                 <div class="pagination">
@@ -221,7 +252,7 @@
 	        strHtml += '						<div class="ico_new">NEW</div>';
 	        strHtml += '                	</div>';
 	        strHtml += '            	</li>';
-	        strHtml += '            	<li class="pt20 height114">';
+	        strHtml += '            	<li class="pt20 height121">';
 	        strHtml += '					<p>'+ knowhow.comtContent +'</p>';
 	        strHtml += '				</li>';
 	        strHtml += '			</div>';
