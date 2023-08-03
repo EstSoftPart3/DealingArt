@@ -123,7 +123,7 @@
                     <div class="right"><img src="/resources/img/img_new/main_works_showingoff_sample01.jpg" alt=""></div> -->
                 </div>
             </div>
-            <div class="market_work_wrap">
+            <!-- <div class="market_work_wrap">
                 <div class="tit_wrap">
                     <h2>지금 거래중인 작품</h2>
                     <a href="/deal"><button type="button" class="btn_more">더보기</button></a>
@@ -139,7 +139,24 @@
 	                <div class="swiper-button-next btn_swipe_right"></div>
                 </div>
                 
-            </div>
+            </div> -->
+            <!-- New deal --> <!-- 0808 -->
+			<div class="contents max-1500" id="newDeal_title">
+				<div class="cont-title">
+					<h3>지금 거래중인 작품</h3>
+				</div>
+				<div class="swi-box">
+					<div class="swiper mySwiper1">
+						<div class="swiper-wrapper" id="nowDealWorkBox"></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>
+					</div>
+					<div class="swiper-button-next InNextSwiper1 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev InPrevSwiper1 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+				</div>
+				<!-- <div class="text-center">
+					<button type="button" class="btn-more ta-no"><span>more</span></button>
+				</div> -->
+			</div>
             <div class="magazine9_wrap">
                 <div class="tit_wrap">
                     <h2>매거진 9</h2>
@@ -208,24 +225,46 @@
     	// 초기 화면 셋팅
     	pageRendering();
     	
-    	// 스와이퍼 부분 
-    	var mySqiper = new Swiper('.swiper-container', {
-        	
-        	loop: true,
-        	
-        	pagination: {
-        		el: '.swiper-pagination',
-        	},
-        	
-        	navigation: {
-        		nextEl: '.swiper-button-next',
-        		prevEl: '.swiper-button-prev',
-        	},
-        	
-        	scrollbar: {
-        		el: '.swiper-scrollbar',
-        	},
-        });
+    	/* 첫번째 배너  */
+  	  var swiper1Num = 4;
+  	  
+  	  var swiper = new Swiper(".swiper1", {
+  		   slidesPerView: "auto",
+  		   loop: false,
+  		   /* autoplay: {
+  		          delay: 3000,
+  		          disableOnInteraction: false,
+  		   }, */
+  			navigation: {
+  				 nextEl: ".btn_swipe_right1",
+  				 prevEl: ".btn_swipe_left1",
+  			},
+  	  });
+  	  
+  	  
+  	  responsiveSwiper(swiper1Num);
+  	  
+  	  function responsiveSwiper(swiper1Num) {
+  			if (ww >= 1200) {
+  				// 1
+  				swiper = new Swiper('.swiper1', {
+  					slidesPerView: mySwiper2Num,
+  					loop: false,
+  					effect: 'slide',
+  					navigation: {
+  						 nextEl: ".btn_swipe_right1",
+  						 prevEl: ".btn_swipe_left1",
+  					},
+  				});
+  			} else if (ww < 1200) {
+  				// 2
+  				swiper = new Swiper('.mySwiper1', {
+  					slidesPerView: 1,
+  					loop: false
+  					
+  				});
+  			}
+  		}
     });
     
     // 초기 화면 셋팅 
@@ -274,11 +313,20 @@
     	
     	list.forEach( function( work ) {
     		
-    		strHtml += '<li class="swiper-slide">';
-    		strHtml += '    <a href="주소입력하기'+ work.workSq +'"><img src="'+ work.workMainImgUrl +'" alt=""></a>';
-    		strHtml += '</li>';
+    		strHtml += '<div class="swiper-slide hd-div">';
+    		strHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+work.dealSq+')">';
+    		strHtml += '		<img src="'+work.workMainImgUrl+'" class="hd-img"/>';
+    		strHtml += '		<div class="hd-text">';
+    		strHtml += '			<h4>'+work.artstActvtyNm+'</h4>';
+    		strHtml += '			<div class="hd-d1">'+work.workNm +'('+ work.workProdcYear+')';
+    		strHtml += '         <br/>'+work.workMatrl+', '+work.workSizeWidth +'x'+ work.workSizeDepth+'</div>';
+    		//strHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
+    	    strHtml += '		</div>';
+    	    strHtml += '	</a>';
+    	    strHtml += '</div>';
     		
     	});
+    	
     	
     	$("#nowDealWorkBox").prepend(strHtml);
     }
