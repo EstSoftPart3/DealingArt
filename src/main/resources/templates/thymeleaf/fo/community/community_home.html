@@ -104,7 +104,7 @@
                     <li><a href="/community/main" class="over">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
                     <li><a href="/community/exhintList">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList">노하우</a></li>
+                    <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
@@ -122,15 +122,15 @@
             <button class="btn_recording">기록하기</button>
             <!-- mobile html 끝 -->
             <div class="community_visual_wrap">
-                <!-- <div class="community_visual"><a href="#"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
+                <div class="community_visual"><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
                 <div class="community_visual_event">
                     <ul>
-                        <li><a href="#"><img src="/resources/img/img_new/event_6m.png" alt=""></a></li>
-                        <li><a href="#"><img src="/resources/img/img_new/btn_event_more.png" alt=""></a></li>
+                        <li><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/event_6m.png" alt=""></a></li>
+                        <li><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/btn_event_more.png" alt=""></a></li>
                     </ul>  
-                </div> -->
+                </div>
             </div>             
-            <!-- <div class="works_wrap">
+            <div class="works_wrap">
                 <div class="tit_wrap">
                     <h2>이주의 인기 작품자랑</h2>
                     <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
@@ -153,7 +153,7 @@
                       <p>희망을 주는 그림</p>
                     </li> 
                   </ul>
-            </div> -->
+            </div>
             <!-- mobile html 시작 -->
             <div class="works_wrap">
                 <div class="tit_wrap">
@@ -281,12 +281,12 @@
     				masterWrap.append(setShowingOffHtml(boastMstList)).trigger("create");
     				
     				var introPostsWarp = $(".intro_posts ol"); // 전시후기/소개 베스트 게시물
-    				introPostsWarp.append(setExhibitAndKnowHowHtml(boastMstList, "EXH")).trigger("create");
+    				introPostsWarp.append(setExhibitAndKnowHowHtml(bestExhibitList, "EXH")).trigger("create");
     				
     				var issuePostsWarp = $(".issue_posts ol"); // 이슈 베스트 게시물
     				issuePostsWarp.append(setExhibitAndKnowHowHtml(bestIssueList, "KNO")).trigger("create");
     				
-    				// 빅 배너
+    				/* // 빅 배너
     				var bigBnn = data.result.bigBnn;
     				// 이벤트 배너
     				var eventBnn = data.result.eventBnn;
@@ -302,7 +302,7 @@
     				visualHtml += "    </ul>";
     				visualHtml += "</div>";
     				
-    				$(".community_visual_wrap").append(visualHtml).trigger("create");
+    				$(".community_visual_wrap").append(visualHtml).trigger("create"); */
     			}
     		});
     	});
@@ -312,10 +312,10 @@
 			var html = "";
 			$.each(list, function(idx, item) {
 				html += "<li>";
-				html += "	<a href='javascript:void(0);' data-comtSq="+ item.comtSq +" data-artstSq="+ item.artstSq +" data-workSq="+ item.workSq +" onclick='openComtDetail(this, \"BOA\");'>";
-				html += "		<img src="+ item.comtImgUrl +" alt='' style='width: 360px; height: 360px;'>";
+				html += "	<a href='javascript:void(0);' data-mbrSq="+ item.mbrSq +" data-comtSq="+ item.comtSq +" data-artstSq="+ item.artstSq +" data-workSq="+ item.workSq +" onclick='openComtDetail(this, \"BOA\");'>";
+				html += "		<img src="+ item.comtImgUrl +" alt='' style='width: 360px; height: 360px; object-fit: contain;'>";
 				html += "	</a>";
-				html += "	<p>"+ item.comtTitle +"</p>";
+				html += "	<p style='width: 360px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>"+ item.comtTitle +"</p>";
 				html += "</li>";
 			});
 			return html;
@@ -323,19 +323,18 @@
     	
     	// 전시후기/소개 베스트 게시물, 이슈 베스트 게시물 html 구성
 		function setExhibitAndKnowHowHtml(list, type) {
-    		console.log(list);
 			var html = "";
 			$.each(list, function(idx, item) {
 				html += "<li>";
-				html += "	<a href='javascript:void(0);' data-comtsq="+ item.comtSq +" data-artstsq="+ item.artstSq +" data-worksq="+ item.workSq +" onclick='openComtDetail(this, '"+ type +"');'>";
-				html += "		<span class='no1'></span>" + item.comtTitle;
+				html += "	<a href='javascript:void(0);' data-mbrSq="+ item.mbrSq +" data-comtsq="+ item.comtSq +" data-artstsq="+ item.artstSq +" data-worksq="+ item.workSq +" onclick='openComtDetail(this, \""+ type +"\");'>";
+				html += "		<span style='width: 450px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-right: 10px;'>"+ (idx+1) +"</span>" + item.comtTitle;
+				html += "		<span style='float: right;'>"+ item.regDt +"</span>";
 				if(item.comtCmts) {
 					html += "	<em>+"+ item.comtCmts +"</em>";
 				}
 				html += "	</a>";
 				html += "</li>";
 			});
-			console.log(html);
 			return html;
 		}
     	
@@ -359,19 +358,30 @@
 				url: url,
 				target:"_self",
 				vals:[
+					["mbrSq", $(obj).data("mbrsq")],
 					["comtSq", $(obj).data("comtsq")],
 					["artstSq", $(obj).data("artstsq")],
-					["workSq", $(obj).data("worksq")]
+					["workSq", $(obj).data("worksq")],
+					["comtTypCd", type]
 				]
 			});
     	}
     	
     	// 더보기 클릭 이벤트
     	function btnMore(type) {
-    		/* var url = "";
+    		var url = "";
     		switch(type) {
-    		
-    		} */
+    		case "BOA":
+    			url = "/community/worksList";
+    			break;
+    		case "EXH":
+    			url = "/community/exhintList";
+    			break;
+    		case "KNO":
+    			url = "/community/knowhowList";
+    			break;
+    		}
+    		location.href = url;
     	}
     </script>
 </body>

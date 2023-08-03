@@ -104,7 +104,7 @@
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
                     <li><a href="/community/exhintList">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList" class="over">노하우</a></li>
+                    <li><a href="/community/issueList" class="over">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
@@ -241,11 +241,11 @@
    		
    		list.forEach( function (knowhow) {
    			strHtml += '<div class="exhint_row">';
-	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" onclick="opneKnowhowDetail('+knowhow.comtSq+');" alt="" style="cursor: pointer;"></div>';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
 	        
-	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+');" style="cursor: pointer;">';
+	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" style="cursor: pointer;">';
 	        strHtml += '            	<li>';
 	        strHtml += '                	<div class="tit">';
 	        strHtml += '                    	<em>'+ knowhow.comtTitle +'</em>';
@@ -290,10 +290,18 @@
         $("#listBox").prepend(strHtml);
    	}
 	
-	function opneKnowhowDetail(sqNumber){
-		location.href = "/community/knowhowDetail?comtSq="+sqNumber;
+	function opneKnowhowDetail(comtSq, mbrSq, cmtType){
+		pageGoPost({
+			url: "/community/knowhowDetail",
+			target:"_self",
+			vals:[
+				["mbrSq", mbrSq],
+				["comtSq", comtSq],
+				["comtTypCd", cmtType]
+			]
+		});
 	}
-    
+	
  	// 캘린더 선택시 조회하기 
    	function checkCalendar(){
    		startDate = $("#startDate").val();

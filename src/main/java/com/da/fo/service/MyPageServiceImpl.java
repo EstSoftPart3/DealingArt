@@ -19,6 +19,51 @@ public class MyPageServiceImpl implements MyPageService{
 	private MyPageDao myPageDao;
 	
 	/*
+	 * 마이페이지 메인 회원정보 조회
+	 * param : mbrSq
+	 * return : Map
+	 */
+	public Map<String, Object> myPageMain_myInfo(Object param){
+		return myPageDao.myPageMain_myInfo(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 나의 작품 조회
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPageMain_myWorks(Object param){
+		return myPageDao.myPageMain_myWorks(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 나의 작품 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPageMain_myWorksTotal(Object param){
+		return myPageDao.myPageMain_myWorksTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 나의 커뮤니티 조회
+	 * param : Map
+	 * return : Map
+	 */
+	public List<Map<String, Object>> myPageMain_myCommunitys(Object param){
+		return myPageDao.myPageMain_myCommunitys(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 나의 커뮤니티 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPageMain_myCommunitysTotal(Object param){
+		return myPageDao.myPageMain_myCommunitysTotal(param);
+	}
+	
+	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int

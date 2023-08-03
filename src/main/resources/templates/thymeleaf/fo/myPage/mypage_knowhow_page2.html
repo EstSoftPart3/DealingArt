@@ -110,7 +110,7 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no">노하우 등록</h3>
+					<h3 class="mo-no">이슈 등록</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -245,7 +245,7 @@
 			}
 
 		    formData.append("knowhow", new Blob([JSON.stringify(knowhow)], {type: "application/json"}));
-		
+
 			modalConfirm("딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
 	    		function(confirm){
 	    			if(confirm){
@@ -257,9 +257,10 @@
 	    			        processData : false,
 	    			        success: function(data) {
 	    			        	if(data == 1){
-	    			        		modalAlertShow("노하우 등록되었습니다.", "myknowhowList");
+	    			        		modalAlertShow("노하우 등록되었습니다.");
+	    			        		location.href = "/community/knowhowList";
 	    			        	}else{
-	    			        		modalAlertShow("노하우 등록에 실패했습니다. 다시 시도해주세요.", "myknowhowList");
+	    			        		modalAlertShow("노하우 등록에 실패했습니다. 다시 시도해주세요.");
 	    			        	}
 	    			        },
 	    			        error: function(error) {

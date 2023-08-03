@@ -3,6 +3,153 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MyPageMapper">
+	<select id="myPageMain_myInfo" parameterType="String" resultType="hashMap">
+		/*마이페이지 메인 나의 정보 조회*/
+		SELECT 
+				MBR.MBR_SQ AS mbrSq /*회원_순번*/
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl /*회원_프로필사진_URL*/
+				, MBR.MBR_NCKNM AS mbrNcknm /*회원_닉네임*/
+				, MBR.MBR_ID AS mbrId /*회원_아이디*/
+				, (CASE
+						WHEN MBR.AUTH_SQ = '1' THEN '컬렉터'
+						WHEN MBR.AUTH_SQ = '2' THEN '아티스트'
+						WHEN MBR.AUTH_SQ = '3' THEN '관리자'
+					END) AS mbrTypNm /*회원_구분_이름*/
+				, IFNULL(SUM(COMT.COMT_SCRAPS), 0)  AS mbrScraps /*회원_스크랩수*/
+				, IFNULL(SUM(COMT.COMT_LIKES), 0) AS mbrLikes /*회원_좋아요수*/
+				, COUNT(NOTI.NOTI_SQ) AS mbrNotis /*회원_알림수*/
+				, MBR.MBR_FACEBOOK_URL AS mbrFacebookUrl /*회원_페이스북_URL*/
+				, MBR.MBR_INSTAR_URL AS mbrInstarUrl /*회원_인스타그램_URL*/
+				, MBR.MBR_YOUTUBE_URL AS mbrYoutubeUrl /*회원_유투브_URL*/
+				, MBR.MBR_TWITTER_URL AS mbrTwitterUrl /*회원_트위터_URL*/
+		FROM 
+				TBL_DA_MBR_M AS MBR
+		LEFT JOIN
+				TBL_DA_COMT_M AS COMT
+			ON	MBR.MBR_SQ = COMT.MBR_SQ
+		LEFT JOIN
+				TBL_DA_NOTI_M AS NOTI
+			ON	MBR.MBR_SQ = NOTI.MBR_SQ
+		WHERE 
+				MBR.MBR_SQ = #{mbrSq}
+	</select>
+	
+	<select id="myPageMain_myWorks" parameterType="String" resultType="hashMap">
+		/*마이페이지 메인 나의 작품 조회*/
+		SELECT 
+				WORKS.WORK_SQ AS workSq /*작품_순번*/
+				, IFNULL(WORKS.WORK_MAIN_IMG_URL, WORKS.WORK_IMG_FRT_URL) AS  workMainImgUrl /*작품_메인_이미지_URL*/
+				, WORKS.WORK_NM AS workNm /*작품_이름*/
+				, WORKS.ARTST_SQ AS artstSq /*작가_순번*/
+				, IFNULL(WORKS.ARTST_ACTVTY_NM, WORKS.ARTST_ENGLS_NM) AS artstActvtyNm /*작가_활동명*/
+				, WORKS.WORK_SIZE_WIDTH AS workSizeWidth /*작품_사이즈_가로*/
+				, WORKS.WORK_SIZE_DEPTH AS workSizeDepth /*작품_사이즈_세로*/
+		FROM 
+				TBL_DA_WORK_M AS WORKS
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	WORKS.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_MBR_M AS MBR
+			ON	WORKS.MBR_SQ = MBR.MBR_SQ
+		WHERE 
+				WORKS.MBR_SQ = #{mbrSq}
+			AND WORKS.DEL_YN = 'N'
+			AND WORKS.USE_YN = 'Y'
+		ORDER BY WORKS.REG_DT DESC
+		LIMIT 3
+	</select>
+	
+	<select id="myPageMain_myWorksTotal" parameterType="String" resultType="int">
+		/*마이페이지 메인 나의 작품 총 갯수 조회*/
+		SELECT 
+				COUNT(WORKS.WORK_SQ) AS total
+		FROM 
+				TBL_DA_WORK_M AS WORKS
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	WORKS.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_MBR_M AS MBR
+			ON	WORKS.MBR_SQ = MBR.MBR_SQ
+		WHERE 
+				WORKS.MBR_SQ = #{mbrSq}
+			AND WORKS.DEL_YN = 'N'
+			AND WORKS.USE_YN = 'Y'
+	</select>
+	
+	<select id="myPageMain_myCommunitys" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 메인 나의 커뮤니티 조회*/
+		SELECT 
+				COMT.COMT_SQ AS comtSq /*커뮤니티_순번*/
+				, COMT.MBR_SQ AS mbrSq /*회원_순번*/
+				, COMT.WORK_SQ AS workSq /*작품_순번*/
+				, COMT.ARTST_SQ AS artstSq /*작가_순번*/
+				, COMT.DEAL_SQ AS dealSq /*거래_순번*/
+				, COMT.COMT_TYP_CD AS comtTypCd /*커뮤니티_타입_코드*/
+				, CDDTL.DTL_CD_NM AS comtTypCdNm /*커뮤니티_타입_코드_이름*/
+				, COMT.COMT_IMG_URL AS comtImgUrl /*커뮤니티_이미지_URL*/
+				, COMT_TITLE AS comtTitle /*커뮤니티_제목*/
+				, IFNULL((SELECT COUNT(CMT_SQ) FROM TBL_DA_COMT_CMTS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) 
+					+ IFNULL((SELECT COUNT(REPLY_SQ) FROM TBL_DA_COMT_REPLYS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) AS cmtTotalCount /*커뮤니티_댓글_총갯수*/
+				, COMT.REG_DT AS regDt /*등록_일시*/
+				, COMT.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, COMT.UPDT_DT AS  updtDt /*수정_일시*/
+				, COMT.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_WORK_M AS WORKS
+			ON	COMT.WORK_SQ = WORKS.WORK_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	COMT.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_DEAL_M AS DEAL
+			ON	COMT.DEAL_SQ = DEAL.DEAL_SQ
+		LEFT JOIN 
+				TBL_DA_COMN_CD_M AS CD
+			ON	CD.CD = 'COMT_TYP_CD'
+		LEFT JOIN 
+				TBL_DA_COMN_DTL_CD_S AS CDDTL
+			ON	CD.CD_SQ = CDDTL.CD_SQ
+			AND CDDTL.DTL_CD = COMT.COMT_TYP_CD
+		WHERE 
+				COMT.MBR_SQ = #{mbrSq}
+			AND COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+		ORDER BY COMT.REG_DT DESC
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPageMain_myCommunitysTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 메인 나의 커뮤니티 총 갯수 조회*/
+		SELECT 
+				COUNT(COMT.COMT_SQ) AS total
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_WORK_M AS WORKS
+			ON	COMT.WORK_SQ = WORKS.WORK_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	COMT.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_DEAL_M AS DEAL
+			ON	COMT.DEAL_SQ = DEAL.DEAL_SQ
+		WHERE 
+				COMT.MBR_SQ = #{mbrSq}
+			AND COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+	</select>
 
 	<update id="trnsprtTypCdUpdate" parameterType="hashMap">
 		/*운송 서비스 1차 등록*/

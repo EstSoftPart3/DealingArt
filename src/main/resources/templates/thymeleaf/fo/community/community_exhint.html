@@ -104,7 +104,7 @@
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
                     <li><a href="/community/exhintList" class="over">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList">노하우</a></li>
+                    <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
@@ -311,11 +311,11 @@
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" onclick="opneExhibitDetail('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
+   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
    	        
-   	     	strHtml += '			<div onclick="opneExhibitDetail('+exhibit.comtSq+');" style="cursor: pointer;">';
+   	     	strHtml += '			<div onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\');" style="cursor: pointer;">';
    	        strHtml += '            	<li>';
    	        strHtml += '                	<div class="tit">';
    	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
@@ -359,8 +359,16 @@
         $("#listBox").prepend(strHtml);
    	}
    	
-   	function opneExhibitDetail(sqNumber){
-		location.href = "/community/exhibitDetail?comtSq="+sqNumber;
+   	function opneExhibitDetail(comtSq, mbrSq, cmtType){
+   		pageGoPost({
+			url: "/community/exhibitDetail",
+			target:"_self",
+			vals:[
+				["mbrSq", mbrSq],
+				["comtSq", comtSq],
+				["comtTypCd", cmtType]
+			]
+		});
 	}
 
    	// ajax로 공통코드 들고와서 뿌려주기

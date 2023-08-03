@@ -102,7 +102,7 @@
     <div id="container">
         <div class="mypage_wrap">
             <div class="works_showingoff_detail_page_wrap mb0">
-                <h2 class="mt50">전시 후기/소개</h2>
+                <h2 class="mt50">이슈</h2>
                 
                 <div id="comtFirstBox">
                 
@@ -110,7 +110,7 @@
                 
                 <div class="artist_contents mt0">
                     <div class="contents_tit">
-                        <h4>작성자의 다른 전시 소개/후기 보기</h4>
+                        <h4>작성자의 다른 이슈 보기</h4>
                         <a href="주소입력하기"><button type="button">+더보기</button></a>
                     </div>
                     <div class="swipe_box" id="comtSecondBox">
@@ -154,7 +154,7 @@
     
     // 커뮤니티 정보 셋팅
     function setComtDetailInfo(){
-    	var comt = /*[[${exhibit}]]*/ 'default';
+    	var comt = /*[[${knowhow}]]*/ 'default';
     	
     	var strHtml = '';
     	
@@ -174,7 +174,7 @@
 	    } else {
 	    	strHtml += '        <li class="mem_type">회원유형<span>컬렉터</span></li>';
 	    }
-		
+
 	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow()">팔로잉</button></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
@@ -190,10 +190,8 @@
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
 	    strHtml += '<div class="gallery_keyword_wrap">';
-	    strHtml += '    <p>';
-	    strHtml += '    	<span>'+ comt.comtExhibitRegionCdNm +'</span>';
-	    strHtml += '    	<span>'+ comt.comtExhibitTypCdNm +'</span>';
-	    strHtml += '    </p>';
+	    /* strHtml += '    <span>'+ comt.comtExhibitRegionCdNm +'</span>';
+	    strHtml += '    <span>'+ comt.comtExhibitTypCdNm +'</span>'; */
 	   	strHtml += '    <p>';
 	    
 	   	if(null != comt.comtKeywrd){
@@ -281,7 +279,7 @@
     	otherComt.forEach( function( comt ){
 		    strHtml += '<div class="box_wrap">';
 		    strHtml += '    <div class="pic_box00">';
-		    strHtml += '        <a href="javascript:opneExhibitDetail('+ comt.comtSq +', '+ comt.mbrSq +', \'EXH\')">';
+		    strHtml += '        <a href="javascript:opneKnowhowDetail('+ comt.comtSq +', '+ comt.mbrSq +', \'EXH\')">';
 		    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
 		    strHtml += '        </a>';
 		    strHtml += '    </div>';
@@ -292,9 +290,9 @@
 	    $("#comtSecondBox").append(strHtml);
     }
     
-    function opneExhibitDetail(comtSq, mbrSq, cmtType){
-   		pageGoPost({
-			url: "/community/exhibitDetail",
+    function opneKnowhowDetail(comtSq, mbrSq, cmtType){
+		pageGoPost({
+			url: "/community/knowhowDetail",
 			target:"_self",
 			vals:[
 				["mbrSq", mbrSq],
