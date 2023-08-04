@@ -135,12 +135,12 @@
     <script th:inline="javascript">
  	// 커뮤니티 순번
 	var comtSq = /*[[${param.comtSq[0]}]]*/ 'default';
- 	
+ 	var mbr = /*[[${exhibit.mbrSq}]]*/ 'default';
     $(document).ready(function(){
     	setComtDetailInfo();
     	setOtherComt();
     	setComment();
-    	followCheck();
+    	followCheck(mbr);
     	fn_styleNone();
     });
     
@@ -175,7 +175,7 @@
 	    	strHtml += '        <li class="mem_type">회원유형<span>컬렉터</span></li>';
 	    }
 		
-	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow()">팔로잉</button></li>';
+	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow('+ comt.mbrSq +')">팔로잉</button></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
 	    strHtml += '    <div class="icon_box">';
@@ -216,8 +216,7 @@
     }
     
  	// 팔로우하기
-    function clickFollow(){
-    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+    function clickFollow(mbrSq){
     	var fwMbrSq = sMbrSqVal;
     	
 		modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
@@ -246,8 +245,7 @@
     }
 	
  	// 팔로우 돼있는지 체크
-    function followCheck(){
-    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+    function followCheck(mbrSq){
     	var fwMbrSq = sMbrSqVal;
 		
     	if(!fwMbrSq || (mbrSq == fwMbrSq)) {

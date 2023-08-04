@@ -135,12 +135,12 @@
     <script th:inline="javascript">
  	// 커뮤니티 순번
 	var comtSq = /*[[${param.comtSq[0]}]]*/ 'default';
- 	
+	var mbr = /*[[${knowhow.mbrSq}]]*/ 'default';
     $(document).ready(function(){
     	setComtDetailInfo();
     	setOtherComt();
     	setComment();
-    	followCheck();
+    	followCheck(mbr);
     	fn_styleNone();
     });
     
@@ -175,7 +175,7 @@
 	    	strHtml += '        <li class="mem_type">회원유형<span>컬렉터</span></li>';
 	    }
 
-	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow()">팔로잉</button></li>';
+	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow('+ comt.mbrSq +')">팔로잉</button></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
 	    strHtml += '    <div class="icon_box">';
@@ -214,8 +214,7 @@
     }
     
  	// 팔로우하기
-    function clickFollow(){
-    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+    function clickFollow(mbrSq){
     	var fwMbrSq = sMbrSqVal;
     	
 		modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
@@ -244,8 +243,7 @@
     }
 	
  	// 팔로우 돼있는지 체크
-    function followCheck(){
-    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+    function followCheck(mbrSq){
     	var fwMbrSq = sMbrSqVal;
 		
     	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
@@ -279,7 +277,8 @@
     	otherComt.forEach( function( comt ){
 		    strHtml += '<div class="box_wrap">';
 		    strHtml += '    <div class="pic_box00">';
-		    strHtml += '        <a href="javascript:opneKnowhowDetail('+ comt.comtSq +', '+ comt.mbrSq +', \'EXH\')">';
+		    //strHtml += '        <a href="javascript:opneKnowhowDetail('+ comt.comtSq +', '+ comt.mbrSq +', \'EXH\')">';
+		    strHtml += '        <a href="javascript:opneKnowhow('+ comt.comtSq +')">';
 		    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
 		    strHtml += '        </a>';
 		    strHtml += '    </div>';
@@ -300,6 +299,21 @@
 				["comtTypCd", cmtType]
 			]
 		});
+	}
+    
+    function opneKnowhow(comtSq){
+    	location.href = "/community/knowhowDetail?comtSq=" + comtSq;
+		/* pageGoPost({
+			url: "/community/knowhowDetail",
+			target:"_self",
+			vals:[
+				["mbrSq", mbrSq],
+				["comtSq", comtSq],
+				["comtTypCd", cmtType]
+			]
+		}); */
+		
+		
 	}
     
  	// 댓글 셋팅

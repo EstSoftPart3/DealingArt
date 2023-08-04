@@ -83,9 +83,13 @@
 		   	   CM.COMT_SALES_YN 				AS comtSalesYn,		-- 커뮤니티 판매제안 여부
 			   MM.MBR_NCKNM 					AS mbrNcknm,		-- 회원 닉네임
 			   MM.MBR_PROFILE_IMG_URL 			AS mbrProfileImgUrl,-- 회원 프로필 이미지 URL
-			   CKR.COMT_KEYWRD					AS comtKeywrd		-- 커뮤니티 키워드
+			   MM.MBR_SQ						AS mbrSq,
+			   CKR.COMT_KEYWRD					AS comtKeywrd,		-- 커뮤니티 키워드
+			   CM.COMT_TYP_CD					AS comtTypCd,
+			   C.ARTST_SQ						AS artstSq
 		  FROM TBL_DA_COMT_M CM
 		  	   INNER JOIN TBL_DA_MBR_M MM ON CM.MBR_SQ = MM.MBR_SQ
+		  	   LEFT JOIN TBL_DA_ARTST_M C ON CM.MBR_SQ = C.MBR_SQ
 		  	   LEFT JOIN TBL_DA_COMT_KEYWRDS_R CKR ON CM.COMT_SQ = CKR.COMT_SQ
 		 WHERE CM.COMT_TYP_CD = 'BOA'
 		   AND CM.OPEN_YN = 'Y'

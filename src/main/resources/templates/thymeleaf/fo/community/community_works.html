@@ -106,7 +106,7 @@
                     <li><a href="/community/exhintList">전시후기&소개</a></li>
                     <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
+                    <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/temp/mypage_main'">기록하기</button></li>
                 </ul>
             </div>
             <div class="input_wrap">
@@ -123,7 +123,7 @@
                             <option value="pastOrder">과거 순</option>
                         </select>
                     </div>
-                    <div class="sel_form">
+                    <div class="sel_form" style="display: inline-block; margin-left: 3px;">
                         <select name="comtWorkShpCd" id="comtWorkShpCd">
                             <option value="">형태</option>
                             <option value="">평면</option>
@@ -235,10 +235,11 @@
             
             strHtml += '            		<ul class="user_name">';
             strHtml += '                		<li><span>'+ work.mbrNcknm +'</span></li>';
-            strHtml += '                		<li>'+ (work.mbrIntro || "") +'</li>';
+            strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
             strHtml += '            		</ul>';
             strHtml += '        		</div>';
-            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="javascript:void(0);" data-mbrSq='+ work.mbrSq +' data-comtSq='+ work.comtSq +' data-workSq='+ work.workSq +' data-artstsq='+ work.artstSq +' onclick="openComtDetail(this, \'BOA\');"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+            //strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="javascript:void(0);" data-mbrSq='+ work.mbrSq +' data-comtSq='+ work.comtSq +' data-workSq='+ work.workSq +' data-artstsq='+ work.artstSq +' onclick="openComtDetail(this, \'BOA\');"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?comtSq='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
             strHtml += '        		<div class="icon_box">';
             strHtml += '           			<ul>';
             strHtml += '                		<li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';
