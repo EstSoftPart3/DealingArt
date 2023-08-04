@@ -157,7 +157,7 @@
 					<button type="button" class="btn-more ta-no"><span>more</span></button>
 				</div> -->
 			</div>
-            <div class="magazine9_wrap">
+            <!-- <div class="magazine9_wrap">
                 <div class="tit_wrap">
                     <h2>매거진 9</h2>
                     <a href="mgz9/insights"><button type="button" class="btn_more">더보기</button></a>
@@ -167,20 +167,36 @@
                 	<div class="swiper-button-prev btn_swipe_left"></div>
                 	
 	                <div class="swiper-wrapper" id="mgz9Box">
-	                	<!-- <div class="magazine">
+	                	<div class="magazine">
 	                		<div class="contents">
 		                        <p class="tit">매거진9  Insights 2023 / 6월호</p>
 		                        <p class="text">전시에 관한 거의 모든 것에 대하여</p>
 		                        <p class="text pt0">All about Exhibition</p>
 		                        <span>Art-ist 박혜미</span>
 		                    </div>
-	                	</div> -->
+	                	</div>
 	                </div>
 	                
                 	<div class="swiper-button-next btn_swipe_right"></div>
                 </div>
-            </div>
-            <div class="popular_member_wrap">
+            </div> -->
+            <!-- Dealing Art Insights -->
+			<div class="contents max-1500">
+				<div class="cont-title ta-t60">
+					<!-- <h3>Dealing Art <span class="ta-no"><br/></span>Insights</h3> -->
+					<h3>매거진9</h3>
+				</div>
+				<div class="cns-div swi-box">
+					<div class="swiper mySwiper2" >
+						<div class="swiper-wrapper" id="mgz9Box"></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>
+					</div>
+					<div class="swiper-button-prev InNextSwiper2 sbp ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-next InPrevSwiper2 sbn ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+				</div>
+			</div>
+			
+<!--             <div class="popular_member_wrap">
                 <div class="tit_wrap">
                     <h2>인기 회원</h2>
                     <a href="주소입력하기"><button type="button" class="btn_more">더보기</button></a>
@@ -193,8 +209,22 @@
 	                </ul>
                 	<div class="swiper-button-next btn_swipe_right"></div>
                 </div>
-            </div>
-            <div class="exhint_rewview_wrap">
+            </div> -->
+            <!-- Updated artist--> <!-- 0808 -->
+			<div class="contents max-1500">
+				<div class="cont-title ta-t60">
+					<h3>인기 회원</h3>
+				</div>
+				<div class="cns-div swi-box">
+				
+					<div class="swiper mySwiper3">
+						<div class="swiper-wrapper cn-b" id="popularMbrBox"></div>
+					</div>
+					<div class="swiper-button-next InNextSwiper3 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev InPrevSwiper3 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+				</div>
+			</div>
+            <!-- <div class="exhint_rewview_wrap">
                 <div class="tit_wrap">
                     <h2>전시소개/후기</h2>
                     <a href="/community/exhintList"><button type="button" class="btn_more">더보기</button></a>
@@ -203,17 +233,35 @@
                 	
                 	<div class="swiper-button-prev btn_swipe_left"></div>
 	                <ul class="swiper-wrapper" id="popularExhibitBox">
-	                    <!-- <li class="swiper-slide">
+	                    <li class="swiper-slide">
 	                        <div class="exhint_review">        
 	                            <div class="pic"><a href="#"><img src="/resources/img/img_new/main_exhint_review_sample00.jpg" alt=""></a></div>                                                                      
 	                            <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>딜링아트</span></div>
 	                            <div class="text">나를 돌아보는 전시</div>
 	                        </div>
-	                    </li> -->
+	                    </li>
                 	</ul>
                 	<div class="swiper-button-next btn_swipe_right"></div>
                 </div>
-            </div>
+            </div> -->
+            
+            <!-- New deal --> <!-- 0808 -->
+			<div class="contents max-1500" id="newDeal_title">
+				<div class="cont-title">
+					<h3>전시소개/후기</h3>
+				</div>
+				<div class="swi-box">
+					<div class="swiper mySwiper4">
+						<div class="swiper-wrapper" id="popularExhibitBox"></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>
+					</div>
+					<div class="swiper-button-next InNextSwiper4 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev InPrevSwiper4 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+				</div>
+				<!-- <div class="text-center">
+					<button type="button" class="btn-more ta-no"><span>more</span></button>
+				</div> -->
+			</div>
         </div>        
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
@@ -225,40 +273,161 @@
     	// 초기 화면 셋팅
     	pageRendering();
     	
+    	let ww = window.innerWidth;
     	/* 첫번째 배너  */
-  	  var swiper1Num = 4;
+  	  	var swiper1Num = 4;
   	  
-  	  var swiper = new Swiper(".swiper1", {
-  		   slidesPerView: "auto",
-  		   loop: false,
-  		   /* autoplay: {
+  	  	var swiper = new Swiper(".mySwiper1", {
+  		   	slidesPerView: "auto",
+  		   	loop: false,
+  		   	/* autoplay: {
   		          delay: 3000,
   		          disableOnInteraction: false,
-  		   }, */
+  		   	}, */
   			navigation: {
-  				 nextEl: ".btn_swipe_right1",
-  				 prevEl: ".btn_swipe_left1",
+  				 nextEl: ".InNextSwiper1",
+  				 prevEl: ".InPrevSwiper1",
   			},
-  	  });
+  	  	});
   	  
   	  
-  	  responsiveSwiper(swiper1Num);
+  	  	responsiveSwiper(swiper1Num);
   	  
-  	  function responsiveSwiper(swiper1Num) {
+  	  	function responsiveSwiper(swiper1Num) {
   			if (ww >= 1200) {
   				// 1
-  				swiper = new Swiper('.swiper1', {
-  					slidesPerView: mySwiper2Num,
+  				swiper = new Swiper('.mySwiper1', {
+  					slidesPerView: swiper1Num,
   					loop: false,
   					effect: 'slide',
   					navigation: {
-  						 nextEl: ".btn_swipe_right1",
-  						 prevEl: ".btn_swipe_left1",
+  						 nextEl: ".InNextSwiper1",
+  						 prevEl: ".InPrevSwiper1",
   					},
   				});
   			} else if (ww < 1200) {
   				// 2
   				swiper = new Swiper('.mySwiper1', {
+  					slidesPerView: 1,
+  					loop: false
+  					
+  				});
+  			}
+  		}
+  	  	/* 두번째 배너  */
+  	  	var swiper2Num = 4;
+  	  
+  	  	var swiper = new Swiper(".mySwiper2", {
+  		   	slidesPerView: "auto",
+  		   	loop: false,
+  		   	/* autoplay: {
+  		          delay: 3000,
+  		          disableOnInteraction: false,
+  		   	}, */
+  			navigation: {
+  				 nextEl: ".InNextSwiper2",
+  				 prevEl: ".InPrevSwiper2",
+  			},
+  	  	});
+  	  
+  	  
+  	  	responsiveSwiper(swiper2Num);
+  	  
+  	  	function responsiveSwiper(swiper2Num) {
+  			if (ww >= 1200) {
+  				// 1
+  				swiper = new Swiper('.mySwiper2', {
+  					slidesPerView: swiper2Num,
+  					loop: false,
+  					effect: 'slide',
+  					navigation: {
+  						 nextEl: ".InNextSwiper2",
+  						 prevEl: ".InPrevSwiper2",
+  					},
+  				});
+  			} else if (ww < 1200) {
+  				// 2
+  				swiper = new Swiper('.mySwiper2', {
+  					slidesPerView: 1,
+  					loop: false
+  					
+  				});
+  			}
+  		}
+  	  	/* 세번째 배너  */
+  	  	var swiper3Num = 5;
+  	  
+  	  	var swiper = new Swiper(".mySwiper3", {
+  		   	slidesPerView: "auto",
+  		   	loop: false,
+  		   	/* autoplay: {
+  		          delay: 3000,
+  		          disableOnInteraction: false,
+  		   	}, */
+  			navigation: {
+  				 nextEl: ".InNextSwiper3",
+  				 prevEl: ".InPrevSwiper3",
+  			},
+  	  	});
+  	  
+  	  
+  	  	responsiveSwiper(swiper3Num);
+  	  
+  	  	function responsiveSwiper(swiper3Num) {
+  			if (ww >= 1200) {
+  				// 1
+  				swiper = new Swiper('.mySwiper3', {
+  					slidesPerView: swiper3Num,
+  					loop: false,
+  					effect: 'slide',
+  					navigation: {
+  						 nextEl: ".InNextSwiper3",
+  						 prevEl: ".InPrevSwiper3",
+  					},
+  				});
+  			} else if (ww < 1200) {
+  				// 2
+  				swiper = new Swiper('.mySwiper3', {
+  					slidesPerView: 1,
+  					loop: false
+  					
+  				});
+  			}
+  		}
+  	  	/* 네번째 배너  */
+  	  	var swiper4Num = 4;
+  	  
+  	  	var swiper = new Swiper(".mySwiper4", {
+  		   	slidesPerView: "auto",
+  		   	loop: false,
+  		   	/* autoplay: {
+  		          delay: 3000,
+  		          disableOnInteraction: false,
+  		   	}, */
+  			navigation: {
+  				 nextEl: ".InNextSwiper4",
+  				 prevEl: ".InPrevSwiper4",
+  			},
+  	  	});
+  	  
+  	  
+  	  	responsiveSwiper(swiper4Num);
+  	  
+  	  	function responsiveSwiper(swiper4Num) {
+  			if (ww >= 1200) {
+  				// 1
+  				swiper = new Swiper('.mySwiper4', {
+  					slidesPerView: swiper4Num,
+  					loop: false,
+  					effect: 'slide',
+  					navigation: {
+  						 nextEl: ".InNextSwiper4",
+  						 prevEl: ".InPrevSwiper4",
+  					},
+  				});
+  			} else if (ww < 1200) {
+  				// 2
+  				swiper = new Swiper('.mySwiper4', {
   					slidesPerView: 1,
   					loop: false
   					
@@ -337,25 +506,17 @@
     	
     	list.forEach( function( mgz9 ) {
     		
-    		strHtml += '<div class="swiper-slide magazine">';
-    		strHtml += '	<div class="contents">';
-    		
-    		
-    		if( mgz9.mgzTypCd == 'IST' ) {
-	    		strHtml += '    <a href="주소입력하기'+ mgz9.mgzSq +'"><img src="'+ mgz9.mgzMainImgUrl +'" alt="">';
-    		} else if ( mgz9.mgzTypCd == 'MDA' ) {
-    			var iframe = mgz9.mgzContent.replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('" <', '').replaceAll('> "', '').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
-    			
-    			strHtml += '    ' + iframe;
-    		}
-    		
-    		strHtml += '    	<p class="tit">'+ mgz9.mgzTitle +'</p>';
-	        strHtml += '    	<p class="text">'+ mgz9.mgzDescrptn +'</p>';
-	        strHtml += '    	<p class="text pt0">All about Exhibition</p>';
-	        strHtml += '    	<span>Art-ist 박혜미</span>';
-	        strHtml += '    </a>';
-	        strHtml += '</div>';
-	        strHtml += '</div>';
+    		strHtml += '<div class="swiper-slide">';
+    		strHtml += '	<div class="cns-box" >';
+    		strHtml += '		<a href="javascript:void(0);" onclick="mgzDetail('+ mgz9.mgzSq +')">';
+    		strHtml += '			<img src="'+mgz9.mgzMainImgUrl+'" class="hd-img" />';
+    		strHtml += '		</a>';
+    		strHtml += '		<div class="cns-sb">';
+    		strHtml += '			<p class="cns-p1">'+mgz9.mgzTitle+'</p>';
+    		strHtml += '			<p class="cns-p2 ellipsis">'+mgz9.mgzDescrptn+'</p>';
+    		strHtml += '		</div>';
+    		strHtml += '	</div>';
+    		strHtml += '</div>';
 	        
     	});
     	
@@ -369,20 +530,22 @@
     	
     	list.forEach( function( mbr ) {
     		
-    		strHtml += '<li class="swiper-slide">';
-	        strHtml += '    <div class="public_member">';
-	        
-	        if(null != mbr.mbrProfileImgUrl){
-		        strHtml += '        <div class="logo"><a href="마이페이지 주소입력하기"><img src="'+ mbr.mbrProfileImgUrl +'" alt=""></a></div>';
-	        } else {
-	        	strHtml += '        <div class="logo"><a href="마이페이지 주소입력하기"><img src="/resources/img/img_new/ico_dauser.png" alt=""></a></div>';
-	        }
 	        strHtml += '        <div class="name"><span>'+ mbr.mbrNcknm +'</span></div>';
 	        strHtml += '        <div class="text">'+ mbr.mbrIntro +'</div>';
 	        strHtml += '    </div>';
 	        strHtml += '</li>';
 	        
+	        strHtml += '<div class="swiper-slide">';
+	        strHtml += '   <a href="javascript:void(0);" onclick="artstDetail('+mbr.mbrSq+')">';
+	        strHtml += '	    <div class="cns-box3">';
+	        strHtml += '		   <img src="'+mbr.mbrProfileImgUrl+'"/>';
+	        strHtml += '   	   <h4 style="text-align:center; padding-top:10px;">'+mbr.mbrNcknm+'</h4>';
+		   	strHtml += '	    </div>';
+		   	strHtml += '   </a>';
+		   	strHtml += '</div>';
+	        
     	});
+    	
     	
     	$("#popularMbrBox").prepend(strHtml);
     }
@@ -406,6 +569,17 @@
 	        strHtml += '        <div class="text">'+ exhibit.comtTitle +'</div>';
 	        strHtml += '    </div>';
 	        strHtml += '</li>';
+	        
+	        strHtml += '<div class="swiper-slide hd-div">';
+    		strHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+exhibit.comtSq+')">';
+    		strHtml += '		<img src="'+exhibit.comtImgUrl+'" class="hd-img"/>';
+    		strHtml += '		<div class="hd-text">';
+    		strHtml += '			<h4>'+exhibit.mbrNcknm+'</h4>';
+    		strHtml += '			<div class="hd-d1">'+exhibit.comtTitle+'</div>';
+    		//strHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
+    	    strHtml += '		</div>';
+    	    strHtml += '	</a>';
+    	    strHtml += '</div>';
     		
     	});
     	
