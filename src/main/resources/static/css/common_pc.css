@@ -48,8 +48,25 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 .main_wrap .member_works_showingoff_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .member_works_showingoff_wrap .works_layout{margin-top: 22px;}
 .member_works_showingoff_wrap .works_layout .left{display: table-cell;}
+/* 2023-08-04 정영우 메인 자랑하기 이미지 사이즈 고정*/
+.member_works_showingoff_wrap .works_layout .left a img{
+	width: 970px;
+	height: 400px;
+	object-fit: cover;
+}
 .member_works_showingoff_wrap .works_layout .left .bottom{display: flex;justify-content: space-between;padding-top: 20px;}
+/* 2023-08-04 정영우 메인 자랑하기 이미지 사이즈 고정*/
+.member_works_showingoff_wrap .works_layout .left .bottom a img{
+	width: 475px;
+	height: 380px;
+	object-fit: cover;
+}
 .member_works_showingoff_wrap .works_layout .right{display: table-cell;padding-left: 20px;}
+.member_works_showingoff_wrap .works_layout .right a img{
+	width: 510px;
+	height: 800px;
+	object-fit: cover;
+}
 
 .main_wrap .market_work_wrap{max-width: 1500px;margin: 50px auto 0;position: relative;}
 .main_wrap .market_work_wrap .btn_swipe_left{width: 50px;height: 50px;border-radius: 999px;background: #eeeeee url("../img/img_new/ico_swipe_left_arrow.png") 50% 50% no-repeat;;position: absolute;left: -58px;top: 50%;cursor: pointer;}
