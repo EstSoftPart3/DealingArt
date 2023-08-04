@@ -238,8 +238,6 @@ input[type="password"] {
 .mypage_contents .contents_left .myinfo_wrap .icon_sns_box ul li .ico_twitter{width: 30px;height: 30px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_twitter.png") 50% 50% no-repeat;}
 
 .left_nav{margin-top: 32px;}
-.left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;background: url("../img/img_new/ico_nav_plus.png") 98% 50% no-repeat;}
-.left_nav ul li.on{background: url("../img/img_new/ico_nav_minus.png") 98% 22px no-repeat;}
 .left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;}
 .left_nav ul li.on{background: url("../img/mypage/ico_nav_minus.png") 98% 22px no-repeat;}
 /*2023-07-31 정영우 off 클래스 추가*/

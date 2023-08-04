@@ -6086,6 +6086,11 @@ position: relative;background-color: #fbfbfb;}
 
 .exhint_review .pic{width: 350px;height: 316px;cursor: pointer;}
 .exhint_review img{width: 100%;height: 100%;}
+.exhint_review .name img{
+	width: 40px; 
+	height: 40px; 
+	margin: 10px 0 0 10px;
+}
 .exhint_review .name{display: flex;justify-content: center;margin-top: 20px;}
 .exhint_review .name span{height: 30px;background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;margin: 15px 0 0 10px;}
 .exhint_review .text{font-size: 18px;font-weight: 300;color: #111111;text-align: center;margin-top: 20px;}
