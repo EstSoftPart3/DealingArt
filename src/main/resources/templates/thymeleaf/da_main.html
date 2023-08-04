@@ -99,14 +99,77 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="main_wrap">
-            <div class="visual">
+            <!-- <div class="visual">
                 <p>
                     딜링아트에서<br> 
                     당신만의 아트 컬렉션을<br> 
                     자유롭게 자랑해보세요.
                 </p>
                 <a href="/myPage/myWorkList_reg"><button type="button">시작하기</button></a>
-            </div>
+            </div> -->
+            <div class="contents banner_pc">
+				<div class="bg-sh"></div>
+				<div class="main-banner">						
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							
+							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_pc.jpg" border="0"/></a>
+							</div> -->
+							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
+							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
+							</div> -->
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/banner-22_pc.jpg" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/banner-12_pc.png" onclick="javascript:location.href='/mgz9/insights';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide" align="center" style="background-color:#fe4d01;">
+								<img src="/resources/img/banner-13_pc.jpg" onclick="javascript:location.href='/mgz9/media';" style="cursor:pointer;"/>
+							</div>
+						</div>
+						<div class="swiper-pagination swpa-1"></div>
+					</div>
+				</div>
+			</div>
+
+			<!--mobile배너-->
+			<div class="contents banner_mobile">
+				<div class="bg-sh"></div>
+				<div class="main-banner">						
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							
+							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_mobile.jpg" border="0"/></a>
+							</div> -->
+							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
+							<!-- <div class="swiper-slide">
+								<img src="/resources/img/DA_banner_mobile_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
+							</div> -->
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-22_mobile.jpg" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-21_mobile.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-12_mobile.png" onclick="javascript:location.href='/mgz9/insights';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-13_mobile.jpg" onclick="javascript:location.href='/mgz9/media';" style="cursor:pointer;"/>
+							</div>
+
+						</div>
+						<div class="swiper-pagination swpa-1"></div>
+					</div>
+				</div>
+			</div>
             <div class="member_works_showingoff_wrap">
                 <div class="tit_wrap">
                     <h2>회원들이 작품 자랑하기</h2>
@@ -278,6 +341,24 @@
     	pageRendering();
     	
     	let ww = window.innerWidth;
+    	
+    	/* 메인 배너 */
+    	var myArray = ["01","02","03","04","05","06","07","08","09"];
+    	
+    	var swiper = new Swiper(".mySwiper", {
+  			autoHeight: false,
+  		  	autoplay: {
+  	          	delay: 3000,
+  	          	disableOnInteraction: false,
+  	       	},
+  	    	pagination: {
+  	      		el: ".swiper-pagination",
+  	      		clickable: true,
+  	      		renderBullet: function (index, className) {
+  	        		return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
+  	      		},
+  	    	},
+  	  	});
     	/* 첫번째 배너  */
   	  	var swiper1Num = 4;
   	  
@@ -477,11 +558,6 @@
     // 지금 거래중인 작품 셋팅 
     function setNowDealWorks(list){
     	
-    	/* 
-    		이미지 클릭시 상세페이지 연결하기 ( 어느 페이지로 연결하는지 물어보기 )
-    	
-    	*/
-    	
     	var strHtml = '';
     	
     	list.forEach( function( work ) {
@@ -499,7 +575,6 @@
     	    strHtml += '</div>';
     		
     	});
-    	
     	
     	$("#nowDealWorkBox").prepend(strHtml);
     }
@@ -530,6 +605,7 @@
     
     // 인기 회원 셋팅 
     function setPopularMbr(list){
+    	
     	var strHtml = '';
     	
     	list.forEach( function( mbr ) {
@@ -550,7 +626,6 @@
 	        
     	});
     	
-    	
     	$("#popularMbrBox").prepend(strHtml);
     }
     
@@ -567,24 +642,13 @@
 	        if(null != exhibit.mbrProfileImgUrl){
 		        strHtml += '        <div class="name"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""><span>'+ exhibit.mbrNcknm +'</span></div>';
 	        } else {
-		        strHtml += '        <div class="name"><img src="/resources/img/img_new/mypage/ico_dauser.png" alt=""><span>'+ exhibit.mbrNcknm +'</span></div>';
+		        strHtml += '        <div class="name"><img src="/resources/img/img_new/ico_dauser.png"><span>'+ exhibit.mbrNcknm +'</span></div>';
 	        } 
 	        
 	        strHtml += '        <div class="text">'+ exhibit.comtTitle +'</div>';
 	        strHtml += '    </div>';
 	        strHtml += '</li>';
 	        
-	        strHtml += '<div class="swiper-slide hd-div">';
-    		strHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+exhibit.comtSq+')">';
-    		strHtml += '		<img src="'+exhibit.comtImgUrl+'" class="hd-img"/>';
-    		strHtml += '		<div class="hd-text">';
-    		strHtml += '			<h4>'+exhibit.mbrNcknm+'</h4>';
-    		strHtml += '			<div class="hd-d1">'+exhibit.comtTitle+'</div>';
-    		//strHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
-    	    strHtml += '		</div>';
-    	    strHtml += '	</a>';
-    	    strHtml += '</div>';
-    		
     	});
     	
     	$("#popularExhibitBox").prepend(strHtml);
