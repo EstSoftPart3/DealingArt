@@ -73,7 +73,8 @@
 			   CM.COMT_VIEWS 					AS comtViews,		-- 커뮤니티 조회수
 			   CM.COMT_CMTS 					AS comtCmts,		-- 커뮤니티 댓글수
 			   CM.COMT_SCRAPS 					AS comtScraps,		-- 커뮤니티 스크랩수
-			   CM.REG_DT 						AS regDt,			-- 커뮤니티 등록 일시
+			   DATE_FORMAT(CM.REG_DT, '%Y.%m.%d %H:%i') AS regDt,		-- 커뮤니티 등록 일시
+			   DATEDIFF(NOW(), CM.REG_DT)		AS dateDiff,		-- 등록 시간 차이
 			   (
 			    SELECT COUNT(*)
 			      FROM TBL_DA_RPRT_M RM
@@ -153,6 +154,7 @@
 		/* 커뮤니티 리스트 */
 		SELECT 
 				COMT.COMT_SQ AS comtSq
+				, COMT.WORK_SQ AS workSq
 				, COMT.COMT_IMG_URL AS comtImgUrl
 				, COMT.COMT_TITLE AS comtTitle
 				, COMT.COMT_CONTENT AS comtContent
@@ -164,11 +166,15 @@
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
 				, MBR.MBR_INTRO AS mbrIntro
+				, AM.ARTST_SQ AS artstSq
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
 			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		LEFT JOIN
+				TBL_DA_ARTST_M AM
+			ON COMT.MBR_SQ = AM.MBR_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -233,19 +239,19 @@
 		<if test="comSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
 		ORDER BY 
-				comtLikes DESC
+				COMT.COMT_LIKES DESC
 		</if>
 		<if test="comtSort == 'allTimePopularity'">
 		ORDER BY 
-				comtLikes DESC
+				COMT.COMT_LIKES DESC
 		</if>
 		<if test="comtSort == 'newest'">
 		ORDER BY 
-				comtSq DESC
+				COMT.REG_DT DESC
 		</if>
 		<if test="comtSort == 'pastOrder'">
 		ORDER BY
-				comtSq ASC
+				COMT.REG_DT ASC
 		</if>		
 	</select>
 	

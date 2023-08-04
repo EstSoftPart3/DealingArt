@@ -39,7 +39,7 @@ input[type="password"] {
 .works_wrap{margin-top:70px;position: relative;}
 .works_wrap:after {content: "";display: block;clear: both;}
 .works_wrap .tit_wrap h2{font-size: 24px;letter-spacing: -1.5px;}
-.works_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
+.works_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
 .works_wrap ul{width: 100%;margin-top: 22px;}
 .works_wrap ul li{float: left;margin-right: 20px;}
 .works_wrap ul li:last-child{margin-right: 0;}
@@ -48,7 +48,7 @@ input[type="password"] {
 .master_wrap{margin-top:34px;position: relative;}
 .master_wrap:after {content: "";display: block;clear: both;}
 .master_wrap .tit_wrap h2{font-size: 24px;letter-spacing: -1.5px;}
-.master_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
+.master_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
 .master_wrap ul{width: 100%;margin-top: 22px;}
 .master_wrap ul li{float: left;margin-right: 20px;}
 .master_wrap ul li:last-child{margin-right: 0;}
@@ -61,7 +61,7 @@ input[type="password"] {
 .intro_posts .tit_wrap h2{font-size: 22px;letter-spacing: -1.5px;}
 .intro_posts .tit_wrap h2 img{vertical-align: bottom;}
 .intro_posts .tit_wrap h2 span{padding-left: 12px;}
-.intro_posts .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 20px;right: 20px;}
+.intro_posts .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-03 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 20px;right: 20px;}
 .intro_posts ol{width: 100%;}
 .intro_posts ol li{position: relative;padding: 12px 35px;counter-increment: number;}
 /* .intro_posts ol li:before{content: counter(number, decimal);background: #e32d1c;border-radius: 100%;padding: 1px 8px;margin-right: 5px;color: #ffffff;font-size: 14px;} */
@@ -101,7 +101,8 @@ input[type="password"] {
 .notice .tit{float: left;background: #808080;width: 10%;padding: 22px 0;border-radius: 10px 0 0 10px;font-size: 26px;font-weight: 700;color: #ffffff;text-align: center;}
 .notice .contents{float: left;background: #f5f5f5;width: 90%;border-radius: 0 10px 10px 0;padding: 26px 33px;font-size: 20px;position: relative;margin-top: 0;}
 
-.sel_sorting{position: absolute;top: 25%;right: 186px;}
+/* .sel_sorting{position: absolute;top: 25%;right: 186px;} 주석 처리 2023-08-03 */
+.sel_sorting{display: inline-block; position: relative;}/* 추가 2023-08-03 */
 .sel_sorting select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_sorting:after{content: '';background-image: url(../img/img_new/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
 .sel_form{position: absolute;top: 25%;right: 16px;}
@@ -121,7 +122,7 @@ input[type="password"] {
 .works_pic .header .user_name li{padding: 0 0 10px 20px;}
 .works_pic .header .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
 /* .works_pic .pic{position: relative;} */ /* 수정 2023-07-25 */
-.works_pic .pic{position: relative; width: 360px; height: 360px;}
+.works_pic .pic{position: relative; width: 360px; height: 360px; /* 2023-08-3 추가 start */ border: 2px solid #f5f5f5; /* 2023-08-3 추가 end */}
 .works_pic .ico_new{position: absolute;width: 50px;height: 50px;background: #ec3c3c;border-radius: 999px;top: 10px;right: 10px;font-family: 'Roboto Condensed';font-style: italic;font-size: 18px;font-weight: 500;color: #ffffff;text-align: center;padding-top: 14px;}
 .works_pic .icon_box{background: #f5f5f5;}
 .works_pic .icon_box:after{content: "";display: block;clear: both;}
@@ -135,7 +136,7 @@ input[type="password"] {
 .btn_area{padding: 80px 0;text-align: center;}
 .btn_area button{font-size: 20px;color: #828282;font-weight: 500; border: 2px solid #f1f1f1;padding: 15px 130px;}
 .exhint_wrap{margin-top: 80px;}
-.exhint_row{margin-top: 30px;}
+.exhint_row{margin-top: 30px; /* 2023-08-03 추가 */ height: 250px;}
 .exhint_row:after{content: "";display: block;clear: both;}
 /*2023-07-28 정영우 수정*/
 .exhint_row .exhint_list_img {
@@ -145,7 +146,7 @@ input[type="password"] {
     height: 250px;
     object-fit: cover;
 }
-.exhint_row .contents{float: left;width: 80%;}
+.exhint_row .contents{float: left;width: 80%; /* 2023-08-03 추가 start */ height: 100%; position: relative; margin-top: 0; /* 2023-08-03 추가 end */}
 .exhint_row .contents .tit{display: flex; justify-content: flex-start;}
 .exhint_row .contents ul li .tit em{font-size: 30px;font-weight: 500;letter-spacing: -1.5px;}
 .exhint_row .contents ul li .tit .ico_new{margin-left: 16px;width: 50px;height: 50px;background: #ec3c3c;border-radius: 999px;font-family: 'Roboto Condensed';font-style: italic;font-size: 18px;font-weight: 500;color: #ffffff;text-align: center;padding-top: 14px;}
@@ -760,7 +761,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_showingoff_detai2_page_wrap .artist_info_wrap .artist_info_right p{font-size: 18px;font-weight: 300;margin-top: 15px;}
 .works_showingoff_detai2_page_wrap .artist_info_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 90.8%;right: 0;}
 
-.works_showingoff_detai2_page_wrap .artist_contents{background-color: #f9f9f9;margin-top: 150px;position: relative;}
+.works_showingoff_detai2_page_wrap .artist_contents{background-color: #f9f9f9;/* margin-top: 150px; 2023-08-02 수정 */position: relative;}
 .works_showingoff_detai2_page_wrap .artist_contents .contents_tit h4{font-size: 26px;font-weight: 500;padding: 60px 0 0 30px;}
 .works_showingoff_detai2_page_wrap .artist_contents .contents_tit button{background: #828282;padding: 16px 50px;font-size: 16px;font-weight: 500;color: #ffffff;border-radius: 9999px;position: absolute;top: 50px;right: 30px;}
 .works_showingoff_detai2_page_wrap .artist_contents .swipe_box{padding: 30px 0 100px;display: flex;justify-content: flex-start;}
@@ -907,3 +908,51 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .color-box label.mc-10{background:#ffffff; border:#c7c7c7 1px solid}
 .color-box label.mc-11{background:#c7c7c7;}
 .color-box label.mc-12{background:#000000;}
+
+/* 2023-08-02 추가 start */
+.img-fit-contain {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.ellipsis-w-360 {
+	width: 360px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+/* 2023-08-02 추가 end */
+
+/* 2023-08-03 추가 start */
+.comt_content {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	height: 100px !important;
+}
+
+.comt-row-info {
+	position: absolute;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+}
+
+.dp-flex {
+	display: flex !important;
+}
+
+.justify-content-between {
+	justify-content: space-between;
+}
+
+.justify-content-center {
+	justify-content: center;
+}
+
+.align-items-center {
+	align-items: center;
+}
+/* 2023-08-03 추가 end */

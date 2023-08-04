@@ -99,7 +99,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="community_wrap">
-            <!-- <div id="nav">
+            <div id="nav">
                 <ul>
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList" class="over">작품자랑</a></li>
@@ -108,31 +108,13 @@
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
-            </div>  -->
-            <!-- mobile html 시작 -->
-            <div id="nav">
-                <ul>
-                    <li><a href="/community/main">홈</a></li>
-                    <li><a href="/community/worksList" class="over">작품자랑</a></li>
-                    <li><a href="/community/exhintList">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList">노하우</a></li>
-                    <li><a href="/community/event">이벤트</a></li>
-                </ul>
             </div>
-            <button class="btn_recording">기록하기</button>
-            <!-- mobile html 끝 -->
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
-                	<span class="hidden">기간검색</span>
                 	<input type="date" id="startDate" onchange="checkCalendar()">
-                	<span>~</span>
+                	<span class="">~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
-                </div>
-            </div>
-            <!-- <div class="notice">
-                <div class="tit">공 지</div>
-                <div class="contents">작품자랑 작성 가이드 라인 ver 1.0
-                    <div class="sel_sorting">
+                	<div class="sel_sorting">
                         <select name="comtSort" id="comtSort">
                             <option value="">정렬</option>
                             <option value="newest">최신순</option>
@@ -151,127 +133,19 @@
                         </select>
                     </div>
                 </div>
-            </div> -->
-            <!-- mobile html 시작-->
-            <div class="notice">
+            </div>
+            <div class="notice dp-flex">
                 <div class="tit">공 지</div>
-                <div class="contents">작품자랑 작성 가이드 라인 ver 1.0</div>
-            </div>
-            <div class="mo_sel_wrap">
-            	<div class="sel_sorting">
-                <select name="comtSort" id="comtSort">
-                    <option value="">정렬</option>
-                    <option value="newest">최신순</option>
-                    <option value="byRecentPopularity">최근 인기 순</option>
-                    <option value="allTimePopularity">역대 인기 순</option>
-                    <option value="pastOrder">과거 순</option>
-                </select>
-            </div>
-            <div class="sel_form">
-                <select name="comtWorkShpCd" id="comtWorkShpCd">
-                    <option value="">형태</option>
-                    <option value="">평면</option>
-                    <option value="">입체</option>
-                    <option value="">고미술</option>
-                    <option value="">공예</option>
-                </select>
-            </div>
-            </div>
-            <!-- mobile html 끝-->
-            <!-- <div class="workspic_wrap">
-                <div class="workspic_row">
-                    <ul id="worksBox">
-                    
-                    </ul>
+                <div class="contents mt0">
+                	<div>작품자랑 작성 가이드 라인 ver 1.0</div>
                 </div>
-                <div class="btn_area">
-                    <button type="button" onclick="communityWorksList()">더보기</button>
-                </div>
-            </div> -->
-            
+            </div>
             <div class="workspic_wrap">
-                <div class="workspic_row">
-                   <div class="works_pic">
-                       <div class="header">
-                           <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>
-                           <ul class="user_name">
-                               <li><span>딜링아트</span></li>
-                               <li class="fs_2rem pt10">소중한 애장품을 기록합니다.</li>
-                           </ul>
-                       </div>
-                       <div class="pic"><div class="ico_new">NEW</div><a href="#"><img src="/resources/img/img_new/sample_works05.jpg" alt=""></a></div>
-                       <div class="icon_box">
-                           <ul>
-                               <li><p class="ico_good"></p><span>99</span></li>
-                               <li><p class="ico_scrap"></p><span>99</span></li>
-                               <li><p class="ico_hits"></p><span>99</span></li>
-                               <li><p class="ico_comments"></p><span>99</span></li>
-                           </ul>
-                       </div>
-                       <div class="text">전시 다녀왔어요. </div>
-                   </div>
-                   <div class="works_pic">
-                       <div class="header">
-                           <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>
-                           <ul class="user_name">
-                               <li><span>딜링아트</span></li>
-                               <li class="fs_2rem pt10">소중한 애장품을 기록합니다.</li>
-                           </ul>
-                       </div>
-                       <div class="pic"><div class="ico_new">NEW</div><a href="#"><img src="/resources/img/img_new/sample_works05.jpg" alt=""></a></div>
-                       <div class="icon_box">
-                           <ul>
-                               <li><p class="ico_good"></p><span>99</span></li>
-                               <li><p class="ico_scrap"></p><span>99</span></li>
-                               <li><p class="ico_hits"></p><span>99</span></li>
-                               <li><p class="ico_comments"></p><span>99</span></li>
-                           </ul>
-                       </div>
-                       <div class="text">전시 다녀왔어요. </div>
-                   </div>
-                   <div class="works_pic">
-                       <div class="header">
-                           <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>
-                           <ul class="user_name">
-                               <li><span>딜링아트</span></li>
-                               <li class="fs_2rem pt10">소중한 애장품을 기록합니다.</li>
-                           </ul>
-                       </div>
-                       <div class="pic"><div class="ico_new">NEW</div><a href="#"><img src="/resources/img/img_new/sample_works05.jpg" alt=""></a></div>
-                       <div class="icon_box">
-                           <ul>
-                               <li><p class="ico_good"></p><span>99</span></li>
-                               <li><p class="ico_scrap"></p><span>99</span></li>
-                               <li><p class="ico_hits"></p><span>99</span></li>
-                               <li><p class="ico_comments"></p><span>99</span></li>
-                           </ul>
-                       </div>
-                       <div class="text">전시 다녀왔어요. </div>
-                   </div>
-                   <div class="works_pic">
-                       <div class="header">
-                           <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>
-                           <ul class="user_name">
-                               <li><span>딜링아트</span></li>
-                               <li class="fs_2rem pt10">소중한 애장품을 기록합니다.</li>
-                           </ul>
-                       </div>
-                       <div class="pic"><div class="ico_new">NEW</div><a href="#"><img src="/resources/img/img_new/sample_works05.jpg" alt=""></a></div>
-                       <div class="icon_box">
-                           <ul>
-                               <li><p class="ico_good"></p><span>99</span></li>
-                               <li><p class="ico_scrap"></p><span>99</span></li>
-                               <li><p class="ico_hits"></p><span>99</span></li>
-                               <li><p class="ico_comments"></p><span>99</span></li>
-                           </ul>
-                       </div>
-                       <div class="text">전시 다녀왔어요. </div>
-                   </div>
-                </div>
                 <div class="btn_area">
                     <button type="button" onclick="communityWorksList()">더보기</button>
-                </div>  
-        	</div>
+                </div>
+            </div>  
+        </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
@@ -293,7 +167,6 @@
    		$("#comtSort").on("change", function(){
    			comtSort = $(this).val();
    			offset = 0;
-   			$("#worksBox").empty();
    			communityWorksList();
    		});
    	});
@@ -308,7 +181,6 @@
    		
    		if(startDate != '' && endDate != ''){
    			offset = 0;
-   			$("#worksBox").empty();
    			communityWorksList();
    		}
    	}
@@ -342,40 +214,81 @@
    	
    	function workHtml(list){
    		var strHtml = '';
-   		list.forEach(function(work){
-   			strHtml += '<li id="work_'+ work.comtSq +'">';
-            strHtml += '    <div class="works_pic">';
-            strHtml += '        <div class="header">';
+   		
+   		list.forEach(function(work, idx){
+   			var cnt = idx + 1;
+   			
+   			if(cnt == 1 || cnt % 5 == 0) {
+	   			strHtml += '<div class="workspic_row">';
+	   			strHtml += '	<ul id="worksBox">';
+   			}
+   			
+   			strHtml += '		<li id="work_'+ work.comtSq +'">';
+            strHtml += '    		<div class="works_pic">';
+            strHtml += '        		<div class="header">';
             
             if(null != work.mbrProfileImgUrl){
-            	strHtml += '            <div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
+            	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
             } else {
-	            strHtml += '            <div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
+	            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
             }
             
-            strHtml += '            <ul class="user_name">';
-            strHtml += '                <li><span>'+ work.mbrNcknm +'</span></li>';
-            strHtml += '                <li>'+ work.mbrIntro +'</li>';
-            strHtml += '            </ul>';
-            strHtml += '        </div>';
-            strHtml += '        <div class="pic"><div class="ico_new">NEW</div><a href="/community/workDetail?comtSq='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt=""></a></div>';
-            strHtml += '        <div class="icon_box">';
-            strHtml += '            <ul>';
-            strHtml += '                <li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';
-            strHtml += '                <li><p class="ico_scrap"></p><span>'+ work.comtScraps +'</span></li>';
-            strHtml += '                <li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
-            strHtml += '                <li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
-            strHtml += '            </ul>';
-            strHtml += '        </div>';
-            strHtml += '        <div class="text">'+ work.comtTitle +'</div>';
-            strHtml += '    </div>';
-            strHtml += '</li>';
-  	        
+            strHtml += '            		<ul class="user_name">';
+            strHtml += '                		<li><span>'+ work.mbrNcknm +'</span></li>';
+            strHtml += '                		<li>'+ (work.mbrIntro || "") +'</li>';
+            strHtml += '            		</ul>';
+            strHtml += '        		</div>';
+            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="javascript:void(0);" data-mbrSq='+ work.mbrSq +' data-comtSq='+ work.comtSq +' data-workSq='+ work.workSq +' data-artstsq='+ work.artstSq +' onclick="openComtDetail(this, \'BOA\');"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+            strHtml += '        		<div class="icon_box">';
+            strHtml += '           			<ul>';
+            strHtml += '                		<li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';
+            strHtml += '                		<li><p class="ico_scrap"></p><span>'+ work.comtScraps +'</span></li>';
+            strHtml += '                		<li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
+            strHtml += '                		<li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
+            strHtml += '            		</ul>';
+            strHtml += '        		</div>';
+            strHtml += '        		<div class="text ellipsis-w-360">'+ work.comtTitle +'</div>';
+            strHtml += '    		</div>';
+            strHtml += '		</li>';
+            
+            if(cnt != 1 && cnt % 4 == 0 || list.length == cnt) {
+	   			strHtml += '	</ul>';
+	            strHtml += '</div>';
+            }
    		});
    		
-   		$("#worksBox").append(strHtml);
-
+   		$("#workspic_wrap .workspic_row").remove();
+   		$(".workspic_wrap").prepend(strHtml);
    	}
+   	
+ 	// 커뮤니티 상세 페이지 이동
+	function openComtDetail(obj, type) {
+		var url = "";
+		
+		switch(type) {
+		case "BOA":
+			url = "/community/showingOffDetail";
+			break;
+		case "EXH":
+			url = "/community/exhibitDetail";
+			break;
+		case "KNO":
+			url = "/community/knowhowDetail";
+			break;
+		}
+		
+		pageGoPost({
+			url: url,
+			target:"_self",
+			vals:[
+				["mbrSq", $(obj).data("mbrsq")],
+				["comtSq", $(obj).data("comtsq")],
+				["artstSq", $(obj).data("artstsq")],
+				["workSq", $(obj).data("worksq")],
+				["comtTypCd", type]
+			]
+		});
+	}
 
     </script>
 </body>

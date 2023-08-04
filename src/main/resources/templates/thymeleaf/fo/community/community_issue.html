@@ -99,7 +99,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="community_wrap">
-            <!-- <div id="nav">
+            <div id="nav">
                 <ul>
                     <li><a href="/community/main">홈</a></li>
                     <li><a href="/community/worksList">작품자랑</a></li>
@@ -108,59 +108,29 @@
                     <li><a href="/community/event">이벤트</a></li>
                     <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
-            </div> -->
-            <!-- mobile html 시작 -->
-            <div id="nav">
-                <ul>
-                    <li><a href="/community/main">홈</a></li>
-                    <li><a href="/community/worksList">작품자랑</a></li>
-                    <li><a href="/community/exhintList">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList" class="over">노하우</a></li>
-                    <li><a href="/community/event">이벤트</a></li>
-                </ul>
             </div>
-            <button class="btn_recording">기록하기</button>
-            <!-- mobile html 끝 -->
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
-                	<span class="hidden">기간검색</span>
                 	<input type="date" id="startDate" onchange="checkCalendar()">
                 	<span>~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
+                	<div class="sel_sorting">
+	                    <select class="knoSelectBox" name="comtSort" id="comtSort">
+	                        <option value="">정렬</option>
+	                        <option value="newest">최신순</option>
+	                        <option value="byRecentPopularity">최근 인기 순</option>
+	                        <option value="allTimePopularity">역대 인기 순</option>
+	                        <option value="pastOrder">과거 순</option>
+	                    </select>
+	                </div>
                 </div>
             </div>
-            <!-- <div class="notice">
+            <div class="notice dp-flex">
                 <div class="tit">공 지</div>
-                <div class="contents">
-                	작품자랑 작성 가이드 라인 ver 1.0
-                	<div class="sel_sorting right16">
-                    <select class="knoSelectBox" name="comtSort" id="comtSort">
-                        <option value="">정렬</option>
-                        <option value="newest">최신순</option>
-                        <option value="byRecentPopularity">최근 인기 순</option>
-                        <option value="allTimePopularity">역대 인기 순</option>
-                        <option value="pastOrder">과거 순</option>
-                    </select>
-                	</div>                
-                </div>                
-            </div> -->
-            <!-- mobile html 시작-->
-            <div class="notice">
-                <div class="tit">공 지</div>
-                <div class="contents">
-                	작품자랑 작성 가이드 라인 ver 1.0                	                
-                </div>                
+                <div class="contents mt0">
+                	<div>작품자랑 작성 가이드 라인 ver 1.0</div>
+                </div>
             </div>
-            <div class="sel_sorting width100per">
-                    <select class="knoSelectBox" name="comtSort" id="comtSort">
-                        <option value="">정렬</option>
-                        <option value="newest">최신순</option>
-                        <option value="byRecentPopularity">최근 인기 순</option>
-                        <option value="allTimePopularity">역대 인기 순</option>
-                        <option value="pastOrder">과거 순</option>
-                    </select>
-           	</div>
-            <!-- mobile html 끝-->
             <div class="exhint_wrap" id="listBox">
                 
                 <div class="pagination">
@@ -200,7 +170,6 @@
    			obj[id] = $(this).val();
    			offset = 0;
    			nowPage = 0;
-   			$("#listBox .exhint_row").empty();
    			communityKnowhowList();
    		});
 
@@ -237,11 +206,10 @@
    		var strHtml = '';
    		
    		window.scrollTo({top:0});
-   		$("#listBox .exhint_row").empty();
    		
    		list.forEach( function (knowhow) {
    			strHtml += '<div class="exhint_row">';
-	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
 	        
@@ -252,12 +220,10 @@
 	        strHtml += '						<div class="ico_new">NEW</div>';
 	        strHtml += '                	</div>';
 	        strHtml += '            	</li>';
-	        strHtml += '            	<li class="pt20 height121">';
-	        strHtml += '					<p>'+ knowhow.comtContent +'</p>';
-	        strHtml += '				</li>';
+	        strHtml += '            	<li class="comt_content pt20">'+ knowhow.comtContent +'</li>';
 	        strHtml += '			</div>';
 	        
-	        strHtml += '            <li>';
+	        strHtml += '            <li class="comt-row-info">';
 	        strHtml += '                <div class="user_wrap">';
 	        strHtml += '                    <div class="user">';
 	        strHtml += '                        <ul>';
@@ -287,7 +253,36 @@
    			
    		});
    		
+   		$("#listBox .exhint_row").remove();
         $("#listBox").prepend(strHtml);
+        setContentText($(".comt_content"));
+   	}
+	
+ 	// 작성 글 내용 텍스트만 가져오기
+   	function setContentText(content) {
+   		// ck에디터 태그 제외하기 위한 정규식
+   		var regex = /ck-/;
+   		
+   		$.each(content, function(idx, item) {
+   			var childTags = $(item).children();
+   			var text = "";
+   			
+   			$.each(childTags, function(idx, item) {
+   				var tagClasses = $(item).attr("class");
+   				
+   				// 클래스가 있을 경우
+   				if(tagClasses) {
+   					// ck-로 시작하는 클래스명이 없을 경우 텍스트를 가져옴
+   					if(tagClasses.search(regex) === -1) {
+   						text += $(item).text();
+   					}
+   				} else {
+   					text += $(item).text();
+   				}
+   			});
+   			
+   			$(item).html(text);
+   		});
    	}
 	
 	function opneKnowhowDetail(comtSq, mbrSq, cmtType){
