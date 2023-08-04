@@ -347,7 +347,7 @@ top:0;
     margin: 0px auto;
 }
 
-.cont-title h3::after {
+/* .cont-title h3::after {
     content: "";
     position: absolute;
     left: 0px;
@@ -356,7 +356,7 @@ top:0;
     background-color: rgb(233, 98, 92);
     top: 50%;
     transform: translateY(-50%);
-}
+} */
 
 .cont-title h3 {
     font-size: 20px;
@@ -404,6 +404,7 @@ top:0;
     height: 56px !important;
     background: rgb(245, 245, 245);
     z-index:0;
+    border-radius: 999px;
 }
 .sbp {
     left: -56px !important;
@@ -411,6 +412,7 @@ top:0;
     height: 56px !important;
     background: rgb(245, 245, 245);
     z-index:2;
+    border-radius: 999px;
 }
 .btn-more {
     margin-top: 54px;
@@ -440,16 +442,17 @@ top:0;
 }
 
 .cont-title h3 {
-    font-size: 20px;
-    padding-left: 22px;
+    font-size: 26px;
+    padding-left: 0;
     display: inline-block;
     position: relative;
     margin-bottom: 25px;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: -1.5px;
 }
 
 
-.cont-title h3::after {
+/* .cont-title h3::after {
     content: "";
     position: absolute;
     left: 0px;
@@ -458,7 +461,8 @@ top:0;
     background-color: rgb(233, 98, 92);
     top: 50%;
     transform: translateY(-50%);
-}.ct-more {
+} */
+.ct-more {
     position: absolute;
     right: 0px;
     font-size: 18px;
@@ -733,14 +737,14 @@ columns figure {
 /*     object-fit: cover; */
 }
 .hd-div {
-    width: 361px;
-    background-color: rgb(245, 245, 245);
-    height: 371px;
+    width: 375px;
+    /* background-color: rgb(245, 245, 245); */
+    height: 375px;
     cursor: pointer;
-    border-width: 1px;
+    /* border-width: 1px;
     border-style: solid;
     border-color: rgb(233, 233, 233);
-    border-image: initial;
+    border-image: initial; */
 	display:block;
 }
 .hd-div .hd-text .hd-d1 {
@@ -6074,3 +6078,9 @@ position: relative;background-color: #fbfbfb;}
 .color-box label.mc-bold {
     border:2px solid #000;
 }
+
+
+
+/* 23.08.03 재현 추가 내용 css */
+.cont-title a button{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: -2px;right: 20px;}
+
