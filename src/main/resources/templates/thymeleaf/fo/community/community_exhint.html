@@ -106,7 +106,7 @@
                     <li><a href="/community/exhintList" class="over">전시후기&소개</a></li>
                     <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
+                    <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/temp/mypage_main'">기록하기</button></li>
                 </ul>
             </div>
             <div class="input_wrap">
@@ -123,12 +123,12 @@
 	                        <option value="pastOrder">과거 순</option>
 	                    </select>
 	                </div>
-                    <div class="sel_form">
+                    <div class="sel_form" style="display: inline-block; margin-left: 3px;">
 	                    <select class="exhSelectBox" name="exhibitRegionCd" id="exhibitRegionCd">
 	                        <option value="">지역</option>
 	                    </select>
 	                </div>
-	                <div class="sel_form">
+	                <div class="sel_form" style="display: inline-block; margin-left: 3px;">
 	                    <select class="exhSelectBox" name="exhibitTypCd" id="exhibitTypCd">
 	                        <option value="">구분</option>
 	                    </select>
@@ -233,11 +233,13 @@
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\')" style="cursor: pointer;" alt=""></div>';
+   	        //strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\')" style="cursor: pointer;" alt=""></div>';
+   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
    	        
-   	     	strHtml += '			<div onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\');" style="cursor: pointer;">';
+   	     	//strHtml += '			<div onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\');" style="cursor: pointer;">';
+   	     	strHtml += '			<div onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;">';
    	        strHtml += '            	<li>';
    	        strHtml += '                	<div class="tit">';
    	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
@@ -318,6 +320,18 @@
 				["comtTypCd", cmtType]
 			]
 		});
+	}
+   	
+   	function opneExhibit(comtSq){
+   		location.href = "/community/exhibitDetail?comtSq=" + comtSq;
+   		/* pageGoPost({
+			url: "/community/exhibitDetail",
+			target:"_self",
+			vals:[
+				["comtSq", comtSq],
+				["comtTypCd", "EXH"]
+			]
+		}); */
 	}
 
    	// ajax로 공통코드 들고와서 뿌려주기

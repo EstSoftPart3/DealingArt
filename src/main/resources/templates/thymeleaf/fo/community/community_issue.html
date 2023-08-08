@@ -106,7 +106,7 @@
                     <li><a href="/community/exhintList">전시후기&소개</a></li>
                     <li><a href="/community/issueList" class="over">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
+                    <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/temp/mypage_main'">기록하기</button></li>
                 </ul>
             </div>
             <div class="input_wrap">
@@ -209,11 +209,13 @@
    		
    		list.forEach( function (knowhow) {
    			strHtml += '<div class="exhint_row">';
-	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
+	        //strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
 	        
-	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" style="cursor: pointer;">';
+	        //strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" style="cursor: pointer;">';
+	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+');" style="cursor: pointer;">';
 	        strHtml += '            	<li>';
 	        strHtml += '                	<div class="tit">';
 	        strHtml += '                    	<em>'+ knowhow.comtTitle +'</em>';
@@ -285,7 +287,7 @@
    		});
    	}
 	
-	function opneKnowhowDetail(comtSq, mbrSq, cmtType){
+	/* function opneKnowhowDetail(comtSq, mbrSq, cmtType){
 		pageGoPost({
 			url: "/community/knowhowDetail",
 			target:"_self",
@@ -295,6 +297,18 @@
 				["comtTypCd", cmtType]
 			]
 		});
+	} */
+	function opneKnowhowDetail(comtSq){
+		location.href = "/community/knowhowDetail?comtSq=" + comtSq;
+		/* pageGoPost({
+			url: "/community/knowhowDetail",
+			target:"_self",
+			vals:[
+				["mbrSq", mbrSq],
+				["comtSq", comtSq],
+				["comtTypCd", cmtType]
+			]
+		}); */
 	}
 	
  	// 캘린더 선택시 조회하기 

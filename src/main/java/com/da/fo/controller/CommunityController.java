@@ -33,12 +33,61 @@ public class CommunityController {
 		return "thymeleaf/fo/community/community_home";
 	}
 	
+//	// 커뮤니티 자랑하기 상세 페이지
+//	@RequestMapping("/community/showingOffDetail")
+//	public ModelAndView showingOffDetail(@RequestParam Map<String, Object> param) {
+//		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
+//		// 자랑하기 상세 정보
+//		Map<String, Object> showOffDtl = communityService.showingOffDetail(param);
+//		// 해당 작성자의 다른 커뮤니티 정보
+//		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+//		// 해당 작품 판매 상태 가져오기
+//		Map<String, Object> dealProgress = communityService.searchDealProgress(param);
+//		Map<String, Object> result = new HashMap<>();
+//
+//		// 판매중인 작품이 아닐 경우 작품 정보만 출력
+//		if(dealProgress == null) {
+//			// 작품 상세 정보
+//			result = dealService.workDetail((String) param.get("workSq"));
+//			result.put("deal", null);
+//		} else { // 판매중이거나 거래종료인 경우 거래 관련 정보도 출력
+//			// 거래 상태 코드
+//			String dealSttsCd = (String) dealProgress.get("dealSttsCd");
+//			String dealSq = String.valueOf(dealProgress.get("dealSq"));
+//			
+//			switch(dealSttsCd) {
+//			case "TP": // 거래진행중
+//				result = dealService.dealDetail(dealSq);
+//				result.put("work", null);
+//				break;
+//			case "TC": case "PD": case "DS": case "DC": case "PC": // 거래종료
+//				result = dealService.soldoutDetail(dealSq);
+//				result.put("deal", null);
+//				break;
+//			}
+//		}
+//		
+//		mv.addObject("showOffDtl", showOffDtl);
+//		mv.addObject("otherComt", otherComt);
+//		mv.addObject("dealProgress", dealProgress);
+//		mv.addObject("result", result);
+//		
+//		return mv;
+//	}
+	
 	// 커뮤니티 자랑하기 상세 페이지
 	@RequestMapping("/community/showingOffDetail")
 	public ModelAndView showingOffDetail(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
 		// 자랑하기 상세 정보
 		Map<String, Object> showOffDtl = communityService.showingOffDetail(param);
+		System.out.println(showOffDtl);
+		
+		
+		Map<String, Object> showOff = (Map<String, Object>) showOffDtl.get("showOff");
+		param.put("comtTypCd", showOff.get("comtTypCd"));
+		param.put("mbrSq", showOff.get("mbrSq"));
+		param.put("workSq", showOff.get("workSq"));
 		// 해당 작성자의 다른 커뮤니티 정보
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
 		// 해당 작품 판매 상태 가져오기
@@ -48,7 +97,7 @@ public class CommunityController {
 		// 판매중인 작품이 아닐 경우 작품 정보만 출력
 		if(dealProgress == null) {
 			// 작품 상세 정보
-			result = dealService.workDetail((String) param.get("workSq"));
+			result = dealService.workDetail(String.valueOf(param.get("workSq")) );
 			result.put("deal", null);
 		} else { // 판매중이거나 거래종료인 경우 거래 관련 정보도 출력
 			// 거래 상태 코드
@@ -178,8 +227,12 @@ public class CommunityController {
 
 		Map<String, Object> exhibit = communityService.communityExhKnoDetail((String) param.get("comtSq"));
 		mv.addObject("exhibit", exhibit);
-		
+		System.out.println("==========================================");
+		System.out.println(exhibit);
+		System.out.println("==========================================");
 		// 해당 작성자의 다른 커뮤니티 정보
+		param.put("comtTypCd", exhibit.get("comtTypCd"));
+		param.put("mbrSq", exhibit.get("mbrSq"));
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
 		mv.addObject("otherComt", otherComt);
 		
@@ -194,8 +247,13 @@ public class CommunityController {
 		
 		Map<String, Object> knowhow = communityService.communityExhKnoDetail((String) param.get("comtSq"));
 		mv.addObject("knowhow", knowhow);
+		System.out.println("==========================================");
+		System.out.println(knowhow);
+		System.out.println("==========================================");
 		
 		// 해당 작성자의 다른 커뮤니티 정보
+		param.put("comtTypCd", knowhow.get("comtTypCd"));
+		param.put("mbrSq", knowhow.get("mbrSq"));
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
 		mv.addObject("otherComt", otherComt);
 		

@@ -562,7 +562,7 @@
 	                <div class="artist_contents" th:if="${not #maps.isEmpty(otherComt)}">
 	                    <div class="contents_tit">
 	                        <h4>작성자의 다른 자랑하기 보기</h4>
-	                        <button>+더보기</button>
+	                        <!-- <button>+더보기</button> -->
 	                    </div>
 						<div class="swipe_box" id="comtSecondBox"></div>
 	                </div>
@@ -1325,7 +1325,14 @@
 		var comtSq = /*[[${param.comtSq[0]}]]*/ 'default';
 
     	$(document).ready(function() {
-    		$(".time").text(getCmtRegTime(/*[[${showOffDtl.showOff.regDt}]]*/));
+    		var dateDiff = /*[[${showOffDtl.showOff.dateDiff}]]*/ 'default';
+    		
+    		if(dateDiff > 0) {
+	    		$(".time").text(/*[[${showOffDtl.showOff.regDt}]]*/);
+    		} else {
+    			$(".time").text(getCmtRegTime(/*[[${showOffDtl.showOff.regDt}]]*/));
+    		}
+    		
     		setOtherComt();
     		setComment();
     		followCheck();
@@ -1456,14 +1463,17 @@
 		// 작성자의 다른 커뮤니티 정보 셋팅
 	    function setOtherComt(){
 	    	var otherComt = /*[[${otherComt}]]*/ 'default';
-			var artstSq = /*[[${param.artstSq[0]}]]*/ 'default';
+			var artstSq = /*[[${showOffDtl.showOff.artstSq}]]*/ 'default';
+			
 	    	var strHtml = '';
 			
 	    	otherComt.forEach( function( comt ){
 	    		
 			    strHtml += '<div class="box_wrap">';
 			    strHtml += '    <div class="pic_box00">';
-			    strHtml += '        <a href="javascript:void(0);" data-comtsq='+ comt.comtSq +' data-worksq='+ comt.workSq +' data-comttypcd="BOA" data-mbrsq='+ comt.mbrSq +' data-artstsq='+ artstSq +' onclick="openComtDetail(this);">';
+			    //strHtml += '        <a href="javascript:void(0);" data-comtsq='+ comt.comtSq +' data-worksq='+ comt.workSq +' data-comttypcd="BOA" data-mbrsq='+ comt.mbrSq +' data-artstsq='+ artstSq +' onclick="openComtDetail(this);">';
+			    strHtml += '        <a href="/community/showingOffDetail?comtSq='+ comt.comtSq +'">';
+			    //strHtml += '        <a href="javascript:void(0);" data-comtsq='+ comt.comtSq +' data-worksq='+ comt.workSq +' data-comttypcd="BOA" data-mbrsq='+ comt.mbrSq +' data-artstsq='+ artstSq +' onclick="openComtDetail(this);">';
 			    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
 			    strHtml += '        </a>';
 			    strHtml += '    </div>';
@@ -1668,7 +1678,7 @@
 		
 		// 팔로우하기
 	    function clickFollow(){
-	    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+	    	var mbrSq = /*[[${showOffDtl.showOff.mbrSq}]]*/ 'default';
 	    	var fwMbrSq = sMbrSqVal;
 	    	
 			modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
@@ -1698,7 +1708,7 @@
 		
 	 	// 팔로우 돼있는지 체크
 	    function followCheck(){
-	    	var mbrSq = /*[[${param.mbrSq[0]}]]*/ 'default';
+	    	var mbrSq = /*[[${showOffDtl.showOff.mbrSq}]]*/ 'default';
 	    	var fwMbrSq = sMbrSqVal;
 			
 	    	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
