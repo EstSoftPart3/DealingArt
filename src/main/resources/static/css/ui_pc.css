@@ -6089,3 +6089,7 @@ position: relative;background-color: #fbfbfb;}
 .exhint_review .name{display: flex;justify-content: center;margin-top: 20px;}
 .exhint_review .name span{height: 30px;background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;margin: 15px 0 0 10px;}
 .exhint_review .text{font-size: 18px;font-weight: 300;color: #111111;text-align: center;margin-top: 20px;}
+
+/* 23.08.07 재현 추가 내용 css */
+.newsletter_wrap
+.newsletter_wrap .tit{font-size: 20px;color: #505050;}
