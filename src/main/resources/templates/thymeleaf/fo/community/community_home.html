@@ -313,7 +313,7 @@
 			$.each(list, function(idx, item) {
 				html += "<li>";
 				//html += "	<a href='javascript:void(0);' data-mbrSq="+ item.mbrSq +" data-comtSq="+ item.comtSq +" data-artstSq="+ item.artstSq +" data-workSq="+ item.workSq +" onclick='openComtDetail(this, \"BOA\");'>";
-				html += "	<a href='/community/showingOffDetail?comtSq="+ item.comtSq +"'>";
+				html += "	<a href='/community/showingOffDetail?SqNumber="+ item.comtSq +"'>";
 				html += "		<img src="+ item.comtImgUrl +" alt='' style='width: 360px; height: 360px; object-fit: contain;'>";
 				html += "	</a>";
 				html += "	<p style='width: 360px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>"+ item.comtTitle +"</p>";
@@ -328,9 +328,9 @@
 			$.each(list, function(idx, item) {
 				html += "<li>";
 				if(type == "EXH") {
-					html += "	<a href='/community/exhibitDetail?comtSq="+ item.comtSq +"'>";
+					html += "	<a href='/community/exhibitDetail?SqNumber="+ item.comtSq +"'>";
 				} else {
-					html += "	<a href='/community/knowhowDetail?comtSq="+ item.comtSq +"'>";
+					html += "	<a href='/community/knowhowDetail?SqNumber="+ item.comtSq +"'>";
 				}
 				html += "		<span style='width: 450px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-right: 10px;'>"+ (idx+1) +"</span>" + item.comtTitle;
 				html += "		<span style='float: right;'>"+ item.regDt +"</span>";

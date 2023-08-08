@@ -1241,6 +1241,8 @@
 									,WORK_IMG_FRT_URL
 									,WORK_FRM_YN
 									,WORK_SALE_YN
+									,REG_DT
+									,REG_MBR_SQ
 									,UPDT_DT
 									,UPDT_MBR_SQ
 									<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -1312,6 +1314,8 @@
 								,#{workImgFrtUrl}
 								,#{workFrmYn}
 								,#{workSaleYn}
+								,NOW()
+								,#{mbrSq}
 								,NOW()
 								,#{mbrSq}
 								<if test="artstEnglsNm != null and artstEnglsNm != ''">

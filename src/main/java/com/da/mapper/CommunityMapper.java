@@ -22,7 +22,7 @@ public interface CommunityMapper {
 	/*
 	 * 자랑하기 상세 정보
 	 */
-	public Map<String, Object> showingOffDetail(Map<String, Object> param);
+	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param);
 	
 	/*
 	 * 커뮤니티 이벤트 리스트 조회
@@ -123,7 +123,7 @@ public interface CommunityMapper {
 	 * param :
 	 * return :
 	 */
-	public Map<String, Object> searchDealProgress(Map<String, Object> param);
+	public Map<String, Object> searchDealStatus(Map<String, Object> param);
 	
 	/*
 	 * 대댓글 등록

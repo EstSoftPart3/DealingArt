@@ -77,48 +77,44 @@ public class CommunityController {
 	
 	// 커뮤니티 자랑하기 상세 페이지
 	@RequestMapping("/community/showingOffDetail")
-	public ModelAndView showingOffDetail(@RequestParam Map<String, Object> param) {
+	public ModelAndView showingOffDetail() {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
-		// 자랑하기 상세 정보
-		Map<String, Object> showOffDtl = communityService.showingOffDetail(param);
-		System.out.println(showOffDtl);
+		return mv;
+	}
+	
+	// 커뮤니티 자랑하기 상세 정보 조회
+	@RequestMapping("/community/searchShowingOffDetailList")
+	@ResponseBody
+	public ModelAndView searchShowingOffDetailList(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
 		
-		
-		Map<String, Object> showOff = (Map<String, Object>) showOffDtl.get("showOff");
-		param.put("comtTypCd", showOff.get("comtTypCd"));
-		param.put("mbrSq", showOff.get("mbrSq"));
-		param.put("workSq", showOff.get("workSq"));
-		// 해당 작성자의 다른 커뮤니티 정보
-		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
-		// 해당 작품 판매 상태 가져오기
-		Map<String, Object> dealProgress = communityService.searchDealProgress(param);
 		Map<String, Object> result = new HashMap<>();
-
+		Map<String, Object> showOffDtl = communityService.searchShowingOffDetail(param); // 자랑하기 상세 정보
+		Map<String, Object> dealStatus = (Map<String, Object>) showOffDtl.get("dealStatus");
+		
 		// 판매중인 작품이 아닐 경우 작품 정보만 출력
-		if(dealProgress == null) {
-			// 작품 상세 정보
-			result = dealService.workDetail(String.valueOf(param.get("workSq")) );
+		if(dealStatus == null) {
+			Map<String, Object> showOff = (Map<String, Object>) showOffDtl.get("showOff");
+			result.put("work", dealService.workDetail(String.valueOf(showOff.get("workSq")))); // 작품 상세 정보
 			result.put("deal", null);
-		} else { // 판매중이거나 거래종료인 경우 거래 관련 정보도 출력
-			// 거래 상태 코드
-			String dealSttsCd = (String) dealProgress.get("dealSttsCd");
-			String dealSq = String.valueOf(dealProgress.get("dealSq"));
+		} else { // 판매중이거나 거래종료인 경우 작품 정보, 거래 관련 정보 출력
+			String dealSttsCd = String.valueOf(dealStatus.get("dealSttsCd"));
+			String dealSq = String.valueOf(dealStatus.get("dealSq"));
 			
 			switch(dealSttsCd) {
 			case "TP": // 거래진행중
-				result = dealService.dealDetail(dealSq);
+				result.put("deal", dealService.dealDetail(dealSq));
 				result.put("work", null);
 				break;
 			case "TC": case "PD": case "DS": case "DC": case "PC": // 거래종료
-				result = dealService.soldoutDetail(dealSq);
+				result.put("work", dealService.soldoutDetail(dealSq));
 				result.put("deal", null);
 				break;
 			}
 		}
 		
-		mv.addObject("showOffDtl", showOffDtl);
-		mv.addObject("otherComt", otherComt);
-		mv.addObject("dealProgress", dealProgress);
+		result.put("showOffList", showOffDtl);
+		
 		mv.addObject("result", result);
 		
 		return mv;
@@ -208,31 +204,20 @@ public class CommunityController {
 		return "thymeleaf/fo/community/community_issue";
 	}
 	
-	// 작품/ 자랑하기 상세페이지
-	@RequestMapping("/community/workDetail")
-	@ResponseBody
-	public ModelAndView communityWorkDetailPage(@RequestParam String comtSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
-		
-		// 조회해서 결과값 리턴해주기
-		
-		return mv;
-	}
-	
 	// 전시후기/소개 상세페이지
 	@RequestMapping("/community/exhibitDetail")
 	@ResponseBody
 	public ModelAndView communityExhibitDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_exhint_detailpage");
 
-		Map<String, Object> exhibit = communityService.communityExhKnoDetail((String) param.get("comtSq"));
+		Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
 		mv.addObject("exhibit", exhibit);
-		System.out.println("==========================================");
-		System.out.println(exhibit);
-		System.out.println("==========================================");
+		
+		param.put("comtSq", String.valueOf(param.get("SqNumber")));
+		param.put("mbrSq", String.valueOf(exhibit.get("mbrSq")));
+		param.put("comtTypCd", String.valueOf(exhibit.get("comtTypCd")));
+		
 		// 해당 작성자의 다른 커뮤니티 정보
-		param.put("comtTypCd", exhibit.get("comtTypCd"));
-		param.put("mbrSq", exhibit.get("mbrSq"));
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
 		mv.addObject("otherComt", otherComt);
 		
@@ -245,15 +230,14 @@ public class CommunityController {
 	public ModelAndView communityKnowhowDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_knowhow_detailpage");
 		
-		Map<String, Object> knowhow = communityService.communityExhKnoDetail((String) param.get("comtSq"));
+		Map<String, Object> knowhow = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
 		mv.addObject("knowhow", knowhow);
-		System.out.println("==========================================");
-		System.out.println(knowhow);
-		System.out.println("==========================================");
+		
+		param.put("comtSq", String.valueOf(param.get("SqNumber")));
+		param.put("mbrSq", String.valueOf(knowhow.get("mbrSq")));
+		param.put("comtTypCd", String.valueOf(knowhow.get("comtTypCd")));
 		
 		// 해당 작성자의 다른 커뮤니티 정보
-		param.put("comtTypCd", knowhow.get("comtTypCd"));
-		param.put("mbrSq", knowhow.get("mbrSq"));
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
 		mv.addObject("otherComt", otherComt);
 		

@@ -2132,3 +2132,751 @@ function checkSpecialChar(_obj){
         _obj.focus();
     }
 }
+
+/* ---------------------------------------------
+ * 함수명 : openModal
+ * 설  명 : 모달창 열기
+ * 예) openModal(해당 모달의 html id 속성)
+ ---------------------------------------------*/
+ function openModal(id) {
+	$('body').css("overflow", "hidden");
+	$('#' + id).modal({backdrop: 'static', keyboard: false});
+	$('#' + id).modal("show");
+}
+
+/* ---------------------------------------------
+ * 함수명 : closeModal
+ * 설  명 : 모달창 닫기
+ * 예) closeModal(해당 모달의 html id 속성)
+ ---------------------------------------------*/
+ function closeModal(id) {
+	$('body').css("overflow", "scroll");
+	$('#' + id).modal("hide");
+}
+
+/* ---------------------------------------------
+ * 함수명 : ckClsHide
+ * 설  명 : 커뮤니티 관련 페이지 -> ck에디터 태그 display none 처리
+ * 예)
+ ---------------------------------------------*/
+function ckClsHide() {
+	$(".ck-reset_all").hide();
+	$(".ck-widget__type-around").hide();
+	$(".ck-widget__resizer").hide();
+}
+
+/* ---------------------------------------------
+ * 함수명 : setComment
+ * 설  명 : 커뮤니티 관련 페이지 -> 댓글 셋팅
+ * 예)
+ ---------------------------------------------*/
+function setComment(comtSq) {
+	$.ajax({
+		type: "post",
+		url: "/community/searchComtCmtsList",
+		data: {
+			comtSq: comtSq
+		},
+		success: function(data) {
+			var comments = data.comments;
+			var replys = data.replys;
+			var strHtml = '';
+			
+			strHtml += '<form action="" method="" id="" name="">';
+			strHtml += '	<legend>댓글 입력 폼</legend>';
+			strHtml += '	<p>';
+			strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">'+ (comments.length + replys.length) +'</strong></label>';
+			if(sMbrSqVal) {
+				strHtml += '	<input type="text" id="comments_tit" name="" required>';
+			} else {
+				strHtml += '	<input type="text" id="comments_tit" name="" required disabled>';
+			}
+			strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg('+ comtSq +');">등록</button>';
+			strHtml += '	</p>';
+			strHtml += '</form>';
+			
+			// 댓글
+			comments.forEach(function(comment) {
+				strHtml += '<div class="comments_box">';
+				strHtml += '    <div class="user_wrap">';
+				strHtml += '        <div class="user_img">';
+
+				if (null != comment.mbrProfileImgUrl) {
+					strHtml += '            <img src="'+ comment.mbrProfileImgUrl +'" alt="">';
+				} else {
+					strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+				}
+
+				strHtml += '        </div>';
+				strHtml += '        <div class="user">';
+				strHtml += '            <ul>';
+				strHtml += '                <li class="user_name"><span>'+ comment.mbrNcknm +'</span></li>';
+				strHtml += '                <li>';
+				strHtml += '                    <ul>';
+				strHtml += '                        <li>'+ (comment.dateDiff >= 24 ? comment.cmtRegDt.substring(0, comment.cmtRegDt.length-3) : setTimeFormat(comment.cmtRegDt)) +'</li>';
+				
+				if(sMbrSqVal) {
+					strHtml += '                    <li><a href="#">♡ 좋아요</a></li>';
+					strHtml += '                    <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', '+ comtSq +', this)">답글달기</a></li>';
+					strHtml += '                    <li><a href="#">신고</a></li>';
+				}
+				
+				// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+		        if(comment.mbrSq == sMbrSqVal){
+		        	strHtml += '						<li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', '+ comtSq +', this, \'cmt\')">수정</a></li>';
+		        	strHtml += '                        <li><a href="javascript:delComment('+ comment.cmtSq +', '+ comtSq +');">삭제</a></li>';
+		        }
+				
+				strHtml += '                    </ul>';
+				strHtml += '                </li>';
+				strHtml += '            </ul>';
+				strHtml += '        </div>';
+				strHtml += '    </div>';
+				strHtml += '    <div class="comments">';
+				strHtml += '        <p>'+ comment.cmtContent +'</p>';
+				strHtml += '    </div>';
+				strHtml += '</div>';
+
+				// 대댓글
+				replys.forEach(function(reply) {
+					if (comment.cmtSq == reply.cmtSq) {
+						strHtml += '<div class="answer_comments_box">';
+						strHtml += '    <div class="user_wrap">';
+						strHtml += '        <div class="ico_answer_comments">';
+						strHtml += '            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">';
+						strHtml += '        </div>';
+						strHtml += '        <div class="user_img">';
+
+						if (null != reply.mbrProfileImgUrl) {
+							strHtml += '            <img src="'+ reply.mbrProfileImgUrl +'" alt="">';
+						} else {
+							strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
+						}
+
+						strHtml += '        </div>';
+						strHtml += '        <div class="user">';
+						strHtml += '            <ul>';
+						strHtml += '                <li class="user_name"><span>'+ reply.mbrNcknm +'</span></li>';
+						strHtml += '                <li>';
+						strHtml += '                    <ul>';
+						strHtml += '                        <li>'+ (reply.dateDiff >= 24 ? reply.replyRegDt.substring(0, reply.replyRegDt.length-3) : setTimeFormat(reply.replyRegDt)) +'</li>';
+						
+						if(sMbrSqVal) {
+							strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
+							strHtml += '                        <li><a href="#">신고</a></li>';
+						}
+						
+						// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
+		    	        if(reply.mbrSq == sMbrSqVal){
+		    		        strHtml += '                        <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ reply.replySq +', '+ comtSq +', this, \'reply\')">수정</a></li>';
+		    	        	strHtml += '                        <li><a href="javascript:delReply('+ reply.replySq +', '+ comtSq +');">삭제</a></li>';
+		    	        }
+						
+						strHtml += '                    </ul>';
+						strHtml += '                </li>';
+						strHtml += '            </ul>';
+						strHtml += '        </div>';
+						strHtml += '    </div>';
+						strHtml += '    <div class="comments">';
+						strHtml += '        <p>'+ reply.replyContent +'</p>';
+						strHtml += '    </div>';
+						strHtml += '</div>';
+					}
+				});
+			});
+			
+			$("#commentBox").empty();
+			$("#commentBox").append(strHtml).trigger("create");
+		}
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : openReplyAndModForm
+ * 설  명 : 커뮤니티 관련 페이지 -> 대댓글 등록 html, 댓글 대댓글 수정 html 생성
+ * 예) 
+ ---------------------------------------------*/
+function openReplyAndModForm(cmtSq, comtSq, obj, cmtType) {
+	var box = ".comments_box";
+	
+	if(cmtType == 'reply') {
+		box = ".answer_comments_box";
+	}
+	
+	var allReplyForm = $(box).find(".comments_box_wrap");
+	var curReplyForm = $(obj).closest(box).find(".comments_box_wrap");
+	var content = $(obj).closest(box).find(".comments p").text();
+	
+	// 대댓글 등록 폼이 이미 있으면 모든 등록 폼 없앰
+	if(allReplyForm.length) {
+		allReplyForm.remove();
+	}
+	
+	if(curReplyForm.length) {
+		allReplyForm.remove();
+		return;
+	}
+	
+	var html = "";
+    html += "<div class='comments_box_wrap'>";
+    html += "	<form>";
+	html += "		<p id='reply_form'>";
+	if(cmtType) {
+		html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" style='margin-left: 90px;'>";
+		html += "		<button type='button' class='reg_btn' onclick='modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this);'>수정</button>";
+	} else {
+		html += "		<input type='text' id='replyAndModComment' style='margin-left: 90px;'>";
+		html += "		<button type='button' class='reg_btn' onclick='replyReg("+ cmtSq +", "+ comtSq +", this);'>등록</button>";
+	}
+	html += "		</p>";
+	html += "	</form>";
+	html += "</div>";
+	
+	$(obj).closest(box).append(html);
+}
+
+/* ---------------------------------------------
+ * 함수명 : setTiemFormat
+ * 설  명 : 커뮤니티 관련 페이지 -> 작성 시간 SNS형식으로 포맷 변경
+ * 예)
+ ---------------------------------------------*/
+function setTimeFormat(targetDate) {
+	var now = new Date();
+	var regDate = new Date(targetDate);
+	var dateDiff = now.getTime() - regDate.getTime();
+	var result = "";
+	var seconds = [
+		{ type : "년",	milSec : 1000 * 60 * 60 * 24 * 365 },
+		{ type : "달",	milSec : 1000 * 60 * 60 * 24 * 30 },
+		{ type : "주",	milSec : 1000 * 60 * 60 * 24 * 7 },
+		{ type : "일",	milSec : 1000 * 60 * 60 * 24 },
+		{ type : "시간",	milSec : 1000 * 60 * 60 },
+		{ type : "분",	milSec : 1000 * 60 },
+		{ type : "초",	milSec : 1000 }
+	];
+
+	for (var i in seconds) {
+		var dateDiffVal = Math.floor(dateDiff / seconds[i].milSec);
+		if (dateDiffVal > 0) {
+			result = dateDiffVal + seconds[i].type + " 전";
+			break;
+		}
+	}
+
+	return result || "방금 전";
+}
+
+/* ---------------------------------------------
+ * 함수명 : cmtReg
+ * 설  명 : 커뮤니티 관련 페이지 -> 댓글 등록
+ * 예)
+ ---------------------------------------------*/
+function cmtReg(comtSq) {
+	if(sMbrSqVal == "" || sMbrSqVal == null){
+		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+			if(confrim){
+				$("#loginModal").modal("show");	
+			}
+		});
+	} else {
+		$.ajax({
+			type : "post",
+			url : "/community/cmtReg",
+			data : {
+				comtSq : comtSq,
+				cmtContent : $("#comments_tit").val(),
+				mbrSq : sMbrSqVal
+			},
+			success : function() {
+				setComment(comtSq);
+				$("#comments_tit").val("");
+			}
+		});
+	}
+}
+
+/* ---------------------------------------------
+ * 함수명 : replyReg
+ * 설  명 : 커뮤니티 관련 페이지 -> 대댓글 등록
+ * 예)
+ ---------------------------------------------*/
+function replyReg(cmtSq, comtSq, obj) {
+	$.ajax({
+		type : "post",
+		url : "/community/replyReg",
+		data : {
+			cmtSq: cmtSq,
+			comtSq : comtSq,
+			replyContent : $(obj).siblings("#replyAndModComment").val(),
+			mbrSq : sMbrSqVal
+		},
+		success : function() {
+			setComment(comtSq);
+		}
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : modComment
+ * 설  명 : 커뮤니티 관련 페이지 -> 댓글 수정
+ * 예)
+ ---------------------------------------------*/
+function modComment(cmtSq, comtSq, cmtType, obj) {
+	var content = $(obj).siblings("#replyAndModComment").val();
+	
+	modalConfirm( "댓글을 수정하시겠습니까?" , function ( confirm ) {
+		if(confirm){
+			$.ajax({
+		        type: "POST",
+		        url: "/community/modCommentAndReply",
+		        data: {
+		        	cmtType : cmtType,
+					content : content,
+		        	sq : cmtSq
+		        },
+		        success: function(data) {
+		        	if(data.result > 0){
+		        		modalAlertShow("댓글이 수정되었습니다.");
+		        		setComment(comtSq);
+		        	}else{
+		        		modalAlertShow("댓글 수정에 실패했습니다.<br/>다시 시도해주세요.");
+		        	}
+		        },
+		        error: function(error) {
+		            alert("수정처리에 실패했습니다.\n관리자에게 문의해주세요."); 
+		            location.reload();
+		        }
+			});
+		}
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : delComment
+ * 설  명 : 커뮤니티 관련 페이지 -> 댓글 삭제
+ * 예)
+ ---------------------------------------------*/
+function delComment(cmtSq, comtSq){
+	var commentType = "cmt";
+	delCommentModal(cmtSq, comtSq, commentType);
+}
+
+/* ---------------------------------------------
+ * 함수명 : delReply
+ * 설  명 : 커뮤니티 관련 페이지 -> 대댓글 삭제
+ * 예)
+ ---------------------------------------------*/
+function delReply(replySq, comtSq){
+	var commentType = "reply";
+	delCommentModal(replySq, comtSq, commentType);
+}
+
+/* ---------------------------------------------
+ * 함수명 : delCommentModal
+ * 설  명 : 커뮤니티 관련 페이지 -> 댓글 삭제 모달, 삭제 처리
+ * 예)
+ ---------------------------------------------*/
+function delCommentModal(commentSq, comtSq, commentType){
+	modalConfirm( "댓글을 삭제하시겠습니까?" , function ( confirm ) {
+		if(confirm){
+			$.ajax({
+		        type: "POST",
+		        url: "/community/delCommentAndReply",
+		        data: {
+		        	commentType : commentType,
+		        	commentSq: commentSq,
+		        	comtSq: comtSq
+		        },
+		        success: function(data) {
+		        	if(data.result > 0){
+		        		modalAlertShow("댓글이 삭제되었습니다.");
+		        		setComment(comtSq);
+		        	}else{
+		        		modalAlertShow("댓글 삭제에 실패했습니다.<br/>다시 시도해주세요.");
+		        	}
+		        },
+		        error: function(error) {
+		            alert("삭제처리에 실패했습니다.\n관리자에게 문의해주세요."); 
+		            location.reload();
+		        }
+			});
+		} 
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : clickFollow
+ * 설  명 : 커뮤니티 관련 페이지 -> 팔로우하기
+ * 예)
+ ---------------------------------------------*/
+function clickFollow(mbrSq){
+	var fwMbrSq = sMbrSqVal;
+	
+	modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
+		if(confirm){
+			$.ajax({
+	    		url: "/community/follow",
+	    		data: {
+	    			fwMbrSq: fwMbrSq,
+	    			mbrSq: mbrSq
+	    		},
+	    		success: ( function ( response ) {
+	    			if(response.result > 0){
+		        		modalAlertShow("팔로우 되었습니다.");
+		        		$(".following").hide();
+		        	}else{
+		        		modalAlertShow("팔로우에 실패했습니다.<br/>다시 시도해주세요.");
+		        	}
+	    		}),
+	    		error: ( function ( response ) {
+	    			alert("오류가 발생했습니다.\n관리자에게 문의해주세요."); 
+		            location.reload();
+	    		})
+	    	});
+		} 
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : followCheck
+ * 설  명 : 커뮤니티 관련 페이지 -> 팔로우 돼있는치 체크
+ * 예)
+ ---------------------------------------------*/
+function followCheck(mbrSq) {
+	var fwMbrSq = sMbrSqVal;
+	
+	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
+		$(".following").hide();
+	}
+	
+	$.ajax({
+		url: "/community/followCheck",
+		data: {
+			fwMbrSq: fwMbrSq,
+			mbrSq: mbrSq
+		},
+		success: ( function ( response ) {
+			if(response.result) {
+				$(".following").hide();
+			}
+		}),
+		error: ( function ( response ) {
+			
+		})
+	});
+}
+
+/* ---------------------------------------------
+ * 함수명 : setOtherComtHtml
+ * 설  명 : 커뮤니티 관련 페이지 -> 작성자의 다른 커뮤니티 작성글 html 생성
+ * 예)
+ ---------------------------------------------*/
+function setOtherComtHtml(mbrNcknm, otherComt, words) {
+	if(!otherComt) {
+		return '';
+	}
+	
+	var html = '';
+	html += '<div class="contents conbg">';
+	html += '	<div class="cont-title2 max-1500">';
+	html += '		<h3>'+ mbrNcknm +'님의 다른 '+ words +' 보기</h3>';
+	html += '	</div>';
+	html += '	<div class="swi-box1 max-1500">';
+	html += '		<div class="swiper mySwiper2">';
+	html += '			<div class="swiper-wrapper" id="swiper_workList"></div>';
+	html += '			<div class="swiper-pagination swpa-2 pc-no"></div>';
+	html += '		</div>';
+	html += '		<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>';
+	html += '		<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>';
+	html += '	</div>';
+	html += '</div>';
+	
+	return html;
+}
+
+/* ---------------------------------------------
+ * 함수명 : otherComtWorkList
+ * 설  명 : 커뮤니티 관련 페이지 -> 작성자의 다른 커뮤니티 리스트
+ * 예)
+ ---------------------------------------------*/
+function otherComtWorkList(otherComt, url) {
+	if(otherComt.length > 0){
+		$("#swiper_workList").empty();
+		var html = '';
+		
+		for(var i=0; i<otherComt.length; i++){
+			html +='<div class="swiper-slide hd-div">';
+			html +='	<a href="'+ url +'?SqNumber='+ otherComt[i].comtSq +'">';
+			html +='		<img src="'+ otherComt[i].comtImgUrl +'" class="hd-img" style="width:100&;"/>';
+     	  	html +='	</a>';
+     	 	html +='</div>';
+		}
+		
+		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+
+/* ---------------------------------------------
+ * 함수명 : initOtherComtWorkListSwiper
+ * 설  명 : 커뮤니티 관련 페이지 -> 다른 커뮤니티 리스트 스와이퍼 초기화
+ * 예)
+ ---------------------------------------------*/
+function initOtherComtWorkListSwiper() {
+	$(window).on("resize", function () {
+   		 /*작가의 다른 작품 리스트*/
+   		 let ww = window.innerWidth;
+   		 var mySwiper2 = 4;
+   		 var swiper = new Swiper(".mySwiper2", {
+   		   	   
+   		 		slidesPerView: "auto",
+   		 	   	loop: false,
+   		 	   	/* autoplay: {
+   		 	          	delay: 3000,
+   		 	          	disableOnInteraction: false,
+   		 	   	}, */
+   		 		navigation: {
+   		 			 nextEl: ".swiper-button-next",
+   		 			 prevEl: ".swiper-button-prev",
+   		 		},
+   		 	     
+   		   });
+   		   
+   		   responsiveSwiper2(mySwiper2);
+   		   
+   		   function responsiveSwiper2(mySwiper2) {
+   		 		
+   		   	if (ww >= 1200) {
+   		 			
+   		 			swiper = new Swiper('.mySwiper2', {
+   		 				slidesPerView: mySwiper2,
+   		 				loop: false,
+   		 				effect: 'slide',
+   		 				navigation: {
+   		 					 nextEl: ".swiper-button-next",
+   		 					 prevEl: ".swiper-button-prev",
+   		 				},
+   		 				
+   		 			});
+   		 			
+   		 		} else if (ww < 1200) {
+   		 			
+   		 			
+   		 			swiper = new Swiper('.mySwiper2', {
+   		 				slidesPerView: 1,
+   		 				loop: false
+   		 				 
+   		 			});
+   		 		}
+   		 	}
+   	}).resize();
+}
+
+/* ---------------------------------------------
+ * 함수명 : openComtRprtModal
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기 모달 열기
+ * 예)
+ ---------------------------------------------*/
+function openComtRprtModal(){
+	$('#rprtDtl').val('');
+	$('#myModal3').modal('show');
+}
+
+/* ---------------------------------------------
+ * 함수명 : comtReport
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기
+ * 예)
+ ---------------------------------------------*/
+function comtReport(){
+	
+	if(sMbrSqVal == "" || sMbrSqVal == null){
+		
+		$(".close").trigger("click");
+				
+		modalConfirm("로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
+			if(confrim){
+				$("#loginModal").modal("show");	
+			}
+		});
+	} else {
+		
+		//신고하기 입력
+		sendComtRprt();				
+
+	}
+}
+
+/* ---------------------------------------------
+ * 함수명 : sendComtRprt
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기 입력
+ * 예)
+ ---------------------------------------------*/
+function sendComtRprt(){
+	
+	//로그인 체크 확인
+	/* if(sMbrSqVal != "" || sMbrSqVal != null){
+		
+		var workSqVal = result.deal.workSq;
+		var mbrSqVal = sMbrSqVal;
+		var rprtDtlVal = $("#rprtDtl").val();
+		
+		if(rprtDtlVal == "" || rprtDtlVal == null ) {
+			
+			alert("신고내역을 입력주세요.");
+			$("#rprtDtl").focus();			
+			return;
+		} else {
+		
+			console.log("workSqVal :"+workSqVal);
+			console.log("mbrSqVal :"+mbrSqVal);
+			console.log("rprtDtlVal :"+rprtDtlVal);
+			
+			
+			$.ajax({
+				type: "POST",
+		        url: "/admin/report/reportInsData",
+		        data: {
+		        	workSq : workSqVal,  //작품번호
+		        	mbrSq : mbrSqVal,	 //회원번호
+		        	rprtDtl : rprtDtlVal //신고내용
+		        },
+		        async: false,
+				success: function(data){
+					$('#myModal3').modal('hide');
+					$('#myModal4').modal('show');
+				},
+				error: function(error) {
+		            //alert("오류 발생" + error);
+		            $('#myModal3').modal('hide');
+					$('#myModal4_4').modal('show');
+		        }
+			});
+			
+		}
+		
+		
+	} */
+}
+
+/* ---------------------------------------------
+ * 함수명 : setReportModal
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기 모달 html 생성
+ * 예)
+ ---------------------------------------------*/
+function setReportModal() {
+	var html = '';
+	html += '<div class="modal fade modal-s" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">';
+	html += '	<div class="modal-dialog modal-baeg max-w530">';
+	html += '		<div class="modal-content">';
+	html += '			<div class="modal-header">';
+	html += '				<div class="baegs">';
+	html += '					<h2>신고하기</h2>';
+	html += '				    <img src="/resources/img/ba/icon-2.png" class="con-img" />';
+	html += '				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>';
+	html += '				</div>';
+
+	html += '			</div>';
+	html += '			<div class="modal-body">';
+	html += '				<div class="md-box-1">';
+	html += '					<p>';
+	html += '					위작, 허위판매 등 신고 사유를 가능한 상세히 작성해 주시기 바랍니다.<br />';
+	html += '					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.';
+	html += '					</p>';
+
+	html += '					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>';
+
+	html += '					<!-- <div class="text-center  mg_b40">';
+	html += '						<input type="checkbox" id="w1" name="cc">';
+	html += '						<label for="w1" style="color:#e9625c;"><span></span> 경매약관 주요 사항 팝업 및 약관 동의 사실 확인</label>';
+	html += '					</div> -->';
+
+	html += '					<div class="baeg-btn mg_t30">';
+	html += '						<!--';
+	html += '						<a href="#" data-toggle="modal" data-target="#myModal4"><button type="button" class="baeg-b1">제출하기</button></a>';
+	html += '						-->';
+	html += '						<button type="button" class="baeg-b1" onclick="comtReport();">제출하기</button>';
+	html += '					</div>';
+
+	html += '				</div>';
+	html += '			</div>';
+	html += '		</div>';
+	html += '	</div>';
+	html += '</div>';
+	
+	$("#container").after(html);
+}
+
+/* ---------------------------------------------
+ * 함수명 : setReportCompleteModal
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기 완료 모달 html 생성
+ * 예)
+ ---------------------------------------------*/
+function setReportCompleteModal() {
+	var html = '';
+	html += '<div class="modal fade modal-s" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">';
+	html += '	<div class="modal-dialog modal-baeg max-w530">';
+	html += '		<div class="modal-content">';
+	html += '			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	html += '				<div class="baegs">';
+	html += '				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>';
+	html += '				</div>';
+
+	html += '			</div>';
+	html += '			<div class="modal-body">';
+	html += '				<div class="md-box-1">';
+	html += '					<div class="md-ds">';
+	html += '						해당 작품에 관한 신고하기가 완료 되었습니다.';
+	html += '					</div>';
+
+	html += '					<div class="baeg-btn mg_t30">';
+	html += '						<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>';
+	html += '					</div>';
+
+	html += '				</div>';
+	html += '			</div>';
+	html += '		</div>';
+	html += '	</div>';
+	html += '</div>';
+	
+	$("#container").after(html);
+}
+
+/* ---------------------------------------------
+ * 함수명 : setReportErrorModal
+ * 설  명 : 커뮤니티 관련 페이지 -> 신고하기 오류 모달 html 생성
+ * 예)
+ ---------------------------------------------*/
+function setReportErrorModal() {
+	var html = '';
+	html += '<div class="modal fade modal-s" id="myModal4_4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">';
+	html += '	<div class="modal-dialog modal-baeg max-w530">';
+	html += '		<div class="modal-content">';
+	html += '			<div class="modal-header" style="height: 0; min-height: 0; padding: 0;">';
+	html += '				<div class="baegs">';
+	html += '				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>';
+	html += '				</div>';
+
+	html += '			</div>';
+	html += '			<div class="modal-body">';
+	html += '				<div class="md-box-1">';
+	html += '					<div class="md-ds">';
+	html += '						신고하기가 완료 되지 않았습니다. <BR><BR>';
+	html += '						대표번호 1533-3024 문의해 주세요.<BR><BR>';
+	html += '						감사합니다.<BR><BR>';
+	html += '					</div>';
+
+	html += '					<div class="baeg-btn mg_t30">';
+	html += '						<a href="#"><button type="button" class="baeg-b1" aria-label="Close" data-dismiss="modal">확인</button></a>';
+	html += '					</div>';
+
+	html += '				</div>';
+	html += '			</div>';
+	html += '		</div>';
+	html += '	</div>';
+	html += '</div>';
+	
+	$("#container").after(html);
+}
+
+
+
+

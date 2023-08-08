@@ -59,10 +59,32 @@ public class CommunityDao {
 	/*
 	 * 자랑하기 상세 정보
 	 */
-	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
+//	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param) {
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("showOff", communityMapper.searchShowingOffDetail(param));
+//		result.put("workKeywrd", communityMapper.searchWorkKeywrd(param)); // 작품 키워드 (자랑하기 키워드 아님)
+//		return result;
+//	}
+	/*
+	 * 자랑하기 상세 정보
+	 */
+	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
-		result.put("showOff", communityMapper.showingOffDetail(param));
-		result.put("workKeywrd", communityMapper.searchWorkKeywrd(param)); // 작품 키워드 (자랑하기 키워드 아님)
+		Map<String, Object> showOffDtl = communityMapper.searchShowingOffDetail(param); // 자랑하기 상세 정보
+		
+		param.put("workSq", String.valueOf(showOffDtl.get("workSq")));
+		param.put("mbrSq", String.valueOf(showOffDtl.get("mbrSq")));
+		param.put("comtTypCd", String.valueOf(showOffDtl.get("comtTypCd")));
+		
+		Map<String, Object> dealStatus = communityMapper.searchDealStatus(param); // 해당 작품 판매 상태
+		List<Map<String, Object>> otherComt = communityMapper.writerOtherComt(param); // 작성자의 다른 자랑하기 글
+		Map<String, Object> workKeywrd = communityMapper.searchWorkKeywrd(param); // 작품 키워드 (자랑하기 키워드 아님)
+		
+		result.put("showOff", showOffDtl);
+		result.put("dealStatus", dealStatus);
+		result.put("otherComt", otherComt);
+		result.put("workKeywrd", workKeywrd);
+		
 		return result;
 	}
 	
@@ -207,8 +229,8 @@ public class CommunityDao {
 	 * param :
 	 * return :
 	 */
-	public Map<String, Object> searchDealProgress(Map<String, Object> param) {
-		Map<String, Object> result = communityMapper.searchDealProgress(param);
+	public Map<String, Object> searchDealStatus(Map<String, Object> param) {
+		Map<String, Object> result = communityMapper.searchDealStatus(param);
 		return result;
 	}
 	

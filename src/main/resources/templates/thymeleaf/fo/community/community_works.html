@@ -238,8 +238,7 @@
             strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
             strHtml += '            		</ul>';
             strHtml += '        		</div>';
-            //strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="javascript:void(0);" data-mbrSq='+ work.mbrSq +' data-comtSq='+ work.comtSq +' data-workSq='+ work.workSq +' data-artstsq='+ work.artstSq +' onclick="openComtDetail(this, \'BOA\');"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
-            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?comtSq='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
             strHtml += '        		<div class="icon_box">';
             strHtml += '           			<ul>';
             strHtml += '                		<li><p class="ico_good"></p><span>'+ work.comtLikes +'</span></li>';

@@ -209,12 +209,10 @@
    		
    		list.forEach( function (knowhow) {
    			strHtml += '<div class="exhint_row">';
-	        //strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
 	        
-	        //strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+', '+ knowhow.mbrSq +', \'KNO\');" style="cursor: pointer;">';
 	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+');" style="cursor: pointer;">';
 	        strHtml += '            	<li>';
 	        strHtml += '                	<div class="tit">';
@@ -287,28 +285,8 @@
    		});
    	}
 	
-	/* function opneKnowhowDetail(comtSq, mbrSq, cmtType){
-		pageGoPost({
-			url: "/community/knowhowDetail",
-			target:"_self",
-			vals:[
-				["mbrSq", mbrSq],
-				["comtSq", comtSq],
-				["comtTypCd", cmtType]
-			]
-		});
-	} */
 	function opneKnowhowDetail(comtSq){
-		location.href = "/community/knowhowDetail?comtSq=" + comtSq;
-		/* pageGoPost({
-			url: "/community/knowhowDetail",
-			target:"_self",
-			vals:[
-				["mbrSq", mbrSq],
-				["comtSq", comtSq],
-				["comtTypCd", cmtType]
-			]
-		}); */
+		location.href = "/community/knowhowDetail?SqNumber=" + comtSq;
 	}
 	
  	// 캘린더 선택시 조회하기 

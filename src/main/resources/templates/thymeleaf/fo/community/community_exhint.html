@@ -233,12 +233,10 @@
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        //strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
    	        
-   	     	//strHtml += '			<div onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\');" style="cursor: pointer;">';
    	     	strHtml += '			<div onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;">';
    	        strHtml += '            	<li>';
    	        strHtml += '                	<div class="tit">';
@@ -310,28 +308,8 @@
    		});
    	}
    	
-   	function opneExhibitDetail(comtSq, mbrSq, cmtType){
-   		pageGoPost({
-			url: "/community/exhibitDetail",
-			target:"_self",
-			vals:[
-				["mbrSq", mbrSq],
-				["comtSq", comtSq],
-				["comtTypCd", cmtType]
-			]
-		});
-	}
-   	
    	function opneExhibit(comtSq){
-   		location.href = "/community/exhibitDetail?comtSq=" + comtSq;
-   		/* pageGoPost({
-			url: "/community/exhibitDetail",
-			target:"_self",
-			vals:[
-				["comtSq", comtSq],
-				["comtTypCd", "EXH"]
-			]
-		}); */
+   		location.href = "/community/exhibitDetail?SqNumber=" + comtSq;
 	}
 
    	// ajax로 공통코드 들고와서 뿌려주기
