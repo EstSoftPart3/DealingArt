@@ -39,26 +39,31 @@
 		SELECT
 				RPRT.RPRT_SQ AS rprtSq
 				, RPRT.MBR_SQ AS mbrSq
-				, RPRT.WORK_SQ  AS workSq
-				, RPRT.COMT_SQ  AS comtSq
+				, RPRT.WORK_SQ AS workSq
+				, RPRT.COMT_SQ AS comtSq
 				, RPRT.ARTST_SQ AS artstSq
-				, RPRT.DEAL_SQ  AS dealSq
+				, RPRT.DEAL_SQ AS dealSq
+				, MBR.MBR_NCKNM AS mbrNcknm
+				, IFNULL(ARTST.ARTST_ACTVTY_NM, ARTST.ARTST_ENGLS_NM) AS artstActvtyNm 
+				, WORKS.WORK_NM AS workNm
 				, RPRT.RPRT_TYP_CD AS rprtTypCd
 				, (
 				SELECT DTL_CD_NM 
 				FROM TBL_DA_COMN_DTL_CD_S AS A
 				WHERE RPRT.RPRT_TYP_CD = A.DTL_CD
+				GROUP BY RPRT.RPRT_SQ
 				) AS rprtTypCdNm
 				, RPRT.RPRT_RSLT_CD AS rprtRsltCd
 				, (
 				SELECT DTL_CD_NM 
 				FROM TBL_DA_COMN_DTL_CD_S AS B
 				WHERE RPRT.RPRT_RSLT_CD = B.DTL_CD
+				GROUP BY RPRT.RPRT_SQ
 				) AS rprtRsltCdNm
 				, RPRT_CONTENT AS rprtContent
-				, RPRT.REG_DT AS regDt
+				, DATE_FORMAT(RPRT.REG_DT, '%Y-%m-%d %H:%i:%s') AS regDt
 				, RPRT.REG_MBR_SQ AS regMbrSq
-				, RPRT.UPDT_DT AS updtDt
+				, DATE_FORMAT(RPRT.UPDT_DT, '%Y-%m-%d %H:%i:%s') AS updtDt
 				, RPRT.UPDT_MBR_SQ AS updtMbrSq
 				, RPRT.USE_YN AS useYn
 				, RPRT.DEL_YN AS delYn
@@ -73,6 +78,12 @@
 		LEFT JOIN 
 				TBL_DA_DEAL_M AS DEAL
 			ON	DEAL.DEAL_SQ = RPRT.DEAL_SQ
+		LEFT JOIN 
+				TBL_DA_MBR_M AS MBR
+			ON 	MBR.MBR_SQ = RPRT.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_ARTST_M AS ARTST
+			ON	ARTST.ARTST_SQ = RPRT.ARTST_SQ
 		WHERE 
 				RPRT.DEL_YN = 'N'
 			AND RPRT.USE_YN = 'Y'
