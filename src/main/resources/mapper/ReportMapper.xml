@@ -22,14 +22,15 @@
 		
 			) VALUES (
 				#{mbrSq}
+				, #{workSq}
 				, #{comtSq}
 				, #{artstSq}
 				, #{dealSq}
 				, #{rprtContent}
 				, NOW()
-				, #{regMbrSq}
+				, #{mbrSq}
 				, NOW()
-				, #{updtMbrSq}
+				, #{mbrSq}
 			)
 								
 	</insert>
