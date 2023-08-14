@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String mbrSq = (String)session.getAttribute("mbrSq");
+	
+	if(mbrSq == null) {
+		response.sendRedirect("/admin/");	
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,16 +47,25 @@
   	.sTitle{ font-size:12px; height:30px; }
   	.ck.ck-editor{ min-width: 1200px; }
   	.ck-editor__editable{ min-height: 500px; }
-
+	
   </style>
   
+  <!-- 22023-08-09 추가 -->
+  <style type="text/css">
+  	.line-height-2 {
+  		line-height: 2;
+  	}
+  	table th, table td {
+  		vertical-align: middle !important;
+  	}
+  	.cursor-pointer {
+  		cursor: pointer;
+  	}
+  </style>
+  <script type="text/javascript">
+  	var adminMbrSq = <%=mbrSq %>; // 관리자 회원 순번
+  </script>
 </head>
 
-<%
-String mbrSq = (String)session.getAttribute("mbrSq");
 
-if(mbrSq == null) {
-	response.sendRedirect("/admin/");	
-}
-%>
 

@@ -50,6 +50,11 @@ public class CommunityManagementDao {
 		return communityManagementMapper.communityManagementSave(param);
 	}
 	
+	/* 게시판 관리 공지글 등록 */
+	public int insertCommunityManagementNotice(Map<String, Object> param) {
+		return communityManagementMapper.insertCommunityManagementNotice(param);
+	}
+	
 	//게시판 목록
 	public Map<String, Object> boardList(Map<String, Object> param){
 		
