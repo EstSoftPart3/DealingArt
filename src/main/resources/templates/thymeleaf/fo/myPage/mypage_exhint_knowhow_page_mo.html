@@ -99,76 +99,91 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="mypage_wrap">
-            <h2>스크랩</h2>
-            <div class="mypage_contents">
-                <div class="contents_left">
-                  <div class="myinfo_wrap">
-                    <div class="myinfo_pic"></div>
-                    <div class="myinfo_con">
-                      <ul>
-                        <li class="name">Dealing - Art <span></span></li>
-                        <li class="email">admin@dealing-art.com</li>
-                        <li class="mem_type">회원유형<span>컬렉터</span></li>
-                        <li class="line"></li>
-                        <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>
-                      </ul>
-                    </div>
-                    <div class="icon_box">
-                      <ul>
-                        <li><p class="ico_scrap"></p>스크랩<br><span>99</span></li>
-                        <li><p class="ico_good"></p>좋아요<br><span>99</span></li>
-                        <li><p class="ico_alarm"></p>알림<br><span>99</span></li>
-                      </ul>
-                    </div>
-                    <div class="icon_sns_box">
-                      <ul>
-                        <li><a href="#"><p class="ico_facebook"></p></a></li>
-                        <li><a href="#"><p class="ico_instagram"></p></a></li>
-                        <li><a href="#"><p class="ico_youtube"></p></a></li>
-                        <li> <a href="#"><p class="ico_twitter"></p></a></li>
-                      </ul>
-                    </div>                    
-                  </div>
-                  <div class="left_nav">
-                    <ul>
-                      <li class="on"><a href="#">마이페이지</a>
-                        <ul>
-                          <li><a href="#">모두보기</a></li>
-                          <li><a href="#">나의 작품</a></li>
-                          <li><a href="#">자랑하기</a></li>
-                          <li><a href="#">전시후기&소개</a></li>
-                          <li><a href="#">이슈</a></li>
-                          <li><a href="#">알림함</a></li>
-                          <li><a href="#">스크랩</a></li>
-                          <li><a href="#">팔로잉</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="#">거래</a></li>
-                      <li><a href="#">작가</a></li>
-                      <li><a href="#">나의 정보</a></li>
-                    </ul>
-                  </div>
+            <h2>전시 후기/소개 등록</h2>
+            <div class="mypage_exhint_select_wrap">                
+                <div class="sel_area left0">
+                    <select name="" id="">
+                        <option value="">지역</option>
+                    </select>
                 </div>
-                <div class="contents_right">
-                    <div class="mypage_search_wrap">
-                        <div class="search width100per">
-                            <label for="search_input" class="hidden">검색</label>
-                            <input type="text" id="search_input" placeholder="검색어를 입력해 주세요.">
-                            <button class="btn_mypage_search right20"></button>                           
-                        </div>
+                <div class="sel_sortation left170">
+                    <select name="" id="">
+                        <option value="">구분</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mypage_contents">
+                <div class="mypage_collectcreate_wrap">                    
+                    <div class="third">
+                        <form action="" method="" id="" name="">
+                            <div class="public_nondis">                                    
+                                <span><strong>*</strong>공개여부</span>
+                                <ul>
+                                    <li>                                            
+                                        <input type="checkbox" id="a1" name="공개">
+                                        <label for="a1"><span>공개</span></label>
+                                    </li>
+                                    <li>                                            
+                                        <input type="checkbox" id="a2" name="공개">
+                                        <label for="a2"><span>비공개</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>                        
+                        <form action="" method="" id="" name="">
+                            <div class="sns_allow_sharing">                                    
+                                <span><strong>*</strong>SNS 공유허용</span>
+                                <ul>
+                                    <li>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="chkTog1">
+                                            <label for="chkTog1">
+                                                <span class="toggle-track"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>                                             
                     </div>
-                    <div class="mypage_tap_wrap">
-                        <ul class="tap_scrap">
-                            <li class="on bg_no">나의 작품(5)</li>
-                            <li>자랑하기(50)</li>
-                            <li>전시후기/소개(29)</li>
-                            <li>이슈(5)</li>
-                            <li>인사이트(5)</li>
-                            <li class="bg_no">아티스트 필름</li>
-                        </ul>
-                    </div>                    
-                    <div style="font-size: 28px;text-align: center;margin-top: 100px;">나의 작품 페이지 링크하기</div>
-              </div>
+                    <hr class="line">
+                    <div class="four">
+                        <div class="showing_off"> 
+                            <div class="showingoff_file_area">
+                                <p>드래그 앤 드롭이나 추가하기 버튼으로<br>
+                                    대표 사진을 업로드 해주세요.<br>
+                                    <span>
+                                        * 권장 사이즈<br> 
+                                        모바일 : 390 x 844<br>
+                                        PC : 1440 x 1024
+                                    </span>
+                                </p>
+                                <button class="btn_reprepic_add">대표사진 추가하기</button>
+                            </div>
+                        </div>
+                    </div>                                              
+                </div>
+                <div class="exhint_edit_area">
+                    <form action="" method="" id="" name="">
+                        <p>
+                            <label for="worksName">제 목</label>
+                            <input type="text" id="worksName" name="" required placeholder="">
+                        </p>
+                    </form>
+                </div>
+                <!--편집기 영역 시작-->
+                <div class="edit_area">
+                    편집기 영역
+                </div>
+                <!--편집기 영역 끝--> 
+                <div class="btn_regi_area">
+                    <ul>
+                        <li><button class="registration">등록</button></li>
+                        <li><button>임시저장</button></li>
+                        <li><button>미리보기</button></li>
+                        <li><button>취소</button></li>
+                    </ul>
+                </div>    
             </div>
         </div>
     </div>
