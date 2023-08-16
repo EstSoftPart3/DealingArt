@@ -2677,7 +2677,7 @@ function initOtherComtWorkListSwiper() {
  * 예)
  ---------------------------------------------*/
 function openComtRprtModal(){
-	$('#rprtDtl').val('');
+	$('#rprtContent').val('');
 	$('#myModal3').modal('show');
 }
 
@@ -2713,32 +2713,40 @@ function comtReport(){
 function sendComtRprt(){
 	
 	//로그인 체크 확인
-	/* if(sMbrSqVal != "" || sMbrSqVal != null){
+	if(sMbrSqVal != "" || sMbrSqVal != null){
+		var rprtContent = $("#rprtContent").val();
 		
-		var workSqVal = result.deal.workSq;
-		var mbrSqVal = sMbrSqVal;
-		var rprtDtlVal = $("#rprtDtl").val();
+		var param = {
+			mbrSq: sMbrSqVal,
+			//workSq: showOff.workSq,
+			comtSq: comtSq,
+			rprtContent: rprtContent
+		}
 		
-		if(rprtDtlVal == "" || rprtDtlVal == null ) {
+		// 자랑하기 상세 페이지에서 신고하는 경우
+		if(showOff) {
+			param.workSq = showOff.workSq;
 			
+			if(showOff.artstSq) {
+				param.artstSq = showOff.artstSq;
+			}
+			
+			if(deal) {
+				param.dealSq = deal.deal.dealSq;
+			} else if(showOffList.dealStatus) {
+				param.dealSq = showOffList.dealStatus.dealSq;
+			}
+		}
+
+		if(rprtContent == "" || rprtContent == null ) {
 			alert("신고내역을 입력주세요.");
-			$("#rprtDtl").focus();			
+			$("#rprtContent").focus();			
 			return;
 		} else {
-		
-			console.log("workSqVal :"+workSqVal);
-			console.log("mbrSqVal :"+mbrSqVal);
-			console.log("rprtDtlVal :"+rprtDtlVal);
-			
-			
 			$.ajax({
 				type: "POST",
 		        url: "/admin/report/reportInsData",
-		        data: {
-		        	workSq : workSqVal,  //작품번호
-		        	mbrSq : mbrSqVal,	 //회원번호
-		        	rprtDtl : rprtDtlVal //신고내용
-		        },
+		        data: param,
 		        async: false,
 				success: function(data){
 					$('#myModal3').modal('hide');
@@ -2750,11 +2758,8 @@ function sendComtRprt(){
 					$('#myModal4_4').modal('show');
 		        }
 			});
-			
 		}
-		
-		
-	} */
+	}
 }
 
 /* ---------------------------------------------
@@ -2782,7 +2787,7 @@ function setReportModal() {
 	html += '					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.';
 	html += '					</p>';
 
-	html += '					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>';
+	html += '					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtContent" name="rprtContent"></textarea>';
 
 	html += '					<!-- <div class="text-center  mg_b40">';
 	html += '						<input type="checkbox" id="w1" name="cc">';

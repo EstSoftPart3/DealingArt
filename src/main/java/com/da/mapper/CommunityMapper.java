@@ -160,4 +160,11 @@ public interface CommunityMapper {
 	 */
 	public int updateCmtCnt(Map<String, Object> param);
 	
+	/*
+	 * 판매 제안하기 or 요청하기 등록
+	 * param :
+	 * return :
+	 */
+	public int insertComtRequest(Map<String, Object> param);
+	
 }

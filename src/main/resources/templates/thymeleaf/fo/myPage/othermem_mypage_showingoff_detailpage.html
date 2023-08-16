@@ -113,8 +113,8 @@
                 <div class="picture_detail">
                 
                 </div>
-                <h2 class="mt50">작품정보</h2>
-                <div class="works_info_wrap">
+                <h2 class="sub-title">작품정보</h2>
+                <div class="baeg-wrap">
                 	
                 </div>
             </div>
@@ -147,8 +147,7 @@
 		     }
 		});
 		
-    	var comtSqList = /*[[${param.SqNumber}]]*/ 'default'; // 커뮤니티 순번 리스트
-    	var comtSq = comtSqList[0]; // 커뮤니티 순번
+    	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default'; // 커뮤니티 순번
     	var otherComt; // 작성자의 다른 자랑하기
     	var showOffList;
 		var showOff;
@@ -190,7 +189,7 @@
     				deal = data.result.deal;
     	    		work = data.result.work;
     	    		list = deal || work;
-    				
+
     				setShowOffDtlInfoHtml();
     				setWorkInfoHtml();
     				
@@ -269,36 +268,34 @@
     	
     	// 작품 정보 html 생성
     	function setWorkInfoHtml() {
-    		var worksInfoWrap = $(".works_info_wrap");
+    		var worksInfoWrap = $(".baeg-wrap");
     		var dealOrWorkObj = getDealOrWorkObj();
     		
     		var html = '';
-    		html += '<div class="works_info_left">';
-    		html += '	<div class="contents_box">';
-    		html += '		<div class="big_img">';
+    		html += '<div class="baeg-left">';
+    		html += '	<div class="contentbox">';
+    		html += '		<div class="bigImages">';
     		html += '			<img class="big big1" src="'+ dealOrWorkObj.workMainImgUrl +'" alt="" data-toggle="modal" data-target="#bigImageModal">';
     		html += '		</div>';
-    		html += '		<div class="small_img">';
+    		html += '		<div class="smallImages">';
     		html += 			getWorkImg(1); // 작품 상세 이미지 생성
     		html += '		</div>';
     		html += '	</div>';
     		html += '</div>';
     		
-    		html += '<div class="works_info_right">';
+    		html += '<div class="baeg-right">';
     		
     		for(var key in list) {
     			if(key == objName[key]) {
     				var obj = list[key];
-    				html += '<div class="tit_wrap">';
-    	    		html += '	<div class="tit_01">';
+    				html += '<div class="be-title">';
     	    		html += '		<h3>'+ obj.artstActvtyNm +'</h3>';
     	    		
     	    		if(obj.artstEnglsNm) {
     		    		html += '	<h3>('+ obj.artstEnglsNm +')</h3>';
     	    		}
     	    		
-    	    		html += '	</div>';
-    	    		html += '	<div class="tit_02">'+ obj.workNm +'</div>';
+    	    		html += '	<h4>'+ obj.workNm +'</h4>';
     	    		html += '</div>';
     	    		html += '<table class="tstyle1">';
     	    		html += '	<tr>';
@@ -325,7 +322,7 @@
     	    		if(obj.workLake) {
 	    	    		html += '<tr>';
 	    	    		html += '	<th>호수</th>';
-	    	    		html += '	<td>'+ obj.workLake +'<img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openModal(\'lakeHelpModal\')"></td>';
+	    	    		html += '	<td>'+ obj.workLake +' <img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openModal(\'lakeHelpModal\')"></td>';
 	    	    		html += '</tr>';
     	    		}
     	    		
@@ -485,7 +482,7 @@
     	    		
     	    		if(key == "work") {
     	    			html += '	<div class="btn_worksInfo_wrap">';
-    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "disabled") +' onclick="saleSuggest();">판매 제안하기</button>';
+    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "disabled") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
     		    		html += '	</div>';
     	    		} else if(key == "deal") {
     	    			html += '	<div class="bat-box">';
@@ -563,12 +560,61 @@
     	}
     	
     	// 판매 제안하기
-    	function saleSuggest() {
-    		modalConfirm("판매 제안하시겠습니까?", function(confirm) {
-    			if(confirm) {
-    				modalAlertShow("판매 제안이 완료되었습니다.");
-    			}
-    		});
+    	function comtRequest(notiCatCd) {
+    		$("#ModalConfirm").css("z-index", 99999);
+ 			$("#ModalAlert").css("z-index", 100000);
+    		
+    		var param = {
+   				mbrSq: showOff.mbrSq,
+				workSq: showOff.workSq,
+				artstSq: showOff.artstSq,
+				notiTypCd: "GEN",
+				notiCatCd: notiCatCd,
+				questionMbrSq: sMbrSqVal
+    		};
+
+    		var msg = "";
+    		
+    		switch(notiCatCd) {
+    		case "SEL": // 판매 제안
+    			msg = "판매 제안";
+    			break;
+    		case "PRC": // 가격 협상(제안)
+    			msg = "가격 제안";
+    			param["dealSq"] = deal.deal.dealSq;
+    			param["questionContent"] = $("#sgtPrc").val();
+    			break;
+    		case "PIC": // 상세 사진 요청
+    			msg = "상세 사진 요청";
+    			param["dealSq"] = deal.deal.dealSq;
+    			param["questionContent"] = $("#reqPic").val();
+    			break;
+    		}
+    		
+    		if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
+    			modalAlertShow("가격을 입력해주세요.");
+    		} else if(notiCatCd == "PIC" && !$("#reqPic").val()) {
+    			
+    		} else {
+	    		modalConfirm(msg + "하시겠습니까?", function(confirm) {
+	    			if(confirm) {
+	    				$.ajax({
+	    					type: "post",
+	    					url: "/community/insertComtRequest",
+	    					data: param,
+	    					success: function(data) {
+	    						if(data.result) {
+				    				modalAlertShow(mgs+ "이 완료되었습니다.");
+	    						}
+	    					},
+	    					error: function(data) {
+	    						modalAlertShow("오류가 발생했습니다.");
+	    					}
+	    				});
+	    			}
+	    		});
+    		}
+    		
     	}
     	
     	// 작품 상세 이미지 마우스 오버 효과 이벤트
@@ -1047,7 +1093,7 @@
     		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" onblur="sgtPrcCal(this)" style="font-size:15px;"/>';
     		html += '					</div>';
     		html +=	'					<div class="baeg-btn mg_t30">';
-    		html +=	'						<button type="button" class="baeg-b1" onclick="openModal();">확인</button>';
+    		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PRC\');">확인</button>';
     		html +=	'						<button type="button" class="baeg-b2" onclick="closeModal(\'workPriceSuggestModal\');">취소</button>';
     		html +=	'					</div>';
     		html += '				</div>';
@@ -1074,10 +1120,10 @@
     		html += '			<div class="modal-body">';
     		html += '				<div class="md-box-1">';
     		html += '					<div class="text-center mg_b40">';
-    		html += '						<input type="text" class="input-1" id="reqPic" placeholder="원하시는 작품의 사진 구도를 적어주세요 (100자 이내, 공백포함)" style="font-size:15px;"/>';
+    		html += '						<input type="text" class="input-1" id="reqPic" placeholder="원하시는 작품의 사진 구도를 적어주세요 (100자 이내, 공백포함)" maxlength="100" style="font-size:15px;"/>';
     		html += '					</div>';
     		html +=	'					<div class="baeg-btn mg_t30">';
-    		html +=	'						<button type="button" class="baeg-b1" onclick="openModal();">확인</button>';
+    		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PIC\');">확인</button>';
     		html +=	'						<button type="button" class="baeg-b2" onclick="closeModal(\'RequestPictureModal\');">취소</button>';
     		html +=	'					</div>';
     		html += '				</div>';
@@ -1109,6 +1155,7 @@
    				obj.value = parseInt(obj.value);
    				var n = obj.value % 10000;
    				if(n != 0 || obj.value == 0){
+   					$("#ModalAlert").css("z-index", 100000);
    					modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
    					obj.value = '';
    				}else{
@@ -1206,80 +1253,6 @@
 			    }
 			});
 		}
-		
-		/* // 신고하기 모달 열기
-		function openComtRprtModal(){
-			$('#rprtDtl').val('');
-			$('#myModal3').modal('show');
-		}
-		
-		//신고하기
-		function comtReport(){
-			
-			if(sMbrSqVal == "" || sMbrSqVal == null){
-				
-				$(".close").trigger("click");
-						
-				modalConfirm("로그인 후 신고하기를 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
-					if(confrim){
-						$("#loginModal").modal("show");	
-					}
-				});
-			} else {
-				
-				//신고하기 입력
-				sendComtRprt();				
-
-			}
-		}
-		
-		//신고하기 입력
-		function sendComtRprt(){
-			
-			//로그인 체크 확인
-			if(sMbrSqVal != "" || sMbrSqVal != null){
-				
-				var workSqVal = result.deal.workSq;
-				var mbrSqVal = sMbrSqVal;
-				var rprtDtlVal = $("#rprtDtl").val();
-				
-				if(rprtDtlVal == "" || rprtDtlVal == null ) {
-					
-					alert("신고내역을 입력주세요.");
-					$("#rprtDtl").focus();			
-					return;
-				} else {
-				
-					console.log("workSqVal :"+workSqVal);
-					console.log("mbrSqVal :"+mbrSqVal);
-					console.log("rprtDtlVal :"+rprtDtlVal);
-					
-					
-					$.ajax({
-						type: "POST",
-				        url: "/admin/report/reportInsData",
-				        data: {
-				        	workSq : workSqVal,  //작품번호
-				        	mbrSq : mbrSqVal,	 //회원번호
-				        	rprtDtl : rprtDtlVal //신고내용
-				        },
-				        async: false,
-						success: function(data){
-							$('#myModal3').modal('hide');
-							$('#myModal4').modal('show');
-						},
-						error: function(error) {
-				            //alert("오류 발생" + error);
-				            $('#myModal3').modal('hide');
-							$('#myModal4_4').modal('show');
-				        }
-					});
-					
-				}
-				
-				
-			}
-		} */
 		
 		//경매일 경우 호가 단위를 자동으로 리턴해준다.
 		function askingPrice(prc){

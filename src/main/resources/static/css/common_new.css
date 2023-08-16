@@ -9,7 +9,7 @@ a, a:active, a:hover, a:focus {text-decoration:none; }
 a, a:link, a:visited, a:active{text-decoration:none;color:#202020}
 a:hover{text-decoration: none;color: #af1c2a !important;}
 address,caption,cite,code,dfn,em,var,th,strong { font: inherit; }
-table { width: 100%; border-collapse: collapse; border-spacing: 0;margin: 0 !important;}
+table { width: 100%; border-collapse: collapse; border-spacing: 0;/* margin: 0 !important; 주석처리 2023-08-09 */}
 legend, caption, hr,  template, select::-ms-expand	{display:none;}
 input, select {-webkit-appearance:none; -moz-appearance:none; appearance: none; -o-appearance:none; -webkit-border-radius:0; border-radius:0;}
 input:focus,select:focus,textarea:focus,a:focus,button:focus{outline:none}
@@ -750,6 +750,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_info_wrap .works_info_right .tstyle1 td{font-size: 16px;font-weight: 300;color: #111111;padding-bottom: 12px;text-align: left;}
 .works_info_wrap .works_info_right .btn_worksInfo_wrap{margin-top: 80px;}
 .works_info_wrap .works_info_right .btn_worksInfo_wrap button{width: 100%;font-size: 20px;color: #ffffff;background: #ea655b;padding: 16px 0;}
+/* 추가 2023-08-09 */.btn_worksInfo_wrap button{width: 100%;font-size: 20px;color: #ffffff;background: #ea655b;margin-top: 80px; padding: 16px 0;}
 
 .works_showingoff_detai2_page_wrap{margin-top: 50px;padding-bottom: 200px;position: relative;}
 .works_showingoff_detai2_page_wrap h2{margin-bottom: 50px;}
