@@ -29,7 +29,7 @@ public class CommunityDao {
 	public Map<String, Object> searchHomeList() {
 		String BOA = "BOA"; // 자랑하기
 		String EXH = "EXH"; // 전기후기/소개
-		String KNO = "KNO"; // 노하우
+		String ISS = "ISS"; // 이슈
 		String EVH = "EVH"; // 이벤트
 		String CMH = "CMH"; // 커뮤니티 홈
 		
@@ -44,7 +44,7 @@ public class CommunityDao {
 		Map<String, Object> bestExhibit = communityMapper.boardManageDetail(EXH); // 전시후기/소개 베스트 게시물 상세 조건
 		result.put("bestExhibitList", communityMapper.searchHomeList(bestExhibit)); // 전시후기/소개 베스트 게시물
 		
-		Map<String, Object> bestIssue = communityMapper.boardManageDetail(KNO); // 이슈 베스트 게시물 상세 조건
+		Map<String, Object> bestIssue = communityMapper.boardManageDetail(ISS); // 이슈 베스트 게시물 상세 조건
 		result.put("bestIssueList", communityMapper.searchHomeList(bestIssue)); // 이슈 베스트 게시물
 		
 		Map<String, Object> bigBnn = communityMapper.searchHomeBnnList(CMH);
@@ -59,10 +59,32 @@ public class CommunityDao {
 	/*
 	 * 자랑하기 상세 정보
 	 */
-	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
+//	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param) {
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("showOff", communityMapper.searchShowingOffDetail(param));
+//		result.put("workKeywrd", communityMapper.searchWorkKeywrd(param)); // 작품 키워드 (자랑하기 키워드 아님)
+//		return result;
+//	}
+	/*
+	 * 자랑하기 상세 정보
+	 */
+	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
-		result.put("showOff", communityMapper.showingOffDetail(param));
-		result.put("workKeywrd", communityMapper.searchWorkKeywrd(param)); // 작품 키워드 (자랑하기 키워드 아님)
+		Map<String, Object> showOffDtl = communityMapper.searchShowingOffDetail(param); // 자랑하기 상세 정보
+		
+		param.put("workSq", String.valueOf(showOffDtl.get("workSq")));
+		param.put("mbrSq", String.valueOf(showOffDtl.get("mbrSq")));
+		param.put("comtTypCd", String.valueOf(showOffDtl.get("comtTypCd")));
+		
+		Map<String, Object> dealStatus = communityMapper.searchDealStatus(param); // 해당 작품 판매 상태
+		List<Map<String, Object>> otherComt = communityMapper.writerOtherComt(param); // 작성자의 다른 자랑하기 글
+		Map<String, Object> workKeywrd = communityMapper.searchWorkKeywrd(param); // 작품 키워드 (자랑하기 키워드 아님)
+		
+		result.put("showOff", showOffDtl);
+		result.put("dealStatus", dealStatus);
+		result.put("otherComt", otherComt);
+		result.put("workKeywrd", workKeywrd);
+		
 		return result;
 	}
 	
@@ -109,7 +131,7 @@ public class CommunityDao {
 	}
 	
 	/*
-	 * 커뮤니티 전시후시/소개, 노하우 상세 정보 들고오기 
+	 * 커뮤니티 전시후시/소개, 이슈 상세 정보 들고오기 
 	 * param : 
 	 * return : 
 	 */
@@ -119,7 +141,7 @@ public class CommunityDao {
 	}
 	
 	/*
-	 * 커뮤니티 전시후시/소개, 노하우 상세페이지에서 작성자의 다른 글 들고오기 
+	 * 커뮤니티 전시후시/소개, 이슈 상세페이지에서 작성자의 다른 글 들고오기 
 	 * param : 
 	 * return : 
 	 */
@@ -207,8 +229,8 @@ public class CommunityDao {
 	 * param :
 	 * return :
 	 */
-	public Map<String, Object> searchDealProgress(Map<String, Object> param) {
-		Map<String, Object> result = communityMapper.searchDealProgress(param);
+	public Map<String, Object> searchDealStatus(Map<String, Object> param) {
+		Map<String, Object> result = communityMapper.searchDealStatus(param);
 		return result;
 	}
 	
@@ -232,6 +254,15 @@ public class CommunityDao {
 	public int modCommentAndReply(Map<String, Object> param) {
 		int result = communityMapper.modComment(param);
 		return result;
+	}
+	
+	/*
+	 * 판매 제안하기 or 요청하기 등록
+	 * param :
+	 * return :
+	 */
+	public int insertComtRequest(Map<String, Object> param) {
+		return communityMapper.insertComtRequest(param);
 	}
 	   
 }

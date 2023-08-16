@@ -29,8 +29,8 @@ public class CommunityServiceImpl implements CommunityService {
 	 * 자랑하기 상세
 	 */
 	@Override
-	public Map<String, Object> showingOffDetail(Map<String, Object> param) {
-		return communityDao.showingOffDetail(param);
+	public Map<String, Object> searchShowingOffDetail(Map<String, Object> param) {
+		return communityDao.searchShowingOffDetail(param);
 	}
 
 	/*
@@ -168,8 +168,8 @@ public class CommunityServiceImpl implements CommunityService {
 	 * param :
 	 * return :
 	 */
-	public Map<String, Object> searchDealProgress(Map<String, Object> param) {
-		return communityDao.searchDealProgress(param);
+	public Map<String, Object> searchDealStatus(Map<String, Object> param) {
+		return communityDao.searchDealStatus(param);
 	}
 	
 	/*
@@ -199,6 +199,15 @@ public class CommunityServiceImpl implements CommunityService {
 		// 팔로우되어 있는지 확인하기 
 		int result = communityDao.findFollow(param);
 		return result;
+	}
+	
+	/*
+	 * 판매 제안하기 or 요청하기 등록
+	 * param :
+	 * return :
+	 */
+	public int insertComtRequest(Map<String, Object> param) {
+		return communityDao.insertComtRequest(param);
 	}
 	
 }

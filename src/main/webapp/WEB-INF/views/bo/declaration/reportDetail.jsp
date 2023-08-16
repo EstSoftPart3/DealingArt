@@ -36,14 +36,11 @@
 					 	<table class="table table-bordered" style="font-size:11px;width:900px;">
 					 		
 					 		<tr>
-					 			<td style="width:150px;text-align:center;vertical-align: middle;background-color:#efefef"><b>신고구분(관리자 지정)</b></td>
+					 			<td style="text-align:center; vertical-align: middle; background-color:#efefef"><b>신고 타입 구분</b></td>
 					 			<td colspan="3">
 					 			
-					 				<table class="table table-bordered" style="font-size:11px;">
+					 				<table class="table table-bordered" style="font-size:11px; table-layout:fixed;">
 					 					<tr align="center" style="background-color:#efefef">
-					 						<td>
-					 							신고요청
-					 						</td>
 					 						<td>
 					 							허위신고		
 					 						</td>
@@ -56,16 +53,44 @@
 					 					</tr>
 					 					<tr align="center">
 					 						<td>
-					 							<input type="radio" name="rprtRsltTypCd" class="rprtRsltTypCd" value="RP" onclick="detailupdate('RP')">
+					 							<input type="radio" name="rprtTypCd" value="FR" onclick="detailupdate('FR')">		
 					 						</td>
 					 						<td>
-					 							<input type="radio" name="rprtRsltTypCd" class="rprtRsltTypCd" value="FR" onclick="detailupdate('FR')">		
+					 							<input type="radio" name="rprtTypCd" value="FS" onclick="detailupdate('FS')">
 					 						</td>
 					 						<td>
-					 							<input type="radio" name="rprtRsltTypCd" class="rprtRsltTypCd" value="FS" onclick="detailupdate('FS')">
+					 							<input type="radio" name="rprtTypCd" value="FG" onclick="detailupdate('FG')">		
+					 						</td>
+					 					</tr>
+					 				</table>
+					 				
+					 			</td>
+					 		</tr>
+					 		<tr>
+					 			<td style="text-align:center; vertical-align: middle; background-color:#efefef"><b>신고 처리 결과</b></td>
+					 			<td colspan="3">
+					 			
+					 				<table class="table table-bordered" style="font-size:11px; table-layout: fixed;">
+					 					<tr align="center" style="background-color:#efefef">
+					 						<td>
+					 							신고요청
 					 						</td>
 					 						<td>
-					 							<input type="radio" name="rprtRsltTypCd" class="rprtRsltTypCd" value="FG" onclick="detailupdate('FG')">		
+					 							신고처리중		
+					 						</td>
+					 						<td>
+					 							신고처리완료
+					 						</td>
+					 					</tr>
+					 					<tr align="center">
+					 						<td>
+					 							<input type="radio" name="rprtRsltTypCd" value="RP" onclick="detailupdate('RP')">
+					 						</td>
+					 						<td>
+					 							<input type="radio" name="rprtRsltTypCd"  value="FR" onclick="detailupdate('FR')">		
+					 						</td>
+					 						<td>
+					 							<input type="radio" name="rprtRsltTypCd"  value="FS" onclick="detailupdate('FS')">
 					 						</td>
 					 					</tr>
 					 				</table>
@@ -75,11 +100,11 @@
 					 		<tr>
 					 			<td style="width:150px;text-align:center;background-color:#efefef"><b>신고자</b></td>
 					 			<td>
-					 				<span id="mbrNm"></span>
+					 				<span id="mbrNcknm"></span>
 					 			</td>
 					 			<td style="width:150px;text-align:center;background-color:#efefef"><b>작가명</b></td>
 					 			<td>
-					 				<span id="artstNm"></span>
+					 				<span id="artstActvtyNm"></span>
 					 			</td>
 					 		</tr>
 					 		<tr>
@@ -91,7 +116,7 @@
 					 		<tr>
 					 			<td style="width:120px;text-align:center;vertical-align: middle;background-color:#efefef"><b>신고내용</b></td>
 					 			<td colspan="3" style="height:400px;">
-					 				<span id="rprtDtl"></span>
+					 				<span id="rprtContent"></span>
 					 			</td>
 					 		</tr>
 					 	</table>
@@ -116,41 +141,34 @@
    <%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
    
    <script>
-   
-   function detailtData() {
+function detailtData() {
 		
-		$.ajax({
-	           type: "post",
-	           url: "/admin/report/reportSearch",
-	           data: {
-	        	   rprtSq : <%=rprtSq%>
-	        },
-	           success: function(data) {
-	        	   console.log(data);
-	        	   dataCon = data.result[0];
+	$.ajax({
+		type: "post",
+	    url: "/admin/report/reportSearch",
+	    data: {
+	    	rprtSq : <%=rprtSq%>
+	    },
+	    success: function(data) {
 	        	   
-	        	   $("#artstNm").html(dataCon.artstNm);
-	        	   $("#workNm").html(dataCon.workNm);
-	        	   $("#mbrNm").html(dataCon.mbrNm);
-	        	   $("#rprtDt").html(dataCon.rprtDt);
-	        	   $("#rprtDtl").html(dataCon.rprtDtl);
+	    	$("#artstActvtyNm").html(data.result.artstActvtyNm);
+	        $("#workNm").html(data.result.workNm);
+	        $("#mbrNcknm").html(data.result.mbrNcknm);
+	        $("#regDt").html(data.result.regDt);
+	        $("#rprtContent").html(data.result.rprtContent);
 	        	   
-	        	   var rprtRsltTypCd = dataCon.rprtRsltTypCd;
+	       	$("#rprtTypCd").val(data.result.rprtTypCd);
 	        	   
-	        	   $("#rprtRsltTypCdDv").val(rprtRsltTypCd);
-	        	   
-	        	   //var rprtRsltTypCd = 'FR';
-	        	   $('input[name="rprtRsltTypCd"][value='+rprtRsltTypCd+']').prop("checked", true);
+	        $('input[name="rprtRsltTypCd"][value='+rprtRsltTypCd+']').prop("checked", true);
 	        	 
-	        	 console.log(dataCon.workNm);
+	        console.log(dataCon.workNm);
 	        	 
-	           },
-	           error: function(error) {
-	        	   var errorJson = JSON.stringify(error);
-	               console.log(errorJson);
-	           }
-		})
-	}
+	    },
+	    error: function(error) {
+	        var errorJson = JSON.stringify(error);
+	    }
+	})
+}
 	 
    
    function reportList() {

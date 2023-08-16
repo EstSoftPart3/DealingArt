@@ -1,23 +1,32 @@
 package com.da.bo.community;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.CommunityManagementService;
+import com.da.common.AwsS3Service;
+import com.da.vo.FileVo;
 
 @Controller
 public class CommunityManagementController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private AwsS3Service awsS3Service;
 	
 	@Autowired
 	private CommunityManagementService communityManagementService;
@@ -74,8 +83,8 @@ public class CommunityManagementController {
 		ModelAndView mv = new ModelAndView("bo/community/communityManagementNoticeUpdate");
 		return mv;
 	}
-
-	//게시물 관리 정보 저장 
+	
+	//게시판 관리 정보 저장 
 	@RequestMapping("/admin/community/communityManagementSave")
 	@ResponseBody
 	public int communityManagementSave(@RequestParam Map<String, Object> param) {
@@ -83,6 +92,25 @@ public class CommunityManagementController {
 		resultState = communityManagementService.communityManagementSave(param);
 		return resultState;
 	}
+	
+	//게시판 관리 공지글 등록
+	@RequestMapping("/admin/community/communityManagementNoticeInsert")
+	@ResponseBody
+	public int communityManagementNoticeInsert(@RequestPart Map<String, Object> param,
+			@RequestPart(value = "noticeFileUrl") @Nullable MultipartFile noticeFileUrl) throws IOException {
+		
+		//공지글 업로드
+		if (noticeFileUrl != null) {
+			FileVo file = awsS3Service.upload(noticeFileUrl, "dealingart/admin/comtMng/notice/"+param.get("mbrSq").toString());
+			param.put("noticeFileUrl", file.getFileUrl());
+			System.out.println(file.getFileUrl());
+		}
+		
+		int result = communityManagementService.insertCommunityManagementNotice(param);
+		
+		return result;
+	}
+	
 	/**
 	 * 
 	 * 게시물 관리

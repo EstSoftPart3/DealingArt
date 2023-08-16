@@ -102,7 +102,7 @@
     <div id="container">
         <div class="mypage_wrap">
             <div class="works_showingoff_detail_page_wrap mb0">
-                <h2 class="mt50">전시 후기/소개</h2>
+                <h2 class="mt50">이슈</h2>
                 
                 <div id="comtFirstBox">
                 
@@ -111,32 +111,32 @@
             </div>
         </div>
         <div class="artist_contents">
-			
+                      
         </div>
-        <div class="comments_box_wrap max-1500" id="commentBox">
-			
-        </div>
+		<div class="comments_box_wrap max-1500" id="commentBox">
+		    
+		</div>
     </div>
     
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script th:inline="javascript">
- 	// 커뮤니티 순번
+	// 커뮤니티 순번
 	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default';
- 	var mbr = /*[[${exhibit.mbrSq}]]*/ 'default';
- 	var comt = /*[[${exhibit}]]*/ 'default';
+ 	var mbr = /*[[${issue.mbrSq}]]*/ 'default';
+ 	var comt = /*[[${issue}]]*/ 'default';
  	var otherComt = /*[[${otherComt}]]*/ 'default';
  	var showOff = null;
  	
     $(document).ready(function(){
     	setComtDetailInfo();
-    	ckClsHide();
-    	followCheck(mbr);
+		ckClsHide();
+		followCheck(mbr);
     	
-    	var otherComtHtml = setOtherComtHtml(comt.mbrNcknm, otherComt, "전시 소개/후기");
+    	var otherComtHtml = setOtherComtHtml(comt.mbrNcknm, otherComt, "이슈");
     	$(".artist_contents").append(otherComtHtml).trigger("create");
     	
-    	otherComtWorkList(otherComt, "/community/exhibitDetail");
+    	otherComtWorkList(otherComt, "/community/issueDetail");
     	initOtherComtWorkListSwiper();
     	
     	setComment(comtSq);
@@ -166,7 +166,7 @@
 	    } else {
 	    	strHtml += '        <li class="mem_type">회원유형<span>컬렉터</span></li>';
 	    }
-		
+
 	    strHtml += '            <li class="following"><button type="button" onclick="clickFollow('+ comt.mbrSq +')">팔로잉</button></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
@@ -182,10 +182,6 @@
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
 	    strHtml += '<div class="gallery_keyword_wrap">';
-	    strHtml += '    <p>';
-	    strHtml += '    	<span>'+ comt.comtExhibitRegionCdNm +'</span>';
-	    strHtml += '    	<span>'+ comt.comtExhibitTypCdNm +'</span>';
-	    strHtml += '    </p>';
 	   	strHtml += '    <p>';
 	    
 	   	if(null != comt.comtKeywrd){
