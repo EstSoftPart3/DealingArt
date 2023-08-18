@@ -227,4 +227,31 @@ public interface MyPageService {
 	 */
 	public int myComtReg(Map<String, Object> param);
 	
+	/* 커뮤니티 등록
+	 * param :
+	 * return :
+	 */
+	public List<Map<String, Object>> myPageMain_myNoti(Map<String, Object> paramMap);
+	
+	/* 마이페이지 커뮤니티
+	 * param : 
+	 * return : 
+	 */
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param);
+	
+	/*
+	 * 나의 작품 공개/비공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myComtOpenYn(List<Map<String, Object>> paramList);
+	
+	/*
+	 * 나의 작품 삭제 처리
+	 * parameter : List
+	 * return : integer
+	 */
+	public int myComtDelYn(List<Map<String, Object>> param);
+	
+	
 }

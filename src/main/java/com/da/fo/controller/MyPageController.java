@@ -1,6 +1,7 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -71,7 +73,15 @@ public class MyPageController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//마이페이지 메인 데이터
+	// 마이페이지 모두보기 페이지
+	@RequestMapping("/myPage/mypage_main")
+	public String mypage_main(){
+		
+		return "thymeleaf/fo/myPage/mypage_main";
+	}
+	
+	
+	//마이페이지 메인 마이 데이터
 	@RequestMapping("/myPage/main/myInfo")
 	@ResponseBody
 	public ModelAndView myPageMain_MyInfo(HttpServletRequest request){
@@ -85,22 +95,58 @@ public class MyPageController {
 		
 		Map<String, Object> myInfo = myPageService.myPageMain_myInfo(mbrSq); //나의 정보 조회
 		
+		mv.addObject("myInfo", myInfo);
+
+		return mv;
+	}
+	
+	//마이페이지 메인 활동내역 데이터
+	@RequestMapping("/myPage/main/MyInfoAction")
+	@ResponseBody
+	public ModelAndView myPageMain_MyInfo_Action(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("jsonView");
+		HttpSession session = request.getSession();
+		
+		String mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
+		paramMap.put("workTypCd","");
+		
 		List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
-		int myWorksTotal = myPageService.myPageMain_myWorksTotal(mbrSq); //나의 작품 총 갯수 조회
+		int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
 		
 		paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
+		paramMap.put("limit", 3); //LIMIT 넣기
 		List<Map<String, Object>> myBoast = myPageService.myPageMain_myCommunitys(paramMap); //나의 자랑하기 조회
 		int myBoastTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 자랑하기 총 갯수 조회
 		
+		paramMap.put("comtTypCd", "EXH"); //커뮤니티 구분 코드 전시후기로 변경
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myExhbn = myPageService.myPageMain_myCommunitys(paramMap); //나의 전시후기 조회
+		int myExhbnTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 전시후기 총 갯수 조회
 		
-		mv.addObject("myInfo", myInfo);
+		paramMap.put("comtTypCd", "ISS"); //커뮤니티 구분 코드 이슈로 변경
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
+		int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+		
+		//paramMap.put("limit", 3); //LIMIT 넣기
+		//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
+		//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+		
+		
 		mv.addObject("myWorks", myWorks);
 		mv.addObject("myWorksTotal", myWorksTotal);
 		mv.addObject("myBoast", myBoast);
 		mv.addObject("myBoastTotal", myBoastTotal);
+		mv.addObject("myExhbn", myExhbn);
+		mv.addObject("myExhbnTotal", myExhbnTotal);
+		mv.addObject("myIssue", myIssue);
+		mv.addObject("myIssueTotal", myIssueTotal);
 		
 		return mv;
-	}	
+	}
 	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
 	@ResponseBody
@@ -155,6 +201,18 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/mypage_mobile";
 	}
 
+	//마이페이지 레프트 메뉴 불러오기
+	@RequestMapping("/myPage/mypage_common_left")
+	public String mypage_common_left() {
+		return "thymeleaf/fo/myPage/mypage_common_left";
+	}
+	
+	//모바일 마이페이지
+	@RequestMapping("/myPage/mypage_profile_edit")
+	public String mypage_profile_edit() {
+		return "thymeleaf/fo/myPage/mypage_profile_edit";
+	}
+	
 	/*
 	 * 결제 시, 로그인한 회원의 사용가능한 쿠폰 리스트를 보여준다.
 	 * param : mbrSq, cuponTypCd(DD:거래수수료할인/TD:운송수수료할인)
@@ -208,6 +266,15 @@ public class MyPageController {
 
 	//통합 나의 작품 화면 오픈
 	@RequestMapping("/myPage/myWorkList")
+	public String myWorkList(HttpServletRequest request) {
+		
+		String mv = "thymeleaf/fo/myPage/mypage_myworks";
+		
+		return mv;
+	}
+	
+	//통합 나의 작품 화면 오픈
+	@RequestMapping("/tempold/myWorkList")
 	public String myWorkList() {
 		return "thymeleaf/fo/myPage/myWorkList";
 	}
@@ -219,7 +286,22 @@ public class MyPageController {
 		System.out.println(param);
 		ModelAndView mv = new ModelAndView("jsonView");
 		List<Map<String, Object>> result = myPageService.myWorkList(param);
+		
+		
+		param.put("workTypCd","");
+		int myTotal = myPageService.myPageMain_myWorksTotal(param); //나의 작품 총 갯수 조회
+		
+		param.put("workTypCd","COLL");
+		int myCollTotal = myPageService.myPageMain_myWorksTotal(param); //나의 작품 콜렉션 총 갯수 조회
+		
+		param.put("workTypCd","WORK");
+		int myWorksTotal = myPageService.myPageMain_myWorksTotal(param); //나의 작품 작업 총 갯수 조회
+
 		mv.addObject("result", result);
+		mv.addObject("myTotal", myTotal);
+		mv.addObject("myCollTotal", myCollTotal);
+		mv.addObject("myWorksTotal", myWorksTotal);
+
 		return mv;
 	}
 	
@@ -273,10 +355,11 @@ public class MyPageController {
 	
 	/*
 	 * //통합 나의 작품 화면 오픈
-	 * 
-	 * @RequestMapping("/myPage/myWorkListReg") public String myWorkListReg() {
-	 * return "thymeleaf/fo/myPage/myWorkReg"; }
-	 */
+	 */ 
+	@RequestMapping("/myPage/myWorkListReg") public String myWorkListReg() {
+	return "thymeleaf/fo/myPage/myWorkReg"; 
+	}
+
 
 	// 스크랩
 	@RequestMapping("/myPage/scrap")
@@ -295,6 +378,75 @@ public class MyPageController {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ artstSq : " + artstSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/portfolio_myWork");
 		List result = myPageService.myWork(artstSq);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//통합 나의 커뮤니티 관련 검색
+	@RequestMapping("/myPage/MyShowListserch")
+	@ResponseBody
+	public ModelAndView MyShowListserch(@RequestParam Map<String, Object> param) {
+		System.out.println(param);
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		List<Map<String, Object>> result = myPageService.myPage_myCommunitysList(param);
+		
+		
+		param.put("workTypCd","");
+
+		int myTotal = myPageService.myPageMain_myCommunitysTotal(param); //나의 작품 총 갯수 조회
+		
+		param.put("workTypCd","COLL");
+		int myCollTotal = myPageService.myPageMain_myCommunitysTotal(param); //나의 작품 콜렉션 총 갯수 조회
+		
+		param.put("workTypCd","WORK");
+		int myWorksTotal = myPageService.myPageMain_myCommunitysTotal(param); //나의 작품 작업 총 갯수 조회
+		 
+		
+		mv.addObject("result", result);
+		mv.addObject("myTotal", myTotal);
+		mv.addObject("myCollTotal", myCollTotal);
+		mv.addObject("myWorksTotal", myWorksTotal);
+
+		return mv;
+	}
+	
+	//통합 나의 작품 작품 공개/비공개 처리
+	@RequestMapping("/myPage/myComtOpenYn")
+	@ResponseBody
+	public ModelAndView myShowOpenYn(@RequestParam(value = "comtSqList[]", required = false) List<String> comtSqList,
+									@RequestParam(value = "comtOpenYn", required = false) String comtOpenYn) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> paramList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<comtSqList.size(); i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("comtOpenYn", comtOpenYn);
+			param.put("comtSq", comtSqList.get(i));
+			paramList.add(param);
+		}
+		int result = myPageService.myComtOpenYn(paramList);
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//통합 나의 작품 삭제 처리
+	@RequestMapping("/myPage/myComtDelYn")
+	@ResponseBody
+	public ModelAndView myComtDelYn(@RequestParam(value = "comtSqList[]", required = false) List<String> comtSqList, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		HttpSession session = request.getSession();
+		System.out.println("myComtDelYn 체크");
+		System.out.println("comtSqList[] 체크:"+comtSqList);
+
+		List<Map<String, Object>> paramList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<comtSqList.size(); i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("mbrSq", session.getAttribute("mbrSq").toString());
+			param.put("comtSq", comtSqList.get(i));
+			paramList.add(param);
+		}
+		
+		int result = myPageService.myComtDelYn(paramList);
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -735,6 +887,45 @@ public class MyPageController {
 		}
 		int result = myPageService.collectionReg(param);
 		return result;
+	}
+	
+	//회원수정
+	@RequestMapping("/myPage/memberUpdateData")
+	@ResponseBody
+	public void memberUpdateData(@RequestParam Map<String, Object> param) {
+		
+		//회원 아이디.이메일
+		String mbrIdEncrypt = commonService.encrypt(param.get("mbrId").toString());
+		//회원 이메일
+		String mbrEmailEncrypt = commonService.encrypt(param.get("mbrId").toString());
+		//회원 비밀번호 암호화
+		String mbrPasswrdEncrypt = commonService.encrypt(param.get("mbrPasswrd").toString());
+		//회원 이름
+		String mbrNm = param.get("mbrNm").toString();
+		//휴대전화번호 암호화
+		String mbrCpNumEncrypt = commonService.encrypt(param.get("mbrCpNum").toString());
+		//회원 순번
+		String mbrSq = param.get("mbrSq").toString();
+		//회원 주소
+		//String mbrHomeAddr = commonService.encrypt(param.get("mbrHomeAddr"));
+		String mbrDelivryAddr = param.get("mbrDelivryAddr").toString();
+		//닉네임
+		String mbrNcknm = param.get("mbrNcknm").toString();
+		//휴대폰 인증 DI
+		String mbrCpCertDi = param.get("mbrCpCertDi").toString();
+		
+		param.put("mbrSq", mbrSq);
+		param.put("mbrId", mbrIdEncrypt);
+		param.put("mbrEmail", mbrEmailEncrypt);
+		param.put("mbrPasswrd", mbrPasswrdEncrypt);
+		param.put("mbrNm", mbrNm);
+		param.put("mbrCpNum", mbrCpNumEncrypt);
+		param.put("useYn", "Y");
+		param.put("mbrDelivryAddr", mbrDelivryAddr);
+		param.put("mbrNcknm", mbrNcknm);
+		param.put("mbrCpCertDi", mbrCpCertDi);
+		
+		memberService.memberUpdate(param);
 	}
 
 //	// 나의 작품 등록

@@ -422,4 +422,26 @@ public interface MyPageMapper {
 	 * return : 
 	 */
 	public int myComtReg(Map<String, Object> param);
+	
+	/*
+	 * 마이페이지 커뮤니티 조회
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param);
+
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtOpenYn(Map<String, Object> param);
+	
+	/*
+	 * 마이페이지 커뮤니티 삭제 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtDelYn(Map<String, Object> param);
+	
 }

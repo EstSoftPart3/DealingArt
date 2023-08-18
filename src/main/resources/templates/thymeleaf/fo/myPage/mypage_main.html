@@ -94,6 +94,7 @@
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
     <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+    
 </head>
 <body>
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
@@ -101,56 +102,7 @@
         <div class="mypage_wrap">
             <h2>마이페이지</h2>
             <div class="mypage_contents">
-                <div class="contents_left">
-                  <div class="myinfo_wrap">
-                    <div class="myinfo_pic" style="background-image: url('https://item.kakaocdn.net/do/8d209a3c00ed5f23eeaa3758a1c7d59c339e41ce89b663315d96faecd7cfd11b')"></div>
-                    <div class="myinfo_con">
-                      <ul>
-                        <li class="name">Dealing - Art <span></span></li>
-                        <li class="email">admin@dealing-art.com</li>
-                        <li class="mem_type">회원유형<span>컬렉터</span></li>
-                        <li class="line"></li>
-                        <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>
-                      </ul>
-                    </div>
-                    <div class="icon_box">
-                      <ul>
-                          <li><p class="ico_scrap"></p>스크랩<br><span>99</span></li>
-                          <li><p class="ico_good"></p>좋아요<br><span>99</span></li>
-                          <li><p class="ico_alarm"></p>알림<br><span>99</span></li>
-                      </ul>
-                    </div>
-                    <div class="icon_sns_box">
-                      <ul>
-                        <li><a href="#"><p class="ico_facebook"></p></a></li>
-                        <li><a href="#"><p class="ico_instagram"></p></a></li>
-                        <li><a href="#"><p class="ico_youtube"></p></a></li>
-                        <li> <a href="#"><p class="ico_twitter"></p></a></li>
-                      </ul>
-                    </div>                    
-                  </div>
-                  <div class="left_nav">
-                    <ul>
-                      <li class="on"><a href="#">마이페이지</a>
-                      </li>
-                      <li>
-	                      <ul>
-	                          <li><a href="#">모두보기</a></li>
-	                          <li><a href="#">나의 작품</a></li>
-	                          <li><a href="#">자랑하기</a></li>
-	                          <li><a href="#">전시후기&소개</a></li>
-	                          <li><a href="#">이슈</a></li>
-	                          <li><a href="#">알림함</a></li>
-	                          <li><a href="#">스크랩</a></li>
-	                          <li><a href="#">팔로잉</a></li>
-	                        </ul>
-                       </li>
-                      <li class="off"><a href="#">거래</a></li>
-                      <li class="off"><a href="#">작가</a></li>
-                      <li class="off"><a href="#">나의 정보</a></li>
-                    </ul>
-                  </div>
-                </div>
+            	<div id ="left_menu"></div>
                 <div class="contents_right">
                   <div class="mypage_works_wrap">
                     <div class="tit_wrap">
@@ -189,7 +141,7 @@
                   <div class="mypage_posts_warp">
                     <div class="intro_posts">
                         <div class="tit_wrap">
-                            <h2><img src="/resources/img/img_new/ico_intro.png" alt=""><span>전시후기 / 소개</span><em>+99</em></h2>
+                            <h2><img src="/resources/img/img_new/ico_intro.png" alt=""><span>전시후기 / 소개</span><em id="myExhbnTotal">+99</em></h2>
                             <button class="btn_more">더보기</button>
                         </div>
                         <ol id="myExhbn">
@@ -200,10 +152,10 @@
                         </ol>
                     </div>                    
                   </div>
-                  <div class="mypage_posts_warp mt10">
+                  <div id = "myIssue_warp" class="mypage_posts_warp mt10">
                     <div class="issue_posts">
                         <div class="tit_wrap">
-                            <h2><img src="/resources/img/img_new/ico_issue.png" alt=""><span>이슈</span><em>+99</em></h2>
+                            <h2><img src="/resources/img/img_new/ico_issue.png" alt=""><span>이슈</span><em id="myIssueTotal">+99</em></h2>
                             <button class="btn_more">더보기</button>
                         </div>
                         <ol id="myIssue">
@@ -269,69 +221,23 @@
     <script type="text/javascript">
     
     $("document").ready(function(){
+    	
+    	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+    	
     	$.ajax({
 			type: "POST"
-			, url: "/myPage/main/myInfo"
+			, url: "/myPage/main/MyInfoAction"
 			, success: function(data){
-				setMyInfo(data.myInfo);
 				setMyWorks(data.myWorks, data.myWorksTotal);
 				setMyBoast(data.myBoast, data.myBoastTotal);
-				setMyExhbn(data.myExhbn);
+				setMyExhbn(data.myExhbn, data.myExhbnTotal);
+				setMyIssue(data.myIssue, data.myIssueTotal);
 			}
 			, error: function(data){
 				alert("오류 발생" + error);
 			}
 		});
     });
-    
-    function setMyInfo(data){
-    		
-    	var html = '';
-    	//회원 프로필 사진 유무
-    	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
-    		html += '<div class="myinfo_pic" style="background-image: url('+data.mbrProfileImgUrl+')"></div>';
-    	}else{
-    		html += '<div class="myinfo_pic"></div>';
-    	}
-        html += '<div class="myinfo_con">';
-        html += '  <ul>';
-        html += '    <li class="name">'+data.mbrNcknm+'<span></span></li>';
-        html += '    <li class="email">'+data.mbrId+'</li>';
-        html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
-        html += '    <li class="line"></li>';
-        html += '    <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>';
-        html += '  </ul>';
-        html += '</div>';
-        html += '<div class="icon_box">';
-        html += '  <ul>';
-        html += '      <li><p class="ico_scrap"></p>스크랩<br><span>'+data.mbrScraps+'</span></li>';
-        html += '      <li><p class="ico_good"></p>좋아요<br><span>'+data.mbrLikes+'</span></li>';
-        html += '      <li><p class="ico_alarm"></p>알림<br><span>'+data.mbrNotis+'</span></li>';
-        html += '  </ul>';
-        html += '</div>';
-        html += '<div class="icon_sns_box">';
-        html += '  <ul>';
-        //회원 페이스북 url 유무
-        if(data.mbrFacebookUrl != null && data.mbrFacebookUrl != ""){
-        	html += '    <li><a href="'+data.mbrFacebookUrl+'"><p class="ico_facebook"></p></a></li>';
-        }
-        //회원 인스타그램 url 유무
-        if(data.mbrInstarUrl != null && data.mbrInstarUrl != ""){
-        	html += '    <li><a href="'+data.mbrInstarUrl+'"><p class="ico_instagram"></p></a></li>';
-        }
-        //회원 유투브 url 유무
-        if(data.mbrYoutubeUrl != null && data.mbrYoutubeUrl != ""){
-        	html += '    <li><a href="'+data.mbrYoutubeUrl+'"><p class="ico_youtube"></p></a></li>';
-        }
-        //회원 트위터 url 유무
-        if(data.mbrTwitterUrl != null && data.mbrTwitterUrl != ""){
-        	html += '    <li> <a href="'+data.mbrTwitterUrl+'"><p class="ico_twitter"></p></a></li>';
-        }
-        html += '  </ul>';
-        html += '</div>';
-        $(".myinfo_wrap").empty();
-        $(".myinfo_wrap").append(html).trigger("create");
-    }
     
     function setMyWorks(data, total){
     	var html = '';
@@ -387,27 +293,80 @@
     	}
     }
     
-    function setMyExhbn(data){
+    function setMyExhbn(data, total){
     	var html = '';
     	if(total > 0){
         	for(i=0; i<data.length; i++){
                 if(data[i].cmtTotal > 0){
                     html += '<li>';
-                    html += '	<a href="#">'+data[i].comtTitle+'</a>';
+    				html += "	<a href='javascript:void(0);' data-mbrSq="+ data[i].mbrSq +" data-comtsq="+ data[i].comtSq +" data-artstsq="+ data[i].artstSq +" data-worksq="+ data[i].workSq +" onclick='openComtDetail(this, \"EXH\");'>"+data[i].comtTitle+"</a>";
                     html += '	<em>['+data[i].totalCmt+']</em>';
                     html += '</li>';
                 }else{
                 	html += '<li>';
-                    html += '	<a href="#">'+data[i].comtTitle+'</a>';
+    				html += "	<a href='javascript:void(0);' data-mbrSq="+ data[i].mbrSq +" data-comtsq="+ data[i].comtSq +" data-artstsq="+ data[i].artstSq +" data-worksq="+ data[i].workSq +" onclick='openComtDetail(this, \"EXH\");'>"+data[i].comtTitle+"</a>";
                     html += '</li>';
                 }
         	}
         	$("#myExhbn").empty();
             $("#myExhbn").append(html).trigger("create");
+            $("#myExhbnTotal").text(total);
+
     	}else{
-    		$(".mypage_showingoff_wrap").hide();
+    		$(".mypage_posts_warp").hide();
     	}
     }
+    
+    function setMyIssue(data, total){
+    	var html = '';
+    	if(total > 0){
+        	for(i=0; i<data.length; i++){
+                if(data[i].cmtTotal > 0){
+                    html += '<li>';
+    				html += "	<a href='javascript:void(0);' data-mbrSq="+ data[i].mbrSq +" data-comtsq="+ data[i].comtSq +" data-artstsq="+ data[i].artstSq +" data-worksq="+ data[i].workSq +" onclick='openComtDetail(this, \"KNO\");'>"+data[i].comtTitle+"</a>";
+                    html += '	<em>['+data[i].totalCmt+']</em>';
+                    html += '</li>';
+                }else{
+                	html += '<li>';
+    				html += "	<a href='javascript:void(0);' data-mbrSq="+ data[i].mbrSq +" data-comtsq="+ data[i].comtSq +" data-artstsq="+ data[i].artstSq +" data-worksq="+ data[i].workSq +" onclick='openComtDetail(this, \"KNO\");'>"+data[i].comtTitle+"</a>";
+                    html += '</li>';
+                }
+        	}
+        	$("#myIssue").empty();
+            $("#myIssue").append(html).trigger("create");
+            $("#myIssueTotal").text(total);
+
+    	}else{
+    		$("#myIssue_warp").hide();
+    	}
+    }
+    
+	// 커뮤니티 상세 페이지 이동
+	function openComtDetail(obj, type) {
+		var url = "";
+		
+		switch(type) {
+		case "EXH":
+			url = "/community/exhibitDetail";
+			break;
+		case "KNO":
+			url = "/community/knowhowDetail";
+			break;
+		}
+		
+		pageGoPost({
+			url: url,
+			target:"_self",
+			vals:[
+				["mbrSq", $(obj).data("mbrsq")],
+				["comtSq", $(obj).data("comtsq")],
+				["artstSq", $(obj).data("artstsq")],
+				["workSq", $(obj).data("worksq")],
+				["comtTypCd", type]
+			]
+		});
+	}
+    
 
     </script>
 </body>

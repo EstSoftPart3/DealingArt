@@ -144,11 +144,18 @@ public class MemberController {
 		String mbrSq = param.get("mbrSq").toString();
 		//회원 주소
 		//String mbrHomeAddr = commonService.encrypt(param.get("mbrHomeAddr"));
-		String mbrDelivryAddr = param.get("mbrDelivryAddr").toString();
+		if(param.get("mbrDelivryAddr") != null) {
+			String mbrDelivryAddr = param.get("mbrDelivryAddr").toString();
+			param.put("mbrDelivryAddr", mbrDelivryAddr);
+		}
 		//닉네임
-		String mbrNcknm = param.get("mbrNcknm").toString();
+		if(param.get("mbrNcknm")  != null) {
+			String mbrNcknm = param.get("mbrNcknm").toString();
+			param.put("mbrNcknm", mbrNcknm);
+		}
 		//휴대폰 인증 DI
 		String mbrCpCertDi = param.get("mbrCpCertDi").toString();
+		
 		
 		param.put("mbrSq", mbrSq);
 		param.put("mbrId", mbrIdEncrypt);
@@ -157,8 +164,6 @@ public class MemberController {
 		param.put("mbrNm", mbrNm);
 		param.put("mbrCpNum", mbrCpNumEncrypt);
 		param.put("useYn", "Y");
-		param.put("mbrDelivryAddr", mbrDelivryAddr);
-		param.put("mbrNcknm", mbrNcknm);
 		param.put("mbrCpCertDi", mbrCpCertDi);
 		
 		memberService.memberUpdate(param);

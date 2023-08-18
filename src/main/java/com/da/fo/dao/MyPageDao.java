@@ -630,5 +630,52 @@ public class MyPageDao {
 		
 		return result;
 	}
+
+	public List<Map<String, Object>> myPageMain_myNoti(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*
+	 * 마이페이지 커뮤니티 조회
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param){
+		return myPageMapper.myPage_myCommunitysList(param);
+	}
+
+	
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtOpenYn(List<Map<String, Object>> param) {
+		//return myPageMapper.myComtOpenYn(paramList);
+		
+		int result = 0;
+
+		for (int i = 0; i < param.size(); i++) {
+
+			result += myPageMapper.myComtOpenYn(param.get(i));
+		}
+		return result;	
+	}
+
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtDelYn(List<Map<String, Object>> param) {
+		int result = 0;
+
+		for (int i = 0; i < param.size(); i++) {
+
+			result += myPageMapper.myComtDelYn(param.get(i));
+		}
+		return result;	
+	}
 	
 }

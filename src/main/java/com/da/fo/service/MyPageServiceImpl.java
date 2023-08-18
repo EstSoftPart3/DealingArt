@@ -19,51 +19,6 @@ public class MyPageServiceImpl implements MyPageService{
 	private MyPageDao myPageDao;
 	
 	/*
-	 * 마이페이지 메인 회원정보 조회
-	 * param : mbrSq
-	 * return : Map
-	 */
-	public Map<String, Object> myPageMain_myInfo(Object param){
-		return myPageDao.myPageMain_myInfo(param);
-	}
-	
-	/*
-	 * 마이페이지 메인 나의 작품 조회
-	 * param : mbrSq
-	 * return : List
-	 */
-	public List<Map<String, Object>> myPageMain_myWorks(Object param){
-		return myPageDao.myPageMain_myWorks(param);
-	}
-	
-	/*
-	 * 마이페이지 메인 나의 작품 총 갯수 조회
-	 * param : mbrSq
-	 * return : int
-	 */
-	public int myPageMain_myWorksTotal(Object param){
-		return myPageDao.myPageMain_myWorksTotal(param);
-	}
-	
-	/*
-	 * 마이페이지 메인 나의 커뮤니티 조회
-	 * param : Map
-	 * return : Map
-	 */
-	public List<Map<String, Object>> myPageMain_myCommunitys(Object param){
-		return myPageDao.myPageMain_myCommunitys(param);
-	}
-	
-	/*
-	 * 마이페이지 메인 나의 커뮤니티 총 갯수 조회
-	 * param : Map
-	 * return : int
-	 */
-	public int myPageMain_myCommunitysTotal(Object param){
-		return myPageDao.myPageMain_myCommunitysTotal(param);
-	}
-	
-	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
@@ -349,11 +304,102 @@ public class MyPageServiceImpl implements MyPageService{
 		return result;
 	}
 	
-	/* 커뮤니티 등록
-	 * param :
-	 * return :
+	/* 마이페이지 내정보
+	 * param : 
+	 * return : 
 	 */
-	public int myComtReg(Map<String, Object> param) {
-		return myPageDao.myComtReg(param);
+	@Override
+	public Map<String, Object> myPageMain_myInfo(Object param) {
+		// TODO Auto-generated method stub
+		return myPageDao.myPageMain_myInfo(param);
 	}
+
+	/* 마이페이지 작품
+	 * param : 
+	 * return : 
+	 */
+	@Override
+	public List<Map<String, Object>> myPageMain_myWorks(Object param) {
+		// TODO Auto-generated method stub
+		return myPageDao.myPageMain_myWorks(param);
+	}
+	
+	/*
+	 * 나의 커뮤니티 종류별 총 갯수
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myPageMain_myWorksTotal(Object param) {
+		int result =  myPageDao.myPageMain_myWorksTotal(param);
+		return result;
+	}
+
+	/*
+	 * 마에페이지 메인
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public List<Map<String, Object>> myPageMain_myCommunitys(Object param) {
+		return myPageDao.myPageMain_myCommunitys(param);
+
+	}
+
+	/*
+	 * 나의 커뮤니티 종류별 총 갯수
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myPageMain_myCommunitysTotal(Object param) {
+		int result =  myPageDao.myPageMain_myCommunitysTotal(param);
+		return result;
+	}
+
+	@Override
+	public int myComtReg(Map<String, Object> param) {
+		int result =  myPageDao.myComtReg(param);
+		return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> myPageMain_myNoti(Map<String, Object> paramMap) {
+		return myPageDao.myPageMain_myNoti(paramMap);
+
+	}
+	
+	/*
+	 * 나의 커뮤니티 리스트
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param) {
+		return myPageDao.myPage_myCommunitysList(param);
+
+	}
+	
+	/*
+	 * 나의 커뮤니티 공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myComtOpenYn(List<Map<String, Object>> paramList) {
+		return myPageDao.myComtOpenYn(paramList);
+
+	}
+	
+	/*
+	 * 나의 커뮤니티 공개 설정
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myComtDelYn(List<Map<String, Object>> paramList) {
+		return myPageDao.myComtDelYn(paramList);
+
+	}
+	
 }
