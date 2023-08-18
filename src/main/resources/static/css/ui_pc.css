@@ -1968,7 +1968,9 @@ input[type="radio"]:checked + label span {
     vertical-align: middle;
 }
 .ba-btn1{color: #ffffff;
-    background-color: #e9625c;}
+    background-color: #e9625c;
+    vertical-align: middle;
+}
 .ba-btn2{
     border: #e9625c 3px solid;
     color: #e9625c;

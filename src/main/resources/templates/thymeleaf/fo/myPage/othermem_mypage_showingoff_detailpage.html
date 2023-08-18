@@ -253,7 +253,7 @@
     		userWrapHtml += '</div>';
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
-    		userWrapHtml += '		<li class="time">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
+    		userWrapHtml += '		<li class="time hidden">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
     		userWrapHtml += '		<li><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
     		userWrapHtml += '		<li><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
     		userWrapHtml += '		<li><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
@@ -1266,7 +1266,7 @@
 			}
 			if (prc >= 1000000 && prc < 3000000) {
 				returnVal = 100000;
-			}
+			}showOff
 			if (prc >= 3000000 && prc < 5000000) {
 				returnVal = 200000;
 			}
