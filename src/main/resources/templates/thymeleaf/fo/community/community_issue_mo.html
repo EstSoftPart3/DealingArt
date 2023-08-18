@@ -106,15 +106,15 @@
                     <li><a href="/community/exhintList">전시후기&소개</a></li>
                     <li><a href="/community/issueList" class="over">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording">기록하기</button></li>
                 </ul>
             </div>
+			<button class="btn_recording">기록하기</button>
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
-                	<input type="date" id="startDate" onchange="checkCalendar()">
+                	<input type="date" id="startDate" onchange="checkCalendar()" class="mb10">
                 	<span>~</span>
-                	<input type="date" id="endDate" onchange="checkCalendar()">
-                	<div class="sel_sorting">
+                	<input type="date" id="endDate" onchange="checkCalendar()" class="mb10">
+                	<div class="sel_sorting width100per">
 	                    <select class="knoSelectBox" name="comtSort" id="comtSort">
 	                        <option value="">정렬</option>
 	                        <option value="newest">최신순</option>
