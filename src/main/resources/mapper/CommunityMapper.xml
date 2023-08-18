@@ -33,6 +33,7 @@
 				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
 				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
 				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
+				 <when test="ordCondition == 'REG_DT'">CM.REG_DT</when>
 			 </choose>
 		 </if>
 		 <!-- 정렬 기준 -->
@@ -51,6 +52,7 @@
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
 					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
 					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
 			   END 											AS ordCondition,	-- 정렬 구분
 			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
 			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
