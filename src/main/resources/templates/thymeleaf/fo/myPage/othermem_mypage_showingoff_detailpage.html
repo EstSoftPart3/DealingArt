@@ -147,7 +147,7 @@
 		     }
 		});
 		
-		var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default';
+    	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default'; // 커뮤니티 순번
     	var otherComt; // 작성자의 다른 자랑하기
     	var showOffList;
 		var showOff;
@@ -591,29 +591,38 @@
     			break;
     		}
     		
+    		if(sgtPrcCal()) {
+    			modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+    			return;
+    		}
+    		
     		if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
     			modalAlertShow("가격을 입력해주세요.");
-    		} else if(notiCatCd == "PIC" && !$("#reqPic").val()) {
-    			
-    		} else {
-	    		modalConfirm(msg + "하시겠습니까?", function(confirm) {
-	    			if(confirm) {
-	    				$.ajax({
-	    					type: "post",
-	    					url: "/community/insertComtRequest",
-	    					data: param,
-	    					success: function(data) {
-	    						if(data.result) {
-				    				modalAlertShow(mgs+ "이 완료되었습니다.");
-	    						}
-	    					},
-	    					error: function(data) {
-	    						modalAlertShow("오류가 발생했습니다.");
-	    					}
-	    				});
-	    			}
-	    		});
+    			return;
     		}
+    		
+    		if(notiCatCd == "PIC" && !$("#reqPic").val()) {
+    			modalAlertShow("내용을 입력해주세요.");
+    			return;
+    		}
+    		
+    		modalConfirm(msg + "하시겠습니까?", function(confirm) {
+    			if(confirm) {
+    				$.ajax({
+    					type: "post",
+    					url: "/community/insertComtRequest",
+    					data: param,
+    					success: function(data) {
+    						if(data.result) {
+			    				modalAlertShow(msg+ "이 완료되었습니다.");
+    						}
+    					},
+    					error: function(data) {
+    						modalAlertShow("오류가 발생했습니다.");
+    					}
+    				});
+    			}
+    		});
     		
     	}
     	
@@ -1090,7 +1099,7 @@
     		html += '			<div class="modal-body">';
     		html += '				<div class="md-box-1">';
     		html += '					<div class="text-center mg_b40">';
-    		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" onblur="sgtPrcCal(this)" style="font-size:15px;"/>';
+    		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" style="font-size:15px;"/>';
     		html += '					</div>';
     		html +=	'					<div class="baeg-btn mg_t30">';
     		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PRC\');">확인</button>';
@@ -1149,20 +1158,29 @@
     	}
     	
     	// 제안 가격 계산
-    	function sgtPrcCal(obj) {
+    	function sgtPrcCal() {
+    		var obj = document.querySelector("#sgtPrc");
+    		var isTrue = false;
+
    			if(obj.value != null && obj.value != ""){
    				obj.value = obj.value.replaceAll(/,/g,''); // ,값 공백처리
    				obj.value = parseInt(obj.value);
+   				
    				var n = obj.value % 10000;
-   				if(n != 0 || obj.value == 0){
-   					$("#ModalAlert").css("z-index", 100000);
-   					modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+   				
+   				if(obj.value < 10000 || n !== 0){
+   					$("#ModalAlert").css("z-index", 10000);
+   					//modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
    					obj.value = '';
+   					isTrue = true;
    				}else{
    					obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
    				}
    			}
+   			
+   			return isTrue;
     	}
+    		
     	
     	// 천단위 콤마 찍기
     	function comma(obj) {
