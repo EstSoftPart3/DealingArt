@@ -1,0 +1,1350 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="딜링아트">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<meta name="robots"content="noindex">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	[name=COLLworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		[name=WORKworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
+    </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+</head>
+<body>
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+
+	<div id="container">
+        <div class="mypage_wrap">
+            <div class="works_showingoff_detail_page_wrap">
+            	<div class="picture">
+            	
+            	</div>
+            	<h3>
+            	
+            	</h3>
+            	<div class="user_wrap">
+                    
+                </div>
+                <div class="picture_detail">
+                
+                </div>
+                <h2 class="sub-title">작품정보</h2>
+                <div class="baeg-wrap">
+                	
+                </div>
+            </div>
+		</div>
+	</div>
+	
+    <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    
+    <script th:inline="javascript">
+	    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+	
+		jQuery(document).ready(function($){
+		     
+			if(isMobile) {
+				
+				var baseW = $(window).width();
+				
+				var ww = 0;
+				
+				if(baseW < 399) {
+					ww = $(window).width()-50;	
+				} else {
+					ww = $(window).width()-250;
+				}
+				
+				$(".ellipsis").width(ww);
+				$(".ellipsis").height('100%');
+				
+				$(".ellipsis").css('padding', '10');
+		     }
+		});
+		
+    	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default'; // 커뮤니티 순번
+    	var otherComt; // 작성자의 다른 자랑하기
+    	var showOffList;
+		var showOff;
+		var list;
+		var deal;
+		var work;
+    	
+    	var objName = {
+			work: "work",
+			deal: "deal"
+		}
+    	
+		var imgList = {
+			workMainImgUrl : "workMainImgUrl",
+			workImgFrtUrl : "workImgFrtUrl",
+			workImgRerUrl : "workImgRerUrl",
+			workImgLefUrl : "workImgLefUrl",
+			workImgRitUrl : "workImgRitUrl",
+			workImgTopUrl : "workImgTopUrl",
+			workImgBotUrl : "workImgBotUrl"
+		}
+    
+    	$(document).ready(function() {
+    		searchShowOffDtlList();
+    	});
+    	
+    	// 자랑하기 상세 정보 조회
+    	function searchShowOffDtlList() {
+    		$.ajax({
+    			type: "post",
+    			url: "/community/searchShowingOffDetailList",
+    			data: {
+    				comtSq: comtSq
+    			},
+    			success: function(data) {
+    				otherComt = data.result.showOffList.otherComt;
+    				showOffList = data.result.showOffList;
+    				showOff = data.result.showOffList.showOff;
+    				deal = data.result.deal;
+    	    		work = data.result.work;
+    	    		list = deal || work;
+
+    				setShowOffDtlInfoHtml();
+    				setWorkInfoHtml();
+    				
+    				if(list.artistInfo) {
+	    				setArtstInfoHtml();
+    				}
+    				
+    				setOtherComtInfoHtml();
+    				setCommentInfoHtml();
+    				
+    				ckClsHide(); // ck에디터 태그들 감춤
+    				setComment(comtSq);
+    				followCheck(showOff.mbrSq);
+    				otherComtWorkList(otherComt, "/community/showingOffDetail");
+    				initOtherComtWorkListSwiper();
+
+    				// 거래 중인 작품일 경우
+    				if(deal) {
+	    				dealInit();
+	    				setBiddingInterval();
+	    				setWorkSuggestModal();
+	    				setWorkPriceSuggestModal();
+	    				setRequestPictureModal();
+    				}
+
+    				setBigImageModal();
+    				setArtstInfoMoreModal();
+    				setLakeHelpModal();
+    				setReportModal();
+    				setReportCompleteModal();
+    				setReportErrorModal();
+    				setWorkImgOverEnt();
+    			}
+    		});
+    	}
+    	
+    	// 자랑하기 상세 정보 html 생성
+    	function setShowOffDtlInfoHtml() {
+    		var comtImgUrl = $(".picture");
+    		var comtTitle = $(".works_showingoff_detail_page_wrap > h3");
+    		var userWrap = $(".user_wrap");
+    		var comtContent = $(".picture_detail");
+    		
+    		var comtImgUrlHtml = '<img src="'+ showOff.comtImgUrl +'" alt="" style="height: 500px; object-fit: contain;">';
+    		comtImgUrl.append(comtImgUrlHtml).trigger("create");
+    		
+    		var comtTitleHtml = showOff.comtTitle;
+    		comtTitle.text(comtTitleHtml);
+    		
+    		var userWrapHtml = '';
+    		userWrapHtml += '<div class="user">';
+    		userWrapHtml += '	<ul>';
+    		userWrapHtml += '		<li class="pt5">';
+    		userWrapHtml += '			<img src="'+ (showOff.mbrProfileImgUrl || '/resources/img/mypage/ico_dauser.png') +'">';
+    		userWrapHtml += '		</li>';
+    		userWrapHtml += '		<li class="user_name"><span>'+ showOff.mbrNcknm +'</span></li>';
+    		userWrapHtml += '		<li class="mem_type">회원유형<span>'+ (showOff.artstSq ? '아티스트' : '컬렉터') +'</span></li>';
+    		userWrapHtml += '		<li class="following"><button type="button" onclick="clickFollow('+ showOff.mbrSq +');">+팔로잉</button></li>';
+    		userWrapHtml += '	</ul>';
+    		userWrapHtml += '</div>';
+    		userWrapHtml += '<div class="icon_box">';
+    		userWrapHtml += '	<ul>';
+    		userWrapHtml += '		<li class="time">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
+    		userWrapHtml += '		<li><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
+    		userWrapHtml += '		<li><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
+    		userWrapHtml += '		<li><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
+    		userWrapHtml += '		<li><p class="ico_comments"></p><span>'+ showOff.comtCmts +'</span></li>';
+    		userWrapHtml += '		<li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ showOff.rprtCnt +'</span></li>';
+    		userWrapHtml += '	</ul>';
+    		userWrapHtml += '</div>';
+    		userWrap.append(userWrapHtml).trigger("create");
+    		
+    		var comtContentHtml = showOff.comtContent;
+    		comtContent.append(comtContentHtml).trigger("create");
+    	}
+    	
+    	// 작품 정보 html 생성
+    	function setWorkInfoHtml() {
+    		var worksInfoWrap = $(".baeg-wrap");
+    		var dealOrWorkObj = getDealOrWorkObj();
+    		
+    		var html = '';
+    		html += '<div class="baeg-left">';
+    		html += '	<div class="contentbox">';
+    		html += '		<div class="bigImages">';
+    		html += '			<img class="big big1" src="'+ dealOrWorkObj.workMainImgUrl +'" alt="" data-toggle="modal" data-target="#bigImageModal">';
+    		html += '		</div>';
+    		html += '		<div class="smallImages">';
+    		html += 			getWorkImg(1); // 작품 상세 이미지 생성
+    		html += '		</div>';
+    		html += '	</div>';
+    		html += '</div>';
+    		
+    		html += '<div class="baeg-right">';
+    		
+    		for(var key in list) {
+    			if(key == objName[key]) {
+    				var obj = list[key];
+    				html += '<div class="be-title">';
+    	    		html += '		<h3>'+ obj.artstActvtyNm +'</h3>';
+    	    		
+    	    		if(obj.artstEnglsNm) {
+    		    		html += '	<h3>('+ obj.artstEnglsNm +')</h3>';
+    	    		}
+    	    		
+    	    		html += '	<h4>'+ obj.workNm +'</h4>';
+    	    		html += '</div>';
+    	    		html += '<table class="tstyle1">';
+    	    		html += '	<tr>';
+    	    		html += '		<th>제작년도</th>';
+    	    		html += '		<td>'+ obj.workProdcYear +'</td>';
+    	    		html += '	</tr>';
+    	    		html += '	<tr>';
+    	    		html += '		<th>소재/기법</th>';
+    	    		html += '		<td>'+ obj.workMatrl +'</td>';
+    	    		html += '	</tr>';
+    	    		html += '	<tr>';
+    	    		html += '		<th>액자</th>';
+    	    		html += '		<td>'+ (obj.workFrmYn == "Y" ? "있음" : "없음") +'</td>';
+    	    		html += '	</tr>';
+    	    		html += '	<tr>';
+    	    		html += '		<th>사이즈</th>';
+    	    		
+    	    		if(obj.workSizeWidth && obj.workSizeDepth) {
+    	    			html += '	<td>'+ obj.workSizeWidth + ' X ' + obj.workSizeDepth +'</td>';
+    	    		}
+    	    		
+    	    		html += '	</tr>';
+    	    		
+    	    		if(obj.workLake) {
+	    	    		html += '<tr>';
+	    	    		html += '	<th>호수</th>';
+	    	    		html += '	<td>'+ obj.workLake +' <img src="/resources/img/ba/me-icon.png" style="cursor:pointer;" onclick="openModal(\'lakeHelpModal\')"></td>';
+	    	    		html += '</tr>';
+    	    		}
+    	    		
+    	    		html += '	<tr>';
+    	    		html += '		<th>판매 여부</th>';
+    	    		html += '		<td>'+ (obj.workSaleYn == "Y" ? "판매" : "미판매") +'</td>';
+    	    		html += '	</tr>';
+    	    		html += '	<tr>';
+    	    		html += '		<th>메인 컬러</th>';
+    	    		html += '		<td>'+ getMainColor(obj) +'</td>'; // 메인 컬러 구하기
+    	    		html += '	</tr>';
+    	    		
+    	    		if(obj.workState) {
+	    	    		html += '<tr>';
+	    	    		html += '	<th>작품 상태</th>';
+	    	    		html += '		<td>'+ obj.workState +'</td>';
+	    	    		html += '</tr>';
+    	    		}
+    	    		
+    	    		if(key == "work" && showOffList.dealStatus) {
+	    	    		html += '<tr>';
+	    	    		html += '	<th>판매자</th>';
+	    	    		
+	    	    		if(obj.mbrNcknm) {
+		    	    		html += '<td>'+ obj.mbrNcknm +'</td>';
+	    	    		} else {
+	    	    			html += '<td onclick=javascript:location.href="/artist/artistDetail?SqNumber='+ obj.artstSq +'">'+ obj.artstActvtyNm +'</td>';
+	    	    		}
+	    	    		
+	    	    		html += '</tr>';
+    	    		}
+    	    		
+    	    		if(key == "deal") {
+    	    			html += '<tr>';
+	    	    		html += '	<th>닉네임</th>';
+	    	    		
+    	    			if(obj.mbrNcknm) {
+		    	    		html += '	<td>'+ obj.mbrNcknm +'</td>';
+    	    			} else {
+    	    				html += '	<td>'+ obj.artstActvtyNm +'</td>';
+    	    			}
+    	    			
+	    	    		html += '</tr>';
+    	    		}
+    	    		
+    	    		if(showOffList.workKeywrd) {
+    	    			var keywrdList = showOffList.workKeywrd.keywrd.split(",");
+    	    			
+    		    		html += '		<tr>';
+    		    		html += '			<th>작품 키워드</th>';
+    		    		html += '			<td>';
+    		    		html += '				<strong style="color: red;">';
+    		    		
+    		    		for(var i in keywrdList) {
+    		    			html += '#' + keywrdList[i] + " ";
+    		    		}
+    		    		
+    		    		html += '				</strong>';
+    		    		html += '			</td>';
+    		    		html += '		</tr>';
+    	    		}
+    	    		
+    	    		html += '		</table>';
+    	    		
+    	    		if(key == "deal" || showOffList.dealStatus) {
+    		    		html += '	<ul class="baeg-ul">';
+    		    		html += '		<li class="li-1">';
+    		    		html += '			<table class="tstyle2">';
+    		    		html += '				<tr>';
+    		    		html += '					<th>';
+    		    		html += '						<div class="tsc-1">';
+    		    		html += '							<img src="/resources/img/de/check-off.jpg" /><span id='+ (key == "deal" ? "spn_dealStrtPrc": "") +'>시작가</span>';
+    		    		html += '						</div>';
+    		    		html += '					</th>';
+    		    		html += '					<td>'+ obj.dealStrtPrc +' KRW</td>';
+    		    		html += '				</tr>';
+    		    		
+    		    		if(key == "deal") {
+    		    			html += '			<tr id="tr_priceUnit">';
+    			    		html += '				<th>';
+    			    		html += '					<div class="tsc-1">';
+    			    		html += '						<img src="/resources/img/de/check-off.jpg" /><span>호가단위</span>';
+    			    		html += '					</div>';
+    			    		html += '				</th>';
+    			    		html += '				<td id="td_askingPrice"></td>';
+    			    		html += '			</tr>';
+    		    		}
+    		    		
+    		    		html += '				<tr>';
+    		    		html += '					<th>';
+    		    		html += '						<div class="tsc-1">';
+    		    		html += '							<img src="/resources/img/de/check-off.jpg" />'+ (key == "deal" ? '<span id="spn_period">경매기간</span>' : '<span>판매기간</span>');
+    		    		html += '						</div>';
+    		    		html += '					</th>';
+    		    		html += '					<td>'+ (key == "deal" ? obj.dealStrtDate + ' ~ ' + obj.dealEndngDate : obj.dealStrtDt + ' ~ ' + obj.dealEndngDt) +'</td>';
+    		    		html += '				</tr>';
+    		    		html += '				<tr>';
+    		    		html += '					<th>';
+    		    		html += '						<div class="tsc-1">';
+    		    		html += '							<img src="/resources/img/de/check-off.jpg" /><span>남은시간</span>';
+    		    		html += '						</div>';
+    		    		html += '					</th>';
+    		    		
+    		    		if(key == "deal" && obj.dealSttsCd == "TP") {
+    			    		html += '				<td id="dealCount"></td>';
+    		    		} else {
+    		    			html += '				<td>종료</td>';
+    		    		}
+    		    		
+    		    		html += '				</tr>';
+    		    		html += '			</table>';
+    		    		html += '		</li>';
+    		    		
+    		    		if(key != "deal") {
+    			    		html += '	<li class="li-1">';
+    			    		html += '		<table class="tstyle2">';
+    		    			html += '			<tr class="t-red">';
+    			    		html += '				<th>';
+    			    		html += '					<div class="tsc-2">';
+    			    		
+    			    		if(obj.dealTypCd == "A") {
+    			    			html += '					<img src="/resources/img/de/check-on.jpg" /><span>낙찰가</span>';
+    			    		} else if(obj.dealTypCd == "S") {
+    			    			html += '					<img src="/resources/img/de/check-on.jpg" /><span>판매가</span>';
+    			    		}
+    			    		
+    			    		html += '					</div>';
+    			    		html += '				</th>';
+    			    		
+    			    		if(obj.dealTypCd == "A") {
+    			    			html += '			<td>'+ obj.dealSbidPrc +' KRW</td>';
+    			    		} else if(obj.dealTypCd == "S") {
+    			    			html += '			<td>'+ obj.dealFinalPrc +' KRW</td>';
+    			    		}
+    			    		
+    			    		html += '			</tr>';
+    		    			html += '			<tr class="t-red">';
+    			    		html += '				<th>';
+    			    		html += '					<div class="tsc-2">';
+    			    		
+    			    		if(obj.dealTypCd == "A") {
+    			    			html += '					<img src="/resources/img/de/check-on.jpg" /><span>낙찰자</span>';
+    			    		} else if(obj.dealTypCd == "S") {
+    			    			html += '					<img src="/resources/img/de/check-on.jpg" /><span>구매자</span>';
+    			    		}
+    			    		
+    			    		html += '					</div>';
+    			    		html += '				</th>';
+    		    			html += '				<td>'+ obj.buyNcknm +' KRW</td>';
+    			    		html += '			</tr>';
+    			    		html += '		</table>';
+    			    		html += '	</li>';
+    		    		}
+    		    		
+    		    		html += '	</ul>';
+    	    		}
+    	    		
+    	    		if(key == "work") {
+    	    			html += '	<div class="btn_worksInfo_wrap">';
+    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "disabled") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
+    		    		html += '	</div>';
+    	    		} else if(key == "deal") {
+    	    			html += '	<div class="bat-box">';
+    	    			html += '		<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
+    	    			html += '			<span>응찰하기</span>';
+    	    			html += '		</button>';
+    	    			html += '		<button type="button" class="ba-btn1 por" id="suggestBtn" onclick="openModal(\'workSuggestModal\');">';
+    	    			html += '			<span>요청하기</span>';
+    	    			html += '		</button>';
+    	    			html += '		<div class="clearboth"></div>';
+    	    			html += '	</div>';
+    	    		}
+    	    		
+    	    		html += '	</div>';
+    	    		html += '</div>';
+    	    		
+    			} // end if(key == objName[key])
+    		} // end for(var key in list)
+    		
+    		html += '</div>';
+    		
+	    	worksInfoWrap.append(html).trigger("create");
+    	}
+    	
+    	// 작가 정보 html 생성
+    	function setArtstInfoHtml() {
+    		var artstInfo = list["artistInfo"];
+    		var myPageWrap = $(".mypage_wrap");
+    		
+			var html = '';
+			html += '<div id="artstInfo">';
+			html += '	<div class="artist-wrap" style="position: relative;">';
+			html += '		<div class="artist-box max-1500">';
+			html += '			<div class="sub-title mg_t77">';
+			html += '				<h3>작가정보</h3>';
+			html += '			</div>';
+			html += '			<div class="sub-user">';
+			html += '				<div class="su-l">';
+			html += '					<span><img src="'+ artstInfo.artstProfileImgUrl +'" style="width:100%; border-radius:15%;"/></span>';
+			html += '				</div>';
+			html += '				<div class="su-r">';
+			html += '					<p class="sup-1">'+ artstInfo.artstActvtyNm +'</p>';
+			html += '					<p class="sup-2">'+ artstInfo.artstEnglsNm +'</p>';
+			html += '					<div class="sup-3 ellipsis">'+ artstInfo.artstSelfIntro +'</div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			<button class="btn_more" onclick="openModal(\'artstInfoMore\')">더보기</button>';
+			html += '		</div>';
+			html += '	</div>';
+			html += '</div>';
+			
+  			myPageWrap.append(html).trigger("create");
+    	}
+    	
+    	// 다른 자랑하기 html 생성
+    	function setOtherComtInfoHtml() {
+    		var container = $("#container");
+    		container.append(setOtherComtHtml(showOff.mbrNcknm, otherComt, '자랑하기'));
+    	}
+    	
+    	// 댓글 정보 html 생성
+    	function setCommentInfoHtml() {
+    		var container = $("#container");
+			var cmtHtml = '<div class="comments_box_wrap max-1500" id="commentBox"></div>';
+			container.append(cmtHtml).trigger("create");
+    	}
+    	
+    	// 거래 상세 페이지 이동
+    	function goDealDetail(dealSq) {
+    		modalConfirm("거래 상세 페이지로 이동하시겠습니까?", function(confrim){
+    			if(confrim){
+		    		location.href='/deal/bidding?SqNumber='+ dealSq;
+    			}
+    		});
+    	}
+    	
+    	// 판매 제안하기
+    	function comtRequest(notiCatCd) {
+    		$("#ModalConfirm").css("z-index", 99999);
+ 			$("#ModalAlert").css("z-index", 100000);
+    		
+    		var param = {
+   				mbrSq: showOff.mbrSq,
+				workSq: showOff.workSq,
+				artstSq: showOff.artstSq,
+				notiTypCd: "GEN",
+				notiCatCd: notiCatCd,
+				questionMbrSq: sMbrSqVal
+    		};
+
+    		var msg = "";
+    		
+    		switch(notiCatCd) {
+    		case "SEL": // 판매 제안
+    			msg = "판매 제안";
+    			break;
+    		case "PRC": // 가격 협상(제안)
+    			msg = "가격 제안";
+    			param["dealSq"] = deal.deal.dealSq;
+    			param["questionContent"] = $("#sgtPrc").val();
+    			break;
+    		case "PIC": // 상세 사진 요청
+    			msg = "상세 사진 요청";
+    			param["dealSq"] = deal.deal.dealSq;
+    			param["questionContent"] = $("#reqPic").val();
+    			break;
+    		}
+    		
+    		if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
+    			modalAlertShow("가격을 입력해주세요.");
+    		} else if(notiCatCd == "PIC" && !$("#reqPic").val()) {
+    			
+    		} else {
+	    		modalConfirm(msg + "하시겠습니까?", function(confirm) {
+	    			if(confirm) {
+	    				$.ajax({
+	    					type: "post",
+	    					url: "/community/insertComtRequest",
+	    					data: param,
+	    					success: function(data) {
+	    						if(data.result) {
+				    				modalAlertShow(mgs+ "이 완료되었습니다.");
+	    						}
+	    					},
+	    					error: function(data) {
+	    						modalAlertShow("오류가 발생했습니다.");
+	    					}
+	    				});
+	    			}
+	    		});
+    		}
+    		
+    	}
+    	
+    	// 작품 상세 이미지 마우스 오버 효과 이벤트
+    	function setWorkImgOverEnt() {
+    		/* 0702 시작 */
+    		/* 상세 왼쪽이미지 */
+    		var bigPic1 = document.querySelector(".big1")
+    		var smallPics1 = document.querySelectorAll(".small1")
+
+    		for(var i = 0 ; i < smallPics1.length ; i++){
+    		  smallPics1[i].addEventListener("mouseover", changepic1);
+    		  
+    		}
+
+    		function changepic1(){
+    		  var smallPic1Attribute = this.getAttribute("src");
+    		  bigPic1.setAttribute("src", smallPic1Attribute);
+    		}
+
+    		/* 모달 상세 왼쪽이미지 */
+    		var bigPic2 = document.querySelector(".big2")
+    		var smallPics2 = document.querySelectorAll(".small2")
+
+    		for(var i = 0 ; i < smallPics2.length ; i++){
+    		  smallPics2[i].addEventListener("mouseover", changepic2);
+    		  
+    		}
+
+    		function changepic2(){
+    		  var smallPic2Attribute = this.getAttribute("src");
+    		  bigPic2.setAttribute("src", smallPic2Attribute);
+    		}
+    		/* 0702 끝 */
+    	}
+    	
+    	// 메인 컬러 구하기
+    	function getMainColor(obj) {
+    		var workClrCd = obj.workClrCd;
+    		var mainColor = {
+    			MIX : "1",
+    			RED : "2",
+    			ORANGE : "3",
+    			YELLOW : "4",
+    			GREEN : "5",
+    			SKY : "6",
+    			BLUE : "7",
+    			PURPLE : "8",
+    			BROWN : "9",
+    			WHITE : "10",
+    			GRAY : "11",
+    			BLACK : "12"
+    		}
+    		
+    		var html = '';
+    		html += '<div class="color-box">';
+    		html += '	<input type="radio" id="mc-'+ mainColor[workClrCd] +'" name="workClrCd" value="'+ workClrCd +'" checked>';
+    		html += '	<label for="mc-'+ mainColor[workClrCd] +'" class="mc-'+ mainColor[workClrCd] +' active"></label>';
+    		html += '</div>';
+    		
+    		return html;
+    	}
+    	
+    	// 작품 상세 이미지 html 생성
+    	function getWorkImg(num) {
+    		var html = '';
+    		var workImgList = getDealOrWorkObj();
+    		
+    		for(var url in imgList) {
+				if(workImgList[url]) {
+					html += '<img class="small small'+ num +'" src="'+ workImgList[url] +'" />';
+				}
+			}
+    		
+			return html;
+    	}
+    	
+    	// 거래 중이면 deal.deal, 거래 중이 아니면 work.work 가져오기
+    	function getDealOrWorkObj() {
+			var obj = '';
+    		
+    		for(var key in objName) {
+    			if(list[key]) {
+    				obj = list[key];
+    			}
+    		}
+    		
+    		return obj;
+    	}
+    	
+    	// 작품 정보 이미지 미리보기 모달 html 생성
+    	function setBigImageModal() {
+    		var imgList = getDealOrWorkObj();
+
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="bigImageModal" tabindex="-1" role="dialog" aria-labelledby="bigImageModalLabel" aria-hidden="true">';
+			html += '	<div class="modal-dialog">';
+			html += '		<div class="modal-content big-content">';
+			html += '			<div class="modal-header">';
+			html += '				<div class="conts">';
+			html += '				    <div class="close" data-dismiss="modal" aria-label="Close"></div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			<div class="modal-body">';
+			html += '				<div class="contentbox baeg-left">';
+			html += '					<div class="bigImages">';
+			html += '						<img class="big big2" src="'+ imgList.workMainImgUrl +'"/>';
+			html += '					</div>';
+			html += '					<div class="smallImages">';
+			html += 						getWorkImg(2);
+			html += '					</div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '	</div>';
+			html += '</div>';
+			
+			$("#container").after(html);
+    	}
+    	
+    	// 작가 상세 정보 모달 html 생성
+    	function setArtstInfoMoreModal() {
+    		// 작가 상세 정보가 없을 경우 리턴
+    		if(!list.artistInfo) {
+    			return;
+    		}
+    		
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="artstInfoMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+	    	html += '	<div class="modal-dialog modal-baeg max-w1200">';
+	    	html += '		<div class="modal-content">';
+	    	html += '			<div class="modal-header" style="padding: 0;min-height: 0;">';
+	    	html += '				<div class="baegs">';
+	    	html += '				    <div class="close" onclick="closeModal(\'artstInfoMore\');"><img src="/resources/img/ba/icon-end.png" /></div>';
+	    	html += '				</div>';
+
+	    	html += '			</div>';
+	    	html += '			<div class="modal-body pd60 h850-o" id="artstInfoModal">';
+	    	html += '				<div class="ad-text">';
+	    	html += '					<h3>'+ list.artistInfo.artstActvtyNm +'</h3>';
+	    	html += '					<h4>'+ list.artistInfo.artstEnglsNm +'</h4>';
+	    	html += '					<p id="artstSelfIntro">'+ list.artistInfo.artstSelfIntro +'</p>';
+	    	html += '				</div>';
+
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>SNS</dt>';
+	    	html += '					<dd>';
+	    	if(list.artistInfo.artstInstagramUrl) {
+		    	html += '					<a class="if-img" href="'+ list.artistInfo.artstInstagramUrl +'" target="_blank"><img src="/resources/img/icon/i-1.png"/></a>';
+	    	}
+	    	if(list.artistInfo.artstfacebookUrl) {
+		    	html += '					<a class="if-img" href="'+ list.artistInfo.artstfacebookUrl +'" target="_blank"><img src="/resources/img/icon/i-2.png"/></a>';
+	    	}
+	    	html += '						<!-- <a class="if-img" th:if="${not #strings.isEmpty(user.id)}" th:href="${result.artistInfo.artstInstagramUrl}"><img src="/resources/img/icon/i-2.png" /></a> -->';
+	    	html += '						<!-- <a href="#" class="if-img"><img src="/resources/img/icon/i-3.png" /></a>';
+	    	html += '						<a href="#" class="if-img"><img src="/resources/img/icon/i-4.png" /></a>';
+	    	html += '						<a href="#" class="if-img"><img src="/resources/img/icon/i-5.png" /></a>';
+	    	html += '						<a href="#" class="if-img"><img src="/resources/img/icon/i-6.png" /></a> -->';
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>홈페이지</dt>';
+	    	html += '					<dd>';
+	    	html += '						<p>'+ list.artistInfo.artstHmpgUrl +'</p>';
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>학력</dt>';
+	    	html += '					<dd>';
+	    	for(var i in list.eductn) {
+		    	html += '					<p>'+ list.eductn[i].eductnNm +'</p>';
+	    	}
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>경력</dt>';
+	    	html += '					<dd>';
+	    	for(var i in list.career) {
+		    	html += '					<p>'+ list.career[i].careerNm +'</p>';
+	    	}
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>전시 정보</dt>';
+	    	html += '					<dd>';
+	    	for(var i in list.exhbtn) {
+		    	html += '					<p>'+ list.exhbtn[i].exhbtnNm +'</p>';
+	    	}
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '				<dl class="ad-dl">';
+	    	html += '					<dt>수상</dt>';
+	    	html += '					<dd>';
+	    	for(var i in list.exhbtnAword) {
+		    	html += '					<p>'+ list.exhbtnAword[i].exhbtnNm +'</p>';
+	    	}
+	    	html += '					</dd>';
+	    	html += '				</dl>';
+	    	html += '<!-- 				<dl class="ad-dl"> -->';
+	    	html += '<!-- 					<dt>인터뷰영상</dt> -->';
+	    	html += '<!-- 					<dd> -->';
+	    	html += '<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->';
+	    	html += '<!-- 						<p>https://youtu.be/bRY2uftc9pQ</p> -->';
+	    	html += '<!-- 					</dd> -->';
+	    	html += '<!-- 				</dl> -->';
+	    	html += '<!-- 				<dl class="ad-dl"> -->';
+	    	html += '<!-- 					<dt>논문, 평론, 기사</dt> -->';
+	    	html += '<!-- 					<dd> -->';
+	    	html += '<!-- 						<p>2014 동심을 깨우는 강한 숨결 전, 전북대학교 국립 박물관</p> -->';
+	    	html += '<!-- 						<p>2013 50만원 전, 경민미술관</p> -->';
+	    	html += '<!-- 						<p>2013 가미갤러리 초대작가전, 가미갤러리</p> -->';
+	    	html += '<!-- 						<p>2013 블라블라, 인사토포하우스</p> -->';
+	    	html += '<!-- 					</dd> -->';
+	    	html += '<!-- 				</dl> -->';
+	    	html += '			</div>';
+	    	html += '		</div>';
+	    	html += '	</div>';
+	    	html += '</div>';
+	    	
+	    	$("#container").after(html);
+    	}
+    	
+    	// 호수 안내표 모달 html 생성
+    	function setLakeHelpModal() {
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="lakeHelpModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">';
+    		html += '	<div class="modal-dialog modal-baeg max-w480" style="max-width:600px !important;">';
+    		html += '		<div class="modal-content">';
+    		html += '			<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">';
+    		html += '				<div class="baegs">';
+    		html += '				    <div class="close" onclick="closeModal(\'lakeHelpModal\')"><img src="/resources/img/ba/icon-end.png" /></div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '			<div class="modal-body login-body">';
+
+    		html += '				<div class="login-box" style="margin-top:30px;">';
+    		html += '					<p class="lb-p1">작품 사이즈 기준표 (cm)</p>';
+    		html += '					<div class="text-box1">';
+
+    		html += '						<table class="tstyle4">';
+    		html += '						  <tr>';
+    		html += '						    <td> 호수 </td>';
+    		html += '						    <td> F형(인물) </td>';
+    		html += '						    <td> P형(풍경) </td>';
+    		html += '						    <td> M형(해경) </td>';
+    		html += '						    <td> S형(정방형) </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 0 </td>';
+    		html += '						    <td> 18.0x14.0 </td>';
+    		html += '						    <td> - </td>';
+    		html += '						    <td> - </td>';
+    		html += '						    <td> - </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 1 </td>';
+    		html += '						    <td> 22.7x15.8 </td>';
+    		html += '						    <td> 22.7x14.0 </td>';
+    		html += '						    <td> 22.7x12.0 </td>';
+    		html += '						    <td> 15.8x15.8 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 2 </td>';
+    		html += '						    <td> 25.8x17.9 </td>';
+    		html += '						    <td> 25.8x16.0 </td>';
+    		html += '						    <td> 25.8x14.0 </td>';
+    		html += '						    <td> 17.9x17.9 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 3 </td>';
+    		html += '						    <td> 27.3x22.0 </td>';
+    		html += '						    <td> 27.3x19.0 </td>';
+    		html += '						    <td> 27.3x16.0 </td>';
+    		html += '						    <td> 22.0x22.0 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 4 </td>';
+    		html += '						    <td> 33.4x24.2 </td>';
+    		html += '						    <td> 33.4x21.2 </td>';
+    		html += '						    <td> 33.4x19.0 </td>';
+    		html += '						    <td> 24.2x24.2 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 5 </td>';
+    		html += '						    <td> 34.8x27.3 </td>';
+    		html += '						    <td> 34.8x24.2 </td>';
+    		html += '						    <td> 34.8x21.2 </td>';
+    		html += '						    <td> 27.3x27.3 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 6 </td>';
+    		html += '						    <td> 40.9x31.8 </td>';
+    		html += '						    <td> 40.9x27.3 </td>';
+    		html += '						    <td> 40.9x24.2 </td>';
+    		html += '						    <td> 31.8x31.8 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 8 </td>';
+    		html += '						    <td> 45.5x37.9 </td>';
+    		html += '						    <td> 45.5x33.4 </td>';
+    		html += '						    <td> 45.5x27.3 </td>';
+    		html += '						    <td> 37.9x37.9 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 10 </td>';
+    		html += '						    <td> 53.0x45.0 </td>';
+    		html += '						    <td> 53.0x40.9 </td>';
+    		html += '						    <td> 53.0x33.4 </td>';
+    		html += '						    <td> 45.0x45.0 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 12 </td>';
+    		html += '						    <td> 60.6x50.0 </td>';
+    		html += '						    <td> 60.6x45.5 </td>';
+    		html += '						    <td> 60.6x40.9 </td>';
+    		html += '						    <td> 50.0x50.5 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 15 </td>';
+    		html += '						    <td> 65.1x53.0 </td>';
+    		html += '						    <td> 65.1x50.5 </td>';
+    		html += '						    <td> 65.1x45.5 </td>';
+    		html += '						    <td> 53.0x53.0 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 20 </td>';
+    		html += '						    <td> 72.7x60.6 </td>';
+    		html += '						    <td> 72.7x53.0 </td>';
+    		html += '						    <td> 72.7x50.0 </td>';
+    		html += '						    <td> 60.6x60.6 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 25 </td>';
+    		html += '						    <td> 80.3x65.1 </td>';
+    		html += '						    <td> 80.3x60.6 </td>';
+    		html += '						    <td> 80.3x53.0 </td>';
+    		html += '						    <td> 65.1x65.1 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 30 </td>';
+    		html += '						    <td> 90.9x72.7 </td>';
+    		html += '						    <td> 90.9x65.1 </td>';
+    		html += '						    <td> 90.9x60.6 </td>';
+    		html += '						    <td> 72.7x72.7 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 40 </td>';
+    		html += '						    <td> 100.0x80.3 </td>';
+    		html += '						    <td> 100.0x72.7 </td>';
+    		html += '						    <td> 100.0x65.1 </td>';
+    		html += '						    <td> 80.3x80.3 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 50 </td>';
+    		html += '						    <td> 116.8x91.0 </td>';
+    		html += '						    <td> 116.8x80.3 </td>';
+    		html += '						    <td> 116.8x72.7 </td>';
+    		html += '						    <td> 91.0x91.0 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 60 </td>';
+    		html += '						    <td> 130.3x97.0 </td>';
+    		html += '						    <td> 130.3x89.4 </td>';
+    		html += '						    <td> 130.3x80.3 </td>';
+    		html += '						    <td> 97.0x97.0 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 80 </td>';
+    		html += '						    <td> 145.5x112.1 </td>';
+    		html += '						    <td> 145.5x97.0 </td>';
+    		html += '						    <td> 145.5x89.4 </td>';
+    		html += '						    <td> 112.1x112.1 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 100 </td>';
+    		html += '						    <td> 162.2x130.3 </td>';
+    		html += '						    <td> 162.2x112.1 </td>';
+    		html += '						    <td> 162.2x97.0 </td>';
+    		html += '						    <td> 130.3x130.3 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 120 </td>';
+    		html += '						    <td> 193.9x130.3 </td>';
+    		html += '						    <td> 193.9x112.1 </td>';
+    		html += '						    <td> 193.9x97.0 </td>';
+    		html += '						    <td> - </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 150 </td>';
+    		html += '						    <td> 227.3x181.8 </td>';
+    		html += '						    <td> 227.3x162.1 </td>';
+    		html += '						    <td> 227.3x145.5 </td>';
+    		html += '						    <td> 181.8x181.8 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 200 </td>';
+    		html += '						    <td> 259.1x193.9 </td>';
+    		html += '						    <td> 259.1x181.9 </td>';
+    		html += '						    <td> 259.1x162.1 </td>';
+    		html += '						    <td> 193.9x193.9 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 300 </td>';
+    		html += '						    <td> 290.9x218.2 </td>';
+    		html += '						    <td> 290.9x197.0 </td>';
+    		html += '						    <td> 290.9x181.8 </td>';
+    		html += '						    <td> 218.2x218.2 </td>';
+    		html += '						  </tr>';
+    		html += '						  <tr>';
+    		html += '						    <td> 500 </td>';
+    		html += '						    <td> 333.3x248.5 </td>';
+    		html += '						    <td> 333.3x218.2 </td>';
+    		html += '						    <td> 333.3x197.0 </td>';
+    		html += '						    <td> 248.5x248.5 </td>';
+    		html += '						  </tr>';
+    		html += '						</table>';
+
+    		html += '					</div>';
+
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '		</div>';
+    		html += '	</div>';
+    		html += '</div>';
+    		
+    		$("#container").after(html);
+    	}
+
+    	// 요청하기 모달 html 생성
+    	function setWorkSuggestModal() {
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="workSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workSuggestLabel" aria-hidden="true">';
+    		html += '	<div class="modal-dialog modal-baeg max-w530">';
+    		html += '		<div class="modal-content">';
+    		html += '			<div class="modal-header">';
+    		html += '				<div class="baegs">';
+    		html += '					<h2>제안 유형을 선택해 주세요.</h2>';
+    		html += '				    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '			<div class="modal-body">';
+    		html += '				<div class="md-box-1">';
+    		html += '					<div class="text-center mg_b40">';
+    		html += '						<input type="radio" id="w1" name="suggest" value="price" checked>';
+    		html += '						<label for="w1"><span></span>가격 제안</label>';
+    		html += '						<input type="radio" id="w2" name="suggest" value="picture">';
+    		html += '						<label for="w2" class="mg_l20"><span></span>상세 사진 요청</label>';
+    		html += '					</div>';
+    		html +=	'					<div class="baeg-btn mg_t30">';
+    		html +=	'						<button type="button" class="baeg-b1" onclick="openSuggestModal();">확인</button>';
+    		html +=	'						<button type="button" class="baeg-b2" onclick="closeModal(\'workSuggestModal\');">취소</button>';
+    		html +=	'					</div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '		</div>';
+    		html += '	</div>';
+    		html += '</div>';
+    		
+    		$("#container").after(html);
+    	}
+    	
+    	// 가격 제안 모달 html 생성
+    	function setWorkPriceSuggestModal() {
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="workPriceSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workPriceSuggestLabel" aria-hidden="true">';
+    		html += '	<div class="modal-dialog modal-baeg max-w530">';
+    		html += '		<div class="modal-content">';
+    		html += '			<div class="modal-header">';
+    		html += '				<div class="baegs">';
+    		html += '					<h2>해당 작품의 판매 가격을 제안해 주세요.</h2>';
+    		html += '				    <div class="close" onclick="closeModal(\'workPriceSuggestModal\');"><img src="/resources/img/ba/icon-end.png" /></div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '			<div class="modal-body">';
+    		html += '				<div class="md-box-1">';
+    		html += '					<div class="text-center mg_b40">';
+    		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" onblur="sgtPrcCal(this)" style="font-size:15px;"/>';
+    		html += '					</div>';
+    		html +=	'					<div class="baeg-btn mg_t30">';
+    		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PRC\');">확인</button>';
+    		html +=	'						<button type="button" class="baeg-b2" onclick="closeModal(\'workPriceSuggestModal\');">취소</button>';
+    		html +=	'					</div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '		</div>';
+    		html += '	</div>';
+    		html += '</div>';
+    		
+    		$("#container").after(html);
+    	}
+		
+    	// 상세 사진 요청 모달 html 생성
+    	function setRequestPictureModal() {
+    		var html = '';
+    		html += '<div class="modal fade modal-s" id="RequestPictureModal" tabindex="-1" role="dialog" aria-labelledby="RequestPictureLabel" aria-hidden="true">';
+    		html += '	<div class="modal-dialog modal-baeg max-w530">';
+    		html += '		<div class="modal-content">';
+    		html += '			<div class="modal-header">';
+    		html += '				<div class="baegs">';
+    		html += '					<h2>해당 작품의 상세 사진을 요청해 주세요.</h2>';
+    		html += '				    <div class="close" onclick="closeModal(\'RequestPictureModal\');"><img src="/resources/img/ba/icon-end.png" /></div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '			<div class="modal-body">';
+    		html += '				<div class="md-box-1">';
+    		html += '					<div class="text-center mg_b40">';
+    		html += '						<input type="text" class="input-1" id="reqPic" placeholder="원하시는 작품의 사진 구도를 적어주세요 (100자 이내, 공백포함)" maxlength="100" style="font-size:15px;"/>';
+    		html += '					</div>';
+    		html +=	'					<div class="baeg-btn mg_t30">';
+    		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PIC\');">확인</button>';
+    		html +=	'						<button type="button" class="baeg-b2" onclick="closeModal(\'RequestPictureModal\');">취소</button>';
+    		html +=	'					</div>';
+    		html += '				</div>';
+    		html += '			</div>';
+    		html += '		</div>';
+    		html += '	</div>';
+    		html += '</div>';
+    		
+    		$("#container").after(html);
+    	}
+    	
+    	// 요청하기 모달 확인 버튼 이벤트
+    	function openSuggestModal() {
+    		var val = $("input[name=suggest]:checked").val();
+
+    		if(val == "price") {
+	   			closeModal("workSuggestModal");
+    			openModal("workPriceSuggestModal");
+    		} else if(val == "picture") {
+    			closeModal("workSuggestModal");
+    			openModal("RequestPictureModal");
+    		}
+    	}
+    	
+    	// 제안 가격 계산
+    	function sgtPrcCal(obj) {
+   			if(obj.value != null && obj.value != ""){
+   				obj.value = obj.value.replaceAll(/,/g,''); // ,값 공백처리
+   				obj.value = parseInt(obj.value);
+   				var n = obj.value % 10000;
+   				if(n != 0 || obj.value == 0){
+   					$("#ModalAlert").css("z-index", 100000);
+   					modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+   					obj.value = '';
+   				}else{
+   					obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+   				}
+   			}
+    	}
+    	
+    	// 천단위 콤마 찍기
+    	function comma(obj) {
+    		obj.value = obj.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
+    		obj.value = obj.value.replace(/,/g,'');          // ,값 공백처리
+    	    obj.value = obj.value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 	
+    	}
+    	
+		// 거래 관련 정보 초기화
+    	function dealInit() {
+   			if(deal.deal.artstSq == null || deal.deal.artstSq == ""){
+   				$("#artstInfo").css("display", "none");
+   			}
+   			if(deal.deal.dealTypCd == "S"){ //정찰가면
+   				$("#pageTitle").text("구매하기");
+   				$("#spn_dealStrtPrc").text("판매가");
+   				$("#tr_priceUnit").css("display", "none");
+   				$("#spn_period").text("판매기간");
+   				$("#tr_maxBidPrc").css("display", "none");
+   				$("#tr_bidPrc").css("display", "none");
+   				$("#sbx_bidPrc").css("display", "none");
+   				$("#btn_purchaseOrBid").text("구매하기");
+   				$("#btn_history").css("display", "none");
+   			}
+   			if(deal.deal.dealTypCd == "A" && deal.deal.dealSttsCd == "TP"){ //경매면
+				selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
+			}
+			if(deal.deal.dealSttsCd == "TC"){ //판매종료면
+				$("#btn_purchaseOrBid").css("display", "none");
+			}
+    	}
+		
+    	//호가 단위
+		function selectBoxWriteAskingPrice(){
+			var bidPrc = 0; //입찰가
+			var askingPrc = 0; //호가단위
+			if(deal.deal.maxBidPrc != null && deal.deal.maxBidPrc != ""){ //입찰가가 있다면
+				bidPrc = parseInt(deal.deal.maxBidPrc.replaceAll(/,/g, ''));
+				askingPrc = askingPrice(bidPrc);
+				$("#td_askingPrice").text(formatComma(askingPrc)+' KRW'); //호가단위를 입찰가 기준으로 리턴한다.
+			}else{ //입찰가가 없다면
+				bidPrc = parseInt(deal.deal.dealStrtPrc.replaceAll(/,/g, ''));
+				askingPrc = askingPrice(bidPrc);
+				$("#td_askingPrice").text(formatComma(askingPrc)+' KRW');	//호가 단위를 시작가 기준으로 리턴한다.
+				$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc)+"</option>");
+			}
+			for(i=0; i<30; i++){
+				askingPrc = askingPrice(bidPrc); //호가 단위를 자동으로 계산해준다.
+				$("#sbx_bidPrc").append("<option style='font-size:18px;'>"+formatComma(bidPrc+=askingPrc)+"</option>");
+			}
+			$("#sbx_bidPrc").selectpicker("refresh");
+		}
+    	
+		//거래 남은 시간 1초마다 계산해서 표현하기
+		function setBiddingInterval() {
+			var dday = new Date(deal.deal.dealEndngDateTime).getTime();
+			
+			var biddingInterval = setInterval(function() {
+				console.log("biddingInterval");
+				var today = new Date().getTime();
+				
+				if(today >= dday){
+					$("#btn_purchaseOrBid").css("display", "none");
+					clearInterval(biddingInterval);
+					modalAlertShow("거래가 종료되었습니다.", "deal");
+				}
+			  	var gap = dday - today;
+			  	var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+			  	var hour = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			  	var min = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+			  	var sec = Math.floor((gap % (1000 * 60)) / 1000);
+			  	
+			  	document.getElementById("dealCount").innerHTML = day + " 일 " + hour + " : " + min + " : " + sec;
+			  		
+			  	
+			}, 1000);
+		}
+		
+		//페이지 한번만 RELOAD
+		function pageReload(){
+			console.log("pageReload");
+			$(document).ready(function(){
+			    if(document.URL.indexOf("#")==-1){
+			    
+			        url = document.URL+"#";
+			        location = "#";
+			        location.reload(true);
+			    }
+			});
+		}
+		
+		//경매일 경우 호가 단위를 자동으로 리턴해준다.
+		function askingPrice(prc){
+			var returnVal;
+			if (prc > 0 && prc < 300000) {
+				returnVal = 20000;
+			}
+			if (prc >= 300000 && prc < 1000000) {
+				returnVal = 50000;
+			}
+			if (prc >= 1000000 && prc < 3000000) {
+				returnVal = 100000;
+			}
+			if (prc >= 3000000 && prc < 5000000) {
+				returnVal = 200000;
+			}
+			if (prc >= 5000000 && prc < 10000000) {
+				returnVal = 500000;
+			}
+			if (prc >= 10000000 && prc < 30000000) {
+				returnVal = 1000000;
+			}
+			if (prc >= 30000000 && prc < 50000000) {
+				returnVal = 2000000;
+			}
+			if (prc >= 50000000 && prc < 200000000) {
+				returnVal = 5000000;
+			}
+			if (prc >= 200000000 && prc < 500000000) {
+				returnVal = 10000000;
+			}
+			if (prc >= 500000000) {
+				returnVal = 20000000;
+			}
+			return returnVal;
+		}
+		
+		//0830 토글팝업
+		$(function (){
+			$("#btn_toggle").click(function (){
+			$("#Toggle").toggle();
+			});
+		});
+
+		$(function (){
+			$('#toggle_close').click(function() {
+				 $('#Toggle').hide(); 
+			});
+		});
+		
+		$(document).ready(function () {
+		  $(".elm").hover(
+			function(){ $(this).addClass('hover') },
+		    function(){ $(this).removeClass('hover') }
+		  )
+		  $(".cn-b").hover(
+			function(){ $(this).addClass('gis') },
+		    function(){ $(this).removeClass('gis') }
+		  )
+		 });
+		 
+		 
+		 /* 메뉴바 FIXED */
+		 if (jQuery(window).width() > 0) {
+		     jQuery(window).on("scroll",function(ev){
+		         if(jQuery(window).scrollTop() > 80 ) { /* 해당 높이를 벗어나면 fixed 클래스 추가 */
+		             jQuery('.head-wrap').addClass('fixed');
+		         }
+		         else{
+		             jQuery('.head-wrap').removeClass('fixed');
+		         }
+		         return false;
+		     });
+		 }
+		 
+		 $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
+		    // The event won't be propagated up to the document NODE and 
+		    // therefore delegated events won't be fired
+		    event.stopPropagation();
+		});
+	</script>
+	
+	<!-- 네이버 광고 로그분석 추적 코드 -->
+	<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script> 
+	<script type="text/javascript">
+	if(!wcs_add) var wcs_add = {}; 
+	wcs_add["wa"] = "s_17cc71bb9b8f";
+	if (!_nasa) var _nasa={}; 
+	if (window.wcs) {
+	wcs.inflow("www.dealing-art.com"); 
+	wcs_do(_nasa);
+	}
+	</script>
+</body>
+</html>

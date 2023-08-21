@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="딜링아트">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<meta name="robots"content="noindex">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	[name=COLLworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		[name=WORKworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
+    </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+</head>
+<body>
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+    <div id="container">
+        <div class="mypage_wrap">
+            <h2>마이페이지</h2>
+            <div class="mypage_contents">
+                <div class="contents_left">
+                  <div class="myinfo_wrap">
+                    <div class="myinfo_pic" style="background-image: url('https://item.kakaocdn.net/do/8d209a3c00ed5f23eeaa3758a1c7d59c339e41ce89b663315d96faecd7cfd11b')"></div>
+                    <div class="myinfo_con">
+                      <ul>
+                        <li class="name">Dealing - Art <span></span></li>
+                        <li class="email">admin@dealing-art.com</li>
+                        <li class="mem_type">회원유형<span>컬렉터</span></li>
+                        <li class="line"></li>
+                        <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>
+                      </ul>
+                    </div>
+                    <div class="icon_box">
+                      <ul>
+                          <li><p class="ico_scrap"></p>스크랩<br><span>99</span></li>
+                          <li><p class="ico_good"></p>좋아요<br><span>99</span></li>
+                          <li><p class="ico_alarm"></p>알림<br><span>99</span></li>
+                      </ul>
+                    </div>
+                    <div class="icon_sns_box">
+                      <ul>
+                        <li><a href="#"><p class="ico_facebook"></p></a></li>
+                        <li><a href="#"><p class="ico_instagram"></p></a></li>
+                        <li><a href="#"><p class="ico_youtube"></p></a></li>
+                        <li> <a href="#"><p class="ico_twitter"></p></a></li>
+                      </ul>
+                    </div>                    
+                  </div>
+                  <div class="left_nav">
+                    <ul>
+                      <li class="on"><a href="#">마이페이지</a>
+                      </li>
+                      <li>
+	                      <ul>
+	                          <li><a href="#">모두보기</a></li>
+	                          <li><a href="#">나의 작품</a></li>
+	                          <li><a href="#">자랑하기</a></li>
+	                          <li><a href="#">전시후기&소개</a></li>
+	                          <li><a href="#">이슈</a></li>
+	                          <li><a href="#">알림함</a></li>
+	                          <li><a href="#">스크랩</a></li>
+	                          <li><a href="#">팔로잉</a></li>
+	                        </ul>
+                       </li>
+                      <li class="off"><a href="#">거래</a></li>
+                      <li class="off"><a href="#">작가</a></li>
+                      <li class="off"><a href="#">나의 정보</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="contents_right">
+                  <div class="mypage_works_wrap">
+                    <div class="tit_wrap">
+                        <h2>나의 작품 <span id="myWorksTotal">99</span></h2>
+                        <button class="btn_more">더보기</button>
+                    </div>
+                    <ul id="myWorks">
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_works01.jpg" alt=""></a>
+                        </li>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_works02.jpg" alt=""></a>
+                        </li>
+                        <li class="pic_more">
+                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_works03.jpg" alt=""></a>
+                        </li>     
+                      </ul>
+                  </div>
+                  <div class="mypage_showingoff_wrap">
+                    <div class="tit_wrap">
+                        <h2>자랑하기 <span id="myBoastTotal">99</span></h2>
+                        <button class="btn_more">더보기</button>
+                    </div>
+                    <ul id="myBoast">
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_works05.jpg" alt=""></a>
+                        </li>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_works06.jpg" alt=""></a>
+                        </li>
+                        <li class="pic_more">
+                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_works07.jpg" alt=""></a>
+                        </li>                        
+                      </ul>
+                  </div>
+                  <div class="mypage_posts_warp">
+                    <div class="intro_posts">
+                        <div class="tit_wrap">
+                            <h2><img src="/resources/img/img_new/ico_intro.png" alt=""><span>전시후기 / 소개</span><em>+99</em></h2>
+                            <button class="btn_more">더보기</button>
+                        </div>
+                        <ol id="myExhbn">
+                            <li><a href="#">희망을 주는 그림</a><em>[7]</em></li>
+                            <li><a href="#">희망을 주는 그림</a><em></em></li>
+                            <li><a href="#">희망을 주는 그림</a><em>[7]</em></li>
+                            <li><a href="#">희망을 주는 그림</a><em></em></li>
+                        </ol>
+                    </div>                    
+                  </div>
+                  <div class="mypage_posts_warp mt10">
+                    <div class="issue_posts">
+                        <div class="tit_wrap">
+                            <h2><img src="/resources/img/img_new/ico_issue.png" alt=""><span>이슈</span><em>+99</em></h2>
+                            <button class="btn_more">더보기</button>
+                        </div>
+                        <ol id="myIssue">
+                            <li><a href="#">도자기 보관 방법</a><em>[7]</em></li>
+                            <li><a href="#">도자기 보관 방법</a><em></em></li>
+                            <li><a href="#">도자기 보관 방법</a><em>[7]</em></li>
+                            <li><a href="#">도자기 보관 방법</a><em></em></li>
+                        </ol>
+                    </div>                    
+                  </div>
+                  <div class="mypage_scrap_wrap">
+                    <div class="tit_wrap">
+                        <h2>스크랩 <span>99</span></h2>
+                        <button class="btn_more">더보기</button>
+                    </div>
+                    <ul>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a>
+                        </li>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_master02.jpg" alt=""></a>
+                        </li>
+                        <li class="pic_more">
+                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a>
+                        </li>                        
+                      </ul>
+                  </div>
+                  <div class="mypage_following_wrap">
+                    <div class="tit_wrap">
+                        <h2>팔로잉 <span>99</span></h2>
+                        <button class="btn_more">더보기</button>
+                    </div>
+                    <ul>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a>
+                        </li>
+                        <li>
+                          <a href="#"><img src="/resources/img/img_new/sample_master02.jpg" alt=""></a>
+                        </li>
+                        <li class="pic_more">
+                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a>
+                        </li>                        
+                      </ul>
+                  </div>
+                  <div class="mypage_posts_warp">
+                    <div class="noticebox_posts">
+                        <div class="tit_wrap">
+                            <h2><img src="/resources/img/img_new/ico_notice.png" alt=""><span>알림함</span><em>+99</em></h2>
+                            <button class="btn_more">더보기</button>
+                        </div>
+                        <ol>
+                            <li><a href="#">[판매제안] 작품이 너무 맘에 듭니다. 판매로 올려주세요 ♥</a></li>
+                            <li><a href="#">[가격제안] 10% 낮춰서 1,000,000원에 구매 희망합니다!</a></li>
+                            <li><a href="#">[상세사진요청]후면 사진 요청 드려요.</a></li>
+                        </ol>
+                    </div>                    
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    <script type="text/javascript">
+    
+    $("document").ready(function(){
+    	$.ajax({
+			type: "POST"
+			, url: "/myPage/main/myInfo"
+			, success: function(data){
+				setMyInfo(data.myInfo);
+				setMyWorks(data.myWorks, data.myWorksTotal);
+				setMyBoast(data.myBoast, data.myBoastTotal);
+				setMyExhbn(data.myExhbn);
+			}
+			, error: function(data){
+				alert("오류 발생" + error);
+			}
+		});
+    });
+    
+    function setMyInfo(data){
+    		
+    	var html = '';
+    	//회원 프로필 사진 유무
+    	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
+    		html += '<div class="myinfo_pic" style="background-image: url('+data.mbrProfileImgUrl+')"></div>';
+    	}else{
+    		html += '<div class="myinfo_pic"></div>';
+    	}
+        html += '<div class="myinfo_con">';
+        html += '  <ul>';
+        html += '    <li class="name">'+data.mbrNcknm+'<span></span></li>';
+        html += '    <li class="email">'+data.mbrId+'</li>';
+        html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
+        html += '    <li class="line"></li>';
+        html += '    <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>';
+        html += '  </ul>';
+        html += '</div>';
+        html += '<div class="icon_box">';
+        html += '  <ul>';
+        html += '      <li><p class="ico_scrap"></p>스크랩<br><span>'+data.mbrScraps+'</span></li>';
+        html += '      <li><p class="ico_good"></p>좋아요<br><span>'+data.mbrLikes+'</span></li>';
+        html += '      <li><p class="ico_alarm"></p>알림<br><span>'+data.mbrNotis+'</span></li>';
+        html += '  </ul>';
+        html += '</div>';
+        html += '<div class="icon_sns_box">';
+        html += '  <ul>';
+        //회원 페이스북 url 유무
+        if(data.mbrFacebookUrl != null && data.mbrFacebookUrl != ""){
+        	html += '    <li><a href="'+data.mbrFacebookUrl+'"><p class="ico_facebook"></p></a></li>';
+        }
+        //회원 인스타그램 url 유무
+        if(data.mbrInstarUrl != null && data.mbrInstarUrl != ""){
+        	html += '    <li><a href="'+data.mbrInstarUrl+'"><p class="ico_instagram"></p></a></li>';
+        }
+        //회원 유투브 url 유무
+        if(data.mbrYoutubeUrl != null && data.mbrYoutubeUrl != ""){
+        	html += '    <li><a href="'+data.mbrYoutubeUrl+'"><p class="ico_youtube"></p></a></li>';
+        }
+        //회원 트위터 url 유무
+        if(data.mbrTwitterUrl != null && data.mbrTwitterUrl != ""){
+        	html += '    <li> <a href="'+data.mbrTwitterUrl+'"><p class="ico_twitter"></p></a></li>';
+        }
+        html += '  </ul>';
+        html += '</div>';
+        $(".myinfo_wrap").empty();
+        $(".myinfo_wrap").append(html).trigger("create");
+    }
+    
+    function setMyWorks(data, total){
+    	var html = '';
+    	if(total > 0){
+        	for(i=0; i<data.length; i++){
+                if(i == 2){
+                	html += '<li class="pic_more">';
+                    html += '  	<a href="/deal/workDetail?SqNumber='+data[i].workSq+'">';
+                    html += '		<span>+ '+total+'</span>';
+                    html += '		<img src="'+data[i].workMainImgUrl+'">';
+                    html += '	</a>';
+                    html += '</li>';
+                }else{
+                	html += '<li>';
+                    html += '	<a href="/deal/workDetail?SqNumber='+data[i].workSq+'">';
+                    html += '		<img src="'+data[i].workMainImgUrl+'">';
+                    html += '	</a>';
+                    html += '</li>';
+                }
+        	}
+        	$("#myWorks").empty();
+            $("#myWorks").append(html).trigger("create");
+            $("#myWorksTotal").text(total);
+    	}else{
+    		$(".mypage_works_wrap").hide();
+    	}
+    }
+    
+    function setMyBoast(data, total){
+    	var html = '';
+    	if(total > 0){
+        	for(i=0; i<data.length; i++){
+                if(i == 2){
+                	html += '<li class="pic_more">';
+                    html += '  	<a href="/deal/workDetail?SqNumber='+data[i].comtSq+'">';
+                    html += '		<span>+ '+total+'</span>';
+                    html += '		<img src="'+data[i].comtImgUrl+'">';
+                    html += '	</a>';
+                    html += '</li>';
+                }else{
+                	html += '<li>';
+                    html += '	<a href="/deal/workDetail?SqNumber='+data[i].comtSq+'">';
+                    html += '		<img src="'+data[i].comtImgUrl+'">';
+                    html += '	</a>';
+                    html += '</li>';
+                }
+        	}
+        	$("#myBoast").empty();
+            $("#myBoast").append(html).trigger("create");
+            $("#myBoastTotal").text(total);
+    	}else{
+    		$(".mypage_showingoff_wrap").hide();
+    	}
+    }
+    
+    function setMyExhbn(data){
+    	var html = '';
+    	if(total > 0){
+        	for(i=0; i<data.length; i++){
+                if(data[i].cmtTotal > 0){
+                    html += '<li>';
+                    html += '	<a href="#">'+data[i].comtTitle+'</a>';
+                    html += '	<em>['+data[i].totalCmt+']</em>';
+                    html += '</li>';
+                }else{
+                	html += '<li>';
+                    html += '	<a href="#">'+data[i].comtTitle+'</a>';
+                    html += '</li>';
+                }
+        	}
+        	$("#myExhbn").empty();
+            $("#myExhbn").append(html).trigger("create");
+    	}else{
+    		$(".mypage_showingoff_wrap").hide();
+    	}
+    }
+
+    </script>
+</body>
+</html>

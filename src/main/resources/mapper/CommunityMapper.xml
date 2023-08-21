@@ -33,6 +33,7 @@
 				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
 				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
 				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
+				 <when test="ordCondition == 'REG_DT'">CM.REG_DT</when>
 			 </choose>
 		 </if>
 		 <!-- 정렬 기준 -->
@@ -51,21 +52,23 @@
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
 					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
 					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
 			   END 											AS ordCondition,	-- 정렬 구분
 			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
 			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
 			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
 			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
 			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
-			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 4
+			   		WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
 			   END											AS limitNum			-- 조회 갯수
 		  FROM TBL_DA_COMT_MGMT_M
 		 WHERE COMT_TYP_CD = #{comtTypCd}
 	</select>
 	
-	<select id="showingOffDetail" resultType="hashMap">
+	<select id="searchShowingOffDetail" resultType="hashMap">
 		/* 자랑하기 상세 조회 */
 		SELECT CM.WORK_SQ						AS workSq,			-- 작품 순번
+			   CM.COMT_TYP_CD					AS comtTypCd,		-- 커뮤니티 구분 코드
 			   CM.COMT_IMG_URL 					AS comtImgUrl,		-- 커뮤니티 이미지 URL
 			   CM.COMT_TITLE 					AS comtTitle,		-- 커뮤니티 제목
 			   CM.COMT_CONTENT 					AS comtContent,		-- 커뮤니티 내용
@@ -73,8 +76,8 @@
 			   CM.COMT_VIEWS 					AS comtViews,		-- 커뮤니티 조회수
 			   CM.COMT_CMTS 					AS comtCmts,		-- 커뮤니티 댓글수
 			   CM.COMT_SCRAPS 					AS comtScraps,		-- 커뮤니티 스크랩수
-			   DATE_FORMAT(CM.REG_DT, '%Y.%m.%d %H:%i') AS regDt,		-- 커뮤니티 등록 일시
-			   DATEDIFF(NOW(), CM.REG_DT)		AS dateDiff,		-- 등록 시간 차이
+			   DATE_FORMAT(CM.REG_DT, '%Y.%m.%d %T') AS regDt,		-- 커뮤니티 등록 일시
+			   TIMESTAMPDIFF(HOUR, CM.REG_DT, NOW()) AS dateDiff,		-- 등록 시간 차이
 			   (
 			    SELECT COUNT(*)
 			      FROM TBL_DA_RPRT_M RM
@@ -83,14 +86,13 @@
 		   	   CM.COMT_SALES_YN 				AS comtSalesYn,		-- 커뮤니티 판매제안 여부
 			   MM.MBR_NCKNM 					AS mbrNcknm,		-- 회원 닉네임
 			   MM.MBR_PROFILE_IMG_URL 			AS mbrProfileImgUrl,-- 회원 프로필 이미지 URL
-			   MM.MBR_SQ						AS mbrSq,
+			   MM.MBR_SQ						AS mbrSq,			-- 회원 순번
 			   CKR.COMT_KEYWRD					AS comtKeywrd,		-- 커뮤니티 키워드
-			   CM.COMT_TYP_CD					AS comtTypCd,
-			   C.ARTST_SQ						AS artstSq
+			   AM.ARTST_SQ						AS artstSq			-- 작가 순번
 		  FROM TBL_DA_COMT_M CM
 		  	   INNER JOIN TBL_DA_MBR_M MM ON CM.MBR_SQ = MM.MBR_SQ
-		  	   LEFT JOIN TBL_DA_ARTST_M C ON CM.MBR_SQ = C.MBR_SQ
 		  	   LEFT JOIN TBL_DA_COMT_KEYWRDS_R CKR ON CM.COMT_SQ = CKR.COMT_SQ
+		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
 		 WHERE CM.COMT_TYP_CD = 'BOA'
 		   AND CM.OPEN_YN = 'Y'
 		   AND CM.USE_YN = 'Y'
@@ -170,15 +172,13 @@
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
 				, MBR.MBR_INTRO AS mbrIntro
-				, AM.ARTST_SQ AS artstSq
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
-			ON COMT.MBR_SQ = MBR.MBR_SQ 
-		LEFT JOIN
-				TBL_DA_ARTST_M AM
-			ON COMT.MBR_SQ = AM.MBR_SQ
+			ON COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN TBL_DA_WORK_M AS WORK
+			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -188,6 +188,9 @@
 		</if>
 		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
 			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
+		</if>
+		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
+			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
@@ -227,6 +230,8 @@
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
 			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		LEFT JOIN TBL_DA_WORK_M AS WORK
+			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -239,6 +244,9 @@
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
+		</if>
+		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
+			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="comSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
@@ -290,7 +298,8 @@
 				, DTLCD.DTL_CD_NM AS comtExhibitRegionCdNm
 				, COMT.EXHIBIT_TYP_CD AS comtExhibitTypCd
 				, DTLCD2.DTL_CD_NM AS comtExhibitTypCdNm
-				, COMT.REG_DT AS comtRegDt
+				, DATE_FORMAT(COMT.REG_DT, '%Y-%m-%d %T') AS comtRegDt
+				, TIMESTAMPDIFF(HOUR, COMT.REG_DT, NOW()) AS dateDiff
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
 				, MBR.MBR_NCKNM AS mbrNcknm
@@ -345,8 +354,6 @@
 			AND NOT COMT.COMT_SQ = #{comtSq}
 		ORDER BY 
 				COMT.COMT_SQ DESC
-		LIMIT 
-				4
 	</select>
 	
 	<select id="communityComment" resultType="hashMap">
@@ -356,6 +363,7 @@
 				, CMTS.CMT_CONTENT AS cmtContent
 				, CMTS.REG_MBR_SQ AS cmtMbrSq
 				, DATE_FORMAT(CMTS.REG_DT, '%Y.%m.%d %T') AS cmtRegDt
+				, TIMESTAMPDIFF(HOUR, CMTS.REG_DT, NOW()) AS dateDiff
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
@@ -379,6 +387,7 @@
 				, REPLYS.REPLY_CONTENT AS replyContent
 				, REPLYS.REG_MBR_SQ AS replyMbrSq
 				, DATE_FORMAT(REPLYS.REG_DT, '%Y.%m.%d %T') AS replyRegDt
+				, TIMESTAMPDIFF(HOUR, REPLYS.REG_DT, NOW()) AS dateDiff
 				, MBR.MBR_SQ AS mbrSq
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
@@ -468,7 +477,7 @@
 		)
 	</insert>
 	
-	<select id="searchDealProgress" resultType="hashMap">
+	<select id="searchDealStatus" resultType="hashMap">
 		/* 해당 작품의 판매 상태 확인 */
 		SELECT B.DEAL_SQ AS dealSq,
 			   B.DEAL_STTS_CD AS dealSttsCd
@@ -531,5 +540,74 @@
 		   SET COMT_CMTS = COMT_CMTS + #{cnt}
 		 WHERE COMT_SQ = #{comtSq}
 	</update>
+	
+	<insert id="insertComtRequest">
+		/* 판매 제안하기 or 요청하기 등록 */
+		INSERT INTO TBL_DA_NOTI_M (
+		   MBR_SQ
+		   <if test="workSq != null and workSq != ''">
+		   , WORK_SQ 
+		   </if>
+		   <if test="artstSq != null and artstSq != ''">
+		   , ARTST_SQ
+		   </if>
+		   <if test="dealSq != null and dealSq != ''">
+		   , DEAL_SQ 
+		   </if>
+		   , NOTI_TYP_CD 
+		   , NOTI_CAT_CD
+		   , QUESTION_MBR_SQ
+		   <if test="questionContent != null and questionContent != ''">
+		   , QUESTION_CONTENT
+		   </if>
+		   , REG_MBR_SQ 
+		   , REG_DT 
+		   , UPDT_MBR_SQ 
+		   , UPDT_DT 
+		) VALUES (
+		   #{mbrSq}
+		   <if test="workSq != null and workSq != ''">
+		   , #{workSq}
+		   </if>
+		   <if test="artstSq != null and artstSq != ''">
+		   , #{artstSq}
+		   </if>
+		   <if test="dealSq != null and dealSq != ''">
+		   , #{dealSq}
+		   </if>
+		   , (
+		   SELECT
+		         DTL_CD
+		   FROM 
+		         TBL_DA_COMN_DTL_CD_S AS DTL
+		   LEFT JOIN
+		         TBL_DA_COMN_CD_M AS CD
+		      ON   DTL.CD_SQ = CD.CD_SQ
+		   WHERE 
+		         CD.CD = 'NOTI_TYP_CD'
+		      AND DTL.DTL_CD  = #{notiTypCd}
+		   )
+		   , (
+		   SELECT
+		         DTL_CD
+		   FROM 
+		         TBL_DA_COMN_DTL_CD_S AS DTL
+		   LEFT JOIN
+		         TBL_DA_COMN_CD_M AS CD
+		      ON   DTL.CD_SQ = CD.CD_SQ
+		   WHERE 
+		         CD.CD = 'NOTI_CAT_CD'
+		      AND DTL.DTL_CD  = #{notiCatCd}
+		   )
+		   , #{questionMbrSq}
+		   <if test="questionContent != null and questionContent != ''">
+		   , #{questionContent}
+		   </if>
+		   , #{questionMbrSq}
+		   , NOW()
+		   , #{questionMbrSq}
+		   , NOW()
+		)
+	</insert>
 	
 </mapper>

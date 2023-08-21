@@ -44,6 +44,11 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 		return result;
 	}
 	
+	/* 게시판 관리 공지글 등록 */
+	public int insertCommunityManagementNotice(Map<String, Object> param) {
+		return communityManagementDao.insertCommunityManagementNotice(param);
+	}
+	
 	//게시물 관리 게시판 조회
 	@Override
 	public Map<String, Object> boardListData(Map<String, Object> param){

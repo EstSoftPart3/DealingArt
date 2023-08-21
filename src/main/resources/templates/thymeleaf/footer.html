@@ -1,10 +1,9 @@
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
-<div th:fragment="footerFragment">
-
 <!DOCTYPE HTML>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:fragment="footerFragment">
 <head>
+</head>
 <body>
 	<div class="footer-wrap">
 			<div class="footer-box">
@@ -17,7 +16,7 @@
 					<div class="footer-icon">
 						<!-- <a href="javascript:fnModalAlert();"><img src="/resources/img/sns-f.jpg" /></a>
 						<a href="javascript:fnModalAlert();"><img src="/resources/img/sns-t.jpg" /></a> -->
-						<a href="https://www.instagram.com/dealing_art/" target="_blank"><img src="/resources/img/sns-i.jpg" /></a>
+						<a href="https://www.instagram.com/dealing_art/" target="_blank"><img src="/resources/img/img_new/ico_footer_instagram.png" /></a>
 					</div>
 				</div>
 				
@@ -38,6 +37,20 @@
 							<!-- <li class="af-dn">개인정보관리책임자</li> 
 							<li> - 이영중(help@dealing-art.com) </li> -->
 						</ol>
+					</div>
+					<div class="newsletter_wrap">
+						<div class="tit">뉴스레터 구독하기</div>
+						<form action="" method="" id="" name="">
+                            <legend>뉴스레터 구독하기 입력 폼</legend>
+                            <p>
+                                <label for="newsletterName">이름</label>
+                                <input type="text" id="newsletterName" name="" required placeholder="">
+                            </p>
+							<p>
+                                <label for="newsletter_email">이메일</label>
+                                <input type="text" id="newsletterEmail" name="" required placeholder="">
+                            </p>
+						</form>
 					</div>
 				</div>
 				
@@ -71,13 +84,23 @@
 							<!-- <li> - 이영중(help@dealing-art.com)</li> -->
 						</ol>
 					</div>
+					<div class="newsletter_wrap">
+						<div class="tit">뉴스레터 구독하기</div>
+						<form action="" method="" id="" name="">
+                            <legend>뉴스레터 구독하기 입력 폼</legend>
+                            <p>
+                                <label for="newsletterName">이름</label>
+                                <input type="text" id="newsletterName" name="" required placeholder="">
+                            </p>
+							<p>
+                                <label for="newsletter_email">이메일</label>
+                                <input type="text" id="newsletterEmail" name="" required placeholder="">
+                            </p>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-		
-	</div>
-</body>
-</html>
 <!-- LEFT MENU ACTIVE -->
 <script>
 $(function () {
@@ -91,5 +114,8 @@ $(function () {
 		});
 });
 </script>
+</body>
+</th:block>
 
-</div>
+</html>
+

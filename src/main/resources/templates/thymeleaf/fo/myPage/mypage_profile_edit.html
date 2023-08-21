@@ -1,0 +1,712 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="딜링아트">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<meta name="robots"content="noindex">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	[name=COLLworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		[name=WORKworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
+    </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+    
+</head>
+<body>
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+    <div id="container">
+        <div class="mypage_wrap">
+            <h2>마이페이지</h2>
+            <div class="mypage_contents">
+            	<div id ="left_menu"></div>
+				<div class="contents_right">
+					
+						<form name="form_chk" method="post">
+							
+							<div class="me-center">
+								<div class="member-box">
+									
+									<div class="input-box">
+										<input type="hidden" id="uMbrSq" name="uMbrSq">
+										<input type="text" class="input-3" id="uMbrId" name="uMbrId" placeholder="아이디/이메일" readonly disabled/>
+									</div>
+									
+									<p class="inp-p" id="emailCertificationCheck" style="display:none">이메일 인증 완료</p>
+									<p class="inp-p" id="uMbrIdCheck" style="display:none">주로 사용하는 이메일을 입력해 주세요. 경매/판매 내역을 발송해 드립니다.</p>
+									
+									<!-- 비밀번호 변경 전 -->
+									<div class="input-box input-group" id="div_originalMbrPasswrd">
+										<input type="password" class="input-3" placeholder="비밀번호 변경은 비밀번호 변경 버튼을 눌러주세요." disabled/>
+										<button type="button" class="group-btn" onclick="btn_newPasswrd();">비밀번호 변경</button>
+									</div>
+									
+									<!-- 비밀번호 변경 -->
+									<div id="div_newMbrPasswrd"  style="display:none;">
+										<div class="input-box">
+											<input type="password" class="input-3" id="uMbrPasswrd" name="uMbrPasswrd" placeholder="비밀번호" />
+											<p class="inp-p" id="uMbrPwdCheck"></p>
+										</div>
+										<div class="input-box">
+											<input type="password" class="input-3" placeholder="비밀번호 확인" id="uMbrPasswrdConfirm" name="uMbrPasswrdConfirm"/>
+											<p class="inp-p" id="mbrPwdReCheck">확인을 위해 새 비밀번호를 다시 입력해주세요.</p>
+										</div>
+									</div>					
+									
+									<div class="input-box">
+										<input type="text" class="input-3" placeholder="이름" id="uMbrNm" name="uMbrNm" disabled/>
+										<p class="inp-p" id="uMbrNmCheck"></p>
+									</div>
+									
+									<div class="input-box">
+										<p class="inp-p">성명은 본인인증 후 자동으로 입력됩니다.</p>
+									</div>
+									
+									<div class="input-box input-group">
+										<input type="text" class="input-3" placeholder="휴대폰 번호" id="uMbrCpNum" name="uMbrCpNum" disabled/>
+										<button type="button" class="group-btn phone" id="SmsCertification">인증하기</button>
+										<input type="hidden" id="uMbrCpCertDi" name="mbrCpCertDi" value="">
+										<input type="hidden" id="uMbrCpCertYn" name="uMbrCpCertYn" value="">
+									</div>
+									<div class="input-box">
+										<p class="inp-p" id="smsCertificationCheck">휴대폰 번호 변경을 원하시면 인증하기 버튼을 눌러주세요.</p>
+									</div>
+									
+									<div class="input-box input-group">
+										<input type="text" class="input-3" placeholder="활동명" id="uMbrNcknm" autocomplete="off" onkeyup="uCharacterCheck(this)" onblur="uMbrNcknmLength(this)"/>
+										<button type="button" class="group-btn" id="uMbrNcknmBtn" onclick="uMbrNcknmCheck(this)" style="display:none;">중복체크</button>
+									</div>
+									<div class="input-box">
+										<p class="inp-p" id="uMbrNcknmCheck"></p>
+									</div>
+									
+									<div class="input-box">
+											<div class ="inp-p">프로필 이미필</div>
+												<div class="cont-box">
+													<input type="hidden" name="artstProfileImgUrl" id="artstProfileImgUrl">
+													<input type="file" id="file_artstProfileImgUrl" style="display:none">
+													<img class="content" id="dropZone_artstProfileImgUrl" style="cursor:pointer"/>
+													<!-- <div class="content" id="dropZone"></div> -->
+													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
+												</div>
+									</div>
+									
+									<div class="input-box">
+											<div class ="inp-p">한줄 소개</div>
+										<input type="text" class="input-3" placeholder="소개를 입력해주세요."/>
+									</div>
+									
+									<div class="input-box">
+											<div class ="inp-p">(선택, 최대 3개 선택 가능) 선호하시는 미술 장르를 선택해주세요.</div>
+										 <input type="checkbox" name="genre" id="a11" onclick="chkbox(this)" class="searchOption" value="abstract">
+										 	<label for="a11"><span></span>추상화</label>
+										 <input type="checkbox" name="genre" id="a12" onclick="chkbox(this)" class="searchOption" value="surrealism">
+											<label for="a12"><span></span>초현실주의</label>
+										 <input type="checkbox" name="genre" id="a13" onclick="chkbox(this)" class="searchOption" value="impressionism">
+ 										 	<label for="a13"><span></span>인상주의</label>
+										 <input type="checkbox" name="genre" id="a14" onclick="chkbox(this)" class="searchOption" value="modernism">
+										 	<label for="a14"><span></span>현대주의</label>
+										 <input type="checkbox" name="genre" id="a15" onclick="chkbox(this)" class="searchOption" value="minimalism">
+											<label for="a15"><span></span>미니멀리즘</label>
+										 <input type="checkbox" name="genre" id="a16" onclick="chkbox(this)" class="searchOption" value="postmodernism">
+											<label for="a16"><span></span>포스트 모더니즘</label>
+										<input type="checkbox" name="genre" id="a17" onclick="chkbox(this)" class="searchOption" value="popArt">
+										 	<label for="a17"><span></span>팝아트</label>
+										 <input type="checkbox" name="genre" id="a18" onclick="chkbox(this)" class="searchOption" value="realism">
+											<label for="a18"><span></span>현실주의</label>
+										 <input type="checkbox" name="genre" id="a19" onclick="chkbox(this)" class="searchOption" value="existentialism">
+											<label for="a19"><span></span>실종주의</label>
+										<input type="checkbox" name="genre" id="a20" onclick="chkbox(this)" class="searchOption" value="underground_Art">
+											<label for="a20"><span></span>언더그라운드 아트</label>
+									</div>
+									<div class="input-box">
+											<div class ="inp-p">(선택, 최대 3개 선택 가능) 취미를 선택해주세요.</div>
+										 <input type="checkbox" name="hobby" id="b11" onclick="chkbox1(this)" class="searchOption" value="music">
+										 	<label for="b11"><span></span>음악감상</label>
+										 <input type="checkbox" name="hobby" id="b12" onclick="chkbox1(this)" class="searchOption" value="movie">
+											<label for="b12"><span></span>영화감상</label>
+										 <input type="checkbox" name="hobby" id="b13" onclick="chkbox1(this)" class="searchOption" value="exh">
+ 										 	<label for="b13"><span></span>전시감상</label>
+										 <input type="checkbox" name="hobby" id="b14" onclick="chkbox1(this)" class="searchOption" value="cook">
+										 	<label for="b14"><span></span>요리</label>
+										 <input type="checkbox" name="hobby" id="b15" onclick="chkbox1(this)" class="searchOption" value="exercise">
+											<label for="b15"><span></span>운동</label>
+										 <input type="checkbox" name="hobby" id="b16" onclick="chkbox1(this)" class="searchOption" value="art">
+											<label for="b16"><span></span>예술창작</label>
+										<input type="checkbox" name="hobby" id="b17" onclick="chkbox1(this)" class="searchOption" value="reading">
+										 	<label for="b17"><span></span>독서</label>
+										 <input type="checkbox" name="hobby" id="b18" onclick="chkbox1(this)" class="searchOption" value="travel">
+											<label for="b18"><span></span>여행</label>
+										 <input type="checkbox" name="hobby" id="b19" onclick="chkbox1(this)" class="searchOption" value="climbing">
+											<label for="b19"><span></span>등산</label>
+										<input type="checkbox" name="hobby" id="b20" onclick="chkbox1(this)" class="searchOption" value="game">
+											<label for="b20"><span></span>게임</label>
+										<input type="checkbox" name="hobby" id="b21" onclick="chkbox1(this)" class="searchOption" value="meeting">
+											<label for="b21"><span></span>모임</label>
+									</div>
+									
+									<div class="input-box">
+											<div class ="inp-p">(선택, 최대 3개 선택 가능) 연령대를 선택해주세요.</div>
+										 <input type="checkbox" name="age" id="c11" onclick="chkbox2(this)" class="searchOption" value="10">
+										 	<label for="c11"><span></span>10대</label>
+										 <input type="checkbox" name="age" id="c12" onclick="chkbox2(this)" class="searchOption" value="20">
+											<label for="c12"><span></span>20대</label>
+										 <input type="checkbox" name="age" id="c13" onclick="chkbox2(this)" class="searchOption" value="30">
+ 										 	<label for="c13"><span></span>30대</label>
+										 <input type="checkbox" name="age" id="c14" onclick="chkbox2(this)" class="searchOption" value="40">
+										 	<label for="c14"><span></span>40대</label>
+										 <input type="checkbox" name="age" id="c15" onclick="chkbox2(this)" class="searchOption" value="50">
+											<label for="c15"><span></span>50대</label>
+										 <input type="checkbox" name="age" id="c16" onclick="chkbox2(this)" class="searchOption" value="60">
+											<label for="c16"><span></span>60대</label>
+										<input type="checkbox" name="age" id="c17"  onclick="chkbox2(this)" class="searchOption" value="70">
+										 	<label for="c17"><span></span>70대</label>
+									</div>
+										
+									<div class="bat-box3 mg_t65">
+										<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
+									</div>
+									
+<!-- 									<div class="mypage-btn"> -->
+<!-- 										<a href="/myPage/withdrawal" class="my-btn">회원탈퇴</a> -->
+<!-- 									</div> -->
+								</div>
+							</div>
+						</div>
+				
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    <script type="text/javascript">
+	var mc = 3;  //체크박스 갯수제한
+	var tc = 0; // 카운트 증가
+	var mc1 = 3;  //체크박스 갯수제한
+	var tc1 = 0; // 카운트 증가
+	var mc2 = 3;  //체크박스 갯수제한
+	var tc2 = 0; // 카운트 증가
+	var genrelist = []; 
+	var hobbylist = []; 
+	var agelist = []; 
+	
+    $("document").ready(function(){
+    	
+		$("#file_artstProfileImgUrl").bind('change', function() {
+			uploadResource(this.files, "profile");
+		});
+		
+		$("#dropZone_artstProfileImgUrl").click(function(){
+		       $('#file_artstProfileImgUrl').click();
+		    });
+		
+		$(function() {
+			// 파일 드롭 다운
+			fileDropDown();
+		});
+		
+		if($("#file_artstProfileImgUrl").val() != ""){	
+			var maxSize = 5 * 1024 * 1024; // 5MB
+			var fileSize = $("#file_artstProfileImgUrl")[0].files[0].size;
+			
+			if(fileSize > maxSize){
+				modalAlertShow("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+				return false;
+			}
+		}
+		
+		 	
+			 memberContentData(sMbrSqVal);
+		
+    	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+    	
+    });
+    
+	// 파일 드롭 다운
+	function fileDropDown() {
+		var dropZone1 = $("#dropZone_artstProfileImgUrl");
+		var dropZone2 = $("#dropZone_artstWorkImgUrl");
+		//Drag기능 
+		dropZone1.on('dragenter', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone1.css('background-color', '#E3F2FC');
+		});
+		dropZone1.on('dragleave', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone1.css('background-color', '#FFFFFF');
+		});
+		dropZone1.on('dragover', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone1.css('background-color', '#E3F2FC');
+		});
+		dropZone1.on('drop', function(e) {
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone1.css('background-color', '#FFFFFF');
+			var fileObject = e.originalEvent.dataTransfer.files;
+			
+			if (fileObject != null) {
+				if (fileObject.length < 1) {
+					/* alert("폴더 업로드 불가"); */
+					console.log("폴더 업로드 불가");
+					return;
+				} else {
+					uploadResource(fileObject,'profile');
+				}
+			} else {
+				alert("ERROR");
+			}
+		});
+		
+		//Drag기능 
+		dropZone2.on('dragenter', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone2.css('background-color', '#E3F2FC');
+		});
+		dropZone2.on('dragleave', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone2.css('background-color', '#FFFFFF');
+		});
+		dropZone2.on('dragover', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone2.css('background-color', '#E3F2FC');
+		});
+		dropZone2.on('drop', function(e) {
+			e.preventDefault();
+			// 드롭다운 영역 css
+			dropZone2.css('background-color', '#FFFFFF');
+
+			var fileObject = e.originalEvent.dataTransfer.files;
+			
+			if (fileObject != null) {
+				if (fileObject.length < 1) {
+					/* alert("폴더 업로드 불가"); */
+					console.log("폴더 업로드 불가");
+					return;
+				} else {
+					uploadResource(fileObject,'mainWork');
+				}
+			} else {
+				alert("ERROR");
+			}
+		});
+	}
+	
+	function uploadResource(fileObject, fileType) {
+		
+		var file = null;
+		
+		const formData = new FormData();
+		formData.append("url", "dealingart/member/profileImg/"+sMbrSqVal+"/");
+		if (fileObject != null) {
+			// 파일 Drag 이용하여 등록시
+			file = fileObject[0];
+			formData.append("file", file);
+			console.log(file);
+		} else {
+			file = document.getElementById("file");
+			formData.append("file", file.files[0]);
+		}
+		
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = file.size;
+		
+		if(fileSize > maxSize){ 
+			modalAlertShow("이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+			return false;
+		}
+		
+        fetch("/file/upload", {
+            method : "POST"
+            , body : formData
+        })
+        .then(result => result.json())
+        .then(data => {
+        	if(fileType == "profile"){
+        		document.getElementById("dropZone_artstProfileImgUrl").setAttribute("src", data.fileUrl);
+	            $('#artstProfileImgUrl').val(data.fileUrl);
+	            console.log("artstProfileImgUrl :"+data.fileUrl)
+        	}
+         
+        })
+        .catch(error => console.log(`error => ${error}`));
+    }
+	
+	 //작가기본정보 저장
+	 function AuthorInfoSave() {
+		 
+		var mbrSq 				= sMbrSqVal;				//회원순번
+		var artstProfileImgUrl 	= $("#artstProfileImgUrl").val();	//☆ 프로필 이미지
+		//회원아이디
+		var mbrId = $("#uMbrId").val();
+		//비밀번호
+		var mbrPasswrd = $("#uMbrPasswrd").val();
+		//비밀번호 확인
+		var mbrPasswrdConfirm = $("#uMbrPasswrdConfirm").val();
+		//성명
+		var mbrNm = $("#uMbrNm").val();
+		//휴대번호
+		var mbrCpNum = $("#uMbrCpNum").val();
+		//휴대폰 본인인증 여부
+		var mbrCpCertYn = $("#uMbrCpCertYn").val();
+		//휴대폰 본인인증 날짜
+		var mbrCpCertDate = $("#uMbrCpCertDate").val();
+		
+		//회원 퓨대폰 인증 DI
+		var mbrCpCertDi = $("#uMbrCpCertDi").val();
+		
+		if(isEmpty(artstProfileImgUrl)) {
+			modalAlertShow("프로필 이미지를 등록해 주세요.","");
+			 return;
+		}
+		
+		//휴대폰 번호 변경시
+		if(mbrCpNum != originalMbrCpNum){
+			if(originalMbrCpCertDi != null && originalMbrCpCertDi != ""){
+				if(originalMbrCpCertDi != mbrCpCertDi){
+					modalAlertShow("회원정보에 등록된 회원과 동일인으로 본인인증을 해주세요.");
+					return;
+				}
+			}
+		}
+		
+		//비밀번호--------------------------------------------------------------------//
+		if ($("#div_originalMbrPasswrd").css("display") == "none") { 
+			//비밀번호가 새로 입력한 비밀번호와 동일하다면
+			if(mbrPasswrd == originalMbrPasswrd){
+				fn_validation('uMbrPwdCheck','이전과 동일한 비밀번호 입니다. 다시 입력해주세요.', 'R');
+				return;
+			}
+			//비밀번호 문자 입력이 안되었다면..
+			if(isEmpty(mbrPasswrd)) {
+				fn_validation('uMbrPwdCheck','영문/숫자/특수문자 2가지 이상 조합 (8~20자)', 'R');
+				return;
+			} 
+			
+			//영어,숫자,특수문자 8~20사이
+			if(!/^[a-zA-Z0-9!@#$%^&*()?_~]{8,20}$/.test(mbrPasswrd))
+			{
+				fn_validation('uMbrPwdCheck','영문/숫자/특수문자 2가지 이상 조합 (8~20자)', 'R');
+				return;
+			}
+			
+			var chk = 0;
+			if(mbrPasswrd.search(/[0-9]/g) != -1 ) chk ++;
+			if(mbrPasswrd.search(/[a-z]/ig)  != -1 ) chk ++;
+			if(mbrPasswrd.search(/[!@#$%^&*()?_~]/g)  != -1  ) chk ++;
+				
+			
+			if(chk < 3)
+			{
+				fn_validation('uMbrPwdCheck','3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외', 'R');
+				return;
+			}
+			
+			 var SamePass_0 = 0; //동일문자 카운트
+			 var SamePass_1 = 0; //연속성(+) 카운드
+			 var SamePass_2 = 0; //연속성(-) 카운드
+			 
+			 var chr_pass_0;
+			 var chr_pass_1;
+			 
+			 for(var i=0; i < mbrPasswrd.length; i++) {
+			  chr_pass_0 = mbrPasswrd.charAt(i);
+			  chr_pass_1 = mbrPasswrd.charAt(i+1);
+			 
+			  //동일문자 카운트
+			  if(chr_pass_0 == chr_pass_1) {
+			   SamePass_0 = SamePass_0 + 1
+			  } // if
+			 
+			 
+			  //연속성(+) 카운드
+			  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == 1) {
+			   SamePass_1 = SamePass_1 + 1
+			  } // if
+			 
+			  //연속성(-) 카운드
+			  if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == -1) {
+			  	SamePass_2 = SamePass_2 + 1
+			  } // if
+			 } // for
+			 
+			 if(SamePass_0 > 1) {
+				 fn_validation('uMbrPwdCheck','3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외', 'R');
+				 return;
+			 } // if
+			 $('#uMbrPwdCheckD').css('display','none');
+			 
+			 if(SamePass_1 > 1 || SamePass_2 > 1 )  {
+				 fn_validation('uMbrPwdCheck','3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외', 'R');
+				 return;
+			 }
+			 
+			 // 비밀번호 아이디 포함 여부
+			 if(mbrPasswrd.search(mbrId)>-1)
+			 {
+				 fn_validation('uMbrPwdCheck','3개 이상 연속되거나 동일한 문자/숫자 제외, 아이디(이메일) 제외', 'R');
+				  return;
+			 }
+			 
+			 //비밀번호.비밀번호확인 일치 체크 mbrPwdReCheck
+			 if(mbrPasswrd != mbrPasswrdConfirm) {
+				fn_validation('mbrPwdReCheck','비밀번호가 일치 하지 않습니다.', 'R');
+				return;
+			 }
+			
+			 fn_validation('mbrPwdReCheck','확인을 위해 새 비밀번호를 다시 입력해주세요.', 'B');
+		}else{
+			mbrPasswrd = originalMbrPasswrd;
+		}
+		//비밀번호--------------------------------------------------------------------//
+		
+		if($("#file_artstProfileImgUrl").val() != ""){	
+			var maxSize = 5 * 1024 * 1024; // 5MB
+			var fileSize = $("#file_artstProfileImgUrl")[0].files[0].size;
+			
+			if(fileSize > maxSize){
+				modalAlertShow("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+				return false;
+			}
+		}
+		
+		$("input[name=genre]:checked").each(function(){
+			genrelist.push($(this).val());
+	        console.log("체크된 값 : " + genrelist);
+		});
+
+		
+		$("input[name=hobby]:checked").each(function(){
+			hobbylist.push($(this).val());
+	        console.log("체크된 값 : " + hobbylist);
+		});
+
+		
+		
+		$("input[name=age]:checked").each(function(){
+			agelist.push($(this).val());
+	        console.log("체크된 값 : " + agelist);
+		});
+		
+		var memParams = {
+				"mbrSq" : mbrSq,
+				"mbrProfileImgUrl":artstProfileImgUrl,
+				"mbrId" : mbrId,
+				"mbrEmail" : mbrId,
+				"mbrPasswrd" : mbrPasswrd,
+				"mbrNm" : mbrNm,
+				"mbrCpNum" : mbrCpNum, 
+				"mbrCpCertYn" : mbrCpCertYn,
+				"mbrCpCertDate" : mbrCpCertDate,
+				"mbrCpCertDi" : mbrCpCertDi,
+		}
+		
+			
+		
+		 $.ajax({
+		     type: "post",
+		     url: "/member/myPage/memberUpdateData",
+		     data: memParams,
+		     success: function(data) {
+		    	 modalAlertShow("회원수정이 완료 되었습니다.","reload");
+		    },
+		     error: function(error) {
+		  	   var errorJson = JSON.stringify(error);
+		         console.log(errorJson);
+		     }
+		})
+	}
+	 
+
+	//회원 정보 호출
+	function memberContentData(mbrSq) {
+		$.ajax({
+	           type: "post",
+	           url: "/member/myPage/memberContentData",
+	           data: {
+	        	   mbrSq : mbrSq
+	            },
+	           success: function(data) {
+	        	 
+	        	 if (typeof data != "undefined") {
+	        	 	 
+	        	 	dataContent = data.memberContentData.memberContent[0];
+	        	 	
+	        	 	originalMbrSq = dataContent.mbrSq;								//회원순번
+	        	 	originalMbrNm = dataContent.mbrNm;								//이름
+	        	 	originalMbrId = dataContent.mbrId;								//아이디
+	        	 	originalMbrPasswrd = dataContent.mbrPasswrd;					//비밀번호
+	        	 	originalMbrNcknm = dataContent.mbrNcknm;						//닉네임
+	        	 	originalMbrEmail = dataContent.mbrEmail;						//이메일
+	        	 	originalMbrSexCd = dataContent.mbrSexCd;						//성별
+	        	 	originalMbrCpNum = dataContent.mbrCpNum;						//휴대폰번호
+	        	 	originalMbrCpCertDate = dataContent.mbrCpCertDate;				//전화인증날짜	
+
+	        	 	$("#uMbrSq").val(originalMbrSq);
+	        	 	$("#uMbrNm").val(originalMbrNm);
+	        	 	$("#uMbrId").val(originalMbrId);
+	        	 	$("#uMbrNcknm").val(originalMbrNcknm);
+	        	 	$("#uMbrNcknmTemp").val(originalMbrNcknm);
+	        	 	$("#uMbrCpNum").val(originalMbrCpNum);
+	        	 	$("input[name=name]").val(originalMbrNm);
+	        	 }
+	           },
+	           error: function(error) {
+	        	   var errorJson = JSON.stringify(error);
+	               console.log(errorJson);
+	           }
+		})
+	}	
+	$("#memberUpdateBtn").on('click', function(event){
+		AuthorInfoSave();
+	});
+	
+	//비밀번호 변경 버튼 클릭시
+	function btn_newPasswrd(){
+		$("#div_originalMbrPasswrd").css("display", "none");
+		$("#div_newMbrPasswrd").css("display", "");
+	}
+	
+	//갯수 확인
+	function chkbox(ff) { 
+	    if (ff.checked){
+	        tc += 1; 
+	    } else{
+	        tc -= 1; 
+	    } 
+
+	    if (tc > mc) { 
+	        alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	    tc -= 1; 
+	    }
+	} 
+	
+	//갯수 확인
+	function chkbox1(ff) { 
+	    if (ff.checked){
+	        tc1 += 1; 
+	    } else{
+	        tc1 -= 1; 
+	    } 
+
+	    if (tc1 > mc1) { 
+	        alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	    tc1 -= 1; 
+	    }     
+	} 
+	
+	//갯수 확인
+	function chkbox2(ff) { 
+	    if (ff.checked){
+	        tc2 += 1; 
+	    } else{
+	        tc2 -= 1; 
+	    } 
+
+	    if (tc2 > mc2) { 
+	        alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	    tc2 -= 1; 
+	    }     
+	} 
+
+	
+    </script>
+</body>
+</html>

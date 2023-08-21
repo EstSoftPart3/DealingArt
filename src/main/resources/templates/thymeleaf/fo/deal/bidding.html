@@ -402,7 +402,7 @@
 					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
 					</p>
 					
-					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>
+					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtContent"></textarea>
 					
 					<!-- <div class="text-center  mg_b40">
 						<input type="checkbox" id="w1" name="cc">
@@ -1404,7 +1404,7 @@ function pageReload(){
 
 function fn_decModalCall(){
 	
-	$('#rprtDtl').val('');
+	$('#rprtContent').val('');
 	
 	$('#myModal3').modal('show');
 }
@@ -1437,29 +1437,24 @@ function fn_decIns(){
 	//로그인 체크 확인
 	if(sMbrSqVal != "" || sMbrSqVal != null){
 		
-		var workSqVal = result.deal.workSq;
-		var mbrSqVal = sMbrSqVal;
-		var rprtDtlVal = $("#rprtDtl").val();
+		var workSq = result.deal.workSq;
+		var mbrSq = sMbrSqVal;
+		var rprtContent = $("#rprtContent").val();
 		
-		if(rprtDtlVal == "" || rprtDtlVal == null ) {
+		if(rprtContent == "" || rprtContent == null ) {
 			
 			alert("신고내역을 입력주세요.");
-			$("#rprtDtl").focus();			
+			$("#rprtContent").focus();			
 			return;
 		} else {
 		
-			console.log("workSqVal :"+workSqVal);
-			console.log("mbrSqVal :"+mbrSqVal);
-			console.log("rprtDtlVal :"+rprtDtlVal);
-			
-			
 			$.ajax({
 				type: "POST",
 		        url: "/admin/report/reportInsData",
 		        data: {
-		        	workSq : workSqVal,  //작품번호
-		        	mbrSq : mbrSqVal,	 //회원번호
-		        	rprtDtl : rprtDtlVal //신고내용
+		        	workSq : workSq,  //작품번호
+		        	mbrSq : mbrSq,	 //회원번호
+		        	rprtContent : rprtContent //신고내용
 		        },
 		        async: false,
 				success: function(data){

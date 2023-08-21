@@ -13,6 +13,9 @@ public interface CommunityManagementService {
 	//게시판 관리 정보 저장
 	public int communityManagementSave(Map<String, Object> param);
 	
+	/* 게시판 관리 공지글 등록 */
+	public int insertCommunityManagementNotice(Map<String, Object> param);
+	
 	//게시물 관리 게시판 조회
 	public Map<String, Object> boardListData(Map<String, Object> param);
 }

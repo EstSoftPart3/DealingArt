@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+                <div class="contents_left">
+                  <div class="myinfo_wrap">
+                    <div class="myinfo_pic"></div>
+                    <div class="myinfo_con">
+                      <ul>
+                        <li class="name"><span></span></li>
+                        <li class="email"></li>
+                        <li class="mem_type"></li>
+                        <li class="line"></li>
+                        <li class="profile_modify"></li>
+                      </ul>
+                    </div>
+                    <div class="icon_box">
+                      <ul>
+                          <li><p class="ico_scrap"></p>스크랩<br><span>99</span></li>
+                          <li><p class="ico_good"></p>좋아요<br><span>99</span></li>
+                          <li><p class="ico_alarm"></p>알림<br><span>99</span></li>
+                      </ul>
+                    </div>
+                    <div class="icon_sns_box">
+                      <ul>
+                        <li><a href="#"><p class="ico_facebook"></p></a></li>
+                        <li><a href="#"><p class="ico_instagram"></p></a></li>
+                        <li><a href="#"><p class="ico_youtube"></p></a></li>
+                        <li> <a href="#"><p class="ico_twitter"></p></a></li>
+                      </ul>
+                    </div>                    
+                  </div>
+                  <div class="left_nav">
+                    <ul>
+                      <li class="on" data-id= "1" style ="cursor: pointer;" onclick = listToggle(this);><a>마이페이지</a>
+                      </li>
+                      <li id ="mypage_list_ui">
+	                      <ul>
+	                          <li><a href="/temp/mypage_main">모두보기</a></li>
+	                          <li><a href="/myPage/myWorkList">나의 작품</a></li>
+	                          <li><a href="/temp/mypage_showingoff">자랑하기</a></li>
+	                          <li><a href="/temp/mypage_exhint">전시후기&소개</a></li>
+	                          <li><a href="/temp/mypage_issue">이슈</a></li>
+	                          <li><a href="/temp/mypage_notificationbox">알림함</a></li>
+	                          <li><a href="/temp/mypage_scrap">스크랩</a></li>
+	                          <li><a href="/temp/mypage_following">팔로잉</a></li>
+	                        </ul>
+                       </li>
+                      <li class="on" data-id= "2" style ="cursor: pointer;" onclick = listToggle(this);><a>거래</a>
+                      </li>
+                      <li id ="mypage_deal_list_ui">
+                       	  <ul>
+ 	                     	<li><a href="/myPage/myDeal">거래 내역</a></li>
+ 	                      	<li><a href="/myPage/coupon">쿠폰</a></li>
+ 	                     </ul>
+                      </li>
+                      <li class="on" data-id= "3" style ="cursor: pointer;" onclick = listToggle(this);><a>작가</a>
+                      </li>
+                      <li id ="mypage_artist_list_ui">
+                       	  <ul>
+ 	                     	<li><a href="/myPage/information">작가 정보</a></li>
+ 	                     </ul>
+                      </li>
+                      <li class="on" data-id= "4" style ="cursor: pointer;" onclick = listToggle(this);><a>나의 정보</a>
+                      </li>
+                      <li id ="mypage_user_list_ui">
+                       	  <ul>
+ 	                     	<li><a href="/myPage/memberEdit">회원 정보 수정</a></li>
+ 	                      	<li><a href="/myPage/withdrawal">회원탈퇴</a></li>
+ 	                      	<li><a href="/myPage/alarm">알림 설정</a></li>
+ 	                     </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+</body>
+<script type="text/javascript">
+
+//내정보 불러오기
+$("document").ready(function(){
+	
+	$.ajax({
+		type: "POST"
+		, url: "/myPage/main/myInfo"
+		, success: function(data){
+			setMyInfo(data.myInfo);
+		}
+		, error: function(data){
+			alert("오류 발생" + error);
+		}
+	});
+});
+
+function setMyInfo(data){
+	
+	var html = '';
+	//회원 프로필 사진 유무
+	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
+		html += '<div class="myinfo_pic" style="background-image: url('+data.mbrProfileImgUrl+')"></div>';
+	}else{
+		html += '<div class="myinfo_pic"></div>';
+	}
+    html += '<div class="myinfo_con">';
+    html += '  <ul>';
+    html += '    <li class="name">'+data.mbrNcknm+'<span></span></li>';
+    html += '    <li class="email">'+data.mbrId+'</li>';
+    html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
+    html += '    <li class="line"></li>';
+    html += '    <li class="profile_modify"><a href="/myPage/mypage_profile_edit"><span></span>프로필 수정</a></li>';
+    html += '  </ul>';
+    html += '</div>';
+    html += '<div class="icon_box">';
+    html += '  <ul>';
+    html += '      <li><p class="ico_scrap"></p>스크랩<br><span>'+data.mbrScraps+'</span></li>';
+    html += '      <li><p class="ico_good"></p>좋아요<br><span>'+data.mbrLikes+'</span></li>';
+    html += '      <li><p class="ico_alarm"></p>알림<br><span>'+data.mbrNotis+'</span></li>';
+    html += '  </ul>';
+    html += '</div>';
+    html += '<div class="icon_sns_box">';
+    html += '  <ul>';
+    //회원 페이스북 url 유무
+    if(data.mbrFacebookUrl != null && data.mbrFacebookUrl != ""){
+    	html += '    <li><a href="'+data.mbrFacebookUrl+'"><p class="ico_facebook"></p></a></li>';
+    }
+    //회원 인스타그램 url 유무
+    if(data.mbrInstarUrl != null && data.mbrInstarUrl != ""){
+    	html += '    <li><a href="'+data.mbrInstarUrl+'"><p class="ico_instagram"></p></a></li>';
+    }
+    //회원 유투브 url 유무
+    if(data.mbrYoutubeUrl != null && data.mbrYoutubeUrl != ""){
+    	html += '    <li><a href="'+data.mbrYoutubeUrl+'"><p class="ico_youtube"></p></a></li>';
+    }
+    //회원 트위터 url 유무
+    if(data.mbrTwitterUrl != null && data.mbrTwitterUrl != ""){
+    	html += '    <li> <a href="'+data.mbrTwitterUrl+'"><p class="ico_twitter"></p></a></li>';
+    }
+    html += '  </ul>';
+    html += '</div>';
+    $(".myinfo_wrap").empty();
+    $(".myinfo_wrap").append(html).trigger("create");
+}
+
+//메뉴 리스트 펼치기
+function listToggle(obj){
+	var listid = $(obj).data('id');
+	console.log(listid);
+	var showchk = false;
+	
+	if($(obj).hasClass("on")){
+		$(obj).removeClass('on');
+		$(obj).addClass('off');
+		showchk = false;
+
+	}else if($(obj).hasClass("off")){
+		$(obj).removeClass('off');
+		$(obj).addClass('on');		
+		showchk = true;
+	}
+	
+	switch (listid){
+	case 1:
+		if(showchk){
+			$("#mypage_list_ui").show();
+		}else{
+			$("#mypage_list_ui").hide();
+		}
+		
+		break;
+	case 2:
+		
+		if(showchk){
+			$("#mypage_deal_list_ui").show();
+		}else{
+			$("#mypage_deal_list_ui").hide();
+		}
+		
+		break;
+	case 3:
+		if(showchk){
+			$("#mypage_artist_list_ui").show();
+		}else{
+			$("#mypage_artist_list_ui").hide();
+		}
+		break;
+	case 4:
+		if(showchk){
+			$("#mypage_user_list_ui").show();
+		}else{
+			$("#mypage_user_list_ui").hide();
+		}
+		break;
+	}	
+
+}
+
+</script>
+</html>

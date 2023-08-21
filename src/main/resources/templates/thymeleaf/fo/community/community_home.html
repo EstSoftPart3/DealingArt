@@ -247,7 +247,7 @@
                 <div class="issue_posts">
                     <div class="tit_wrap">
                         <h2><img src="/resources/img/img_new/ico_issue.png" alt=""><span>이슈 베스트 게시물</span></h2>
-                        <button class="btn_more" onclick="btnMore('KNO');">더보기</button>
+                        <button class="btn_more" onclick="btnMore('ISS');">더보기</button>
                     </div>
                     <ol>
                         <!-- <li><span class="no1"></span>도자기 잘 보관하기 <em>+9</em></li>
@@ -281,10 +281,10 @@
     				masterWrap.append(setShowingOffHtml(boastMstList)).trigger("create");
     				
     				var introPostsWarp = $(".intro_posts ol"); // 전시후기/소개 베스트 게시물
-    				introPostsWarp.append(setExhibitAndKnowHowHtml(bestExhibitList, "EXH")).trigger("create");
+    				introPostsWarp.append(setExhibitAndIssueHtml(bestExhibitList, "EXH")).trigger("create");
     				
     				var issuePostsWarp = $(".issue_posts ol"); // 이슈 베스트 게시물
-    				issuePostsWarp.append(setExhibitAndKnowHowHtml(bestIssueList, "KNO")).trigger("create");
+    				issuePostsWarp.append(setExhibitAndIssueHtml(bestIssueList, "ISS")).trigger("create");
     				
     				/* // 빅 배너
     				var bigBnn = data.result.bigBnn;
@@ -312,8 +312,7 @@
 			var html = "";
 			$.each(list, function(idx, item) {
 				html += "<li>";
-				//html += "	<a href='javascript:void(0);' data-mbrSq="+ item.mbrSq +" data-comtSq="+ item.comtSq +" data-artstSq="+ item.artstSq +" data-workSq="+ item.workSq +" onclick='openComtDetail(this, \"BOA\");'>";
-				html += "	<a href='/community/showingOffDetail?comtSq="+ item.comtSq +"'>";
+				html += "	<a href='/community/showingOffDetail?SqNumber="+ item.comtSq +"'>";
 				html += "		<img src="+ item.comtImgUrl +" alt='' style='width: 360px; height: 360px; object-fit: contain;'>";
 				html += "	</a>";
 				html += "	<p style='width: 360px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>"+ item.comtTitle +"</p>";
@@ -323,56 +322,19 @@
 		}
     	
     	// 전시후기/소개 베스트 게시물, 이슈 베스트 게시물 html 구성
-		function setExhibitAndKnowHowHtml(list, type) {
+		function setExhibitAndIssueHtml(list, type) {
 			var html = "";
 			$.each(list, function(idx, item) {
 				html += "<li>";
-				if(type == "EXH") {
-					html += "	<a href='/community/exhibitDetail?comtSq="+ item.comtSq +"'>";
-				} else {
-					html += "	<a href='/community/knowhowDetail?comtSq="+ item.comtSq +"'>";
-				}
-				html += "		<span style='width: 450px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-right: 10px;'>"+ (idx+1) +"</span>" + item.comtTitle;
-				html += "		<span style='float: right;'>"+ item.regDt +"</span>";
-				if(item.comtCmts) {
-					html += "	<em>+"+ item.comtCmts +"</em>";
-				}
+				html += "<a href='/community/"+ (type == "EXH" ? "exhibitDetail" : "issueDetail") +"?SqNumber="+ item.comtSq +"' class='dp-flex justify-content-between'>";
+				html += "		<span class='no"+ (idx+1) +"'></span>";
+				html += "		<span class='ellipsis-w-360'>"+ item.comtTitle + (item.comtCmts ? "<em>+"+ item.comtCmts +"</em>" : "") +"</span>";
+				html += "		<span>"+ item.regDt +"</span>";
 				html += "	</a>";
 				html += "</li>";
 			});
 			return html;
 		}
-    	
-    	// 커뮤니티 상세 페이지 이동
-    	/* function openComtDetail(obj, type) {
-    		var url = "";
-    		
-    		switch(type) {
-    		case "BOA":
-    			url = "/community/showingOffDetail";
-    			break;
-    		case "EXH":
-    			url = "/community/exhibitDetail";
-    			break;
-    		case "KNO":
-    			url = "/community/knowhowDetail";
-    			break;
-    		}
-    		
-    		location.href=""
-    		
-    		pageGoPost({
-				url: url,
-				target:"_self",
-				vals:[
-					["mbrSq", $(obj).data("mbrsq")],
-					["comtSq", $(obj).data("comtsq")],
-					["artstSq", $(obj).data("artstsq")],
-					["workSq", $(obj).data("worksq")],
-					["comtTypCd", type]
-				]
-			});
-    	} */
     	
     	// 더보기 클릭 이벤트
     	function btnMore(type) {
@@ -384,8 +346,8 @@
     		case "EXH":
     			url = "/community/exhintList";
     			break;
-    		case "KNO":
-    			url = "/community/knowhowList";
+    		case "ISS":
+    			url = "/community/issueList";
     			break;
     		}
     		location.href = url;

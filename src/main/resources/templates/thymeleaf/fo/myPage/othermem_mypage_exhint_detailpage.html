@@ -108,54 +108,46 @@
                 
                 </div>
                 
-                <div class="artist_contents mt0">
-                    <div class="contents_tit">
-                        <h4>작성자의 다른 전시 소개/후기 보기</h4>
-                        <a href="주소입력하기"><button type="button">+더보기</button></a>
-                    </div>
-                    <div class="swipe_box" id="comtSecondBox">
-                        
-                    </div>
-                                   
-                </div>
-            </div>
-            <div class="comments_box_wrap" id="commentBox">
-                <form action="" method="" id="" name="">
-                    <legend>댓글 입력 폼</legend>
-                    <p>
-                        <label for="comments_tit">댓글 <strong id="commentCount"></strong></label>
-                        <input type="text" id="comments_tit" name="" required placeholder="">
-                    </p>                            
-                </form>
             </div>
         </div>
+        <div class="artist_contents">
+			
+        </div>
+        <div class="comments_box_wrap max-1500 fs_2rem" id="commentBox">
+			
+        </div>
     </div>
+    
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script th:inline="javascript">
  	// 커뮤니티 순번
-	var comtSq = /*[[${param.comtSq[0]}]]*/ 'default';
+	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default';
  	var mbr = /*[[${exhibit.mbrSq}]]*/ 'default';
+ 	var comt = /*[[${exhibit}]]*/ 'default';
+ 	var otherComt = /*[[${otherComt}]]*/ 'default';
+ 	var showOff = null;
+ 	
     $(document).ready(function(){
     	setComtDetailInfo();
-    	setOtherComt();
-    	setComment();
+    	ckClsHide();
     	followCheck(mbr);
-    	fn_styleNone();
+    	
+    	var otherComtHtml = setOtherComtHtml(comt.mbrNcknm, otherComt, "전시 소개/후기");
+    	$(".artist_contents").append(otherComtHtml).trigger("create");
+    	
+    	otherComtWorkList(otherComt, "/community/exhibitDetail");
+    	initOtherComtWorkListSwiper();
+    	
+    	setComment(comtSq);
+    	
+    	setReportModal();
+		setReportCompleteModal();
+		setReportErrorModal();
     });
-    
-  	//ckEditor Mouse Over Class Remove
-	function fn_styleNone() {
-		/* $(".ck-widget__type-around__button").css("display","none");
-		$(".ck-widget").css("outline-style","none");
-		$(".ck-widget__selection-handle").css("display","none"); */
-		$(".ck-reset_all").css("display","none");
-	}
     
     // 커뮤니티 정보 셋팅
     function setComtDetailInfo(){
-    	var comt = /*[[${exhibit}]]*/ 'default';
-    	
     	var strHtml = '';
     	
     	strHtml += '<div class="picture">';
@@ -180,12 +172,12 @@
 	    strHtml += '    </div>';
 	    strHtml += '    <div class="icon_box">';
 	    strHtml += '        <ul>';
-	    strHtml += '            <li class="day">'+ comt.comtRegDt.substr(0,10) +'</li>';
+	    strHtml += '            <li class="day">'+ (comt.dateDiff >= 24 ? comt.comtRegDt.substring(0, comt.comtRegDt.length-3) : setTimeFormat(comt.comtRegDt)) +'</li>';
 	    strHtml += '            <li><p class="ico_good"></p><span>'+ comt.comtLikes +'</span></li>';
 	    strHtml += '            <li><p class="ico_scrap"></p><span>'+ comt.comtScraps +'</span></li>';
 	    strHtml += '            <li><p class="ico_hits"></p><span>'+ comt.comtViews +'</span></li>';
 	    strHtml += '            <li><p class="ico_comments"></p><span>'+ comt.comtCmts +'</span></li>';
-	    strHtml += '            <li><p class="ico_report"></p><span>'+ comt.rpptCount +'</span></li>';
+	    strHtml += '            <li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ comt.rpptCount +'</span></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
@@ -194,7 +186,7 @@
 	    strHtml += '    	<span>'+ comt.comtExhibitRegionCdNm +'</span>';
 	    strHtml += '    	<span>'+ comt.comtExhibitTypCdNm +'</span>';
 	    strHtml += '    </p>';
-	   	strHtml += '    <p>';
+	   	strHtml += '    <p class="fs_2rem">';
 	    
 	   	if(null != comt.comtKeywrd){
 		   	// 키워드 for문 돌리기
@@ -214,383 +206,6 @@
 	    $("#comtFirstBox").append(strHtml);
 	    $("#commentCount").text(comt.comtViews);
     }
-    
- 	// 팔로우하기
-    function clickFollow(mbrSq){
-    	var fwMbrSq = sMbrSqVal;
-    	
-		modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
-			if(confirm){
-				$.ajax({
-		    		url: "/community/follow",
-		    		data: {
-		    			fwMbrSq: fwMbrSq,
-		    			mbrSq: mbrSq
-		    		},
-		    		success: ( function ( response ) {
-		    			if(response.result > 0){
-			        		modalAlertShow("팔로우 되었습니다.");
-			        		$(".following").hide();
-			        	}else{
-			        		modalAlertShow("팔로우에 실패했습니다.<br/>다시 시도해주세요.");
-			        	}
-		    		}),
-		    		error: ( function ( response ) {
-		    			alert("오류가 발생했습니다.\n관리자에게 문의해주세요."); 
-			            location.reload();
-		    		})
-		    	});
-			} 
-		});
-    }
-	
- 	// 팔로우 돼있는지 체크
-    function followCheck(mbrSq){
-    	var fwMbrSq = sMbrSqVal;
-		
-    	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
-    		$(".following").hide();
-    	}
-    	
-    	$.ajax({
-    		url: "/community/followCheck",
-    		data: {
-    			fwMbrSq: fwMbrSq,
-    			mbrSq: mbrSq
-    		},
-    		success: ( function ( response ) {
-    			if(response.result) {
-    				$(".following").hide();
-    			}
-    		}),
-    		error: ( function ( response ) {
-    			
-    		})
-    	});
-    	
-    }
-    
-    // 작성자의 다른 커뮤니티 정보 셋팅
-    function setOtherComt(){
-    	var otherComt = /*[[${otherComt}]]*/ 'default';
-    	
-    	var strHtml = '';
-		
-    	otherComt.forEach( function( comt ){
-		    strHtml += '<div class="box_wrap">';
-		    strHtml += '    <div class="pic_box00">';
-		    strHtml += '        <a href="javascript:opneExhibitDetail('+ comt.comtSq +', '+ comt.mbrSq +', \'EXH\')">';
-		    strHtml += '            <img src="'+ comt.comtImgUrl +'" alt="">';
-		    strHtml += '        </a>';
-		    strHtml += '    </div>';
-		    strHtml += '</div>';
-    		
-    	});
-
-	    $("#comtSecondBox").append(strHtml);
-    }
-    
-    function opneExhibitDetail(comtSq, mbrSq, cmtType){
-   		pageGoPost({
-			url: "/community/exhibitDetail",
-			target:"_self",
-			vals:[
-				["mbrSq", mbrSq],
-				["comtSq", comtSq],
-				["comtTypCd", cmtType]
-			]
-		});
-	}
-    
- 	// 댓글 셋팅
-	function setComment() {
-		$.ajax({
-			type: "post",
-			url: "/community/searchComtCmtsList",
-			data: {
-				comtSq: comtSq
-			},
-			success: function(data) {
-				var comments = data.comments;
-				var replys = data.replys;
-				var strHtml = '';
-				
-				strHtml += '<form action="" method="" id="" name="">';
-				strHtml += '	<legend>댓글 입력 폼</legend>';
-				strHtml += '	<p>';
-				strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">'+ (comments.length + replys.length) +'</strong></label>';
-				strHtml += '		<input type="text" id="comments_tit" name="" required placeholder="">';
-				strHtml += '		<button type="button" class="reg_btn" onclick="comtReg();">등록</button>';
-				strHtml += '	</p>';
-				strHtml += '</form>';
-				
-				// 댓글
-				comments.forEach(function(comment) {
-					strHtml += '<div class="comments_box">';
-					strHtml += '    <div class="user_wrap">';
-					strHtml += '        <div class="user_img">';
-
-					if (null != comment.mbrProfileImgUrl) {
-						strHtml += '            <img src="'+ comment.mbrProfileImgUrl +'" alt="">';
-					} else {
-						strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
-					}
-
-					strHtml += '        </div>';
-					strHtml += '        <div class="user">';
-					strHtml += '            <ul>';
-					strHtml += '                <li class="user_name"><span>'+ comment.mbrNcknm +'</span></li>';
-					strHtml += '                <li>';
-					strHtml += '                    <ul>';
-					strHtml += '                        <li>'+ getCmtRegTime(comment.cmtRegDt) +'</li>';
-					strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
-					strHtml += '                        <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', this)">답글달기</a></li>';
-					strHtml += '                        <li><a href="#">신고</a></li>';
-					
-					// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
-			        if(comment.mbrSq == sMbrSqVal){
-			        	strHtml += '						<li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', this, \'cmt\')">수정</a></li>';
-			        	strHtml += '                        <li><a href="javascript:delComment('+ comment.cmtSq +');">삭제</a></li>';
-			        }
-					
-					strHtml += '                    </ul>';
-					strHtml += '                </li>';
-					strHtml += '            </ul>';
-					strHtml += '        </div>';
-					strHtml += '    </div>';
-					strHtml += '    <div class="comments">';
-					strHtml += '        <p>'+ comment.cmtContent +'</p>';
-					strHtml += '    </div>';
-					strHtml += '</div>';
-
-					// 대댓글
-					replys.forEach(function(reply) {
-						if (comment.cmtSq == reply.cmtSq) {
-							strHtml += '<div class="answer_comments_box">';
-							strHtml += '    <div class="user_wrap">';
-							strHtml += '        <div class="ico_answer_comments">';
-							strHtml += '            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">';
-							strHtml += '        </div>';
-							strHtml += '        <div class="user_img">';
-
-							if (null != reply.mbrProfileImgUrl) {
-								strHtml += '            <img src="'+ reply.mbrProfileImgUrl +'" alt="">';
-							} else {
-								strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
-							}
-
-							strHtml += '        </div>';
-							strHtml += '        <div class="user">';
-							strHtml += '            <ul>';
-							strHtml += '                <li class="user_name"><span>'+ reply.mbrNcknm +'</span></li>';
-							strHtml += '                <li>';
-							strHtml += '                    <ul>';
-							strHtml += '                        <li>'+ getCmtRegTime(reply.replyRegDt) +'</li>';
-							strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
-							/* strHtml += '                        <li><a href="#">답글달기</a></li>'; */
-							strHtml += '                        <li><a href="#">신고</a></li>';
-							
-							// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
-			    	        if(reply.mbrSq == sMbrSqVal){
-			    		        strHtml += '                        <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ reply.replySq +', this, \'reply\')">수정</a></li>';
-			    	        	strHtml += '                        <li><a href="javascript:delReply('+ reply.replySq +');">삭제</a></li>';
-			    	        }
-							
-							strHtml += '                    </ul>';
-							strHtml += '                </li>';
-							strHtml += '            </ul>';
-							strHtml += '        </div>';
-							strHtml += '    </div>';
-							strHtml += '    <div class="comments">';
-							strHtml += '        <p>'+ reply.replyContent +'</p>';
-							strHtml += '    </div>';
-							strHtml += '</div>';
-						}
-					});
-				});
-				
-				$("#commentBox").empty();
-					$("#commentBox").append(strHtml).trigger("create");
-			}
-		});
-	}
-    
-	// 대댓글 등록 폼, 댓글 대댓글 수정 폼 생성
-	function openReplyAndModForm(cmtSq, obj, cmtType) {
-		var box = ".comments_box";
-		
-		if(cmtType == 'reply') {
-			box = ".answer_comments_box";
-		}
-		
-		var allReplyForm = $(box).find(".comments_box_wrap");
-		var curReplyForm = $(obj).closest(box).find(".comments_box_wrap");
-		var content = $(obj).closest(box).find(".comments p").text();
-		
-		// 대댓글 등록 폼이 이미 있으면 모든 등록 폼 없앰
-		if(allReplyForm.length) {
-			allReplyForm.remove();
-		}
-		
-		if(curReplyForm.length) {
-			allReplyForm.remove();
-			return;
-		}
-		
-		var html = "";
-        html += "<div class='comments_box_wrap'>";
-        html += "	<form>";
-		html += "		<p id='reply_form'>";
-		if(cmtType) {
-			html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" style='margin-left: 90px;'>";
-			html += "		<button type='button' class='reg_btn' onclick='modComment("+ cmtSq +", \""+ cmtType +"\", this);'>수정</button>";
-		} else {
-			html += "		<input type='text' id='replyAndModComment' style='margin-left: 90px;'>";
-			html += "		<button type='button' class='reg_btn' onclick='replyReg("+ cmtSq +", this);'>등록</button>";
-		}
-		html += "		</p>";
-		html += "	</form>";
-		html += "</div>";
-		
-		$(obj).closest(box).append(html);
-	}
-	
-	// 댓글 등록
-	function comtReg() {
-		$.ajax({
-			type : "post",
-			url : "/community/cmtReg",
-			data : {
-				comtSq : comtSq,
-				cmtContent : $("#comments_tit").val(),
-				mbrSq : sMbrSqVal
-			},
-			success : function() {
-				setComment();
-				$("#comments_tit").val("");
-			}
-		});
-	}
-	
-	// 대댓글 등록
-	function replyReg(cmtSq, obj) {
-		$.ajax({
-			type : "post",
-			url : "/community/replyReg",
-			data : {
-				cmtSq: cmtSq,
-				comtSq : comtSq,
-				replyContent : $(obj).siblings("#replyAndModComment").val(),
-				mbrSq : sMbrSqVal
-			},
-			success : function() {
-				setComment();
-			}
-		});
-	}
-	
-	// 댓글 수정
-	function modComment(cmtSq, cmtType, obj) {
-		var content = $(obj).siblings("#replyAndModComment").val();
-		console.log(content);
-		
-		modalConfirm( "댓글을 수정하시겠습니까?" , function ( confirm ) {
-			if(confirm){
-				$.ajax({
-			        type: "POST",
-			        url: "/community/modCommentAndReply",
-			        data: {
-			        	cmtType : cmtType,
-						content : content,
-			        	sq : cmtSq
-			        },
-			        success: function(data) {
-			        	if(data.result > 0){
-			        		modalAlertShow("댓글이 수정되었습니다.");
-			        		setComment();
-			        	}else{
-			        		modalAlertShow("댓글 수정에 실패했습니다.<br/>다시 시도해주세요.");
-			        	}
-			        },
-			        error: function(error) {
-			            alert("수정처리에 실패했습니다.\n관리자에게 문의해주세요."); 
-			            location.reload();
-			        }
-				});
-			}
-		});
-	}
-	
-	// 댓글 삭제 
-    function delComment(cmtSq){
-    	var commentType = "cmt";
-    	delCommentModal(cmtSq, commentType);
-    }
-    
-    // 대댓글 삭제
-    function delReply(replySq){
-    	var commentType = "reply";
-    	delCommentModal(replySq, commentType);
-    }
-    
-    // 댓글 삭제 모달, 삭제 처리
-    function delCommentModal(commentSq, commentType){
-    	
-		modalConfirm( "댓글을 삭제하시겠습니까?" , function ( confirm ) {
-    		
-			if(confirm){
-				
-				$.ajax({
-			        type: "POST",
-			        url: "/community/delCommentAndReply",
-			        data: {
-			        	commentType : commentType,
-			        	commentSq: commentSq,
-			        	comtSq: comtSq
-			        },
-			        success: function(data) {
-			        	if(data.result > 0){
-			        		modalAlertShow("댓글이 삭제되었습니다.");
-			        		setComment();
-			        	}else{
-			        		modalAlertShow("댓글 삭제에 실패했습니다.<br/>다시 시도해주세요.");
-			        	}
-			        },
-			        error: function(error) {
-			            alert("삭제처리에 실패했습니다.\n관리자에게 문의해주세요."); 
-			            location.reload();
-			        }
-				});
-			} 
-		});
-    }
-	
-	// 댓글 등록 시간 구하기
-	function getCmtRegTime(cmtRegDate) {
-		var now = new Date();
-		var regDate = new Date(cmtRegDate);
-		var dateDiff = now.getTime() - regDate.getTime();
-		var result = "";
-		var seconds = [
-			{ type : "년",	milSec : 1000 * 60 * 60 * 24 * 365 },
-			{ type : "달",	milSec : 1000 * 60 * 60 * 24 * 30 },
-			{ type : "주",	milSec : 1000 * 60 * 60 * 24 * 7 },
-			{ type : "일",	milSec : 1000 * 60 * 60 * 24 },
-			{ type : "시간",	milSec : 1000 * 60 * 60 },
-			{ type : "분",	milSec : 1000 * 60 },
-			{ type : "초",	milSec : 1000 }
-		];
-
-		for (var i in seconds) {
-			var dateDiffVal = Math.floor(dateDiff / seconds[i].milSec);
-			if (dateDiffVal > 0) {
-				result = dateDiffVal + seconds[i].type + " 전";
-				break;
-			}
-		}
-
-		return result || "방금 전";
-	}
     </script>
 </body>
 </html>
