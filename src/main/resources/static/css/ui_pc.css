@@ -6168,6 +6168,14 @@ position: relative;background-color: #fbfbfb;}
 .magazine9_wrap .artist_update_wrap .tit_wrap h2{font-size: 26px;letter-spacing: -1.5px;}
 .magazine9_wrap .artist_update_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 
+/* 23.08.22 재현 내용추가 css */
+.magazine9_visual_wrap img{width: 1500px;height: 400px;}
+.notibox_row .pic img{width: 360px;height: 360px;}
+.following_pic .header .user_picname img{width: 60px;height: 60px;}
+
+
+
+
 
 .mt10{margin-top: 10px !important;}
 .mt20{margin-top: 20px !important;}

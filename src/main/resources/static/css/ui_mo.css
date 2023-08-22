@@ -6747,7 +6747,7 @@ p.dib{display:inline-block !important;}
 .works_pic ul li{float: none;margin-left: 0 !important;}
 .works_pic .header{height: 83px;}
 .works_pic .header:after{content: "";display: block;clear: both;}
-.works_pic .header .user_img{display: inline-block;float: left;height: 83px;padding-top: 3px;}
+.works_pic .header .user_img{display: inline-block;float: left;width: 60px;height: 60px;padding-top: 3px;}
 .works_pic .header .user_name{float: left;}
 .works_pic .header .user_name li{padding: 0 0 0 10px;}
 .works_pic .header .user_name span{background: #8f8f8f;font-size: 2rem;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -6826,7 +6826,7 @@ p.dib{display:inline-block !important;}
 .mypage_contents .contents_left .myinfo_wrap{background: #f5f5f5;border-radius: 30px 0 0 30px;}
 .mypage_contents .contents_left .myinfo_wrap:after{content: "";display: block;clear: both;}
 
-.mypage_contents .contents_left .myinfo_wrap .myinfo_pic{width: 300px;height: 243px;background: url("../img/img_new/myinfo_da_pic.png") 50% 50% no-repeat;margin: 0 auto;}
+.mypage_contents .contents_left .myinfo_wrap .myinfo_pic{width: 300px;height: 243px;background: none;margin: 0 auto;display: flex;justify-content: center;align-items: center;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name{text-align: center;font-size: 2.5rem;font-weight: bold;letter-spacing: -1px;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name span{display: inline-block;width: 30px;height: 38px;background: url("../img/img_new/ico_badge.png") 0 0 no-repeat;vertical-align: bottom;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .email{text-align: center;font-size: 2.125rem;font-weight: 400;padding: 14px 0;}
@@ -7053,7 +7053,7 @@ p.dib{display:inline-block !important;}
 .following_pic .header .user_picname li{margin: 0 !important;padding: 0 !important;background: none;}
 .following_pic .header .user_picname span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;margin: 16px 0 0 16px;}
 .following_pic .pic{position: relative;}
-.following_pic .text{font-size: 2.125rem;font-weight: 300;color: #111111;padding: 20px;text-align: center;}
+.following_pic .text{font-size: 2.5rem;font-weight: 300;color: #111111;padding: 20px;text-align: center;width: 100%;}
 
 .mypage_contents h3{font-size: 2.625rem;font-weight: 700;margin-top: 50px;}
 .mypage_contents h3 em{font-size: 2rem;font-weight: 300;color: #b81d2c;margin: 10px 0 0 0;display: block;line-height: 2.125rem;}
@@ -7069,7 +7069,7 @@ p.dib{display:inline-block !important;}
 .mypage_collectcreate_wrap .first form p span{margin: 0 20px;}
 .mypage_collectcreate_wrap .first form .size_guide{font-size: 1.875rem;color: #999999;margin-left: 100px;padding-top: 0;}
 .mypage_collectcreate_wrap .first form .question_mark{position: relative;}
-.mypage_collectcreate_wrap .first form .question_mark img{position: absolute;top: 30px;left: 46px;}
+.mypage_collectcreate_wrap .first form .question_mark img{position: absolute;top: 29px;left: 42px;}
 
 .mypage_collectcreate_wrap .second{width: 100%;margin: 30px auto;}
 .mypage_collectcreate_wrap .second form p{padding: 20px 10px;}
@@ -7077,8 +7077,8 @@ p.dib{display:inline-block !important;}
 .mypage_collectcreate_wrap .second form p label strong{color: #b81d2c;margin-right: 6px;}
 .mypage_collectcreate_wrap .second form .public_nondis{padding: 0 10px;}
 .mypage_collectcreate_wrap .second form .public_nondis:after{display: block;clear: both;content: "";}
-.mypage_collectcreate_wrap .second form .public_nondis span{float: left;display: inline-block;font-size: 2rem;font-weight: 500;color: #111111;width: 130px;}
-.mypage_collectcreate_wrap .second form .public_nondis span strong{color: #b81d2c;margin-right: 6px;}
+.mypage_collectcreate_wrap .second form .public_nondis .tit{float: left;display: inline-block;font-size: 2rem;font-weight: 500;color: #111111;width: 130px;}
+.mypage_collectcreate_wrap .second form .public_nondis .tit strong{color: #b81d2c;margin-right: 6px;}
 .mypage_collectcreate_wrap .second form .public_nondis ul li{float: left;width: 100px;}
 /* radio버튼 사용해야 하는데 안나와서 수정했습니다 ! 2023-07-20 */
 /* .mypage_collectcreate_wrap .second form .public_nondis ul li input[type="checkbox"] {display: none;}
@@ -7210,8 +7210,8 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .mypage_collectcreate_wrap .third{width: 100%;margin: 30px 20px;}
 .mypage_collectcreate_wrap .third form .public_nondis{padding: 0 10px;}
 .mypage_collectcreate_wrap .third form .public_nondis:after{display: block;clear: both;content: "";}
-.mypage_collectcreate_wrap .third form .public_nondis span{float: left;display: inline-block;font-size: 2rem;font-weight: 500;color: #111111;width: 130px;}
-.mypage_collectcreate_wrap .third form .public_nondis span strong{color: #b81d2c;margin-right: 6px;visibility: hidden;}
+.mypage_collectcreate_wrap .third form .public_nondis .tit{float: left;display: inline-block;font-size: 2rem;font-weight: 500;color: #111111;width: 130px;}
+.mypage_collectcreate_wrap .third form .public_nondis .tit strong{color: #b81d2c;margin-right: 6px;visibility: hidden;}
 .mypage_collectcreate_wrap .third form .public_nondis ul li{float: left;width: 100px;}
 .mypage_collectcreate_wrap .third form .public_nondis ul li input[type="radio"] {display: block;}
 .mypage_collectcreate_wrap .third form .public_nondis ul li input[type="radio"] + label {position: relative;display: inline-block;width: 20px;height: 20px;background: #fff;border: 1px solid #ddd;cursor: pointer;border-radius: 9999px;}
@@ -7532,7 +7532,11 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .exhint_row .mypage_exhint_list_img {float: left;position: relative;width: 150px;height: 149px;object-fit: cover;margin: 0 10px 0 0;}
 .mypage_exhint_list_img .ico_num{position:absolute;top: 80%;right: 10px;width: 30px;height: 20px;background: #8f8f8f;border-radius: 5px;font-family: 'Roboto Condensed';font-size: 2.125rem;font-weight: 500;color: #ffffff;text-align: center;padding-top: 1px;}
 
-
+/* 23.08.22 박재현 내용 추가 */
+.community_visual img{width: 467px;height: 280px;}
+.community_visual_event img{width: 467px;height: 367px;}
+.magazine9_visual_wrap img{width: 467px;height: 280px;}
+.following_pic .header .user_picname img{width: 60px;height: 60px;}
 
 
 

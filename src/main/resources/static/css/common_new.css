@@ -118,7 +118,7 @@ input[type="password"] {
 .works_pic ul li{float: none;margin-left: 0 !important;font-size: 16px;}
 .works_pic .header{height: 83px;}
 .works_pic .header:after{content: "";display: block;clear: both;}
-.works_pic .header .user_img{display: inline-block;float: left;height: 83px;padding-top: 3px;}
+.works_pic .header .user_img{display: inline-block;float: left;width: 60px;height: 60px;padding-top: 3px;}
 .works_pic .header .user_name{float: left;}
 .works_pic .header .user_name li{padding: 0 0 10px 20px;}
 .works_pic .header .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -494,7 +494,7 @@ input[type="password"] {
 .following_pic .header .user_picname li{margin: 0 !important;padding: 0 !important;background: none;}
 .following_pic .header .user_picname span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;margin: 16px 0 0 16px;}
 .following_pic .pic{position: relative;}
-.following_pic .text{font-size: 18px;font-weight: 300;color: #111111;padding: 20px;text-align: center;}
+.following_pic .text{font-size: 18px;font-weight: 300;color: #111111;padding: 20px;text-align: center;width: 300px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 
 .mypage_contents h3{font-size: 26px;font-weight: 700;margin-top: 50px;}
 .mypage_contents h3 em{font-size: 16px;font-weight: 300;color: #b81d2c;margin-left: 16px;}
@@ -969,5 +969,8 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 	height: 44px;
 }
 /* 2023-08-07 추가 end */
+
+/* 2023.08.22 재현 내용추가 css */
+.works_showingoff_detai2_page_wrap .artist_info_wrap .artist_info_left img{width: 250px;height: 250px;}
 
 
