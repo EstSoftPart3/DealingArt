@@ -22,6 +22,7 @@ public class AboutController {
 	@Autowired
 	private AboutService aboutService;
 	
+	
 	@RequestMapping("/about/serviceIntro")
 	public String serviceIntro() {
 		return "thymeleaf/fo/about/serviceIntro";
@@ -31,6 +32,7 @@ public class AboutController {
 	public String notice() {
 		return "thymeleaf/fo/about/notice";
 	}
+	
 	
 	@RequestMapping("/about/customerService")
 	public String customerService() {
@@ -71,6 +73,7 @@ public class AboutController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
 	
 	/*
 	 * 게시판 상세 조회
