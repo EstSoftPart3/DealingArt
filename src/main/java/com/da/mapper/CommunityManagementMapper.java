@@ -23,7 +23,7 @@ public interface CommunityManagementMapper {
 	public List searchAllBoardList(Map<String, Object> param);
 	
 	//게시물 상태 변경
-	public int boardStatusUpdate(@Param("statusType")String statusType, @Param("comtSqList")String comtSqList);
+	public int boardStatusUpdate(@Param("statusType")String statusType, @Param("comtSq")String comtSqList);
 	
 	//전체 댓글 리스트
 	public List searchAllReplyList(Map<String, Object> param);
