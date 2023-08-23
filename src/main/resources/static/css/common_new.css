@@ -710,6 +710,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_showingoff_detail_page_wrap .user_wrap{position: relative;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8;}
 .works_showingoff_detail_page_wrap .user_wrap:after{content: "";display: block;clear: both;}
 .works_showingoff_detail_page_wrap .user_wrap .user{float: left;margin: 7px 16px;}
+.works_showingoff_detail_page_wrap .user_wrap .user img{width: 60px;height: 60px;} /* 23.08.23 박재현 내용 추가 */
 .works_showingoff_detail_page_wrap .user_wrap .user ul .user_name{padding: 20px;}
 .works_showingoff_detail_page_wrap .user_wrap .icon_box{float: right;}
 .works_showingoff_detail_page_wrap .user_wrap .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
