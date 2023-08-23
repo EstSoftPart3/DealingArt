@@ -95,8 +95,9 @@ function setMyInfo(data){
 	
 	var html = '';
 	//회원 프로필 사진 유무
+	//프로필이미지 백그라운드에서 이미지 태그로 바꿔줘야함
 	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
-		html += '<div class="myinfo_pic" style="background-image: url('+data.mbrProfileImgUrl+')"></div>';
+		html += '<div class="myinfo_pic" ><img src="'+data.mbrProfileImgUrl+'" alt=""></div>';
 	}else{
 		html += '<div class="myinfo_pic"></div>';
 	}
@@ -106,7 +107,7 @@ function setMyInfo(data){
     html += '    <li class="email">'+data.mbrId+'</li>';
     html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
     html += '    <li class="line"></li>';
-    html += '    <li class="profile_modify"><a href="/myPage/mypage_profile_edit"><span></span>프로필 수정</a></li>';
+    html += '    <li class="profile_modify"><a href="/myPage/memberEdit"><span></span>프로필 수정</a></li>';
     html += '  </ul>';
     html += '</div>';
     html += '<div class="icon_box">';

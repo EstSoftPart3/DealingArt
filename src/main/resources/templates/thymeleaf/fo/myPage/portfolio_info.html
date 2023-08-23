@@ -75,6 +75,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
 </head>
 
@@ -83,17 +84,17 @@
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		
 		<div class="body-wrap">
-			<div class="contents">
-			
+			<div class="mypage_wrap">
+			<h2>포트폴리오</h2>
 			<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
 				
-				<div class="con-wrap">
+				<div class="mypage_contents">
 					<form name="formInfo" id="formInfo">	
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+		            <div id = "left_menu"></div>
 					
-					<div class="con-right m-max1300 info-right">
+					<div class="contents_right info-right">
 					    
-						<div class="me-left">
+						<div>
 						
 							<div class="med">
 								<h2 class="">작가 정보 <span class="c-reds">* 필수 정보</span></h2>
@@ -110,6 +111,8 @@
 										$("#file_artstWorkImgUrl").bind('change', function() {
 											uploadResource(this.files, "mainWork");
 										});
+										
+										$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
 										
 										$(function() {
 											// 파일 드롭 다운

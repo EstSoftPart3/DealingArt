@@ -289,7 +289,7 @@
     	var html = '';
     	//회원 프로필 사진 유무
     	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
-    		html += '<div class="myinfo_pic" style="background-image: url('+data.mbrProfileImgUrl+')"></div>';
+    		html += '<div class="myinfo_pic" ><img src="'+data.mbrProfileImgUrl+'" alt=""></div>';
     	}else{
     		html += '<div class="myinfo_pic"></div>';
     	}

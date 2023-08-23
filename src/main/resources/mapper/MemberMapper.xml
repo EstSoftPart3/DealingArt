@@ -103,6 +103,12 @@
 			,MBR_ACCOUNT_NO		  AS mbrAccountNo
 			,MBR_BANK_CD		  AS mbrBankCd
 			,MBR_BANK_NM		  AS mbrBankNm
+			,MBR_PROFILE_IMG_URL  AS mbrProfileImgUrl
+			,MBR_GENRE_LIST  AS mbrGenreList
+			,MBR_HOBBY_LIST  AS mbrhobbyList
+			,MBR_AGE_LIST  AS mbrageList
+			,MBR_JOB_LIST  AS mbrjobList   
+			,MBR_INTRO  AS mbrintro
 
         FROM
             TBL_DA_MBR_M A 
@@ -144,7 +150,13 @@
 			<if test="mbrAccountNo   != null and mbrAccountNo != ''">MBR_ACCOUNT_NO = #{mbrAccountNo},</if>
 			<if test="mbrBankCd      != null and mbrBankCd != ''">MBR_BANK_CD = #{mbrBankCd},</if>
 			<if test="mbrBankNm      != null and mbrBankNm != ''">MBR_BANK_NM = #{mbrBankNm},</if>
-			<if test="mbrProfileImgUrl      != null and mbrProfileImgUrl != ''">MBR_PROFILE_IMG_URL = #{mbrProfileImgUrl},</if>
+			<if test="mbrProfileImgUrl      != null">MBR_PROFILE_IMG_URL = #{mbrProfileImgUrl},</if>
+			<if test="mbrGenreList          != null">MBR_GENRE_LIST = #{mbrGenreList},</if>
+			<if test="mbrhobbyList          != null">MBR_HOBBY_LIST = #{mbrhobbyList},</if>
+			<if test="mbrageList          != null">MBR_AGE_LIST = #{mbrageList},</if>
+			<if test="mbrjobList          != null">MBR_JOB_LIST = #{mbrjobList},</if>
+			<if test="mbrintro          != null">MBR_INTRO = #{mbrintro},</if>
+			
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}
 	</update>

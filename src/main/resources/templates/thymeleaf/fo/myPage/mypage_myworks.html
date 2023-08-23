@@ -250,6 +250,8 @@ function workList(callback){
     					workListHtml += '		<div class="uesr-s">';
     					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
     						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+    						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
     					}else{
     						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
     					}
@@ -314,6 +316,8 @@ function workList(callback){
     					workListHtml += '		<div class="uesr-s">';
     					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
     						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+    						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
     					}else{
     						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
     					}
@@ -369,10 +373,12 @@ function workList(callback){
     					workListHtml += '		<div class="heart on"></div>'; */
     					workListHtml += '		<div class="uesr-s">';
     					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-    						workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-    		 			}else{
-    		 				workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
-    		 			}
+    						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+    						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else{
+    						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+    					}
     					workListHtml += '		</div>';
     					workListHtml += '		<div class="text-s">';
     					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
@@ -427,10 +433,12 @@ function workList(callback){
     					workListHtml += '		<div class="heart on"></div>'; */
     					workListHtml += '		<div class="uesr-s">';
     					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
-    						workListHtml += '		<img src="'+result[i].artstProfileImgUrl+'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
-    		 			}else{
-    		 				workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
-    		 			}
+    						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+    						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+    					}else{
+    						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+    					}
     					workListHtml += '		</div>';
     					workListHtml += '		<div class="text-s">';
     					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {

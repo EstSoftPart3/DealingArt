@@ -79,6 +79,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
 </head>
 
@@ -86,13 +87,14 @@
 	<div class="wrap">
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
 		<div class="body-wrap">
-			<div class="contents">
-				<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
-				<div class="con-wrap">
+			<div class="mypage_wrap">
+			<h2>설정</h2>
+			<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
+				
+				<div class="mypage_contents">
+		            <div id = "left_menu"></div>
 					
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
-					
-					<div class="con-right">
+					<div class="contents_right info-right">
 					
 						<div class="me-center">
 							<h4 class="mec-h4">이벤트 및 혜택 알림</h4>
@@ -120,10 +122,7 @@
 								</dl>
 							</div>
 						</div>
-						
-					</div>
 				</div>
-				
 			</div>
 		</div>
 	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
@@ -171,6 +170,9 @@ function memberContentData(mbrSq) {
 }
 
 $( document ).ready(function() {
+	
+	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+
 	$("#alarm").addClass("active");
  	var sMbrSq = $("#mbrSq").html();
  	
@@ -334,6 +336,7 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 });
 
 $(function() { 
+	/*
 	if(sAuthSqVal == 2){
 		document.getElementById("portfolio").style.display="";
 	}
@@ -343,6 +346,7 @@ $(function() {
 	var conTitleHtml = "";
 	conTitleHtml += '<h3>설정</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
+	*/
 });   
 </script>
     

@@ -76,22 +76,23 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
-    
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
 </head>
 
 <body>
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
 		<div class="body-wrap">
-			<div class="contents">
-				<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
-				<div class="con-wrap2">
+			<div class="mypage_wrap">
+				<h2>설정</h2>
+			 	<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
+				<div class="mypage_contents">
+				    
+		            <div id = "left_menu"></div>
 					
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					<div class="contents_right">
 					
-					<div class="con-right2">
-					
-						<div class="me-left">
+						<div>
 						
 							<div class="sec-box">
 								<div class="sec-title">회원님 서비스를 이용하시는데 불편함이 있으셨나요?</div>
@@ -326,9 +327,12 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     }
       
 	jQuery(document).ready(function() {
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		/*
 		if(sAuthSqVal == 2){
 			document.getElementById("portfolio").style.display="";
 		}
+
 		$("#conTitle").empty();
 		const conBtn = document.getElementById("conBtn");
 		conBtn.remove();
@@ -337,6 +341,7 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 		$("#conTitle").append(conTitleHtml).trigger("create");
 		
 		$("#withdrawal").addClass("active");
+		*/
 	});         
 </script>
 
