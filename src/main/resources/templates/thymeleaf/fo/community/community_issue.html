@@ -110,11 +110,11 @@
                 </ul>
             </div>
             <div class="input_wrap">
-                <div class="input_cal" style="display: inline; position: static;">
+                <div class="input_cal" style="display: flex; position: static;width: auto;align-items: center;">
                 	<input type="date" id="startDate" onchange="checkCalendar()">
-                	<span>~</span>
+                	<span style="margin: 0 10px;">~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
-                	<div class="sel_sorting">
+                	<div class="sel_sorting" style="position: relative;top: auto;right: auto;margin: 0 10px;">
 	                    <select class="knoSelectBox" name="comtSort" id="comtSort">
 	                        <option value="">정렬</option>
 	                        <option value="newest">최신순</option>

@@ -7109,7 +7109,7 @@ p.dib{display:inline-block !important;}
 .mypage_collectcreate_wrap .second .btn_add{border: 1px solid #000000;padding: 16px 0;text-align: center;margin-left: 10px;margin-right: 10px;cursor: pointer;}
 .mypage_collectcreate_wrap .second .btn_add button{font-size: 2.25rem;font-weight: 700;color: #111111;}
 
-.mypage_collectcreate_wrap .second form .add_area{padding: 20px 10px;}
+.mypage_collectcreate_wrap .second form .add_area{padding: 20px 10px;display: flex;justify-content: center;flex-direction: column;} /* 23.08.23 박재현 내용 추가 */
 .mypage_collectcreate_wrap .second form .add_area:after{display: block;clear: both;content: "";}
 .mypage_collectcreate_wrap .second form .add_area span{float: left;display: inline-block;font-size: 16px;font-weight: 500;color: #111111;width: 175px;}
 .mypage_collectcreate_wrap .second form .add_area span strong{color: #b81d2c;margin-right: 6px;}
@@ -7324,7 +7324,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 
 .works_info_wrap .works_info_right .btn_worksInfo_wrap .btn_list{width: 100%;font-size: 2.25rem;color: #ffffff;background: #969696 url("../img/img_new/ico_list.png") 30% 50% no-repeat;padding: 16px 0 16px 30px;}
 
-.contents_showingoff_wrap{margin-top: 20px;}
+.contents_showingoff_wrap{margin-top: 20px;display: flex;flex-direction: column;} /* 23.08.23 박재현 내용 수정 */
 .contents_showingoff_wrap .showingoff_con_left{width: 100%;display: table-row;padding-right: 0;}
 .contents_showingoff_wrap .showingoff_con_left .img{width: 150px;display: table-cell;vertical-align: top;padding-bottom: 10px;}
 .contents_showingoff_wrap .showingoff_con_left .img img{width: 150px;height: 150px;}
@@ -7333,13 +7333,13 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .contents_showingoff_wrap .showingoff_con_left .con_r span{font-size: 2rem;}
 .contents_showingoff_wrap .showingoff_con_left .con_r p{margin-top: 10px;font-size: 2.125rem;overflow: hidden;text-overflow: ellipsis;white-space: normal;line-height: 1.3;text-align: left;word-wrap: break-word;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;}
 .contents_showingoff_wrap .showingoff_con_left .con_r .btn_more{width: 76px;font-size: 2.25rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 1px no-repeat;text-align: left;position: absolute;top: 75%;right: 0;}
-.contents_showingoff_wrap .showingoff_con_right{width: 100%;display: table-row;padding-right: 30px;margin-top: 10px;}
+.contents_showingoff_wrap .showingoff_con_right{width: 100%;display: table-row;margin-top: 10px;} /* 23.08.23 박재현 내용 수정 */
 .contents_showingoff_wrap .showingoff_con_right .img{width: 150px;display: table-cell;vertical-align: top;}
 .contents_showingoff_wrap .showingoff_con_right .con_r{display: table-cell;padding-left: 10px;position: relative;}
 .contents_showingoff_wrap .showingoff_con_right .con_r h4{font-size: 2.875rem;font-weight: 500;}
 .contents_showingoff_wrap .showingoff_con_right .con_r span{font-size: 2rem;}
 .contents_showingoff_wrap .showingoff_con_right .con_r p{margin-top: 10px;font-size: 2.125rem;overflow: hidden;text-overflow: ellipsis;white-space: normal;line-height: 1.3;text-align: left;word-wrap: break-word;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;}
-.contents_showingoff_wrap .showingoff_con_right .con_r .btn_more{width: 76px;font-size: 2.25rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 1px no-repeat;text-align: left;position: absolute;top: 75%;right: 0;}
+.contents_showingoff_wrap .showingoff_con_right .con_r .btn_more{width: 76px;font-size: 2.25rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 2px no-repeat;text-align: left;position: absolute;top: 85%;right: 0;} /* 23.08.23 박재현 내용 수정 */
 
 .selling_price{border: #dedede 1px solid;padding: 27px;margin-top: 20px;}
 .selling_price .tstyle2 th{width: 116px;padding-bottom: 13px;vertical-align: middle;text-align: left;} 
