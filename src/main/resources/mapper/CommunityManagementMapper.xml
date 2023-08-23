@@ -138,7 +138,7 @@
 		)
 	</insert>
 	
-	<select id="boardList" resultType="hashMap" parameterType="hashMap">
+	<!-- <select id="boardList" resultType="hashMap" parameterType="hashMap">
         SELECT
         	row_number() over(order by A.REG_DT DESC) as no
            	,A.COMT_SQ             			  AS comtSq
@@ -205,6 +205,221 @@
          	<if test="cmMgRepSts eq 'nonHide'.toString()">
          		AND A.RPRT_YN = 'N'
          	</if>
+	</select> -->
+	
+	<select id="searchAllBoardList" resultType="hashMap" parameterType="hashMap">
+		/* 전체 게시물 보기 */
+   <!-- TBL_DA_COMT_M // 커뮤니티 테이블
+        TBL_DA_MBR_M // 회원 정보 테이블 MBR_SQ
+        TBL_DA_COMT_CMTS_R // 커뮤니티 댓글 테이블 COMT_SQ
+        TBL_DA_RPRT_M // 신고 내역 테이블 COMT_SQ  -->
+		SELECT
+			A.COMT_SQ AS comtSq,							/*순번*/
+		    A.COMT_TYP_CD AS comtTypCd,						/*분류*/
+		    B.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
+		    B.MBR_ID AS mbrId,								/*아이디*/
+			A.COMT_TITLE AS comtTitle,						/*제목*/
+			DATE_FORMAT(A.REG_DT, '%Y-%m-%d') AS regDt,		/*작성일*/
+			A.OPEN_YN AS openYn,								/*상태*/
+			A.DEL_YN AS delYn						
+		FROM
+        	TBL_DA_COMT_M AS A
+        LEFT JOIN TBL_DA_MBR_M AS B
+			ON A.REG_MBR_SQ = B.MBR_SQ
+		WHERE 1 = 1
+			<if test="firstDate != null and firstDate != '' and lastDate != null and lastDate != ''">
+				AND A.REG_DT BETWEEN #{firstDate} AND #{lastDate}
+			</if>
+			<if test="cmMgMenuTyp != null and cmMgMenuTyp != ''">
+				AND A.COMT_TYP_CD = #{cmMgMenuTyp}
+			</if>
+			<if test="cmMgSrchTyp != null and cmMgSrchTyp != ''">
+				<choose>
+					<when test="cmMgSrchTyp == 'comtTitle'">
+						AND A.COMT_TITLE LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'comtContent'">
+						AND A.COMT_CONTENT LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'mbrId'">
+						AND B.MBR_ID LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'mbrNcknm'">
+						AND B.MBR_NCKNM LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+				</choose>
+			</if>
+			<if test="cmMgComntYn != null and cmMgComntYn != ''">
+				<choose>
+					<when test="cmMgComntYn eq 'Y'.toString()">
+						AND A.COMT_CMTS <![CDATA[>]]> 0
+					</when>
+					<when test="cmMgComntYn eq 'N'.toString()">
+						AND A.COMT_CMTS <![CDATA[=]]> 0
+					</when>
+				</choose>
+			</if>
+			<if test="cmMgRepSts != null and cmMgRepSts != ''">
+						AND A.OPEN_YN = #{cmMgRepSts}
+			</if>
 	</select>
 	
+	<select id="searchAllReplyList" resultType="hashMap" parameterType="hashMap">
+		/* 전체 게시물 보기 */
+   <!-- TBL_DA_COMT_M // 커뮤니티 테이블
+        TBL_DA_MBR_M // 회원 정보 테이블 MBR_SQ
+        TBL_DA_COMT_CMTS_R // 커뮤니티 댓글 테이블 COMT_SQ
+        TBL_DA_RPRT_M // 신고 내역 테이블 COMT_SQ  -->
+		SELECT
+			A.COMT_SQ AS comtSq,							/*순번*/
+		    A.COMT_TYP_CD AS comtTypCd,						/*분류*/
+		    B.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
+		    B.MBR_ID AS mbrId,								/*아이디*/
+			A.COMT_TITLE AS comtTitle,						/*제목*/
+			DATE_FORMAT(A.REG_DT, '%Y-%m-%d') AS regDt,		/*작성일*/
+		FROM
+        	TBL_DA_COMT_M AS A
+        LEFT JOIN TBL_DA_MBR_M AS B
+			ON A.REG_MBR_SQ = B.MBR_SQ
+		WHERE 1 = 1
+		    AND A.DEL_YN = 'N'
+			<if test="firstDate != null and firstDate != '' and lastDate != null and lastDate != ''">
+				AND A.REG_DT BETWEEN #{firstDate} AND #{lastDate}
+			</if>
+			<if test="cmMgMenuTyp != null and cmMgMenuTyp != ''">
+				AND A.COMT_TYP_CD = #{cmMgMenuTyp}
+			</if>
+			<if test="cmMgSrchTyp != null and cmMgSrchTyp != ''">
+				<choose>
+					<when test="cmMgSrchTyp == 'comtTitle'">
+						AND A.COMT_TITLE LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'comtContent'">
+						AND A.COMT_CONTENT LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'mbrId'">
+						AND B.MBR_ID LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+					<when test="cmMgSrchTyp == 'mbrNcknm'">
+						AND B.MBR_NCKNM LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	<!-- 신고된 게시물 리스트 -->
+	<select id="searchAllRprtList" resultType="hashMap" parameterType="hashMap">
+				SELECT
+						RPRT.RPRT_SQ AS rprtSq
+						, (
+						SELECT Z.MBR_NM
+						FROM TBL_DA_MBR_M AS Z 
+						WHERE COMT.MBR_SQ = Z.MBR_SQ
+						) AS rprtMbrNm
+						, RPRT.WORK_SQ AS workSq
+						, RPRT.COMT_SQ AS comtSq
+						, RPRT.ARTST_SQ AS artstSq
+						, RPRT.DEAL_SQ AS dealSq
+						, MBR.MBR_NM AS regMbrNm
+						, RPRT.RPRT_TYP_CD AS rprtTypCd
+						, (
+						SELECT DTL_CD_NM 
+						FROM TBL_DA_COMN_DTL_CD_S AS A
+						WHERE RPRT.RPRT_TYP_CD = A.DTL_CD
+						GROUP BY RPRT.RPRT_SQ
+						) AS rprtTypCdNm
+						, RPRT.RPRT_RSLT_CD AS rprtRsltCd
+						, (
+						SELECT DTL_CD_NM 
+						FROM TBL_DA_COMN_DTL_CD_S AS B
+						WHERE RPRT.RPRT_RSLT_CD = B.DTL_CD
+						GROUP BY RPRT.RPRT_SQ
+						) AS rprtRsltCdNm
+						, COMT.COMT_TITLE AS comtTitle
+						, (
+						SELECT DTL_CD_NM
+						FROM TBL_DA_COMN_DTL_CD_S AS C
+						WHERE COMT.COMT_TYP_CD = C.DTL_CD
+						GROUP BY COMT.COMT_SQ
+						) AS comtTypCdNm
+						, RPRT_CONTENT AS rprtContent
+						, DATE_FORMAT(RPRT.REG_DT, '%Y-%m-%d %H:%i:%s') AS regDt
+						, RPRT.REG_MBR_SQ AS regMbrSq
+						, DATE_FORMAT(RPRT.UPDT_DT, '%Y-%m-%d %H:%i:%s') AS updtDt
+						, RPRT.UPDT_MBR_SQ AS updtMbrSq
+						, COMT.OPEN_YN AS openYn
+						, COMT.DEL_YN AS delYn
+						, COMT.COMT_TYP_CD AS comtTypCd
+				FROM 
+						TBL_DA_RPRT_M AS RPRT
+				LEFT JOIN 
+						TBL_DA_COMT_M AS COMT
+					ON	COMT.COMT_SQ = RPRT.COMT_SQ
+				LEFT JOIN 
+						TBL_DA_MBR_M AS MBR
+					ON 	MBR.MBR_SQ = RPRT.MBR_SQ
+				WHERE 
+						RPRT.COMT_SQ IS NOT NULL
+					AND	RPRT.DEL_YN = 'N'
+					AND RPRT.USE_YN = 'Y'
+				ORDER BY RPRT.RPRT_SQ DESC
+	</select>
+
+	
+	<!-- 게시물 상태 변경 -->
+	<update id="boardStatusUpdate"  parameterType="String">
+	 		UPDATE TBL_DA_COMT_M
+	 		<if test = "statusType == 'hide'">
+	 			SET 
+	 				OPEN_YN = 'N'
+	 		</if>
+	 		<if test = "statusType == 'nonhide'">
+	 			SET 
+	 				OPEN_YN = 'Y'
+	 		</if>
+	 		<if test = "statusType == 'delete'">
+	 			SET 
+	 				OPEN_YN = 'N'
+	 				,DEL_YN = 'Y'
+	 		</if>
+		    WHERE COMT_SQ = #{comtSq}
+	</update>
+	<update id="rprtStatusUpdate"  parameterType="String">
+	 		UPDATE TBL_DA_COMT_M AS COMT
+	 		<if test = "statusType == 'hide'">
+	 			SET 
+	 				OPEN_YN = 'N'
+	 		</if>
+	 		<if test = "statusType == 'nonhide'">
+	 			SET 
+	 				OPEN_YN = 'Y'
+	 		</if>
+	 		<if test = "statusType == 'delete'">
+	 			SET 
+	 				OPEN_YN = 'N'
+	 				,DEL_YN = 'Y'
+	 		</if>
+	 		LEFT JOIN 
+				TBL_DA_RPRT_M AS RPRT
+				ON	COMT.COMT_SQ = RPRT.COMT_SQ
+		    WHERE COMT_SQ = #{rprtSq}
+	</update>
+	
+	
+	
+	<select id="boardReplyList" resultType="hashMap" parameterType="hashMap">
+		/* 전체 댓글 보기 */
+		SELECT
+			A.CMT_SQ AS cmtSq,							/*순번*/
+		    C.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
+		    A.CMT_CONTENT AS cmtContent,					/*내용*/
+			A.DEL_YN AS delYn								/*삭제*/
+		FROM
+        	TBL_DA_COMT_CMTS_R AS A
+        LEFT JOIN TBL_DA_COMT_M AS B
+			ON A.COMT_SQ = B.COMT_SQ
+		LEFT JOIN TBL_DA_MBR_M AS C                     
+	   		ON B.COMT_SQ = C.MBR_SQ                      
+		WHERE 1 = 1		
+	</select>
 </mapper>

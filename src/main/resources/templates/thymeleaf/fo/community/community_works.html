@@ -275,36 +275,6 @@
    		$(".workspic_wrap .workspic_row").remove();
    		$(".workspic_wrap").prepend(strHtml);
    	}
-   	
- 	// 커뮤니티 상세 페이지 이동
-	function openComtDetail(obj, type) {
-		var url = "";
-		
-		switch(type) {
-		case "BOA":
-			url = "/community/showingOffDetail";
-			break;
-		case "EXH":
-			url = "/community/exhibitDetail";
-			break;
-		case "KNO":
-			url = "/community/knowhowDetail";
-			break;
-		}
-		
-		pageGoPost({
-			url: url,
-			target:"_self",
-			vals:[
-				["mbrSq", $(obj).data("mbrsq")],
-				["comtSq", $(obj).data("comtsq")],
-				["artstSq", $(obj).data("artstsq")],
-				["workSq", $(obj).data("worksq")],
-				["comtTypCd", type]
-			]
-		});
-	}
-
     </script>
 </body>
 </html>

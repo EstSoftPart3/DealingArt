@@ -103,5 +103,4 @@
       		RPRT_SQ = #{rprtSq}
 	</update>
    
-   
 </mapper>

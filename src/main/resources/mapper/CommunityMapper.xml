@@ -50,7 +50,7 @@
 		/* 게시판 관리 상세 조건 조회 */
 		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
-					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
+					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
 					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
 					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
 			   END 											AS ordCondition,	-- 정렬 구분

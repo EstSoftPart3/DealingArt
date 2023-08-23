@@ -2,6 +2,7 @@ package com.da.bo.community;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -9,7 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.bo.service.CommunityManagementService;
 import com.da.common.AwsS3Service;
 import com.da.vo.FileVo;
+
 
 @Controller
 public class CommunityManagementController {
@@ -134,12 +140,71 @@ public class CommunityManagementController {
 		
 		//관리 페이지 이동 시 게시물 관리 목록 조회 후 리턴 해주기.
 		Map<String, Object> result = new HashMap<>();
-		result = communityManagementService.boardListData(param);
+		
+		String commuBorTypCd = String.valueOf(param.get("commuBorTypCd"));
+		
+		switch (commuBorTypCd) {
+		case "ABL":
+			// 전체 게시물 보기 쿼리 실행
+			result = communityManagementService.searchAllBoardList(param);
+			break;
+		case "ABR":
+			result = communityManagementService.searchAllReplyList(param);
+			break;
+		case "RBL":
+			result = communityManagementService.searchAllRprtList(param);
+			break;
+
+		default:
+			break;
+		}
 		
 		mv.addObject("boardData", result);
 		
 		return mv;
 	}
+	
+	// 전체 게시물 체크박스 선택 후 게시물 숨김,해제, 삭제
+		@RequestMapping("/admin/community/boardStatusUpdate")
+		@ResponseBody
+		public ModelAndView boardStatusUpdate(@RequestParam(value = "comtSq[]", required = false) List<String> comtSq,
+											@RequestParam(value = "statusType", required = false) String statusType) {
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("jsonView");
+			System.out.println("@@@@@@@@@@@@@@@@@pram: " + comtSq);
+			
+			int result = 0;
+			for(int i=0; i<comtSq.size(); i++) {
+				System.out.println("testlist: "+comtSq.get(i));
+				result += communityManagementService.boardStatusUpdate(statusType, comtSq.get(i));
+			}
+					
+			mv.addObject("result", result);
+			
+			return mv;
+		}
+		
+		// 신고된 게시물 체크박스 선택 후 게시물 숨김,해제, 삭제
+				@RequestMapping("/admin/community/rprtStatusUpdate")
+				@ResponseBody
+				public ModelAndView rprtStatusUpdate(@RequestParam(value = "rprtSqList[]", required = false) List<String> rprtSqList,
+													@RequestParam(value = "statusType", required = false) String statusType) {
+					
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("jsonView");
+					System.out.println("@@@@@@@@@@@@@@@@@pram: " + rprtSqList);
+					
+					int result = 0;
+					for(int i=0; i<rprtSqList.size(); i++) {
+						result += communityManagementService.rprtStatusUpdate(statusType, rprtSqList.get(i));
+					}
+							
+					mv.addObject("result", result);
+					
+					return mv;
+				}
+		
 	
 	// 게시물 댓글 페이지 이동
 	@RequestMapping("/admin/community/communityBoardCommentList")
