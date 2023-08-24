@@ -7538,7 +7538,10 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .magazine9_visual_wrap img{width: 467px;height: 280px;}
 .following_pic .header .user_picname img{width: 60px;height: 60px;}
 
-
+/* 23.08.24 박재현 내용 추가 */
+.ml-div .ml-h3{font-size: 2.5rem;}
+.ml-div .ml-p{font-size: 2.25rem;margin-top: 10px;}
+.ml-div .ml-time{font-size: 2rem;}
 
 .fs_2rem{font-size: 2rem !important;}
 .pt10{padding-top: 10px !important;}
