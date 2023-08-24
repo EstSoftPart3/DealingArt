@@ -60,7 +60,7 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 		return result;
 	}
 	
-	//게시물 관리 댓글 조회
+	//댓글 게시물 리스트 댓글 조회
 	@Override
 	public Map<String, Object> searchAllReplyList(Map<String, Object> param){
 		
@@ -70,6 +70,18 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 		
 		return result;
 	}
+	
+	//새창 댓글 리스트
+	@Override
+	public Map<String, Object> boardReplyList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = communityManagementDao.boardReplyList(param);
+		
+		return result;
+	}
+	
 	
 	//신고된 게시물 조회
 	@Override

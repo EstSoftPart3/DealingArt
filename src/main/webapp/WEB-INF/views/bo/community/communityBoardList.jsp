@@ -69,7 +69,7 @@ if (commuBorTypCd.equals("ABL")) {
 									<button type="button" style="border: 1px solid grey"
 										onclick="setDate('0')">오늘</button>
 									<button type="button" style="border: 1px solid grey"
-										onclick="setDate('1')">3일</button>
+										onclick="setDate('3')">3일</button>
 									<button type="button" style="border: 1px solid grey"
 										onclick="setDate('7')">7일</button>
 									<button type="button" style="border: 1px solid grey"
@@ -82,12 +82,11 @@ if (commuBorTypCd.equals("ABL")) {
 						<tr class="col-form-label sTitle LabelStyle">
 						<td class="col-sm-1" align="center"
 							style="background-color: #efefef;">게시판 분류</td>
-						<td id="" class="col-sm-2 dataValue"><label><input
-								type="radio" name="cmMgMenuTyp" value="" checked="checked">모두</label>
-						<label><input type="radio" name="cmMgMenuTyp"
-							value="BOA">자랑하기</label> <label><input type="radio"
-							name="cmMgMenuTyp" value="EXH">전시후기/소개</label> <label><input
-							type="radio" name="cmMgMenuTyp" value="ISS">이슈</label></td>
+						<td id="" class="col-sm-2 dataValue">
+						<label><input type="radio" name="cmMgMenuTyp" value="" checked="checked">모두</label>
+						<label><input type="radio" name="cmMgMenuTyp" value="BOA">자랑하기</label>
+						<label><input type="radio" name="cmMgMenuTyp" value="EXH">전시후기/소개</label>
+						<label><input type="radio" name="cmMgMenuTyp" value="ISS">이슈</label></td>
 						</tr>
 						<%
 						if (commuBorTypCd.equals("ABL") || commuBorTypCd.equals("ABR")) {
@@ -134,10 +133,10 @@ if (commuBorTypCd.equals("ABL")) {
 								<select class="custom-select bTitle" id="cmMgSrchRepTyp">
 									<option value="writer" selected>작성자</option>
 									<option value="reporter">신고자</option>
-									<option value="nickname">닉네임</option>
 									<option value="content">게시글 내용</option>
-								</select> <input type="text" id="cmMgSrchRepTxt"
-									class="form-control float-right bTitle" placeholder="검색">
+								</select> 
+								<input type="text" id="cmMgSrchRepTxt"
+								class="form-control float-right bTitle" placeholder="검색">						
 								</div>
 							</td>
 						</tr>
@@ -166,15 +165,13 @@ if (commuBorTypCd.equals("ABL")) {
 							<td class="col-sm-1" align="center"
 								style="background-color: #efefef;">노출상태</td>
 							<td id="" class="col-sm-2 dataValue"><label><input
-									type="radio" name="cmMgRepSts" value="" checked="checked">전체</label>
-								<label><input type="radio" name="cmMgRepSts" value="N">숨김
-									 게시물</label> <label><input type="radio" name="cmMgRepSts"
-									value="Y">노출 게시물</label></td>
+								type="radio" name="cmMgRepSts" value="" checked="checked">전체</label>
+							<label><input type="radio" name="cmMgRepSts" value="N">숨김 게시물</label> 
+							<label><input type="radio" name="cmMgRepSts" value="Y">노출 게시물</label></td>
 						</tr>
 						<%
 						}
 						%>
-
 					</table>
 
 					<!--card-footer -->
@@ -200,7 +197,7 @@ if (commuBorTypCd.equals("ABL")) {
 									onclick="boardStatusUpdate('nonhide')" value="nonhide">게시물 숨김 해제</button>
 								<button class="btnCommunitySet" type="button"
 									style="border: 1px solid grey"
-									onclick="boardStatusUpdate('delete'">게시물 삭제</button>
+									onclick="boardStatusUpdate('delete')">게시물 삭제</button>
 								</div>
 								<div class="card-tools">
 									<div class="input-group input-group-sm">
@@ -222,7 +219,7 @@ if (commuBorTypCd.equals("ABL")) {
 									onclick="rprtStatusUpdate('nonhide')" value="nonhide">게시물 숨김 해제</button>
 								<button class="btnCommunitySet" type="button"
 									style="border: 1px solid grey"
-									onclick="rprtStatusUpdate('delete'">게시물 삭제</button>
+									onclick="rprtStatusUpdate('delete')">게시물 삭제</button>
 								</div>
 								<div class="card-tools">
 									<div class="input-group input-group-sm">
@@ -237,17 +234,16 @@ if (commuBorTypCd.equals("ABL")) {
 							if (commuBorTypCd.equals("ABR")) {
 							%>
 							<div class="card-tools">
-									<div class="input-group input-group-sm" style="width: 300px;">
-										<select class="custom-select bTitle" id="boardAlign">
-											<option value="0" selected>기본정렬</option>
-											<option value="1">조회수 많은 순</option>
-										</select>
-									</div>
+								<div class="input-group input-group-sm" style="width: 300px;">
+									<select class="custom-select bTitle" id="boardAlign">
+										<option value="0" selected>기본정렬</option>
+										<option value="1">조회수 많은 순</option>
+									</select>
 								</div>
+							</div>
 							<%
 							}
 							%>
-							</div>
 						</section>
 						<div class="card">
 							<div class="card-body" style="background-color: #ffffff;">
@@ -255,9 +251,12 @@ if (commuBorTypCd.equals("ABL")) {
 									<div id="boardList" style="font-size: 12px;"></div>
 								</div>
 							</div>
+						
 						</div>
+					</div>
+				</section>
 				</div>
-		</div>
+			</div>
 	<%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
 
 	<script>
@@ -389,6 +388,27 @@ if (commuBorTypCd.equals("ABL")) {
 					cmMgSrchTyp: cmMgSrchTyp,
 					cmMgSrchTxt: cmMgSrchTxt,
 				}
+			}else if(commuBorTypCd == "RBL"){
+				var firstDate = $("#firstDate").val();
+				var lastDate = $("#lastDate").val();
+				var cmMgMenuTyp = $('input:radio[name="cmMgMenuTyp"]:checked').val();
+				
+				var cmMgSrchRepTyp = $("#cmMgSrchRepTyp").val();
+				var cmMgSrchRepTxt = $("#cmMgSrchRepTxt").val();
+				debugger;
+				var cmMgComntYn = $('input:radio[name="cmMgComntYn"]:checked').val();
+				var cmMgRepSts = $('input:radio[name="cmMgRepSts"]:checked').val();
+				
+				params = {
+					commuBorTypCd: commuBorTypCd,
+					firstDate: firstDate,
+					lastDate: lastDate,
+					cmMgMenuTyp: cmMgMenuTyp,
+					cmMgSrchRepTyp: cmMgSrchRepTyp,
+					cmMgSrchRepTxt: cmMgSrchRepTxt,
+					cmMgComntYn: cmMgComntYn,
+					cmMgRepSts: cmMgRepSts,
+			}
 			}else{
 				params = {
 					commuBorTypCd: commuBorTypCd
@@ -469,7 +489,7 @@ if (commuBorTypCd.equals("ABL")) {
 					        }
 					     }
 					},
-					{ name: "rprtMbrNm", title:"작성자", type: "text", width: 80, align:"center", visible: false},
+					{ name: "", title:"작성자", type: "text", width: 80, align:"center", visible: false},
 					{ name: "mbrNcknm", title:"닉네임", type: "text", width: 100,align:"center", visible: true},
 					{ name: "mbrId", title:"아이디", type: "text", width: 100, align:"center", visible: true,},
 					{ name: "comtTitle", title:"제목", type: "text", width: 200, align:"left", visible: true}, /* key: true 무엇 */
@@ -623,6 +643,7 @@ if (commuBorTypCd.equals("ABL")) {
 			var cmMgComntYn = '';
 			var cmMgSrchRepTyp = '';
 			var cmMgSrchRepTxt = '';
+			
 			var cmMgRepRsnTyp = '';
 			var cmMgRepSts = '';
 			
@@ -683,6 +704,12 @@ if (commuBorTypCd.equals("ABL")) {
 		*/
 		function boardStatusUpdate(statusType){	
 			var params = new Object();
+			var selectedValue = getCheckedValue();
+
+		    if (!selectedValue) {
+		        alert('선택된 항목이 없습니다.');
+		        return;
+		    }
 			params.comtSq = getCheckedValue();
 			params.statusType = statusType;
 			
@@ -700,7 +727,8 @@ if (commuBorTypCd.equals("ABL")) {
 		//신고된 게시물 상태 변경
 		function rprtStatusUpdate(statusType){	
 			var params = new Object();
-			params.rprtSqList = getCheckedValue();
+			AlertCheckbox()
+			params.rprtSq = getCheckedValue();
 			params.statusType = statusType;
 			
 			$.ajax({
