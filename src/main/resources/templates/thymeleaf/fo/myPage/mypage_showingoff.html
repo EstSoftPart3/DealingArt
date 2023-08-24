@@ -317,7 +317,7 @@ function ShowList(data,callback){
 	                	html +=		'    <li>';
 	                	html +=		'        <div class="showingoff_pic">';
 	                	html +=		'            <div class="text">'+result[i].comtTitle+'</div>';                                        
-	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?comtSq='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
+	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?SqNumber='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
 	                	html += 	'		<div class="item-ho4 check-div" style="display:none;">';
 	                	html += 	'			<div class="pay-check mana-check">';
 	                	html += 	'				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
@@ -370,7 +370,7 @@ function ShowList(data,callback){
 	                	html +=		'    <li>';
 	                	html +=		'        <div class="showingoff_pic">';
 	                	html +=		'            <div class="text">'+result[i].comtTitle+'</div>';                                        
-	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?comtSq='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
+	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?SqNumber='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
 	                	html += '		<div class="item-ho4 check-div" style="display:none;">';
 	                	html += '			<div class="pay-check mana-check">';
 	                	html += '				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';

@@ -543,13 +543,21 @@
 		var strHtml = '';
 		
  		strHtml += '<div class="left">';
-	    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		if(list[0] != null){
+ 		    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		}
 	    strHtml += '    <div class="bottom">';
-	    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
-	    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		if(list[1] != null){
+ 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
+ 		}
+ 		if(list[2] != null){
+ 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		}
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
-	    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		if(list[3] != null){
+ 		    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		}
     	
     	$("#boaBox").prepend(strHtml);
     }

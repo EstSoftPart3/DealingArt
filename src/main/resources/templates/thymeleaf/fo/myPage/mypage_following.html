@@ -101,54 +101,7 @@
         <div class="mypage_wrap">
             <h2>팔로잉</h2>
             <div class="mypage_contents">
-                <div class="contents_left">
-                  <div class="myinfo_wrap">
-                    <div class="myinfo_pic"></div>
-                    <div class="myinfo_con">
-                      <ul>
-                        <li class="name">Dealing - Art <span></span></li>
-                        <li class="email">admin@dealing-art.com</li>
-                        <li class="mem_type">회원유형<span>컬렉터</span></li>
-                        <li class="line"></li>
-                        <li class="profile_modify"><a href="#"><span></span>프로필 수정</a></li>
-                      </ul>
-                    </div>
-                    <div class="icon_box">
-                      <ul>
-                        <li><p class="ico_scrap"></p>스크랩<br><span>99</span></li>
-                        <li><p class="ico_good"></p>좋아요<br><span>99</span></li>
-                        <li><p class="ico_alarm"></p>알림<br><span>99</span></li>
-                      </ul>
-                    </div>
-                    <div class="icon_sns_box">
-                      <ul>
-                        <li><a href="#"><p class="ico_facebook"></p></a></li>
-                        <li><a href="#"><p class="ico_instagram"></p></a></li>
-                        <li><a href="#"><p class="ico_youtube"></p></a></li>
-                        <li> <a href="#"><p class="ico_twitter"></p></a></li>
-                      </ul>
-                    </div>                    
-                  </div>
-                <div class="left_nav">
-                    <ul>
-                    <li class="on"><a href="#">마이페이지</a>
-                        <ul>
-                        <li><a href="#">모두보기</a></li>
-                        <li><a href="#">나의 작품</a></li>
-                        <li><a href="#">자랑하기</a></li>
-                        <li><a href="#">전시후기&소개</a></li>
-                        <li><a href="#">이슈</a></li>
-                        <li><a href="#">알림함</a></li>
-                        <li><a href="#">스크랩</a></li>
-                        <li><a href="#">팔로잉</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">거래</a></li>
-                    <li><a href="#">작가</a></li>
-                    <li><a href="#">나의 정보</a></li>
-                    </ul>
-                </div>
-                </div>
+                <div id = "left_menu"></div>
                 <div class="contents_right">
                     <div class="mypage_search_wrap">
                         <div class="search width100per">
@@ -284,4 +237,11 @@
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </body>
+<script type="text/javascript">
+$("document").ready(function(){
+	
+	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+	
+});
+</script>
 </html>
