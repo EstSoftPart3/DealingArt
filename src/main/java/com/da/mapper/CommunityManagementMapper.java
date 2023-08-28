@@ -25,14 +25,17 @@ public interface CommunityManagementMapper {
 	//게시물 상태 변경
 	public int boardStatusUpdate(@Param("statusType")String statusType, @Param("comtSq")String comtSqList);
 	
-	//전체 댓글 리스트
+	//전체 댓글 게시물 리스트
 	public List searchAllReplyList(Map<String, Object> param);
+	
+	//새창 댓글 리스트
+	public List boardReplyList(Map<String, Object> param);
 	
 	//신고된 게시물 리스트
 	public List searchAllRprtList(Map<String, Object> param);
 	
 	//신고된 게시물 상태 변경
-	public int rprtStatusUpdate(@Param("statusType")String statusType, @Param("rprtSqList")String rprtSqList);
+	public int rprtStatusUpdate(@Param("statusType")String statusType, @Param("rprtSq")String rprtSqList);
 	
 	
 

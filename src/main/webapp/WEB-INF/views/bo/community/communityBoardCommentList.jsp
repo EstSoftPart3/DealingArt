@@ -78,12 +78,14 @@
 		    	$('#checkAllBoolean').val("true");
 		    	checkAll();
 		    },
+
+		    noDataContent: "검색 결과가 없습니다.",
 		    controller: {
 		    	loadData: function (filter) {
 		     		var d = $.Deferred();
 		            $.ajax({
 		            	type: "post",
-		 	    	 	url: "/admin/board/boardListData",
+		 	    	 	url: "/admin/community/boardListData",
 		 	         	data: params,
 		 	         	dataType: "json"
 			 	     }).done(function(response) {
@@ -121,16 +123,16 @@
 	    	          .attr({id: "checkRow" + item.brdSq});
 	    	      }
 		    	 },
-				{ name: "", title: "순서", type: "text", width: 40, align: "center", visible: true},
-				{ name: "", title: "닉네임", type: "text", width: 60,align:"center", visible: true},
-				{ name: "", title: "내용", type: "text", width: 120,align:"center", visible: true},
-				{ name: "brdConTypCdTxt", title: "상태", type: "text", width: 50, align: "center", visible: true,
+				{ name: "cmtSq", title: "순서", type: "text", width: 40, align: "center", visible: true},
+				{ name: "mbrNcknm", title: "닉네임", type: "text", width: 60,align:"center", visible: true},
+				{ name: "cmtContent", title: "내용", type: "text", width: 120,align:"center", visible: true},
+				{ name: "delYn", title: "상태", type: "text", width: 50, align: "center", visible: true,
 				    itemTemplate: function(value, item) {
 				    	
 				       var $customStatusText = $("<span>")
 				            .attr({role: "text"})
 				            .attr({id: "replyStatusRow" + item.brdSq})
-				            .append("zzz");
+				            .append("z");
 
 				        return $customStatusText;
 				    }

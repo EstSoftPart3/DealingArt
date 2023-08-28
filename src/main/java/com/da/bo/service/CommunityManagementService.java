@@ -19,8 +19,11 @@ public interface CommunityManagementService {
 	//게시물 관리 게시판 조회
 	public Map<String, Object> searchAllBoardList(Map<String, Object> param);
 	
-	//댓글 리스트
+	//댓글 게시물 리스트
 	public Map<String, Object> searchAllReplyList(Map<String, Object> param);
+	
+	//새창 댓글 리스트
+	public Map<String, Object> boardReplyList(Map<String, Object> param);
 	
 	//신고된 게시물 리스트
 	public Map<String, Object> searchAllRprtList(Map<String, Object> param);
