@@ -152,6 +152,7 @@
 			A.COMT_TITLE AS comtTitle,						/*제목*/
 			DATE_FORMAT(A.REG_DT, '%Y-%m-%d') AS regDt,		/*작성일*/
 			A.OPEN_YN AS openYn,								/*상태*/
+			A.DEL_YN AS delYn						
 			A.DEL_YN AS delYn,	
 			A.COMT_VIEWS AS comtView					
 		FROM
