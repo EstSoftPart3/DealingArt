@@ -196,7 +196,7 @@ html, body{font-size: calc(100vw / 75);}
 .body-wrap{
     padding-top: 7.7rem;
 }
-.contents{padding: 0 8px;}
+.contents{}
 
 .main-banner{
     height: 45.3rem;
@@ -7569,6 +7569,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .height_18_5rem{height: 18.5rem !important;}
 .pt10{padding-top: 10px !important;}
 .mt10{margin-top: 10px !important;}
+.mb30{margin-bottom: 30px !important;}
 .mt20{margin-top: 20px !important;}
 .mt30{margin-top: 30px !important;}
 .ml7{margin-left: 7px !important;}
