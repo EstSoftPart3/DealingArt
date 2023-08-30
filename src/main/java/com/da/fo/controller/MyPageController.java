@@ -1466,16 +1466,34 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/mypage_work_regipage2";
 	}
 	
+	// (모바일)작품 & 자랑하기 등록 페이지 오픈
+	@RequestMapping("/myPage/myWorkList_reg_mo")
+	public String myWorkList_reg_mo() {
+		return "thymeleaf/fo/myPage/mypage_work_regipage2_mo";
+	}
+	
 	// 전시후기/소개 등록 페이지 오픈
 	@RequestMapping("/myPage/myExhibit_reg")
 	public String myExhibit_reg() {
 		return "thymeleaf/fo/myPage/mypage_exhint_page2";
 	}
 	
+	// (모바일)전시후기/소개 등록 페이지 오픈
+	@RequestMapping("/myPage/myExhibit_reg_mo")
+	public String myExhibit_reg_mo() {
+		return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
+	}
+	
 	// 노하우 등록 페이지 오픈
 	@RequestMapping("/myPage/myKnowhow_reg")
 	public String myKnowhow_reg() {
 		return "thymeleaf/fo/myPage/mypage_knowhow_page2";
+	}
+	
+	// (모바일)노하우 등록 페이지 오픈
+	@RequestMapping("/myPage/myKnowhow_reg_mo")
+	public String myKnowhow_reg_mo() {
+		return "thymeleaf/fo/myPage/mypage_knowhow_page2_mo";
 	}
 	
 	// 전시후기/소개 등록
