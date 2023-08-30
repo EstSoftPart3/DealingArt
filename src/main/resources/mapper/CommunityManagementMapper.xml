@@ -153,6 +153,8 @@
 			DATE_FORMAT(A.REG_DT, '%Y-%m-%d') AS regDt,		/*작성일*/
 			A.OPEN_YN AS openYn,								/*상태*/
 			A.DEL_YN AS delYn						
+			A.DEL_YN AS delYn,	
+			A.COMT_VIEWS AS comtView					
 		FROM
         	TBL_DA_COMT_M AS A
         LEFT JOIN TBL_DA_MBR_M AS B

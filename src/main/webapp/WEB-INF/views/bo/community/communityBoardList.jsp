@@ -264,7 +264,7 @@ if (commuBorTypCd.equals("ABL")) {
 	
 		$(document).ready(function(){
 			//초기 날짜 설정
-			setDate("3");
+			setDate("0");
 			
 			// 게시물 리스트 ( 검색버튼 클릭시 보여줘야 함. 현재 확인하기 위해 동작 ) 
 			boardList();
@@ -704,14 +704,10 @@ if (commuBorTypCd.equals("ABL")) {
 		*/
 		function boardStatusUpdate(statusType){	
 			var params = new Object();
-			var selectedValue = getCheckedValue();
 
-		    if (!selectedValue) {
-		        alert('선택된 항목이 없습니다.');
-		        return;
-		    }
 			params.comtSq = getCheckedValue();
 			params.statusType = statusType;
+			debugger;
 			
 			$.ajax({
 	        	type: "post",
@@ -721,7 +717,7 @@ if (commuBorTypCd.equals("ABL")) {
 				alert(response.result+'개의 상태변경이 완료되었습니다.');
 				boardList();
 	   		}).fail(function(response){
-	   			alert('상태변경중 오류가 발생했습니다.');
+	   			alert('게시물을 선택해야 합니다 ');
 	   		});
 		}
 		//신고된 게시물 상태 변경
