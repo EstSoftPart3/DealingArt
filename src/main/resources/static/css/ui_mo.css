@@ -6856,13 +6856,14 @@ p.dib{display:inline-block !important;}
 .mypage_contents .contents_left .myinfo_wrap .icon_sns_box ul li .ico_twitter{width: 30px;height: 30px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_twitter.png") 50% 50% no-repeat;}
 
 .left_nav{display: none;}
-/* .left_nav{margin-top: 32px;}
-.left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;background: url("../img/img_new/ico_nav_plus.png") 98% 50% no-repeat;}
-.left_nav ul li.on{background: url("../img/img_new/ico_nav_minus.png") 98% 22px no-repeat;}
+.left_nav{margin-top: 32px;}
+.left_nav ul li{font-size: 3.25rem;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;}
+.left_nav ul li.on{background: url("../img/img_new/ico_nav_minus.png") 98% 3.5rem no-repeat;}
+.left_nav ul li.off{background: url("../img/img_new/ico_nav_plus.png") 98% 3.5rem no-repeat;}
 .left_nav ul li:last-child{border-bottom: 1px solid #e8e8e8;}
-.left_nav ul li ul li{font-size: 14px;font-weight: 300;padding: 8px 0;background: none;border: none;}
+.left_nav ul li ul li{font-size: 2.875rem;font-weight: 300;padding: 8px 0;background: none;border: none;}
 .left_nav ul li ul li:last-child{border-bottom: none;}
-.left_nav ul li ul li a:hover{font-weight: 500;color:#111111;} */
+.left_nav ul li ul li a:hover{font-weight: 500;color:#111111;}
 
 .mypage_contents .contents_right{width: 100%;height: 100%;float: none;position: relative;padding-left: 0;}
 
