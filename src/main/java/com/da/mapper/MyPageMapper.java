@@ -422,4 +422,68 @@ public interface MyPageMapper {
 	 * return : 
 	 */
 	public int myComtReg(Map<String, Object> param);
+	
+	/*
+	 * 마이페이지 커뮤니티 조회
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param);
+
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtOpenYn(Map<String, Object> param);
+	
+	/*
+	 * 마이페이지 커뮤니티 삭제 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtDelYn(Map<String, Object> param);
+	
+	/*
+	 * 마이페이지 알림 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Object param);
+	
+	/*
+	 * 마이페이지 메인 알림 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param);
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Object param);
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrap(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapTotal(Object param);
+	
 }

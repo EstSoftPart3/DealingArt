@@ -50,27 +50,96 @@ public class CommunityManagementDao {
 		return communityManagementMapper.communityManagementSave(param);
 	}
 	
-	//게시판 목록
-	public Map<String, Object> boardList(Map<String, Object> param){
+	/* 게시판 관리 공지글 등록 */
+	public int insertCommunityManagementNotice(Map<String, Object> param) {
+		return communityManagementMapper.insertCommunityManagementNotice(param);
+	}
+	
+	//게시물 목록
+	public Map<String, Object> searchAllBoardList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
 				
 		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> boardInfo = communityManagementMapper.boardList(param);
+		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllBoardList(param);
 		
 		//Map데이터를 List에 삽입
 		
 		 for(int z=0; z<boardInfo.size(); z++){
-			 String mbrIdDecrypt = (String) boardInfo.get(z).get("regMbrId");	
+			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");	
 			
 			//아이디 복호화
 			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
 			 
-			 boardInfo.get(z).put("regMbrId", mbrIdDecrypt);
+			 boardInfo.get(z).put("mbrId", mbrIdDecrypt);
 		  }
 		
 		result.put("boardInfo", boardInfo);
 				
 		return result;
 	}
+	//댓글 목록
+	public Map<String, Object> searchAllReplyList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllBoardList(param);
+		
+		//Map데이터를 List에 삽입
+		
+		 for(int z=0; z<boardInfo.size(); z++){
+			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");	
+			
+			//아이디 복호화
+			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
+			 
+			 boardInfo.get(z).put("mbrId", mbrIdDecrypt);
+		  }
+		
+		result.put("boardInfo", boardInfo);
+				
+		return result;
+	}
+	
+	//새창 댓글 리스트
+	public Map<String, Object> boardReplyList(Map<String, Object> param){
+			
+			Map<String, Object> result = new HashMap<>();
+					
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> boardInfo = communityManagementMapper.boardReplyList(param);
+			
+			result.put("boardInfo", boardInfo);
+			
+			return result;
+		}
+	
+	//신고된 게시물 목록
+	public Map<String, Object> searchAllRprtList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+				
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllRprtList(param);
+		
+		
+		result.put("boardInfo", boardInfo);
+				
+		return result;
+	}
+	//전체 게시물 상태 변경
+    public int boardStatusUpdate(String statusType, String comtSqList) {
+    	
+
+        return communityManagementMapper.boardStatusUpdate(statusType, comtSqList);
+    }
+    //신고된 게시물 상태 변경
+    public int rprtStatusUpdate(String statusType, String rprtSqList) {
+
+        return communityManagementMapper.rprtStatusUpdate(statusType, rprtSqList);
+    }
+    
+    
+
 }

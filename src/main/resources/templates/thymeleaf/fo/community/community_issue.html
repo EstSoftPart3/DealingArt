@@ -110,11 +110,11 @@
                 </ul>
             </div>
             <div class="input_wrap">
-                <div class="input_cal" style="display: inline; position: static;">
+                <div class="input_cal" style="display: flex; position: static;width: auto;align-items: center;">
                 	<input type="date" id="startDate" onchange="checkCalendar()">
-                	<span>~</span>
+                	<span style="margin: 0 10px;">~</span>
                 	<input type="date" id="endDate" onchange="checkCalendar()">
-                	<div class="sel_sorting">
+                	<div class="sel_sorting" style="position: relative;top: auto;right: auto;margin: 0 10px;">
 	                    <select class="knoSelectBox" name="comtSort" id="comtSort">
 	                        <option value="">정렬</option>
 	                        <option value="newest">최신순</option>
@@ -161,7 +161,7 @@
 	$(document).ready(function(){
 		
 		// 커뮤니티 노하우 뿌려주기
-		communityKnowhowList();
+		communityIssueList();
    		
    		// select 정렬 값 선택시 데이터 검색
    		$(".knoSelectBox").on("change", function(){
@@ -170,15 +170,15 @@
    			obj[id] = $(this).val();
    			offset = 0;
    			nowPage = 0;
-   			communityKnowhowList();
+   			communityIssueList();
    		});
 
    	});
 	
 	// 커뮤니티 노하우 뿌려주기
-   	function communityKnowhowList(){
+   	function communityIssueList(){
    		
-   		obj.comtTypCd = "KNO";
+   		obj.comtTypCd = "ISS";
    		obj.startDate = startDate;
    		obj.endDate = endDate;
    		obj.limit = 10;
@@ -190,7 +190,7 @@
    			url: "/community/communityListData",
    			data: obj,
    			success: (function(response){
-   				setKnowhowHtml(response.result);
+   				setIssueHtml(response.result);
    				setPagenation(response.totalCount);
    			}),
    			error: (function(response){
@@ -201,26 +201,26 @@
    	}
 	
 	// 노하우 뿌려주기
-   	function setKnowhowHtml(list){
+   	function setIssueHtml(list){
 		
    		var strHtml = '';
    		
    		window.scrollTo({top:0});
    		
-   		list.forEach( function (knowhow) {
+   		list.forEach( function (issue) {
    			strHtml += '<div class="exhint_row">';
-	        strHtml += '    <div class="exhint_list_img"><img src="'+ knowhow.comtImgUrl +'" class="img-fit-contain" onclick="opneKnowhowDetail('+knowhow.comtSq+');" alt="" style="cursor: pointer;"></div>';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ issue.comtImgUrl +'" class="img-fit-contain" onclick="opneIssueDetail('+issue.comtSq+');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
 	        strHtml += '        <ul>';
 	        
-	        strHtml += '			<div onclick="opneKnowhowDetail('+knowhow.comtSq+');" style="cursor: pointer;">';
+	        strHtml += '			<div onclick="opneIssueDetail('+issue.comtSq+');" style="cursor: pointer;">';
 	        strHtml += '            	<li>';
 	        strHtml += '                	<div class="tit">';
-	        strHtml += '                    	<em>'+ knowhow.comtTitle +'</em>';
+	        strHtml += '                    	<em>'+ issue.comtTitle +'</em>';
 	        strHtml += '						<div class="ico_new">NEW</div>';
 	        strHtml += '                	</div>';
 	        strHtml += '            	</li>';
-	        strHtml += '            	<li class="comt_content pt20">'+ knowhow.comtContent +'</li>';
+	        strHtml += '            	<li class="comt_content pt20">'+ issue.comtContent +'</li>';
 	        strHtml += '			</div>';
 	        
 	        strHtml += '            <li class="comt-row-info">';
@@ -228,21 +228,21 @@
 	        strHtml += '                    <div class="user">';
 	        strHtml += '                        <ul>';
 	        
-	        if(null != knowhow.mbrProfileImgUrl){
-		        strHtml += '                            <li class="pt5"><img src="'+ knowhow.mbrProfileImgUrl +'" alt=""></li>';
+	        if(null != issue.mbrProfileImgUrl){
+		        strHtml += '                            <li class="pt5"><img src="'+ issue.mbrProfileImgUrl +'" alt=""></li>';
 	        } else {
 	        	strHtml += '                            <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
 	        }
 	        
-	        strHtml += '                            <li class="user_name"><span>'+ knowhow.mbrNcknm +'</span></li>';
+	        strHtml += '                            <li class="user_name"><span>'+ issue.mbrNcknm +'</span></li>';
 	        strHtml += '                        </ul>';
 	        strHtml += '                    </div>';
 	        strHtml += '                    <div class="icon_box">';
 	        strHtml += '                        <ul>';
-	        strHtml += '                            <li><p class="ico_good"></p><span>'+ knowhow.comtLikes +'</span></li>';
-	        strHtml += '                            <li><p class="ico_scrap"></p><span>'+ knowhow.comtScraps +'</span></li>';
-	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ knowhow.comtViews +'</span></li>';
-	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ knowhow.comtCmts +'</span></li>';
+	        strHtml += '                            <li><p class="ico_good"></p><span>'+ issue.comtLikes +'</span></li>';
+	        strHtml += '                            <li><p class="ico_scrap"></p><span>'+ issue.comtScraps +'</span></li>';
+	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ issue.comtViews +'</span></li>';
+	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ issue.comtCmts +'</span></li>';
 	        strHtml += '                        </ul>';
 	        strHtml += '                    </div>';
 	        strHtml += '                </div>';
@@ -285,8 +285,8 @@
    		});
    	}
 	
-	function opneKnowhowDetail(comtSq){
-		location.href = "/community/knowhowDetail?SqNumber=" + comtSq;
+	function opneIssueDetail(comtSq){
+		location.href = "/community/issueDetail?SqNumber=" + comtSq;
 	}
 	
  	// 캘린더 선택시 조회하기 
@@ -318,26 +318,26 @@
 
  		// 이전 페이지
  		if(prev) {
- 			strHtml += '<a href="javascript:pageNextBtnCount = 0; nowPage = 0; communityKnowhowList();" class="next_end ml5"></a>';
- 			strHtml += '<a href="javascript:pageNextBtnCount--; nowPage = 10 * pageNextBtnCount; communityKnowhowList();" class="next ml10"></a>'
+ 			strHtml += '<a href="javascript:pageNextBtnCount = 0; nowPage = 0; communityIssueList();" class="next_end ml5"></a>';
+ 			strHtml += '<a href="javascript:pageNextBtnCount--; nowPage = 10 * pageNextBtnCount; communityIssueList();" class="next ml10"></a>'
  		}
  		
  		// 페이지 넘버
  		for(i = 0 * ( pageNextBtnCount * 10 ); i < endPage; i++) {
  			
  			if(nowPage == i) {
- 				strHtml += '<a href="javascript:nowPage ='+ i +'; communityKnowhowList();"><strong>'+ ( i + 1 ) +'</strong></a>';
+ 				strHtml += '<a href="javascript:nowPage ='+ i +'; communityIssueList();"><strong>'+ ( i + 1 ) +'</strong></a>';
  			} else {
-	 			strHtml += '<a href="javascript:nowPage ='+ i +'; communityKnowhowList();">'+ ( i + 1 ) +'</a>';
+	 			strHtml += '<a href="javascript:nowPage ='+ i +'; communityIssueList();">'+ ( i + 1 ) +'</a>';
  			}
  		}
  		
  		// 다음 페이지
  		if(next){
- 			strHtml += '<a href="javascript:pageNextBtnCount++; nowPage = 10 * pageNextBtnCount; communityKnowhowList();" class="next ml10"></a>'
+ 			strHtml += '<a href="javascript:pageNextBtnCount++; nowPage = 10 * pageNextBtnCount; communityIssueList();" class="next ml10"></a>'
  			
  			var finalPage = Math.ceil( realEndPage / 10 );
- 			strHtml += '<a href="javascript:pageNextBtnCount = finalPage - 1; nowPage = ( finalPage - 1 ) * 10 ; communityKnowhowList();" class="next_end ml5"></a>';
+ 			strHtml += '<a href="javascript:pageNextBtnCount = finalPage - 1; nowPage = ( finalPage - 1 ) * 10 ; communityIssueList();" class="next_end ml5"></a>';
  		}
 
  		$("#paginate").append(strHtml);

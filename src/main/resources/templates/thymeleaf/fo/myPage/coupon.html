@@ -79,6 +79,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+	<link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
 </head>
 
@@ -87,16 +88,15 @@
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		
 		<div class="body-wrap">
-			<div class="contents">
-				
-				<div class="con-wrap">
+			<div class="mypage_wrap">
+				<h2>My Deal</h2>
+				<div class="mypage_contents">
 					
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+					<div id = "left_menu"></div>
+					<div class="contents_right">
 					
-					<div class="con-right m-max1300">
-					
-						<div class="me-left me-move">
-							<div class="me-sech">
+						<div class="me-move">
+							<div>
 								<div class="is-bos">
 									<div class="is-sum">
 										<input type="text" id="inp_cuponNum" class="" placeholder="쿠폰입력" />
@@ -138,6 +138,8 @@
 <script type="text/javascript">      
       
  $(document).ready(function () {
+	  $("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+
   $(".elm").hover(
 	function(){ $(this).addClass('hover') },
     function(){ $(this).removeClass('hover') }
@@ -197,6 +199,7 @@
 });
       
 jQuery(document).ready(function() {
+	/*
 	if(sAuthSqVal == 2){
 		document.getElementById("portfolio").style.display="";
 	}
@@ -207,7 +210,7 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>My Deal</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#coupon").addClass("active");
-	
+	*/
 	myCouponList(1);
 });
 

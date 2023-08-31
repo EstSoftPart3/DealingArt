@@ -201,4 +201,13 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 	
+	/*
+	 * 판매 제안하기 or 요청하기 등록
+	 * param :
+	 * return :
+	 */
+	public int insertComtRequest(Map<String, Object> param) {
+		return communityDao.insertComtRequest(param);
+	}
+	
 }

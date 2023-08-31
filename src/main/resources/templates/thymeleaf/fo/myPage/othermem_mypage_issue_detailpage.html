@@ -123,9 +123,10 @@
     <script th:inline="javascript">
 	// 커뮤니티 순번
 	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default';
- 	var mbr = /*[[${knowhow.mbrSq}]]*/ 'default';
- 	var comt = /*[[${knowhow}]]*/ 'default';
+ 	var mbr = /*[[${issue.mbrSq}]]*/ 'default';
+ 	var comt = /*[[${issue}]]*/ 'default';
  	var otherComt = /*[[${otherComt}]]*/ 'default';
+ 	var showOff = null;
  	
     $(document).ready(function(){
     	setComtDetailInfo();
@@ -135,7 +136,7 @@
     	var otherComtHtml = setOtherComtHtml(comt.mbrNcknm, otherComt, "이슈");
     	$(".artist_contents").append(otherComtHtml).trigger("create");
     	
-    	otherComtWorkList(otherComt, "/community/knowhowDetail");
+    	otherComtWorkList(otherComt, "/community/issueDetail");
     	initOtherComtWorkListSwiper();
     	
     	setComment(comtSq);

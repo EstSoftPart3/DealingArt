@@ -60,7 +60,7 @@
 		LIMIT 3
 	</select>
 	
-	<select id="myPageMain_myWorksTotal" parameterType="String" resultType="int">
+	<select id="myPageMain_myWorksTotal" parameterType="hashMap" resultType="int">
 		/*마이페이지 메인 나의 작품 총 갯수 조회*/
 		SELECT 
 				COUNT(WORKS.WORK_SQ) AS total
@@ -76,6 +76,11 @@
 				WORKS.MBR_SQ = #{mbrSq}
 			AND WORKS.DEL_YN = 'N'
 			AND WORKS.USE_YN = 'Y'
+	
+			<if test="workTypCd != null and workTypCd != ''">
+					AND WORKS.WORK_TYP_CD = #{workTypCd}
+			</if>
+			
 	</select>
 	
 	<select id="myPageMain_myCommunitys" parameterType="hashMap" resultType="hashMap">
@@ -96,6 +101,8 @@
 				, COMT.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
 				, COMT.UPDT_DT AS  updtDt /*수정_일시*/
 				, COMT.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+				, COMT.COMT_LIKES AS cmtLikes /*커뮤니티글_좋아요*/
+				, COMT.COMT_SCRAPS AS cmtScraps /*커뮤니티글_스크랩*/
 		FROM 
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
@@ -123,7 +130,145 @@
 			AND COMT.DEL_YN = 'N'
 			AND COMT.USE_YN = 'Y'
 		ORDER BY COMT.REG_DT DESC
+		
+		<if test = 'limit !="" and limit != null'>
+			LIMIT #{limit}
+		</if>
+		
+	</select>
+	
+		<select id="myPageMain_myNoti" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 메인 나의 알람 조회*/
+		SELECT 
+				NOTI.COMT_SQ AS comtSq /*커뮤니티_순번*/
+				, NOTI.MBR_SQ AS mbrSq /*회원_순번*/
+				, NOTI.WORK_SQ AS workSq /*작품_순번*/
+				, NOTI.ARTST_SQ AS artstSq /*작가_순번*/
+				, NOTI.DEAL_SQ AS dealSq /*거래_순번*/
+				, NOTI.COMT_TYP_CD AS comtTypCd /*커뮤니티_타입_코드*/
+				, NOTI.COMT_IMG_URL AS comtImgUrl /*커뮤니티_이미지_URL*/
+				, NOTI.REG_DT AS regDt /*등록_일시*/
+				, NOTI.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, NOTI.UPDT_DT AS  updtDt /*수정_일시*/
+				, NOTI.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+		FROM 
+				TBL_DA_NOTI_M AS NOTI
+		WHERE 
+				COMT.MBR_SQ = #{mbrSq}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+		ORDER BY COMT.REG_DT DESC
 		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_notificationbox" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 알람 조회*/
+		SELECT 
+				NOTI.NOTI_SQ AS notiSq /*커뮤니티_순번*/
+				, NOTI.MBR_SQ AS mbrSq /*회원_순번*/
+				, NOTI.WORK_SQ AS workSq /*작품_순번*/
+				, NOTI.ARTST_SQ AS artstSq /*작가_순번*/
+				, NOTI.DEAL_SQ AS dealSq /*거래_순번*/
+				, NOTI.NOTI_CAT_CD AS notiCatCd /*알림_유형_코드*/
+				, NOTI.QUESTION_MBR_SQ AS questionMbrSq /*문의_회원_순번*/
+				, NOTI.QUESTION_CONTENT AS questionContent /*문의_내용*/
+				, NOTI.REG_DT AS regDt /*등록_일시*/
+				, NOTI.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, NOTI.UPDT_DT AS  updtDt /*수정_일시*/
+				, CASE WHEN TIMESTAMPDIFF(HOUR, NOTI.UPDT_DT, NOW()) > 24
+					   THEN CONCAT(CAST(TIMESTAMPDIFF(DAY, NOTI.UPDT_DT, NOW()) AS CHAR(10)), "일전")
+					   ELSE CONCAT(CAST(TIMESTAMPDIFF(HOUR, NOTI.UPDT_DT, NOW()) AS CHAR(10)), "시간전")
+					   END AS time
+				, NOTI.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+				, WORK.WORK_NM AS workNm /*작품_명*/
+				, WORK.ARTST_ACTVTY_NM AS artstActvtyNm /*작가_활동_명*/
+				, WORK.ARTST_ENGLS_NM AS artstEnglsNm /*작가_영문_명*/
+				, WORK.WORK_MAIN_IMG_URL AS workMainImgUrl /*작품_대표_이미지_URL*/
+				, DEAL.DEAL_STRT_PRC AS dealStrtPrc /*거래_시작_가격*/
+				, MBR.MBR_NCKNM AS mbrNckNm /*회원_닉네임*/
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl /*회원_프로필_이미지_URL*/
+		FROM 
+				TBL_DA_NOTI_M AS NOTI
+				LEFT JOIN TBL_DA_WORK_M AS WORK 
+				ON NOTI.WORK_SQ = WORK.WORK_SQ
+				LEFT JOIN TBL_DA_DEAL_M AS DEAL
+				ON NOTI.DEAL_SQ = DEAL.DEAL_SQ 
+				LEFT JOIN TBL_DA_MBR_M MBR
+				ON NOTI.QUESTION_MBR_SQ = MBR.MBR_SQ 
+		WHERE 1=1
+		<if test="mbrSq != null and mbrSq != ''">
+		AND NOTI.MBR_SQ = #{mbrSq}
+		</if>
+		<if test="notiCatCd != null and notiCatCd != ''">
+		AND NOTI.NOTI_CAT_CD = #{notiCatCd}
+		</if>
+		AND NOTI.NOTI_TYP_CD = 'GEN'
+		ORDER BY NOTI.REG_DT DESC
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_notificationTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 알람 개수 조회*/
+		SELECT COUNT(*) 
+		FROM TBL_DA_NOTI_M AS NOTI
+		WHERE 1=1
+		<if test="mbrSq != null and mbrSq != ''">
+		AND NOTI.MBR_SQ = #{mbrSq}
+		</if>
+		<if test="notiCatCd != null and notiCatCd != ''">
+		AND NOTI.NOTI_CAT_CD = #{notiCatCd}
+		</if>
+		AND NOTI.NOTI_TYP_CD = 'GEN'
+	</select>
+	
+	<select id="myPage_following" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 팔로잉 조회*/
+		SELECT 
+				(CASE 
+					WHEN MBR.MBR_PROFILE_IMG_URL != NULL AND '' THEN MBR.MBR_PROFILE_IMG_URL
+					ELSE ARTST.ARTST_PROFILE_IMG_URL
+				END) AS mbrProfileImgUrl /*회원_프로필_이미지_URL*/
+				, MBR.MBR_NCKNM AS mbrNckNm /*회원_닉네임*/
+				, MBR.MBR_INTRO AS mbrIntro /*회원_자기소개*/
+				, MBR.MBR_SQ 
+		FROM 
+				TBL_DA_FOLLOWING_M AS FOLLOW
+		LEFT JOIN 
+				TBL_DA_MBR_M AS MBR
+		    ON 	FOLLOW.FOLLOWING_SQ = MBR.MBR_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	MBR.MBR_SQ = ARTST.MBR_SQ
+		WHERE 1=1
+		  <if test="mbrSq != null and mbrSq != ''">
+				AND FOLLOW.MBR_SQ = #{mbrSq}
+		  </if>
+		  <if test="authSq != null and authSq != ''">
+				AND MBR.AUTH_SQ = #{authSq}
+		  </if>
+		  <if test="searchWord != null and searchWord != ''">
+		  		AND MBR.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
+		  </if>
+		ORDER BY FOLLOW.FOLLOWING_SQ DESC
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_followingTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 팔로잉 개수 조회*/
+		SELECT COUNT(*) 
+		FROM TBL_DA_FOLLOWING_M AS FOLLOW
+		     LEFT JOIN TBL_DA_MBR_M AS MBR
+		     ON FOLLOW.FOLLOWING_SQ = MBR.MBR_SQ
+		WHERE 1=1
+		  <if test="mbrSq != null and mbrSq != ''">
+			AND FOLLOW.MBR_SQ = #{mbrSq}
+		  </if>
+		  <if test="authSq != null and authSq != ''">
+			AND MBR.AUTH_SQ = #{authSq}
+		  </if>
+		  <if test="searchWord != null and searchWord != ''">
+		  AND MBR.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
+		  </if>
 	</select>
 	
 	<select id="myPageMain_myCommunitysTotal" parameterType="hashMap" resultType="int">
@@ -149,6 +294,9 @@
 			AND COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
 			AND COMT.USE_YN = 'Y'
+			<if test="workTypCd != null and workTypCd != ''">
+					AND WORKS.WORK_TYP_CD = #{workTypCd}
+			</if>
 	</select>
 
 	<update id="trnsprtTypCdUpdate" parameterType="hashMap">
@@ -1014,6 +1162,7 @@
 				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
 				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
 				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl, /*프로필 이미지*/
 				(SELECT FORMAT(MAX(BID_PRC), 0)
 				FROM TBL_DA_AUCTN_BID_H
 				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
@@ -1059,9 +1208,21 @@
 				<if test='dealYn == "N"'>
 					AND DEAL_SQ IS NULL
 				</if>
+				<if test='WorkOpenYn == "Y"'>
+					AND A.WORK_OPEN_YN = 'Y'
+				</if>
+				<if test='WorkOpenYn == "N"'>
+					AND A.WORK_OPEN_YN = 'N'
+				</if>
 				<if test='dealBidYn == "Y"'>
 					HAVING bidCnt = 0;
 				</if>
+				<if test='sortCd == "recent"'>
+					ORDER BY A.REG_DT ASC
+				</if>				
+				<if test='sortCd == "past"'>
+					ORDER BY A.REG_DT DESC
+				</if>				
 				
 	</select>
 	
@@ -1073,7 +1234,7 @@
 		SET		
 				WORK_OPEN_YN = #{item.workOpenYn}
 		WHERE  
-				WORK_SQ = #{item.workSq};
+				WORK_SQ = #{item.workSq}
 		</foreach>
 	</update>
 	
@@ -1241,8 +1402,6 @@
 									,WORK_IMG_FRT_URL
 									,WORK_FRM_YN
 									,WORK_SALE_YN
-									,REG_DT
-									,REG_MBR_SQ
 									,UPDT_DT
 									,UPDT_MBR_SQ
 									<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -1314,8 +1473,6 @@
 								,#{workImgFrtUrl}
 								,#{workFrmYn}
 								,#{workSaleYn}
-								,NOW()
-								,#{mbrSq}
 								,NOW()
 								,#{mbrSq}
 								<if test="artstEnglsNm != null and artstEnglsNm != ''">
@@ -2846,5 +3003,126 @@
    				#{comtOpenYn}			
    		)
    </insert>
-
+   
+   	<select id="myPage_myCommunitysList" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 커뮤니티 관련 리스트 조회*/
+		SELECT 
+				COMT.COMT_SQ AS comtSq /*커뮤니티_순번*/
+				, COMT.MBR_SQ AS mbrSq /*회원_순번*/
+				, COMT.WORK_SQ AS workSq /*작품_순번*/
+				, COMT.ARTST_SQ AS artstSq /*작가_순번*/
+				, COMT.DEAL_SQ AS dealSq /*거래_순번*/
+				, COMT.COMT_TYP_CD AS comtTypCd /*커뮤니티_타입_코드*/
+				, CDDTL.DTL_CD_NM AS comtTypCdNm /*커뮤니티_타입_코드_이름*/
+				, COMT.COMT_IMG_URL AS comtImgUrl /*커뮤니티_이미지_URL*/
+				, COMT.COMT_TITLE AS comtTitle /*커뮤니티_제목*/
+				, IFNULL((SELECT COUNT(CMT_SQ) FROM TBL_DA_COMT_CMTS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) 
+					+ IFNULL((SELECT COUNT(REPLY_SQ) FROM TBL_DA_COMT_REPLYS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) AS cmtTotalCount /*커뮤니티_댓글_총갯수*/
+				, COMT.REG_DT AS regDt /*등록_일시*/
+				, COMT.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, COMT.UPDT_DT AS  updtDt /*수정_일시*/
+				, COMT.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+				, COMT.COMT_LIKES AS cmtLikes /*커뮤니티글_좋아요*/
+				, COMT.COMT_SCRAPS AS cmtScraps /*커뮤니티글_스크랩*/
+				, COMT.COMT_VIEWS AS cmtViews /*커뮤니티글_스크랩*/
+				, COMT.OPEN_YN AS cmtOpenYn /*커뮤니티글_공개 유무*/
+				, COMT.COMT_CONTENT AS cmtContent /*커뮤니티글_내용*/
+				, WORKS.ARTST_ACTVTY_NM AS artstActvtyNm /*작가활동명*/
+				, WORKS.WORK_NM AS workNm /*작품_이름*/
+				, ARTST.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl /*작가프로필사진주소*/
+				, MBR.MBR_NCKNM AS mbrNcknm /*회원_닉네임*/
+				, MBR.MBR_INTRO AS mbrIntro /*회원_자기소개*/
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl /*회원_자기소개*/
+				
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_WORK_M AS WORKS
+			ON	COMT.WORK_SQ = WORKS.WORK_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	COMT.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_DEAL_M AS DEAL
+			ON	COMT.DEAL_SQ = DEAL.DEAL_SQ
+		LEFT JOIN 
+				TBL_DA_COMN_CD_M AS CD
+			ON	CD.CD = 'COMT_TYP_CD'
+		LEFT JOIN 
+				TBL_DA_COMN_DTL_CD_S AS CDDTL
+			ON	CD.CD_SQ = CDDTL.CD_SQ
+			AND CDDTL.DTL_CD = COMT.COMT_TYP_CD
+		WHERE 
+				COMT.MBR_SQ = #{mbrSq}
+			AND COMT.COMT_TYP_CD = #{comtTypCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+			<if test="workTypCd != null and workTypCd != ''">
+					AND WORKS.WORK_TYP_CD = #{workTypCd}
+			</if>
+			<if test='keyword != null and keywork != ""'>
+					AND (
+							WORKS.WORK_NM LIKE CONCAT('%',#{keyword},'%')
+						OR 	COMT.COMT_TITLE LIKE CONCAT('%',#{keyword},'%')
+						OR 	WORKS.ARTST_ACTVTY_NM LIKE CONCAT('%',#{keyword},'%')
+						OR 	WORKS.ARTST_ENGLS_NM LIKE CONCAT('%',#{keyword},'%')
+					)
+			</if>
+			<if test='selGubun != null and selGubun != ""'>
+				AND COMT.EXHIBIT_TYP_CD = #{selGubun}
+			</if>
+			<if test='selRegion != null and selRegion != ""'>
+				AND COMT.EXHIBIT_REGION_CD = #{selRegion}
+			</if>
+				<if test='WorkOpenYn == "Y"'>
+					AND COMT.OPEN_YN = 'Y'
+				</if>
+				<if test='WorkOpenYn == "N"'>
+					AND COMT.OPEN_YN = 'N'
+				</if>
+				<if test='sortCd == "recent"'>
+					ORDER BY COMT.REG_DT ASC
+				</if>				
+				<if test='sortCd == "past"'>
+					ORDER BY COMT.REG_DT DESC
+				</if>
+				<!-- 게시판 관리자에서 최근 설정값 불러와야함 아직 정의안됨-->
+				<if test='sortCd == "recent_popul"'>
+				</if>				
+				<if test='sortCd == "popul"'>
+					ORDER BY COMT.COMT_LIKES ASC
+				</if>				
+				<if test ='comtTypCd == "BOA"'>
+					LIMIT ${startIndex}, ${searchStep}
+				</if>
+				<if test ='comtTypCd == "EXH" or comtTypCd == "ISS"'>
+					LIMIT ${limit} OFFSET ${offset}
+				</if>
+	</select>
+	
+	<update id="myComtOpenYn" parameterType="hashMap">
+		/*작품 공개/비공개 설정*/
+		UPDATE 
+				TBL_DA_COMT_M 
+		SET		
+				OPEN_YN = #{comtOpenYn}
+		WHERE  
+				COMT_SQ = #{comtSq}
+	</update>
+	
+	<update id="myComtDelYn" parameterType="hashMap">
+		/*커뮤니티글 삭제 설정*/
+		UPDATE 
+				TBL_DA_COMT_M 
+		SET		
+				DEL_YN = 'Y'
+				, UPDT_DT = NOW()
+				, UPDT_MBR_SQ = #{mbrSq}
+		WHERE  
+				COMT_SQ = #{comtSq};
+				
+	</update>
 </mapper>

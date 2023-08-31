@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>딜링아트</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#000000">
+	
+	<meta name="author" content="">
+	<meta name="keywords" content="미술,아트,경매,수수료,정찰,운송,보험,직거래,dealingart">
+	<meta name="description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:description" content="미술품 거래의 새로운 트렌드">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="딜링아트">
+	<meta property="og:image" content="https://www.dealing-art.com/resources/img/DA_logo_og.png">
+	<meta property="og:url" content="https://www.dealing-art.com">
+	
+	<meta name="robots"content="noindex">
+	
+	<!-- google -->
+    <meta name="google-site-verification" content="EKiW_Lm3Qw-DYnLT9qokEpZT2Sa8tSQuVWhVEvs4kPk" />
+    <!-- faceBook -->
+    <meta name="facebook-domain-verification" content="bgotqya9tcsrgrmspnq0uywh85kjzh" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-WRJBSR52MT');
+	</script>
+	
+	<!-- Google Tag Manager -->
+	<!-- 페이지의 <head>에서 가능한 한 높은 위치에 코드를 붙여넣으세요. -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NBP5CQ9');</script>
+	<!-- End Google Tag Manager -->
+			
+	<!-- Google Tag Manager (noscript) -->
+	<!-- 또한 여는 <body> 태그 바로 뒤에 코드를 붙여넣으세요. -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBP5CQ9"height="0" width="0" style="display:none; visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	
+	
+	<!-- 페이스북 Meta Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '5995234030505207');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
+    
+    <style>
+    	.head-wrap{border-bottom:#e9e9e9 1px solid;}
+    	.swi-box::before{background-color:#f9f9f9;}
+    	.footer-wrap{margin-top:0;}
+    	.hd-div{background-color:#fff;}
+    	[name=COLLworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		[name=WORKworkClrCd]:checked+label{
+		  outline: 5px solid gray;
+		}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		/* Firefox */
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
+    </style>
+    
+    <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+</head>
+<body>
+	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+    <div id="container">
+        <div class="mypage_wrap">
+            <div class="works_showingoff_detail_page_wrap mb30">                                  
+                <h2 class="mt50">작품정보</h2>
+                <div class="works_info_wrap">
+                    <div class="works_info_left">
+                        <div class="contents_box">
+                            <div class="big_img">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                            </div>
+                            <div class="small_img">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                                <img src="/resources/img/img_new/sample_works_info_bimg00.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works_info_right">
+                        <div class="tit_wrap">
+                            <div class="tit_01">alex katz</div>
+                            <div class="tit_02">[사전출품]December(ADA) (Edi 48/100)</div>
+                        </div>
+                        <div class="user_wrap mt20">
+                            <div class="user">
+                                <ul>
+                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
+                                    <li class="user_name pr10"><span>딜링아트</span></li>
+                                    <li class="mem_type"><span class="ml0">컬렉터</span></li>
+                                </ul>
+                            </div>
+                            <div class="icon_box">
+                                <ul>
+                                    <li><p class="ico_good"></p><span>99</span></li>
+                                    <li><p class="ico_scrap"></p><span>99</span></li>
+                                    <li><p class="ico_hits"></p><span>99</span></li>
+                                    <li><p class="ico_comments"></p><span>99</span></li>
+                                    <li><p class="ico_report"></p><span>99</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="tstyle1">
+							<tbody>
+                                <tr>
+                                    <th>제작년도</th>
+                                    <td>2020</td>
+                                </tr>
+                                <tr>
+                                    <th>소재/기법</th>
+                                    <td>Pigment print</td>
+                                </tr>
+                                <tr>
+                                    <th>액자</th>
+                                    
+                                    <td>없음</td>
+                                </tr>
+                                <tr>
+                                    <th>사이즈</th>
+                                    <td>24 X 29</td>
+                                </tr>
+                                <tr>
+                                    <th>호수</th>
+                                    <td>4 
+                                    <img src="/resources/img/img_new/ico_worksInfo_quest_mark.png" style="cursor:pointer;vertical-align: bottom;margin-left: 5px;" onclick="openLakeHelp()"></td>
+                                </tr>
+                                <tr>
+                                    <th>판매 여부</th>                                    
+                                    <td>미판매</td>
+                                </tr>
+                                <tr>
+                                    <th>메인 컬러</th>
+								    <td><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked=""><label for="mc-9" class="mc-9 active"></label></div></td>
+								</tr>
+							    <tr>
+								    <th>작품상태</th>
+								    <td>작품상태는 매우 좋습니다.</td>								
+							    </tr>
+                                <tr>
+								    <th>작품 키워드</th>
+								    <td class="keyword"><a href="#">#딜링아트</a> <a href="#">#미술품 직거래</a> <a href="#">#봄 인테리어</a> <a href="#">#작품구매</a> <a href="#">#작품판매</a> <a href="#">#희망</a></td>								
+							    </tr>
+						    </tbody>
+                        </table>
+                        <div class="btn_worksInfo_wrap mt30" style="margin-top: 2.875rem !important;">
+                            <button class="width77per">판매 제안하기</button>
+                            <button class="btn_list width20per ml10">목록</button>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="mt30">자랑하기</h2>
+                <div class="contents_showingoff_wrap">
+                    <div class="showingoff_con_left">
+                        <div class="img">
+                            <img src="/resources/img/img_new/sample_showingoff00.jpg" alt="">
+                        </div>
+                        <div class="con_r">
+                            <h4>컬린이의 도전</h4>
+                            <span class="day">23.07.07</span>
+                            <p>
+                                국내 미술 시장은 고속 성장 중임에도 불구하고
+                                제한된 채널, 일방향의 거래 방식, 높은 수수료 등
+                                현행의 미술품 거래 방식은 시장 성장의 제약으로 작용하고 있습니다.
+                                전통적인 미술품 거래 방식의 선호는 유지하되,
+                                투명하고 상식적인, 불편을 제거한 온라인 미술품 거래 구조 개선을 통해 누구나 미술을 접하고 나눌 수 있는
+                                서비스 제공을 목표로 합니다.
+                            </p>
+                            <button class="btn_more">더보기</button>
+                        </div>
+                    </div>
+                    <div class="showingoff_con_right">
+                        <div class="img">
+                            <img src="/resources/img/img_new/sample_showingoff00.jpg" alt="">
+                        </div>
+                        <div class="con_r">
+                            <h4>컬린이의 도전</h4>
+                            <span class="day">23.07.07</span>
+                            <p>
+                                국내 미술 시장은 고속 성장 중임에도 불구하고
+                                제한된 채널, 일방향의 거래 방식, 높은 수수료 등
+                                현행의 미술품 거래 방식은 시장 성장의 제약으로 작용하고 있습니다.
+                                전통적인 미술품 거래 방식의 선호는 유지하되,
+                                투명하고 상식적인, 불편을 제거한 온라인 미술품 거래 구조 개선을 통해 누구나 미술을 접하고 나눌 수 있는
+                                서비스 제공을 목표로 합니다.
+                            </p>
+                            <button class="btn_more">더보기</button>
+                        </div>
+                    </div>
+                </div>                 
+            </div>
+            <div class="works_showingoff_detai2_page_wrap">
+                <h2 class="mt30">작가정보</h2>
+                <div class="artist_info_wrap">
+                    <div class="artist_info_left">
+                        <img src="/resources/img/img_new/sample_artistInfo_photo00.jpg" alt="">
+                    </div>
+                    <div class="artist_info_right">
+                        <span class="artist_name">이미소 (Lee Mi-so)</span>
+                        <p>
+                            이미소 작가는 다채로운 색감을 통해 세상을 바라본다. 시간이 지나면 금세 잊혀지는 감정들을 기록하고,<br>
+                            현대인의 억압된 감정을 해소시키기 위해 작품에 감정을 심었으며, 이는 나무의 형태로 나타난다. 나뭇잎이 자라났다 떨어지는 순환의 모습을<br>
+                            인간이 느끼는 감정의 선과 동일시한다.<br>
+                            배경에 등장하는 풍경은 마음의 위로를 더 해주고 일상의 찰나에서 얻은 사소한 감정을 오아시스로 표현한다.<br> 
+                            감성을 자극하는 작가의 작품은 파스텔 톤의 따듯한 분위기를 가지고 있으며 매끄럽고 부드러운 동화적 표현으로 평온을 선물해왔다.<br> 
+                            작가는 이보다 더 나아가 시선을 더 넓게 하여, 거친 현 사회와 주변 환경을 작품에 담는다. 유화에 대한 이해도가 높은 작가는 터치감을 극대화한 나무를 추가하고<br>
+                            더 나아가 숲을 만들며 여러 미디엄에 대한 질감표현 연구를 통해 발전하고 있다.
+                        </p>
+                    </div>                    
+                    <button class="btn_more">더보기</button>
+                </div>
+                <div class="artist_contents">
+                    <div class="contents_tit">
+                        <h4>회원(닉네임)님의 다른 작품</h4>
+                        <button>+더보기</button>
+                    </div>
+                    <div class="swi-box1 max-1500">
+						<div class="swiper mySwiper2 swiper-initialized swiper-horizontal swiper-backface-hidden">
+							<div class="swiper-wrapper" id="swiper_workList" aria-live="polite">
+                                <div class="swiper-slide hd-div swiper-slide-active" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=202">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/artstWork/34/M341.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">무제 (김희수작가)(2020)			<br>소재 Acrylic on cavas, 37.9 x 45.5cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide hd-div swiper-slide-next" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=497">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/collection/145/d65f22cd-09e9-493b-9ef5-e0fc098d21181663572906911.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">무제(2020)			<br>소재 Acrylic on canvas, 72 x 53cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide hd-div" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=498">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/collection/145/7139fd02-e21e-4b46-9a39-a47428b96cac1663572906823.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">무제(2017)			<br>소재 Acrylic on canvas, 45 x 37cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide hd-div" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=499">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/collection/145/5b8b486a-05f1-4428-8061-da0061c738981663572906774.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">무제(2020)			<br>소재 Acrylic on canvas, 33 x 45cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide hd-div" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=500">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/collection/145/e1628651-0a44-4c41-b38d-fcc348ba129f1663572906867.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">무제(2017)			<br>소재 Acrylic on canvas, 53 x 45cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide hd-div" style="width: 464px;">
+                                    <a href="/deal/workDetail?SqNumber=502">
+                                        <img src="https://dealingart-resorce.s3.ap-northeast-2.amazonaws.com/dealingart/collection/812/92f61448-5e25-48c4-ac7c-7343c519157a%EB%8C%80%ED%91%9C%EC%82%AC%EC%A7%84.jpg" class="hd-img" style="width:100&amp;;">
+                                        <div class="hd-text">
+                                            <h4 style="height:100px;">김희수(1984)</h4>
+                                            <div class="hd-d1">Untitled(2021)			<br>소재 Acrylic on canvas, 41 x 27cm</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+							<div class="swiper-pagination swpa-2 pc-no"></div>
+						<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+						<div class="swiper-button-next sbn ta-no" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper_workList" aria-disabled="false"><span><img src="/resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper_workList" aria-disabled="true"><span><img src="/resources/img/arr-l.jpg"></span></div>
+					</div>                   
+                </div>                
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+</body>
+</html>

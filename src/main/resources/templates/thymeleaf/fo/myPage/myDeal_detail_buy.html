@@ -82,8 +82,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
-    
-    
+            <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
 </head>
 <body>
@@ -91,12 +90,13 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>  	
 	
 		<div class="body-wrap">
-			<div class="contents">
-				<div class="con-wrap">
-					<th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
-					
-					<div class="con-right m-max1300" style="display:none">
-						<div class="me-left">
+			<div class="mypage_wrap">
+				<h2>거래 계약 상세</h2>
+				<div class="mypage_contents">
+							
+					<div id = "left_menu"></div>
+					<div class="contents_right">
+						<div >
 							<div class="med">
 								<h2 class="">거래정보</h2>
 									<div class="med-ic">
@@ -956,8 +956,10 @@ window.onpopstate = function(e) {   
  */
 jQuery(document).ready(function() {
 	
+	 $("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+
 	$(".selectpicker").selectpicker(); //셀렉트피커 활성화
-	
+	/*
 	$("#conTitle").empty();
 	const conBtn = document.getElementById("conBtn");
 	conBtn.remove();
@@ -965,6 +967,7 @@ jQuery(document).ready(function() {
 	conTitleHtml += '<h3>거래 계약 상세</h3>';
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	$("#myDeal").addClass("active");
+	*/
 	$("#sbx_trnsprtAreaCd").selectpicker("hide"); //운송지역코드 숨기기
 	if(result.dealInfo.dealTypCd == "A" && result.dealInfo.dealSttsCd == "TP"){ //경매면서 판매중이면
 		if(result.dealInfo.bidMbrSq == sMbrSqVal){ //가장 높은 입찰자면

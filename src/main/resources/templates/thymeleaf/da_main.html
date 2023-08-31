@@ -204,12 +204,12 @@
                 
             </div> -->
             <!-- New deal --> <!-- 0808 -->
-			<div class="contents max-1500" id="newDeal_title">
-				<div class="cont-title">
-					<h3>지금 거래중인 작품</h3>
-					<a href="#"><button type="button" class="btn_more">더보기</button></a>
-				</div>
-				<div class="swi-box">
+			<div class="contents max-1500 market_work_wrap" id="newDeal_title">				
+				<div class="tit_wrap">
+                    <h2>지금 거래중인 작품</h2>
+                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                </div>
+				<div class="swi-box mt10">
 					<div class="swiper mySwiper1">
 						<div class="swiper-wrapper" id="nowDealWorkBox"></div>
 						<div class="swiper-pagination swpa-2 pc-no"></div>
@@ -245,13 +245,12 @@
                 </div>
             </div> -->
             <!-- Dealing Art Insights -->
-			<div class="contents max-1500">
-				<div class="cont-title ta-t60">
-					<!-- <h3>Dealing Art <span class="ta-no"><br/></span>Insights</h3> -->
-					<h3>매거진9</h3>
-					<a href="#"><button type="button" class="btn_more">더보기</button></a>
-				</div>
-				<div class="cns-div swi-box">
+			<div class="contents max-1500 magazine9_wrap">				
+				<div class="tit_wrap">
+                    <h2>매거진9</h2>
+                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                </div>
+				<div class="cns-div swi-box mt10">
 					<div class="swiper mySwiper2" >
 						<div class="swiper-wrapper" id="mgz9Box"></div>
 						<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
@@ -276,12 +275,12 @@
                 </div>
             </div> -->
             <!-- Updated artist--> <!-- 0808 -->
-			<div class="contents max-1500">
-				<div class="cont-title ta-t60">
-					<h3>인기 회원</h3>
-					<a href="#"><button type="button" class="btn_more">더보기</button></a>
-				</div>
-				<div class="cns-div swi-box">
+			<div class="contents max-1500 popular_member_wrap">				
+				<div class="tit_wrap">
+                    <h2>인기 회원</h2>
+                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                </div>
+				<div class="cns-div swi-box mt10">
 				
 					<div class="swiper mySwiper3">
 						<div class="swiper-wrapper cn-b" id="popularMbrBox"></div>
@@ -312,12 +311,12 @@
             </div> -->
             
             <!-- New deal --> <!-- 0808 -->
-			<div class="contents max-1500" id="newDeal_title">
-				<div class="cont-title">
-					<h3>전시소개/후기</h3>
-					<a href="#"><button type="button" class="btn_more">더보기</button></a>
-				</div>
-				<div class="swi-box">
+			<div class="contents max-1500 exhint_rewview_wrap" id="newDeal_title">				
+				<div class="tit_wrap">
+                    <h2>전시소개/후기</h2>
+                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                </div>
+				<div class="swi-box mt10">
 					<div class="swiper mySwiper4">
 						<div class="swiper-wrapper" id="popularExhibitBox"></div>
 						<div class="swiper-pagination swpa-2 pc-no"></div>
@@ -544,13 +543,21 @@
 		var strHtml = '';
 		
  		strHtml += '<div class="left">';
-	    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		if(list[0] != null){
+ 		    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		}
 	    strHtml += '    <div class="bottom">';
-	    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
-	    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		if(list[1] != null){
+ 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
+ 		}
+ 		if(list[2] != null){
+ 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		}
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
-	    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		if(list[3] != null){
+ 		    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		}
     	
     	$("#boaBox").prepend(strHtml);
     }

@@ -44,14 +44,73 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 		return result;
 	}
 	
+	/* 게시판 관리 공지글 등록 */
+	public int insertCommunityManagementNotice(Map<String, Object> param) {
+		return communityManagementDao.insertCommunityManagementNotice(param);
+	}
+	
 	//게시물 관리 게시판 조회
 	@Override
-	public Map<String, Object> boardListData(Map<String, Object> param){
+	public Map<String, Object> searchAllBoardList(Map<String, Object> param){
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result = communityManagementDao.boardList(param);
+		result = communityManagementDao.searchAllBoardList(param);
 		
 		return result;
 	}
+	
+	//댓글 게시물 리스트 댓글 조회
+	@Override
+	public Map<String, Object> searchAllReplyList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = communityManagementDao.searchAllReplyList(param);
+		
+		return result;
+	}
+	
+	//새창 댓글 리스트
+	@Override
+	public Map<String, Object> boardReplyList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = communityManagementDao.boardReplyList(param);
+		
+		return result;
+	}
+	
+	
+	//신고된 게시물 조회
+	@Override
+	public Map<String, Object> searchAllRprtList(Map<String, Object> param){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result = communityManagementDao.searchAllRprtList(param);
+		
+		return result;
+	}
+	
+	//전체 게시물 상태 업데이트
+	@Override
+	public int boardStatusUpdate(String statusType, String comtSqList){
+		
+		return communityManagementDao.boardStatusUpdate(statusType, comtSqList);
+	}
+	//신고된 게시물 상태 업데이트
+	@Override
+	public int rprtStatusUpdate(String statusType, String rprtSqList){
+		
+		return communityManagementDao.rprtStatusUpdate(statusType, rprtSqList);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

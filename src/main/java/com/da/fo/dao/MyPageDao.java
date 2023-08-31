@@ -630,5 +630,108 @@ public class MyPageDao {
 		
 		return result;
 	}
+
+	public List<Map<String, Object>> myPageMain_myNoti(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
+	/*
+	 * 마이페이지 커뮤니티 조회
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_myCommunitysList(Object param){
+		return myPageMapper.myPage_myCommunitysList(param);
+	}
+
+	
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtOpenYn(List<Map<String, Object>> param) {
+		//return myPageMapper.myComtOpenYn(paramList);
+		
+		int result = 0;
+
+		for (int i = 0; i < param.size(); i++) {
+
+			result += myPageMapper.myComtOpenYn(param.get(i));
+		}
+		return result;	
+	}
+
+	/*
+	 * 마이페이지 커뮤니티 공개여부 설정
+	 * param : mbrSq
+	 * return : List
+	 */
+	public int myComtDelYn(List<Map<String, Object>> param) {
+		int result = 0;
+
+		for (int i = 0; i < param.size(); i++) {
+
+			result += myPageMapper.myComtDelYn(param.get(i));
+		}
+		return result;	
+	}
+	
+	/*
+	 * 마이페이지 알람 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_notificationbox(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 메인 알림 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param){
+		return myPageMapper.myPage_notificationTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_following(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param){
+		return myPageMapper.myPage_followingTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 스크랩 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_scrap(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_scrapTotal(Object param){
+		return myPageMapper.myPage_scrapTotal(param);
+	}
 }

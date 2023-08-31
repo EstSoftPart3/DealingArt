@@ -217,7 +217,7 @@
 		readImg(e.target, e.target.id);
 	});
 	
-	// 노하우 등록
+	// 이슈 등록
 	function myknowhowReg(){
 
 		if(checkValid()){
@@ -230,7 +230,7 @@
 			knowhow.knowhowRegionCd = $("select[name=knowhowRegionCd]").val(); // 지역
 			knowhow.knowhowTypCd = $("select[name=knowhowTypCd]").val(); // 구분
 			knowhow.comtKeywrd = $("#keywrd").val(); // 키워드
-			knowhow.comtTypCd = "KNO"; // 커뮤니티 구분 코드
+			knowhow.comtTypCd = "ISS"; // 커뮤니티 구분 코드
 			
 			const formData = new FormData();
 
@@ -257,10 +257,10 @@
 	    			        processData : false,
 	    			        success: function(data) {
 	    			        	if(data == 1){
-	    			        		modalAlertShow("노하우 등록되었습니다.");
-	    			        		location.href = "/community/knowhowList";
+	    			        		modalAlertShow("이슈 등록되었습니다.");
+	    			        		location.href = "/community/issueList";
 	    			        	}else{
-	    			        		modalAlertShow("노하우 등록에 실패했습니다. 다시 시도해주세요.");
+	    			        		modalAlertShow("이슈 등록에 실패했습니다. 다시 시도해주세요.");
 	    			        	}
 	    			        },
 	    			        error: function(error) {

@@ -33,48 +33,6 @@ public class CommunityController {
 		return "thymeleaf/fo/community/community_home";
 	}
 	
-//	// 커뮤니티 자랑하기 상세 페이지
-//	@RequestMapping("/community/showingOffDetail")
-//	public ModelAndView showingOffDetail(@RequestParam Map<String, Object> param) {
-//		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
-//		// 자랑하기 상세 정보
-//		Map<String, Object> showOffDtl = communityService.showingOffDetail(param);
-//		// 해당 작성자의 다른 커뮤니티 정보
-//		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
-//		// 해당 작품 판매 상태 가져오기
-//		Map<String, Object> dealProgress = communityService.searchDealProgress(param);
-//		Map<String, Object> result = new HashMap<>();
-//
-//		// 판매중인 작품이 아닐 경우 작품 정보만 출력
-//		if(dealProgress == null) {
-//			// 작품 상세 정보
-//			result = dealService.workDetail((String) param.get("workSq"));
-//			result.put("deal", null);
-//		} else { // 판매중이거나 거래종료인 경우 거래 관련 정보도 출력
-//			// 거래 상태 코드
-//			String dealSttsCd = (String) dealProgress.get("dealSttsCd");
-//			String dealSq = String.valueOf(dealProgress.get("dealSq"));
-//			
-//			switch(dealSttsCd) {
-//			case "TP": // 거래진행중
-//				result = dealService.dealDetail(dealSq);
-//				result.put("work", null);
-//				break;
-//			case "TC": case "PD": case "DS": case "DC": case "PC": // 거래종료
-//				result = dealService.soldoutDetail(dealSq);
-//				result.put("deal", null);
-//				break;
-//			}
-//		}
-//		
-//		mv.addObject("showOffDtl", showOffDtl);
-//		mv.addObject("otherComt", otherComt);
-//		mv.addObject("dealProgress", dealProgress);
-//		mv.addObject("result", result);
-//		
-//		return mv;
-//	}
-	
 	// 커뮤니티 자랑하기 상세 페이지
 	@RequestMapping("/community/showingOffDetail")
 	public ModelAndView showingOffDetail() {
@@ -200,7 +158,7 @@ public class CommunityController {
 	
 	// 커뮤니티 이슈 페이지
 	@RequestMapping("/community/issueList")
-	public String communityKnowhowListPage() {
+	public String communityIssueListPage() {
 		return "thymeleaf/fo/community/community_issue";
 	}
 	
@@ -225,17 +183,17 @@ public class CommunityController {
 	}
 	
 	// 노하우 상세페이지
-	@RequestMapping("/community/knowhowDetail")
+	@RequestMapping("/community/issueDetail")
 	@ResponseBody
-	public ModelAndView communityKnowhowDetailPage(@RequestParam Map<String, Object> param) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_knowhow_detailpage");
+	public ModelAndView communityIssueDetailPage(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_issue_detailpage");
 		
-		Map<String, Object> knowhow = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
-		mv.addObject("knowhow", knowhow);
+		Map<String, Object> issue = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
+		mv.addObject("issue", issue);
 		
 		param.put("comtSq", String.valueOf(param.get("SqNumber")));
-		param.put("mbrSq", String.valueOf(knowhow.get("mbrSq")));
-		param.put("comtTypCd", String.valueOf(knowhow.get("comtTypCd")));
+		param.put("mbrSq", String.valueOf(issue.get("mbrSq")));
+		param.put("comtTypCd", String.valueOf(issue.get("comtTypCd")));
 		
 		// 해당 작성자의 다른 커뮤니티 정보
 		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
@@ -322,6 +280,16 @@ public class CommunityController {
 		int result = communityService.followCheck(param);
 		mv.addObject("result", result);
 		
+		return mv;
+	}
+	
+	// 판매 제안하기 or 요청하기 등록
+	@RequestMapping("/community/insertComtRequest")
+	@ResponseBody
+	public ModelAndView insertComtRequest(@RequestParam Map<String, Object> param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		int result = communityService.insertComtRequest(param);
+		mv.addObject("result", result);
 		return mv;
 	}
 	

@@ -90,20 +90,22 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
+    
 </head>
 
 <body>
 	<div class="wrap">
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
 		<div class="body-wrap">
-			<div class="contents">
-				
+			<div class="mypage_wrap">
+				<h2>설정</h2>
 			 	<div th:text="${session.mbrSq}" id="mbrSq" style="display:none"></div>
-				<div class="con-wrap2">
+				<div class="mypage_contents">
 				    
-				    <th:block th:replace="thymeleaf/myPageLeft :: myPageLeftFragment"></th:block>
+		            <div id = "left_menu"></div>
 					
-					<div class="con-right2">
+					<div class="contents_right info-right">
 					
 						<form name="form_chk" method="post">
 							
@@ -190,7 +192,127 @@
 										<p class="inp-p">판매하신 작품의 정산을 받을 계좌를 입력해주세요.</p>
 										<p class="inp-p" id="mbrDelivryAddrCheck"></p>
 									</div>
-									
+									<div class="profile_img">
+										<p class="tit">프로필 이미지</p>
+										<div class="photo_wrap">
+												<div class="cont-box">
+													<input type="hidden" name="artstProfileImgUrl" id="artstProfileImgUrl">
+													<input type="file" id="file_artstProfileImgUrl" style="display:none">
+													<img class="content" id="dropZone_artstProfileImgUrl" src="/resources/img/mypage/icon-u.png" style="cursor:pointer"/>
+													<!-- <div class="content" id="dropZone"></div> -->
+													<div class="cont-text">※ 클릭하여 파일을 끌어오거나<br/>선택하여 업로드 하세요.</div>
+												</div>
+											<button  type="button" id ="profileImgaDel">삭제</button>
+										</div>										
+									</div>
+									<div class="input-box">
+										<p class="inp-p">한줄 소개</p>
+										<input type="text" class="input-3" placeholder="" id="mbrintro" name="">
+									</div>
+									<div class="input-box">
+										<p class="inp-p">선호하시는 미술 장르를 선택해주세요 (선택, 최대 3개 선택 가능)</p>
+										<div class="profile_checkbox_wrap mt10">
+											<input type="checkbox" id="pca1" name="genre" value="abstract" class="searchOption" onclick="chkbox(this)">
+											<label for="pca1"><span></span>추상화</label>
+											<input type="checkbox" id="pca2" name="genre" value="surrealism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca2"><span></span>초현실주의</label>
+											<input type="checkbox" id="pca3" name="genre" value="impressionism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca3"><span></span>인상주의</label>
+											<input type="checkbox" id="pca4" name="genre" value="modernism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca4"><span></span>현대주의</label>
+											<input type="checkbox" id="pca5" name="genre" value="minimalism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca5"><span></span>미니멀리즘</label>
+											<input type="checkbox" id="pca6" name="genre" value="postmodernism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca6"><span></span>포스트 모더니즘</label>
+											<input type="checkbox" id="pca7" name="genre" value="popArt" class="searchOption" onclick="chkbox(this)">
+											<label for="pca7"><span></span>팝아트</label>
+											<input type="checkbox" id="pca8" name="genre" value="realism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca8"><span></span>현실주의</label>
+											<input type="checkbox" id="pca9" name="genre" value="existentialism" class="searchOption" onclick="chkbox(this)">
+											<label for="pca9"><span></span>실증주의</label>
+											<input type="checkbox" id="pca10" name="genre" value="underground_Art" class="searchOption" onclick="chkbox(this)">
+											<label for="pca10"><span></span>언더그라운드 아트</label>
+											</div>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">취미를 선택해주세요 (선택, 최대 3개 선택 가능)</p>
+										<div class="profile_checkbox_wrap mt10">
+											<input type="checkbox" id="pcb1" name="hobby" value="music" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb1"><span></span>음악감상</label>
+											<input type="checkbox" id="pcb2" name="hobby" value="movie" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb2"><span></span>영화감상</label>
+											<input type="checkbox" id="pcb3" name="hobby" value="exh" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb3"><span></span>전시감상</label>
+											<input type="checkbox" id="pcb4" name="hobby" value="cook" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb4"><span></span>요리</label>
+											<input type="checkbox" id="pcb5" name="hobby" value="exercise" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb5"><span></span>운동</label>
+											<input type="checkbox" id="pcb6" name="hobby" value="art" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb6"><span></span>예술창작</label>
+											<input type="checkbox" id="pcb7" name="hobby" value="reading" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb7"><span></span>독서</label>
+											<input type="checkbox" id="pcb8" name="hobby" value="travel" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb8"><span></span>여행</label>
+											<input type="checkbox" id="pcb9" name="hobby" value="climbing" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb9"><span></span>등산</label>
+											<input type="checkbox" id="pcb10" name="hobby" value="game" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb10"><span></span>게임</label>
+											<input type="checkbox" id="pcb11" name="hobby" value="meeting" class="searchOption" onclick="chkbox1(this)">
+											<label for="pcb11"><span></span>모임</label>
+										</div>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">직업을 선택해주세요 (선택, 최대 3개 선택 가능)</p>
+										<div class="profile_checkbox_wrap mt10">
+											<input type="checkbox" id="pcc1" name="job" value="student" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc1"><span></span>학생</label>
+											<input type="checkbox" id="pcc2" name="job" value="student" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc2"><span></span>자영업자</label>
+											<input type="checkbox" id="pcc3" name="job" value="public_official" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc3"><span></span>공무원</label>
+											<input type="checkbox" id="pcc4" name="job" value="official" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc4"><span></span>직장인</label>
+											<input type="checkbox" id="pcc5" name="job" value="freelancer" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc5"><span></span>프리랜서</label>
+											<input type="checkbox" id="pcc6" name="job" value="researcher" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc6"><span></span>연구원</label>
+											<input type="checkbox" id="pcc7" name="job" value="professor" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc7"><span></span>교수</label>
+											<input type="checkbox" id="pcc8" name="job" value="entrepreneur" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc8"><span></span>기업가</label>
+											<input type="checkbox" id="pcc9" name="job" value="doctor" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc9"><span></span>의사</label>
+											<input type="checkbox" id="pcc10" name="job" value="lawyer" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc10"><span></span>변호사</label>
+											<input type="checkbox" id="pcc11" name="job" value="artist" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc11"><span></span>예술가</label>
+											<input type="checkbox" id="pcc12" name="job" value="chef" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc12"><span></span>요리사</label>
+											<input type="checkbox" id="pcc13" name="job" value="housewife" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc13"><span></span>주부</label>
+											<input type="checkbox" id="pcc14" name="job" value="trainer" class="searchOption" onclick="chkbox2(this)">
+											<label for="pcc14"><span></span>트레이너</label>
+										</div>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">연령대를 선택해주세요 (선택, 최대 3개 선택 가능)</p>
+										<div class="profile_checkbox_wrap mt10">
+											<input type="checkbox" id="pcd1" name="age" value="10" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd1"><span></span>10대</label>
+											<input type="checkbox" id="pcd2" name="age" value="20" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd2"><span></span>20대</label>
+											<input type="checkbox" id="pcd3" name="age" value="30" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd3"><span></span>30대</label>
+											<input type="checkbox" id="pcd4" name="age" value="40" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd4"><span></span>40대</label>
+											<input type="checkbox" id="pcd5" name="age" value="50" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd5"><span></span>50대</label>
+											<input type="checkbox" id="pcd6" name="age" value="60" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd6"><span></span>60대</label>
+											<input type="checkbox" id="pcd7" name="age" value="70" class="searchOption" onclick="chkbox3(this)">
+											<label for="pcd7"><span></span>70대</label>											
+										</div>
+									</div>									
 									<div class="bat-box3 mg_t65">
 										<button type="button" class="ba-btn1" id="memberUpdateBtn"><span>회원 정보 수정하기</span></button>
 									</div>
@@ -319,12 +441,30 @@ var originalMbrCpCertDi = ''; 		//휴대폰 인증 DI (주민번호 대체 고�
 var originalMbrAccountNo = '';		//정산 계좌번호
 var originalMbrBankCd = '';			//정산 계좌 은행 코드
 var originalMbrBankNm = '';			//정산 계좌 은행 이름
+var originalMbrProfileImgUrl = '';
 
 var mbrAccountNo = '';
 var mbrBankCd = '';
 var mbrBankNm =  '';
 
+var mc = 3;  //체크박스 갯수제한
+var tc = 0; // 카운트 증가
+var mc1 = 3;  //체크박스 갯수제한
+var tc1 = 0; // 카운트 증가
+var mc2 = 3;  //체크박스 갯수제한
+var tc2 = 0; // 카운트 증가
+var tc3 = 0;
+var mc3 = 3;
+var genrelist = []; 
+var hobbylist = []; 
+var agelist = []; 
+var joblist =[];
+
+
 $(document).ready(function() {
+	
+	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+
 	
 	$('#SmsCertification').click(function() {
 		$.ajax({
@@ -338,8 +478,165 @@ $(document).ready(function() {
 			document.form_chk.submit();
 		});
 	});
+	
+	$("#file_artstProfileImgUrl").bind('change', function() {
+		uploadResource(this.files, "profile");
+	});
+	
+	$("#dropZone_artstProfileImgUrl").click(function(){
+	       $('#file_artstProfileImgUrl').click();
+	    });
+	
+	$("#profileImgaDel").click(function(){
+	 	$("#dropZone_artstProfileImgUrl").attr("src","/resources/img/mypage/icon-u.png");
+		$("#artstProfileImgUrl").val("");
+		$("#file_artstProfileImgUrl").val("");
+		$("#profileImgaDel").hide();
+    });
+	
+	$(function() {
+		// 파일 드롭 다운
+		fileDropDown();
+	});
+	
+	if($("#file_artstProfileImgUrl").val() != ""){	
+		var maxSize = 5 * 1024 * 1024; // 5MB
+		var fileSize = $("#file_artstProfileImgUrl")[0].files[0].size;
+		
+		if(fileSize > maxSize){
+			modalAlertShow("프로필 이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+			return false;
+		}
+	}
+	
 
 });
+
+
+// 파일 드롭 다운
+function fileDropDown() {
+	var dropZone1 = $("#dropZone_artstProfileImgUrl");
+	var dropZone2 = $("#dropZone_artstWorkImgUrl");
+	//Drag기능 
+	dropZone1.on('dragenter', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone1.css('background-color', '#E3F2FC');
+	});
+	dropZone1.on('dragleave', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone1.css('background-color', '#FFFFFF');
+	});
+	dropZone1.on('dragover', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone1.css('background-color', '#E3F2FC');
+	});
+	dropZone1.on('drop', function(e) {
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone1.css('background-color', '#FFFFFF');
+		var fileObject = e.originalEvent.dataTransfer.files;
+		
+		if (fileObject != null) {
+			if (fileObject.length < 1) {
+				/* alert("폴더 업로드 불가"); */
+				console.log("폴더 업로드 불가");
+				return;
+			} else {
+				uploadResource(fileObject,'profile');
+			}
+		} else {
+			alert("ERROR");
+		}
+	});
+	
+	//Drag기능 
+	dropZone2.on('dragenter', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone2.css('background-color', '#E3F2FC');
+	});
+	dropZone2.on('dragleave', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone2.css('background-color', '#FFFFFF');
+	});
+	dropZone2.on('dragover', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone2.css('background-color', '#E3F2FC');
+	});
+	dropZone2.on('drop', function(e) {
+		e.preventDefault();
+		// 드롭다운 영역 css
+		dropZone2.css('background-color', '#FFFFFF');
+
+		var fileObject = e.originalEvent.dataTransfer.files;
+		
+		if (fileObject != null) {
+			if (fileObject.length < 1) {
+				/* alert("폴더 업로드 불가"); */
+				console.log("폴더 업로드 불가");
+				return;
+			} else {
+				uploadResource(fileObject,'mainWork');
+			}
+		} else {
+			alert("ERROR");
+		}
+	});
+}
+
+function uploadResource(fileObject, fileType) {
+	
+	var file = null;
+	
+	const formData = new FormData();
+	formData.append("url", "dealingart/member/profileImg/"+sMbrSqVal+"/");
+	if (fileObject != null) {
+		// 파일 Drag 이용하여 등록시
+		file = fileObject[0];
+		formData.append("file", file);
+		console.log(file);
+	} else {
+		file = document.getElementById("file");
+		formData.append("file", file.files[0]);
+	}
+	
+	var maxSize = 5 * 1024 * 1024; // 5MB
+	var fileSize = file.size;
+	
+	if(fileSize > maxSize){ 
+		modalAlertShow("이미지의 용량이 5MB가 넘습니다. 5MB이상은 첨부파일을 올릴 수 없습니다.", "file");
+		return false;
+	}
+	
+    fetch("/file/upload", {
+        method : "POST"
+        , body : formData
+    })
+    .then(result => result.json())
+    .then(data => {
+    	if(fileType == "profile"){
+    		document.getElementById("dropZone_artstProfileImgUrl").setAttribute("src", data.fileUrl);
+            $('#artstProfileImgUrl').val(data.fileUrl);
+            console.log("artstProfileImgUrl :"+data.fileUrl)
+    	}
+     
+    })
+    .catch(error => console.log(`error => ${error}`));
+    
+    $("#profileImgaDel").show();
+}
+
 function mainMobileAuthSuccess(result){
 	$("#uMbrCpCertDi").val(result.sDupInfo);
 	$("#uMbrCpCertYn").val("Y");
@@ -350,12 +647,15 @@ $( document ).ready(function() {
  	var sMbrSql = $("#mbrSq").html();
  	
 	 memberContentData(sMbrSql);
+
 });
 
 jQuery(document).ready(function() {
+	/*
 	if(sAuthSqVal == 2){
 		document.getElementById("portfolio").style.display="";
 	}
+	
 	$("#conTitle").empty();
 	const conBtn = document.getElementById("conBtn");
 	conBtn.remove();
@@ -364,6 +664,7 @@ jQuery(document).ready(function() {
 	$("#conTitle").append(conTitleHtml).trigger("create");
 	
 	$("#memberEdit").addClass("active");
+	*/
 }); 
 //계좌 확인
 function bcSubmit(){
@@ -473,6 +774,15 @@ function memberContentData(mbrSq) {
         	 	originalMbrAccountNo = dataContent.mbrAccountNo;				//정산 계좌번호
         	 	originalMbrBankCd = dataContent.mbrBankCd;						//정산 계좌 은행 코드
         	 	originalMbrBankNm = dataContent.mbrBankNm;						//정산 계좌 은행 이름
+        	 	originalMbrProfileImgUrl = dataContent.mbrProfileImgUrl;						//프로필데이터
+
+        	 	originalMbrGenreList = dataContent.mbrGenreList;						//프로필데이터
+        	 	originalMbrhobbyList = dataContent.mbrhobbyList;						//프로필데이터
+        	 	originalMbrageList = dataContent.mbrageList;						//프로필데이터
+        	 	originalMbrjobList = dataContent.mbrjobList;						//프로필데이터
+        	 	originalmbrintro = dataContent.mbrintro;						//프로필데이터
+
+
         	 	
         	 	$("#uMbrSq").val(originalMbrSq);
         	 	$("#uMbrNm").val(originalMbrNm);
@@ -483,9 +793,42 @@ function memberContentData(mbrSq) {
         	 	$("#uMbrDelivryAddr").val(originalMbrDelivryAddr);
         	 	$("#uMbrCpCertDate").val(originalMbrCpCertDate);
         	 	$("input[name=name]").val(originalMbrNm);
+       		 	$("#mbrintro").val(originalmbrintro);
+
+       		 
+        	 	if(originalMbrProfileImgUrl !=null && originalMbrProfileImgUrl != ""){
+            	 	$("#dropZone_artstProfileImgUrl").attr("src", originalMbrProfileImgUrl);
+        	 	}
         	 	if(originalMbrAccountNo != null && originalMbrAccountNo != ""){
         	 		$("#mbrAccountNo").val(originalMbrBankNm+" "+originalMbrAccountNo);
         	 	}
+        	 	
+        		 if( originalMbrProfileImgUrl == null || originalMbrProfileImgUrl == ""){
+        			 $("#profileImgaDel").hide();
+        		 }else{
+        			 $("#profileImgaDel").show();
+        		 }
+        		 
+        		 var mbrGenreList = originalMbrGenreList.split(',', 2);
+        		 var mbrhobbyList = originalMbrhobbyList.split(',', 2);
+        		 var mbrageList = originalMbrageList.split(',', 2);
+        		 var mbrjobList = originalMbrjobList.split(',', 2);
+        		 
+        		 mbrGenreList.forEach(function(item){
+        			 $("input[name=genre][value="+item+"]").prop("checked",true);
+    			});
+        		 
+        		 mbrhobbyList.forEach(function(item){
+        			 $("input[name=hobby][value="+item+"]").prop("checked",true);
+    			});
+        		 mbrageList.forEach(function(item){
+        			 $("input[name=age][value="+item+"]").prop("checked",true);
+    			});
+        		 mbrjobList.forEach(function(item){
+        			 $("input[name=job][value="+item+"]").prop("checked",true);
+    			});
+        		 
+        		 
         	 }
            },
            error: function(error) {
@@ -661,6 +1004,9 @@ $("#memberUpdateBtn").on('click', function(event){
 	//회원 퓨대폰 인증 DI
 	var mbrCpCertDi = $("#uMbrCpCertDi").val();
 	
+	var artstProfileImgUrl 	= $("#artstProfileImgUrl").val();	//☆ 프로필 이미지
+	var mbrintro = $("#mbrintro").val();
+			
 	//휴대폰 번호 변경시
 	if(mbrCpNum != originalMbrCpNum){
 		if(originalMbrCpCertDi != null && originalMbrCpCertDi != ""){
@@ -796,8 +1142,31 @@ $("#memberUpdateBtn").on('click', function(event){
 	}else{
 		mbrDelivryAddr = originalMbrDelivryAddr;
 	}
+	
+	$("input[name=genre]:checked").each(function(){
+		genrelist.push($(this).val());
+	    console.log("체크된 값 : " + genrelist);
+	});
+
+
+	$("input[name=hobby]:checked").each(function(){
+		hobbylist.push($(this).val());
+	    console.log("체크된 값 : " + hobbylist);
+	});
+
+	$("input[name=age]:checked").each(function(){
+		agelist.push($(this).val());
+	    console.log("체크된 값 : " + agelist);
+	});
+
+	$("input[name=job]:checked").each(function(){
+		joblist.push($(this).val());
+	    console.log("체크된 값 : " + joblist);
+	});
+	
 	let memParams = {
 	  "mbrSq" : mbrSq,
+      "mbrProfileImgUrl":artstProfileImgUrl,
 	  "mbrId" : mbrId,
 	  "mbrEmail" : mbrId,
 	  "mbrPasswrd" : mbrPasswrd,
@@ -807,8 +1176,16 @@ $("#memberUpdateBtn").on('click', function(event){
 	  "mbrCpCertDate" : mbrCpCertDate,
 	  "mbrCpCertDi" : mbrCpCertDi,
 	  "mbrNcknm" : mbrNcknm,
-	  "mbrDelivryAddr" : mbrDelivryAddr
+	  "mbrDelivryAddr" : mbrDelivryAddr,
+	  "mbrGenreList" : genrelist.toString(),
+	  "mbrhobbyList" : hobbylist.toString(),
+	  "mbrageList" : agelist.toString(),
+	  "mbrjobList" : joblist.toString(),
+	  "mbrintro" : mbrintro
+	  
 	}
+	console.log(memParams);
+	
 	//정산 계좌 정보
 	if(mbrAccountNo != null && mbrAccountNo != ""){
 		memParams.mbrAccountNo = mbrAccountNo;
@@ -945,6 +1322,66 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     event.stopPropagation();
 });
 
+
+//갯수 확인
+function chkbox(ff) { 
+    if (ff.checked){
+        tc += 1; 
+    } else{
+        tc -= 1; 
+    } 
+
+    if (tc > mc) { 
+        alert ("3개 만 선택해 주세요!"); 
+    ff.checked = false; 
+    tc -= 1; 
+    }
+} 
+
+//갯수 확인
+function chkbox1(ff) { 
+    if (ff.checked){
+        tc1 += 1; 
+    } else{
+        tc1 -= 1; 
+    } 
+
+    if (tc1 > mc1) { 
+        alert ("3개 만 선택해 주세요!"); 
+    ff.checked = false; 
+    tc1 -= 1; 
+    }     
+} 
+
+//갯수 확인
+function chkbox2(ff) { 
+    if (ff.checked){
+        tc2 += 1; 
+    } else{
+        tc2 -= 1; 
+    } 
+
+    if (tc2 > mc2) { 
+        alert ("3개 만 선택해 주세요!"); 
+    ff.checked = false; 
+    tc2 -= 1; 
+    }     
+} 
+
+//갯수 확인
+function chkbox3(ff) { 
+    if (ff.checked){
+        tc3 += 1; 
+    } else{
+        tc3 -= 1; 
+    } 
+
+    if (tc3 > mc3) { 
+        alert ("3개 만 선택해 주세요!"); 
+    ff.checked = false; 
+    tc3 -= 1; 
+    }     
+} 
 
 </script>
 

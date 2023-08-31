@@ -125,6 +125,11 @@ public class MemberDao {
 			 String mbrCpNumDecrypt = commonService.decrypt(memberContent.get(z).get("mbrCpNum").toString());
 			 //집주소 복호화
 			 //String mbrHomeAddrDecrypt = commonService.decrypt((String) memberContent.get(z).get("mbrHomeAddr"));
+			 //프로필 이미지
+			 String mbrProfileImgUrl = "";
+			 if(memberContent.get(z).get("mbrProfileImgUrl") != null && !(memberContent.get(z).get("mbrProfileImgUrl").equals(""))){
+				 mbrProfileImgUrl = memberContent.get(z).get("mbrProfileImgUrl").toString();
+			 }
 			 //배송 주소
 			 String mbrDelivryAddr = "";
 			 if(memberContent.get(z).get("mbrDelivryAddr") != null){
@@ -154,7 +159,7 @@ public class MemberDao {
 				 memberContent.get(z).put("mbrBankCd", mbrBankCd);
 				 memberContent.get(z).put("mbrBankNm", mbrBankNm);
 			 }
-			 
+			  
 			
 			 memberContent.get(z).put("mbrId", mbrIdDecrypt);
 			 memberContent.get(z).put("mbrPasswrd", mbrPasswrdDecrypt);
@@ -165,6 +170,8 @@ public class MemberDao {
 			 memberContent.get(z).put("mbrCpAlarm", mbrCpAlarm);
 			 memberContent.get(z).put("mbrNcknm", mbrNcknm);
 			 memberContent.get(z).put("mbrCpCertDi", mbrCpCertDi);
+			 memberContent.get(z).put("mbrProfileImgUrl", mbrProfileImgUrl);
+
 			 
 			 
 		  }
