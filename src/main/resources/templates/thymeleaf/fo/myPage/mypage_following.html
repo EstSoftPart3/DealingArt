@@ -192,7 +192,13 @@
 			url: "/myPage/selectFollowing",
 			data: obj,
 			success: (function(response){
-				setFollowingHtml(response.result);
+				if (response.result.length > 0) {
+					setFollowingHtml(response.result);
+				}else{
+					modalAlertShow("검색 결과가 없습니다."); 
+					$(".following_wrap").empty();
+				}
+				
 				setFollowingCnt(response.myTotal, response.myColTotal, response.myArtistTotal);
 			}),
 			error: (function(response){

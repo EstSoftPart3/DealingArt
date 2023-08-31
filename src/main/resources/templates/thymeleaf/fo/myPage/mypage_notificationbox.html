@@ -186,7 +186,13 @@
 			url: "/myPage/selectNotificationbox",
 			data: obj,
 			success: (function(response){
-				setNotificationboxHtml(response.result);
+				if (response.result.length > 0) {
+					setNotificationboxHtml(response.result);
+				}else{
+					modalAlertShow("검색 결과가 없습니다."); 
+					$(".notibox_wrap").empty();
+				}
+				
 				setNotificationCnt(response.myTotal, response.mySelTotal, response.myPrcTotal, response.myPicTotal);
 			}),
 			error: (function(response){

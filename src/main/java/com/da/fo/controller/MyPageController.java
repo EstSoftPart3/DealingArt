@@ -88,8 +88,7 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("jsonView");
 		HttpSession session = request.getSession();
 		
-		//String mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
-		String mbrSq = "330"; //로그인한 회원 순번 가져오기
+		String mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
@@ -1542,9 +1541,10 @@ public class MyPageController {
 	//마이페이지 알림 목록 조회
 		@RequestMapping("/myPage/selectNotificationbox")
 		@ResponseBody
-		public ModelAndView myPage_notificationbox(@RequestParam Map<String, Object> param) {
-			//TODO mbrSq 데이터 제대로 가져오도록 수정
-			String mbrSq = "330"; //로그인한 회원 순번 가져오기
+		public ModelAndView myPage_notificationbox(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			String mbrSq = session.getAttribute("mbrSq").toString();
+			
 			int limit = Integer.parseInt(String.valueOf(param.get("limit")));
 			
 			param.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
@@ -1585,9 +1585,10 @@ public class MyPageController {
 		//마이페이지 팔로잉 목록 조회
 		@RequestMapping("/myPage/selectFollowing")
 		@ResponseBody
-		public ModelAndView myPage_following(@RequestParam Map<String, Object> param) {
-			//TODO mbrSq 데이터 제대로 가져오도록 수정
-			String mbrSq = "330"; //로그인한 회원 순번 가져오기
+		public ModelAndView myPage_following(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			String mbrSq = session.getAttribute("mbrSq").toString();
+			
 			int limit = Integer.parseInt(String.valueOf(param.get("limit")));
 			
 			param.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
@@ -1621,12 +1622,13 @@ public class MyPageController {
 			return "thymeleaf/fo/myPage/myPage_scrap";
 		}
 		
-		//마이페이지 팔로잉 목록 조회
+		//마이페이지 스크랩 목록 조회
 		@RequestMapping("/myPage/selectScrap")
 		@ResponseBody
-		public ModelAndView myPage_scrap(@RequestParam Map<String, Object> param) {
-			//TODO mbrSq 데이터 제대로 가져오도록 수정
-			String mbrSq = "330"; //로그인한 회원 순번 가져오기
+		public ModelAndView myPage_scrap(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			String mbrSq = session.getAttribute("mbrSq").toString();
+
 			int limit = Integer.parseInt(String.valueOf(param.get("limit")));
 			
 			param.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
@@ -1634,22 +1636,35 @@ public class MyPageController {
 			
 			System.out.println(param);
 			ModelAndView mv = new ModelAndView("jsonView");
+
 			List<Map<String, Object>> result = myPageService.myPage_scrap(param);
 			
 			
-//			param.put("authSq","");
-//			int myTotal = myPageService.myPage_scrapTotal(param); //나의 작품 갯수 조회
-//			
-//			param.put("authSq","1");
-//			int myColTotal = myPageService.myPage_scrapTotal(param); //자랑하기 총 갯수 조회
-//			
-//			param.put("authSq","2");
-//			int myArtistTotal = myPageService.myPage_scrapTotal(param); //전시후기/소개 총 갯수 조회
+			param.put("scrapGbCd","myWork");
+			int myWorkTotal = myPageService.myPage_scrapTotal(param); //나의 작품 갯수 조회
+			
+			param.put("scrapGbCd","BOA");
+			int myBOATotal = myPageService.myPage_scrapTotal(param); //자랑하기 총 갯수 조회
+			
+			param.put("scrapGbCd","EXH");
+			int myEXHTotal = myPageService.myPage_scrapTotal(param); //전시후기/소개 총 갯수 조회
+			
+			param.put("scrapGbCd","ISS");
+			int myISSTotal = myPageService.myPage_scrapTotal(param); //이슈 총 갯수 조회
+			
+			param.put("scrapGbCd","IST");
+			int myISTTotal = myPageService.myPage_scrapTotal(param); //인사이트 총 갯수 조회
+			
+			param.put("scrapGbCd","MDA");
+			int myMDATotal = myPageService.myPage_scrapTotal(param); //아티스트 필름 총 갯수 조회
 			
 			mv.addObject("result", result);
-//			mv.addObject("myTotal", myTotal);
-//			mv.addObject("myColTotal", myColTotal);
-//			mv.addObject("myArtistTotal", myArtistTotal);
+			mv.addObject("myWorkTotal", myWorkTotal);
+			mv.addObject("myBOATotal", myBOATotal);
+			mv.addObject("myEXHTotal", myEXHTotal);
+			mv.addObject("myISSTotal", myISSTotal);
+			mv.addObject("myISTTotal", myISTTotal);
+			mv.addObject("myMDATotal", myMDATotal);
 
 			return mv;
 		}
