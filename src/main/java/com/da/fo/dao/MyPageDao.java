@@ -678,4 +678,60 @@ public class MyPageDao {
 		return result;	
 	}
 	
+	/*
+	 * 마이페이지 알람 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_notificationbox(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 메인 알림 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param){
+		return myPageMapper.myPage_notificationTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_following(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param){
+		return myPageMapper.myPage_followingTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 스크랩 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_scrap(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_scrapTotal(Object param){
+		return myPageMapper.myPage_scrapTotal(param);
+	}
 }

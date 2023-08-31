@@ -490,14 +490,20 @@ input[type="password"] {
 .mypage_following_contents_row ul li:first-child{padding-left: 0px;}
 .mypage_following_contents_row ul li:last-child{padding-right: 0px;background: none;}
 
-.following_pic .pic{width: 300px;height: 300px;border-radius: 999px;background: #eaebea url("../img/img_new/myinfo_da_pic.png") 50% 50% no-repeat;cursor: pointer;}
+.following_pic .pic img{
+	width: 300px;
+	height: 300px;
+	border-radius: 999px;
+	background-position: 50% 50%;
+    background-repeat: no-repeat;
+	cursor: pointer; 
+	position: relative;}
 .following_pic .header{margin-top: 16px;display: flex;justify-content: center;}
 .following_pic .header:after{content: "";display: block;clear: both;}
 .following_pic .header .user_img{display: inline-block;float: left;height: 83px;padding-top: 3px;}
 .following_pic .header .user_picname{float: left;}
 .following_pic .header .user_picname li{margin: 0 !important;padding: 0 !important;background: none;}
 .following_pic .header .user_picname span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;margin: 16px 0 0 16px;}
-.following_pic .pic{position: relative;}
 .following_pic .text{font-size: 18px;font-weight: 300;color: #111111;padding: 20px;text-align: center;width: 300px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 
 .mypage_contents h3{font-size: 26px;font-weight: 700;margin-top: 50px;}
