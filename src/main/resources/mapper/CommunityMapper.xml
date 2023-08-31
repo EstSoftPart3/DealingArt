@@ -50,7 +50,7 @@
 		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
 					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
-					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+					
 			   END 											AS ordCondition,	-- 정렬 구분
 			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
 			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시

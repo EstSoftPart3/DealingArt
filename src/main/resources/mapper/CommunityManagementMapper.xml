@@ -13,6 +13,10 @@
 			A.CM_MG_NEW_SET,						/*게시판 새 글 기준 (분)*/
 			A.CM_MG_START_DT,						/*게시판 시작 일자*/
 			A.CM_MG_END_DT,							/*게시판 종료 일자*/
+			A.USE_YN,								/*게시판 표시 여부*/
+			A.READ_AUTH_SQ,							/*게시판 읽기 권한*/
+			A.WRITE_AUTH_SQ,						/*게시판 쓰기 권한*/
+			A.CMT_AUTH_SQ,							/*게시판 댓글 권한*/
 			COUNT(CASE WHEN TIMESTAMPDIFF(HOUR, B.REG_DT, NOW()) <![CDATA[<=]]> A.CM_MG_NEW_SET THEN 1 end ) AS CM_MG_NEW_CNT,		/*게시물 새 글 갯수*/
 			COUNT(B.COMT_TYP_CD) AS CM_MG_TOT_CNT,	/*게시물 총 갯수*/
 			B.COMT_TYP_CD,							/*게시판 구분 코드 (유형)*/
@@ -44,6 +48,10 @@
 			A.CM_MG_START_DT,
 			A.CM_MG_END_DT,
 			A.COMT_TYP_CD,
+			A.USE_YN,
+			A.READ_AUTH_SQ,
+			A.WRITE_AUTH_SQ,
+			A.CMT_AUTH_SQ,
 			CASE WHEN NOW() BETWEEN A.CM_MG_START_DT AND A.CM_MG_END_DT THEN '표시' ELSE '미표시' END AS CM_MG_SHOW_YN
 		FROM
 			TBL_DA_COMT_MGMT_M AS A
@@ -61,6 +69,11 @@
       		<if test="cmMgLikesYn  != null">CM_MG_LIKES_YN =#{cmMgLikesYn},</if>
       		<if test="cmMgSnsYn  != null">CM_MG_SNS_YN =#{cmMgSnsYn},</if>
       		<if test="cmMgNewSet  != null">CM_MG_NEW_SET =#{cmMgNewSet},</if>
+      		<if test="useYn  != null">USE_YN =#{useYn},</if>
+      		<if test="readAuthSq  != null">READ_AUTH_SQ =#{readAuthSq},</if>
+      		<if test="writeAuthSq  != null">WRITE_AUTH_SQ =#{writeAuthSq},</if>
+      		<if test="cmtAuthSq  != null">CMT_AUTH_SQ =#{cmtAuthSq},</if>
+      		
   		</trim>
    		WHERE CM_MG_SQ = #{cmMgSq}
 	</update>

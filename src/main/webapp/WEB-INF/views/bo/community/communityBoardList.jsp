@@ -46,7 +46,7 @@
     		<section class="content">
     			<div class="card">
     			<div class="card-header">
-	               	<h3 class="card-title bTitle">게시판 관리</h3>
+	               	<h3 class="card-title bTitle">게시물 관리</h3>
 				</div>
 				
 				<input type="hidden" name="commuBorTypCd" id="commuBorTypCd" value="<%=commuBorTypCd%>">

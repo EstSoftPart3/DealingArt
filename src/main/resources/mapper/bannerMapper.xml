@@ -3,6 +3,93 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.da.mapper.boardMapper">
-
+<mapper namespace="com.da.mapper.bannerMapper">
+	
+	<!--배너 목록 -->
+	<select id="bannerList" resultType="hashMap">
+		SELECT 
+		
+			BNN_SQ													<!--배너 순번  -->
+			,BNN_DIV_CD												<!--배너 구분 코드  -->
+			,BNN_TITLE												<!--배너 제목  -->
+			,BNN_MP_IMG_URL											<!--배너 메인 피씨 이미지 URL  -->
+			,BNN_EP_IMG_URL											<!--배너 이벤트 피씨 이미지 URL  -->
+			,BNN_MM_IMG_URL											<!--배너 메인 모바일 이미지 URL  -->
+			,BNN_EM_IMG_URL											<!--배너 이벤트 모바일 이미지 URL  -->
+			,BNN_M_LND_URL											<!--배너 메인 랜딩 URL  -->
+			,BNN_E_LND_URL											<!--배너 이벤트 랜딩 URL  -->
+			,DATE_FORMAT(BNN_START_DT, "%Y-%m-%d")	as BNN_START_DT	<!--배너 시작 일시  -->			
+			,DATE_FORMAT(BNN_END_DT, "%Y-%m-%d")	as BNN_END_DT	<!--배너 종료 일시  -->			
+			,DATE_FORMAT(REG_DT, "%Y-%m-%d")		as REG_DT		<!--등록 일시  -->			
+			,REG_MBR_SQ												<!--등록 회원 순번  -->
+			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d")		as UPDT_DT		<!--수정 일시  -->			
+			,UPDT_MBR_SQ											<!--수정 회원 순번  -->
+			,USE_YN													<!--사용 여부  -->
+			,DEL_YN													<!--삭제 여부  -->
+			
+		FROM TBL_DA_BNN_MGMT_M
+		WHERE 1=1
+        	<if test="searchGubun != null">
+        		AND BNN_DIV_CD = #{searchGubun}
+        	</if>
+				AND USE_YN = 'Y' AND DEL_YN = 'N'
+		</select>
+		
+	<!--배너 등록 -->	
+	<insert id="bannerInsert" parameterType="hashMap">
+		INSERT INTO TBL_DA_BNN_MGMT_M 
+			(										
+				BNN_SQ
+				,BNN_DIV_CD
+				,BNN_TITLE
+				,BNN_MP_IMG_URL
+				,BNN_EP_IMG_URL
+				,BNN_MM_IMG_URL
+				,BNN_EM_IMG_URL
+				,BNN_M_LND_URL
+				,BNN_E_LND_URL
+				,BNN_START_DT
+				,BNN_END_DT
+				,REG_DT
+				,REG_MBR_SQ
+				,UPDT_DT
+				,UPDT_MBR_SQ
+				,USE_YN
+				,DEL_YN
+	
+			)
+			VALUES 
+			(
+			
+				#{brSq}
+				,#{bnrTypCd}
+				,#{brTitle}
+				,#{brMnPcimgUrl}
+				,#{brSubPcimgUrl}
+				,#{brMnMimgUrl}
+				,#{brSubMimgUrl}
+				,#{brMnRUrl}
+				,#{brSubRUrl}
+				,#{brWhen1}
+				,#{brWhen2}
+				,NOW()
+				,'1'
+				,NOW()
+				,'1'
+				,'Y'
+				,'N'
+		
+			)
+		
+	</insert>
+	
+	<!-- 배너 삭제 -->
+    <update id="bannerDelete" parameterType="hashMap">
+   		UPDATE 
+   			TBL_DA_BNN_MGMT_M AS A
+		SET
+			DEL_YN	= 'Y'
+   		WHERE 1=1
+         	 AND A.BNN_SQ = #{bnnSq}
+	</update>
 </mapper>

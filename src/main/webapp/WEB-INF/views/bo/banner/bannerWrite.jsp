@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/boInclude/include_top.jspf"%>
 
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <style type="text/css">
 input[readonly].classname {
 	background-color: #ffffff;
@@ -106,7 +108,7 @@ input[type="file"] {
 						</div>
 						<!-- 폼 -->
 						<form action="" enctype="multipart/form-data" method="post"
-							onSubmit="return submitCheck();">
+							onSubmit="return submitCheck1();">
 							<table class="table table-bordered">
 								<tbody>
 									<tr class="col-form-label sTitle LabelStyle">
@@ -121,19 +123,19 @@ input[type="file"] {
 											<div class="col-sm-5">
 												<div style="padding-left: 10px; float: left;">
 													<input type="radio" id="a1" name="bnrTypCd" value="MIH">
-													<label for="a1" class="col-form-label sTitle">메인페이지홈</label>
+													<label for="a1" class="col-form-label sTitle">메인페이지 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
 													<input type="radio" id="a2" name="bnrTypCd" value="CMH">
-													<label for="a2" class="col-form-label sTitle">커뮤니티홈</label>
+													<label for="a2" class="col-form-label sTitle">커뮤니티 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
 													<input type="radio" id="a3" name="bnrTypCd" value="MGH">
-													<label for="a3" class="col-form-label sTitle">Mgz9</label>
+													<label for="a3" class="col-form-label sTitle">Mgz9 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
 													<input type="radio" id="a4" name="bnrTypCd" value="EVH">
-													<label for="a4" class="col-form-label sTitle">이벤트홈</label>
+													<label for="a4" class="col-form-label sTitle">이벤트 홈</label>
 												</div>
 											</div>
 										</td>
@@ -212,8 +214,8 @@ input[type="file"] {
 													<img
 														src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
 														class="image-boxPc" id="image-boxPc" /> <label
-														for="brMainPcimgUrl" class="btn btn-info sTitle">
-														<input id="brMainPcimgUrl" type="file" accept="image/*" />
+														for="brMnPcimgUrl" class="btn btn-info sTitle">
+														<input id="brMnPcimgUrl" type="file" accept="image/*" />
 														<span>등록</span>
 													</label>
 												</div>
@@ -232,8 +234,8 @@ input[type="file"] {
 												<img
 													src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
 													class="image-boxM" id="image-boxM"> <label
-													for="brMainMimgUrl" class="btn btn-info sTitle"> <input
-													id="brMainMimgUrl" type="file" accept="image/*" /> <span>등록</span>
+													for="brMnMimgUrl" class="btn btn-info sTitle"> <input
+													id="brMnMimgUrl" type="file" accept="image/*" /> <span>등록</span>
 												</label>
 											</div>
 
@@ -242,7 +244,7 @@ input[type="file"] {
 										<div>
 											<label class="col-form-label sTitle LabelStyle"
 												style="text-align: center;">랜딩페이지URL</label> <input
-												name="bannerUrl" id="brMainRUrl" type="text"
+												name="bannerUrl" id="brMnRUrl" type="text"
 												style="width: 300px;">
 										</div>
 									</div>
@@ -601,7 +603,7 @@ input[type="file"] {
 							<div class="card-body"
 								style="background-color: #ffffff; text-align: center;">
 								<button type="button" class="btn btn-info sTitle"
-									onClick="bannerInput();">저장</button>
+									onClick="submitCheck();">저장</button>
 								<button type="button" class="btn btn-info sTitle">수정</button>
 								<button type="button" class="btn btn-info sTitle">삭제</button>
 								<button type="button" class="btn btn-info sTitle"
@@ -675,9 +677,9 @@ input[type="file"] {
 	
 	
 // 	이미지 미리보기
-	const fileDOM = document.querySelector('#brMainPcimgUrl');
+	const fileDOM = document.querySelector('#brMnPcimgUrl');
 	const previews = document.querySelectorAll('.image-boxPc');	
-	const fileDOM2 = document.querySelector('#brMainMimgUrl');
+	const fileDOM2 = document.querySelector('#brMnMimgUrl');
 	const previews2 = document.querySelectorAll('.image-boxM');
 	
 	const fileDOM3 = document.querySelector('#brSubPcimgUrl');
@@ -760,34 +762,107 @@ input[type="file"] {
 	console.log("메인 배너순서값 확인"+ imgNum2);
 	
 	var bnrTypCd = $("input[name='bnrTypCd']:checked").val();
- 	var brMainPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
- 	var brMainMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
- 	var brMainRUrl = $("#brMainRUrl").val();//랜딩Url주소
+ 	var brMnPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
+ 	var brMnMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
+ 	var brMnRUrl = $("#brMnRUrl").val();//랜딩Url주소
 	
  	var brSubPcimgUrl  = document.getElementById("image-boxPc2").src;//pc이미지
  	var brSubMimgUrl  = document.getElementById("image-boxM2").src; //moble이미지
  	var brSubRUrl = $("#brSubRUrl").val();//랜딩Url주소
- 	
-
- 	
-	//폼전송     
-     function bannerInput() {
-  	
- 		var brWhen1 = $("#brWhen1").val();//언제부터 
- 		var brWhen2 = $("#brWhen2").val();//언제까지		
-  		var bnrTypCd = $("input[name='bnrTypCd']:checked").val();//분류 코드 메인 MIH / 커뮤 CMH / 매거진 MGH / 이벤트 EVH
- 		var brTitle = $("#brTitle").val();//제목
- 		
- 		var brMainPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
- 		var brMainMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
- 		var brMainRUrl = $("#brMainRUrl").val();//랜딩Url주소
- 		
-		var brSubPcimgUrl  = document.getElementById("image-boxPc2").src;//pc이미지
- 		var brSubMimgUrl  = document.getElementById("image-boxM2").src; //moble이미지
- 		var brSubRUrl = $("#brSubRUrl").val();//랜딩Url주소 		
- 		
  		
 	}
+
+//벨리데이션 체크
+ function submitCheck() {
+	debugger;
+	var bnrTypCdValChk = $("input[name='bnrTypCd']:checked").val();
+	
+ 	if($("#brWhen1").val() == ""){
+ 		alert("배너 시작일을 선택해 주세요.");
+ 		$("#brWhen1").focus();
+ 		return false;
+ 	}
+ 	if($("#brWhen2").val() == ""){
+ 		alert("배너 종료일을 선택해 주세요.");
+ 		$("#brWhen2").focus();
+ 		return false;
+ 	}
+ 	if(bnrTypCdValChk == undefined || null){
+ 		alert("분류 항목을 선택해 주세요.");
+ 		$("input[name='bnrTypCd']:checked").focus();
+ 		return false;
+ 	}
+ 	if($("#brTitle").val() == ""){
+ 		alert("제목을 입력해 주세요.");
+ 		$("#brTitle").focus();
+ 		return false;
+ 	}
+ 	if($("#brTitle").val() == ""){
+ 		alert("제목을 입력해 주세요.");
+ 		$("#brTitle").focus();
+ 		return false;
+ 	}
+ 	
+ 	
+ 	bannerInput();
+ }
+	
+//폼전송     
+ function bannerInput() {
+	
+	 
+	 var params = {
+			
+			 brSq : $("#brSq").val(),
+			 brWhen1 : $("#brWhen1").val(),//시작일
+			 brWhen2 : $("#brWhen2").val(),//종료일	
+			 bnrTypCd : $("input[name='bnrTypCd']:checked").val(),//분류 코드 메인 MIH / 커뮤 CMH / 매거진 MGH / 이벤트 EVH
+			 brTitle : 	$("#brTitle").val(),//제목
+			 brMnPcimgUrl : document.getElementById("image-boxPc").src,//pc이미지
+			 brMnMimgUrl : document.getElementById("image-boxM").src,//moble이미지
+			 brMnRUrl : $("#brMnRUrl").val(),//랜딩Url주소
+			 brSubPcimgUrl : document.getElementById("image-boxPc2").src,//pc이미지
+			 brSubMimgUrl : document.getElementById("image-boxM2").src, //moble이미지
+			 brSubRUrl : $("#brSubRUrl").val(),//랜딩Url주소 
+							 					 	
+	};
+	 
+	 
+	 
+   	 $.ajax({
+        	type: "POST",
+    	 	url: "/admin/banner/bannerInsertData",
+         	data: params,
+         	dataType: "json"
+ 	     }).done(function(data) {
+ 	   	 	
+ 	    	 if(data > 0){
+ 	    		alert('저장이 완료되었습니다.');
+ 	    	 }else{
+ 	    		alert('저장이 정상적으로 완료되지 않았습니다.');    	
+ 	    	 }
+ 	    	 location.reload();
+ 	    	 //window.location.replace("http://localhost/admin/banner/bannerList");
+	     }).fail(function(data) {
+	    	 
+	 });
+	}
+	
+		/* var brWhen1 = $("#brWhen1").val();//언제부터 
+		var brWhen2 = $("#brWhen2").val();//언제까지	
+				
+		var bnrTypCd = $("input[name='bnrTypCd']:checked").val();//분류 코드 메인 MIH / 커뮤 CMH / 매거진 MGH / 이벤트 EVH
+		var brTitle = $("#brTitle").val();//제목
+		
+		var brMainPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
+		var brMainMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
+		var brMainRUrl = $("#brMainRUrl").val();//랜딩Url주소
+		
+		var brSubPcimgUrl  = document.getElementById("image-boxPc2").src;//pc이미지
+		var brSubMimgUrl  = document.getElementById("image-boxM2").src; //moble이미지
+		var brSubRUrl = $("#brSubRUrl").val();//랜딩Url주소 		 */
+		
+		
      
 </script>
 

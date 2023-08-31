@@ -113,8 +113,8 @@
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">게시판 표시여부</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="cmMgShowYn" value="Y">사용</label>
-												<label><input type="radio" name="cmMgShowYn" value="N">사용 안함</label>
+												<label><input type="radio" name="useYn" value="Y">사용</label>
+												<label><input type="radio" name="useYn" value="N">사용 안함</label>
 											</td>
 										</tr>
 										<tr class="col-form-label sTitle LabelStyle"  >
@@ -125,12 +125,21 @@
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">게시판 정렬 방식</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="cmMgOdDivCd" value="REGST" checked="checked">등록순 정렬</label>
-												<label><input type="radio" name="cmMgOdDivCd" value="REGDT">작성일순 정렬</label>
+												<label><input type="radio" name="cmMgOdDivCd" value="REG" checked="checked">등록순 정렬</label>
 												<label><input type="radio" name="cmMgOdDivCd" value="LIK">좋아요 많은순 정렬</label>
 												<label><input type="radio" name="cmMgOdDivCd" value="VIW">조회수 많은순 정렬</label>
 											</td>	
 										</tr>
+										<!-- <tr class="col-form-label sTitle LabelStyle" name="pageViewCnt">
+											<td class="col-sm-1" align="center" style="background-color: #efefef;">페이지 표시 수</td>
+											<td id="" class="col-sm-2 dataValue">
+												<div class="input-group input-group-sm">
+													
+													<input type="number" name="comtTypCdExh" class="form-control float-right bTitle">
+													
+												</div>
+											</td>
+										</tr> -->
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">댓글기능</td>
 											<td id="" class="col-sm-2 dataValue">
@@ -188,22 +197,22 @@
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">읽기 권한</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="readAuth" value="admin" checked="checked">관리자</label>
-												<label><input type="radio" name="readAuth" value="member">회원이상</label>
+												<label><input type="radio" name="readAuthSq" value="3" checked="checked">관리자</label>
+												<label><input type="radio" name="readAuthSq" value="1">회원이상</label>
 											</td>
 										</tr>
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">쓰기 권한</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="writeAuth" value="admin" checked="checked">관리자</label>
-												<label><input type="radio" name="writeAuth" value="member">회원이상</label>
+												<label><input type="radio" name="writeAuthSq" value="3" checked="checked">관리자</label>
+												<label><input type="radio" name="writeAuthSq" value="1">회원이상</label>
 											</td>
 										</tr>
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">댓글 권한</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="commentAuth" value="admin" checked="checked">관리자</label>
-												<label><input type="radio" name="commentAuth" value="member">회원이상</label>
+												<label><input type="radio" name="cmtAuthSq" value="3" checked="checked">관리자</label>
+												<label><input type="radio" name="cmtAuthSq" value="1">회원이상</label>
 											</td>
 										</tr>
 										
@@ -231,6 +240,7 @@
 	$(document).ready(function(){
 		//게시물 목록 조회
 		commuTypeList();
+	
 		
 	});
 	/* 게시판 관리 타입 리스트  */
@@ -241,14 +251,24 @@
 	           data: {},
 	           success: function(data) {
 	        	   data.list.list.forEach(function(ele, idx){
-	        			var strHtml = '<tr id align="center">';
+	        		         	
+        			   var strHtml = '<tr id align="center">';
 	        			strHtml += '<th><input type="checkbox"></th>';
 	        			strHtml += '<th>' + ele.DTL_CD_NM + '</th>';
 	        			strHtml += '<th onclick="manageDtl(\''+ ele.COMT_TYP_CD + '\',\'' + ele.DTL_CD_NM +'\',\'' + ele.CM_MG_NM + '\')">' + ele.CM_MG_NM + '</th>';	
 	        			strHtml += '<th>' + ele.CM_MG_SQ + '</th>';
 	        			strHtml += '<th>' + ele.CM_MG_NEW_CNT + ' / ' + ele.CM_MG_TOT_CNT + '</th>';
 	        			strHtml += '<th><div class="noExl" style="text-align:left; display: inline;">';
-	        			strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/deal/soldoutDetail?SqNumber=651\')">글보기 > </button>';
+	        			
+	        		 	if(ele.COMT_TYP_CD == "BOA"){
+	        		 		strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/worksList\')">글보기 > </button>';
+	        			}else if(ele.COMT_TYP_CD == "EXH"){
+	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/exhintList\')">글보기 > </button>';
+	        			}else if(ele.COMT_TYP_CD == "ISS"){
+	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/issueList\')">글보기 > </button>';
+	        			}
+	        			
+	        			
 	        			strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/admin/community/communityManagementNoticeUpdate\?comtTypCd=\', \'게시판 관리\', \'width=800, height=180, scrollbars=no, resizeble=no\')">공지글 > </button>';
 	        			strHtml += '</div></th>';
 	        			strHtml += '<th>' + ele.CM_MG_SHOW_YN + '</th>';
@@ -259,7 +279,8 @@
 	        				$('#boardTypeList').html(strHtml);
 	        			}else{
 	        				$('#boardTypeList').append(strHtml);
-	        			}
+	        			}	        		   	        		         		   
+	        			
 	        	   });
 	           },
 	           error: function(error) {
@@ -281,6 +302,7 @@
 	           success: function(data) {
 				 var dtlInfo = data.hashMap.dtlList;
 				 
+				 console.log(dtlInfo);
 				 //표시여부 라디오 버튼 제어
 				 Object.keys(dtlInfo).forEach(function(k){
 				      var key = k;
@@ -288,17 +310,30 @@
 				      var chkName = toCamelCase(key);
 					  //표시 여부 셋팅
 				      if(key.indexOf("_YN") > -1){
-						  if(key == "CM_MG_SHOW_YN"){
+						  if(key == "CM_MG_SHOW_YN"){				 
 					    	  iptValue = iptValue == "표시" ? "Y" : "N";
 					      }
 						  $('input:radio[name='  + chkName + ']input[value=' + iptValue + ']').prop("checked", true);
 					  }
+					 
+					//  alert(data.comtTypCd);
+					  
+				/*       <tr class="col-form-label sTitle LabelStyle"  >
+						<td class="col-sm-1" align="center" style="background-color: #efefef;">게시판 제목</td>
+						<td id="commuName" class="col-sm-2 dataValue"></td>						
+					</tr> */
 					  
 					 //정렬 방식 셋팅
 					  if(key == "CM_MG_OD_DIV_CD"){
 						  $('input:radio[name='  + chkName + ']input[value=' + iptValue + ']').prop("checked", true);
  					  }
-					  //새 글 기준 셋팅
+					/*   if(key == "COMT_TYP_CD"){
+						 									  
+						  if(iptValue == "EXH"){
+							  							    							    						    														 							    						       
+						 }					 							  		  
+					  } */
+					  //게시판 관리 NEW 설정
 					  if(key == "CM_MG_NEW_SET"){
 						  $("input[name='cmMgNewSet']").val(iptValue);
 					  }
@@ -306,6 +341,18 @@
 					  if(key == "CM_MG_SQ"){
 						  $("input[name='cmMgSq']").val(iptValue);
 					  }
+					  //읽기 권한 세팅
+					  if(key == "READ_AUTH_SQ"){
+						  $('input:radio[name='  + chkName + ']input[value=' + iptValue + ']').prop("checked", true);
+ 					  }
+					  //읽기 권한 세팅
+					  if(key == "WRITE_AUTH_SQ"){
+						  $('input:radio[name='  + chkName + ']input[value=' + iptValue + ']').prop("checked", true);
+ 					  }
+					  //읽기 권한 세팅
+					  if(key == "CMT_AUTH_SQ"){
+						  $('input:radio[name='  + chkName + ']input[value=' + iptValue + ']').prop("checked", true);
+ 					  }
 				 });
 				 
 	           },
@@ -313,6 +360,10 @@
 	        	   var errorJson = JSON.stringify(error);
 	               console.log(errorJson);
 	           }
+	           
+	         /*   function dtlInfoDetail(dtlInfo) {
+	        	   location.href = '/deal/soldoutDetail?SqNumber=' + dtlInfo[j].cmMgSq
+	           } */
 		})
 	}
 	
@@ -334,10 +385,12 @@
 				cmMgScrapsYn : getInputValue('cmMgScrapsYn'),
 				cmMgLikesYn : getInputValue('cmMgLikesYn'),
 				cmMgSnsYn : getInputValue('cmMgSnsYn'),
-				cmMgNewSet : getInputValue('cmMgNewSet')
-				//readAuth : getInputValue('readAuth'),
-				//writeAuth : getInputValue('writeAuth'),
-				//commentAuth : getInputValue('commentAuth'),
+				cmMgNewSet : $('input[name="cmMgNewSet"]').val(),
+				useYn : getInputValue('useYn'),
+				readAuthSq : getInputValue('readAuthSq'),
+				writeAuthSq : getInputValue('writeAuthSq'),
+				cmtAuthSq : getInputValue('cmtAuthSq'),
+				
 				
 		};
 		

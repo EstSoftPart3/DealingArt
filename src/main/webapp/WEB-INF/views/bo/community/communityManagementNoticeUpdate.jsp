@@ -35,7 +35,9 @@
 							<td id="" class="col-sm-2 dataValue">
 								<label class="btnNoticeFile" for="noticeFile" style="padding: 3px 15px; background-color: #dee2e6; cursor: pointer; border: 1px solid black">불러오기</label>
 								<input type="file" id="noticeFile" class="uploadNotice" style="display: none;" onchange="noticeUpdate()">
-							</td>
+								<label class="btnNoticeFile" for="noticeFileSave" style="padding: 3px 15px; background-color: #dee2e6; cursor: pointer; border: 1px solid black">저장</label>
+								<input type="file" id="noticeSave" class="saveNotice" style="display: none;" onchange="">
+							</td>					
 						</tr>
 						
 					</table>
