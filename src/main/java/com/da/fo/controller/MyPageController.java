@@ -148,6 +148,62 @@ public class MyPageController {
 		return mv;
 	}
 	
+	//타인페이지 메인 활동내역 열기
+		@RequestMapping("/myPage/otherpage_main")
+		public ModelAndView serviceIntro4(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/otherpage_main");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+		
+	//타인페이지 메인 활동내역 데이터
+		@RequestMapping("/myPage/main/searchOtherInfoAction")
+		@ResponseBody
+		public ModelAndView otherPageMain_searchOtherInfoAction(@RequestParam Map<String, Object> param){
+			ModelAndView mv = new ModelAndView("jsonView");
+			
+			String mbrSq = String.valueOf(param.get("mbrSq"));
+			System.out.println("param++++++"+mbrSq);
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
+			paramMap.put("workTypCd","");
+			
+			List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
+			int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myBoast = myPageService.myPageMain_myCommunitys(paramMap); //나의 자랑하기 조회
+			int myBoastTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 자랑하기 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "EXH"); //커뮤니티 구분 코드 전시후기로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myExhbn = myPageService.myPageMain_myCommunitys(paramMap); //나의 전시후기 조회
+			int myExhbnTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 전시후기 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "ISS"); //커뮤니티 구분 코드 이슈로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
+			int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+			
+			//paramMap.put("limit", 3); //LIMIT 넣기
+			//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
+			//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+			
+			
+			mv.addObject("myWorks", myWorks);
+			mv.addObject("myWorksTotal", myWorksTotal);
+			mv.addObject("myBoast", myBoast);
+			mv.addObject("myBoastTotal", myBoastTotal);
+			mv.addObject("myExhbn", myExhbn);
+			mv.addObject("myExhbnTotal", myExhbnTotal);
+			mv.addObject("myIssue", myIssue);
+			mv.addObject("myIssueTotal", myIssueTotal);
+			
+			return mv;
+		}
+	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
 	@ResponseBody
 	public ModelAndView trnsprtTypCdUpdate(@RequestBody Map<String, Object> param) {
