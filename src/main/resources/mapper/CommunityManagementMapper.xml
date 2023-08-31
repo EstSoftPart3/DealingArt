@@ -138,75 +138,6 @@
 		)
 	</insert>
 	
-	<!-- <select id="boardList" resultType="hashMap" parameterType="hashMap">
-        SELECT
-        	row_number() over(order by A.REG_DT DESC) as no
-           	,A.COMT_SQ             			  AS comtSq
-			,A.COMT_TITLE         				  AS comtTitle
-			,A.COMT_CONTENT      				  AS comtContent
-			,A.COMT_TYP_CD        				  AS comtTypCd
-			,C.DTL_CD_NM						AS comtTypNm		/*게시판 구분 코드명*/
-			,A.REG_MBR_SQ        				  AS reqMbrSq
-			,B.MBR_ID						  AS regMbrId
-			,B.MBR_NCKNM					  AS regMbrNckNm
-			,DATE_FORMAT(A.REG_DT, "%Y-%m-%d")  AS regDt
-			,A.UPDT_MBR_SQ                      AS updtMbrSq
-			,DATE_FORMAT(A.UPDT_DT, "%Y-%m-%d") AS updtDt
-			,A.USE_YN			   				  AS useYn
-			,A.DEL_YN			   				  AS delYn
-			,A.RPRT_YN							AS rprtYn
-			,A.OPEN_YN							AS openYn
-			,A.COMT_CMTS 					AS comtCmts
-		FROM
-            TBL_DA_COMT_M AS A
-        INNER JOIN TBL_DA_MBR_M AS B 
-        	ON A.REG_MBR_SQ = B.MBR_SQ
-        INNER JOIN TBL_DA_COMN_DTL_CD_S AS C 
-			ON A.COMT_TYP_CD = C.DTL_CD AND C.CD_SQ = '34'
-        WHERE 1=1
-        	AND A.DEL_YN = 'N'
-        	<if test="firstDate != null and lastDate != null">
-         		AND A.REG_DT BETWEEN #{firstDate} AND #{lastDate}
-         	</if>
-        	<if test="cmMgMenuTyp eq 'BOA'.toString()">
-         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
-         	</if>
-        	<if test="cmMgMenuTyp eq 'EXH'.toString()">
-         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
-         	</if>
-        	<if test="cmMgMenuTyp eq 'KNO'.toString()">
-         		AND A.COMT_TYP_CD = #{cmMgMenuTyp}
-         	</if>
-        	<if test="cmMgSrchTyp eq 'title'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
-         		AND A.COMT_TITLE LIKE CONCAT('%',#{cmMgSrchTxt},'%')
-         	</if>
-        	<if test="cmMgSrchTyp eq 'content'.toString() and cmMgSrchTxt != null  and cmMgSrchTxt != ''">
-         		AND A.COMT_CONTENT LIKE CONCAT('%',#{cmMgSrchTxt},'%')
-         	</if>
-        	<if test="cmMgSrchTyp eq 'id'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
-         		AND B.MBR_ID LIKE CONCAT('%',#{cmMgSrchTxt},'%')
-         	</if>
-        	<if test="cmMgSrchTyp eq 'nickname'.toString() and cmMgSrchTxt != null and cmMgSrchTxt != ''">
-         		AND B.MBR_NCKNM LIKE CONCAT('%',#{cmMgSrchTxt},'%')
-         	</if>    
-         	   
-        	<if test="cmMgComntYn eq 'Y'.toString()">
-         		AND A.COMT_CMTS <![CDATA[>]]> 0
-         	</if>
-         	
-         	<if test="cmMgComntYn eq 'N'.toString()">
-         		AND A.COMT_CMTS <![CDATA[=]]> 0
-         	</if>
-         	
-        	<if test="cmMgRepSts eq'hide'.toString()">
-         		AND A.RPRT_YN = 'Y'
-         	</if>
-         	
-         	<if test="cmMgRepSts eq 'nonHide'.toString()">
-         		AND A.RPRT_YN = 'N'
-         	</if>
-	</select> -->
-	
 	<select id="searchAllBoardList" resultType="hashMap" parameterType="hashMap">
 		/* 전체 게시물 보기 */
    <!-- TBL_DA_COMT_M // 커뮤니티 테이블
@@ -222,6 +153,8 @@
 			DATE_FORMAT(A.REG_DT, '%Y-%m-%d') AS regDt,		/*작성일*/
 			A.OPEN_YN AS openYn,								/*상태*/
 			A.DEL_YN AS delYn						
+			A.DEL_YN AS delYn,	
+			A.COMT_VIEWS AS comtView					
 		FROM
         	TBL_DA_COMT_M AS A
         LEFT JOIN TBL_DA_MBR_M AS B
@@ -265,7 +198,7 @@
 	</select>
 	
 	<select id="searchAllReplyList" resultType="hashMap" parameterType="hashMap">
-		/* 전체 게시물 보기 */
+		/* 댓글달린 게시물 보기 */
    <!-- TBL_DA_COMT_M // 커뮤니티 테이블
         TBL_DA_MBR_M // 회원 정보 테이블 MBR_SQ
         TBL_DA_COMT_CMTS_R // 커뮤니티 댓글 테이블 COMT_SQ
@@ -360,10 +293,30 @@
 					ON 	MBR.MBR_SQ = RPRT.MBR_SQ
 				WHERE 
 						RPRT.COMT_SQ IS NOT NULL
-					AND	RPRT.DEL_YN = 'N'
-					AND RPRT.USE_YN = 'Y'
-				ORDER BY RPRT.RPRT_SQ DESC
-	</select>
+				<if test="firstDate != null and firstDate != '' and lastDate != null and lastDate != ''">
+				AND RPRT.REG_DT BETWEEN #{firstDate} AND #{lastDate}
+				</if>
+				<if test="cmMgMenuTyp != null and cmMgMenuTyp != ''">
+					AND COMT.COMT_TYP_CD = #{cmMgMenuTyp}
+				</if>
+				<if test="cmMgSrchRepTyp != null and cmMgSrchRepTyp != ''">
+					<choose>
+						<when test="cmMgSrchRepTyp == 'writer'">
+							AND mbrNcknm LIKE CONCAT('%', #{cmMgSrchRepTxt}, '%')
+						</when>
+						<when test="cmMgSrchRepTyp == 'reporter'">
+							AND MBR.MBR_NM LIKE CONCAT('%', #{cmMgSrchRepTxt}, '%')
+						</when>
+						<when test="cmMgSrchRepTyp == 'content'">
+							AND COMT.COMT_TITLE LIKE CONCAT('%', #{cmMgSrchRepTxt}, '%')
+						</when>
+					</choose>
+				</if>
+				<if test="cmMgRepSts != null and cmMgRepSts != ''">
+							AND COMT.OPEN_YN = #{cmMgRepSts}
+				</if>
+					ORDER BY RPRT.RPRT_SQ DESC
+			</select>
 
 	
 	<!-- 게시물 상태 변경 -->
@@ -384,24 +337,22 @@
 	 		</if>
 		    WHERE COMT_SQ = #{comtSq}
 	</update>
+	<!-- 신고된 게시물 상태 변경 -->
 	<update id="rprtStatusUpdate"  parameterType="String">
-	 		UPDATE TBL_DA_COMT_M AS COMT
+	 		UPDATE TBL_DA_COMT_CMTS_R AS A
 	 		<if test = "statusType == 'hide'">
 	 			SET 
-	 				OPEN_YN = 'N'
+	 				DEL_YN = 'Y'
 	 		</if>
 	 		<if test = "statusType == 'nonhide'">
 	 			SET 
-	 				OPEN_YN = 'Y'
+	 				DEL_YN = 'N'
 	 		</if>
-	 		<if test = "statusType == 'delete'">
+	 		<!-- <if test = "statusType == 'delete'">
 	 			SET 
-	 				OPEN_YN = 'N'
+	 				OPEN_YN = 'Y'
 	 				,DEL_YN = 'Y'
-	 		</if>
-	 		LEFT JOIN 
-				TBL_DA_RPRT_M AS RPRT
-				ON	COMT.COMT_SQ = RPRT.COMT_SQ
+	 		</if> -->
 		    WHERE COMT_SQ = #{rprtSq}
 	</update>
 	
@@ -411,9 +362,9 @@
 		/* 전체 댓글 보기 */
 		SELECT
 			A.CMT_SQ AS cmtSq,							/*순번*/
-		    C.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
-		    A.CMT_CONTENT AS cmtContent,					/*내용*/
-			A.DEL_YN AS delYn								/*삭제*/
+		    C.MBR_NCKNM AS mbrNcknm,					/*닉네임*/
+		    A.CMT_CONTENT AS cmtContent,				/*내용*/
+			A.DEL_YN AS delYn							/*삭제*/
 		FROM
         	TBL_DA_COMT_CMTS_R AS A
         LEFT JOIN TBL_DA_COMT_M AS B

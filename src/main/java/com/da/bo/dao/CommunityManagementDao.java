@@ -102,6 +102,19 @@ public class CommunityManagementDao {
 		return result;
 	}
 	
+	//새창 댓글 리스트
+	public Map<String, Object> boardReplyList(Map<String, Object> param){
+			
+			Map<String, Object> result = new HashMap<>();
+					
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> boardInfo = communityManagementMapper.boardReplyList(param);
+			
+			result.put("boardInfo", boardInfo);
+			
+			return result;
+		}
+	
 	//신고된 게시물 목록
 	public Map<String, Object> searchAllRprtList(Map<String, Object> param){
 		

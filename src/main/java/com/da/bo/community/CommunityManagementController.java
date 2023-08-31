@@ -188,16 +188,16 @@ public class CommunityManagementController {
 		// 신고된 게시물 체크박스 선택 후 게시물 숨김,해제, 삭제
 				@RequestMapping("/admin/community/rprtStatusUpdate")
 				@ResponseBody
-				public ModelAndView rprtStatusUpdate(@RequestParam(value = "rprtSqList[]", required = false) List<String> rprtSqList,
+				public ModelAndView rprtStatusUpdate(@RequestParam(value = "rprtSq[]", required = false) List<String> rprtSq,
 													@RequestParam(value = "statusType", required = false) String statusType) {
 					
 					ModelAndView mv = new ModelAndView();
 					mv.setViewName("jsonView");
-					System.out.println("@@@@@@@@@@@@@@@@@pram: " + rprtSqList);
+					System.out.println("@@@@@@@@@@@@@@@@@pram: " + rprtSq);
 					
 					int result = 0;
-					for(int i=0; i<rprtSqList.size(); i++) {
-						result += communityManagementService.rprtStatusUpdate(statusType, rprtSqList.get(i));
+					for(int i=0; i<rprtSq.size(); i++) {
+						result += communityManagementService.rprtStatusUpdate(statusType, rprtSq.get(i));
 					}
 							
 					mv.addObject("result", result);
