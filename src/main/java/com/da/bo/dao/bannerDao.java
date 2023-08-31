@@ -1,6 +1,5 @@
 package com.da.bo.dao;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +40,20 @@ public class bannerDao {
 	}
 
 	// 배너 등록
-	public void bannerInsert(Map<String, Object> param) {
+	public int bannerInsert(Map<String, Object> param) {
 
 		System.out.println("DATA = " + param);
-		bannerMapper.bannerInsert(param);
+		return bannerMapper.bannerInsert(param);
 
+	}	
+	//배너 삭제
+	public void bannerDelete(Map<String, Object> param){
+		
+		System.out.println("DATA = " + param);
+		bannerMapper.bannerDelete(param);	
+		
+		
+	
 	}
 	//이벤트프로모션리스트
 	public Map<String, Object> eventProList(Map<String, Object> param) {

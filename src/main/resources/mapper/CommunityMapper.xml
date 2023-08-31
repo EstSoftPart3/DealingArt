@@ -33,7 +33,6 @@
 				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
 				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
 				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
-				 <when test="ordCondition == 'REG_DT'">CM.REG_DT</when>
 			 </choose>
 		 </if>
 		 <!-- 정렬 기준 -->
@@ -50,16 +49,15 @@
 		/* 게시판 관리 상세 조건 조회 */
 		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
-					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
-					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
-					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
+					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
+					
 			   END 											AS ordCondition,	-- 정렬 구분
 			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
 			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
 			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
 			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
 			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
-			   		WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
+			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 4
 			   END											AS limitNum			-- 조회 갯수
 		  FROM TBL_DA_COMT_MGMT_M
 		 WHERE COMT_TYP_CD = #{comtTypCd}
@@ -176,9 +174,7 @@
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
-			ON COMT.MBR_SQ = MBR.MBR_SQ
-		LEFT JOIN TBL_DA_WORK_M AS WORK
-			ON COMT.WORK_SQ = WORK.WORK_SQ
+			ON COMT.MBR_SQ = MBR.MBR_SQ 
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -188,9 +184,6 @@
 		</if>
 		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
 			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
-		</if>
-		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
-			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
@@ -230,8 +223,6 @@
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
 			ON COMT.MBR_SQ = MBR.MBR_SQ 
-		LEFT JOIN TBL_DA_WORK_M AS WORK
-			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -244,9 +235,6 @@
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
-		</if>
-		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
-			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="comSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
@@ -540,74 +528,5 @@
 		   SET COMT_CMTS = COMT_CMTS + #{cnt}
 		 WHERE COMT_SQ = #{comtSq}
 	</update>
-	
-	<insert id="insertComtRequest">
-		/* 판매 제안하기 or 요청하기 등록 */
-		INSERT INTO TBL_DA_NOTI_M (
-		   MBR_SQ
-		   <if test="workSq != null and workSq != ''">
-		   , WORK_SQ 
-		   </if>
-		   <if test="artstSq != null and artstSq != ''">
-		   , ARTST_SQ
-		   </if>
-		   <if test="dealSq != null and dealSq != ''">
-		   , DEAL_SQ 
-		   </if>
-		   , NOTI_TYP_CD 
-		   , NOTI_CAT_CD
-		   , QUESTION_MBR_SQ
-		   <if test="questionContent != null and questionContent != ''">
-		   , QUESTION_CONTENT
-		   </if>
-		   , REG_MBR_SQ 
-		   , REG_DT 
-		   , UPDT_MBR_SQ 
-		   , UPDT_DT 
-		) VALUES (
-		   #{mbrSq}
-		   <if test="workSq != null and workSq != ''">
-		   , #{workSq}
-		   </if>
-		   <if test="artstSq != null and artstSq != ''">
-		   , #{artstSq}
-		   </if>
-		   <if test="dealSq != null and dealSq != ''">
-		   , #{dealSq}
-		   </if>
-		   , (
-		   SELECT
-		         DTL_CD
-		   FROM 
-		         TBL_DA_COMN_DTL_CD_S AS DTL
-		   LEFT JOIN
-		         TBL_DA_COMN_CD_M AS CD
-		      ON   DTL.CD_SQ = CD.CD_SQ
-		   WHERE 
-		         CD.CD = 'NOTI_TYP_CD'
-		      AND DTL.DTL_CD  = #{notiTypCd}
-		   )
-		   , (
-		   SELECT
-		         DTL_CD
-		   FROM 
-		         TBL_DA_COMN_DTL_CD_S AS DTL
-		   LEFT JOIN
-		         TBL_DA_COMN_CD_M AS CD
-		      ON   DTL.CD_SQ = CD.CD_SQ
-		   WHERE 
-		         CD.CD = 'NOTI_CAT_CD'
-		      AND DTL.DTL_CD  = #{notiCatCd}
-		   )
-		   , #{questionMbrSq}
-		   <if test="questionContent != null and questionContent != ''">
-		   , #{questionContent}
-		   </if>
-		   , #{questionMbrSq}
-		   , NOW()
-		   , #{questionMbrSq}
-		   , NOW()
-		)
-	</insert>
 	
 </mapper>

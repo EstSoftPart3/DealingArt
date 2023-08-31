@@ -1,8 +1,6 @@
 package com.da.bo.banner;
 
-import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.da.bo.service.*;
+import com.da.bo.service.bannerService;
 import com.da.fo.service.MainService;
 
 @Controller
@@ -34,24 +31,61 @@ public class bannerController {
 
 	// 배너관리 목록 페이지 이동
 	@RequestMapping("/admin/banner/bannerList")
-	public String openBannerList(HttpServletRequest req) {
+	public String openBanner(HttpServletRequest req) {
 
 		return "bo/banner/bannerList";
 	}
+	
+	//배너 목록 조회	 
+	 @RequestMapping("/admin/banner/bannerMainList")	 
+	 @ResponseBody 
+	 public ModelAndView bannerList(@RequestParam Map<String,Object> param) {
+	 
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+			
+		//관리 페이지 이동 시 게시물 관리 목록 조회 후 리턴 해주기.
+		Map<String, Object> result = new HashMap<>();
+		result = bannerService.bannerList(param);
+			System.out.println(param);
+		mv.addObject("list", result);
+						  
+		return mv; 	 
+	 } 
+	 	
 
-	// 배너 등록 페이지
+	// 배너 등록 페이지 이동
 	@RequestMapping("/admin/banner/bannerWrite")
 	public String writeBanner(HttpServletRequest req) {
 		return "bo/banner/bannerWrite";
 	}
 
-	// 배너정보
+	// 배너 등록
 	@RequestMapping("/admin/banner/bannerInsertData")
 	@ResponseBody
-	public void BannerInsertData(@RequestParam Map<String, Object> param) {
+	public int bannerInsertData(@RequestParam Map<String, Object> param) {
+		System.out.println("=======테스트======");
+		
+		int result = bannerService.bannerInsert(param);
+		System.out.println(param);
+		
+		return result;
+	}
+	
+	//게시판 삭제
+	@RequestMapping("/admin/banner/bannerDelete")
+	@ResponseBody
+	public void bannerDelete(@RequestParam Map<String, Object> param) {
+		
+		int bnnSq = Integer.parseInt((String) param.get("bnnSq"));
+		//String bnnDivCd = (String) param.get("bnnDivCd");
 		System.out.println("=======테스트======");
 		System.out.println(param);
-
+	
+		param.put("bnnSq", bnnSq);
+		//param.put("bnnDivCd", bnnDivCd);
+		
+		bannerService.bannerDelete(param);
 	}
 
 

@@ -18,7 +18,7 @@ public class bannerServiceImpl implements bannerService {
 	bannerDao bannerDao;
 	MainDao mainDao;
 
-	// 게시판 목록
+	// 배너 목록
 	@Override
 	public Map<String, Object> bannerList(Map<String, Object> param) {
 
@@ -29,10 +29,16 @@ public class bannerServiceImpl implements bannerService {
 		return result;
 	}
 
-	// 게시판 입력
+	// 배너 등록
 	@Override
-	public void bannerInsert(Map<String, Object> param) {
-		bannerDao.bannerInsert(param);
+	public int bannerInsert(Map<String, Object> param) {	
+		return bannerDao.bannerInsert(param);			
+	}
+	
+	//배너 삭제
+	@Override
+	public void bannerDelete(Map<String, Object> param) {	
+		 bannerDao.bannerDelete(param);			
 	}
 
 	@Override

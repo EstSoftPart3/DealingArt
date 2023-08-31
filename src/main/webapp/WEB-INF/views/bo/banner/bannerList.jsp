@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ include file="/WEB-INF/views/boInclude/include_top.jspf"%>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 
 
 
@@ -32,7 +33,7 @@
 						<div class="card-header">
 							<h3 class="card-title bTitle">배너 목록</h3>
 							<button type="button" class="btn btn-default sTitle">
-								<i class="fas fa-remove">삭제</i>
+								<i class="fas fa-remove" onclick="bannerDelete();">삭제</i>
 							</button>
 							<div class="card-tools">
 
@@ -45,16 +46,17 @@
 									</div>
 									<select class="custom-select bTitle" id="searchGubun">
 										<option value="">주제유형</option>
-										<option value="">메인페이지홈</option>
-										<option value="">커뮤니티홈</option>
-										<option value="">매거진홈</option>
-										<option value="">이벤트홈</option>
-									</select> <select class="custom-select bTitle" id="searchGubun">
-										<option value="">10개씩 보기</option>
-										<option value="mbrNm">20개씩 보기</option>
-										<option value="mbrId">30개씩 보기</option>
-										<option value="mbrNcknm">50개씩 보기</option>
-										<option value="mbrNcknm">100개씩 보기</option>
+										<option value="MIH">메인페이지홈</option>
+										<option value="CMH">커뮤니티홈</option>
+										<option value="MGH">매거진홈</option>
+										<option value="EVH">이벤트홈</option>
+									</select> <select class="custom-select bTitle" id="searchCnt">
+										<option value="">SELECT</option>
+										<option value="rowCnt10">10개씩 보기</option>
+										<option value="rowCnt20">20개씩 보기</option>
+										<option value="rowCnt30">30개씩 보기</option>
+										<option value="rowCnt50">50개씩 보기</option>
+										<option value="rowCnt100">100개씩 보기</option>
 									</select>
 
 
@@ -68,7 +70,7 @@
 
 							<table class="table table-bordered"">
 								<thead>
-									<tr align="center" style="background-color: #efefef">
+									<tr align="center" style="background-color: #efefef" id="bannerMainListData">
 										<th><input type="checkbox"></th>
 										<th>순서</th>
 										<th>분류</th>
@@ -84,7 +86,7 @@
 						
 						</div>
 							<button type="button" class="btn btn-info sTitle"
-								style="margin: 0 auto">검색</button>
+								style="margin: 0 auto" id="searchBtn">검색</button>
 						<!-- 						</div> -->
 						<!-- 			 <div class="card"> -->
 
@@ -109,148 +111,183 @@
 		</div>
 
 	</div>
+	
+	
 	<script>
-		$(document).ready(function() {
-			bannerList();
-		});
+	
+	//var bnnSq = '<c:out value="${param.bnnSq}" />';
+    //var bnnDivCd = '<c:out value="${param.bnnDivCd}" />';
+	
+	
+    var ajaxReturnData = "";
+    
+    
+    
+	$(document).ready(function(){
+		//게시물 목록 조회
+		bannerMainList();
+		
+		
+	});
+	
+	function bannerMainList(){
+				
+		if($("#searchGubun").val() == ""/*  && $("#searchCnt").val() == "" */){
+			$.ajax({
+		           type: "post",
+		           url: "/admin/banner/bannerMainList",
+		           data: {},
+		           success: function(data) {
+		        	   
+		        	   var list = data.list.boardInfo;
+		        	   ajaxReturnData = list;
+		        	   		for(i=0; i<list.length; i++){
+		        	   		 	
+		        	   			var strHtml = '<tr id align="center">';
+		        	   			strHtml += '<th><input type="checkbox"></th>';
+		        	   			strHtml += '<th>' + list[i].BNN_SQ + '</th>';
+		        	   			
+								if(list[i].BNN_DIV_CD == "MIH"){
+									strHtml += '<th>메인 페이지 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "CMH"){
+		        	   				strHtml += '<th>커뮤니티 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "EVH"){
+		        	   				strHtml += '<th>이벤트 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "MGH"){
+		        	   				strHtml += '<th>매거진 홈</th>';	
+		        	   			}
+		        	   				        	   			        	   				        	 	        	   			
+		        	   			strHtml += '<th>' + list[i].BNN_TITLE + '</th>';
+		        	   			strHtml += '<th>' + list[i].BNN_START_DT + ' ~ ' + list[i].BNN_END_DT + '</th>';
+		        	   			strHtml += '<th>' + list[i].REG_DT + '</th>';
+		        	   			
 
-		/* 게시판 리스트 */
-		function bannerList() {
+			        			if(i == 0){
+			        				$('#dataList').html(strHtml);
+			        			}else{
+			        				$('#dataList').append(strHtml);
+			        			}	
+		        	   				
+	 					}
+		        	   
+		           },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			})
+		}else{
+			$.ajax({
+		           type: "post",
+		           url: "/admin/banner/bannerMainList",
+		           data: {
+		        	   
+		        	    searchGubun : $("#searchGubun").val(),
+			        	searchCnt : $("#searchCnt").val()
+		           },
+		           success: function(data) {
+		        	   
+		        	   var list = data.list.boardInfo;
+		        	   
+		        	   		for(i=0; i<list.length; i++){
+		        	   		 	
+		        	   			var strHtml = '<tr id align="center">';
+		        	   			strHtml += '<th><input type="checkbox"></th>';
+		        	   			strHtml += '<th>' + list[i].BNN_SQ + '</th>';
+		        	   			
+								if(list[i].BNN_DIV_CD == "MIH"){
+									strHtml += '<th>메인 페이지 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "CMH"){
+		        	   				strHtml += '<th>커뮤니티 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "EVH"){
+		        	   				strHtml += '<th>이벤트 홈</th>';	
+		        	   			}else if(list[i].BNN_DIV_CD == "MGH"){
+		        	   				strHtml += '<th>매거진 홈</th>';	
+		        	   			}
+		        	   				        	   			        	   				        	 	        	   			
+		        	   			strHtml += '<th>' + list[i].BNN_TITLE + '</th>';
+		        	   			strHtml += '<th>' + list[i].BNN_START_DT + ' ~ ' + list[i].BNN_END_DT + '</th>';
+		        	   			strHtml += '<th>' + list[i].REG_DT + '</th>';
+		        	   			
 
-			var brdTypCd = $('#brdTypCd').val();
-
-			console.log("brdTypCd :" + brdTypCd);
-
-			let params = {
-				brdTypCd : brdTypCd
-			}
-
-			$("#bannerList")
-					.jsGrid(
-							{
-								locale : "ko",
-								height : "700px",
-								width : "100%",
-								inserting : false,
-								editing : false,
-								sorting : false,
-								paging : true,
-								autoload : true,
-								pageSize : 10,
-								gridview : true,
-
-								deleteConfirm : "정말 삭제 하시겠습니까?",
-								controller : {
-									loadData : function(filter) {
-										var d = $.Deferred();
-										$
-												.ajax(
-														{
-															type : "post",
-															url : "/admin/banner/bannerListData",
-															data : params,
-															dataType : "json"
-														})
-												.done(
-														function(response) {
-															//d.resolve(response.bannerData.bannerInfo);
-
-															d
-																	.resolve($
-																			.map(
-																					response.bannerData.bannerInfo,
-																					function(
-																							item,
-																							itemIndex) {
-
-																						var rSize = response.bannerData.bannerInf.length
-																								- itemIndex;
-
-																						return $
-																								.extend(
-																										item,
-																										{
-																											"Index" : rSize
-																										});
-																					}));
-
-														});
-										return d.promise();
-									}
-								},
-								fields : [
-
-								{
-									name : "Index",
-									title : "선택",
-									type : "checkbox",
-									width : 30,
-									align : "center",
-								}, {
-									name : "brdConTypCdTxt",
-									title : "순서",
-									type : "number",
-									width : 200,
-									align : "center",
-									width : 100,
-									visible : true
-								}, {
-									name : "brdAnTypCdTxt",
-									title : "분류",
-									type : "text",
-									width : 150,
-									align : "center",
-									width : 100,
-									visible : true
-								}, {
-									name : "brdSq",
-									title : "제목",
-									type : "text",
-									width : 150,
-									align : "center",
-									width : 100,
-									visible : true
-								}, {
-									name : "brdTitle",
-									id : "기간",
-									title : "제목",
-									type : "text",
-									width : 300,
-									align : "left",
-									visible : true,
-									key : true
-								}, {
-									name : "brdTypCd",
-									title : "등록일",
-									type : "text",
-									width : 200,
-									align : "center",
-									width : 100,
-									visible : true
-								},
-
-								],
-								rowClick : function(args) {
-									//console.log(args)
-									var getData = args.item.brdSq;
-									console.log("getData :" + getData);
-									fn_SubBrdPage(getData);
-
-								}
-
-							});
-
+			        			if(i == 0){
+			        				$('#dataList').html(strHtml);
+			        			}else{
+			        				$('#dataList').append(strHtml);
+			        			}	
+		        	   				
+	 					}
+		        	   
+		           },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			})
 		}
-		//  		if(brdTypCd == "FA") {
+		
+		
+	}
+	//검색
+		$("#searchBtn").on('click', function(){
+			
+			var searchGubun = $("#searchGubun").val();
+        	var searchCnt = $("#searchCnt").val();
+			
+		
+			if(searchGubun == "") {
+				alert("검색 결과가 없습니다.");
+				return;
+			}
+				 	
+		 bannerMainList();
+		 
+	});
+	
+	//배너 삭제
+	function bannerDelete() {
+		   debugger;
+		   alert(ajaxReturnData.BNN_SQ);
+		   if(confirm('정말 삭제 하시겠습니까?')) {
+			   
+			   $.ajax({
+		           type: "post",
+		           url: "/admin/banner/bannerDelete",
+		           data: {
+		        	   bnnSq : bnnSq,
+		        	   //bnnDivCd : bnnDivCd,
 
-		// 		   $("#bannerList").jsGrid("fieldOption", "1", "visible", true);
-		// 		   $("#bannerList").jsGrid("fieldOption", "2", "visible", false);
-		// 	   }
+		           },
+		           success: function(data) {
+		        	   bootbox.alert({
+							 message: "삭제 되었습니다.",
+							 locale: 'kr',
+							 callback: function() {
+								 
+								 /* 	if(brdTypCd == 'NT'){
+								 		location.href='/admin/board/boardList?brdTypCd=NT';
+								 	}else{
+								 		location.href='/admin/board/boardList?brdTypCd=FA';
+								 	} */
+								 
+							 		
+						     } });
+				   },
+		           error: function(error) {
+		        	   var errorJson = JSON.stringify(error);
+		               console.log(errorJson);
+		           }
+			})
+			   
+		   }else{
+			   return false;
+		   }
+		   
+		  
+	   }
+			
 
-		//    function fn_SubBrdPage(getData) {
-		// 	   var brdTypCd = $('#brdTypCd').val();
-		// 	   location.href='/admin/board/boardDetail?brdSq='+getData+'&brdTypCd='+brdTypCd;
-		// 	}
+		
 	</script>
 
 </body>
