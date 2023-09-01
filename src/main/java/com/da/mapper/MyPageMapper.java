@@ -444,4 +444,74 @@ public interface MyPageMapper {
 	 */
 	public int myComtDelYn(Map<String, Object> param);
 	
+	/*
+	 * 마이페이지 알림 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Object param);
+	
+	/*
+	 * 마이페이지 메인 알림 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param);
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Object param);
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 나의 작품 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapMyWork(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 커뮤니티 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapCom(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 매거진 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapMgz(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 나의 작품 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapMyWorkTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 커뮤니티 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapComTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 매거진 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapMgzTotal(Object param);
+	
 }

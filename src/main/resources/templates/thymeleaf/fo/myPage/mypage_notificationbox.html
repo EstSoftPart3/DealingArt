@@ -103,118 +103,28 @@
             <div class="mypage_contents">
               <div id = "left_menu"></div>
                 <div class="contents_right">
-                    <div class="mypage_search_wrap">
+                    <!-- <div class="mypage_search_wrap">
                         <div class="search">
                             <label for="search_input" class="hidden">검색</label>
                             <input type="text" id="search_input" placeholder="검색어를 입력해 주세요.">
                             <button class="btn_mypage_search"></button>
                         </div>
                         <button class="btn_mypage_registering">등록하기</button>
-                    </div>
-                    <div class="mypage_tap_wrap">
+                    </div> -->
+                    <div class="mypage_tap_wrap" id="tap">
                         <ul class="tap">
-                            <li class="on bg_no">전체(99)</li>
-                            <li>판매제안(20)</li>
-                            <li>가격협상(50)</li>
-                            <li class="bg_no">사진요청(29)</li>
+                            <li id="btn_nal1" class="on bg_no" onclick="offer('');"></li>
+                            <li id="btn_nal2" onclick="offer('SEL');"></li>
+                            <li id="btn_nal3" onclick="offer('PRC');"></li>
+                            <li id="btn_nal4" onclick="offer('PIC');" class="bg_no"></li>
                         </ul>
                     </div>                    
                     <div class="mypage_notificationbox_contents_wrap mt30">
-                        <div class="notibox_row">                            
-                            <div class="pic"><img src="/resources/img/img_new/sample_works06.jpg" alt=""></div>
-                            <div class="notibox_tb">
-                                <table class="table">                                   
-                                    <tbody class="tbody">
-                                        <tr>
-                                            <th>작가</th>
-                                            <td>이응노 (Lee Eung-no)</td>
-                                        </tr>
-                                        <tr>
-                                            <th>작품명</th>
-                                            <td>행복을 피워내는 사랑의 꽃</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td colspan="2" class="pd_tb30">현재가격 1,000,000 <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 3,000,000</em></td>
-                                        </tr>
-                                        <tr class="bd_color_ch">                                            
-                                            <td colspan="2" class="notibox_user">
-                                                <div class="user">
-                                                    <ul>
-                                                        <li class="time">10초전</li>
-                                                        <li><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                        <li class="user_name"><span>딜링아트</span></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>                                           
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="notibox_row">                            
-                            <div class="pic"><img src="/resources/img/img_new/sample_works07.jpg" alt=""></div>
-                            <div class="notibox_tb">
-                                <table class="table">                                   
-                                    <tbody class="tbody">
-                                        <tr>
-                                            <th>작가</th>
-                                            <td>이응노 (Lee Eung-no)</td>
-                                        </tr>
-                                        <tr>
-                                            <th>작품명</th>
-                                            <td>행복을 피워내는 사랑의 꽃</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td colspan="2" class="pd_tb30">현재가격 1,000,000 <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 3,000,000</em></td>
-                                        </tr>
-                                        <tr class="bd_color_ch">                                            
-                                            <td colspan="2" class="notibox_user">
-                                                <div class="user">
-                                                    <ul>
-                                                        <li class="time">1시간전</li>
-                                                        <li><img src="/resources/img/img_new/ico_dauser01.png" alt=""></li>
-                                                        <li class="user_name"><span>인공지능</span></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>                                           
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="notibox_row">                            
-                            <div class="pic"><img src="/resources/img/img_new/sample_works08.jpg" alt=""></div>
-                            <div class="notibox_tb">
-                                <table class="table">                                   
-                                    <tbody class="tbody">
-                                        <tr>
-                                            <th>작가</th>
-                                            <td>이응노 (Lee Eung-no)</td>
-                                        </tr>
-                                        <tr>
-                                            <th>작품명</th>
-                                            <td>행복을 피워내는 사랑의 꽃</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td colspan="2" class="pd_tb30">현재가격 1,000,000 <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 3,000,000</em></td>
-                                        </tr>
-                                        <tr class="bd_color_ch">                                            
-                                            <td colspan="2" class="notibox_user">
-                                                <div class="user">
-                                                    <ul>
-                                                        <li class="time">12시간전</li>
-                                                        <li><img src="/resources/img/img_new/ico_dauser02.png" alt=""></li>
-                                                        <li class="user_name"><span>인공지능 AI GPT</span></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>                                           
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="notibox_wrap" id="listBox">
+                        
                         </div>
                         <div class="btn_area">
-                            <button>더보기</button>
+                            <button type= "button" onclick="notificationSearchMore()">더보기</button>
                         </div>     
                     </div>
               </div>
@@ -222,12 +132,138 @@
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    <script type="text/javascript">
+
+	var offset = 0;
+	var obj = new Object();
+	var limit = 0;
+	var more = 1;
+	var notiCatCd = "";
+		
+	$(document).ready(function(){
+		
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		
+		// 알림 리스트 뿌려주기
+		notificationboxList(notiCatCd);
+	});
+	
+	//탭 클릭 이벤트
+	function offer(notiCatCd1){
+		more = 1;
+		notiCatCd = notiCatCd1;
+		$(".tap li").removeClass("on bg_no");
+		if(notiCatCd == ""){
+			$("#btn_nal1").addClass("on bg_no");
+			notificationboxList("");
+		}else if(notiCatCd == "SEL"){
+			$("#btn_nal2").addClass("on bg_no");
+			notificationboxList("SEL");
+		}else if(notiCatCd == "PRC"){
+			$("#btn_nal3").addClass("on bg_no");
+			notificationboxList("PRC");
+		}else if(notiCatCd == "PIC"){
+			$("#btn_nal4").addClass("on bg_no");
+			notificationboxList("PIC");
+		}
+	}
+	
+	//더보기 클릭
+	function notificationSearchMore(){
+		more += 1;
+		notificationboxList(notiCatCd);
+	}
+	
+	// 마이페이지 알림 목록 조회
+	function notificationboxList(notiCatCd){
+		
+		obj.limit = more * 3;
+		obj.notiCatCd = notiCatCd;
+		
+		$.ajax({
+			type: "POST",
+			url: "/myPage/selectNotificationbox",
+			data: obj,
+			success: (function(response){
+				if (response.result.length > 0) {
+					setNotificationboxHtml(response.result);
+				}else{
+					modalAlertShow("검색 결과가 없습니다."); 
+					$(".notibox_wrap").empty();
+				}
+				
+				setNotificationCnt(response.myTotal, response.mySelTotal, response.myPrcTotal, response.myPicTotal);
+			}),
+			error: (function(response){
+				console.log(response);
+			})
+		})
+	}
+	
+	// 마이페이지 알림 목록 뿌려주기
+	function setNotificationboxHtml(list){
+		var strHtml = '';
+		
+		window.scrollTo({top:0});
+		list.forEach(function(notificationbox){
+			
+			strHtml += '<div class="notibox_row" id="notificationbox_'+notificationbox.mbrSq+'">';
+			strHtml += '	<div class="pic"><img src="'+notificationbox.workMainImgUrl+'" alt=""></div>';
+			strHtml += '	<div class="notibox_tb">';
+			strHtml += '		<table class="table">';
+			strHtml += '			<tbody class="tbody">';
+			strHtml += '				<tr>';
+			strHtml += '					<th>작가</th>';
+			strHtml += '					<td>'+notificationbox.artstActvtyNm+' ('+notificationbox.artstEnglsNm+')'+'</td>';
+			strHtml += '				</tr>';
+			strHtml += '				<tr>';
+			strHtml += '					<th>작품명</th>';
+			strHtml += '					<td>'+notificationbox.workNm+'';
+			strHtml += '				</tr>';
+			if(notificationbox.notiCatCd == "PRC"){
+				let dealStrtPrc = notificationbox.dealStrtPrc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				let questionContent = notificationbox.questionContent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				strHtml += '				<tr>';
+				strHtml += '					<td colspan="2" class="pd_tb30">현재가격 '+dealStrtPrc+' <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 '+questionContent+'</em></td>'
+				strHtml += '				</tr>';
+			}else if(notificationbox.notiCatCd == "SEL"){
+				strHtml += '				<tr>';
+				strHtml += '					<td>판매 등록 해주세요</td>';
+				strHtml += '				</tr>';
+			}else if(notificationbox.notiCatCd == "PIC"){
+				strHtml += '				<tr>';
+				strHtml += '					<td>'+notificationbox.questionContent+'</td>';
+				strHtml += '				</tr>';
+			}
+			strHtml += '				<tr class="bd_color_ch">';
+			strHtml += '					<td colspan="2" class="notibox_user">';
+			strHtml += '						<div class="user">';
+			strHtml += '							<ul>';
+			strHtml += '								<li class="time">'+notificationbox.time+'</li>';
+			strHtml += '								<li><img src="'+notificationbox.mbrProfileImgUrl+'" alt=""></li>';
+			strHtml += '								<li class="user_name"><span>'+notificationbox.mbrNckNm+'</span></li>';
+			strHtml += '							</ul>';
+			strHtml += '						</div>';
+			strHtml += '					</td>';
+			strHtml += '				</tr>';
+			strHtml += '			</tbody>';
+			strHtml += '		</table>';
+			strHtml += '	</div>';
+			strHtml += '</div>';
+		});
+		
+		$(".notibox_wrap").empty();
+        $(".notibox_wrap").append(strHtml).trigger('create');
+	}
+	
+	//마이페이지 알림 개수 뿌려주기
+	function setNotificationCnt(myTotal, mySelTotal, myPrcTotal, myPicTotal){
+		$("#btn_nal1").text("전체("+myTotal+")");
+		$("#btn_nal2").text("판매제안("+mySelTotal+")");
+		$("#btn_nal3").text("가격협상("+myPrcTotal+")");
+		$("#btn_nal4").text("사진요청("+myPicTotal+")");
+	}
+	</script>
 </body>
-<script type="text/javascript">
-$("document").ready(function(){
-	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
-	
-});
-</script>
 </html>

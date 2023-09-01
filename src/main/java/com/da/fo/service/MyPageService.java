@@ -253,5 +253,44 @@ public interface MyPageService {
 	 */
 	public int myComtDelYn(List<Map<String, Object>> param);
 	
+	/* 마이페이지 알람 목록
+	 * param :
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Map<String, Object> paramMap);
+	
+	/*
+	 * 마이페이지 알림 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param);
+	
+	/* 마이페이지 팔로잉 목록
+	 * param :
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Map<String, Object> paramMap);
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param);
+	
+	/* 마이페이지 스크랩 목록
+	 * param :
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap);
+	
+	/*
+	 * 마이페이지 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_scrapTotal(Map<String, Object> paramMap);
+	
 	
 }

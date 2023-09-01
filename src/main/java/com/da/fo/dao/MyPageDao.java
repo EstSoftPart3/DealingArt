@@ -678,4 +678,83 @@ public class MyPageDao {
 		return result;	
 	}
 	
+	/*
+	 * 마이페이지 알람 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_notificationbox(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_notificationbox(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 메인 알림 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_notificationTotal(Object param){
+		return myPageMapper.myPage_notificationTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_following(Map<String, Object> paramMap) {
+		List<Map<String, Object>> result = myPageMapper.myPage_following(paramMap);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_followingTotal(Object param){
+		return myPageMapper.myPage_followingTotal(param);
+	}
+	
+	/*
+	 * 마이페이지 스크랩 목록
+	 * param : List
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap) {
+		String scrapGbCd = String.valueOf(paramMap.get("scrapGbCd"));
+		System.out.println(scrapGbCd);
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		if ("myWork".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMyWork(paramMap);
+		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapCom(paramMap);
+		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMgz(paramMap);
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPage_scrapTotal(Map<String, Object> paramMap){
+		String scrapGbCd = String.valueOf(paramMap.get("scrapGbCd"));
+		System.out.println(scrapGbCd);
+		
+		int result = 0;
+		
+		if ("myWork".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMyWorkTotal(paramMap);
+		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapComTotal(paramMap);
+		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMgzTotal(paramMap);
+		}
+		
+		return result;
+	}
 }

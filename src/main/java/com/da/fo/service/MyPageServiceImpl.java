@@ -402,4 +402,70 @@ public class MyPageServiceImpl implements MyPageService{
 
 	}
 	
+	/*
+	 * 마이페이지 알람 목록
+	 * parameter : List
+	 * return : List
+	 */
+	@Override
+	public List<Map<String, Object>> myPage_notificationbox(Map<String, Object> paramMap) {
+		return myPageDao.myPage_notificationbox(paramMap);
+
+	}
+	
+	/*
+	 * 알림 총 갯수
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myPage_notificationTotal(Object param) {
+		int result =  myPageDao.myPage_notificationTotal(param);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 팔로잉 목록
+	 * parameter : List
+	 * return : List
+	 */
+	@Override
+	public List<Map<String, Object>> myPage_following(Map<String, Object> paramMap) {
+		return myPageDao.myPage_following(paramMap);
+
+	}
+	
+	/*
+	 * 팔로잉 총 갯수
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myPage_followingTotal(Object param) {
+		int result =  myPageDao.myPage_followingTotal(param);
+		return result;
+	}
+	
+	/*
+	 * 마이페이지 스크랩 목록
+	 * parameter : List
+	 * return : List
+	 */
+	@Override
+	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap) {
+		return myPageDao.myPage_scrap(paramMap);
+
+	}
+	
+	/*
+	 * 스크랩 총 갯수
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myPage_scrapTotal(Map<String, Object> paramMap) {
+		int result =  myPageDao.myPage_scrapTotal(paramMap);
+		return result;
+	}
+	
 }
