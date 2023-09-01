@@ -271,6 +271,261 @@
 		  </if>
 	</select>
 	
+	<select id="myPage_scrapMyWork" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 나의 작품 스크랩 조회*/
+		SELECT 
+				D.DEAL_SQ AS dealSq, /*거래 번호*/
+				A.WORK_SQ AS workSq, /*작품번호*/
+				A.MBR_SQ AS mbrSq, /*멤버번호*/
+				A.ARTST_SQ AS artstSq, /*작가번호*/
+				B.AUTH_SQ AS authSq, /*작가구분*/
+				A.WORK_TYP_CD AS workTypCd, /*작품구분*/
+				A.WORK_OPEN_YN AS workOpenYn, /*작품공개여부*/
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가영문명*/
+				IF(A.ARTST_YOD IS NULL OR A.ARTST_YOD = '' ,A.ARTST_BIRTH_YEAR,CONCAT(A.ARTST_BIRTH_YEAR, '~' ,A.ARTST_YOD)) AS artstBirthYear, /*작가생년월일+작가사망연도*/
+				C.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가프로필사진주소*/
+				D.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+				D.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+				A.WORK_NM AS workNm, /*작품명*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				A.WORK_MATRL AS workMatrl, /*작품소재*/
+				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+				A.WORK_SIZE_HEIGHT AS workSizeHeight, /*작품사이즈높이*/
+				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+				B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl, /*프로필 이미지*/
+				(SELECT FORMAT(MAX(BID_PRC), 0)
+				FROM TBL_DA_AUCTN_BID_H
+				WHERE D.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+				FORMAT(D.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+				FORMAT(D.DEAL_SBID_PRC, 0) AS dealSbidPrc, /*거래낙찰가격*/
+				FORMAT(D.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+				(SELECT COUNT(DEAL_SQ)
+				FROM TBL_DA_AUCTN_BID_H 
+				WHERE D.DEAL_SQ = DEAL_SQ) AS bidCnt, /*응찰수*/
+				DATE_FORMAT(D.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/
+				DATE_FORMAT(D.DEAL_ENDNG_DT, '%Y.%m.%d %H:%i') AS dealEndngDate, /*거래종료일시*/
+				D.DEAL_STRT_DT AS dealStrtDateTime, /*거래시작날짜시간*/
+				D.DEAL_ENDNG_DT AS dealEndngDateTime /*거래종료날짜시간*/
+		FROM 
+				TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN 
+				TBL_DA_WORK_M AS A
+			ON SCRAP.WORK_SQ = A.WORK_SQ 
+		INNER JOIN
+				TBL_DA_MBR_M AS B
+			ON	A.MBR_SQ = B.MBR_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS C
+			ON 	A.ARTST_SQ = C.ARTST_SQ 
+		LEFT JOIN 
+				TBL_DA_DEAL_M AS D
+			ON 	A.WORK_SQ = D.WORK_SQ 
+			AND D.DEAL_STTS_CD != 'FB'
+		WHERE
+				SCRAP.MBR_SQ = #{mbrSq}
+				AND (SCRAP.WORK_SQ IS NOT NULL AND SCRAP.WORK_SQ != '')
+				AND (SCRAP.COMT_SQ IS NULL OR SCRAP.COMT_SQ = '')
+				AND (SCRAP.MGZ_SQ IS NULL OR SCRAP.MGZ_SQ = '')
+				AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+		<if test='searchWord != null and searchWord != ""'>
+				AND (
+						A.WORK_NM LIKE CONCAT('%',#{searchWord},'%')
+					OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchWord},'%')
+					OR 	A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchWord},'%')
+				)
+		</if>
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_scrapCom" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 커뮤니티 스크랩 조회*/
+		SELECT 
+				COMT.COMT_SQ AS comtSq /*커뮤니티_순번*/
+				, COMT.MBR_SQ AS mbrSq /*회원_순번*/
+				, COMT.WORK_SQ AS workSq /*작품_순번*/
+				, COMT.ARTST_SQ AS artstSq /*작가_순번*/
+				, COMT.DEAL_SQ AS dealSq /*거래_순번*/
+				, COMT.COMT_TYP_CD AS comtTypCd /*커뮤니티_타입_코드*/
+				, CDDTL.DTL_CD_NM AS comtTypCdNm /*커뮤니티_타입_코드_이름*/
+				, COMT.COMT_IMG_URL AS comtImgUrl /*커뮤니티_이미지_URL*/
+				, COMT.COMT_TITLE AS comtTitle /*커뮤니티_제목*/
+				, IFNULL((SELECT COUNT(CMT_SQ) FROM TBL_DA_COMT_CMTS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) 
+					+ IFNULL((SELECT COUNT(REPLY_SQ) FROM TBL_DA_COMT_REPLYS_R WHERE COMT.COMT_SQ = COMT_SQ), 0) AS cmtTotalCount /*커뮤니티_댓글_총갯수*/
+				, COMT.REG_DT AS regDt /*등록_일시*/
+				, COMT.REG_MBR_SQ AS regMbrSq /*등록_회원_순번*/
+				, COMT.UPDT_DT AS  updtDt /*수정_일시*/
+				, COMT.UPDT_MBR_SQ AS updtMbrSq /*수정_회원_순번*/
+				, COMT.COMT_LIKES AS cmtLikes /*커뮤니티글_좋아요*/
+				, COMT.COMT_SCRAPS AS cmtScraps /*커뮤니티글_스크랩*/
+				, COMT.COMT_VIEWS AS cmtViews /*커뮤니티글_스크랩*/
+				, COMT.OPEN_YN AS cmtOpenYn /*커뮤니티글_공개 유무*/
+				, COMT.COMT_CONTENT AS cmtContent /*커뮤니티글_내용*/
+				, WORKS.ARTST_ACTVTY_NM AS artstActvtyNm /*작가활동명*/
+				, WORKS.WORK_NM AS workNm /*작품_이름*/
+				, ARTST.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl /*작가프로필사진주소*/
+				, MBR.MBR_NCKNM AS mbrNcknm /*회원_닉네임*/
+				, MBR.MBR_INTRO AS mbrIntro /*회원_자기소개*/
+				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl /*회원_자기소개*/
+		FROM 
+				TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN 
+				TBL_DA_COMT_M AS COMT
+			ON SCRAP.COMT_SQ = COMT.COMT_SQ 
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN 
+				TBL_DA_WORK_M AS WORKS
+			ON	COMT.WORK_SQ = WORKS.WORK_SQ
+		LEFT JOIN
+				TBL_DA_ARTST_M AS ARTST
+			ON	COMT.ARTST_SQ = ARTST.ARTST_SQ
+		LEFT JOIN 
+				TBL_DA_DEAL_M AS DEAL
+			ON	COMT.DEAL_SQ = DEAL.DEAL_SQ
+		LEFT JOIN 
+				TBL_DA_COMN_CD_M AS CD
+			ON	CD.CD = 'COMT_TYP_CD'
+		LEFT JOIN 
+				TBL_DA_COMN_DTL_CD_S AS CDDTL
+			ON	CD.CD_SQ = CDDTL.CD_SQ
+			AND CDDTL.DTL_CD = COMT.COMT_TYP_CD
+		WHERE 
+				SCRAP.MBR_SQ = #{mbrSq}
+			AND (SCRAP.COMT_SQ IS NOT NULL AND SCRAP.COMT_SQ != '')
+			AND COMT.COMT_TYP_CD = #{scrapGbCd}
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+			<if test='searchWord != null and searchWord != ""'>
+			AND (
+					WORKS.WORK_NM LIKE CONCAT('%',#{searchWord},'%')
+				OR 	COMT.COMT_TITLE LIKE CONCAT('%',#{searchWord},'%')
+				OR 	WORKS.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchWord},'%')
+				OR 	WORKS.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchWord},'%')
+			)
+			</if>
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_scrapMgz" parameterType="hashMap" resultType="hashMap">
+		/*마이페이지 매거진 스크랩 조회*/
+		SELECT
+			 MGZ.MGZ_SQ             as mgzSq          
+			,MGZ.MBR_SQ             as mbrSq          
+			,MGZ.MGZ_TITLE          as mgzTitle       
+			,MGZ.MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ.MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ.MGZ_TYP_CD         as mgzTypCd      
+			,MGZ.REG_MBR_SQ         as regMbrSq      
+			,MGZ.REG_DT             as regDt     
+			,DATE_FORMAT(MGZ.REG_DT, '%Y.%m.%d')			as regDate      
+			,MGZ.UPDT_MBR_SQ        as updtMbrSq     
+			,MGZ.UPDT_DT            as updtDt         
+			,MGZ.DEL_YN             as delYn          
+			,MGZ.USE_YN             as useYn     
+			,MGZ.MGZ_CONTENT        as mgzContent     
+		FROM 
+			TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN
+			TBL_DA_MGZ_M AS MGZ
+		ON SCRAP.MGZ_SQ = MGZ.MGZ_SQ 
+		LEFT JOIN 
+			TBL_DA_MBR_M MBR
+		ON MGZ.MBR_SQ = MBR.MBR_SQ 
+		WHERE 
+			SCRAP.MBR_SQ = #{mbrSq}
+		 	AND (SCRAP.MGZ_SQ IS NOT NULL AND SCRAP.MGZ_SQ != '')
+			AND (MGZ.USE_YN = 'Y' AND MGZ.DEL_YN = 'N')
+			AND MGZ.MGZ_TYP_CD = #{scrapGbCd}
+			<if test='searchWord != null and searchWord != ""'>
+			AND (
+				MGZ.MGZ_TITLE LIKE CONCAT('%',#{searchWord},'%')
+				OR 	MBR.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
+			)
+			</if>
+		ORDER BY MGZ.MGZ_SQ DESC
+		LIMIT #{limit}
+	</select>
+	
+	<select id="myPage_scrapMyWorkTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 나의 작업 스크랩 개수 조회*/
+		SELECT COUNT(*)
+		FROM 
+			TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN 
+			TBL_DA_WORK_M AS A
+		ON SCRAP.WORK_SQ = A.WORK_SQ 
+		WHERE 
+			SCRAP.MBR_SQ = #{mbrSq}
+		AND (SCRAP.WORK_SQ IS NOT NULL AND SCRAP.WORK_SQ != '')
+		AND (SCRAP.COMT_SQ IS NULL OR SCRAP.COMT_SQ = '')
+		AND (SCRAP.MGZ_SQ IS NULL OR SCRAP.MGZ_SQ = '')
+		AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+		<if test='searchWord != null and searchWord != ""'>
+				AND (
+						A.WORK_NM LIKE CONCAT('%',#{searchWord},'%')
+					OR 	A.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchWord},'%')
+					OR 	A.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchWord},'%')
+				)
+		</if>
+	</select>
+	
+	<select id="myPage_scrapComTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 커뮤니티 스크랩 개수 조회*/
+		SELECT COUNT(*)
+		FROM TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN 
+			TBL_DA_COMT_M AS COMT
+		ON SCRAP.COMT_SQ = COMT.COMT_SQ
+		LEFT JOIN 
+				TBL_DA_WORK_M AS WORKS
+			ON	COMT.WORK_SQ = WORKS.WORK_SQ
+		WHERE
+			SCRAP.MBR_SQ = #{mbrSq}
+			AND (SCRAP.COMT_SQ IS NOT NULL AND SCRAP.COMT_SQ != '')
+			<if test="scrapGbCd != null and scrapGbCd != ''">
+			AND COMT.COMT_TYP_CD = #{scrapGbCd}
+			</if>
+			AND COMT.DEL_YN = 'N'
+			AND COMT.USE_YN = 'Y'
+		  <if test='searchWord != null and searchWord != ""'>
+			AND (
+					WORKS.WORK_NM LIKE CONCAT('%',#{searchWord},'%')
+				OR 	COMT.COMT_TITLE LIKE CONCAT('%',#{searchWord},'%')
+				OR 	WORKS.ARTST_ACTVTY_NM LIKE CONCAT('%',#{searchWord},'%')
+				OR 	WORKS.ARTST_ENGLS_NM LIKE CONCAT('%',#{searchWord},'%')
+			)
+			</if>
+	</select>
+	
+	<select id="myPage_scrapMgzTotal" parameterType="hashMap" resultType="int">
+		/*마이페이지 매거진 스크랩 개수 조회*/
+		SELECT COUNT(*)
+		FROM TBL_DA_MBR_SCRAP_R SCRAP
+		LEFT JOIN 
+			TBL_DA_MGZ_M AS MGZ
+		ON SCRAP.MGZ_SQ = MGZ.MGZ_SQ
+		LEFT JOIN 
+			TBL_DA_MBR_M MBR
+		ON MGZ.MBR_SQ = MBR.MBR_SQ
+		WHERE 
+			SCRAP.MBR_SQ = #{mbrSq}
+			AND (SCRAP.MGZ_SQ IS NOT NULL AND SCRAP.MGZ_SQ != '')
+			AND (MGZ.USE_YN = 'Y' AND MGZ.DEL_YN = 'N')
+			<if test="scrapGbCd != null and scrapGbCd != ''">
+			AND MGZ.MGZ_TYP_CD = #{scrapGbCd}
+			</if>
+		  <if test='searchWord != null and searchWord != ""'>
+			AND (
+				MGZ.MGZ_TITLE LIKE CONCAT('%',#{searchWord},'%')
+				OR 	MBR.MBR_NCKNM LIKE CONCAT('%',#{searchWord},'%')
+			)
+			</if>
+	</select>
+	
 	<select id="myPageMain_myCommunitysTotal" parameterType="hashMap" resultType="int">
 		/*마이페이지 메인 나의 커뮤니티 총 갯수 조회*/
 		SELECT 

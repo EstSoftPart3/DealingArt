@@ -290,7 +290,7 @@ public interface MyPageService {
 	 * param : Map
 	 * return : int
 	 */
-	public int myPage_scrapTotal(Object param);
+	public int myPage_scrapTotal(Map<String, Object> paramMap);
 	
 	
 }
