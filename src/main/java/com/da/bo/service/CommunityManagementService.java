@@ -1,5 +1,6 @@
 package com.da.bo.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface CommunityManagementService {
@@ -23,7 +24,7 @@ public interface CommunityManagementService {
 	public Map<String, Object> searchAllReplyList(Map<String, Object> param);
 	
 	//새창 댓글 리스트
-	public Map<String, Object> boardReplyList(Map<String, Object> param);
+	public List<Map<String, Object>> boardAllCmtsList(Object param);
 	
 	//신고된 게시물 리스트
 	public Map<String, Object> searchAllRprtList(Map<String, Object> param);

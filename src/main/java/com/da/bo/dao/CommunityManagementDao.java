@@ -1,5 +1,6 @@
 package com.da.bo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,12 @@ public class CommunityManagementDao {
 	//게시물 목록
 	public Map<String, Object> searchAllBoardList(Map<String, Object> param){
 		
+		/*아이디 암호화*/
+		if(param.get("cmMgSrchTyp").toString().equals("mbrId")) {
+			String cmMgSrchTxt = commonService.encrypt(param.get("cmMgSrchTxt").toString());
+			param.put("cmMgSrchTxt", cmMgSrchTxt);
+		}
+		
 		Map<String, Object> result = new HashMap<>();
 				
 		@SuppressWarnings("unchecked")
@@ -70,7 +77,6 @@ public class CommunityManagementDao {
 			
 			//아이디 복호화
 			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
-			 
 			 boardInfo.get(z).put("mbrId", mbrIdDecrypt);
 		  }
 		
@@ -84,7 +90,7 @@ public class CommunityManagementDao {
 		Map<String, Object> result = new HashMap<>();
 				
 		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllBoardList(param);
+		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllReplyList(param);
 		
 		//Map데이터를 List에 삽입
 		
@@ -103,17 +109,17 @@ public class CommunityManagementDao {
 	}
 	
 	//새창 댓글 리스트
-	public Map<String, Object> boardReplyList(Map<String, Object> param){
+	public List boardAllCmtsList(Object param){
+		
+		List<Map<String, Object>> boardCmtsList = communityManagementMapper.boardCmtsList(param);
+		
+		for(int i=0; i<boardCmtsList.size(); i++) {
 			
-			Map<String, Object> result = new HashMap<>();
-					
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> boardInfo = communityManagementMapper.boardReplyList(param);
-			
-			result.put("boardInfo", boardInfo);
-			
-			return result;
+			boardCmtsList.get(i).put("replys", communityManagementMapper.boardReplysList(boardCmtsList.get(i).get("cmtSq"))); 
 		}
+					
+		return boardCmtsList;
+	}
 	
 	//신고된 게시물 목록
 	public Map<String, Object> searchAllRprtList(Map<String, Object> param){

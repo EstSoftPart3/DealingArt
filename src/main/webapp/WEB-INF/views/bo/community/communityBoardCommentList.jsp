@@ -1,21 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%
-	String communityBoardId = request.getParameter("communityBoardId");
-
-%>
-
 <body>
 
 	<div class="wrapper">
 		
 		<div class="content-wrapper">
 		
-		<input type="hidden" name="checkAllBoolean" id="checkAllBoolean" value="false">
-		<input type="hidden" name="communityBoardId" id="communityBoardId" value="<%=communityBoardId %>">
-		     
 		     <!-- Main content -->
               <section class="content">
 				<div class="card-header">
@@ -38,7 +29,6 @@
 				 	</div>
 				 		
 				 </div>
-			
 			 </section> 
 		</div>    
 	</div>
@@ -46,20 +36,18 @@
 	<%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
 	
 	<script>
+	var comtSq = "${comtSq}";
 	$(document).ready(function(){
+		
 		boardReplyList();
 		
 	});
 	
 	/* 게시물 댓글 리스트 */
 	function boardReplyList(){
-		var commuBorTypCd = $('#commuBorTypCd').val();
-		   
-		console.log("commuBorTypCd :"+commuBorTypCd);
-		commuBorTypCd = "NT"
-
+		debugger;
 		let params = {
-			commuBorTypCd : commuBorTypCd
+				comtSq : comtSq
 		}
 		
 		$("#boardReplyList").jsGrid({
@@ -85,34 +73,34 @@
 		     		var d = $.Deferred();
 		            $.ajax({
 		            	type: "post",
-		 	    	 	url: "/admin/community/boardListData",
+		 	    	 	url: "/admin/community/communityBoardCommentList",
 		 	         	data: params,
 		 	         	dataType: "json"
-			 	     }).done(function(response) {
-			 	    	 
-			 	    	var responseLength = Object.keys(response.boardData.boardInfo).length;
-			 	    	 
+			 	     }).done(function(response) 
+			 	    		 
+			 	    		 {
+			 	    	
+			 	    	var responseLength = Object.keys(response.result.boardAllCmtsList).length;
+			 	    	
 						if(responseLength <= 0){
 							 
 							d.resolve();
 							
-							$(".jsgrid-nodata-row").empty();
-							$(".jsgrid-nodata-row").append("<br><br><p id='list_nodata' style='text-align:center; font-size:13px;'>검색 결과가 없습니다.</p>");
+							/* $(".jsgrid-nodata-row").empty();
+							$(".jsgrid-nodata-row").append("<br><br><p id='list_nodata' style='text-align:center; font-size:13px;'>검색 결과가 없습니다.</p>"); */
 							
 						} else {
-							d.resolve($.map(response.boardData.boardInfo, function (item, itemIndex) {
-				                 var rSize = response.boardData.boardInfo.length - itemIndex;
-				  	    		    	    		 
+							d.resolve($.map(response.result.boardAllCmtsList, function (item, itemIndex) {
+				                 var rSize = response.result.boardAllCmtsList.length - itemIndex;
 				 	    		 return $.extend(item, { "Index": rSize });
 				             }));
 						}
-		 	    	 
 		 	      	});
 		            return d.promise();
 		        }
 		    },
 		    fields: [
-		    	{ name: "",
+		    	{ name: "checkRow",
 	    	      title: "<input type=\"checkbox\" id=\"checkAll\" onclick=\"checkAll()\"/>",
 	    	      width: 20,
 	    	      align: "center",
@@ -120,22 +108,14 @@
 	    	        return $("<input>").attr("type", "checkbox")
 	    	          .attr({class: "checkRow"})
 	    	          .attr({name: "checkRow"})
-	    	          .attr({id: "checkRow" + item.brdSq});
+	    	          .attr({id: "checkRow" + item.comtSq});
 	    	      }
 		    	 },
-				{ name: "cmtSq", title: "순서", type: "text", width: 40, align: "center", visible: true},
-				{ name: "mbrNcknm", title: "닉네임", type: "text", width: 60,align:"center", visible: true},
+				{ name: "comtSq", title: "순서", type: "text", width: 40, align: "center", visible: true},
+				{ name: "", title: "닉네임", type: "text", width: 60,align:"center", visible: true},
 				{ name: "cmtContent", title: "내용", type: "text", width: 120,align:"center", visible: true},
 				{ name: "delYn", title: "상태", type: "text", width: 50, align: "center", visible: true,
-				    itemTemplate: function(value, item) {
-				    	
-				       var $customStatusText = $("<span>")
-				            .attr({role: "text"})
-				            .attr({id: "replyStatusRow" + item.brdSq})
-				            .append("z");
 
-				        return $customStatusText;
-				    }
 				}
 		    ],
 		    multiselect: true,
@@ -198,11 +178,7 @@
 	}
 	
 	/* 댓글 적용 */
-	function replyStatusUpdate(){
-		/* 
-			댓글 상태, 게시물 id, 댓글 id 필요 
-		*/
-	}
+	
 	</script>
 
 </body>

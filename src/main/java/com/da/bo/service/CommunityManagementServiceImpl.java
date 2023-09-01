@@ -1,6 +1,7 @@
 package com.da.bo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,13 +74,9 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 	
 	//새창 댓글 리스트
 	@Override
-	public Map<String, Object> boardReplyList(Map<String, Object> param){
+	public List<Map<String, Object>> boardAllCmtsList(Object param){
 		
-		Map<String, Object> result = new HashMap<>();
-		
-		result = communityManagementDao.boardReplyList(param);
-		
-		return result;
+		return communityManagementDao.boardAllCmtsList(param);
 	}
 	
 	
