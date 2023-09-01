@@ -1478,6 +1478,11 @@ public class MyPageController {
 	public String myExhibit_reg() {
 		return "thymeleaf/fo/myPage/mypage_exhint_page2";
 	}
+	// 마이페이지 레프트 모바일
+	@RequestMapping("/myPage/myPage_left")
+	public String myPage_left() {
+		return "thymeleaf/fo/myPage/mypage_left-nav";
+	}
 	
 	// (모바일)전시후기/소개 등록 페이지 오픈
 	@RequestMapping("/myPage/myExhibit_reg_mo")
