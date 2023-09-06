@@ -9,7 +9,7 @@ public interface bannerMapper {
 	//배너 등록
 	public int bannerInsert(Map<String, Object> param);
 	//배너 삭제
-	public void bannerDelete(Map<String, Object> param);
+	public int bannerDelete(String param);
 	//팝업
 	public List openPopup(Map<String, Object> param);
 	//이벤트프로모션 리스트 

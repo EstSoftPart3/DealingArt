@@ -1,6 +1,7 @@
 package com.da.bo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.da.bo.dao.bannerDao;
 import com.da.fo.dao.MainDao;
+
 import lombok.AllArgsConstructor;
 
 @Service
@@ -37,8 +39,9 @@ public class bannerServiceImpl implements bannerService {
 	
 	//배너 삭제
 	@Override
-	public void bannerDelete(Map<String, Object> param) {	
-		 bannerDao.bannerDelete(param);			
+	public int bannerDelete(String param) {	
+
+		return bannerDao.bannerDelete(param);		
 	}
 
 	@Override

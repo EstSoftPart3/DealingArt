@@ -1,5 +1,6 @@
 package com.da.bo.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface bannerService {
@@ -10,7 +11,7 @@ public interface bannerService {
 	public int bannerInsert(Map<String, Object> param);
 	
 	//배너 삭제
-	public void bannerDelete(Map<String, Object> param);
+	public int bannerDelete(String string);
 
 	//이벤트프로모션리스트
 	public Map<String, Object> eventProList(Map<String, Object> param);

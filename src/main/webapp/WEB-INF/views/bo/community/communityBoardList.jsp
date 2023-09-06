@@ -37,7 +37,7 @@ if (commuBorTypCd.equals("ABL")) {
 	<div class="wrapper">
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
 		<div class="content-wrapper">
-<<<<<<< HEAD
+
 		     
 		     <!-- Main content -->
     		<section class="content">
@@ -118,7 +118,6 @@ if (commuBorTypCd.equals("ABL")) {
 						<tr class="col-form-label sTitle LabelStyle">
 						<td class="col-sm-1" align="center"
 							style="background-color: #efefef;">게시판 분류</td>
->>>>>>> 3f1e5b8f90e298ec466291d4492742a6f0321ed9
 						<td id="" class="col-sm-2 dataValue">
 						<label><input type="radio" name="cmMgMenuTyp" value="" checked="checked">모두</label>
 						<label><input type="radio" name="cmMgMenuTyp" value="BOA">자랑하기</label>

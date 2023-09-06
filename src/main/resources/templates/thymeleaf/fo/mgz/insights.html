@@ -72,6 +72,7 @@
     	.swi-box::before{background-color:#f9f9f9;}
     	.footer-wrap{margin-top:0;}
     	.hd-div{background-color:#fff;}
+    	
     	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
     	.modal-body {
    			max-height: calc(100vh - 180px); 
@@ -94,7 +95,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
-    
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
     
 </head>
@@ -120,21 +121,35 @@
 		<div class="body-wrap coll-mobile">
 			
 			<div class="contents">
-				<div class="mgz-wrap">
-					<div class="mgz-top mgz-bg-1">
+				<!-- <div class="mgz-wrap"> -->
+					<div class="magazine9_wrap">
+					<!-- <div class="mgz-top mgz-bg-1">
 						<div class="mgz-title">
 							<img src="/resources/img/mgz/newtitle.png" />
 							<div class="mgz-text mt-bgs"><span>미술을 읽는 아홉가지 새로운 시각</span></div>
 						</div>
-					</div>
-					<div class="mgz-body max-1500">
-						<div class="mgz-link">
+					</div> -->
+					<div id="nav">
+		                <ul>
+		                    <li><a href="/temp/magazine9_main" class="over">홈</a></li>
+		                    <li><a href="/mgz9/insights">인사이트</a></li>
+		                    <li><a href="/mgz9/exhibition">전시</a></li>
+		                    <li><a href="/mgz9/media">아티스트 필름</a></li>	                    
+		                    <li><a href="#">아티스트</a></li>
+		                </ul>
+		            </div>            
+            <div class="magazine9_visual_wrap">
+                <img src="/resources/img/img_new/magazine9_visual.jpg" alt="">
+            </div>
+					<!-- <div class="mgz-body max-1500"> -->
+					<div class="popular_insight_wrap">
+						<!-- <div class="mgz-link">
 							<ul class="mgz-ul">
 								<li class="active"><a href="/mgz9/insights">Insights</a></li>
 								<li><a href="/mgz9/media">Artist Film</a></li>
 								<li><a href="/mgz9/exhibition">Exhibition</a></li>
 							</ul>
-						</div>
+						</div> -->
 						
 						<ul class="mgz-list" id="mgz9List"></ul>
 						

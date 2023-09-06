@@ -68,10 +68,10 @@
 						<div class="card-body table-responsive p-0"
 							style="height: 500px; font-size: 11px;">
 
-							<table class="table table-bordered"">
+							<table class="table table-bordered">
 								<thead>
 									<tr align="center" style="background-color: #efefef" id="bannerMainListData">
-										<th><input type="checkbox"></th>
+										<th><input type="checkbox" id="chkAll"></th>
 										<th>순서</th>
 										<th>분류</th>
 										<th>제목</th>
@@ -119,8 +119,7 @@
     //var bnnDivCd = '<c:out value="${param.bnnDivCd}" />';
 	
 	
-    var ajaxReturnData = "";
-    
+
     
     
 	$(document).ready(function(){
@@ -128,7 +127,10 @@
 		bannerMainList();
 		
 		
+		
 	});
+	
+
 	
 	function bannerMainList(){
 				
@@ -140,11 +142,10 @@
 		           success: function(data) {
 		        	   
 		        	   var list = data.list.boardInfo;
-		        	   ajaxReturnData = list;
 		        	   		for(i=0; i<list.length; i++){
 		        	   		 	
 		        	   			var strHtml = '<tr id align="center">';
-		        	   			strHtml += '<th><input type="checkbox"></th>';
+		        	   			strHtml += '<th><input type="checkbox" name="chkbox" value="'+list[i].BNN_SQ+'"></th>';
 		        	   			strHtml += '<th>' + list[i].BNN_SQ + '</th>';
 		        	   			
 								if(list[i].BNN_DIV_CD == "MIH"){
@@ -192,7 +193,7 @@
 		        	   		for(i=0; i<list.length; i++){
 		        	   		 	
 		        	   			var strHtml = '<tr id align="center">';
-		        	   			strHtml += '<th><input type="checkbox"></th>';
+		        	   			strHtml += '<th><input type="checkbox" name="chkbox" value="'+list[i].BNN_SQ+'"></th>';
 		        	   			strHtml += '<th>' + list[i].BNN_SQ + '</th>';
 		        	   			
 								if(list[i].BNN_DIV_CD == "MIH"){
@@ -242,36 +243,61 @@
 				 	
 		 bannerMainList();
 		 
+	});	
+
+		
+	// 체크 박스 클릭 시 전체선택
+	 $("#chkAll").click(function() {
+		if($("#chkAll").is(":checked")) {
+			$("input[name=chkbox]").prop("checked", true);
+		}else{
+			$("input[name=chkbox]").prop("checked", false);
+		}
+		//putCheckList();
 	});
 	
-	//배너 삭제
+	//체크된 갯수 확인하여 전체선택 해제
+	$(document).on("click", "input[name=chkbox]", function(){
+	  
+	    var total = $("input[name=chkbox]").length;
+		console.log(total);
+		var checked = $("input[name=chkbox]:checked").length;
+		console.log(checked);
+		if(total != checked) $("#chkAll").prop("checked", false);
+		else $("#chkAll").prop("checked", true); 
+	});
+
+	
+	$("input[name=chkbox]").change(function() {
+		// 체크박스 갯수와  체크된 체크박스 갯수 비교 후 불일치시 헤더 체크박스 해제 
+		if($(this).length != $("input[name=chkbox]:checked").length) $("#chkAll").prop("checked", false); 
+		//putCheckList();
+	});
+	
+	//배너 삭제 ( 하다가 안되서 중지함)
 	function bannerDelete() {
-		   debugger;
-		   alert(ajaxReturnData.BNN_SQ);
+						
+			//체크박스 row 데이터 담기						
+			var idxArr = new Array();
+			var deleteArr = new Array();
+			
+			$("input[name=chkbox]:checked").each(function() {
+				idxArr.push($(this).val());
+			});
+			
+							   
 		   if(confirm('정말 삭제 하시겠습니까?')) {
 			   
 			   $.ajax({
 		           type: "post",
-		           url: "/admin/banner/bannerDelete",
-		           data: {
-		        	   bnnSq : bnnSq,
-		        	   //bnnDivCd : bnnDivCd,
-
+		           url: "/admin/banner/bannerDelete",          
+		           data:{
+		        	   bnnSq : idxArr
 		           },
 		           success: function(data) {
-		        	   bootbox.alert({
-							 message: "삭제 되었습니다.",
-							 locale: 'kr',
-							 callback: function() {
-								 
-								 /* 	if(brdTypCd == 'NT'){
-								 		location.href='/admin/board/boardList?brdTypCd=NT';
-								 	}else{
-								 		location.href='/admin/board/boardList?brdTypCd=FA';
-								 	} */
-								 
-							 		
-						     } });
+		        		 
+		        	   location.reload();				 		
+				 
 				   },
 		           error: function(error) {
 		        	   var errorJson = JSON.stringify(error);
@@ -285,6 +311,8 @@
 		   
 		  
 	   }
+	
+	
 			
 
 		

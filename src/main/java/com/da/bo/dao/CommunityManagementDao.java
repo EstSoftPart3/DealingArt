@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.da.mapper.CommunityManagementMapper;
 import com.da.util.CommonService;
 
+
 @Repository
 public class CommunityManagementDao {
 	
@@ -27,6 +28,7 @@ public class CommunityManagementDao {
 	public Map<String, Object> communityManagementList(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
 		
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> workList = communityManagementMapper.communityManagementList(param);
 		
 		result.put("list", workList);

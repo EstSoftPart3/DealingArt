@@ -84,12 +84,12 @@
 	</insert>
 	
 	<!-- 배너 삭제 -->
-    <update id="bannerDelete" parameterType="hashMap">
-   		UPDATE 
-   			TBL_DA_BNN_MGMT_M AS A
-		SET
-			DEL_YN	= 'Y'
-   		WHERE 1=1
-         	 AND A.BNN_SQ = #{bnnSq}
+    <update id="bannerDelete" parameterType="String">
+		   		UPDATE 
+		   			TBL_DA_BNN_MGMT_M
+				SET
+					DEL_YN = 'Y'
+		   		WHERE 1 = 1 
+		   			AND BNN_SQ = #{bnnSq}     	
 	</update>
 </mapper>
