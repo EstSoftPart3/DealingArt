@@ -1436,8 +1436,12 @@ function fn_decIns(){
 	
 	//로그인 체크 확인
 	if(sMbrSqVal != "" || sMbrSqVal != null){
-		
 		var workSq = result.deal.workSq;
+		var dealSq = result.deal.dealSq;
+		var artstSq;
+		if(result.deal.artstSq != null && result.deal.artstSq != ""){
+			artstSq = result.deal.artstSq;
+		}
 		var mbrSq = sMbrSqVal;
 		var rprtContent = $("#rprtContent").val();
 		
@@ -1453,6 +1457,8 @@ function fn_decIns(){
 		        url: "/admin/report/reportInsData",
 		        data: {
 		        	workSq : workSq,  //작품번호
+		        	dealSq : dealSq,
+		        	artstSq : artstSq,
 		        	mbrSq : mbrSq,	 //회원번호
 		        	rprtContent : rprtContent //신고내용
 		        },

@@ -21,7 +21,24 @@
 				, UPDT_MBR_SQ 
 		
 			) VALUES (
-				#{mbrSq}
+		<choose>
+			<when test="workSq != null and workSq != ''">
+				(SELECT 
+						MBR_SQ 
+				FROM 
+						TBL_DA_WORK_M 
+				WHERE 
+						WORK_SQ = #{workSq})
+			</when>
+			<otherwise>
+				(SELECT 
+						MBR_SQ
+				FROM
+						TBL_DA_COMT_M
+				WHERE 
+						COMT_SQ = #{comtSq})
+			</otherwise>
+		</choose>
 				, #{workSq}
 				, #{comtSq}
 				, #{artstSq}
