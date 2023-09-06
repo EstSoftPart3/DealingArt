@@ -28,8 +28,11 @@ public interface CommunityManagementMapper {
 	//전체 댓글 게시물 리스트
 	public List searchAllReplyList(Map<String, Object> param);
 	
-	//새창 댓글 리스트
-	public List boardReplyList(Map<String, Object> param);
+	//전체 댓글 리스트
+	public List boardCmtsList(Object param);
+	
+	//전체 대댓글 리스트
+	public List boardReplysList(Object param);
 	
 	//신고된 게시물 리스트
 	public List searchAllRprtList(Map<String, Object> param);
