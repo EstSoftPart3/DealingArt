@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+      table, th, td {
+        border: 1px solid #bcbcbc;
+        work-break: break-all;
+        text-align: center;
+      }
+    </style>
 <body>
-
 	<div class="wrapper">
 		
 		<div class="content-wrapper">
@@ -45,84 +51,67 @@
 	
 	/* 게시물 댓글 리스트 */
 	function boardReplyList(){
-		debugger;
-		let params = {
-				comtSq : comtSq
-		}
-		
-		$("#boardReplyList").jsGrid({
-			locale:"ko",
-		    height: "auto",
-		    width: "100%",
-		    inserting: false,
-		    editing: false,
-		    sorting: false,
-		    paging: true,
-		    autoload: true,
-		    pageSize: 5,
-		    pageButtonCount: 10,
-		    gridview : true,
-		    onPageChanged: function() {
-		    	$('#checkAllBoolean').val("true");
-		    	checkAll();
-		    },
-
-		    noDataContent: "검색 결과가 없습니다.",
-		    controller: {
-		    	loadData: function (filter) {
-		     		var d = $.Deferred();
-		            $.ajax({
-		            	type: "post",
-		 	    	 	url: "/admin/community/communityBoardCommentList",
-		 	         	data: params,
-		 	         	dataType: "json"
-			 	     }).done(function(response) 
-			 	    		 
-			 	    		 {
-			 	    	
-			 	    	var responseLength = Object.keys(response.result.boardAllCmtsList).length;
-			 	    	
-						if(responseLength <= 0){
-							 
-							d.resolve();
-							
-							/* $(".jsgrid-nodata-row").empty();
-							$(".jsgrid-nodata-row").append("<br><br><p id='list_nodata' style='text-align:center; font-size:13px;'>검색 결과가 없습니다.</p>"); */
-							
-						} else {
-							d.resolve($.map(response.result.boardAllCmtsList, function (item, itemIndex) {
-				                 var rSize = response.result.boardAllCmtsList.length - itemIndex;
-				 	    		 return $.extend(item, { "Index": rSize });
-				             }));
+		$.ajax({
+			type: "post",
+			url: "/admin/community/communityBoardCommentList",
+			data: {
+				comtSq: comtSq
+			},
+			success: function(data) {
+				var result = data.result;
+				var html = '';
+				html += '<table id="cmtList">';
+				html += '	<tr>';
+				html += '		<th colspan="2"><input type="checkbox"></th>';
+				html += '		<th>순서</th>';
+				html += '		<th>작성자</th>';
+				html += '		<th>내용</th>';
+				html += '		<th>작성일자</th>';
+				html += '		<th>숨김여부</th>';
+				html += '		<th>삭제여부</th>';
+				html += '	</tr>';
+				if(result.length > 0){
+					for(i=0; i<result.length; i++){
+						html += '	<tr>';
+						html += '		<td colspan="2"><input type="checkbox" value="'+result[i].comtSq+'"></td>';
+						html += '		<td>'+result[i].comtSq+'</td>';
+						html += '		<td>'+result[i].regMbrNcknm+'</td>';
+						html += '		<td>'+result[i].cmtContent+'</td>';
+						html += '		<td>'+result[i].regDt+'</td>';
+						html += '		<td>'+result[i].openYn+'</td>';
+						html += '		<td>'+result[i].delYn+'</td>';
+						html += '	</tr>';
+						if(result[i].replys.length > 0){
+							for(j=0; j<result[i].replys.length; j++){
+								html += '	<tr>';
+								html += '		<td>↳</td>';
+								html += '		<td><input type="checkbox" value="'+result[i].replys[j].replySq+'"></td>';
+								html += '		<td>'+result[i].replys[j].replySq+'</td>';
+								html += '		<td>'+result[i].replys[j].regMbrNcknm+'</td>';
+								html += '		<td>'+result[i].replys[j].replyContent+'</td>';
+								html += '		<td>'+result[i].replys[j].regDt+'</td>';
+								html += '		<td>'+result[i].replys[j].openYn+'</td>';
+								html += '		<td>'+result[i].replys[j].delYn+'</td>';
+								html += '	</tr>';
+							}
 						}
-		 	      	});
-		            return d.promise();
-		        }
-		    },
-		    fields: [
-		    	{ name: "checkRow",
-	    	      title: "<input type=\"checkbox\" id=\"checkAll\" onclick=\"checkAll()\"/>",
-	    	      width: 20,
-	    	      align: "center",
-	    	      itemTemplate: function(value, item) {
-	    	        return $("<input>").attr("type", "checkbox")
-	    	          .attr({class: "checkRow"})
-	    	          .attr({name: "checkRow"})
-	    	          .attr({id: "checkRow" + item.comtSq});
-	    	      }
-		    	 },
-				{ name: "comtSq", title: "순서", type: "text", width: 40, align: "center", visible: true},
-				{ name: "", title: "닉네임", type: "text", width: 60,align:"center", visible: true},
-				{ name: "cmtContent", title: "내용", type: "text", width: 120,align:"center", visible: true},
-				{ name: "delYn", title: "상태", type: "text", width: 50, align: "center", visible: true,
-
+					}
+				}else{
+					html += '	<tr>';
+					html += '		<td colspant="8">검색 결과가 없습니다.</td>';
+					html += '	</tr>';
 				}
-		    ],
-		    multiselect: true,
-		    rowClick: function(args) {
-		    	
+				html += '</table>';
+				
+				$("#boardReplyList").empty();
+				$("#boardReplyList").append(html).trigger("create");
+				
+			},
+			error : function(error) { // 결과 에러 콜백함수
+		        console.log(error)
 		    }
 		});
+		
 	}
 	
 	/* 체크박스 전체선택 */

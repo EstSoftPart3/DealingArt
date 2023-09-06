@@ -529,4 +529,15 @@
 		 WHERE COMT_SQ = #{comtSq}
 	</update>
 	
+	<select id="comtOpenDelYnCheck" resultType="hashMap" parameterType="String">
+	/* 커뮤니티 상세 오픈여부/삭제여부 확인 */
+		SELECT 
+				OPEN_YN AS openYn
+				, DEL_YN As delYn
+		FROM 
+				TBL_DA_COMT_M
+		WHERE 
+				COMT_SQ  = #{comtSq}
+	</select>
+	
 </mapper>

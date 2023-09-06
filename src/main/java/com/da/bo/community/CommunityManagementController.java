@@ -224,9 +224,8 @@ public class CommunityManagementController {
 	@ResponseBody
 	public ModelAndView communityBoardCommentList(@RequestParam(value="comtSq")int comtSq) {
 		List<Map<String, Object>> result = communityManagementService.boardAllCmtsList(comtSq);
-		System.out.println("comtSQ : "+comtSq);
 		ModelAndView mv = new ModelAndView("jsonView");
-		mv.addObject("result", comtSq);
+		mv.addObject("result", result);
 		
 		return mv;
 	}

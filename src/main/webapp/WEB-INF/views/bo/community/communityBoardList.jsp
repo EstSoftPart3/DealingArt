@@ -285,7 +285,7 @@ if (commuBorTypCd.equals("ABL")) {
 			setDate("0");
 			
 			// 게시물 리스트 ( 검색버튼 클릭시 노출) 
-			boardList();
+			//boardList();
 			
 			clickBoardTabBtn($('#commuBorTypCd').val());
 			getParamater('ABL');
@@ -473,11 +473,10 @@ if (commuBorTypCd.equals("ABL")) {
 			 	         	data: params,
 			 	         	dataType: "json"
 				 	     }).done(function(response) {
-				 	    	
 				 	    	var responseLength = Object.keys(response.boardData.boardInfo).length;
 
 							if(responseLength <= 0){
-								 
+								alert("검색 결과가 없습니다.");
 								d.resolve([]);	
 								/* $(".jsgrid-nodata-row").empty();
 								$(".jsgrid-nodata-row").append("<br><br><p id='list_nodata' style='text-align:center; font-size:14px;'>검색 결과가 없습니다.</p>"); */

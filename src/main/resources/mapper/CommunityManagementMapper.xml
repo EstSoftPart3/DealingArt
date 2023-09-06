@@ -393,34 +393,59 @@
 	<select id="boardCmtsList" resultType="hashMap" parameterType="hashMap">
 		/* 전체 댓글 보기 */
 		SELECT
-				CMT_SQ AS cmtSq
-				, COMT_SQ AS comtSq
-				, CMT_CONTENT AS cmtContent
-				, REG_DT AS regDt
-				, REG_MBR_SQ AS regMbrSq
-				, UPDT_DT AS updtDt
-				, UPDT_MBR_SQ AS updtMbrSq
-				, DEL_YN AS delYn
+				CMTS.CMT_SQ AS cmtSq
+				, CMTS.COMT_SQ AS comtSq
+				, CMTS.CMT_CONTENT AS cmtContent
+				, DATE_FORMAT(CMTS.REG_DT, '%Y-%m-%d %H:%i:%s') AS regDt
+				, CMTS.REG_MBR_SQ AS regMbrSq
+				, MBR.MBR_NCKNM AS regMbrNcknm
+				, DATE_FORMAT(CMTS.UPDT_DT, '%Y-%m-%d %H:%i:%s') AS updtDt
+				, CMTS.UPDT_MBR_SQ AS updtMbrSq
+				, (CASE
+						WHEN CMTS.DEL_YN = 'Y' THEN '삭제'
+						WHEN CMTS.DEL_YN = 'N' THEN '사용'
+					END
+				) AS delYn
+				, (CASE
+						WHEN CMTS.OPEN_YN = 'Y' THEN '노출'
+						WHEN CMTS.OPEN_YN = 'N' THEN '숨김'
+					END
+				) AS openYn
 		FROM 
-			TBL_DA_COMT_CMTS_R AS CMTS
+				TBL_DA_COMT_CMTS_R AS CMTS
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	CMTS.REG_MBR_SQ = MBR.MBR_SQ 
 		WHERE 
-				COMT_SQ = #{comtSq}
+				COMT_SQ =  #{comtSq}
 	</select>
 	<select id="boardReplysList" resultType="hashMap" parameterType="hashMap">
 		/*전체 대댓글 조회*/
 		SELECT 
-				REPLY_SQ AS replySq
-				, CMT_SQ AS cmtSq
-				, COMT_SQ AS comtSq
-				, REPLY_CONTENT AS replyContent
-				, REG_DT AS regDt
-				, REG_MBR_SQ AS regMbrSq
-				, UPDT_DT AS updtDt
-				, UPDT_MBR_SQ AS updtMbrSq
-				, DEL_YN AS delYn
-				, RPRT_SQ AS rprtSq
+				REPLYS.REPLY_SQ AS replySq
+				, REPLYS.CMT_SQ AS cmtSq
+				, REPLYS.COMT_SQ AS comtSq
+				, REPLYS.REPLY_CONTENT AS replyContent
+				, DATE_FORMAT(REPLYS.REG_DT, '%Y-%m-%d %H:%i:%s') AS regDt
+				, REPLYS.REG_MBR_SQ AS regMbrSq
+				, MBR.MBR_NCKNM AS regMbrNcknm
+				, DATE_FORMAT(REPLYS.UPDT_DT, '%Y-%m-%d %H:%i:%s') AS updtDt
+				, REPLYS.UPDT_MBR_SQ AS updtMbrSq
+				, (CASE
+						WHEN REPLYS.DEL_YN = 'Y' THEN '삭제'
+						WHEN REPLYS.DEL_YN = 'N' THEN '사용'
+					END
+				) AS delYn
+				, (CASE
+						WHEN REPLYS.OPEN_YN = 'Y' THEN '노출'
+						WHEN REPLYS.OPEN_YN = 'N' THEN '숨김'
+					END
+				) AS openYn
 		FROM 
-				TBL_DA_COMT_REPLYS_R
+				TBL_DA_COMT_REPLYS_R AS REPLYS
+		LEFT JOIN
+				TBL_DA_MBR_M AS MBR
+			ON	REPLYS.REG_MBR_SQ = MBR.MBR_SQ 
 		WHERE 
 				CMT_SQ = #{cmtSq}
 	</select>

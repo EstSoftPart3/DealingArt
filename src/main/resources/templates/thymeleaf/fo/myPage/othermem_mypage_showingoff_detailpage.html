@@ -148,8 +148,12 @@
 				$(".ellipsis").css('padding', '10');
 		     }
 		});
-		
-    	var comtSq = 58 //커뮤니티 순번
+		var message = /*[[${message}]]*/ 'default' //커뮤니티 순번
+		if(message != "" && message != null){
+			alert(message);
+			location.href = "/main";
+		}
+    	var comtSq = /*[[${comtSq}]]*/ 'default' //커뮤니티 순번
     	var otherComt; // 작성자의 다른 자랑하기
     	var showOffList;
 		var showOff;
