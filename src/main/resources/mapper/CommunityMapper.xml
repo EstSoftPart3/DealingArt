@@ -539,5 +539,35 @@
 		WHERE 
 				COMT_SQ  = #{comtSq}
 	</select>
-	
+	<insert id="insertComtRequest" parameterType="hashMap">
+	/*제안하기 등록*/
+		INSERT INTO 
+			TBL_DA_NOTI_M(
+				NOTI_TYP_CD
+				, NOTI_CAT_CD 
+				, WORK_SQ 
+				, ARTST_SQ 
+				, DEAL_SQ 
+				, QUESTION_CONTENT 
+				, QUESTION_MBR_SQ 
+				, MBR_SQ 
+				, REG_MBR_SQ 
+				, REG_DT 
+				, UPDT_MBR_SQ 
+				, UPDT_DT 
+			)VALUES(
+				#{notiTypCd}
+				, #{notiCatCd}
+				, #{workSq}
+				, #{artstSq}
+				, #{dealSq}
+				, #{questionContent}
+				, #{questionMbrSq}
+				, #{mbrSq}
+				, #{questionMbrSq}
+				, NOW()
+				, #{questionMbrSq}
+				, NOW()
+			)
+	</insert>
 </mapper>

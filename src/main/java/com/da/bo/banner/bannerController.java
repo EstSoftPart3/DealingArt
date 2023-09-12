@@ -1,6 +1,8 @@
 package com.da.bo.banner;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +14,15 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.bannerService;
+import com.da.common.AwsS3Service;
 import com.da.fo.service.MainService;
+import com.da.vo.FileVo;
 
 @Controller
 public class bannerController {
@@ -28,6 +34,9 @@ public class bannerController {
 
 	@Autowired
 	MainService mainService;
+	
+	@Autowired
+	AwsS3Service awsS3Service;
 
 	// 배너관리 목록 페이지 이동
 	@RequestMapping("/admin/banner/bannerList")
@@ -63,13 +72,39 @@ public class bannerController {
 	// 배너 등록
 	@RequestMapping("/admin/banner/bannerInsertData")
 	@ResponseBody
-	public int bannerInsertData(@RequestParam Map<String, Object> param) {
-		System.out.println("=======테스트======");
+	public int bannerInsertData(@RequestPart(value="bnnData") Map<String, Object> bnnData
+			,@RequestPart(value="promoData") @Nullable List<Map<String, Object>>  promoData
+			,@RequestPart(value="bnnMpImgUrl") @Nullable MultipartFile bnnMpImgUrl
+			,@RequestPart(value="bnnMmImgUrl") @Nullable MultipartFile bnnMmImgUrl
+			,@RequestPart(value="bnnEpImgUrl") @Nullable MultipartFile bnnEpImgUrl
+			,@RequestPart(value="bnnEmImgUrl") @Nullable MultipartFile bnnEmImgUrl) throws IOException {
+		System.out.println(bnnData.toString());
+		System.out.println(promoData.toString());
+		System.out.println(bnnMpImgUrl.getName());
+		System.out.println(bnnMmImgUrl.getName());
 		
-		int result = bannerService.bannerInsert(param);
-		System.out.println(param);
+		Map<String, MultipartFile> imgUrl = new HashMap<String, MultipartFile>();
 		
-		return result;
+		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
+		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
+		imgUrl.put("bnnMmImgUrl", bnnMmImgUrl);
+		imgUrl.put("bnnEmImgUrl", bnnEmImgUrl);
+		
+		//배너 파일 업로드 후 url 담기
+		for (String key : imgUrl.keySet()) {
+			MultipartFile url = imgUrl.get(key);
+			
+			if (url != null) {
+				FileVo file = awsS3Service.upload(url, "dealingart/banner/"+bnnData.get("bnnDivCd").toString());
+				bnnData.put(key, file.getFileUrl());
+			}
+		}
+		//int result = bannerService.bannerInsert(param);
+		//System.out.println(param);
+		
+		//return result;
+		
+		return 1;
 	}
 	
 	//게시판 삭제
