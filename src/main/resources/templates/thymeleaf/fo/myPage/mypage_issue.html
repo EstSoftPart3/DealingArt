@@ -109,14 +109,14 @@
                             <input type="text" id="search_input" placeholder="작품명이나 작가명으로 검색하세요.">
                             <button class="btn_mypage_search"></button>
                           </div>
-                          <button class="btn_mypage_recording">기록하기</button>
+                          <button th:if="${#strings.isEmpty(mbrSq)}" lass="btn_mypage_recording">기록하기</button>
                     </div>
                     <div class="mypage_tap_wrap">
                         <ul class="tap">
                             <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
                             <li class="bg_no"></li>
                             <li class="bg_no"></li>
-                            <li id="btn_nal4" class="bg_no"><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
+                            <li th:if="${#strings.isEmpty(mbrSq)}" id="btn_nal4" class="bg_no" ><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
                         </ul>
                     </div>                    
                     
@@ -195,7 +195,11 @@
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </body>
-<script type="text/javascript">
+<script th:inline="javascript">
+
+var mbrSq = /*[[${mbrSq}]]*/ 'default';
+
+
 var searchOptions = new Object();
 var result = new Object();
 var nowPage = 0;
@@ -211,8 +215,13 @@ var offset = 0;
    	
 $("document").ready(function(){
 	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
-	searchOptions.mbrSq = sMbrSqVal;
+	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
+		$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = mbrSq;
+	}else{
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = sMbrSqVal;
+	}
 	searchOptions.comtTypCd ="ISS";
 
 	ShowListAjax();
@@ -309,6 +318,8 @@ function ShowList(data,callback){
 		masonryLayout(callback);
 		setPagenation(data);
 	}else{
+		$(".mypage_exhint_contents_wrap").empty();
+		$(".pagination").empty();
     		if(searchOptions.workTypCd === undefined && searchOptions.keyword === undefined){
     			if(!isMobile){
         			modalAlertShow("검색 결과가 없습니다.");

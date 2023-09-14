@@ -126,7 +126,7 @@ public class CommunityManagementController {
 		return mv;
 	}
 		
-	// 게시판 관리 목록 조회
+	// 게시물 관리 목록 조회
 	@RequestMapping("/admin/community/boardListData")
 	@ResponseBody
 	public ModelAndView boardListData(@RequestParam Map<String, Object> param) {
@@ -181,31 +181,48 @@ public class CommunityManagementController {
 			return mv;
 		}
 		
-		// 신고된 게시물 체크박스 선택 후 게시물 숨김,해제, 삭제
-				@RequestMapping("/admin/community/rprtStatusUpdate")
-				@ResponseBody
-				public ModelAndView rprtStatusUpdate(@RequestParam(value = "rprtSq[]", required = false) List<String> rprtSq,
-													@RequestParam(value = "statusType", required = false) String statusType) {
-					
-					ModelAndView mv = new ModelAndView();
-					mv.setViewName("jsonView");
-					System.out.println("@@@@@@@@@@@@@@@@@pram: " + rprtSq);
-					
-					int result = 0;
-					for(int i=0; i<rprtSq.size(); i++) {
-						result += communityManagementService.rprtStatusUpdate(statusType, rprtSq.get(i));
-					}
-							
-					mv.addObject("result", result);
-					
-					return mv;
-				}
+		
+	// 신고된 게시물 체크박스 선택 후 게시물 숨김,해제, 삭제
+	@RequestMapping("/admin/community/rprtStatusUpdate")
+	@ResponseBody
+	public ModelAndView rprtStatusUpdate(@RequestParam(value = "rprtSq[]", required = false) List<String> rprtSq,
+										@RequestParam(value = "statusType", required = false) String statusType) {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		System.out.println("@@@@@@@@@@@@@@@@@pram: " + rprtSq);
+		
+		int result = 0;
+		for(int i=0; i<rprtSq.size(); i++) {
+			result += communityManagementService.rprtStatusUpdate(statusType, rprtSq.get(i));
+		}
+				
+		mv.addObject("result", result);
+		
+		return mv;
+	}
 		
 	
 	// 게시물 댓글 페이지 이동
+	@RequestMapping("/admin/community/communityBoardCommentPage")
+	@ResponseBody
+	public ModelAndView communityBoardCommentPage(@RequestParam(value="comtSq")int comtSq) {
+		//List<Map<String, Object>> result = communityManagementService.boardAllCmtsList(param);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("bo/community/communityBoardCommentList");
+		mv.addObject("comtSq", comtSq);
+		
+		return mv;
+	}
+	
+	// 게시물 댓글 불러오기
 	@RequestMapping("/admin/community/communityBoardCommentList")
-	public ModelAndView communityBoardCommentPage() {
-		ModelAndView mv = new ModelAndView("bo/community/communityBoardCommentList");
+	@ResponseBody
+	public ModelAndView communityBoardCommentList(@RequestParam(value="comtSq")int comtSq) {
+		List<Map<String, Object>> result = communityManagementService.boardAllCmtsList(comtSq);
+		ModelAndView mv = new ModelAndView("jsonView");
+		mv.addObject("result", result);
+		
 		return mv;
 	}
 

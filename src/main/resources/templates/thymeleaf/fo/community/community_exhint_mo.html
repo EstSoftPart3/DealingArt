@@ -101,14 +101,14 @@
         <div class="community_wrap">
             <div id="nav">
             	<ul>
-                    <li><a href="/community/main">홈</a></li>
-                    <li><a href="/community/worksList">작품자랑</a></li>
-                    <li><a href="/community/exhintList" class="over">전시후기&소개</a></li>
-                    <li><a href="/community/issueList">이슈</a></li>
-                    <li><a href="/community/event">이벤트</a></li>
+                     <li><a href="/community/mainMobile">홈</a></li>
+                    <li><a href="/community/worksListMobile" class="over">작품자랑</a></li>
+                    <li><a href="/community/exhintListMobile">전시후기&소개</a></li>
+                    <li><a href="/community/issueListMobile">이슈</a></li>
+                    <li><a href="/community/eventMobile">이벤트</a></li>   
                 </ul>
             </div>
-			<button class="btn_recording">기록하기</button>
+			<button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
                 	<input type="date" id="startDate" onchange="checkCalendar()" class="mb10">
@@ -154,7 +154,6 @@
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script>
-    
     var offset = 0;
     var nowPage = 0;
    	var startDate = '';
@@ -233,11 +232,11 @@
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\')" style="cursor: pointer;" alt=""></div>';
+   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
    	        
-   	     	strHtml += '			<div onclick="opneExhibitDetail('+ exhibit.comtSq +', '+ exhibit.mbrSq +', \'EXH\');" style="cursor: pointer;">';
+   	     	strHtml += '			<div onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;">';
    	        strHtml += '            	<li>';
    	        strHtml += '                	<div class="tit">';
    	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
@@ -308,16 +307,8 @@
    		});
    	}
    	
-   	function opneExhibitDetail(comtSq, mbrSq, cmtType){
-   		pageGoPost({
-			url: "/community/exhibitDetail",
-			target:"_self",
-			vals:[
-				["mbrSq", mbrSq],
-				["comtSq", comtSq],
-				["comtTypCd", cmtType]
-			]
-		});
+   	function opneExhibit(comtSq){
+   		location.href = "/community/exhibitDetail?SqNumber=" + comtSq;
 	}
 
    	// ajax로 공통코드 들고와서 뿌려주기

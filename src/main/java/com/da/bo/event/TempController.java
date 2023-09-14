@@ -244,7 +244,7 @@ public class TempController {
 		return "thymeleaf/fo/myPage/mypage_main_mo";
 	}
 	
-	// (모바일) 마이페이지 작품자랑 페이지
+	// (모바일) 마이페이지 나의 작품 페이지
 	@RequestMapping("/temp/mypage_myworks_mo")
 	public String mypage_myworks_mo() {
 		return "thymeleaf/fo/myPage/mypage_myworks_mo";

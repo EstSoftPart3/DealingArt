@@ -100,56 +100,11 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="mypage_wrap">
-            <h2>마이페이지</h2>
+            <h2>타인페이지</h2>
             <div class="mypage_contents">
             	<div id ="left_menu"></div>
                 <div class="contents_right">
-                  <!-- 모바일 레프트 메뉴 시작 -->
-                  <div class="left_nav" style="display: inherit;">
-                   <!--  <h2 class="mb30">마이페이지</h2> -->
-                    <ul>
-                      <li class="on" data-id="1" style="cursor: pointer;" onclick="listToggle(this);"><a>마이페이지</a>
-                      </li>
-                      <li id="mypage_list_ui">
-	                      <ul>
-	                          <li><a href="/myPage/myPageMobile">모두보기</a></li>
-	                          <li><a href="/myPage/myWorkListMobile">나의 작품</a></li>
-	                          <li><a href="/myPage/show_off">자랑하기</a></li>
-	                          <li><a href="/myPage/exhintMobile">전시후기&amp;소개</a></li>
-	                          <li><a href="/myPage/issueMobile">이슈</a></li>
-	                          <li><a href="/myPage/notis">알림함</a></li>
-	                          <li><a href="/myPage/scrapMobile">스크랩</a></li>
-	                          <li><a href="/myPage/following">팔로잉</a></li>
-	                        </ul>
-                       </li>
-                      <li class="on" data-id="2" style="cursor: pointer;" onclick="listToggle(this);"><a>거래</a>
-                      </li>
-                      <li id="mypage_deal_list_ui">
-                       	  <ul>
- 	                     	<li><a href="/myPage/myDeal">거래 내역</a></li>
- 	                      	<li><a href="/myPage/coupon">쿠폰</a></li>
- 	                     </ul>
-                      </li>
-                      <li class="on" data-id="3" style="cursor: pointer;" onclick="listToggle(this);"><a>작가</a>
-                      </li>
-                      <li id="mypage_artist_list_ui">
-                       	  <ul>
- 	                     	<li><a href="/myPage/information">작가 정보</a></li>
- 	                     </ul>
-                      </li>
-                      <li class="on" data-id="4" style="cursor: pointer;" onclick="listToggle(this);"><a>나의 정보</a>
-                      </li>
-                      <li id="mypage_user_list_ui">
-                       	  <ul>
- 	                     	<li><a href="/myPage/memberEdit">회원 정보 수정</a></li>
- 	                      	<li><a href="/myPage/withdrawal">회원탈퇴</a></li>
- 	                      	<li><a href="/myPage/alarm">알림 설정</a></li>
- 	                     </ul>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- 모바일 레프트 메뉴 끝 -->
-                 <!--  <div class="mypage_works_wrap">
+                  <div class="mypage_works_wrap">
                     <div class="tit_wrap">
                         <h2>나의 작품 <span id="myWorksTotal">99</span></h2>
                         <a href="/myPage/myWorkList" class="btn_more">더보기</a>
@@ -257,21 +212,25 @@
                             <li><a href="#">[상세사진요청]후면 사진 요청 드려요.</a></li>
                         </ol>
                     </div>                    
-                  </div> -->
+                  </div>
               </div>
             </div>
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
-    <script type="text/javascript">
-    
+    <script th:inline="javascript">
+    var obj = new Object();
+    var mbrSq = /*[[${mbrSq}]]*/ 'default';
+    obj.mbrSq = mbrSq;
     $("document").ready(function(){
     	
-    	//$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+    	$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+    	
     	
     	$.ajax({
 			type: "POST"
-			, url: "/myPage/main/MyInfoAction"
+			, url: "/myPage/main/searchOtherInfoAction"
+			, data: obj
 			, success: function(data){
 				setMyWorks(data.myWorks, data.myWorksTotal);
 				setMyBoast(data.myBoast, data.myBoastTotal);
@@ -411,58 +370,7 @@
 			]
 		});
 	}
-	//메뉴 리스트 펼치기
-	function listToggle(obj){
-		var listid = $(obj).data('id');
-		console.log(listid);
-		var showchk = false;
-		
-		if($(obj).hasClass("on")){
-			$(obj).removeClass('on');
-			$(obj).addClass('off');
-			showchk = false;
-
-		}else if($(obj).hasClass("off")){
-			$(obj).removeClass('off');
-			$(obj).addClass('on');		
-			showchk = true;
-		}
-		
-		switch (listid){
-		case 1:
-			if(showchk){
-				$("#mypage_list_ui").show();
-			}else{
-				$("#mypage_list_ui").hide();
-			}
-			
-			break;
-		case 2:
-			
-			if(showchk){
-				$("#mypage_deal_list_ui").show();
-			}else{
-				$("#mypage_deal_list_ui").hide();
-			}
-			
-			break;
-		case 3:
-			if(showchk){
-				$("#mypage_artist_list_ui").show();
-			}else{
-				$("#mypage_artist_list_ui").hide();
-			}
-			break;
-		case 4:
-			if(showchk){
-				$("#mypage_user_list_ui").show();
-			}else{
-				$("#mypage_user_list_ui").hide();
-			}
-			break;
-		}	
-
-	}
+    
 
     </script>
 </body>

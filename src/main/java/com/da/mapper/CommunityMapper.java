@@ -167,4 +167,11 @@ public interface CommunityMapper {
 	 */
 	public int insertComtRequest(Map<String, Object> param);
 	
+	/*
+	 * 커뮤니티 상세 오픈여부/삭제여부 확인
+	 * param : comtSq
+	 * return : useYn, delYn
+	 */
+	public Map<String, Object> comtOpenDelYnCheck(String param);
+	
 }

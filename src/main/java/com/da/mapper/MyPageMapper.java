@@ -473,17 +473,45 @@ public interface MyPageMapper {
 	public int myPage_followingTotal(Object param);
 	
 	/*
-	 * 마이페이지 스크랩 목록
+	 * 마이페이지 스크랩 나의 작품 목록
 	 * param : mbrSq
 	 * return : List
 	 */
-	public List<Map<String, Object>> myPage_scrap(Object param);
+	public List<Map<String, Object>> myPage_scrapMyWork(Object param);
 	
 	/*
-	 * 마이페이지 스크랩 총 갯수 조회
+	 * 마이페이지 스크랩 커뮤니티 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapCom(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 매거진 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapMgz(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 나의 작품 총 갯수 조회
 	 * param : mbrSq
 	 * return : int
 	 */
-	public int myPage_scrapTotal(Object param);
+	public int myPage_scrapMyWorkTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 커뮤니티 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapComTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 매거진 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapMgzTotal(Object param);
 	
 }

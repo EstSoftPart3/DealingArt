@@ -148,8 +148,12 @@
 				$(".ellipsis").css('padding', '10');
 		     }
 		});
-		
-    	var comtSq = 58 //커뮤니티 순번
+		var message = /*[[${message}]]*/ 'default' //커뮤니티 순번
+		if(message != "" && message != null){
+			alert(message);
+			location.href = "/main";
+		}
+    	var comtSq = /*[[${comtSq}]]*/ 'default' //커뮤니티 순번
     	var otherComt; // 작성자의 다른 자랑하기
     	var showOffList;
 		var showOff;
@@ -484,7 +488,7 @@
     	    		
     	    		if(key == "work") {
     	    			html += '	<div class="btn_worksInfo_wrap">';
-    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "disabled") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
+    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
     		    		html += '	</div>';
     	    		} else if(key == "deal") {
     	    			html += '	<div class="bat-box">';
@@ -592,15 +596,15 @@
     			param["questionContent"] = $("#reqPic").val();
     			break;
     		}
-    		
-    		if(sgtPrcCal()) {
-    			modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
-    			return;
-    		}
-    		
-    		if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
-    			modalAlertShow("가격을 입력해주세요.");
-    			return;
+    		if(notiCatCd == "PRC"){
+    			if(sgtPrcCal() ) {
+        			modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+        			return;
+        		}
+    			if(!$("#sgtPrc").val()) {
+        			modalAlertShow("가격을 입력해주세요.");
+        			return;
+        		}
     		}
     		
     		if(notiCatCd == "PIC" && !$("#reqPic").val()) {
@@ -625,7 +629,6 @@
     				});
     			}
     		});
-    		
     	}
     	
     	// 작품 상세 이미지 마우스 오버 효과 이벤트

@@ -109,15 +109,24 @@
                             <input type="text" id="search_input" onkeydown="enter(event)" placeholder="검색어를 입력해 주세요." >
                             <button class="btn_mypage_search" onclick="searchMyShow()"></button>
                           </div>
-                          <button class="btn_mypage_recording">기록하기</button>
+                          <button th:if="${#strings.isEmpty(mbrSq)}" class="btn_mypage_recording">기록하기</button>
                     </div>
                     <div class="mypage_tap_wrap">
+                    <th:block th:if="${#strings.isEmpty(mbrSq)}">
                         <ul class="tap">
                             <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
                             <li id="btn_nal2" >소장품(<span id="myCollTotal"></span>)</li>
                             <li id="btn_nal3" >창작품(<span id="myWorkTotal"></span>)</li>
                             <li id="btn_nal4" class="bg_no"><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
                         </ul>
+                    </th:block>
+                    <th:block th:unless="${#strings.isEmpty(mbrSq)}">
+                        <ul class="tap">
+                            <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
+                            <li id="btn_nal2" >소장품(<span id="myCollTotal"></span>)</li>
+                            <li id="btn_nal3" class="bg_no">창작품(<span id="myWorkTotal"></span>)</li>
+                        </ul>
+                    </th:block>
                     </div>
                     
                             <div class="work-drp">
@@ -172,7 +181,7 @@
                                 <option value="past">과거 순</option>
                             </select>
                         </div>
-                        <div class="sel_form">
+                        <div class="sel_form" th:if="${#strings.isEmpty(mbrSq)}">
                             <select name="sel_open" id="sel_open">
                                 <option value="all">형태</option>
                                 <option value="Y">공개</option>
@@ -259,7 +268,7 @@
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </body>
-<script type="text/javascript">
+<script th:inline="javascript">
 
 //파라미터 값 넣는 오브젝트
 var searchOptions = new Object();
@@ -270,11 +279,19 @@ var result = new Object();
 var startIndex = 0;
 var searchStep = 8;
 
+var mbrSq = /*[[${mbrSq}]]*/ 'default';
+
 $("document").ready(function(){
 	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
+		$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = mbrSq;
+	}else{
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = sMbrSqVal;
+	}
 	
-	searchOptions.mbrSq = sMbrSqVal;
+	
 	searchOptions.comtTypCd ="BOA";
 	searchOptions.startIndex = startIndex;
 	searchOptions.searchStep = searchStep;
@@ -423,6 +440,7 @@ function ShowList(data,callback){
         
 		masonryLayout(callback);
 	}else{
+		$(".mypage_showingoff_contents_wrap").empty();
     		if(searchOptions.workTypCd === undefined && searchOptions.keyword === undefined){
     			if(!isMobile){
         			modalAlertShow("검색 결과가 없습니다.");

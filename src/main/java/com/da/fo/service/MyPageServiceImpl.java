@@ -463,8 +463,8 @@ public class MyPageServiceImpl implements MyPageService{
 	 * return : integer
 	 */
 	@Override
-	public int myPage_scrapTotal(Object param) {
-		int result =  myPageDao.myPage_scrapTotal(param);
+	public int myPage_scrapTotal(Map<String, Object> paramMap) {
+		int result =  myPageDao.myPage_scrapTotal(paramMap);
 		return result;
 	}
 	

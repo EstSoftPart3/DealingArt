@@ -536,6 +536,7 @@
 		 WHERE COMT_SQ = #{comtSq}
 	</update>
 	
+<<<<<<< HEAD
 	<insert id="insertComtRequest">
 		/* 판매 제안하기 or 요청하기 등록 */
 		INSERT INTO TBL_DA_NOTI_M (
@@ -605,4 +606,47 @@
 		)
 	</insert>
 	
+=======
+	<select id="comtOpenDelYnCheck" resultType="hashMap" parameterType="String">
+	/* 커뮤니티 상세 오픈여부/삭제여부 확인 */
+		SELECT 
+				OPEN_YN AS openYn
+				, DEL_YN As delYn
+		FROM 
+				TBL_DA_COMT_M
+		WHERE 
+				COMT_SQ  = #{comtSq}
+	</select>
+	<insert id="insertComtRequest" parameterType="hashMap">
+	/*제안하기 등록*/
+		INSERT INTO 
+			TBL_DA_NOTI_M(
+				NOTI_TYP_CD
+				, NOTI_CAT_CD 
+				, WORK_SQ 
+				, ARTST_SQ 
+				, DEAL_SQ 
+				, QUESTION_CONTENT 
+				, QUESTION_MBR_SQ 
+				, MBR_SQ 
+				, REG_MBR_SQ 
+				, REG_DT 
+				, UPDT_MBR_SQ 
+				, UPDT_DT 
+			)VALUES(
+				#{notiTypCd}
+				, #{notiCatCd}
+				, #{workSq}
+				, #{artstSq}
+				, #{dealSq}
+				, #{questionContent}
+				, #{questionMbrSq}
+				, #{mbrSq}
+				, #{questionMbrSq}
+				, NOW()
+				, #{questionMbrSq}
+				, NOW()
+			)
+	</insert>
+>>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 </mapper>

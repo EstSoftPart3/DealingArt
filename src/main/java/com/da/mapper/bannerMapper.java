@@ -14,6 +14,8 @@ public interface bannerMapper {
 	public List openPopup(Map<String, Object> param);
 	//이벤트프로모션 리스트 
 	public List eventProList(Map<String, Object> param);
+	//프로모션 영역 수정
+	public int promoUpdate(Map<String, Object> param);
 	
 	
 }

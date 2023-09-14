@@ -722,7 +722,17 @@ public class MyPageDao {
 	 * return : List
 	 */
 	public List<Map<String, Object>> myPage_scrap(Map<String, Object> paramMap) {
-		List<Map<String, Object>> result = myPageMapper.myPage_scrap(paramMap);
+		String scrapGbCd = String.valueOf(paramMap.get("scrapGbCd"));
+		System.out.println(scrapGbCd);
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		if ("myWork".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMyWork(paramMap);
+		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapCom(paramMap);
+		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMgz(paramMap);
+		}
+		
 		return result;
 	}
 	
@@ -731,7 +741,20 @@ public class MyPageDao {
 	 * param : Map
 	 * return : int
 	 */
-	public int myPage_scrapTotal(Object param){
-		return myPageMapper.myPage_scrapTotal(param);
+	public int myPage_scrapTotal(Map<String, Object> paramMap){
+		String scrapGbCd = String.valueOf(paramMap.get("scrapGbCd"));
+		System.out.println(scrapGbCd);
+		
+		int result = 0;
+		
+		if ("myWork".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMyWorkTotal(paramMap);
+		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapComTotal(paramMap);
+		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapMgzTotal(paramMap);
+		}
+		
+		return result;
 	}
 }

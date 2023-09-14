@@ -76,8 +76,49 @@
 	     	 $("#appDevice").val("MOBILE"); 
 	     	 $(".lp_mgz9DtlModalHearder").css("max-width","900px");
 	     	 $("#lp_mgz9Dtl_cntnt").css("max-width","700px");
-	     }
+	         //$("#appDevice").trigger("click");
+	         wordStr = window.location.href + "Mobile";
+	         MobileBorwserUrl = wordStr.substring(16);
+	      	 //console.log(MobileBorwserUrl);		
+	     }	     			  	     
 	});
+	//커뮤니티 브라우저 체크
+	function commMobileBrowserChk(){
+		 if(!isMobile){
+			 window.location.href = "/community/main";
+		 }else{
+			 window.location.href = "/community/mainMobile";
+		 }
+		 
+   	 }
+	//매거진 브라우저 체크
+	function mgzMobileBrowserChk(){
+		 if(!isMobile){
+			 window.location.href = "/mgz9/magazine9_main";
+		 }else{
+			 window.location.href = "/mgz9/magazine9_mainMobile";
+		 }
+		 
+  	 }
+	
+	//마이페이지 브라우저 체크
+	function mypageMobileBrowserChk(){
+		 if(!isMobile){
+			 window.location.href = "/myPage/mypage_main";
+		 }else{
+			 window.location.href = "/myPage/myPageMobile";
+		 }
+		 
+ 	 }
+	//마이페이지 나의 작품 브라우저 체크
+	function mypageMobileBrowserChk1(){
+		 if(!isMobile){
+			 window.location.href = "/myPage/myWorkList";
+		 }else{
+			 window.location.href = "/myPage/myWorkListMobile";
+		 }
+		 
+ 	 }
 	</script>
 </head>
 <body>
@@ -92,7 +133,7 @@
 		<div class="head">
 			<div class="h-logo"><a href="/main"><img src="/resources/img/logo_new.png" /></a></div>
 			<div class="h-gnb">
-				<div class="navbox">
+				<div class="navbox" onclick="/community/mainMobile();">
 					<nav>
 						<!-- <li><a href="/main" class="logo_mo"><img src="/resources/img/favicon.png" width="26px"></a></li> -->
 						<!-- <li><a href="/deal">Deal</a></li> -->
@@ -102,9 +143,9 @@
 						<!-- <li><a href="/about/serviceIntro">About</a></li> -->
 						<!-- 2023-07-28 메인 메뉴 한글화 및 아티스트 라이브러리 메뉴 이동 (정영우) -->
 						<li><a href="/main" class="logo_mo"><img src="/resources/img/favicon.png" width="26px"></a></li>
-						<li><a href="/community/main">커뮤니티</a></li>
+						<li onclick="commMobileBrowserChk();"><a href="#">커뮤니티</a></li>
 						<li><a href="/deal">거래</a></li>
-						<li><a href="/mgz9/insights">매거진<span style="color:#ea5514;">9</span></a></li>
+						<li onclick="mgzMobileBrowserChk();"><a href="#">매거진<span style="color:#ea5514;">9</span></a></li>
 						<li><a href="/about/serviceIntro">About</a></li>
 					</nav>
 				</div>
@@ -142,7 +183,7 @@
 							<li><a href="/myPage/withdrawal"><img src="/resources/img/ic-1.jpg" /><span>회원 탈퇴</span></a></li>
 						</ul> -->
 						<ul>
-							<li><a href="javascript:void(0);" class="myWorkList"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li><a onclick="mypageMobileBrowserChk();" href="#" class="myWorkMypageMain"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
 							<li style="display:none"><a href="/myPage/memberEdit"><img src="/resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myPage/myDeal"><img src="/resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
@@ -177,13 +218,13 @@
 					<span class="sog-2" onclick="javascript:history.back();"><a href="javascript:void(0);"><img src="/resources/img/icon-1.png" /></a></span>
 					<span class="sog-3 lg-my2"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>
 					<!-- <span class="sog-4 myCollection"><a href="#"><img src="/resources/img/icon-1.png" /></a></span> -->
-					<span class="sog-4 myPage"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>
+					<span class="sog-4 leftNavMobile"><a href="/myPage/leftNavMobile"><img src="/resources/img/icon-1.png" /></a></span>
 					
 					<span class="sog-5 lg-my"><a href="#"><img src="/resources/img/icon-2.png" /></a></span>
 					<div class="s-hov" id="loginAfMB">
 						<ul>
 							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li> -->
-							<li><a href="/myPage/mMyPage"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
+							<li onclick="mypageMobileBrowserChk();"><a href="#" class="myWorkMypageMain"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li>
 							<li style="display:none"><a href="/myPage/memberEdit"><img src="/resources/img/ic-6.jpg" /><span>회원정보 수정</span></a></li>
 							<li><a href="/myPage/myDeal"><img src="/resources/img/ic-2.jpg" /><span>거래 내역</span></a></li>
 							<!-- class="myCollection" -->
@@ -1854,7 +1895,12 @@ $(document).on("click", ".myCollection", function(){
 });
 
 $(document).on("click", ".myWorkList", function(){
-	requestUrl = "/myPage/myWorkList";
+	
+	 if(!isMobile){
+		 requestUrl = "/myPage/myWorkList";
+	 }else{
+		 requestUrl = "/myPage/myWorkListMobile";
+	 }
 	loginCheckUrl(requestUrl);
 });
 
@@ -1862,9 +1908,20 @@ $(document).on("click", ".myPage", function(){
 	requestUrl = "/myPage";
 	loginCheck(requestUrl,"");
 });
+$(document).on("click", ".leftNavMobile", function(){
+	requestUrl = "/myPage/leftNavMobile";
+	loginCheckUrl(requestUrl);
+	
+});
 
 $(document).on("click", ".scrap", function(){
-	requestUrl = "/myPage/scrap";
+	
+	if(!isMobile){
+		 requestUrl = "/myPage/scrap";
+	 }else{
+		 requestUrl = "/myPage/scrapMobile";
+	 }
+	//requestUrl = "/myPage/scrap";
 	loginCheck(requestUrl,sMbrSqVal);
 });
 

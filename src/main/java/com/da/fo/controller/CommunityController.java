@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties.View;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,9 +42,19 @@ public class CommunityController {
 
 	// 커뮤니티 자랑하기 상세 페이지
 	@RequestMapping("/community/showingOffDetail")
-	public ModelAndView showingOffDetail() {
+	@ResponseBody
+	public ModelAndView showingOffDetail(@RequestParam(value="SqNumber") String param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_showingoff_detailpage");
-		return mv;
+		Map<String, Object> result = communityService.comtOpenDelYnCheck(param);
+		String openYn = result.get("openYn").toString();
+		String delYn = result.get("delYn").toString();
+		if(openYn.equals("N") || delYn.equals("Y")){
+			mv.addObject("message", "존재하지 않는 게시물입니다.");
+			return mv;
+		}else{
+			mv.addObject("comtSq", param);
+			return mv;
+		}
 	}
 
 	// 커뮤니티 자랑하기 상세 정보 조회

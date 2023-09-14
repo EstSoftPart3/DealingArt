@@ -37,6 +37,7 @@ if (commuBorTypCd.equals("ABL")) {
 	<div class="wrapper">
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
 		<div class="content-wrapper">
+<<<<<<< HEAD
 
 		     
 		     <!-- Main content -->
@@ -73,6 +74,8 @@ if (commuBorTypCd.equals("ABL")) {
 					<tr class="col-form-label sTitle LabelStyle"  >
 						<td class="col-sm-1" align="center" style="background-color: #efefef;">게시판 분류</td>
 =======
+=======
+>>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 			<div class="content-header">
 				<h4 class="text-bold">게시물 관리</h4>
 			</div>
@@ -134,9 +137,9 @@ if (commuBorTypCd.equals("ABL")) {
 								<div class="input-group input-group-sm">
 								<select class="custom-select bTitle" id="cmMgSrchTyp">
 									<option value="comtTitle" selected>제목</option>
-									<option value="comtContent">내용</option>
+									<!-- <option value="comtContent">내용</option> -->
 									<option value="mbrId">아이디</option>
-									<option value="nickname">닉네임</option>
+									<option value="mbrNcknm">닉네임</option>
 								</select> <input type="text" id="cmMgSrchTxt"
 									class="form-control float-right bTitle" placeholder="검색어">
 								</div>
@@ -169,7 +172,7 @@ if (commuBorTypCd.equals("ABL")) {
 								<select class="custom-select bTitle" id="cmMgSrchRepTyp">
 									<option value="writer" selected>작성자</option>
 									<option value="reporter">신고자</option>
-									<option value="content">게시글 내용</option>
+									<option value="content">제목</option>
 								</select> 
 								<input type="text" id="cmMgSrchRepTxt"
 								class="form-control float-right bTitle" placeholder="검색">						
@@ -234,12 +237,22 @@ if (commuBorTypCd.equals("ABL")) {
 								<button class="btnCommunitySet" type="button"
 									style="border: 1px solid grey"
 									onclick="boardStatusUpdate('delete')">게시물 삭제</button>
+								<button class="btnCommunitySet" type="button"
+									style="border: 1px solid grey"
+									onclick="boardStatusUpdate('restore')">게시물 복구</button>
 								</div>
 								<div class="card-tools">
 									<div class="input-group input-group-sm">
-										<select class="custom-select bTitle" id="boardAlign">
-											<option value="0" selected>기본정렬</option>
-											<option value="1">조회수 많은 순</option>
+										<select name="boardAlign" class="custom-select bTitle" id="boardAlign">
+											<option value="normal">기본정렬</option>
+											<option value="new">조회수 많은 순</option>
+										</select>
+										<select name="listCount" class="custom-select bTitle" id="listCount">
+											<option value="10">10개씩 보기</option>
+											<option value="20">20개씩 보기</option>
+											<option value="30">30개씩 보기</option>
+											<option value="50">50개씩 보기</option>
+											<option value="100">100개씩 보기</option>
 										</select>
 									</div>
 								</div>	
@@ -255,13 +268,16 @@ if (commuBorTypCd.equals("ABL")) {
 									onclick="rprtStatusUpdate('nonhide')" value="nonhide">게시물 숨김 해제</button>
 								<button class="btnCommunitySet" type="button"
 									style="border: 1px solid grey"
-									onclick="rprtStatusUpdate('delete')">게시물 삭제</button>
+									onclick="rprtStatusUpdate('delete')"value="delete">게시물 삭제</button>
 								</div>
 								<div class="card-tools">
 									<div class="input-group input-group-sm">
-										<select class="custom-select bTitle" id="boardAlign">
-											<option value="0" selected>기본정렬</option>
-											<option value="1">조회수 많은 순</option>
+										<select name="listCount" class="custom-select bTitle" id="listCount">
+											<option value="10">10개씩 보기</option>
+											<option value="20">20개씩 보기</option>
+											<option value="30">30개씩 보기</option>
+											<option value="50">50개씩 보기</option>
+											<option value="100">100개씩 보기</option>
 										</select>
 									</div>
 								</div>
@@ -271,10 +287,13 @@ if (commuBorTypCd.equals("ABL")) {
 							%>
 							<div class="card-tools">
 								<div class="input-group input-group-sm" style="width: 300px;">
-									<select class="custom-select bTitle" id="boardAlign">
-										<option value="0" selected>기본정렬</option>
-										<option value="1">조회수 많은 순</option>
-									</select>
+									<select name="listCount" class="custom-select bTitle" id="listCount">
+											<option value="10">10개씩 보기</option>
+											<option value="20">20개씩 보기</option>
+											<option value="30">30개씩 보기</option>
+											<option value="50">50개씩 보기</option>
+											<option value="100">100개씩 보기</option>
+										</select>
 								</div>
 							</div>
 							<%
@@ -296,17 +315,26 @@ if (commuBorTypCd.equals("ABL")) {
 	<%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
 
 	<script>
+		
 		var table = $("table");
-	
+		var listCount = listCount;
+		
 		$(document).ready(function(){
 			//초기 날짜 설정
 			setDate("0");
 			
-			// 게시물 리스트 ( 검색버튼 클릭시 보여줘야 함. 현재 확인하기 위해 동작 ) 
-			boardList();
+			// 게시물 리스트 ( 검색버튼 클릭시 노출) 
+			//boardList();
 			
 			clickBoardTabBtn($('#commuBorTypCd').val());
 			getParamater('ABL');
+			
+
+	   		//페이지 사이즈 설정 10개씩 보기...등
+	   		$("#listCount").on("change", function() {
+	   		    var newPageSize = getListCount();
+	   		    $("#boardList").jsGrid("option", "pageSize", newPageSize);
+	   		});
 			
 			
 		});
@@ -346,6 +374,8 @@ if (commuBorTypCd.equals("ABL")) {
 			return todayString;
 		}
 		
+		
+		
 		function setDate(days) {
 		    var today = new Date();
 		    var endDate = new Date(today);
@@ -377,6 +407,12 @@ if (commuBorTypCd.equals("ABL")) {
 			
 		}
 		
+		//페이지 카운트 가져오기
+		function getListCount() {
+		    var listCountSelect = document.getElementById("listCount");
+		    return parseInt(listCountSelect.value);
+		}
+		
 		/* 게시글 리스트 */
 		function boardList(){
 			/* 
@@ -398,7 +434,6 @@ if (commuBorTypCd.equals("ABL")) {
 				
 				var cmMgComntYn = $('input:radio[name="cmMgComntYn"]:checked').val();
 				var cmMgRepSts = $('input:radio[name="cmMgRepSts"]:checked').val();
-				
 				params = {
 					commuBorTypCd: commuBorTypCd,
 					firstDate: firstDate,
@@ -407,8 +442,9 @@ if (commuBorTypCd.equals("ABL")) {
 					cmMgSrchTyp: cmMgSrchTyp,
 					cmMgSrchTxt: cmMgSrchTxt,
 					cmMgComntYn: cmMgComntYn,
-					cmMgRepSts: cmMgRepSts,
+					cmMgRepSts: cmMgRepSts,	
 				}
+	
 			}else if(commuBorTypCd == "ABR"){
 				var firstDate = $("#firstDate").val();
 				var lastDate = $("#lastDate").val();
@@ -431,7 +467,6 @@ if (commuBorTypCd.equals("ABL")) {
 				
 				var cmMgSrchRepTyp = $("#cmMgSrchRepTyp").val();
 				var cmMgSrchRepTxt = $("#cmMgSrchRepTxt").val();
-				debugger;
 				var cmMgComntYn = $('input:radio[name="cmMgComntYn"]:checked').val();
 				var cmMgRepSts = $('input:radio[name="cmMgRepSts"]:checked').val();
 				
@@ -450,18 +485,17 @@ if (commuBorTypCd.equals("ABL")) {
 					commuBorTypCd: commuBorTypCd
 				}
 			}
-			
 			$("#boardList").jsGrid({
 				locale:"ko",
 			    height: "auto",
 			    width: "100%",
 			    inserting: false,
 			    editing: false,
-			    sorting: false,
+			    sorting: true,
 			    paging: true,
 			    autoload: true,
-			    pageSize: 10,
-			    pageButtonCount: 10,
+			    pageSize: getListCount(),
+			    pageButtonCount: 100,
 			    gridview : true,
 			    onPageChanged: function() {
 			    	$('#checkAllBoolean').val("true");
@@ -478,11 +512,10 @@ if (commuBorTypCd.equals("ABL")) {
 			 	         	data: params,
 			 	         	dataType: "json"
 				 	     }).done(function(response) {
-				 	    	
 				 	    	var responseLength = Object.keys(response.boardData.boardInfo).length;
 
 							if(responseLength <= 0){
-								 
+								alert("검색 결과가 없습니다.");
 								d.resolve([]);	
 								/* $(".jsgrid-nodata-row").empty();
 								$(".jsgrid-nodata-row").append("<br><br><p id='list_nodata' style='text-align:center; font-size:14px;'>검색 결과가 없습니다.</p>"); */
@@ -525,14 +558,14 @@ if (commuBorTypCd.equals("ABL")) {
 					        }
 					     }
 					},
-					{ name: "", title:"작성자", type: "text", width: 80, align:"center", visible: false},
+					{ name: "regMbrNm", title:"작성자", type: "text", width: 80, align:"center", visible: false},
 					{ name: "mbrNcknm", title:"닉네임", type: "text", width: 100,align:"center", visible: true},
 					{ name: "mbrId", title:"아이디", type: "text", width: 100, align:"center", visible: true,},
 					{ name: "comtTitle", title:"제목", type: "text", width: 200, align:"left", visible: true}, /* key: true 무엇 */
 					{ name: "regDt", title:"작성일", type: "text", width: 100, align:"center", visible: true},
 					{ name: "regDt", title:"신고일", type: "text", width: 100, align:"center", visible: false},
 					{ name: "rprtTypCdNm", title:"신고사유", type: "text", width: 200, align:"center", visible: false},
-					{ name: "regMbrNm", title:"신고자", type: "text", width: 80, align:"center", visible: false},
+					{ name: "", title:"신고자", type: "text", width: 80, align:"center", visible: false},
 					{ name: "openYn", title:"상태", type: "text", width: 60, align:"center", visible: true,
 						itemTemplate: function(value, item) {
 					        switch (value) {
@@ -589,8 +622,8 @@ if (commuBorTypCd.equals("ABL")) {
 									EXH: "exhibitDetail", // 전시후기
 									ISS: "issueDetail" // 이슈
 								};
-					        var strSelect = '조회';
-					        var strView = '미리보기';	        
+					        var strSelect = '댓글 조회';
+					        var strView = '게시물보기';	        
 					        /* 
 					        	조회버튼에 get방식으로 게시물 id 보내주기 - String communityBoardId
 					        */
@@ -598,8 +631,10 @@ if (commuBorTypCd.equals("ABL")) {
 					            .attr({style: "border: 1px solid grey"})
 					            .attr({role: "button"})
 					            .attr({id: "btn-edit-" + item.id})
+					            .attr({id: "btn-edit-" + item.id})
 					            .click(function(e) {
-					            	window.open('http://localhost/admin/community/communityBoardCommentList', '게시판 관리', 'width=1000, height=auto, scrollbars=no, resizeble=no');
+
+					            	window.open('http://localhost/admin/community/communityBoardCommentPage?comtSq='+item.comtSq, '게시판 관리', 'width=1000, height=auto, scrollbars=no, resizeble=no');
 					            })
 					            .append(strSelect);
 					        var $customPreviewButton = $("<button>")
@@ -640,8 +675,9 @@ if (commuBorTypCd.equals("ABL")) {
 				$("#boardList").jsGrid("fieldOption", "5", "width", 60);
 				$("#boardList").jsGrid("fieldOption", "6", "visible", true);
 				$("#boardList").jsGrid("fieldOption", "7", "visible", true);
+				$("#boardList").jsGrid("fieldOption", "7", "width", 150);
 				$("#boardList").jsGrid("fieldOption", "8", "visible", true);
-				$("#boardList").jsGrid("fieldOption", "8", "width", 80);
+				$("#boardList").jsGrid("fieldOption", "8", "width", 60);
 				$("#boardList").jsGrid("fieldOption", "9", "visible", false);
 				$("#boardList").jsGrid("fieldOption", "10", "visible", false);
 				$("#boardList").jsGrid("fieldOption", "11", "visible", false);
@@ -743,7 +779,7 @@ if (commuBorTypCd.equals("ABL")) {
 
 			params.comtSq = getCheckedValue();
 			params.statusType = statusType;
-			debugger;
+			
 			
 			$.ajax({
 	        	type: "post",
@@ -759,7 +795,7 @@ if (commuBorTypCd.equals("ABL")) {
 		//신고된 게시물 상태 변경
 		function rprtStatusUpdate(statusType){	
 			var params = new Object();
-			AlertCheckbox()
+
 			params.rprtSq = getCheckedValue();
 			params.statusType = statusType;
 			

@@ -64,6 +64,16 @@
 	  'https://connect.facebook.net/en_US/fbevents.js');
 	  fbq('init', '5995234030505207');
 	  fbq('track', 'PageView');
+	  
+	  //브라우저 체크
+	  function mgzMobileBrowserChk4(){
+			 if(!isMobile){
+				 window.location.href = "/mgz9/magazine9_main";
+			 }else{
+				 window.location.href = "/mgz9/magazine9_mainMobile";
+			 }
+			 
+	  	 }
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
     
@@ -96,11 +106,11 @@
 					</div> -->
 					<div id="nav">
 		                <ul>
-		                    <li><a href="/temp/magazine9_main" class="over">홈</a></li>
+		                 <li><a onclick="mgzMobileBrowserChk4();" href="#" class="over">홈</a></li>
 		                    <li><a href="/mgz9/insights">인사이트</a></li>
 		                    <li><a href="/mgz9/exhibition">전시</a></li>
 		                    <li><a href="/mgz9/media">아티스트 필름</a></li>	                    
-		                    <li><a href="#">아티스트</a></li>
+		                    <li><a href="/mgz9/artist">아티스트</a></li>
 		                </ul>
 		            </div> 
 	            <div class="magazine9_visual_wrap">

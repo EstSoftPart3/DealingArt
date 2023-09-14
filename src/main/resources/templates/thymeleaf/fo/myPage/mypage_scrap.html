@@ -90,6 +90,25 @@
 		input[type=number] {
 		  -moz-appearance: textfield;
 		}
+    	.swiper-slide{background-color:rgb(255 255 255 / 0%);}
+    	.modal-body {
+   			max-height: calc(100vh - 180px); 
+   			overflow-y: auto;
+   		}
+   		
+   		.post-body {
+		  -webkit-user-drag: none;
+		  -webkit-touch-callout: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+		
+		/* #lp_mgz9Dtl { font-size: 12px; } */
+		
+		.no-drag {-ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;}
+
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
@@ -107,31 +126,760 @@
                         <div class="search width100per">
                             <label for="search_input" class="hidden">검색</label>
                             <input type="text" id="search_input" placeholder="검색어를 입력해 주세요.">
-                            <button class="btn_mypage_search right20"></button>                           
+                            <button class="btn_mypage_search right20" onclick="fnSearch()"></button>                           
                         </div>
                     </div>
-                    <div class="mypage_tap_wrap">
+                    <div class="mypage_tap_wrap" id="tap_scrap">
                         <ul class="tap_scrap">
-                            <li class="on bg_no">나의 작품(5)</li>
+                        	<li id="btn_nal1" class="on bg_no" onclick="tapChange('myWork');"></li>
+                        	<li id="btn_nal2" onclick="tapChange('BOA');"></li>
+                        	<li id="btn_nal3" onclick="tapChange('EXH');"></li>
+                        	<li id="btn_nal4" onclick="tapChange('ISS');"></li>
+                        	<li id="btn_nal5" onclick="tapChange('IST');"></li>
+                        	<li id="btn_nal6"  class="bg_no" onclick="tapChange('MDA');"></li>
+                            <!-- <li class="on bg_no">나의 작품(5)</li>
                             <li>자랑하기(50)</li>
                             <li>전시후기/소개(29)</li>
                             <li>이슈(5)</li>
                             <li>인사이트(5)</li>
-                            <li class="bg_no">아티스트 필름</li>
+                            <li class="bg_no">아티스트 필름</li> -->
                         </ul>
-                    </div>                    
-                    <div style="font-size: 28px;text-align: center;margin-top: 100px;">나의 작품 페이지 링크하기</div>
+                    </div>     
+                    <div class="mypage_scrap_contents_row">
+                    	<div class="scrap_wrap" id="listBox">
+                        
+                        </div>
+                    </div>
+                    <div class="btn_area">
+                        <button type="button" onclick="scrapSearchMore()">더보기</button>
+                    </div>   
               </div>
             </div>
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+    <script type="text/javascript">
+    
+    var obj = new Object();
+	var limit = 9;
+	var more = 0;
+	var scrapGbCd = 'myWork';
+	var searchWord = '';
+	
+	$("document").ready(function(){
+		
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		
+		//나의 작품 조회
+		scrapList(scrapGbCd);
+	});
+	
+	//탭 클릭 이벤트
+	function tapChange(scrapGbCd1){
+		more = 0;
+		scrapGbCd = scrapGbCd1;
+		
+		$(".tap_scrap li").removeClass("on bg_no");
+		
+		if(scrapGbCd == "myWork"){
+			$("#btn_nal1").addClass("on bg_no");
+			scrapList("myWork");
+		}else if(scrapGbCd == "BOA"){
+			$("#btn_nal2").addClass("on bg_no");
+			scrapList("BOA");
+		}else if(scrapGbCd == "EXH"){
+			$("#btn_nal3").addClass("on bg_no");
+			scrapList("EXH");
+		}else if(scrapGbCd == "ISS"){
+			$("#btn_nal4").addClass("on bg_no");
+			scrapList("ISS");
+		}else if(scrapGbCd == "IST"){
+			$("#btn_nal5").addClass("on bg_no");
+			scrapList("IST");
+		}else if(scrapGbCd == "MDA"){
+			$("#btn_nal6").addClass("on bg_no");
+			scrapList("MDA");
+		}
+	}
+	
+	//스크랩 목록 조회
+	function scrapList(scrapGbCd){
+		obj.limit = 9 + (more*3);
+		obj.scrapGbCd = scrapGbCd;
+		obj.searchWord = searchWord;
+		
+		$.ajax({
+			type: "POST",
+			url: "/myPage/selectScrap",
+			data: obj,
+			success: (function(response){
+				
+				if (response.result.length > 0) {
+					if (scrapGbCd == "myWork") {
+						setScrapMyWorkHtml(response.result);
+					}else if (scrapGbCd == "BOA") {
+						setScrapBOAHtml(response.result);
+					}else if (scrapGbCd == "EXH") {
+						setScrapEXHHtml(response.result);
+					}else if (scrapGbCd == "ISS") {
+						setScrapISSHtml(response.result);
+					}else if (scrapGbCd == "IST") {
+						setScrapINSIGHTSHtml(response.result);
+					}else if (scrapGbCd == "MDA") {
+						setScrapMEDIAHtml(response.result);
+						console.log("MDA------")
+					}
+				}else{
+					modalAlertShow("검색 결과가 없습니다."); 
+					$(".scrap_wrap").empty();
+				}
+				
+				
+				setScrapCnt(response.myWorkTotal, response.myBOATotal, response.myEXHTotal
+						   ,response.myISSTotal, response.myISTTotal, response.myMDATotal);
+			}),
+			error: (function(response){
+				console.log(response);
+			})
+		})
+		
+		
+		
+		
+	}
+	
+	//나의작품 스크랩 목록 뿌려주기
+	function setScrapMyWorkHtml(list){
+		
+		result = list;
+		
+		if(result.length > 0){
+    		var workListHtml = '';
+    		workListHtml += '<div  id="columns2" class="grid" style= "text-align: center;margin-top: 100px;">';
+    		for(var i=0; i<result.length; i++){
+				var z = i+1
+				var gtText = "gt"+z;
+				
+				//경매
+				if(result[i].dealTypCd == "A" && result[i].dealSttsCd == "TP"){
+					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+					workListHtml += '	<div class="item-div-img active-on"><!-- 0823 start chediv 추가 -->';
+					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;">';
+					workListHtml += '		<div class="item-ho" onclick="dealDetail('+result[i].dealSq+')" style="cursor:pointer;">';
+					workListHtml += '			<p>'+result[i].dealStrtDate+' – '+result[i].dealEndngDate+'</p>';
+					if(result[i].bidCnt != null && result[i].bidCnt != ""){
+						workListHtml += '			<p>응찰수 : '+result[i].bidCnt+'</p>';
+					}else{
+						workListHtml += '			<p>응찰수 : 0</p>';
+					}
+					workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'" sday="'+result[i].dealStrtDateTime+'" strtDt="'+result[i].dealStrtDate+'"></ul>';
+					workListHtml += '			<h4>시작가  '+result[i].dealStrtPrc+' KRW</h4>';
+					workListHtml += '		</div>';
+					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+					workListHtml += '			<div class="pay-check mana-check">';
+					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+					workListHtml += '			</div>';
+					workListHtml += '		</div>';
+					/* workListHtml += '		<div class="item-view">';
+					if(result[i].workOpenYn != "N"){
+						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}else{
+						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}
+					workListHtml += '		</div>'; */
+					workListHtml += '		<!-- 0823 end -->';
+					workListHtml += '	</div>';
+					workListHtml += '	<!-- 하단텍스트 -->';
+					workListHtml += '	<div class="item-body">';
+					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+					workListHtml += '		<div class="heart"></div>'; */
+					workListHtml += '		<div class="uesr-s">';
+					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else{
+						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+					}
+					workListHtml += '		</div>';
+					workListHtml += '		<div class="text-s">';
+					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+						workListHtml += '		<h3>'+result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+					}else{
+						workListHtml += '		<h3>'+result[i].artstActvtyNm+'</h3>';	
+					}
+					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+					}else{
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+					}
+					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+					workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
+					if(result[i].maxBidPrc != null && result[i].maxBidPrc != "") {
+						workListHtml += '		<h4>입찰가 '+result[i].maxBidPrc+' KRW</h4>';
+					}else{
+						workListHtml += '		<h4>입찰가 0 KRW</h4>';
+					}
+					workListHtml += '		</div>';
+					if(result[i].workTypCd == "WORK"){
+						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+					}else{
+						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+					}
+					workListHtml += '	</div>';
+					workListHtml += '</figure>';
+				}
+				//정찰가
+				if(result[i].dealTypCd == "S" && result[i].dealSttsCd == "TP"){
+					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+					workListHtml += '	<div class="item-div-img sale-on"><!-- 0823 start chediv 추가 -->';
+					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%; cursor:pointer;" onclick="dealDetail('+result[i].dealSq+')">';
+					workListHtml += '		<div class="item-ho2 sale-div">';
+					workListHtml += '			<h3>판매중</h3>';
+					workListHtml += '			<ul class="dealCount" dday="'+result[i].dealEndngDateTime+'" sday="'+result[i].dealStrtDateTime+'" strtDt="'+result[i].dealStrtDate+'"></ul>';
+					workListHtml += '		</div>';
+					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+					workListHtml += '			<div class="pay-check mana-check">';
+					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+					workListHtml += '			</div>';
+					workListHtml += '		</div>';
+					/* workListHtml += '		<div class="item-view">';
+					if(result[i].workOpenYn != "N"){
+						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}else{
+						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}
+					workListHtml += '		</div>'; */
+					workListHtml += '		<!-- 0823 end -->';
+					workListHtml += '	</div>';
+					workListHtml += '	<!-- 하단텍스트 -->';
+					workListHtml += '	<div class="item-body">';
+					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+					workListHtml += '		<div class="heart"></div>'; */
+					workListHtml += '		<div class="uesr-s">';
+					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else{
+						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+					}
+					workListHtml += '		</div>';
+					workListHtml += '		<div class="text-s">';
+					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+					}else{
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+					}
+					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+					}else{
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+					}
+					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+					workListHtml += '			<p>'+result[i].workSizeDepth+'x'+result[i].workSizeWidth+'</p>';
+					workListHtml += '			<h4>판매가 '+result[i].dealStrtPrc+' KRW</h4>';
+					workListHtml += '		</div>';
+					if(result[i].workTypCd == "WORK"){
+						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+					}else{
+						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+					}
+					workListHtml += '	</div>';
+					workListHtml += '</figure>';
+				}
+				
+				//판매완료
+				if(result[i].dealSttsCd != "TP" && result[i].dealTypCd != null && result[i].dealTypCd != "" && result[i].dealSttsCd != "FB"){
+					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+					workListHtml += '	<div class="item-div-img sold-3" onclick="soldoutDetail('+result[i].dealSq+')"><!-- 0823 start chediv 추가 -->';	
+					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%; cursor:pointer;">';
+					/* workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+					workListHtml += '			<div class="pay-check mana-check">';
+					workListHtml += '				<input type="checkbox" id="a11" name="cc">';
+					workListHtml += '				<label for="a11"><span></span></label>';
+					workListHtml += '			</div>';
+					workListHtml += '		</div>'; 
+					workListHtml += '		<div class="item-view">';
+					if(result[i].workOpenYn != "N"){
+						workListHtml += '			<button type="button"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}else{
+						workListHtml += '			<button type="button"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
+					}
+					workListHtml += '		</div>'; */
+					workListHtml += '	</div>';
+					workListHtml += '	<!-- 하단텍스트 -->';
+					workListHtml += '	<div class="item-body">';
+					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+					workListHtml += '		<div class="heart on"></div>'; */
+					workListHtml += '		<div class="uesr-s">';
+					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else{
+						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+					}
+					workListHtml += '		</div>';
+					workListHtml += '		<div class="text-s">';
+					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+					}else{
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+					}
+					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+					}else{
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+					}
+					workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+					workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+					workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
+					workListHtml += '		</div>';
+					workListHtml += '		<!-- artist active넣어야지나옴 -->';
+					if(result[i].workTypCd == "WORK"){
+						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+					}else{
+						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+					}
+					workListHtml += '	</div>';
+					workListHtml += '</figure>';
+				}
+				
+				//등록한 작품
+				if(result[i].dealTypCd == null || result[i].dealTypCd == "" || result[i].dealSttsCd == "FB"){
+					workListHtml += '<figure class="item griditem '+gtText+'" style="border:0px solid #222;">';
+					workListHtml += '	<!-- active하고 hover하면 나오고 /  sale 넣고 hover하면나옵니다 / auction hover -->';
+					workListHtml += '	<div class="item-div-img chediv" ><!-- 0823 start chediv 추가 -->';	
+					workListHtml += '		<img src="'+result[i].workMainImgUrl+'" onclick="workDetail('+result[i].workSq+')"; class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%; cursor:pointer;"">';
+					workListHtml += '		<!-- 0823 start 체크아이콘 -->';
+					workListHtml += '		<div class="item-ho4 check-div" style="display:none;">';
+					workListHtml += '			<div class="pay-check mana-check">';
+					workListHtml += '				<input type="checkbox" id="'+result[i].workSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+					workListHtml += '				<label for="'+result[i].workSq+'"><span></span></label>';
+					workListHtml += '			</div>';
+					workListHtml += '		</div>'; 
+					workListHtml += '		<div class="item-view">';
+					if(result[i].workOpenYn != "N"){
+						workListHtml += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+					}else{
+						workListHtml += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+					}
+					workListHtml += '		</div>';
+					workListHtml += '		<!-- 0823 end -->'; 
+					workListHtml += '	</div>';
+					workListHtml += '	<!-- 하단텍스트 -->';
+					workListHtml += '	<div class="item-body">';
+					/* workListHtml += '		<!-- 하트 on하면 색상 -->';
+					workListHtml += '		<div class="heart on"></div>'; */
+					workListHtml += '		<div class="uesr-s">';
+					if(result[i].artstProfileImgUrl != null && result[i].artstProfileImgUrl != ""){
+						workListHtml += '		<img src="'+ result[i].artstProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else if(result[i].mbrProfileImgUrl != null  && result[i].mbrSq == "" && result[i].mbrSq == sMbrSqVal){
+						workListHtml += '		<img src="'+ result[i].mbrProfileImgUrl +'" style="width:42px;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px"/>';
+					}else{
+						workListHtml += '		<img src="/resources/img/de/ues-icon.png"/>';
+					}
+					workListHtml += '		</div>';
+					workListHtml += '		<div class="text-s">';
+					if(result[i].artstBirthYear != null && result[i].artstBirthYear != "") {
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'('+result[i].artstBirthYear+')</h3>';	
+					}else{
+						workListHtml += '		<h3>'+ result[i].artstActvtyNm+'</h3>';	
+					}
+					if(result[i].workProdcYear != null && result[i].workProdcYear != ""){
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+' ('+result[i].workProdcYear+')</p>';
+					}else{
+						workListHtml += '		<p class="ts-1">'+result[i].workNm+'</p>';
+					}
+					if(result[i].workMatrl != null && result[i].workMatrl != ""){
+						workListHtml += '			<p>'+result[i].workMatrl+'</p>';
+					}
+					if(result[i].workSizeDepth != null && result[i].workSizeDepth != "" && result[i].workSizeWidth != null && result[i].workSizeWidth){
+						workListHtml += '			<p>'+result[i].workSizeDepth +'x'+result[i].workSizeWidth+'</p>';
+					}
+					
+					//workListHtml += '			<h4>판매가 '+result[i].dealFinalPrc+' KRW</h4>';
+					workListHtml += '		</div>';
+					workListHtml += '		<!-- artist active넣어야지나옴 -->';
+					if(result[i].workTypCd == "WORK"){
+						workListHtml += '		<div class="artist active"><span>Artist</span></div>';
+					}else{
+						workListHtml += '		<div class="artist"><span>Artist</span></div>';
+					}
+					workListHtml += '	</div>';
+					workListHtml += '</figure>';
+				}
+			}
+    		workListHtml += '</div>';
+    		workListHtml += '<div style="font-size: 28px;text-align: center;margin-top: 100px;">나의 작품 페이지 링크하기</div>';
+    		
+			$(".scrap_wrap").empty();
+			$(".scrap_wrap").append(workListHtml).trigger("create");
+		}
+	}
+	
+	//자랑하기 html 뿌려주기
+	function setScrapBOAHtml(list){
+		result = list;
+		var html = '';
+		for(i=0; i<result.length; i++){
+    		j = 0;
+            if(i == 0){
+            	html +=	'<div class="mypage_showingoff_contents_row">';
+            	for(j=0; j<3; j++){
+            		if(result[i] != null){
+	                	html +=		'<ul>';
+	                	html +=		'    <li>';
+	                	html +=		'        <div class="showingoff_pic">';
+	                	html +=		'            <div class="text">'+result[i].comtTitle+'</div>';                                        
+	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?SqNumber='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
+	                	html += 	'		<div class="item-ho4 check-div" style="display:none;">';
+	                	html += 	'			<div class="pay-check mana-check">';
+	                	html += 	'				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+    					html += 	'				<label for="'+result[i].comtSq+'"><span></span></label>';
+    					html += 	'			</div>';
+    					html += 	'		</div>';
+    					html += 	'		<div class="item-view">';
+    					if(result[i].cmtOpenYn != "N"){
+    						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+    					}else{
+    						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+    					}
+    					html += 	'		</div>';
+    					html +=		'            <div class="icon_box">'
+	                	html +=		'                <ul>'
+	                	html +=		'                    <li><p class="ico_good"></p><span>'+result[i].cmtLikes+'</span></li>';
+	                	html +=		'                    <li><p class="ico_scrap"></p><span>'+result[i].cmtScraps+'</span></li>';
+	                	html +=		'                    <li><p class="ico_hits"></p><span></span>'+result[i].cmtViews+'</li>';
+	                	html +=		'                    <li><p class="ico_comments"></p><span>'+result[i].cmtTotalCount+'</span></li>';
+	                	html +=		'                </ul>';
+	                	html +=		'            </div>';                                        
+	                	html +=		'            <div class="header">';
+	                	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+		                	html +=		'                <div class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></div>';
+	                	}else{
+		                	html +=		'                <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>';
+	                	}
+	                	html +=		'                <ul class="user_name">';
+	                	html +=		'                    <li><span>'+result[i].mbrNcknm+'</span></li>';
+	                	if(result[i].mbrIntro != null){
+	                		html +=		'                    <li>'+result[i].mbrIntro+'.</li>';
+            			}
+	                	html +=		'                </ul>';
+	                	html +=		'            </div>';
+	                	html +=		'        </div>';
+	                	html +=		'    </li>';
+	                	html +=		'</ul>';    
+	                	if(j < 2){
+	                    	i++
+	                	}
+            		}
+            	}
+            	html +=		'</div>';
+            }else{
+            	html +=	'<div class="mypage_showingoff_contents_row mt30">';
+
+            	for(j=0; j<3; j++){
+            		if(result[i] != null){
+	                	html +=		'<ul>';
+	                	html +=		'    <li>';
+	                	html +=		'        <div class="showingoff_pic">';
+	                	html +=		'            <div class="text">'+result[i].comtTitle+'</div>';                                        
+	                	html +=		'            <div class="pic"><a href="/community/showingOffDetail?SqNumber='+result[i].comtSq+'"><img src="'+result[i].comtImgUrl+'" alt="" class="pseudo-img" style="max-width:360px; max-height:600px; width:100%; height:100%;"></a></div>';
+	                	html += '		<div class="item-ho4 check-div" style="display:none;">';
+	                	html += '			<div class="pay-check mana-check">';
+	                	html += '				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+    					html += '				<label for="'+result[i].comtSq+'"><span></span></label>';
+    					html += '			</div>';
+    					html += '		</div>';
+    					html += '		<div class="item-view">';
+    					if(result[i].cmtOpenYn != "N"){
+    						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+    					}else{
+    						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+    					}
+    					html += '		</div>';
+    					html +=		'            <div class="icon_box">'
+	                	html +=		'                <ul>'
+	                	html +=		'                    <li><p class="ico_good"></p><span>'+result[i].cmtLikes+'</span></li>';
+	                	html +=		'                    <li><p class="ico_scrap"></p><span>'+result[i].cmtScraps+'</span></li>';
+	                	html +=		'                    <li><p class="ico_hits"></p><span></span>'+result[i].cmtViews+'</li>';
+	                	html +=		'                    <li><p class="ico_comments"></p><span>'+result[i].cmtTotalCount+'</span></li>';
+	                	html +=		'                </ul>';
+	                	html +=		'            </div>';                                        
+	                	html +=		'            <div class="header">';
+	                	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+		                	html +=		'                <div class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></div>';
+	                	}else{
+		                	html +=		'                <div class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></div>';
+	                	}	                	
+	                	html +=		'                <ul class="user_name">';
+	                	html +=		'                    <li><span>'+result[i].mbrNcknm+'</span></li>';
+	                	if(result[i].mbrIntro != null){
+	                		html +=		'                    <li>'+result[i].mbrIntro+'.</li>';
+            			}
+	                	html +=		'                </ul>';
+	                	html +=		'            </div>';
+	                	html +=		'        </div>';
+	                	html +=		'    </li>';
+	                	html +=		'</ul>';   
+	                	if(j < 2){
+	                    	i++
+	                	}
+            		}
+            	}
+            	html +=		'</div>';
+            	html +=		'</div>';
+            }
+		}
+		
+		$(".scrap_wrap").empty();
+		$(".scrap_wrap").append(html).trigger("create");
+	}
+	
+	//전시후기/소개 뿌려주기
+	function setScrapEXHHtml(list){
+		result = list;
+		
+		var EXHhtml = '';
+		
+		for(i=0; i<result.length; i++){
+
+    		if(result[i] != null){
+            	EXHhtml +=	'<div class="exhint_row">';
+            	EXHhtml +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" alt=""><div class="ico_num">1+</div></div>';
+            	EXHhtml +=	'<div class="contents width75per">';
+            	EXHhtml += '		<div class="item-ho4 check-div" style="display:none;">';
+            	EXHhtml += '			<div class="pay-check mana-check">';
+            	EXHhtml += '				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+				EXHhtml += '				<label for="'+result[i].comtSq+'"><span></span></label>';
+				EXHhtml += '			</div>';
+				EXHhtml += '		</div>';
+            	EXHhtml += '   <ul>';
+				if(result[i].cmtOpenYn != "N"){
+					EXHhtml += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+				}else{
+					EXHhtml += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+				}
+            	EXHhtml += '   <a href="/community/exhibitDetail?SqNumber='+result[i].comtSq+'">';
+            	EXHhtml += '       <li>';
+            	EXHhtml += '           <div class="tit">'; 
+            	EXHhtml += '               <em>'+result[i].comtTitle+'</em>';                                                                
+            	EXHhtml += '           </div>';
+            	EXHhtml += '       </li>';
+            	EXHhtml += '       <li class="comt_content pt20 height120"><p>'+result[i].cmtContent+'</p></li>';
+            	EXHhtml += '      </a>';
+            	EXHhtml += '      <li class="comt-row-info">';
+            	EXHhtml += '           <div class="user_wrap">';
+            	EXHhtml += '               <div class="user">';
+            	EXHhtml += '                   <ul>';
+            	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+                	EXHhtml +=		'                <li class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></li>';
+            	}else{
+                	EXHhtml +=		'                <li class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+            	}
+            	EXHhtml += '                      <li class="user_name"><span>'+result[i].mbrNcknm+'</span></li>';
+            	EXHhtml += '                  </ul>';
+            	EXHhtml += '               </div>';
+            	EXHhtml += '               <div class="icon_box">';
+            	EXHhtml += '                   <ul>';
+            	EXHhtml +=		'                    <li><p class="ico_good"></p><span>'+result[i].cmtLikes+'</span></li>';
+            	EXHhtml +=		'                    <li><p class="ico_scrap"></p><span>'+result[i].cmtScraps+'</span></li>';
+            	EXHhtml +=		'                    <li><p class="ico_hits"></p><span></span>'+result[i].cmtViews+'</li>';
+            	EXHhtml +=		'                    <li><p class="ico_comments"></p><span>'+result[i].cmtTotalCount+'</span></li>';
+            	EXHhtml += '                   </ul>';
+            	EXHhtml += '               </div>';
+            	EXHhtml += '           </div>';                                
+            	EXHhtml += '       </li>';
+            	EXHhtml += '   </ul>';
+            	EXHhtml +=	'</div>';
+            	EXHhtml +=	'</div>';
+    		}
+		}
+		
+		$(".scrap_wrap").empty();
+		$(".scrap_wrap").append(EXHhtml).trigger("create");
+	}
+	
+	//스크랩 이슈 목록 뿌려주기
+	function setScrapISSHtml(list){
+		result = list;
+		
+		var htmlISU = '';
+		
+		for(i=0; i<result.length; i++){
+
+    		if(result[i] != null){
+            	htmlISU +=	'<div class="exhint_row">';
+            	htmlISU +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" alt=""><div class="ico_num">1+</div></div>';
+            	htmlISU +=	'<div class="contents width75per">';
+            	htmlISU += '		<div class="item-ho4 check-div" style="display:none;">';
+            	htmlISU += '			<div class="pay-check mana-check">';
+            	htmlISU += '				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
+				htmlISU += '				<label for="'+result[i].comtSq+'"><span></span></label>';
+				htmlISU += '			</div>';
+				htmlISU += '		</div>';
+            	htmlISU += '   <ul>';
+				if(result[i].cmtOpenYn != "N"){
+					htmlISU += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+				}else{
+					htmlISU += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+				}
+            	htmlISU += '   <a href="/community/exhibitDetail?SqNumber='+result[i].comtSq+'">';
+            	htmlISU += '       <li>';
+            	htmlISU += '           <div class="tit">'; 
+            	htmlISU += '               <em>'+result[i].comtTitle+'</em>';                                                                
+            	htmlISU += '           </div>';
+            	htmlISU += '       </li>';
+            	htmlISU += '       <li class="comt_content pt20 height120"><p>'+result[i].cmtContent+'</p></li>';
+            	htmlISU += '      </a>';
+            	htmlISU += '      <li class="comt-row-info">';
+            	htmlISU += '           <div class="user_wrap">';
+            	htmlISU += '               <div class="user">';
+            	htmlISU += '                   <ul>';
+            	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+                	htmlISU +=		'                <li class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></li>';
+            	}else{
+                	htmlISU +=		'                <li class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+            	}
+            	htmlISU += '                      <li class="user_name"><span>'+result[i].mbrNcknm+'</span></li>';
+            	htmlISU += '                  </ul>';
+            	htmlISU += '               </div>';
+            	htmlISU += '               <div class="icon_box">';
+            	htmlISU += '                   <ul>';
+            	htmlISU +=		'                    <li><p class="ico_good"></p><span>'+result[i].cmtLikes+'</span></li>';
+            	htmlISU +=		'                    <li><p class="ico_scrap"></p><span>'+result[i].cmtScraps+'</span></li>';
+            	htmlISU +=		'                    <li><p class="ico_hits"></p><span></span>'+result[i].cmtViews+'</li>';
+            	htmlISU +=		'                    <li><p class="ico_comments"></p><span>'+result[i].cmtTotalCount+'</span></li>';
+            	htmlISU += '                   </ul>';
+            	htmlISU += '               </div>';
+            	htmlISU += '           </div>';                                
+            	htmlISU += '       </li>';
+            	htmlISU += '   </ul>';
+            	htmlISU +=	'</div>';
+            	htmlISU +=	'</div>';
+    		}
+		}
+		
+		$(".scrap_wrap").empty();
+		$(".scrap_wrap").append(htmlISU).trigger("create");
+	}
+	
+	//인사이트 목록 뿌려주기
+	function setScrapINSIGHTSHtml(list){
+		mgz9List = list;
+		var mgz9ListHtml = "";
+		
+		for(var i=0; i<mgz9List.length; i++){
+			mgz9ListHtml += '<ul class="mgz-list" id="mgz9List"></ul>';
+ 			mgz9ListHtml += '<li>';
+     		mgz9ListHtml += '	<a href="javascript:void(0);" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+     		//mgz9ListHtml += '	<a href="/insights?mgzSq='+mgz9List[i].mgzSq+'">';
+     		mgz9ListHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
+     		mgz9ListHtml += '		<div class="ml-div">';
+     		mgz9ListHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+     		mgz9ListHtml += '			<div class="ml-p">';
+     		mgz9ListHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+     		mgz9ListHtml += '			</div>';
+     		mgz9ListHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+     		mgz9ListHtml += '		</div>';
+     		mgz9ListHtml += '	</a>';
+     		mgz9ListHtml += '</li>';
+     		mgz9ListHtml += '</ui>';
+     	}
+		
+		$(".scrap_wrap").empty();
+		$(".scrap_wrap").append(mgz9ListHtml).trigger("create");
+	}
+	
+	//아티스트 필름 뿌려주기
+	function setScrapMEDIAHtml(list){
+		mgz9List = list;
+		var timpStr = "";
+		var MDAHtml = "";
+		
+		for(var i=0; i<mgz9List.length; i++){
+ 			console.log(mgz9List[i].mgzContent);
+ 			timpStr = mgz9List[i].mgzContent;
+ 			timpStr = timpStr.replaceAll("&lt;","<");
+       	    timpStr = timpStr.replaceAll("&gt;",">");
+       	    timpStr = timpStr.replaceAll("&amp;lt;","<");
+       	    timpStr = timpStr.replaceAll("&amp;gt;",">");
+       	    timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+       	    timpStr = timpStr.replaceAll("&amp;amp;","&");
+       	 
+ 			/*
+ 			MDAHtml += '<li>';
+     		MDAHtml += '	<a href="" class="mgz-youtube" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+     		MDAHtml += '		<div class="ml-img"><img src="'+ mgz9List[i].mgzMainImgUrl +'" /></div>';
+     		MDAHtml += '		<div class="ml-div">';
+     		MDAHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+     		MDAHtml += '			<div class="ml-p">';
+     		MDAHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+     		MDAHtml += '			</div>';
+     		MDAHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+     		MDAHtml += '		</div>';
+     		MDAHtml += '	</a>';
+     		MDAHtml += '</li>';
+     		*/
+     		MDAHtml += '<ul class="mgz-list" id="mgz9List">';
+ 			MDAHtml += '<li>';
+ 			MDAHtml += '<a href="#" class="mgz-youtube_'+mgz9List[i].mgzSq+'" data-toggle="modal" data-target="#lp_mgz9Dtl" onclick="selectMgz9Dtl('+ mgz9List[i].mgzSq +');">';
+ 			MDAHtml += '<div style="pointer-events:none;">'+ timpStr +'</div>';
+ 			MDAHtml += '		<div class="ml-div">';
+     		MDAHtml += '			<h3 class="ml-h3">'+ mgz9List[i].mgzTitle +'</h3>';
+     		MDAHtml += '			<div class="ml-p">';
+     		MDAHtml += '				'+ mgz9List[i].mgzDescrptn +'';
+     		MDAHtml += '			</div>';
+     		MDAHtml += '			<span class="ml-time">'+ mgz9List[i].regDate +'</span>';
+     		MDAHtml += '		</div>';
+ 			MDAHtml += '</a>'
+ 			MDAHtml += '</li>';
+ 			MDAHtml += '</ul>';
+ 			
+ 			         			
+ 			//iframeSize();
+ 		
+     	}
+		
+		$(".scrap_wrap").empty();
+		$(".scrap_wrap").append(MDAHtml).trigger("create");
+	}
+	
+	//더보기 클릭
+	function scrapSearchMore(){
+		more += 1;
+		scrapList(scrapGbCd);
+	}
+	
+	//개수 뿌려주기
+	function setScrapCnt(myWorkTotal, myBOATotal, myEXHTotal, myISSTotal, myISTTotal, myMDATotal){
+		$("#btn_nal1").text("나의 작품("+myWorkTotal+")");
+		$("#btn_nal2").text("자랑하기("+myBOATotal+")");
+		$("#btn_nal3").text("전시후기/소개("+myEXHTotal+")");
+		$("#btn_nal4").text("이슈("+myISSTotal+")");
+		$("#btn_nal5").text("인사이트("+myISTTotal+")");
+		$("#btn_nal6").text("아티스트 필름("+myMDATotal+")");
+	}
+	
+	//검색
+	function fnSearch(){
+		const element = document.querySelector('#search_input');
+		const value = element.value;
+		searchWord = value;
+		
+		scrapList(scrapGbCd);
+	}
+	
+	</script>
 </body>
-<script type="text/javascript">
-$("document").ready(function(){
-	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
-	
-});
-</script>
 </html>

@@ -1,6 +1,10 @@
 package com.da.bo.banner;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.io.IOException;
+>>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +18,15 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.bo.service.bannerService;
+import com.da.common.AwsS3Service;
 import com.da.fo.service.MainService;
+import com.da.vo.FileVo;
 
 @Controller
 public class bannerController {
@@ -30,6 +38,9 @@ public class bannerController {
 
 	@Autowired
 	MainService mainService;
+	
+	@Autowired
+	AwsS3Service awsS3Service;
 
 	// 배너관리 목록 페이지 이동
 	@RequestMapping("/admin/banner/bannerList")
@@ -64,6 +75,7 @@ public class bannerController {
 	// 배너 등록
 	@RequestMapping("/admin/banner/bannerInsertData")
 	@ResponseBody
+<<<<<<< HEAD
 	public int bannerInsertData(@RequestParam Map<String, Object> param) {
 		System.out.println("=======테스트======");
 
@@ -71,6 +83,47 @@ public class bannerController {
 		System.out.println(param);
 
 		return result;
+=======
+	public ModelAndView bannerInsertData(@RequestPart(value="bnnData") Map<String, Object> bnnData
+			,@RequestPart(value="promoData") @Nullable List<Map<String, Object>>  promoData
+			,@RequestPart(value="bnnMpImgUrl") @Nullable MultipartFile bnnMpImgUrl
+			,@RequestPart(value="bnnMmImgUrl") @Nullable MultipartFile bnnMmImgUrl
+			,@RequestPart(value="bnnEpImgUrl") @Nullable MultipartFile bnnEpImgUrl
+			,@RequestPart(value="bnnEmImgUrl") @Nullable MultipartFile bnnEmImgUrl) throws IOException {
+		System.out.println(bnnData.toString());
+		System.out.println(promoData.toString());
+		System.out.println(bnnMpImgUrl.getName());
+		System.out.println(bnnMmImgUrl.getName());
+		
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		Map<String, MultipartFile> imgUrl = new HashMap<String, MultipartFile>();
+		
+		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
+		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
+		imgUrl.put("bnnMmImgUrl", bnnMmImgUrl);
+		imgUrl.put("bnnEmImgUrl", bnnEmImgUrl);
+		
+		//배너 파일 업로드 후 url 담기
+		for (String key : imgUrl.keySet()) {
+			MultipartFile url = imgUrl.get(key);
+			
+			if (url != null) {
+				FileVo file = awsS3Service.upload(url, "dealingart/banner/"+bnnData.get("bnnDivCd").toString());
+				bnnData.put(key, file.getFileUrl());
+			}
+		}
+		
+		int result1 = bannerService.bannerInsert(bnnData);
+		int result2 = 0;
+		for(int i=0; i<promoData.size(); i++){
+			result2 += bannerService.promoUpdate(promoData.get(i));
+		}
+		mv.addObject("bannerResult", result1);
+		mv.addObject("promoResult", result2);
+		
+		return mv;
+>>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	}
 
 	// 게시판 삭제

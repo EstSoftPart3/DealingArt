@@ -37,11 +37,10 @@
 		
 	<!--배너 등록 -->	
 	<insert id="bannerInsert" parameterType="hashMap">
-		INSERT INTO TBL_DA_BNN_MGMT_M 
-			(										
-				BNN_SQ
-				,BNN_DIV_CD
+		INSERT INTO TBL_DA_BNN_MGMT_M (										
+				BNN_DIV_CD
 				,BNN_TITLE
+				,BNN_SHOW_SQ
 				,BNN_MP_IMG_URL
 				,BNN_EP_IMG_URL
 				,BNN_MM_IMG_URL
@@ -54,34 +53,41 @@
 				,REG_MBR_SQ
 				,UPDT_DT
 				,UPDT_MBR_SQ
-				,USE_YN
-				,DEL_YN
 	
-			)
-			VALUES 
-			(
+			)VALUES(
 			
-				#{brSq}
-				,#{bnrTypCd}
-				,#{brTitle}
-				,#{brMnPcimgUrl}
-				,#{brSubPcimgUrl}
-				,#{brMnMimgUrl}
-				,#{brSubMimgUrl}
-				,#{brMnRUrl}
-				,#{brSubRUrl}
-				,#{brWhen1}
-				,#{brWhen2}
+				#{bnnDivCd}
+				,#{bnnTitle}
+				,#{bnnShowSq}
+				,#{bnnMpImgUrl}
+				,#{bnnEpImgUrl}
+				,#{bnnMmImgUrl}
+				,#{bnnEmImgUrl}
+				,#{bnnMLndUrl}
+				,#{bnnELndUrl}
+				,#{bnnStrtDt}
+				,#{bnnEndDt}
 				,NOW()
 				,'1'
 				,NOW()
 				,'1'
-				,'Y'
-				,'N'
 		
 			)
 		
 	</insert>
+	
+	<update id="promoUpdate" parameterType="hashMap">
+	/* 프로모션 영역 수정 */
+		UPDATE
+				TBL_DA_PROMO_MGMT_S
+		SET
+				BNN_DIV_CD = #{bnnDivCd}
+				,PROMO_NM = #{promoNm}
+				,PROMO_OD_DIV_CD = #{promoOdDivCd}
+				,PROMO_OD_TYP_CD = #{promoOdTypCd}
+		WHERE
+				PROMO_SQ = #{promoSq}
+	</update>
 	
 	<!-- 배너 삭제 -->
     <update id="bannerDelete" parameterType="String">

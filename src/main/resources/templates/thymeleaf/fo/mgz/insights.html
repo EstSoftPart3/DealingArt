@@ -116,6 +116,15 @@
 				
 			}	 
 		});	
+		//매거진 브라우저 체크
+		function mgzMobileBrowserChk2(){
+			 if(!isMobile){
+				 window.location.href = "/mgz9/magazine9_main";
+			 }else{
+				 window.location.href = "/mgz9/magazine9_mainMobile";
+			 }
+			 
+	  	 }
 		</script>	
 	
 		<div class="body-wrap coll-mobile">
@@ -131,11 +140,11 @@
 					</div> -->
 					<div id="nav">
 		                <ul>
-		                    <li><a href="/temp/magazine9_main" class="over">홈</a></li>
+		                    <li><a onclick="mgzMobileBrowserChk2();" href="#" class="over">홈</a></li>
 		                    <li><a href="/mgz9/insights">인사이트</a></li>
 		                    <li><a href="/mgz9/exhibition">전시</a></li>
 		                    <li><a href="/mgz9/media">아티스트 필름</a></li>	                    
-		                    <li><a href="#">아티스트</a></li>
+		                    <li><a href="/mgz9/artist">아티스트</a></li>
 		                </ul>
 		            </div>            
             <div class="magazine9_visual_wrap">
