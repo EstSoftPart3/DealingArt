@@ -104,7 +104,7 @@
 	//마이페이지 브라우저 체크
 	function mypageMobileBrowserChk(){
 		 if(!isMobile){
-			 window.location.href = "/myPage/mypage_main";
+			 window.location.href = "/myPage/main";
 		 }else{
 			 window.location.href = "/myPage/myPageMobile";
 		 }
@@ -1897,7 +1897,7 @@ $(document).on("click", ".myCollection", function(){
 $(document).on("click", ".myWorkList", function(){
 	
 	 if(!isMobile){
-		 requestUrl = "/myPage/myWorkList";
+		 requestUrl = "/myPage/workList";
 	 }else{
 		 requestUrl = "/myPage/myWorkListMobile";
 	 }

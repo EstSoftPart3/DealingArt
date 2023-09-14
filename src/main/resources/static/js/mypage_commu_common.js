@@ -719,40 +719,41 @@ $('.wdb-3').click(function(e){
 		}
 	}
 });
-	function setPagenation(count){
-		var html = '';
- 		var totalCount = count.myTotal;
- 		var i = 0;
+	
+function setPagenation(count){
+	var html = '';
+	var totalCount = count.myTotal;
+	var i = 0;
 
- 		realEndPage = Math.ceil( totalCount / 2 );												// 최종 페이지 페이징시 리스트 갯수 바꿀러면 이부분 숫자 변경
- 		endPage = Math.ceil( realEndPage / 10 ) > 10 ? 10 : realEndPage % 10;					// 10개씩 보여줄 마지막 페이지
- 		next = ( Math.ceil( realEndPage / 10 ) ) > pageNextBtnCount + 1 ? true : false;			// 다음 10개버튼 보여주기 위한 boolean
- 		prev = pageNextBtnCount > 0 ? true : false;
-		  
- 		// 이전 페이지
- 		if(prev) {
- 			html += '<a href="javascript:pageNextBtnCount = 0; nowPage = 0; ShowListAjax();" class="next_end ml5"></a>';
- 			html += '<a href="javascript:pageNextBtnCount--; nowPage = 10 * pageNextBtnCount; ShowListAjax();" class="next ml10"></a>'
- 		}
- 		
-	 	// 1~5만큼 페이지네이션 그려줌
- 		for(i = 0 * ( pageNextBtnCount * 10 ); i < endPage; i++) {
-	 	  	if(nowPage == i) {
- 				console.log("들어옴");
- 				html += '<a href="javascript:nowPage ='+ i +'; ShowListAjax();"><strong>'+ ( i + 1 ) +'</strong></a>';
- 			} else {
-	 			html += '<a href="javascript:nowPage ='+ i +'; ShowListAjax();">'+ ( i + 1 ) +'</a>';
- 			}
-	 	}
-	 	
- 		// 다음 페이지
- 		if(next){
- 			html += '<a href="javascript:pageNextBtnCount++; nowPage = 10 * pageNextBtnCount; ShowListAjax();" class="next ml10"></a>'
- 			
- 			var finalPage = Math.ceil( realEndPage / 10 );
- 			html += '<a href="javascript:pageNextBtnCount = finalPage - 1; nowPage = ( finalPage - 1 ) * 10 ; ShowListAjax();" class="next_end ml5"></a>';
- 		}
- 		
-    	$(".paginate").empty();
-        $(".paginate").append(html);
+	realEndPage = Math.ceil( totalCount / 4 );												// 최종 페이지 페이징시 리스트 갯수 바꿀러면 이부분 숫자 변경
+	endPage = Math.ceil( realEndPage / 10 ) > 10 ? 10 : realEndPage % 10;					// 10개씩 보여줄 마지막 페이지
+	next = ( Math.ceil( realEndPage / 10 ) ) > pageNextBtnCount + 1 ? true : false;			// 다음 10개버튼 보여주기 위한 boolean
+	prev = pageNextBtnCount > 0 ? true : false;
+	  
+	// 이전 페이지
+	if(prev) {
+		html += '<a href="javascript:pageNextBtnCount = 0; nowPage = 0; ShowListAjax();" class="next_end ml5"></a>';
+		html += '<a href="javascript:pageNextBtnCount--; nowPage = 10 * pageNextBtnCount; ShowListAjax();" class="next ml10"></a>'
+	}
+	
+ 	// 1~5만큼 페이지네이션 그려줌
+	for(i = 0 * ( pageNextBtnCount * 10 ); i < endPage; i++) {
+ 	  	if(nowPage == i) {
+			console.log("들어옴");
+			html += '<a href="javascript:nowPage ='+ i +'; ShowListAjax();"><strong>'+ ( i + 1 ) +'</strong></a>';
+		} else {
+ 			html += '<a href="javascript:nowPage ='+ i +'; ShowListAjax();">'+ ( i + 1 ) +'</a>';
+		}
  	}
+ 	
+	// 다음 페이지
+	if(next){
+		html += '<a href="javascript:pageNextBtnCount++; nowPage = 10 * pageNextBtnCount; ShowListAjax();" class="next ml10"></a>'
+		
+		var finalPage = Math.ceil( realEndPage / 10 );
+		html += '<a href="javascript:pageNextBtnCount = finalPage - 1; nowPage = ( finalPage - 1 ) * 10 ; ShowListAjax();" class="next_end ml5"></a>';
+	}
+	
+	$(".paginate").empty();
+    $(".paginate").append(html);
+}

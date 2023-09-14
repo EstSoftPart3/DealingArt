@@ -332,8 +332,8 @@ $("document").ready(function(){
 
 function ShowListAjax(callback){
 	
-	searchOptions.limit = 2;
-	searchOptions.offset = nowPage * 2
+	searchOptions.limit = 4;
+	searchOptions.offset = nowPage * 4;
 	
 	$.ajax({
 		type: "POST"
@@ -364,7 +364,7 @@ function ShowList(data,callback){
 
         		if(result[i] != null){
 	            	html +=	'<div class="exhint_row">';
-	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" alt=""><div class="ico_num">1+</div></div>';
+	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" style="width:100%; height:100%;"><div class="ico_num">1+</div></div>';
 	            	html +=	'<div class="contents width75per">';
                 	html += '		<div class="item-ho4 check-div" style="display:none;">';
                 	html += '			<div class="pay-check mana-check">';
