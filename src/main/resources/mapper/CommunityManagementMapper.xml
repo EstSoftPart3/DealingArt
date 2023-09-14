@@ -3,7 +3,6 @@
     
 <mapper namespace="com.da.mapper.CommunityManagementMapper">
 
-<<<<<<< HEAD
 	<select id="communityManagementList" parameterType="hashMap" resultType="hashMap">
 			/*게시판 관리 리스트*/
 	SELECT
@@ -29,7 +28,7 @@
 	LEFT JOIN TBL_DA_COMN_DTL_CD_S AS C 
 		ON A.COMT_TYP_CD = C.DTL_CD
 	GROUP BY B.COMT_TYP_CD
-=======
+	</select>
 	<select id="communityManagementList" resultType="hashMap">
 		/*게시판 관리 리스트*/
 		SELECT 
@@ -56,13 +55,11 @@
 		LEFT JOIN TBL_DA_COMN_DTL_CD_S AS C 
 			ON A.COMT_TYP_CD = C.DTL_CD
 		GROUP BY B.COMT_TYP_CD
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	</select>
 	
 	<select id="communityManagementDtlList" resultType="hashMap" parameterType="hashMap">
 		/*게시판 관리 상세정보*/
 		SELECT
-<<<<<<< HEAD
 			A.CM_MG_SQ,
 			A.AUTH_SQ,
 			A.CM_MG_NM,
@@ -82,7 +79,6 @@
 			A.READ_AUTH_SQ,
 			A.WRITE_AUTH_SQ,
 			A.CMT_AUTH_SQ
-=======
 			A.CM_MG_SQ AS cmMgSq,
 			A.AUTH_SQ AS authSq,
 			A.CM_MG_NM AS cmMgNm,
@@ -102,7 +98,6 @@
 			A.READ_AUTH_SQ AS readAuthSq,
 			A.WRITE_AUTH_SQ writeAuthSq,
 			A.CMT_AUTH_SQ AS cmtAuthSq
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 		FROM
 			TBL_DA_COMT_MGMT_M AS A
 		WHERE A.COMT_TYP_CD = #{comtTypCd}
@@ -112,7 +107,6 @@
 		/* 게시판 관리 저장 */
 		UPDATE TBL_DA_COMT_MGMT_M 
    		<trim prefix="SET" suffixOverrides=",">
-<<<<<<< HEAD
       		<if test="cmMgOdDivCd  != null">CM_MG_OD_DIV_CD =#{cmMgOdDivCd},</if>
       		<if test="cmMgRegdtYn  != null">CM_MG_REGDT_YN =#{cmMgRegdtYn},</if>
       		<if test="cmMgCmtYn  != null">CM_MG_CMT_YN =#{cmMgCmtYn},</if>
@@ -125,7 +119,6 @@
       		<if test="readAuthSq  != null">READ_AUTH_SQ =#{readAuthSq},</if>
       		<if test="writeAuthSq  != null">WRITE_AUTH_SQ =#{writeAuthSq},</if>
       		<if test="cmtAuthSq  != null">CMT_AUTH_SQ =#{cmtAuthSq},</if>     		
-=======
       		<if test="cmMgOdDivCd != null">
       			CM_MG_OD_DIV_CD = #{cmMgOdDivCd},
       		</if>
@@ -165,7 +158,6 @@
       		<if test="cmtAuthSq != null">
       			CMT_AUTH_SQ = #{cmtAuthSq},
       		</if>
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
   		</trim>
    		WHERE CM_MG_SQ = #{cmMgSq}
 	</update>
@@ -210,7 +202,6 @@
         TBL_DA_COMT_CMTS_R // 커뮤니티 댓글 테이블 COMT_SQ
         TBL_DA_RPRT_M // 신고 내역 테이블 COMT_SQ  -->
 		SELECT
-<<<<<<< HEAD
 			A.COMT_SQ AS comtSq,							/*순번*/
 		    A.COMT_TYP_CD AS comtTypCd,						/*분류*/
 		    B.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
@@ -225,7 +216,6 @@
         	TBL_DA_COMT_M AS A
         LEFT JOIN TBL_DA_MBR_M AS B
 			ON A.REG_MBR_SQ = B.MBR_SQ
-=======
 				A.COMT_SQ AS comtSq								/*순번*/
 			    , A.COMT_TYP_CD AS comtTypCd					/*분류*/
 			    , B.MBR_NCKNM AS mbrNcknm						/*닉네임*/
@@ -245,7 +235,6 @@
         LEFT JOIN 
         		TBL_DA_MBR_M AS B
 			ON 	A.REG_MBR_SQ = B.MBR_SQ
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 		WHERE 1 = 1
 			<if test="firstDate != null and firstDate != '' and lastDate != null and lastDate != ''">
 				AND A.REG_DT BETWEEN #{firstDate} AND #{lastDate}
@@ -253,11 +242,8 @@
 			<if test="cmMgMenuTyp != null and cmMgMenuTyp != ''">
 				AND A.COMT_TYP_CD = #{cmMgMenuTyp}
 			</if>
-<<<<<<< HEAD
-			<if test="cmMgSrchTyp != null and cmMgSrchTyp != ''">
-=======
+			<if test="cmMgSrchTyp != null and cmMgSrchTyp != ''"></if>
 			<if test="cmMgSrchTxt != null and cmMgSrchTxt != ''">
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 				<choose>
 					<when test="cmMgSrchTyp == 'comtTitle'">
 						AND A.COMT_TITLE LIKE CONCAT('%', #{cmMgSrchTxt}, '%')
@@ -286,8 +272,6 @@
 			<if test="cmMgRepSts != null and cmMgRepSts != ''">
 						AND A.OPEN_YN = #{cmMgRepSts}
 			</if>
-<<<<<<< HEAD
-=======
 			<if test="boardAlign == 'new'">
         		ORDER BY 
         				comtView DESC
@@ -296,7 +280,6 @@
         		ORDER BY 
         				comtSq DESC
     		</if>
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	</select>
 	
 	<select id="searchAllReplyList" resultType="hashMap" parameterType="hashMap">
@@ -306,7 +289,6 @@
         TBL_DA_COMT_CMTS_R // 커뮤니티 댓글 테이블 COMT_SQ
         TBL_DA_RPRT_M // 신고 내역 테이블 COMT_SQ  -->
 		SELECT
-<<<<<<< HEAD
 			A.COMT_SQ AS comtSq,							/*순번*/
 		    A.COMT_TYP_CD AS comtTypCd,						/*분류*/
 		    B.MBR_NCKNM AS mbrNcknm,						/*닉네임*/
@@ -475,7 +457,6 @@
 		LEFT JOIN TBL_DA_MBR_M AS C                     
 	   		ON B.COMT_SQ = C.MBR_SQ                      
 		WHERE 1 = 1		
-=======
 				A.COMT_SQ AS comtSq								/*순번*/
 			    , A.COMT_TYP_CD AS comtTypCd					/*분류*/
 			    , B.MBR_NCKNM AS mbrNcknm						/*닉네임*/
@@ -521,7 +502,6 @@
 						</when>
 					</choose>
 				</if>
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	</select>
 	
 	<!-- 신고된 게시물 리스트 -->

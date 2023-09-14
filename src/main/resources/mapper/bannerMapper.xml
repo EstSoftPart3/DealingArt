@@ -7,8 +7,7 @@
 	
 	<!--배너 목록 -->
 	<select id="bannerList" resultType="hashMap">
-		SELECT 
-		
+		SELECT 	
 			BNN_SQ													<!--배너 순번  -->
 			,BNN_DIV_CD												<!--배너 구분 코드  -->
 			,BNN_TITLE												<!--배너 제목  -->
@@ -25,8 +24,7 @@
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d")		as UPDT_DT		<!--수정 일시  -->			
 			,UPDT_MBR_SQ											<!--수정 회원 순번  -->
 			,USE_YN													<!--사용 여부  -->
-			,DEL_YN													<!--삭제 여부  -->
-			
+			,DEL_YN													<!--삭제 여부  -->			
 		FROM TBL_DA_BNN_MGMT_M
 		WHERE 1=1
         	<if test="searchGubun != null">
@@ -52,10 +50,8 @@
 				,REG_DT
 				,REG_MBR_SQ
 				,UPDT_DT
-				,UPDT_MBR_SQ
-	
-			)VALUES(
-			
+				,UPDT_MBR_SQ	
+			)VALUES(		
 				#{bnnDivCd}
 				,#{bnnTitle}
 				,#{bnnShowSq}
@@ -70,10 +66,8 @@
 				,NOW()
 				,'1'
 				,NOW()
-				,'1'
-		
-			)
-		
+				,'1'		
+			)		
 	</insert>
 	
 	<update id="promoUpdate" parameterType="hashMap">

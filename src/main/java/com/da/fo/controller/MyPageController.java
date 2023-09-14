@@ -1,19 +1,14 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
@@ -39,7 +33,6 @@ import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
-import com.google.gson.Gson;
 
 @Controller
 public class MyPageController {
@@ -159,7 +152,7 @@ public class MyPageController {
 		return mv;
 	}
 	
-<<<<<<< HEAD
+
 	//마이페이지 전시후기 페이지
 	@RequestMapping("/myPage/exhintMobile")
 	public String exhintMobile() {
@@ -178,7 +171,7 @@ public class MyPageController {
 	@RequestMapping("/myPage/issueMobileReg")
 	public String issueMobileReg() {
 		return "thymeleaf/fo/myPage/mypage_issue_page2_mo";
-=======
+	}
 	// 마이페이지 자랑하기 페이지
 	@RequestMapping("/myPage/show_off")
 	public String mypage_showingoff() {
@@ -195,7 +188,6 @@ public class MyPageController {
 	@RequestMapping("/myPage/issue")
 	public String mypage_issue() {
 		return "thymeleaf/fo/myPage/mypage_issue";
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	}
 	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
@@ -422,7 +414,7 @@ public class MyPageController {
 
 
 	// 스크랩
-<<<<<<< HEAD
+
 	@RequestMapping("/myPage/scrap")
 	@ResponseBody
 	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
@@ -436,7 +428,7 @@ public class MyPageController {
 	public String scrapMobile() {
 		return "thymeleaf/fo/myPage/mypage_scrap_mo"; 
 		}
-=======
+
 //	@RequestMapping("/myPage/scrap")
 //	@ResponseBody
 //	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
@@ -445,7 +437,7 @@ public class MyPageController {
 //		mv.addObject("result", result);
 //		return mv;
 //	}
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
+
 
 	// 나의 작품
 	@RequestMapping("/myPage/myWork")
@@ -1755,7 +1747,7 @@ public class MyPageController {
 
 			return mv;
 		}
-<<<<<<< HEAD
+
 		//마이페이지 왼쪽 메뉴
 		@RequestMapping("/myPage/leftNavMobile")
 		public String leftNavMibile() {
@@ -1764,7 +1756,7 @@ public class MyPageController {
 			return "thymeleaf/fo/myPage/mypage_left-nav";
 		}
 				
-=======
+
 		
 		//타인페이지 메인
 		@RequestMapping("/otherPage/main")
@@ -1861,6 +1853,5 @@ public class MyPageController {
 			mv.addObject("mbrSq", mbrSq);
 			return mv;
 		}
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 
 }
