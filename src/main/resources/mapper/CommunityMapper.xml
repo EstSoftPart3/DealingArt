@@ -117,12 +117,9 @@
 			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt,
 			   IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) AS isEventEnd
 		  FROM TBL_DA_BNN_MGMT_M A
-		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
 		 WHERE A.BNN_DIV_CD = 'EVH'
 		   AND A.USE_YN = 'Y'
 		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
 		   <if test="type != null and type != ''">
 		       <choose>
 		           <when test="type == 0">AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 0</when>
@@ -145,13 +142,10 @@
 			   A.BNN_E_LND_URL AS bnnELndUrl,
 			   DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt,
 			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt
-		  FROM TBL_DA_BNN_MGMT_M A
-		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
+		  FROM TBL_DA_BNN_MGMT_M A		  	 
 		 WHERE A.BNN_DIV_CD = #{bnnDivCd}
 		   AND A.USE_YN = 'Y'
 		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
 		   AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 1
 		 ORDER BY A.BNN_END_DT DESC
 		 LIMIT 1

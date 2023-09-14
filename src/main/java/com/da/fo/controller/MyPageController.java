@@ -79,6 +79,12 @@ public class MyPageController {
 		
 		return "thymeleaf/fo/myPage/mypage_main";
 	}
+	// 마이페이지 모두보기 페이지 모바일
+	@RequestMapping("/myPage/myPageMobile")
+	public String mypage_mainMobile(){
+		
+		return "thymeleaf/fo/myPage/mypage_main_mo";
+	}
 	
 	
 	//마이페이지 메인 마이 데이터
@@ -147,6 +153,26 @@ public class MyPageController {
 		mv.addObject("myIssueTotal", myIssueTotal);
 		
 		return mv;
+	}
+	
+	//마이페이지 전시후기 페이지
+	@RequestMapping("/myPage/exhintMobile")
+	public String exhintMobile() {
+		return "thymeleaf/fo/myPage/mypage_exhint_mo";
+	}
+	//마이페이지 전시후기 페이지
+		@RequestMapping("/myPage/exhintMobileReg")
+		public String exhintMobileReg() {
+			return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
+		}
+	//마이페이지 이슈 페이지
+	@RequestMapping("/myPage/issueMobile")
+	public String issueMobile() {
+		return "thymeleaf/fo/myPage/mypage_issue_mo";
+	}//마이페이지 이슈 페이지
+	@RequestMapping("/myPage/issueMobileReg")
+	public String issueMobileReg() {
+		return "thymeleaf/fo/myPage/mypage_issue_page2_mo";
 	}
 	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
@@ -273,6 +299,14 @@ public class MyPageController {
 		
 		return mv;
 	}
+	//통합 나의 작품 모바일 화면 오픈
+		@RequestMapping("/myPage/myWorkListMobile")
+		public String myWorkListMobile() {
+		
+			String mv = "thymeleaf/fo/myPage/mypage_myworks_mo";
+			
+			return mv;
+		}
 	
 	//통합 나의 작품 화면 오픈
 	@RequestMapping("/tempold/myWorkList")
@@ -354,9 +388,8 @@ public class MyPageController {
 		return mv;
 	}
 	
-	/*
-	 * //통합 나의 작품 화면 오픈
-	 */ 
+
+	//통합 나의 작품 등록 페이지	  
 	@RequestMapping("/myPage/myWorkListReg") public String myWorkListReg() {
 	return "thymeleaf/fo/myPage/myWorkReg"; 
 	}
@@ -371,6 +404,11 @@ public class MyPageController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	// 스크랩 모바일 	
+	@RequestMapping("/myPage/scrapMobile")
+	public String scrapMobile() {
+		return "thymeleaf/fo/myPage/mypage_scrap_mo"; 
+		}
 
 	// 나의 작품
 	@RequestMapping("/myPage/myWork")
@@ -1486,9 +1524,9 @@ public class MyPageController {
 	}
 	
 	// 노하우 등록 페이지 오픈
-	@RequestMapping("/myPage/myKnowhow_reg")
+	@RequestMapping("/myPage/issue_reg")
 	public String myKnowhow_reg() {
-		return "thymeleaf/fo/myPage/mypage_knowhow_page2";
+		return "thymeleaf/fo/myPage/mypage_issue_page2";
 	}
 	
 	// (모바일)노하우 등록 페이지 오픈
@@ -1653,5 +1691,13 @@ public class MyPageController {
 
 			return mv;
 		}
+		//마이페이지 왼쪽 메뉴
+		@RequestMapping("/myPage/leftNavMobile")
+		public String leftNavMibile() {
+			
+			
+			return "thymeleaf/fo/myPage/mypage_left-nav";
+		}
+				
 
 }
