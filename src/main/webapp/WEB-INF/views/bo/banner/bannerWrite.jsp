@@ -158,37 +158,22 @@ input[type="file"] {
 								<div class="card-body" style="background-color: #ffffff;">
 
 									<div class="imgboxtest" style="min-height: 100px">
-										<!-- 매거진일 때 매거진 선택 -->
-										<div class="bannerNumber" style="height: 50px;" id="mgzbannerlist">
-											<!-- <div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="1">
-												<label for="imgNumber" class="col-form-label sTitle">인사이트</label>
-											</div>
-											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="2">
-												<label for="imgNumber" class="col-form-label sTitle">미디어</label>
-											</div>
-											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="3">
-												<label for="imgNumber" class="col-form-label sTitle">Exhibition</label>
-											</div> -->
-										</div>
 										<!-- 메인일 때 -->
 										<div class="bannerNumber" style="height: 50px;" id="mainbannerlist">
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="1">
+												<input type="radio" name="bnnShowSq" value="1">
 												<label for="imgNumber" class="col-form-label mTitle">배너 1번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="2">
+												<input type="radio" name="bnnShowSq" value="2">
 												<label for="imgNumber" class="col-form-label mTitle">배너 2번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="3">
+												<input type="radio" name="bnnShowSq" value="3">
 												<label for="imgNumber" class="col-form-label mTitle">배너 3번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="4">
+												<input type="radio" name="bnnShowSq" value="4">
 												<label for="imgNumber" class="col-form-label mTitle">배너 4번</label>
 											</div>
 										</div>
@@ -788,9 +773,9 @@ input[type="file"] {
  		return false;
  	}
  	if(bnnDivCd == "MIH"){
- 		if($('input[type=radio][name=mainNum]:checked').val() == "" || $('input[type=radio][name=mainNum]:checked').val() == null){
- 			alert("메인 번호 순서를 선택해주세요.");
- 			$("input[name='bnnDivCd']").focus();
+ 		if($('input[type=radio][name=bnnShowSq]:checked').val() == "" || $('input[type=radio][name=bnnShowSq]:checked').val() == null){
+ 			alert("배너 번호 순서를 선택해주세요.");
+ 			$("input[name=bnnShowSq]").focus();
  			return false;
  		}
  		if($("#bnnMpImgUrl").val() == '' || $("#bnnMpImgUrl").val() == null){
@@ -838,7 +823,7 @@ input[type="file"] {
 function bannerInsert() {
 	
 	if(insertCheck()){
-		const formData = new FormData();
+		var formData = new FormData();
 		
  		var bnnData = {
 				bnnDivCd : bnnDivCd
@@ -851,14 +836,12 @@ function bannerInsert() {
 	 	
 	 	switch (bnnDivCd){
 	 		case "MIH" :
-	 			debugger;
-	 			
-	 			bnnData.bnnDivCd = bnnDivCd + $('input[type=radio][name=mainNum]:checked').val();
+	 			bnnData.bnnShowSq = $('input[type=radio][name=bnnShowSq]:checked').val();
 				
-				const bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
 				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
 				
-				const bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
 				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
 				
 				var promoData = [{
@@ -901,6 +884,91 @@ function bannerInsert() {
 				break;
 				
 	 		case "CMH" :
+	 			bnnData.bnnShowSq = "1";
+				
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var bnnEpImgUrl = document.getElementById("bnnEpImgUrl");
+				formData.append("bnnEpImgUrl", bnnEpImgUrl.files[0]);
+				
+				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
+				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
+				
+				var promoData = [{
+					"promoSq" : "6"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "이주의 인기 작품 자랑"
+					, "promoOdDivCd" : $("#CMH1_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH1_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "7"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "자랑하기 고수"
+					, "promoOdDivCd" : $("#CMH2_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH2_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "8"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "전시 후기/소개"
+					, "promoOdDivCd" : $("#CMH3_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH3_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "9"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "이슈"
+					, "promoOdDivCd" : $("#CMH4_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH4_TYP_CD").val()
+				}];
+		 		formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+	 			break;
+	 		case "MGH" :
+				bnnData.bnnShowSq = "1";
+				
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var bnnEpImgUrl = document.getElementById("bnnEpImgUrl");
+				formData.append("bnnEpImgUrl", bnnEpImgUrl.files[0]);
+				
+				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
+				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
+				
+				var promoData = [{
+					"promoSq" : "10"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "인기 인사이트"
+					, "promoOdDivCd" : $("#MGH1_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH1_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "11"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "새로운 아티스트 영상"
+					, "promoOdDivCd" : $("#MGH2_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH2_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "12"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "아티스트 업데이트"
+					, "promoOdDivCd" : $("#MGH3_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH3_TYP_CD").val()
+				}];
+		 		formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+	 			break;
+	 		case "EVH" :
 	 			break;
 	 	} 
 		$.ajax({
@@ -910,15 +978,7 @@ function bannerInsert() {
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
-	        	/* if(data != 0 || data != null || data != ""){
-	        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
-		        	} */
-	        	
-	        	if(data == 1 ){
-	        		modalAlertShow("성공적으로 저장되었습니다.", "myCollection");
-		        	} else {
-		        		modalAlertShow("소장품 등록에 실패했습니다. 다시 한번 등록해 주세요!!", "myCollection");
-		        	}
+	        	debugger;
 	        	
 	        },
 	        error: function(error) {

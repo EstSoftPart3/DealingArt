@@ -31,20 +31,38 @@
                   </div>
                   <div class="left_nav">
                     <ul>
-                      <li class="on" data-id= "1" style ="cursor: pointer;" onclick = listToggle(this);><a>마이페이지</a>
+                      <li th:if="${#strings.isEmpty(mbrSq)}" class="on" data-id= "1" style ="cursor: pointer;" onclick = listToggle(this);>
+                      	<a>마이페이지</a>
                       </li>
-                      <li id ="mypage_list_ui">
-	                      <ul>
-	                          <li><a href="/temp/mypage_main">모두보기</a></li>
-	                          <li><a href="/myPage/myWorkList">나의 작품</a></li>
-	                          <li><a href="/temp/mypage_showingoff">자랑하기</a></li>
-	                          <li><a href="/temp/mypage_exhint">전시후기&소개</a></li>
-	                          <li><a href="/temp/mypage_issue">이슈</a></li>
-	                          <li><a href="/myPage/myPage_notificationbox">알림함</a></li>
-	                          <li><a href="/myPage/myPage_scrap">스크랩</a></li>
-	                          <li><a href="/myPage/myPage_following">팔로잉</a></li>
-	                        </ul>
-                       </li>
+                      <li th:unless="${#strings.isEmpty(mbrSq)}" class="on" data-id= "1" style ="cursor: pointer;" onclick = listToggle(this);>
+                      	<a>타인페이지</a>
+                      </li>
+                      
+                      <li id ="mypage_list_ui" th:if="${#strings.isEmpty(mbrSq)}">
+	                  	<ul>
+	                    	<li><a href="/myPage/main">모두보기</a></li>
+	                        <li><a href="/myPage/workList">나의 작품</a></li>
+	                        <li><a href="/myPage/show_off">자랑하기</a></li>
+	                        <li><a href="/myPage/exhint">전시후기&소개</a></li>
+	                        <li><a href="/myPage/issue">이슈</a></li>
+	                        <li><a href="/myPage/notis">알림함</a></li>
+	                        <li><a href="/myPage/scrap">스크랩</a></li>
+	                        <li><a href="/myPage/following">팔로잉</a></li>
+	                      </ul>
+                      </li>
+                      
+                      <li id ="mypage_list_ui" th:unless="${#strings.isEmpty(mbrSq)}">
+	                  	<ul>
+	                    	<li><a th:href="@{/otherPage/main(mbrSq=${mbrSq})}">모두보기</a></li> 
+	                        <li><a th:href="@{/otherPage/workList(mbrSq=${mbrSq})}">나의 작품</a></li> 
+	                        <li><a th:href="@{/otherPage/show_off(mbrSq=${mbrSq})}">자랑하기</a></li> 
+	                        <li><a th:href="@{/otherPage/exhint(mbrSq=${mbrSq})}">전시후기&소개</a></li> 
+	                        <li><a th:href="@{/otherPage/issue(mbrSq=${mbrSq})}">이슈</a></li>
+	                        <li><a th:href="@{/otherPage/following(mbrSq=${mbrSq})}">팔로잉</a></li> 
+	                   	</ul>
+                      </li>
+                      
+                      <th:block th:if="${#strings.isEmpty(mbrSq)}">
                       <li class="on" data-id= "2" style ="cursor: pointer;" onclick = listToggle(this);><a>거래</a>
                       </li>
                       <li id ="mypage_deal_list_ui">
@@ -69,26 +87,44 @@
  	                      	<li><a href="/myPage/alarm">알림 설정</a></li>
  	                     </ul>
                       </li>
+                      </th:block>
                     </ul>
                   </div>
                 </div>
 
 </body>
-<script type="text/javascript">
-
+<script th:inline="javascript">
+var mbrSq = /*[[${mbrSq}]]*/ 'default';
 //내정보 불러오기
 $("document").ready(function(){
 	
-	$.ajax({
-		type: "POST"
-		, url: "/myPage/main/myInfo"
-		, success: function(data){
-			setMyInfo(data.myInfo);
-		}
-		, error: function(data){
-			alert("오류 발생" + error);
-		}
-	});
+	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){
+		$.ajax({
+			type: "POST"
+			, url: "/myPage/main/myInfo"
+			, data : {
+				mbrSq : mbrSq
+			}
+			, success: function(data){
+				setMyInfo(data.myInfo);
+			}
+			, error: function(data){
+				alert("오류 발생" + error);
+			}
+		});
+	}else{
+		$.ajax({
+			type: "POST"
+			, url: "/myPage/main/myInfo"
+			, success: function(data){
+				setMyInfo(data.myInfo);
+			}
+			, error: function(data){
+				alert("오류 발생" + error);
+			}
+		});
+	}
+	
 });
 
 function setMyInfo(data){
@@ -107,7 +143,9 @@ function setMyInfo(data){
     html += '    <li class="email">'+data.mbrId+'</li>';
     html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
     html += '    <li class="line"></li>';
-    html += '    <li class="profile_modify"><a href="/myPage/memberEdit"><span></span>프로필 수정</a></li>';
+    if(mbrSq == null || mbrSq == ""){ //타인페이지가 아니면
+    	html += '    <li class="profile_modify"><a href="/myPage/memberEdit"><span></span>프로필 수정</a></li>';
+    }
     html += '  </ul>';
     html += '</div>';
     html += '<div class="icon_box">';

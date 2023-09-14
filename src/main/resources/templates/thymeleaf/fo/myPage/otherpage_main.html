@@ -219,13 +219,12 @@
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     <script th:inline="javascript">
-    debugger;
     var obj = new Object();
     var mbrSq = /*[[${mbrSq}]]*/ 'default';
     obj.mbrSq = mbrSq;
     $("document").ready(function(){
     	
-    	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+    	$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
     	
     	
     	$.ajax({

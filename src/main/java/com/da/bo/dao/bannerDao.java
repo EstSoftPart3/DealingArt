@@ -67,6 +67,11 @@ public class bannerDao {
 		return result;
 	}
 	
+	//프로모션 영역 수정
+	public int promoUpdate(Map<String, Object> param){
+		return bannerMapper.promoUpdate(param);
+	}
+	
 
 
 

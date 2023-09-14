@@ -49,5 +49,11 @@ public class bannerServiceImpl implements bannerService {
 
 		return result;
 	}
+	
+	//프로모션 영역 수정
+	@Override
+	public int promoUpdate(Map<String, Object> param){
+		return bannerDao.promoUpdate(param);
+	}
 
 }

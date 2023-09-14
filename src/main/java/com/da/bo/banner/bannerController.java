@@ -72,7 +72,7 @@ public class bannerController {
 	// 배너 등록
 	@RequestMapping("/admin/banner/bannerInsertData")
 	@ResponseBody
-	public int bannerInsertData(@RequestPart(value="bnnData") Map<String, Object> bnnData
+	public ModelAndView bannerInsertData(@RequestPart(value="bnnData") Map<String, Object> bnnData
 			,@RequestPart(value="promoData") @Nullable List<Map<String, Object>>  promoData
 			,@RequestPart(value="bnnMpImgUrl") @Nullable MultipartFile bnnMpImgUrl
 			,@RequestPart(value="bnnMmImgUrl") @Nullable MultipartFile bnnMmImgUrl
@@ -82,6 +82,8 @@ public class bannerController {
 		System.out.println(promoData.toString());
 		System.out.println(bnnMpImgUrl.getName());
 		System.out.println(bnnMmImgUrl.getName());
+		
+		ModelAndView mv = new ModelAndView("jsonView");
 		
 		Map<String, MultipartFile> imgUrl = new HashMap<String, MultipartFile>();
 		
@@ -99,12 +101,16 @@ public class bannerController {
 				bnnData.put(key, file.getFileUrl());
 			}
 		}
-		//int result = bannerService.bannerInsert(param);
-		//System.out.println(param);
 		
-		//return result;
+		int result1 = bannerService.bannerInsert(bnnData);
+		int result2 = 0;
+		for(int i=0; i<promoData.size(); i++){
+			result2 += bannerService.promoUpdate(promoData.get(i));
+		}
+		mv.addObject("bannerResult", result1);
+		mv.addObject("promoResult", result2);
 		
-		return 1;
+		return mv;
 	}
 	
 	//게시판 삭제
