@@ -1,10 +1,7 @@
 package com.da.bo.banner;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.io.IOException;
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,15 +72,6 @@ public class bannerController {
 	// 배너 등록
 	@RequestMapping("/admin/banner/bannerInsertData")
 	@ResponseBody
-<<<<<<< HEAD
-	public int bannerInsertData(@RequestParam Map<String, Object> param) {
-		System.out.println("=======테스트======");
-
-		int result = bannerService.bannerInsert(param);
-		System.out.println(param);
-
-		return result;
-=======
 	public ModelAndView bannerInsertData(@RequestPart(value="bnnData") Map<String, Object> bnnData
 			,@RequestPart(value="promoData") @Nullable List<Map<String, Object>>  promoData
 			,@RequestPart(value="bnnMpImgUrl") @Nullable MultipartFile bnnMpImgUrl
@@ -123,7 +111,6 @@ public class bannerController {
 		mv.addObject("promoResult", result2);
 		
 		return mv;
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 	}
 
 	// 게시판 삭제

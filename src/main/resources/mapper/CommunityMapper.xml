@@ -536,77 +536,6 @@
 		 WHERE COMT_SQ = #{comtSq}
 	</update>
 	
-<<<<<<< HEAD
-	<insert id="insertComtRequest">
-		/* 판매 제안하기 or 요청하기 등록 */
-		INSERT INTO TBL_DA_NOTI_M (
-		   MBR_SQ
-		   <if test="workSq != null and workSq != ''">
-		   , WORK_SQ 
-		   </if>
-		   <if test="artstSq != null and artstSq != ''">
-		   , ARTST_SQ
-		   </if>
-		   <if test="dealSq != null and dealSq != ''">
-		   , DEAL_SQ 
-		   </if>
-		   , NOTI_TYP_CD 
-		   , NOTI_CAT_CD
-		   , QUESTION_MBR_SQ
-		   <if test="questionContent != null and questionContent != ''">
-		   , QUESTION_CONTENT
-		   </if>
-		   , REG_MBR_SQ 
-		   , REG_DT 
-		   , UPDT_MBR_SQ 
-		   , UPDT_DT 
-		) VALUES (
-		   #{mbrSq}
-		   <if test="workSq != null and workSq != ''">
-		   , #{workSq}
-		   </if>
-		   <if test="artstSq != null and artstSq != ''">
-		   , #{artstSq}
-		   </if>
-		   <if test="dealSq != null and dealSq != ''">
-		   , #{dealSq}
-		   </if>
-		   , (
-		   SELECT
-		         DTL_CD
-		   FROM 
-		         TBL_DA_COMN_DTL_CD_S AS DTL
-		   LEFT JOIN
-		         TBL_DA_COMN_CD_M AS CD
-		      ON   DTL.CD_SQ = CD.CD_SQ
-		   WHERE 
-		         CD.CD = 'NOTI_TYP_CD'
-		      AND DTL.DTL_CD  = #{notiTypCd}
-		   )
-		   , (
-		   SELECT
-		         DTL_CD
-		   FROM 
-		         TBL_DA_COMN_DTL_CD_S AS DTL
-		   LEFT JOIN
-		         TBL_DA_COMN_CD_M AS CD
-		      ON   DTL.CD_SQ = CD.CD_SQ
-		   WHERE 
-		         CD.CD = 'NOTI_CAT_CD'
-		      AND DTL.DTL_CD  = #{notiCatCd}
-		   )
-		   , #{questionMbrSq}
-		   <if test="questionContent != null and questionContent != ''">
-		   , #{questionContent}
-		   </if>
-		   , #{questionMbrSq}
-		   , NOW()
-		   , #{questionMbrSq}
-		   , NOW()
-		)
-	</insert>
-	
-=======
 	<select id="comtOpenDelYnCheck" resultType="hashMap" parameterType="String">
 	/* 커뮤니티 상세 오픈여부/삭제여부 확인 */
 		SELECT 
@@ -648,5 +577,4 @@
 				, NOW()
 			)
 	</insert>
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 </mapper>
