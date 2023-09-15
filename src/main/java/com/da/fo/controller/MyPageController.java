@@ -1,19 +1,14 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
@@ -39,7 +33,6 @@ import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
-import com.google.gson.Gson;
 
 @Controller
 public class MyPageController {
@@ -160,28 +153,26 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//마이페이지 모바일 전시후기 페이지
+
+	//마이페이지 전시후기 페이지
 	@RequestMapping("/myPage/exhintMobile")
 	public String exhintMobile() {
 		return "thymeleaf/fo/myPage/mypage_exhint_mo";
 	}
-	//마이페이지 모바일 전시후기 등록 페이지
-	@RequestMapping("/myPage/exhintMobileReg")
-	public String exhintMobileReg() {
-		return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
-	}
-	
-	//마이페이지 모바일 이슈 페이지
+	//마이페이지 전시후기 페이지
+		@RequestMapping("/myPage/exhintMobileReg")
+		public String exhintMobileReg() {
+			return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
+		}
+	//마이페이지 이슈 페이지
 	@RequestMapping("/myPage/issueMobile")
 	public String issueMobile() {
 		return "thymeleaf/fo/myPage/mypage_issue_mo";
-	}
-	//마이페이지 모바일 이슈 등록 페이지
+	}//마이페이지 이슈 페이지
 	@RequestMapping("/myPage/issueMobileReg")
 	public String issueMobileReg() {
 		return "thymeleaf/fo/myPage/mypage_issue_page2_mo";
 	}
-	
 	// 마이페이지 자랑하기 페이지
 	@RequestMapping("/myPage/show_off")
 	public String mypage_showingoff() {
@@ -423,12 +414,22 @@ public class MyPageController {
 	}
 
 
+	// 스크랩
+
+	@RequestMapping("/myPage/scrap")
+	@ResponseBody
+	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
+		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
+		mv.addObject("result", result);
+		return mv;
+	}
 	// 스크랩 모바일 	
 	@RequestMapping("/myPage/scrapMobile")
 	public String scrapMobile() {
 		return "thymeleaf/fo/myPage/mypage_scrap_mo"; 
-	}
-	
+		}
+
 //	@RequestMapping("/myPage/scrap")
 //	@ResponseBody
 //	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
@@ -437,6 +438,7 @@ public class MyPageController {
 //		mv.addObject("result", result);
 //		return mv;
 //	}
+
 
 	// 나의 작품
 	@RequestMapping("/myPage/myWork")
@@ -1746,7 +1748,7 @@ public class MyPageController {
 
 			return mv;
 		}
-		
+
 		//마이페이지 왼쪽 메뉴
 		@RequestMapping("/myPage/leftNavMobile")
 		public String leftNavMibile() {
@@ -1754,6 +1756,8 @@ public class MyPageController {
 			
 			return "thymeleaf/fo/myPage/mypage_left-nav";
 		}
+				
+
 		
 		//타인페이지 메인
 		@RequestMapping("/otherPage/main")
