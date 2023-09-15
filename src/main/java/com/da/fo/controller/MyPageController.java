@@ -413,17 +413,6 @@ public class MyPageController {
 	return "thymeleaf/fo/myPage/myWorkReg"; 
 	}
 
-
-	// 스크랩
-
-	@RequestMapping("/myPage/scrap")
-	@ResponseBody
-	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
-		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
 	// 스크랩 모바일 	
 	@RequestMapping("/myPage/scrapMobile")
 	public String scrapMobile() {
