@@ -45,4 +45,40 @@ public class Mgz9ServiceImpl implements Mgz9Service{
 	public Map<String, Object> selectMgz9Dtl(String param){
 		return mgz9Dao.selectMgz9Dtl(param);
 	}
+	
+	/* 통합 검색 */
+	@Override
+	public List<Map<String, Object>> result(Map<String, Object> param) {
+		return mgz9Dao.result(param);
+	}
+
+	@Override
+	public List<Map<String, Object>> search(Map<String, Object> param) {
+		return mgz9Dao.search(param);
+	}
+
+	@Override
+	public int count(String param) {
+		return mgz9Dao.count(param);
+	}
+
+	@Override
+	public List<Map<String, Object>> alphabet(Map<String, Object> param) {
+		return mgz9Dao.alphabet(param);
+	}
+
+	@Override
+	public int alphabetCount(String param) {
+		return mgz9Dao.alphabetCount(param);
+	}
+
+	@Override
+	public List<Map<String, Object>> korean(Map<String, Object> param) {
+		return mgz9Dao.korean(param);
+	}
+
+	@Override
+	public int koreanCount(String param) {
+		return mgz9Dao.koreanCount(param);
+	}
 }

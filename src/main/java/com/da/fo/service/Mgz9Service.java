@@ -22,5 +22,25 @@ public interface Mgz9Service {
 	 * RETURN : MGZ9 상세
 	 */
 	public Map<String, Object> selectMgz9Dtl(String param);
+
+	/* 통합 검색 */
+	public List<Map<String, Object>> result(Map<String, Object> param);	
 	
+	/* 검색 */
+	public List<Map<String, Object>> search(Map<String, Object> param);
+	
+	/* 검색 게시물 카운트 */
+	public int count(String param);
+	
+	/* 알파벳 검색 */
+	public List<Map<String, Object>> alphabet(Map<String, Object> param);
+	
+	/* 알파벳 검색 게시물 카운트 */
+	public int alphabetCount(String param);
+	
+	/* 한글 자음 검색 */
+	public List<Map<String, Object>> korean(Map<String, Object> param);
+	
+	/* 한글 자음 게시물 카운트 */
+	public int koreanCount(String param);
 }

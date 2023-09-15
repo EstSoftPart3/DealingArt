@@ -450,4 +450,60 @@
 				CMT_SQ = #{cmtSq}
 	</select>
 	
+	<!-- 댓글 숨김 상태 변경 -->
+	<update id="updateReplyState" parameterType="String">
+		UPDATE TBL_DA_COMT_CMTS_R
+	 		<if test = "state == 'hideOn'">
+	 			SET 
+	 				OPEN_YN = 'N'
+	 		</if>
+	 		<if test = "state == 'hideOff'">
+	 			SET 
+	 				OPEN_YN = 'Y'
+	 		</if>
+		WHERE CMT_SQ = #{cmtSq}
+	</update>
+	
+	<!-- 대댓글 숨김 상태 변경 -->	
+	<update id="updateReReplyState" parameterType="String">
+		UPDATE TBL_DA_COMT_REPLYS_R
+			<if test = "state == 'hideOn'">
+				SET
+					OPEN_YN = 'N'
+			</if>
+			<if test = "state == 'hideOff'">
+				SET
+					OPEN_YN = 'Y'
+			</if>
+		WHERE REPLY_SQ = #{replySq}
+	</update>
+	
+	<!-- 댓글 삭제 상태 변경 -->
+	<delete id="deleteReplyState" parameterType="String">
+		UPDATE TBL_DA_COMT_CMTS_R
+	 		<if test = "state == 'delOn'">
+	 			SET 
+	 				DEL_YN = 'Y'
+	 		</if>
+	 		<if test = "state == 'delOff'">
+	 			SET 
+	 				DEL_YN = 'N'
+	 		</if>
+		   WHERE CMT_SQ = #{cmtSq}
+	</delete>
+	
+	<!-- 대댓글 삭제 상태 변경 -->
+	<delete id="deleteReReplyState" parameterType="String">
+		UPDATE TBL_DA_COMT_REPLYS_R
+			<if test="state == 'delOn'">
+				SET
+					DEL_YN = 'Y'
+			</if>
+			<if test="state == 'delOff'">
+				SET
+					DEL_YN = 'N'
+			</if>
+		WHERE REPLY_SQ = #{replySq}
+	</delete>
+	
 </mapper>

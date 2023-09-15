@@ -104,10 +104,28 @@ public class CommunityManagementServiceImpl implements CommunityManagementServic
 		return communityManagementDao.rprtStatusUpdate(statusType, rprtSqList);
 	}
 	
+	//댓글 숨김 상태 변경
+	@Override
+	public int updateReplyState(String state, int cmtSq) {
+		return communityManagementDao.updateReplyState(state, cmtSq);
+	}
 	
+	//뎃글 삭제 상태 변경
+	@Override
+	public int deleteReplyState(String state, int cmtSq) {
+		return communityManagementDao.deleteReplyState(state, cmtSq);
+	}
 	
+	//대댓글 숨김 상태 변경
+	@Override
+	public int updateReReplyState(String state, int replySq) {		
+		return communityManagementDao.updateReReplyState(state, replySq);
+	}
 	
-	
-	
+	//대댓글 삭제 상태 변경
+	@Override
+	public int deleteReReplyState(String state, int replySq) {
+		return communityManagementDao.deleteReReplyState(state, replySq);
+	}
 	
 }

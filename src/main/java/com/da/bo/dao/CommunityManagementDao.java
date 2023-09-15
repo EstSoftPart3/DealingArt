@@ -27,22 +27,17 @@ public class CommunityManagementDao {
 	//게시판 관리 목록 조회
 	public Map<String, Object> communityManagementList(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
-		
 		List<Map<String, Object>> workList = communityManagementMapper.communityManagementList(param);
-		
 		result.put("list", workList);
-				
 		return result;
 	}
 
 	//게시판 관리 상세 조회
 	public Map<String, Object> communityManagementDtlList(Map<String, Object> param) {
 		Map<String, Object> result = new HashMap<>();
-		
 		Map<String, Object> dtlList = communityManagementMapper.communityManagementDtlList(param);
-		
 		result.put("dtlList", dtlList);
-				
+		
 		return result;
 	}
 	
@@ -73,7 +68,7 @@ public class CommunityManagementDao {
 		//Map데이터를 List에 삽입
 		
 		 for(int z=0; z<boardInfo.size(); z++){
-			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");	
+			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");
 			
 			//아이디 복호화
 			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
@@ -81,7 +76,7 @@ public class CommunityManagementDao {
 		  }
 		
 		result.put("boardInfo", boardInfo);
-				
+		
 		return result;
 	}
 	//댓글 목록
@@ -95,7 +90,7 @@ public class CommunityManagementDao {
 		//Map데이터를 List에 삽입
 		
 		 for(int z=0; z<boardInfo.size(); z++){
-			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");	
+			 String mbrIdDecrypt = (String) boardInfo.get(z).get("mbrId");
 			
 			//아이디 복호화
 			 mbrIdDecrypt = commonService.decrypt(mbrIdDecrypt);
@@ -113,11 +108,10 @@ public class CommunityManagementDao {
 		
 		List<Map<String, Object>> boardCmtsList = communityManagementMapper.boardCmtsList(param);
 		
-		for(int i=0; i<boardCmtsList.size(); i++) {
-			
-			boardCmtsList.get(i).put("replys", communityManagementMapper.boardReplysList(boardCmtsList.get(i).get("cmtSq"))); 
+		for(int i=0; i<boardCmtsList.size(); i++) {			
+			boardCmtsList.get(i).put("replys", communityManagementMapper.boardReplysList(boardCmtsList.get(i).get("cmtSq")));
 		}
-					
+		
 		return boardCmtsList;
 	}
 	
@@ -128,24 +122,38 @@ public class CommunityManagementDao {
 				
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllRprtList(param);
-		
-		
-		result.put("boardInfo", boardInfo);
 				
+		result.put("boardInfo", boardInfo);
+		
 		return result;
 	}
 	//전체 게시물 상태 변경
     public int boardStatusUpdate(String statusType, String comtSqList) {
-    	
-
         return communityManagementMapper.boardStatusUpdate(statusType, comtSqList);
     }
     //신고된 게시물 상태 변경
     public int rprtStatusUpdate(String statusType, String rprtSqList) {
-
         return communityManagementMapper.rprtStatusUpdate(statusType, rprtSqList);
+    }    
+    
+    //댓글 숨김 상태 변경
+    public int updateReplyState(String state, int cmtSq) {
+		return communityManagementMapper.updateReplyState(state, cmtSq);    	
     }
     
+    //대댓글 숨김 상태 변경
+    public int updateReReplyState(String state, int replySq) {
+    	return communityManagementMapper.updateReReplyState(state, replySq);
+    }
     
+    //댓글 삭제 상태 변경
+    public int deleteReplyState(String state, int cmtSq) {
+    	return communityManagementMapper.deleteReplyState(state, cmtSq);    	
+    }
+    
+    //대댓글 삭제 상태 변경
+    public int deleteReReplyState(String state, int replySq) {
+    	return communityManagementMapper.deleteReReplyState(state, replySq);    	
+    }
 
 }

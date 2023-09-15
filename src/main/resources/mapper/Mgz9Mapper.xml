@@ -41,7 +41,7 @@
 			,REG_MBR_SQ         as regMbrSq      
 			,REG_DT             as regDt          
 			,UPDT_MBR_SQ        as updtMbrSq     
-			,UPDT_DT            as updtDt         
+			,UPDT_DT            as updtDt
 			,DEL_YN             as delYn          
 			,USE_YN             as useYn          
 		FROM TBL_DA_MGZ_M
@@ -49,5 +49,237 @@
 		AND MGZ_SQ = #{mgzSq}
 		ORDER BY MGZ_SQ DESC
 	</select>
-
+	
+	<!-- <select id="result" resultType="hashMap" parameterType="hashMap">
+		SELECT
+			 ARTST_SQ                as artstSq          
+			,MBR_SQ                  as mbrSq          
+			,ARTST_ACTVTY_NM         as artstActvtyNm       
+			,ARTST_ENGLS_NM          as artstEnglsNm       
+			,ARTST_YOD               as artstYod
+			,ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
+			,ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
+			,ARTST_SELF_INTRO        as artstSelfIntro
+			,ARTST_WORK_IMG_URL      as artstWorkImgUrl
+			,ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
+			,ARTST_HMPG_URL          as artstHmpgUrl
+			,ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
+			,ARTST_FACEBOOK_URL      as artstFacebookUrl
+			,ARTST_INSTAGRAM_URL     as artstInstagramUrl
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d') as regDate
+			,UPDT_MBR_SQ             as updtMbrSq
+			,(CASE
+				WHEN USE_YN = 'Y' THEN '활동'
+				WHEN USE_YN = 'N' THEN '비활동'
+			END)                     as useYn
+			,(CASE
+				WHEN DEL_YN = 'Y' THEN '삭제'
+				WHEN DEL_YN = 'N' THEN '유지'
+			END)                     as delYn
+		FROM TBL_DA_ARTST_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
+		limit ${indexNum}, ${postNum}
+	</select> -->
+	
+	<select id="search" resultType="hashMap" parameterType="hashMap">
+		SELECT
+			 ARTST_SQ                as artstSq          
+			,MBR_SQ                  as mbrSq          
+			,ARTST_ACTVTY_NM         as artstActvtyNm       
+			,ARTST_ENGLS_NM          as artstEnglsNm       
+			,ARTST_YOD               as artstYod
+			,ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
+			,ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
+			,ARTST_SELF_INTRO        as artstSelfIntro
+			,ARTST_WORK_IMG_URL      as artstWorkImgUrl
+			,ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
+			,ARTST_HMPG_URL          as artstHmpgUrl
+			,ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
+			,ARTST_FACEBOOK_URL      as artstFacebookUrl
+			,ARTST_INSTAGRAM_URL     as artstInstagramUrl
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d') as regDate
+			,UPDT_MBR_SQ             as updtMbrSq
+			,(CASE
+				WHEN USE_YN = 'Y' THEN '활동'
+				WHEN USE_YN = 'N' THEN '비활동'
+			END)                     as useYn
+			,(CASE
+				WHEN DEL_YN = 'Y' THEN '삭제'
+				WHEN DEL_YN = 'N' THEN '유지'
+			END)                     as delYn
+		FROM TBL_DA_ARTST_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')		
+		limit ${indexNum}, ${postNum}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
+	</select>
+	
+	<select id="alphabet" resultType="hashMap" parameterType="hashMap">
+		SELECT
+			 ARTST_SQ                as artstSq          
+			,MBR_SQ                  as mbrSq          
+			,ARTST_ACTVTY_NM         as artstActvtyNm       
+			,ARTST_ENGLS_NM          as artstEnglsNm       
+			,ARTST_YOD               as artstYod
+			,ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
+			,ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
+			,ARTST_SELF_INTRO        as artstSelfIntro
+			,ARTST_WORK_IMG_URL      as artstWorkImgUrl
+			,ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
+			,ARTST_HMPG_URL          as artstHmpgUrl
+			,ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
+			,ARTST_FACEBOOK_URL      as artstFacebookUrl
+			,ARTST_INSTAGRAM_URL     as artstInstagramUrl
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d') as regDate
+			,UPDT_MBR_SQ             as updtMbrSq
+			,(CASE
+				WHEN USE_YN = 'Y' THEN '활동'
+				WHEN USE_YN = 'N' THEN '비활동'
+			END)                     as useYn
+			,(CASE
+				WHEN DEL_YN = 'Y' THEN '삭제'
+				WHEN DEL_YN = 'N' THEN '유지'
+			END)                     as delYn
+		FROM TBL_DA_ARTST_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND ARTST_ACTVTY_NM LIKE '%${keyword}%'
+		limit ${indexNum}, ${postNum}
+	</select>
+	
+	<select id="alphabetCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND ARTST_ACTVTY_NM LIKE '%${keyword}%'
+	</select>
+	
+	<select id="korean" resultType="hashMap" parameterType="hashMap">
+		SELECT
+			 ARTST_SQ                as artstSq          
+			,MBR_SQ                  as mbrSq          
+			,ARTST_ACTVTY_NM         as artstActvtyNm       
+			,ARTST_ENGLS_NM          as artstEnglsNm       
+			,ARTST_YOD               as artstYod
+			,ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
+			,ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
+			,ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
+			,ARTST_SELF_INTRO        as artstSelfIntro
+			,ARTST_WORK_IMG_URL      as artstWorkImgUrl
+			,ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
+			,ARTST_HMPG_URL          as artstHmpgUrl
+			,ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
+			,ARTST_FACEBOOK_URL      as artstFacebookUrl
+			,ARTST_INSTAGRAM_URL     as artstInstagramUrl
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d') as regDate
+			,UPDT_MBR_SQ             as updtMbrSq
+			,(CASE
+				WHEN USE_YN = 'Y' THEN '활동'
+				WHEN USE_YN = 'N' THEN '비활동'
+			END)                     as useYn
+			,(CASE
+				WHEN DEL_YN = 'Y' THEN '삭제'
+				WHEN DEL_YN = 'N' THEN '유지'
+			END)                     as delYn
+		FROM TBL_DA_ARTST_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+			<choose>
+				<when test="keyword == 'aaa'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄱ|ㄲ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '가' AND ARTST_ACTVTY_NM <![CDATA[<]]> '나'))
+				</when>
+				<when test="keyword == 'bbb'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄴ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '나' AND ARTST_ACTVTY_NM <![CDATA[<]]> '다'))
+				</when>
+				<when test="keyword == 'ccc'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄷ|ㄸ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '다' AND ARTST_ACTVTY_NM <![CDATA[<]]> '라'))
+				</when>
+				<when test="keyword == 'ddd'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㄹ)' OR (ARTST_ACTVTY_NM >= '라' AND ARTST_ACTVTY_NM < '마'))]]>
+				</when>
+				<when test="keyword == 'eee'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅁ)' OR (ARTST_ACTVTY_NM >= '마' AND ARTST_ACTVTY_NM < '바'))]]>
+				</when>
+				<when test="keyword == 'fff'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅂ|ㅃ)' OR (ARTST_ACTVTY_NM >= '바' AND ARTST_ACTVTY_NM < '사'))]]>
+				</when>
+				<when test="keyword == 'ggg'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅅ|ㅆ)' OR (ARTST_ACTVTY_NM >= '사' AND ARTST_ACTVTY_NM < '아'))]]>
+				</when>
+				<when test="keyword == 'hhh'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅇ)' OR (ARTST_ACTVTY_NM >= '아' AND ARTST_ACTVTY_NM < '자'))]]>
+				</when>
+				<when test="keyword == 'iii'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅈ|ㅉ)' OR (ARTST_ACTVTY_NM >= '자' AND ARTST_ACTVTY_NM < '차'))]]>
+				</when>
+				<when test="keyword == 'jjj'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅊ)' OR (ARTST_ACTVTY_NM >= '차' AND ARTST_ACTVTY_NM < '카'))]]>
+				</when>
+				<when test="keyword == 'kkk'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅋ)' OR (ARTST_ACTVTY_NM >= '카' AND ARTST_ACTVTY_NM < '타'))]]>
+				</when>
+				<when test="keyword == 'lll'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅌ)' OR (ARTST_ACTVTY_NM >= '타' AND ARTST_ACTVTY_NM < '파'))]]>
+				</when>
+				<when test="keyword == 'mmm'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅍ)' OR (ARTST_ACTVTY_NM >= '파' AND ARTST_ACTVTY_NM < '하'))]]>
+				</when>
+				<when test="keyword == 'nnn'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅎ)' OR (ARTST_ACTVTY_NM >= '하'))]]>
+				</when>
+			</choose>
+		limit ${indexNum}, ${postNum}
+	</select>
+	
+	<select id="koreanCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+			<choose>
+				<when test="keyword == 'aaa'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄱ|ㄲ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '가' AND ARTST_ACTVTY_NM <![CDATA[<]]> '나'))
+				</when>
+				<when test="keyword == 'bbb'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄴ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '나' AND ARTST_ACTVTY_NM <![CDATA[<]]> '다'))
+				</when>
+				<when test="keyword == 'ccc'">
+					AND (ARTST_ACTVTY_NM RLIKE '^(ㄷ|ㄸ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '다' AND ARTST_ACTVTY_NM <![CDATA[<]]> '라'))
+				</when>
+				<when test="keyword == 'ddd'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㄹ)' OR (ARTST_ACTVTY_NM >= '라' AND ARTST_ACTVTY_NM < '마'))]]>
+				</when>
+				<when test="keyword == 'eee'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅁ)' OR (ARTST_ACTVTY_NM >= '마' AND ARTST_ACTVTY_NM < '바'))]]>
+				</when>
+				<when test="keyword == 'fff'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅂ|ㅃ)' OR (ARTST_ACTVTY_NM >= '바' AND ARTST_ACTVTY_NM < '사'))]]>
+				</when>
+				<when test="keyword == 'ggg'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅅ|ㅆ)' OR (ARTST_ACTVTY_NM >= '사' AND ARTST_ACTVTY_NM < '아'))]]>
+				</when>
+				<when test="keyword == 'hhh'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅇ)' OR (ARTST_ACTVTY_NM >= '아' AND ARTST_ACTVTY_NM < '자'))]]>
+				</when>
+				<when test="keyword == 'iii'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅈ|ㅉ)' OR (ARTST_ACTVTY_NM >= '자' AND ARTST_ACTVTY_NM < '차'))]]>
+				</when>
+				<when test="keyword == 'jjj'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅊ)' OR (ARTST_ACTVTY_NM >= '차' AND ARTST_ACTVTY_NM < '카'))]]>
+				</when>
+				<when test="keyword == 'kkk'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅋ)' OR (ARTST_ACTVTY_NM >= '카' AND ARTST_ACTVTY_NM < '타'))]]>
+				</when>
+				<when test="keyword == 'lll'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅌ)' OR (ARTST_ACTVTY_NM >= '타' AND ARTST_ACTVTY_NM < '파'))]]>
+				</when>
+				<when test="keyword == 'mmm'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅍ)' OR (ARTST_ACTVTY_NM >= '파' AND ARTST_ACTVTY_NM < '하'))]]>
+				</when>
+				<when test="keyword == 'nnn'">
+					<![CDATA[AND (ARTST_ACTVTY_NM RLIKE '^(ㅎ)' OR (ARTST_ACTVTY_NM >= '하'))]]>
+				</when>
+			</choose>
+	</select>
 </mapper>

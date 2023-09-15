@@ -726,8 +726,6 @@ if (commuBorTypCd.equals("ABL")) {
 		    return checkedValues;
 		}
 		
-			
-		
 		/* 게시물 상태 변경 
 		
 			statusType
@@ -739,8 +737,7 @@ if (commuBorTypCd.equals("ABL")) {
 			var params = new Object();
 
 			params.comtSq = getCheckedValue();
-			params.statusType = statusType;
-			
+			params.statusType = statusType;			
 			
 			$.ajax({
 	        	type: "post",

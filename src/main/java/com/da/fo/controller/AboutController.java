@@ -56,6 +56,7 @@ public class AboutController {
 	public String openMarketing() {
 		return "thymeleaf/fo/about/terms_3";
 	}
+	
 	/*
 	 * 게시판 목록 조회
 	 * PARAM : BRD_TYP_CD = #{brdTypCd}
@@ -65,15 +66,15 @@ public class AboutController {
 	 */
 	@RequestMapping("/about/selectBrdList")
 	@ResponseBody
-	public ModelAndView selectBrdList(@RequestParam(value = "brdTypCd", required = true) String brdTypCd,@RequestParam(value = "brdConTypCd", required = true) String brdConTypCd) {
+	public ModelAndView selectBrdList(@RequestParam(value = "brdTypCd", required = true) String brdTypCd, @RequestParam(value = "brdConTypCd", required = true) String brdConTypCd) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		logger.debug("############# brdTypCd : " + brdTypCd);
 		
 		List result = aboutService.selectBrdList(brdTypCd,brdConTypCd);
 		mv.addObject("result", result);
+		System.out.println(mv);
 		return mv;
 	}
-	
 	
 	/*
 	 * 게시판 상세 조회
@@ -85,7 +86,6 @@ public class AboutController {
 	public ModelAndView selectBrdDtl(@RequestParam(value = "brdSq", required = true) String brdSq) {
 		ModelAndView mv = new ModelAndView("jsonView");
 		logger.debug("############# brdSq : " + brdSq);
-		
 		Map<String, Object> result = aboutService.selectBrdDtl(brdSq);
 		mv.addObject("result", result);
 		return mv;

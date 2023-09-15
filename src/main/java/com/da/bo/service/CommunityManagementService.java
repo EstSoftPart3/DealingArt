@@ -35,6 +35,16 @@ public interface CommunityManagementService {
 	//신고된 게시물 상태 변경
 	public int rprtStatusUpdate(String statusType, String rprtSqList);
 	
+	//댓글 숨김 상태 변경
+	public int updateReplyState(String state, int cmtSq);
 	
+	//대댓글 숨김 상태 변경
+	public int updateReReplyState(String state, int replySq);
+	
+	//댓글 삭제 상태 변경
+	public int deleteReplyState(String state, int cmtSq);
+	
+	//대댓글 삭제 상태 변경
+	public int deleteReReplyState(String state, int replySq);	
 	
 }

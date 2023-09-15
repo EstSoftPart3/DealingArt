@@ -40,6 +40,16 @@ public interface CommunityManagementMapper {
 	//신고된 게시물 상태 변경
 	public int rprtStatusUpdate(@Param("statusType")String statusType, @Param("rprtSq")String rprtSqList);
 	
+	//댓글 숨김 상태 변경
+	public int updateReplyState(@Param("state") String state, @Param("cmtSq") int cmtSq);
 	
+	//대댓글 숨김 상태 변경	
+	public int updateReReplyState(@Param("state") String state, @Param("replySq") int replySq);
+	
+	//댓글 삭제 상태 변경
+	public int deleteReplyState(@Param("state") String state, @Param("cmtSq") int cmtSq);
+	
+	//대댓글 삭제 상태 변경
+	public int deleteReReplyState(@Param("state") String state, @Param("replySq") int replySq);
 
 }

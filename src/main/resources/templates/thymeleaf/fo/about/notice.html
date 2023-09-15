@@ -250,10 +250,10 @@ $(".cn-b").hover(
              	$("#ul_brdList").empty();
              	$("#ul_brdList").append(brdListHtml).trigger("create");
          	}else{
-         		modalAlertShow("검색 결과가 없습니다."); 
+         		modalAlertShow("검색 결과가 없습니다.");
          		$("#ul_brdList").empty();
          	}
-         },           
+         },
          error: function(error) {
              alert("오류 발생" + error);
          }
@@ -278,38 +278,29 @@ $(".cn-b").hover(
           	var mgzDtl = null;
           	console.log(data);
           	if(data.result != null){
-              	$("#lp_brdDtl_cntnt").empty();
-              	
-              	 var timpStr = data.result.brdContent;
-              	 
-              	 timpStr = timpStr.replaceAll("&lt;","<");
-	        	 timpStr = timpStr.replaceAll("&gt;",">");
-	        	 timpStr = timpStr.replaceAll("&amp;lt;","<");
-	        	 timpStr = timpStr.replaceAll("&amp;gt;",">");
-	        	 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
-	        	 timpStr = timpStr.replaceAll("&amp;amp;","&");
-	        	 //Table 수정 금지
-	        	 timpStr = timpStr.replaceAll("true","false");
-	        	 document.getElementById('lp_brdDtl_cntnt').innerHTML=timpStr;
-	        	 
-	        	 //ckEditor Mouse Over Class Remove
-	        	 fn_styleNone();
-              	
-              	
+              	$("#lp_brdDtl_cntnt").empty();              	
+              	var timpStr = data.result.brdContent;              	
+              	timpStr = timpStr.replaceAll("&lt;","<");
+	        	timpStr = timpStr.replaceAll("&gt;",">");
+	        	timpStr = timpStr.replaceAll("&amp;lt;","<");
+	        	timpStr = timpStr.replaceAll("&amp;gt;",">");
+	        	timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
+	        	timpStr = timpStr.replaceAll("&amp;amp;","&");
+	        	//Table 수정 금지
+	        	timpStr = timpStr.replaceAll("true","false");
+	        	document.getElementById('lp_brdDtl_cntnt').innerHTML=timpStr;	        	
+	        	//ckEditor Mouse Over Class Remove
+	        	fn_styleNone();
           	}else{
-          		modalAlertShow("검색 결과가 없습니다."); 
-          		$("#lp_brdDtl_cntnt").empty();
-          		
-          		
+          		modalAlertShow("검색 결과가 없습니다.");
+          		$("#lp_brdDtl_cntnt").empty();          		
           	}
           },           
           error: function(error) {
               alert("오류 발생" + error);
           }
   	});
-  }
-
- 
+  } 
 /* 메뉴바 FIXED */
 if (jQuery(window).width() > 0) {
      jQuery(window).on("scroll",function(ev){
@@ -323,7 +314,6 @@ if (jQuery(window).width() > 0) {
      });
 }
 
- 
 $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
     // The event won't be propagated up to the document NODE and 
     // therefore delegated events won't be fired
@@ -341,7 +331,6 @@ function fn_styleNone() {
 
       
 </script>
-
 <!-- 네이버 광고 로그분석 추적 코드 -->
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script> 
 <script type="text/javascript">
@@ -352,9 +341,7 @@ if (window.wcs) {
 wcs.inflow("www.dealing-art.com"); 
 wcs_do(_nasa);
 }
-</script>	
-	
-	
-</body>
+</script>
 
+</body>
 </html>

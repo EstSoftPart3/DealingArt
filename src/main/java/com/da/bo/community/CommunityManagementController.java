@@ -2,6 +2,7 @@ package com.da.bo.community;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.bo.service.CommunityManagementService;
 import com.da.common.AwsS3Service;
 import com.da.vo.FileVo;
+import com.microsoft.schemas.compatibility.AlternateContentDocument.AlternateContent.Fallback;
 
 
 @Controller
@@ -227,6 +229,46 @@ public class CommunityManagementController {
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject("result", result);
 		
+		return mv;
+	}
+	
+	//댓글 숨김 상태 변경
+	@RequestMapping("/admin/community/updateReplyState")
+	@ResponseBody
+	public ModelAndView updateReplyState(@RequestParam(value = "list[]", required = false) List<Integer> list, @RequestParam(value = "re_list[]", required = false) List<Integer> re_list, @RequestParam("state") String state) {
+		int result = 0;
+		if (list != null && list.size() > 0) {
+			for(int i = 0; i < list.size(); i++) {
+				result += communityManagementService.updateReplyState(state, list.get(i));
+			}			
+		}
+		if (re_list != null && re_list.size() > 0) {
+			for(int i = 0; i < re_list.size(); i++) {
+				result += communityManagementService.updateReReplyState(state, re_list.get(i));
+			}
+		}		
+		ModelAndView mv = new ModelAndView("jsonView");
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	//댓글 삭제 상태 변경
+	@RequestMapping("/admin/community/deleteReplyState")
+	@ResponseBody
+	public ModelAndView deleteReplyState(@RequestParam(value = "list[]", required = false) List<Integer> list, @RequestParam(value = "re_list[]", required = false) List<Integer> re_list, @RequestParam("state") String state) {		
+		int result = 0;
+		if (list != null && list.size() > 0) {
+			for(int i = 0; i < list.size(); i++) {
+				result += communityManagementService.deleteReplyState(state, list.get(i));
+			}
+		}
+		if (re_list != null && re_list.size() > 0) {
+			for(int i = 0; i < re_list.size(); i++) {
+				result += communityManagementService.deleteReReplyState(state, re_list.get(i));
+			}
+		}
+		ModelAndView mv = new ModelAndView("jsonView");
+		mv.addObject("result", result);
 		return mv;
 	}
 
