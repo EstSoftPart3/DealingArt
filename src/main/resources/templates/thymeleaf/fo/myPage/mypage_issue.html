@@ -109,37 +109,37 @@
                             <input type="text" id="search_input" placeholder="작품명이나 작가명으로 검색하세요.">
                             <button class="btn_mypage_search"></button>
                           </div>
-                          <button class="btn_mypage_recording">기록하기</button>
+                          <a th:if="${#strings.isEmpty(mbrSq)}" href="/myPage/issue_reg" ><button class="btn_mypage_recording">기록하기</button></a>
                     </div>
                     <div class="mypage_tap_wrap">
                         <ul class="tap">
                             <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
                             <li class="bg_no"></li>
                             <li class="bg_no"></li>
-                            <li id="btn_nal4" class="bg_no"><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
+                            <li th:if="${#strings.isEmpty(mbrSq)}" id="btn_nal4" class="bg_no" ><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
                         </ul>
                     </div>                    
                     
-                            <div class="work-drp">
-								<div class="work-hov">
-									<ul>
-										<li><a href="#" class="wrh-1"><span>공개/비공개</span></a></li>
-										<li><a href="#" class="wrh-2"><span>작품정보수정</span></a></li>
-										<li><a href="#" class="wrh-3"><span>삭제</span></a></li>
-									</ul>
-								</div>
-							</div>
-							
-							<div class="work-drp-2 dp_n">
-								<div class="wd-box">
-									<span style="color:white" id="selectedCount">(0)</span>
-									<button type="button" class="wd-btns wdb-1">공개</button>
-									<button type="button" class="wd-btns wdb-1">비공개</button>
-									<button type="button" class="wd-btns wdb-2">판매정보수정</button>
-									<button type="button" class="wd-btns wdb-3">삭제</button>
-									<button type="button" class="wd-btns wdb-all">취소</button>
-								</div>
-							</div>
+                    <div class="work-drp">
+						<div class="work-hov">
+							<ul>
+								<li><a href="javascript:void(0);" class="wrh-1"><span>공개/비공개</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-2"><span>작품정보수정</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-3"><span>삭제</span></a></li>
+							</ul>
+						</div>
+					</div>
+						
+					<div class="work-drp-2 dp_n">
+						<div class="wd-box">
+							<span style="color:white" id="selectedCount">(0)</span>
+							<button type="button" class="wd-btns wdb-1">공개</button>
+							<button type="button" class="wd-btns wdb-1">비공개</button>
+							<button type="button" class="wd-btns wdb-2">판매정보수정</button>
+							<button type="button" class="wd-btns wdb-3">삭제</button>
+							<button type="button" class="wd-btns wdb-all">취소</button>
+						</div>
+					</div>
 							
                     <div class="mypage_exhint_contents_wrap mt30">
                         <div class="exhint_row">
@@ -195,24 +195,33 @@
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </body>
-<script type="text/javascript">
+<script th:inline="javascript">
+
+var mbrSq = /*[[${mbrSq}]]*/ 'default';
+
+
 var searchOptions = new Object();
 var result = new Object();
 var nowPage = 0;
 var offset = 0;
 
-	var pageNextBtnCount = 0;
-   	var endPage = 0;
-   	var startPage = 0;
-   	var realEndPage = 0;
-   	var prev = false;
-   	var next = false;
+var pageNextBtnCount = 0;
+var endPage = 0;
+var startPage = 0;
+var realEndPage = 0;
+var prev = false;
+var next = false;
 
    	
 $("document").ready(function(){
 	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
-	searchOptions.mbrSq = sMbrSqVal;
+	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
+		$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = mbrSq;
+	}else{
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = sMbrSqVal;
+	}
 	searchOptions.comtTypCd ="ISS";
 
 	ShowListAjax();
@@ -221,8 +230,8 @@ $("document").ready(function(){
 
 function ShowListAjax(callback){
 	
-	searchOptions.limit = 2; // 게시글 갯수제한
-	searchOptions.offset = nowPage * 2 // 페이지 당 갯수제한
+	searchOptions.limit = 4; // 게시글 갯수제한
+	searchOptions.offset = nowPage * 4 // 페이지 당 갯수제한
 	
 	$.ajax({
 		type: "POST"
@@ -253,7 +262,7 @@ function ShowList(data,callback){
 
         		if(result[i] != null){
 	            	html +=	'<div class="exhint_row">';
-	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" alt=""><div class="ico_num">1+</div></div>';
+	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" style="width:100%; height:100%;"><div class="ico_num">1+</div></div>';
 	            	html +=	'<div class="contents width75per">';
                 	html += '		<div class="item-ho4 check-div" style="display:none;">';
                 	html += '			<div class="pay-check mana-check">';
@@ -309,6 +318,8 @@ function ShowList(data,callback){
 		masonryLayout(callback);
 		setPagenation(data);
 	}else{
+		$(".mypage_exhint_contents_wrap").empty();
+		$(".paginate").empty();
     		if(searchOptions.workTypCd === undefined && searchOptions.keyword === undefined){
     			if(!isMobile){
         			modalAlertShow("검색 결과가 없습니다.");

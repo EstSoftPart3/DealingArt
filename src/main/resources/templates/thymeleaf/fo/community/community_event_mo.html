@@ -4,7 +4,7 @@
 	<title>딜링아트</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">0
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="theme-color" content="#000000">
@@ -28,6 +28,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 	<!-- HTML의 <head> 섹션에 전체 사이트 태그를 복사합니다. -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRJBSR52MT"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -66,6 +67,7 @@
 	  'https://connect.facebook.net/en_US/fbevents.js');
 	  fbq('init', '5995234030505207');
 	  fbq('track', 'PageView');
+	  
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
     
@@ -101,14 +103,14 @@
         <div class="community_wrap">
             <div id="nav">
                 <ul>
-                    <li><a href="/community/main">홈</a></li>
-                    <li><a href="/community/worksList">작품자랑</a></li>
-                    <li><a href="/community/exhintList">전시후기&소개</a></li>
-                    <li><a href="/community/knowhowList">노하우</a></li>
-                    <li><a href="/community/event" class="over">이벤트</a></li>
+                     <li><a href="/community/mainMobile">홈</a></li>
+                    <li><a href="/community/worksListMobile" class="over">작품자랑</a></li>
+                    <li><a href="/community/exhintListMobile">전시후기&소개</a></li>
+                    <li><a href="/community/issueListMobile">이슈</a></li>
+                    <li><a href="/community/eventMobile">이벤트</a></li>   
                 </ul>
             </div>
-            <button class="btn_recording">기록하기</button>
+            <button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
             <div class="sel_wrap">
                 <div class="sel_sortation right0">
                     <select name="" id="" onchange="searchEventType(this);">
@@ -194,7 +196,7 @@
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script th:inline="javascript">
-    	var pageInfo = {
+	var pageInfo = {
    			start: 0,
    			size: 6,
    			type: ""

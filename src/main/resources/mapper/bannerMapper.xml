@@ -7,8 +7,7 @@
 	
 	<!--배너 목록 -->
 	<select id="bannerList" resultType="hashMap">
-		SELECT 
-		
+		SELECT 	
 			BNN_SQ													<!--배너 순번  -->
 			,BNN_DIV_CD												<!--배너 구분 코드  -->
 			,BNN_TITLE												<!--배너 제목  -->
@@ -25,8 +24,7 @@
 			,DATE_FORMAT(UPDT_DT, "%Y-%m-%d")		as UPDT_DT		<!--수정 일시  -->			
 			,UPDT_MBR_SQ											<!--수정 회원 순번  -->
 			,USE_YN													<!--사용 여부  -->
-			,DEL_YN													<!--삭제 여부  -->
-			
+			,DEL_YN													<!--삭제 여부  -->			
 		FROM TBL_DA_BNN_MGMT_M
 		WHERE 1=1
         	<if test="searchGubun != null">
@@ -37,11 +35,10 @@
 		
 	<!--배너 등록 -->	
 	<insert id="bannerInsert" parameterType="hashMap">
-		INSERT INTO TBL_DA_BNN_MGMT_M 
-			(										
-				BNN_SQ
-				,BNN_DIV_CD
+		INSERT INTO TBL_DA_BNN_MGMT_M (										
+				BNN_DIV_CD
 				,BNN_TITLE
+				,BNN_SHOW_SQ
 				,BNN_MP_IMG_URL
 				,BNN_EP_IMG_URL
 				,BNN_MM_IMG_URL
@@ -53,43 +50,46 @@
 				,REG_DT
 				,REG_MBR_SQ
 				,UPDT_DT
-				,UPDT_MBR_SQ
-				,USE_YN
-				,DEL_YN
-	
-			)
-			VALUES 
-			(
-			
-				#{brSq}
-				,#{bnrTypCd}
-				,#{brTitle}
-				,#{brMnPcimgUrl}
-				,#{brSubPcimgUrl}
-				,#{brMnMimgUrl}
-				,#{brSubMimgUrl}
-				,#{brMnRUrl}
-				,#{brSubRUrl}
-				,#{brWhen1}
-				,#{brWhen2}
+				,UPDT_MBR_SQ	
+			)VALUES(		
+				#{bnnDivCd}
+				,#{bnnTitle}
+				,#{bnnShowSq}
+				,#{bnnMpImgUrl}
+				,#{bnnEpImgUrl}
+				,#{bnnMmImgUrl}
+				,#{bnnEmImgUrl}
+				,#{bnnMLndUrl}
+				,#{bnnELndUrl}
+				,#{bnnStrtDt}
+				,#{bnnEndDt}
 				,NOW()
 				,'1'
 				,NOW()
-				,'1'
-				,'Y'
-				,'N'
-		
-			)
-		
+				,'1'		
+			)		
 	</insert>
 	
-	<!-- 배너 삭제 -->
-    <update id="bannerDelete" parameterType="hashMap">
-   		UPDATE 
-   			TBL_DA_BNN_MGMT_M AS A
+	<update id="promoUpdate" parameterType="hashMap">
+	/* 프로모션 영역 수정 */
+		UPDATE
+				TBL_DA_PROMO_MGMT_S
 		SET
-			DEL_YN	= 'Y'
-   		WHERE 1=1
-         	 AND A.BNN_SQ = #{bnnSq}
+				BNN_DIV_CD = #{bnnDivCd}
+				,PROMO_NM = #{promoNm}
+				,PROMO_OD_DIV_CD = #{promoOdDivCd}
+				,PROMO_OD_TYP_CD = #{promoOdTypCd}
+		WHERE
+				PROMO_SQ = #{promoSq}
+	</update>
+	
+	<!-- 배너 삭제 -->
+    <update id="bannerDelete" parameterType="String">
+		   		UPDATE 
+		   			TBL_DA_BNN_MGMT_M
+				SET
+					DEL_YN = 'Y'
+		   		WHERE 1 = 1 
+		   			AND BNN_SQ = #{bnnSq}     	
 	</update>
 </mapper>

@@ -31,6 +31,18 @@ public class Mgz9Controller {
 	@Autowired
 	private Mgz9Service mgz9Service;
 	
+	//매거진9 메인 페이지
+	@RequestMapping("/mgz9/magazine9_main")
+	public String magazine9Main() {
+		return "thymeleaf/fo/mgz/magazine9_main";
+	}
+	
+	//매거진9 메인 모바일 페이지
+	@RequestMapping("/mgz9/magazine9_mainMobile")
+	public String magazine9MainMobile() {
+		return "thymeleaf/fo/mgz/magazine9_main_mo";
+	}
+	
 	@RequestMapping("/mgz9/insights")
 	public String openInsights() {
 		return "thymeleaf/fo/mgz/insights";

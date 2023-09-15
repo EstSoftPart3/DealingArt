@@ -109,15 +109,24 @@
                             <input type="text" id="search_input" onkeydown="enter(event)" placeholder="검색어를 입력해 주세요." >
                             <button class="btn_mypage_search" onclick="searchMyShow()"></button>
                           </div>
-                          <button class="btn_mypage_recording">기록하기</button>
+                          <button th:if="${#strings.isEmpty(mbrSq)}" class="btn_mypage_recording">기록하기</button>
                     </div>
                     <div class="mypage_tap_wrap">
+                    <th:block th:if="${#strings.isEmpty(mbrSq)}">
                         <ul class="tap">
                             <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
                             <li id="btn_nal2" >소장품(<span id="myCollTotal"></span>)</li>
                             <li id="btn_nal3" >창작품(<span id="myWorkTotal"></span>)</li>
                             <li id="btn_nal4" class="bg_no"><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
                         </ul>
+                    </th:block>
+                    <th:block th:unless="${#strings.isEmpty(mbrSq)}">
+                        <ul class="tap">
+                            <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
+                            <li id="btn_nal2" >소장품(<span id="myCollTotal"></span>)</li>
+                            <li id="btn_nal3" class="bg_no">창작품(<span id="myWorkTotal"></span>)</li>
+                        </ul>
+                    </th:block>
                     </div>
                     
 	                <div class="work-drp">
@@ -140,35 +149,8 @@
 							<button type="button" class="wd-btns wdb-all">취소</button>
 						</div>
 					</div>
-                    <!--   
-                    <div class="mypage_select_wrap">
-                        <div class="sel_sorting width34per">
-=======
-                    <div class="mypage_select_wrap">
-                        <div class="sel_sorting right340">
->>>>>>> 2ec04e9f63eddb3c3c48bb64fab95c0ec834fd08
-                            <select name="" id="">
-                                <option value="">정렬</option>
-                                <option value="">최신순</option>
-                                <option value="">최근 인기 순</option>
-                                <option value="">역대 인기 순</option>
-                                <option value="">과거 순</option>
-                            </select>
-                        </div>
-                        <div class="sel_area width33per">
-                            <select name="" id="">
-                                <option value="">지역</option>
-                            </select>
-                        </div>
-                        <div class="sel_sortation width33per">
-                            <select name="" id="">
-                                <option value="">구분</option>
-                            </select>
-                        </div>
-<<<<<<< HEAD
-                    </div>
-                    -->
-                    <div class="mypage_select_wrap">
+					
+                    <div th:if="${#strings.isEmpty(mbrSq)}" class="mypage_select_wrap">
                         <div class="sel_sorting right0">
                             <select name="sel_sort" id="sel_sort">
                                 <option value="all">정렬</option>
@@ -196,6 +178,50 @@
                             </select>
                         </div>
                  	    <div class="sel_sorting right510">
+                            <select name="sel_region" id="sel_region">
+                                <option value="">지역</option>
+                                <option value="SEO">서울</option>
+                                <option value="INC">인천</option>
+                                <option value="GYE">경기</option>
+                                <option value="GAN">강원</option>
+                                <option value="CGN">충남</option>
+                                <option value="CGB">충북</option>
+                                <option value="SEA">세종</option>
+                                <option value="DAJ">대전</option>
+                                <option value="JNB">전북</option>
+                                <option value="JNN">전남</option>
+                                <option value="GWA">광주</option>
+                                <option value="GGB">경북</option>
+                                <option value="GGN">경남</option>
+                                <option value="DAG">대구</option>
+                                <option value="ULS">울산</option>
+                                <option value="BUS">부산</option>
+                                <option value="JEA">제주</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 타인 마이페이지 일 때 -->
+                    <div th:unless="${#strings.isEmpty(mbrSq)}" class="mypage_select_wrap">
+                        <div class="sel_sorting right0">
+                            <select name="sel_sort" id="sel_sort">
+                                <option value="all">정렬</option>
+                                <option value="recent">최신순</option>
+                                <option value="recent_popul">최근 인기 순</option>
+                                <option value="popul">역대 인기 순</option>
+                                <option value="past">과거 순</option>
+                            </select>
+                        </div>
+                        <div class="sel_sorting right170">
+                            <select name="sel_gubun" id="sel_gubun">
+                                <option value="">구분</option>
+                                <option value="GAL">갤러리</option>
+                                <option value="ART">미술관</option>
+                                <option value="POP">팝업전시</option>
+                                <option value="FAI">페어</option>
+                                <option value="ETC">기타</option>
+                            </select>
+                        </div>
+                 	    <div class="sel_sorting right340">
                             <select name="sel_region" id="sel_region">
                                 <option value="">지역</option>
                                 <option value="SEO">서울</option>
@@ -253,27 +279,29 @@
                             </div>
                         </div>
                     </div>
-                        <div class="pagination">
-                            <div class="paginate">                        
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">7</a>
-                                <a href="#">8</a>
-                                <a href="#" class="next ml10"></a>
-                                <a href="#" class="next_end ml5"></a>
-                            </div>
-                        </div>    
+                    <div class="pagination">
+                        <div class="paginate">                        
+                            <strong>1</strong>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">7</a>
+                            <a href="#">8</a>
+                            <a href="#" class="next ml10"></a>
+                            <a href="#" class="next_end ml5"></a>
+                        </div>
+                    </div>    
               </div>
             </div>
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </body>
-<script type="text/javascript">
+<script th:inline="javascript">
+
+var mbrSq = /*[[${mbrSq}]]*/ 'default';
 
 var searchOptions = new Object();
 var result = new Object();
@@ -289,8 +317,13 @@ var offset = 0;
 
 $("document").ready(function(){
 	
-	$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
-	searchOptions.mbrSq = sMbrSqVal;
+	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
+		$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = mbrSq;
+	}else{
+		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		searchOptions.mbrSq = sMbrSqVal;
+	}
 	searchOptions.comtTypCd ="EXH";
 
 	ShowListAjax();
@@ -299,8 +332,8 @@ $("document").ready(function(){
 
 function ShowListAjax(callback){
 	
-	searchOptions.limit = 2;
-	searchOptions.offset = nowPage * 2
+	searchOptions.limit = 4;
+	searchOptions.offset = nowPage * 4;
 	
 	$.ajax({
 		type: "POST"
@@ -331,7 +364,7 @@ function ShowList(data,callback){
 
         		if(result[i] != null){
 	            	html +=	'<div class="exhint_row">';
-	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" alt=""><div class="ico_num">1+</div></div>';
+	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" style="width:100%; height:100%;"><div class="ico_num">1+</div></div>';
 	            	html +=	'<div class="contents width75per">';
                 	html += '		<div class="item-ho4 check-div" style="display:none;">';
                 	html += '			<div class="pay-check mana-check">';

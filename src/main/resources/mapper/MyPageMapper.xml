@@ -230,7 +230,7 @@
 				END) AS mbrProfileImgUrl /*회원_프로필_이미지_URL*/
 				, MBR.MBR_NCKNM AS mbrNckNm /*회원_닉네임*/
 				, MBR.MBR_INTRO AS mbrIntro /*회원_자기소개*/
-				, MBR.MBR_SQ 
+				, MBR.MBR_SQ AS mbrSq /*회원_순번*/
 		FROM 
 				TBL_DA_FOLLOWING_M AS FOLLOW
 		LEFT JOIN 

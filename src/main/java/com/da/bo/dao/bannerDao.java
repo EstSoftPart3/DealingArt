@@ -47,12 +47,9 @@ public class bannerDao {
 
 	}	
 	//배너 삭제
-	public void bannerDelete(Map<String, Object> param){
-		
-		System.out.println("DATA = " + param);
-		bannerMapper.bannerDelete(param);	
-		
-		
+	public int bannerDelete(String param) {
+		System.out.println("DATA = " + param);			
+		return bannerMapper.bannerDelete(param);	
 	
 	}
 	//이벤트프로모션리스트
@@ -65,6 +62,11 @@ public class bannerDao {
 		result.put("eventProInfo", eventProInfo);
 
 		return result;
+	}
+	
+	//프로모션 영역 수정
+	public int promoUpdate(Map<String, Object> param){
+		return bannerMapper.promoUpdate(param);
 	}
 	
 

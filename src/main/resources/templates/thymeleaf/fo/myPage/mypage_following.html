@@ -130,9 +130,11 @@
         </div>
     </div>
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
-    <script type="text/javascript">
+    <script th:inline="javascript">
     
-	var offset = 0;
+    var mbrSq = /*[[${mbrSq}]]*/ 'default';
+	
+    var offset = 0;
 	var obj = new Object();
 	var limit = 9;
 	var more = 0;
@@ -141,7 +143,11 @@
 	
 	$("document").ready(function(){
 		
-		$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
+			$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
+		}else{
+			$("#left_menu").load("/myPage/mypage_common_left");  // 레프트 메뉴 삽입
+		}
 		
 		// 팔로잉 리스트 뿌려주기
 		followingList(authSq);
@@ -186,6 +192,9 @@
 		obj.limit = 9 + (more*3);
 		obj.authSq = authSq;
 		obj.searchWord = searchWord;
+		if(mbrSq != null && mbrSq != "" && mbrSq != undefined){
+			obj.mbrSq = mbrSq;
+		}
 		
 		$.ajax({
 			type: "POST",
@@ -221,7 +230,7 @@
 				for (var j = 0; j < 3; j++) {
 					if (result.length > i) {
 						strHtml += '	<li>';
-						strHtml += '		<div class="following_pic">';
+						strHtml += '		<div class="following_pic" onclick="openOtherPage('+result[i].mbrSq+')">';
 						strHtml += '			<div class="pic"><img src="'+result[i].mbrProfileImgUrl+'" alt="">';
 						strHtml += '			</div>';
 						strHtml += '			<div class="header">';
@@ -251,6 +260,10 @@
 		$("#btn_nal1").text("전체("+myTotal+")");
 		$("#btn_nal2").text("컬렉터("+myColTotal+")");
 		$("#btn_nal3").text("작가("+myArtistTotal+")");
+	}
+	
+	function openOtherPage(mbrSq){
+		location.href = "/otherPage/main?mbrSq="+mbrSq;
 	}
 	</script>
 </body>

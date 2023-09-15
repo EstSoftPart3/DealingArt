@@ -1,19 +1,14 @@
 package com.da.fo.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
@@ -39,7 +33,6 @@ import com.da.util.CommonService;
 import com.da.util.SendMailUtil;
 import com.da.util.SendSmsUtil;
 import com.da.vo.FileVo;
-import com.google.gson.Gson;
 
 @Controller
 public class MyPageController {
@@ -74,21 +67,32 @@ public class MyPageController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 마이페이지 모두보기 페이지
-	@RequestMapping("/myPage/mypage_main")
+	@RequestMapping("/myPage/main")
 	public String mypage_main(){
 		
 		return "thymeleaf/fo/myPage/mypage_main";
+	}
+	// 마이페이지 모두보기 페이지 모바일
+	@RequestMapping("/myPage/myPageMobile")
+	public String mypage_mainMobile(){
+		
+		return "thymeleaf/fo/myPage/mypage_main_mo";
 	}
 	
 	
 	//마이페이지 메인 마이 데이터
 	@RequestMapping("/myPage/main/myInfo")
 	@ResponseBody
-	public ModelAndView myPageMain_MyInfo(HttpServletRequest request){
+	public ModelAndView myPageMain_MyInfo(HttpServletRequest request, @Nullable @RequestParam(value="mbrSq") String param){
 		ModelAndView mv = new ModelAndView("jsonView");
 		HttpSession session = request.getSession();
-		
-		String mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
+		String mbrSq = "";
+		if(param != null && !param.equals("")){
+			mbrSq = param;
+		}else{
+			mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
+		}
+		 
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
@@ -131,6 +135,7 @@ public class MyPageController {
 		List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
 		int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
 		
+		
 		//paramMap.put("limit", 3); //LIMIT 넣기
 		//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
 		//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
@@ -148,61 +153,43 @@ public class MyPageController {
 		return mv;
 	}
 	
-	//타인페이지 메인 활동내역 열기
-		@RequestMapping("/myPage/otherpage_main")
-		public ModelAndView serviceIntro4(@RequestParam(value="mbrSq", required=false) String mbrSq) {
-			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/otherpage_main");
-			mv.addObject("mbrSq", mbrSq);
-			return mv;
+
+	//마이페이지 전시후기 페이지
+	@RequestMapping("/myPage/exhintMobile")
+	public String exhintMobile() {
+		return "thymeleaf/fo/myPage/mypage_exhint_mo";
+	}
+	//마이페이지 전시후기 페이지
+		@RequestMapping("/myPage/exhintMobileReg")
+		public String exhintMobileReg() {
+			return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
 		}
-		
-	//타인페이지 메인 활동내역 데이터
-		@RequestMapping("/myPage/main/searchOtherInfoAction")
-		@ResponseBody
-		public ModelAndView otherPageMain_searchOtherInfoAction(@RequestParam Map<String, Object> param){
-			ModelAndView mv = new ModelAndView("jsonView");
-			
-			String mbrSq = String.valueOf(param.get("mbrSq"));
-			System.out.println("param++++++"+mbrSq);
-			
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
-			paramMap.put("workTypCd","");
-			
-			List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
-			int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
-			
-			paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
-			paramMap.put("limit", 3); //LIMIT 넣기
-			List<Map<String, Object>> myBoast = myPageService.myPageMain_myCommunitys(paramMap); //나의 자랑하기 조회
-			int myBoastTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 자랑하기 총 갯수 조회
-			
-			paramMap.put("comtTypCd", "EXH"); //커뮤니티 구분 코드 전시후기로 변경
-			paramMap.put("limit", 3); //LIMIT 넣기
-			List<Map<String, Object>> myExhbn = myPageService.myPageMain_myCommunitys(paramMap); //나의 전시후기 조회
-			int myExhbnTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 전시후기 총 갯수 조회
-			
-			paramMap.put("comtTypCd", "ISS"); //커뮤니티 구분 코드 이슈로 변경
-			paramMap.put("limit", 3); //LIMIT 넣기
-			List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
-			int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
-			
-			//paramMap.put("limit", 3); //LIMIT 넣기
-			//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
-			//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
-			
-			
-			mv.addObject("myWorks", myWorks);
-			mv.addObject("myWorksTotal", myWorksTotal);
-			mv.addObject("myBoast", myBoast);
-			mv.addObject("myBoastTotal", myBoastTotal);
-			mv.addObject("myExhbn", myExhbn);
-			mv.addObject("myExhbnTotal", myExhbnTotal);
-			mv.addObject("myIssue", myIssue);
-			mv.addObject("myIssueTotal", myIssueTotal);
-			
-			return mv;
-		}
+	//마이페이지 이슈 페이지
+	@RequestMapping("/myPage/issueMobile")
+	public String issueMobile() {
+		return "thymeleaf/fo/myPage/mypage_issue_mo";
+	}//마이페이지 이슈 페이지
+	@RequestMapping("/myPage/issueMobileReg")
+	public String issueMobileReg() {
+		return "thymeleaf/fo/myPage/mypage_issue_page2_mo";
+	}
+	// 마이페이지 자랑하기 페이지
+	@RequestMapping("/myPage/show_off")
+	public String mypage_showingoff() {
+		return "thymeleaf/fo/myPage/mypage_showingoff";
+	}
+	
+	// 마이페이지 전시후기/소개 페이지
+	@RequestMapping("/myPage/exhint")
+	public String mypage_exhint() {
+		return "thymeleaf/fo/myPage/mypage_exhint";
+	}
+	
+	// 마이페이지 이슈 페이지
+	@RequestMapping("/myPage/issue")
+	public String mypage_issue() {
+		return "thymeleaf/fo/myPage/mypage_issue";
+	}
 	
 	@RequestMapping("/myPage/trnsprtTypCdUpdate")
 	@ResponseBody
@@ -259,8 +246,11 @@ public class MyPageController {
 
 	//마이페이지 레프트 메뉴 불러오기
 	@RequestMapping("/myPage/mypage_common_left")
-	public String mypage_common_left() {
-		return "thymeleaf/fo/myPage/mypage_common_left";
+	@ResponseBody
+	public ModelAndView mypage_common_left(@Nullable @RequestParam(value="mbrSq") String mbrSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_common_left");
+		mv.addObject("mbrSq", mbrSq);
+		return mv;
 	}
 	
 	//모바일 마이페이지
@@ -321,13 +311,21 @@ public class MyPageController {
 	}
 
 	//통합 나의 작품 화면 오픈
-	@RequestMapping("/myPage/myWorkList")
+	@RequestMapping("/myPage/workList")
 	public String myWorkList(HttpServletRequest request) {
 		
 		String mv = "thymeleaf/fo/myPage/mypage_myworks";
 		
 		return mv;
 	}
+	//통합 나의 작품 모바일 화면 오픈
+		@RequestMapping("/myPage/myWorkListMobile")
+		public String myWorkListMobile() {
+		
+			String mv = "thymeleaf/fo/myPage/mypage_myworks_mo";
+			
+			return mv;
+		}
 	
 	//통합 나의 작품 화면 오픈
 	@RequestMapping("/tempold/myWorkList")
@@ -409,23 +407,27 @@ public class MyPageController {
 		return mv;
 	}
 	
-	/*
-	 * //통합 나의 작품 화면 오픈
-	 */ 
+
+	//통합 나의 작품 등록 페이지	  
 	@RequestMapping("/myPage/myWorkListReg") public String myWorkListReg() {
 	return "thymeleaf/fo/myPage/myWorkReg"; 
 	}
 
+	// 스크랩 모바일 	
+	@RequestMapping("/myPage/scrapMobile")
+	public String scrapMobile() {
+		return "thymeleaf/fo/myPage/mypage_scrap_mo"; 
+		}
 
-	// 스크랩
-	@RequestMapping("/myPage/scrap")
-	@ResponseBody
-	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
-		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
-		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
-		mv.addObject("result", result);
-		return mv;
-	}
+//	@RequestMapping("/myPage/scrap")
+//	@ResponseBody
+//	public ModelAndView scrap(@RequestParam(value = "SqNumber", required = false) String mbrSq) {
+//		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myGallery_scrap");
+//		List<Map<String, Object>> result = myPageService.scrapList(mbrSq);
+//		mv.addObject("result", result);
+//		return mv;
+//	}
+
 
 	// 나의 작품
 	@RequestMapping("/myPage/myWork")
@@ -1546,9 +1548,9 @@ public class MyPageController {
 	}
 	
 	// 노하우 등록 페이지 오픈
-	@RequestMapping("/myPage/myKnowhow_reg")
+	@RequestMapping("/myPage/issue_reg")
 	public String myKnowhow_reg() {
-		return "thymeleaf/fo/myPage/mypage_knowhow_page2";
+		return "thymeleaf/fo/myPage/mypage_issue_page2";
 	}
 	
 	// (모바일)노하우 등록 페이지 오픈
@@ -1594,7 +1596,7 @@ public class MyPageController {
 	}
 	
 	//마이페이지 알림창 열기
-	@RequestMapping("/myPage/myPage_notificationbox")
+	@RequestMapping("/myPage/notis")
 	public String serviceIntro() {
 		return "thymeleaf/fo/myPage/myPage_notificationbox";
 	}
@@ -1638,7 +1640,7 @@ public class MyPageController {
 		}
 		
 		//마이페이지 팔로잉 열기
-		@RequestMapping("/myPage/myPage_following")
+		@RequestMapping("/myPage/following")
 		public String serviceIntro2() {
 			return "thymeleaf/fo/myPage/myPage_following";
 		}
@@ -1647,15 +1649,21 @@ public class MyPageController {
 		@RequestMapping("/myPage/selectFollowing")
 		@ResponseBody
 		public ModelAndView myPage_following(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+			System.out.println(param);
 			HttpSession session = request.getSession();
-			String mbrSq = session.getAttribute("mbrSq").toString();
-			
+			String mbrSq = "";
+			if(param.get("mbrSq") != null){
+				mbrSq = param.get("mbrSq").toString();
+			}else{
+				mbrSq = session.getAttribute("mbrSq").toString();
+			}
+			System.out.println(mbrSq);
 			int limit = Integer.parseInt(String.valueOf(param.get("limit")));
 			
 			param.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
 			param.put("limit", limit);
 			
-			System.out.println(param);
+			
 			ModelAndView mv = new ModelAndView("jsonView");
 			List<Map<String, Object>> result = myPageService.myPage_following(param);
 			
@@ -1678,7 +1686,7 @@ public class MyPageController {
 		}
 			
 		//마이페이지 스크랩 열기
-		@RequestMapping("/myPage/myPage_scrap")
+		@RequestMapping("/myPage/scrap")
 		public String serviceIntro3() {
 			return "thymeleaf/fo/myPage/myPage_scrap";
 		}
@@ -1727,6 +1735,112 @@ public class MyPageController {
 			mv.addObject("myISTTotal", myISTTotal);
 			mv.addObject("myMDATotal", myMDATotal);
 
+			return mv;
+		}
+
+		//마이페이지 왼쪽 메뉴
+		@RequestMapping("/myPage/leftNavMobile")
+		public String leftNavMibile() {
+			
+			
+			return "thymeleaf/fo/myPage/mypage_left-nav";
+		}
+				
+
+		
+		//타인페이지 메인
+		@RequestMapping("/otherPage/main")
+		public ModelAndView ohterPageMain(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/otherpage_main");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+			
+		//타인페이지 메인 활동내역 데이터
+		@RequestMapping("/myPage/main/searchOtherInfoAction")
+		@ResponseBody
+		public ModelAndView otherPageMain_searchOtherInfoAction(@RequestParam Map<String, Object> param){
+			ModelAndView mv = new ModelAndView("jsonView");
+			
+			String mbrSq = String.valueOf(param.get("mbrSq"));
+			System.out.println("param++++++"+mbrSq);
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
+			paramMap.put("workTypCd","");
+			
+			List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
+			int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myBoast = myPageService.myPageMain_myCommunitys(paramMap); //나의 자랑하기 조회
+			int myBoastTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 자랑하기 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "EXH"); //커뮤니티 구분 코드 전시후기로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myExhbn = myPageService.myPageMain_myCommunitys(paramMap); //나의 전시후기 조회
+			int myExhbnTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 전시후기 총 갯수 조회
+			
+			paramMap.put("comtTypCd", "ISS"); //커뮤니티 구분 코드 이슈로 변경
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
+			int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+			
+			//paramMap.put("limit", 3); //LIMIT 넣기
+			//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
+			//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+			
+			
+			mv.addObject("myWorks", myWorks);
+			mv.addObject("myWorksTotal", myWorksTotal);
+			mv.addObject("myBoast", myBoast);
+			mv.addObject("myBoastTotal", myBoastTotal);
+			mv.addObject("myExhbn", myExhbn);
+			mv.addObject("myExhbnTotal", myExhbnTotal);
+			mv.addObject("myIssue", myIssue);
+			mv.addObject("myIssueTotal", myIssueTotal);
+			
+			return mv;
+		}
+		
+		//타인페이지 나의 작품
+		@RequestMapping("/otherPage/workList")
+		public ModelAndView otherPageWorkList(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_myworks");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+		
+		//타인페이지 자랑하기
+		@RequestMapping("/otherPage/show_off")
+		public ModelAndView otherPageShowOff(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_showingoff");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+		
+		//타인페이지 전시후기/소개
+		@RequestMapping("/otherPage/exhint")
+		public ModelAndView otherPageExhint(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_exhint");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+		
+		//타인페이지 이슈
+		@RequestMapping("/otherPage/issue")
+		public ModelAndView otherPageIssue(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_issue");
+			mv.addObject("mbrSq", mbrSq);
+			return mv;
+		}
+		
+		//타인페이지 팔로잉
+		@RequestMapping("/otherPage/following")
+		public ModelAndView otherPageFollowing(@RequestParam(value="mbrSq", required=false) String mbrSq) {
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myPage_following");
+			mv.addObject("mbrSq", mbrSq);
 			return mv;
 		}
 

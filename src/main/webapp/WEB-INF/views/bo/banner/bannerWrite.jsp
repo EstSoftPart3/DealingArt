@@ -51,37 +51,36 @@ input[type="file"] {
 }
 
 .image-boxPc {
-	width: 30%;
-	height: 200px;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 	margin: 20px auto;
 	height: 200px;
+	width: 100%;
 }
 
 .image-boxM {
-	width: 30%;
-	height: 200px;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 	margin: 20px auto;
+	height: 200px;
+	width: 100%;
 }
 
 .image-boxPc2 {
-	width: 30%;
 	height: 200px;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 	margin: 20px auto;
 	height: 200px;
+	width: 100%;
 }
 
 .image-boxM2 {
-	width: 30%;
 	height: 200px;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 	margin: 20px auto;
+	width: 100%;
 }
 </style>
 
@@ -102,8 +101,7 @@ input[type="file"] {
 						<div class="card-header p-2"
 							style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
 							<ul class="nav nav-pills">
-								<li class="nav-item"><a class="sTitle" href="#"
-									data-toggle="tab"><b>배너목록</b></a></li>
+								<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>배너목록</b></a></li>
 							</ul>
 						</div>
 						<!-- 폼 -->
@@ -113,28 +111,27 @@ input[type="file"] {
 								<tbody>
 									<tr class="col-form-label sTitle LabelStyle">
 										<td class="col-sm-1" align="center">기간</td>
-										<td id="" class="col-sm-4 dataValue"><input
-											type="datetime-local" id="brWhen1"> ~ <input
-											type="datetime-local" id="brWhen2"></td>
+										<td id="" class="col-sm-4 dataValue">
+										<input type="date" id="bnnStrtDt"> ~ <input type="date" id="bnnEndDt"></td>
 									</tr>
 									<tr class="col-form-label sTitle LabelStyle">
 										<td class="col-sm-1" align="center">분류</td>
 										<td id="" class="col-sm-2 dataValue">
 											<div class="col-sm-5">
 												<div style="padding-left: 10px; float: left;">
-													<input type="radio" id="a1" name="bnrTypCd" value="MIH">
+													<input type="radio" id="a1" name="bnnDivCd" value="MIH">
 													<label for="a1" class="col-form-label sTitle">메인페이지 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
-													<input type="radio" id="a2" name="bnrTypCd" value="CMH">
+													<input type="radio" id="a2" name="bnnDivCd" value="CMH">
 													<label for="a2" class="col-form-label sTitle">커뮤니티 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
-													<input type="radio" id="a3" name="bnrTypCd" value="MGH">
+													<input type="radio" id="a3" name="bnnDivCd" value="MGH">
 													<label for="a3" class="col-form-label sTitle">Mgz9 홈</label>
 												</div>
 												<div style="padding-left: 10px; float: left;">
-													<input type="radio" id="a4" name="bnrTypCd" value="EVH">
+													<input type="radio" id="a4" name="bnnDivCd" value="EVH">
 													<label for="a4" class="col-form-label sTitle">이벤트 홈</label>
 												</div>
 											</div>
@@ -142,8 +139,9 @@ input[type="file"] {
 									</tr>
 									<tr class="col-form-label sTitle LabelStyle">
 										<td class="col-sm-1" align="center">제목</td>
-										<td id="" class="col-sm-2 dataValue"><input type="Text"
-											style="width: 50%" id="brTitle"></td>
+										<td id="" class="col-sm-2 dataValue">
+											<input type="Text" style="width: 50%" id="bnnTitle">
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -153,157 +151,110 @@ input[type="file"] {
 								<div class="card-header p-2"
 									style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
 									<ul class="nav nav-pills">
-										<li class="nav-item"><a class="sTitle" href="#"
-											data-toggle="tab"><b>빅 배너 설정</b></a></li>
+										<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>배너 설정</b></a></li>
 									</ul>
 								</div>
 
 								<div class="card-body" style="background-color: #ffffff;">
 
 									<div class="imgboxtest" style="min-height: 100px">
-										<!-- 매거진일 때 매거진 선택 -->
-										<div class="bannerNumber" style="height: 50px;"
-											id="mgzbannerlist">
-											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="1">
-												<label for="imgNumber" class="col-form-label sTitle">인사이트</label>
-											</div>
-											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="2">
-												<label for="imgNumber" class="col-form-label sTitle">미디어</label>
-											</div>
-											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mgzNum" value="3">
-												<label for="imgNumber" class="col-form-label sTitle">Exhibition</label>
-											</div>
-
-											<input type="hidden" id="imgNumCheck" name="sendimg" value="">
-										</div>
 										<!-- 메인일 때 -->
-										<div class="bannerNumber" style="height: 50px;"
-											id="mainbannerlist">
+										<div class="bannerNumber" style="height: 50px;" id="mainbannerlist">
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="1">
-												<label for="imgNumber" class="col-form-label sTitle">배너
-													1번</label>
+												<input type="radio" name="bnnShowSq" value="1">
+												<label for="imgNumber" class="col-form-label mTitle">배너 1번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="2">
-												<label for="imgNumber" class="col-form-label sTitle">배너
-													2번</label>
+												<input type="radio" name="bnnShowSq" value="2">
+												<label for="imgNumber" class="col-form-label mTitle">배너 2번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="3">
-												<label for="imgNumber" class="col-form-label sTitle">배너
-													3번</label>
+												<input type="radio" name="bnnShowSq" value="3">
+												<label for="imgNumber" class="col-form-label mTitle">배너 3번</label>
 											</div>
 											<div style="padding-left: 10px; float: left;">
-												<input type="radio" id="imgNumber" name="mainNum" value="4">
-												<label for="imgNumber" class="col-form-label sTitle">배너
-													4번</label>
+												<input type="radio" name="bnnShowSq" value="4">
+												<label for="imgNumber" class="col-form-label mTitle">배너 4번</label>
 											</div>
-											<input type="hidden" id="imgNumCheck" name="sendimg" value="">
 										</div>
-										<div class="imgboxtest1"
-											style="width: 40%; display: inline-block; min-height: 50px;">
-											<label class="col-form-label sTitle LabelStyle"
-												style="text-align: center;">상단배너PC</label>
+										
+										<div class="imgboxtest1" style="width: 45%; display: inline-block; min-height: 50px;">
+											<label class="col-form-label" style="text-align: center;">메인 배너 (PC)</label>
 											<div class="flex-container">
 
 												<div class="wrapper">
-													<img
-														src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
-														class="image-boxPc" id="image-boxPc" /> <label
-														for="brMnPcimgUrl" class="btn btn-info sTitle">
-														<input id="brMnPcimgUrl" type="file" accept="image/*" />
+													<img src="/resources/img/icon/pic.png" class="image-boxPc" id="image-boxPc" />
+													<label for="bnnMpImgUrl" class="btn btn-info sTitle">
+														<input id="bnnMpImgUrl" type="file" accept="image/*" />
 														<span>등록</span>
 													</label>
 												</div>
-
 											</div>
 										</div>
-									</div>
-
-									<div class="imgboxtest2"
-										style="width: 40%; display: inline-block; min-height: 50px;">
-										<label class="col-form-label sTitle LabelStyle"
-											style="text-align: center;">상단배너MOBLE</label>
-
-										<div class="flex-container">
-											<div class="wrapper">
-												<img
-													src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
-													class="image-boxM" id="image-boxM"> <label
-													for="brMnMimgUrl" class="btn btn-info sTitle"> <input
-													id="brMnMimgUrl" type="file" accept="image/*" /> <span>등록</span>
-												</label>
+										<div class="imgboxtest2" style="width: 45%; display: inline-block; min-height: 50px;">
+											<label class="col-form-label" style="text-align: center;">메인 배너 (MOBILE)</label>
+	
+											<div class="flex-container">
+												<div class="wrapper">
+													<img src="/resources/img/icon/pic.png" class="image-boxM" id="image-boxM"> 
+													<label for="bnnMmImgUrl" class="btn btn-info sTitle"> 
+														<input id="bnnMmImgUrl" type="file" accept="image/*"/>
+														<span>등록</span>
+													</label>
+												</div>
 											</div>
-
-
 										</div>
 										<div>
-											<label class="col-form-label sTitle LabelStyle"
-												style="text-align: center;">랜딩페이지URL</label> <input
-												name="bannerUrl" id="brMnRUrl" type="text"
-												style="width: 300px;">
+											<label class="col-form-label" style="text-align: center;">메인 배너 랜딩 페이지 URL</label>
+											<input type="text" id="bnnMLndUrl" style="width:50%;">
 										</div>
 									</div>
 								</div>
+								
 								<!-- 이벤트 배너 커뮤니티/매거진일때만 -->
 								<div id="subimg" style="display: none;">
-									<div class="card-header p-2"
-										style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
+									<div class="card-header p-2" style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
 										<ul class="nav nav-pills">
-											<li class="nav-item"><a class="sTitle" href="#"
-												data-toggle="tab"><b>컨텐츠 배너 설정</b></a></li>
+											<li class="nav-item"><a class="sTitle" href="#" data-toggle="tab"><b>이벤트 배너 설정</b></a></li>
 										</ul>
 									</div>
 									<div class="card-body" style="background-color: #ffffff;">
 
 										<div class="imgboxtest" style="min-height: 100px">
-											<div class="imgboxtest1"
-												style="width: 40%; display: inline-block; min-height: 50px;">
-												<label class="col-form-label sTitle LabelStyle"
-													style="text-align: center;">상단배너PC</label>
+											<div class="imgboxtest1" style="width: 45%; display: inline-block; min-height: 50px;">
+												<label class="col-form-label" style="text-align: center;">이벤트 배너 (PC)</label>
 												<div class="flex-container">
 
 													<div class="wrapper">
-														<img
-															src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
-															class="image-boxPc2" id="image-boxPc2" /> <label
-															for="brSubPcimgUrl" class="btn btn-info sTitle">
-															<input id="brSubPcimgUrl" type="file" accept="image/*" />
+														<img src="/resources/img/icon/pic.png" class="image-boxPc2" id="image-boxPc2" /> 
+														<label for="bnnEpImgUrl" class="btn btn-info sTitle">
+															<input id="bnnEpImgUrl" type="file" accept="image/*"/>
 															<span>등록</span>
 														</label>
 													</div>
 
 												</div>
 											</div>
-										</div>
-
-										<div class="imgboxtest2"
-											style="width: 40%; display: inline-block; min-height: 50px;">
-											<label class="col-form-label sTitle LabelStyle"
-												style="text-align: center;">상단배너MOBLE</label>
-
-											<div class="flex-container">
-												<div class="wrapper">
-													<img
-														src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
-														class="image-boxM2" id="image-boxM2"> <label
-														for="brSubMimgUrl" class="btn btn-info sTitle"> <input
-														id="brSubMimgUrl" type="file" accept="image/*" /> <span>등록</span>
-													</label>
+											<div class="imgboxtest2" style="width: 45%; display: inline-block; min-height: 50px;">
+											<label class="col-form-label" style="text-align: center;">이벤트 배너 (MOBILE)</label>
+	
+												<div class="flex-container">
+													<div class="wrapper">
+														<img src="/resources/img/icon/pic.png" class="image-boxM2" id="image-boxM2"> 
+														<label for="bnnEmImgUrl" class="btn btn-info sTitle">
+															<input id="bnnEmImgUrl" type="file" accept="image/*"/> 
+															<span>등록</span>
+														</label>
+													</div>
+	
 												</div>
-
-
 											</div>
+											
 											<div>
-												<label class="col-form-label sTitle LabelStyle"
-													style="text-align: center;">랜딩페이지URL</label> <input
-													name="bannerUrl" id="brSubRUrl" type="text"
-													style="width: 300px;">
+												<label class="col-form-label" style="text-align: center;">이벤트 배너 랜딩 페이지 URL</label>
+												<input name="bnnELndUrl" id="bnnELndUrl" type="text" style="width:50%;">
 											</div>
+												
 										</div>
 									</div>
 								</div>
@@ -361,7 +312,7 @@ input[type="file"] {
 								style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
 								<ul class="nav nav-pills">
 									<li class="nav-item"><a class="sTitle" href="#"
-										data-toggle="tab"><b>프로모션 영역 풀력 이벤트 설정</b></a></li>
+										data-toggle="tab"><b>프로모션 영역 출력 설정</b></a></li>
 								</ul>
 							</div>
 
@@ -375,29 +326,42 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">회원들의 작품 자랑하기</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a1" name="setList1" class=""
-															value="최신순"><label for="a1"
-															class="col-form-label sTitle">최신순</label>
+														<select id="MIH1_DIV_CD">
+															<option value="">-선택-</option>												    
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a2" name="setList1" class=""
-															value="랜덤"> <label for="a2"
-															class="col-form-label sTitle">랜덤</label>
+														<select id="MIH1_TYP_CD">
+															<option value="">-선택-</option>												    
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
 											<tr class="col-form-label sTitle LabelStyle">
-												<td class="col-sm-1" align="center">지금거래중인 작품</td>
+												<td class="col-sm-1" align="center">지금 거래중인 작품</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="setList2" class=""
-															value="최신순"> <label for="a3"
-															class="col-form-label sTitle">최신순</label>
+														<select id="MIH2_DIV_CD">
+															<option value="">-선택-</option>												    
+														    <option value="REG">등록일</option>
+														    <option value="CLO">마감일</option>
+														    <option value="PRC">가격</option>
+														    <option value="BID">응찰수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="setList2" class=""
-															value="랜덤"> <label for="a4"
-															class="col-form-label sTitle">랜덤</label>
+														<select id="MIH2_TYP_CD">
+															<option value="">-선택-</option>											    
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -405,14 +369,17 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">매거진 9</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="setList3" class=""
-															value="최신순"> <label for="a3"
-															class="col-form-label sTitle">최신순</label>
+														<select id="MIH3_DIV_CD">
+															<option value="">-선택-</option>										    
+														    <option value="REG">등록일</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="setList3" class=""
-															value="랜덤"> <label for="a4"
-															class="col-form-label sTitle">랜덤</label>
+														<select id="MIH3_TYP_CD">
+															<option value="">-선택-</option>								    
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -421,43 +388,50 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">인기회원</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="setList4" class=""
-															value="팔로잉누적순"> <label for="a3"
-															class="col-form-label sTitle">팔로잉 누적순</label>
+														<select id="MIH4_DIV_CD">
+															<option value="">-선택-</option>									    
+														    <option value="FLO">팔로잉</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="setList4" class=""
-															value="랜덤"> <label for="a4"
-															class="col-form-label sTitle">랜덤</label>
+														<select id="MIH4_TYP_CD">
+															<option value="">-선택-</option>									    
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
-
 												</td>
 											</tr>
 											<tr class="col-form-label sTitle LabelStyle">
 												<td class="col-sm-1" align="center">전시 후기/소개</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="setList5" class=""
-															value="좋아요누적순"> <label for="a3"
-															class="col-form-label sTitle">좋아요 누적순</label>
+														<select id="MIH5_DIV_CD">
+															<option value="">-선택-</option>								    
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="setList5" class=""
-															value="조회수누적순"> <label for="a4"
-															class="col-form-label sTitle">조회수 누적순</label>
+														<select id="MIH5_TYP_CD">
+															<option value="">-선택-</option>									    
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
-													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="setList5" class=""
-															value="댓글누적순"> <label for="a4"
-															class="col-form-label sTitle">댓글 누적순</label>
-													</div>
-
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<!-- 이벤트 -->
+								<!-- 커뮤니티홈 -->
 								<div id="commulist" style="display: none">
 									<table class="table table-bordered">
 										<tbody>
@@ -465,16 +439,21 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">이주의 인기 작품 자랑</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a1" name="test1" class="" value=""><label
-															for="a1" class="col-form-label sTitle">좋아요 누적순</label>
+														<select id="CMH1_DIV_CD">
+															<option value="">-선택-</option>								    
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a1" name="test1" class="" value=""><label
-															for="a1" class="col-form-label sTitle">조회수 누적순</label>
-													</div>
-													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a2" name="test1" class="" value="">
-														<label for="a2" class="col-form-label sTitle">랜덤</label>
+														<select id="CMH1_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -482,18 +461,21 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">자랑하기 고수</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test2" class="" value="">
-														<label for="a3" class="col-form-label sTitle">좋아요
-															누적순</label>
+														<select id="CMH2_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test2" class="" value="">
-														<label for="a3" class="col-form-label sTitle">조회수
-															누적순</label>
-													</div>
-													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="test2" class="" value="">
-														<label for="a4" class="col-form-label sTitle">랜덤</label>
+														<select id="CMH2_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -501,12 +483,21 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">전기 후기/소개</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test3" class="" value="">
-														<label for="a3" class="col-form-label sTitle">조회수누적순</label>
+														<select id="CMH3_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="test3" class="" value="">
-														<label for="a4" class="col-form-label sTitle">랜덤</label>
+														<select id="CMH3_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -515,13 +506,21 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">이슈</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test4" class="" value="">
-														<label for="a3" class="col-form-label sTitle">조회수
-															누적순</label>
+														<select id="CMH4_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														    <option value="VIW">조회수</option>
+														    <option value="LIK">좋아요수</option>
+														    <option value="SCP">스크랩수</option>
+														    <option value="CMT">댓글수</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="test4" class="" value="">
-														<label for="a4" class="col-form-label sTitle">랜덤</label>
+														<select id="CMH4_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -536,16 +535,17 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">인기 인사이트</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a1" name="test1" class="" value=""><label
-															for="a1" class="col-form-label sTitle">좋아요 누적순</label>
+														<select id="MGH1_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a1" name="test1" class="" value=""><label
-															for="a1" class="col-form-label sTitle">조회수 누적순</label>
-													</div>
-													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a2" name="test1" class="" value="">
-														<label for="a2" class="col-form-label sTitle">랜덤</label>
+														<select id="MGH1_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -553,12 +553,17 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">새로운 아티스트 영상</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test2" class="" value="">
-														<label for="a3" class="col-form-label sTitle">최신순</label>
+														<select id="MGH2_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="test2" class="" value="">
-														<label for="a4" class="col-form-label sTitle">랜덤</label>
+														<select id="MGH2_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -566,12 +571,17 @@ input[type="file"] {
 												<td class="col-sm-1" align="center">아티스트 업데이트</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a3" name="test3" class="" value="">
-														<label for="a3" class="col-form-label sTitle">최신순</label>
+														<select id="MGH3_DIV_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="REG">등록일</option>
+														</select>
 													</div>
 													<div style="padding-left: 10px; float: left;">
-														<input type="radio" id="a4" name="test3" class="" value="">
-														<label for="a4" class="col-form-label sTitle">랜덤</label>
+														<select id="MGH3_TYP_CD">												    
+														    <option value="">-선택-</option>
+														    <option value="ASC">오름차순</option>
+														    <option value="DES">내림차순</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -580,7 +590,7 @@ input[type="file"] {
 
 								</div>
 								<!-- 이벤트프로모션 -->
-								<div id="eventlist" style="display: none">
+								<!-- <div id="eventlist" style="display: none">
 									<table class="table table-bordered">
 										<tbody>
 											<tr class="col-form-label sTitle LabelStyle">
@@ -597,17 +607,15 @@ input[type="file"] {
 
 										</tbody>
 									</table>
-								</div>
+								</div> -->
 
 							</div>
 							<div class="card-body"
 								style="background-color: #ffffff; text-align: center;">
-								<button type="button" class="btn btn-info sTitle"
-									onClick="submitCheck();">저장</button>
-								<button type="button" class="btn btn-info sTitle">수정</button>
-								<button type="button" class="btn btn-info sTitle">삭제</button>
-								<button type="button" class="btn btn-info sTitle"
-									onClick="openPopup();" value="Send Value">미리보기</button>
+								<button type="button" class="btn btn-info sTitle" onClick="bannerInsert();">저장</button>
+<!-- 								<button type="button" class="btn btn-info sTitle">수정</button>
+								<button type="button" class="btn btn-info sTitle">삭제</button> -->
+								<button type="button" class="btn btn-info sTitle" onClick="openPopup();" value="Send Value">미리보기</button>
 
 							</div>
 						</form>
@@ -619,10 +627,11 @@ input[type="file"] {
 
 	<%@ include file="/WEB-INF/views/boInclude/include_bottom.jspf"%>
 	<script>
-	
+	var bnnDivCd = "";
 	//탭메뉴 변경 (따로 보여줘야 하는게 많음음)
-	$('input[type=radio][name=bnrTypCd]').change(function() {
+	$('input[type=radio][name=bnnDivCd]').change(function() {
 		if (this.value == 'MIH') { //메인홈으로 보낼 때 
+			bnnDivCd = "MIH";
 			$("#mainimg").css("display", "block");
 			$("#mainbannerlist").css("display", "block");//메인배너 선택
 			$("#subimg").css("display", "none");//서브배너
@@ -632,8 +641,9 @@ input[type="file"] {
 			$("#commulist").css("display", "none");//이벤트프로모션
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
-			$('#brWhen1').val('');
+			$('#bnnStrtDt').val('');
 		} else if (this.value == 'CMH') {
+			bnnDivCd = "CMH";
 			$("#mainimg").css("display", "block");
 			$("#mainbannerlist").css("display", "none");//메인배너 선택
 			$("#subimg").css("display", "block");//서브이미지
@@ -644,6 +654,7 @@ input[type="file"] {
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
 		} else if (this.value == 'MGH') {
+			tabTypeCd = "MGH";
 			$("#mainimg").css("display", "block");
 			$("#mainbannerlist").css("display", "none");//메인배너 선택
 			$("#subimg").css("display", "block");//서브이미지
@@ -654,6 +665,7 @@ input[type="file"] {
 			$("#mgzlist").css("display", "block");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
 		} else if (this.value == 'EVH') {
+			bnnDivCd = "EVH";
 			$("#mainimg").css("display", "block");
 			$("#mainbannerlist").css("display", "none");//메인배너 선택
 			$("#subimg").css("display", "none");//서브이미지
@@ -666,25 +678,20 @@ input[type="file"] {
 		}
 
 	});
-
-	</script>
-
-
-	<script>
-
+	
 	var filePc = document.getElementById(".image-boxPc");
 	var fileM = document.getElementById(".image-boxM");//바꿀때 src 리셋해줘야함
 	
 	
 // 	이미지 미리보기
-	const fileDOM = document.querySelector('#brMnPcimgUrl');
+	const fileDOM = document.querySelector('#bnnMpImgUrl');
 	const previews = document.querySelectorAll('.image-boxPc');	
-	const fileDOM2 = document.querySelector('#brMnMimgUrl');
+	const fileDOM2 = document.querySelector('#bnnMmImgUrl');
 	const previews2 = document.querySelectorAll('.image-boxM');
 	
-	const fileDOM3 = document.querySelector('#brSubPcimgUrl');
+	const fileDOM3 = document.querySelector('#bnnEpImgUrl');
 	const previews3 = document.querySelectorAll('.image-boxPc2');	
-	const fileDOM4 = document.querySelector('#brSubMimgUrl');
+	const fileDOM4 = document.querySelector('#bnnEmImgUrl');
 	const previews4 = document.querySelectorAll('.image-boxM2');
 
 // 메인 PC미리보기
@@ -723,38 +730,8 @@ input[type="file"] {
 		  reader.readAsDataURL(fileDOM4.files[0]);
 	});
 	
-	</script>
-
-	<script>
-	
-	//메인배너 순서 
-	$('input[type=radio][name=mainNum]').change(function() {
-		if (this.value == '1') { 
-			$("input[name='sendimg']").attr('value', '1')
-		}else if(this.value == '2'){
-			$("input[name='sendimg']").attr('value', '2')
-		}else if(this.value == '3'){
-			$("input[name='sendimg']").attr('value', '3')
-		}else{
-			$("input[name='sendimg']").attr('value', '4')
-		}
-	});
 	
 	
-	//매거진 배너 선택
-	$('input[type=radio][name=mgzNum]').change(function() {
-		if (this.value == '1') { 
-			$("input[name='sendimg']").attr('value', 'insights')
-		}else if(this.value == '2'){
-			$("input[name='sendimg']").attr('value', 'media')
-		}else {
-			$("input[name='sendimg']").attr('value', 'exhibition')
-		}
-	});
-	
-	
-	
-
 //미리보기 팝업
  function openPopup(){
 
@@ -773,94 +750,250 @@ input[type="file"] {
 	}
 
 //벨리데이션 체크
- function submitCheck() {
-	debugger;
-	var bnrTypCdValChk = $("input[name='bnrTypCd']:checked").val();
+ function insertCheck() {
 	
- 	if($("#brWhen1").val() == ""){
+ 	if($("#bnnStrtDt").val() == "" || $("#bnnStrtDt").val() == null){
  		alert("배너 시작일을 선택해 주세요.");
- 		$("#brWhen1").focus();
+ 		$("#bnnStrtDt").focus();
  		return false;
  	}
- 	if($("#brWhen2").val() == ""){
+ 	if($("#bnnEndDt").val() == "" || $("#bnnEndDt").val() == null){
  		alert("배너 종료일을 선택해 주세요.");
- 		$("#brWhen2").focus();
+ 		$("#bnnEndDt").focus();
  		return false;
  	}
- 	if(bnrTypCdValChk == undefined || null){
+ 	if(bnnDivCd == "" || bnnDivCd == null){
  		alert("분류 항목을 선택해 주세요.");
- 		$("input[name='bnrTypCd']:checked").focus();
+ 		$("input[name='bnnDivCd']").focus();
  		return false;
  	}
- 	if($("#brTitle").val() == ""){
+ 	if($("#bnnTitle").val() == "" || $("#bnnTitle").val() == null){
  		alert("제목을 입력해 주세요.");
- 		$("#brTitle").focus();
+ 		$("#bnnTitle").focus();
  		return false;
  	}
- 	if($("#brTitle").val() == ""){
- 		alert("제목을 입력해 주세요.");
- 		$("#brTitle").focus();
- 		return false;
+ 	if(bnnDivCd == "MIH"){
+ 		if($('input[type=radio][name=bnnShowSq]:checked').val() == "" || $('input[type=radio][name=bnnShowSq]:checked').val() == null){
+ 			alert("배너 번호 순서를 선택해주세요.");
+ 			$("input[name=bnnShowSq]").focus();
+ 			return false;
+ 		}
+ 		if($("#bnnMpImgUrl").val() == '' || $("#bnnMpImgUrl").val() == null){
+ 	 		alert("메인 배너 (PC)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMmImgUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 (MOBILE)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMLndUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 랜딩 페이지 URL를 입력해주세요.");
+ 	 		return false;
+ 	 	}
+ 	}else{
+ 		if($("#bnnMpImgUrl").val() == '' || $("#bnnMpImgUrl").val() == null){
+ 	 		alert("메인 배너 (PC)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMmImgUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 (MOBILE)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMLndUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 랜딩 페이지 URL를 입력해주세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnEpImgUrl").val() == '' || $("#bnnEpImgUrl").val() == null){
+ 	 		alert("이벤트 배너 (PC)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnEmImgUrl").val() == '' || $("#bnnEmImgUrl").val() == null){
+ 	 		alert("이벤트 배너 (MOBILE)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnELndUrl").val() == '' || $("#bnnELndUrl").val() == null){
+ 	 		alert("이벤트 배너 랜딩 페이지 URL를 입력해주세요.");
+ 	 		return false;
+ 	 	}
  	}
- 	
- 	
- 	bannerInput();
+ 	return true;
  }
 	
 //폼전송     
- function bannerInput() {
+function bannerInsert() {
 	
-	 
-	 var params = {
-			
-			 brSq : $("#brSq").val(),
-			 brWhen1 : $("#brWhen1").val(),//시작일
-			 brWhen2 : $("#brWhen2").val(),//종료일	
-			 bnrTypCd : $("input[name='bnrTypCd']:checked").val(),//분류 코드 메인 MIH / 커뮤 CMH / 매거진 MGH / 이벤트 EVH
-			 brTitle : 	$("#brTitle").val(),//제목
-			 brMnPcimgUrl : document.getElementById("image-boxPc").src,//pc이미지
-			 brMnMimgUrl : document.getElementById("image-boxM").src,//moble이미지
-			 brMnRUrl : $("#brMnRUrl").val(),//랜딩Url주소
-			 brSubPcimgUrl : document.getElementById("image-boxPc2").src,//pc이미지
-			 brSubMimgUrl : document.getElementById("image-boxM2").src, //moble이미지
-			 brSubRUrl : $("#brSubRUrl").val(),//랜딩Url주소 
-							 					 	
-	};
-	 
-	 
-	 
-   	 $.ajax({
-        	type: "POST",
-    	 	url: "/admin/banner/bannerInsertData",
-         	data: params,
-         	dataType: "json"
- 	     }).done(function(data) {
- 	   	 	
- 	    	 if(data > 0){
- 	    		alert('저장이 완료되었습니다.');
- 	    	 }else{
- 	    		alert('저장이 정상적으로 완료되지 않았습니다.');    	
- 	    	 }
- 	    	 location.reload();
- 	    	 //window.location.replace("http://localhost/admin/banner/bannerList");
-	     }).fail(function(data) {
-	    	 
-	 });
-	}
-	
-		/* var brWhen1 = $("#brWhen1").val();//언제부터 
-		var brWhen2 = $("#brWhen2").val();//언제까지	
+	if(insertCheck()){
+		var formData = new FormData();
+		
+ 		var bnnData = {
+				bnnDivCd : bnnDivCd
+				, bnnStrtDt : $("#bnnStrtDt").val()
+				, bnnEndDt : $("#bnnEndDt").val()
+				, bnnTitle : $("#bnnTitle").val()
+				, bnnMLndUrl : $("#bnnMLndUrl").val()
+				, bnnELndUrl : $("#bnnELndUrl").val()
+		};
+	 	
+	 	switch (bnnDivCd){
+	 		case "MIH" :
+	 			bnnData.bnnShowSq = $('input[type=radio][name=bnnShowSq]:checked').val();
 				
-		var bnrTypCd = $("input[name='bnrTypCd']:checked").val();//분류 코드 메인 MIH / 커뮤 CMH / 매거진 MGH / 이벤트 EVH
-		var brTitle = $("#brTitle").val();//제목
-		
-		var brMainPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
-		var brMainMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
-		var brMainRUrl = $("#brMainRUrl").val();//랜딩Url주소
-		
-		var brSubPcimgUrl  = document.getElementById("image-boxPc2").src;//pc이미지
-		var brSubMimgUrl  = document.getElementById("image-boxM2").src; //moble이미지
-		var brSubRUrl = $("#brSubRUrl").val();//랜딩Url주소 		 */
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var promoData = [{
+					"promoSq" : "1"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "회원들의 작품 자랑하기"
+					, "promoOdDivCd" : $("#MIH1_DIV_CD").val()
+					, "promoOdTypCd" : $("#MIH1_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "2"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "지금 거래중인 작품"
+					, "promoOdDivCd" : $("#MIH2_DIV_CD").val()
+					, "promoOdTypCd" : $("#MIH2_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "3"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "매거진9"
+					, "promoOdDivCd" : $("#MIH3_DIV_CD").val()
+					, "promoOdTypCd" : $("#MIH3_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "4"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "인기회원"
+					, "promoOdDivCd" : $("#MIH4_DIV_CD").val()
+					, "promoOdTypCd" : $("#MIH4_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "5"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "전시소개/후기"
+					, "promoOdDivCd" : $("#MIH5_DIV_CD").val()
+					, "promoOdTypCd" : $("#MIH5_TYP_CD").val()
+				}];
+		 		formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+				break;
+				
+	 		case "CMH" :
+	 			bnnData.bnnShowSq = "1";
+				
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var bnnEpImgUrl = document.getElementById("bnnEpImgUrl");
+				formData.append("bnnEpImgUrl", bnnEpImgUrl.files[0]);
+				
+				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
+				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
+				
+				var promoData = [{
+					"promoSq" : "6"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "이주의 인기 작품 자랑"
+					, "promoOdDivCd" : $("#CMH1_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH1_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "7"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "자랑하기 고수"
+					, "promoOdDivCd" : $("#CMH2_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH2_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "8"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "전시 후기/소개"
+					, "promoOdDivCd" : $("#CMH3_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH3_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "9"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "이슈"
+					, "promoOdDivCd" : $("#CMH4_DIV_CD").val()
+					, "promoOdTypCd" : $("#CMH4_TYP_CD").val()
+				}];
+		 		formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+	 			break;
+	 		case "MGH" :
+				bnnData.bnnShowSq = "1";
+				
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var bnnEpImgUrl = document.getElementById("bnnEpImgUrl");
+				formData.append("bnnEpImgUrl", bnnEpImgUrl.files[0]);
+				
+				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
+				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
+				
+				var promoData = [{
+					"promoSq" : "10"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "인기 인사이트"
+					, "promoOdDivCd" : $("#MGH1_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH1_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "11"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "새로운 아티스트 영상"
+					, "promoOdDivCd" : $("#MGH2_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH2_TYP_CD").val()
+				}
+		 		,{
+					"promoSq" : "12"
+					, "bnnDivCd" : bnnDivCd
+					, "promoNm" : "아티스트 업데이트"
+					, "promoOdDivCd" : $("#MGH3_DIV_CD").val()
+					, "promoOdTypCd" : $("#MGH3_TYP_CD").val()
+				}];
+		 		formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+	 			break;
+	 		case "EVH" :
+	 			break;
+	 	} 
+		$.ajax({
+	        type: "post",
+	        url: "/admin/banner/bannerInsertData",
+	        data: formData,
+	        contentType : false,
+	        processData : false,
+	        success: function(data) {
+	        	debugger;
+	        	
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+}
+	
+	 
+	 
+	
+	 
+
+	 
 		
 		
      

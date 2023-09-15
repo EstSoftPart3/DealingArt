@@ -64,6 +64,16 @@
 	  'https://connect.facebook.net/en_US/fbevents.js');
 	  fbq('init', '5995234030505207');
 	  fbq('track', 'PageView');
+	  
+	  //브라우저 체크
+	  function mgzMobileBrowserChk4(){
+			 if(!isMobile){
+				 window.location.href = "/mgz9/magazine9_main";
+			 }else{
+				 window.location.href = "/mgz9/magazine9_mainMobile";
+			 }
+			 
+	  	 }
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=5995234030505207&ev=PageView&noscript=1"/></noscript>
     
@@ -76,6 +86,7 @@
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     
 </head>
 
@@ -85,21 +96,35 @@
 		<div class="body-wrap coll-mobile">
 			<input type="hidden" id="pageStart">
 			<div class="contents">
-				<div class="mgz-wrap">
-					<div class="mgz-top mgz-bg-2">
+				<!-- <div class="mgz-wrap"> -->
+				<div class="magazine9_wrap">
+					<!-- <div class="mgz-top mgz-bg-2">
 						<div class="mgz-title">
 							<img src="/resources/img/mgz/title.png" />
 							<div class="mgz-text"><span>영상으로 만나는 Art, A rtist 그리고 Story</span></div>
 						</div>
-					</div>
-					<div class="mgz-body max-1500">
-						<div class="mgz-link">
+					</div> -->
+					<div id="nav">
+		                <ul>
+		                 <li><a onclick="mgzMobileBrowserChk4();" href="#" class="over">홈</a></li>
+		                    <li><a href="/mgz9/insights">인사이트</a></li>
+		                    <li><a href="/mgz9/exhibition">전시</a></li>
+		                    <li><a href="/mgz9/media">아티스트 필름</a></li>	                    
+		                    <li><a href="/mgz9/artist">아티스트</a></li>
+		                </ul>
+		            </div> 
+	            <div class="magazine9_visual_wrap">
+	                <img src="/resources/img/img_new/magazine9_visual.jpg" alt="">
+	            </div>  
+					<!-- <div class="mgz-body max-1500"> -->
+					<div class="popular_insight_wrap">
+						<!-- <div class="mgz-link">
 							<ul class="mgz-ul">
 								<li><a href="/mgz9/insights">Insights</a></li>
 								<li class="active"><a href="/mgz9/media">Artist Film</a></li>
 								<li><a href="/mgz9/exhibition">Exhibition</a></li>
 							</ul>
-						</div>
+						</div> -->
 						
 						<ul class="mgz-list" id="mgz9List"></ul>
 						

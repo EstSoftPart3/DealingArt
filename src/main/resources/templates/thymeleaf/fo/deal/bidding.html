@@ -288,9 +288,11 @@
 								</li>
 							</ul>
 							<div class="bat-box">
-								<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"
-									onclick="btn_purchaseOrBid_onclick()">
+								<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()">
 									<span>응찰하기</span>
+								</button>
+								<button type="button" class="ba-btn2" id="btn_prorosal" onclick="openModal('workSuggestModal');">
+									<span>제안하기</span>
 								</button>
 								<!--
 								<button type="button" class="ba-btn2"
@@ -1060,6 +1062,80 @@
 
 					</div>
 					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade modal-s" id="workSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workSuggestLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>제안 유형을 선택해 주세요.</h2>
+				    <div class="close" onclick="closeModal('workSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="text-center mg_b40">
+						<input type="radio" id="w1" name="suggest" value="price" checked>
+						<label for="w1"><span></span>가격 제안</label>
+						<input type="radio" id="w2" name="suggest" value="picture">
+						<label for="w2" class="mg_l20"><span></span>상세 사진 요청</label>
+					</div>
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="openSuggestModal();">확인</button>
+						<button type="button" class="baeg-b2" onclick="closeModal('workSuggestModal');">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="workPriceSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workPriceSuggestLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>해당 작품의 판매 가격을 제안해 주세요.</h2>
+				    <div class="close" onclick="closeModal('workPriceSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="text-center mg_b40">
+						<input type="text" class="input-1" id="sgtPrc" placeholder="제안금액 (KRW)" onblur="dealStrtPrcCal(this)"/>
+					</div>
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="comtRequest('PRC');">확인</button>
+						<button type="button" class="baeg-b2" onclick="closeModal('workPriceSuggestModal');">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="RequestPictureModal" tabindex="-1" role="dialog" aria-labelledby="RequestPictureLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>해당 작품의 상세 사진을 요청해 주세요.</h2>
+				    <div class="close" onclick="closeModal('RequestPictureModal');"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="text-center mg_b40">
+						<input type="text" class="input-1" id="reqPic" placeholder="원하시는 작품의 사진 구도를 적어주세요 (100자 이내, 공백포함)" maxlength="100" style="font-size:15px;"/>
+					</div>
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="comtRequest('PIC');">확인</button>
+						<button type="button" class="baeg-b2" onclick="closeModal('RequestPictureModal');">취소</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1840,7 +1916,104 @@ function changepic2(){
   bigPic2.setAttribute("src", smallPic2Attribute);
 }
 /* 0702 끝 */
- 
+
+//요청하기 모달 확인 버튼 이벤트
+function openSuggestModal() {
+	var val = $("input[name=suggest]:checked").val();
+
+	if(val == "price") {
+		closeModal("workSuggestModal");
+		openModal("workPriceSuggestModal");
+	} else if(val == "picture") {
+		closeModal("workSuggestModal");
+		openModal("RequestPictureModal");
+	}
+}
+
+//10,000원 단위로 입력
+function dealStrtPrcCal(obj){
+	if(obj.value != null && obj.value != ""){
+		obj.value = obj.value.replaceAll(/,/g,'');          // ,값 공백처리
+		obj.value = parseInt(obj.value);
+		var n = obj.value % 10000;
+		if(n != 0 || obj.value == 0){
+			alert("10,000원 단위로만 입력가능합니다.");
+			obj.value = '';
+			//$("#dealStrtPrcA").text("");
+		}else{
+			//var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
+			//var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+			//$("#dealStrtPrcA").text(val2+" KRW");
+			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	}
+}
+
+// 판매 제안하기
+function comtRequest(notiCatCd) {
+	$("#ModalConfirm").css("z-index", 99999);
+		$("#ModalAlert").css("z-index", 100000);
+	
+	var param = {
+		mbrSq: result.deal.sellMbrSq,
+		workSq: result.deal.workSq,
+		artstSq: result.deal.artstSq,
+		notiTypCd: "GEN",
+		notiCatCd: notiCatCd,
+		questionMbrSq: sMbrSqVal
+	};
+
+	var msg = "";
+	
+	switch(notiCatCd) {
+	case "SEL": // 판매 제안
+		msg = "판매 제안";
+		closeModal();
+		break;
+	case "PRC": // 가격 협상(제안)
+		closeModal('workPriceSuggestModal');
+		msg = "가격 제안";
+		param["dealSq"] = result.deal.dealSq;
+		param["questionContent"] = $("#sgtPrc").val();
+		break;
+	case "PIC": // 상세 사진 요청
+		closeModal('RequestPictureModal');
+		msg = "상세 사진 요청";
+		param["dealSq"] = result.deal.dealSq;
+		param["questionContent"] = $("#reqPic").val();
+		break;
+	}
+	
+	if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
+		alert("가격을 입력해주세요.");
+		return;
+	}
+	
+	if(notiCatCd == "PIC" && !$("#reqPic").val()) {
+		alert("내용을 입력해주세요.");
+		return;
+	}
+	if(confirm(msg + "하시겠습니까?")){
+		$.ajax({
+			type: "post",
+			url: "/community/insertComtRequest",
+			data: param,
+			success: function(data) {
+				if(data.result > 0) {
+    				alert(msg+ "이 완료되었습니다.");
+				}
+			},
+			error: function(data) {
+				alert("오류가 발생했습니다.");
+			}
+		});
+	}else{
+		return false;
+	}
+}
+function btn_offerPrc_onclick(){
+	$("#workPriceSuggestModal").modal();
+}
 </script>
 
 <!-- 네이버 광고 로그분석 추적 코드 -->

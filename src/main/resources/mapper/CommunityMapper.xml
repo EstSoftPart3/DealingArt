@@ -33,6 +33,7 @@
 				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
 				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
 				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
+				 <when test="ordCondition == 'REG_DT'">CM.REG_DT</when>
 			 </choose>
 		 </if>
 		 <!-- 정렬 기준 -->
@@ -49,15 +50,17 @@
 		/* 게시판 관리 상세 조건 조회 */
 		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
 					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
-					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'
-					
+					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'				
+					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
+					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
 			   END 											AS ordCondition,	-- 정렬 구분
 			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
 			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
 			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
 			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
 			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
-			   		WHEN COMT_TYP_CD IN ('EXH', 'KNO') THEN 4
+			   		WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
 			   END											AS limitNum			-- 조회 갯수
 		  FROM TBL_DA_COMT_MGMT_M
 		 WHERE COMT_TYP_CD = #{comtTypCd}
@@ -114,12 +117,9 @@
 			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt,
 			   IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) AS isEventEnd
 		  FROM TBL_DA_BNN_MGMT_M A
-		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
 		 WHERE A.BNN_DIV_CD = 'EVH'
 		   AND A.USE_YN = 'Y'
 		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
 		   <if test="type != null and type != ''">
 		       <choose>
 		           <when test="type == 0">AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 0</when>
@@ -142,13 +142,10 @@
 			   A.BNN_E_LND_URL AS bnnELndUrl,
 			   DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt,
 			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt
-		  FROM TBL_DA_BNN_MGMT_M A
-		  	   LEFT JOIN TBL_DA_PROMO_MGMT_S B ON A.BNN_SQ = B.BNN_SQ
+		  FROM TBL_DA_BNN_MGMT_M A		  	 
 		 WHERE A.BNN_DIV_CD = #{bnnDivCd}
 		   AND A.USE_YN = 'Y'
 		   AND A.DEL_YN = 'N'
-		   AND B.USE_YN = 'Y'
-		   AND B.DEL_YN = 'N'
 		   AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 1
 		 ORDER BY A.BNN_END_DT DESC
 		 LIMIT 1
@@ -174,7 +171,9 @@
 				TBL_DA_COMT_M AS COMT
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
-			ON COMT.MBR_SQ = MBR.MBR_SQ 
+			ON COMT.MBR_SQ = MBR.MBR_SQ
+		LEFT JOIN TBL_DA_WORK_M AS WORK
+			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -184,6 +183,9 @@
 		</if>
 		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
 			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
+		</if>
+		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
+			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
@@ -223,6 +225,8 @@
 		LEFT JOIN
 				TBL_DA_MBR_M AS MBR
 			ON COMT.MBR_SQ = MBR.MBR_SQ 
+		LEFT JOIN TBL_DA_WORK_M AS WORK
+			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
@@ -235,6 +239,9 @@
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
+		</if>
+		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
+			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="comSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
@@ -539,5 +546,35 @@
 		WHERE 
 				COMT_SQ  = #{comtSq}
 	</select>
-	
+	<insert id="insertComtRequest" parameterType="hashMap">
+	/*제안하기 등록*/
+		INSERT INTO 
+			TBL_DA_NOTI_M(
+				NOTI_TYP_CD
+				, NOTI_CAT_CD 
+				, WORK_SQ 
+				, ARTST_SQ 
+				, DEAL_SQ 
+				, QUESTION_CONTENT 
+				, QUESTION_MBR_SQ 
+				, MBR_SQ 
+				, REG_MBR_SQ 
+				, REG_DT 
+				, UPDT_MBR_SQ 
+				, UPDT_DT 
+			)VALUES(
+				#{notiTypCd}
+				, #{notiCatCd}
+				, #{workSq}
+				, #{artstSq}
+				, #{dealSq}
+				, #{questionContent}
+				, #{questionMbrSq}
+				, #{mbrSq}
+				, #{questionMbrSq}
+				, NOW()
+				, #{questionMbrSq}
+				, NOW()
+			)
+	</insert>
 </mapper>
