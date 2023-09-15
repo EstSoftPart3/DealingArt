@@ -142,6 +142,7 @@ public class MyPageController {
 		List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
 		int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
 		
+		
 		//paramMap.put("limit", 3); //LIMIT 넣기
 		//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
 		//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회

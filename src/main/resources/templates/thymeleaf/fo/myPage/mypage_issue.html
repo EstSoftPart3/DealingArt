@@ -109,7 +109,7 @@
                             <input type="text" id="search_input" placeholder="작품명이나 작가명으로 검색하세요.">
                             <button class="btn_mypage_search"></button>
                           </div>
-                          <button th:if="${#strings.isEmpty(mbrSq)}" lass="btn_mypage_recording">기록하기</button>
+                          <a th:if="${#strings.isEmpty(mbrSq)}" href="/myPage/issue_reg" ><button class="btn_mypage_recording">기록하기</button></a>
                     </div>
                     <div class="mypage_tap_wrap">
                         <ul class="tap">
@@ -120,26 +120,26 @@
                         </ul>
                     </div>                    
                     
-                            <div class="work-drp">
-								<div class="work-hov">
-									<ul>
-										<li><a href="#" class="wrh-1"><span>공개/비공개</span></a></li>
-										<li><a href="#" class="wrh-2"><span>작품정보수정</span></a></li>
-										<li><a href="#" class="wrh-3"><span>삭제</span></a></li>
-									</ul>
-								</div>
-							</div>
-							
-							<div class="work-drp-2 dp_n">
-								<div class="wd-box">
-									<span style="color:white" id="selectedCount">(0)</span>
-									<button type="button" class="wd-btns wdb-1">공개</button>
-									<button type="button" class="wd-btns wdb-1">비공개</button>
-									<button type="button" class="wd-btns wdb-2">판매정보수정</button>
-									<button type="button" class="wd-btns wdb-3">삭제</button>
-									<button type="button" class="wd-btns wdb-all">취소</button>
-								</div>
-							</div>
+                    <div class="work-drp">
+						<div class="work-hov">
+							<ul>
+								<li><a href="javascript:void(0);" class="wrh-1"><span>공개/비공개</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-2"><span>작품정보수정</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-3"><span>삭제</span></a></li>
+							</ul>
+						</div>
+					</div>
+						
+					<div class="work-drp-2 dp_n">
+						<div class="wd-box">
+							<span style="color:white" id="selectedCount">(0)</span>
+							<button type="button" class="wd-btns wdb-1">공개</button>
+							<button type="button" class="wd-btns wdb-1">비공개</button>
+							<button type="button" class="wd-btns wdb-2">판매정보수정</button>
+							<button type="button" class="wd-btns wdb-3">삭제</button>
+							<button type="button" class="wd-btns wdb-all">취소</button>
+						</div>
+					</div>
 							
                     <div class="mypage_exhint_contents_wrap mt30">
                         <div class="exhint_row">
@@ -205,12 +205,12 @@ var result = new Object();
 var nowPage = 0;
 var offset = 0;
 
-	var pageNextBtnCount = 0;
-   	var endPage = 0;
-   	var startPage = 0;
-   	var realEndPage = 0;
-   	var prev = false;
-   	var next = false;
+var pageNextBtnCount = 0;
+var endPage = 0;
+var startPage = 0;
+var realEndPage = 0;
+var prev = false;
+var next = false;
 
    	
 $("document").ready(function(){
@@ -319,7 +319,7 @@ function ShowList(data,callback){
 		setPagenation(data);
 	}else{
 		$(".mypage_exhint_contents_wrap").empty();
-		$(".pagination").empty();
+		$(".paginate").empty();
     		if(searchOptions.workTypCd === undefined && searchOptions.keyword === undefined){
     			if(!isMobile){
         			modalAlertShow("검색 결과가 없습니다.");

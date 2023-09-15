@@ -157,16 +157,36 @@
                             <input type="text" id="search_input" placeholder="작품명이나 작가명으로 검색하세요.">
                             <button class="btn_mypage_search"></button>
                           </div>
-                          <a href="/myPage/issue_reg"><button class="btn_mypage_recording">기록하기</button></a>
+                          <a th:if="${#strings.isEmpty(mbrSq)}" href="/myPage/issue_reg" ><button class="btn_mypage_recording">기록하기</button></a>
                     </div>
                     <div class="mypage_tap_wrap">
                         <ul class="tap">
-                            <li class="on bg_no">전체(99)</li>
+                           <li id="btn_nal1" class="on bg_no">전체(<span id="myTotal"></span>)</li>
                             <li class="bg_no"></li>
                             <li class="bg_no"></li>
-                            <li class="bg_no"><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
+                            <li th:if="${#strings.isEmpty(mbrSq)}" id="btn_nal4" class="bg_no" ><img src="/resources/img/img_new/ico_tap_setting.png" alt=""> 게시글 관리</li>
                         </ul>
-                    </div>                    
+                    </div>            
+                    <div class="work-drp">
+						<div class="work-hov">
+							<ul>
+								<li><a href="javascript:void(0);" class="wrh-1"><span>공개/비공개</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-2"><span>작품정보수정</span></a></li>
+								<li><a href="javascript:void(0);" class="wrh-3"><span>삭제</span></a></li>
+							</ul>
+						</div>
+					</div>
+						
+					<div class="work-drp-2 dp_n">
+						<div class="wd-box">
+							<span style="color:white" id="selectedCount">(0)</span>
+							<button type="button" class="wd-btns wdb-1">공개</button>
+							<button type="button" class="wd-btns wdb-1">비공개</button>
+							<button type="button" class="wd-btns wdb-2">판매정보수정</button>
+							<button type="button" class="wd-btns wdb-3">삭제</button>
+							<button type="button" class="wd-btns wdb-all">취소</button>
+						</div>
+					</div>        
                     <div class="mypage_exhint_contents_wrap mt30">
                         <div class="exhint_row">
                             <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint01.jpg" alt=""><div class="ico_num">1+</div></div>
@@ -200,310 +220,22 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint02.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint03.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint04.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint01.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint02.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint03.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint04.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint01.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="exhint_row">
-                            <div class="mypage_exhint_list_img"><img src="/resources/img/img_new/sample_exhint02.jpg" alt=""><div class="ico_num">1+</div></div>
-                            <div class="contents">
-                                <ul>
-                                    <li>
-                                        <div class="tit">
-                                            <em>희망을 주는 그림</em>                                                                
-                                        </div>
-                                    </li>
-                                    <li class="pt10 height_18_5rem"><p>요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.
-                                        요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요. 요즘 제가 가장 좋아하는 갤러리 맨션나인~ 날씨도 좋고 방배동으로 가 보려 구요.</p></li>
-                                    <li>
-                                        <div class="user_wrap">
-                                            <div class="user">
-                                                <ul>
-                                                    <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>
-                                                    <li class="user_name"><span>딜링아트</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="icon_box">
-                                                <ul>
-                                                    <li><p class="ico_good"></p><span>99</span></li>
-                                                    <li><p class="ico_scrap"></p><span>99</span></li>
-                                                    <li><p class="ico_hits"></p><span>99</span></li>
-                                                    <li><p class="ico_comments"></p><span>99</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>                                
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="pagination">
-                            <div class="paginate">                        
-                                <strong>1</strong>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">7</a>
-                                <a href="#">8</a>
-                                <a href="#" class="next ml10"></a>
-                                <a href="#" class="next_end ml5"></a>
-                            </div>
-                        </div>    
                     </div>
-              </div>
+                    <div class="pagination">
+                    	<div class="paginate">                        
+                        	<strong>1</strong>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">7</a>
+                            <a href="#">8</a>
+                            <a href="#" class="next ml10"></a>
+                            <a href="#" class="next_end ml5"></a>
+                     	</div>
+                	</div>    
+             	</div>
             </div>
         </div>
     </div>
@@ -584,20 +316,20 @@ function ShowList(data,callback){
 					html += '		</div>';
 	            	html += '   <ul>';
 					if(result[i].cmtOpenYn != "N"){
-						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+						html += '			<button type="button" class="workOpenYnBtn" style="display:none;"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
 					}else{
-						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+						html += '			<button type="button" class="workOpenYnBtn" style="display:none;"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
 					}
-	            	html += '   <a href="/community/exhibitDetail?SqNumber='+result[i].comtSq+'">';
+	            	html += '   	<a href="/community/exhibitDetail?SqNumber='+result[i].comtSq+'">';
 	            	html += '       <li>';
 	            	html += '           <div class="tit">'; 
 	            	html += '               <em>'+result[i].comtTitle+'</em>';                                                                
 	            	html += '           </div>';
 	            	html += '       </li>';
-	            	html += '       <li class="pt10 height_18_5rem"><p>'+result[i].cmtContent+'</p></li>';
-	            	html += '      </a>';
-	            	html += '      <li class="comt-row-info">';
-	            	html += '           <div class="user_wrap">';
+	            	html += '       <li class="pt10 height_18_5rem comt_content"><p>'+result[i].cmtContent+'</p></li>';
+	            	html += '      	</a>';
+	            	html += '      	<li class="comt-row-info">';
+	            	html += '       	<div class="user_wrap">';
 	            	html += '               <div class="user">';
 	            	html += '                   <ul>';
 	            	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
@@ -632,7 +364,7 @@ function ShowList(data,callback){
 		setPagenation(data);
 	}else{
 		$(".mypage_exhint_contents_wrap").empty();
-		$(".pagination").empty();
+		$(".paginate").empty();
     		if(searchOptions.workTypCd === undefined && searchOptions.keyword === undefined){
     			if(!isMobile){
         			modalAlertShow("검색 결과가 없습니다.");
@@ -683,7 +415,7 @@ function setContentText(content) {
 
 //화면 레이아웃 추가
 function masonryLayout(callback) {
- 	var msnry = new Masonry( '.exhint_row', {
+ 	/* var msnry = new Masonry( '.exhint_row', {
   		itemSelector: '.contents',
   	  	columnWidth: 360,
   	  	gutter: 10,
@@ -695,7 +427,7 @@ function masonryLayout(callback) {
 
 	imagesLoaded( '.exhint_row' ).on( 'progress', function() {
 		msnry.layout();
-	});
+	}); */
 	
 	if(callback == "wrh1"){
 		wrh1Callback();
@@ -708,4 +440,5 @@ function masonryLayout(callback) {
 	}
 }
 </script>
+<script type="text/javascript" src="/resources/js/mypage_commu_common.js"></script>
 </html>

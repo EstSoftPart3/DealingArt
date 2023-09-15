@@ -6555,7 +6555,7 @@ p.dib{display:inline-block !important;}
 .work-drp .work-div span{ font-size: 14px; display: inline-block; vertical-align: middle; padding-right: 5px; font-weight: 500;}
 .work-drp .work-div img{ vertical-align: middle;}
 
-.work-hov{display:none;position: absolute;top: 5rem;left: 50%;width: 26rem;background-color: #e9625c;padding: 0.6rem;text-align: left;z-index: 2;transform: translateX(-50%);}
+.work-hov{display:none;position: inherit;top: 5rem;left: 50%;width: 26rem;background-color: #e9625c;padding: 0.6rem;text-align: left;z-index: 2;transform: translateX(-50%);}
 .work-hov ul{ clear: both; border-left: #e8e8e8 1px solid; border-top: #e8e8e8 1px solid;}
 .work-hov ul li{ display: inline-block; width: 50%; text-align: center; float: left; background: #fff;}
 .work-hov ul li a{display: block;padding: 0.8rem 0;border-bottom: #e8e8e8 1px solid;border-right: #e8e8e8 1px solid;}
@@ -6780,7 +6780,7 @@ p.dib{display:inline-block !important;}
     margin: 0 10px 0 0;
 }
 .exhint_row .contents{float: none;width: 100%;}
-.exhint_row .contents .tit{display: flex;justify-content: space-between;}
+.exhint_row .contents .tit{display: flex;justify-content: space-between;overflow: hidden;white-space: nowrap;}
 .exhint_row .contents ul li .tit em{font-size: 3rem;font-weight: 500;letter-spacing: -1.5px;width: 39rem;}
 .exhint_row .contents ul li .tit .ico_new{margin-left: 16px;width: 5.5rem;height: 5.5rem;background: #ec3c3c;border-radius: 999px;font-family: 'Roboto Condensed';font-style: italic;font-size: 2rem;font-weight: 500;color: #ffffff;text-align: center;padding-top: 1.5rem;}
 .exhint_row .contents ul li p{font-size: 2rem;overflow: hidden;text-overflow: ellipsis;white-space: normal;line-height: 1.2;text-align: left;word-wrap: break-word;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;}
