@@ -10,6 +10,18 @@ import org.apache.ibatis.annotations.Param;
 public interface Mgz9Mapper {
 	
 	/*
+	 * 매거진9 홈 리스트 조회
+	 * param : 
+	 * return : 커뮤니티 홈 리스트
+	 */
+	public List<Map<String, Object>> searchMgzhomeList(String typeCd);
+	
+	/*
+	 * 매거진9 홈 배너 조회
+	 */
+	public Map<String, Object> searchHomeBnnList(String bnnDivCd);
+	
+	/*
 	 * MGZ9 목록 조회
 	 * PARAM : 
 		#MGZ_TYP_CD

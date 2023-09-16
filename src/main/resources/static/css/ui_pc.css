@@ -6111,7 +6111,7 @@ position: relative;background-color: #fbfbfb;}
 /* 23.08.09 재현 추가 내용 css */
 .magazine9_wrap{margin:0 auto;max-width: 1500px;height: 100%;}
 .magazine9_wrap #nav{width: 100%;height: 70px;border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9;}
-.magazine9_wrap #nav ul li{float: left;width: 25%;text-align: center;font-size: 24px;color: #111111;font-weight: bold;padding-top: 16px;letter-spacing: -1.5px;}
+.magazine9_wrap #nav ul li{float: left;width: 20%;text-align: center;font-size: 24px;color: #111111;font-weight: bold;padding-top: 16px;letter-spacing: -1.5px;}
 .magazine9_wrap #nav ul li .over{color: #af1c2a !important;}
 .magazine9_visual_wrap{margin-top: 30px;}
 .search_artist_wrap{max-width: 1100px;margin: 0 auto;}

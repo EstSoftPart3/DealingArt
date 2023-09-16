@@ -2,6 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.da.mapper.ArtistMapper">
+	<select id="selectNewartistList" resultType="hashMap" parameterType="hashMap">
+		/*[매거진9>홈] 신규 아티스트 목록 조회*/
+		SELECT 
+				A.ARTST_SQ AS artstSq, 
+				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가 이름*/
+				A.ARTST_ENGLS_NM AS artstEnglsNm, /*작가 영어 이름*/
+				A.ARTST_PROFILE_IMG_URL AS artstProfileImgUrl, /*작가 프로필 사진*/
+				A.ARTST_SELF_INTRO AS artstSelfIntro, /*작가 소개*/
+				A.ARTST_WORK_IMG_URL AS artstWorkImgUrl, /*작가 작품 대표 사진*/
+				/*YEAR (B.MBR_BIRTH) AS artistBirthYear 작가 생년*/
+				(
+				   CASE
+					WHEN 
+					 A.ARTST_YOD IS NULL THEN YEAR(B.MBR_BIRTH)
+					WHEN 
+					 A.ARTST_YOD = '' THEN YEAR(B.MBR_BIRTH)
+					ELSE
+					 CONCAT(YEAR(B.MBR_BIRTH), "~", A.ARTST_YOD)
+				    END
+				) AS artistBirthYear
+				
+		FROM
+				TBL_DA_ARTST_M AS A
+		INNER JOIN 
+				TBL_DA_MBR_M AS B 
+			ON 	A.MBR_SQ = B.MBR_SQ  
+		WHERE B.USE_YN = 'Y'
+		ORDER BY A.ARTST_SQ DESC
+		limit 10
+	</select>
+	
 	<select id="upAndComingArtist" resultType="hashMap" parameterType="hashMap">
 		/*아티스트 라이브러리 신진 작가 조회*/
 		SELECT 
