@@ -445,6 +445,12 @@
 						var startNum = data.startNum;
 						var endNum = data.endNum;
 						var pageHtml = '';
+						
+						console.log("#totalNum : " + totalNum);
+						console.log("#currentNum : " + currentNum);
+						console.log("#startNum : " + startNum);
+						console.log("#endNum : " + endNum);
+						
 						if(1 == currentNum) {
 							pageHtml += "<span class='firstPage' style='font-size: 20px;'>[이전]</span>";
 						} else {
@@ -462,6 +468,7 @@
 						} else {
 							pageHtml += "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' class='c-red currentNum' id='" + (currentNum + 1) + "' style='font-size: 20px;'>[다음]</a>";
 						}
+						
 						$("#page").empty();
 						$("#page").append(pageHtml).trigger("create");
 					},
