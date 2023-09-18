@@ -221,11 +221,8 @@
 			strHtml += '					<td>'+notificationbox.workNm+'';
 			strHtml += '				</tr>';
 			if(notificationbox.notiCatCd == "PRC"){
-				let dealStrtPrc = notificationbox.dealStrtPrc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				let questionContent = notificationbox.questionContent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				
 				strHtml += '				<tr>';
-				strHtml += '					<td colspan="2" class="pd_tb30">현재가격 '+dealStrtPrc+' <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 '+questionContent+'</em></td>'
+				strHtml += '					<td colspan="2" class="pd_tb30">현재가격 '+notificationbox.dealStrtPrc+' <img src="/resources/img/img_new/ico_arrow.png" alt="" class="arrow"> <em>제안가격 '+notificationbox.questionContent+'</em></td>'
 				strHtml += '				</tr>';
 			}else if(notificationbox.notiCatCd == "SEL"){
 				strHtml += '				<tr>';
@@ -241,7 +238,11 @@
 			strHtml += '						<div class="user">';
 			strHtml += '							<ul>';
 			strHtml += '								<li class="time">'+notificationbox.time+'</li>';
-			strHtml += '								<li><img src="'+notificationbox.mbrProfileImgUrl+'" alt=""></li>';
+			if(notificationbox.mbrProfileImgUrl != null && notificationbox.mbrProfileImgUrl != ""){
+				strHtml += '								<li><img src="'+notificationbox.mbrProfileImgUrl+'"></li>';
+			}else{
+				strHtml += '								<li><img src="/resources/img/img_new/ico_dauser.png"></li>';
+			}
 			strHtml += '								<li class="user_name"><span>'+notificationbox.mbrNckNm+'</span></li>';
 			strHtml += '							</ul>';
 			strHtml += '						</div>';

@@ -219,4 +219,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.comtOpenDelYnCheck(param);
 	}
 	
+	//커뮤니티 조회수 증가
+	public void updateComtViews(Object param){
+		communityDao.updateComtViews(param);
+	}
 }

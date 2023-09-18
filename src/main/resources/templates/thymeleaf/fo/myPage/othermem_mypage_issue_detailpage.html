@@ -121,13 +121,18 @@
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script th:inline="javascript">
-	// 커뮤니티 순번
 	var comtSq = /*[[${param.SqNumber[0]}]]*/ 'default';
- 	var mbr = /*[[${issue.mbrSq}]]*/ 'default';
+ 	var mbr = /*[[${param.mbrSq}]]*/ 'default';
  	var comt = /*[[${issue}]]*/ 'default';
  	var otherComt = /*[[${otherComt}]]*/ 'default';
  	var showOff = null;
  	
+    var message = /*[[${message}]]*/ 'default' //커뮤니티 순번
+   	if(message != "" && message != null){
+   		alert(message);
+   		location.href = "/main";
+   	}
+    
     $(document).ready(function(){
     	setComtDetailInfo();
 		ckClsHide();

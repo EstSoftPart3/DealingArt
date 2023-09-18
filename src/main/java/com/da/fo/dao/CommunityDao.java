@@ -274,4 +274,10 @@ public class CommunityDao {
 	public Map<String, Object> comtOpenDelYnCheck(String param){
 		return communityMapper.comtOpenDelYnCheck(param);
 	}
+	
+	//커뮤니티 조회수 증가
+	public void updateComtViews(Object param){
+		communityMapper.updateComtViews(param);
+	}
+	
 }

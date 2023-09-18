@@ -117,7 +117,8 @@ public class MyPageController {
 		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
 		paramMap.put("workTypCd","");
 		
-		List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(paramMap); //나의 작품 리스트 조회
 		int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
 		
 		paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경
@@ -135,11 +136,17 @@ public class MyPageController {
 		List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
 		int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
 		
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myScrap = myPageService.myPageMain_myScrap(paramMap); //나의 스크랩 조회
+		int myScrapTotal = myPageService.myPageMain_myScrapTotal(paramMap); //나의 스크랩 총 갯수 조회
 		
-		//paramMap.put("limit", 3); //LIMIT 넣기
-		//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
-		//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myFollowing = myPageService.myPage_following(paramMap); //나의 팔로잉 조회
+		int myFollowingTotal = myPageService.myPage_followingTotal(paramMap); //나의 팔로잉 총 갯수 조회
 		
+		paramMap.put("limit", 3); //LIMIT 넣기
+		List<Map<String, Object>> myNoti = myPageService.myPage_notificationbox(paramMap); //나의 알림함 조회
+		int myNotiTotal = myPageService.myPage_notificationTotal(paramMap); //나의 알림한 총 갯수 조회
 		
 		mv.addObject("myWorks", myWorks);
 		mv.addObject("myWorksTotal", myWorksTotal);
@@ -149,6 +156,12 @@ public class MyPageController {
 		mv.addObject("myExhbnTotal", myExhbnTotal);
 		mv.addObject("myIssue", myIssue);
 		mv.addObject("myIssueTotal", myIssueTotal);
+		mv.addObject("myScrap", myScrap);
+		mv.addObject("myScrapTotal", myScrapTotal);
+		mv.addObject("myFollowing", myFollowing);
+		mv.addObject("myFollowingTotal", myFollowingTotal);
+		mv.addObject("myNoti", myNoti);
+		mv.addObject("myNotiTotal", myNotiTotal);
 		
 		return mv;
 	}
@@ -1712,6 +1725,9 @@ public class MyPageController {
 			param.put("scrapGbCd","myWork");
 			int myWorkTotal = myPageService.myPage_scrapTotal(param); //나의 작품 갯수 조회
 			
+			param.put("scrapGbCd","DEAL");
+			int myDEALTotal = myPageService.myPage_scrapTotal(param); //자랑하기 총 갯수 조회
+			
 			param.put("scrapGbCd","BOA");
 			int myBOATotal = myPageService.myPage_scrapTotal(param); //자랑하기 총 갯수 조회
 			
@@ -1721,19 +1737,13 @@ public class MyPageController {
 			param.put("scrapGbCd","ISS");
 			int myISSTotal = myPageService.myPage_scrapTotal(param); //이슈 총 갯수 조회
 			
-			param.put("scrapGbCd","IST");
-			int myISTTotal = myPageService.myPage_scrapTotal(param); //인사이트 총 갯수 조회
-			
-			param.put("scrapGbCd","MDA");
-			int myMDATotal = myPageService.myPage_scrapTotal(param); //아티스트 필름 총 갯수 조회
 			
 			mv.addObject("result", result);
 			mv.addObject("myWorkTotal", myWorkTotal);
+			mv.addObject("myDEALTotal", myDEALTotal);
 			mv.addObject("myBOATotal", myBOATotal);
 			mv.addObject("myEXHTotal", myEXHTotal);
 			mv.addObject("myISSTotal", myISSTotal);
-			mv.addObject("myISTTotal", myISTTotal);
-			mv.addObject("myMDATotal", myMDATotal);
 
 			return mv;
 		}
@@ -1769,7 +1779,8 @@ public class MyPageController {
 			paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
 			paramMap.put("workTypCd","");
 			
-			List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(mbrSq); //나의 작품 리스트 조회
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myWorks = myPageService.myPageMain_myWorks(paramMap); //나의 작품 리스트 조회
 			int myWorksTotal = myPageService.myPageMain_myWorksTotal(paramMap); //나의 작품 총 갯수 조회
 			
 			paramMap.put("comtTypCd", "BOA"); //커뮤니티 구분 코드 자랑하기로 변경

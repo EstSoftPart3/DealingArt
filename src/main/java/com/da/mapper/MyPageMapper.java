@@ -44,6 +44,20 @@ public interface MyPageMapper {
 	public int myPageMain_myCommunitysTotal(Object param);
 	
 	/*
+	 * 마이페이지 메인 스크랩 조회
+	 * param : Map
+	 * return : Map
+	 */
+	public List<Map<String, Object>> myPageMain_myScrap(Object param);
+	
+	/*
+	 * 마이페이지 메인 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPageMain_myScrapTotal(Object param);
+	
+	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
@@ -480,6 +494,13 @@ public interface MyPageMapper {
 	public List<Map<String, Object>> myPage_scrapMyWork(Object param);
 	
 	/*
+	 * 마이페이지 스크랩 거래 목록
+	 * param : mbrSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> myPage_scrapDeal(Object param);
+	
+	/*
 	 * 마이페이지 스크랩 커뮤니티 목록
 	 * param : mbrSq
 	 * return : List
@@ -493,12 +514,20 @@ public interface MyPageMapper {
 	 */
 	public List<Map<String, Object>> myPage_scrapMgz(Object param);
 	
+	
 	/*
 	 * 마이페이지 스크랩 나의 작품 총 갯수 조회
 	 * param : mbrSq
 	 * return : int
 	 */
 	public int myPage_scrapMyWorkTotal(Object param);
+	
+	/*
+	 * 마이페이지 스크랩 거래 총 갯수 조회
+	 * param : mbrSq
+	 * return : int
+	 */
+	public int myPage_scrapDealTotal(Object param);
 	
 	/*
 	 * 마이페이지 스크랩 커뮤니티 총 갯수 조회

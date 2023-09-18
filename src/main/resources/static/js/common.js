@@ -135,7 +135,7 @@ function modalAlertClose(obj) {
 	}
 	
 	if(obj == "myWorkList"){
-		location.href="/myPage/myWorkList"
+		location.href="/myPage/workList"
 	}
 	
 	if(obj == "checkbox"){
@@ -2186,10 +2186,11 @@ function setComment(comtSq) {
 			strHtml += '	<legend>댓글 입력 폼</legend>';
 			strHtml += '	<p>';
 			strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">'+ (comments.length + replys.length) +'</strong></label>';
+			strHtml += '		<input type="text" style="display: none;">';
 			if(sMbrSqVal) {
-				strHtml += '	<input type="text" id="comments_tit" name="" required>';
+				strHtml += '	<input type="text" id="comments_tit" onkeydown="if(event.keyCode == 13){cmtReg('+ comtSq +');}">';
 			} else {
-				strHtml += '	<input type="text" id="comments_tit" name="" required disabled>';
+				strHtml += '	<input type="text" id="comments_tit" disabled>';
 			}
 			strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg('+ comtSq +');">등록</button>';
 			strHtml += '	</p>';
@@ -2321,11 +2322,12 @@ function openReplyAndModForm(cmtSq, comtSq, obj, cmtType) {
     html += "<div class='comments_box_wrap'>";
     html += "	<form>";
 	html += "		<p id='reply_form'>";
+	html += "			<input type='text' style='display: none;'>";
 	if(cmtType) {
-		html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" style='margin-left: 90px;'>";
+		html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" onkeydown='if(event.keyCode == 13){modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this.value);}' style='margin-left: 90px;'>";
 		html += "		<button type='button' class='reg_btn' onclick='modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this);'>수정</button>";
 	} else {
-		html += "		<input type='text' id='replyAndModComment' style='margin-left: 90px;'>";
+		html += "		<input type='text' id='replyAndModComment' onkeydown='if(event.keyCode == 13){replyReg("+ cmtSq +", "+ comtSq +", this.value);}' style='margin-left: 90px;'>";
 		html += "		<button type='button' class='reg_btn' onclick='replyReg("+ cmtSq +", "+ comtSq +", this);'>등록</button>";
 	}
 	html += "		</p>";
@@ -2401,19 +2403,36 @@ function cmtReg(comtSq) {
  * 예)
  ---------------------------------------------*/
 function replyReg(cmtSq, comtSq, obj) {
-	$.ajax({
-		type : "post",
-		url : "/community/replyReg",
-		data : {
-			cmtSq: cmtSq,
-			comtSq : comtSq,
-			replyContent : $(obj).siblings("#replyAndModComment").val(),
-			mbrSq : sMbrSqVal
-		},
-		success : function() {
-			setComment(comtSq);
-		}
-	});
+	if($(obj).siblings("#replyAndModComment").val() != null){
+		$.ajax({
+			type : "post",
+			url : "/community/replyReg",
+			data : {
+				cmtSq: cmtSq,
+				comtSq : comtSq,
+				replyContent : $(obj).siblings("#replyAndModComment").val(),
+				mbrSq : sMbrSqVal
+			},
+			success : function() {
+				setComment(comtSq);
+			}
+		});
+	}else{
+		$.ajax({
+			type : "post",
+			url : "/community/replyReg",
+			data : {
+				cmtSq: cmtSq,
+				comtSq : comtSq,
+				replyContent : obj,
+				mbrSq : sMbrSqVal
+			},
+			success : function() {
+				setComment(comtSq);
+			}
+		});
+	}
+	
 }
 
 /* ---------------------------------------------
@@ -2422,11 +2441,15 @@ function replyReg(cmtSq, comtSq, obj) {
  * 예)
  ---------------------------------------------*/
 function modComment(cmtSq, comtSq, cmtType, obj) {
-	var content = $(obj).siblings("#replyAndModComment").val();
+	var content = "";
+	if($(obj).siblings("#replyAndModComment").val() != null){
+		content = $(obj).siblings("#replyAndModComment").val();
+	}else{
+		content = obj;
+	}
 	
-	modalConfirm( "댓글을 수정하시겠습니까?" , function ( confirm ) {
-		if(confirm){
-			$.ajax({
+	if(confirm("댓글을 수정하시겠습니까?")){
+		$.ajax({
 		        type: "POST",
 		        url: "/community/modCommentAndReply",
 		        data: {
@@ -2436,19 +2459,18 @@ function modComment(cmtSq, comtSq, cmtType, obj) {
 		        },
 		        success: function(data) {
 		        	if(data.result > 0){
-		        		modalAlertShow("댓글이 수정되었습니다.");
+		        		alert("댓글이 수정되었습니다.");
 		        		setComment(comtSq);
 		        	}else{
-		        		modalAlertShow("댓글 수정에 실패했습니다.<br/>다시 시도해주세요.");
+		        		alert("댓글 수정에 실패했습니다.<br/>다시 시도해주세요.");
 		        	}
 		        },
 		        error: function(error) {
 		            alert("수정처리에 실패했습니다.\n관리자에게 문의해주세요."); 
 		            location.reload();
 		        }
-			});
-		}
-	});
+		});
+	}
 }
 
 /* ---------------------------------------------

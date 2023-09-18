@@ -105,14 +105,14 @@
         <div class="community_wrap">            
             <div id="nav">
                 <ul>
-                     <li><a href="/community/mainMobile">홈</a></li>
-                    <li><a href="/community/worksListMobile" class="over">작품자랑</a></li>
+                    <li><a href="/community/mainMobile" class="over">홈</a></li>
+                    <li><a href="/community/worksListMobile">작품자랑</a></li>
                     <li><a href="/community/exhintListMobile">전시후기&소개</a></li>
                     <li><a href="/community/issueListMobile">이슈</a></li>
                     <li><a href="/community/eventMobile">이벤트</a></li>   
                 </ul>
             </div>
-            <button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
+            <button class="btn_recording" onclick="location.href='/myPage/myPageMobile'">기록하기</button>
             <div class="community_visual_wrap">
                 <div class="community_visual"><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
                 <div class="community_visual_event">
@@ -127,7 +127,7 @@
                     <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
                 </div>
                 <div class="works_box_wrap">
-                	<div class="works_box">
+                	<!-- <div class="works_box">
                 		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works01.jpg" alt=""></a></div>
                 		<div class="text">희망을 주는 그림</div>
                 	</div>
@@ -142,7 +142,7 @@
                 	<div class="works_box">
                 		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_works04.jpg" alt=""></a></div>
                 		<div class="text">희망을 주는 그림</div>
-                	</div>
+                	</div> -->
                 </div>                  
             </div>
             <div class="master_wrap">
@@ -151,7 +151,7 @@
                     <button class="btn_more" onclick="btnMore('BOA');">더보기</button>
                 </div>
                 <div class="master_box_wrap">
-                	<div class="master_box">
+                	<!-- <div class="master_box">
                 		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a></div>
                 		<div class="text">희망을 주는 그림</div>
                 	</div>
@@ -166,7 +166,7 @@
                 	<div class="master_box">
                 		<div class="works_img"><a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a></div>
                 		<div class="text">희망을 주는 그림</div>
-                	</div>
+                	</div> -->
                 </div>
             </div>
             <div class="posts_warp">
@@ -213,11 +213,11 @@
 				var bestExhibitList = data.result.bestExhibitList; // 전시후기/소개 베스트 게시물 리스트
 				var bestIssueList = data.result.bestIssueList; // 이슈 베스트 게시물 리스트
 
-				var worksWrap = $(".works_wrap ul"); // 이 주의 인기 작품자랑
+				var worksWrap = $(".works_box_wrap"); // 이 주의 인기 작품자랑
 				worksWrap.append(setShowingOffHtml(popList)).trigger("create");
 				
-				var masterWrap = $(".master_wrap ul"); // 자랑하기 고수
-				masterWrap.append(setShowingOffHtml(boastMstList)).trigger("create");
+				var masterWrap = $(".master_box_wrap"); // 자랑하기 고수
+				masterWrap.append(setShowingOffHtml2(boastMstList)).trigger("create");
 				
 				var introPostsWarp = $(".intro_posts ol"); // 전시후기/소개 베스트 게시물
 				introPostsWarp.append(setExhibitAndIssueHtml(bestExhibitList, "EXH")).trigger("create");
@@ -246,20 +246,36 @@
 		});
 	});
 	
-	// 이 주의 인기 작품자랑, 자랑하기 고수 html 구성
+	// 이 주의 인기 작품자랑 html 구성
 	function setShowingOffHtml(list) {
 		var html = "";
 		$.each(list, function(idx, item) {
-			html += "<li>";
-			html += "	<a href='/community/showingOffDetail?SqNumber="+ item.comtSq +"'>";
-			html += "		<img src="+ item.comtImgUrl +" alt='' style='width: 360px; height: 360px; object-fit: contain;'>";
-			html += "	</a>";
-			html += "	<p style='width: 360px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>"+ item.comtTitle +"</p>";
-			html += "</li>";
+			html += '<div class="works_box">';
+	    	html += '	<div class="works_img">';
+	    	html += '		<a href="/community/showingOffDetail?SqNumber='+item.comtSq+'">';
+	    	html += '			<img src="'+item.comtImgUrl+'" style="width: 191px; height: 191px; object-fit: contain;">';
+	    	html += '		</a>';
+	    	html += '	</div>';
+	    	html += '	<div class="text">'+item.comtTitle+'</div>';
+	    	html += '</div>';
 		});
 		return html;
 	}
-	
+	//자랑하기의 고수 html 구성
+	function setShowingOffHtml2(list) {
+		var html = "";
+		$.each(list, function(idx, item) {
+			html += '<div class="master_box">';
+			html += '	<div class="works_img">';
+			html += '		<a href="/community/showingOffDetail?SqNumber='+item.comtSq+'">';
+			html += '			<img src="'+item.comtImgUrl+'" style="width: 191px; height: 191px; object-fit: contain;">';
+			html += '		</a>';
+			html += '	</div>';
+			html += '	<div class="text">'+item.comtTitle+'</div>';
+			html += '</div>';
+		});
+		return html;
+	}
 	// 전시후기/소개 베스트 게시물, 이슈 베스트 게시물 html 구성
 	function setExhibitAndIssueHtml(list, type) {
 		

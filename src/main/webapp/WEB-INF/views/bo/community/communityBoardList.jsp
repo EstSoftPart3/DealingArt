@@ -37,45 +37,6 @@ if (commuBorTypCd.equals("ABL")) {
 	<div class="wrapper">
 		<%@ include file="/WEB-INF/views/boInclude/include_left.jspf"%>
 		<div class="content-wrapper">
-<<<<<<< HEAD
-
-		     
-		     <!-- Main content -->
-    		<section class="content">
-    			<div class="card">
-    			<div class="card-header">
-	               	<h3 class="card-title bTitle">게시물 관리</h3>
-				</div>
-				
-				<input type="hidden" name="commuBorTypCd" id="commuBorTypCd" value="<%=commuBorTypCd%>">
-				<input type="hidden" name="checkAllBoolean" id="checkAllBoolean" value="false">
-
-				<div>
-				 	<a href="/admin/community/communityBoardList?commuBorTypCd=ABL"><button class="btnCommunitySet" id="btn_viewAll" type="button" style="border: 1px solid grey;">전체 게시물 보기</button></a>
-				 	<a href="/admin/community/communityBoardList?commuBorTypCd=ABR"><button class="btnCommunitySet" id="btn_viewReply" type="button" style="border: 1px solid grey;">전체 댓글 보기</button></a>
-				 	<a href="/admin/community/communityBoardList?commuBorTypCd=RBL"><button class="btnCommunitySet" id="btn_viewReport" type="button" style="border: 1px solid grey;">신고된 게시물 보기</button></a>
-				 </div>
-				
-                <!--card-body -->
-                <table class="table table-bordered">
-					<tr class="col-form-label sTitle LabelStyle" >
-						<td class="col-sm-1" align="center" style="background-color: #efefef;">작성일</td>
-						<td id="" class="col-sm-2 dataValue">
-							<div class="noExl" style="text-align:left; display: inline;">
-								<button type="button" style="border: 1px solid grey" onclick="setDate('0')">오늘</button>
-								<button type="button" style="border: 1px solid grey" onclick="setDate('1')">3일</button>
-								<button type="button" style="border: 1px solid grey" onclick="setDate('7')">7일</button>
-								<button type="button" style="border: 1px solid grey" onclick="setDate('30')">1개월</button>
-			                  	<input id="firstDate" type="date">
-			                  	<input id="lastDate" type="date">
-			                </div>
-						</td>	
-					</tr>
-					<tr class="col-form-label sTitle LabelStyle"  >
-						<td class="col-sm-1" align="center" style="background-color: #efefef;">게시판 분류</td>
-=======
-=======
->>>>>>> f617e6d28b31d41e1eaf93178436beaab03ecdd0
 			<div class="content-header">
 				<h4 class="text-bold">게시물 관리</h4>
 			</div>

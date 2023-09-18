@@ -140,6 +140,8 @@
 	var more = 0;
 	var authSq = '';
 	var searchWord = '';
+	var myTotal = 0;
+	var resultTotal = 0;
 	
 	$("document").ready(function(){
 		
@@ -174,6 +176,10 @@
 	
 	//더보기 클릭
 	function followingSearchMore(){
+		if(resultTotal == myTotal){
+			$(".btn_area").hide();
+			modalAlertShow("더보기가 없습니다.");
+		}
 		more += 1;
 		followingList(authSq);
 	}
@@ -202,6 +208,8 @@
 			data: obj,
 			success: (function(response){
 				if (response.result.length > 0) {
+					myTotal = response.myTotal;
+					resultTotal = response.result.length;
 					setFollowingHtml(response.result);
 				}else{
 					modalAlertShow("검색 결과가 없습니다."); 

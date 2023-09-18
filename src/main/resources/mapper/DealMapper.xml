@@ -298,7 +298,7 @@
 				TBL_DA_DEAL_M
 		WHERE 
 				SELL_MBR_SQ = #{mbrSq}
-			AND DEAL_STTS_CD NOT IN ('FB', 'ST')
+			AND DEAL_STTS_CD = 'TP'
 	</select>
 	
 	<select id="bidRegCheck1" resultType="int" parameterType="hashMap">

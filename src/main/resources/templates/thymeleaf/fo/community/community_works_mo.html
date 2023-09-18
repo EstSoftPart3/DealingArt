@@ -108,7 +108,7 @@
                     <li><a href="/community/eventMobile">이벤트</a></li>                    
                 </ul>
             </div>
-            <button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
+            <button class="btn_recording" onclick="location.href='/myPage/myPageMobile'">기록하기</button>
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
                 	<input type="date" id="startDate" onchange="checkCalendar()" class="mb10">
@@ -236,12 +236,11 @@
             strHtml += '    		<div class="works_pic">';
             strHtml += '        		<div class="header">';
             
-            if(null != work.mbrProfileImgUrl){
+            if(work.mbrProfileImgUrl != null && work.mbrProfileImgUrl != ""){
             	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
             } else {
 	            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
             }
-            
             strHtml += '            		<ul class="user_name">';
             strHtml += '                		<li><span>'+ work.mbrNcknm +'</span></li>';
             strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';

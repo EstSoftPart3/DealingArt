@@ -166,12 +166,12 @@
                         </ol>
                     </div>                    
                   </div>
-                  <div class="mypage_scrap_wrap">
+                  <div id="myFollowing_wrap" class="mypage_following_wrap">
                     <div class="tit_wrap">
-                        <h2>스크랩 <span>99</span></h2>
-                        <button class="btn_more">더보기</button>
+                        <h2>팔로잉 <span id="myFollowingTotal">0</span></h2>
+                        <a href="/myPage/following" class="btn_more">더보기</a>
                     </div>
-                    <ul>
+                    <ul id="myFollowing">
                         <li>
                           <a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a>
                         </li>
@@ -179,41 +179,11 @@
                           <a href="#"><img src="/resources/img/img_new/sample_master02.jpg" alt=""></a>
                         </li>
                         <li class="pic_more">
-                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a>
+                          <a href="#"><span>+ 0</span><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a>
                         </li>                        
                       </ul>
                   </div>
-                  <div class="mypage_following_wrap">
-                    <div class="tit_wrap">
-                        <h2>팔로잉 <span>99</span></h2>
-                        <button class="btn_more">더보기</button>
-                    </div>
-                    <ul>
-                        <li>
-                          <a href="#"><img src="/resources/img/img_new/sample_master01.jpg" alt=""></a>
-                        </li>
-                        <li>
-                          <a href="#"><img src="/resources/img/img_new/sample_master02.jpg" alt=""></a>
-                        </li>
-                        <li class="pic_more">
-                          <a href="#"><span>+ 99</span><img src="/resources/img/img_new/sample_master03.jpg" alt=""></a>
-                        </li>                        
-                      </ul>
-                  </div>
-                  <div class="mypage_posts_warp">
-                    <div class="noticebox_posts">
-                        <div class="tit_wrap">
-                            <h2><img src="/resources/img/img_new/ico_notice.png" alt=""><span>알림함</span><em>+99</em></h2>
-                            <button class="btn_more">더보기</button>
-                        </div>
-                        <ol>
-                            <li><a href="#">[판매제안] 작품이 너무 맘에 듭니다. 판매로 올려주세요 ♥</a></li>
-                            <li><a href="#">[가격제안] 10% 낮춰서 1,000,000원에 구매 희망합니다!</a></li>
-                            <li><a href="#">[상세사진요청]후면 사진 요청 드려요.</a></li>
-                        </ol>
-                    </div>                    
-                  </div>
-              </div>
+            	</div>
             </div>
         </div>
     </div>
@@ -236,6 +206,7 @@
 				setMyBoast(data.myBoast, data.myBoastTotal);
 				setMyExhbn(data.myExhbn, data.myExhbnTotal);
 				setMyIssue(data.myIssue, data.myIssueTotal);
+				setMyFollowing(data.myFollowing, data.myFollowingTotal);
 			}
 			, error: function(data){
 				alert("오류 발생" + error);
@@ -342,6 +313,28 @@
 
     	}else{
     		$("#myIssue_warp").hide();
+    	}
+    }
+    
+    function setMyFollowing(data, total){
+    	var html = '';
+    	if(total > 0){
+    		for(i=0; i<data.length; i++){
+    			if(i == 2){
+    				html += '<li class="pic_more">';
+    				html += '    <a href="/otherPage/main?mbrSq='+data[i].mbrSq+'"><span>+ '+total+'</span><img src="'+data[i].mbrProfileImgUrl+'"></a>';
+    				html += '</li>';
+    			}else{
+    				html += '<li>';
+   					html += '	<a href="/otherPage/main?mbrSq='+data[i].mbrSq+'"><img src="'+data[i].mbrProfileImgUrl+'"></a>';
+					html += '</li>';
+    			}
+    		}
+    		$("#myFollowing").empty();
+		  	$("#myFollowing").append(html).trigger("create");
+	        $("#myFollowingTotal").text(total);
+    	}else{
+    		$("#myFollowing_wrap").hide();
     	}
     }
     

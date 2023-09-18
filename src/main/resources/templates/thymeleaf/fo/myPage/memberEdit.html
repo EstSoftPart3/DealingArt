@@ -447,14 +447,6 @@ var mbrAccountNo = '';
 var mbrBankCd = '';
 var mbrBankNm =  '';
 
-var mc = 3;  //체크박스 갯수제한
-var tc = 0; // 카운트 증가
-var mc1 = 3;  //체크박스 갯수제한
-var tc1 = 0; // 카운트 증가
-var mc2 = 3;  //체크박스 갯수제한
-var tc2 = 0; // 카운트 증가
-var tc3 = 0;
-var mc3 = 3;
 var genrelist = []; 
 var hobbylist = []; 
 var agelist = []; 
@@ -808,25 +800,24 @@ function memberContentData(mbrSq) {
         		 }else{
         			 $("#profileImgaDel").show();
         		 }
-        		 
-        		 var mbrGenreList = originalMbrGenreList.split(',', 2);
-        		 var mbrhobbyList = originalMbrhobbyList.split(',', 2);
-        		 var mbrageList = originalMbrageList.split(',', 2);
-        		 var mbrjobList = originalMbrjobList.split(',', 2);
+        		 var mbrGenreList = originalMbrGenreList.split(',');
+        		 var mbrhobbyList = originalMbrhobbyList.split(',');
+        		 var mbrageList = originalMbrageList.split(',');
+        		 var mbrjobList = originalMbrjobList.split(',');
         		 
         		 mbrGenreList.forEach(function(item){
         			 $("input[name=genre][value="+item+"]").prop("checked",true);
-    			});
+    			 });
         		 
         		 mbrhobbyList.forEach(function(item){
         			 $("input[name=hobby][value="+item+"]").prop("checked",true);
-    			});
+    			 });
         		 mbrageList.forEach(function(item){
         			 $("input[name=age][value="+item+"]").prop("checked",true);
-    			});
+    			 });
         		 mbrjobList.forEach(function(item){
         			 $("input[name=job][value="+item+"]").prop("checked",true);
-    			});
+    			 });
         		 
         		 
         	 }
@@ -1325,62 +1316,34 @@ $('ul.dropdown-menu.mega-dropdown-menu').on('click', function(event){
 
 //갯수 확인
 function chkbox(ff) { 
-    if (ff.checked){
-        tc += 1; 
-    } else{
-        tc -= 1; 
-    } 
-
-    if (tc > mc) { 
-        alert ("3개 만 선택해 주세요!"); 
-    ff.checked = false; 
-    tc -= 1; 
-    }
+	if($("input:checkbox[name=genre]:checked").length > 3){
+		alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	}
 } 
 
 //갯수 확인
 function chkbox1(ff) { 
-    if (ff.checked){
-        tc1 += 1; 
-    } else{
-        tc1 -= 1; 
-    } 
-
-    if (tc1 > mc1) { 
-        alert ("3개 만 선택해 주세요!"); 
-    ff.checked = false; 
-    tc1 -= 1; 
-    }     
+	if($("input:checkbox[name=hobby]:checked").length > 3){
+		alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	}
 } 
 
 //갯수 확인
 function chkbox2(ff) { 
-    if (ff.checked){
-        tc2 += 1; 
-    } else{
-        tc2 -= 1; 
-    } 
-
-    if (tc2 > mc2) { 
-        alert ("3개 만 선택해 주세요!"); 
-    ff.checked = false; 
-    tc2 -= 1; 
-    }     
+	if($("input:checkbox[name=job]:checked").length > 3){
+		alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	}   
 } 
 
 //갯수 확인
 function chkbox3(ff) { 
-    if (ff.checked){
-        tc3 += 1; 
-    } else{
-        tc3 -= 1; 
-    } 
-
-    if (tc3 > mc3) { 
-        alert ("3개 만 선택해 주세요!"); 
-    ff.checked = false; 
-    tc3 -= 1; 
-    }     
+	if($("input:checkbox[name=age]:checked").length > 3){
+		alert ("3개 만 선택해 주세요!"); 
+	    ff.checked = false; 
+	}  
 } 
 
 </script>

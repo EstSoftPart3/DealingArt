@@ -577,4 +577,14 @@
 				, NOW()
 			)
 	</insert>
+	
+	<update id="updateComtViews" parameterType="String">
+	/*커뮤니티 게시물 조회수 증가*/
+		UPDATE 
+				TBL_DA_COMT_M
+			SET
+				COMT_VIEWS = COMT_VIEWS + 1
+		WHERE 
+				COMT_SQ = #{comtSq}
+	</update>
 </mapper>

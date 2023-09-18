@@ -125,6 +125,13 @@ public interface MemberMapper {
 	public int authorExhbtnInfoCheckCount(Map<String, Object> param);
 	
 	/*
+	 * 회원 스크랩 조회
+	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
+	 * return : int
+	 */
+	public int scrapCheck(Map<String, Object> param);
+	
+	/*
 	 * 회원 스크랩 추가
 	 * param : 회원번호와 스크랩 작품 번호가 들어있는 Map
 	 * return : int
@@ -137,6 +144,9 @@ public interface MemberMapper {
 	 * return : int
 	 */
 	public int scrapDel(Map<String, Object> param);
+	
+	//커뮤니티 스크랩 수 증감
+	public void updateComtScraps(Object param);
 	
 	/*
 	 * 회원 자동로그인 정보 수정

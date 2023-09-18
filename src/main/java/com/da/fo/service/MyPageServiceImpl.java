@@ -19,6 +19,24 @@ public class MyPageServiceImpl implements MyPageService{
 	private MyPageDao myPageDao;
 	
 	/*
+	 * 마이페이지 메인 스크랩 조회
+	 * param : Map
+	 * return : Map
+	 */
+	public List<Map<String, Object>> myPageMain_myScrap(Object param){
+		return myPageDao.myPageMain_myScrap(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPageMain_myScrapTotal(Object param){
+		return myPageDao.myPageMain_myScrapTotal(param);
+	}
+	
+	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int

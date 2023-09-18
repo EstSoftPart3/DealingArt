@@ -52,6 +52,7 @@ public class CommunityController {
 			mv.addObject("message", "존재하지 않는 게시물입니다.");
 			return mv;
 		}else{
+			communityService.updateComtViews(param); //커뮤니티 조회수 증가
 			mv.addObject("comtSq", param);
 			return mv;
 		}
@@ -209,19 +210,27 @@ public class CommunityController {
 	@ResponseBody
 	public ModelAndView communityExhibitDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_exhint_detailpage");
+		
+		Map<String, Object> result = communityService.comtOpenDelYnCheck(String.valueOf(param.get("SqNumber")));
+		String openYn = result.get("openYn").toString();
+		String delYn = result.get("delYn").toString();
+		if(openYn.equals("N") || delYn.equals("Y")){
+			mv.addObject("message", "존재하지 않는 게시물입니다.");
+			return mv;
+		}else{
+			communityService.updateComtViews(param); //커뮤니티 조회수 증가
+			Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
+			mv.addObject("exhibit", exhibit);
+			
+			param.put("comtSq", String.valueOf(param.get("SqNumber")));
+			param.put("mbrSq", String.valueOf(exhibit.get("mbrSq")));
+			param.put("comtTypCd", String.valueOf(exhibit.get("comtTypCd")));
 
-		Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
-		mv.addObject("exhibit", exhibit);
-
-		param.put("comtSq", String.valueOf(param.get("SqNumber")));
-		param.put("mbrSq", String.valueOf(exhibit.get("mbrSq")));
-		param.put("comtTypCd", String.valueOf(exhibit.get("comtTypCd")));
-
-		// 해당 작성자의 다른 커뮤니티 정보
-		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
-		mv.addObject("otherComt", otherComt);
-
-		return mv;
+			// 해당 작성자의 다른 커뮤니티 정보
+			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+			mv.addObject("otherComt", otherComt);
+			return mv;
+		}
 	}
 
 	// 노하우 상세페이지
@@ -230,18 +239,29 @@ public class CommunityController {
 	public ModelAndView communityIssueDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_issue_detailpage");
 
-		Map<String, Object> issue = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
-		mv.addObject("issue", issue);
+		Map<String, Object> result = communityService.comtOpenDelYnCheck(String.valueOf(param.get("SqNumber")));
+		
+		String openYn = result.get("openYn").toString();
+		String delYn = result.get("delYn").toString();
+		if(openYn.equals("N") || delYn.equals("Y")){
+			mv.addObject("message", "존재하지 않는 게시물입니다.");
+			
+			return mv;
+		}else{
+			communityService.updateComtViews(param); //커뮤니티 조회수 증가
+			Map<String, Object> issue = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
+			mv.addObject("issue", issue);
 
-		param.put("comtSq", String.valueOf(param.get("SqNumber")));
-		param.put("mbrSq", String.valueOf(issue.get("mbrSq")));
-		param.put("comtTypCd", String.valueOf(issue.get("comtTypCd")));
+			param.put("comtSq", String.valueOf(param.get("SqNumber")));
+			param.put("mbrSq", String.valueOf(issue.get("mbrSq")));
+			param.put("comtTypCd", String.valueOf(issue.get("comtTypCd")));
 
-		// 해당 작성자의 다른 커뮤니티 정보
-		List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
-		mv.addObject("otherComt", otherComt);
-
-		return mv;
+			// 해당 작성자의 다른 커뮤니티 정보
+			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+			mv.addObject("otherComt", otherComt);
+			
+			return mv;
+		}
 	}
 
 	// 댓글, 대댓글 삭제

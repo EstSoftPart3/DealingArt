@@ -629,10 +629,21 @@ public class MemberController {
 		return deleteState;
 	}
 	
+	@RequestMapping("/member/myPage/scrapCheck")
+	@ResponseBody
+	public int scrapCheck(@RequestParam Map<String, Object> param) {
+		int result = memberService.scrapCheck(param);
+		return result;
+	}
+	
 	@RequestMapping("/member/myPage/scrapAdd")
 	@ResponseBody
 	public int scrapAdd(@RequestParam Map<String, Object> param) {
 		int result = memberService.scrapAdd(param);
+		if(param.get("comtSq") != null && !param.get("comtSq").toString().equals("")){
+			param.put("divCd", "ADD");
+			memberService.updateComtScraps(param);
+		}
 		return result;
 	}
 	
@@ -640,6 +651,10 @@ public class MemberController {
 	@ResponseBody
 	public int scrapDel(@RequestParam Map<String, Object> param) {
 		int result = memberService.scrapDel(param);
+		if(param.get("comtSq") != null && !param.get("comtSq").toString().equals("")){
+			param.put("divCd", "DEL");
+			memberService.updateComtScraps(param);
+		}
 		return result;
 	}
 	

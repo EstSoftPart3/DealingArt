@@ -109,7 +109,7 @@
                             <input type="text" id="search_input" onkeydown="enter(event)" placeholder="검색어를 입력해 주세요." >
                             <button class="btn_mypage_search" onclick="searchMyShow()"></button>
                           </div>
-                          <button th:if="${#strings.isEmpty(mbrSq)}" class="btn_mypage_recording">기록하기</button>
+                          <button th:if="${#strings.isEmpty(mbrSq)}" class="btn_mypage_recording" onclick="location.href='/myPage/myWorkList_reg'">기록하기</button>
                     </div>
                     <div class="mypage_tap_wrap">
                     <th:block th:if="${#strings.isEmpty(mbrSq)}">

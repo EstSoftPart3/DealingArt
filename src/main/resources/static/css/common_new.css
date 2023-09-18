@@ -221,7 +221,7 @@ input[type="password"] {
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .profile_modify{text-align: center;font-size: 16px;font-weight: 300;padding: 14px 0;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .profile_modify span{display: inline-block;width: 23px;height: 23px;background: url("../img/img_new/ico_promod.png") 0 0 no-repeat;vertical-align: bottom;margin-right: 10px;}
 
-.mypage_contents .contents_left .myinfo_wrap .icon_box{;}
+/* .mypage_contents .contents_left .myinfo_wrap .icon_box{} */
 .mypage_contents .contents_left .myinfo_wrap .icon_box:after{content: "";display: block;clear: both;}
 .mypage_contents .contents_left .myinfo_wrap .icon_box ul li{float: left;text-align: center;font-size: 16px;padding: 5px 10px;}
 .mypage_contents .contents_left .myinfo_wrap .icon_box ul li:first-child{float: left;text-align: center;font-size: 16px;padding-left: 40px;}
@@ -349,6 +349,11 @@ input[type="password"] {
 .mypage_scrap_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_scrap_wrap ul{width: 100%;margin-top: 17px;}
 .mypage_scrap_wrap ul li{float: left;margin-right: 10px;}
+.mypage_scrap_wrap ul li img {
+	width: 360px;
+    height: 360px;
+    object-fit: contain;
+}
 /* 2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_scrap_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_scrap_wrap ul li:last-child img{opacity: 0.3;}
@@ -371,7 +376,12 @@ input[type="password"] {
 .mypage_following_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_following_wrap ul{width: 100%;margin-top: 17px;}
 .mypage_following_wrap ul li{float: left;margin-right: 10px;}
-.mypage_following_wrap ul li a img{border-radius: 999px;}
+.mypage_following_wrap ul li a img{
+	border-radius: 999px;
+	width: 360px;
+    height: 360px;
+    object-fit: contain;
+}
 /* 2023-08-02 정영우 last-child를 .pic_more로 옮김
 .mypage_following_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_following_wrap ul li:last-child img{opacity: 0.3;}
@@ -450,7 +460,8 @@ input[type="password"] {
 .sel_area{position: absolute;top: 25%;right: 16px;}
 .sel_area select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_area:after{content: '';background-image: url(../img/img_new/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
-.sel_sortation{/* position: absolute; 수정 2023-07-21 */top: 25%;right: 16px;}
+/* .sel_sortation{ position: absolute; top: 25%;right: 16px;} */
+.sel_sortation{position: relative;}
 .sel_sortation select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_sortation:after{content: '';background-image: url(../img/img_new/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
 
@@ -792,7 +803,13 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .comments_box_wrap .comments_box{background: #f5f5f5;border-bottom: 1px solid #e8e8e8;}
 .comments_box_wrap .comments_box .user_wrap{position: relative;border-top: 1px solid #e8e8e8;}
 .comments_box_wrap .comments_box .user_wrap:after{content: "";display: block;clear: both;}
-.comments_box_wrap .comments_box .user_wrap .user_img{float: left;margin: 10px 10px 10px 20px;}
+.comments_box_wrap .comments_box .user_wrap .user_img{
+	float: left;
+	margin: 10px 10px 10px 20px;
+	width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
 .comments_box_wrap .comments_box .user_wrap .user{}
 .comments_box_wrap .comments_box .user_wrap .user ul .user_name{padding: 10px 0 0;}
 .comments_box_wrap .comments_box .user_wrap .user_name span{font-size: 16px;font-weight: 500;color: #111111;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -805,7 +822,13 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .comments_box_wrap .answer_comments_box .user_wrap{position: relative;border-top: 1px solid #e8e8e8;}
 .comments_box_wrap .answer_comments_box .user_wrap:after{content: "";display: block;clear: both;}
 .comments_box_wrap .answer_comments_box .user_wrap .ico_answer_comments{float: left;padding: 20px 16px 0 50px;}
-.comments_box_wrap .answer_comments_box .user_wrap .user_img{float: left;margin: 10px 10px 10px 13px;}
+.comments_box_wrap .answer_comments_box .user_wrap .user_img{
+	float: left;
+	margin: 10px 10px 10px 13px;
+	width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
 .comments_box_wrap .answer_comments_box .user_wrap .user{}
 .comments_box_wrap .answer_comments_box .user_wrap .user ul .user_name{padding: 10px 0 0;}
 .comments_box_wrap .answer_comments_box .user_wrap .user_name span{font-size: 16px;font-weight: 500;color: #111111;padding: 3px 8px;border-radius: 5px;display: inline-block;}

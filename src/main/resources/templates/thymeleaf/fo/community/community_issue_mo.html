@@ -102,13 +102,13 @@
             <div id="nav">
                 <ul>
                     <li><a href="/community/mainMobile">홈</a></li>
-                    <li><a href="/community/worksListMobile" class="over">작품자랑</a></li>
+                    <li><a href="/community/worksListMobile">작품자랑</a></li>
                     <li><a href="/community/exhintListMobile">전시후기&소개</a></li>
-                    <li><a href="/community/issueListMobile">이슈</a></li>
+                    <li><a href="/community/issueListMobile" class="over">이슈</a></li>
                     <li><a href="/community/eventMobile">이벤트</a></li>   
                 </ul>
             </div>
-			<button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
+			<button class="btn_recording" onclick="location.href='/myPage/myPageMobile'">기록하기</button>
             <div class="input_wrap">
                 <div class="input_cal" style="display: inline; position: static;">
                 	<input type="date" id="startDate" onchange="checkCalendar()" class="mb10">
@@ -228,7 +228,7 @@
 	        strHtml += '                    <div class="user">';
 	        strHtml += '                        <ul>';
 	        
-	        if(null != issue.mbrProfileImgUrl){
+	        if(issue.mbrProfileImgUrl != null && issue.mbrProfileImgUrl != ""){
 		        strHtml += '                            <li class="pt5"><img src="'+ issue.mbrProfileImgUrl +'" alt=""></li>';
 	        } else {
 	        	strHtml += '                            <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';

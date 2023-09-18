@@ -1915,14 +1915,8 @@ $(document).on("click", ".leftNavMobile", function(){
 });
 
 $(document).on("click", ".scrap", function(){
-	
-	if(!isMobile){
-		 requestUrl = "/myPage/scrap";
-	 }else{
-		 requestUrl = "/myPage/scrapMobile";
-	 }
-	//requestUrl = "/myPage/scrap";
-	loginCheck(requestUrl,sMbrSqVal);
+	requestUrl = "/myPage/scrap";
+	loginCheckUrl(requestUrl);
 });
 
 function workReg(){

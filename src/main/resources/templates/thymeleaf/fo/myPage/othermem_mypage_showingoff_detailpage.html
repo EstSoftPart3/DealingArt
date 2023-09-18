@@ -259,8 +259,8 @@
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
     		userWrapHtml += '		<li class="time hidden">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
-    		userWrapHtml += '		<li><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
-    		userWrapHtml += '		<li><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
+    		userWrapHtml += '		<li onclick="likeCheck('+comtSq+')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
+    		userWrapHtml += '		<li onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
     		userWrapHtml += '		<li><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
     		userWrapHtml += '		<li><p class="ico_comments"></p><span>'+ showOff.comtCmts +'</span></li>';
     		userWrapHtml += '		<li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ showOff.rprtCnt +'</span></li>';
@@ -1356,6 +1356,80 @@
 		    // therefore delegated events won't be fired
 		    event.stopPropagation();
 		});
+		 
+		//스크랩 체크
+		function scrapCheck(sqNumber){
+			$.ajax({
+		        type: "post",
+		        url: "/member/myPage/scrapCheck",
+		        data: {
+		        	mbrSq : sMbrSqVal,
+		        	comtSq : sqNumber
+		        },
+		        success: function(data) {
+		        	if(data > 0){
+		        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
+		        			scrapDel(sqNumber);
+		        	    }
+		        	}else{
+		        		if(confirm("스크랩 목록에 '추가'하시겠습니까?")){
+		        			scrapAdd(sqNumber);
+		        	    }
+		        	}
+		        },
+		        error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});
+		}
+		
+		//스크랩 추가
+		function scrapAdd(sqNumber){
+			$.ajax({
+		        type: "post",
+		        url: "/member/myPage/scrapAdd",
+		        data: {
+		        	mbrSq : sMbrSqVal,
+		        	comtSq : sqNumber
+		        },
+		        success: function(data) {
+		        	if(data > 0){
+		        		alert("스크랩 목록에 '추가'되었습니다.");
+		        		location.reload();
+		        	}else{
+		        		alert("스크랩 목록 등록에 실패했습니다. 관리자에게 문의하세요.");
+		        		location.reload();
+		        	}
+		        },
+		        error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});
+		}
+		
+		//스크랩 제거
+		function scrapDel(sqNumber){
+			$.ajax({
+		        type: "post",
+		        url: "/member/myPage/scrapDel",
+		        data: {
+		        	mbrSq : sMbrSqVal,
+		        	comtSq : sqNumber
+		        },
+		        success: function(data) {
+		        	if(data > 0){
+		        		alert("스크랩 목록에서 '제거'되었습니다.");
+		        		location.reload();
+		        	}else{
+		        		alert("스크랩 목록 제거에 실패했습니다. 관리자에게 문의하세요.");
+		        		location.reload();
+		        	}
+		        },
+		        error: function(error) {
+		            alert("오류 발생" + error);
+		        }
+			});
+		}
 	</script>
 	
 	<!-- 네이버 광고 로그분석 추적 코드 -->

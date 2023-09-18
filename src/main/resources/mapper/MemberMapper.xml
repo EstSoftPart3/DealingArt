@@ -545,27 +545,83 @@
 		FROM TBL_DA_ARTST_EXHBTN_S
 	    WHERE EXHBTN_SQ = #{exhbtnSq}
   </select>
+  
+  <select id="scrapCheck" parameterType="hashMap" resultType="int">
+  	/*회원 스크랩 여부 조회*/
+  	SELECT 
+			COUNT(*)
+	FROM
+			TBL_DA_MBR_SCRAP_R
+	WHERE 
+			MBR_SQ = #{mbrSq}
+		<if test="workSq != null and workSq != ''">
+		AND WORK_SQ = #{workSq}
+		</if>
+		<if test="dealSq != null and dealSq != ''">
+		AND DEAL_SQ = #{dealSq}
+		</if>
+		<if test="comtSq != null and comtSq != ''">
+		AND COMT_SQ = #{comtSq}
+		</if>
+		<if test="mgzSq != null and mgzSq != ''">
+		AND MGZ_SQ = #{mgzSq}
+		</if>
+  </select>
    
-   <insert id="scrapAdd">
+   <insert id="scrapAdd" parameterType="hashMap">
    		/*회원 스크랩 추가*/
    		INSERT INTO 
    					TBL_DA_MBR_SCRAP_R (
-						MBR_SQ,
-						WORK_SQ
+						MBR_SQ
+						, WORK_SQ
+						, DEAL_SQ
+						, COMT_SQ
+						, MGZ_SQ
+						, REG_DT
    					) VALUES (
-   						#{mbrSq},
-   						#{workSq}
+   						#{mbrSq}
+   						, #{workSq}
+   						, #{dealSq}
+   						, #{comtSq}
+   						, #{mgzSq}
+   						, NOW()
    					)
    </insert>
    
-   <delete id="scrapDel">
+   <delete id="scrapDel" parameterType="hashMap">
    		/*회원 스크랩 삭제*/
    		DELETE	FROM 
  					TBL_DA_MBR_SCRAP_R
    				WHERE
    					MBR_SQ = #{mbrSq}
+   				<if test="workSq != null and workSq != ''">
    				AND WORK_SQ = #{workSq}
+   				</if>
+   				<if test="dealSq != null and dealSq != ''">
+   				AND DEAL_SQ = #{dealSq}
+   				</if>
+   				<if test="comtSq != null and comtSq != ''">
+   				AND COMT_SQ = #{comtSq}
+   				</if>
+   				<if test="mgzSq != null and mgzSq != ''">
+   				AND MGZ_SQ = #{mgzSq}
+   				</if>
    </delete>
+   
+   <update id="updateComtScraps" parameterType="hashMap">
+   	/*커뮤니티 게시물 스크랩수 증감*/
+		UPDATE 
+				TBL_DA_COMT_M
+			SET
+			<if test='divCd.equals("ADD")'>
+				COMT_SCRAPS = COMT_SCRAPS + 1
+			</if>
+			<if test='divCd.equals("DEL")'>
+				COMT_SCRAPS = COMT_SCRAPS - 1
+			</if>	
+		WHERE 
+				COMT_SQ = #{comtSq}
+   </update>
    
    <update id="autoLogin">
    		/*자동 로그인 정보 수정 등록*/

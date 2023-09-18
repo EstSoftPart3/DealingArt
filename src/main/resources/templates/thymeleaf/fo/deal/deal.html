@@ -858,7 +858,7 @@
 								html += '	</div>'
 
 								html += '	<div class="item-body">';
-		     					html += '		<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					html += '		<div class="heart" dealSq="'+ dealList[i].dealSq +'" style="cursor:pointer;"></div>';
 		     					html += '		<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
 		    	     				html += '		<img src="/resources/img/de/ues-icon.png"/>';
@@ -921,7 +921,7 @@
 		    	     			html += '		</div>';
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
-		     					html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					html += '<div class="heart" dealSq="'+ dealList[i].dealSq +'" style="cursor:pointer;"></div>';
 		     					html += '<div>';
 		     					html += '<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
@@ -971,7 +971,7 @@
 		     					html += '</div>';
 		     					html += '<div class="item-body">';
 		     					//html += '<div class="heartsoldout" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
-		     					html += '<div class="heart" workSq="'+ dealList[i].workSq +'" style="cursor:pointer;"></div>';
+		     					html += '<div class="heart" dealSq="'+ dealList[i].dealSq +'" style="cursor:pointer;"></div>';
 		     					html += '<div>';
 		     					html += '<div class="uesr-s">';
 		     					if(dealList[i].artstProfileImgUrl == null || dealList[i].artstProfileImgUrl == ""){
@@ -1192,7 +1192,7 @@
 		} else {
 			var param = new Object();
 			var element = $(this);
-			param.workSq= element.attr("workSq");
+			param.dealSq= element.attr("dealSq");
 			param.mbrSq = sMbrSqVal;
 			if($(this).hasClass("on")){
 				$.ajax({

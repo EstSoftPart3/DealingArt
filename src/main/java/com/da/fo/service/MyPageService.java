@@ -41,6 +41,20 @@ public interface MyPageService {
 	public int myPageMain_myCommunitysTotal(Object param);
 	
 	/*
+	 * 마이페이지 메인 스크랩 조회
+	 * param : Map
+	 * return : Map
+	 */
+	public List<Map<String, Object>> myPageMain_myScrap(Object param);
+	
+	/*
+	 * 마이페이지 메인 스크랩 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPageMain_myScrapTotal(Object param);
+	
+	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int

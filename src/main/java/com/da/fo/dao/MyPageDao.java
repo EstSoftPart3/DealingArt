@@ -80,6 +80,24 @@ public class MyPageDao {
 	}
 	
 	/*
+	 * 마이페이지 메인 스크랩 조회
+	 * param : Map
+	 * return : Map
+	 */
+	public List<Map<String, Object>> myPageMain_myScrap(Object param){
+		return myPageMapper.myPageMain_myScrap(param);
+	}
+	
+	/*
+	 * 마이페이지 메인 스크랩 총 갯수 조회
+	 * param : Map
+	 * return : int
+	 */
+	public int myPageMain_myScrapTotal(Object param){
+		return myPageMapper.myPageMain_myScrapTotal(param);
+	}
+	
+	/*
 	 * 구매자 운송 서비스 운송 타입 업데이트
 	 * param : buyTrnsprtTypCd, dealSq
 	 * return : int
@@ -729,8 +747,8 @@ public class MyPageDao {
 			result = myPageMapper.myPage_scrapMyWork(paramMap);
 		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
 			result = myPageMapper.myPage_scrapCom(paramMap);
-		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
-			result = myPageMapper.myPage_scrapMgz(paramMap);
+		}else if ("DEAL".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapDeal(paramMap);
 		}
 		
 		return result;
@@ -751,8 +769,8 @@ public class MyPageDao {
 			result = myPageMapper.myPage_scrapMyWorkTotal(paramMap);
 		}else if ("BOA".equals(scrapGbCd) || "EXH".equals(scrapGbCd) || "ISS".equals(scrapGbCd)) {
 			result = myPageMapper.myPage_scrapComTotal(paramMap);
-		}else if ("IST".equals(scrapGbCd) || "MDA".equals(scrapGbCd)) {
-			result = myPageMapper.myPage_scrapMgzTotal(paramMap);
+		}else if ("DEAL".equals(scrapGbCd)) {
+			result = myPageMapper.myPage_scrapDealTotal(paramMap);
 		}
 		
 		return result;

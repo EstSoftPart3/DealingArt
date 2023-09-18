@@ -263,7 +263,11 @@ function ShowList(data,callback){
         		if(result[i] != null){
 	            	html +=	'<div class="exhint_row">';
 	            	html +=	'<div class="exhint_list_img"><img src="'+result[i].comtImgUrl+'" style="width:100%; height:100%;"><div class="ico_num">1+</div></div>';
-	            	html +=	'<div class="contents width75per">';
+	            	if(!isMobile){
+	            		html += '<div class="contents width75per">';
+	            	}else{
+	            		html +=	'<div class="contents">';
+	            	}
                 	html += '		<div class="item-ho4 check-div" style="display:none;">';
                 	html += '			<div class="pay-check mana-check">';
                 	html += '				<input type="checkbox" id="'+result[i].comtSq+'" name="chkWorkSq" value="'+result[i].dealSq+'" onclick="selectedCount()">';
@@ -272,26 +276,38 @@ function ShowList(data,callback){
 					html += '		</div>';
 	            	html += '   <ul>';
 					if(result[i].cmtOpenYn != "N"){
-						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;"></span></button>';
+						html += '			<button type="button" class="workOpenYnBtn" style="display:none;"><span class="iv-span" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
 					}else{
-						html += '			<button type="button" class="workOpenYnBtn"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)" style="display:none;""></span></button>';
+						html += '			<button type="button" class="workOpenYnBtn" style="display:none;"><span class="iv-span active" workSq="'+result[i].workSq+'" onclick="openYn(this)"></span></button>';
 					}
-	            	html += '   <a href="/community/exhibitDetail?SqNumber='+result[i].comtSq+'">';
+	            	html += '   <a href="/community/issueDetail?SqNumber='+result[i].comtSq+'">';
 	            	html += '       <li>';
 	            	html += '           <div class="tit">'; 
 	            	html += '               <em>'+result[i].comtTitle+'</em>';                                                                
 	            	html += '           </div>';
 	            	html += '       </li>';
-	            	html += '       <li class="comt_content pt20 height120"><p>'+result[i].cmtContent+'</p></li>';
+	            	if(!isMobile){
+	            		html += '       <li class="comt_content pt20 height120"><p>'+result[i].cmtContent+'</p></li>';
+	            	}else{
+	            		html += '       <li class="pt10 height_18_5rem comt_content"><p>'+result[i].cmtContent+'</p></li>';
+	            	}
 	            	html += '      </a>';
 	            	html += '      <li class="comt-row-info">';
 	            	html += '           <div class="user_wrap">';
 	            	html += '               <div class="user">';
 	            	html += '                   <ul>';
-	            	if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
-	                	html +=		'                <li class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></li>';
+	            	if(!isMobile){
+	            		if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+	            			html +=		'                <li class="user_img"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></li>';
+	                	}else{
+	                		html +=		'                <li class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+	                	}
 	            	}else{
-	                	html +=		'                <li class="user_img"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+	            		if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl !=""){
+	            			html +=		'                <li class="pt5"><img src="'+result[i].mbrProfileImgUrl+'" alt=""></li>';
+	                	}else{
+	                		html +=		'                <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+	                	}
 	            	}
 	            	html += '                      <li class="user_name"><span>'+result[i].mbrNcknm+'</span></li>';
 	            	html += '                  </ul>';
@@ -370,7 +386,7 @@ function ShowList(data,callback){
 
 //화면 레이아웃 추가
 function masonryLayout(callback) {
- 	var msnry = new Masonry( '.exhint_row', {
+ 	/* var msnry = new Masonry( '.exhint_row', {
   		itemSelector: '.contents',
   	  	columnWidth: 360,
   	  	gutter: 10,
@@ -378,7 +394,7 @@ function masonryLayout(callback) {
   	  	// originLeft: false //왼쪽부터 정렬 
   	  	// originTop: false //바닥부터
   	  	transitionDuration: '0.2s' //위치 전환 시간
-	});
+	}); */
 
 	imagesLoaded( '.exhint_row' ).on( 'progress', function() {
 		msnry.layout();

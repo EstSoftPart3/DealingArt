@@ -132,4 +132,6 @@ public interface CommunityService {
 	 */
 	public Map<String, Object> comtOpenDelYnCheck(String param);
 	
+	//커뮤니티 조회수 증가
+	public void updateComtViews(Object param);
 }
