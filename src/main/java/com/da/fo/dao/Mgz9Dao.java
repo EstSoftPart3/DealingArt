@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.da.mapper.ArtistMapper;
 import com.da.mapper.Mgz9Mapper;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -22,6 +23,27 @@ public class Mgz9Dao {
 	
 	@Autowired
 	Mgz9Mapper mgz9Mapper;
+	
+	@Autowired
+	private ArtistMapper artistMapper;
+	/*
+	 * 매거진9 홈 목록 조회
+	 */
+	public Map<String, Object> searchMgz9homeList() {
+		String ist = "IST"; // 인사이트
+		String mda = "MDA"; // 아티스트 영상
+		String bnnDivCd = "MGH"; // 매거진9 홈 배너구분 코드
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("istList", mgz9Mapper.searchMgzhomeList(ist)); // 인사이트
+		result.put("mdaList", mgz9Mapper.searchMgzhomeList(mda)); // 아티스트 영상
+		result.put("artistList", artistMapper.selectNewartistList()); // 업데이트 아티스트
+		result.put("bannerDtl", mgz9Mapper.searchHomeBnnList(bnnDivCd)); // 매거진9 홈 배너
+		
+		return result;
+	}
+	
 	
 	/*
 	 * MGZ9 목록 조회

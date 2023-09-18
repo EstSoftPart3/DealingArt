@@ -4,6 +4,51 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.Mgz9Mapper">
 
+		
+	<select id="searchMgzhomeList" resultType="hashMap" parameterType="hashMap">
+	/* MGZ9 홈 리스트 */
+		SELECT
+			 MGZ_SQ             as mgzSq          
+			,MBR_SQ             as mbrSq          
+			,MGZ_TITLE          as mgzTitle       
+			,MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ_TYP_CD         as mgzTypCd      
+			,REG_MBR_SQ         as regMbrSq      
+			,REG_DT             as regDt     
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')			as regDate      
+			,UPDT_MBR_SQ        as updtMbrSq     
+			,UPDT_DT            as updtDt         
+			,DEL_YN             as delYn          
+			,USE_YN             as useYn     
+			,MGZ_CONTENT        as mgzContent     
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND MGZ_TYP_CD = #{mgzTypCd}
+		ORDER BY MGZ_SQ DESC
+		LIMIT 4
+	</select>
+	
+	<select id="searchHomeBnnList" resultType="hashMap">
+		/* 커뮤니티 홈 배너 조회 */
+		SELECT A.BNN_SQ AS bnnSq,
+			   A.BNN_TITLE AS bnnTitle,
+			   A.BNN_MP_IMG_URL AS bnnMpImgUrl,
+			   A.BNN_EP_IMG_URL AS bnnEpImgUrl,
+			   A.BNN_MM_IMG_URL AS bnnMmImgUrl,
+			   A.BNN_EM_IMG_URL AS bnnEmImgUrl,
+			   A.BNN_M_LND_URL AS bnnMLndUrl,
+			   A.BNN_E_LND_URL AS bnnELndUrl,
+			   DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt,
+			   DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d') AS bnnEndDt
+		  FROM TBL_DA_BNN_MGMT_M A		  	 
+		 WHERE A.BNN_DIV_CD = #{bnnDivCd}
+		   AND A.USE_YN = 'Y'
+		   AND A.DEL_YN = 'N'
+		 ORDER BY A.BNN_END_DT DESC
+		 LIMIT 1
+	</select>
+
 	<select id="selectMgz9List" resultType="hashMap" parameterType="hashMap">
 	/* MGZ9 리스트 */
 		SELECT

@@ -4,6 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface ArtistMapper {
+	
+	/*
+	 * [매거진9>홈] 신규 등록된 작가 목록을 불러온다.
+	 * param : null
+	 * return : 검색 결과
+	 */
+	public List selectNewartistList();
 	/*
 	 * 아티스트 라이브러리 오픈 시 신진 작가 목록을 불러온다.
 	 * param : null

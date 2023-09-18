@@ -83,6 +83,16 @@ public class Mgz9Controller {
 	 * mv.addObject("endNum", endNum); return mv; }
 	 */
 	
+	// 매거진9 홈 목록 조회
+	@RequestMapping("/mgz9/searchMgz9homeList")
+	@ResponseBody
+	public ModelAndView searchHomeList() {
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> result = mgz9Service.searchMgz9homeList();
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	/* 검색 */
 	@RequestMapping("/mgz9/search")
 	@ResponseBody

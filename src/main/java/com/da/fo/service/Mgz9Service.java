@@ -6,6 +6,11 @@ import java.util.Map;
 public interface Mgz9Service {
 	
 	/*
+	 * 매거진9 홈 목록 조회
+	 */
+	public Map<String, Object> searchMgz9homeList();
+	
+	/*
 	 * MGZ9 목록 조회
 	 * PARAM : 
 		#MGZ_TYP_CD

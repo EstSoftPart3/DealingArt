@@ -19,6 +19,15 @@ public class Mgz9ServiceImpl implements Mgz9Service{
 	Mgz9Dao mgz9Dao;
 	
 	/*
+	 * 매거진9 홈 목록 조회
+	 */
+	@Override
+	public Map<String, Object> searchMgz9homeList() {
+		return mgz9Dao.searchMgz9homeList();
+	}
+
+	
+	/*
 	 * MGZ9 목록 조회
 	 * PARAM : 
 		#MGZ_TYP_CD
