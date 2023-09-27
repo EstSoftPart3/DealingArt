@@ -407,7 +407,7 @@ input[type="file"] {
 												</td>
 											</tr>
 											<tr class="col-form-label sTitle LabelStyle">
-												<td class="col-sm-1" align="center">전시 후기/소개</td>
+												<td class="col-sm-1" align="center">전시 소개/후기</td>
 												<td id="" class="col-sm-4 dataValue">
 													<div style="padding-left: 10px; float: left;">
 														<select id="MIH5_DIV_CD">
@@ -915,7 +915,7 @@ function bannerInsert() {
 		 		,{
 					"promoSq" : "8"
 					, "bnnDivCd" : bnnDivCd
-					, "promoNm" : "전시 후기/소개"
+					, "promoNm" : "전시 소개/후기"
 					, "promoOdDivCd" : $("#CMH3_DIV_CD").val()
 					, "promoOdTypCd" : $("#CMH3_TYP_CD").val()
 				}

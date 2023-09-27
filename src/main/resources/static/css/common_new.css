@@ -9,17 +9,17 @@ a, a:active, a:hover, a:focus {text-decoration:none; }
 a, a:link, a:visited, a:active{text-decoration:none;color:#202020}
 a:hover{text-decoration: none;color: #af1c2a !important;}
 address,caption,cite,code,dfn,em,var,th,strong { font: inherit; }
-table { width: 100%; border-collapse: collapse; border-spacing: 0;/* margin: 0 !important; 주석처리 2023-08-09 */}
+table { width: 100%; border-collapse: collapse; border-spacing: 0;/* margin: 0 !important; 二쇱꽍泥섎━ 2023-08-09 */}
 legend, caption, hr,  template, select::-ms-expand	{display:none;}
 input, select {-webkit-appearance:none; -moz-appearance:none; appearance: none; -o-appearance:none; -webkit-border-radius:0; border-radius:0;}
 input:focus,select:focus,textarea:focus,a:focus,button:focus{outline:none}
 textarea{resize: none;}
 button{cursor:pointer; background:none;}
-/* label{display: none;} */ /* 수정 2023-07-21 */
+/* label{display: none;} */ /* �닔�젙 2023-07-21 */
 strong{font-weight: bold;}
 input[type="text"],
 input[type="password"] {
-  /* height: auto; */ /* 정영우 수정 2023-07-20 */
+  /* height: auto; */ /* �젙�쁺�슦 �닔�젙 2023-07-20 */
   line-height: normal;
   letter-spacing: -0.0625rem;
 }
@@ -39,7 +39,7 @@ input[type="password"] {
 .works_wrap{margin-top:70px;position: relative;}
 .works_wrap:after {content: "";display: block;clear: both;}
 .works_wrap .tit_wrap h2{font-size: 24px;letter-spacing: -1.5px;}
-.works_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
+.works_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 �씠誘몄� 寃쎈줈 �뾾�뼱�꽌 二쇱꽍 泥섎━ */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
 .works_wrap ul{width: 100%;margin-top: 22px;}
 .works_wrap ul li{float: left;margin-right: 20px;}
 .works_wrap ul li:last-child{margin-right: 0;}
@@ -48,7 +48,7 @@ input[type="password"] {
 .master_wrap{margin-top:34px;position: relative;}
 .master_wrap:after {content: "";display: block;clear: both;}
 .master_wrap .tit_wrap h2{font-size: 24px;letter-spacing: -1.5px;}
-.master_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
+.master_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-02 �씠誘몄� 寃쎈줈 �뾾�뼱�꽌 二쇱꽍 泥섎━ */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat; text-align: left;position: absolute;top: 5px;right: 20px;}
 .master_wrap ul{width: 100%;margin-top: 22px;}
 .master_wrap ul li{float: left;margin-right: 20px;}
 .master_wrap ul li:last-child{margin-right: 0;}
@@ -61,7 +61,7 @@ input[type="password"] {
 .intro_posts .tit_wrap h2{font-size: 22px;letter-spacing: -1.5px;}
 .intro_posts .tit_wrap h2 img{vertical-align: bottom;}
 .intro_posts .tit_wrap h2 span{padding-left: 12px;}
-.intro_posts .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-03 이미지 경로 없어서 주석 처리 */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 20px;right: 20px;}
+.intro_posts .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;/* background: url("../images/ico_more.png") 100% 6px no-repeat; 2023-08-03 �씠誘몄� 寃쎈줈 �뾾�뼱�꽌 二쇱꽍 泥섎━ */ background: url("../img/mypage/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 20px;right: 20px;}
 .intro_posts ol{width: 100%;}
 .intro_posts ol li{position: relative;padding: 12px 35px;counter-increment: number;}
 /* .intro_posts ol li:before{content: counter(number, decimal);background: #e32d1c;border-radius: 100%;padding: 1px 8px;margin-right: 5px;color: #ffffff;font-size: 14px;} */
@@ -101,8 +101,8 @@ input[type="password"] {
 .notice .tit{float: left;background: #808080;width: 10%;padding: 22px 0;border-radius: 10px 0 0 10px;font-size: 26px;font-weight: 700;color: #ffffff;text-align: center;}
 .notice .contents{float: left;background: #f5f5f5;width: 90%;border-radius: 0 10px 10px 0;padding: 26px 33px;font-size: 20px;position: relative;margin-top: 0;}
 
-/* .sel_sorting{position: absolute;top: 25%;right: 186px;} 주석 처리 2023-08-03 */
-.sel_sorting{display: inline-block; position: absolute;top: 25%;right: 170px;}/* 추가 2023-08-03 */
+/* .sel_sorting{position: absolute;top: 25%;right: 186px;} 二쇱꽍 泥섎━ 2023-08-03 */
+.sel_sorting{display: inline-block; position: absolute;top: 25%;right: 170px;}/* 異붽� 2023-08-03 */
 .sel_sorting select{position: relative; width: 160px;height: 44px;background: #ffffff;padding: 10px;border: #d9d9d9 1px solid;border-radius: 5px;font-family: 'Noto Sans KR';font-size: 16px;color: #111111;font-weight: 500;letter-spacing: -1.5px;}
 .sel_sorting:after{content: '';background-image: url(../img/img_new/ico_select.png);width: 12px;height: 8px;background-size: 100%;position: absolute;right: 15px;top: 50%;transform: translateY(-50%);}
 /* .sel_form{position: absolute;top: 25%;right: 16px;} */
@@ -122,8 +122,8 @@ input[type="password"] {
 .works_pic .header .user_name{float: left;}
 .works_pic .header .user_name li{padding: 0 0 10px 20px;}
 .works_pic .header .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
-/* .works_pic .pic{position: relative;} */ /* 수정 2023-07-25 */
-.works_pic .pic{position: relative; width: 360px; height: 360px; /* 2023-08-3 추가 start */ border: 2px solid #f5f5f5; /* 2023-08-3 추가 end */}
+/* .works_pic .pic{position: relative;} */ /* �닔�젙 2023-07-25 */
+.works_pic .pic{position: relative; width: 360px; height: 360px; /* 2023-08-3 異붽� start */ border: 2px solid #f5f5f5; /* 2023-08-3 異붽� end */}
 .works_pic .ico_new{position: absolute;width: 50px;height: 50px;background: #ec3c3c;border-radius: 999px;top: 10px;right: 10px;font-family: 'Roboto Condensed';font-style: italic;font-size: 18px;font-weight: 500;color: #ffffff;text-align: center;padding-top: 14px;}
 .works_pic .icon_box{background: #f5f5f5;}
 .works_pic .icon_box:after{content: "";display: block;clear: both;}
@@ -131,15 +131,16 @@ input[type="password"] {
 .works_pic .icon_box ul li:first-child{float: left;text-align: center;font-size: 16px;padding-left: 30px;}
 .works_pic .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_good.png") 50% 50% no-repeat;}
 .works_pic .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_scrap.png") 50% 50% no-repeat;}
-.works_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_hits.png") 50% 50% no-repeat;}
+.works_pic .icon_box ul li .ico_alarm{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
 .works_pic .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_comments.png") 50% 50% no-repeat;}
 .works_pic .text{font-size: 16px;color: #111111;padding: 20px;text-align: center;}
 .btn_area{padding: 80px 0;text-align: center;}
 .btn_area button{font-size: 20px;color: #828282;font-weight: 500; border: 2px solid #f1f1f1;padding: 15px 130px;}
 .exhint_wrap{margin-top: 80px;}
-.exhint_row{margin-top: 30px; /* 2023-08-03 추가 */ height: 250px;}
+.exhint_row{margin-top: 30px; /* 2023-08-03 異붽� */ height: 250px;}
 .exhint_row:after{content: "";display: block;clear: both;}
-/*2023-07-28 정영우 수정*/
+/*2023-07-28 �젙�쁺�슦 �닔�젙*/
 .exhint_row .exhint_list_img {
     float: right;
     position: relative;
@@ -147,7 +148,7 @@ input[type="password"] {
     height: 250px;
     object-fit: cover;
 }
-.exhint_row .contents{float: left;width: 80%; /* 2023-08-03 추가 start */ height: 100%; position: relative; margin-top: 0; /* 2023-08-03 추가 end */}
+.exhint_row .contents{float: left;width: 80%; /* 2023-08-03 異붽� start */ height: 100%; position: relative; margin-top: 0; /* 2023-08-03 異붽� end */}
 .exhint_row .contents .tit{display: flex; justify-content: flex-start;}
 .exhint_row .contents ul li .tit em{font-size: 30px;font-weight: 500;letter-spacing: -1.5px;}
 .exhint_row .contents ul li .tit .ico_new{margin-left: 16px;width: 50px;height: 50px;background: #ec3c3c;border-radius: 999px;font-family: 'Roboto Condensed';font-style: italic;font-size: 18px;font-weight: 500;color: #ffffff;text-align: center;padding-top: 14px;}
@@ -155,7 +156,7 @@ input[type="password"] {
 .exhint_row .contents ul li .user_wrap{position: relative;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8;}
 .exhint_row .contents ul li .user_wrap:after{content: "";display: block;clear: both;}
 .exhint_row .contents ul li .user_wrap .user{float: left;margin: 7px 16px;}
-.exhint_row .contents ul li .user_wrap .user img{width: 60px;height: 60px;} /* 23.08.23 박재현 내용 추가 */
+.exhint_row .contents ul li .user_wrap .user img{width: 60px;height: 60px;} /* 23.08.23 諛뺤옱�쁽 �궡�슜 異붽� */
 .exhint_row .contents ul li .user_wrap .user ul .user_name{padding: 20px;}
 .exhint_row .contents ul li .user_wrap .icon_box{float: right;}
 .exhint_row .contents ul li .user_wrap .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -167,7 +168,8 @@ input[type="password"] {
 .exhint_row .contents ul li .icon_box ul li:first-child{float: left;text-align: center;font-size: 16px;padding-left: 30px;}
 .exhint_row .contents ul li .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_good.png") 50% 50% no-repeat;}
 .exhint_row .contents ul li .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_scrap.png") 50% 50% no-repeat;}
-.exhint_row .contents ul li .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
+.exhint_row .contents ul li .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_hits.png") 50% 50% no-repeat;}
+.exhint_row .contents ul li .icon_box ul li .ico_alarm{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
 .exhint_row .contents ul li .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_comments.png") 50% 50% no-repeat;}
 
 .pagination{margin: 80px 0;display: flex !important;justify-content: center !important;}
@@ -200,7 +202,7 @@ input[type="password"] {
 .mypage_contents .contents_left .myinfo_wrap{background: #f5f5f5;border-radius: 30px 0 0 30px;}
 .mypage_contents .contents_left .myinfo_wrap:after{content: "";display: block;clear: both;}
 
-/* 2023-07-31 정영우 수정 (회원 프로필사진 동적으로 넣기 위해)*/
+/* 2023-07-31 �젙�쁺�슦 �닔�젙 (�쉶�썝 �봽濡쒗븘�궗吏� �룞�쟻�쑝濡� �꽔湲� �쐞�빐)*/
 .mypage_contents .contents_left .myinfo_wrap .myinfo_pic{
 	width: 300px;
 	height: 243px;
@@ -210,8 +212,8 @@ input[type="password"] {
 	display: flex;
     justify-content: center;
     align-items: center;
-} /* 23.08.23 박재현 내용 수정 */
-.mypage_contents .contents_left .myinfo_wrap .myinfo_pic img{width: 150px;height: 150px;} /* 23.08.23 박재현 내용 추가 */
+} /* 23.08.23 諛뺤옱�쁽 �궡�슜 �닔�젙 */
+.mypage_contents .contents_left .myinfo_wrap .myinfo_pic img{width: 150px;height: 150px;} /* 23.08.23 諛뺤옱�쁽 �궡�슜 異붽� */
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name{text-align: center;font-size: 24px;font-weight: bold;letter-spacing: -1px;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .name span{display: inline-block;width: 30px;height: 38px;background: url("../img/img_new/ico_badge.png") 0 0 no-repeat;vertical-align: bottom;}
 .mypage_contents .contents_left .myinfo_wrap .myinfo_con .email{text-align: center;font-size: 18px;font-weight: 400;padding: 14px 0;}
@@ -243,7 +245,7 @@ input[type="password"] {
 .left_nav{margin-top: 32px;}
 .left_nav ul li{font-size: 20px;font-weight: 500;padding: 11px 0;border-top: 1px solid #e8e8e8;}
 .left_nav ul li.on{background: url("../img/mypage/ico_nav_minus.png") 98% 22px no-repeat;}
-/*2023-07-31 정영우 off 클래스 추가*/
+/*2023-07-31 �젙�쁺�슦 off �겢�옒�뒪 異붽�*/
 .left_nav ul li.off{background: url("../img/mypage/ico_nav_plus.png") 98% 50% no-repeat;}
 .left_nav ul li:last-child{border-bottom: 1px solid #e8e8e8;}
 .left_nav ul li ul li{font-size: 14px;font-weight: 300;padding: 8px 0;background: none;border: none;}
@@ -261,18 +263,18 @@ input[type="password"] {
 .mypage_works_wrap ul li{float: left;margin-right: 10px;}
 
 /* 
-2023-08-02 정영우 last-child를 .pic_more로 옮김
+2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源�
 .mypage_works_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_works_wrap ul li:last-child img{opacity: 0.3;} 
 */
 
-/* 2023-08-01 정영우 마이페이지 메인 작품 사이즈 조정 */
+/* 2023-08-01 �젙�쁺�슦 留덉씠�럹�씠吏� 硫붿씤 �옉�뭹 �궗�씠利� 議곗젙 */
 .mypage_works_wrap ul li img {
 	width: 360px;
  	height: 360px;
  	object-fit: contain;
 }
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源� */
 .mypage_works_wrap ul .pic_more{
 	margin-right: 0;
 	background: #000000;
@@ -290,18 +292,18 @@ input[type="password"] {
 .mypage_showingoff_wrap .tit_wrap h2 span{font-size: 26px;font-weight: bold;color: #b81d2c;margin-left: 10px;}
 .mypage_showingoff_wrap .tit_wrap .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 5px;right: 20px;}
 .mypage_showingoff_wrap ul{width: 100%;margin-top: 17px;}
-/* 2023-08-01 정영우 마이페이지 메인 자랑하기 사이즈 조정 */
+/* 2023-08-01 �젙�쁺�슦 留덉씠�럹�씠吏� 硫붿씤 �옄�옉�븯湲� �궗�씠利� 議곗젙 */
 .mypage_showingoff_wrap ul li img {
 	width: 360px;
  	height: 360px;
  	object-fit: contain;
 }
 .mypage_showingoff_wrap ul li{float: left;margin-right: 10px;}
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源�
 .mypage_showingoff_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_showingoff_wrap ul li:last-child img{opacity: 0.3;}
 */
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源� */
 .mypage_showingoff_wrap ul .pic_more{
 	position: relative;
 	margin-right: 0;
@@ -354,11 +356,11 @@ input[type="password"] {
     height: 360px;
     object-fit: contain;
 }
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源�
 .mypage_scrap_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_scrap_wrap ul li:last-child img{opacity: 0.3;}
 */
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源� */
 .mypage_scrap_wrap ul .pic_more{
 	position: relative;
 	margin-right: 0;
@@ -382,11 +384,11 @@ input[type="password"] {
     height: 360px;
     object-fit: contain;
 }
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源�
 .mypage_following_wrap ul li:last-child{margin-right: 0;background: #000000;}
 .mypage_following_wrap ul li:last-child img{opacity: 0.3;}
 */
-/* 2023-08-02 정영우 last-child를 .pic_more로 옮김 */
+/* 2023-08-02 �젙�쁺�슦 last-child瑜� .pic_more濡� �삷源� */
 .mypage_following_wrap ul .pic_more{
 	position: relative;
 	border-radius: 999px;
@@ -441,7 +443,7 @@ input[type="password"] {
 .showingoff_pic .header{height: 83px;margin-top: 16px;}
 .showingoff_pic .header:after{content: "";display: block;clear: both;}
 .showingoff_pic .header .user_img{display: inline-block;float: left;height: 83px;padding-top: 3px;}
-.showingoff_pic .header .user_img img{width: 60px;height: 60px;} /* 23.08.23 박재현 내용 추가 */
+.showingoff_pic .header .user_img img{width: 60px;height: 60px;} /* 23.08.23 諛뺤옱�쁽 �궡�슜 異붽� */
 .showingoff_pic .header .user_name{float: left;}
 .showingoff_pic .header .user_name li{padding: 0 0 10px 20px;}
 .showingoff_pic .header .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -453,7 +455,8 @@ input[type="password"] {
 .showingoff_pic .icon_box ul li:first-child{float: left;text-align: center;font-size: 16px;padding-left: 30px;}
 .showingoff_pic .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_good.png") 50% 50% no-repeat;}
 .showingoff_pic .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_scrap.png") 50% 50% no-repeat;}
-.showingoff_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
+.showingoff_pic .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_hits.png") 50% 50% no-repeat;}
+.showingoff_pic .icon_box ul li .ico_alarm{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
 .showingoff_pic .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #ffffff url("../img/img_new/ico_comments.png") 50% 50% no-repeat;}
 .showingoff_pic .text{font-size: 18px;font-weight: 500;color: #111111;padding: 20px;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 360px;}
 
@@ -525,9 +528,9 @@ input[type="password"] {
 .mypage_collectcreate_wrap .first form p{padding: 20px 10px;}
 .mypage_collectcreate_wrap .first form p label{display: block;float: left;font-size: 16px;font-weight: 500;color: #111111;width: 175px;padding-top: 11px;}
 .mypage_collectcreate_wrap .first form p label strong{color: #b81d2c;margin-right: 6px;}
-.comt_strong_red{color: #b81d2c;margin-right: 6px;}/* 추가 2023-07-21 */
+.comt_strong_red{color: #b81d2c;margin-right: 6px;}/* 異붽� 2023-07-21 */
 .mypage_collectcreate_wrap .first form p input{width: 82%;height: 44px;border: 1px solid #d6d6d6;border-radius: 5px;}
-.comt_input{width: 82%;height: 44px;border: 1px solid #d6d6d6;border-radius: 5px;padding-left: 15px;} /* 추가 2023-07-21 */
+.comt_input{width: 82%;height: 44px;border: 1px solid #d6d6d6;border-radius: 5px;padding-left: 15px;} /* 異붽� 2023-07-21 */
 .mypage_collectcreate_wrap .first form p span{margin: 0 20px;}
 .mypage_collectcreate_wrap .first form .size_guide{font-size: 14px;color: #999999;margin-left: 175px;padding-top: 0;}
 .mypage_collectcreate_wrap .first form .question_mark{position: relative;}
@@ -542,7 +545,7 @@ input[type="password"] {
 .mypage_collectcreate_wrap .second form .public_nondis span{float: left;display: inline-block;font-size: 16px;font-weight: 500;color: #111111;width: 175px;}
 .mypage_collectcreate_wrap .second form .public_nondis span strong{color: #b81d2c;margin-right: 6px;}
 .mypage_collectcreate_wrap .second form .public_nondis ul li{float: left;width: 100px;}
-/* radio버튼 사용해야 하는데 안나와서 수정했습니다 ! 2023-07-20 */
+/* radio踰꾪듉 �궗�슜�빐�빞 �븯�뒗�뜲 �븞�굹���꽌 �닔�젙�뻽�뒿�땲�떎 ! 2023-07-20 */
 /* .mypage_collectcreate_wrap .second form .public_nondis ul li input[type="checkbox"] {display: none;}
 .mypage_collectcreate_wrap .second form .public_nondis ul li input[type="checkbox"] + label {position: relative;display: inline-block;width: 20px;height: 20px;background: #fff;border: 1px solid #ddd;cursor: pointer;border-radius: 9999px;}
 .mypage_collectcreate_wrap .second form .public_nondis ul li input[type="checkbox"]:checked + label {background: url("../img/img_new/ico_check.png") no-repeat 50% 50%;}
@@ -607,7 +610,7 @@ input[type="password"] {
 .mypage_collectcreate_wrap .second .showing_off:after{display: block;clear: both;content: "";}
 .mypage_collectcreate_wrap .second .showing_off span{float: left;display: inline-block;font-size: 16px;font-weight: 500;color: #111111;width: 175px;}
 .mypage_collectcreate_wrap .second .showing_off span strong{color: #b81d2c;margin-right: 6px;}
-.mypage_collectcreate_wrap .second .showing_off .showingoff_file_area{float: left;/* width: 82%; 수정 2023-07-21 */ width: 100%; height: 367px;background: #ffffff;border: 1px solid #d6d6d6;border-radius: 5px;text-align: center;padding-top: 60px;}
+.mypage_collectcreate_wrap .second .showing_off .showingoff_file_area{float: left;/* width: 82%; �닔�젙 2023-07-21 */ width: 100%; height: 367px;background: #ffffff;border: 1px solid #d6d6d6;border-radius: 5px;text-align: center;padding-top: 60px;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area p{font-size: 22px;font-weight: 500;padding: 0;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area p span{float: none;font-size: 14px;font-weight: 300;color: #999999;margin-top: 26px;letter-spacing: 0;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area .btn_reprepic_add{background: #717171 url("../img/img_new/ico_reprepic_add.png") 10% 50% no-repeat;font-size: 20px;font-weight: 500;color: #ffffff;padding: 16px 20px 16px 60px;border-radius: 5px;margin-top: 26px;}
@@ -727,7 +730,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_showingoff_detail_page_wrap .user_wrap{position: relative;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8;}
 .works_showingoff_detail_page_wrap .user_wrap:after{content: "";display: block;clear: both;}
 .works_showingoff_detail_page_wrap .user_wrap .user{float: left;margin: 7px 16px;}
-.works_showingoff_detail_page_wrap .user_wrap .user img{width: 60px;height: 60px;} /* 23.08.23 박재현 내용 추가 */
+.works_showingoff_detail_page_wrap .user_wrap .user img{width: 60px;height: 60px;} /* 23.08.23 諛뺤옱�쁽 �궡�슜 異붽� */
 .works_showingoff_detail_page_wrap .user_wrap .user ul .user_name{padding: 20px;}
 .works_showingoff_detail_page_wrap .user_wrap .icon_box{float: right;}
 .works_showingoff_detail_page_wrap .user_wrap .user_name span{background: #8f8f8f;font-size: 16px;font-weight: 500;color: #ffffff;padding: 3px 8px;border-radius: 5px;display: inline-block;}
@@ -745,7 +748,8 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_showingoff_detail_page_wrap .icon_box ul .day{padding-top: 30px;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_good{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_good.png") 50% 50% no-repeat;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_scrap{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_scrap.png") 50% 50% no-repeat;}
-.works_showingoff_detail_page_wrap .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
+.works_showingoff_detail_page_wrap .icon_box ul li .ico_hits{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_hits.png") 50% 50% no-repeat;}
+.works_showingoff_detail_page_wrap .icon_box ul li .ico_alarm{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_alarm.png") 50% 50% no-repeat;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_comments.png") 50% 50% no-repeat;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_report{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_report.png") 50% 50% no-repeat;}
 
@@ -946,7 +950,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .color-box label.mc-11{background:#c7c7c7;}
 .color-box label.mc-12{background:#000000;}
 
-/* 2023-08-02 추가 start */
+/* 2023-08-02 異붽� start */
 .img-fit-contain {
 	width: 100%;
 	height: 100%;
@@ -959,9 +963,9 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 	overflow: hidden;
 	font-size: 16px;
 }
-/* 2023-08-02 추가 end */
+/* 2023-08-02 異붽� end */
 
-/* 2023-08-03 추가 start */
+/* 2023-08-03 異붽� start */
 .comt_content {
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -994,17 +998,17 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .align-items-center {
 	align-items: center;
 }
-/* 2023-08-03 추가 end */
+/* 2023-08-03 異붽� end */
 
-/* 2023-08-07 추가 start */
+/* 2023-08-07 異붽� start */
 .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 84%;right: 0;}
 .cmt_reg_btn {
 	padding: 10px 20px;
 	height: 44px;
 }
-/* 2023-08-07 추가 end */
+/* 2023-08-07 異붽� end */
 
-/* 2023.08.22 재현 내용추가 css */
+/* 2023.08.22 �옱�쁽 �궡�슜異붽� css */
 .works_showingoff_detai2_page_wrap .artist_info_wrap .artist_info_left img{width: 250px;height: 250px;}
 
 

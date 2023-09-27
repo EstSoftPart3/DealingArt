@@ -511,7 +511,7 @@ if (commuBorTypCd.equals("ABL")) {
 				            case "ISS":
 				                return "이슈";
 				            case "EXH":
-				                return "전시후기&소개";
+				                return "전시 소개&후기";
 				            case "BOA":
 				                return "작품자랑";	            
 				            default:

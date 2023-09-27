@@ -207,7 +207,7 @@
 			<div class="contents max-1500 market_work_wrap" id="newDeal_title">				
 				<div class="tit_wrap">
                     <h2>지금 거래중인 작품</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/deal"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="swi-box mt10">
 					<div class="swiper mySwiper1">
@@ -248,7 +248,7 @@
 			<div class="contents max-1500 magazine9_wrap">				
 				<div class="tit_wrap">
                     <h2>매거진9</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/mgz9/magazine9_main"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="cns-div swi-box mt10">
 					<div class="swiper mySwiper2" >
@@ -314,7 +314,7 @@
 			<div class="contents max-1500 exhint_rewview_wrap" id="newDeal_title">				
 				<div class="tit_wrap">
                     <h2>전시소개/후기</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/community/exhintList"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="swi-box mt10">
 					<div class="swiper mySwiper4">
@@ -542,21 +542,25 @@
     function setBoa(list){
 		var strHtml = '';
 		
+		for(i=0; i<list.length; i++){
+			
+		}
+		
  		strHtml += '<div class="left">';
  		if(list[0] != null){
- 		    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '    <a href="/community/showingOffDetail?SqNumber='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
  		}
 	    strHtml += '    <div class="bottom">';
  		if(list[1] != null){
- 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '        <a href="/community/showingOffDetail?SqNumber='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
  		}
  		if(list[2] != null){
- 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '        <a href="/community/showingOffDetail?SqNumber='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
  		}
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
  		if(list[3] != null){
- 		    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		    strHtml += '<div class="right"><a href="/community/showingOffDetail?SqNumber='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
  		}
     	
     	$("#boaBox").prepend(strHtml);
@@ -567,8 +571,11 @@
     	
     	var strHtml = '';
     	
+    
+    	
     	list.forEach( function( work ) {
-    		
+    		//console.log(work.dealSq);
+    		///deal/bidding?SqNumber=
     		strHtml += '<div class="swiper-slide hd-div">';
     		strHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+work.dealSq+')">';
     		strHtml += '		<img src="'+work.workMainImgUrl+'" class="hd-img"/>';
@@ -591,6 +598,10 @@
     	var strHtml = '';
     	
     	list.forEach( function( mgz9 ) {
+    		console.log(mgz9.mgzSq);
+    		console.log(mgz9.mgzMainImgUrl);
+    		console.log(mgz9.mgzTitle);
+    		console.log(mgz9.mgzSq);
     		
     		strHtml += '<div class="swiper-slide">';
     		strHtml += '	<div class="cns-box" >';
@@ -636,7 +647,7 @@
     	$("#popularMbrBox").prepend(strHtml);
     }
     
-    // 전시 후기/소개 셋팅
+    // 전시 소개/후기 셋팅
     function setPopularExhibit(list){
     	var strHtml = '';
     	
@@ -659,6 +670,10 @@
     	});
     	
     	$("#popularExhibitBox").prepend(strHtml);
+    }
+    
+    function dealDetail(dealSq){
+    	location.href = "/deal/bidding?SqNumber="+dealSq;
     }
     
     </script>

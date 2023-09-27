@@ -520,8 +520,7 @@
 	           data: {comtTypCd : comtTypCd},
 	           success: function(data) {
 				 var dtlInfo = data.hashMap.dtlList;
-				 debugger;
-				 console.log(dtlInfo);
+								 
 				 //표시여부 라디오 버튼 제어
 				 Object.keys(dtlInfo).forEach(function(k){
 				      var key = k;

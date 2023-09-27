@@ -538,18 +538,49 @@
 	
 	<select id="mainNowDealWorks" resultType="hashMap">
 		/* 지금 거래중인 작품 */
-		SELECT
-				WORK_SQ AS workSq
-				, WORK_MAIN_IMG_URL AS workMainImgUrl
+		SELECT 
+				A.DEAL_SQ AS dealSq,
+				A.WORK_SQ AS workSq,
+				IF(B.WORK_MAIN_IMG_URL IS NULL, B.WORK_IMG_FRT_URL, B.WORK_MAIN_IMG_URL) AS workMainImgUrl,
+				B.ARTST_ACTVTY_NM AS artstActvtyNm,
+				B.WORK_NM AS workNm,
+				B.WORK_PRODC_YEAR AS workProdcYear,
+				B.WORK_MATRL AS workMatrl,
+				B.WORK_SIZE_WIDTH AS workSizeWidth,
+				B.WORK_SIZE_DEPTH AS workSizeDepth
 		FROM 
-				TBL_DA_WORK_M 
+				TBL_DA_DEAL_M AS A
+		INNER JOIN
+				TBL_DA_WORK_M AS B
+			ON	A.WORK_SQ = B.WORK_SQ
+		WHERE 
+				A.DEAL_STTS_CD = 'TP'
+			AND A.DEAL_STRT_DT <![CDATA[<=]]> NOW()
+		ORDER BY A.DEAL_STRT_DT DESC
+		LIMIT 10
+		<!-- SELECT
+			A.DEAL_SQ AS dealSq,
+			A.WORK_SQ AS workSq,
+			B.WORK_MAIN_IMG_URL AS workMainImgUrl,
+			B.ARTST_ACTVTY_NM AS artstActvtyNm,
+			B.WORK_NM AS workNm,
+			B.WORK_PRODC_YEAR AS workProdcYear,
+			B.WORK_MATRL AS workMatrl,
+			B.WORK_SIZE_WIDTH AS workSizeWidth,
+			B.WORK_SIZE_DEPTH AS workSizeDepth
+		FROM 
+			TBL_DA_DEAL_M AS A
+		INNER JOIN
+			TBL_DA_WORK_M AS B
+		ON	A.WORK_SQ = B.WORK_SQ
 		WHERE 
 				WORK_OPEN_YN = 'Y'
 			AND DEL_YN ='N'
 			AND USE_YN = 'Y'
 			AND WORK_SALE_YN = 'Y'
+			ORDER BY A.DEAL_STRT_DT DESC
 		LIMIT 
-				10
+				10 -->
 	</select>
 	
 	<select id="mainMgz9s" resultType="hashMap">
