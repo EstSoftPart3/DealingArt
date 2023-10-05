@@ -442,7 +442,7 @@
 	           success: function(data) {
 	        	   
 	        	   data.list.list.forEach(function(ele, idx){
-	        		         	
+	        		         	console.log(data.list.list);
         			   var strHtml = '<tr id align="center">';
 	        			//strHtml += '<th><input type="checkbox"></th>';
 	        			strHtml += '<th>' + ele.dtlCdNm + '</th>';
