@@ -242,7 +242,7 @@
 	            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
             }
             strHtml += '            		<ul class="user_name">';
-            strHtml += '                		<li><span>'+ work.mbrNcknm +'</span></li>';
+            strHtml += '                		<li><a href="/otherPage/main?mbrSq='+ work.mbrSq +'"><span>'+ work.mbrNcknm +'</span></a></li>';
             strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
             strHtml += '            		</ul>';
             strHtml += '        		</div>';
