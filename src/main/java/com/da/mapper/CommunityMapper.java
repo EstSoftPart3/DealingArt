@@ -112,6 +112,27 @@ public interface CommunityMapper {
 	public int insertFollow(Map<String, Object> param);
 	
 	/*
+	 * 커뮤니티 팔로우되어 있는지 확인하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int findNewFollow(Map<String, Object> param);
+	
+	/*
+	 * 커뮤니티 팔로우 삭제하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int delNewFollow(Map<String, Object> param);
+	
+	/*
+	 * 커뮤니티 팔로우하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int insertNewFollow(Map<String, Object> param);
+	
+	/*
 	 * 댓글 등록
 	 * param :
 	 * return :
