@@ -610,7 +610,7 @@ input[type="password"] {
 .mypage_collectcreate_wrap .second .showing_off:after{display: block;clear: both;content: "";}
 .mypage_collectcreate_wrap .second .showing_off span{float: left;display: inline-block;font-size: 16px;font-weight: 500;color: #111111;width: 175px;}
 .mypage_collectcreate_wrap .second .showing_off span strong{color: #b81d2c;margin-right: 6px;}
-.mypage_collectcreate_wrap .second .showing_off .showingoff_file_area{float: left;/* width: 82%; �닔�젙 2023-07-21 */ width: 100%; height: 367px;background: #ffffff;border: 1px solid #d6d6d6;border-radius: 5px;text-align: center;padding-top: 60px;}
+.mypage_collectcreate_wrap .second .showing_off .showingoff_file_area{float: left;/* width: 82%; �닔�젙 2023-07-21 */ width: 100%; height: 367px;background: #ffffff;border: 1px solid #d6d6d6;border-radius: 5px;text-align: center;padding-top: 0px;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area p{font-size: 22px;font-weight: 500;padding: 0;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area p span{float: none;font-size: 14px;font-weight: 300;color: #999999;margin-top: 26px;letter-spacing: 0;}
 .mypage_collectcreate_wrap .second .showing_off .showingoff_file_area .btn_reprepic_add{background: #717171 url("../img/img_new/ico_reprepic_add.png") 10% 50% no-repeat;font-size: 20px;font-weight: 500;color: #ffffff;padding: 16px 20px 16px 60px;border-radius: 5px;margin-top: 26px;}
