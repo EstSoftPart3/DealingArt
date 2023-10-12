@@ -233,7 +233,8 @@
    		list.forEach(function(work, idx){
    			var cnt = idx + 1;
    			
-   			if(cnt == 1 || cnt % 5 == 0) {
+   			//if(cnt == 1 || cnt % 5 == 0) { // 이형태일 경우 데이터 3번째 줄에서 in을 못함.
+   			if(cnt == 1 || cnt == 5 || cnt == 9) { // 12개로 고정이므로 1, 5, 9 로 고정값으로 넣어놓음.
 	   			strHtml += '<div class="workspic_row">';
 	   			strHtml += '	<ul id="worksBox">';
    			}
