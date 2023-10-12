@@ -561,4 +561,11 @@ public interface MyPageMapper {
 	 */
 	public int myPage_scrapMgzTotal(Object param);
 	
+	/*
+	 * 나의 작품 상세보기의 자랑하기 목록
+	 * param : mbrSq, workSq
+	 * return : List
+	 */
+	public List<Map<String, Object>> detailshowoffList(Object param);
+	
 }
