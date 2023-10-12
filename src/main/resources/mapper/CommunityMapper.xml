@@ -290,11 +290,14 @@
 	<select id="communityExhKnoDetail" resultType="hashMap">
 		/* 커뮤니티 전시후기, 노하우 상세 페이지 */
 		SELECT
-				COMT.COMT_SQ AS comtSq
+				  COMT.COMT_SQ AS comtSq
 				, COMT.COMT_TITLE AS comtTitle
 				, COMT.COMT_IMG_URL AS comtImgUrl
 				, COMT.COMT_CONTENT AS comtContent
 				, COMT.COMT_LIKES AS comtLikes
+				, COMT.OPEN_YN AS openYn
+				, COMT.COMT_SALES_YN AS comtSalesYn
+				, COMT.COMT_SNS_YN AS comtSnsYn
 				, COMT.COMT_VIEWS AS comtViews
 				, COMT.COMT_CMTS AS comtCmts
 				, COMT.COMT_SCRAPS AS comtScraps

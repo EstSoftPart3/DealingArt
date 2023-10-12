@@ -648,6 +648,33 @@ public class MyPageDao {
 		
 		return result;
 	}
+	
+	/* 커뮤니티 수정
+	 * param :
+	 * return :
+	 */
+	public int myComtMod(Map<String, Object> param) {
+		
+		// 커뮤니티 수정
+		int result = myPageMapper.myComtMod(param);
+		
+		// 커뮤니티 키워드 수정
+		if(!param.get("comtKeywrd").equals("")) {
+			// 커뮤니티 키워드 존재유무
+			int chkKeywrdCnt = myPageMapper.chkKeywrdCnt(param);
+			
+			if(chkKeywrdCnt == 1){
+				// 커뮤니티 키워드 존재할 시 업데이트
+				myPageMapper.comtKeywrdMod(param);
+			}else{
+				// 커뮤니티 키워드 없을 시 저장
+				myPageMapper.comtKeywrdReg(param);
+			}
+			
+		}
+		
+		return result;
+	}
 
 	public List<Map<String, Object>> myPageMain_myNoti(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub

@@ -3373,6 +3373,44 @@
    		)
    </insert>
    
+   <select id="chkKeywrdCnt" parameterType="hashMap" resultType="int">
+   		/*커뮤니티 키워드 존재유무*/
+   		SELECT 
+   				COUNT(*) 
+   		FROM 
+   				TBL_DA_COMT_KEYWRDS_R 
+   		WHERE 
+   				COMT_SQ = #{comtSq}
+   </select>
+   
+   <update id="comtKeywrdMod" parameterType="hashMap">
+   		/*커뮤니티 키워드 수정*/
+		UPDATE 
+				TBL_DA_COMT_KEYWRDS_R 
+		SET		
+				COMT_KEYwRD = #{comtKeywrd}
+		WHERE  
+				COMT_SQ = #{comtSq}
+   </update>
+   
+   <update id="myComtMod"  parameterType="hashMap">
+   		/*커뮤니티 수정*/
+   		UPDATE 
+				TBL_DA_COMT_M 
+		SET		
+				COMT_IMG_URL 		= #{comtImgUrl},
+   				COMT_TITLE 			= #{comtTitle},
+   				COMT_CONTENT 		= #{comtContent},
+   				COMT_SNS_YN 		= #{comtSnsYn},
+   				OPEN_YN 			= #{comtOpenYn},
+   				EXHIBIT_TYP_CD 		= #{exhibitTypCd},
+   				EXHIBIT_REGION_CD 	= #{exhibitRegionCd},
+   				UPDT_DT				= NOW(),
+   				UPDT_MBR_SQ			= #{mbrSq}
+		WHERE  
+				COMT_SQ = #{comtSq}
+   </update>
+   
    	<select id="myPage_myCommunitysList" parameterType="hashMap" resultType="hashMap">
 		/*마이페이지 커뮤니티 관련 리스트 조회*/
 		SELECT 
