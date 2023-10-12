@@ -3535,4 +3535,66 @@
 				COMT_SQ = #{comtSq};
 				
 	</update>
+	
+		<select id="detailshowoffList" parameterType="hashMap" resultType="hashMap">
+		/* 나의 작품 상세의 자랑하기에 보여질 리스트 */
+		SELECT 
+               A.COMT_SQ                                    AS comtSq             /*커뮤니티_순번*/
+             , A.MBR_SQ                                     AS mbrSq              /*회원_순번*/
+             , A.WORK_SQ                                    AS workSq             /*작품_순번*/
+             , A.ARTST_SQ                                   AS artstSq            /*작가_순번*/
+             , A.DEAL_SQ                                    AS dealSq             /*거래_순번*/
+             , A.COMT_TYP_CD                                AS comtTypCd          /*커뮤니티_타입_코드*/
+             , G.DTL_CD_NM                                  AS comtTypCdNm        /*커뮤니티_타입_코드_이름*/
+             , A.COMT_IMG_URL                               AS comtImgUrl         /*커뮤니티_이미지_URL*/
+             , A.COMT_TITLE                                 AS comtTitle          /*커뮤니티_제목*/
+             , IFNULL((SELECT COUNT(A1.CMT_SQ) 
+                         FROM TBL_DA_COMT_CMTS_R A1
+                        WHERE A.COMT_SQ = A1.COMT_SQ), 0) 
+               + IFNULL((SELECT COUNT(A2.REPLY_SQ) 
+                           FROM TBL_DA_COMT_REPLYS_R A2
+                          WHERE A.COMT_SQ = A2.COMT_SQ), 0) AS cmtTotalCount      /*커뮤니티_댓글_총갯수*/
+             , A.REG_DT                                     AS regDt              /*등록_일시*/
+             , A.REG_MBR_SQ                                 AS regMbrSq           /*등록_회원_순번*/
+             , A.UPDT_DT                                    AS updtDt             /*수정_일시*/
+             , A.UPDT_MBR_SQ                                AS updtMbrSq          /*수정_회원_순번*/
+             , A.COMT_LIKES                                 AS cmtLikes           /*커뮤니티글_좋아요*/
+             , A.COMT_SCRAPS                                AS cmtScraps          /*커뮤니티글_스크랩*/
+             , A.COMT_VIEWS                                 AS cmtViews           /*커뮤니티글_스크랩*/
+             , A.OPEN_YN                                    AS cmtOpenYn          /*커뮤니티글_공개 유무*/
+             , A.COMT_CONTENT                               AS cmtContent         /*커뮤니티글_내용*/
+             , C.ARTST_ACTVTY_NM                            AS artstActvtyNm      /*작가활동명*/
+             , C.WORK_NM                                    AS workNm             /*작품_이름*/
+             , D.ARTST_PROFILE_IMG_URL                      AS artstProfileImgUrl /*작가프로필사진주소*/
+             , B.MBR_NCKNM                                  AS mbrNcknm           /*회원_닉네임*/
+             , B.MBR_INTRO                                  AS mbrIntro           /*회원_자기소개*/
+             , B.MBR_PROFILE_IMG_URL                        AS mbrProfileImgUrl   /*회원_자기소개*/
+		 FROM 
+               TBL_DA_COMT_M         AS A
+	LEFT JOIN
+               TBL_DA_MBR_M          AS B           /* 회원 메인 */
+           ON  A.MBR_SQ           = B.MBR_SQ
+	LEFT JOIN 
+               TBL_DA_WORK_M         AS C           /* 작품 메인 */
+           ON  A.WORK_SQ          = C.WORK_SQ
+    LEFT JOIN
+               TBL_DA_ARTST_M        AS D           /* 작가 메인 */
+           ON  A.ARTST_SQ         = D.ARTST_SQ
+    LEFT JOIN 
+               TBL_DA_DEAL_M         AS E
+           ON  A.DEAL_SQ          = E.DEAL_SQ
+    LEFT JOIN 
+               TBL_DA_COMN_CD_M      AS F           /* 공통코드 메인 */
+           ON  F.CD               = 'COMT_TYP_CD'
+    LEFT JOIN 
+               TBL_DA_COMN_DTL_CD_S  AS G           /* 공통코드 상세 서브 */
+           ON  F.CD_SQ            = G.CD_SQ
+          AND  G.DTL_CD           = A.COMT_TYP_CD
+        WHERE 1=1 
+          AND A.WORK_SQ           = #{workSq}
+          AND A.DEL_YN            = 'N'
+          AND A.USE_YN            = 'Y'
+          AND A.COMT_TYP_CD       = 'BOA'           /* 자랑하기 */
+     ORDER BY A.REG_DT DESC
+	</select>
 </mapper>

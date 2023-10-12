@@ -15,6 +15,7 @@ import org.thymeleaf.util.ListUtils;
 import com.da.mapper.ArtistMapper;
 import com.da.mapper.DealMapper;
 import com.da.mapper.MemberMapper;
+import com.da.mapper.MyPageMapper;
 import com.da.util.CommonService;
 import com.da.vo.MbrInfoVo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -39,6 +40,9 @@ public class DealDao {
 	
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private MyPageMapper myPageMapper;
 	
 	/*
 	 * 딜 페이지에서 검색 필터별로 검색 결과를 조회한다.
@@ -421,6 +425,7 @@ public class DealDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = dealMapper.workDetail(param);
  		Map<String, Object> artistInfo = new HashMap<>();
+ 		Map<String, Object> showoffListParam = new HashMap<>();
 
 		result.put("work", work);
 		if(work.get("artstSq") != null) {
@@ -430,12 +435,20 @@ public class DealDao {
 			List exhbtn = artistMapper.artistInfoExhbtn(work.get("artstSq").toString());
 			List exhbtnAword = artistMapper.artistInfoExhbtnAword(work.get("artstSq").toString());
 			List workList = artistMapper.artistWorkListAll(work.get("artstSq").toString());
+			/*
+			 * 2023.10.12 홍충기 추가
+			 * - 나의 작품 상세내역에 해당 작품 자랑하기가 있을 경우 추가
+			 */
+			showoffListParam.put("workSq", work.get("workSq").toString());
+			showoffListParam.put("mbrSq", work.get("mbrSq").toString());
+			List showoffList = myPageMapper.detailshowoffList(showoffListParam);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
 			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
+			result.put("showoffList", showoffList);
 		} else {
 			result.put("artistInfo", artistInfo);
 			return result;
@@ -454,6 +467,7 @@ public class DealDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = dealMapper.soldoutDetail(param);
  		Map<String, Object> artistInfo = new HashMap<>();
+ 		Map<String, Object> showoffListParam = new HashMap<>();
 
 		result.put("work", work);
 		if(work.get("artstSq") != null) {
@@ -463,12 +477,20 @@ public class DealDao {
 			List exhbtn = artistMapper.artistInfoExhbtn(work.get("artstSq").toString());
 			List exhbtnAword = artistMapper.artistInfoExhbtnAword(work.get("artstSq").toString());
 			List workList = artistMapper.artistWorkListAll(work.get("artstSq").toString());
+			/*
+			 * 2023.10.12 홍충기 추가
+			 * - 나의 작품 상세내역에 해당 작품 자랑하기가 있을 경우 추가
+			 */
+			showoffListParam.put("workSq", work.get("workSq").toString());
+			showoffListParam.put("mbrSq", work.get("mbrSq").toString());
+			List showoffList = myPageMapper.detailshowoffList(showoffListParam);
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
 			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
+			result.put("showoffList", showoffList);
 		} else {
 			result.put("artistInfo", artistInfo);
 			return result;

@@ -200,11 +200,12 @@
 								</td>
 							</tr>
 						</table>
-						<div class="bat-box">
+						<div class="bat-box" id="btnListOffer">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
 							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="/resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
 							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
+							
 							<div class="clearboth"></div>
 						</div>
 						
@@ -216,7 +217,7 @@
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
-						<h3>Artist Information</h3>
+						<h3>작가정보</h3>
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
@@ -245,6 +246,23 @@
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper"  id="swiper_workList">
 							</div>
+							<div class="swiper-pagination swpa-2 pc-no"></div>
+						</div>
+						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+					</div>
+				</th:block>
+			</div>
+			
+			<!-- 자랑하기가 없는 작품일 경우 보죠주지 않는 영역 -->
+			<div class="contents conbg" th:if="${not #maps.isEmpty(result.showoffList)}">
+				<div class="cont-title2 max-1500">
+					<h3>이 작품의 자랑하기</h3>
+				</div>
+				
+					<div class="swi-box1 max-1500">
+						<div class="swiper mySwiper2">
+							<div class="swiper-wrapper"  id="swiper_showoffList"></div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
 						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
@@ -673,6 +691,10 @@ jQuery(document).ready(function($){
 		$(".ellipsis").css('padding',20);
     }
 	workList();
+	fn_ShowoffList(); // 해당 작품의 자랑하기 목록
+	
+	fn_chkSaleYn(); // 작품의 판매 가능 여부 확인
+	
 });
 
 $('.selectpicker').selectpicker('render');
@@ -717,6 +739,37 @@ function workList(){
      	 	html +='</div>';
 		}
 		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+
+//작품의 자랑하기 목록
+function fn_ShowoffList(){
+	if(result.showoffList.length > 0){
+		$("#swiper_showoffList").empty();
+		var html = '';
+		for(var i=0; i<result.showoffList.length; i++){
+			html +='<div class="swiper-slide hd-div">';
+			// 커뮤니티 자랑하기로 이동
+			html +='	<a href="/community/showingOffDetail?SqNumber='+result.showoffList[i].comtSq+'">';
+			html +='		<img src="'+result.showoffList[i].comtImgUrl+'" class="hd-img" style="width:100&;"/>';
+			html +='		<div class="hd-text">';
+			html +='			<h4 style="height:100px;">'+result.showoffList[i].artstActvtyNm+'('+result.showoffList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" style="margin:0 auto;">'+result.showoffList[i].workNm+'('+result.showoffList[i].workProdcYear+')';
+     	   	html +='		</div>';
+     	  	html +='	</a>';
+     	 	html +='</div>';
+		}
+		$("#swiper_showoffList").append(html).trigger("create");
+	}
+}
+
+// 작품의 판매 가능 여부 확인
+function fn_chkSaleYn(){
+	var html = '';
+	// 작품의 판매여부 확인해서 판매제안 버튼 보이기
+	if(result.work.salesYn == "Y"){
+		html += '<button type="button" class="ba-btn3" name="offerSale"><span>판매 제안 하기</span></button>';
+		$("#btnListOffer").append(html).trigger("create");	
 	}
 }
 
