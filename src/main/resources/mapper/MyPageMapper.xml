@@ -3572,29 +3572,29 @@
 		 FROM 
                TBL_DA_COMT_M         AS A
 	LEFT JOIN
-               TBL_DA_MBR_M          AS B                 /* 회원 메인 */
+               TBL_DA_MBR_M          AS B           /* 회원 메인 */
            ON  A.MBR_SQ           = B.MBR_SQ
 	LEFT JOIN 
-               TBL_DA_WORK_M         AS C               /* 작품 메인 */
+               TBL_DA_WORK_M         AS C           /* 작품 메인 */
            ON  A.WORK_SQ          = C.WORK_SQ
     LEFT JOIN
-               TBL_DA_ARTST_M        AS D               /* 작가 메인 */
+               TBL_DA_ARTST_M        AS D           /* 작가 메인 */
            ON  A.ARTST_SQ         = D.ARTST_SQ
     LEFT JOIN 
                TBL_DA_DEAL_M         AS E
            ON  A.DEAL_SQ          = E.DEAL_SQ
     LEFT JOIN 
-               TBL_DA_COMN_CD_M      AS F                  /* 공통코드 메인 */
+               TBL_DA_COMN_CD_M      AS F           /* 공통코드 메인 */
            ON  F.CD               = 'COMT_TYP_CD'
     LEFT JOIN 
-               TBL_DA_COMN_DTL_CD_S  AS G               /* 공통코드 상세 서브 */
+               TBL_DA_COMN_DTL_CD_S  AS G           /* 공통코드 상세 서브 */
            ON  F.CD_SQ            = G.CD_SQ
           AND  G.DTL_CD           = A.COMT_TYP_CD
         WHERE 1=1 
-          AND A.MBR_SQ            = #{mbrSq}
           AND A.WORK_SQ           = #{workSq}
           AND A.DEL_YN            = 'N'
           AND A.USE_YN            = 'Y'
+          AND A.COMT_TYP_CD       = 'BOA'           /* 자랑하기 */
      ORDER BY A.REG_DT DESC
 	</select>
 </mapper>

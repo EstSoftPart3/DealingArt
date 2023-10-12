@@ -200,11 +200,12 @@
 								</td>
 							</tr>
 						</table>
-						<div class="bat-box">
+						<div class="bat-box" id="btnListOffer">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
 							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="/resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
 							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
+							
 							<div class="clearboth"></div>
 						</div>
 						
@@ -216,7 +217,7 @@
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
-						<h3>Artist Information</h3>
+						<h3>작가정보</h3>
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
@@ -691,6 +692,9 @@ jQuery(document).ready(function($){
     }
 	workList();
 	fn_ShowoffList(); // 해당 작품의 자랑하기 목록
+	
+	fn_chkSaleYn(); // 작품의 판매 가능 여부 확인
+	
 });
 
 $('.selectpicker').selectpicker('render');
@@ -756,6 +760,16 @@ function fn_ShowoffList(){
      	 	html +='</div>';
 		}
 		$("#swiper_showoffList").append(html).trigger("create");
+	}
+}
+
+// 작품의 판매 가능 여부 확인
+function fn_chkSaleYn(){
+	var html = '';
+	// 작품의 판매여부 확인해서 판매제안 버튼 보이기
+	if(result.work.salesYn == "Y"){
+		html += '<button type="button" class="ba-btn3" name="offerSale"><span>판매 제안 하기</span></button>';
+		$("#btnListOffer").append(html).trigger("create");	
 	}
 }
 
