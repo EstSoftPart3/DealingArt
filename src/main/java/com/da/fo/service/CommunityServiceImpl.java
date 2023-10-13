@@ -155,6 +155,26 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	/*
+	 * 커뮤니티 팔로우하기, 팔로우 취소하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int communityNewFollow(Map<String, Object> param) {
+		// 팔로우되어 있는지 확인하기 
+		int result = communityDao.findNewFollow(param);
+		
+		if(result > 0) {
+			// 조회가 되면 팔로우 취소 
+			result = communityDao.delNewFollow(param);
+			
+		} else {
+			// 조회 안되면 팔로우하기
+			result = communityDao.insertNewFollow(param);
+		}
+		return result;
+	}
+	
+	/*
 	 * 댓글 등록
 	 * param :
 	 * return :
@@ -197,7 +217,7 @@ public class CommunityServiceImpl implements CommunityService {
 	 */
 	public int followCheck(Map<String, Object> param) {
 		// 팔로우되어 있는지 확인하기 
-		int result = communityDao.findFollow(param);
+		int result = communityDao.findNewFollow(param);
 		return result;
 	}
 	

@@ -437,6 +437,24 @@ public interface MyPageMapper {
 	 */
 	public int myComtReg(Map<String, Object> param);
 	
+	/* 자랑하기 키워드 존재유무 확인
+	 * param : 
+	 * return : 
+	 */
+	public int chkKeywrdCnt(Map<String, Object> param);
+	
+	/* 자랑하기 키워드 수정
+	 * param : 
+	 * return : 
+	 */
+	public int comtKeywrdMod(Map<String, Object> param);
+	
+	/* 커뮤니티 수정
+	 * param : 
+	 * return : 
+	 */
+	public int myComtMod(Map<String, Object> param);
+	
 	/*
 	 * 마이페이지 커뮤니티 조회
 	 * param : mbrSq
@@ -542,5 +560,13 @@ public interface MyPageMapper {
 	 * return : int
 	 */
 	public int myPage_scrapMgzTotal(Object param);
+	
+	/*
+	 * 나의 작품 상세보기의 자랑하기 목록
+	 * param : mbrSq, workSq
+	 * return : List
+	 * 2023.10.12일 홍충기 추가
+	 */
+	public List<Map<String, Object>> detailshowoffList(Object param);
 	
 }

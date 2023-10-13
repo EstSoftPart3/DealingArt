@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.da.common.AwsS3Service;
+import com.da.fo.service.CommunityService;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
 import com.da.mapper.MainMapper;
@@ -54,6 +55,9 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private  CommunityService communitService;
 	
 	@Autowired
 	private MainMapper mainMapper;
@@ -165,27 +169,31 @@ public class MyPageController {
 		
 		return mv;
 	}
-	
 
 	//마이페이지 전시후기 페이지
 	@RequestMapping("/myPage/exhintMobile")
 	public String exhintMobile() {
 		return "thymeleaf/fo/myPage/mypage_exhint_mo";
 	}
+	
 	//마이페이지 전시후기 페이지
-		@RequestMapping("/myPage/exhintMobileReg")
-		public String exhintMobileReg() {
-			return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
-		}
+	@RequestMapping("/myPage/exhintMobileReg")
+	public String exhintMobileReg() {
+		return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
+	}
+	
 	//마이페이지 이슈 페이지
 	@RequestMapping("/myPage/issueMobile")
 	public String issueMobile() {
 		return "thymeleaf/fo/myPage/mypage_issue_mo";
-	}//마이페이지 이슈 페이지
+	}
+	
+	//마이페이지 이슈 페이지
 	@RequestMapping("/myPage/issueMobileReg")
 	public String issueMobileReg() {
 		return "thymeleaf/fo/myPage/mypage_issue_page2_mo";
 	}
+	
 	// 마이페이지 자랑하기 페이지
 	@RequestMapping("/myPage/show_off")
 	public String mypage_showingoff() {
@@ -1531,6 +1539,12 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// 마이페이지 레프트 모바일
+	@RequestMapping("/myPage/myPage_left")
+	public String myPage_left() {
+		return "thymeleaf/fo/myPage/mypage_left-nav";
+	}
+	
 	// 작품 & 자랑하기 등록 페이지 오픈
 	@RequestMapping("/myPage/myWorkList_reg")
 	public String myWorkList_reg() {
@@ -1543,15 +1557,21 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/mypage_work_regipage2_mo";
 	}
 	
+	// 작품 & 자랑하기 수정 페이지 오픈
+	@RequestMapping("/myPage/myWork_mod")
+	@ResponseBody
+	public ModelAndView myWork_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_myWord_mod");
+		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		mv.addObject("exhibit", exhibit);
+		return mv;
+	}
+
 	// 전시후기/소개 등록 페이지 오픈
 	@RequestMapping("/myPage/myExhibit_reg")
 	public String myExhibit_reg() {
 		return "thymeleaf/fo/myPage/mypage_exhint_page2";
-	}
-	// 마이페이지 레프트 모바일
-	@RequestMapping("/myPage/myPage_left")
-	public String myPage_left() {
-		return "thymeleaf/fo/myPage/mypage_left-nav";
 	}
 	
 	// (모바일)전시후기/소개 등록 페이지 오픈
@@ -1560,6 +1580,17 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/mypage_exhint_page2_mo";
 	}
 	
+	// 전시후기/소개 수정 페이지 오픈
+	@RequestMapping("/myPage/myExhibit_mod")
+	@ResponseBody
+	public ModelAndView myExhibit_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_exhint_mod");
+		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		mv.addObject("exhibit", exhibit);
+		return mv;
+	}
+
 	// 노하우 등록 페이지 오픈
 	@RequestMapping("/myPage/issue_reg")
 	public String myKnowhow_reg() {
@@ -1572,10 +1603,21 @@ public class MyPageController {
 		return "thymeleaf/fo/myPage/mypage_knowhow_page2_mo";
 	}
 	
+	// 노하우(이슈) 수정 페이지 오픈
+	@RequestMapping("/myPage/myIssue_mod")
+	@ResponseBody
+	public ModelAndView myissue_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_issue_mod");
+		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		mv.addObject("exhibit", exhibit);
+		return mv;
+	}
+
 	// 전시후기/소개 등록
 	@RequestMapping("/myPage/myexhibitReg")	
 	@ResponseBody
-	public int myexhibitReg(@RequestPart("exhibit") Map<String, Object> param,
+	public int myexhibitMod(@RequestPart("exhibit") Map<String, Object> param,
 			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
 		int result = 0;
 		System.out.println(param);
@@ -1604,6 +1646,60 @@ public class MyPageController {
 		}
 		
 		result = myPageService.myComtReg(param);
+		
+		return result;
+	}
+	
+	// 자랑하기 수정
+	@RequestMapping("/myPage/myCommuintyWorkMod")	
+	@ResponseBody
+	public int myCommuintyWorkMod(@RequestPart("exhibit") Map<String, Object> param,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		int result = 0;
+		System.out.println(param);
+		
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/exhibit/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.myComtMod(param);
+		
+		return result;
+	}
+	
+	// 전시후기/소개 수정
+	@RequestMapping("/myPage/myexhibitMod")	
+	@ResponseBody
+	public int myexhibitReg(@RequestPart("exhibit") Map<String, Object> param,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		int result = 0;
+		System.out.println(param);
+		
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/exhibit/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.myComtMod(param);
+		
+		return result;
+	}
+	
+	// 이슈 수정
+	@RequestMapping("/myPage/myIssueMod")	
+	@ResponseBody
+	public int myIssueMod(@RequestPart("exhibit") Map<String, Object> param,
+			@RequestPart(value = "comtImgUrl") @Nullable MultipartFile comtImgUrl) throws IOException {
+		int result = 0;
+		System.out.println(param);
+		
+		if (comtImgUrl != null) {
+			FileVo file = awsS3Service.upload(comtImgUrl, "dealingart/community/exhibit/"+param.get("mbrSq").toString());
+			param.put("comtImgUrl", file.getFileUrl());
+		}
+		
+		result = myPageService.myComtMod(param);
 		
 		return result;
 	}
