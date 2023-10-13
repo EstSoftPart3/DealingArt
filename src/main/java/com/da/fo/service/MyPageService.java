@@ -241,6 +241,12 @@ public interface MyPageService {
 	 */
 	public int myComtReg(Map<String, Object> param);
 	
+	/* 커뮤니티 수정
+	 * param :
+	 * return :
+	 */
+	public int myComtMod(Map<String, Object> param);
+	
 	/* 커뮤니티 등록
 	 * param :
 	 * return :

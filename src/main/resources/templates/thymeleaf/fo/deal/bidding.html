@@ -94,7 +94,6 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no" id="pageTitle">응찰하기</h3>
 					
 					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TP')}">판매중</button>
 					<button type="button" class="btn-on" th:if="${result.deal.dealSttsCd.toString().equals('TC')}">거래완료</button>
@@ -288,41 +287,65 @@
 								</li>
 							</ul>
 							<div class="bat-box">
-								<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()">
-									<span>응찰하기</span>
+								<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid"
+									onclick="btn_purchaseOrBid_onclick()">
+									<span>구매하기</span>
+									<button type="button" class="ba-btn1 por">
+									<span>요청하기</span>
 								</button>
-								<button type="button" class="ba-btn2" id="btn_prorosal" onclick="openModal('workSuggestModal');">
-									<span>제안하기</span>
+								<button type="button" class="ba-btn3" onclick="javascript:history.back();">
+									<span>목록으로 돌아가기</span>
+										<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory">
+									<img src="/resources/img/de/mo/icon-2.jpg" />
+									<span>응찰히스토리</span>
 								</button>
+								</button>
+								</button>
+								
 								<!--
 								<button type="button" class="ba-btn2"
 									onclick="javascript:fnModalAlert();">
 									<img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span>
 								</button>
 								  -->
-								<button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#bidHistory">
-									<img src="/resources/img/de/mo/icon-2.jpg" />
-									<span>응찰히스토리</span>
-								</button>
-								<button type="button" class="ba-btn3" onclick="javascript:history.back();">
-									<span>목록으로 돌아가기</span>
-								</button>
-								<div class="clearboth"></div>
-							</div>
+							
+								
 
 						</div>
+			
 					</div>
+					
 				</div>
+						  <!-- 자랑하기 세팅 김동희 -->
+<!--  		<div id="artstInfo" >	
+			<div class="artist-wrap" >
+				<div class="artist-box max-1500">
+					<div class="sub-title mg_t77" style="margin-top:5px;">
+						<h3>자랑하기</h3>
+					</div>
+						<div id="showingoff_list">
+		</div>
 				
+                     <div class="left">
+                        <img src="/resources/img/img_new/main_works_showingoff_sample00.jpg" alt="">
+                        <div class="bottom">
+                            <img src="/resources/img/img_new/main_works_showingoff_sample02.jpg" alt="">
+                            <img src="/resources/img/img_new/main_works_showingoff_sample03.jpg" alt="">    
+                        </div>
+                    </div>
+                    <div class="right"><img src="/resources/img/img_new/main_works_showingoff_sample01.jpg" alt=""></div>
+                </div>
+         </div> -->
+         
 		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
-					<div class="sub-title mg_t77">
-						<h3>Artist Information</h3>
+					<div class="sub-title mg_t77"  style="margin-top:5px;">
+						<h3>작가 정보</h3>
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
-							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:100%; border-radius:15%;"/></span>
+							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:120%; border-radius:15%;"/></span>
 						</div>
 						<div class="su-r">
 							<p class="sup-1" th:text="${result.artistInfo.artstActvtyNm}"></p>
@@ -336,28 +359,28 @@
 				</div>
 			</div>
 			
-			<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
-			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
+		<!-- 작품이 없는 작가면 보여주지 않는 영역 초기설정 김동희 -->
+			<div class="contents conbg">
 				<div class="cont-title2 max-1500">
-					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
-					<button type="button" class="the-more" onclick="openArtstInfoModal()">더보기</button>
+					<h3>지금 핫한 거래</h3>
 				</div>
-				
-					<div class="swi-box1 max-1500">
+					<div class="swi-box deal max-1500">
+					<button type="button" class="the-more" style="margin-top:-40px;">더보기</button>
 						<div class="swiper mySwiper2">
-							<div class="swiper-wrapper"  id="swiper_workList"></div>
-							<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
-							<div class="swiper-pagination swpa-2 pc-no"></div>	
+							<div class="swiper-wrapper"  id="hotestContent_list">
+							</div>
+							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
-						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
-						<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>	
 					</div>
+				</th:block>
 			</div>
 			<!-- 영역 끝 -->
 		</div>
 	</div>
-	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 </div>
+	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+
 
 
 <!-- 차트 -->
@@ -404,7 +427,7 @@
 					허위 신고는 제재를 받을 수 있으며 민형사상의 법적 책임을 물을 수 있습니다.
 					</p>
 					
-					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtContent"></textarea>
+					<textarea rows="" cols="" class="textarea-1" placeholder="신고 사유를 입력해주세요." id="rprtDtl" name="rprtDtl"></textarea>
 					
 					<!-- <div class="text-center  mg_b40">
 						<input type="checkbox" id="w1" name="cc">
@@ -1067,87 +1090,17 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade modal-s" id="workSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workSuggestLabel" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w530">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="baegs">
-					<h2>제안 유형을 선택해 주세요.</h2>
-				    <div class="close" onclick="closeModal('workSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<div class="md-box-1">
-					<div class="text-center mg_b40">
-						<input type="radio" id="w1" name="suggest" value="price" checked>
-						<label for="w1"><span></span>가격 제안</label>
-						<input type="radio" id="w2" name="suggest" value="picture">
-						<label for="w2" class="mg_l20"><span></span>상세 사진 요청</label>
-					</div>
-					<div class="baeg-btn mg_t30">
-						<button type="button" class="baeg-b1" onclick="openSuggestModal();">확인</button>
-						<button type="button" class="baeg-b2" onclick="closeModal('workSuggestModal');">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade modal-s" id="workPriceSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workPriceSuggestLabel" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w530">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="baegs">
-					<h2>해당 작품의 판매 가격을 제안해 주세요.</h2>
-				    <div class="close" onclick="closeModal('workPriceSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<div class="md-box-1">
-					<div class="text-center mg_b40">
-						<input type="text" class="input-1" id="sgtPrc" placeholder="제안금액 (KRW)" onblur="dealStrtPrcCal(this)"/>
-					</div>
-					<div class="baeg-btn mg_t30">
-						<button type="button" class="baeg-b1" onclick="comtRequest('PRC');">확인</button>
-						<button type="button" class="baeg-b2" onclick="closeModal('workPriceSuggestModal');">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade modal-s" id="RequestPictureModal" tabindex="-1" role="dialog" aria-labelledby="RequestPictureLabel" aria-hidden="true">
-	<div class="modal-dialog modal-baeg max-w530">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="baegs">
-					<h2>해당 작품의 상세 사진을 요청해 주세요.</h2>
-				    <div class="close" onclick="closeModal('RequestPictureModal');"><img src="/resources/img/ba/icon-end.png" /></div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<div class="md-box-1">
-					<div class="text-center mg_b40">
-						<input type="text" class="input-1" id="reqPic" placeholder="원하시는 작품의 사진 구도를 적어주세요 (100자 이내, 공백포함)" maxlength="100" style="font-size:15px;"/>
-					</div>
-					<div class="baeg-btn mg_t30">
-						<button type="button" class="baeg-b1" onclick="comtRequest('PIC');">확인</button>
-						<button type="button" class="baeg-b2" onclick="closeModal('RequestPictureModal');">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+//초기 설정 김동희
+var page = 1;
+searchMainData(page);
 
 jQuery(document).ready(function($){
-     
+	showingOffData(); //김동희
+
 	if(isMobile) {
 		
 		var baseW = $(window).width();
@@ -1445,7 +1398,6 @@ function closeArtstInfoModal(){
 var dday = new Date(result.deal.dealEndngDateTime).getTime();
 
 var biddingInterval = setInterval(function() {
-	console.log("biddingInterval");
 	var today = new Date().getTime();
 	
 	if(today >= dday){
@@ -1480,7 +1432,7 @@ function pageReload(){
 
 function fn_decModalCall(){
 	
-	$('#rprtContent').val('');
+	$('#rprtDtl').val('');
 	
 	$('#myModal3').modal('show');
 }
@@ -1505,38 +1457,40 @@ function fn_declaration(){
 	}
 }
 
-
+$(".the-more").on("click", function() {
+    // http://localhost/deal 로 페이지를 이동합니다. 김동희
+    window.location.href = "http://localhost/deal";
+});
 
 //신고하기 입력
 function fn_decIns(){
 	
 	//로그인 체크 확인
 	if(sMbrSqVal != "" || sMbrSqVal != null){
-		var workSq = result.deal.workSq;
-		var dealSq = result.deal.dealSq;
-		var artstSq;
-		if(result.deal.artstSq != null && result.deal.artstSq != ""){
-			artstSq = result.deal.artstSq;
-		}
-		var mbrSq = sMbrSqVal;
-		var rprtContent = $("#rprtContent").val();
 		
-		if(rprtContent == "" || rprtContent == null ) {
+		var workSqVal = result.deal.workSq;
+		var mbrSqVal = sMbrSqVal;
+		var rprtDtlVal = $("#rprtDtl").val();
+		
+		if(rprtDtlVal == "" || rprtDtlVal == null ) {
 			
 			alert("신고내역을 입력주세요.");
-			$("#rprtContent").focus();			
+			$("#rprtDtl").focus();			
 			return;
 		} else {
 		
+			console.log("workSqVal :"+workSqVal);
+			console.log("mbrSqVal :"+mbrSqVal);
+			console.log("rprtDtlVal :"+rprtDtlVal);
+			
+			
 			$.ajax({
 				type: "POST",
 		        url: "/admin/report/reportInsData",
 		        data: {
-		        	workSq : workSq,  //작품번호
-		        	dealSq : dealSq,
-		        	artstSq : artstSq,
-		        	mbrSq : mbrSq,	 //회원번호
-		        	rprtContent : rprtContent //신고내용
+		        	workSq : workSqVal,  //작품번호
+		        	mbrSq : mbrSqVal,	 //회원번호
+		        	rprtDtl : rprtDtlVal //신고내용
 		        },
 		        async: false,
 				success: function(data){
@@ -1808,7 +1762,7 @@ $(function (){
 });
 
 $(window).on("resize", function () {
-	 /*작가의 다른 작품 리스트*/
+//	 지금 핫한거래, 김동희
 	 let ww = window.innerWidth;
 	 var mySwiper2 = 4;
 	 var swiper = new Swiper(".mySwiper2", {
@@ -1916,104 +1870,66 @@ function changepic2(){
   bigPic2.setAttribute("src", smallPic2Attribute);
 }
 /* 0702 끝 */
-
-//요청하기 모달 확인 버튼 이벤트
-function openSuggestModal() {
-	var val = $("input[name=suggest]:checked").val();
-
-	if(val == "price") {
-		closeModal("workSuggestModal");
-		openModal("workPriceSuggestModal");
-	} else if(val == "picture") {
-		closeModal("workSuggestModal");
-		openModal("RequestPictureModal");
-	}
+ 
+ // 김동희
+function searchMainData(page) {
+	$.ajax({
+           type: "post",
+           url: "/main/mainData",
+           data: {
+        	   page : page,
+        	   pageSize : 2
+           },
+           success: function(data) {
+        	  
+        	   mainHotest = data.mainData.mainHotest;
+        	   
+        	   var mainHotestCount = mainHotest.length;
+        	   if(mainHotestCount == 0) {
+        		   $(".hotestDeal").hide();
+        	   }else{
+        		   $(".hotestDeal").show();
+        	   }
+        	   
+        	   var hotestHtml = '';
+        	   for(i=0; i<mainHotest.length; i++){
+        		hotestHtml +='<div class="swiper-slide hd-div">';
+				hotestHtml +='	<a href="javascript:void(0);" onclick="dealDetail('+ mainHotest[i].dealSq +')">';
+				hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:250px; heigth:280px;"/>';
+				hotestHtml +='		<div class="hd-text">';
+				hotestHtml +='			<h4 style="height:120px;">'+mainHotest[i].artstActvtyNm+'<br>('+mainHotest[i].workNm+')</h4>';
+				hotestHtml +='			<div class="hd-d1" >'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';
+				hotestHtml +='			<br/>소재 '+mainHotest[i].workMatrl+', '+mainHotest[i].workSizeWidth+'x'+mainHotest[i].workSizeDepth+'cm</div>';
+					
+					/* if(mainHotest[i].dealTypCd == "A"){
+						if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
+							hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
+						}else{
+							hotestHtml +='			<div class="hd-d2">응찰가 '+mainHotest[i].maxBidPrc+' 원</div>';
+						}
+	        	    }
+	        	    if(mainHotest[i].dealTypCd == "S"){
+						hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
+	        	    } */
+				hotestHtml +='		</div>';
+				hotestHtml +='	</a>';
+				hotestHtml +='</div>';
+        	   }
+        	   $("#hotestContent_list").empty();
+        	   $("#hotestContent_list").append(hotestHtml).trigger("create");
+           }
+	});
 }
 
-//10,000원 단위로 입력
-function dealStrtPrcCal(obj){
-	if(obj.value != null && obj.value != ""){
-		obj.value = obj.value.replaceAll(/,/g,'');          // ,값 공백처리
-		obj.value = parseInt(obj.value);
-		var n = obj.value % 10000;
-		if(n != 0 || obj.value == 0){
-			alert("10,000원 단위로만 입력가능합니다.");
-			obj.value = '';
-			//$("#dealStrtPrcA").text("");
-		}else{
-			//var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
-			//var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
-			//$("#dealStrtPrcA").text(val2+" KRW");
-			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-	}
-}
 
-// 판매 제안하기
-function comtRequest(notiCatCd) {
-	$("#ModalConfirm").css("z-index", 99999);
-		$("#ModalAlert").css("z-index", 100000);
-	
-	var param = {
-		mbrSq: result.deal.sellMbrSq,
-		workSq: result.deal.workSq,
-		artstSq: result.deal.artstSq,
-		notiTypCd: "GEN",
-		notiCatCd: notiCatCd,
-		questionMbrSq: sMbrSqVal
-	};
 
-	var msg = "";
-	
-	switch(notiCatCd) {
-	case "SEL": // 판매 제안
-		msg = "판매 제안";
-		closeModal();
-		break;
-	case "PRC": // 가격 협상(제안)
-		closeModal('workPriceSuggestModal');
-		msg = "가격 제안";
-		param["dealSq"] = result.deal.dealSq;
-		param["questionContent"] = $("#sgtPrc").val();
-		break;
-	case "PIC": // 상세 사진 요청
-		closeModal('RequestPictureModal');
-		msg = "상세 사진 요청";
-		param["dealSq"] = result.deal.dealSq;
-		param["questionContent"] = $("#reqPic").val();
-		break;
+
+
+//비딩페이지로 이동
+function dealDetail(dealSq){
+	var requestUrl = "/deal/bidding";
+	loginCheck(requestUrl,dealSq);
 	}
-	
-	if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
-		alert("가격을 입력해주세요.");
-		return;
-	}
-	
-	if(notiCatCd == "PIC" && !$("#reqPic").val()) {
-		alert("내용을 입력해주세요.");
-		return;
-	}
-	if(confirm(msg + "하시겠습니까?")){
-		$.ajax({
-			type: "post",
-			url: "/community/insertComtRequest",
-			data: param,
-			success: function(data) {
-				if(data.result > 0) {
-    				alert(msg+ "이 완료되었습니다.");
-				}
-			},
-			error: function(data) {
-				alert("오류가 발생했습니다.");
-			}
-		});
-	}else{
-		return false;
-	}
-}
-function btn_offerPrc_onclick(){
-	$("#workPriceSuggestModal").modal();
-}
 </script>
 
 <!-- 네이버 광고 로그분석 추적 코드 -->

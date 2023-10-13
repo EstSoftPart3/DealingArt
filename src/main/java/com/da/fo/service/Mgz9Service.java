@@ -35,7 +35,7 @@ public interface Mgz9Service {
 	public List<Map<String, Object>> search(Map<String, Object> param);
 	
 	/* 검색 게시물 카운트 */
-	public int count(String param);
+	public int count(Map<String, Object> param);
 	
 	/* 알파벳 검색 */
 	public List<Map<String, Object>> alphabet(Map<String, Object> param);

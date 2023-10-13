@@ -107,10 +107,13 @@
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_pc.jpg" border="0"/></a>
 							</div> -->
-							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
-							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
-								<img src="/resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
-							</div> -->
+							<!-- 메인 배너 추가 (2023-09-12) : 정영우 -->
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/banner-22_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/da_update';" style="cursor:pointer;"/>
+							</div>
+							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+								<img src="/resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
+							</div>
 							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<img src="/resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
 							</div>
@@ -135,10 +138,10 @@
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_pc.jpg" border="0"/></a>
 							</div> -->
-							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
-							<!-- <div class="swiper-slide">
-								<img src="/resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
-							</div> -->
+							<!-- 메인 배너 추가 (2023-09-12) : 정영우 -->
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-22_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/da_update';" style="cursor:pointer;"/>
+							</div>
 							<div class="swiper-slide">
 								<img src="/resources/img/banner-21_pc.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet';" style="cursor:pointer;"/>
 							</div>
@@ -166,16 +169,16 @@
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_mobile.jpg" border="0"/></a>
 							</div> -->
-							<!--/* 메인 배너 추가 (2023-01-18) : 정대현 */-->
-							<!-- <div class="swiper-slide">
-								<img src="/resources/img/DA_banner_mobile_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
-							</div> -->
+							<!-- 메인 배너 추가 (2023-01-18) : 정대현 -->
+							<div class="swiper-slide">
+								<img src="/resources/img/banner-22_mobile.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/da_update';" style="cursor:pointer;"/>
+							</div>
 							<div class="swiper-slide">
 								<img src="/resources/img/banner-21_mobile.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
 							</div>
-							<div class="swiper-slide">
+							<!-- <div class="swiper-slide">
 								<img src="/resources/img/banner-12_mobile.png" onclick="javascript:location.href='/mgz9/insights';" style="cursor:pointer;"/>
-							</div>
+							</div> -->
 							<div class="swiper-slide">
 								<img src="/resources/img/banner-13_mobile.jpg" onclick="javascript:location.href='/mgz9/media';" style="cursor:pointer;"/>
 							</div>
@@ -268,7 +271,7 @@
 			</div>
 			
 			<!-- New deal --> <!-- 0808 -->
-			<div class="contents max-1500" id="newDeal_title">
+			<div class="contents max-1500">
 				<div class="cont-title">
 					<h3>New Deal</h3>
 				</div>
@@ -569,7 +572,7 @@
 	    /* 세번째 배너  */   	
 	    
 	  /* 네번째 배너  */
-	  var mySwiper4Num = 5;
+	  var mySwiper4Num = 4;
 	  var swiper = new Swiper(".mySwiper4", {
 	    	   
 	  		slidesPerView: "auto",
@@ -757,26 +760,21 @@
 	        	   }
 	        	   $("#columns").append(todayBidHtml).trigger("create"); */
 	        	   var newDealHtml = '';
-	        	   if(mainNewDeal.length > 0){
-	        		   for(j=0; j<mainNewDeal.length; j++){
-				   	       newDealHtml += '<div class="swiper-slide hd-div">';
-						   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+mainNewDeal[j].dealSq+')">';
-						   newDealHtml += '		<img src="'+mainNewDeal[j].workMainImgUrl+'" class="hd-img" style="width:270px;"/>';
-						   newDealHtml += '		<div class="hd-text">';
-						   newDealHtml += '			<h4>'+mainNewDeal[j].artstActvtyNm+'</h4>';
-					       newDealHtml += '			<div class="hd-d1">'+mainNewDeal[j].workNm +'('+ mainNewDeal[j].workProdcYear+')';
-					       newDealHtml += '         <br/>'+mainNewDeal[j].workMatrl+', '+mainNewDeal[j].workSizeWidth +'x'+ mainNewDeal[j].workSizeDepth+'</div>';
-						   //newDealHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
-					       newDealHtml += '		</div>';
-						   newDealHtml += '	</a>';
-						   newDealHtml += '</div>';
-		        	   }
-		        	   $("#newDeal").empty();
-		        	   $("#newDeal").append(newDealHtml).trigger("create");
-	        	   }else{
-	        		   $("#newDeal_title").css("display", "none");
+	        	   for(j=0; j<mainNewDeal.length; j++){
+			   	       newDealHtml += '<div class="swiper-slide hd-div">';
+					   newDealHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+mainNewDeal[j].dealSq+')">';
+					   newDealHtml += '		<img src="'+mainNewDeal[j].workMainImgUrl+'" class="hd-img" style="width:270px;"/>';
+					   newDealHtml += '		<div class="hd-text">';
+					   newDealHtml += '			<h4>'+mainNewDeal[j].artstActvtyNm+'</h4>';
+				       newDealHtml += '			<div class="hd-d1">'+mainNewDeal[j].workNm +'('+ mainNewDeal[j].workProdcYear+')';
+				       newDealHtml += '         <br/>'+mainNewDeal[j].workMatrl+', '+mainNewDeal[j].workSizeWidth +'x'+ mainNewDeal[j].workSizeDepth+'</div>';
+					   //newDealHtml += '			<div class="hd-d2">낙찰가 3,700,000 원</div>';
+				       newDealHtml += '		</div>';
+					   newDealHtml += '	</a>';
+					   newDealHtml += '</div>';
 	        	   }
-	        	   
+	        	   $("#newDeal").empty();
+	        	   $("#newDeal").append(newDealHtml).trigger("create");
 	        	   
 	        	   var updatedArtistHtml = '';
 	        	   for(k=0; k<mainUpdatedArtist.length; k++){

@@ -251,7 +251,7 @@
     		userWrapHtml += '		<li class="pt5">';
     		userWrapHtml += '			<img src="'+ (showOff.mbrProfileImgUrl || '/resources/img/mypage/ico_dauser.png') +'">';
     		userWrapHtml += '		</li>';
-    		userWrapHtml += '		<li class="user_name"><span>'+ showOff.mbrNcknm +'</span></li>';
+    		userWrapHtml += '		<li class="user_name"><a href="/otherPage/main?mbrSq='+ showOff.mbrSq +'"><span>'+ showOff.mbrNcknm +'</span></a></li>';
     		userWrapHtml += '		<li class="mem_type">회원유형<span>'+ (showOff.artstSq ? '아티스트' : '컬렉터') +'</span></li>';
     		userWrapHtml += '		<li class="following"><button type="button" onclick="clickFollow('+ showOff.mbrSq +');">+팔로잉</button></li>';
     		userWrapHtml += '	</ul>';
@@ -259,7 +259,8 @@
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
     		userWrapHtml += '		<li class="time hidden">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
-    		userWrapHtml += '		<li onclick="likeCheck('+comtSq+')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
+    		userWrapHtml += '		<li onclick="likeCheck(' + comtSq + ')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
+    		/* userWrapHtml += '		<li style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>'; */
     		userWrapHtml += '		<li onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
     		userWrapHtml += '		<li><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
     		userWrapHtml += '		<li><p class="ico_comments"></p><span>'+ showOff.comtCmts +'</span></li>';
@@ -488,14 +489,15 @@
     	    		
     	    		if(key == "work") {
     	    			html += '	<div class="btn_worksInfo_wrap">';
-    		    		html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
+    	    			//html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
+    		    		html += '		<button '+ (!showOffList.dealStatus ? "style='background: #626262;'" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
     		    		html += '	</div>';
     	    		} else if(key == "deal") {
     	    			html += '	<div class="bat-box">';
-    	    			html += '		<button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
+    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
     	    			html += '			<span>응찰하기</span>';
     	    			html += '		</button>';
-    	    			html += '		<button type="button" class="ba-btn1 por" id="suggestBtn" onclick="openModal(\'workSuggestModal\');">';
+    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="suggestBtn" onclick="chkSuggest();">';
     	    			html += '			<span>요청하기</span>';
     	    			html += '		</button>';
     	    			html += '		<div class="clearboth"></div>';
@@ -558,11 +560,16 @@
     	
     	// 거래 상세 페이지 이동
     	function goDealDetail(dealSq) {
-    		modalConfirm("거래 상세 페이지로 이동하시겠습니까?", function(confrim){
-    			if(confrim){
-		    		location.href='/deal/bidding?SqNumber='+ dealSq;
-    			}
-    		});
+    		//만약 자랑하기 등록한 회원순번과 세션순번 벨리데이션
+    		if(showOff.mbrSq == sMbrSqVal){
+				modalAlertShow("본인이 등록한 작품에는 응찰하기를 할 수 없습니다.");
+			}else{
+				modalConfirm("거래 상세 페이지로 이동하시겠습니까?", function(confrim){
+	    			if(confrim){
+			    		location.href='/deal/bidding?SqNumber='+ dealSq;
+	    			}
+	    		});
+			}
     	}
     	
     	// 판매 제안하기
@@ -612,23 +619,28 @@
     			return;
     		}
     		
-    		modalConfirm(msg + "하시겠습니까?", function(confirm) {
-    			if(confirm) {
-    				$.ajax({
-    					type: "post",
-    					url: "/community/insertComtRequest",
-    					data: param,
-    					success: function(data) {
-    						if(data.result) {
-			    				modalAlertShow(msg+ "이 완료되었습니다.");
-    						}
-    					},
-    					error: function(data) {
-    						modalAlertShow("오류가 발생했습니다.");
-    					}
-    				});
-    			}
-    		});
+    		//만약 자랑하기 등록한 회원순번과 세션순번 벨리데이션
+    		if(showOff.mbrSq == sMbrSqVal){
+				modalAlertShow("본인이 등록한 작품에는 "+msg+"을 할 수 없습니다.");
+			}else{
+				modalConfirm(msg + "하시겠습니까?", function(confirm) {
+	    			if(confirm) {
+	   					$.ajax({
+	       					type: "post",
+	       					url: "/community/insertComtRequest",
+	       					data: param,
+	       					success: function(data) {
+	       						if(data.result) {
+	   			    				modalAlertShow(msg+ "이 완료되었습니다.");
+	       						}
+	       					},
+	       					error: function(data) {
+	       						modalAlertShow("오류가 발생했습니다.");
+	       					}
+	       				});
+	    			}
+	    		});
+			}
     	}
     	
     	// 작품 상세 이미지 마우스 오버 효과 이벤트
@@ -1162,6 +1174,19 @@
     		}
     	}
     	
+    	// 요청하기 모달 확인 버튼 이벤트
+    	function openSuggestModal() {
+    		var val = $("input[name=suggest]:checked").val();
+
+    		if(val == "price") {
+	   			closeModal("workSuggestModal");
+    			openModal("workPriceSuggestModal");
+    		} else if(val == "picture") {
+    			closeModal("workSuggestModal");
+    			openModal("RequestPictureModal");
+    		}
+    	}
+    	
     	// 제안 가격 계산
     	function sgtPrcCal() {
     		var obj = document.querySelector("#sgtPrc");
@@ -1364,18 +1389,22 @@
 		        url: "/member/myPage/scrapCheck",
 		        data: {
 		        	mbrSq : sMbrSqVal,
-		        	comtSq : sqNumber
+		        	comtSq : sqNumber,
 		        },
 		        success: function(data) {
-		        	if(data > 0){
-		        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
-		        			scrapDel(sqNumber);
-		        	    }
-		        	}else{
-		        		if(confirm("스크랩 목록에 '추가'하시겠습니까?")){
-		        			scrapAdd(sqNumber);
-		        	    }
-		        	}
+		        	if(sMbrSqVal == null) {
+						modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+					} else {
+			        	if(data > 0){
+			        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
+			        			scrapDel(sqNumber);
+			        	    }
+			        	}else{
+			        		if(confirm("스크랩 목록에 '추가'하시겠습니까?")){
+			        			scrapAdd(sqNumber);
+			        	    }
+			        	}
+					}
 		        },
 		        error: function(error) {
 		            alert("오류 발생" + error);
@@ -1430,7 +1459,128 @@
 		        }
 			});
 		}
-	</script>
+		
+ 		// 좋아요 갯수 변경
+ 		// 이 함수 적용 시 화면에 좋아요 갯수 업데이트 확인. 
+ 		// 좋아요 체크여부 확인, 추가, 취소 함수 추가해도 적용이 안됌.
+ 		function likeCheck() {
+ 			let likeBtn = document.querySelector(".ico_good");
+			if(sMbrSqVal == null) {
+				modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+			} else {
+				var param = new Object();
+				var element = $(this);
+				param.comtSq = comtSq;
+				param.mbrSq = sMbrSqVal;
+				if($(this).hasClass("on")){
+					$.ajax({
+				        type: "post",
+				        url: "/member/myPage/likeCnt",
+				        data: param,
+				        success: function(data) {
+				        	if(data == 0) {
+				        		//likeCheckYn();
+				        	}
+				        },
+				        error: function(error) {
+				            alert("오류 발생" + error);
+				        }
+					});
+				}else{
+					$.ajax({ 
+				        type: "post",
+				        url: "/member/myPage/likeCnt",
+				        data: param,
+				        success: function(data) {
+				        	if(data > 0){
+				        		//likeCheckYn();
+				        	}else{
+				        		modalAlertShow("좋아요 취소 실패");
+				        	}
+				        },
+				        error: function(error) {
+				            alert("오류 발생" + error);
+				        }
+					});
+				}
+				}
+			}
+			
+		// 좋아요 체크 여부 조회
+		// 이 함수 적용 시 좋아요 체크 여부 확인 가능. likeDel, likeAdd함수 실행 안됨.
+   					function likeCheckYn(sqNumber) {
+						$.ajax({
+							type : "post",
+							url : "/member/myPage/likeCheck",
+							data : {
+								mbrSq : sMbrSqVal,
+								comtSq : sqNumber,
+							},
+							success : function(data) {
+								if (data > 0) {
+									if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
+										likeDel(sqNumber);
+									}
+								} else {
+									if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
+										likeAdd(sqNumber);
+									}
+								}
+							},
+							error : function(error) {
+								alert("오류 발생" + error);
+							}
+						});
+					}
+
+ 					// 좋아요 추가
+					function likeAdd() {
+						$.ajax({
+							type : "post",
+							url : "/member/myPage/likeAdd",
+							data : {
+								mbrSq : sMbrSqVal,
+								comtSq : sqNumber
+							},
+							success : function(data) {
+								if (data > 0 || data == null) {
+									alert("해당 게시물에 좋아요를 추가했습니다.");
+									//location.reload();
+								} else {
+									alert("좋아요 추가 실패했습니다.");
+									//location.reload();
+								}
+							},
+							error : function(error) {
+								alert("오류 발생" + error);
+							}
+						});
+					}
+
+					// 좋아요 취소
+					function likeDel() {
+						$.ajax({
+							type : "post",
+							url : "/member/myPage/likeDel",
+							data : {
+								mbrSq : sMbrSqVal,
+								comtSq : sqNumber
+							},
+							success : function(data) {
+								if (data > 0) {
+									alert("좋아요를 취소했습니다.");
+									//location.reload();
+								} else {
+									alert("좋아요 취소 실패했습니다.");
+									//location.reload();
+								}
+							},
+							error : function(error) {
+								alert("오류 발생" + error);
+							}
+						});
+					}
+				</script>
 	
 	<!-- 네이버 광고 로그분석 추적 코드 -->
 	<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script> 

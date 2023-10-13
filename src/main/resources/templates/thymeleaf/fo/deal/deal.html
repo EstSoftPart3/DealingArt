@@ -250,7 +250,26 @@
 					</div>
 					
 					<div class="con-right">
-					
+					<!-- hotest deal 스와이퍼 -->
+					<div class="contents max-1500 hotestDeal">
+						<div class="cont-title">
+							<h3>Closing Soon</h3>
+						</div>
+						<div class="swi-box">
+							<div class="swiper mySwiper2">
+								
+								<div class="swiper-wrapper" id="mainHotestContent">
+								
+								</div>
+								<div class="swiper-pagination swpa-2 pc-no"></div>	
+							</div>	
+							
+							<div class="swiper-button-next InPrevSwiper2 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+							<div class="swiper-button-prev InNextSwiper2 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+							
+						</div>
+					</div>
+					<!-- hotest deal 스와이퍼 마감 -->
 						<div class="sea-won2">
 							<input type="text" class="" id="searchKeyword" placeholder="작품이나 작가를 검색해 보세요" onkeydown="javascript: if (event.keyCode == 13) {dealSearch();}" style="outline: none;" autocomplete="off"/>
 							<a href="javascript:void(0);" onclick="dealSearch()"><img src="/resources/img/de/sech-icon.jpg" /></a>
@@ -1081,6 +1100,7 @@
 	    	function(){ $(this).addClass('gis') },
 	   	    function(){ $(this).removeClass('gis') }
 	   	  )
+	   	searchMainData();
       });
       
       /* 메뉴바 FIXED */
@@ -1226,6 +1246,57 @@
 		
 		}
 	});
+	
+	//상단 거래임박 프로모션
+	function searchMainData(page) {
+		$.ajax({
+	           type: "post",
+	           url: "/main/mainData",
+	           data: {
+	        	   page : 1,
+	        	   pageSize : 4
+	           },
+	           success: function(data) {
+	        	  
+	        	   mainHotest = data.mainData.mainHotest;
+	        	   	        	   
+	        	   var hotestHtml = '';
+	        	   for(i=0; i<mainHotest.length; i++){
+	        		hotestHtml +='<div class="swiper-slide hd-div">';
+					hotestHtml +='	<a href="javascript:void(0);" onclick="dealDetail('+ mainHotest[i].dealSq +')">';
+					hotestHtml +='		<img src="'+mainHotest[i].workMainImgUrl+'" class="hd-img" style="width:250px; heigth:280px;"/>';
+					hotestHtml +='		<div class="hd-text">';
+					hotestHtml +='			<h4 style="height:100px;">'+mainHotest[i].artstActvtyNm+'<br>('+mainHotest[i].workNm+')</h4>';
+ 					hotestHtml +='			<div class="hd-d1" >'+mainHotest[i].workNm+'('+mainHotest[i].workProdcYear+')';
+ 					hotestHtml +='			<br/>소재 '+mainHotest[i].workMatrl+', '+mainHotest[i].workSizeWidth+'x'+mainHotest[i].workSizeDepth+'cm</div>'; 				
+					hotestHtml +='		</div>';
+					hotestHtml +='	</a>';
+					hotestHtml +='</div>';
+	        	   }
+	        	   $("#mainHotestContent").empty();
+	        	   $("#mainHotestContent").append(hotestHtml).trigger("create");	        	   	        	 	        	 	        	   	        	   
+	           },
+	           error: function(error) {
+	               alert("오류 발생" + error);
+	           }
+		})
+	}
+	    
+	  /* 거래임박 스와이프 스크립트 */
+	  var mySwiper2Num = 4;
+	  
+	  var swiper = new Swiper(".mySwiper2", {
+		   slidesPerView: "auto",
+		   loop: false,
+		   /* autoplay: {
+		          delay: 3000,
+		          disableOnInteraction: false,
+		   }, */
+			navigation: {
+				 nextEl: ".InNextSwiper2",
+				 prevEl: ".InPrevSwiper2",
+			},
+	  });
 </script>	
     
 <!-- 네이버 광고 로그분석 추적 코드 -->

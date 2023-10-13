@@ -207,7 +207,7 @@
 			<div class="contents max-1500 market_work_wrap" id="newDeal_title">				
 				<div class="tit_wrap">
                     <h2>지금 거래중인 작품</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/deal"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="swi-box mt10">
 					<div class="swiper mySwiper1">
@@ -248,22 +248,22 @@
 			<div class="contents max-1500 magazine9_wrap">				
 				<div class="tit_wrap">
                     <h2>매거진9</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/mgz9/magazine9_main"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="cns-div swi-box mt10">
 					<div class="swiper mySwiper2" >
 						<div class="swiper-wrapper" id="mgz9Box"></div>
 						<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
 					</div>
-					<div class="swiper-button-next InPrevSwiper2 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
-					<div class="swiper-button-prev InNextSwiper2 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+					<div class="swiper-button-next InNextSwiper2 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+					<div class="swiper-button-prev InPrevSwiper2 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
 				</div>
 			</div>
 			
-<!--             <div class="popular_member_wrap">
+<!--         <div class="popular_member_wrap">
                 <div class="tit_wrap">
                     <h2>인기 회원</h2>
-                    <a href="주소입력하기"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
                 </div>
                 <div class="swiper-container">
                 	
@@ -273,22 +273,25 @@
 	                </ul>
                 	<div class="swiper-button-next btn_swipe_right"></div>
                 </div>
-            </div> -->
-            <!-- Updated artist--> <!-- 0808 -->
-			<div class="contents max-1500 popular_member_wrap">				
+            </div>
+           -->
+            
+            <div class="contents max-1500 popular_member_wrap">				
 				<div class="tit_wrap">
                     <h2>인기 회원</h2>
                     <a href="#"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="cns-div swi-box mt10">
-				
 					<div class="swiper mySwiper3">
-						<div class="swiper-wrapper cn-b" id="popularMbrBox"></div>
+						<div class="swiper-wrapper" id="popularMbrBox"></div>
+						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
 					<div class="swiper-button-next InNextSwiper3 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
 					<div class="swiper-button-prev InPrevSwiper3 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
 				</div>
 			</div>
+            <!-- Updated artist--> <!-- 0808 -->
+		
             <!-- <div class="exhint_rewview_wrap">
                 <div class="tit_wrap">
                     <h2>전시소개/후기</h2>
@@ -314,7 +317,7 @@
 			<div class="contents max-1500 exhint_rewview_wrap" id="newDeal_title">				
 				<div class="tit_wrap">
                     <h2>전시소개/후기</h2>
-                    <a href="#"><button type="button" class="btn_more">더보기</button></a>
+                    <a href="/community/exhintList"><button type="button" class="btn_more">더보기</button></a>
                 </div>
 				<div class="swi-box mt10">
 					<div class="swiper mySwiper4">
@@ -398,7 +401,7 @@
   				});
   			}
   		}
-  	  	/* 두번째 배너  */
+  	  	/* 두번째(매거진) 배너  */
   	  	var swiper2Num = 4;
   	  
   	  	var swiper = new Swiper(".mySwiper2", {
@@ -438,9 +441,9 @@
   				});
   			}
   		}
-  	  	/* 세번째 배너  */
-  	  	var swiper3Num = 5;
-  	  
+  	  	/* 세번째(인기회원) 배너  */
+  	  	var swiper3Num = 4;
+
   	  	var swiper = new Swiper(".mySwiper3", {
   		   	slidesPerView: "auto",
   		   	loop: false,
@@ -537,26 +540,30 @@
     		})
     	});
     }
-    
+        
     // 자랑하기 셋팅 
     function setBoa(list){
 		var strHtml = '';
 		
+		for(i=0; i<list.length; i++){
+			
+		}
+		
  		strHtml += '<div class="left">';
  		if(list[0] != null){
- 		    strHtml += '    <a href="/community/workDetail?comtSq='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '    <a href="/community/showingOffDetail?SqNumber='+ list[0].comtSq +'"><img src="'+ list[0].comtImgUrl +'" alt=""></a>';
  		}
 	    strHtml += '    <div class="bottom">';
  		if(list[1] != null){
- 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '        <a href="/community/showingOffDetail?SqNumber='+ list[1].comtSq +'"><img src="'+ list[1].comtImgUrl +'" alt=""></a>';
  		}
  		if(list[2] != null){
- 		    strHtml += '        <a href="/community/workDetail?comtSq='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
+ 		    strHtml += '        <a href="/community/showingOffDetail?SqNumber='+ list[2].comtSq +'"><img src="'+ list[2].comtImgUrl +'" alt=""></a>';
  		}
 	    strHtml += '    </div>';
 	    strHtml += '</div>';
  		if(list[3] != null){
- 		    strHtml += '<div class="right"><a href="/community/workDetail?comtSq='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
+ 		    strHtml += '<div class="right"><a href="/community/showingOffDetail?SqNumber='+ list[3].comtSq +'"><img src="'+ list[3].comtImgUrl +'" alt=""></a></div>';
  		}
     	
     	$("#boaBox").prepend(strHtml);
@@ -567,8 +574,11 @@
     	
     	var strHtml = '';
     	
+    
+    	
     	list.forEach( function( work ) {
-    		
+    		//console.log(work.dealSq);
+    		///deal/bidding?SqNumber=
     		strHtml += '<div class="swiper-slide hd-div">';
     		strHtml += '	<a class="hd-div400" href="javascript:void(0);" onclick="dealDetail('+work.dealSq+')">';
     		strHtml += '		<img src="'+work.workMainImgUrl+'" class="hd-img"/>';
@@ -591,11 +601,19 @@
     	var strHtml = '';
     	
     	list.forEach( function( mgz9 ) {
+    		console.log(mgz9.mgzSq);
+    		console.log("매거진 img url",mgz9.mgzMainImgUrl);
+    		console.log(mgz9.mgzTitle);
+    		console.log(mgz9.mgzSq);
+    		
+    		
+    		// mgz9.mgzMainImgUrl이 null이면 대체 이미지 사용
+            var imageUrl = mgz9.mgzMainImgUrl ? mgz9.mgzMainImgUrl : '/resources/img/bigLogo2.png';
     		
     		strHtml += '<div class="swiper-slide">';
     		strHtml += '	<div class="cns-box" >';
     		strHtml += '		<a href="javascript:void(0);" onclick="mgzDetail('+ mgz9.mgzSq +')">';
-    		strHtml += '			<img src="'+mgz9.mgzMainImgUrl+'" class="hd-img" />';
+			strHtml += '	<img src="'+ imageUrl +'"  alt="">';
     		strHtml += '		</a>';
     		strHtml += '		<div class="cns-sb">';
     		strHtml += '			<p class="cns-p1">'+mgz9.mgzTitle+'</p>';
@@ -616,35 +634,38 @@
     	var strHtml = '';
     	
     	list.forEach( function( mbr ) {
+    		console.log("인기회원  img url",mbr.mbrProfileImgUrl);
+    		// mbr.mbrIntro이 null이면 대체 이미지 사용
+            var mbrIntro = mbr.mbrIntro ? mbr.mbrIntro : ' ';
     		
-	        strHtml += '        <div class="name"><span>'+ mbr.mbrNcknm +'</span></div>';
-	        strHtml += '        <div class="text">'+ mbr.mbrIntro +'</div>';
-	        strHtml += '    </div>';
-	        strHtml += '</li>';
-	        
-	        strHtml += '<div class="swiper-slide">';
+	        strHtml += '<li class="swiper-slide">';
 	        strHtml += '   <a href="javascript:void(0);" onclick="artstDetail('+mbr.mbrSq+')">';
 	        strHtml += '	    <div class="cns-box3">';
-	        strHtml += '		   <img src="'+mbr.mbrProfileImgUrl+'"/>';
+	        strHtml += '		   <img src="'+mbr.mbrProfileImgUrl+'" alt="" />';
 	        strHtml += '   	   <h4 style="text-align:center; padding-top:10px;">'+mbr.mbrNcknm+'</h4>';
+	        strHtml += '        <div class="text" style="text-align:center; padding-top:10px;">'+ mbrIntro +'</div>';
 		   	strHtml += '	    </div>';
 		   	strHtml += '   </a>';
-		   	strHtml += '</div>';
-	        
+		   	strHtml += '</li>';
     	});
     	
     	$("#popularMbrBox").prepend(strHtml);
+
+  	   
     }
     
-    // 전시 후기/소개 셋팅
+    
+    // 전시 소개/후기 셋팅
     function setPopularExhibit(list){
     	var strHtml = '';
     	
     	list.forEach( function( exhibit ) {
-    		
+    		console.log(exhibit.comtSq);
+    		console.log("전시 소개/후기 img url",exhibit.comtImgUrl);
+    		    		
     		strHtml += '<li class="swiper-slide">';
 	        strHtml += '    <div class="exhint_review">';
-	        strHtml += '        <div class="pic"><a href="/community/exhibitDetail?comtSq='+ exhibit.comtSq +'"><img src="'+ exhibit.comtImgUrl +'" alt=""></a></div>';
+	        strHtml += '        <div class="pic"><a href="/community/exhibitDetail?SqNumber='+ exhibit.comtSq +'"><img src="'+ exhibit.comtImgUrl +'" alt=""></a></div>';
 	        
 	        if(exhibit.mbrProfileImgUrl != null && exhibit.mbrProfileImgUrl != ""){
 		        strHtml += '        <div class="name"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""><span>'+ exhibit.mbrNcknm +'</span></div>';
@@ -661,6 +682,65 @@
     	$("#popularExhibitBox").prepend(strHtml);
     }
     
+    function dealDetail(dealSq){
+    	location.href = "/deal/bidding?SqNumber="+dealSq;
+    }
+    
+    
+    //mgz>Insights 이동
+    function mgzDetail(mgzSq){
+	  	location.href = "/mgz9/insights?mgzSq="+mgzSq;
+  	}
+  
+    
+    
+ 	/*
+     * MGZ9 상세 조회
+     * PARAM : #MGZ_SQ
+     * RETURN : MGZ9 상세
+     */
+     function selectMgz9Dtl(mgzSq){
+     	
+     	$.ajax({
+             type: "post",
+             url: "/mgz9/selectMgz9Dtl",
+             data:{
+            	 mgzSq : mgzSq
+     		},
+             success: function(data) {
+             	var mgzDtl = null;
+             	console.log(data);
+	        	 var mbrNcknm = dataContent.mbrNcknm				//닉네임
+
+             	if(data.result != null){
+                 	$("#lp_mgz9Dtl_cntnt").empty();
+                 	$("#lp_mgz9Dtl_cntnt").append(data.result.mgzContent).trigger("create");
+                 	
+                 	var appDevice =	$("#appDevice").val();
+             		
+             		if(appDevice == "MOBILE") {
+             			
+             			$(".mainInsightsContent > div").css('font-size', '11px');
+             			$(".mainInsightsContent > div").css('padding-left', '0px');
+             			$(".mainInsightsContent > div").css('padding-right', '0px');
+             		}
+                 	
+             	}else{
+             		modalAlertShow("검색 결과가 없습니다."); 
+             		$("#lp_mgz9Dtl_cntnt").empty();
+             	}
+             },           
+             error: function(error) {
+                 alert("오류 발생" + error);
+             }
+     	});
+     }
+  	
+	function more_onCilck(){
+		page += 1;
+		searchMainData(page);
+	}
+	
     </script>
 </body>
 </html>

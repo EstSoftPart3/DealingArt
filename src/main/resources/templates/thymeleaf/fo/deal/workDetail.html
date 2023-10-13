@@ -200,11 +200,12 @@
 								</td>
 							</tr>
 						</table>
-						<div class="bat-box">
+						<div class="bat-box" id="btnListOffer">
 							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
 							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
 							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="/resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
 							<button type="button" class="ba-btn3" onclick="javascript:history.back();"><span>목록으로 돌아가기</span></button>
+							
 							<div class="clearboth"></div>
 						</div>
 						
@@ -216,7 +217,7 @@
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
-						<h3>Artist Information</h3>
+						<h3>작가정보</h3>
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
@@ -245,6 +246,24 @@
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper"  id="swiper_workList">
 							</div>
+							<div class="swiper-pagination swpa-2 pc-no"></div>
+						</div>
+						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
+						<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
+					</div>
+				</th:block>
+			</div>
+			
+			<!-- 자랑하기가 없는 작품일 경우 보여주지 않는 영역 -->
+			<!-- 2023.10.12일 홍충기 추가 -->
+			<div class="contents conbg" th:if="${not #maps.isEmpty(result.showoffList)}">
+				<div class="cont-title2 max-1500">
+					<h3>이 작품의 자랑하기</h3>
+				</div>
+				
+					<div class="swi-box1 max-1500">
+						<div class="swiper mySwiper2">
+							<div class="swiper-wrapper"  id="swiper_showoffList"></div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
 						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
@@ -648,10 +667,60 @@
 	</div>
 </div>
 
+<!-- 2023.10.13 홍충기 추가 판매 제란 모달 찹업 -->
+<div class="modal fade modal-s" id="workSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workSuggestLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>제안 유형을 선택해 주세요.</h2>
+				    <div class="close" onclick="closeModal('workSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="text-center mg_b40">
+						<input type="radio" id="w1" name="suggest" value="price" checked>
+						<label for="w1"><span></span>가격 제안</label>
+					</div>
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="openSuggestModal();">확인</button>
+						<button type="button" class="baeg-b2" onclick="closeModal('workSuggestModal');">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal-s" id="workPriceSuggestModal" tabindex="-1" role="dialog" aria-labelledby="workPriceSuggestLabel" aria-hidden="true">
+	<div class="modal-dialog modal-baeg max-w530">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="baegs">
+					<h2>해당 작품의 판매 가격을 제안해 주세요.</h2>
+				    <div class="close" onclick="closeModal('workPriceSuggestModal');"><img src="/resources/img/ba/icon-end.png" /></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="md-box-1">
+					<div class="text-center mg_b40">
+						<input type="text" class="input-1" id="sgtPrc" placeholder="제안금액 (KRW)" onblur="dealStrtPrcCal(this)"/>
+					</div>
+					<div class="baeg-btn mg_t30">
+						<button type="button" class="baeg-b1" onclick="comtRequest('PRC');">확인</button>
+						<button type="button" class="baeg-b2" onclick="closeModal('workPriceSuggestModal');">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+var sMbrSq = sMbrSqVal;
 
 jQuery(document).ready(function($){
      
@@ -673,6 +742,11 @@ jQuery(document).ready(function($){
 		$(".ellipsis").css('padding',20);
     }
 	workList();
+	
+	//2023.10.13일 홍충기 추가
+	fn_ShowoffList(); // 해당 작품의 자랑하기 목록	
+	fn_chkSaleYn();   // 작품의 판매 가능 여부 확인
+	
 });
 
 $('.selectpicker').selectpicker('render');
@@ -717,6 +791,41 @@ function workList(){
      	 	html +='</div>';
 		}
 		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+
+// 2023.10.12일 홍충기 추가
+//작품의 자랑하기 목록
+function fn_ShowoffList(){
+	if(result.showoffList.length > 0){
+		$("#swiper_showoffList").empty();
+		var html = '';
+		for(var i=0; i<result.showoffList.length; i++){
+			html +='<div class="swiper-slide hd-div">';
+			// 커뮤니티 자랑하기로 이동
+			html +='	<a href="/community/showingOffDetail?SqNumber='+result.showoffList[i].comtSq+'">';
+			html +='		<img src="'+result.showoffList[i].comtImgUrl+'" class="hd-img" style="width:100&;"/>';
+			html +='		<div class="hd-text">';
+			html +='			<h4 style="height:100px;">'+result.showoffList[i].artstActvtyNm+'('+result.showoffList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" style="margin:0 auto;">'+result.showoffList[i].workNm+'('+result.showoffList[i].workProdcYear+')';
+     	   	html +='		</div>';
+     	  	html +='	</a>';
+     	 	html +='</div>';
+		}
+		$("#swiper_showoffList").append(html).trigger("create");
+	}
+}
+
+// 2023.10.12일 홍충기 추가
+// 작품의 판매 가능 여부 확인
+function fn_chkSaleYn(){
+	var html = '';
+	// 작품의 판매여부 확인해서 판매제안 버튼 보이기
+	if(result.work.salesYn == "Y"){
+		html += '<button type="button" class="ba-btn2" id="btn_prorosal" onclick="openModal(\'workSuggestModal\');">';
+		html += '    <span>작품 판매 제안 하기</span>';
+		html += '</button>';
+		$("#btnListOffer").append(html).trigger("create");	
 	}
 }
 
@@ -827,6 +936,108 @@ function changepic2(){
   bigPic2.setAttribute("src", smallPic2Attribute);
 }
 /* 0702 끝 */
+
+/*
+ * 2023.10.13 홍충기
+ * 판매 제안 기능 추가
+ */
+//요청하기 모달 확인 버튼 이벤트
+function openSuggestModal() {
+	var val = $("input[name=suggest]:checked").val();
+
+	if(val == "price") {
+ 		closeModal("workSuggestModal");
+ 		openModal("workPriceSuggestModal");
+ 	} else if(val == "picture") {
+ 		closeModal("workSuggestModal");
+ 		openModal("RequestPictureModal");
+	}
+}
+ 
+//10,000원 단위로 입력
+function dealStrtPrcCal(obj){
+ 	if(obj.value != null && obj.value != ""){
+ 		obj.value = obj.value.replaceAll(/,/g,'');          // ,값 공백처리
+ 		obj.value = parseInt(obj.value);
+ 		var n = obj.value % 10000;
+ 		if(n != 0 || obj.value == 0){
+ 			alert("10,000원 단위로만 입력가능합니다.");
+ 			obj.value = '';
+ 			//$("#dealStrtPrcA").text("");
+ 		}else{
+ 			//var val = Math.round(obj.value.replaceAll(",", "") * 0.7);
+ 			//var val2 = val.toString().replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+ 			//$("#dealStrtPrcA").text(val2+" KRW");
+ 			obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
+ 		}
+ 	}
+}
+
+// 판매 제안하기
+function comtRequest(notiCatCd) {
+ 	$("#ModalConfirm").css("z-index", 99999);
+ 		$("#ModalAlert").css("z-index", 100000);
+
+ 	var param = {
+ 		  mbrSq         : result.work.mbrSq
+ 		, workSq        : result.work.workSq
+ 		, artstSq       : result.work.artstSq
+ 		, notiTypCd     : "GEN"
+ 		, notiCatCd     : notiCatCd
+ 		, questionMbrSq : sMbrSq
+ 	};
+
+ 	var msg = "";
+ 	
+ 	switch(notiCatCd) {
+ 	case "SEL": // 판매 제안
+ 		msg = "판매 제안";
+ 		closeModal();
+ 		break;
+ 	case "PRC": // 가격 협상(제안)
+ 		closeModal('workPriceSuggestModal');
+ 		msg = "가격 제안";
+ 		param["dealSq"] = result.work.dealSq;
+ 		param["questionContent"] = $("#sgtPrc").val();
+ 		break;
+ 	case "PIC": // 상세 사진 요청
+ 		closeModal('RequestPictureModal');
+ 		msg = "상세 사진 요청";
+ 		param["dealSq"] = result.work.dealSq;
+ 		param["questionContent"] = $("#reqPic").val();
+ 		break;
+ 	}
+ 	
+ 	if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
+ 		alert("가격을 입력해주세요.");
+ 		return;
+ 	}
+ 	
+ 	if(notiCatCd == "PIC" && !$("#reqPic").val()) {
+ 		alert("내용을 입력해주세요.");
+ 		return;
+ 	}
+ 	if(confirm(msg + "하시겠습니까?")){
+ 		$.ajax({
+ 			type: "post",
+ 			url: "/community/insertComtRequest",
+ 			data: param,
+ 			success: function(data) {
+ 				if(data.result > 0) {
+     				alert(msg+ "이 완료되었습니다.");
+ 				}
+ 			},
+ 			error: function(data) {
+ 				alert("오류가 발생했습니다.");
+ 			}
+ 		});
+ 	}else{
+ 		return false;
+ 	}
+}
+function btn_offerPrc_onclick(){
+	$("#workPriceSuggestModal").modal();
+}
 </script>
 
 <!-- 네이버 광고 로그분석 추적 코드 -->

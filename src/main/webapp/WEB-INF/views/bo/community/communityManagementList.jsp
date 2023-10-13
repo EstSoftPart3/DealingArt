@@ -442,7 +442,7 @@
 	           success: function(data) {
 	        	   
 	        	   data.list.list.forEach(function(ele, idx){
-	        		         	
+	        		         	console.log(data.list.list);
         			   var strHtml = '<tr id align="center">';
 	        			//strHtml += '<th><input type="checkbox"></th>';
 	        			strHtml += '<th>' + ele.dtlCdNm + '</th>';
@@ -520,8 +520,7 @@
 	           data: {comtTypCd : comtTypCd},
 	           success: function(data) {
 				 var dtlInfo = data.hashMap.dtlList;
-				 debugger;
-				 console.log(dtlInfo);
+								 
 				 //표시여부 라디오 버튼 제어
 				 Object.keys(dtlInfo).forEach(function(k){
 				      var key = k;

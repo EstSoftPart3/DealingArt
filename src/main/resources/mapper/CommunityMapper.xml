@@ -175,9 +175,8 @@
 		LEFT JOIN TBL_DA_WORK_M AS WORK
 			ON COMT.WORK_SQ = WORK.WORK_SQ
 		WHERE 
-				COMT.COMT_TYP_CD = #{comtTypCd}
+			COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
-			AND COMT.OPEN_YN = 'Y'
 		<if test="startDate != '' and endDate != '' and startDate != null and endDate != null">
 			AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
 		</if>
@@ -190,22 +189,30 @@
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
 			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
 		</if>
-		<if test="comSort == 'byRecentPopularity'">
+		<!-- 구분:공개여부 -->
+		<if test="openYn != '' and openYn != null">
+			AND COMT.OPEN_YN = #{openYn}
+		</if>
+		<!-- 최근인기순 -->
+		<if test="comtSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
 		ORDER BY 
-				comtLikes DESC
+				COMT.COMT_LIKES DESC
 		</if>
+		<!-- 역대인기순 -->
 		<if test="comtSort == 'allTimePopularity'">
 		ORDER BY 
-				comtLikes DESC
+				COMT.COMT_LIKES DESC
 		</if>
+		<!-- 최신순 -->
 		<if test="comtSort == 'newest'">
 		ORDER BY 
-				comtSq DESC
+				COMT.REG_DT DESC
 		</if>
+		<!-- 과거순 -->
 		<if test="comtSort == 'pastOrder'">
 		ORDER BY
-				comtSq ASC
+				COMT.REG_DT ASC
 		</if>
 		<if test="offset != null">
 		LIMIT
@@ -230,7 +237,6 @@
 		WHERE 
 				COMT.COMT_TYP_CD = #{comtTypCd}
 			AND COMT.DEL_YN = 'N'
-			AND COMT.OPEN_YN = 'Y'
 		<if test="startDate != '' and endDate != '' and startDate != null and endDate != null">
 			AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
 		</if>
@@ -243,7 +249,11 @@
 		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
 			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
-		<if test="comSort == 'byRecentPopularity'">
+		<!-- 구분:공개여부 -->
+		<if test="openYn != '' and openYn != null">
+			AND COMT.OPEN_YN = #{openYn}
+		</if>
+		<if test="comtSort == 'byRecentPopularity'">
 			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
 		ORDER BY 
 				COMT.COMT_LIKES DESC
@@ -280,11 +290,14 @@
 	<select id="communityExhKnoDetail" resultType="hashMap">
 		/* 커뮤니티 전시후기, 노하우 상세 페이지 */
 		SELECT
-				COMT.COMT_SQ AS comtSq
+				  COMT.COMT_SQ AS comtSq
 				, COMT.COMT_TITLE AS comtTitle
 				, COMT.COMT_IMG_URL AS comtImgUrl
 				, COMT.COMT_CONTENT AS comtContent
 				, COMT.COMT_LIKES AS comtLikes
+				, COMT.OPEN_YN AS openYn
+				, COMT.COMT_SALES_YN AS comtSalesYn
+				, COMT.COMT_SNS_YN AS comtSnsYn
 				, COMT.COMT_VIEWS AS comtViews
 				, COMT.COMT_CMTS AS comtCmts
 				, COMT.COMT_SCRAPS AS comtScraps
@@ -453,6 +466,35 @@
 				(#{mbrSq}, #{fwMbrSq})
 	</insert>
 	
+	<select id="findNewFollow" resultType="int">
+		/* 팔로우 버튼 클릭시 팔로우되어 있는지 확인 (새로운 데이터베이스 사용) */
+		SELECT 
+				COUNT(TDFM.MBR_SQ) AS isFollow
+		FROM 
+				TBL_DA_FOLLOWING_M AS TDFM
+		WHERE 
+				TDFM.FOLLOWING_SQ = #{fwMbrSq}
+			AND TDFM.MBR_SQ = #{mbrSq}
+	</select>
+	
+	<delete id="delNewFollow">
+		/* 언팔로우 (새로운 데이터베이스 사용) */
+		DELETE 
+		FROM 
+				TBL_DA_FOLLOWING_M AS TDFM
+		WHERE
+				TDFM.FOLLOWING_SQ = #{fwMbrSq}
+			AND TDFM.MBR_SQ = #{mbrSq}
+	</delete>
+	
+	<insert id="insertNewFollow">
+		/* 팔로우하기 (새로운 데이터베이스 사용) */
+		INSERT INTO 
+				TBL_DA_FOLLOWING_M(MBR_SQ, FOLLOWING_SQ)
+		VALUES
+				(#{mbrSq}, #{fwMbrSq})
+	</insert>
+	
 	<insert id="comtReg">
 		/* 커뮤니티 댓글 등록 */
 		INSERT INTO TBL_DA_COMT_CMTS_R (
@@ -584,6 +626,16 @@
 				TBL_DA_COMT_M
 			SET
 				COMT_VIEWS = COMT_VIEWS + 1
+		WHERE 
+				COMT_SQ = #{comtSq}
+	</update>
+	
+	<!-- 좋아요 갯수 증가 -->
+	<update id="updateComtLikes" parameterType="String">
+		UPDATE 
+				TBL_DA_COMT_M
+			SET
+				COMT_LIKES = COMT_LIKES + 1
 		WHERE 
 				COMT_SQ = #{comtSq}
 	</update>

@@ -67,7 +67,7 @@ public class Mgz9ServiceImpl implements Mgz9Service{
 	}
 
 	@Override
-	public int count(String param) {
+	public int count(Map<String, Object> param) {
 		return mgz9Dao.count(param);
 	}
 
@@ -90,4 +90,7 @@ public class Mgz9ServiceImpl implements Mgz9Service{
 	public int koreanCount(String param) {
 		return mgz9Dao.koreanCount(param);
 	}
+
+
+	
 }

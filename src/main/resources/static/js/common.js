@@ -2531,8 +2531,8 @@ function delCommentModal(commentSq, comtSq, commentType){
  * 설  명 : 커뮤니티 관련 페이지 -> 팔로우하기
  * 예)
  ---------------------------------------------*/
-function clickFollow(mbrSq){
-	var fwMbrSq = sMbrSqVal;
+function clickFollow(fwMbrSq){
+	var mbrSq = sMbrSqVal;
 	
 	modalConfirm( "팔로우 하시겠습니까?" , function ( confirm ) {
 		if(confirm){
@@ -2564,8 +2564,8 @@ function clickFollow(mbrSq){
  * 설  명 : 커뮤니티 관련 페이지 -> 팔로우 돼있는치 체크
  * 예)
  ---------------------------------------------*/
-function followCheck(mbrSq) {
-	var fwMbrSq = sMbrSqVal;
+function followCheck(fwMbrSq) {
+	var mbrSq = sMbrSqVal;
 	
 	if(!fwMbrSq || (mbrSq == fwMbrSq)) {
 		$(".following").hide();

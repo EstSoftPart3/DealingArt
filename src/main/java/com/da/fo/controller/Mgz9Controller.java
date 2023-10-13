@@ -2,6 +2,7 @@ package com.da.fo.controller;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,13 +96,16 @@ public class Mgz9Controller {
 		return mv;
 	}
 	
+	
+	
 	/* 검색 */
 	@RequestMapping("/mgz9/search")
 	@ResponseBody
-	public ModelAndView search(@RequestParam Map<String, Object> param) {
+	
+	public ModelAndView search(@RequestBody Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");		
 		/* 전체 게시글 수 */
-		int totalCount = mgz9Service.count((String)param.get("keyword"));
+		int totalCount = mgz9Service.count(param);
 		
 		/* 화면에 표시될 페이지 수 */
 		int postNum = 12;
@@ -109,6 +115,7 @@ public class Mgz9Controller {
 		
 		/* 현재 페이지 번호 */
 		String currentNum = (String)param.get("currentNum");
+		System.out.println("++++++++++++++++++++++++++"+currentNum);
 		if(currentNum == null) {
 			currentNum = "1";
 		}
