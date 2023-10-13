@@ -565,6 +565,7 @@ public interface MyPageMapper {
 	 * 나의 작품 상세보기의 자랑하기 목록
 	 * param : mbrSq, workSq
 	 * return : List
+	 * 2023.10.12일 홍충기 추가
 	 */
 	public List<Map<String, Object>> detailshowoffList(Object param);
 	
