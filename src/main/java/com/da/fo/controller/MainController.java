@@ -33,7 +33,7 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String openMain() {
-		return "thymeleaf/index";
+		return "thymeleaf/da_main";
 	}
 	
 	@RequestMapping("/main_2")

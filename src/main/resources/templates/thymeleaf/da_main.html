@@ -646,7 +646,7 @@
 	        strHtml += '    <div class="exhint_review">';
 	        strHtml += '        <div class="pic"><a href="/community/exhibitDetail?comtSq='+ exhibit.comtSq +'"><img src="'+ exhibit.comtImgUrl +'" alt=""></a></div>';
 	        
-	        if(null != exhibit.mbrProfileImgUrl){
+	        if(exhibit.mbrProfileImgUrl != null && exhibit.mbrProfileImgUrl != ""){
 		        strHtml += '        <div class="name"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""><span>'+ exhibit.mbrNcknm +'</span></div>';
 	        } else {
 		        strHtml += '        <div class="name"><img src="/resources/img/img_new/ico_dauser.png"><span>'+ exhibit.mbrNcknm +'</span></div>';
