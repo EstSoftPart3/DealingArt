@@ -42,7 +42,7 @@ public class DealDao {
 	private CommonService commonService;
 	
 	@Autowired
-	private MyPageMapper myPageMapper;
+	private MyPageMapper myPageMapper; // 2023.10.12 자랑하기 리스트 추가
 	
 	/*
 	 * 딜 페이지에서 검색 필터별로 검색 결과를 조회한다.
@@ -425,7 +425,7 @@ public class DealDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = dealMapper.workDetail(param);
  		Map<String, Object> artistInfo = new HashMap<>();
- 		Map<String, Object> showoffListParam = new HashMap<>();
+ 		Map<String, Object> showoffListParam = new HashMap<>(); // 2023.10.12 자랑하기 리스트 추가
 
 		result.put("work", work);
 		if(work.get("artstSq") != null) {
@@ -442,13 +442,14 @@ public class DealDao {
 			showoffListParam.put("workSq", work.get("workSq").toString());
 			showoffListParam.put("mbrSq", work.get("mbrSq").toString());
 			List showoffList = myPageMapper.detailshowoffList(showoffListParam);
+			
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
 			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
-			result.put("showoffList", showoffList);
+			result.put("showoffList", showoffList); // 2023.10.12 자랑하기 리스트 추가
 		} else {
 			result.put("artistInfo", artistInfo);
 			return result;
@@ -467,7 +468,7 @@ public class DealDao {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> work = dealMapper.soldoutDetail(param);
  		Map<String, Object> artistInfo = new HashMap<>();
- 		Map<String, Object> showoffListParam = new HashMap<>();
+ 		Map<String, Object> showoffListParam = new HashMap<>(); // 2023.10.12 자랑하기 리스트 추가
 
 		result.put("work", work);
 		if(work.get("artstSq") != null) {
@@ -484,13 +485,14 @@ public class DealDao {
 			showoffListParam.put("workSq", work.get("workSq").toString());
 			showoffListParam.put("mbrSq", work.get("mbrSq").toString());
 			List showoffList = myPageMapper.detailshowoffList(showoffListParam);
+			
 			result.put("artistInfo", artistInfo);
 			result.put("eductn", eductn);
 			result.put("career", career);
 			result.put("exhbtn", exhbtn);
 			result.put("exhbtnAword", exhbtnAword);
 			result.put("workList", workList);
-			result.put("showoffList", showoffList);
+			result.put("showoffList", showoffList); // 2023.10.12 자랑하기 리스트 추가
 		} else {
 			result.put("artistInfo", artistInfo);
 			return result;

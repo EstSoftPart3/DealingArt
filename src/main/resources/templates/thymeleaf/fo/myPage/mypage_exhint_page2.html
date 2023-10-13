@@ -227,7 +227,8 @@
 								</div>
 							</div>
 						</div>
-					</div>						
+					</div>
+					<!--  2023.10.12일 홍충기 - 버튼 이미지 변경  -->		
 					<div class="btn_regi_area">
 						<ul>
 							<li><button type="button" class="registration" onclick="myexhibitReg()"><span>등록</span></button></li>
@@ -298,6 +299,11 @@
 	    			        processData : false,
 	    			        success: function(data) {
 	    			        	if(data == 1){
+	    			        		/*
+	    			        		 * 2023.10.12 홍충기 수정
+	    			        		 * ASIS : 커뮤니티 전시 페이지로 이동
+	    			        		 * 마이페이지 전시로 이동하도록 수정
+	    			        		 */
 	    			        		modalAlertShow("전시후기/소개 등록되었습니다.");
 	    			        		location.href = "/myPage/exhint";
 	    			        	}else{

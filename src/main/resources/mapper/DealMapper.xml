@@ -451,44 +451,44 @@
 	</update>
 	
 	<select id="workDetail" resultType="hashMap" parameterType="String">
-/*작품 상세 정보 가져오기*/
-SELECT 
-       A.WORK_SQ                    AS workSq
-     , A.ARTST_SQ                   AS artstSq
-     , A.MBR_SQ                     AS mbrSq
-     , IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl /*작품대표이미지주소*/
-     , A.ARTST_ACTVTY_NM            AS artstActvtyNm
-     , A.WORK_NM                    AS workNm
-     , A.WORK_PRODC_YEAR            AS workProdcYear
-     , A.WORK_MATRL                 AS workMatrl
-     , A.WORK_FRM_YN                AS workFrmYn
-     , A.WORK_SIZE_WIDTH            AS workSizeWidth
-     , A.WORK_SIZE_DEPTH            AS workSizeDepth
-     , A.WORK_SALE_YN               AS workSaleYn
-     , A.WORK_CLR_CD                AS workClrCd
-     , A.ARTST_ENGLS_NM             AS artstEnglsNm
-     , A.WORK_IMG_FRT_URL           AS workImgFrtUrl /*전면이미지주소*/
-     , A.WORK_IMG_RER_URL           AS workImgRerUrl /*후면이미지주소*/
-     , A.WORK_IMG_TOP_URL           AS workImgTopUrl /*상 이미지주소*/
-     , A.WORK_IMG_BOT_URL           AS workImgBotUrl /*히 이미지주소*/
-     , A.WORK_IMG_LEF_URL           AS workImgLefUrl /*좌 이미지주소*/
-     , A.WORK_IMG_RIT_URL           AS workImgRitUrl /*우 이미지주소*/
-     , A.WORK_LAKE                  AS workLake
-     , FORMAT(A.WORK_PRC, 0)        AS workPrc
-     , B.MBR_NCKNM                  AS mbrNcknm
-     , A.WORK_STATE                 AS workState
-     , IFNULL(C.COMT_SALES_YN, 'N') AS salesYn       /* 작품 판매 가능 여부 */
-  FROM TBL_DA_WORK_M  AS A
- INNER JOIN
-       TBL_DA_MBR_M   AS B
-    ON A.MBR_SQ  = B.MBR_SQ
-  LEFT OUTER JOIN 
-       TBL_DA_COMT_M  AS C
-    ON A.MBR_SQ  = B.MBR_SQ
-   AND A.WORK_SQ = C.WORK_SQ 
- WHERE 1=1
-   AND A.WORK_SQ = #{workSq}
-   AND A.DEL_YN  = 'N' /*작품 삭제 여부 확인 */
+		/*작품 상세 정보 가져오기*/
+		SELECT 
+		       A.WORK_SQ                    AS workSq
+		     , A.ARTST_SQ                   AS artstSq
+		     , A.MBR_SQ                     AS mbrSq
+		     , IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl /*작품대표이미지주소*/
+		     , A.ARTST_ACTVTY_NM            AS artstActvtyNm
+		     , A.WORK_NM                    AS workNm
+		     , A.WORK_PRODC_YEAR            AS workProdcYear
+		     , A.WORK_MATRL                 AS workMatrl
+		     , A.WORK_FRM_YN                AS workFrmYn
+		     , A.WORK_SIZE_WIDTH            AS workSizeWidth
+		     , A.WORK_SIZE_DEPTH            AS workSizeDepth
+		     , A.WORK_SALE_YN               AS workSaleYn
+		     , A.WORK_CLR_CD                AS workClrCd
+		     , A.ARTST_ENGLS_NM             AS artstEnglsNm
+		     , A.WORK_IMG_FRT_URL           AS workImgFrtUrl /*전면이미지주소*/
+		     , A.WORK_IMG_RER_URL           AS workImgRerUrl /*후면이미지주소*/
+		     , A.WORK_IMG_TOP_URL           AS workImgTopUrl /*상 이미지주소*/
+		     , A.WORK_IMG_BOT_URL           AS workImgBotUrl /*히 이미지주소*/
+		     , A.WORK_IMG_LEF_URL           AS workImgLefUrl /*좌 이미지주소*/
+		     , A.WORK_IMG_RIT_URL           AS workImgRitUrl /*우 이미지주소*/
+		     , A.WORK_LAKE                  AS workLake
+		     , FORMAT(A.WORK_PRC, 0)        AS workPrc
+		     , B.MBR_NCKNM                  AS mbrNcknm
+		     , A.WORK_STATE                 AS workState
+		     , IFNULL(C.COMT_SALES_YN, 'Y') AS salesYn       /* 작품 판매 가능 여부 2023.10.12일 홍충기 추가*/
+		  FROM TBL_DA_WORK_M  AS A
+		 INNER JOIN
+		       TBL_DA_MBR_M   AS B
+		    ON A.MBR_SQ  = B.MBR_SQ
+		  LEFT OUTER JOIN 
+		       TBL_DA_COMT_M  AS C     /* 공통코드 2023.10.12일 홍충기 추가 - 작품 판매 가능 여부 확인 */
+		    ON A.MBR_SQ  = B.MBR_SQ
+		   AND A.WORK_SQ = C.WORK_SQ 
+		 WHERE 1=1
+		   AND A.WORK_SQ = #{workSq}
+		   AND A.DEL_YN  = 'N' /*작품 삭제 여부 확인 */
 	</select>
 	
 	<select id="soldoutDetail" resultType="hashMap" parameterType="String">

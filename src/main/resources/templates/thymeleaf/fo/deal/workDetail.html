@@ -254,7 +254,8 @@
 				</th:block>
 			</div>
 			
-			<!-- 자랑하기가 없는 작품일 경우 보죠주지 않는 영역 -->
+			<!-- 자랑하기가 없는 작품일 경우 보여주지 않는 영역 -->
+			<!-- 2023.10.12일 홍충기 추가 -->
 			<div class="contents conbg" th:if="${not #maps.isEmpty(result.showoffList)}">
 				<div class="cont-title2 max-1500">
 					<h3>이 작품의 자랑하기</h3>
@@ -691,9 +692,10 @@ jQuery(document).ready(function($){
 		$(".ellipsis").css('padding',20);
     }
 	workList();
-	fn_ShowoffList(); // 해당 작품의 자랑하기 목록
 	
-	fn_chkSaleYn(); // 작품의 판매 가능 여부 확인
+	//2023.10.13일 홍충기 추가
+	fn_ShowoffList(); // 해당 작품의 자랑하기 목록	
+	fn_chkSaleYn();   // 작품의 판매 가능 여부 확인
 	
 });
 
@@ -742,6 +744,7 @@ function workList(){
 	}
 }
 
+// 2023.10.12일 홍충기 추가
 //작품의 자랑하기 목록
 function fn_ShowoffList(){
 	if(result.showoffList.length > 0){
@@ -763,6 +766,7 @@ function fn_ShowoffList(){
 	}
 }
 
+// 2023.10.12일 홍충기 추가
 // 작품의 판매 가능 여부 확인
 function fn_chkSaleYn(){
 	var html = '';
