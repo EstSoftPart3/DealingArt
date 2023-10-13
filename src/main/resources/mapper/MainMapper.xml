@@ -4,44 +4,41 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.MainMapper">
 	<select id="mainHotest" resultType="hashMap">
-		/*오늘의 입찰*/
-		SELECT 
-				C.DEAL_SQ AS dealSq, /*거래번호*/
-				A.WORK_SQ AS workSq, /*작품번호*/
-				A.MBR_SQ AS mbrSq, /*멤버번호*/
-				A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
-				YEAR (B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
-				C.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
-				C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
-				A.WORK_NM AS workNm, /*작품명*/
-				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				A.WORK_MATRL AS workMatrl, /*작품소재*/
-				IF(A.WORK_MAIN_IMG_URL IS NULL, A.WORK_IMG_FRT_URL, A.WORK_MAIN_IMG_URL) AS workMainImgUrl, /*작품대표이미지주소*/
-				A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
-				A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
-				A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
-				(SELECT MAX(BID_PRC)
-				FROM TBL_DA_AUCTN_BID_H
-				WHERE C.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
-				FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
-				FORMAT(C.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
-				FORMAT(C.DEAL_SBID_PRC, 0) AS dealSbidPrc /*거래낙찰가격*/
-		FROM 
-				TBL_DA_WORK_M AS A
-		INNER JOIN
-				TBL_DA_MBR_M AS B
-			ON	A.MBR_SQ = B.MBR_SQ
-		INNER JOIN 
-				TBL_DA_DEAL_M AS C
-			ON 	A.WORK_SQ = C.WORK_SQ 
-		WHERE
-				C.DEAL_SQ IS NOT NULL
-			AND C.DEAL_STTS_CD = 'TP'
-			AND	A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
-			AND	C.DEAL_TYP_CD IN ('A','S')
-		ORDER BY C.DEAL_ENDNG_DT ASC
-		LIMIT 20
-	</select>
+    /*거래일자 기준 최근 10개의 거래 김동희*/
+    SELECT 
+        C.DEAL_SQ AS dealSq, /*거래번호*/
+        A.WORK_SQ AS workSq, /*작품번호*/
+        A.MBR_SQ AS mbrSq, /*멤버번호*/	
+        A.ARTST_ACTVTY_NM AS artstActvtyNm, /*작가활동명*/
+        YEAR(B.MBR_BIRTH) AS artstBirthYear, /*작가생년월일*/
+        C.DEAL_TYP_CD AS dealTypCd, /*거래유형*/
+        C.DEAL_STTS_CD AS dealSttsCd, /*거래상태*/
+        A.WORK_NM AS workNm, /*작품명*/
+        A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+        A.WORK_MATRL AS workMatrl, /*작품소재*/
+        IFNULL(A.WORK_MAIN_IMG_URL, A.WORK_IMG_FRT_URL) AS workMainImgUrl, /*작품대표이미지주소*/
+        A.WORK_SIZE_WIDTH AS workSizeWidth, /*작품사이즈가로*/
+        A.WORK_SIZE_DEPTH AS workSizeDepth, /*작품사이즈세로*/
+        A.WORK_PRODC_YEAR AS workProdcYear, /*작품제작년도*/
+        (SELECT MAX(BID_PRC) FROM TBL_DA_AUCTN_BID_H WHERE C.DEAL_SQ = DEAL_SQ) AS maxBidPrc, /*응찰가*/
+        DATE_FORMAT(C.DEAL_STRT_DT, '%Y.%m.%d %H:%i') AS dealStrtDate, /*거래시작일시*/    
+        FORMAT(C.DEAL_FINAL_PRC, 0) AS dealFinalPrc, /*거래최종가격*/
+        FORMAT(C.DEAL_STRT_PRC, 0) AS dealStrtPrc, /*거래시작가격*/
+        FORMAT(C.DEAL_SBID_PRC, 0) AS dealSbidPrc /*거래낙찰가격*/
+    FROM 
+        TBL_DA_WORK_M AS A
+    INNER JOIN
+        TBL_DA_MBR_M AS B
+        ON A.MBR_SQ = B.MBR_SQ
+    INNER JOIN 
+        TBL_DA_DEAL_M AS C
+        ON A.WORK_SQ = C.WORK_SQ 
+    WHERE
+        C.DEAL_SQ IS NOT NULL
+        AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+    ORDER BY C.DEAL_STRT_DT DESC /*거래시작일시를 내림차순으로 정렬*/
+    LIMIT 10
+</select>
 	
 	<select id="mainTodayBid" resultType="hashMap">
 		/*오늘의 낙찰*/
@@ -539,7 +536,7 @@
 	<select id="mainNowDealWorks" resultType="hashMap">
 		/* 지금 거래중인 작품 */
 		SELECT 
-				A.DEAL_SQ AS dealSq,
+				A.DEAL_SQ AS dealSq, 
 				A.WORK_SQ AS workSq,
 				IF(B.WORK_MAIN_IMG_URL IS NULL, B.WORK_IMG_FRT_URL, B.WORK_MAIN_IMG_URL) AS workMainImgUrl,
 				B.ARTST_ACTVTY_NM AS artstActvtyNm,
@@ -604,30 +601,33 @@
 	</select>
 	
 	<select id="mainPopularMbr" resultType="hashMap">
-		/* 인기회원 조회 */
-		SELECT 
-				MBR.MBR_SQ AS mbrSq
-				, MBR.MBR_NCKNM AS mbrNcknm
-				, MBR.MBR_INTRO AS mbrIntro
-				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
-				, COUNT(SCRAP.FW_MBR_SQ) AS folowCount
-		FROM 
-				TBL_DA_MBR_M AS MBR
-		LEFT JOIN
-				TBL_DA_MBR_SCRAP_R AS SCRAP
-			ON	MBR.MBR_SQ = SCRAP.FW_MBR_SQ
-		WHERE 
-				MBR.MBR_SQ IN ( SELECT FW_MBR_SQ 
-							 	FROM TBL_DA_MBR_SCRAP_R
-							 GROUP BY FW_MBR_SQ
-							 ORDER BY COUNT(FW_MBR_SQ) DESC) 
-			AND MBR.USE_YN = 'Y'
-			AND MBR.DEL_YN = 'N'
-		GROUP BY 
-				SCRAP.FW_MBR_SQ
-		ORDER BY 
-				folowCount DESC
-		LIMIT 10
+ 	 SELECT 
+        MBR.MBR_SQ AS mbrSq, <!-- 멤버 순번 --> 
+        MBR.MBR_NCKNM AS mbrNcknm, <!-- 멤버 닉네임 -->
+        MBR.MBR_INTRO AS mbrIntro, <!--  멤버 소개글 -->
+        ARTST.ARTST_PROFILE_IMG_URL AS mbrProfileImgUrl, <!--23.10.12 김동희 아티스트 프로필 사진  -->
+        COUNT(BRD.BRD_SQ) AS numBoards <!--23.10.12 김동희 게시글 개수 조회 -->
+    FROM 
+        TBL_DA_MBR_M AS MBR
+    LEFT JOIN
+        TBL_DA_BRD_M AS BRD <!-- 23.10.12 김동희 TBL_게시판 조인 -->
+    ON 
+        MBR.MBR_SQ = BRD.REG_MBR_SQ
+   	LEFT JOIN
+        TBL_DA_ARTST_M AS ARTST <!-- 23.10.12 김동희 TBL_아티스트 조인 -->
+    ON
+        MBR.MBR_SQ  = ARTST.ARTST_SQ
+    WHERE 
+        MBR.USE_YN = 'Y'
+        AND MBR.DEL_YN = 'N'
+    GROUP BY 
+        MBR.MBR_SQ
+    HAVING
+        numBoards > 0 <!--23.10.12 김동희 게시글 1개이상 작성 조건 -->
+    ORDER BY 
+        numBoards DESC
+    LIMIT
+    	10
 	</select>
 	
 	<select id="mainPopularExhibit" resultType="hashMap">

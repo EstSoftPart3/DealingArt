@@ -6271,7 +6271,7 @@ p.dib{display:inline-block !important;}
     content: '';
     width: 4.2rem;
     height: 3.8rem;
-    background-image: url('../img/tablet/icon-2.png');
+    background-image: url('../img/tablet/icon-8.png');
     background-size: 100%;
     z-index: 9;
     position: absolute;
@@ -6642,12 +6642,23 @@ p.dib{display:inline-block !important;}
 #container:after {content: "";display: block;clear: both;}
 #nav{width: 100%;height: 70px;border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9;}
 #nav ul li{float: left;width: 20%;text-align: center;font-size: 2.5rem;color: #111111;font-weight: bold;padding-top: 25px;letter-spacing: -1.5px;}
+/* 화면 상단 메뉴 간격 조정 */
+/* #nav ul li:nth-child(2) {padding-right: 20px;} */
+/* #nav ul li:nth-child(4) {padding-left: 20px;} */
 #nav ul li .over{color: #af1c2a !important;}
 .btn_recording{width: 100%;height: 50px;margin-top: 10px;padding-left:37px;color: #ffffff;font-size: 2.375rem;font-weight: 700;background: #bf1e2e url("../img/img_new/ico_mypage_recording.png") 25rem 11px no-repeat;}
 .community_wrap{margin:0 auto;max-width: 1500px;height: 100%;padding: 0 8px;}
-.community_visual_wrap{position: relative;width: 100%;height: auto;margin-top: 30px;}
-.community_visual{float: none;width: 100%;height: auto;}
-.community_visual_event{float: none;width: 100%;height: auto;}
+/* 메인 배너 좌우 정렬을 위해 기존 CSS 변경  */
+/* .community_visual_wrap{position: relative;width: 100%;height: auto;margin-top: 30px; text-align: center;} */
+.community_visual_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+.community_visual{float: none;width: 70%;height: auto;}
+.community_visual_event{float: none;width: 30%;height: auto;}
 .works_wrap{margin-top:30px;position: relative;}
 .works_wrap:after {content: "";display: block;clear: both;}
 .works_wrap .tit_wrap{position: relative;}

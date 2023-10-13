@@ -558,7 +558,21 @@ $('.wdb-2').click(function(e){
 		if(!isMobile){
 			modalConfirm("게시글수정 페이지로 이동합니다.", function(confirm){
 				if(confirm){
-					location.href = "/myPage/#?workSq="+comtSq;
+					
+					//커뮤니티 코드
+					var comtTypCd = searchOptions.comtTypCd;
+					
+					//자랑하기 수정페이지
+					if(comtTypCd == "BOA"){
+						location.href = "/myPage/myWork_mod?comtSq="+comtSq;
+					//전시소개&후기 수정페이지
+					}else if(comtTypCd == "EXH"){
+						location.href = "/myPage/myExhibit_mod?comtSq="+comtSq;
+					//이슈 수정페이지	
+					}else if(comtTypCd == "ISS"){
+						location.href = "/myPage/myIssue_mod?comtSq="+comtSq;
+					}
+
 				}else{
 					$("input[name=chkWorkSq]").attr("disabled", false);
 					$("#selectedCount").text("(0)");
@@ -579,7 +593,21 @@ $('.wdb-2').click(function(e){
 			});
 		}else{
 			if(confirm("게시글 수정 페이지로 이동합니다.")){
-				location.href = "/myPage/#?workSq="+comtSq;
+				
+				//커뮤니티 코드
+				var comtTypCd = searchOptions.comtTypCd;
+				
+				//자랑하기 수정페이지
+				if(comtTypCd == "BOA"){
+					location.href = "/myPage/myWork_mod?comtSq="+comtSq;
+				//전시소개&후기 수정페이지
+				}else if(comtTypCd == "EXH"){
+					location.href = "/myPage/myExhibit_mod?comtSq="+comtSq;
+				//이슈 수정페이지	
+				}else if(comtTypCd == "ISS"){
+					location.href = "/myPage/myIssue_mod?comtSq="+comtSq;
+				}
+				
 			}else{
 				$("input[name=chkWorkSq]").attr("disabled", false);
 				$("#selectedCount").text("(0)");

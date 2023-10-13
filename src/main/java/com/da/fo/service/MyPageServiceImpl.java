@@ -374,10 +374,26 @@ public class MyPageServiceImpl implements MyPageService{
 		int result =  myPageDao.myPageMain_myCommunitysTotal(param);
 		return result;
 	}
-
+	
+	/*
+	 * 나의 커뮤니티 등록
+	 * parameter : List
+	 * return : integer
+	 */
 	@Override
 	public int myComtReg(Map<String, Object> param) {
 		int result =  myPageDao.myComtReg(param);
+		return result;
+	}
+	
+	/*
+	 * 나의 커뮤니티 수정
+	 * parameter : List
+	 * return : integer
+	 */
+	@Override
+	public int myComtMod(Map<String, Object> param) {
+		int result =  myPageDao.myComtMod(param);
 		return result;
 	}
 

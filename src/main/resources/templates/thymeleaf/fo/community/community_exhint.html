@@ -208,6 +208,7 @@
    		obj.startDate = startDate;
    		obj.endDate = endDate;
    		obj.limit = 10;
+   		obj.openYn = "Y";
    		obj.offset = nowPage * 10
 
    		$.ajax({
@@ -262,8 +263,8 @@
    	        strHtml += '                    </div>';
    	        strHtml += '                    <div class="icon_box">';
    	        strHtml += '                        <ul>';
-   	        strHtml += '                            <li><p class="ico_good"></p><span>'+ exhibit.comtLikes +'</span></li>';
-   	        strHtml += '                            <li><p class="ico_scrap"></p><span>'+ exhibit.comtScraps +'</span></li>';
+   	        strHtml += '                            <li><p class="ico_good" onclick="likeCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
+   	        strHtml += '                            <li><p class="ico_scrap" onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
    	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
    	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
    	        strHtml += '                        </ul>';
@@ -381,6 +382,129 @@
  		$("#paginate").append(strHtml);
  		
  	}
+ 	
+   	// 전시소개&휴가 게시물 좋아요 버튼
+   	function likeCheck(comtSq) {
+ 			let likeBtn = document.querySelector(".ico_good");
+			if(sMbrSqVal == null) {
+				modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+			} else {
+				var param = new Object();
+				var element = $(this);
+				param.comtSq = comtSq;
+				param.mbrSq = sMbrSqVal;
+				if($(this).hasClass("on")){
+					$.ajax({
+				        type: "post",
+				        url: "/member/myPage/likeCnt",
+				        data: param,
+				        success: function(data) {
+				        	if(data == 0) {
+				        		console.log("좋아요 추가");
+				        	}
+				        },
+				        error: function(error) {
+				            alert("오류 발생" + error);
+				        }
+					});
+				}else{
+					$.ajax({ 
+				        type: "post",
+				        url: "/member/myPage/likeCnt",
+				        data: param,
+				        success: function(data) {
+				        	if(data > 0){
+				        		//likeCheckYn();
+				        	}else{
+				        		modalAlertShow("좋아요 취소 실패");
+				        	}
+				        },
+				        error: function(error) {
+				            alert("오류 발생" + error);
+				        }
+					});
+				}
+				}
+			}
+   	
+   	// 전시소개&후기 게시물 스크랩 버튼
+		// 스크랩 체크
+	function scrapCheck(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapCheck",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(sMbrSqVal == null) {
+					modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+				} else {
+		        	if(data > 0){
+		        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
+		        			scrapDel(sqNumber);
+		        	    }
+		        	}else{
+		        		if(confirm("스크랩 목록에 '추가'하시겠습니까?")){
+		        			scrapAdd(sqNumber);
+		        	    }
+		        	}
+				}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	
+	//스크랩 추가
+	function scrapAdd(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapAdd",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(data > 0){
+	        		alert("스크랩 목록에 '추가'되었습니다.");
+	        		location.reload();
+	        	}else{
+	        		alert("스크랩 목록 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        		location.reload();
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	
+	//스크랩 제거
+	function scrapDel(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapDel",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(data > 0){
+	        		alert("스크랩 목록에서 '제거'되었습니다.");
+	        		location.reload();
+	        	}else{
+	        		alert("스크랩 목록 제거에 실패했습니다. 관리자에게 문의하세요.");
+	        		location.reload();
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
 
     </script>
 </body>
