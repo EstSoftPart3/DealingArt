@@ -720,7 +720,6 @@
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-var sMbrSq = sMbrSqVal;
 
 jQuery(document).ready(function($){
      
@@ -984,7 +983,7 @@ function comtRequest(notiCatCd) {
  		, artstSq       : result.work.artstSq
  		, notiTypCd     : "GEN"
  		, notiCatCd     : notiCatCd
- 		, questionMbrSq : sMbrSq
+ 		, questionMbrSq : sMbrSqVal
  	};
 
  	var msg = "";
