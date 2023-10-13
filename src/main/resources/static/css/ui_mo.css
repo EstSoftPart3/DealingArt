@@ -5294,7 +5294,7 @@ position: relative;background-color: #fbfbfb;}
 
 .author-ul{}
 .author-ul:after{content:'';display: block;clear: both;}
-.author-ul li{float: left;margin-right: 0;padding-bottom: 3.5rem;}
+.author-ul li{float: left;margin-right: 0;padding-bottom: 3.5rem; width : 100%;}
 .author-ul li:nth-child(2n){float: left;margin-right: 0;padding-bottom: 3.5rem;}
 .author-ul li:nth-child(3n){margin-right: 0;}
 .author-ul li:nth-child(4n){}

@@ -80,7 +80,7 @@ public class Mgz9Dao {
 		List<Map<String, Object>> result = mgz9Mapper.result(param);
 		return result;
 	}
-	
+
 	/* 검색 */
 	public List<Map<String, Object>> search(Map<String, Object> param) {
 		List<Map<String, Object>> search = mgz9Mapper.search(param);
@@ -88,7 +88,7 @@ public class Mgz9Dao {
 	}
 	
 	/* 검색 게시물 카운트 */
-	public int count(String param) {
+	public int count(Map<String, Object> param) {
 		return mgz9Mapper.count(param);
 	}
 	

@@ -26,7 +26,13 @@
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND MGZ_TYP_CD = #{mgzTypCd}
 		ORDER BY MGZ_SQ DESC
+		<if test='mgzTypCd.equals("MDA")'>
+		LIMIT 10
+		</if>
+		<if test='mgzTypCd.equals("IST")'>
 		LIMIT 4
+		</if>
+		
 	</select>
 	
 	<select id="searchHomeBnnList" resultType="hashMap">
@@ -127,7 +133,7 @@
 		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
 		limit ${indexNum}, ${postNum}
 	</select> -->
-	
+
 	<select id="search" resultType="hashMap" parameterType="hashMap">
 		SELECT
 			 ARTST_SQ                as artstSq          
@@ -157,14 +163,48 @@
 			END)                     as delYn
 		FROM TBL_DA_ARTST_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		<if test = "keyword != ''">
 		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')		
+		</if>
+		
+		<if test = "option != null">
+		AND ARTST_ACTVTY_PART_CD IN
+			<foreach collection="option" item="item" index="idex"  open="(" close=")" separator=",">
+		    	 #{item}
+		    </foreach>
+		</if>
+
+		<if test = "startDate != ''">
+		AND (ARTST_YOD BETWEEN #{startDate} AND #{endDate})		
+		</if>
+		
 		limit ${indexNum}, ${postNum}
 	</select>
 	
-	<select id="count" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+	<select id="count" resultType="int" parameterType="hashMap">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			TBL_DA_ARTST_M  
+		WHERE 
+			(USE_YN = 'Y' AND DEL_YN = 'N')
+		
+		<if test = "keyword != ''">	
 		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
+		</if>
+		
+		<if test = "option != null">
+		AND ARTST_ACTVTY_PART_CD IN 
+			<foreach collection="option" item="item" index="idex"  open="(" close=")" separator=",">
+		    	#{item}
+		    </foreach>
+		</if>
+		<if test = "startDate != ''">
+		AND (ARTST_YOD BETWEEN #{startDate} AND #{endDate})		
+		</if>
 	</select>
+	
+
 	
 	<select id="alphabet" resultType="hashMap" parameterType="hashMap">
 		SELECT
@@ -195,13 +235,13 @@
 			END)                     as delYn
 		FROM TBL_DA_ARTST_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
-		AND ARTST_ACTVTY_NM LIKE '%${keyword}%'
+		AND ARTST_ACTVTY_NM LIKE CONCAT(#{keyword},'%')
 		limit ${indexNum}, ${postNum}
 	</select>
 	
 	<select id="alphabetCount" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
-		AND ARTST_ACTVTY_NM LIKE '%${keyword}%'
+		AND ARTST_ACTVTY_NM LIKE CONCAT(#{keyword},'%')
 	</select>
 	
 	<select id="korean" resultType="hashMap" parameterType="hashMap">

@@ -108,7 +108,7 @@
 		                <ul>
 		                 	<li><a onclick="mgzMobileBrowserChk4();" href="javascript:void(0);" >홈</a></li>
 		                    <li><a href="/mgz9/insights">인사이트</a></li>
-		                    <li><a href="/mgz9/exhibition">전시</a></li>
+		                    <!-- <li><a href="/mgz9/exhibition">전시</a></li> -->
 		                    <li><a href="/mgz9/media" class="over">아티스트 필름</a></li>	                    
 		                    <li><a href="/mgz9/artist">아티스트</a></li>
 		                </ul>
@@ -187,7 +187,8 @@ $("#pageStart").val(pageStart);
 $(document).ready(function(){
 
 	selectMgz9List("MDA",pageStart,pageSize);
-
+	//전시 nav 삭제로 css 조정
+	$(".magazine9_wrap #nav ul li").css("width", "25%");
 }); 
 
 /*
@@ -527,6 +528,8 @@ $("#btnMore").on('click', function(){
 	    if(appDevice == "MOBILE") {
 	    	 $("iframe").height('100%');
 	    	 $("iframe").width('100%');
+	    	 //내부 콘텐츠 li 그리드 중앙정렬
+			 $(".mgz-list").css("width", "86%");
 	    } else {
 	    	$("iframe").width(360);
 		    $("iframe").height(210);	

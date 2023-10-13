@@ -112,6 +112,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 input[type=number] {
 	-moz-appearance: textfield;
 }
+
 </style>
 
 <link rel="icon" type="image/png" href="/resources/img/favicon.png">
@@ -126,7 +127,6 @@ input[type=number] {
 				<ul>
 					<li><a href="/mgz9/magazine9_main" class="over">홈</a></li>
 					<li><a href="/mgz9/insights">인사이트</a></li>
-					<li><a href="/mgz9/exhibition">전시</a></li>
 					<li><a href="/mgz9/media">아티스트 필름</a></li>
 					<li><a href="/mgz9/artist">아티스트</a></li>
 				</ul>
@@ -272,6 +272,9 @@ input[type=number] {
 			$("body").css("overflow", "scroll");
 			$("#lp_mgz9Dtl_insight").modal("hide");
 			$("#lp_mgz9Dtl_youtube").modal("hide");
+
+			//전시 nav 삭제로 css 조정
+			$(".magazine9_wrap #nav ul li").css("width", "25%");
     	});
     	
     	// 홈 배너
