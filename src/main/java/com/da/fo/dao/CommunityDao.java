@@ -280,4 +280,9 @@ public class CommunityDao {
 		communityMapper.updateComtViews(param);
 	}
 	
+	//커뮤니티 좋아요 갯수 증가
+	public void updateComtLikes(Object param){
+		communityMapper.updateComtLikes(param);
+	}
+	
 }

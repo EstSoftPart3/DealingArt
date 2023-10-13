@@ -658,6 +658,53 @@ public class MemberController {
 		return result;
 	}
 	
+	// 좋아요 체크 여부 조회
+	@RequestMapping("/member/myPage/likeCheck")
+	@ResponseBody
+	public int likeCheck(@RequestParam Map<String, Object> param) {
+		int result = memberService.likeCheck(param);
+		return result;
+	}
+	
+	// 좋아요 갯수 변경
+	@RequestMapping("/member/myPage/likeCnt")
+	@ResponseBody
+	public int likeCnt(@RequestParam Map<String, Object> param) {
+		// int result = memberService.updateLikeCnt(param);
+		if (param.get("comtSq") != null && !param.get("comtSq").toString().equals("")) {
+
+		}
+		param.put("likeCnt", "LIKE_CNT");
+
+		int result = memberService.updateLikeCnt(param);
+
+		return result;
+	}
+	
+	// 좋아요 추가
+	@RequestMapping("/member/myPage/likeAdd")
+	@ResponseBody
+	public int likeAdd(@RequestParam Map<String, Object> param) {
+		int result = memberService.likeAdd(param);
+		if (param.get("comtSq") != null && !param.get("comtSq").toString().equals("")) {
+			param.put("likeCnt", "LIKE_ADD");
+			memberService.updateLikeCnt(param);
+		}
+		return result;
+	}
+	
+	// 좋아요 취소
+	@RequestMapping("/member/myPage/likeDel")
+	@ResponseBody
+	public int likeDel(@RequestParam Map<String, Object> param) {
+		int result = memberService.likeDel(param);
+		if(param.get("comtSq") != null && !param.get("comtSq").toString().equals("")){
+			param.put("likeCnt", "LIKE_DEL");
+			memberService.updateLikeCnt(param);
+		}
+		return result;
+	}
+	
 	//회원 아이디 찾기
 	@RequestMapping("/member/findId")
 	@ResponseBody

@@ -230,6 +230,26 @@ public class MemberServiceImpl implements MemberService  {
 		memberDao.updateComtScraps(param);
 	}
 	
+	// 게시물 좋아요 체크 여부 조회
+	public int likeCheck(Map<String, Object> param) {
+		return memberDao.likeCheck(param);
+	}
+	
+	// 좋아요 갯수 변경
+	public int updateLikeCnt(Object param) {
+		return memberDao.updateLikeCnt(param);
+	}
+	
+	// 좋아요 추가
+    public int likeAdd(Map<String, Object> param) {
+    	return memberDao.likeAdd(param);
+    };
+	
+	// 좋아요 취소
+    public int likeDel(Map<String, Object> param) {
+    	return memberDao.likeDel(param);
+    };
+    
 	/*
 	 * 회원 자동로그인 정보 수정
 	 * param : 회원정보가 들어있는 AutoLoginVo

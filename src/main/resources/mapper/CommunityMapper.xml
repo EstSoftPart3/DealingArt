@@ -587,4 +587,14 @@
 		WHERE 
 				COMT_SQ = #{comtSq}
 	</update>
+	
+	<!-- 좋아요 갯수 증가 -->
+	<update id="updateComtLikes" parameterType="String">
+		UPDATE 
+				TBL_DA_COMT_M
+			SET
+				COMT_LIKES = COMT_LIKES + 1
+		WHERE 
+				COMT_SQ = #{comtSq}
+	</update>
 </mapper>

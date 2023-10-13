@@ -109,6 +109,18 @@ public interface MemberService {
 	//커뮤니티 스크랩 수 증감
 	public void updateComtScraps(Object param);
 	
+	// 게시물 좋아요 체크 여부 조회
+	public int likeCheck(Map<String, Object> param);
+	
+	// 좋아요 갯수 변경
+	public int updateLikeCnt(Object param);
+	
+	// 좋아요 추가
+    int likeAdd(Map<String, Object> param);
+	
+	// 좋아요 취소
+    int likeDel(Map<String, Object> param);
+	
 	/*
 	 * 회원 자동로그인 정보 수정
 	 * param : 회원정보가 들어있는 AutoLoginVo

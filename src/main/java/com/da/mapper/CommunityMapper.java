@@ -177,4 +177,7 @@ public interface CommunityMapper {
 	//커뮤니티 조회수 증가
 	public void updateComtViews(Object param);
 	
+	
+	// 좋아요 갯수 증가
+	public void updateComtLikes(Object param);
 }
