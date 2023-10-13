@@ -136,46 +136,50 @@
 
 	<select id="search" resultType="hashMap" parameterType="hashMap">
 		SELECT
-			 ARTST_SQ                as artstSq          
-			,MBR_SQ                  as mbrSq          
-			,ARTST_ACTVTY_NM         as artstActvtyNm       
-			,ARTST_ENGLS_NM          as artstEnglsNm       
-			,ARTST_YOD               as artstYod
-			,ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
-			,ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
-			,ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
-			,ARTST_SELF_INTRO        as artstSelfIntro
-			,ARTST_WORK_IMG_URL      as artstWorkImgUrl
-			,ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
-			,ARTST_HMPG_URL          as artstHmpgUrl
-			,ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
-			,ARTST_FACEBOOK_URL      as artstFacebookUrl
-			,ARTST_INSTAGRAM_URL     as artstInstagramUrl
-			,DATE_FORMAT(REG_DT, '%Y.%m.%d') as regDate
-			,UPDT_MBR_SQ             as updtMbrSq
+			 A.ARTST_SQ                as artstSq          
+			,A.MBR_SQ                  as mbrSq          
+			,A.ARTST_ACTVTY_NM         as artstActvtyNm       
+			,A.ARTST_ENGLS_NM          as artstEnglsNm       
+			,A.ARTST_YOD               as artstYod
+			,A.ARTST_ACTVTY_PART_CD    as artstActvtyPartCd      
+			,A.ARTST_ACTVTY_NATN_CD    as artstActvtyNatnCd
+			,A.ARTST_ACTVTY_CITY_CD    as artstActvtyCityCd
+			,A.ARTST_SELF_INTRO        as artstSelfIntro
+			,A.ARTST_WORK_IMG_URL      as artstWorkImgUrl
+			,A.ARTST_PROFILE_IMG_URL   as artstProfileImgUrl
+			,A.ARTST_HMPG_URL          as artstHmpgUrl
+			,A.ARTST_PROMTN_VIDEO_URL  as artstPromtnVideoUrl
+			,A.ARTST_FACEBOOK_URL      as artstFacebookUrl
+			,A.ARTST_INSTAGRAM_URL     as artstInstagramUrl
+			,DATE_FORMAT(A.REG_DT, '%Y.%m.%d') as regDate
+			,A.UPDT_MBR_SQ             as updtMbrSq
 			,(CASE
-				WHEN USE_YN = 'Y' THEN '활동'
-				WHEN USE_YN = 'N' THEN '비활동'
+				WHEN A.USE_YN = 'Y' THEN '활동'
+				WHEN A.USE_YN = 'N' THEN '비활동'
 			END)                     as useYn
 			,(CASE
-				WHEN DEL_YN = 'Y' THEN '삭제'
-				WHEN DEL_YN = 'N' THEN '유지'
+				WHEN A.DEL_YN = 'Y' THEN '삭제'
+				WHEN A.DEL_YN = 'N' THEN '유지'
 			END)                     as delYn
-		FROM TBL_DA_ARTST_M
-		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		FROM 	
+			TBL_DA_ARTST_M AS A
+		LEFT OUTER JOIN
+		 	TBL_DA_MBR_M AS M
+			ON 	A.MBR_SQ = M.MBR_SQ
+		WHERE (A.USE_YN = 'Y' AND A.DEL_YN = 'N')
 		<if test = "keyword != ''">
-		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')		
+		AND (A.ARTST_ACTVTY_NM LIKE '%${keyword}%' OR A.ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')		
 		</if>
 		
 		<if test = "option != null">
-		AND ARTST_ACTVTY_PART_CD IN
+		AND A.ARTST_ACTVTY_PART_CD IN
 			<foreach collection="option" item="item" index="idex"  open="(" close=")" separator=",">
 		    	 #{item}
 		    </foreach>
 		</if>
 
 		<if test = "startDate != ''">
-		AND (ARTST_YOD BETWEEN #{startDate} AND #{endDate})		
+		AND (M.MBR_BIRTH BETWEEN #{startDate} AND #{endDate})		
 		</if>
 		
 		limit ${indexNum}, ${postNum}
@@ -185,22 +189,25 @@
 		SELECT 
 			COUNT(*) 
 		FROM 
-			TBL_DA_ARTST_M  
+			TBL_DA_ARTST_M AS A
+		LEFT OUTER JOIN
+		 	TBL_DA_MBR_M AS M
+			ON 	A.MBR_SQ = M.MBR_SQ 
 		WHERE 
-			(USE_YN = 'Y' AND DEL_YN = 'N')
+			(A.USE_YN = 'Y' AND A.DEL_YN = 'N')
 		
 		<if test = "keyword != ''">	
-		AND (ARTST_ACTVTY_NM LIKE '%${keyword}%' OR ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
+		AND (A.ARTST_ACTVTY_NM LIKE '%${keyword}%' OR A.ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
 		</if>
 		
 		<if test = "option != null">
-		AND ARTST_ACTVTY_PART_CD IN 
+		AND A.ARTST_ACTVTY_PART_CD IN 
 			<foreach collection="option" item="item" index="idex"  open="(" close=")" separator=",">
 		    	#{item}
 		    </foreach>
 		</if>
 		<if test = "startDate != ''">
-		AND (ARTST_YOD BETWEEN #{startDate} AND #{endDate})		
+		AND (M.MBR_BIRTH BETWEEN #{startDate} AND #{endDate})	
 		</if>
 	</select>
 	
