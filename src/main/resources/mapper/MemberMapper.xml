@@ -750,4 +750,86 @@
 			AND DEL_YN = 'N'
    			AND	MBR_CP_CERT_DI = #{mbrCpCertDi}
    </select>
+   
+   <select id="findBrdMbr" resultType="hashMap">
+		SELECT
+		    A.BRD_SQ AS brdSq,
+		    A.BRD_TITLE AS brdTitle,
+		    A.BRD_CONTENT AS brdContent,
+		    A.BRD_CON_TYP_CD AS brdConTypCd,
+		    (CASE
+		        WHEN A.BRD_CON_TYP_CD = "UP" THEN "이용정책"
+		        WHEN A.BRD_CON_TYP_CD = "CO" THEN "공통"
+		        WHEN A.BRD_CON_TYP_CD = "PU" THEN "구매"
+		        WHEN A.BRD_CON_TYP_CD = "SA" THEN "판매"
+		        WHEN A.BRD_CON_TYP_CD = "TR" THEN "운송"
+		        WHEN A.BRD_CON_TYP_CD = "DE" THEN "거래"
+		     END) AS brdConTypCdTxt,
+		    A.BRD_TYP_CD AS brdTypCd,
+		    A.REG_MBR_SQ AS regMbrSq,
+		    DATE_FORMAT(A.REG_DT, "%Y-%m-%d") AS regDt,
+		    A.UPDT_MBR_SQ AS updtMbrSq,
+		    DATE_FORMAT(A.UPDT_DT, "%Y-%m-%d") AS updtDt,
+		    A.USE_YN AS useYn,
+		    A.DEL_YN AS delYn,
+		    A.BRD_AN_TYP_CD AS brdAnTypCd,
+		    (CASE
+		        WHEN A.BRD_AN_TYP_CD = "GE" THEN "일반"
+		        WHEN A.BRD_AN_TYP_CD = "EM" THEN "긴급"
+		     END) AS brdAnTypCdTxt,
+		    (CASE
+		        WHEN A.USE_YN = "Y" THEN "사용"
+		        WHEN A.USE_YN = "N" THEN "미사용"
+		     END) AS useYnTxt,
+		    B.AUTH_SQ AS authSq,
+		    B.MBR_SQ AS mbrSq,
+		    B.MBR_ID AS mbrId,
+		    B.MBR_EMAIL AS mbrEmail,
+		    B.MBR_PASSWRD AS mbrPasswrd,
+		    B.MBR_NM AS mbrNm,
+		    B.MBR_NCKNM AS mbrNcknm,
+		    B.MBR_NATN_CD AS mbrNatnCd,
+		    B.MBR_BIRTH AS mbrBirth,
+		    (CASE
+		        WHEN B.MBR_SEX_CD = 'MALE' THEN '남'
+		        WHEN B.MBR_SEX_CD = 'FEMALE' THEN '여'
+		     END) AS mbrSexCd,
+		    B.MBR_SEX_CD AS mbrSexCdChk,
+		    B.MBR_HOME_ADDR AS mbrHomeAddr,
+		    B.MBR_DELIVRY_ADDR AS mbrDelivryAddr,
+		    B.MBR_CP_NUM AS mbrCpNum,
+		    B.MBR_CP_CERT_YN AS mbrCpCertYn,
+		    DATE_FORMAT(B.MBR_CP_CERT_DATE, '%Y-%m-%d %H:%i:%s') AS mbrCpCertDate,
+		    B.REG_MBR_SQ AS regMbrSqMember,
+		    DATE_FORMAT(B.REG_DT, '%Y-%m-%d') AS regDtMember,
+		    B.UPDT_MBR_SQ AS updtMbrSqMember,
+		    DATE_FORMAT(B.UPDT_DT, '%Y-%m-%d') AS updtDtMember,
+		    B.USE_YN AS useYnMember,
+		    B.DEL_YN AS delYnMember,
+		    B.MBR_EML_ALARM AS mbrEmlAlarm,
+		    B.MBR_CP_ALARM AS mbrCpAlarm,
+		    B.MBR_CP_CERT_DI AS mbrCpCertDi,
+		    B.MBR_ACCOUNT_NO AS mbrAccountNo,
+		    B.MBR_BANK_CD AS mbrBankCd,
+		    B.MBR_BANK_NM AS mbrBankNm,
+		    B.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl,
+		    B.MBR_GENRE_LIST AS mbrGenreList,
+		    B.MBR_HOBBY_LIST AS mbrhobbyList,
+		    B.MBR_AGE_LIST AS mbrageList,
+		    B.MBR_JOB_LIST AS mbrjobList,
+		    B.MBR_INTRO AS mbrintro,
+		    COUNT(A.BRD_SQ) AS numBoards
+		    
+		FROM
+		    TBL_DA_BRD_M A
+		JOIN
+		    TBL_DA_MBR_M B ON A.BRD_SQ = B.MBR_SQ
+		WHERE
+		    A.BRD_TYP_CD = #{brdTypCd} AND A.BRD_SQ = #{brdSq} 
+	 	 GROUP BY
+  		  B.MBR_SQ, B.MBR_ID
+		HAVING
+  		  numBoards > 0;
+    </select>
+    
 </mapper>

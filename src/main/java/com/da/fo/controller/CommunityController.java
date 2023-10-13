@@ -17,17 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.da.fo.service.CommunityService;
 import com.da.fo.service.DealService;
 
+
 @Controller
 public class CommunityController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
 	@Autowired
 	CommunityService communityService;
-
+	
 	@Autowired
 	DealService dealService;
-
+	
 	// 커뮤니티 홈 페이지
 	@RequestMapping("/community/main")
 	public String communityHome() {
@@ -208,10 +209,11 @@ public class CommunityController {
 	// 전시후기/소개 상세페이지
 	@RequestMapping("/community/exhibitDetail")
 	@ResponseBody
-	public ModelAndView communityExhibitDetailPage(@RequestParam Map<String, Object> param) {
+	public ModelAndView communityExhibitDetailPage(@RequestParam(value="SqNumber") String param) {
+//	public ModelAndView communityExhibitDetailPage(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/othermem_mypage_exhint_detailpage");
-		
-		Map<String, Object> result = communityService.comtOpenDelYnCheck(String.valueOf(param.get("SqNumber")));
+//		Map<String, Object> result = communityService.comtOpenDelYnCheck(String.valueOf(param.get("SqNumber")));
+		Map<String, Object> result = communityService.comtOpenDelYnCheck(param);
 		String openYn = result.get("openYn").toString();
 		String delYn = result.get("delYn").toString();
 		if(openYn.equals("N") || delYn.equals("Y")){
@@ -219,18 +221,20 @@ public class CommunityController {
 			return mv;
 		}else{
 			communityService.updateComtViews(param); //커뮤니티 조회수 증가
-			Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
+			Map<String, Object> exhibit = communityService.communityExhKnoDetail(param);
+//			Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
 			mv.addObject("exhibit", exhibit);
 			
-			param.put("comtSq", String.valueOf(param.get("SqNumber")));
-			param.put("mbrSq", String.valueOf(exhibit.get("mbrSq")));
-			param.put("comtTypCd", String.valueOf(exhibit.get("comtTypCd")));
+//			param.put("comtSq", String.valueOf(param.get("SqNumber")));
+//			param.put("mbrSq", String.valueOf(exhibit.get("mbrSq")));
+//			param.put("comtTypCd", String.valueOf(exhibit.get("comtTypCd")));
 
 			// 해당 작성자의 다른 커뮤니티 정보
-			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
-			mv.addObject("otherComt", otherComt);
+//			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+//			mv.addObject("otherComt", otherComt);
 			return mv;
 		}
+
 	}
 
 	// 노하우 상세페이지

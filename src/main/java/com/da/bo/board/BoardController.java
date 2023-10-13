@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.da.bo.service.boMemberService;
 import com.da.bo.service.boardService;
 import com.da.common.AwsS3Service;
 
@@ -43,6 +42,7 @@ public class BoardController {
 		
 		return "bo/board/boardList";
 	}
+	
 	
 	//게시판 목록 데이터
 	@RequestMapping("/admin/board/boardListData")
@@ -74,8 +74,8 @@ public class BoardController {
 	@RequestMapping("/admin/board/boardInsertData")
 	@ResponseBody
 	public void BoardInsertData(@RequestParam Map<String, Object> param) {
-		
 		//System.out.println("dddd");
+		
 		
 		String brdTitle = (String) param.get("brdTitle");
 		String brdContent = (String) param.get("brdContent");
@@ -296,6 +296,9 @@ public class BoardController {
 		System.out.println(param);
 		
 		boardService.magazineInsert(param);
+		
+//		   Map<String, Object> magazineData = MagazineData(param);
+//		    boardService.magazineInsert(magazineData); 중복부분 리팩토링
 
 		
 	}
@@ -312,6 +315,12 @@ public class BoardController {
 		param.put("mgzTypCd", mgzTypCd);
 		
 		boardService.magazineDelete(param);
+		
+//		  Map<String, Object> magazineData = MagazineData(param);
+//		    int mgzSq = Integer.parseInt((String) param.get("mgzSq"));
+//			String mgzTypCd = (String) param.get("mgzTypCd");
+//		    magazineData.put("mgzSq", mgzSq);
+//		    boardService.magazineDelete(magazineData); 중복부분 리팩토링
 		
 	}
 	
@@ -344,6 +353,27 @@ public class BoardController {
 		boardService.magazineUpdate(param);
 		
 	}
+	
+//	private Map<String, Object> MagazineData(Map<String, Object> param) {
+//	    int mbrSq = Integer.parseInt((String) param.get("mbrSq"));
+//	    String mgzTitle = (String) param.get("mgzTitle");
+//	    String mgzDescrptn = (String) param.get("mgzDescrptn");
+//	    String mgzContent = (String) param.get("mgzContent");
+//	    String mgzMainImgUrl = (String) param.get("mgzMainImgUrl");
+//	    String mgzTypCd = (String) param.get("mgzTypCd");
+//	    int regMbrSq = Integer.parseInt((String) param.get("regMbrSq"));
+//
+//	    Map<String, Object> magazineData = new HashMap<>();
+//	    magazineData.put("mbrSq", mbrSq);
+//	    magazineData.put("mgzTitle", mgzTitle);
+//	    magazineData.put("mgzDescrptn", mgzDescrptn);
+//	    magazineData.put("mgzContent", mgzContent);
+//	    magazineData.put("mgzMainImgUrl", mgzMainImgUrl);
+//	    magazineData.put("mgzTypCd", mgzTypCd);
+//	    magazineData.put("regMbrSq", regMbrSq);
+//
+//	    return magazineData;
+//	} 중복부분 리팩토링
 	
 	/**
 	 * CK에디터 통합 Controller
