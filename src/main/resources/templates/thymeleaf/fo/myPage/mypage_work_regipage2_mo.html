@@ -973,7 +973,7 @@
 	                    <ul>
 	                        <li><button type="button" class="registration" onclick="myWorkReg()">등록</button></li>
 	                        <li><button type="button" onclick="myWorkStorage()">임시저장</button></li>
-	                        <li><button type="button">미리보기</button></li>
+	                        <li><button type="button" id="previewBtn" disabled>미리보기</button></li>
 	                        <li><button type="button" onclick="javascript:history.back();">취소</button></li>
 	                    </ul>
 	                </div>
@@ -1904,6 +1904,26 @@ function removeCss(obj) {
     });
 }
 
+// 2023.10.12 홍충기 추가
+//자랑하기 공개 체크시 미리보기 버튼 비활성화
+$(document).ready(function (){
+	$("input[name='COLLComtOpenYn']").change(function() {
+		var val = $("input[name='COLLComtOpenYn']:checked").val();
+		const btnNm = document.getElementById('previewBtn');
+		
+		if(val == "Y"){
+			btnNm.disabled = true;
+			$("#previewBtn").css("background-color", "#A9A9A9");
+		}else{
+			/*
+			btnNm.disabled = false;
+			$("#previewBtn").css("background-color", "#FFFFFF");
+			*/
+			btnNm.disabled = true;
+			$("#previewBtn").css("background-color", "#A9A9A9");
+		}
+	});	
+})
 /* ---------------------- 자랑하기 end ---------------------- */
 
 //필수 입력값 체크

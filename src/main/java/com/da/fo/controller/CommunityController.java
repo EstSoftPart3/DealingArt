@@ -285,7 +285,8 @@ public class CommunityController {
 	public ModelAndView communityFollow(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
 
-		int result = communityService.communityFollow(param);
+		//int result = communityService.communityFollow(param);
+		int result = communityService.communityNewFollow(param);
 		mv.addObject("result", result);
 
 		return mv;

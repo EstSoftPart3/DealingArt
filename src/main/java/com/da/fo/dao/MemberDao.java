@@ -399,6 +399,26 @@ public class MemberDao {
 		memberMapper.updateComtScraps(param);
 	}
 	
+	// 좋아요 체크 여부 조회
+	public int likeCheck(Map<String, Object> param) {
+		return memberMapper.likeCheck(param);
+	}
+	
+	// 좋아요 갯수 변경
+	public int updateLikeCnt(Object param) {
+		return memberMapper.updateLikeCnt(param);
+	}
+	
+	// 좋아요 추가
+	public int likeAdd(Map<String, Object> param) {
+		return memberMapper.likeAdd(param);
+	}
+	
+	// 좋아요 취소
+	public int likeDel(Map<String, Object> param) {
+		return memberMapper.likeDel(param);
+	}
+	
 	/*
 	 * 회원 자동로그인 정보 수정
 	 * param : 회원정보가 들어있는 AutoLoginVo

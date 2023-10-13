@@ -622,6 +622,76 @@
 		WHERE 
 				COMT_SQ = #{comtSq}
    </update>
+
+	<select id="likeCheck" parameterType="hashMap" resultType="int">
+		/* 좋아요 체크 여부 조회 */
+		SELECT
+		COUNT(*)
+		FROM
+		TBL_DA_MBR_SCRAP_R
+		WHERE
+		MBR_SQ = #{mbrSq}
+		<if test="workSq != null and workSq != ''">
+			AND WORK_SQ = #{workSq}
+		</if>
+		<if test="dealSq != null and dealSq != ''">
+			AND DEAL_SQ = #{dealSq}
+		</if>
+		<if test="comtSq != null and comtSq != ''">
+			AND COMT_SQ = #{comtSq}
+		</if>
+		<if test="mgzSq != null and mgzSq != ''">
+			AND MGZ_SQ = #{mgzSq}
+		</if>
+		<if test="likeCnt != null and likeCnt != ''">
+			AND FW_MBR_SQ = #{likeCnt}
+		</if>
+	</select>
+
+	<insert id="likeAdd" parameterType="hashMap">
+		/*회원 좋아요 추가*/
+		INSERT INTO
+		TBL_DA_MBR_SCRAP_R (
+		MBR_SQ
+		, COMT_SQ
+		, FW_MBR_SQ
+		) VALUES (
+		#{mbrSq}
+		, #{comtSq}
+		. #{likeCnt}
+		)
+	</insert>
+
+	<delete id="likeDel" parameterType="hashMap">
+		/*회원 좋아요 취소*/
+		DELETE FROM
+		TBL_DA_MBR_SCRAP_R
+		WHERE
+		MBR_SQ = #{mbrSq}
+		<if test="workSq != null and workSq != ''">
+			AND WORK_SQ = #{workSq}
+		</if>
+		<if test="comtSq != null and comtSq != ''">
+			AND COMT_SQ = #{comtSq}
+		</if>
+		<if test="likeCnt > 0">
+			AND FW_MBR_SQ = #{likeCnt}
+		</if>
+	</delete>
+
+	<update id="updateLikeCnt" parameterType="hashMap">
+		/* 좋아요 갯수 변경 */
+		UPDATE
+		TBL_DA_COMT_M
+		SET
+		<if test='likeCnt == "LIKE_CNT"'>
+			COMT_LIKES = COMT_LIKES + 1
+		</if>
+		<if test='likeCnt == "DEL_LIKE"'>
+			COMT_LIKES = COMT_LIKES - 1
+		</if>
+		WHERE COMT_SQ = #{comtSq}
+	</update>
    
    <update id="autoLogin">
    		/*자동 로그인 정보 수정 등록*/

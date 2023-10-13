@@ -213,6 +213,36 @@ public class CommunityDao {
 	}
 	
 	/*
+	 * 커뮤니티 팔로우되어 있는지 확인하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int findNewFollow(Map<String, Object> param) {
+		int result = communityMapper.findNewFollow(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 팔로우 삭제하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int delNewFollow(Map<String, Object> param) {
+		int result = communityMapper.delNewFollow(param);
+		return result;
+	}
+	
+	/*
+	 * 커뮤니티 팔로우하기 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int insertNewFollow(Map<String, Object> param) {
+		int result = communityMapper.insertNewFollow(param);
+		return result;
+	}
+	
+	/*
 	 * 댓글 등록
 	 * param :
 	 * return :
@@ -278,6 +308,11 @@ public class CommunityDao {
 	//커뮤니티 조회수 증가
 	public void updateComtViews(Object param){
 		communityMapper.updateComtViews(param);
+	}
+	
+	//커뮤니티 좋아요 갯수 증가
+	public void updateComtLikes(Object param){
+		communityMapper.updateComtLikes(param);
 	}
 	
 }

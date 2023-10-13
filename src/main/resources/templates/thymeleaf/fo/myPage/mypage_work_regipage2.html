@@ -973,7 +973,8 @@
 	                    <ul>
 	                        <li><button type="button" class="registration" onclick="myWorkReg()">등록</button></li>
 	                        <li><button type="button" onclick="myWorkStorage()">임시저장</button></li>
-	                        <li><button type="button">미리보기</button></li>
+	                        <!-- 2023.10.13 홍충기 display:none 처리 -->
+	                        <li><button type="button" id="previewBtn" style="display:none">미리보기</button></li>
 	                        <li><button type="button" onclick="javascript:history.back();">취소</button></li>
 	                    </ul>
 	                </div>
@@ -1904,6 +1905,45 @@ function removeCss(obj) {
     });
 }
 
+/*
+ * 2023.10.12 홍충기 수정
+ * 소장품 및 작품 자랑하기 공개 체크시 미미보기 이벤트
+ */
+//소장품 자랑하기 공개 체크시 미리보기 버튼 비활성화
+$("input[name='COLLComtOpenYn']").change(function() {
+	var val = $("input[name='COLLComtOpenYn']:checked").val();
+	const btnNm = document.getElementById('previewBtn');
+	
+	if(val == "Y"){
+		btnNm.disabled = true;
+		$("#previewBtn").css("background-color", "#A9A9A9");
+	}else{
+		/*
+		btnNm.disabled = false;
+		$("#previewBtn").css("background-color", "#FFFFFF");
+		*/
+		btnNm.disabled = true;
+		$("#previewBtn").css("background-color", "#A9A9A9");
+	}
+});	
+
+// 창작 작품 자랑하기 공개 여부에 따른 미리보기 버튼 이벤트
+$("input[name='WORKComtOpenYn']").change(function() {
+	var val = $("input[name='WORKComtOpenYn']:checked").val();
+	const btnNm = document.getElementById('previewBtn');
+	
+	if(val == "Y"){
+		btnNm.disabled = true;
+		$("#previewBtn").css("background-color", "#A9A9A9");
+	}else{
+		/*
+		btnNm.disabled = false;
+		$("#previewBtn").css("background-color", "#FFFFFF");
+		*/
+		btnNm.disabled = true;
+		$("#previewBtn").css("background-color", "#A9A9A9");
+	}
+});	
 /* ---------------------- 자랑하기 end ---------------------- */
 
 //필수 입력값 체크
@@ -2244,17 +2284,24 @@ function myWorkReg(){
     		function(confirm){
     			if(confirm){
     				$.ajax({
-    					debugger;
     			        type: "post",
     			        url: "/myPage/myWorkReg",
     			        data: formData,
     			        contentType : false,
     			        processData : false,
     			        success: function(data) {
+    			        	/*
+			        		 * 2023.10.12 홍충기 수정
+			        		 * ASIS : 마이페이지 내 작품 리스트로 이동, 정상등록 되어도 data가 1이 아닐수 있어 등록 실패 메세지 팝업
+			        		 * 이전 화면으로 이동하거나 등록 화면 재조회 하도록 수정
+			        		 * data가 1 이상이면 정상등록으로 확인 하도록 수정
+			        		 */
+			        		 console.log("======> " + data);
+    				debugger;
     			        	if(data == 1){
-    			        		modalAlertShow("작품이 등록되었습니다.", "myWorkList");
+    			        		modalAlertShow("작품이 등록되었습니다.", "back");
     			        	}else{
-    			        		modalAlertShow("작품 등록에 실패했습니다. 다시 시도해주세요.", "myWorkList");
+    			        		modalAlertShow("작품 등록에 실패했습니다. 다시 시도해주세요.", "reload");
     			        	}
     			        },
     			        error: function(error) {

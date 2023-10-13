@@ -84,6 +84,13 @@ public interface CommunityService {
 	public int communityFollow(Map<String, Object> param);
 	
 	/*
+	 * 커뮤니티 팔로우 (새로운 데이터베이스 사용)
+	 * param : 
+	 * return : 
+	 */
+	public int communityNewFollow(Map<String, Object> param);
+	
+	/*
 	 * 댓글 등록
 	 * param :
 	 * return :
@@ -134,4 +141,7 @@ public interface CommunityService {
 	
 	//커뮤니티 조회수 증가
 	public void updateComtViews(Object param);
+	
+	//커뮤니티 좋아요 갯수 증가
+	public void updateComtLikes(Object param);
 }
