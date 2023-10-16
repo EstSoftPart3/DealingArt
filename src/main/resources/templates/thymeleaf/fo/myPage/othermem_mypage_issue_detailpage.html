@@ -178,8 +178,8 @@
 	    strHtml += '    <div class="icon_box">';
 	    strHtml += '        <ul>';
 	    strHtml += '            <li class="day">'+ (comt.dateDiff >= 24 ? comt.comtRegDt.substring(0, comt.comtRegDt.length-3) : setTimeFormat(comt.comtRegDt)) +'</li>';
-	    strHtml += '            <li><p class="ico_good"></p><span>'+ comt.comtLikes +'</span></li>';
-	    strHtml += '            <li><p class="ico_scrap"></p><span>'+ comt.comtScraps +'</span></li>';
+	    strHtml += '            <li><p class="ico_good"  onclick="likeCheckYn(' + comt.comtSq + ');" style="cursor: pointer;"></p><span>'+ comt.comtLikes +'</span></li>';
+	    strHtml += '            <li><p class="ico_scrap"  onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"></p><span>'+ comt.comtScraps +'</span></li>';
 	    strHtml += '            <li><p class="ico_hits"></p><span>'+ comt.comtViews +'</span></li>';
 	    strHtml += '            <li><p class="ico_comments"></p><span>'+ comt.comtCmts +'</span></li>';
 	    strHtml += '            <li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ comt.rpptCount +'</span></li>';
@@ -207,6 +207,154 @@
 	    $("#comtFirstBox").append(strHtml);
 	    $("#commentCount").text(comt.comtViews);
     }
+    
+  	//스크랩 체크
+	function scrapCheck(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapCheck",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(data > 0){
+	        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
+	        			scrapDel(sqNumber);
+	        	    }
+	        	}else{
+	        		if(confirm("스크랩 목록에 '추가'하시겠습니까?")){
+	        			scrapAdd(sqNumber);
+	        	    }
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	
+	//스크랩 추가
+	function scrapAdd(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapAdd",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(data > 0){
+	        		alert("스크랩 목록에 '추가'되었습니다.");
+	        		location.reload();
+	        	}else{
+	        		alert("스크랩 목록 등록에 실패했습니다. 관리자에게 문의하세요.");
+	        		location.reload();
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+	
+	//스크랩 제거
+	function scrapDel(sqNumber){
+		$.ajax({
+	        type: "post",
+	        url: "/member/myPage/scrapDel",
+	        data: {
+	        	mbrSq : sMbrSqVal,
+	        	comtSq : sqNumber
+	        },
+	        success: function(data) {
+	        	if(data > 0){
+	        		alert("스크랩 목록에서 '제거'되었습니다.");
+	        		location.reload();
+	        	}else{
+	        		alert("스크랩 목록 제거에 실패했습니다. 관리자에게 문의하세요.");
+	        		location.reload();
+	        	}
+	        },
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
+    
+	// 좋아요 체크 여부 조회
+	function likeCheckYn(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeCheck",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber,
+			},
+			success : function(data) {
+				if (data > 0) {
+					if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
+						likeDel(sqNumber);
+					}
+				} else {
+					if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
+						likeAdd(sqNumber);
+					}
+				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
+			}
+		});
+	}
+
+	// 좋아요 추가
+	function likeAdd(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeAdd",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber
+			},
+			success : function(data) {
+				if (data > 0 || data == null) {
+					alert("해당 게시물에 좋아요를 추가했습니다.");
+					location.reload();
+				} else {
+					alert("좋아요 추가 실패했습니다.");
+					location.reload();
+				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
+			}
+		});
+	}
+
+	// 좋아요 취소
+	function likeDel(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeDel",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber
+			},
+			success : function(data) {
+				if (data > 0) {
+					alert("좋아요를 취소했습니다.");
+					location.reload();
+				} else {
+					alert("좋아요 취소 실패했습니다.");
+					location.reload();
+				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
+			}
+		});
+	}
     </script>
 </body>
 </html>

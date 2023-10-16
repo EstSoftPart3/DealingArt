@@ -263,7 +263,7 @@
    	        strHtml += '                    </div>';
    	        strHtml += '                    <div class="icon_box">';
    	        strHtml += '                        <ul>';
-   	        strHtml += '                            <li><p class="ico_good" onclick="likeCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
+   	        strHtml += '                            <li><p class="ico_good" onclick="likeCheckYn(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
    	        strHtml += '                            <li><p class="ico_scrap" onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
    	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
    	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
@@ -383,49 +383,79 @@
  		
  	}
  	
-   	// 전시소개&휴가 게시물 좋아요 버튼
-   	function likeCheck(comtSq) {
- 			let likeBtn = document.querySelector(".ico_good");
-			if(sMbrSqVal == null) {
-				modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
-			} else {
-				var param = new Object();
-				var element = $(this);
-				param.comtSq = comtSq;
-				param.mbrSq = sMbrSqVal;
-				if($(this).hasClass("on")){
-					$.ajax({
-				        type: "post",
-				        url: "/member/myPage/likeCnt",
-				        data: param,
-				        success: function(data) {
-				        	if(data == 0) {
-				        		console.log("좋아요 추가");
-				        	}
-				        },
-				        error: function(error) {
-				            alert("오류 발생" + error);
-				        }
-					});
-				}else{
-					$.ajax({ 
-				        type: "post",
-				        url: "/member/myPage/likeCnt",
-				        data: param,
-				        success: function(data) {
-				        	if(data > 0){
-				        		//likeCheckYn();
-				        	}else{
-				        		modalAlertShow("좋아요 취소 실패");
-				        	}
-				        },
-				        error: function(error) {
-				            alert("오류 발생" + error);
-				        }
-					});
+	// 좋아요 체크 여부 조회
+	function likeCheckYn(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeCheck",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber,
+			},
+			success : function(data) {
+				if (data > 0) {
+					if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
+						likeDel(sqNumber);
+					}
+				} else {
+					if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
+						likeAdd(sqNumber);
+					}
 				}
-				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
 			}
+		});
+	}
+
+	// 좋아요 추가
+	function likeAdd(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeAdd",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber
+			},
+			success : function(data) {
+				if (data > 0 || data == null) {
+					alert("해당 게시물에 좋아요를 추가했습니다.");
+					location.reload();
+				} else {
+					alert("좋아요 추가 실패했습니다.");
+					location.reload();
+				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
+			}
+		});
+	}
+
+	// 좋아요 취소
+	function likeDel(sqNumber) {
+		$.ajax({
+			type : "post",
+			url : "/member/myPage/likeDel",
+			data : {
+				mbrSq : sMbrSqVal,
+				comtSq : sqNumber
+			},
+			success : function(data) {
+				if (data > 0) {
+					alert("좋아요를 취소했습니다.");
+					location.reload();
+				} else {
+					alert("좋아요 취소 실패했습니다.");
+					location.reload();
+				}
+			},
+			error : function(error) {
+				alert("오류 발생" + error);
+			}
+		});
+	}
    	
    	// 전시소개&후기 게시물 스크랩 버튼
 		// 스크랩 체크
