@@ -106,7 +106,7 @@
                     <li><a href="/community/exhintList">전시 소개&후기</a></li>
                     <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event" class="over">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/myPage/main'">기록하기</button></li>
+                    <li class="pt0 mt10"><button class="btn_recording" onclick="exLoginCheck()">기록하기</button></li>
                 </ul>
             </div>
             <!-- mobile html 시작 -->
@@ -287,6 +287,21 @@
 		$(".btn_area button").on('click', function(){
 			searchEventList();
 		});
+    	
+		// 기록하기 버튼 로그인체크 및 페이지 이동
+		function exLoginCheck() {
+			if(sMbrSqVal != null && sMbrSqVal != ""){
+				modalConfirm("기록하기 페이지로 이동합니다.", 
+						function(confirm){
+							if(confirm){
+								location.href="/myPage/main";
+							}
+					}
+				);
+			}else{
+				modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+			}
+    	}
     </script>
 </body>
 </html>

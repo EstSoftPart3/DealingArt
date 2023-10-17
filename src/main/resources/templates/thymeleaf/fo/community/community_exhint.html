@@ -106,7 +106,7 @@
                     <li><a href="/community/exhintList" class="over">전시 소개&후기</a></li>
                     <li><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
-                    <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/temp/mypage_main'">기록하기</button></li>
+                    <li class="pt0 mt10"><button class="btn_recording" onclick="exLoginCheck()">기록하기</button></li>
                 </ul>
             </div>
             <div class="input_wrap">
@@ -393,13 +393,17 @@
 				comtSq : sqNumber,
 			},
 			success : function(data) {
-				if (data > 0) {
-					if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
-						likeDel(sqNumber);
-					}
+				if(sMbrSqVal == null) {
+	        		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 				} else {
-					if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
-						likeAdd(sqNumber);
+					if (data > 0) {
+						if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
+							likeDel(sqNumber);
+						}
+					} else {
+						if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
+							likeAdd(sqNumber);
+						}
 					}
 				}
 			},
@@ -458,7 +462,7 @@
 	}
    	
    	// 전시소개&후기 게시물 스크랩 버튼
-		// 스크랩 체크
+	// 스크랩 체크
 	function scrapCheck(sqNumber){
 		$.ajax({
 	        type: "post",
@@ -469,7 +473,7 @@
 	        },
 	        success: function(data) {
 	        	if(sMbrSqVal == null) {
-					modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+	        		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 				} else {
 		        	if(data > 0){
 		        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
@@ -534,6 +538,21 @@
 	            alert("오류 발생" + error);
 	        }
 		});
+	}
+	
+	// 기록하기 버튼 로그인체크 및 페이지 이동
+	function exLoginCheck() {
+		if(sMbrSqVal != null && sMbrSqVal != ""){
+			modalConfirm("기록하기 페이지로 이동합니다.", 
+					function(confirm){
+						if(confirm){
+							location.href="/myPage/main";
+						}
+				}
+			);
+		}else{
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		}
 	}
 
     </script>
