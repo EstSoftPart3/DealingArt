@@ -100,7 +100,7 @@
 	<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
     <div id="container">
         <div class="mypage_wrap">
-            <h2>타인페이지</h2>
+            <h2 id="otherNm">페이지</h2>
             <div class="mypage_contents">
             	<div id ="left_menu"></div>
                 <div class="contents_right">
@@ -207,12 +207,18 @@
 				setMyExhbn(data.myExhbn, data.myExhbnTotal);
 				setMyIssue(data.myIssue, data.myIssueTotal);
 				setMyFollowing(data.myFollowing, data.myFollowingTotal);
+				setOtherNm(data.mbrNm)
 			}
 			, error: function(data){
 				alert("오류 발생" + error);
 			}
 		});
     });
+    
+    function setOtherNm(data, total){
+    	console.log('data'+data);
+		$("#otherNm").text(data+'님의 페이지');
+    }
     
     function setMyWorks(data, total){
     	var html = '';
@@ -318,6 +324,7 @@
     
     function setMyFollowing(data, total){
     	var html = '';
+    	console.log('following data'+data);
     	if(total > 0){
     		for(i=0; i<data.length; i++){
     			if(i == 2){

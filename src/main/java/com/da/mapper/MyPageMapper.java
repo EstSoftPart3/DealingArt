@@ -569,4 +569,5 @@ public interface MyPageMapper {
 	 */
 	public List<Map<String, Object>> detailshowoffList(Object param);
 	
+	public String myPage_selectMbrNm(String mbrSq);
 }

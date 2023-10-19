@@ -278,6 +278,7 @@ var result = new Object();
 
 var startIndex = 0;
 var searchStep = 8;
+var total = 0;
 
 var mbrSq = /*[[${mbrSq}]]*/ 'default';
 
@@ -308,6 +309,7 @@ function ShowListAjax(callback){
 		, data: searchOptions
 		, success: function(data){
 			ShowList(data,callback);
+			total = data.myTotal;
 		}
 		, error: function(data){
 			alert("오류 발생" + error);
@@ -1170,9 +1172,9 @@ $('#moreList').click(function(){
 	startIndex += searchStep;
 	
 	//페이징 시작값
-	searchOptions.startIndex = startIndex;
+	searchOptions.startIndex = 0;
 	//페이징 불러오는 갯수 값
-	searchOptions.searchStep = searchStep;
+	searchOptions.searchStep = total+3;
 	
 	ShowListAjax();
 });

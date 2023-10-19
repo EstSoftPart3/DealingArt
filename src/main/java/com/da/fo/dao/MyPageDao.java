@@ -802,4 +802,12 @@ public class MyPageDao {
 		
 		return result;
 	}
+	
+	public String myPage_selectMbrNm(String mbrSq){
+		System.out.println(mbrSq);
+		
+		String result = myPageMapper.myPage_selectMbrNm(mbrSq);
+		
+		return result;
+	}
 }

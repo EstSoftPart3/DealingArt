@@ -502,4 +502,10 @@ public class MyPageServiceImpl implements MyPageService{
 		return result;
 	}
 	
+	@Override
+	public String myPage_selectMbrNm(String mbrSq) {
+		String result =  myPageDao.myPage_selectMbrNm(mbrSq);
+		return result;
+	}
+	
 }

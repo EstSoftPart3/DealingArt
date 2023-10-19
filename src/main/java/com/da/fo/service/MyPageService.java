@@ -312,5 +312,7 @@ public interface MyPageService {
 	 */
 	public int myPage_scrapTotal(Map<String, Object> paramMap);
 	
+	public String myPage_selectMbrNm(String mbrSq);
+	
 	
 }

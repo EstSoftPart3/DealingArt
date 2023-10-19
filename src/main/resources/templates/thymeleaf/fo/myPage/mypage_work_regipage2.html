@@ -2297,9 +2297,9 @@ function myWorkReg(){
 			        		 * data가 1 이상이면 정상등록으로 확인 하도록 수정
 			        		 */
 			        		 console.log("======> " + data);
-    				debugger;
     			        	if(data == 1){
-    			        		modalAlertShow("작품이 등록되었습니다.", "back");
+    			        		modalAlertShow("작품이 등록되었습니다.", "");
+    			        		location.href='/myPage/workList';
     			        	}else{
     			        		modalAlertShow("작품 등록에 실패했습니다. 다시 시도해주세요.", "reload");
     			        	}

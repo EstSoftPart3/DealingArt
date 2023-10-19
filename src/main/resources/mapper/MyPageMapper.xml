@@ -666,6 +666,12 @@
 			<if test="workTypCd != null and workTypCd != ''">
 					AND WORKS.WORK_TYP_CD = #{workTypCd}
 			</if>
+			<if test='selGubun != null and selGubun != ""'>
+				AND COMT.EXHIBIT_TYP_CD = #{selGubun}
+			</if>
+			<if test='selRegion != null and selRegion != ""'>
+				AND COMT.EXHIBIT_REGION_CD = #{selRegion}
+			</if>
 	</select>
 
 	<update id="trnsprtTypCdUpdate" parameterType="hashMap">
@@ -3502,14 +3508,20 @@
 				<if test='sortCd == "past"'>
 					ORDER BY COMT.REG_DT DESC
 				</if>
-				<!-- 게시판 관리자에서 최근 설정값 불러와야함 아직 정의안됨-->
+				<!-- 최근인기순 -->
 				<if test='sortCd == "recent_popul"'>
+					AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
+					ORDER BY 
+							COMT.COMT_LIKES DESC
 				</if>				
+				<!-- 역대인기순 -->
 				<if test='sortCd == "popul"'>
 					ORDER BY COMT.COMT_LIKES ASC
 				</if>
 			</if>
+			<if test="sortCd == null and sortCd == ''">
 				ORDER BY COMT.REG_DT DESC
+			</if>
 			<if test ='comtTypCd == "BOA"'>
 				LIMIT ${startIndex}, ${searchStep}
 			</if>
@@ -3602,4 +3614,14 @@
 		   AND A.COMT_TYP_CD      = 'BOA'           /* 자랑하기 */
 		 ORDER BY A.REG_DT DESC
 	</select>
+	
+	<select id="myPage_selectMbrNm" parameterType="String" resultType="String">
+   		/*회원명 가져오기*/
+   		SELECT 
+			MBR_NM
+		FROM 
+			TBL_DA_MBR_M
+		WHERE
+			MBR_SQ = #{mbrSq}
+   </select>
 </mapper>
