@@ -161,6 +161,7 @@
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
+					<span class="sog-6"><a href="javascript:void(0);" class="myAlarm"><img src="/resources/img/mypage/ico_myinfo_alarm.png" style="filter: invert(51%) sepia(99%) saturate(5462%) hue-rotate(3deg) brightness(105%) contrast(84%); " /></a></span>
 					<span class="sog-1"><a href="javascript:void(0);" class="myWorkList"><img src="/resources/img/icon-8.png" /></a></span>
 					<!-- <span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="/resources/img/tablet/icon-3.png" /></a></span> -->
 					<span class="sog-2 lg-my"><a href="javascript:void(0);"><img src="/resources/img/tablet/icon-3.png" /></a></span>
@@ -1894,6 +1895,11 @@ $(document).on("click", ".myCollection", function(){
 	loginCheck(requestUrl,sMbrSqVal);
 });
 
+$(document).on("click", ".myAlarm", function(){
+	requestUrl = "/myPage/notis";
+	loginCheckUrl(requestUrl);
+});
+
 $(document).on("click", ".myWorkList", function(){
 	
 	 if(!isMobile){
@@ -1908,6 +1914,7 @@ $(document).on("click", ".myPage", function(){
 	requestUrl = "/myPage";
 	loginCheck(requestUrl,"");
 });
+
 $(document).on("click", ".leftNavMobile", function(){
 	requestUrl = "/myPage/leftNavMobile";
 	loginCheckUrl(requestUrl);

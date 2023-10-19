@@ -701,7 +701,6 @@ $(document).on("click",".contentMore",function(){
 });
 
 function btn_search_onclick(){
-	debugger;
 	var searchKeyword = $("#ibx_search").val();
 	if(searchKeyword == null || searchKeyword == ""){
 		alert("검색어가 입력되지 않았습니다");

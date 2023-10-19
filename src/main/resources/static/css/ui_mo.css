@@ -6568,7 +6568,7 @@ p.dib{display:inline-block !important;}
 
 .work-drp-2{}
 .work-drp-2:after{content:'';}
-.work-drp-2 .wd-box{max-width: 75rem;width: 100%;margin: 0 auto;background: #e9625c;border-top: #eee 2px solid;padding: 2rem 0;border-radius: 11px;margin-top: 1.4rem;text-align: center;}
+.work-drp-2 .wd-box{max-width: 32rem;width: 100%;margin: 0 auto;background: #e9625c;border-top: #eee 2px solid;padding: 2rem 0;border-radius: 11px;margin-top: 1.4rem;text-align: center;}
 .work-drp-2 .wd-box .wd-btns{padding: 0.3rem 1.6rem 0.5rem 1.6rem;font-size: 1.9rem;background: #fff;border-radius: 12px;margin: 0 0.5rem;min-width: 12rem;}
 .dp_n{display:none;}
 .wd-btns{display:none;}
