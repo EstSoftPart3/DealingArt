@@ -3408,12 +3408,16 @@
    				COMT_TITLE 			= #{comtTitle},
    				COMT_CONTENT 		= #{comtContent},
    				COMT_SNS_YN 		= #{comtSnsYn},
-   				COMT_SALES_YN 		= #{comtSalesYn},
+   				<if test='comtSalesYn != null and comtSalesYn != ""'>
+   					COMT_SALES_YN = #{comtSalesYn},
+   				</if>
    				OPEN_YN 			= #{comtOpenYn},
    				EXHIBIT_TYP_CD 		= #{exhibitTypCd},
    				EXHIBIT_REGION_CD 	= #{exhibitRegionCd},
-   				UPDT_DT				= NOW(),
-   				UPDT_MBR_SQ			= #{mbrSq}
+   				UPDT_DT				= NOW()
+   				<if test='mbrSq != null and mbrSq != ""'>
+   					,UPDT_MBR_SQ = #{mbrSq}
+   				</if>
 		WHERE  
 				COMT_SQ = #{comtSq}
    </update>

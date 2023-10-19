@@ -497,7 +497,7 @@
     	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
     	    			html += '			<span>응찰하기</span>';
     	    			html += '		</button>';
-    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="suggestBtn" onclick="chkSuggest();">';
+    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="suggestBtn" onclick="openSuggestModal();">';
     	    			html += '			<span>요청하기</span>';
     	    			html += '		</button>';
     	    			html += '		<div class="clearboth"></div>';
@@ -1207,7 +1207,7 @@
    					obj.value = obj.value.replaceAll(/\B(?=(\d{3})+(?!\d))/g, ",");
    				}
    			}
-   			
+
    			return isTrue;
     	}
     		
@@ -1236,6 +1236,7 @@
    				$("#btn_history").css("display", "none");
    			}
    			if(deal.deal.dealTypCd == "A" && deal.deal.dealSttsCd == "TP"){ //경매면
+   				$("#btn_purchaseOrBid").text("응찰하기");
 				selectBoxWriteAskingPrice(); //자동으로 셀렉트박스와 호가단위에 호가를 입력해준다.
 			}
 			if(deal.deal.dealSttsCd == "TC"){ //판매종료면
