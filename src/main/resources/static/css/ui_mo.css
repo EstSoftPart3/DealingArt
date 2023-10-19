@@ -6550,12 +6550,12 @@ p.dib{display:inline-block !important;}
 
 
 .myd-box-4{width: 100%;max-width: 75rem;margin: 3rem auto 5rem auto;}
-.work-drp{ display: inline-block; vertical-align: middle; position: relative;}
+.work-drp{ display: inline-block; vertical-align: middle; position: relative; width: 100%;}
 .work-drp .work-div{ margin-left: 15px; cursor: pointer;}
 .work-drp .work-div span{ font-size: 14px; display: inline-block; vertical-align: middle; padding-right: 5px; font-weight: 500;}
 .work-drp .work-div img{ vertical-align: middle;}
 
-.work-hov{display:none;position: inherit;top: 5rem;left: 50%;width: 26rem;background-color: #e9625c;padding: 0.6rem;text-align: left;z-index: 2;transform: translateX(-50%);}
+.work-hov{display:none;position: inherit;top: 2rem;left: 50%;width: 26rem;background-color: #e9625c;padding: 0.6rem;text-align: left;z-index: 2;transform: translateX(-50%);}
 .work-hov ul{ clear: both; border-left: #e8e8e8 1px solid; border-top: #e8e8e8 1px solid;}
 .work-hov ul li{ display: inline-block; width: 50%; text-align: center; float: left; background: #fff;}
 .work-hov ul li a{display: block;padding: 0.8rem 0;border-bottom: #e8e8e8 1px solid;border-right: #e8e8e8 1px solid;}
@@ -7529,7 +7529,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .magazine9_wrap .new_artist_movie_wrap:after{content: "";display: block;clear: both;}
 .magazine9_wrap .new_artist_movie_wrap .tit_wrap{position: relative;}
 .magazine9_wrap .new_artist_movie_wrap .tit_wrap h2{font-size: 2.625rem;letter-spacing: -1.5px;}
-.magazine9_wrap .new_artist_movie_wrap .tit_wrap .btn_more{width: 76px;font-size: 2rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 1px no-repeat;text-align: left;position: absolute;top: 0;right: 10px;}
+.magazine9_wrap .new_artist_movie_wrap .tit_wrap .btn_more{width: auto;font-size: 2rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 0.3rem no-repeat;background-size: 5rem 2rem;text-align: left;position: absolute;top: 0;right: 10px;padding-right: 6.5rem;}
 
 .magazine9_wrap .new_artist_movie_wrap .mgz-list{width: 100%;margin: 20px 0 0 0;display: flex;justify-content: space-between;}
 .magazine9_wrap .new_artist_movie_wrap .mgz-list li{margin-right: 20px;}
@@ -7539,7 +7539,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .magazine9_wrap .artist_update_wrap:after{content: "";display: block;clear: both;}
 .magazine9_wrap .artist_update_wrap .tit_wrap{position: relative;}
 .magazine9_wrap .artist_update_wrap .tit_wrap h2{font-size: 2.625rem;letter-spacing: -1.5px;}
-.magazine9_wrap .artist_update_wrap .tit_wrap .btn_more{width: 76px;font-size: 2rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 1px no-repeat;text-align: left;position: absolute;top: 0;right: 10px;}
+.magazine9_wrap .artist_update_wrap .tit_wrap .btn_more{width: auto;font-size: 2rem;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 0.3rem no-repeat;background-size: 5rem 2rem;text-align: left;position: absolute;top: 0;right: 10px;padding-right: 6.5rem;}
 
 /* 23.08.17 박재현 내용 추가 */
 .btn_worksInfo_wrap button{width: 100%;font-size: 2.25rem;color: #ffffff;background: #ea655b;margin-top: 30px; padding: 16px 0;}

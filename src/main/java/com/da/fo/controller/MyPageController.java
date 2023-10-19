@@ -1871,6 +1871,8 @@ public class MyPageController {
 			String mbrSq = String.valueOf(param.get("mbrSq"));
 			System.out.println("param++++++"+mbrSq);
 			
+			String mbrNm = myPageService.myPage_selectMbrNm(mbrSq);
+			
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
 			paramMap.put("workTypCd","");
@@ -1894,6 +1896,10 @@ public class MyPageController {
 			List<Map<String, Object>> myIssue = myPageService.myPageMain_myCommunitys(paramMap); //나의 이슈 조회
 			int myIssueTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
 			
+			paramMap.put("limit", 3); //LIMIT 넣기
+			List<Map<String, Object>> myFollowing = myPageService.myPage_following(paramMap); //나의 팔로잉 조회
+			int myFollowingTotal = myPageService.myPage_followingTotal(paramMap); //나의 팔로잉 총 갯수 조회
+			
 			//paramMap.put("limit", 3); //LIMIT 넣기
 			//List<Map<String, Object>> myNoti = myPageService.myPageMain_myNoti(paramMap); //나의 이슈 조회
 			//int myNotiTotal = myPageService.myPageMain_myCommunitysTotal(paramMap); //나의 이슈 총 갯수 조회
@@ -1907,6 +1913,9 @@ public class MyPageController {
 			mv.addObject("myExhbnTotal", myExhbnTotal);
 			mv.addObject("myIssue", myIssue);
 			mv.addObject("myIssueTotal", myIssueTotal);
+			mv.addObject("mbrNm", mbrNm);
+			mv.addObject("myFollowing", myFollowing);
+			mv.addObject("myFollowingTotal", myFollowingTotal);
 			
 			return mv;
 		}

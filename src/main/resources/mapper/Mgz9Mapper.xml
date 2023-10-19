@@ -27,7 +27,7 @@
 		AND MGZ_TYP_CD = #{mgzTypCd}
 		ORDER BY MGZ_SQ DESC
 		<if test='mgzTypCd.equals("MDA")'>
-		LIMIT 10
+		LIMIT 4
 		</if>
 		<if test='mgzTypCd.equals("IST")'>
 		LIMIT 4

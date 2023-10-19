@@ -140,8 +140,27 @@
 							<button type="button" class="wd-btns wdb-all">취소</button>
 						</div>
 					</div>
+					
+					<div th:if="${#strings.isEmpty(mbrSq)}" class="mypage_select_wrap">
+                        <div class="sel_sorting right0">
+                            <select name="sel_sort" id="sel_sort">
+                                <option value="all">정렬</option>
+                                <option value="recent">최신순</option>
+                                <option value="recent_popul">최근 인기 순</option>
+                                <option value="popul">역대 인기 순</option>
+                                <option value="past">과거 순</option>
+                            </select>
+                        </div>
+                        <div class="sel_sorting right170">
+                            <select name="sel_open" id="sel_open">
+                                <option value="all">형태</option>
+                                <option value="Y">공개</option>
+                                <option value="N">비공개</option>
+                            </select>
+                        </div>
+                    </div>
 							
-                    <div class="mypage_exhint_contents_wrap mt30">
+                    <div class="mypage_exhint_contents_wrap">
                         <div class="exhint_row">
                             <div class="exhint_list_img"><img src="/resources/img/img_new/sample_exhint01.jpg" alt=""><div class="ico_num">1+</div></div>
                             <div class="contents width75per">
