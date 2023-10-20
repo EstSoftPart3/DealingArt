@@ -136,7 +136,7 @@ function setMyInfo(data){
 	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
 		html += '<div class="myinfo_pic" ><a onclick="copy_to_clipboard()"><img src="'+data.mbrProfileImgUrl+'" alt=""></a></div>';
 	}else{
-		html += '<div class="myinfo_pic"><img src="/resources/img/mypage/icon-u.png"></div>';
+		html += '<div class="myinfo_pic"><a onclick="copy_to_clipboard()"><img src="/resources/img/mypage/icon-u.png"></a></div>';
 	}
     html += '<div class="myinfo_con">';
     html += '  <ul>';
