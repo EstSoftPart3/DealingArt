@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties.View;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,7 @@ public class CommunityController {
 			return mv;
 		}
 	}
+	
 
 	// 커뮤니티 자랑하기 상세 정보 조회
 	@RequestMapping("/community/searchShowingOffDetailList")
