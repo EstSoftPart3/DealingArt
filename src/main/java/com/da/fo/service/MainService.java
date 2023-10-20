@@ -80,4 +80,6 @@ public interface MainService {
 	 * return :
 	 */
 	List<Map<String, Object>> mainBoa();
+	
+	List<Map<String, Object>> selectBoa(String workSq);
 }

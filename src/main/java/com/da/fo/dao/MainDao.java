@@ -158,4 +158,9 @@ public class MainDao {
 		List<Map<String, Object>> result = mainMapper.mainBoa();
 		return result;
 	}
+	
+	public List<Map<String, Object>> selectBoa(String workSq){
+		List<Map<String, Object>> result = mainMapper.selectBoa(workSq);
+		return result;
+	}
 }

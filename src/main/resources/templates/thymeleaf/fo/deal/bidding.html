@@ -83,7 +83,7 @@
   			height: 145.75px;        /* line-height x line */
     	};
     </style>
-    
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
@@ -312,54 +312,38 @@
 								
 
 						</div>
-			
+
 					</div>
 					
 				</div>
-						  <!-- 자랑하기 세팅 김동희 -->
-<!--  		<div id="artstInfo" >	
-			<div class="artist-wrap" >
+        <!-- 자랑하기 -->
+ 		<div id="artstInfo" >	
+	 		<div id="boaContent_list">
+	 		
+	 		</div>
+        </div>
+		<div id="artstInfo" th:if="${not #strings.isEmpty(result.artistInfo.artstSq)}">	
+			<div class="artist-wrap" style="position: relative;">
 				<div class="artist-box max-1500">
-					<div class="sub-title mg_t77" style="margin-top:5px;">
-						<h3>자랑하기</h3>
-					</div>
-						<div id="showingoff_list">
-		</div>
-				
-                     <div class="left">
-                        <img src="/resources/img/img_new/main_works_showingoff_sample00.jpg" alt="">
-                        <div class="bottom">
-                            <img src="/resources/img/img_new/main_works_showingoff_sample02.jpg" alt="">
-                            <img src="/resources/img/img_new/main_works_showingoff_sample03.jpg" alt="">    
-                        </div>
-                    </div>
-                    <div class="right"><img src="/resources/img/img_new/main_works_showingoff_sample01.jpg" alt=""></div>
-                </div>
-         </div> -->
-         
-		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
-			<div class="artist-wrap">
-				<div class="artist-box max-1500">
-					<div class="sub-title mg_t77"  style="margin-top:5px;">
+					<div class="sub-title mg_t77">
 						<h3>작가 정보</h3>
 					</div>
 					<div class="sub-user">
 						<div class="su-l">
-							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:120%; border-radius:15%;"/></span>
+							<span><img th:src="${result.artistInfo.artstProfileImgUrl}" style="width:100%; border-radius:15%;"/></span>
 						</div>
 						<div class="su-r">
 							<p class="sup-1" th:text="${result.artistInfo.artstActvtyNm}"></p>
 							<p class="sup-2" th:text="${result.artistInfo.artstEnglsNm}"></p>
 							<div class="sup-3 ellipsis" th:text="${result.artistInfo.artstSelfIntro}"></div>
-							 
-							 
-  							
 						</div>
+						<button class="btn_more" onclick="openModal('artstInfoMore')">더보기</button>
 					</div>
 				</div>
 			</div>
+			</div>
 			
-		<!-- 작품이 없는 작가면 보여주지 않는 영역 초기설정 김동희 -->
+			<!-- 작품이 없는 작가면 보여주지 않는 영역 초기설정 김동희 -->
 			<div class="contents conbg">
 				<div class="cont-title2 max-1500">
 					<h3>지금 핫한 거래</h3>
@@ -373,13 +357,15 @@
 						</div>
 						<div class="swiper-pagination swpa-2 pc-no"></div>	
 					</div>
-				</th:block>
+
 			</div>
 			<!-- 영역 끝 -->
+			
+			<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
 		</div>
 	</div>
 </div>
-	<th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
+	
 
 
 
@@ -1090,7 +1076,6 @@
 		</div>
 	</div>
 </div>
-
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
@@ -1166,7 +1151,65 @@ $(function() {
 		chart();
 	}
 	workList();
+	selectBoa(result.deal.workSq);
 });
+
+function selectBoa(workSq){
+	$.ajax({
+        type: "post",
+        url: "/main/selectBoa",
+        data: {
+        	workSq : workSq
+        },
+        success: function(data) {
+        	setBoaHtml(data);
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+}
+
+//자랑하기 html 생성
+function setBoaHtml(data) {
+	var boaList = data.boaList;
+	var boaHtml = '';
+	boaHtml += '	<div class="sub-title mg_t77"><h3>자랑하기</h3></div>';
+	boaHtml += '		<div class="contents_showingoff_wrap">';
+	boaHtml += '			<div class="showingoff_con_left">';
+	boaHtml += '				<div class="img">';
+	boaHtml += '					<img src="'+ boaList[0].comtImgUrl +'" alt="">';
+	boaHtml += '				</div>';
+	boaHtml += '				<div class="con_r">';
+	boaHtml += '					<h4>'+boaList[0].comtTitle+'</h4>';
+	boaHtml += '					<span class="day">'+boaList[0].regDt+'</span>';
+	boaHtml += '					<p>'+boaList[0].comtContent+'</p>';
+	boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[0].comtSq+')">더보기</button>';
+	boaHtml += '				</div>';
+	boaHtml += '			</div>';
+	if(boaList.length == 2){
+		boaHtml += '			<div class="showingoff_con_right">';
+		boaHtml += '				<div class="img">';
+		boaHtml += '					<img src="'+ boaList[1].comtImgUrl +'" alt="">';
+		boaHtml += '				</div>';
+		boaHtml += '				<div class="con_r">';
+		boaHtml += '					<h4>'+boaList[1].comtTitle+'</h4>';
+		boaHtml += '					<span class="day">'+boaList[1].regDt+'</span>';
+		boaHtml += '					<p>'+boaList[1].comtContent+'</p>';
+		boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[1].comtSq+')">더보기</button>';
+		boaHtml += '				</div>';
+		boaHtml += '			</div>';
+	}
+	boaHtml += '		</div>';
+	boaHtml += '	</div>';
+	boaHtml += '</div>';
+	
+   $("#boaContent_list").empty();
+   $("#boaContent_list").append(boaHtml).trigger("create");
+}
+function openshowingOffDetail(sq){
+	location.href = "/community/showingOffDetail?SqNumber="+sq;
+}
 //호가 단위
 function selectBoxWriteAskingPrice(){
 	var bidPrc = 0; //입찰가
@@ -1943,8 +1986,7 @@ wcs.inflow("www.dealing-art.com");
 wcs_do(_nasa);
 }
 </script>	
-	
-	
+
 </body>
 
 </html>

@@ -317,4 +317,14 @@ public class DealController {
 		mv.addObject("result", result);
 		return mv;
 	}
+	
+	@RequestMapping("/deal/workDetail1")
+	public String workDetail1() {
+		return "thymeleaf/fo/myPage/search__collection_creation_detailpage_notsold";
+	}
+	
+	@RequestMapping("/deal/workDetail2")
+	public String workDetail2() {
+		return "thymeleaf/fo/myPage/search__collection_creation_detailpage_sold";
+	}
 }

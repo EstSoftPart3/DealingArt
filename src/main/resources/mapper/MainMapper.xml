@@ -37,7 +37,7 @@
         C.DEAL_SQ IS NOT NULL
         AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
     ORDER BY C.DEAL_STRT_DT DESC /*거래시작일시를 내림차순으로 정렬*/
-    LIMIT 10
+    LIMIT 4
 </select>
 	
 	<select id="mainTodayBid" resultType="hashMap">
@@ -670,6 +670,29 @@
 			AND COMT.COMT_TYP_CD = 'BOA'
 		LIMIT 
 				10
+	</select>
+	
+	<select id="selectBoa" resultType="hashMap" parameterType="string">
+	/*자랑하기*/
+	SELECT 
+				COMT.COMT_SQ AS comtSq
+				, COMT.MBR_SQ AS mbrSq
+				, COMT.WORK_SQ AS workSq
+				, COMT.COMT_IMG_URL AS comtImgUrl
+				, COMT.COMT_TITLE AS comtTitle
+				, DATE_FORMAT(COMT.REG_DT, '%Y.%m.%d') AS regDt
+				, COMT.COMT_CONTENT AS comtContent
+		FROM 
+				TBL_DA_COMT_M AS COMT
+		WHERE 
+				COMT.USE_YN = 'Y'
+			AND COMT.DEL_YN = 'N'
+			AND COMT.OPEN_YN = 'Y'
+			AND COMT.COMT_TYP_CD = 'BOA'
+			AND COMT.WORK_SQ = #{workSq}
+		ORDER BY 
+				COMT.COMT_SQ DESC
+       LIMIT 2
 	</select>
 	
 </mapper>
