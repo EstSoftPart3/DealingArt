@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
+				<input type="hidden" id="pageLinkCopy" value="">
                 <div class="contents_left">
                   <div class="myinfo_wrap">
                     <div class="myinfo_pic"></div>
@@ -97,7 +98,7 @@
 var mbrSq = /*[[${mbrSq}]]*/ 'default';
 //내정보 불러오기
 $("document").ready(function(){
-	
+
 	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){
 		$.ajax({
 			type: "POST"
@@ -128,12 +129,12 @@ $("document").ready(function(){
 });
 
 function setMyInfo(data){
-	
 	var html = '';
+	
 	//회원 프로필 사진 유무
 	//프로필이미지 백그라운드에서 이미지 태그로 바꿔줘야함
 	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
-		html += '<div class="myinfo_pic" ><img src="'+data.mbrProfileImgUrl+'" alt=""></div>';
+		html += '<div class="myinfo_pic" ><a onclick="copy_to_clipboard()"><img src="'+data.mbrProfileImgUrl+'" alt=""></a></div>';
 	}else{
 		html += '<div class="myinfo_pic"><img src="/resources/img/mypage/icon-u.png"></div>';
 	}
@@ -159,24 +160,39 @@ function setMyInfo(data){
     html += '  <ul>';
     //회원 페이스북 url 유무
     if(data.mbrFacebookUrl != null && data.mbrFacebookUrl != ""){
-    	html += '    <li><a href="'+data.mbrFacebookUrl+'"><p class="ico_facebook"></p></a></li>';
+    	html += '    <li><a href="'+data.mbrFacebookUrl+'" target="_blank"><p class="ico_facebook"></p></a></li>';
+    }else{
+    	html += '    <li><a href="javascript:void(0);" onclick="modalAlertShow(\'페이스북 주소가 연결되어 있지 않습니다.\', \'\');"><p class="ico_facebook"></p></a></li>';
     }
     //회원 인스타그램 url 유무
     if(data.mbrInstarUrl != null && data.mbrInstarUrl != ""){
-    	html += '    <li><a href="'+data.mbrInstarUrl+'"><p class="ico_instagram"></p></a></li>';
+    	html += '    <li><a href="'+data.mbrInstarUrl+'" target="_blank"><p class="ico_instagram"></p></a></li>';
+    }else{
+    	html += '    <li><a href="javascript:void(0);" onclick="modalAlertShow(\'인스타그램 주소가 연결되어 있지 않습니다.\', \'\');"><p class="ico_instagram"></p></a></li>';
     }
     //회원 유투브 url 유무
     if(data.mbrYoutubeUrl != null && data.mbrYoutubeUrl != ""){
-    	html += '    <li><a href="'+data.mbrYoutubeUrl+'"><p class="ico_youtube"></p></a></li>';
+    	html += '    <li><a href="'+data.mbrYoutubeUrl+'" target="_blank"><p class="ico_youtube"></p></a></li>';
+    }else{
+    	html += '    <li><a href="javascript:void(0);" onclick="modalAlertShow(\'유튜브 주소가 연결되어 있지 않습니다.\', \'\');"><p class="ico_youtube"></p></a></li>';
     }
     //회원 트위터 url 유무
     if(data.mbrTwitterUrl != null && data.mbrTwitterUrl != ""){
-    	html += '    <li> <a href="'+data.mbrTwitterUrl+'"><p class="ico_twitter"></p></a></li>';
+    	html += '    <li> <a href="'+data.mbrTwitterUrl+'" target="_blank"><p class="ico_twitter"></p></a></li>';
+    }else{
+    	html += '    <li><a href="javascript:void(0);" onclick="modalAlertShow(\'트위터 주소가 연결되어 있지 않습니다.\', \'\');"><p class="ico_twitter"></p></a></li>';
     }
     html += '  </ul>';
     html += '</div>';
     $(".myinfo_wrap").empty();
     $(".myinfo_wrap").append(html).trigger("create");
+    
+    var host = window.location.origin;
+    var url = "/otherPage/main?mbrSq="+data.mbrSq;
+    var location = host+url;
+    
+    $("#pageLinkCopy").val(location);
+    
 }
 
 //메뉴 리스트 펼치기
@@ -229,6 +245,27 @@ function listToggle(obj){
 		}
 		break;
 	}	
+
+}
+
+//자바슼릡트 프로필링크 복사하기 (타인페이지로 지정)
+function copy_to_clipboard() {
+	//복사할 타인페이지 ID엘리먼트 저장
+	var copyText = document.getElementById("pageLinkCopy");
+	
+	modalConfirm("프로필링크를 복사하시겠습니까? 타인에게 프로필 링크 공유 시 타인페이지로 호출됩니다.", 
+   		function(confirm){
+   			if(confirm){
+   				window.navigator.clipboard.writeText(copyText.value).then(() => { // writeText()의 인자로 넣은 텍스트가 복사된다.
+   				  // 복사가 완료되면 이 부분이 호출된다.
+   					modalAlertShow("프로필링크가 복사되었습니다.", "");
+   				});
+   			}
+		}
+	);
+	
+	
+	
 
 }
 
