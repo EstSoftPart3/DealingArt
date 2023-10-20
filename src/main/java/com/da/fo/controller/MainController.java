@@ -86,9 +86,23 @@ public class MainController {
 	public ModelAndView mainData(@RequestParam @Nullable Map<String, Object>  param) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsonView");
+		System.out.println("param1111"+param);
 		Map<String, Object> result = new HashMap<>();
 		result = mainService.openMain(param);
 		mv.addObject("mainData", result);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/main/selectBoa")
+	@ResponseBody
+	public ModelAndView selectBoa(@RequestParam @Nullable Map<String, Object>  param) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("jsonView");
+		System.out.println("param11112"+param);
+		String workSq = param.get("workSq").toString();
+		List<Map<String, Object>> boaList = mainService.selectBoa(workSq);
+		mv.addObject("boaList", boaList);
 		
 		return mv;
 	}

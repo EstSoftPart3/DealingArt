@@ -3618,7 +3618,7 @@
 	<select id="myPage_selectMbrNm" parameterType="String" resultType="String">
    		/*회원명 가져오기*/
    		SELECT 
-			MBR_NM
+			MBR_NCKNM
 		FROM 
 			TBL_DA_MBR_M
 		WHERE

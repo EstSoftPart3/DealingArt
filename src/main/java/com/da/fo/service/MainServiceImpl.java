@@ -123,4 +123,9 @@ public class MainServiceImpl implements MainService{
 		List<Map<String, Object>> result = mainDao.mainBoa();
 		return result;
 	}
+	
+	public List<Map<String, Object>> selectBoa(String workSq){
+		List<Map<String, Object>> result = mainDao.selectBoa(workSq);
+		return result;
+	}
 }

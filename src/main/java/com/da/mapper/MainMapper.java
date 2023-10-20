@@ -122,4 +122,6 @@ public interface MainMapper {
 	 * return :
 	 */
 	public List<Map<String, Object>> mainBoa();
+	
+	public List<Map<String, Object>> selectBoa(String workSq);
 }
