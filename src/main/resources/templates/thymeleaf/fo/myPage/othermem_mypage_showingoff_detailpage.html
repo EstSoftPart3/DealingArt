@@ -488,19 +488,33 @@
     	    		}
     	    		
     	    		if(key == "work") {
-    	    			html += '	<div class="btn_worksInfo_wrap">';
+    	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 70%; padding:5px;">';
     	    			//html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
-    		    		html += '		<button '+ (!showOffList.dealStatus ? "style='background: #626262;'" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
+    		    		html += '		<button '+ (!showOffList.dealStatus ? "style='background: #626262;'" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">';
+    		    		html += '			<span>판매 제안하기</span>';
+    	    			html += '		</button>';
     		    		html += '	</div>';
+    		    		html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 30%; padding:5px;">';
+    	    			html += '		<button type="button" style="background: #969696;" class="" id="suggestBtn" onclick="goBack();">';
+    	    			html += '			<span>목록</span>';
+     	    			html += '		</button>';
+    	    			html += '	</div>';
     	    		} else if(key == "deal") {
-    	    			html += '	<div class="bat-box">';
+    	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 40%; padding:5px;">';
     	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
     	    			html += '			<span>응찰하기</span>';
     	    			html += '		</button>';
+    	    			html += '	</div>';
+    	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 40%; padding:5px;">';
     	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="suggestBtn" onclick="openSuggestModal();">';
     	    			html += '			<span>요청하기</span>';
     	    			html += '		</button>';
     	    			html += '		<div class="clearboth"></div>';
+    	    			html += '	</div>';
+    	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 20%; padding:5px;">';
+    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="suggestBtn" onclick="goBack();">';
+    	    			html += '			<span>목록</span>';
+    	    			html += '		</button>';
     	    			html += '	</div>';
     	    		}
     	    		
@@ -1581,6 +1595,11 @@
 				}
 			});
 		}
+		
+		function goBack(){
+			location.href = "/community/worksList";
+		}
+
 	</script>
 	
 	<!-- 네이버 광고 로그분석 추적 코드 -->
