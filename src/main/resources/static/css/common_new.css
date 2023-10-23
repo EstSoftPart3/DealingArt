@@ -853,8 +853,23 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
     vertical-align: top;
 }
 .contents_showingoff_wrap .showingoff_con_left .con_r{display: table-cell;padding-left: 30px;position: relative;}
-.contents_showingoff_wrap .showingoff_con_left .con_r h4{font-size: 30px;font-weight: 500;}
-.contents_showingoff_wrap .showingoff_con_left .con_r p{margin-top: 20px;line-height: 25px;font-size: 16px;}
+.contents_showingoff_wrap .showingoff_con_left .con_r h4{
+	font-size: 30px;
+	font-weight: 500;
+	width: 420px;
+    height: 33px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.contents_showingoff_wrap .showingoff_con_left .con_r p{
+	margin-top: 20px;
+	line-height: 25px;
+	font-size: 16px;
+	width: 420px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
 .contents_showingoff_wrap .showingoff_con_left .con_r .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 90.8%;right: 0;}
 .contents_showingoff_wrap .showingoff_con_right{}
 .contents_showingoff_wrap .showingoff_con_right .img{
@@ -865,8 +880,23 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
     vertical-align: top;
 }
 .contents_showingoff_wrap .showingoff_con_right .con_r{display: table-cell;padding-left: 30px;position: relative;}
-.contents_showingoff_wrap .showingoff_con_right .con_r h4{font-size: 30px;font-weight: 500;}
-.contents_showingoff_wrap .showingoff_con_right .con_r p{margin-top: 20px;line-height: 25px;font-size: 16px;}
+.contents_showingoff_wrap .showingoff_con_right .con_r h4{
+	font-size: 30px;
+	font-weight: 500;
+	width: 420px;
+    height: 33px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.contents_showingoff_wrap .showingoff_con_right .con_r p{
+	margin-top: 20px;
+	line-height: 25px;
+	font-size: 16px;
+	width: 420px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
 .contents_showingoff_wrap .showingoff_con_right .con_r .btn_more{width: 100px;font-size: 20px;letter-spacing: -1.5px;color: #828282;background: url("../img/img_new/ico_more.png") 100% 6px no-repeat;text-align: left;position: absolute;top: 90.8%;right: 0;}
 
 .selling_price{border: #dedede 1px solid;padding: 27px;margin-top: 20px;}

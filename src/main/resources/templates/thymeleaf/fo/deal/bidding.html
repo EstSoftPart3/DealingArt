@@ -322,7 +322,7 @@
 	 		
 	 		</div>
         </div>
-		<div id="artstInfo" th:if="${not #strings.isEmpty(result.artistInfo.artstSq)}">	
+		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">
 			<div class="artist-wrap" style="position: relative;">
 				<div class="artist-box max-1500">
 					<div class="sub-title mg_t77">
@@ -1084,7 +1084,7 @@ var page = 1;
 searchMainData(page);
 
 jQuery(document).ready(function($){
-	showingOffData(); //김동희
+	/* showingOffData(); //김동희 */
 
 	if(isMobile) {
 		
@@ -1162,6 +1162,13 @@ function selectBoa(workSq){
         	workSq : workSq
         },
         success: function(data) {
+        	for(i=0; i<data.boaList.length; i++){
+	    		var content = data.boaList[i].comtContent;
+	    		content = content.replaceAll('</p>', '</p>\n')
+	    		var text = content.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi, "");
+	    		console.log("text"+text);
+	    		data.boaList[i].comtContent = text;
+	    	}
         	setBoaHtml(data);
         },
         error: function(error) {
@@ -1176,26 +1183,26 @@ function setBoaHtml(data) {
 	var boaHtml = '';
 	boaHtml += '	<div class="sub-title mg_t77"><h3>자랑하기</h3></div>';
 	boaHtml += '		<div class="contents_showingoff_wrap">';
-	boaHtml += '			<div class="showingoff_con_left">';
-	boaHtml += '				<div class="img">';
+	boaHtml += '			<div class="showingoff_con_left" style="width:50%">';
+	boaHtml += '				<div class="img" style="width:300px; height:300px">';
 	boaHtml += '					<img src="'+ boaList[0].comtImgUrl +'" alt="">';
 	boaHtml += '				</div>';
 	boaHtml += '				<div class="con_r">';
 	boaHtml += '					<h4>'+boaList[0].comtTitle+'</h4>';
 	boaHtml += '					<span class="day">'+boaList[0].regDt+'</span>';
-	boaHtml += '					<p>'+boaList[0].comtContent+'</p>';
+	boaHtml += '					<p class="comt_content">'+boaList[0].comtContent+'</p>';
 	boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[0].comtSq+')">더보기</button>';
 	boaHtml += '				</div>';
 	boaHtml += '			</div>';
 	if(boaList.length == 2){
-		boaHtml += '			<div class="showingoff_con_right">';
-		boaHtml += '				<div class="img">';
+		boaHtml += '			<div class="showingoff_con_right" style="width:50%">';
+		boaHtml += '				<div class="img" style="width:300px; height:300px">';
 		boaHtml += '					<img src="'+ boaList[1].comtImgUrl +'" alt="">';
 		boaHtml += '				</div>';
 		boaHtml += '				<div class="con_r">';
 		boaHtml += '					<h4>'+boaList[1].comtTitle+'</h4>';
 		boaHtml += '					<span class="day">'+boaList[1].regDt+'</span>';
-		boaHtml += '					<p>'+boaList[1].comtContent+'</p>';
+		boaHtml += '					<p class="comt_content">'+boaList[1].comtContent+'</p>';
 		boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[1].comtSq+')">더보기</button>';
 		boaHtml += '				</div>';
 		boaHtml += '			</div>';
@@ -1203,10 +1210,40 @@ function setBoaHtml(data) {
 	boaHtml += '		</div>';
 	boaHtml += '	</div>';
 	boaHtml += '</div>';
-	
+
    $("#boaContent_list").empty();
    $("#boaContent_list").append(boaHtml).trigger("create");
+   console.log("boaList[0].comtContent"+boaList[0].comtContent);
+   /* setContentText($(".comt_content")); */
 }
+
+//작성 글 내용 텍스트만 가져오기
+	function setContentText(content) {
+		debugger;
+		// ck에디터 태그 제외하기 위한 정규식
+		var regex = /ck-/;
+		$.each(content, function(idx, item) {
+			var childTags = $(item).children();
+			var text = "";
+
+			$.each(childTags, function(idx, item) {
+				var tagClasses = $(item).attr("class");
+				
+				// 클래스가 있을 경우
+				if(tagClasses) {
+					// ck-로 시작하는 클래스명이 없을 경우 텍스트를 가져옴
+					if(tagClasses.search(regex) === -1) {
+						text += $(item).text();
+					}
+				} else {
+					text += $(item).text();
+				}
+			});
+			console.log("text"+text)
+			$(item).html(text);
+		});
+	}
+	
 function openshowingOffDetail(sq){
 	location.href = "/community/showingOffDetail?SqNumber="+sq;
 }
