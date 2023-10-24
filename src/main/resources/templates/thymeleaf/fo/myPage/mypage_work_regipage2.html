@@ -2285,7 +2285,7 @@ function myWorkReg(){
 		}
 		
 	    formData.append("work", new Blob([JSON.stringify(work)], {type: "application/json"}));
-	    debugger;
+	    
 		modalConfirm("딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
     		function(confirm){
     			if(confirm){
