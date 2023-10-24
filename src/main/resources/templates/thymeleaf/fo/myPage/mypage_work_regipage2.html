@@ -109,7 +109,6 @@
 <body>
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
-		
 		<div class="body-wrap coll-mobile">
 		
 			<div class="contents max-1500">
@@ -136,6 +135,7 @@
 				
 					<div id="div_collection">
 						<form id="form_collection">
+						<input id="workSq" type="hidden"> 
 						<div class="med">
 							<h3 class="">작가 정보<em>* 작품 등록을 위한 필수 정보 입니다.</em></h3>
 						</div>
@@ -1707,6 +1707,9 @@ function selectWork(obj){
 			$("#COLLworkImgTopUrl1").removeAttr("src");
 			
 			var result = data.result;
+			if(result.workSq != '' && result.workSq != null){
+				$("#workSq").val(result.workSq);
+			}
 			work.artstSq = result.artstSq;
 			work.artstEnglsNm = result.artstEnglsNm;
 			$("#COLLartstActvtyNm").val(result.artstActvtyNm);
@@ -2152,6 +2155,8 @@ function checkValid(){
 }
 //나의 작품 등록
 function myWorkReg(){
+	
+	
 	var workTypCd = work.workTypCd;
 	if(checkValid()){
 		if(workTypCd == "COLL"){
@@ -2268,7 +2273,8 @@ function myWorkReg(){
 						formData.append("comtImgUrl", comtImgUrl.files[0]);
 					}
 				}
-				
+
+				work.workSq = $("#workSq").val();
 				work.comtOpenYn = "Y"; // 자랑하기 공개 여부
 				work.comtTitle = $("input[name="+ workTypCd +"comtTitle]").val(); //자랑하기 제목
 				work.comtContent = $("#" + workTypCd + "Editor").html(); //자랑하기 내용
@@ -2279,7 +2285,7 @@ function myWorkReg(){
 		}
 		
 	    formData.append("work", new Blob([JSON.stringify(work)], {type: "application/json"}));
-	
+	    debugger;
 		modalConfirm("딜링아트 내 검색/노출 될 수 있지만 소유자의 계정 또는 콜렉터명이 노출되지 않습니다. \n등록하시겠습니까?", 
     		function(confirm){
     			if(confirm){

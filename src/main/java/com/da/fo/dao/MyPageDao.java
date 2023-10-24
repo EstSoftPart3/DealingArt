@@ -264,9 +264,10 @@ public class MyPageDao {
 			}
 		}
 		
-		BigInteger re = (BigInteger)param.get("workSq");
+		//BigInteger re = (BigInteger)param.get("workSq");
+		int re = Integer.parseInt(String.valueOf(param.get("workSq")));
 		
-		return re.intValue();
+		return re;
 	}
 	
 	/*
@@ -614,13 +615,16 @@ public class MyPageDao {
 		String workTypCd = param.get("workTypCd").toString();
 		
 		// 작품 등록
-		if(workTypCd.equals("WORK")) {
-			result = myWorkReg(param);
-		} else if(workTypCd.equals("COLL")) {
-			result = collectionReg(param);
-		} else {
-			result = 0;
+		if(param.get("workSq") == "" || param.get("workSq") == null) {
+			if(workTypCd.equals("WORK")) {
+				result = myWorkReg(param);
+			} else if(workTypCd.equals("COLL")) {
+				result = collectionReg(param);
+			} else {
+				result = 0;
+			}
 		}
+		
 
 		// 자랑하기 등록
 		String comtOpenYn = (String) param.get("comtOpenYn");
@@ -637,6 +641,9 @@ public class MyPageDao {
 	 * return :
 	 */
 	public int myComtReg(Map<String, Object> param) {
+		
+		int workSq = Integer.parseInt(String.valueOf(param.get("workSq")));
+		param.put("workSq", workSq);
 		
 		// 커뮤니티 등록
 		int result = myPageMapper.myComtReg(param);
