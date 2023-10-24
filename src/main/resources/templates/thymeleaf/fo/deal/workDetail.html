@@ -86,7 +86,7 @@
 		  outline: 5px solid gray;
 		}
     </style>
-    
+    <link type="text/css" rel="stylesheet" href="/resources/css/common_new.css"/>
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
 </head>
 
@@ -94,6 +94,7 @@
 	<div class="wrap">
 		<th:block th:replace="thymeleaf/header :: headerFragment"></th:block>		
 		<div class="body-wrap">
+		<!-- 상세보기 -->
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
@@ -212,7 +213,12 @@
 					</div>
 				</div>
 			</div>
-				
+		<!-- 자랑하기 -->
+		<div id="artstInfo" >	
+	 		<div id="boaContent_list" class="artist-box max-1500">
+	 		
+	 		</div>
+        </div>
 		<div id="artstInfo" th:if="${not #maps.isEmpty(result.artistInfo)}">	
 			<div class="artist-wrap">
 				<div class="artist-box max-1500">
@@ -238,13 +244,14 @@
 			<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
 			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
 				<div class="cont-title2 max-1500">
-					<h3 th:text="${result.artistInfo.artstActvtyNm} + '의 다른 작품'">이 용은작가의 다른 작품</h3>
+					<h3 th:text="${result.artistInfo.artstActvtyNm} + '님의 다른 작품 보기'">이 용은작가의 다른 작품</h3>
 					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
 				</div>
 				
 					<div class="swi-box1 max-1500">
 						<div class="swiper mySwiper2">
 							<div class="swiper-wrapper"  id="swiper_workList">
+							
 							</div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
@@ -256,21 +263,24 @@
 			
 			<!-- 자랑하기가 없는 작품일 경우 보여주지 않는 영역 -->
 			<!-- 2023.10.12일 홍충기 추가 -->
-			<div class="contents conbg" th:if="${not #maps.isEmpty(result.showoffList)}">
+			<!-- <div class="contents conbg" th:if="${not #maps.isEmpty(result.showoffList)}">
 				<div class="cont-title2 max-1500">
 					<h3>이 작품의 자랑하기</h3>
 				</div>
 				
 					<div class="swi-box1 max-1500">
 						<div class="swiper mySwiper2">
-							<div class="swiper-wrapper"  id="swiper_showoffList"></div>
+							<div class="swiper-wrapper"  id="swiper_showoffList">
+							
+							</div>
 							<div class="swiper-pagination swpa-2 pc-no"></div>
 						</div>
 						<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
 						<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
 					</div>
 				</th:block>
-			</div>
+			</div> -->
+			
 			<!-- 영역 끝 -->
 		</div>
 	</div>
@@ -720,9 +730,9 @@
 <script th:inline="javascript">
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-
-jQuery(document).ready(function($){
-     
+var result = /*[[${result}]]*/ 'default';
+jQuery(document).ready(function($){ //function($)
+    
 	if(isMobile) {
 		
 		var baseW = $(window).width();
@@ -741,6 +751,7 @@ jQuery(document).ready(function($){
 		$(".ellipsis").css('padding',20);
     }
 	workList();
+	selectBoa(result.work.workSq);
 	
 	//2023.10.13일 홍충기 추가
 	fn_ShowoffList(); // 해당 작품의 자랑하기 목록	
@@ -748,9 +759,9 @@ jQuery(document).ready(function($){
 	
 });
 
+
 $('.selectpicker').selectpicker('render');
 
-var result = /*[[${result}]]*/ 'default';
 //호수 안내 팝업 오픈
 function openLakeHelp(){
 	$('body').css("overflow", "hidden");
@@ -762,20 +773,114 @@ function closeLakeHelp(){
 	$('body').css("overflow", "scroll");
 	$("#lakeHelpModal").modal("hide");
 }
+
+function selectBoa(workSq){
+	$.ajax({
+        type: "post",
+        url: "/main/selectBoa",
+        data: {
+        	workSq : workSq
+        },
+        success: function(data) {
+        	for(i=0; i<data.boaList.length; i++){
+	    		var content = data.boaList[i].comtContent;
+	    		content = content.replaceAll('</p>', '</p>\n')
+	    		var text = content.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi, "");
+	    		//console.log("text"+text);
+	    		data.boaList[i].comtContent = text;
+	    	}
+        	setBoaHtml(data);
+        },
+        error: function(error) {
+            alert("오류 발생" + error);
+        }
+	});
+}
+
+//자랑하기 html 생성
+function setBoaHtml(data) {
+	var boaList = data.boaList;
+	var boaHtml = '';
+	boaHtml += '	<div class="sub-title mg_t77"><h3>자랑하기</h3></div>';
+	boaHtml += '		<div class="contents_showingoff_wrap">';
+	boaHtml += '			<div class="showingoff_con_left">';
+	boaHtml += '				<div class="img">';
+	boaHtml += '					<img src="'+ boaList[0].comtImgUrl +'" alt="">';
+	boaHtml += '				</div>';
+	boaHtml += '				<div class="con_r">';
+	boaHtml += '					<h4>'+boaList[0].comtTitle+'</h4>';
+	boaHtml += '					<span class="day">'+boaList[0].regDt+'</span>';
+	boaHtml += '					<p>'+boaList[0].comtContent+'</p>';
+	boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[0].comtSq+')">더보기</button>';
+	boaHtml += '				</div>';
+	boaHtml += '			</div>';
+	if(boaList.length == 2){
+		boaHtml += '			<div class="showingoff_con_right">';
+		boaHtml += '				<div class="img">';
+		boaHtml += '					<img src="'+ boaList[1].comtImgUrl +'" alt="">';
+		boaHtml += '				</div>';
+		boaHtml += '				<div class="con_r">';
+		boaHtml += '					<h4>'+boaList[1].comtTitle+'</h4>';
+		boaHtml += '					<span class="day">'+boaList[1].regDt+'</span>';
+		boaHtml += '					<p>'+boaList[1].comtContent+'</p>';
+		boaHtml += '					<button class="btn_more" onclick="openshowingOffDetail('+boaList[1].comtSq+')">더보기</button>';
+		boaHtml += '				</div>';
+		boaHtml += '			</div>';
+	}
+	boaHtml += '		</div>';
+	boaHtml += '	</div>';
+	boaHtml += '</div>';
+	
+   $("#boaContent_list").empty();
+   $("#boaContent_list").append(boaHtml).trigger("create");
+}
+
+function openshowingOffDetail(sq){
+	location.href = "/community/showingOffDetail?SqNumber="+sq;
+}
+
 //작가의 다른 작품 리스트
 function workList(){
 	if(result.workList.length > 0){
 		$("#swiper_workList").empty();
 		var html = '';
 		for(var i=0; i<result.workList.length; i++){
+			html +='<div class="swi-box1 max-1500">';
+			html +='	<div class="swiper-slide hd-div">';
+			html +='		<a href="/deal/workDetail?SqNumber='+result.workList[i].workSq+'">';
+			html +='			<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
+			html +='			<div class="hd-text">';
+			html +='				<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" >'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
+			html +='				<br/>소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth+'cm</div>';
+     	   	html +='			</div>';
+     	  	html +='		</a>';
+     	 	html +='	</div>';
+     	 	html +='</div>';
+     	 	if (i==3) {
+				break;
+			}
+		}
+		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+
+//작가의 다른 작품 리스트(원)
+/*
+function workList(){
+	if(result.workList.length > 0){
+		$("#swiper_workList").empty();
+		var html = '';
+		for(var i=0; i<result.workList.length; i++){
 			html +='<div class="swiper-slide hd-div">';
-			html +='	<a href="/deal/workDetail?SqNumber='+work.workList[i].workSq+'">';
+			html +='	<a href="/deal/workDetail?SqNumber='+result.workList[i].workSq+'">';
 			html +='		<img src="'+result.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
 			html +='		<div class="hd-text">';
 			html +='			<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
 			html +='			<div class="hd-d1" >'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
 			html +='			<br/>소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth+'cm</div>';
-				/* if(mainHotest[i].dealTypCd == "A"){
+			--주석처리--
+				if(mainHotest[i].dealTypCd == "A"){
 					if(mainHotest[i].maxBidPrc == null || mainHotest[i].maxBidPrc == ""){
 						hotestHtml +='			<div class="hd-d2">시작가 '+mainHotest[i].dealStrtPrc+' 원</div>';
 					}else{
@@ -784,7 +889,8 @@ function workList(){
      	    }
      	    if(mainHotest[i].dealTypCd == "S"){
 					hotestHtml +='			<div class="hd-d2">판매가 '+mainHotest[i].dealFinalPrc+' 원</div>';
-     	    } */
+     	    }
+     	    --주석처리--
      	   	html +='		</div>';
      	  	html +='	</a>';
      	 	html +='</div>';
@@ -792,6 +898,7 @@ function workList(){
 		$("#swiper_workList").append(html).trigger("create");
 	}
 }
+*/
 
 // 2023.10.12일 홍충기 추가
 //작품의 자랑하기 목록

@@ -197,7 +197,7 @@
     	    		work = data.result.work;
     	    		list = deal || work;
 
-    				setShowOffDtlInfoHtml();
+    	    		setShowOffDtlInfoHtml();
     				setWorkInfoHtml();
     				
     				if(list.artistInfo) {
@@ -240,7 +240,6 @@
     		var comtTitle = $(".works_showingoff_detail_page_wrap > h3");
     		var userWrap = $(".user_wrap");
     		var comtContent = $(".picture_detail");
-    		
     		var comtImgUrlHtml = '<img src="'+ showOff.comtImgUrl +'" alt="" style="height: 500px; object-fit: contain;">';
     		comtImgUrl.append(comtImgUrlHtml).trigger("create");
     		
@@ -561,7 +560,7 @@
   			myPageWrap.append(html).trigger("create");
     	}
     	
-    	//작가의 다른 자랑하기 리스트
+    	//작가의 다른 작품 리스트
     	function workList(work, words){
     		var artstInfo = list["artistInfo"];
     		var myPageWrap = $(".mypage_wrap");
@@ -573,17 +572,17 @@
     		if(work.workList.length > 0){
     			var html = '';
     			for(var i=0; i<work.workList.length; i++){
-    				html +='	<div class="swi-box1 max-1500">';
+    				html +='<div class="swi-box1 max-1500">';
     				html +='	<div class="swiper-slide hd-div">';
-    				html +='	<a href="/deal/workDetail?SqNumber='+work.workList[i].workSq+'">';
-    				html +='		<img src="'+work.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
-    				html +='		<div class="hd-text">';
-    				html +='			<h4 style="height:100px;">'+work.workList[i].artstActvtyNm+'('+work.workList[i].artstBirthYear+')</h4>';
+    				html +='		<a href="/deal/workDetail?SqNumber='+work.workList[i].workSq+'">';
+    				html +='			<img src="'+work.workList[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
+    				html +='			<div class="hd-text">';
+    				html +='				<h4 style="height:100px;">'+work.workList[i].artstActvtyNm+'('+work.workList[i].artstBirthYear+')</h4>';
     				html +='			<div class="hd-d1" >'+work.workList[i].workNm+'('+work.workList[i].workProdcYear+')';
-    				html +='			<br/>소재 '+work.workList[i].workMatrl+', '+work.workList[i].workSizeWidth+' x '+work.workList[i].workSizeDepth+'cm</div>';
-    	     	   	html +='		</div>';
-    	     	  	html +='	</a>';
-    	     	 	html +='	</div>';
+    				html +='				<br/>소재 '+work.workList[i].workMatrl+', '+work.workList[i].workSizeWidth+' x '+work.workList[i].workSizeDepth+'cm</div>';
+    	     	   	html +='			</div>';
+    	     	  	html +='		</a>';
+    	     	 	html +='	</div';
     	     	 	html +='	</div';
     	     	 	html +='</div>';
     				if (i==3) {

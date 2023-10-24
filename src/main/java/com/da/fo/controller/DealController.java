@@ -30,7 +30,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.da.common.AwsS3Service;
+import com.da.fo.service.CommunityService;
 import com.da.fo.service.DealService;
+import com.da.fo.service.MainService;
 import com.da.fo.service.MemberService;
 import com.da.fo.service.MyPageService;
 import com.da.mapper.DealMapper;
@@ -50,6 +52,12 @@ public class DealController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private MainService mainService;
+	
+	@Autowired
+	private CommunityService communityService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -296,6 +304,10 @@ public class DealController {
 	public ModelAndView workDetail(@RequestParam(value="SqNumber", required=false) String workSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/workDetail");
 		Map<String, Object> result = dealService.workDetail(workSq);
+		
+		List<Map<String, Object>> boaList = mainService.selectBoa(workSq);
+		mv.addObject("boaList", boaList);
+		
 		mv.addObject("result", result);
 		return mv;
 	}
@@ -304,6 +316,7 @@ public class DealController {
 	@ResponseBody
 	public ModelAndView soldoutDetail(@RequestParam(value="SqNumber", required=false) String dealSq) {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/soldoutDetail");
+		
 		Map<String, Object> result = dealService.soldoutDetail(dealSq);
 		mv.addObject("result", result);
 		return mv;

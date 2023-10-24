@@ -45,7 +45,7 @@
 			ON 	A.ARTST_SQ = C.ARTST_SQ 
 		INNER JOIN 
 				TBL_DA_DEAL_M AS D
-			ON 	A.WORK_SQ = D.WORK_SQ 
+			ON 	A.WORK_SQ = D.WORK_SQ
 		WHERE
 				D.DEAL_STRT_DT <![CDATA[<=]]> NOW()
 				AND A.WORK_OPEN_YN = 'Y' /*작품 공개 여부*/
@@ -478,15 +478,15 @@
 		     , FORMAT(A.WORK_PRC, 0)        AS workPrc
 		     , B.MBR_NCKNM                  AS mbrNcknm
 		     , A.WORK_STATE                 AS workState
-		     , IFNULL(C.COMT_SALES_YN, 'N') AS salesYn       /* 작품 판매 가능 여부 2023.10.12일 홍충기 추가*/
+		     <!-- , IFNULL(C.COMT_SALES_YN, 'N') AS salesYn       /* 작품 판매 가능 여부 2023.10.12일 홍충기 추가*/ -->
 		  FROM TBL_DA_WORK_M  AS A
 		 INNER JOIN
 		       TBL_DA_MBR_M   AS B
 		    ON A.MBR_SQ  = B.MBR_SQ
-		  LEFT OUTER JOIN 
+		  <!-- LEFT OUTER JOIN 
 		       TBL_DA_COMT_M  AS C     /* 공통코드 2023.10.12일 홍충기 추가 - 작품 판매 가능 여부 확인 */
 		    ON A.MBR_SQ  = B.MBR_SQ
-		   AND A.WORK_SQ = C.WORK_SQ 
+		   AND A.WORK_SQ = C.WORK_SQ  -->
 		 WHERE 1=1
 		   AND A.WORK_SQ = #{workSq}
 		   AND A.DEL_YN  = 'N' /*작품 삭제 여부 확인 */
