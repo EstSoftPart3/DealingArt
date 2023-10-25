@@ -136,12 +136,12 @@
                                  <td>
                                     <div class="getting_sale_offer" style="padding: 0;">
                                        <div class="toggle-switch">
-                                                     <input type="checkbox" id="chkTog1" name="snsYn" value="Y">
-                                                     <label for="chkTog1">
-                                                         <span class="toggle-track"></span>
-                                                     </label>
-                                                 </div>
-                                              </div>
+                                            <input type="checkbox" id="chkTog1" name="snsYn" value="Y">
+                                            <label for="chkTog1">
+                                                <span class="toggle-track"></span>
+                                            </label>
+                                        </div>
+                                     </div>
                                  </td>
                               </tr>
                               <tr>
@@ -165,7 +165,7 @@
                               </tr>
                               <tr>
                                  <th><span class="my-red">제목</span></th>
-                                 <td><input type="text" class="input-4" name="title" placeholder="제목" value="이것은 제목에 대한 테스트를 위한 value 데이터 입니다."/></td>
+                                 <td><input type="text" class="input-4" name="title" placeholder="제목"/></td>
                               </tr>
                               <tr>
                                  <td colspan="2">
@@ -186,18 +186,15 @@
                      </div>
                   </div>
                </div>
-               <!-- 2023.10.12 홍충기 - 버튼 이미지 변경 -->            
-               <div class="btn_regi_area">
-                  <ul>
-                     <li><button type="button" class="registration" onclick="myknowhowReg()"><span>등록</span></button></li>
-                     <li><button type="button" onclick="myknowhowStorage()"><span>임시저장</span></button></li>
-                     <li><button type="button" onclick="issuePreview()"><span>미리보기</span></button></li>
-                     <li><button type="button" onclick="javascript:history.back();"><span>취소</span></button></li>
-                  </ul>
+               <!-- 2023.10.12 홍충기 - 버튼 이미지 변경 -->                     
+               <div class="bat-box5">
+               	   <button type="button" class="ba-btn1" onclick="myknowhowReg()"><span>등록</span></button>
+                   <button type="button" class="ba-btn3" onclick="myknowhowStorage()"><span>임시저장</span></button>
+                   <button type="button" class="ba-btn3" onclick="issuePreview()"><span>미리보기</span></button>
+                   <button type="button" class="ba-btn3" onclick="goBack()"><span>취소</span></button>
                </div>
             </div>
          </div>
-
       </div>
       <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
    </div>
@@ -666,6 +663,11 @@
       
       $("body").css("overflow", "scroll");
       $("#lp_mgz9Dtl_insight").modal("hide");
+   }
+    
+   //뒤로가기
+   function goBack(){
+	   location.href = "/myPage/issue";
    }
     
    </script>
