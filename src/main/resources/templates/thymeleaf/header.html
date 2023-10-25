@@ -157,7 +157,7 @@
 					<span><a href="/main/joinStep1">JOIN</a></span>
 					
 <!-- 					<span style="cursor:pointer;" onclick="javascript:fnModalAlert();">JOIN</span> -->
-				</div>
+				</div> 
 				
 				<!-- 로그인후 -->
 				<div class="login-show h-img" id="loginAf" style="display:none;">
@@ -219,8 +219,13 @@
 					<span class="sog-2" onclick="javascript:history.back();"><a href="javascript:void(0);"><img src="/resources/img/icon-1.png" /></a></span>
 					<!-- <span class="sog-4 myCollection"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>-->
 					<span class="sog-3 lg-my2"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>
+
 					<span class="sog-4" onclick="mbmypage()"><a><img src="/resources/img/icon-8.png" /></a></span>
-					<span class="sog-5 lg-my"><a href="#"><img src="/resources/img/icon-8.png" /></a></span>
+
+					<!-- 모바일 알람 아이콘 추가   -->
+					<span class="sog-6 mobileMyAlarm"><a href="javascript:void(0);" ><img src="/resources/img/icon-1.png"  /></a></span> 
+					
+					<span class="sog-5 lg-my"><a href="#"><img src="/resources/img/icon-8.png" /></a></span> 
 					<div class="s-hov" id="loginAfMB">
 						<ul>
 							<!-- <li><a href="javascript:void(0);" class="myCollection"><img src="/resources/img/ic-1.jpg" /><span>마이 페이지</span></a></li> -->
@@ -1909,6 +1914,23 @@ $(document).on("click", ".myAlarm", function(){
 	loginCheckUrl(requestUrl);
 });
 
+
+// 모바일 알람 클릭 이벤트 추가 
+$(document).on("click", ".mobileMyAlarm", function () {
+    //로그인 여부를 확인하는 부분을 참조하여 추가
+    if (sMbrSqVal != null && sMbrSqVal !== "") {
+            if (confirm) {
+                location.href = "/myPage/notis";
+            }
+       
+    } else {
+        modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+        // 로그인하지 않았으므로 이벤트를 중지하여 기본 동작(링크 이동)을 방지
+        return false;
+    }
+});
+
+ 
 $(document).on("click", ".myWorkList", function(){
 	
 	 if(!isMobile){
