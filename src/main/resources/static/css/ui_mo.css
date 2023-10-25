@@ -1519,19 +1519,17 @@ columns2 figure {
 
 .sea-won2 {
     width: 100%;
-    max-width: 580px;
+    max-width: 355px;
     height: 50px;
-    margin: 100px auto 124px auto;
+    margin: 60px auto 40px auto;
     border-radius: 50px;
     border: #dadada 1px solid;
-    display: none;
 }
 .sea-won2 input {
     width: 100%;
-    max-width: 500px;
+    max-width: 280px;
     height: 50px;
     font-size: 14px;
-    padding-left: 6px;
     background: rgb(255 255 255 / 0%);
     border: none;
     padding-left: 27px;
@@ -1539,9 +1537,10 @@ columns2 figure {
 
 .sea-won2 a {
     width: auto;
-    display: inline-block;
     text-align: center;
     margin: 0 20px;
+    padding-top: 10px;
+    position: absolute;
 }
 
 
@@ -6277,10 +6276,14 @@ p.dib{display:inline-block !important;}
     position: absolute;
     left: 50%;
     top: 50%;
-    display: block;
+    /* display: block; */
     cursor: pointer;
     transform: translate(-50%, -50%);
     }
+
+
+    
+    
     
 .sog-5{}
 .sog-5:after{

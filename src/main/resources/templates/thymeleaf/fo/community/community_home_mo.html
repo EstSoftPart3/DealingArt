@@ -112,7 +112,7 @@
                     <li><a href="/community/eventMobile">이벤트</a></li>   
                 </ul>
             </div>
-            <button class="btn_recording" onclick="location.href='/myPage/myPageMobile'">기록하기</button>
+            <button class="btn_recording" onclick="btnRecording()">기록하기</button>
             <div class="community_visual_wrap">
                 <div class="community_visual"><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
                 <div class="community_visual_event">
@@ -290,6 +290,16 @@
 			html += "</li>";
 		});
 		return html;
+	}
+	
+	// 기록하기 로그인 후 사용
+	function btnRecording(sqNumber) {
+		if(sMbrSqVal == null || sMbrSqVal == ""){
+			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+			return;
+		} else {
+			location.href = '/myPage/myPageMobile';
+		}
 	}
 	
 	// 더보기 클릭 이벤트

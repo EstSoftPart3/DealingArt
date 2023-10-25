@@ -1621,10 +1621,6 @@ columns2 figure {
 .con-btn a img{}
 
 
-
-
-
-
 .sea-won2 {
     width: 100%;
     max-width: 580px;
@@ -1633,6 +1629,7 @@ columns2 figure {
     border-radius: 50px;
     border: #dadada 1px solid;
 }
+
 .sea-won2 input {
     width: 100%;
     max-width: 500px;
@@ -1647,6 +1644,7 @@ columns2 figure {
 .sea-won2 a {
     width: auto;
     display: inline-block;
+    vertical-align: middle;
     text-align: center;
     margin: 0 20px;
 }

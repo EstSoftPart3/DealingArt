@@ -217,10 +217,9 @@
 				<div class="login-show2 h-img">
 					<span class="sog-1" onclick="javascript:location.href='/main'"><a href="javascript:void(0);"><img src="/resources/img/icon-1.png" /></a></span>
 					<span class="sog-2" onclick="javascript:history.back();"><a href="javascript:void(0);"><img src="/resources/img/icon-1.png" /></a></span>
+					<!-- <span class="sog-4 myCollection"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>-->
 					<span class="sog-3 lg-my2"><a href="#"><img src="/resources/img/icon-1.png" /></a></span>
-					<!-- <span class="sog-4 myCollection"><a href="#"><img src="/resources/img/icon-1.png" /></a></span> -->
-					<span class="sog-4 leftNavMobile"><a href="/myPage/leftNavMobile"><img src="/resources/img/icon-1.png" /></a></span>
-					
+					<span class="sog-4" onclick="mbmypage()"><a><img src="/resources/img/icon-8.png" /></a></span>
 					<span class="sog-5 lg-my"><a href="#"><img src="/resources/img/icon-8.png" /></a></span>
 					<div class="s-hov" id="loginAfMB">
 						<ul>
@@ -1890,6 +1889,16 @@ $(document).on("click", ".myWork", function(){
 	}
 });
 
+function mbmypage(sqNumber) {
+	if(sMbrSqVal == null || sMbrSqVal == ""){
+		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		return;
+	}else{
+		requestUrl = "/myPage/leftNavMobile";
+		loginCheckUrl(requestUrl);
+	}
+}
+
 $(document).on("click", ".myCollection", function(){
 	requestUrl = "/myPage/myCollection";
 	loginCheck(requestUrl,sMbrSqVal);
@@ -1915,11 +1924,12 @@ $(document).on("click", ".myPage", function(){
 	loginCheck(requestUrl,"");
 });
 
+/*
 $(document).on("click", ".leftNavMobile", function(){
 	requestUrl = "/myPage/leftNavMobile";
 	loginCheckUrl(requestUrl);
-	
 });
+*/
 
 $(document).on("click", ".scrap", function(){
 	requestUrl = "/myPage/scrap";
@@ -1934,6 +1944,7 @@ function workReg(){
 function collectionReg(){
 	loginCheckUrl(requestUrl);
 };
+
 //Input Box Null Check
 function isEmpty(str){
     
