@@ -163,7 +163,9 @@
    	var endDate = '';
 	var comtWorkShpCd = '';
 	var comtSq;
-   	
+	var listLength = 0;
+   	var totalCount = 1;
+	
    	$(document).ready(function(){
    		// 리스트 데이터 뿌려주기
    		communityWorksList();
@@ -202,80 +204,96 @@
 
    	// 커뮤니티 작품 데이터 화면에 뿌려주기
    	function communityWorksList(){
-   		var param = {
-   				comtTypCd: 'BOA',
-   				offset: offset,
-   				comtSort: comtSort, 
-   				comtWorkShpCd: comtWorkShpCd,
-   				startDate: startDate,
-   				endDate: endDate,
-   				limit: 12
-   		};
-   		
-   		$.ajax({
-   			type: "POST",
-   			url: "/community/communityListData",
-   			data: param,
-   		    success : function(response){
-   		    	console.log(response.result);
-   				workHtml(response.result);
-   			},
-   			error : function(response){
-   				console.log(response);
-   			}
-   		});
+   		if(totalCount != listLength){
+   			var param = {
+   	   				comtTypCd: 'BOA',
+   	   				offset: 0,
+   	   				comtSort: comtSort, 
+   	   				comtWorkShpCd: comtWorkShpCd,
+   	   				startDate: startDate,
+   	   				endDate: endDate,
+   	   				limit: offset + 12
+   	   		};
+   	   		
+   	   		$.ajax({
+   	   			type: "POST",
+   	   			url: "/community/communityListData",
+   	   			data: param,
+   	   		    success : function(response){
+   	   		    	console.log(response.result);
+   	   		   		listLength = response.result.length;
+   	   		   		totalCount = response.totalCount.totalCount;
+   	   				workHtml(response.result);
+   	   			},
+   	   			error : function(response){
+   	   				console.log(response);
+   	   			}
+   	   		});
 
-   		offset += 12;
+   	   		offset += 12;
+   		}else{
+     		modalAlertShow("검색 결과가 없습니다."); 
+     		//$(".workspic_wrap .workspic_row").remove();
+     	}
+   		
    	}
    	
    	function workHtml(list){
    		var strHtml = '';
+   		if(list.length > 0){
+   			var rowYn = 'Y';
+   			list.forEach(function(work, idx){
+   	   			var cnt = idx + 1;
+   	   			
+   	   			//if(cnt == 1 || cnt % 5 == 0) { // 이형태일 경우 데이터 3번째 줄에서 in을 못함.
+   	   			if(cnt == 1 || rowYn == 'Y') {
+   		   			strHtml += '<div class="workspic_row">';
+   		   			strHtml += '	<ul id="worksBox">';
+   		   			rowYn = 'N';
+   	   			}
+   	   			
+   	   			strHtml += '		<li id="work_'+ work.comtSq +'">';
+   	            strHtml += '    		<div class="works_pic">';
+   	            strHtml += '        		<div class="header">';
+   	            
+   	            if(null != work.mbrProfileImgUrl){
+   	            	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
+   	            } else {
+   		            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
+   	            }
+   	            
+   	            strHtml += '            		<ul class="user_name">';
+   	            strHtml += '                		<li><a href="/otherPage/main?mbrSq='+ work.mbrSq +'"><span>'+ work.mbrNcknm +'</span></a></li>';
+   	            strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
+   	            strHtml += '            		</ul>';
+   	            strHtml += '        		</div>';
+   	            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+   	            strHtml += '        		<div class="icon_box">';
+   	            strHtml += '           			<ul>';
+   	            strHtml += '                		<li><p class="ico_good" onclick="likeCheckYn(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtLikes +'</span></li>';
+   	            strHtml += '                		<li><p class="ico_scrap" onclick="scrapCheck(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtScraps +'</span></li>';
+   	            strHtml += '                		<li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
+   	            strHtml += '                		<li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
+   	            strHtml += '            		</ul>';
+   	            strHtml += '        		</div>';
+   	            strHtml += '        		<div class="text ellipsis-w-360">'+ work.comtTitle +'</div>';
+   	            strHtml += '    		</div>';
+   	            strHtml += '		</li>';
+   	            
+   	            if(cnt != 1 && cnt % 4 == 0 || list.length == cnt) {
+   		   			strHtml += '	</ul>';
+   		            strHtml += '</div>';
+   		         	rowYn = 'Y';
+   	            }
+   	   		});
+   	   		
+   	   		$(".workspic_wrap .workspic_row").remove();
+   	   		$(".workspic_wrap").prepend(strHtml);
+   		}else{
+     		modalAlertShow("검색 결과가 없습니다."); 
+     		//$(".workspic_wrap .workspic_row").remove();
+     	}
    		
-   		list.forEach(function(work, idx){
-   			var cnt = idx + 1;
-   			
-   			//if(cnt == 1 || cnt % 5 == 0) { // 이형태일 경우 데이터 3번째 줄에서 in을 못함.
-   			if(cnt == 1 || cnt == 5 || cnt == 9) { // 12개로 고정이므로 1, 5, 9 로 고정값으로 넣어놓음.
-	   			strHtml += '<div class="workspic_row">';
-	   			strHtml += '	<ul id="worksBox">';
-   			}
-   			
-   			strHtml += '		<li id="work_'+ work.comtSq +'">';
-            strHtml += '    		<div class="works_pic">';
-            strHtml += '        		<div class="header">';
-            
-            if(null != work.mbrProfileImgUrl){
-            	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
-            } else {
-	            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';
-            }
-            
-            strHtml += '            		<ul class="user_name">';
-            strHtml += '                		<li><a href="/otherPage/main?mbrSq='+ work.mbrSq +'"><span>'+ work.mbrNcknm +'</span></a></li>';
-            strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
-            strHtml += '            		</ul>';
-            strHtml += '        		</div>';
-            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
-            strHtml += '        		<div class="icon_box">';
-            strHtml += '           			<ul>';
-            strHtml += '                		<li><p class="ico_good" onclick="likeCheckYn(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtLikes +'</span></li>';
-            strHtml += '                		<li><p class="ico_scrap" onclick="scrapCheck(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtScraps +'</span></li>';
-            strHtml += '                		<li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
-            strHtml += '                		<li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
-            strHtml += '            		</ul>';
-            strHtml += '        		</div>';
-            strHtml += '        		<div class="text ellipsis-w-360">'+ work.comtTitle +'</div>';
-            strHtml += '    		</div>';
-            strHtml += '		</li>';
-            
-            if(cnt != 1 && cnt % 4 == 0 || list.length == cnt) {
-	   			strHtml += '	</ul>';
-	            strHtml += '</div>';
-            }
-   		});
-   		
-   		$(".workspic_wrap .workspic_row").remove();
-   		$(".workspic_wrap").prepend(strHtml);
    	}
    	
 	// 좋아요 체크 여부 조회

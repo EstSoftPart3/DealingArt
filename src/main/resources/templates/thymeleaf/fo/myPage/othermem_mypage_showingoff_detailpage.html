@@ -1446,7 +1446,7 @@
 		        },
 		        success: function(data) {
 		        	if(sMbrSqVal == null) {
-						modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
+		        		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 					} else {
 			        	if(data > 0){
 			        		if(confirm("스크랩 목록에서 '제거'하시겠습니까?")){
@@ -1518,45 +1518,41 @@
  		// 좋아요 체크여부 확인, 추가, 취소 함수 추가해도 적용이 안됌.
  		function likeCheck() {
  			let likeBtn = document.querySelector(".ico_good");
-			if(sMbrSqVal == null) {
-				modalAlertShow("로그인 된 회원만 이용 할 수 있습니다.");
-			} else {
-				var param = new Object();
-				var element = $(this);
-				param.comtSq = comtSq;
-				param.mbrSq = sMbrSqVal;
-				if($(this).hasClass("on")){
-					$.ajax({
-				        type: "post",
-				        url: "/member/myPage/likeCnt",
-				        data: param,
-				        success: function(data) {
-				        	if(data == 0) {
-				        		//likeCheckYn();
-				        	}
-				        },
-				        error: function(error) {
-				            alert("오류 발생" + error);
-				        }
-					});
-				}else{
-					$.ajax({ 
-				        type: "post",
-				        url: "/member/myPage/likeCnt",
-				        data: param,
-				        success: function(data) {
-				        	if(data > 0){
-				        		//likeCheckYn();
-				        	}else{
-				        		modalAlertShow("좋아요 취소 실패");
-				        	}
-				        },
-				        error: function(error) {
-				            alert("오류 발생" + error);
-				        }
-					});
-				}
-				}
+ 			var param = new Object();
+			var element = $(this);
+			param.comtSq = comtSq;
+			param.mbrSq = sMbrSqVal;
+			if($(this).hasClass("on")){
+				$.ajax({
+			        type: "post",
+			        url: "/member/myPage/likeCnt",
+			        data: param,
+			        success: function(data) {
+			        	if(data == 0) {
+			        		//likeCheckYn();
+			        	}
+			        },
+			        error: function(error) {
+			            alert("오류 발생" + error);
+			        }
+				});
+			}else{
+				$.ajax({ 
+			        type: "post",
+			        url: "/member/myPage/likeCnt",
+			        data: param,
+			        success: function(data) {
+			        	if(data > 0){
+			        		//likeCheckYn();
+			        	}else{
+			        		modalAlertShow("좋아요 취소 실패");
+			        	}
+			        },
+			        error: function(error) {
+			            alert("오류 발생" + error);
+			        }
+				});
+			}
 			}
 			
 		// 좋아요 체크 여부 조회
@@ -1570,15 +1566,20 @@
 					comtSq : sqNumber,
 				},
 				success : function(data) {
-					if (data > 0) {
-						if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
-							likeDel(sqNumber);
-						}
-					} else {
-						if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
-							likeAdd(sqNumber);
+					if(sMbrSqVal == null) {
+		        		modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+					}else{
+						if (data > 0) {
+							if (confirm("해당 게시물에 좋아요를 취소하시겠습니까?")) {
+								likeDel(sqNumber);
+							}
+						} else {
+							if (confirm("해당 게시물에 좋아요를 추가하시겠습니까?")) {
+								likeAdd(sqNumber);
+							}
 						}
 					}
+					
 				},
 				error : function(error) {
 					alert("오류 발생" + error);
