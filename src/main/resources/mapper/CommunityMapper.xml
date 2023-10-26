@@ -214,6 +214,9 @@
 		ORDER BY
 				COMT.REG_DT ASC
 		</if>
+		<if test="comtSort == '' || comtSort == null">
+		ORDER BY COMT.REG_DT DESC
+		</if>
 		<if test="offset != null">
 		LIMIT
 				#{limit}

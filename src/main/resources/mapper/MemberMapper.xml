@@ -109,6 +109,10 @@
 			,MBR_AGE_LIST  AS mbrageList
 			,MBR_JOB_LIST  AS mbrjobList   
 			,MBR_INTRO  AS mbrintro
+			,MBR_FACEBOOK_URL AS mbrFacebookUrl
+			,MBR_INSTAR_URL AS mbrInstarUrl
+			,MBR_YOUTUBE_URL AS mbrYoutubeUrl
+			,MBR_TWITTER_URL AS mbrTwitterUrl
 
         FROM
             TBL_DA_MBR_M A 
@@ -156,6 +160,10 @@
 			<if test="mbrageList          != null">MBR_AGE_LIST = #{mbrageList},</if>
 			<if test="mbrjobList          != null">MBR_JOB_LIST = #{mbrjobList},</if>
 			<if test="mbrintro          != null">MBR_INTRO = #{mbrintro},</if>
+			<if test="artstFacebookUrl          != null">MBR_FACEBOOK_URL = #{artstFacebookUrl},</if>
+			<if test="artstInstagramUrl          != null">MBR_INSTAR_URL = #{artstInstagramUrl},</if>
+			<if test="artstYoutubeUrl          != null">MBR_YOUTUBE_URL = #{artstYoutubeUrl},</if>
+			<if test="artstTwitterUrl          != null">MBR_TWITTER_URL = #{artstTwitterUrl},</if>
 			
    		</trim>
    		WHERE MBR_SQ = #{mbrSq}

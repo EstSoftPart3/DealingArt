@@ -110,7 +110,7 @@
                     <li><a href="/community/eventMobile" class="over">이벤트</a></li>   
                 </ul>
             </div>
-            <button class="btn_recording" onclick="location.href='/myPage/mypage_mainMobile'">기록하기</button>
+            <button class="btn_recording" onclick="btnRecording()">기록하기</button>
             <div class="sel_wrap">
                 <div class="sel_sortation right0">
                     <select name="" id="" onchange="searchEventType(this);">
@@ -271,6 +271,16 @@
 			pageInfo.size = 6;
     		pageInfo.type = $(obj).val();
     		searchEventList(true);
+    	}
+    	
+    	// 기록하기 로그인 후 사용
+    	function btnRecording(sqNumber) {
+    		if(sMbrSqVal == null || sMbrSqVal == ""){
+    			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+    			return;
+    		} else {
+    			location.href = '/myPage/mypage_mainMobile';
+    		}
     	}
     	
     	// More Btn

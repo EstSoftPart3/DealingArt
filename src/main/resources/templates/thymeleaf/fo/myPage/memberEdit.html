@@ -210,6 +210,22 @@
 										<input type="text" class="input-3" placeholder="" id="mbrintro" name="">
 									</div>
 									<div class="input-box">
+										<p class="inp-p">페이스북</p>
+										<input type="text" class="input-3" placeholder="페이스북 URL" id="artstFacebookUrl" name="artstFacebookUrl"/>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">인스타그램</p>
+										<input type="text" class="input-3" placeholder="인스타그램 URL" id="artstInstagramUrl" name="artstInstagramUrl"/>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">유튜브</p>
+										<input type="text" class="input-3" placeholder="유튜브 URL" id="artstYoutubeUrl" name="artstYoutubeUrl"/>
+									</div>
+									<div class="input-box">
+										<p class="inp-p">트위터</p>
+										<input type="text" class="input-3" placeholder="트위터 URL" id="artstTwitterUrl" name="artstTwitterUrl"/>
+									</div>
+									<div class="input-box">
 										<p class="inp-p">선호하시는 미술 장르를 선택해주세요 (선택, 최대 3개 선택 가능)</p>
 										<div class="profile_checkbox_wrap mt10">
 											<input type="checkbox" id="pca1" name="genre" value="abstract" class="searchOption" onclick="chkbox(this)">
@@ -773,6 +789,12 @@ function memberContentData(mbrSq) {
         	 	originalMbrageList = dataContent.mbrageList;						//프로필데이터
         	 	originalMbrjobList = dataContent.mbrjobList;						//프로필데이터
         	 	originalmbrintro = dataContent.mbrintro;						//프로필데이터
+        	 	
+        	 	artstFacebookUrl = dataContent.mbrFacebookUrl;
+        	 	artstInstagramUrl = dataContent.mbrInstarUrl;
+        	 	artstYoutubeUrl = dataContent.mbrYoutubeUrl;
+        	 	artstTwitterUrl = dataContent.mbrTwitterUrl;
+        	 	artstProfileImgUrl = dataContent.mbrProfileImgUrl;
 
 
         	 	
@@ -786,6 +808,11 @@ function memberContentData(mbrSq) {
         	 	$("#uMbrCpCertDate").val(originalMbrCpCertDate);
         	 	$("input[name=name]").val(originalMbrNm);
        		 	$("#mbrintro").val(originalmbrintro);
+       		 	$("#artstFacebookUrl").val(artstFacebookUrl);
+       		 	$("#artstInstagramUrl").val(artstInstagramUrl);
+       		 	$("#artstYoutubeUrl").val(artstYoutubeUrl);
+       		 	$("#artstTwitterUrl").val(artstTwitterUrl);
+       		 	$("#artstProfileImgUrl").val(artstProfileImgUrl);
 
        		 
         	 	if(originalMbrProfileImgUrl !=null && originalMbrProfileImgUrl != ""){
@@ -988,6 +1015,15 @@ $("#memberUpdateBtn").on('click', function(event){
 	//회원 활동명
 	var mbrNcknm = $("#uMbrNcknm").val();
 	
+	//페이스북 URL
+	var artstFacebookUrl = $("#artstFacebookUrl").val();
+	//인스타그램 URL
+	var artstInstagramUrl = $("#artstInstagramUrl").val();
+	//유튜브 URL
+	var artstYoutubeUrl = $("#artstYoutubeUrl").val();
+	//트위터 URL
+	var artstTwitterUrl = $("#artstTwitterUrl").val();
+	
 	//회원 주소
 	var mbrDelivryAddr = $("#newMbrDelivryAddr").val();
 	var mbrDelivryAddrDetail = $("#newMbrDelivryAddrDetail").val();
@@ -1172,8 +1208,11 @@ $("#memberUpdateBtn").on('click', function(event){
 	  "mbrhobbyList" : hobbylist.toString(),
 	  "mbrageList" : agelist.toString(),
 	  "mbrjobList" : joblist.toString(),
-	  "mbrintro" : mbrintro
-	  
+	  "mbrintro" : mbrintro,
+	  "artstFacebookUrl" : artstFacebookUrl,
+	  "artstInstagramUrl" : artstInstagramUrl,
+	  "artstYoutubeUrl" : artstYoutubeUrl,
+	  "artstTwitterUrl" : artstTwitterUrl,
 	}
 	console.log(memParams);
 	
