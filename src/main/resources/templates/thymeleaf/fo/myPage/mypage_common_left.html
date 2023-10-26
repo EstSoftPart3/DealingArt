@@ -134,7 +134,7 @@ function setMyInfo(data){
 	//회원 프로필 사진 유무
 	//프로필이미지 백그라운드에서 이미지 태그로 바꿔줘야함
 	if(data.mbrProfileImgUrl != null && data.mbrProfileImgUrl != ""){
-		html += '<div class="myinfo_pic" ><a onclick="copy_to_clipboard()"><img src="'+data.mbrProfileImgUrl+'" alt=""></a></div>';
+		html += '<div class="myinfo_pic"><a onclick="copy_to_clipboard()"><img src="'+data.mbrProfileImgUrl+'" alt=""></a></div>';
 	}else{
 		html += '<div class="myinfo_pic"><a onclick="copy_to_clipboard()"><img src="/resources/img/mypage/icon-u.png"></a></div>';
 	}
