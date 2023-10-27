@@ -1561,10 +1561,29 @@ public class MyPageController {
 	@RequestMapping("/myPage/myWork_mod")
 	@ResponseBody
 	public ModelAndView myWork_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
+
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_myWord_mod");
+		
+		//자랑하기 정보 MAP
 		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		
+		//자랑하기 연동되어있는 작품 정보 MAP
+		String workSq = String.valueOf(exhibit.get("workSq"));
+		Map<String, Object> work = myPageService.myWorkMod(workSq);
+		
 		mv.addObject("exhibit", exhibit);
+		mv.addObject("work", work);
+		
+		return mv;
+	}
+	
+	//작품 & 자랑하기의 서브 작품 수정하기 페이지 오픈
+	@RequestMapping("/myPage/myWorkListMod_sub")
+	@ResponseBody
+	public ModelAndView myWorkListMod_sub(@RequestParam(value="workSq", required=false) String workSq) {
+		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myWorkMod_sub");
+		Map<String, Object> work = myPageService.myWorkMod(workSq);
+		mv.addObject("work", work);
 		return mv;
 	}
 

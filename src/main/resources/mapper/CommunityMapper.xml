@@ -294,6 +294,7 @@
 		/* 커뮤니티 전시후기, 노하우 상세 페이지 */
 		SELECT
 				  COMT.COMT_SQ AS comtSq
+				, COMT.WORK_SQ AS workSq
 				, COMT.COMT_TITLE AS comtTitle
 				, COMT.COMT_IMG_URL AS comtImgUrl
 				, COMT.COMT_CONTENT AS comtContent

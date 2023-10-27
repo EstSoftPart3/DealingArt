@@ -110,7 +110,111 @@
 			
 			<div class="contents max-1500">
 				<div class="sub-title">
-					<h3 class="mo-no">자랑하기 수정</h3>
+					<h3 class="mo-no" id="pageTitle">작품정보</h3>
+				</div>
+				
+				<div class="baeg-wrap">
+					<div class="baeg-left">
+						<div class="contentbox">
+							<div class="bigImages">
+								<img class="big big1" th:src="${work.workMainImgUrl}" data-toggle="modal" data-target="#bigImageModal" />
+							</div>
+							<div class="smallImages">
+								<!-- 메인 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workMainImgUrl)}" th:src="${work.workMainImgUrl}" /> -->
+								<!-- 전면 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgFrtUrl)}" th:src="${work.workImgFrtUrl}" /> -->
+								<!-- 후면 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgRerUrl)}" th:src="${work.workImgRerUrl}" /> -->
+								<!-- 좌 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgLefUrl)}" th:src="${work.workImgLefUrl}" /> -->
+								<!-- 우 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgRitUrl)}" th:src="${work.workImgRitUrl}" /> -->
+								<!-- 상 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgTopUrl)}" th:src="${work.workImgTopUrl}" /> -->
+								<!-- 하 -->
+								<!-- <img class="small small1" th:if="${not #strings.isEmpty(work.workImgBotUrl)}" th:src="${work.workImgBotUrl}" /> -->
+							</div>
+						</div>
+					</div>
+					<div class="baeg-right">
+						<div class="be-title">
+								<th:block th:if="${not #strings.isEmpty(work.artstEnglsNm)}">
+								<h3 th:text="${work.artstActvtyNm}"></h3>
+								<h3 th:text="'('+${work.artstEnglsNm}+')'"></h3>
+							</th:block>
+							<h3 th:if="${#strings.isEmpty(work.artstEnglsNm)}" th:text="${work.artstActvtyNm}"></h3>
+							<h4 th:text="${work.workNm}"></h4>
+							
+<!-- 							<a href="#" class="phos" data-toggle="modal" data-target="#myModal3"> -->
+<!-- 								<div class="tootip-1">신고하기</div> -->
+<!-- 								<img src="/resources/img/de/popo-1.png" /> -->
+<!-- 							</a> -->
+						</div>
+						
+						<table class="tstyle1">
+							<tr>
+								<th>제작년도</th>
+								<td th:text="${work.workProdcYear}"></td>
+							</tr>
+							<tr>
+								<th>소재/기법</th>
+								<td th:text="${work.workMatrl}">canvas</td>
+							</tr>
+							<tr>
+								<th>액자</th>
+								<td th:if="${work.workFrmYn == 'Y'}">있음</td>
+								<td th:if="${work.workFrmYn == 'N' or work.workFrmYn == '' }">없음</td>
+							</tr>
+							<tr>
+								<th>사이즈</th>
+								<td th:if="${not #strings.isEmpty(work.workSizeWidth) and not #strings.isEmpty(work.workSizeDepth)}" th:text="${work.workSizeWidth} + ' X ' + ${work.workSizeDepth}"></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(work.workLake)}">
+								<th>호수</th>
+								<td th:utext="|${work.workLake} |"></td>
+							</tr>
+							<tr>
+								<th>판매 여부</th>
+								<td th:if="${work.workSaleYn == 'Y'}">판매 완료</td>
+								<td th:if="${work.workSaleYn == 'N'}">미판매</td>
+							</tr>
+							<tr>
+								<th>메인 컬러</th>
+								<td th:if="${work.workClrCd == 'MIX'}"><div class="color-box"><input type="radio" id="mc-1" name="workClrCd" value="MIX" checked><label for="mc-1" class="mc-1 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'RED'}"><div class="color-box"><input type="radio" id="mc-2" name="workClrCd" value="RED" checked><label for="mc-2" class="mc-2 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'ORANGE'}"><div class="color-box"><input type="radio" id="mc-3" name="workClrCd" value="ORANGE" checked><label for="mc-3" class="mc-3 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'YELLOW'}"><div class="color-box"><input type="radio" id="mc-4" name="workClrCd" value="YELLOW" checked><label for="mc-4" class="mc-4 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'GREEN'}"><div class="color-box"><input type="radio" id="mc-5" name="workClrCd" value="GREEN" checked><label for="mc-5" class="mc-5 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'SKY'}"><div class="color-box"><input type="radio" id="mc-6" name="workClrCd" value="SKY" checked><label for="mc-6" class="mc-6 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'BLUE'}"><div class="color-box"><input type="radio" id="mc-7" name="workClrCd" value="BLUE" checked><label for="mc-7" class="mc-7 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'PURPLE'}"><div class="color-box"><input type="radio" id="mc-8" name="workClrCd" value="PURPLE" checked><label for="mc-8" class="mc-8 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'BROWN'}"><div class="color-box"><input type="radio" id="mc-9" name="workClrCd" value="BROWN" checked><label for="mc-9" class="mc-9 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'WHITE'}"><div class="color-box"><input type="radio" id="mc-10" name="workClrCd" value="WHITE" checked><label for="mc-10" class="mc-10 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'GRAY'}"><div class="color-box"><input type="radio" id="mc-11" name="workClrCd" value="GRAY" checked><label for="mc-11" class="mc-11 active"></label></div></td>
+								<td th:if="${work.workClrCd == 'BLACK'}"><div class="color-box"><input type="radio" id="mc-12" name="workClrCd" value="BLACK" checked><label for="mc-12" class="mc-12 active"></label></div></td>
+							</tr>
+							<tr th:if="${not #strings.isEmpty(work.workState)}">
+								<th>작품 상태</th>
+								<td th:text="${work.workState}"></td>
+							</tr>
+						</table>
+						<div class="bat-box" id="btnListOffer">
+							<!-- <button type="button" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="btn_purchaseOrBid_onclick()"><span>응찰하기</span></button> -->
+							<!-- <button type="button" class="ba-btn2" onclick="javascript:fnModalAlert();"><img src="/resources/img/de/mo/icon-1.jpg" /><span>공유하기</span></button> -->
+							<!-- <button type="button" class="ba-btn3" id="btn_history" data-toggle="modal" data-target="#myModal2"><img src="/resources/img/de/mo/icon-2.jpg" /><span>응찰 히스토리</span></button> -->
+							<button type="button" class="ba-btn1" onclick="workUpdate()"><span>작품 수정</span></button>
+							
+							<div class="clearboth"></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="contents max-1500">
+				<div class="sub-title">
+					<h3 class="mo-no">자랑하기</h3>
 				</div>
 				
 				<div class="baeg-wrap">
@@ -214,6 +318,7 @@
 	<script th:inline="javascript">
 	//변수 셋팅 및 데이터 담을 변수 및 초기 데이터 변수
 	var comt = /*[[${exhibit}]]*/ 'default';
+	var work = /*[[${work}]]*/ 'default';
 	var exhibitEditor;
 	var exhibit = new Object();
 	var storage = new Object();
@@ -498,6 +603,11 @@
             data.append('upload',file)
             this.xhr.send(data)
         }
+    }
+    
+    //작품 수정하기
+    function workUpdate() {
+    	location.href = "/myPage/myWorkListMod_sub?workSq="+work.workSq;
     }
 	</script>
 </body>
