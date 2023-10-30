@@ -206,7 +206,7 @@
     				
     				if(list.artistInfo) {
 	    				setArtstInfoHtml();
-	    				workList(work);
+	    				//workList(work);
     				}
     				
     				// setWorkList(data);
@@ -215,7 +215,7 @@
     				ckClsHide(); // ck에디터 태그들 감춤
     				setComment(comtSq);
     				followCheck(showOff.mbrSq);
-    				otherComtWorkList(otherComt, "/community/showingOffDetail");
+    				otherComtWorkList(otherComt, "/community/showingOffDetail", showOff.mbrNcknm);
     				initOtherComtWorkListSwiper();
 
     				// 거래 중인 작품일 경우
@@ -565,6 +565,7 @@
     	}
     	
     	//작가의 다른 작품 리스트
+    	/*
     	function workList(work, words){
     		var artstInfo = list["artistInfo"];
     		var myPageWrap = $(".mypage_wrap");
@@ -597,7 +598,54 @@
     			myPageWrap.append(html).trigger("create");
     		}
     	}
-    	
+		*/
+		
+    	//유저의 다른 자랑하기 리스트
+    	function otherComtWorkList(comt, url, mbrNcknm){
+			
+			for(i=0; i<comt.length; i++){
+	    		var content = comt[i].comtContent;
+	    		content = content.replaceAll('</p>', '</p>\n')
+	    		var text = content.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi, "");
+	    		var inputText = text.substring(0, 40) + '...';
+	    		comt[i].comtContent = inputText;
+	    	}
+
+    		var myPageWrap = $(".mypage_wrap");
+    		var titlehtml = '';
+    		
+    		titlehtml += '<div class="contents conbg">';
+			titlehtml += '	<div class="cont-title2 max-1500">';
+			titlehtml += '		<h3>'+ mbrNcknm +'님의 다른 자랑하기 보기</h3>';
+			titlehtml += '	</div>';
+			
+    		if(comt.length > 0){
+    			var html = '';
+    			for(var i=0; i<comt.length; i++){
+    				html +='<div class="swi-box1 max-1500">';
+    				html +='	<div class="swiper-slide hd-div">';
+    				html +='		<a href="/community/showingOffDetail?SqNumber='+comt[i].comtSq+'">';
+    				html +='			<img src="'+comt[i].comtImgUrl+'" class="hd-img" style="width:100&;"/>';
+    				html +='			<div class="hd-text">';
+    				html +='				<h4 style="height:100px;">'+comt[i].comtTitle+'</h4>';
+    				html +='			<div class="hd-d1" >';
+    				html +='				<br/>'+comt[i].comtContent+'</div>';
+    	     	   	html +='			</div>';
+    	     	  	html +='		</a>';
+    	     	 	html +='	</div';
+    	     	 	html +='	</div';
+    	     	 	html +='</div>';
+    				if (i==3) {
+						break;
+					}
+    			}
+    			
+    			myPageWrap.append(titlehtml).trigger("create");
+    			myPageWrap.append(html).trigger("create");
+    			
+    		}
+    	}
+
     	// 다른 자랑하기 html 생성
     	/*
     	function setWorkList(words) {

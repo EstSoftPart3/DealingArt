@@ -1593,10 +1593,10 @@
 					HAVING bidCnt = 0;
 				</if>
 				<if test='sortCd == "recent"'>
-					ORDER BY A.REG_DT ASC
+					ORDER BY A.REG_DT DESC
 				</if>				
 				<if test='sortCd == "past"'>
-					ORDER BY A.REG_DT DESC
+					ORDER BY A.REG_DT ASC
 				</if>				
 				
 	</select>

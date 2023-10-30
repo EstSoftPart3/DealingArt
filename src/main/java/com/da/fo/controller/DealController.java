@@ -302,13 +302,48 @@ public class DealController {
 	@RequestMapping("/deal/workDetail")
 	@ResponseBody
 	public ModelAndView workDetail(@RequestParam(value="SqNumber", required=false) String workSq) {
+		
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/deal/workDetail");
+		
+		//작품관련 모든 정보 map
 		Map<String, Object> result = dealService.workDetail(workSq);
 		
+		//작품관련 상세 정보 map
+		Map<String, Object> castMbrSq = (Map<String, Object>) result.get("work");
+		
+		//service 파라미터 map
+		Map<String, Object> param = new HashMap<String,Object>();
+		
+		//장품관련 상세 정보의 회원번호
+		String mbrSq = String.valueOf(castMbrSq.get("mbrSq")); 
+		
+		//파라미터 회원번호 셋팅
+		param.put("mbrSq", mbrSq);
+		
+		//파라미터 정렬 셋팅
+		param.put("sortCd", "recent");
+		
+		//나의 작품 리스트 정보
+		List<Map<String, Object>> work = myPageService.myWorkList(param);
+		
+		//나의 자랑하기 리스트 정보
 		List<Map<String, Object>> boaList = mainService.selectBoa(workSq);
+		
+		//나의 정보
+		Map<String, Object> myInfo = myPageService.myPageMain_myInfo(mbrSq); 
+		
+		//오브젝트 나의 자랑하기 정보
 		mv.addObject("boaList", boaList);
 		
+		//오브젝트 작품관련 모든 정보
 		mv.addObject("result", result);
+		
+		//오브젝트 나의 작품 리스트 정보
+		mv.addObject("work", work);
+		
+		//오브젝트 나의 정보
+		mv.addObject("myInfo", myInfo);
+		
 		return mv;
 	}
 	

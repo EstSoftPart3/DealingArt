@@ -351,7 +351,9 @@
 	<select id="writerOtherComt" resultType="hashMap">
 		/* 작성자의 다른 커뮤니티 정보 */
 		SELECT 
-				COMT.COMT_SQ AS comtSq
+				  COMT.COMT_SQ AS comtSq
+				, COMT.COMT_TITLE AS comtTitle
+				, COMT.COMT_CONTENT AS comtContent
 				, COMT.MBR_SQ AS mbrSq
 				, COMT.COMT_IMG_URL AS comtImgUrl
 				, COMT.WORK_SQ AS workSq

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.da.fo.service.CommunityService;
 import com.da.fo.service.DealService;
+import com.da.fo.service.MyPageService;
 
 
 @Controller
@@ -26,6 +27,9 @@ public class CommunityController {
 	
 	@Autowired
 	CommunityService communityService;
+	
+	@Autowired
+	MyPageService myPageService;
 	
 	@Autowired
 	DealService dealService;
@@ -70,7 +74,9 @@ public class CommunityController {
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> showOffDtl = communityService.searchShowingOffDetail(param); // 자랑하기 상세 정보
 		Map<String, Object> dealStatus = (Map<String, Object>) showOffDtl.get("dealStatus");
-
+		
+		//List<Map<String, Object>> result = myPageService.myPage_myCommunitysList(param);
+		
 		// 판매중인 작품이 아닐 경우 작품 정보만 출력
 		if (dealStatus == null) {
 			Map<String, Object> showOff = (Map<String, Object>) showOffDtl.get("showOff");

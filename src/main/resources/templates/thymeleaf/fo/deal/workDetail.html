@@ -242,9 +242,9 @@
 			</div>
 			
 			<!-- 작품이 없는 작가면 보여주지 않는 영역 -->
-			<div class="contents conbg" th:if="${not #maps.isEmpty(result.workList)}">
+			<div class="contents conbg" th:if="${not #maps.isEmpty(work)}">
 				<div class="cont-title2 max-1500">
-					<h3 th:text="${result.artistInfo.artstActvtyNm} + '님의 다른 작품 보기'">이 용은작가의 다른 작품</h3>
+					<h3 th:text="${myInfo.mbrNcknm} + '님의 다른 작품 보기'">이 용은작가의 다른 작품</h3>
 					<button type="button" class="the-more" data-toggle="modal" data-target="#artstInfoMore">더보기</button>
 				</div>
 				
@@ -731,6 +731,7 @@
 
 var isMobileBidding = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
 var result = /*[[${result}]]*/ 'default';
+var work = /*[[${work}]]*/ 'default';
 jQuery(document).ready(function($){ //function($)
     
 	if(isMobile) {
@@ -840,6 +841,7 @@ function openshowingOffDetail(sq){
 }
 
 //작가의 다른 작품 리스트
+/*
 function workList(){
 	if(result.workList.length > 0){
 		$("#swiper_workList").empty();
@@ -853,6 +855,33 @@ function workList(){
 			html +='				<h4 style="height:100px;">'+result.workList[i].artstActvtyNm+'('+result.workList[i].artstBirthYear+')</h4>';
 			html +='			<div class="hd-d1" >'+result.workList[i].workNm+'('+result.workList[i].workProdcYear+')';
 			html +='				<br/>소재 '+result.workList[i].workMatrl+', '+result.workList[i].workSizeWidth+' x '+result.workList[i].workSizeDepth+'cm</div>';
+     	   	html +='			</div>';
+     	  	html +='		</a>';
+     	 	html +='	</div>';
+     	 	html +='</div>';
+     	 	if (i==3) {
+				break;
+			}
+		}
+		$("#swiper_workList").append(html).trigger("create");
+	}
+}
+*/
+*
+//유저의 다른 작품 리스트
+function workList(){
+	if(work.length > 0){
+		$("#swiper_workList").empty();
+		var html = '';
+		for(var i=0; i<work.length; i++){
+			html +='<div class="swi-box1 max-1500">';
+			html +='	<div class="swiper-slide hd-div">';
+			html +='		<a href="/deal/workDetail?SqNumber='+work[i].workSq+'">';
+			html +='			<img src="'+work[i].workMainImgUrl+'" class="hd-img" style="width:100&;"/>';
+			html +='			<div class="hd-text">';
+			html +='				<h4 style="height:100px;">'+work[i].artstActvtyNm+'('+work[i].artstBirthYear+')</h4>';
+			html +='			<div class="hd-d1" >'+work[i].workNm+'('+work[i].workProdcYear+')';
+			html +='				<br/>소재 '+work[i].workMatrl+', '+work[i].workSizeWidth+' x '+work[i].workSizeDepth+'cm</div>';
      	   	html +='			</div>';
      	  	html +='		</a>';
      	 	html +='	</div>';
