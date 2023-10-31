@@ -390,7 +390,7 @@ top:0;
     top: 0px;
     width: 100%;
     height: 100%;
-    background-color:#f9f9f9;
+    /*background-color:#f9f9f9;*/
     left: -1500px;
     z-index: 2;
 }
@@ -2028,7 +2028,7 @@ input[type="radio"]:checked + label span {
 }
 
 .artist-wrap{
-    border-top: #e5e5e5 1px solid;
+    /*border-top: #e5e5e5 1px solid;*/
     padding: 20px 0 150px 0;
 }
 .artist-box{}
@@ -2042,7 +2042,7 @@ input[type="radio"]:checked + label span {
     color: #333333;
 }
 .conbg{
-    background-color: #f9f9f9;
+    /*background-color: #f9f9f9;*/
     height: 100%;
 }
 .the-more{
