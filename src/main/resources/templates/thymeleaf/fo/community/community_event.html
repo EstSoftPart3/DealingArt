@@ -239,30 +239,32 @@
     				
     				var list = data.result.eventList;
     				var html = "";
-    				
-    				$.each(list, function(idx, obj) {
-    					var cnt = idx + 1;
-    					if(cnt == 1 || cnt % 4 == 0) {
-    						html += "<div class='event_row "+ (isFirst ? "mt0" : "") +"'>";
-    	    				html += "	<ul>";
-    					}
-    					html += "			<li>";
-    					html += "				<div class='event_box'>";
-    					html += "					<div class='img'>";
-    					html += "						<div class='"+ (obj.isEventEnd ? "ico_ongoing'>진행중" : "ico_endprogress'>진행<br>종료") +"</div>";
-    					html += "						<img src="+ obj.bnnMpImgUrl +" alt='' style='width: 480px; height: 480px;'>";
-    					html += "					</div>";
-    					html += "					<div class='text'>"+ obj.bnnStartDt + " ~ " + obj.bnnEndDt + "<br>" + obj.bnnTitle +"</div>";
-    					html += "				</div>";
-    					html += "			</li>";
-    					if(cnt != 1 && cnt % 3 == 0) {
-    	    				html += "	</ul>";
-    						html += "</div>";
-    					}
-	   					isFirst = false;
-    				});
-    				
-    				
+    				if(data.length > 0){
+    					$.each(list, function(idx, obj) {
+        					var cnt = idx + 1;
+        					if(cnt == 1 || cnt % 4 == 0) {
+        						html += "<div class='event_row "+ (isFirst ? "mt0" : "") +"'>";
+        	    				html += "	<ul>";
+        					}
+        					html += "			<li>";
+        					html += "				<div class='event_box'>";
+        					html += "					<div class='img'>";
+        					html += "						<div class='"+ (obj.isEventEnd ? "ico_ongoing'>진행중" : "ico_endprogress'>진행<br>종료") +"</div>";
+        					html += "						<img src="+ obj.bnnMpImgUrl +" alt='' style='width: 480px; height: 480px;'>";
+        					html += "					</div>";
+        					html += "					<div class='text'>"+ obj.bnnStartDt + " ~ " + obj.bnnEndDt + "<br>" + obj.bnnTitle +"</div>";
+        					html += "				</div>";
+        					html += "			</li>";
+        					if(cnt != 1 && cnt % 3 == 0) {
+        	    				html += "	</ul>";
+        						html += "</div>";
+        					}
+    	   					isFirst = false;
+        				});
+    				}else{
+    					modalAlertShow("검색 결과가 없습니다.");
+    				}
+
     				$(".event_wrap").append(html).trigger("create");
     				
     				pageInfo.start += (pageInfo.start == 0) ? pageInfo.size : 3;
