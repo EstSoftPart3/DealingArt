@@ -112,7 +112,7 @@
 	</select>
     
     <update id="reportUpdate" parameterType="hashMap">
-   		UPDATE TB_DA_RPRT_M 
+   		UPDATE TBL_DA_RPRT_M 
    		SET 
       		RPRT_TYP_CD = #{rprtTypCd}
       		RPRT_RSLT_CD = #{rprtRsltCd}
