@@ -642,8 +642,8 @@ public class MyPageDao {
 	 */
 	public int myComtReg(Map<String, Object> param) {
 		
-		int workSq = Integer.parseInt(String.valueOf(param.get("workSq")));
-		param.put("workSq", workSq);
+		//int workSq = Integer.parseInt(String.valueOf(param.get("workSq")));
+		//param.put("workSq", workSq);
 		
 		// 커뮤니티 등록
 		int result = myPageMapper.myComtReg(param);
