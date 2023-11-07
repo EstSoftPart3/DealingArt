@@ -506,7 +506,7 @@
     	    			html += '	</div>';
     	    		} else if(key == "deal") {
     	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 40%; padding:5px;">';
-    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +');">';
+    	    			html += '		<button type="button" style="background: #626262;" class="ba-btn1 por" id="btn_purchaseOrBid" onclick="goDealDetail('+ obj.dealSq +',\''+obj.dealTypCd+'\');">';
     	    			html += '			<span>응찰하기</span>';
     	    			html += '		</button>';
     	    			html += '	</div>';
@@ -662,10 +662,19 @@
     	}
     	
     	// 거래 상세 페이지 이동
-    	function goDealDetail(dealSq) {
+    	function goDealDetail(dealSq, dealTypCd) {
+
     		//만약 자랑하기 등록한 회원순번과 세션순번 벨리데이션
     		if(showOff.mbrSq == sMbrSqVal){
-				modalAlertShow("본인이 등록한 작품에는 응찰하기를 할 수 없습니다.");
+    			
+    			if(dealTypCd == "A" && dealTypCd != null || dealTypCd == ""){
+    				modalAlertShow("본인이 등록한 작품은 응찰을 할 수 없습니다.");
+    			}else if(dealTypCd == "S" && dealTypCd != null || dealTypCd == ""){
+    				modalAlertShow("본인이 등록한 작품은 구매를 할 수 없습니다.");
+    			}else{
+    				modalAlertShow("해당 작품은 현재 구매가 불가합니다.");
+    			}
+    				
 			}else{
 				modalConfirm("거래 상세 페이지로 이동하시겠습니까?", function(confrim){
 	    			if(confrim){
