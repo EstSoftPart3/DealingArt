@@ -191,6 +191,9 @@ var result = new Object();
 var mbrSq = /*[[${mbrSq}]]*/ 'default';
 
 $("document").ready(function(){
+	
+	searchOptions.sortCd = "recent";
+	
 	if(mbrSq != null && mbrSq != "" && mbrSq != undefined){ //타인 마이페이지면
 		$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
 	}else{
@@ -208,8 +211,7 @@ function workList(callback){
 	}else{
 		searchOptions.mbrSq = sMbrSqVal;
 	}
-	
-	
+
 	var myTotal = 0;
 	var workTotal = 0;
 	var collTotal = 0;
