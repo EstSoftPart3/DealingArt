@@ -555,15 +555,21 @@
     
     // 초기 화면 셋팅 
     function pageRendering(){
+    	
     	$.ajax({
     		type: "POST",
     		url: "/main/totalContent",
     		success: (function(response){
+    			var bannerWrap = $(".swiper-wrapper");
+    			
     			setBoa(response.boas);
     			setNowDealWorks(response.nowDealWorks);
     			setMagazine9(response.mgz9s);
     			setPopularMbr(response.popularMbr);
     			setPopularExhibit(response.popularExhibit);
+    			
+    			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");
+    			
     		}),
     		error: (function(response){
     			
@@ -832,6 +838,32 @@
 	function more_onCilck(){
 		page += 1;
 		searchMainData(page);
+	}
+	
+	/*
+	 * 메인 화면 배너 조회 및 설정
+	 * 2023.11.07 홍충기 추가
+	 */
+	function fn_setBanner (data){
+		
+		var html = "";
+		
+		// 신규 등록된 배너가 1개 이상일 경우
+		if(data != null && data.length > 0){
+			console.log("==================== >>>>>>>>>>>> 배너 설정 함수");
+			console.log(data);
+			
+			$(".swiper-wrapper").empty();
+			for(var i = 0; i < data.length; i++){
+				html += '<div class="swiper-slide" align="center" style="background-color:#ffffff;">';
+				html += '	<a href="' + data[i].bnnMLndUrl + '">';
+	    		html += '		<img src="' + data[i].bnnMpImgUrl + '" alt="">';
+	    		html += '	</a>';
+				html += '</div>'	
+			}
+
+			return html;
+		}	
 	}
 	
     </script>
