@@ -331,8 +331,36 @@
 					<button type="button" class="btn-more ta-no"><span>more</span></button>
 				</div> -->
 			</div>
-        </div>        
+        </div>     
     </div>
+    
+    <!-- 긴급공지사항 -->
+	<div class="modal fade modal-s" id="notice" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-baeg max-w480">
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 0;min-height: 0;height: 0;">
+					<div class="baegs">
+					    <div class="close" data-dismiss="modal" aria-label="Close"><img src="/resources/img/ba/icon-end.png" /></div>
+					</div>
+				</div>
+				<div class="modal-body login-body">
+					<img src="/resources/img/logo_new.png"  class="login-logo"/>
+					<div class="login-box">
+						<p class="lb-p1" id="emBoardTitle"></p>
+						<div class="text-box1" id="emBoardContent">
+							
+						</div>
+						<div class="radio-3 rad-mg-1">
+							<input type="checkbox" id="emNoticeEx" name="emNoticeEx" />
+							<label for="emNoticeEx" class="t_font-size"><span></span>오늘 하루 보지 않기</label>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
     <th:block th:replace="thymeleaf/footer :: footerFragment"></th:block>
     
     <script>
@@ -341,6 +369,8 @@
     	
     	// 초기 화면 셋팅
     	pageRendering();
+    	
+    	emNotice();
     	
     	let ww = window.innerWidth;
     	
@@ -736,6 +766,68 @@
              }
      	});
      }
+ 	
+ 	//긴급공지사항 모달창 오픈
+     function emNotice() {
+ 		$.ajax({
+ 	           type: "post",
+ 	           url: "/admin/board/emBoardDetailData",
+ 	           data: {
+ 	        	   page : 1,
+ 	        	   pageSize : 1
+ 	           },
+ 	           success: function(data) {
+ 	        	   
+ 	        	   if(typeof data.emBoard.DetailData[0] != "undefined") {
+ 		        	   var emBoardDetailData = data.emBoard.DetailData[0];
+ 		        	   var emBrdTitle = emBoardDetailData.brdTitle;
+ 		        	   var emBrdContent = emBoardDetailData.brdContent;
+ 		        	   
+ 		        	   $("#emBoardTitle").html(emBrdTitle);
+ 		        	   $("#emBoardContent").html(emBrdContent);
+ 		        	   
+ 		        	   var cookiedata = document.cookie;
+ 			       	   if(cookiedata.indexOf("close=Y")<0){
+ 			       	   	$("#notice").modal("show");
+ 			       	   }else{
+ 			       	   	$("#notice").modal("hide");
+ 			       	   }
+ 	        	   } 
+ 	        	   
+ 	           },
+ 	           error: function(error) {
+ 	               alert("오류 발생" + error);
+ 	           }
+ 		})
+ 	}
+ 	
+  	// 쿠키 가져오기
+ 	 var getCookie = function (cname) {
+ 	     var name = cname + "=";
+ 	     var ca = document.cookie.split(';');
+ 	     for(var i=0; i<ca.length; i++) {
+ 	         var c = ca[i];
+ 	         while (c.charAt(0)==' ') c = c.substring(1);
+ 	         if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+ 	     }
+ 	     return "";
+ 	 }
+
+ 	 // 24시간 기준 쿠키 설정하기  
+ 	 var setCookie = function (cname, cvalue, exdays) {
+ 	     var todayDate = new Date();
+ 	     todayDate.setTime(todayDate.getTime() + (exdays*24*60*60*1000));    
+ 	     var expires = "expires=" + todayDate.toUTCString(); // UTC기준의 시간에 exdays인자로 받은 값에 의해서 cookie가 설정 됩니다.
+ 	     document.cookie = cname + "=" + cvalue + "; " + expires;
+ 	 }
+
+ 	
+ 	 $("#emNoticeEx").click(function(){
+ 	     if($("input[name='emNoticeEx']").is(":checked") == true){
+ 	         setCookie("close","Y",1);   //기간( ex. 1은 하루, 7은 일주일)
+ 	     }
+ 	    $("#notice").modal("hide");
+ 	});
   	
 	function more_onCilck(){
 		page += 1;
