@@ -2490,79 +2490,59 @@ function myWorkReg(){
         }
     }
     
-  //미리보기 기능 메인
-    function workPreview(){
-       var mgzSq = 48;
-      $.ajax({
-       type: "post",
-         url: "/mgz9/selectMgz9Dtl",
-         data:{
-            mgzSq : mgzSq
-          },
-         success: function(data) {
-               var mgzDtl = null;
-               
-               if(data.result != null){
-                  
-                  /* var inputComtImg = $("#imgUrl1").attr("src");
-                  $("#lp_issue_comt_img_url").attr("src", inputComtImg); */
+    //미리보기 기능 메인
+    function workPreview() {
 
-                  var inputComtTitle = $("input[name=COLLcomtTitle]").val();
-                  $("#lp_work_comt_title").text(inputComtTitle);
-                  
-                  var keywrd = $("#COLLComtKeywrd").val();
-                  var keywrdList = keywrd.split(',');
+        /* var inputComtImg = $("#imgUrl1").attr("src");
+        $("#lp_exhibit_comt_img_url").attr("src", inputComtImg); */
 
-                  var keywrdStr = "";
-                  for(i=0; i<keywrdList.length; i++){
-                 	 keywrdStr += '<a># '+keywrdList[i]+'</a>';
-                  }
-                  $("#keywordList").empty();
-                  $("#keywordList").append(keywrdStr).trigger("create");
-                  
-                  
-                   var mgzContent = data.result.mgzContent; 
-                   $("#lp_work_cntnt").empty();
-                   
-               	 var timpStr = $("#COLLEditor").html();
-                    
-                 timpStr = timpStr.replaceAll("&lt;","<");
-                 timpStr = timpStr.replaceAll("&gt;",">");
-                 timpStr = timpStr.replaceAll("&amp;lt;","<");
-                 timpStr = timpStr.replaceAll("&amp;gt;",">");
-                 timpStr = timpStr.replaceAll("&amp;nbsp;"," ");
-                 timpStr = timpStr.replaceAll("&amp;amp;","&");
-                 
-                 //Table 수정 금지
-                 timpStr = timpStr.replaceAll("true","false");
-                 document.getElementById('lp_work_cntnt').innerHTML = timpStr;
-                   
-                $(".ck-widget__type-around__button").css("display","none");
-                $(".ck-widget").css("outline-style","none");
-                $(".ck-widget__selection-handle").css("display","none");
-                   
-                   var appDevice =   $("#appDevice").val();
-                   if(appDevice == "MOBILE") {
-                     $("#editor > div").css('font-size', '11px');
-                     $("#editor > div").css('padding-left', '0px');
-                      $("#editor > div").css('padding-right', '0px');
-                }
-                   $("body").css("overflow", "hidden");
-                   $('#lp_mgz9Dtl_insight').modal({backdrop: 'static', keyboard: false})  
-                   $("#lp_mgz9Dtl_insight").modal("show");
-                   //2022-08-29 : 브라우져 URL 변경
-                   history.pushState(null, null, '?mgzSq='+mgzSq);
-                   
-               }else{
-                  modalAlertShow("검색 결과가 없습니다."); 
-                  $("#lp_work_cntnt").empty();
-               }
-            },           
-            error: function(error) {
-               var errorJson = JSON.stringify(error);
-                console.log(errorJson);
-            }
-          });
+        var inputComtTitle = $("input[name=COLLcomtTitle]").val();
+        $("#lp_work_comt_title").text(inputComtTitle);
+
+        var keywrd = $("#COLLComtKeywrd").val();
+        var keywrdList = keywrd.split(',');
+
+        var keywrdStr = "";
+        for (i = 0; i < keywrdList.length; i++) {
+            keywrdStr += '<a># ' + keywrdList[i] + '</a>';
+        }
+        $("#keywordList").empty();
+        $("#keywordList").append(keywrdStr).trigger("create");
+
+        $("#lp_work_cntnt").empty();
+
+        var timpStr = $("#COLLEditor").html();
+
+        timpStr = timpStr.replaceAll("&lt;", "<");
+        timpStr = timpStr.replaceAll("&gt;", ">");
+        timpStr = timpStr.replaceAll("&amp;lt;", "<");
+        timpStr = timpStr.replaceAll("&amp;gt;", ">");
+        timpStr = timpStr.replaceAll("&amp;nbsp;", " ");
+        timpStr = timpStr.replaceAll("&amp;amp;", "&");
+
+        //Table 수정 금지
+        timpStr = timpStr.replaceAll("true", "false");
+        document.getElementById('lp_work_cntnt').innerHTML = timpStr;
+
+        $(".ck-widget__type-around__button").css("display", "none");
+        $(".ck-widget").css("outline-style", "none");
+        $(".ck-widget__selection-handle").css("display", "none");
+
+        var appDevice = $("#appDevice").val();
+        if (appDevice == "MOBILE") {
+            $("#editor > div").css('font-size', '11px');
+            $("#editor > div").css('padding-left', '0px');
+            $("#editor > div").css('padding-right', '0px');
+        }
+        $("body").css("overflow", "hidden");
+        $('#lp_mgz9Dtl_insight').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $("#lp_mgz9Dtl_insight").modal("show");
+        //2022-08-29 : 브라우져 URL 변경
+        //history.pushState(null, null, '?mgzSq='+mgzSq);
+
     }
 
      //MGZ9 콘첸츠 모달 닫기
