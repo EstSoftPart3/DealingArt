@@ -491,7 +491,7 @@
     		    		
     		    		html += '	</ul>';
     	    		}
-    	    		
+
     	    		if(key == "work") {
     	    			html += '	<div class="btn_worksInfo_wrap" style="float: left; width: 70%; padding:5px;">';
     	    			//html += '		<button '+ (showOff.comtSalesYn == "Y" && !showOffList.dealStatus ? "" : "style='display: none;'") +' onclick="comtRequest(\'SEL\');">판매 제안하기</button>';
@@ -721,10 +721,13 @@
     			modalAlertShow("내용을 입력해주세요.");
     			return;
     		}
-    		
+
     		//만약 자랑하기 등록한 회원순번과 세션순번 벨리데이션
     		if(showOff.mbrSq == sMbrSqVal){
 				modalAlertShow("본인이 등록한 작품에는 "+msg+"을 할 수 없습니다.");
+			//자랑하기 판매 제안여부가 N인경우 메세지 출력
+			}else if(showOffList.showOff.comtSalesYn == "N" && notiCatCd == "SEL"){
+				modalAlertShow("해당 작품은 판매 제안이 거부된 상태입니다.");
 			}else{
 				modalConfirm(msg + "하시겠습니까?", function(confirm) {
 	    			if(confirm) {
