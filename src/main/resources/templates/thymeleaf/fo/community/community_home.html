@@ -122,7 +122,7 @@
             </div>
             <button class="btn_recording">기록하기</button> -->
             <!-- mobile html 끝 -->
-            <div class="community_visual_wrap">
+            <div class="community_visual_wrap" id="community_banner">
                 <div class="community_visual"><a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet"><img src="/resources/img/img_new/community_visual.jpg" alt=""></a></div>
                 <div class="community_visual_event">
                     <ul>
@@ -274,7 +274,11 @@
     				var boastMstList = data.result.boastMstList; // 자랑하기 고수 리스트
     				var bestExhibitList = data.result.bestExhibitList; // 전시후기/소개 베스트 게시물 리스트
     				var bestIssueList = data.result.bestIssueList; // 이슈 베스트 게시물 리스트
-
+    				var community_banner = data.result.bigBnn; // 커뮤니티 배너 리스트
+					
+    				var bannerWrap = $("#community_banner"); // 배너
+    				bannerWrap.append(fn_setBanner(community_banner)).trigger("create");
+    				
     				var worksWrap = $(".works_wrap ul"); // 이 주의 인기 작품자랑
     				worksWrap.append(setShowingOffHtml(popList)).trigger("create");
     				
@@ -368,6 +372,39 @@
 				modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 			}
     	}
+    	
+		//홈 배너
+		function fn_setBanner(list) {
+			
+    		console.log(list)
+    		
+    		$(".community_visual_wrap").empty();
+    		
+			var html = "";
+    		//오른쪽 배너
+    		html += '<div class="community_visual">';
+    		html += '	<a href="'+list.bnnMLndUrl+'">';
+    		html += '		<img src="'+list.bnnMpImgUrl+'" alt="">';
+    		html += '	</a>';
+    		html += '</div>';
+    		//왼쪽배너
+    		html += '<div class="community_visual_event">';
+	        html += '	<ul>';
+	        html += '		<li>';
+	        html += '			<a href="'+list.bnnELndUrl+'">';
+	        html += '				<img src="'+list.bnnEmImgUrl+'" alt="">';
+	        html += '			</a>';
+	        html += '		</li>';
+	        html += '       <li>';
+	        html += '			<a href="https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet">';
+	        html += '				<img src="/resources/img/img_new/btn_event_more.png" alt="">';
+	        html += '			</a>';
+	        html += '		</li>';
+	        html += '	</ul>';  
+	        html +=	'</div>';
+    		
+			return html;
+		}
     	
     </script>
 </body>
