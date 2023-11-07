@@ -107,7 +107,7 @@
                   <div class="mypage_works_wrap">
                     <div class="tit_wrap">
                         <h2>나의 작품 <span id="myWorksTotal">99</span></h2>
-                        <a href="/myPage/workList" class="btn_more">더보기</a>
+                        <a href="javascript:moreEvent('work');" class="btn_more">더보기</a>
                     </div>
                     <ul id="myWorks">
                         <li>
@@ -124,7 +124,7 @@
                   <div class="mypage_showingoff_wrap">
                     <div class="tit_wrap">
                         <h2>자랑하기 <span id="myBoastTotal">99</span></h2>
-                        <a href="/temp/mypage_showingoff" class="btn_more">더보기</a>
+                        <a href="javascript:moreEvent('showOff');" class="btn_more">더보기</a>
                     </div>
                     <ul id="myBoast">
                         <li>
@@ -142,7 +142,7 @@
                     <div class="intro_posts">
                         <div class="tit_wrap">
                             <h2><img src="/resources/img/img_new/ico_intro.png" alt=""><span>전시후기 / 소개</span><em id="myExhbnTotal">+99</em></h2>
-                            <a href="/temp/mypage_exhint" class="btn_more">더보기</a>
+                            <a href="javascript:moreEvent('exhint');" class="btn_more">더보기</a>
                         </div>
                         <ol id="myExhbn">
                             <li><a href="#">희망을 주는 그림</a><em>[7]</em></li>
@@ -156,7 +156,7 @@
                     <div class="issue_posts">
                         <div class="tit_wrap">
                             <h2><img src="/resources/img/img_new/ico_issue.png" alt=""><span>이슈</span><em id="myIssueTotal">+99</em></h2>
-                            <a href="/temp/mypage_issue" class="btn_more">더보기</a>
+                            <a href="javascript:moreEvent('issue');" class="btn_more">더보기</a>
                         </div>
                         <ol id="myIssue">
                             <li><a href="#">도자기 보관 방법</a><em>[7]</em></li>
@@ -169,7 +169,7 @@
                   <div id="myFollowing_wrap" class="mypage_following_wrap">
                     <div class="tit_wrap">
                         <h2>팔로잉 <span id="myFollowingTotal">0</span></h2>
-                        <a href="/myPage/following" class="btn_more">더보기</a>
+                        <a href="javascript:moreEvent('following');" class="btn_more">더보기</a>
                     </div>
                     <ul id="myFollowing">
                         <li>
@@ -193,10 +193,9 @@
     var mbrSq = /*[[${mbrSq}]]*/ 'default';
     obj.mbrSq = mbrSq;
     $("document").ready(function(){
-    	
+
     	$("#left_menu").load("/myPage/mypage_common_left", "mbrSq="+mbrSq);  // 레프트 메뉴 삽입
-    	
-    	
+
     	$.ajax({
 			type: "POST"
 			, url: "/myPage/main/searchOtherInfoAction"
@@ -369,6 +368,31 @@
 				["comtTypCd", type]
 			]
 		});
+	}
+	
+	//더보기 총괄 기능
+	function moreEvent(code){
+	
+		var host = window.location.origin;
+		
+		var url = "";
+		
+		if(code == "work"){
+			url = "/otherPage/workList?mbrSq="+mbrSq;
+		}else if(code == "showOff"){
+			url = "/otherPage/show_off?mbrSq="+mbrSq;
+		}else if(code == "exhint"){
+			url = "/otherPage/exhint?mbrSq="+mbrSq;
+		}else if(code == "issue"){
+			url = "/otherPage/issue?mbrSq="+mbrSq;
+		}else if(code == "following"){
+			url = "/otherPage/following?mbrSq="+mbrSq;
+		}
+
+	    var location = host + url;
+	    
+	    window.location.href = location;
+
 	}
     
 
