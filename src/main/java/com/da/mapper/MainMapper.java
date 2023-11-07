@@ -124,4 +124,11 @@ public interface MainMapper {
 	public List<Map<String, Object>> mainBoa();
 	
 	public List<Map<String, Object>> selectBoa(String workSq);
+	
+	/*
+	 * 메인 화면 배너 조회
+	 * param:
+	 * return :
+	 */
+	public List<Map<String, Object>> selectMainBanner();
 }

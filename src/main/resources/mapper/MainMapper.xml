@@ -695,4 +695,24 @@
        LIMIT 2
 	</select>
 	
+	<select id="selectMainBanner" resultType="hashMap">
+	    SELECT A.BNN_SQ                                AS bnnSq
+	         , A.BNN_TITLE                             AS bnnTitle
+	         , A.BNN_MP_IMG_URL                        AS bnnMpImgUrl
+	         , A.BNN_EP_IMG_URL                        AS bnnEpImgUrl
+	         , A.BNN_MM_IMG_URL                        AS bnnMmImgUrl
+	         , A.BNN_EM_IMG_URL                        AS bnnEmImgUrl
+	         , A.BNN_M_LND_URL                         AS bnnMLndUrl
+	         , A.BNN_E_LND_URL                         AS bnnELndUrl
+	         , DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt
+	         , DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d')   AS bnnEndDt
+	      FROM TBL_DA_BNN_MGMT_M A
+	     WHERE 1=1
+	       AND A.BNN_DIV_CD = 'MIH'
+	       AND A.USE_YN     = 'Y'
+	       AND A.DEL_YN     = 'N'
+	       AND IF(DATEDIFF(A.BNN_END_DT, NOW()) <![CDATA[>=]]> 0, 1, 0) = 1
+	  ORDER BY A.UPDT_DT DESC
+	     LIMIT 4
+	</select>
 </mapper>

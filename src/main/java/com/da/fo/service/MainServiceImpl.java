@@ -128,4 +128,14 @@ public class MainServiceImpl implements MainService{
 		List<Map<String, Object>> result = mainDao.selectBoa(workSq);
 		return result;
 	}
+	
+	/*
+	 * 메인 화면 배너 조회
+	 * param:
+	 * return :
+	 */
+	public List<Map<String, Object>> mainBanner(){
+		List<Map<String, Object>> result = mainDao.mainBanner();
+		return result;
+	}
 }

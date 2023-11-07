@@ -254,6 +254,10 @@ public class MainController {
 		List<Map<String, Object>> popularExhibit = mainService.mainPopularExhibit();
 		mv.addObject("popularExhibit", popularExhibit);
 		
+		// 메인 화면 배너 조회 2023.11.07 홍충기 추가
+		List<Map<String, Object>> mainBanner = mainService.mainBanner();
+		mv.addObject("mainBanner", mainBanner);
+		
 		return mv;
 	}
 }

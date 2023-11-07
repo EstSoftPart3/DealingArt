@@ -163,4 +163,15 @@ public class MainDao {
 		List<Map<String, Object>> result = mainMapper.selectBoa(workSq);
 		return result;
 	}
+	
+	/*
+	 * 메인 화면 배너 조회
+	 * param:
+	 * return :
+	 * 최종 수정일 : 2023.11.07 홍충기
+	 */
+	public List<Map<String, Object>> mainBanner(){
+		List<Map<String, Object>> result = mainMapper.selectMainBanner();
+		return result;
+	}
 }

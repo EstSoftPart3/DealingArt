@@ -82,4 +82,12 @@ public interface MainService {
 	List<Map<String, Object>> mainBoa();
 	
 	List<Map<String, Object>> selectBoa(String workSq);
+	
+	/*
+	 * 메인 화면 배너 조회
+	 * param:
+	 * return :
+	 * 최종 수정일 : 2023.11.07 홍충기
+	 */
+	List<Map<String, Object>> mainBanner();
 }
