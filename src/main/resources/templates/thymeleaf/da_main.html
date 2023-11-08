@@ -111,7 +111,7 @@
 				<div class="bg-sh"></div>
 				<div class="main-banner">						
 					<div class="swiper mySwiper">
-						<div class="swiper-wrapper">
+						<div class="swiper-wrapper" id="mainBanner">
 							
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_pc.jpg" border="0"/></a>
@@ -851,7 +851,7 @@
 		// 신규 등록된 배너가 1개 이상일 경우
 		if(data != null && data.length > 0){
 			
-			$(".swiper-wrapper").empty();
+			$("#mainBanner").empty();
 			
 			for(var i = 0; i < 4; i++){				
 				
