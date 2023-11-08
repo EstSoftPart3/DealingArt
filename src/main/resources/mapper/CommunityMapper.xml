@@ -47,23 +47,23 @@
 	</select>
 	
 	<select id="boardManageDetail" resultType="hashMap">
-		/* 게시판 관리 상세 조건 조회 */
-		SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
-					WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
-					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'				
-					WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
-					WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
-					WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
-			   END 											AS ordCondition,	-- 정렬 구분
-			   CM_MG_OD_TYP_CD								AS ordSortBy,		-- 정렬 유형
-			   DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T')	AS cmMgstartDt,		-- 조회 시작 일시
-			   DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')		AS cmMgEndDt,		-- 조회 종료 일시
-			   COMT_TYP_CD									AS comtTypCd,		-- 커뮤니티 구분 코드
-			   CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
-			   		WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
-			   END											AS limitNum			-- 조회 갯수
-		  FROM TBL_DA_COMT_MGMT_M
-		 WHERE COMT_TYP_CD = #{comtTypCd}
+    /* 게시판 관리 상세 조건 조회 */
+    SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
+                WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
+                WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'                
+                WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
+                WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+                WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
+            END                                        AS ordCondition -- 정렬 구분
+          , CM_MG_OD_TYP_CD                            AS ordSortBy        -- 정렬 유형
+          , DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T') AS cmMgstartDt        -- 조회 시작 일시
+          , DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')   AS cmMgEndDt        -- 조회 종료 일시
+          , COMT_TYP_CD                                AS comtTypCd        -- 커뮤니티 구분 코드
+          , CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
+                 WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
+             END                                       AS limitNum            -- 조회 갯수
+       FROM TBL_DA_COMT_MGMT_M
+      WHERE COMT_TYP_CD = #{comtTypCd}
 	</select>
 	
 	<select id="searchShowingOffDetail" resultType="hashMap">
@@ -152,78 +152,70 @@
 	</select>
 	
 	<select id="communityListData" resultType="hashMap">
-		/* 커뮤니티 리스트 */
-		SELECT 
-				COMT.COMT_SQ AS comtSq
-				, COMT.WORK_SQ AS workSq
-				, COMT.COMT_IMG_URL AS comtImgUrl
-				, COMT.COMT_TITLE AS comtTitle
-				, COMT.COMT_CONTENT AS comtContent
-				, COMT.COMT_LIKES AS comtLikes
-				, COMT.COMT_VIEWS AS comtViews
-				, COMT.COMT_CMTS AS comtCmts
-				, COMT.COMT_SCRAPS AS comtScraps
-				, MBR.MBR_SQ AS mbrSq
-				, MBR.MBR_NCKNM AS mbrNcknm
-				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
-				, MBR.MBR_INTRO AS mbrIntro
-		FROM 
-				TBL_DA_COMT_M AS COMT
-		LEFT JOIN
-				TBL_DA_MBR_M AS MBR
-			ON COMT.MBR_SQ = MBR.MBR_SQ
-		LEFT JOIN TBL_DA_WORK_M AS WORK
-			ON COMT.WORK_SQ = WORK.WORK_SQ
-		WHERE 
-			COMT.COMT_TYP_CD = #{comtTypCd}
-			AND COMT.DEL_YN = 'N'
+    /* 커뮤니티 리스트 */
+    SELECT COMT.COMT_SQ             AS comtSq
+         , COMT.WORK_SQ             AS workSq
+         , COMT.COMT_IMG_URL        AS comtImgUrl
+         , COMT.COMT_TITLE          AS comtTitle
+         , COMT.COMT_CONTENT        AS comtContent
+         , COMT.COMT_LIKES          AS comtLikes
+         , COMT.COMT_VIEWS          AS comtViews
+         , COMT.COMT_CMTS           AS comtCmts
+         , COMT.COMT_SCRAPS         AS comtScraps
+         , MBR.MBR_SQ               AS mbrSq
+         , MBR.MBR_NCKNM            AS mbrNcknm
+         , MBR.MBR_PROFILE_IMG_URL  AS mbrProfileImgUrl
+         , MBR.MBR_INTRO            AS mbrIntro
+      FROM 
+           TBL_DA_COMT_M  AS COMT
+ LEFT JOIN
+           TBL_DA_MBR_M   AS MBR
+        ON COMT.MBR_SQ  = MBR.MBR_SQ
+ LEFT JOIN 
+           TBL_DA_WORK_M  AS WORK
+        ON COMT.WORK_SQ = WORK.WORK_SQ
+     WHERE 1=1
+       AND COMT.COMT_TYP_CD = #{comtTypCd}
+       AND COMT.DEL_YN = 'N'
 		<if test="startDate != '' and endDate != '' and startDate != null and endDate != null">
-			AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
+       AND COMT.REG_DT BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d') + 1
 		</if>
 		<if test="exhibitRegionCd != '' and exhibitRegionCd != null">
-			AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
+       AND COMT.EXHIBIT_REGION_CD = #{exhibitRegionCd}
 		</if>
 		<if test="comtWorkShpCd != null and comtWorkShpCd != ''">
-			AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
+       AND WORK.WORK_SHP_CD = #{comtWorkShpCd}
 		</if>
 		<if test="exhibitTypCd != '' and exhibitTypCd != null">
-			AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
+       AND COMT.EXHIBIT_TYP_CD = #{exhibitTypCd}
 		</if>
 		<!-- 구분:공개여부 -->
 		<if test="openYn != '' and openYn != null">
-			AND COMT.OPEN_YN = #{openYn}
+       AND COMT.OPEN_YN = #{openYn}
 		</if>
 		<!-- 최근인기순 -->
 		<if test="comtSort == 'byRecentPopularity'">
-			AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
-		ORDER BY 
-				COMT.COMT_LIKES DESC
+       AND COMT.REG_DT >= DATE_ADD(NOW(), INTERVAL -1 YEAR) 
+  ORDER BY COMT.COMT_LIKES DESC
 		</if>
 		<!-- 역대인기순 -->
 		<if test="comtSort == 'allTimePopularity'">
-		ORDER BY 
-				COMT.COMT_LIKES DESC
+  ORDER BY COMT.COMT_LIKES DESC
 		</if>
 		<!-- 최신순 -->
 		<if test="comtSort == 'newest'">
-		ORDER BY 
-				COMT.REG_DT DESC
+  ORDER BY COMT.REG_DT DESC
 		</if>
 		<!-- 과거순 -->
 		<if test="comtSort == 'pastOrder'">
-		ORDER BY
-				COMT.REG_DT ASC
+  ORDER BY COMT.REG_DT ASC
 		</if>
 		<if test="comtSort == '' || comtSort == null">
-		ORDER BY COMT.REG_DT DESC
+  ORDER BY COMT.REG_DT DESC
 		</if>
 		<if test="offset != null">
-		LIMIT
-				#{limit}
-		OFFSET
-				#{offset}
-		</if>
-		
+     LIMIT #{limit} OFFSET #{offset}
+		</if>		
 	</select>
 	
 	<select id="getTotalCount" resultType="hashMap">
@@ -645,4 +637,37 @@
 		WHERE 
 				COMT_SQ = #{comtSq}
 	</update>
+	
+	<select id="selectBoardAuth" resultType="hashMap">
+    /* 게시판 관리 상세 조건 조회 */
+    SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
+                WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
+                WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'				
+                WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
+                WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
+                WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
+            END                                        AS ordCondition /* 정렬 구분 */
+          , CM_MG_OD_TYP_CD                            AS ordSortBy    /* 정렬 유형 */
+          , DATE_FORMAT(CM_MG_START_DT, '%Y-%m-%d %T') AS cmMgstartDt  /* 조회 시작 일시 */
+          , DATE_FORMAT(CM_MG_END_DT, '%Y-%m-%d %T')   AS cmMgEndDt    /* 조회 종료 일시 */
+          , COMT_TYP_CD                                AS comtTypCd    /* 커뮤니티 구분 코드 */
+          , CASE WHEN COMT_TYP_CD = 'BOA' THEN 4
+                 WHEN COMT_TYP_CD IN ('EXH', 'ISS') THEN 4
+             END                                       AS limitNum     /* 조회 갯수 */
+          , CM_MG_REGDT_YN                             AS regDtYn      /* 작성일 표시 여부 */
+          , CM_MG_CMT_YN                               AS cmtYn        /* 댓글 표시 여부 */
+          , CM_MG_VIEWS_YN                             AS viewsYn      /* 조회수 표시 여부 */
+          , CM_MG_SCRAPS_YN                            AS scrapYn      /* 스크랩 표시 여부 */
+          , CM_MG_LIKES_YN                             AS likeYn       /* 좋아요 표시 여부 */
+          , CM_MG_SNS_YN                               AS snsYn        /* SNS공유 표시 여부*/
+          , USE_YN                                     AS useYn        /* 게시판 표시 여부 */
+          , READ_AUTH_SQ                               AS readAuth     /* 읽기 권한 */
+          , WRITE_AUTH_SQ                              AS writeAuth    /* 쓰기 권한 */
+          , CMT_AUTH_SQ                                AS cmtAuth      /* 댓글 권한 */
+       FROM TBL_DA_COMT_MGMT_M
+      WHERE 1=1
+        <if test="comtTypCd != null and comtTypCd.length > 0">
+        AND COMT_TYP_CD = #{comtTypCd}
+        </if> 
+	</select>
 </mapper>

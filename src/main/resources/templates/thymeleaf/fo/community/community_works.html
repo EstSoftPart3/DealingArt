@@ -221,9 +221,11 @@
    	   			data: param,
    	   		    success : function(response){
    	   		    	console.log(response.result);
+   	   		        console.log(response.boardAuth);
    	   		   		listLength = response.result.length;
    	   		   		totalCount = response.totalCount.totalCount;
-   	   				workHtml(response.result);
+   	   				workHtml(response.result, response.boardAuth);
+   	   			    fn_chkComponetUseYn(response.boardAuth);
    	   			},
    	   			error : function(response){
    	   				console.log(response);
@@ -238,7 +240,7 @@
    		
    	}
    	
-   	function workHtml(list){
+   	function workHtml(list, auth){
    		var strHtml = '';
    		if(list.length > 0){
    			var rowYn = 'Y';
@@ -270,10 +272,10 @@
    	            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
    	            strHtml += '        		<div class="icon_box">';
    	            strHtml += '           			<ul>';
-   	            strHtml += '                		<li><p class="ico_good" onclick="likeCheckYn(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtLikes +'</span></li>';
-   	            strHtml += '                		<li><p class="ico_scrap" onclick="scrapCheck(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtScraps +'</span></li>';
-   	            strHtml += '                		<li><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
-   	            strHtml += '                		<li><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
+   	            strHtml += '                		<li class="like"><p class="ico_good" onclick="likeCheckYn(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtLikes +'</span></li>';
+   	            strHtml += '                		<li class="scrap"><p class="ico_scrap" onclick="scrapCheck(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtScraps +'</span></li>';
+   	            strHtml += '                		<li class="view"><p class="ico_hits"></p><span>'+ work.comtViews +'</span></li>';
+   	            strHtml += '                		<li class="cmt"><p class="ico_comments"></p><span>'+ work.comtCmts +'</span></li>';
    	            strHtml += '            		</ul>';
    	            strHtml += '        		</div>';
    	            strHtml += '        		<div class="text ellipsis-w-360">'+ work.comtTitle +'</div>';
@@ -285,6 +287,7 @@
    		            strHtml += '</div>';
    		         	rowYn = 'Y';
    	            }
+   	            
    	   		});
    	   		
    	   		$(".workspic_wrap .workspic_row").remove();
@@ -293,7 +296,6 @@
      		modalAlertShow("검색 결과가 없습니다."); 
      		//$(".workspic_wrap .workspic_row").remove();
      	}
-   		
    	}
    	
 	// 좋아요 체크 여부 조회
@@ -468,6 +470,41 @@
 			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 		}
    	}
+	
+	// 컴포넌트 사용 및 권한 여부 확인
+	function fn_chkComponetUseYn(data){
+		
+		if(data != null && data.length > 0){
+
+			// 좋아요 사용 여부
+			if(data[0].likeYn == "Y"){
+				$(".like").css("display","block");
+			}else if(data[0].likeYn == "N"){
+				$(".like").css("display","none");
+			}
+			
+			// 스크랩 사용 여부
+			if(data[0].scrapYn == "Y"){
+				$(".scrap").css("display","block");
+			}else if(data[0].scrapYn == "N"){
+				$(".scrap").css("display","none");
+			}
+			
+			// 조회수 사용 여부
+			if(data[0].viewsYn == "Y"){
+				$(".view").css("display","block");
+			}else if(data[0].viewsYn == "N"){
+				$(".view").css("display","none");
+			}
+			
+			// 댓글 사용 여부
+			if(data[0].cmtYn == "Y"){
+				$(".cmt").css("display","block");
+			}else if(data[0].cmtYn == "N"){
+				$(".cmt").css("display","none");
+			}
+		}
+	}
     </script>
 </body>
 </html>

@@ -201,4 +201,12 @@ public interface CommunityMapper {
 	
 	// 좋아요 갯수 증가
 	public void updateComtLikes(Object param);
+	
+	/*
+	 * 게시판 관리 상세 조건 조회
+	 * param: 커뮤니티 구분 코드
+	 * return : 게시판 정렬 구분, 유형 조건, 조회 시작, 조회 종료 일시, 커뮤니티 구분 코드
+	 */
+	public List<Map<String, Object>> selectBoardAuth(String comtTypCd);
+	
 }

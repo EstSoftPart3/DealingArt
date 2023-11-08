@@ -59,7 +59,9 @@ public class CommunityController {
 			return mv;
 		}else{
 			communityService.updateComtViews(param); //커뮤니티 조회수 증가
+			
 			mv.addObject("comtSq", param);
+			
 			return mv;
 		}
 	}
@@ -115,7 +117,12 @@ public class CommunityController {
 	public ModelAndView searchHomeList() {
 		ModelAndView mv = new ModelAndView("jsonView");
 		Map<String, Object> result = communityService.searchHomeList();
+		
+		// 커뮤니티 권한 정보 가져오기
+		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth("");
+		
 		mv.addObject("result", result);
+		mv.addObject("boardAuth", boardAuth);
 		return mv;
 	}
 
@@ -167,9 +174,13 @@ public class CommunityController {
 
 		// 커뮤니티 총개수 들고오기
 		Map<String, Object> totalCount = communityService.getCommunityTotalCount(param);
+		
+		// 커뮤니티 권한 정보 가져오기
+		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("comtTypCd").toString());
 
 		mv.addObject("result", result);
 		mv.addObject("totalCount", totalCount);
+		mv.addObject("boardAuth", boardAuth);
 
 		return mv;
 	}
@@ -239,13 +250,18 @@ public class CommunityController {
 
 			// 해당 작성자의 다른 커뮤니티 정보
 			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+			
+			// 커뮤니티 권한 정보 가져오기
+			List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("comtTypCd").toString());
+			
 			mv.addObject("otherComt", otherComt);
+			mv.addObject("boardAuth", boardAuth);
 			return mv;
 		}
 
 	}
 
-	// 노하우 상세페이지
+	// 이슈 상세페이지
 	@RequestMapping("/community/issueDetail")
 	@ResponseBody
 	public ModelAndView communityIssueDetailPage(@RequestParam Map<String, Object> param) {
@@ -270,7 +286,12 @@ public class CommunityController {
 
 			// 해당 작성자의 다른 커뮤니티 정보
 			List<Map<String, Object>> otherComt = communityService.writerOtherComt(param);
+			
+			// 커뮤니티 권한 정보 가져오기
+			List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("comtTypCd").toString());
+			
 			mv.addObject("otherComt", otherComt);
+			mv.addObject("boardAuth", boardAuth);
 			
 			return mv;
 		}
