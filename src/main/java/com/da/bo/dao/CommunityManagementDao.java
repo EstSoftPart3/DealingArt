@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class CommunityManagementDao {
 				
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllBoardList(param);
-		
+		logger.info("==========>>>>  게시물 목록 >>>>>>>>>>> ", boardInfo);
 		//Map데이터를 List에 삽입
 		
 		 for(int z=0; z<boardInfo.size(); z++){
@@ -77,7 +78,8 @@ public class CommunityManagementDao {
 		  }
 		
 		result.put("boardInfo", boardInfo);
-		
+		logger.info("==========>>>>  게시물 목록 >>>>>>>>>>> ");
+		//logger.info("==========>>>>  게시물 목록 >>>>>>>>>>> ", result.get(0));
 		return result;
 	}
 	//댓글 목록
@@ -100,7 +102,7 @@ public class CommunityManagementDao {
 		  }
 		
 		result.put("boardInfo", boardInfo);
-				
+		logger.debug("==========>>>> 댓글 목록 >>>>>>>>>>> ", result);
 		return result;
 	}
 	
@@ -125,7 +127,7 @@ public class CommunityManagementDao {
 		List<Map<String, Object>> boardInfo = communityManagementMapper.searchAllRprtList(param);
 				
 		result.put("boardInfo", boardInfo);
-		
+		logger.debug("==========>>>> 신고된 게시물 목록 >>>>>>>>>>> ", result);
 		return result;
 	}
 	//전체 게시물 상태 변경

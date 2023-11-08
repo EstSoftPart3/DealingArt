@@ -158,7 +158,7 @@ public class CommunityManagementController {
 		}
 		
 		mv.addObject("boardData", result);
-		
+		logger.debug("======>>>>>> 게시물 관리", result);
 		return mv;
 	}
 	

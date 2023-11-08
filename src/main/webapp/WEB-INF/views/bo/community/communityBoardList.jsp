@@ -474,7 +474,7 @@ if (commuBorTypCd.equals("ABL")) {
 			 	         	dataType: "json"
 				 	     }).done(function(response) {
 				 	    	var responseLength = Object.keys(response.boardData.boardInfo).length;
-
+							console.log(responseLength);
 							if(responseLength <= 0){
 								alert("검색 결과가 없습니다.");
 								d.resolve([]);	
@@ -785,14 +785,6 @@ if (commuBorTypCd.equals("ABL")) {
 		    });
 		});
 
-
-
-
-
-
-		
-
-		
 		/* 체크된 행의 게시글 아이디 가져오기 */
 		/* function getCheckedValue(){
 			var checkedSeqs = [];
