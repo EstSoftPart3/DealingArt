@@ -560,7 +560,7 @@
     		type: "POST",
     		url: "/main/totalContent",
     		success: (function(response){
-    			var bannerWrap = $(".swiper-wrapper");
+    			var bannerWrap = $("#mainBanner");
     			
     			setBoa(response.boas);
     			setNowDealWorks(response.nowDealWorks);
