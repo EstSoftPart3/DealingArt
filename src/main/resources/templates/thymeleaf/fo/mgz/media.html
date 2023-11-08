@@ -180,7 +180,7 @@
 <script type="text/javascript">    
 
 var pageStart = 0;
-var pageSize  = 6;
+var pageSize  = 8;
 
 $("#pageStart").val(pageStart);
 
@@ -264,7 +264,7 @@ $(document).ready(function(){
          		if($("#pageStart").val() == 0) {
          			var pageStartValue = parseInt($("#pageStart").val()) + pageSize;	
          		} else {
-         			var pageStartValue = parseInt($("#pageStart").val()) + 3;
+         			var pageStartValue = parseInt($("#pageStart").val()) + 4;
          		}
          		
          		scrollPageStart = pageStartValue;  
@@ -482,7 +482,7 @@ $("#btnMore").on('click', function(){
 	 
 	 var pageStart = $("#pageStart").val();
 	 
-	 selectMgz9List("MDA",pageStart,3);
+	 selectMgz9List("MDA",pageStart,4);
 });
 
  
@@ -531,7 +531,7 @@ $("#btnMore").on('click', function(){
 	    	 //내부 콘텐츠 li 그리드 중앙정렬
 	    		$(".mgz-list").css("width", "86%");
 	    } else {
-	    	$("iframe").width(360);
+	    	$("iframe").width(323);
 		    $("iframe").height(210);	
 	    }
 		

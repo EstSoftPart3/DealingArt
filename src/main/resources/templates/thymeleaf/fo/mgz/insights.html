@@ -201,7 +201,7 @@
 <script type="text/javascript">  
 
 var pageStart = 0;
-var pageSize  = 6;
+var pageSize  = 8;
 
 $("#pageStart").val(pageStart);
 
@@ -274,7 +274,7 @@ $(document).ready(function(){
          		if($("#pageStart").val() == 0) {
          			var pageStartValue = parseInt($("#pageStart").val()) + pageSize;	
          		} else {
-         			var pageStartValue = parseInt($("#pageStart").val()) + 3;
+         			var pageStartValue = parseInt($("#pageStart").val()) + 4;
          		}
          		
          		scrollPageStart = pageStartValue;  
@@ -302,7 +302,7 @@ $(document).ready(function(){
 	 
 	 var pageStart = $("#pageStart").val();
 	 
- 	selectMgz9List("IST",pageStart,3);
+ 	selectMgz9List("IST",pageStart,4);
  });
  
  
