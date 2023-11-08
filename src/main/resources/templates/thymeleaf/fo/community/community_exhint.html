@@ -235,48 +235,49 @@
    		window.scrollTo({top:0});
    		list.forEach( function (exhibit) {
    			
-   			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq, auth +')" style="cursor: pointer;" alt=""></div>';
-   	        strHtml += '    <div class="contents">';
-   	        strHtml += '        <ul>';
-   	        
-   	     	strHtml += '			<div onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;">';
-   	        strHtml += '            	<li>';
-   	        strHtml += '                	<div class="tit">';
-   	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
-   	        strHtml += '                	</div>';
-   	        strHtml += '            	</li>';
-   	        strHtml += '            	<li class="comt_content pt20">'+ exhibit.comtContent +'</li>';
-   	        strHtml += '            </div>';
-   	        
-   	        strHtml += '            <li class="comt-row-info">';
-   	        strHtml += '                <div class="user_wrap">';
-   	        strHtml += '                    <div class="user">';
-   	        strHtml += '                        <ul>';
-   	        
-   	        if(null != exhibit.mbrProfileImgUrl){
-   	        	strHtml += '                            <li class="pt5"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""></li>';
-   	        } else {
-   	        	strHtml += '                            <li class="pt5"><img src="/resources/img/mypage/ico_dauser.png" alt=""></li>';
-   	        }
-   	        
-   	        strHtml += '                            <li class="user_name"><span>'+ exhibit.mbrNcknm +'</span></li>';
-   	        strHtml += '                        </ul>';
-   	        strHtml += '                    </div>';
-   	        strHtml += '                    <div class="icon_box">';
-   	        strHtml += '                        <ul>';
-   	        strHtml += '                            <li class="like"><p class="ico_good" onclick="likeCheckYn(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
-   	        strHtml += '                            <li class="scrap"><p class="ico_scrap" onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
-   	        strHtml += '                            <li class="view"><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
-   	        strHtml += '                            <li class="cmt"><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
-   	        strHtml += '                        </ul>';
-   	        strHtml += '                    </div>';
-   	        strHtml += '                </div>';
-   	        strHtml += '            </li>';
-   	        strHtml += '        </ul>';
-   	        strHtml += '    </div>';
-   	        strHtml += '</div>';
-   	        
+   			strHtml += '<div class="exhint_row">';
+	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneIssueDetail('+exhibit.comtSq+');" alt="" style="cursor: pointer;"></div>';
+	        strHtml += '    <div class="contents">';
+	        strHtml += '        <ul>';
+	        
+	        strHtml += '			<div onclick="opneIssueDetail('+exhibit.comtSq+');" style="cursor: pointer;">';
+	        strHtml += '            	<li>';
+	        strHtml += '                	<div class="tit">';
+	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em>';
+	        strHtml += '						<div class="ico_new">NEW</div>';
+	        strHtml += '                	</div>';
+	        strHtml += '            	</li>';
+	        strHtml += '            	<li class="comt_content pt20">'+ exhibit.comtContent +'</li>';
+	        strHtml += '			</div>';
+	        
+	        strHtml += '            <li class="comt-row-info">';
+	        strHtml += '                <div class="user_wrap">';
+	        strHtml += '                    <div class="user">';
+	        strHtml += '                        <ul>';
+	        
+	        if(null != exhibit.mbrProfileImgUrl){
+		        strHtml += '                            <li class="pt5"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""></li>';
+	        } else {
+	        	strHtml += '                            <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';
+	        }
+	        
+	        strHtml += '                            <li class="user_name"><span>'+ exhibit.mbrNcknm +'</span></li>';
+	        strHtml += '                        </ul>';
+	        strHtml += '                    </div>';
+	        strHtml += '                    <div class="icon_box">';
+	        strHtml += '                        <ul>';
+	        strHtml += '                            <li class="like"><p class="ico_good"  onclick="likeCheckYn(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
+	        strHtml += '                            <li class="scrap"><p class="ico_scrap"  onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
+	        strHtml += '                            <li class="view"><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
+	        strHtml += '                            <li class="cmt"><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
+	        strHtml += '                        </ul>';
+	        strHtml += '                    </div>';
+	        strHtml += '                </div>';
+	        strHtml += '            </li>';
+	        strHtml += '        </ul>';
+	        strHtml += '    </div>';
+	        strHtml += '</div>';
+   			
    		});
    		
    		$("#listBox .exhint_row").remove();
