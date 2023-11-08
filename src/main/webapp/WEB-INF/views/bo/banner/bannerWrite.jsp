@@ -258,56 +258,6 @@ input[type="file"] {
 										</div>
 									</div>
 								</div>
-								<!-- 이벤트일때만 -->
-								<div id="evtboardlist" style="display: none;">
-									<div style="text-align: center">
-										<button type="button" class="btn btn-info sTitle">추가</button>
-									</div>
-
-									<div>
-
-										<div class="input-group input-group-sm"
-											style="width: 200px; float: right; right: 15px;">
-
-
-											<select class="custom-select bTitle" id="searchGubun">
-												<option value="">10개씩 보기</option>
-												<option value="mbrNm">20개씩 보기</option>
-												<option value="mbrId">30개씩 보기</option>
-												<option value="mbrNcknm">50개씩 보기</option>
-												<option value="mbrNcknm">100개씩 보기</option>
-											</select>
-											<!-- jsgird테스트  -->
-
-
-										</div>
-
-										<div class="card-body table-responsive p-0"
-											style="height: 300px; font-size: 11px;">
-
-											<table class="table table-bordered">
-												<thead>
-													<tr align="center" style="background-color: #efefef">
-														<th>선택</th>
-														<th>순서</th>
-														<th>제목</th>
-														<th>등록인</th>
-														<th>기간</th>
-														<th>등록일</th>
-														<th>미리보기</th>
-													</tr>
-												</thead>
-												<tbody id="dataList">
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-
 							<div class="card-header p-2"
 								style="border: 1px solid rgba(0, 0, 0, .125); background-color: #efefef">
 								<ul class="nav nav-pills">
@@ -654,7 +604,7 @@ input[type="file"] {
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
 		} else if (this.value == 'MGH') {
-			tabTypeCd = "MGH";
+			bnnDivCd = "MGH";
 			$("#mainimg").css("display", "block");
 			$("#mainbannerlist").css("display", "none");//메인배너 선택
 			$("#subimg").css("display", "block");//서브이미지
@@ -778,6 +728,19 @@ input[type="file"] {
  			$("input[name=bnnShowSq]").focus();
  			return false;
  		}
+ 		if($("#bnnMpImgUrl").val() == '' || $("#bnnMpImgUrl").val() == null){
+ 	 		alert("메인 배너 (PC)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMmImgUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 (MOBILE)를 첨부하세요.");
+ 	 		return false;
+ 	 	}
+ 	 	if($("#bnnMLndUrl").val() == '' || $("#bnnMmImgUrl").val() == null){
+ 	 		alert("메인 배너 랜딩 페이지 URL를 입력해주세요.");
+ 	 		return false;
+ 	 	}
+ 	}else if(bnnDivCd == "EVH"){
  		if($("#bnnMpImgUrl").val() == '' || $("#bnnMpImgUrl").val() == null){
  	 		alert("메인 배너 (PC)를 첨부하세요.");
  	 		return false;
@@ -969,8 +932,26 @@ function bannerInsert() {
 				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
 	 			break;
 	 		case "EVH" :
+	 			
+				bnnData.bnnShowSq = "1";
+				
+				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
+				
+				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
+				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
+				
+				var promoData = [{
+					"" : ""
+				}]
+				
+				formData.append("bnnData", new Blob([JSON.stringify(bnnData)], {type: "application/json"}));
+				formData.append("promoData", new Blob([JSON.stringify(promoData)], {type: "application/json"}));
+				
 	 			break;
 	 	} 
+	 	console.log(bnnData);
+	 	console.log(formData);
 		$.ajax({
 	        type: "post",
 	        url: "/admin/banner/bannerInsertData",
@@ -992,15 +973,6 @@ function bannerInsert() {
 		});
 	}
 }
-	
-	 
-	 
-	
-	 
-
-	 
-		
-		
      
 </script>
 
