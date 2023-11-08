@@ -270,17 +270,21 @@
 											<label for="z1" class="wd-145"><span></span>평면</label>
 											<input type="radio" id="z2" name="COLLworkShpCd" value="SLD" th:checked="${work.workShpCd eq 'SLD'}"/>
 											<label for="z2" class="wd-145"><span></span>입체</label>
+											<input type="radio" id="z11" name="COLLworkShpCd" value="ANT" th:checked="${work.workShpCd eq 'ANT'}"/>
+											<label for="z11" class="wd-145"><span></span>고미술</label>
 										</td>
 									</tr>
 									<tr>
 										<th><span class="my-red">구분</span></th>
 										<td>
-											<input type="checkbox" id="z3" name="COLLworkClsfcCd" value="PAINTING" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z3" name="COLLworkClsfcCd" value="PAINTING" th:checked="${work.workShpCd eq 'PAINTING'}" onclick="workClsfcCdCheck()"/>
 											<label for="z3" class="wd-145"><span></span>회화</label>
-											<input type="checkbox" id="z4" name="COLLworkClsfcCd" value="EDITION" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z4" name="COLLworkClsfcCd" value="EDITION" th:checked="${work.workShpCd eq 'EDITION'}" onclick="workClsfcCdCheck()"/>
 											<label for="z4" class="wd-145"><span></span>에디션</label>
-											<input type="checkbox" id="z5" name="COLLworkClsfcCd" value="PICTURE" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z5" name="COLLworkClsfcCd" value="PICTURE" th:checked="${work.workShpCd eq 'PICTURE'}" onclick="workClsfcCdCheck()"/>
 											<label for="z5" class="wd-145"><span></span>사진</label>
+											<input type="checkbox" id="z12" name="COLLworkClsfcCd" value="CRFTS" th:checked="${work.workShpCd eq 'CRFTS'}" onclick="checkCrfts()"/>
+											<label for="z12" class="wd-145"><span></span>공예품</label>
 										</td>
 									</tr>
 									<tr>
@@ -613,17 +617,21 @@
 											<label for=z6 class="wd-145"><span></span>평면</label>
 											<input type="radio" id="z7" name="WORKworkShpCd" value="SLD" th:checked="${work.workShpCd eq 'SLD'}"/>
 											<label for="z7" class="wd-145"><span></span>입체</label>
+											<input type="radio" id="z13" name="WORKworkShpCd" value="ANT" th:checked="${work.workShpCd eq 'ANT'}"/>
+											<label for="z13" class="wd-145"><span></span>고미술</label>
 										</td>
 									</tr>
 									<tr>
 										<th><span class="my-red">구분</span></th>
 										<td>
-											<input type="checkbox" id="z8" name="WORKworkClsfcCd" value="PAINTING" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z8" name="WORKworkClsfcCd" value="PAINTING" th:checked="${work.workShpCd eq 'PAINTING'}" onclick="workClsfcCdCheck()"/>
 											<label for="z8" class="wd-145"><span></span>회화</label>
-											<input type="checkbox" id="z9" name="WORKworkClsfcCd" value="EDITION" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z9" name="WORKworkClsfcCd" value="EDITION" th:checked="${work.workShpCd eq 'EDITION'}" onclick="workClsfcCdCheck()"/>
 											<label for="z9" class="wd-145"><span></span>에디션</label>
-											<input type="checkbox" id="z10" name="WORKworkClsfcCd" value="PICTURE" onclick="workClsfcCdCheck()"/>
+											<input type="checkbox" id="z10" name="WORKworkClsfcCd" value="PICTURE" th:checked="${work.workShpCd eq 'PICTURE'}" onclick="workClsfcCdCheck()"/>
 											<label for="z10" class="wd-145"><span></span>사진</label>
+											<input type="checkbox" id="z14" name="WORKworkClsfcCd" value="CRFTS" th:checked="${work.workShpCd eq 'CRFTS'}" onclick="checkCrfts()"/>
+											<label for="z14" class="wd-145"><span></span>공예품</label>
 										</td>
 									</tr>
 									<tr>
@@ -1375,6 +1383,40 @@ function openLakeHelp(){
 function closeLakeHelp(){
 	$('body').css("overflow", "scroll");
 	$("#lakeHelpModal").modal("hide");
+}
+//작품 구분이 공예품 보증서 부분을 활성화 및 비활성화 시킨다.
+function checkCrfts(){
+	//입력창 코드
+	var workTypCd = work.workTypCd;
+	//입력창 코드 별 구분(공예품) 체크 여부
+	var checkYn = "";
+	
+	//입력창 코드에 따른 체크여부 셋팅
+	if(workTypCd == "COLL"){
+		checkYn = $('#z12').is(':checked');
+	}else{
+		checkYn = $('#z14').is(':checked');
+	}
+	
+	//입력창 코드와 체크여부에 따른 보증서 활성화 및 비활성화
+	if(checkYn == true && workTypCd == "COLL"){
+		modalAlertShow("구분이 공예품으로 설정할 경우 작품보증서가 비활성화됩니다.");
+		$("#COLLworkGrtUrl").attr("disabled",true); 
+		$("#COLLworkGrtUrl1").attr("src",""); 
+		$("#COLLworkGrtUrl1").val(""); 
+	}else if(checkYn == true && workTypCd == "WORK"){
+		modalAlertShow("구분이 공예품으로 설정할 경우 작품보증서가 비활성화됩니다.");
+		$("#WORKworkGrtUrl").attr("disabled",true); 
+		$("#WORKworkGrtUrl1").attr("src",""); 
+		$("#WORKworkGrtUrl1").val(""); 
+	}else if(checkYn == false && workTypCd == "COLL"){
+		$("#COLLworkGrtUrl").removeAttr("disabled"); 
+	}else if(checkYn == false && workTypCd == "WORK"){
+		$("#WORKworkGrtUrl").removeAttr("disabled");
+	}
+	
+	//구분코드 함수 호출
+	workClsfcCdCheck();
 }
 //작품 구분 체크하면 체크한 값을 가져온다
 function workClsfcCdCheck(){
