@@ -144,4 +144,11 @@ public interface CommunityService {
 	
 	//커뮤니티 좋아요 갯수 증가
 	public void updateComtLikes(Object param);
+	
+	/*
+	 * 커뮤니티 권한 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public List<Map<String, Object>> selectBoardAuth(String param);
 }

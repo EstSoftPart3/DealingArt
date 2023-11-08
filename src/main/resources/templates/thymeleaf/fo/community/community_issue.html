@@ -197,8 +197,10 @@
    			url: "/community/communityListData",
    			data: obj,
    			success: (function(response){
+   				console.log(response.boardAuth);
    				setIssueHtml(response.result);
    				setPagenation(response.totalCount);
+   				fn_chkComponetUseYn(response.boardAuth);
    			}),
    			error: (function(response){
    				
@@ -246,10 +248,10 @@
 	        strHtml += '                    </div>';
 	        strHtml += '                    <div class="icon_box">';
 	        strHtml += '                        <ul>';
-	        strHtml += '                            <li><p class="ico_good"  onclick="likeCheckYn(' + issue.comtSq + ');" style="cursor: pointer;"></p><span>'+ issue.comtLikes +'</span></li>';
-	        strHtml += '                            <li><p class="ico_scrap"  onclick="scrapCheck(' + issue.comtSq + ');" style="cursor: pointer;"></p><span>'+ issue.comtScraps +'</span></li>';
-	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ issue.comtViews +'</span></li>';
-	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ issue.comtCmts +'</span></li>';
+	        strHtml += '                            <li class="like"><p class="ico_good"  onclick="likeCheckYn(' + issue.comtSq + ');" style="cursor: pointer;"></p><span>'+ issue.comtLikes +'</span></li>';
+	        strHtml += '                            <li class="scrap"><p class="ico_scrap"  onclick="scrapCheck(' + issue.comtSq + ');" style="cursor: pointer;"></p><span>'+ issue.comtScraps +'</span></li>';
+	        strHtml += '                            <li class="view"><p class="ico_hits"></p><span>'+ issue.comtViews +'</span></li>';
+	        strHtml += '                            <li class="cmt"><p class="ico_comments"></p><span>'+ issue.comtCmts +'</span></li>';
 	        strHtml += '                        </ul>';
 	        strHtml += '                    </div>';
 	        strHtml += '                </div>';
@@ -522,7 +524,40 @@
 			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
 		}
 	}
- 	
+	// 컴포넌트 사용 및 권한 여부 확인
+	function fn_chkComponetUseYn(data){
+		
+		if(data != null && data.length > 0){
+
+			// 좋아요 사용 여부
+			if(data[0].likeYn == "Y"){
+				$(".like").css("display","block");
+			}else if(data[0].likeYn == "N"){
+				$(".like").css("display","none");
+			}
+			
+			// 스크랩 사용 여부
+			if(data[0].scrapYn == "Y"){
+				$(".scrap").css("display","block");
+			}else if(data[0].scrapYn == "N"){
+				$(".scrap").css("display","none");
+			}
+			
+			// 조회수 사용 여부
+			if(data[0].viewsYn == "Y"){
+				$(".view").css("display","block");
+			}else if(data[0].viewsYn == "N"){
+				$(".view").css("display","none");
+			}
+			
+			// 댓글 사용 여부
+			if(data[0].cmtYn == "Y"){
+				$(".cmt").css("display","block");
+			}else if(data[0].cmtYn == "N"){
+				$(".cmt").css("display","none");
+			}
+		}
+	}
     </script>
 </body>
 </html>

@@ -248,4 +248,14 @@ public class CommunityServiceImpl implements CommunityService {
 	public void updateComtLikes(Object param){
 		communityDao.updateComtLikes(param);
 	}
+	
+	/*
+	 * 커뮤니티 권한 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public List<Map<String, Object>> selectBoardAuth(String param){
+		List<Map<String, Object>> result = communityDao.selectBoardAuth(param);
+		return result;
+	}
 }

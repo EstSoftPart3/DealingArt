@@ -528,7 +528,7 @@
 				      var chkName = toCamelCase(key);
 					  
 					  //게시판 사용 여부 세팅
-					  if(key == "USE_YN"){
+					  if(key == "useYn"){
 						  if (iptValue == "Y"){
 							  $("#useYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -536,7 +536,7 @@
 						  }
 					  }				     				  
 					 //정렬 방식 셋팅
-					  if(key == "CM_MG_OD_DIV_CD"){
+					  if(key == "cmMgOdDivCd"){
 						  if (iptValue == "REG"){
 							  $("#cmMgOdDivCd1").prop("checked", true);
 						  }else if(iptValue == "LIK"){
@@ -546,7 +546,7 @@
 						  }  					 
 					  }
 					  //댓글기능 사용 여부 세팅
-					  if(key == "CM_MG_CMT_YN"){
+					  if(key == "cmMgCmtYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgCmtYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -554,7 +554,7 @@
 						  }
 					  }
 					  //작성일 표시 사용 여부 세팅
-					  if(key == "CM_MG_REGDT_YN"){
+					  if(key == "cmMgRegDtYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgRegdtYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -562,7 +562,7 @@
 						  }
 					  }
 					  //조회수 표시 사용 여부 세팅
-					  if(key == "CM_MG_VIEWS_YN"){
+					  if(key == "cmMgViewsYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgViewsYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -570,7 +570,7 @@
 						  }
 					  }
 					  //스크랩 수 표시 사용 여부 세팅
-					  if(key == "CM_MG_SCRAPS_YN"){
+					  if(key == "cmMgScrapsYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgScrapsYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -578,7 +578,7 @@
 						  }
 					  }
 					  //좋아요 수 표시 사용 여부 세팅
-					  if(key == "CM_MG_LIKES_YN"){
+					  if(key == "cmMgLikesYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgLikesYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -586,7 +586,7 @@
 						  }
 					  }
 					  //SNS 공유 표시 사용 여부 세팅
-					  if(key == "CM_MG_SNS_YN"){
+					  if(key == "cmMgSnsYn"){
 						  if (iptValue == "Y"){
 							  $("#cmMgSnsYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
@@ -595,12 +595,12 @@
 					  }
 					 
 					  //게시판 관리 NEW 설정
-					  if(key == "CM_MG_NEW_SET"){
+					  if(key == "cmMgNewSet"){
 						  $("input[name='cmMgNewSet']").val(iptValue);
 					  }
 					 
 					  //읽기 권한 세팅
-					  if(key == "READ_AUTH_SQ"){
+					  if(key == "readAuthSq"){
 						  if (iptValue == "3"){
 							  $("#readAuthSq1").prop("checked", true);
 						  }else if(iptValue == "1"){
@@ -608,7 +608,7 @@
 						  }
  					  }
 					  //읽기 권한 세팅
-					  if(key == "WRITE_AUTH_SQ"){
+					  if(key == "writeAuthSq"){
 						  if (iptValue == "3"){
 							  $("#writeAuthSq1").prop("checked", true);
 						  }else if(iptValue == "1"){
@@ -616,7 +616,7 @@
 						  }
  					  }
 					  //읽기 권한 세팅
-					  if(key == "CMT_AUTH_SQ"){
+					  if(key == "cmtAuthSq"){
 						  if (iptValue == "3"){
 							  $("#cmtAuthSq1").prop("checked", true);
 						  }else if(iptValue == "1"){
@@ -624,10 +624,11 @@
 						  }
  					  }
 					  //디비 저장을 위한 시퀀스 벨류값 받아놓기
-					  if(key == "CM_MG_SQ"){
-							$("input[name='cmMgSq']").val(iptValue);
-											  }
+					  if(key == "cmMgSq"){
+                          $("input[name='cmMgSq']").val(iptValue);
+                      }
 					  //iptValue = "";
+					  
 				 });
 				 
 	           },
@@ -678,7 +679,7 @@
 			cmtAuthSq : getInputValue('cmtAuthSq'),					
 		};			
 		var isConfirm = confirm("게시판 정보를 저장하시겠습니까?");
-		
+		console.log(cmMgSq);
 		if(isConfirm) {
 			$.ajax({
 				type: "POST",

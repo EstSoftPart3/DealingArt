@@ -79,11 +79,13 @@ public class CommunityDao {
 		Map<String, Object> dealStatus = communityMapper.searchDealStatus(param); // 해당 작품 판매 상태
 		List<Map<String, Object>> otherComt = communityMapper.writerOtherComt(param); // 작성자의 다른 자랑하기 글
 		Map<String, Object> workKeywrd = communityMapper.searchWorkKeywrd(param); // 작품 키워드 (자랑하기 키워드 아님)
+		List<Map<String, Object>> boardAuth = communityMapper.selectBoardAuth("BOA");
 		
 		result.put("showOff", showOffDtl);
 		result.put("dealStatus", dealStatus);
 		result.put("otherComt", otherComt);
 		result.put("workKeywrd", workKeywrd);
+		result.put("boardAuth", boardAuth);
 		
 		return result;
 	}
@@ -315,4 +317,13 @@ public class CommunityDao {
 		communityMapper.updateComtLikes(param);
 	}
 	
+	/*
+	 * 커뮤니티 권한 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public List<Map<String, Object>> selectBoardAuth(String param){
+		List<Map<String, Object>> result = communityMapper.selectBoardAuth(param);
+		return result;
+	}
 }

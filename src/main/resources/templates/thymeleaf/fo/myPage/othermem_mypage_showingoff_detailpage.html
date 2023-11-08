@@ -152,6 +152,7 @@
 				
 				$(".ellipsis").css('padding', '10');
 		     }
+			
 		});
 		var message = /*[[${message}]]*/ 'default' //커뮤니티 순번
 		if(message != "" && message != null){
@@ -194,6 +195,7 @@
     				comtSq: comtSq
     			},
     			success: function(data) {
+    				
     				otherComt = data.result.showOffList.otherComt;
     				showOffList = data.result.showOffList;
     				showOff = data.result.showOffList.showOff;
@@ -202,6 +204,7 @@
     	    		list = deal || work;
 
     	    		setShowOffDtlInfoHtml();
+    	    		fn_chkComponetUseYn(data.result.showOffList.boardAuth);
     				setWorkInfoHtml();
     				
     				if(list.artistInfo) {
@@ -234,6 +237,7 @@
     				setReportCompleteModal();
     				setReportErrorModal();
     				setWorkImgOverEnt();
+    				
     			}
     		});
     	}
@@ -264,11 +268,11 @@
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
     		userWrapHtml += '		<li class="time hidden">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
-    		userWrapHtml += '		<li onclick="likeCheckYn(' + comtSq + ')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
+    		userWrapHtml += '		<li class="like" onclick="likeCheckYn(' + comtSq + ')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
     		/* userWrapHtml += '		<li style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>'; */
-    		userWrapHtml += '		<li onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
-    		userWrapHtml += '		<li><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
-    		userWrapHtml += '		<li><p class="ico_comments"></p><span>'+ showOff.comtCmts +'</span></li>';
+    		userWrapHtml += '		<li class="scrap" onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
+    		userWrapHtml += '		<li class="view"><p class="ico_hits"></p><span>'+ showOff.comtViews +'</span></li>';
+    		userWrapHtml += '		<li class="cmt"><p class="ico_comments"></p><span>'+ showOff.comtCmts +'</span></li>';
     		userWrapHtml += '		<li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ showOff.rprtCnt +'</span></li>';
     		userWrapHtml += '	</ul>';
     		userWrapHtml += '</div>';
@@ -1701,6 +1705,41 @@
 		
 		function goBack(){
 			location.href = "/community/worksList";
+		}
+		
+		// 컴포넌트 사용 및 권한 여부 확인
+		function fn_chkComponetUseYn(data){
+			console.log(data);
+			if(data != null && data.length > 0){
+
+				// 좋아요 사용 여부
+				if(data[0].likeYn == "Y"){
+					$(".like").css("display","block");
+				}else if(data[0].likeYn == "N"){
+					$(".like").css("display","none");
+				}
+				
+				// 스크랩 사용 여부
+				if(data[0].scrapYn == "Y"){
+					$(".scrap").css("display","block");
+				}else if(data[0].scrapYn == "N"){
+					$(".scrap").css("display","none");
+				}
+				
+				// 조회수 사용 여부
+				if(data[0].viewsYn == "Y"){
+					$(".view").css("display","block");
+				}else if(data[0].viewsYn == "N"){
+					$(".view").css("display","none");
+				}
+				
+				// 댓글 사용 여부
+				if(data[0].cmtYn == "Y"){
+					$(".cmt").css("display","block");
+				}else if(data[0].cmtYn == "N"){
+					$(".cmt").css("display","none");
+				}
+			}
 		}
 
 	</script>

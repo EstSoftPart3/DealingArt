@@ -102,9 +102,9 @@
             <div id="nav">
                 <ul>
                     <li><a href="/community/main" class="over">홈</a></li>
-                    <li><a href="/community/worksList">작품자랑</a></li>
-                    <li><a href="/community/exhintList">전시 소개&후기</a></li>
-                    <li><a href="/community/issueList">이슈</a></li>
+                    <li id="boa"><a href="/community/worksList">작품자랑</a></li>
+                    <li id="exh"><a href="/community/exhintList">전시 소개&후기</a></li>
+                    <li id="iss"><a href="/community/issueList">이슈</a></li>
                     <li><a href="/community/event">이벤트</a></li>
                     <!-- <li class="pt0 mt10"><button class="btn_recording" onclick="location.href='/myPage/main'">기록하기</button></li> -->
                     <li class="pt0 mt10"><button class="btn_recording" onclick="exLoginCheck()">기록하기</button></li>
@@ -270,6 +270,8 @@
     			type: "post",
     			url: "/community/searchHomeList",
     			success: function(data) {
+    				console.log(data.boardAuth);
+    				fn_chkCommUseYn(data.boardAuth);
     				var popList = data.result.popList; // 이 주의 인기 작품자랑 리스트
     				var boastMstList = data.result.boastMstList; // 자랑하기 고수 리스트
     				var bestExhibitList = data.result.bestExhibitList; // 전시후기/소개 베스트 게시물 리스트
@@ -311,6 +313,43 @@
     			}
     		});
     	});
+    	
+    	/*
+    	 * 커뮤니티 사용 여부 확인
+    	 */
+    	function fn_chkCommUseYn(data){
+    		
+    		var html = "";
+    		
+    		$.each(data, function(idx, item) {
+    			
+    			//$("#nav").empty();
+    			
+    			if(item.comtTypCd != null && item.comtTypCd == "BOA"){
+    				if(item.comtTypCd == "BOA" && item.useYn == "Y"){
+						$("#boa").css("display","block");
+						
+    				}else if(item.comtTypCd == "BOA" && item.useYn == "N"){
+    					$("#boa").css("display","none");
+    				}
+
+    			}else if(item.comtTypCd != null && item.comtTypCd == "EXH"){
+    				if(item.comtTypCd == "EXH" && item.useYn == "Y"){
+						$("#exh").css("display","block");
+						
+    				}else if(item.comtTypCd == "EXH" && item.useYn == "N"){
+    					$("#exh").css("display","none");
+    				}
+    			}else if(item.comtTypCd != null && item.comtTypCd == "ISS"){
+    				if(item.comtTypCd == "ISS" && item.useYn == "Y"){
+						$("#iss").css("display","block");
+						
+    				}else if(item.comtTypCd == "ISS" && item.useYn == "N"){
+    					$("#iss").css("display","none");
+    				}
+    			}
+    		});
+    	}
     	
     	// 이 주의 인기 작품자랑, 자랑하기 고수 html 구성
 		function setShowingOffHtml(list) {

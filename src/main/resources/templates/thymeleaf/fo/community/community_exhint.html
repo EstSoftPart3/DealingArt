@@ -216,8 +216,10 @@
    			url: "/community/communityListData",
    			data: obj,
    			success: (function(response){
-   				setExhibitHtml(response.result);
+   				console.log(response.boardAuth);
+   				setExhibitHtml(response.result, response.boardAuth);
    				setPagenation(response.totalCount);
+   				fn_chkComponetUseYn(response.boardAuth);
    			}),
    			error: (function(response){
    				console.log(response);
@@ -227,14 +229,14 @@
    	}
    	
    	// 전시후기/소개 뿌려주기
-   	function setExhibitHtml(list){
+   	function setExhibitHtml(list, auth){
    		var strHtml = '';
    		
    		window.scrollTo({top:0});
    		list.forEach( function (exhibit) {
    			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
-   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
+   	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq, auth +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
    	        strHtml += '        <ul>';
    	        
@@ -263,10 +265,10 @@
    	        strHtml += '                    </div>';
    	        strHtml += '                    <div class="icon_box">';
    	        strHtml += '                        <ul>';
-   	        strHtml += '                            <li><p class="ico_good" onclick="likeCheckYn(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
-   	        strHtml += '                            <li><p class="ico_scrap" onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
-   	        strHtml += '                            <li><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
-   	        strHtml += '                            <li><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
+   	        strHtml += '                            <li class="like"><p class="ico_good" onclick="likeCheckYn(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtLikes +'</span></li>';
+   	        strHtml += '                            <li class="scrap"><p class="ico_scrap" onclick="scrapCheck(' + exhibit.comtSq + ');" style="cursor: pointer;"></p><span>'+ exhibit.comtScraps +'</span></li>';
+   	        strHtml += '                            <li class="view"><p class="ico_hits"></p><span>'+ exhibit.comtViews +'</span></li>';
+   	        strHtml += '                            <li class="cmt"><p class="ico_comments"></p><span>'+ exhibit.comtCmts +'</span></li>';
    	        strHtml += '                        </ul>';
    	        strHtml += '                    </div>';
    	        strHtml += '                </div>';
@@ -552,6 +554,41 @@
 			);
 		}else{
 			modalAlertShow("로그인 후 이용하실 수 있습니다.", "login");
+		}
+	}
+
+	// 컴포넌트 사용 및 권한 여부 확인
+	function fn_chkComponetUseYn(data){
+		
+		if(data != null && data.length > 0){
+
+			// 좋아요 사용 여부
+			if(data[0].likeYn == "Y"){
+				$(".like").css("display","block");
+			}else if(data[0].likeYn == "N"){
+				$(".like").css("display","none");
+			}
+			
+			// 스크랩 사용 여부
+			if(data[0].scrapYn == "Y"){
+				$(".scrap").css("display","block");
+			}else if(data[0].scrapYn == "N"){
+				$(".scrap").css("display","none");
+			}
+			
+			// 조회수 사용 여부
+			if(data[0].viewsYn == "Y"){
+				$(".view").css("display","block");
+			}else if(data[0].viewsYn == "N"){
+				$(".view").css("display","none");
+			}
+			
+			// 댓글 사용 여부
+			if(data[0].cmtYn == "Y"){
+				$(".cmt").css("display","block");
+			}else if(data[0].cmtYn == "N"){
+				$(".cmt").css("display","none");
+			}
 		}
 	}
 
