@@ -341,9 +341,12 @@ public class CommunityController {
 		List<Map<String, Object>> comments = communityService.communityComment(param);
 		// 대댓글 리스트
 		List<Map<String, Object>> replys = communityService.communityReply(param);
-
+		// 커뮤니티 권한 정보 가져오기
+		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("commTypeCd").toString());
+		
 		mv.addObject("comments", comments);
 		mv.addObject("replys", replys);
+		mv.addObject("boardAuth", boardAuth);
 
 		return mv;
 	}

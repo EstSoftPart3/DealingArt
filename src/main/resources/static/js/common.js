@@ -2170,31 +2170,43 @@ function ckClsHide() {
  * 설  명 : 커뮤니티 관련 페이지 -> 댓글 셋팅
  * 예)
  ---------------------------------------------*/
-function setComment(comtSq) {
+function setComment(comtSq, commTypeCd) {
 	$.ajax({
 		type: "post",
 		url: "/community/searchComtCmtsList",
 		data: {
-			comtSq: comtSq
+			  comtSq     : comtSq
+			, commTypeCd : commTypeCd
 		},
 		success: function(data) {
 			var comments = data.comments;
 			var replys = data.replys;
+			var boardAuth = data.boardAuth; // 커뮤니티 댓글 사용 유무
 			var strHtml = '';
 			
-			strHtml += '<form action="" method="" id="" name="">';
-			strHtml += '	<legend>댓글 입력 폼</legend>';
-			strHtml += '	<p>';
-			strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">'+ (comments.length + replys.length) +'</strong></label>';
-			strHtml += '		<input type="text" style="display: none;">';
-			if(sMbrSqVal) {
-				strHtml += '	<input type="text" id="comments_tit" onkeydown="if(event.keyCode == 13){cmtReg('+ comtSq +');}">';
-			} else {
-				strHtml += '	<input type="text" id="comments_tit" disabled>';
+			// 커뮤니티 댓글 사용 유무 확인 2023.11.08 홍충기 수정
+			if(boardAuth[0].cmtYn != null && boardAuth[0].cmtYn =="Y"){
+				strHtml += '<form action="" method="" id="cmtForm" name="">';
+				strHtml += '	<legend>댓글 입력 폼</legend>';
+				strHtml += '	<p>';
+				strHtml += '		<label for="comments_tit">댓글 <strong class="comments_cnt">' + (comments.length + replys.length) + '</strong></label>';
+				strHtml += '		<input type="text" style="display: none;">';
+				if (sMbrSqVal) {
+					strHtml += '	<input type="text" id="comments_tit" onkeydown="if(event.keyCode == 13){cmtReg(' + comtSq + ');}">';
+				} else {
+					strHtml += '	<input type="text" id="comments_tit" disabled>';
+				}
+				strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg(' + comtSq + ');">등록</button>';
+				strHtml += '	</p>';
+				strHtml += '</form>';
+			}else if(boardAuth[0].cmtYn != null && boardAuth[0].cmtYn =="N"){
+				strHtml += '<form action="" method="" id="cmtForm" name="">';
+				strHtml += '	<legend>댓글 입력 폼</legend>';
+				strHtml += '	<p>';
+
+				strHtml += '	</p>';
+				strHtml += '</form>';
 			}
-			strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg('+ comtSq +');">등록</button>';
-			strHtml += '	</p>';
-			strHtml += '</form>';
 			
 			// 댓글
 			comments.forEach(function(comment) {

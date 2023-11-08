@@ -125,6 +125,7 @@
  	var mbr = /*[[${param.mbrSq}]]*/ 'default';
  	var comt = /*[[${issue}]]*/ 'default';
  	var otherComt = /*[[${otherComt}]]*/ 'default';
+ 	var boardAuth = /*[[${boardAuth}]]*/ 'default'; // 컴포넌트 권한 및 사용 유무
  	var showOff = null;
  	
     var message = /*[[${message}]]*/ 'default' //커뮤니티 순번
@@ -144,11 +145,13 @@
     	otherComtWorkList(otherComt, "/community/issueDetail");
     	initOtherComtWorkListSwiper();
     	
-    	setComment(comtSq);
+    	setComment(comtSq, "ISS");
     	
     	setReportModal();
 		setReportCompleteModal();
 		setReportErrorModal();
+		console.log(boardAuth);
+		fn_chkComponetUseYn(boardAuth);
     });
     
     // 커뮤니티 정보 셋팅
@@ -178,10 +181,10 @@
 	    strHtml += '    <div class="icon_box">';
 	    strHtml += '        <ul>';
 	    strHtml += '            <li class="day">'+ (comt.dateDiff >= 24 ? comt.comtRegDt.substring(0, comt.comtRegDt.length-3) : setTimeFormat(comt.comtRegDt)) +'</li>';
-	    strHtml += '            <li><p class="ico_good"  onclick="likeCheckYn(' + comt.comtSq + ');" style="cursor: pointer;"></p><span>'+ comt.comtLikes +'</span></li>';
-	    strHtml += '            <li><p class="ico_scrap"  onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"></p><span>'+ comt.comtScraps +'</span></li>';
-	    strHtml += '            <li><p class="ico_hits"></p><span>'+ comt.comtViews +'</span></li>';
-	    strHtml += '            <li><p class="ico_comments"></p><span>'+ comt.comtCmts +'</span></li>';
+	    strHtml += '            <li class="like"><p class="ico_good"  onclick="likeCheckYn(' + comt.comtSq + ');" style="cursor: pointer;"></p><span>'+ comt.comtLikes +'</span></li>';
+	    strHtml += '            <li class="scrap"><p class="ico_scrap"  onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"></p><span>'+ comt.comtScraps +'</span></li>';
+	    strHtml += '            <li class="view"><p class="ico_hits"></p><span>'+ comt.comtViews +'</span></li>';
+	    strHtml += '            <li class="cmt"><p class="ico_comments"></p><span>'+ comt.comtCmts +'</span></li>';
 	    strHtml += '            <li onclick="openComtRprtModal();" style="cursor: pointer;"><p class="ico_report"></p><span>'+ comt.rpptCount +'</span></li>';
 	    strHtml += '        </ul>';
 	    strHtml += '    </div>';
@@ -354,6 +357,41 @@
 				alert("오류 발생" + error);
 			}
 		});
+	}
+	
+	// 컴포넌트 사용 및 권한 여부 확인
+	function fn_chkComponetUseYn(data){
+		
+		if(data != null && data.length > 0){
+
+			// 좋아요 사용 여부
+			if(data[0].likeYn == "Y"){
+				$(".like").css("display","block");
+			}else if(data[0].likeYn == "N"){
+				$(".like").css("display","none");
+			}
+			
+			// 스크랩 사용 여부
+			if(data[0].scrapYn == "Y"){
+				$(".scrap").css("display","block");
+			}else if(data[0].scrapYn == "N"){
+				$(".scrap").css("display","none");
+			}
+			
+			// 조회수 사용 여부
+			if(data[0].viewsYn == "Y"){
+				$(".view").css("display","block");
+			}else if(data[0].viewsYn == "N"){
+				$(".view").css("display","none");
+			}
+			
+			// 댓글 사용 여부
+			if(data[0].cmtYn == "Y"){
+				$(".cmt").css("display","block");
+			}else if(data[0].cmtYn == "N"){
+				$(".cmt").css("display","none");
+			}
+		}
 	}
     </script>
 </body>
