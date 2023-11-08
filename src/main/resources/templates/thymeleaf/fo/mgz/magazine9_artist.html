@@ -340,7 +340,7 @@
 						var totalCount = data.totalCount;
 						var html = "";
 						if(result.length > 0){
-							var total = '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과 총 <span class="c-red">' + totalCount + '</span>개</h4>';
+							var total = '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과 총 <span class="c-red">' + totalCount + '</span>개</h4>';
 							html += "<table>";
 							html += "<tbody>";
 								for(i=0; i < result.length; i++){
@@ -390,7 +390,7 @@
 							html += "</table>";
 						} else {
 							modalAlertShow("검색 결과가 없습니다.");
-							html += '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과가 <span class="c-red">없습니다.</span></h4>';
+							html += '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과가 <span class="c-red">없습니다.</span></h4>';
 						}
 						$("#total").empty();
 						$("#total").append(total).trigger("create");
@@ -490,7 +490,7 @@
 						var totalCount = data.totalCount;						
 						var html = "";
 						if(result.length > 0){
-							var total = '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과 총 <span class="c-red">' + totalCount + '</span>개</h4>';
+							var total = '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과 총 <span class="c-red">' + totalCount + '</span>개</h4>';
 							html += "<table>";
 							html += "<tbody>";
 								for(i=0; i < result.length; i++){
@@ -540,7 +540,7 @@
 							html += "</table>";
 						} else {
 							modalAlertShow("검색 결과가 없습니다.");
-							html += '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과가 <span class="c-red">없습니다.</span></h4>';
+							html += '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과가 <span class="c-red">없습니다.</span></h4>';
 						}
 						$("#total").empty();
 						$("#total").append(total).trigger("create");
@@ -638,7 +638,7 @@
 						} else {
 							korKey = 'ㅎ';
 						}
-						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>'" + korKey + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
+						var total = "<h4 class='aut-h4'><span class='c-red keyword' id=" + keyword + ">'" + korKey + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
 						html += "<table>";
 						html += "<tbody>";
 							for(i=0; i < result.length; i++){
@@ -718,7 +718,7 @@
 						} else {
 							korKey = 'ㅎ';
 						}
-						html += '<h4 class="aut-h4"><span class="c-red">"' + korKey + '"</span> 검색결과가 없습니다.</h4>';
+						html += '<h4 class="aut-h4"><span class="c-red">' + korKey + '</span> 검색결과가 없습니다.</h4>';
 					}
 					$("#total").empty();
 					$("#total").append(total).trigger("create");
@@ -801,7 +801,7 @@
 						} else {
 							korKey = 'ㅎ';
 						}
-						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>'" + korKey + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
+						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>" + korKey + "</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
 						html += "<table>";
 						html += "<tbody>";
 							for(i=0; i < result.length; i++){
@@ -878,7 +878,7 @@
 						} else {
 							korKey = 'ㅎ';
 						}
-						html += '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과가 없습니다.</h4>';
+						html += '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과가 없습니다.</h4>';
 					}
 					$("#total").empty();
 					$("#total").append(total).trigger("create");
@@ -928,7 +928,7 @@
 					var totalCount = data.totalCount;						
 					var html = "";
 					if(result.length > 0) {
-						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>'" + keyword + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";	
+						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>" + keyword + "</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";	
 						html += "<table>";
 						html += "<tbody>";
 						for(i=0; i < result.length; i++) {
@@ -960,7 +960,7 @@
 						html += "</table>";
 					} else {
 						modalAlertShow("검색 결과가 없습니다.");
-						html += '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과가 없습니다.</h4>';
+						html += '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과가 없습니다.</h4>';
 					}
 					$("#total").empty();
 					$("#total").append(total).trigger("create");
@@ -1012,7 +1012,7 @@
 					var totalCount = data.totalCount;						
 					var html = "";
 					if(result.length > 0) {
-						var total = "<h4 class='aut-h4'><span class='c-red keyword' id='" + keyword + "'>'" + keyword + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
+						var total = "<h4 class='aut-h4'><span class='c-red keyword' id=" + keyword + ">'" + keyword + "'</span> 검색결과 총 <span class='c-red'>" + totalCount + "</span>개</h4>";
 						html += "<table>";
 						html += "<tbody>";
 						for(i=0; i < result.length; i++) {
@@ -1043,7 +1043,7 @@
 						html += "</table>";
 					} else {
 						modalAlertShow("검색 결과가 없습니다.");
-						html += '<h4 class="aut-h4"><span class="c-red">"' + keyword + '"</span> 검색결과가 없습니다.</h4>';
+						html += '<h4 class="aut-h4"><span class="c-red">' + keyword + '</span> 검색결과가 없습니다.</h4>';
 					}
 					$("#total").empty();
 					$("#total").append(total).trigger("create");

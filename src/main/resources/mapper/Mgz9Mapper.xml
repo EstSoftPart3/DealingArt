@@ -166,7 +166,9 @@
 		LEFT OUTER JOIN
 		 	TBL_DA_MBR_M AS M
 			ON 	A.MBR_SQ = M.MBR_SQ
-		WHERE (A.USE_YN = 'Y' AND A.DEL_YN = 'N')
+		WHERE 
+			1=1
+			<!-- (A.USE_YN = 'Y' AND A.DEL_YN = 'N') -->
 		<if test = "keyword != ''">
 		AND (A.ARTST_ACTVTY_NM LIKE '%${keyword}%' OR A.ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')		
 		</if>
@@ -194,8 +196,8 @@
 		 	TBL_DA_MBR_M AS M
 			ON 	A.MBR_SQ = M.MBR_SQ 
 		WHERE 
-			(A.USE_YN = 'Y' AND A.DEL_YN = 'N')
-		
+			1=1
+			<!-- (A.USE_YN = 'Y' AND A.DEL_YN = 'N') -->
 		<if test = "keyword != ''">	
 		AND (A.ARTST_ACTVTY_NM LIKE '%${keyword}%' OR A.ARTST_ACTVTY_PART_CD LIKE '%${keyword}%')
 		</if>
@@ -241,13 +243,18 @@
 				WHEN DEL_YN = 'N' THEN '유지'
 			END)                     as delYn
 		FROM TBL_DA_ARTST_M
-		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		WHERE 
+			1=1
+			<!-- (USE_YN = 'Y' AND DEL_YN = 'N') -->
 		AND ARTST_ACTVTY_NM LIKE CONCAT(#{keyword},'%')
 		limit ${indexNum}, ${postNum}
 	</select>
 	
 	<select id="alphabetCount" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		SELECT COUNT(*) FROM TBL_DA_ARTST_M 
+		WHERE
+			1=1 
+			<!-- (USE_YN = 'Y' AND DEL_YN = 'N') -->
 		AND ARTST_ACTVTY_NM LIKE CONCAT(#{keyword},'%')
 	</select>
 	
@@ -279,7 +286,9 @@
 				WHEN DEL_YN = 'N' THEN '유지'
 			END)                     as delYn
 		FROM TBL_DA_ARTST_M
-		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		WHERE 
+			1=1
+			<!-- (USE_YN = 'Y' AND DEL_YN = 'N') -->
 			<choose>
 				<when test="keyword == 'aaa'">
 					AND (ARTST_ACTVTY_NM RLIKE '^(ㄱ|ㄲ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '가' AND ARTST_ACTVTY_NM <![CDATA[<]]> '나'))
@@ -328,7 +337,10 @@
 	</select>
 	
 	<select id="koreanCount" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM TBL_DA_ARTST_M WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		SELECT COUNT(*) FROM TBL_DA_ARTST_M 
+		WHERE 
+			1=1
+			<!-- (USE_YN = 'Y' AND DEL_YN = 'N') -->
 			<choose>
 				<when test="keyword == 'aaa'">
 					AND (ARTST_ACTVTY_NM RLIKE '^(ㄱ|ㄲ)' OR (ARTST_ACTVTY_NM <![CDATA[>=]]> '가' AND ARTST_ACTVTY_NM <![CDATA[<]]> '나'))
