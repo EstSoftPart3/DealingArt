@@ -1726,7 +1726,7 @@ public class MyPageController {
 	//마이페이지 알림창 열기
 	@RequestMapping("/myPage/notis")
 	public String serviceIntro() {
-		return "thymeleaf/fo/myPage/myPage_notificationbox";
+		return "thymeleaf/fo/myPage/mypage_notificationbox";
 	}
 	
 	//마이페이지 알림 목록 조회
