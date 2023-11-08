@@ -90,6 +90,19 @@
 		input[type=number] {
 		  -moz-appearance: textfield;
 		}
+		/* 배너 목록 마우스 호버링 이벤트 */
+		#eventBanner {
+		    width: 480px;
+		    height: 480px;
+		    overflow: hidden;
+		}
+		#eventBanner img{
+		    transition: all 0.2s linear;
+		}
+		
+		#eventBanner:hover img{
+		    transform: scale(1.05);
+		}
     </style>
     
     <link rel="icon" type="image/png" href="/resources/img/favicon.png">
@@ -239,7 +252,7 @@
     				
     				var list = data.result.eventList;
     				var html = "";
-    				if(data.length > 0){
+    				if(list.length > 0){
     					$.each(list, function(idx, obj) {
         					var cnt = idx + 1;
         					if(cnt == 1 || cnt % 4 == 0) {
@@ -248,11 +261,16 @@
         					}
         					html += "			<li>";
         					html += "				<div class='event_box'>";
-        					html += "					<div class='img'>";
-        					html += "						<div class='"+ (obj.isEventEnd ? "ico_ongoing'>진행중" : "ico_endprogress'>진행<br>종료") +"</div>";
-        					html += "						<img src="+ obj.bnnMpImgUrl +" alt='' style='width: 480px; height: 480px;'>";
-        					html += "					</div>";
-        					html += "					<div class='text'>"+ obj.bnnStartDt + " ~ " + obj.bnnEndDt + "<br>" + obj.bnnTitle +"</div>";
+        					html += "                   <a href='" + obj.bnnMLndUrl + "'>";
+        					html += "					    <div class='img' id='eventBanner'>";
+        					html += "						    <div class='"+ (obj.isEventEnd ? "ico_ongoing'>진행중" : "ico_endprogress'>진행<br>종료") +"</div>";
+        					html += "						    <img src="+ obj.bnnMpImgUrl +" alt=''>";
+        					html += "                           <div class='eventFooter' style='text-align:right;margin-top:5px;'>";
+        					html += "                               <span>" + obj.bnnStartDt + " ~ " + obj.bnnEndDt + "</span>";
+        					html += "                           </div>";
+        					html += "					    </div>";
+        					html += "                   </a>";
+        					//html += "                   <a class='text' id='eventTitle' href='" + obj.bnnMLndUrl + "'>" + obj.bnnTitle + "</a>";
         					html += "				</div>";
         					html += "			</li>";
         					if(cnt != 1 && cnt % 3 == 0) {
@@ -261,6 +279,7 @@
         					}
     	   					isFirst = false;
         				});
+    					
     				}else{
     					modalAlertShow("검색 결과가 없습니다.");
     				}
