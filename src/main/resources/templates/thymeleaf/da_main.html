@@ -80,6 +80,13 @@
 		[name=WORKworkClrCd]:checked+label{
 		  outline: 5px solid gray;
 		}
+		
+		.swiper-slide1{
+		  transform-origin:center bottom;
+		  -webkit-backface-visibility:hidden;
+		  backface-visibility:hidden;
+		  overflow:hidden
+		}
 		/* Chrome, Safari, Edge, Opera */
 		input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
@@ -367,6 +374,7 @@
     
     $(document).ready(function(){
     	
+    	const bannerCnt = 4; // 배너 개수
     	// 초기 화면 셋팅
     	pageRendering();
     	
@@ -568,7 +576,7 @@
     			setPopularMbr(response.popularMbr);
     			setPopularExhibit(response.popularExhibit);
     			
-    			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");
+    			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");	
     			
     		}),
     		error: (function(response){
@@ -857,7 +865,7 @@
 				
 				// 메인화면 배너 조회 결과가 있을 경우
 				if(i < data.length){
-					html += '<div class="swiper-slide1" align="center" style="background-color:#ffffff;">';
+					html += '<div class="swiper-slide" id="banner" align="center" style="background-color:#ffffff;">';
 					html += '	<a href="' + data[i].bnnMLndUrl + '">';
 		    		html += '		<img src="' + data[i].bnnMmImgUrl + '" alt="">';
 		    		html += '	</a>';
@@ -865,17 +873,15 @@
 					
 				// 메인화면 배너 조회 결과가 없을 경우	
 				}else{
-					html += '<div class="swiper-slide1" align="center" style="background-color:#ffffff;">';
+					html += '<div class="swiper-slide" id="banner" align="center" style="background-color:#ffffff;">';
 					html += '	<a href="https://www.dealing-art.com/main">';
 		    		html += '		<img src="/resources/img/bigLogo2.png" alt="">';
 		    		html += '	</a>';
 					html += '</div>'
 				}
-				
 			}
-
-			return html;
-		}	
+		}
+		return html;	
 	}
 	
     </script>
