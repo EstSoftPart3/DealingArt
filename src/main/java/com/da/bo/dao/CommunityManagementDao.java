@@ -50,7 +50,17 @@ public class CommunityManagementDao {
 	
 	/* 게시판 관리 공지글 등록 */
 	public int insertCommunityManagementNotice(Map<String, Object> param) {
-		return communityManagementMapper.insertCommunityManagementNotice(param);
+		
+		int resultCnt = communityManagementMapper.selectChkNoti(param);
+		
+		if(resultCnt > 0) {
+			communityManagementMapper.insertCommunityManagementNotice(param);
+			communityManagementMapper.delBeforeNoti(param);
+		}else {
+			communityManagementMapper.insertCommunityManagementNotice(param);
+		}
+		
+		return resultCnt;
 	}
 	
 	//게시물 목록

@@ -100,16 +100,9 @@ public class CommunityManagementController {
 	//게시판 관리 공지글 등록
 	@RequestMapping("/admin/community/communityManagementNoticeInsert")
 	@ResponseBody
-	public int communityManagementNoticeInsert(@RequestPart Map<String, Object> param,
-			@RequestPart(value = "noticeFileUrl") @Nullable MultipartFile noticeFileUrl) throws IOException {
-		
-		//공지글 업로드
-		if (noticeFileUrl != null) {
-			FileVo file = awsS3Service.upload(noticeFileUrl, "dealingart/admin/comtMng/notice/"+param.get("mbrSq").toString());
-			param.put("noticeFileUrl", file.getFileUrl());
-			System.out.println(file.getFileUrl());
-		}
-		
+	public int communityManagementNoticeInsert(@RequestParam Map<String, Object> param) throws IOException {
+
+		logger.info("====== 공지 제목", param);
 		int result = communityManagementService.insertCommunityManagementNotice(param);
 		
 		return result;

@@ -151,4 +151,11 @@ public interface CommunityService {
 	 * return : 
 	 */
 	public List<Map<String, Object>> selectBoardAuth(String param);
+	
+	/*
+	 * 커뮤니티 공지 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public Map<String, Object> selectnoti(Map<String, Object> param);
 }

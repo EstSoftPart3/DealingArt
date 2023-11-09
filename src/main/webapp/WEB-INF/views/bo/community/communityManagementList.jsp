@@ -471,19 +471,19 @@
 	        				strHtml += '관리자</th>';
 	        			}
 	        			
-	        			strHtml += '<th>' + ele.CM_MG_NEW_CNT + ' / ' + ele.CM_MG_TOT_CNT + '</th>';
+	        			strHtml += '<th>' + ele.cmMgNewCnt + ' / ' + ele.cmMgTotCnt + '</th>';
 	        			strHtml += '<th><div class="noExl" style="text-align:left; display: inline;">';
 	        			
 	        		 	if(ele.comtTypCd == "BOA"){
-	        		 		strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/worksList\')">글보기 > </button>';
+	        		 		strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'https://www.dealing-art.com/community/worksList?comtTypCd=\''+ele.comtTypCd+'\'\')">글보기 > </button>';
 	        			}else if(ele.comtTypCd == "EXH"){
-	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/exhintList\')">글보기 > </button>';
+	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'https://www.dealing-art.com/community/exhintList?comtTypCd=\''+ele.comtTypCd+'\'\')">글보기 > </button>';
 	        			}else if(ele.comtTypCd == "ISS"){
-	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/community/issueList\')">글보기 > </button>';
+	        				strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'https://www.dealing-art.com/community/issueList?comtTypCd=\''+ele.comtTypCd+'\'\'\')">글보기 > </button>';
 	        			}
 	        			
 	        			
-	        			strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="window.open(\'http://localhost/admin/community/communityManagementNoticeUpdate\?comtTypCd=\', \'게시판 관리\', \'width=800, height=180, scrollbars=no, resizeble=no\')">공지글 > </button>';
+	        			strHtml += '<button class="btnCommunitySet" type="button" style="border: 1px solid grey; height: 25px;" onclick="fn_openRegNoti(\''+ele.comtTypCd+'\')">공지글 > </button>';
 	        			strHtml += '</div></th>';
 	        			
 	        			if(ele.useYn == "Y"){
@@ -698,6 +698,14 @@
 	/* input태그의 value값 얻어오기 */
 	function getInputValue(inputName){
 		return $('input[name="' + inputName + '"]:checked').val();
+	}
+	
+	// 공지글 등록 화면 OPEN 함수
+	function fn_openRegNoti(comtTypCd){
+		//window.open("https://www.dealing-art.com/admin/community/communityManagementNoticeUpdate\?comtTypCd=\'"+comtTypCd+"\'");
+		window.open( "http://localhost/admin/community/communityManagementNoticeUpdate\?comtTypCd="+comtTypCd+""
+				   , "게시판 관리"
+				   , "width=800,height=130,scrollbars=no,resizeble=no");
 	}
 	</script>
 </body>
