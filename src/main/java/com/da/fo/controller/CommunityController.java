@@ -1,9 +1,11 @@
 package com.da.fo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -336,13 +338,21 @@ public class CommunityController {
 	@ResponseBody
 	public ModelAndView searchComtCmtsList(@RequestParam Map<String, Object> param) {
 		ModelAndView mv = new ModelAndView("jsonView");
-
+		
 		// 댓글 리스트
 		List<Map<String, Object>> comments = communityService.communityComment(param);
 		// 대댓글 리스트
 		List<Map<String, Object>> replys = communityService.communityReply(param);
+		
+		String commTypeCd = "";
+				
 		// 커뮤니티 권한 정보 가져오기
-		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("commTypeCd").toString());
+		if(!StringUtils.isBlank(commTypeCd)){
+			commTypeCd = param.get("commTypeCd").toString();
+		}else {
+			commTypeCd = "";
+		}
+		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(commTypeCd);
 		
 		mv.addObject("comments", comments);
 		mv.addObject("replys", replys);

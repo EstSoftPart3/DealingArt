@@ -2196,7 +2196,7 @@ function setComment(comtSq, commTypeCd) {
 				} else {
 					strHtml += '	<input type="text" id="comments_tit" disabled>';
 				}
-				strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg(' + comtSq + ');">등록</button>';
+				strHtml += '		<button type="button" class="cmt_reg_btn ba-btn1" onclick="cmtReg(' + comtSq + ',\''+commTypeCd+'\');">등록</button>';
 				strHtml += '	</p>';
 				strHtml += '</form>';
 			}else if(boardAuth[0].cmtYn != null && boardAuth[0].cmtYn =="N"){
@@ -2385,7 +2385,7 @@ function setTimeFormat(targetDate) {
  * 설  명 : 커뮤니티 관련 페이지 -> 댓글 등록
  * 예)
  ---------------------------------------------*/
-function cmtReg(comtSq) {
+function cmtReg(comtSq, commTypeCd) {
 	if(sMbrSqVal == "" || sMbrSqVal == null){
 		modalConfirm("로그인 후 이용 하실 수 있습니다..<br><br>확인 버튼을 누르시면 로그인 페이지로 이동합니다.", function(confrim){
 			if(confrim){
@@ -2397,12 +2397,13 @@ function cmtReg(comtSq) {
 			type : "post",
 			url : "/community/cmtReg",
 			data : {
-				comtSq : comtSq,
-				cmtContent : $("#comments_tit").val(),
-				mbrSq : sMbrSqVal
+				  comtSq     : comtSq
+				, cmtContent : $("#comments_tit").val()
+				, mbrSq      : sMbrSqVal
+				, commTypeCd : commTypeCd
 			},
 			success : function() {
-				setComment(comtSq);
+				setComment(comtSq, commTypeCd);
 				$("#comments_tit").val("");
 			}
 		});
@@ -2414,16 +2415,17 @@ function cmtReg(comtSq) {
  * 설  명 : 커뮤니티 관련 페이지 -> 대댓글 등록
  * 예)
  ---------------------------------------------*/
-function replyReg(cmtSq, comtSq, obj) {
+function replyReg(cmtSq, comtSq, obj, commTypeCd) {
 	if($(obj).siblings("#replyAndModComment").val() != null){
 		$.ajax({
 			type : "post",
 			url : "/community/replyReg",
 			data : {
-				cmtSq: cmtSq,
-				comtSq : comtSq,
-				replyContent : $(obj).siblings("#replyAndModComment").val(),
-				mbrSq : sMbrSqVal
+				  cmtSq        : cmtSq
+				, comtSq       : comtSq
+				, replyContent : $(obj).siblings("#replyAndModComment").val()
+				, mbrSq        : sMbrSqVal
+				, commTypeCd   : commTypeCd
 			},
 			success : function() {
 				setComment(comtSq);
@@ -2434,10 +2436,11 @@ function replyReg(cmtSq, comtSq, obj) {
 			type : "post",
 			url : "/community/replyReg",
 			data : {
-				cmtSq: cmtSq,
-				comtSq : comtSq,
-				replyContent : obj,
-				mbrSq : sMbrSqVal
+				  cmtSq: cmtSq
+				, comtSq : comtSq
+				, replyContent : obj
+				, mbrSq : sMbrSqVal
+				, commTypeCd   : commTypeCd
 			},
 			success : function() {
 				setComment(comtSq);
