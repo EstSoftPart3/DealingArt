@@ -27,10 +27,27 @@
 			,DEL_YN													<!--삭제 여부  -->			
 		FROM TBL_DA_BNN_MGMT_M
 		WHERE 1=1
-        	<if test="searchGubun != null">
+			AND USE_YN = 'Y' AND DEL_YN = 'N'
+        	<if test="searchGubun != null and searchGubun != ''">
         		AND BNN_DIV_CD = #{searchGubun}
         	</if>
-				AND USE_YN = 'Y' AND DEL_YN = 'N'
+        	<if test="searchCnt == 'rowCnt10'">
+        		LIMIT 0, 10
+        	</if>
+        	<if test="searchCnt == 'rowCnt20'">
+        		LIMIT 0, 20
+        	</if>
+        	<if test="searchCnt == 'rowCnt30'">
+        		LIMIT 0, 30
+        	</if>
+        	<if test="searchCnt == 'rowCnt40'">
+        		LIMIT 0, 50
+        	</if>
+        	<if test="searchCnt == 'rowCnt100'">
+        		LIMIT 0, 100
+        	</if>
+        	
+				
 		</select>
 		
 	<!--배너 등록 -->	

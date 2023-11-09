@@ -117,24 +117,15 @@
 	
 	//var bnnSq = '<c:out value="${param.bnnSq}" />';
     //var bnnDivCd = '<c:out value="${param.bnnDivCd}" />';
-	
-	
 
-    
-    
 	$(document).ready(function(){
 		//게시물 목록 조회
 		bannerMainList();
-		
-		
-		
 	});
-	
 
-	
 	function bannerMainList(){
 				
-		if($("#searchGubun").val() == ""/*  && $("#searchCnt").val() == "" */){
+		if($("#searchGubun").val() == "" && $("#searchCnt").val() == ""){
 			$.ajax({
 		           type: "post",
 		           url: "/admin/banner/bannerMainList",
@@ -232,14 +223,15 @@
 	//검색
 		$("#searchBtn").on('click', function(){
 			
-			var searchGubun = $("#searchGubun").val();
-        	var searchCnt = $("#searchCnt").val();
-			
-		
-			if(searchGubun == "") {
-				alert("검색 결과가 없습니다.");
-				return;
-			}
+			//var searchGubun = $("#searchGubun").val();
+        	//var searchCnt = $("#searchCnt").val();
+
+			//if(searchGubun == "" && searchCnt == "") {
+			//	alert("검색 결과가 없습니다.");
+			//	return;
+			//}else{
+			//	
+			//}
 				 	
 		 bannerMainList();
 		 
