@@ -37,7 +37,10 @@
 			 </section> 
 		</div>    
 	</div>
-
+	
+	
+	<script src="/resources/plugins/bootbox/bootbox.all.min.js"></script>
+	<script src="/resources/plugins/bootbox/bootbox.locales.js"></script>
 	<script>
 	$(document).ready(function(){
 		
@@ -70,11 +73,18 @@
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
+	        	
+	        	alert("공지사항등록이 완료되었습니다.");
 	        	console.log('파일이 정상적으로 등록됨');
+
 	        },
 	        error: function(error) {
+	        	
+	        	alert("공지사항등록에 실패했습니다.");
 	            alert("파일 등록 오류" + error);
+	            
 	        }
+	        
 		}); 
 	}
 
