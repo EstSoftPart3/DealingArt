@@ -399,6 +399,13 @@
 				$(".cmt_reg_btn ba-btn1").css("disabled",true);
 			}
 			
+			// 등록 시간 표시 여부
+			if(data[0].cmMgRegDtYn == "Y"){
+				$(".day").css("display","block");
+			}else if(data[0].cmtYn == "N"){
+				$(".day").css("display","none");
+			}
+			
 		}
 	}
     </script>

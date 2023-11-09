@@ -142,8 +142,8 @@
             </div>
             <div class="notice dp-flex">
                 <div class="tit">공 지</div>
-                <div class="contents mt0">
-                	<div>작품자랑 작성 가이드 라인 ver 1.0</div>
+                <div class="contents mt0" id="noti">
+                		<span>작품자랑 작성 가이드 라인 ver 1.0</span>
                 </div>
             </div>
             <div class="workspic_wrap">
@@ -169,6 +169,8 @@
    	$(document).ready(function(){
    		// 리스트 데이터 뿌려주기
    		communityWorksList();
+   		
+   		// 공지 조회
    		
    		// 캘린더 선택시 조회
    		
@@ -221,11 +223,11 @@
    	   			data: param,
    	   		    success : function(response){
    	   		    	console.log(response.result);
-   	   		        console.log(response.boardAuth);
    	   		   		listLength = response.result.length;
    	   		   		totalCount = response.totalCount.totalCount;
    	   				workHtml(response.result, response.boardAuth);
    	   			    fn_chkComponetUseYn(response.boardAuth);
+   	   			    fn_notice(response.noti);
    	   			},
    	   			error : function(response){
    	   				console.log(response);
@@ -503,6 +505,15 @@
 			}else if(data[0].cmtYn == "N"){
 				$(".cmt").css("display","none");
 			}
+		}
+	}
+	
+	// 공지 조회
+	function fn_notice(data){
+		if(data != null){
+			console.log(data.noti);
+		
+			$("#noti span").text(data.noti);
 		}
 	}
     </script>

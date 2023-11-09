@@ -326,4 +326,14 @@ public class CommunityDao {
 		List<Map<String, Object>> result = communityMapper.selectBoardAuth(param);
 		return result;
 	}
+	
+	/*
+	 * 커뮤니티 공지 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public Map<String, Object> selectnoti(Map<String, Object> param){
+		Map<String, Object> result = communityMapper.selectnoti(param);
+		return result;
+	}
 }

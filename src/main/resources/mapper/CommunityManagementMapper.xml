@@ -105,7 +105,7 @@
    		WHERE CM_MG_SQ = #{cmMgSq}
 	</update>
 	
-	<insert id="insertCommunityManagementNotice">
+	<insert id="insertCommunityManagementNotice" parameterType="hashMap">
 		/* 커뮤니티 공지글 등록 */
 		INSERT INTO TBL_DA_BRD_M (
 			BRD_TITLE,
@@ -123,20 +123,43 @@
 			ARTST_SQ
 		) VALUES (
 			#{noticeTitle},
-			#{brdTypCd},
-			#{noticeFileUrl},
+			'NT',
+			#{noticeTitle},
 			#{mbrSq},
 			NOW(),
 			#{mbrSq},
 			NOW(),
 			'Y',
 			'N',
-			NULL,
-			#{brdAnTypCd},
+			#{comtTypCd},
+			'NT',
 			#{mbrSq},
 			0
 		)
 	</insert>
+	
+	<update id="delBeforeNoti" parameterType="hashMap">
+	/* 이전 공지글 수정 */
+	UPDATE TBL_DA_BRD_M AS A
+       SET A.DEL_YN = 'Y'
+     WHERE A.BRD_SQ = (SELECT MAX(B.BRD_SQ) - 1
+                       FROM (SELECT C.BRD_SQ
+                               FROM TBL_DA_BRD_M AS C
+                              WHERE 1=1
+                                AND C.BRD_TYP_CD = 'NT'
+                                AND C.BRD_CON_TYP_CD = #{comtTypCd}) AS B
+                       )
+	</update>
+	
+	<select id="selectChkNoti" parameterType="hashMap" resultType="integer">
+	/* 이전 공지글 존재 여부 확인 */
+	SELECT COUNT(BRD_SQ)
+      FROM TBL_DA_BRD_M
+     WHERE 1=1
+       AND DEL_YN = 'N'
+       AND BRD_TYP_CD = 'NT'
+       AND BRD_CON_TYP_CD = #{comtTypCd}
+    </select>
 	
 	<select id="searchAllBoardList" resultType="hashMap" parameterType="hashMap">
 		/* 전체 게시물 보기 */

@@ -179,10 +179,14 @@ public class CommunityController {
 		
 		// 커뮤니티 권한 정보 가져오기
 		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(param.get("comtTypCd").toString());
+		
+		// 공지 조회
+		Map<String, Object> noti = communityService.selectnoti(param);
 
 		mv.addObject("result", result);
 		mv.addObject("totalCount", totalCount);
 		mv.addObject("boardAuth", boardAuth);
+		mv.addObject("noti", noti);
 
 		return mv;
 	}

@@ -670,4 +670,16 @@
         AND COMT_TYP_CD = #{comtTypCd}
         </if> 
 	</select>
+	
+	<select id="selectnoti" parameterType="hashMap" resultType="hashMap">
+	/* 공지 조회 */
+	SELECT BRD_TITLE   AS noti
+      FROM TBL_DA_BRD_M
+     WHERE 1=1
+       AND DEL_YN         = 'N'
+       AND BRD_TYP_CD     = 'NT'
+       AND BRD_CON_TYP_CD = #{comtTypCd}
+  ORDER BY BRD_SQ DESC
+     LIMIT 1
+	</select>
 </mapper>
