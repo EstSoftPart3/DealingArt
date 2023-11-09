@@ -260,7 +260,7 @@
 				<div class="cns-div swi-box mt10">
 					<div class="swiper mySwiper2" >
 						<div class="swiper-wrapper" id="mgz9Box"></div>
-						<!-- <div class="swiper-pagination swpa-2 pc-no"></div> -->
+						<div class="swiper-pagination swpa-2 pc-no"></div>
 					</div>
 					<div class="swiper-button-next InNextSwiper2 sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>
 					<div class="swiper-button-prev InPrevSwiper2 sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>
@@ -587,6 +587,7 @@
         
     // 자랑하기 셋팅 
     function setBoa(list){
+    	
 		var strHtml = '';
 		
 		for(i=0; i<list.length; i++){
@@ -617,9 +618,7 @@
     function setNowDealWorks(list){
     	
     	var strHtml = '';
-    	
-    
-    	
+
     	list.forEach( function( work ) {
     		//console.log(work.dealSq);
     		///deal/bidding?SqNumber=
@@ -642,6 +641,7 @@
     
     // 매거진9 셋팅
     function setMagazine9(list){
+
     	var strHtml = '';
     	
     	list.forEach( function( mgz9 ) {
@@ -654,14 +654,14 @@
     		// mgz9.mgzMainImgUrl이 null이면 대체 이미지 사용
             var imageUrl = mgz9.mgzMainImgUrl ? mgz9.mgzMainImgUrl : '/resources/img/bigLogo2.png';
     		
-    		strHtml += '<div class="swiper-slide">';
-    		strHtml += '	<div class="cns-box" >';
+    		strHtml += '<div class="swiper-slide hd-div">';
+    		strHtml += '	<div class="cns-box5">';
     		strHtml += '		<a href="javascript:void(0);" onclick="mgzDetail('+ mgz9.mgzSq +')">';
-			strHtml += '	<img src="'+ imageUrl +'"  alt="">';
+			strHtml += '			<img src="'+ imageUrl +'" alt="" >';
     		strHtml += '		</a>';
     		strHtml += '		<div class="cns-sb">';
     		strHtml += '			<p class="cns-p1">'+mgz9.mgzTitle+'</p>';
-    		strHtml += '			<p class="cns-p2 ellipsis">'+mgz9.mgzDescrptn+'</p>';
+    		//strHtml += '			<p class="cns-p2 ellipsis">'+mgz9.mgzDescrptn+'</p>';
     		strHtml += '		</div>';
     		strHtml += '	</div>';
     		strHtml += '</div>';
