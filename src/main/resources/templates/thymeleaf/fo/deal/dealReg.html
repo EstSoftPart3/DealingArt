@@ -304,6 +304,7 @@
 											</div>
 											<p class="table-p">
 												※ 향후에 판매로 등록 할 때에는 보증서 등록이 필요합니다. 보증서를 분실하셨다면 구매처에 재발급을 요청하시기 바랍니다.<br/>
+												※ 작품구분이 공예품 외에는 보증서를 반드시 등록을 해야합니다.<br/>
 												※ 파일 확장자는 jpg, jpeg로 용량은 5MB 미만으로 등록해주세요.<br/>
 												※ 구매처의 보증서에 Resale-Lock(재판매 금지)의 여부와 기간을 꼭 확인 후 등록을 해주세요.
 											</p>
@@ -1573,9 +1574,15 @@ function vaild(){
 		modalAlertShow("정산 계좌정보가 입력되지 않았습니다.");
 		return false;
 	}
+	
+	//작품구분이 공예품일경우 작품 보증서가 비필수이므로 if else로 벨리데이션 추가 작업
 	if($("#workGrtUrl1").val() == null || $("#workGrtUrl1").val() == ""){
-		modalAlertShow("작품 보증서가 업로드되지 않았습니다.");
-		return false;
+		if(result.work.workClsfcCd == "CRFTS"){
+			return true;
+		}else{
+			modalAlertShow("작품 보증서가 업로드되지 않았습니다.");
+			return false;
+		}
 	}
 	/* if(result.work.workPrc == null || result.work.workPrc == ""){
 		modalAlertShow("작품 소장가가 입력되지 않았습니다.");
