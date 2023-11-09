@@ -81,13 +81,15 @@ public class bannerController {
 		System.out.println(promoData.toString());
 		System.out.println(bnnMpImgUrl.getName());
 		System.out.println(bnnMmImgUrl.getName());
+		System.out.println(bnnEpImgUrl.getName());
+		System.out.println(bnnEmImgUrl.getName());
 		
 		ModelAndView mv = new ModelAndView("jsonView");
 		
 		Map<String, MultipartFile> imgUrl = new HashMap<String, MultipartFile>();
 		
 		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
-		imgUrl.put("bnnMpImgUrl", bnnMpImgUrl);
+		imgUrl.put("bnnEpImgUrl", bnnEpImgUrl);
 		imgUrl.put("bnnMmImgUrl", bnnMmImgUrl);
 		imgUrl.put("bnnEmImgUrl", bnnEmImgUrl);
 		

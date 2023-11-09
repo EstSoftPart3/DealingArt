@@ -150,7 +150,7 @@
 				<div class="bg-sh"></div>
 				<div class="main-banner">						
 					<div class="swiper mySwiper">
-						<div class="swiper-wrapper">
+						<div class="swiper-wrapper" id="mobileBanner">
 							
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<a href="https://promo.dealing-art.com/dp/collectors-loving-ittem" target="_blank"><img src="/resources/img/banner-20_mobile.jpg" border="0"/></a>
@@ -569,6 +569,7 @@
     		url: "/main/totalContent",
     		success: (function(response){
     			var bannerWrap = $("#mainBanner");
+    			var bannerWrapMobile = $("#mobileBanner");
     			
     			setBoa(response.boas);
     			setNowDealWorks(response.nowDealWorks);
@@ -576,7 +577,8 @@
     			setPopularMbr(response.popularMbr);
     			setPopularExhibit(response.popularExhibit);
     			
-    			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");	
+    			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");
+    			bannerWrapMobile.append(fn_setBannerMobile(response.mainBanner)).trigger("create");	
     			
     		}),
     		error: (function(response){
@@ -848,10 +850,7 @@
 		searchMainData(page);
 	}
 	
-	/*
-	 * 메인 화면 배너 조회 및 설정
-	 * 2023.11.07 홍충기 추가
-	 */
+	//메인 화면 배너 조회 및 설정 (PC)
 	function fn_setBanner (data){
 		
 		var html = "";
@@ -874,6 +873,39 @@
 				// 메인화면 배너 조회 결과가 없을 경우	
 				}else{
 					html += '<div class="swiper-slide" id="banner" align="center" style="background-color:#ffffff;">';
+					html += '	<a href="https://www.dealing-art.com/main">';
+		    		html += '		<img src="/resources/img/bigLogo2.png" alt="">';
+		    		html += '	</a>';
+					html += '</div>'
+				}
+			}
+		}
+		return html;	
+	}
+	
+	//메인 화면 배너 조회 및 설정(모바일)
+	function fn_setBannerMobile (data){
+		
+		var html = "";
+		console.log(data);
+		// 신규 등록된 배너가 1개 이상일 경우
+		if(data != null && data.length > 0){
+			
+			$("#mobileBanner").empty();
+			
+			for(var i = 0; i < 4; i++){				
+				
+				// 메인화면 배너 조회 결과가 있을 경우
+				if(i < data.length){
+					html += '<div class="swiper-slide">';
+					html += '	<a href="' + data[i].bnnMmndUrl + '">';
+		    		html += '		<img src="' + data[i].bnnMmImgUrl + '" alt="">';
+		    		html += '	</a>';
+					html += '</div>'	
+					
+				// 메인화면 배너 조회 결과가 없을 경우	
+				}else{
+					html += '<div class="swiper-slide">';
 					html += '	<a href="https://www.dealing-art.com/main">';
 		    		html += '		<img src="/resources/img/bigLogo2.png" alt="">';
 		    		html += '	</a>';

@@ -224,7 +224,6 @@ input[type="file"] {
 											<div class="imgboxtest1" style="width: 45%; display: inline-block; min-height: 50px;">
 												<label class="col-form-label" style="text-align: center;">이벤트 배너 (PC)</label>
 												<div class="flex-container">
-
 													<div class="wrapper">
 														<img src="/resources/img/icon/pic.png" class="image-boxPc2" id="image-boxPc2" /> 
 														<label for="bnnEpImgUrl" class="btn btn-info sTitle">
@@ -849,7 +848,7 @@ function bannerInsert() {
 	 		case "CMH" :
 	 			bnnData.bnnShowSq = "1";
 				
-				var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
+	 			var bnnMpImgUrl = document.getElementById("bnnMpImgUrl");
 				formData.append("bnnMpImgUrl", bnnMpImgUrl.files[0]);
 				
 				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
@@ -950,8 +949,10 @@ function bannerInsert() {
 				
 	 			break;
 	 	} 
+	 	
 	 	console.log(bnnData);
 	 	console.log(formData);
+
 		$.ajax({
 	        type: "post",
 	        url: "/admin/banner/bannerInsertData",
