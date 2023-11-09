@@ -719,15 +719,25 @@
     			param["questionContent"] = $("#reqPic").val();
     			break;
     		}
+    		
+    		//가격제안 텍스트박스 숫자만([,]자동구분자) 입력가능 input 벨리데이션
+    		/*
     		if(notiCatCd == "PRC"){
     			if(sgtPrcCal() ) {
-        			modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
-        			return;
-        		}
+    				modalAlertShow("10,000원 단위로만 입력가능합니다.", obj.id);
+    				return;
+    			}
     			if(!$("#sgtPrc").val()) {
-        			modalAlertShow("가격을 입력해주세요.");
-        			return;
-        		}
+    				modalAlertShow("가격을 입력해주세요.");
+    				return;
+    			}
+    		}
+    		*/
+    		
+    		//가격제안 텍스트박스 모든 텍스트 입력가능 input 벨리데이션
+    		if(notiCatCd == "PRC" && !$("#sgtPrc").val()) {
+    			modalAlertShow("내용을 입력해주세요.");
+    			return;
     		}
     		
     		if(notiCatCd == "PIC" && !$("#reqPic").val()) {
@@ -1234,7 +1244,10 @@
     		html += '			<div class="modal-body">';
     		html += '				<div class="md-box-1">';
     		html += '					<div class="text-center mg_b40">';
-    		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" style="font-size:15px;"/>';
+    		//가격제안 텍스트박스 숫자만([,]자동구분자) 입력가능 input
+    		//html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" onkeyup="comma(this)" style="font-size:15px;"/>';
+    		//가격제안 텍스트박스 모든 텍스트 입력가능 input
+    		html += '						<input type="text" class="input-1" id="sgtPrc" placeholder="구매하고 싶은 금액 (원)" style="font-size:15px;"/>';
     		html += '					</div>';
     		html +=	'					<div class="baeg-btn mg_t30">';
     		html +=	'						<button type="button" class="baeg-b1" onclick="comtRequest(\'PRC\');">확인</button>';
