@@ -194,6 +194,8 @@ input[type="password"] {
 .event_box .ico_endprogress{position: absolute;width: 50px;height: 50px;background: #635f5f;border-radius: 5px;top: 10px;right: 10px;font-family: 'Roboto Condensed';font-size: 16px;font-weight: 700;color: #ffffff;text-align: center;padding-top: 5px;letter-spacing: -1.5px;}
 .event_box .text{font-size: 20px;font-weight: 700;color: #111111;padding: 20px;text-align: center;}
 
+.mypage_wrap_community{margin:0 auto;max-width: 1500px;height: 100%;}
+
 .mypage_wrap{margin:0 auto;max-width: 1500px;height: 100%;}
 .mypage_wrap h2{font-size: 36px;font-weight: bold;letter-spacing: -1.5px;border-left: 8px solid #e9625c;padding-left: 24px;}
 .mypage_contents{position: relative;margin-top: 30px;width: 100%;margin-bottom: 200px;}
