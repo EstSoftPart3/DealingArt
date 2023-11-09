@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -626,10 +627,10 @@ public class MyPageDao {
 		}
 		
 
-		// 자랑하기 등록
+		// 자랑하기 등록 2023.11.08 홍충기 null체크 추가
 		String comtOpenYn = (String) param.get("comtOpenYn");
 
-		if(comtOpenYn.equals("Y")) {
+		if(!StringUtils.isBlank(comtOpenYn) && comtOpenYn.equals("Y")) {
 			result = myComtReg(param);
 		}
 
