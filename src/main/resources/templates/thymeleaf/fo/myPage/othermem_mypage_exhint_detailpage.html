@@ -165,7 +165,7 @@
 	    strHtml += '    <div class="user">';
 	    strHtml += '        <ul>';
 	    strHtml += '            <li class="pt5"><img src="'+ (comt.mbrProfileImgUrl || "/resources/img/mypage/ico_dauser.png") +'" alt=""></li>';
-	    strHtml += '            <li class="user_name pr10"><span>'+ comt.mbrNcknm +'</span></li>';
+	    strHtml += '            <li class="user_name pr10"><a href="/otherPage/main?mbrSq='+ comt.mbrSq +'"><span>'+ comt.mbrNcknm +'</span></a></li>';
 	    
 	    // 작성자가 아티스트인지 컬렉터인지 
 	    if(null != comt.artstSq){
