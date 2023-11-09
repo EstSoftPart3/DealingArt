@@ -696,23 +696,41 @@
 	</select>
 	
 	<select id="selectMainBanner" resultType="hashMap">
-	    SELECT A.BNN_SQ                                AS bnnSq
-	         , A.BNN_TITLE                             AS bnnTitle
-	         , A.BNN_MP_IMG_URL                        AS bnnMpImgUrl
-	         , A.BNN_EP_IMG_URL                        AS bnnEpImgUrl
-	         , A.BNN_MM_IMG_URL                        AS bnnMmImgUrl
-	         , A.BNN_EM_IMG_URL                        AS bnnEmImgUrl
-	         , A.BNN_M_LND_URL                         AS bnnMLndUrl
-	         , A.BNN_E_LND_URL                         AS bnnELndUrl
-	         , DATE_FORMAT(A.BNN_START_DT, '%Y.%m.%d') AS bnnStartDt
-	         , DATE_FORMAT(A.BNN_END_DT, '%Y.%m.%d')   AS bnnEndDt
-	      FROM TBL_DA_BNN_MGMT_M A
-	     WHERE 1=1
-	       AND A.BNN_DIV_CD = 'MIH'
-	       AND A.USE_YN     = 'Y'
-	       AND A.DEL_YN     = 'N'
-	       AND IF(DATEDIFF(A.BNN_END_DT, NOW()) <![CDATA[>=]]> 0, 1, 0) = 1
-	  ORDER BY A.UPDT_DT DESC
-	     LIMIT 4
+SELECT A.BNN_SQ                                AS bnnSq
+     , A.BNN_TITLE                             AS bnnTitle
+     , A.BNN_SHOW_SQ                           AS bnnShowSq
+     , A.BNN_MP_IMG_URL                        AS bnnMpImgUrl
+     , A.BNN_EP_IMG_URL                        AS bnnEpImgUrl
+     , A.BNN_MM_IMG_URL                        AS bnnMmImgUrl
+     , A.BNN_EM_IMG_URL                        AS bnnEmImgUrl
+     , A.BNN_M_LND_URL                         AS bnnMLndUrl
+     , A.BNN_E_LND_URL                         AS bnnELndUrl
+     , DATE_FORMAT(A.bnnStartDt, '%Y.%m.%d')   AS bnnStartDt
+     , DATE_FORMAT(A.bnnEndDt, '%Y.%m.%d')     AS bnnEndDt
+     , MAX(A.REG_DT)
+  FROM ( SELECT BNN_SQ
+	          , BNN_TITLE
+	          , BNN_SHOW_SQ
+	          , BNN_MP_IMG_URL
+	          , BNN_EP_IMG_URL
+	          , BNN_MM_IMG_URL
+	          , BNN_EM_IMG_URL
+	          , BNN_M_LND_URL
+	          , BNN_E_LND_URL
+	          , DATE_FORMAT(BNN_START_DT, '%Y.%m.%d') AS bnnStartDt
+	          , DATE_FORMAT(BNN_END_DT, '%Y.%m.%d')   AS bnnEndDt
+	          , REG_DT
+           FROM TBL_DA_BNN_MGMT_M
+          WHERE 1=1
+            AND BNN_DIV_CD = 'MIH'
+            AND DEL_YN = 'N' 
+            AND USE_YN = 'Y'
+            AND IF(DATEDIFF(BNN_END_DT, NOW()) <![CDATA[>=]]> 0, 1, 0) = 1
+       ORDER BY UPDT_DT DESC
+       ) AS A
+       , TBL_DA_BNN_MGMT_M AS B
+ WHERE 1=1
+ GROUP BY A.BNN_SHOW_SQ
+ ORDER BY A.BNN_SHOW_SQ ASC
 	</select>
 </mapper>
