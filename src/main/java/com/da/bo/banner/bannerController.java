@@ -79,10 +79,6 @@ public class bannerController {
 			,@RequestPart(value="bnnEmImgUrl") @Nullable MultipartFile bnnEmImgUrl) throws IOException {
 		System.out.println(bnnData.toString());
 		System.out.println(promoData.toString());
-		System.out.println(bnnMpImgUrl.getName());
-		System.out.println(bnnMmImgUrl.getName());
-		System.out.println(bnnEpImgUrl.getName());
-		System.out.println(bnnEmImgUrl.getName());
 		
 		ModelAndView mv = new ModelAndView("jsonView");
 		
