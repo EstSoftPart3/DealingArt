@@ -258,4 +258,14 @@ public class CommunityServiceImpl implements CommunityService {
 		List<Map<String, Object>> result = communityDao.selectBoardAuth(param);
 		return result;
 	}
+	
+	/*
+	 * 커뮤니티 권한 조회
+	 * param : boardCode
+	 * return : 
+	 */
+	public Map<String, Object> selectnoti(Map<String, Object> param){
+		Map<String, Object> result = communityDao.selectnoti(param);
+		return result;
+	}
 }

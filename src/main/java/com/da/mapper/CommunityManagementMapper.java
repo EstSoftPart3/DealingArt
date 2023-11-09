@@ -18,6 +18,8 @@ public interface CommunityManagementMapper {
 	
 	/* 게시판 관리 공지글 등록 */
 	public int insertCommunityManagementNotice(Map<String, Object> param);
+	/* 게시판 관리 이전 공지글 삭제 */
+	public int delBeforeNoti(Map<String, Object> param);
 	
 	//게시물 목록 boardList였음
 	public List searchAllBoardList(Map<String, Object> param);
@@ -51,5 +53,8 @@ public interface CommunityManagementMapper {
 	
 	//대댓글 삭제 상태 변경
 	public int deleteReReplyState(@Param("state") String state, @Param("replySq") int replySq);
+
+	// 이전 공지글 존재 여부 확인
+	public int selectChkNoti(Map<String, Object> string);
 
 }

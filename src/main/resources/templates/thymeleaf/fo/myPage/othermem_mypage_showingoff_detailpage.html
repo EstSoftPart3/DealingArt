@@ -267,7 +267,7 @@
     		userWrapHtml += '</div>';
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
-    		userWrapHtml += '		<li class="time hidden">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
+    		userWrapHtml += '		<li class="time">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
     		userWrapHtml += '		<li class="like" onclick="likeCheckYn(' + comtSq + ')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
     		/* userWrapHtml += '		<li style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>'; */
     		userWrapHtml += '		<li class="scrap" onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
@@ -1738,6 +1738,13 @@
 					$(".cmt").css("display","block");
 				}else if(data[0].cmtYn == "N"){
 					$(".cmt").css("display","none");
+				}
+				
+				// 등록 시간 표시 여부
+				if(data[0].cmMgRegDtYn == "Y"){
+					$(".time").css("display","block");
+				}else if(data[0].cmtYn == "N"){
+					$(".time").css("display","none");
 				}
 			}
 		}
