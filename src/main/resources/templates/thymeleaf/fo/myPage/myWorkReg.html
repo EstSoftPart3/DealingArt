@@ -1882,7 +1882,8 @@ function myWorkReg(){
     			        contentType : false,
     			        processData : false,
     			        success: function(data) {
-    			        	if(data == 1){
+    			        	console.log(data);
+    			        	if(data >= 1){
     			        		modalAlertShow("작품이 등록되었습니다.", "myWorkList");
     			        	}else{
     			        		modalAlertShow("작품 등록에 실패했습니다. 다시 시도해주세요.", "myWorkList");
