@@ -146,8 +146,7 @@
 		 WHERE A.BNN_DIV_CD = #{bnnDivCd}
 		   AND A.USE_YN = 'Y'
 		   AND A.DEL_YN = 'N'
-		   AND IF(DATEDIFF(A.BNN_END_DT, NOW()) >= 0, 1, 0) = 1
-		 ORDER BY A.BNN_END_DT DESC
+		 ORDER BY A.BNN_SQ DESC
 		 LIMIT 1
 	</select>
 	
