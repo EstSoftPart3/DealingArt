@@ -594,8 +594,8 @@
 		WHERE 
 				USE_YN = 'Y'
 			AND DEL_YN = 'N'
-			AND MGZ_TYP_CD = 'IST' OR MGZ_TYP_CD = 'MDA' 
-			
+			<!-- AND MGZ_TYP_CD = 'IST' OR MGZ_TYP_CD = 'MDA'  -->
+			AND MGZ_TYP_CD = 'IST'
 		LIMIT 
 				10
 	</select>
