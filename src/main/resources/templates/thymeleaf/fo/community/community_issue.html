@@ -218,6 +218,11 @@
    		window.scrollTo({top:0});
    		
    		list.forEach( function (issue) {
+   			 
+   			
+   			var isNew = isNewPost(issue.regDt);
+   			
+   			
    			strHtml += '<div class="exhint_row">';
 	        strHtml += '    <div class="exhint_list_img"><img src="'+ issue.comtImgUrl +'" class="img-fit-contain" onclick="opneIssueDetail('+issue.comtSq+');" alt="" style="cursor: pointer;"></div>';
 	        strHtml += '    <div class="contents">';
@@ -227,7 +232,9 @@
 	        strHtml += '            	<li>';
 	        strHtml += '                	<div class="tit">';
 	        strHtml += '                    	<em>'+ issue.comtTitle +'</em>';
+	        if(isNew){
 	        strHtml += '						<div class="ico_new">NEW</div>';
+	        }
 	        strHtml += '                	</div>';
 	        strHtml += '            	</li>';
 	        strHtml += '            	<li class="comt_content pt20">'+ issue.comtContent +'</li>';
@@ -266,6 +273,30 @@
    		$("#listBox .exhint_row").remove();
         $("#listBox").prepend(strHtml);
         setContentText($(".comt_content"));
+   	}
+	
+   	function isNewPost(regDt) {
+   	    try {
+   	        var postDate;
+
+   	        // regDt가 배열인 경우
+   	        if (Array.isArray(regDt)) {
+   	            postDate = new Date(regDt[0], regDt[1] - 1, regDt[2], regDt[3], regDt[4], regDt[5]);
+   	        } else {
+   	            // regDt가 다른 형식인 경우
+   	            postDate = new Date(regDt);
+   	        }
+
+   	        var currentTime = new Date(); 
+   	        var timeDifference = currentTime - postDate;
+
+   	        var minutesDifference = timeDifference / (1000 * 60 * 60);
+  
+   	        return minutesDifference <= 12;  
+   	    } catch (error) {
+   	        console.error("날짜 파싱 오류:", error);
+   	        return false; // 또는 애플리케이션에 맞게 오류를 처리합니다.
+   	    }
    	}
 	
  	// 작성 글 내용 텍스트만 가져오기

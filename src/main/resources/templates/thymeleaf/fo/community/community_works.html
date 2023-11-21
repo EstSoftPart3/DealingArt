@@ -249,6 +249,8 @@
    			list.forEach(function(work, idx){
    	   			var cnt = idx + 1;
    	   			
+   	   			var isNew = isNewPost(work.regDt);
+   	   			
    	   			//if(cnt == 1 || cnt % 5 == 0) { // 이형태일 경우 데이터 3번째 줄에서 in을 못함.
    	   			if(cnt == 1 || rowYn == 'Y') {
    		   			strHtml += '<div class="workspic_row">';
@@ -271,7 +273,13 @@
    	            strHtml += '                		<li>'+ (work.mbrIntro || "소개가 없습니다.") +'</li>';
    	            strHtml += '            		</ul>';
    	            strHtml += '        		</div>';
-   	            strHtml += '        		<div class="pic"><div class="ico_new">NEW</div><a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
+   	            strHtml += '        		<div class="pic">';
+   	            
+   	         	if(isNew){
+    	        strHtml += '        		<div class="ico_new">NEW ' + work.regDt + ' </div>';
+    	        }
+   	         	
+   	            strHtml += '					<a href="/community/showingOffDetail?SqNumber='+ work.comtSq +'"><img src="'+ work.comtImgUrl +'" alt="" class="img-fit-contain"></a></div>';
    	            strHtml += '        		<div class="icon_box">';
    	            strHtml += '           			<ul>';
    	            strHtml += '                		<li class="like"><p class="ico_good" onclick="likeCheckYn(' + work.comtSq + ');" style="cursor: pointer;"></p><span>'+ work.comtLikes +'</span></li>';
@@ -300,6 +308,33 @@
      	}
    	}
    	
+   	function isNewPost(regDt) {
+   	    try {
+   	        var postDate;
+
+   	        // regDt가 배열인 경우
+   	        if (Array.isArray(regDt)) {
+   	            postDate = new Date(regDt[0], regDt[1] - 1, regDt[2], regDt[3], regDt[4], regDt[5]);
+   	        } else {
+   	            // regDt가 다른 형식인 경우
+   	            postDate = new Date(regDt);
+   	        }
+
+   	        var currentTime = new Date(); 
+   	        var timeDifference = currentTime - postDate;
+
+   	        var minutesDifference = timeDifference / (1000 * 60 * 60);
+
+ 
+   	        return minutesDifference <= 12;  
+   	    } catch (error) {
+   	        console.error("날짜 파싱 오류:", error);
+   	        return false; // 또는 애플리케이션에 맞게 오류를 처리합니다.
+   	    }
+   	}
+
+   		
+   		
 	// 좋아요 체크 여부 조회
 	function likeCheckYn(sqNumber) {
 		$.ajax({

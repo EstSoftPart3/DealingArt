@@ -94,7 +94,7 @@
 					 				<td>
 					 					<div class="col-sm-12">
 					 						<div id="toolbar-container" style="width:800px;z-index:9999""></div>
-                    						<div id="editor" style="border: 1px solid #efefef;width:800px;">
+                    						<div id="editor" style="border: 1px solid #efefef;width:800px;max-height:300px;overflow-y:auto;">
 					 					</div>
 					 				</td>
 					 			</tr>
@@ -152,9 +152,13 @@
 	} )
 	.then( editor => {
 		 const toolbarContainer = document.querySelector( '#toolbar-container' );
-
+		  
 		  toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+		   
+		  
           document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+          
+ 
 	} )
 	.catch( error => {
 		console.error( 'Oops, something went wrong!' );

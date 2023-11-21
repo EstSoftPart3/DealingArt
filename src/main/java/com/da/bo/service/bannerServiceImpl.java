@@ -34,7 +34,18 @@ public class bannerServiceImpl implements bannerService {
 	// 배너 등록
 	@Override
 	public int bannerInsert(Map<String, Object> param) {	
-		return bannerDao.bannerInsert(param);			
+		
+		int bannerExist = bannerDao.bannerSelect(param);
+		
+		if(bannerExist > 0){
+			
+			return 0;
+			
+		}else {
+			
+			return bannerDao.bannerInsert(param);
+		}
+		 
 	}
 	
 	//배너 삭제

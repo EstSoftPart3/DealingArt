@@ -98,8 +98,16 @@ public class bannerController {
 				bnnData.put(key, file.getFileUrl());
 			}
 		}
-		
+				
 		int result1 = bannerService.bannerInsert(bnnData);
+		System.out.println(result1);
+		
+		if(result1 == 0) {
+ 
+			mv.addObject("error", "배너가 이미 등록되어 있습니다.");
+			
+		}else {
+		 
 		int result2 = 0;
 		for(int i=0; i<promoData.size(); i++){
 			result2 += bannerService.promoUpdate(promoData.get(i));
@@ -107,7 +115,9 @@ public class bannerController {
 		mv.addObject("bannerResult", result1);
 		mv.addObject("promoResult", result2);
 		
+		}
 		return mv;
+		
 	}
 
 	// 게시판 삭제

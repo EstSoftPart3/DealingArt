@@ -9,7 +9,7 @@ public interface bannerService {
 	public Map<String, Object> bannerList(Map<String, Object> param);
 	//배너 등록
 	public int bannerInsert(Map<String, Object> param);
-	
+	  
 	//배너 삭제
 	public int bannerDelete(String string);
 

@@ -36,6 +36,7 @@
     WHERE
         C.DEAL_SQ IS NOT NULL
         AND A.DEL_YN = 'N' /*작품 삭제 여부 확인 */
+        AND C.DEAL_STTS_CD = 'TP'
     ORDER BY C.DEAL_STRT_DT DESC /*거래시작일시를 내림차순으로 정렬*/
     LIMIT 4
 </select>

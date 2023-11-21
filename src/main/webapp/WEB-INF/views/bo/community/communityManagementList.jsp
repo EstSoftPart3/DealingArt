@@ -98,8 +98,8 @@
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">작성일 표시</td>
 											<td id="" class="col-sm-2 dataValue">
-												<label><input type="radio" name="cmMgRegdtYn" id="cmMgRegdtYn1" value="Y" checked="checked">사용</label>
-												<label><input type="radio" name="cmMgRegdtYn"id="cmMgRegdtYn2"  value="N">사용 안함</label>
+												<label><input type="radio" name="cmMgRegDtYn" id="cmMgRegDtYn1" value="Y" checked="checked">사용</label>
+												<label><input type="radio" name="cmMgRegDtYn"id="cmMgRegDtYn2"  value="N">사용 안함</label>
 											</td>
 										</tr>
 										
@@ -131,7 +131,7 @@
 												<label><input type="radio" name="cmMgSnsYn" id="cmMgSnsYn2" value="N">사용 안함</label>
 											</td>
 										</tr>
-										<tr class="col-form-label sTitle LabelStyle" >
+										<!-- <tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">NEW 아이콘 설정</td>
 											<td id="" class="col-sm-2 dataValue">
 												<div class="input-group input-group-sm">
@@ -140,7 +140,7 @@
 													시간 이내의 글
 												</div>
 											</td>
-										</tr>
+										</tr> -->
 										<tr class="col-form-label sTitle LabelStyle" >
 											<td class="col-sm-1" align="center" style="background-color: #efefef;">읽기 권한</td>
 											<td id="" class="col-sm-2 dataValue">
@@ -556,9 +556,9 @@
 					  //작성일 표시 사용 여부 세팅
 					  if(key == "cmMgRegDtYn"){
 						  if (iptValue == "Y"){
-							  $("#cmMgRegdtYn1").prop("checked", true);
+							  $("#cmMgRegDtYn1").prop("checked", true);
 						  }else if(iptValue == "N"){
-							  $("#cmMgRegdtYn2").prop("checked", true);
+							  $("#cmMgRegDtYn2").prop("checked", true);
 						  }
 					  }
 					  //조회수 표시 사용 여부 세팅
@@ -667,7 +667,7 @@
 			cmMgOdDivCd : getInputValue('cmMgOdDivCd'),
 			cmMgOdTypCd : getInputValue('cmMgOdTypCd'),
 			cmMgCmtYn : getInputValue('cmMgCmtYn'),
-			cmMgRegdtYn : getInputValue('cmMgRegdtYn'),
+			cmMgRegDtYn : getInputValue('cmMgRegDtYn'),
 			cmMgViewsYn : getInputValue('cmMgViewsYn'),
 			cmMgScrapsYn : getInputValue('cmMgScrapsYn'),
 			cmMgLikesYn : getInputValue('cmMgLikesYn'),

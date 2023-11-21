@@ -115,7 +115,7 @@
                     					
                     					<div id="toolbar-container" style="z-index:9999"></div>
                     					
-                    					<div id="editor" style="border: 1px solid #efefef;">
+                    					<div id="editor" style="border: 1px solid #efefef;max-height:300px;overflow-y:auto;">
 									        
 									    </div>
 

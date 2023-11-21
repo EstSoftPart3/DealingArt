@@ -157,6 +157,7 @@
          , COMT.COMT_IMG_URL        AS comtImgUrl
          , COMT.COMT_TITLE          AS comtTitle
          , COMT.COMT_CONTENT        AS comtContent
+         , COMT.REG_DT				AS regDt
          , COMT.COMT_LIKES          AS comtLikes
          , COMT.COMT_VIEWS          AS comtViews
          , COMT.COMT_CMTS           AS comtCmts

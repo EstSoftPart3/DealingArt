@@ -68,6 +68,13 @@ public class bannerDao {
 	public int promoUpdate(Map<String, Object> param){
 		return bannerMapper.promoUpdate(param);
 	}
+
+	public int bannerSelect(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		int result = bannerMapper.bannerSelect(param);
+		 
+		return result;
+	}
 	
 
 

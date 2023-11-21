@@ -127,7 +127,7 @@
 							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<img src="/resources/img/DA_banner_pc_230516.png" onclick="javascript:location.href='https://promo.dealing-art.com/2023/dp/da_1st';" style="cursor:pointer;"/>
 							</div> -->
-							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
+							<!-- <div class="swiper-slide" align="center" style="background-color:#ffffff;">
 								<img src="/resources/img/banner-22_pc.jpg" onclick="javascript:location.href='https://promo.dealing-art.com/2023/auto_action_bidding_5percet?utm_source=landingpage&utm_medium=MainBanner&utm_campaign=action_bidding_5percet ';" style="cursor:pointer;"/>
 							</div>
 							<div class="swiper-slide" align="center" style="background-color:#ffffff;">
@@ -138,7 +138,7 @@
 							</div>
 							<div class="swiper-slide" align="center" style="background-color:#fe4d01;">
 								<img src="/resources/img/banner-13_pc.jpg" onclick="javascript:location.href='/mgz9/media';" style="cursor:pointer;"/>
-							</div>
+							</div> -->
 						</div>
 						<div class="swiper-pagination swpa-1"></div>
 					</div>
@@ -380,185 +380,7 @@
     	
     	emNotice();
     	
-    	let ww = window.innerWidth;
     	
-    	/* 메인 배너 */
-    	var myArray = ["01","02","03","04","05","06","07","08","09"];
-    	
-    	var swiper = new Swiper(".mySwiper", {
-  			autoHeight: false,
-  		  	autoplay: {
-  	          	delay: 3000,
-  	          	disableOnInteraction: false,
-  	       	},
-  	    	pagination: {
-  	      		el: ".swiper-pagination",
-  	      		clickable: true,
-  	      		renderBullet: function (index, className) {
-  	        		return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
-  	      		},
-  	    	},
-  	  	});
-    	/* 첫번째 배너  */
-  	  	var swiper1Num = 4;
-  	  
-  	  	var swiper = new Swiper(".mySwiper1", {
-  		   	slidesPerView: "auto",
-  		   	loop: false,
-  		   	/* autoplay: {
-  		          delay: 3000,
-  		          disableOnInteraction: false,
-  		   	}, */
-  			navigation: {
-  				 nextEl: ".InNextSwiper1",
-  				 prevEl: ".InPrevSwiper1",
-  			},
-  	  	});
-  	  
-  	  
-  	  	responsiveSwiper(swiper1Num);
-  	  
-  	  	function responsiveSwiper(swiper1Num) {
-  			if (ww >= 1200) {
-  				// 1
-  				swiper = new Swiper('.mySwiper1', {
-  					slidesPerView: swiper1Num,
-  					loop: false,
-  					effect: 'slide',
-  					navigation: {
-  						 nextEl: ".InNextSwiper1",
-  						 prevEl: ".InPrevSwiper1",
-  					},
-  				});
-  			} else if (ww < 1200) {
-  				// 2
-  				swiper = new Swiper('.mySwiper1', {
-  					slidesPerView: 1,
-  					loop: false
-  					
-  				});
-  			}
-  		}
-  	  	/* 두번째(매거진) 배너  */
-  	  	var swiper2Num = 4;
-  	  
-  	  	var swiper = new Swiper(".mySwiper2", {
-  		   	slidesPerView: "auto",
-  		   	loop: false,
-  		   	/* autoplay: {
-  		          delay: 3000,
-  		          disableOnInteraction: false,
-  		   	}, */
-  			navigation: {
-  				 nextEl: ".InNextSwiper2",
-  				 prevEl: ".InPrevSwiper2",
-  			},
-  	  	});
-  	  
-  	  
-  	  	responsiveSwiper(swiper2Num);
-  	  
-  	  	function responsiveSwiper(swiper2Num) {
-  			if (ww >= 1200) {
-  				// 1
-  				swiper = new Swiper('.mySwiper2', {
-  					slidesPerView: swiper2Num,
-  					loop: false,
-  					effect: 'slide',
-  					navigation: {
-  						 nextEl: ".InNextSwiper2",
-  						 prevEl: ".InPrevSwiper2",
-  					},
-  				});
-  			} else if (ww < 1200) {
-  				// 2
-  				swiper = new Swiper('.mySwiper2', {
-  					slidesPerView: 1,
-  					loop: false
-  					
-  				});
-  			}
-  		}
-  	  	/* 세번째(인기회원) 배너  */
-  	  	var swiper3Num = 4;
-
-  	  	var swiper = new Swiper(".mySwiper3", {
-  		   	slidesPerView: "auto",
-  		   	loop: false,
-  		   	/* autoplay: {
-  		          delay: 3000,
-  		          disableOnInteraction: false,
-  		   	}, */
-  			navigation: {
-  				 nextEl: ".InNextSwiper3",
-  				 prevEl: ".InPrevSwiper3",
-  			},
-  	  	});
-  	  
-  	  
-  	  	responsiveSwiper(swiper3Num);
-  	  
-  	  	function responsiveSwiper(swiper3Num) {
-  			if (ww >= 1200) {
-  				// 1
-  				swiper = new Swiper('.mySwiper3', {
-  					slidesPerView: swiper3Num,
-  					loop: false,
-  					effect: 'slide',
-  					navigation: {
-  						 nextEl: ".InNextSwiper3",
-  						 prevEl: ".InPrevSwiper3",
-  					},
-  				});
-  			} else if (ww < 1200) {
-  				// 2
-  				swiper = new Swiper('.mySwiper3', {
-  					slidesPerView: 1,
-  					loop: false
-  					
-  				});
-  			}
-  		}
-  	  	/* 네번째 배너  */
-  	  	var swiper4Num = 4;
-  	  
-  	  	var swiper = new Swiper(".mySwiper4", {
-  		   	slidesPerView: "auto",
-  		   	loop: false,
-  		   	/* autoplay: {
-  		          delay: 3000,
-  		          disableOnInteraction: false,
-  		   	}, */
-  			navigation: {
-  				 nextEl: ".InNextSwiper4",
-  				 prevEl: ".InPrevSwiper4",
-  			},
-  	  	});
-  	  
-  	  
-  	  	responsiveSwiper(swiper4Num);
-  	  
-  	  	function responsiveSwiper(swiper4Num) {
-  			if (ww >= 1200) {
-  				// 1
-  				swiper = new Swiper('.mySwiper4', {
-  					slidesPerView: swiper4Num,
-  					loop: false,
-  					effect: 'slide',
-  					navigation: {
-  						 nextEl: ".InNextSwiper4",
-  						 prevEl: ".InPrevSwiper4",
-  					},
-  				});
-  			} else if (ww < 1200) {
-  				// 2
-  				swiper = new Swiper('.mySwiper4', {
-  					slidesPerView: 1,
-  					loop: false
-  					
-  				});
-  			}
-  		}
     });
     
     // 초기 화면 셋팅 
@@ -579,6 +401,185 @@
     			
     			bannerWrap.append(fn_setBanner(response.mainBanner)).trigger("create");
     			bannerWrapMobile.append(fn_setBannerMobile(response.mainBanner)).trigger("create");	
+    			
+    			let ww = window.innerWidth;
+    	    	/* 메인 배너 */
+    	    	var myArray = ["01","02","03","04","05","06","07","08","09"];
+    	    	
+    	    	var swiper = new Swiper(".mySwiper", {
+    	  			autoHeight: false,
+    	  		  	autoplay: {
+    	  	          	delay: 3000,
+    	  	          	disableOnInteraction: false,
+    	  	       	},
+    	  	    	pagination: {
+    	  	      		el: ".swiper-pagination",
+    	  	      		clickable: true,
+    	  	      		renderBullet: function (index, className) {
+    	  	        		return '<span class="' + className + '">' + myArray[index + 0] + '</span>';
+    	  	      		},
+    	  	    	},
+    	  	  	});
+    	    	/* 첫번째 배너  */
+    	  	  	var swiper1Num = 4;
+    	  	  
+    	  	  	var swiper = new Swiper(".mySwiper1", {
+    	  		   	slidesPerView: "auto",
+    	  		   	loop: false,
+    	  		   	/* autoplay: {
+    	  		          delay: 3000,
+    	  		          disableOnInteraction: false,
+    	  		   	}, */
+    	  			navigation: {
+    	  				 nextEl: ".InNextSwiper1",
+    	  				 prevEl: ".InPrevSwiper1",
+    	  			},
+    	  	  	});
+    	  	  
+    	  	  
+    	  	  	responsiveSwiper(swiper1Num);
+    	  	  
+    	  	  	function responsiveSwiper(swiper1Num) {
+    	  			if (ww >= 1200) {
+    	  				// 1
+    	  				swiper = new Swiper('.mySwiper1', {
+    	  					slidesPerView: swiper1Num,
+    	  					loop: false,
+    	  					effect: 'slide',
+    	  					navigation: {
+    	  						 nextEl: ".InNextSwiper1",
+    	  						 prevEl: ".InPrevSwiper1",
+    	  					},
+    	  				});
+    	  			} else if (ww < 1200) {
+    	  				// 2
+    	  				swiper = new Swiper('.mySwiper1', {
+    	  					slidesPerView: 1,
+    	  					loop: false
+    	  					
+    	  				});
+    	  			}
+    	  		}
+    	  	  	/* 두번째(매거진) 배너  */
+    	  	  	var swiper2Num = 4;
+    	  	  
+    	  	  	var swiper = new Swiper(".mySwiper2", {
+    	  		   	slidesPerView: "auto",
+    	  		   	loop: false,
+    	  		   	/* autoplay: {
+    	  		          delay: 3000,
+    	  		          disableOnInteraction: false,
+    	  		   	}, */
+    	  			navigation: {
+    	  				 nextEl: ".InNextSwiper2",
+    	  				 prevEl: ".InPrevSwiper2",
+    	  			},
+    	  	  	});
+    	  	  
+    	  	  
+    	  	  	responsiveSwiper(swiper2Num);
+    	  	  
+    	  	  	function responsiveSwiper(swiper2Num) {
+    	  			if (ww >= 1200) {
+    	  				// 1
+    	  				swiper = new Swiper('.mySwiper2', {
+    	  					slidesPerView: swiper2Num,
+    	  					loop: false,
+    	  					effect: 'slide',
+    	  					navigation: {
+    	  						 nextEl: ".InNextSwiper2",
+    	  						 prevEl: ".InPrevSwiper2",
+    	  					},
+    	  				});
+    	  			} else if (ww < 1200) {
+    	  				// 2
+    	  				swiper = new Swiper('.mySwiper2', {
+    	  					slidesPerView: 1,
+    	  					loop: false
+    	  					
+    	  				});
+    	  			}
+    	  		}
+    	  	  	/* 세번째(인기회원) 배너  */
+    	  	  	var swiper3Num = 4;
+
+    	  	  	var swiper = new Swiper(".mySwiper3", {
+    	  		   	slidesPerView: "auto",
+    	  		   	loop: false,
+    	  		   	/* autoplay: {
+    	  		          delay: 3000,
+    	  		          disableOnInteraction: false,
+    	  		   	}, */
+    	  			navigation: {
+    	  				 nextEl: ".InNextSwiper3",
+    	  				 prevEl: ".InPrevSwiper3",
+    	  			},
+    	  	  	});
+    	  	  
+    	  	  
+    	  	  	responsiveSwiper(swiper3Num);
+    	  	  
+    	  	  	function responsiveSwiper(swiper3Num) {
+    	  			if (ww >= 1200) {
+    	  				// 1
+    	  				swiper = new Swiper('.mySwiper3', {
+    	  					slidesPerView: swiper3Num,
+    	  					loop: false,
+    	  					effect: 'slide',
+    	  					navigation: {
+    	  						 nextEl: ".InNextSwiper3",
+    	  						 prevEl: ".InPrevSwiper3",
+    	  					},
+    	  				});
+    	  			} else if (ww < 1200) {
+    	  				// 2
+    	  				swiper = new Swiper('.mySwiper3', {
+    	  					slidesPerView: 1,
+    	  					loop: false
+    	  					
+    	  				});
+    	  			}
+    	  		}
+    	  	  	/* 네번째 배너  */
+    	  	  	var swiper4Num = 4;
+    	  	  
+    	  	  	var swiper = new Swiper(".mySwiper4", {
+    	  		   	slidesPerView: "auto",
+    	  		   	loop: false,
+    	  		   	/* autoplay: {
+    	  		          delay: 3000,
+    	  		          disableOnInteraction: false,
+    	  		   	}, */
+    	  			navigation: {
+    	  				 nextEl: ".InNextSwiper4",
+    	  				 prevEl: ".InPrevSwiper4",
+    	  			},
+    	  	  	});
+    	  	  
+    	  	  
+    	  	  	responsiveSwiper(swiper4Num);
+    	  	  
+    	  	  	function responsiveSwiper(swiper4Num) {
+    	  			if (ww >= 1200) {
+    	  				// 1
+    	  				swiper = new Swiper('.mySwiper4', {
+    	  					slidesPerView: swiper4Num,
+    	  					loop: false,
+    	  					effect: 'slide',
+    	  					navigation: {
+    	  						 nextEl: ".InNextSwiper4",
+    	  						 prevEl: ".InPrevSwiper4",
+    	  					},
+    	  				});
+    	  			} else if (ww < 1200) {
+    	  				// 2
+    	  				swiper = new Swiper('.mySwiper4', {
+    	  					slidesPerView: 1,
+    	  					loop: false
+    	  					
+    	  				});
+    	  			}
+    	  		}
     			
     		}),
     		error: (function(response){
@@ -865,9 +866,7 @@
 				// 메인화면 배너 조회 결과가 있을 경우
 				if(i < data.length){
 					html += '<div class="swiper-slide" id="banner" align="center" style="background-color:#ffffff;">';
-					html += '	<a href="' + data[i].bnnMLndUrl + '">';
-		    		html += '		<img src="' + data[i].bnnMpImgUrl + '" alt="">';
-		    		html += '	</a>';
+					html += '<img src="' + data[i].bnnMpImgUrl + '" onclick="javascript:location.href=\'' + data[i].bnnMLndUrl + '\';" style="cursor:pointer;"/>';
 					html += '</div>'	
 					
 				// 메인화면 배너 조회 결과가 없을 경우	

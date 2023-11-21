@@ -1590,7 +1590,7 @@
 					AND A.WORK_OPEN_YN = 'N'
 				</if>
 				<if test='dealBidYn == "Y"'>
-					HAVING bidCnt = 0;
+					HAVING bidCnt = 0
 				</if>
 				<if test='sortCd == "recent"'>
 					ORDER BY A.REG_DT DESC

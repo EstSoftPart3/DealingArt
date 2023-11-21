@@ -960,6 +960,11 @@ function bannerInsert() {
 	        contentType : false,
 	        processData : false,
 	        success: function(data) {
+	        	if(data.error){
+	        		
+	        		alert("에러: " + data.error);
+	        		
+	        	}else{
 				bootbox.alert({
 					message: "배너등록이 완료되었습니다.",
 					locale: 'kr',
@@ -967,7 +972,8 @@ function bannerInsert() {
  						location.href = "/admin/banner/bannerList"
    					}
 				});
-	        },
+	          }
+	        }, 
 	        error: function(error) {
 	            alert("오류 발생" + error);
 	        }

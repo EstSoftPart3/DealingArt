@@ -87,6 +87,20 @@
 			)		
 	</insert>
 	
+	<select id="bannerSelect" resultType="int" parameterType="hashMap">
+		    SELECT 
+		    		COUNT(*) 
+		    FROM 
+		    		TBL_DA_BNN_MGMT_M
+		    WHERE 
+		    		BNN_DIV_CD = #{bnnDivCd}
+		    	AND	BNN_SHOW_SQ = #{bnnShowSq}
+		    	AND DEL_YN = 'N'
+		    	AND BNN_START_DT <![CDATA[<=]]> NOW()
+		    	AND BNN_END_DT <![CDATA[>=]]> NOW()
+	</select>
+	
+	
 	<update id="promoUpdate" parameterType="hashMap">
 	/* 프로모션 영역 수정 */
 		UPDATE
