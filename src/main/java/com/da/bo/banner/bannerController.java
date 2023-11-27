@@ -193,5 +193,15 @@ public class bannerController {
 
 		return mv;
 	}
+	
+	//프로모션 영역 가져오기
+	@RequestMapping("/admin/banner/promoDataList")
+	@ResponseBody
+	public ModelAndView promoDataList(@RequestParam(value="bnnDivCd") String param) {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> promoDataList = bannerService.promoDataList(param);
+		mv.addObject("promoDataList", promoDataList);
 
+		return mv;
+	}
 }

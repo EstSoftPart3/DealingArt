@@ -18,5 +18,8 @@ public interface bannerService {
 	
 	//프로모션 영역 수정
 	public int promoUpdate(Map<String, Object> param);
+	
+	//프로모션 영역 조회
+	public List<Map<String, Object>> promoDataList(Object param);
 
 }

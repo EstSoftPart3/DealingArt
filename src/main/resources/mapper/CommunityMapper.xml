@@ -29,7 +29,7 @@
 		   AND AM.USE_YN = 'Y'
 		   AND AM.DEL_YN = 'N'
 		ORDER BY 
-			CASE 
+		CASE 
 	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'REG' 
 	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
 	        THEN CM.REG_DT
@@ -172,22 +172,18 @@
 			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
 			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
 			   CM.WORK_SQ		AS workSq,		-- 작품 순번
-			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
 			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
 			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
 			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
 		  FROM TBL_DA_COMT_M CM
-		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
 		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
 		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
 		   AND CM.COMT_TYP_CD = #{comtTypCd}
 		   AND CM.OPEN_YN = 'Y'
 		   AND CM.USE_YN = 'Y'
 		   AND CM.DEL_YN = 'N'
-		   AND AM.USE_YN = 'Y'
-		   AND AM.DEL_YN = 'N'
 		ORDER BY 
-			CASE 
+		CASE 
 	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'REG' 
 	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
 	        THEN CM.REG_DT
@@ -250,20 +246,16 @@
 			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
 			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
 			   CM.WORK_SQ		AS workSq,		-- 작품 순번
-			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
 			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
 			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
 			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
 		  FROM TBL_DA_COMT_M CM
-		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
 		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
 		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
 		   AND CM.COMT_TYP_CD = #{comtTypCd}
 		   AND CM.OPEN_YN = 'Y'
 		   AND CM.USE_YN = 'Y'
 		   AND CM.DEL_YN = 'N'
-		   AND AM.USE_YN = 'Y'
-		   AND AM.DEL_YN = 'N'
 		ORDER BY 
 			CASE 
 	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'REG' 

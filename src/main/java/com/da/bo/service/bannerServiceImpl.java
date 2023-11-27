@@ -69,5 +69,10 @@ public class bannerServiceImpl implements bannerService {
 	public int promoUpdate(Map<String, Object> param){
 		return bannerDao.promoUpdate(param);
 	}
+	
+	@Override
+	public List<Map<String, Object>> promoDataList(Object param){
+		return bannerDao.promoDataList(param);
+	}
 
 }

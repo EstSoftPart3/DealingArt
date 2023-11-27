@@ -143,8 +143,18 @@ function setMyInfo(data){
     html += '    <li class="name">'+data.mbrNcknm+'<span></span></li>';
     html += '    <li class="email">'+data.mbrId+'</li>';
     html += '    <li class="mem_type">회원유형<span>'+data.mbrTypNm+'</span></li>';
-    html += '    <li class="line"></li>';
-    if(mbrSq == null || mbrSq == ""){ //타인페이지가 아니면
+    if(mbrSq != null && mbrSq != ""){ //타인마이페이지 일 경우
+    	if(data.followYn == "Y"){
+    		html += '    <li class="line"></li>';
+            html += '    <li class="mem_type"><span style="cursor: pointer;" onclick="follow('+data.mbrSq+');">-언팔로우</span></li>';
+            html += '    <li class="line"></li>';
+    	}else{
+    		html += '    <li class="line"></li>';
+            html += '    <li class="mem_type"><span style="cursor: pointer;" onclick="follow('+data.mbrSq+');">+팔로우</span></li>';
+            html += '    <li class="line"></li>';
+    	}
+    	
+    }else{ //마이페이지 일 경우
     	html += '    <li class="profile_modify"><a href="/myPage/memberEdit"><span></span>프로필 수정</a></li>';
     }
     html += '  </ul>';
@@ -263,10 +273,24 @@ function copy_to_clipboard() {
    			}
 		}
 	);
+}
 	
-	
-	
-
+function follow(fwMbrSq){
+	var mbrSq = sMbrSqVal;
+	$.ajax({
+		url: "/community/follow",
+		data: {
+			fwMbrSq: fwMbrSq,
+			mbrSq: mbrSq
+		},
+		success: (function (response) {
+			location.reload();
+		}),
+		error: (function (response) {
+			alert("오류가 발생했습니다.\n관리자에게 문의해주세요."); 
+            location.reload();
+		})
+	})
 }
 
 </script>

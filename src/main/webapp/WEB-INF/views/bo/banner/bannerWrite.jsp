@@ -610,6 +610,7 @@ input[type="file"] {
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
 			$('#bnnStrtDt').val('');
+			promoDataList('MIH');
 		} else if (this.value == 'CMH') {
 			bnnDivCd = "CMH";
 			$("#mainimg").css("display", "block");
@@ -621,6 +622,7 @@ input[type="file"] {
 			$("#commulist").css("display", "block");//이벤트프로모션
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
+			promoDataList('CMH');
 		} else if (this.value == 'MGH') {
 			bnnDivCd = "MGH";
 			$("#mainimg").css("display", "block");
@@ -632,6 +634,7 @@ input[type="file"] {
 			$("#commulist").css("display", "none");//이벤트프로모션
 			$("#mgzlist").css("display", "block");//매거진프로모션
 			$("#eventlist").css("display", "none");//이벤트프로모션
+			promoDataList('MGH');
 		} else if (this.value == 'EVH') {
 			bnnDivCd = "EVH";
 			$("#mainimg").css("display", "block");
@@ -643,9 +646,45 @@ input[type="file"] {
 			$("#commulist").css("display", "none");//이벤트프로모션
 			$("#mgzlist").css("display", "none");//매거진프로모션
 			$("#eventlist").css("display", "block");//이벤트프로모션
+			promoDataList('EVH');
 		}
 
 	});
+	
+	function promoDataList(bnnDivCd){
+		$.ajax({
+	        type: "post",
+	        url: "/admin/banner/promoDataList",
+	        data: {
+	        	bnnDivCd : bnnDivCd
+	        },
+	        success: function(data) {
+	        	switch (bnnDivCd) {
+	        		case "MIH" :
+	        			for(var i=0; i<data.promoDataList.length; i++){
+	        				$("#MIH"+(i+1)+"_DIV_CD").val(data.promoDataList[i].promoOdDivCd).prop("selected", true);
+	        				$("#MIH"+(i+1)+"_TYP_CD").val(data.promoDataList[i].promoOdTypCd).prop("selected", true);
+	        			}
+	        			break;
+	        		case "CMH" :
+	        			for(var i=0; i<data.promoDataList.length; i++){
+	        				$("#CMH"+(i+1)+"_DIV_CD").val(data.promoDataList[i].promoOdDivCd).prop("selected", true);
+	        				$("#CMH"+(i+1)+"_TYP_CD").val(data.promoDataList[i].promoOdTypCd).prop("selected", true);
+	        			}
+	        			break;
+	        		case "MGH" :
+	        			for(var i=0; i<data.promoDataList.length; i++){
+	        				$("#MGH"+(i+1)+"_DIV_CD").val(data.promoDataList[i].promoOdDivCd).prop("selected", true);
+	        				$("#MGH"+(i+1)+"_TYP_CD").val(data.promoDataList[i].promoOdTypCd).prop("selected", true);
+	        			}
+	        			break;
+	        	}
+	        }, 
+	        error: function(error) {
+	            alert("오류 발생" + error);
+	        }
+		});
+	}
 	
 	var filePc = document.getElementById(".image-boxPc");
 	var fileM = document.getElementById(".image-boxM");//바꿀때 src 리셋해줘야함
@@ -851,7 +890,12 @@ function bannerInsert() {
 				
 				var bnnMmImgUrl = document.getElementById("bnnMmImgUrl");
 				formData.append("bnnMmImgUrl", bnnMmImgUrl.files[0]);
-				
+				if($("#MIH1_DIV_CD").val() == "" || $("#MIH2_DIV_CD").val() == "" || $("#MIH3_DIV_CD").val() == "" ||
+						$("#MIH4_DIV_CD").val() == "" || $("#MIH5_DIV_CD").val() == "" || $("#MIH1_TYP_CD").val() == "" ||
+						$("#MIH2_TYP_CD").val() == "" || $("#MIH3_TYP_CD").val() == "" || $("#MIH4_TYP_CD").val() == "" || $("#MIH5_TYP_CD").val() == ""){
+					alert("프로모션 영역 출력 설정을 선택해주세요!");
+					
+				}
 				var promoData = [{
 					"promoSq" : "1"
 					, "bnnDivCd" : bnnDivCd
@@ -905,7 +949,11 @@ function bannerInsert() {
 				
 				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
 				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
-				
+				if($("#CMH1_DIV_CD").val() == "" || $("#CMH2_DIV_CD").val() == "" || $("#CMH3_DIV_CD").val() == "" ||
+						$("#CMH4_DIV_CD").val() == "" || $("#CMH1_TYP_CD").val() == "" || $("#CMH2_TYP_CD").val() == "" || 
+						$("#CMH3_TYP_CD").val() == "" || $("#CMH4_TYP_CD").val() == ""){
+					alert("프로모션 영역 출력 설정을 선택해주세요!");
+				}
 				var promoData = [{
 					"promoSq" : "6"
 					, "bnnDivCd" : bnnDivCd
@@ -951,7 +999,10 @@ function bannerInsert() {
 				
 				var bnnEmImgUrl = document.getElementById("bnnEmImgUrl");
 				formData.append("bnnEmImgUrl", bnnEmImgUrl.files[0]);
-				
+				if($("#MGH1_DIV_CD").val() == "" || $("#MGH2_DIV_CD").val() == "" || $("#MGH3_DIV_CD").val() == "" ||
+						$("#MGH1_TYP_CD").val() == "" || $("#MGH2_TYP_CD").val() == "" || $("#MGH3_TYP_CD").val() == ""){
+					alert("프로모션 영역 출력 설정을 선택해주세요!");
+				}
 				var promoData = [{
 					"promoSq" : "10"
 					, "bnnDivCd" : bnnDivCd

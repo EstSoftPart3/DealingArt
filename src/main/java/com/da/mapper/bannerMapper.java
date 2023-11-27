@@ -18,6 +18,7 @@ public interface bannerMapper {
 	public int promoUpdate(Map<String, Object> param);
 	//배너목록 조회
 	public int bannerSelect(Map<String, Object> param);
-	
+	//프로모션 영역 리스트
+	public List<Map<String, Object>> promoDataList(Object param);
 	
 }

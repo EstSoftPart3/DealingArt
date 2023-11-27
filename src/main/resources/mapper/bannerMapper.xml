@@ -123,4 +123,22 @@
 		   		WHERE 1 = 1 
 		   			AND BNN_SQ = #{bnnSq}     	
 	</update>
+	
+	<select id="promoDataList" parameterType="String" resultType="hashMap">
+	/*프로모션 영역 데이터 가져오기*/
+		SELECT 
+				PROMO_SQ AS promoSq
+				, BNN_DIV_CD AS bnnDivCd
+				, PROMO_NM AS promoNm
+				, PROMO_OD_DIV_CD AS promoOdDivCd
+				, PROMO_OD_TYP_CD AS promoOdTypCd
+				, USE_YN AS useYn
+				, DEL_YN AS delYn
+		FROM 
+				TBL_DA_PROMO_MGMT_S
+		WHERE 
+				BNN_DIV_CD = #{bnnDivCd}
+			AND USE_YN = 'Y'
+			AND DEL_YN = 'N'
+	</select>
 </mapper>

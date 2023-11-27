@@ -57,7 +57,7 @@ public class MyPageController {
 	private MyPageService myPageService;
 	
 	@Autowired
-	private  CommunityService communitService;
+	private  CommunityService communityService;
 	
 	@Autowired
 	private MainMapper mainMapper;
@@ -90,19 +90,27 @@ public class MyPageController {
 	public ModelAndView myPageMain_MyInfo(HttpServletRequest request, @Nullable @RequestParam(value="mbrSq") String param){
 		ModelAndView mv = new ModelAndView("jsonView");
 		HttpSession session = request.getSession();
-		String mbrSq = "";
-		if(param != null && !param.equals("")){
-			mbrSq = param;
-		}else{
-			mbrSq = session.getAttribute("mbrSq").toString(); //로그인한 회원 순번 가져오기
-		}
-		 
-		
+		Map<String, Object> myInfo = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String mbrSq = "";
+		if(param != null && !param.equals("")){ //타인마이페이지
+			mbrSq = param;
+			myInfo = myPageService.myPageMain_myInfo(mbrSq); //회원 정보 조회
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("fwMbrSq", mbrSq);
+			map.put("mbrSq", session.getAttribute("mbrSq").toString());
+			int followStatus = communityService.followCheck(map); //팔로우하는지 조회
+			if(followStatus > 0){
+				myInfo.put("followYn", "Y");
+			}else{
+				myInfo.put("followYn", "N");
+			}
+		}else{ //마이페이지
+			mbrSq = session.getAttribute("mbrSq").toString();
+			myInfo = myPageService.myPageMain_myInfo(mbrSq); //나의 정보 조회
+		}
+		
 		paramMap.put("mbrSq", mbrSq); //로그인한 회원 순번 넣기
-		
-		Map<String, Object> myInfo = myPageService.myPageMain_myInfo(mbrSq); //나의 정보 조회
-		
 		mv.addObject("myInfo", myInfo);
 
 		return mv;
@@ -1565,7 +1573,7 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_myWord_mod");
 		
 		//자랑하기 정보 MAP
-		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		Map<String, Object> exhibit = communityService.communityExhKnoDetail(comtSq);
 		
 		//자랑하기 연동되어있는 작품 정보 MAP
 		String workSq = String.valueOf(exhibit.get("workSq"));
@@ -1605,7 +1613,7 @@ public class MyPageController {
 	public ModelAndView myExhibit_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_exhint_mod");
-		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		Map<String, Object> exhibit = communityService.communityExhKnoDetail(comtSq);
 		mv.addObject("exhibit", exhibit);
 		return mv;
 	}
@@ -1628,7 +1636,7 @@ public class MyPageController {
 	public ModelAndView myissue_mod(@RequestParam(value = "comtSq", required = false) String comtSq) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@ comtSq : " + comtSq);
 		ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_issue_mod");
-		Map<String, Object> exhibit = communitService.communityExhKnoDetail(comtSq);
+		Map<String, Object> exhibit = communityService.communityExhKnoDetail(comtSq);
 		mv.addObject("exhibit", exhibit);
 		return mv;
 	}

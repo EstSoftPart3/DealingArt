@@ -77,6 +77,8 @@ public class bannerDao {
 	}
 	
 
-
+	public List<Map<String, Object>> promoDataList(Object param){
+		return bannerMapper.promoDataList(param);
+	}
 
 }
