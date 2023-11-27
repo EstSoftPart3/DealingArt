@@ -143,7 +143,7 @@
             <div class="notice dp-flex">
                 <div class="tit">공 지</div>
                 <div class="contents mt0" id="noti">
-                		<span>작품자랑 작성 가이드 라인 ver 1.0</span>
+                		 <span><!-- 작품자랑 작성 가이드 라인 ver 1.0 --></span> 
                 </div>
             </div>
             <div class="workspic_wrap">
@@ -547,9 +547,14 @@
 	// 공지 조회
 	function fn_notice(data){
 		if(data != null){
-			console.log(data.noti);
+			console.log(data.notiHref);
 		
 			$("#noti span").text(data.noti);
+			
+			$("#noti span").on("click", function () {
+	          
+	            window.open(data.notiHref, "_blank");
+	        }).css("cursor", "pointer");
 		}
 	}
     </script>

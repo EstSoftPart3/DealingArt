@@ -136,8 +136,8 @@
             </div>
             <div class="notice dp-flex">
                 <div class="tit">공 지</div>
-                <div class="contents mt0">
-                	<div>작품자랑 작성 가이드 라인 ver 1.0</div>
+                <div class="contents mt0" id="noti">
+                		 <span><!-- 작품자랑 작성 가이드 라인 ver 1.0 --></span> 
                 </div>
             </div>
             <div class="workspic_wrap">
@@ -227,6 +227,7 @@
    	   		   		listLength = response.result.length;
    	   		   		totalCount = response.totalCount.totalCount;
    	   				workHtml(response.result);
+   	   				fn_notice(response.noti);
    	   			},
    	   			error : function(response){
    	   				console.log(response);
@@ -455,6 +456,19 @@
 		});
 	}
 
+	// 공지 조회
+	function fn_notice(data){
+		if(data != null){
+			console.log(data.notiHref);
+		
+			$("#noti span").text(data.noti);
+			
+			$("#noti span").on("click", function () {
+	          
+	            window.open(data.notiHref, "_blank");
+	        }).css("cursor", "pointer");
+		}
+	}
     </script>
 </body>
 </html>

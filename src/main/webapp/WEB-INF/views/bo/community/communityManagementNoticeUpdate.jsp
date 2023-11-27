@@ -24,12 +24,18 @@
                 <input type="hidden" name="comtTypCd" id="comtTypCd" value="<%=comtTypCd%>">
 
 			 		<table class="table table-bordered">
-						<tr class="col-form-label sTitle LabelStyle" >
-							<td class="col-sm-1" align="center" style="background-color: #efefef;">공지글 제목</td>
-							<td class="col-sm-2 dataValue">
-								<input type="text" name="noticeTitle" id="noticeTitle" class="form-control float-right bTitle">
-							</td>	
-						</tr>						
+						<tr>
+					        <td class="col-sm-1" align="center" style="background-color: #efefef;">공지글 제목</td>
+					        <td class="col-sm-2 dataValue">
+					            <input type="text" name="noticeTitle" id="noticeTitle" class="form-control float-right bTitle">
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="col-sm-1" align="center" style="background-color: #efefef;">링크 주소</td>
+					        <td class="col-sm-2 dataValue">
+					            <input type="text" name="noticeHref" id="noticeHref" class="form-control float-right bTitle">
+					        </td>
+					    </tr>					
 					</table>
 					<button type="button" style="width:50px;margin:auto;" onclick="noticeUpdate()">저장</button>
 				 </div>
@@ -58,12 +64,14 @@
 			어느 커뮤니티 공지글인지 구분하는 값 필요
 		*/
 		var noticeTitle = $("#noticeTitle").val();
+		var noticeHref = $("#noticeHref").val();
 		var comtTypCd = "<%=comtTypCd%>";
 		
 		console.log(noticeTitle);
 		const formData = new FormData();
 		formData.append("comtTypCd", comtTypCd);
 		formData.append("noticeTitle", noticeTitle);
+		formData.append("noticeHref", noticeHref);
 		formData.append("mbrSq", 3);		
 		
 		$.ajax({

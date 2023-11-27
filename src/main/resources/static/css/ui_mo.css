@@ -6822,7 +6822,7 @@ p.dib{display:inline-block !important;}
 .exhint_row .contents ul li .user_wrap .user{float: left;margin: 7px 0;}
 .exhint_row .contents ul li .user_wrap .user ul .user_name{padding: 2.25rem 1.625rem;}
 .exhint_row .contents ul li .user_wrap .icon_box{float: right;}
-.exhint_row .contents ul li .user_wrap .user_name span{background: #8f8f8f;font-size: 2rem;font-weight: 500;color: #ffffff;padding: 3px 1rem;border-radius: 5px;display: inline-block;}
+.exhint_row .contents ul li .user_wrap .user_name span{background: #8f8f8f;font-size: 2rem;font-weight: 500;color: #ffffff;padding: 3px 1rem;border-radius: 5px;display: inline-block; max-width: 50px;}
 .exhint_row .contents ul li .user_wrap .user ul li{float: left;}
 
 .exhint_row .contents ul li .icon_box{background: #ffffff;}

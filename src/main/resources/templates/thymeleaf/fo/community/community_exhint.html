@@ -138,7 +138,7 @@
             <div class="notice dp-flex">
                 <div class="tit">공 지</div>
                 <div class="contents mt0" id="noti">
-                	<span>작품자랑 작성 가이드 라인 ver 1.0</span>
+                	<span><!-- 작품자랑 작성 가이드 라인 ver 1.0 --></span>
                 </div>
             </div>
             <div class="exhint_wrap" id="listBox">
@@ -635,6 +635,11 @@
 			console.log(data.noti);
 		
 			$("#noti span").text(data.noti);
+			
+			$("#noti span").on("click", function () {
+		          
+	            window.open(data.notiHref, "_blank");
+	        }).css("cursor", "pointer");
 		}
 	}
     </script>
