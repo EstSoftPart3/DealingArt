@@ -703,7 +703,7 @@
 	// 공지글 등록 화면 OPEN 함수
 	function fn_openRegNoti(comtTypCd){
 		//window.open("https://www.dealing-art.com/admin/community/communityManagementNoticeUpdate\?comtTypCd=\'"+comtTypCd+"\'");
-		window.open( "http://localhost/admin/community/communityManagementNoticeUpdate\?comtTypCd="+comtTypCd+""
+		window.open( "https://www.dealing-art.com/admin/community/communityManagementNoticeUpdate\?comtTypCd="+comtTypCd+""
 				   , "게시판 관리"
 				   , "width=800,height=130,scrollbars=no,resizeble=no");
 	}
