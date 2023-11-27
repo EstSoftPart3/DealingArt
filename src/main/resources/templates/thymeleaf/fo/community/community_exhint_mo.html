@@ -243,6 +243,8 @@
    		window.scrollTo({top:0});
    		list.forEach( function (exhibit) {
    			
+   			var isNew = isNewPost(exhibit.regDt);
+   			
    			strHtml += '<div class="exhint_row" id="exhibit_'+ exhibit.comtSq +'">';
    	        strHtml += '    <div class="exhint_list_img"><img src="'+ exhibit.comtImgUrl +'" class="img-fit-contain" onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;" alt=""></div>';
    	        strHtml += '    <div class="contents">';
@@ -251,7 +253,11 @@
    	     	strHtml += '			<div onclick="opneExhibit('+ exhibit.comtSq +')" style="cursor: pointer;">';
    	        strHtml += '            	<li>';
    	        strHtml += '                	<div class="tit">';
-   	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em><div class="ico_new">NEW</div>';
+   	        strHtml += '                    	<em>'+ exhibit.comtTitle +'</em>';
+   	     	if(isNew){
+ 	        strHtml += '						<div class="ico_new">NEW</div>';
+    			}
+   	         
    	        strHtml += '                	</div>';
    	        strHtml += '            	</li>';
    	        strHtml += '            	<li class="comt_content pt20">'+ exhibit.comtContent +'</li>';
@@ -293,6 +299,31 @@
    	}else{
    	   		modalAlertShow("검색 결과가 없습니다.");
    	   	}
+   	}
+   	
+   	function isNewPost(regDt) {
+   	    try {
+   	        var postDate;
+
+   	        // regDt가 배열인 경우
+   	        if (Array.isArray(regDt)) {
+   	            postDate = new Date(regDt[0], regDt[1] - 1, regDt[2], regDt[3], regDt[4], regDt[5]);
+   	        } else {
+   	            // regDt가 다른 형식인 경우
+   	            postDate = new Date(regDt);
+   	        }
+
+   	        var currentTime = new Date(); 
+   	        var timeDifference = currentTime - postDate;
+
+   	        var minutesDifference = timeDifference / (1000 * 60 * 60);
+
+ 
+   	        return minutesDifference <= 12;  
+   	    } catch (error) {
+   	        console.error("날짜 파싱 오류:", error);
+   	        return false; // 또는 애플리케이션에 맞게 오류를 처리합니다.
+   	    }
    	}
    	
    	// 작성 글 내용 텍스트만 가져오기
