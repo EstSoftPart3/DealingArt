@@ -199,14 +199,14 @@
    		console.log(endDate);
    		
    		if(startDate != '' && endDate != ''){
-   			offset = 0;
+   			offset = 0; 
    			communityWorksList();
    		}
    	}
 
    	// 커뮤니티 작품 데이터 화면에 뿌려주기
    	function communityWorksList(){
-   		if(totalCount != listLength){
+   		/* if(totalCount != listLength){ */
    			var param = {
    	   				comtTypCd: 'BOA',
    	   				offset: 0,
@@ -235,12 +235,13 @@
    	   		});
 
    	   		offset += 12;
-   		}else{
+   		}
+   		/* else{
      		modalAlertShow("검색 결과가 없습니다."); 
      		//$(".workspic_wrap .workspic_row").remove();
-     	}
+     	} */
    		
-   	}
+   	
    	
    	function workHtml(list, auth){
    		var strHtml = '';

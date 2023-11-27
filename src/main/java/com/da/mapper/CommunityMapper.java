@@ -211,5 +211,13 @@ public interface CommunityMapper {
 
 	// 공지 조회
 	public Map<String, Object> selectnoti(Map<String, Object> param);
+
+	public List<Map<String, Object>> mainPop(Map<String, Object> param);
+
+	public List<Map<String, Object>> mainBoast(Map<String, Object> param);
+
+	public List<Map<String, Object>> mainExhibit(Map<String, Object> param);
+
+	public List<Map<String, Object>> mainIssue(Map<String, Object> param);
 	
 }

@@ -118,12 +118,31 @@ public class CommunityController {
 	@ResponseBody
 	public ModelAndView searchHomeList() {
 		ModelAndView mv = new ModelAndView("jsonView");
-		Map<String, Object> result = communityService.searchHomeList();
+		
+		//Map<String, Object> result = communityService.searchHomeList();
+		 
+		Map<String, Object> popList = communityService.mainPop();
+		mv.addObject("popList", popList);
+		System.out.println(popList + " ********* ");
+		
+		Map<String, Object> boastMstList = communityService.mainBoast();
+		mv.addObject("boastMstList", boastMstList);
+		
+		Map<String, Object> bestExhibitList = communityService.mainExhibit();
+		mv.addObject("bestExhibitList", bestExhibitList);
+		
+		Map<String, Object> bestIssueList = communityService.mainIssue();
+		mv.addObject("bestIssueList", bestIssueList);
+		  
+		
+		Map<String, Object> bigBnn = communityService.selectBigBnn();
+		mv.addObject("bigBnn", bigBnn);
+		
 		
 		// 커뮤니티 권한 정보 가져오기
 		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth("");
 		
-		mv.addObject("result", result);
+		//mv.addObject("result", result);
 		mv.addObject("boardAuth", boardAuth);
 		return mv;
 	}

@@ -26,7 +26,8 @@ public class CommunityDao {
 	/*
 	 * 커뮤니티 홈 목록 조회
 	 */
-	public Map<String, Object> searchHomeList() {
+	/*public Map<String, Object> searchHomeList() {
+		
 		String BOA = "BOA"; // 자랑하기
 		String EXH = "EXH"; // 전기후기/소개
 		String ISS = "ISS"; // 이슈
@@ -35,23 +36,84 @@ public class CommunityDao {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		Map<String, Object> popWrkThisWeek = communityMapper.boardManageDetail(BOA); // 이 주의 인기 작품자랑 상세 조건
-		result.put("popList", communityMapper.searchHomeList(popWrkThisWeek)); // 이 주의 인기 작품자랑
 		
-		Map<String, Object> boastMst = communityMapper.boardManageDetail(BOA); // 자랑하기 고수 상세 조건
-		result.put("boastMstList", communityMapper.searchHomeList(boastMst)); // 자랑하기 고수
+		 Map<String, Object> popWrkThisWeek = communityMapper.boardManageDetail(BOA);
+		 
+		  // 이 주의 인기 작품자랑 상세 조건 result.put("popList",
+		 communityMapper.searchHomeList(popWrkThisWeek)); // 이 주의 인기 작품자랑
+		 
+		  Map<String, Object> boastMst = communityMapper.boardManageDetail(BOA); //
+		  자랑하기 고수 상세 조건 result.put("boastMstList",
+		 communityMapper.searchHomeList(boastMst)); // 자랑하기 고수
+		  
+		  Map<String, Object> bestExhibit = communityMapper.boardManageDetail(EXH); //
+		  전시후기/소개 베스트 게시물 상세 조건 result.put("bestExhibitList",
+		  communityMapper.searchHomeList(bestExhibit)); // 전시후기/소개 베스트 게시물
+		  
+		  Map<String, Object> bestIssue = communityMapper.boardManageDetail(ISS); // 이슈
+		  베스트 게시물 상세 조건 result.put("bestIssueList",
+		  communityMapper.searchHomeList(bestIssue)); // 이슈 베스트 게시물
+		 
+		  
+		 Map<String, Object> eventBnn = communityMapper.searchHomeBnnList(EVH);
+		 result.put("eventBnn", eventBnn);
+		 
+		return result;
+	}*/
+
+	public Map<String, Object> selectBigBnn() { 
+		String CMH = "CMH"; // 커뮤니티 홈
 		
-		Map<String, Object> bestExhibit = communityMapper.boardManageDetail(EXH); // 전시후기/소개 베스트 게시물 상세 조건
-		result.put("bestExhibitList", communityMapper.searchHomeList(bestExhibit)); // 전시후기/소개 베스트 게시물
+		Map<String, Object> result = new HashMap<>();
 		
-		Map<String, Object> bestIssue = communityMapper.boardManageDetail(ISS); // 이슈 베스트 게시물 상세 조건
-		result.put("bestIssueList", communityMapper.searchHomeList(bestIssue)); // 이슈 베스트 게시물
 		
 		Map<String, Object> bigBnn = communityMapper.searchHomeBnnList(CMH);
 		result.put("bigBnn", bigBnn);
+		 
+		return result;
+	}
+	
+	public Map<String, Object> mainPop() {
 		
-		Map<String, Object> eventBnn = communityMapper.searchHomeBnnList(EVH);
-		result.put("eventBnn", eventBnn);
+		String BOA = "BOA";
+		Map<String, Object> param = communityMapper.boardManageDetail(BOA); 
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		 result.put("popList", communityMapper.mainPop(param)); 
+		return result;
+	}
+
+	public Map<String, Object> mainBoast() {
+		 
+		String BOA = "BOA";
+		Map<String, Object> param = communityMapper.boardManageDetail(BOA); 
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("boastMstList", communityMapper.mainBoast(param));  
+		return result;
+	}
+
+	public Map<String, Object> mainExhibit() {
+		  
+		String EXH = "EXH";
+		Map<String, Object> param = communityMapper.boardManageDetail(EXH); 
+		  
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("bestExhibitList", communityMapper.mainExhibit(param));  
+		return result;
+	}
+
+	public Map<String, Object> mainIssue() {
+		
+		String ISS = "ISS"; 
+		Map<String, Object> param = communityMapper.boardManageDetail(ISS); 
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("bestIssueList", communityMapper.mainIssue(param));  
 		
 		return result;
 	}
@@ -336,4 +398,7 @@ public class CommunityDao {
 		Map<String, Object> result = communityMapper.selectnoti(param);
 		return result;
 	}
+
+	
+
 }

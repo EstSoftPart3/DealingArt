@@ -238,6 +238,7 @@
    	function setExhibitHtml(list){
    		var strHtml = '';
    		
+   		if(list.length > 0){
    		window.scrollTo({top:0});
    		list.forEach( function (exhibit) {
    			
@@ -288,6 +289,9 @@
    		$("#listBox .exhint_row").remove();
         $("#listBox").prepend(strHtml);
    		setContentText($(".comt_content"));
+   	}else{
+   	   		modalAlertShow("검색 결과가 없습니다.");
+   	   	}
    	}
    	
    	// 작성 글 내용 텍스트만 가져오기

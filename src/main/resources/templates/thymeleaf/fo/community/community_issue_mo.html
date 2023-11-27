@@ -213,10 +213,10 @@
 	// 노하우 뿌려주기
    	function setIssueHtml(list){
 		
-   		var strHtml = '';
-   		
+   		var strHtml = ''; 
    		window.scrollTo({top:0});
    		
+   		if(list.length > 0){ 
    		list.forEach( function (issue) {
    			strHtml += '<div class="exhint_row">';
 	        strHtml += '    <div class="exhint_list_img"><img src="'+ issue.comtImgUrl +'" class="img-fit-contain" onclick="opneIssueDetail('+issue.comtSq+');" alt="" style="cursor: pointer;"></div>';
@@ -266,7 +266,11 @@
    		$("#listBox .exhint_row").remove();
         $("#listBox").prepend(strHtml);
         setContentText($(".comt_content"));
-   	}
+   	}else{
+   		modalAlertShow("검색 결과가 없습니다.");
+   		}
+        
+	}
 	
  	// 작성 글 내용 텍스트만 가져오기
    	function setContentText(content) {
@@ -308,7 +312,7 @@
    			offset = 0;
    			nowPage = 0;
    			$("#listBox .exhint_row").empty();
-   			communityExhibitList();
+   			communityIssueList();
    		}
    	}
  	

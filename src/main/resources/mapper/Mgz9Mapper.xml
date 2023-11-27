@@ -5,7 +5,7 @@
 <mapper namespace="com.da.mapper.Mgz9Mapper">
 
 		
-	<select id="searchMgzhomeList" resultType="hashMap" parameterType="hashMap">
+	<select id="searchMgzhomeIstList" resultType="hashMap" parameterType="hashMap">
 	/* MGZ9 홈 리스트 */
 		SELECT
 			 MGZ_SQ             as mgzSq          
@@ -25,7 +25,17 @@
 		FROM TBL_DA_MGZ_M
 		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
 		AND MGZ_TYP_CD = #{mgzTypCd}
-		ORDER BY MGZ_SQ DESC
+		ORDER BY  
+		CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 10) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 10) = 'ASC' 
+	        THEN REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 10) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 10) = 'DES' 
+	        THEN REG_DT
+	        END DESC
 		<if test='mgzTypCd.equals("MDA")'>
 		LIMIT 4
 		</if>
@@ -34,6 +44,48 @@
 		</if>
 		
 	</select>
+	
+	
+	<select id="searchMgzhomeMdaList" resultType="hashMap" parameterType="hashMap">
+	/* MGZ9 홈 리스트 */
+		SELECT
+			 MGZ_SQ             as mgzSq          
+			,MBR_SQ             as mbrSq          
+			,MGZ_TITLE          as mgzTitle       
+			,MGZ_DESCRPTN       as mgzDescrptn       
+			,MGZ_MAIN_IMG_URL   as mgzMainImgUrl
+			,MGZ_TYP_CD         as mgzTypCd      
+			,REG_MBR_SQ         as regMbrSq      
+			,REG_DT             as regDt     
+			,DATE_FORMAT(REG_DT, '%Y.%m.%d')			as regDate      
+			,UPDT_MBR_SQ        as updtMbrSq     
+			,UPDT_DT            as updtDt         
+			,DEL_YN             as delYn          
+			,USE_YN             as useYn     
+			,MGZ_CONTENT        as mgzContent     
+		FROM TBL_DA_MGZ_M
+		WHERE (USE_YN = 'Y' AND DEL_YN = 'N')
+		AND MGZ_TYP_CD = #{mgzTypCd}
+		ORDER BY 
+		CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 11) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 11) = 'ASC' 
+	        THEN REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 11) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 11) = 'DES' 
+	        THEN REG_DT
+	        END DESC
+		<if test='mgzTypCd.equals("MDA")'>
+		LIMIT 4
+		</if>
+		<if test='mgzTypCd.equals("IST")'>
+		LIMIT 4
+		</if>
+		
+	</select>
+	
 	
 	<select id="searchHomeBnnList" resultType="hashMap">
 		/* 커뮤니티 홈 배너 조회 */

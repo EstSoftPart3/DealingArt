@@ -36,8 +36,8 @@ public class Mgz9Dao {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result.put("istList", mgz9Mapper.searchMgzhomeList(ist)); // 인사이트
-		result.put("mdaList", mgz9Mapper.searchMgzhomeList(mda)); // 아티스트 영상
+		result.put("istList", mgz9Mapper.searchMgzhomeIstList(ist)); // 인사이트
+		result.put("mdaList", mgz9Mapper.searchMgzhomeMdaList(mda)); // 아티스트 영상
 		result.put("artistList", artistMapper.selectNewartistList()); // 업데이트 아티스트
 		result.put("bannerDtl", mgz9Mapper.searchHomeBnnList(bnnDivCd)); // 매거진9 홈 배너
 		

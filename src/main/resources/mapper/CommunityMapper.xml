@@ -4,8 +4,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.da.mapper.CommunityMapper">
 
-	<select id="searchHomeList" resultType="hashMap">
-		/* 커뮤니티 홈 리스트 조회 */
+	
+	
+<select id="mainPop" resultType="hashMap">
+	
+	/* 커뮤니티 홈 리스트 조회 */
 		SELECT CM.COMT_SQ		AS comtSq,		-- 커뮤니티 순번
 			   CM.MBR_SQ		AS mbrSq,		-- 회원 순번
 			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
@@ -25,25 +28,296 @@
 		   AND CM.DEL_YN = 'N'
 		   AND AM.USE_YN = 'Y'
 		   AND AM.DEL_YN = 'N'
-		 ORDER BY
-		 <!-- 정렬 구분 -->
-		 <if test="ordCondition != null and ordCondition != ''">
-			 <choose>
-				 <when test="ordCondition == 'COMT_LIKES'">COMT_LIKES</when>
-				 <when test="ordCondition == 'COMT_VIEWS'">COMT_VIEWS</when>
-				 <when test="ordCondition == 'COMT_SCRAPS'">COMT_SCRAPS</when>
-				 <when test="ordCondition == '공유수'"></when><!-- SNS 공유수는 어디 데이터를 가지고 와야 할지 모르겠음 -->
-				 <when test="ordCondition == 'REG_DT'">CM.REG_DT</when>
-			 </choose>
-		 </if>
-		 <!-- 정렬 기준 -->
-		 <if test="ordSortBy != null and ordSortBy != ''">
-			 <choose>
-				 <when test="ordSortBy == 'ASC'">ASC</when>
-				 <when test="ordSortBy == 'DES'">DESC</when>
-			 </choose>
-		 </if>
-		 LIMIT #{limitNum}
+		ORDER BY 
+			CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
+	        THEN CM.REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'DES' 
+	        THEN CM.REG_DT
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
+	        THEN CM.COMT_VIEWS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'DES' 
+	        THEN CM.COMT_VIEWS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
+	        THEN CM.COMT_LIKES
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'DES' 
+	        THEN CM.COMT_LIKES
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
+	        THEN CM.COMT_SCRAPS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'DES' 
+	        THEN CM.COMT_SCRAPS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'ASC' 
+	        THEN CM.COMT_CMTS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 6) = 'DES' 
+	        THEN CM.COMT_CMTS
+	        END DESC 
+		LIMIT
+			${limitNum}
+	
+	</select>
+	
+	
+	<select id="mainBoast" resultType="hashMap">
+	
+	/* 커뮤니티 홈 리스트 조회 */
+		SELECT CM.COMT_SQ		AS comtSq,		-- 커뮤니티 순번
+			   CM.MBR_SQ		AS mbrSq,		-- 회원 순번
+			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
+			   CM.WORK_SQ		AS workSq,		-- 작품 순번
+			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
+			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
+			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
+			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
+		  FROM TBL_DA_COMT_M CM
+		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
+		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
+		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
+		   AND CM.COMT_TYP_CD = #{comtTypCd}
+		   AND CM.OPEN_YN = 'Y'
+		   AND CM.USE_YN = 'Y'
+		   AND CM.DEL_YN = 'N'
+		   AND AM.USE_YN = 'Y'
+		   AND AM.DEL_YN = 'N'
+		ORDER BY 
+			CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'ASC' 
+	        THEN CM.REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'DES' 
+	        THEN CM.REG_DT
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'ASC' 
+	        THEN CM.COMT_VIEWS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'DES' 
+	        THEN CM.COMT_VIEWS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'ASC' 
+	        THEN CM.COMT_LIKES
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'DES' 
+	        THEN CM.COMT_LIKES
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'ASC' 
+	        THEN CM.COMT_SCRAPS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'DES' 
+	        THEN CM.COMT_SCRAPS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'ASC' 
+	        THEN CM.COMT_CMTS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 7) = 'DES' 
+	        THEN CM.COMT_CMTS
+	        END DESC 
+		LIMIT 
+			${limitNum}
+	
+	</select>
+	
+	
+	<select id="mainExhibit" resultType="hashMap">
+	
+	/* 커뮤니티 홈 리스트 조회 */
+		SELECT CM.COMT_SQ		AS comtSq,		-- 커뮤니티 순번
+			   CM.MBR_SQ		AS mbrSq,		-- 회원 순번
+			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
+			   CM.WORK_SQ		AS workSq,		-- 작품 순번
+			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
+			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
+			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
+			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
+		  FROM TBL_DA_COMT_M CM
+		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
+		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
+		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
+		   AND CM.COMT_TYP_CD = #{comtTypCd}
+		   AND CM.OPEN_YN = 'Y'
+		   AND CM.USE_YN = 'Y'
+		   AND CM.DEL_YN = 'N'
+		   AND AM.USE_YN = 'Y'
+		   AND AM.DEL_YN = 'N'
+		ORDER BY 
+			CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
+	        THEN CM.REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'DES' 
+	        THEN CM.REG_DT
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
+	        THEN CM.COMT_VIEWS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'DES' 
+	        THEN CM.COMT_VIEWS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
+	        THEN CM.COMT_LIKES
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'DES' 
+	        THEN CM.COMT_LIKES
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
+	        THEN CM.COMT_SCRAPS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'DES' 
+	        THEN CM.COMT_SCRAPS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'ASC' 
+	        THEN CM.COMT_CMTS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 8) = 'DES' 
+	        THEN CM.COMT_CMTS
+	        END DESC 
+		LIMIT 
+			${limitNum}	
+	
+	</select>
+	
+	 <select id="mainIssue" resultType="hashMap">
+	
+	/* 커뮤니티 홈 리스트 조회 */
+		SELECT CM.COMT_SQ		AS comtSq,		-- 커뮤니티 순번
+			   CM.MBR_SQ		AS mbrSq,		-- 회원 순번
+			   CM.COMT_IMG_URL	AS comtImgUrl,	-- 커뮤니티 이미지 URL
+			   CM.COMT_TITLE	AS comtTitle,	-- 커뮤니티 제목
+			   CM.WORK_SQ		AS workSq,		-- 작품 순번
+			   AM.ARTST_SQ		AS artstSq,		-- 작가 순번
+			   CM.DEAL_SQ		AS dealSq,		-- 거래 순번
+			   DATE_FORMAT(CM.REG_DT, '%Y-%m-%d') AS regDt,		-- 등록 일시
+			   CM.COMT_CMTS		AS comtCmts		-- 커뮤니티 댓글수
+		  FROM TBL_DA_COMT_M CM
+		  	   LEFT JOIN TBL_DA_ARTST_M AM ON CM.MBR_SQ = AM.MBR_SQ
+		 WHERE CM.REG_DT >= STR_TO_DATE(#{cmMgstartDt}, '%Y-%m-%d %T')
+		   AND CM.REG_DT <![CDATA[<=]]> STR_TO_DATE(#{cmMgEndDt}, '%Y-%m-%d %T')
+		   AND CM.COMT_TYP_CD = #{comtTypCd}
+		   AND CM.OPEN_YN = 'Y'
+		   AND CM.USE_YN = 'Y'
+		   AND CM.DEL_YN = 'N'
+		   AND AM.USE_YN = 'Y'
+		   AND AM.DEL_YN = 'N'
+		ORDER BY 
+			CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'ASC' 
+	        THEN CM.REG_DT
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'REG' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'DES' 
+	        THEN CM.REG_DT
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'ASC' 
+	        THEN CM.COMT_VIEWS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'VIW' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'DES' 
+	        THEN CM.COMT_VIEWS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'ASC' 
+	        THEN CM.COMT_LIKES
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'LIK' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'DES' 
+	        THEN CM.COMT_LIKES
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'ASC' 
+	        THEN CM.COMT_SCRAPS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'SCP' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'DES' 
+	        THEN CM.COMT_SCRAPS
+	        END DESC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'ASC' 
+	        THEN CM.COMT_CMTS
+	        END ASC,
+	    CASE 
+	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'CMT' 
+	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 9) = 'DES' 
+	        THEN CM.COMT_CMTS
+	        END DESC 
+		LIMIT 
+			${limitNum}
+	
 	</select>
 	
 	<select id="boardManageDetail" resultType="hashMap">
@@ -435,6 +709,7 @@
 				</if>
 	</update>
 	
+	  
 	<select id="findFollow" resultType="int">
 		/* 팔로우 버튼 클릭시 팔로우되어 있는지 확인 */
 		SELECT 

@@ -8,7 +8,19 @@ public interface CommunityService {
 	/*
 	 * 커뮤니티 홈 목록 조회
 	 */
-	public Map<String, Object> searchHomeList();
+	
+	//public Map<String, Object> searchHomeList();
+	
+	public Map<String, Object> selectBigBnn();
+	  
+	public Map<String, Object> mainPop(); 
+
+	public Map<String, Object> mainBoast();
+  
+	public Map<String, Object> mainExhibit();
+  
+	public Map<String, Object> mainIssue();
+	
 	
 	/*
 	 * 자랑하기 상세
@@ -158,4 +170,13 @@ public interface CommunityService {
 	 * return : 
 	 */
 	public Map<String, Object> selectnoti(Map<String, Object> param);
+ 
+
+	
+
+
+ 
+
+
+	
 }

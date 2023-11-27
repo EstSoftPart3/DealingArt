@@ -214,9 +214,11 @@
    	function setIssueHtml(list){
 		
    		var strHtml = '';
-   		
    		window.scrollTo({top:0});
    		
+   		
+   		if(list.length > 0){
+   		 
    		list.forEach( function (issue) {
    			 
    			
@@ -273,6 +275,9 @@
    		$("#listBox .exhint_row").remove();
         $("#listBox").prepend(strHtml);
         setContentText($(".comt_content"));
+   	}else{
+   		modalAlertShow("검색 결과가 없습니다.");
+   		}
    	}
 	
    	function isNewPost(regDt) {
@@ -339,7 +344,7 @@
    			offset = 0;
    			nowPage = 0;
    			$("#listBox .exhint_row").empty();
-   			communityExhibitList();
+   			communityIssueList();
    		}
    	}
  	

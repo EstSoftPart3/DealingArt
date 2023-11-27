@@ -82,6 +82,20 @@ input[type="file"] {
 	margin: 20px auto;
 	width: 100%;
 }
+
+#previewPopup {
+            /* Popup styles */
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+
 </style>
 
 <body class="hold-transition sidebar-mini">
@@ -566,6 +580,11 @@ input[type="file"] {
 								<button type="button" class="btn btn-info sTitle">삭제</button> -->
 								<button type="button" class="btn btn-info sTitle" onClick="openPopup();" value="Send Value">미리보기</button>
 
+								<div id="previewPopup">  
+							   
+								</div>
+
+
 							</div>
 						</form>
 					</div>
@@ -679,24 +698,51 @@ input[type="file"] {
 		  reader.readAsDataURL(fileDOM4.files[0]);
 	});
 	
-	
-	
-//미리보기 팝업
- function openPopup(){
-
-	var imgNum2 = $("input[name='sendimg']").val();
-	console.log("메인 배너순서값 확인"+ imgNum2);
-	
-	var bnrTypCd = $("input[name='bnrTypCd']:checked").val();
- 	var brMnPcimgUrl  = document.getElementById("image-boxPc").src;//pc이미지
- 	var brMnMimgUrl  = document.getElementById("image-boxM").src; //moble이미지
- 	var brMnRUrl = $("#brMnRUrl").val();//랜딩Url주소
-	
- 	var brSubPcimgUrl  = document.getElementById("image-boxPc2").src;//pc이미지
- 	var brSubMimgUrl  = document.getElementById("image-boxM2").src; //moble이미지
- 	var brSubRUrl = $("#brSubRUrl").val();//랜딩Url주소
- 		
-	}
+	//미리보기 팝업
+	 function openPopup(){
+		
+		var bnnDivCd = $("input[name='bnnDivCd']:checked").val();
+			
+		var mainBanner = document.getElementById("image-boxPc").src;
+		var mainBannerMobile = document.getElementById("image-boxM").src;
+		var eventBanner = document.getElementById("image-boxPc2").src;
+		var eventBannerMobile = document.getElementById("image-boxM2").src;
+		
+		var html = "";
+	 	if (bnnDivCd === 'MIH' || bnnDivCd === 'EVH') {
+	 		
+	 		html += '<img src="'+ mainBanner +'" style="cursor:pointer;  max-width: 60%; max-height: 60%;"/> ';
+	 		html += '<hr/>';	 
+	 		html += '<img src="'+ mainBannerMobile +'" style="cursor:pointer;  max-width: 60%; max-height: 60%;"/> ';
+	 		html += '<br/>';
+	 		html += ' <button onclick="closePopup()">닫기</button>';
+	 		
+	 		
+	 	}else if (bnnDivCd === 'CMH' || bnnDivCd === 'MGH') {
+	 	           
+	 		
+	 		html += '<img src="'+ mainBanner +'" style="cursor:pointer;  max-width: 40%; max-height: 40%;"/> &nbsp;&nbsp;&nbsp;';
+	 		html += '<img src="'+ mainBannerMobile +'" style="cursor:pointer;  max-width: 40%; max-height: 40%;"/> ';
+	 		html += '<hr/>';
+	 		html += '<img src="'+ eventBanner +'" style="cursor:pointer;  max-width: 40%; max-height: 40%;"/> &nbsp;&nbsp;&nbsp; ';
+	 		html += '<img src="'+ eventBannerMobile +'" style="cursor:pointer;  max-width: 40%; max-height: 40%;"/> ';
+	 		html += '<br/>';
+	 		
+	 		
+	 		html += ' <button onclick="closePopup()">닫기</button>';
+	 		
+	 	}	
+	 	 
+	 	$("#previewPopup").html(html);
+	    $("#previewPopup").show();
+	 	
+		}  
+		
+	 function closePopup() { 
+		 
+		 event.preventDefault(); 
+	     $("#previewPopup").hide();
+	 }
 
 //벨리데이션 체크
  function insertCheck() {

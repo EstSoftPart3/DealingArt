@@ -1,5 +1,6 @@
 package com.da.fo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,50 @@ public class CommunityServiceImpl implements CommunityService {
 	/*
 	 * 커뮤니티 홈 목록 조회
 	 */
+	
+	/*
+	 * @Override public Map<String, Object> searchHomeList() {
+	 * 
+	 * return communityDao.searchHomeList(); }
+	 */
+	  
+
 	@Override
-	public Map<String, Object> searchHomeList() {
-		return communityDao.searchHomeList();
+	public Map<String, Object> selectBigBnn() {
+		 
+		Map<String, Object> result = communityDao.selectBigBnn();
+		return result;
 	}
 
+	  
+	@Override
+	public Map<String, Object> mainPop() {
+		
+	    
+	    Map<String, Object> result = communityDao.mainPop();
+	    return result;
+		  
+	}
+
+	@Override
+	public Map<String, Object> mainBoast() {
+		
+		Map<String, Object> result = communityDao.mainBoast();
+	    return result;
+	}
+
+	@Override
+	public Map<String, Object> mainExhibit() {
+		Map<String, Object> result = communityDao.mainExhibit();
+	    return result;
+	}
+
+	@Override
+	public Map<String, Object> mainIssue() {
+		Map<String, Object> result = communityDao.mainIssue();
+	    return result;
+	}
+	
 	/*
 	 * 자랑하기 상세
 	 */
@@ -268,4 +308,6 @@ public class CommunityServiceImpl implements CommunityService {
 		Map<String, Object> result = communityDao.selectnoti(param);
 		return result;
 	}
+ 
+
 }

@@ -272,12 +272,13 @@
     			success: function(data) {
     				console.log(data.boardAuth);
     				fn_chkCommUseYn(data.boardAuth);
-    				var popList = data.result.popList; // 이 주의 인기 작품자랑 리스트
-    				var boastMstList = data.result.boastMstList; // 자랑하기 고수 리스트
-    				var bestExhibitList = data.result.bestExhibitList; // 전시후기/소개 베스트 게시물 리스트
-    				var bestIssueList = data.result.bestIssueList; // 이슈 베스트 게시물 리스트
-    				var community_banner = data.result.bigBnn; // 커뮤니티 배너 리스트
-					
+    				var popList = data.popList.popList; // 이 주의 인기 작품자랑 리스트
+    				var boastMstList = data.boastMstList.boastMstList; // 자랑하기 고수 리스트
+    				var bestExhibitList = data.bestExhibitList.bestExhibitList; // 전시후기/소개 베스트 게시물 리스트
+    				var bestIssueList = data.bestIssueList.bestIssueList; // 이슈 베스트 게시물 리스트
+    				var community_banner = data.bigBnn; // 커뮤니티 배너 리스트
+					console.log(popList) 
+    				
     				var bannerWrap = $("#community_banner"); // 배너
     				bannerWrap.append(fn_setBanner(community_banner)).trigger("create");
     				
@@ -353,6 +354,7 @@
     	
     	// 이 주의 인기 작품자랑, 자랑하기 고수 html 구성
 		function setShowingOffHtml(list) {
+    		console.log(list + "******")
 			var html = "";
 			$.each(list, function(idx, item) {
 				html += "<li>";
@@ -413,29 +415,29 @@
     	}
     	
 		//홈 배너
-		function fn_setBanner(list) {
-
-    		console.log(list)
-    		
+		function fn_setBanner(community_banner) {
+ 
+    		console.log(community_banner);
+			
     		$(".community_visual_wrap").empty();
     		
 			var html = "";
     		//오른쪽 배너
     		html += '<div class="community_visual">';
-    		html += '	<a href="'+list.bnnMLndUrl+'">';
-    		html += '		<img src="'+list.bnnMpImgUrl+'" alt="">';
+    		html += '	<a href="'+ community_banner.bigBnn.bnnMLndUrl +'">';
+    		html += '		<img src="'+ community_banner.bigBnn.bnnMpImgUrl +'" alt="">';
     		html += '	</a>';
     		html += '</div>';
     		//왼쪽배너
     		html += '<div class="community_visual_event">';
 	        html += '	<ul>';
 	        html += '		<li>';
-	        html += '			<a href="'+list.bnnELndUrl+'">';
-	        html += '				<img src="'+list.bnnEpImgUrl+'" alt="">';
+	        html += '			<a href="'+ community_banner.bigBnn.bnnELndUrl +'">';
+	        html += '				<img src="'+ community_banner.bigBnn.bnnEpImgUrl +'" alt="">';
 	        html += '			</a>';
 	        html += '		</li>';
 	        html += '       <li>';
-	        html += '			<a href="'+list.bnnELndUrl+'">';
+	        html += '			<a href="'+ community_banner.bigBnn.bnnELndUrl +'">';
 	        html += '				<img src="/resources/img/img_new/btn_event_more.png" alt="">';
 	        html += '			</a>';
 	        html += '		</li>';

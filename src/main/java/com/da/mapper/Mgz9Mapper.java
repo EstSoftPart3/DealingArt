@@ -14,7 +14,11 @@ public interface Mgz9Mapper {
 	 * param : 
 	 * return : 커뮤니티 홈 리스트
 	 */
-	public List<Map<String, Object>> searchMgzhomeList(String typeCd);
+	//public List<Map<String, Object>> searchMgzhomeList(String typeCd);
+	
+	public List<Map<String, Object>> searchMgzhomeIstList(String typeCd);
+	
+	public List<Map<String, Object>> searchMgzhomeMdaList(String typeCd);
 	
 	/*
 	 * 매거진9 홈 배너 조회
@@ -59,5 +63,9 @@ public interface Mgz9Mapper {
 	
 	/* 한글 자음 게시물 카운트 */
 	public int koreanCount(String param);
+
+	
+
+	
 
 }
