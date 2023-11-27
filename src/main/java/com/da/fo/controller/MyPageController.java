@@ -1770,7 +1770,7 @@ public class MyPageController {
 		//마이페이지 팔로잉 열기
 		@RequestMapping("/myPage/following")
 		public String serviceIntro2() {
-			return "thymeleaf/fo/myPage/myPage_following";
+			return "thymeleaf/fo/myPage/mypage_following";
 		}
 		
 		//마이페이지 팔로잉 목록 조회
@@ -1816,7 +1816,7 @@ public class MyPageController {
 		//마이페이지 스크랩 열기
 		@RequestMapping("/myPage/scrap")
 		public String serviceIntro3() {
-			return "thymeleaf/fo/myPage/myPage_scrap";
+			return "thymeleaf/fo/myPage/mypage_scrap";
 		}
 		
 		//마이페이지 스크랩 목록 조회
@@ -1974,7 +1974,7 @@ public class MyPageController {
 		//타인페이지 팔로잉
 		@RequestMapping("/otherPage/following")
 		public ModelAndView otherPageFollowing(@RequestParam(value="mbrSq", required=false) String mbrSq) {
-			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/myPage_following");
+			ModelAndView mv = new ModelAndView("thymeleaf/fo/myPage/mypage_following");
 			mv.addObject("mbrSq", mbrSq);
 			return mv;
 		}
