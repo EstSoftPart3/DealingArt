@@ -948,7 +948,8 @@
 	
 	<select id="selectnoti" parameterType="hashMap" resultType="hashMap">
 	/* 공지 조회 */
-	SELECT BRD_TITLE   AS noti
+	SELECT BRD_TITLE   AS noti,
+		   BRD_CONTENT AS notiHref
       FROM TBL_DA_BRD_M
      WHERE 1=1
        AND DEL_YN         = 'N'

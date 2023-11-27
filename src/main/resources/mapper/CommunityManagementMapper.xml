@@ -124,7 +124,7 @@
 		) VALUES (
 			#{noticeTitle},
 			'NT',
-			#{noticeTitle},
+			#{noticeHref},
 			#{mbrSq},
 			NOW(),
 			#{mbrSq},
