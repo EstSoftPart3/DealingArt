@@ -755,7 +755,15 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_comments{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_comments.png") 50% 50% no-repeat;}
 .works_showingoff_detail_page_wrap .icon_box ul li .ico_report{width: 50px;height: 50px;border-radius: 999px;background: #eaebea url("../img/img_new/ico_report.png") 50% 50% no-repeat;}
 
-.works_showingoff_detail_page_wrap .picture_detail{display: flex;justify-content: center;flex-direction: column;align-items: center;border-bottom: 1px solid #e8e8e8;}
+.works_showingoff_detail_page_wrap .picture_detail{
+	/* display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	border-bottom: 1px solid #e8e8e8; */
+	padding-top: 20px;
+    padding-bottom: 20px;
+}
 /* padding: 50px 0 때문에 사이즈, 자간 조절이 너무 많이 띄워지는 발생 요소 때문에 아래 CSS로 변경 */
 /* .works_showingoff_detail_page_wrap .picture_detail .method{padding: 50px 0;font-size: 20px;font-weight: 500;} */
 /* .works_showingoff_detail_page_wrap .picture_detail .small_tit{padding: 50px 0;font-size: 28px;font-weight: 700;} */
@@ -812,7 +820,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 
 .comments_box_wrap .comments_box{background: #f5f5f5;border-bottom: 1px solid #e8e8e8;}
 .comments_box_wrap .comments_box .user_wrap{position: relative;border-top: 1px solid #e8e8e8;}
-.comments_box_wrap .comments_box .user_wrap:after{content: "";display: block;clear: both;}
+.comments_box_wrap .comments_box .user_wrap:after{display: block;clear: both;}
 .comments_box_wrap .comments_box .user_wrap .user_img{
 	float: left;
 	margin: 10px 10px 10px 20px;
@@ -823,10 +831,14 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .comments_box_wrap .comments_box .user_wrap .user{}
 .comments_box_wrap .comments_box .user_wrap .user ul .user_name{padding: 10px 0 0;}
 .comments_box_wrap .comments_box .user_wrap .user_name span{font-size: 16px;font-weight: 500;color: #111111;padding: 3px 8px;border-radius: 5px;display: inline-block;}
-.comments_box_wrap .comments_box .user_wrap .user ul li ul li{float: left;padding: 0 12px 10px 12px;background: url("../img/img_new/comments_user_line.gif") 100% 20% no-repeat;}
+.comments_box_wrap .comments_box .user_wrap .user ul li ul li{
+	float: left;
+	padding: 0 12px 10px 12px;
+	background: url("../img/img_new/comments_user_line.gif") 100% 20% no-repeat;
+}
 .comments_box_wrap .comments_box .user_wrap .user ul li ul li:first-child{padding: 0 30px 0 8px;background: none;}
 .comments_box_wrap .comments_box .user_wrap .user ul li ul li:last-child{background: none;}
-.comments_box_wrap .comments_box .comments{margin-left: 100px;padding: 20px 0;}
+.comments_box_wrap .comments_box .comments{margin-left: 100px;padding: 30px 0;}
 
 .comments_box_wrap .answer_comments_box{background: #ffffff;border-bottom: 1px solid #e8e8e8;}
 .comments_box_wrap .answer_comments_box .user_wrap{position: relative;border-top: 1px solid #e8e8e8;}
@@ -845,7 +857,7 @@ input{-webkit-appearance:none;-webkit-border-radius:0;}
 .comments_box_wrap .answer_comments_box .user_wrap .user ul li ul li{float: left;padding: 0 12px 10px 12px;background: url("../img/img_new/comments_user_line.gif") 100% 20% no-repeat;}
 .comments_box_wrap .answer_comments_box .user_wrap .user ul li ul li:first-child{padding: 0 30px 0 8px;background: none;}
 .comments_box_wrap .answer_comments_box .user_wrap .user ul li ul li:last-child{background: none;}
-.comments_box_wrap .answer_comments_box .comments{margin-left: 100px;padding: 20px 0;}
+.comments_box_wrap .answer_comments_box .comments{margin-left: 100px;padding: 10px 0;}
 
 .works_info_wrap .works_info_right .tstyle1 tr .keyword a{margin-right: 10px;}
 .works_info_wrap .works_info_right .btn_worksInfo_wrap .btn_list{width: 100%;font-size: 20px;color: #ffffff;background: #969696 url("../img/img_new/ico_list.png") 30% 50% no-repeat;padding: 16px 0 16px 30px;}

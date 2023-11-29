@@ -2336,10 +2336,10 @@ function openReplyAndModForm(cmtSq, comtSq, obj, cmtType) {
 	html += "		<p id='reply_form'>";
 	html += "			<input type='text' style='display: none;'>";
 	if(cmtType) {
-		html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" onkeydown='if(event.keyCode == 13){modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this.value);}' style='margin-left: 90px;'>";
+		html += "		<input type='text' id='replyAndModComment' value=\""+ content +"\" onkeydown='if(event.keyCode == 13){modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this.value);}'>";
 		html += "		<button type='button' class='reg_btn' onclick='modComment("+ cmtSq +", "+ comtSq +", \""+ cmtType +"\", this);'>수정</button>";
 	} else {
-		html += "		<input type='text' id='replyAndModComment' onkeydown='if(event.keyCode == 13){replyReg("+ cmtSq +", "+ comtSq +", this.value);}' style='margin-left: 90px;'>";
+		html += "		<input type='text' id='replyAndModComment' onkeydown='if(event.keyCode == 13){replyReg("+ cmtSq +", "+ comtSq +", this.value);}'>";
 		html += "		<button type='button' class='reg_btn' onclick='replyReg("+ cmtSq +", "+ comtSq +", this);'>등록</button>";
 	}
 	html += "		</p>";
