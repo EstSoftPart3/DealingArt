@@ -405,11 +405,24 @@
     		for(i=0; i<data.length; i++){
     			if(i == 2){
     				html += '<li class="pic_more">';
-    				html += '    <a href="/otherPage/main?mbrSq='+data[i].mbrSq+'"><span>+ '+total+'</span><img src="'+data[i].mbrProfileImgUrl+'"></a>';
+    				html += '    <a href="/otherPage/main?mbrSq='+data[i].mbrSq+'">';
+    				hrml += '		<span>+ '+total+'</span>';
+    				if(data[i].mbrProfileImgUrl != null && data[i].mbrProfileImgUrl != ""){
+    					html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+    				}else{
+    					html += '		<img src="/resources/img/img_new/ico_dauser.png">';
+    				}
+    				html += '	</a>';
     				html += '</li>';
     			}else{
     				html += '<li>';
-   					html += '	<a href="/otherPage/main?mbrSq='+data[i].mbrSq+'"><img src="'+data[i].mbrProfileImgUrl+'"></a>';
+   					html += '	<a href="/otherPage/main?mbrSq='+data[i].mbrSq+'">';
+   					if(data[i].mbrProfileImgUrl != null && data[i].mbrProfileImgUrl != ""){
+    					html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+    				}else{
+    					html += '		<img src="/resources/img/img_new/ico_dauser.png">';
+    				}
+   					html += '	</a>';
 					html += '</li>';
     			}
     		}

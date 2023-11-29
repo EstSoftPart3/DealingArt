@@ -657,36 +657,35 @@
 	</select>
 	
 	<select id="mainPopularMbr" resultType="hashMap">
+	/* 인기 회원 */
  	 SELECT 
-        MBR.MBR_SQ AS mbrSq, <!-- 멤버 순번 --> 
-        MBR.MBR_NCKNM AS mbrNcknm, <!-- 멤버 닉네임 -->
-        MBR.MBR_INTRO AS mbrIntro, <!--  멤버 소개글 -->
-        ARTST.ARTST_PROFILE_IMG_URL AS mbrProfileImgUrl, <!--23.10.12 김동희 아티스트 프로필 사진  -->
-        COUNT(BRD.BRD_SQ) AS numBoards, <!--23.10.12 김동희 게시글 개수 조회 -->
-        (SELECT COUNT(*)  FROM TBL_DA_FOLLOWING_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrFllows, <!-- 팔로잉수  -->
-        (SELECT SUM(COMT_VIEWS) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrViews, <!-- 조회수  -->
-        (SELECT SUM(COMT_LIKES) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrLikes, <!-- 좋아요수 -->
-        (SELECT COUNT(*) FROM TBL_DA_MBR_SCRAP_R WHERE MBR.MBR_SQ = MBR_SQ) AS mbrScraps,  <!-- 스크랩수  -->
-        (SELECT COUNT(*) FROM TBL_DA_COMT_CMTS_R WHERE MBR.MBR_SQ = REG_MBR_SQ) AS mbrCmts
-    FROM 
-        TBL_DA_MBR_M AS MBR
-    LEFT JOIN
-        TBL_DA_BRD_M AS BRD <!-- 23.10.12 김동희 TBL_게시판 조인 -->
-    ON 
-        MBR.MBR_SQ = BRD.REG_MBR_SQ
-   	LEFT JOIN
-        TBL_DA_ARTST_M AS ARTST <!-- 23.10.12 김동희 TBL_아티스트 조인 -->
-    ON
-        MBR.MBR_SQ  = ARTST.ARTST_SQ
-    WHERE 
-        MBR.USE_YN = 'Y'
-        AND MBR.DEL_YN = 'N'
-    GROUP BY 
-        MBR.MBR_SQ
-    HAVING
-        numBoards > 0 <!--23.10.12 김동희 게시글 1개이상 작성 조건 -->
-    ORDER BY 
-        CASE 
+	        MBR.MBR_SQ AS mbrSq 
+	        , MBR.MBR_NCKNM AS mbrNcknm
+	        , MBR.MBR_INTRO AS mbrIntro
+	        , (CASE 
+	        	WHEN MBR.MBR_PROFILE_IMG_URL IS NOT NULL AND MBR.MBR_PROFILE_IMG_URL != '' THEN MBR.MBR_PROFILE_IMG_URL
+	        	ELSE ARTST.ARTST_PROFILE_IMG_URL
+	        END) AS mbrProfileImgUrl
+	        , (SELECT COUNT(*)  FROM TBL_DA_FOLLOWING_M WHERE MBR.MBR_SQ = FOLLOWING_SQ) AS mbrFllows
+	        , (SELECT SUM(COMT_VIEWS) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrViews
+	        , (SELECT SUM(COMT_LIKES) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrLikes
+	        , (SELECT SUM(COMT_SCRAPS) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = MBR_SQ) AS mbrScraps
+	        , (SELECT SUM(COMT_CMTS) FROM TBL_DA_COMT_M WHERE MBR.MBR_SQ = REG_MBR_SQ) AS mbrCmts
+	FROM 
+	    	TBL_DA_MBR_M AS MBR
+	LEFT JOIN
+	    	TBL_DA_ARTST_M AS ARTST 
+		ON 	MBR.MBR_SQ  = ARTST.ARTST_SQ
+	INNER JOIN
+			TBL_DA_COMT_M AS COMT
+		ON 	MBR.MBR_SQ = COMT.MBR_SQ 
+	WHERE 
+	    	MBR.USE_YN = 'Y'
+	    AND MBR.DEL_YN = 'N'
+	GROUP BY 
+	    	MBR.MBR_SQ
+	ORDER BY 
+	    CASE 
 	        WHEN (SELECT PROMO_OD_DIV_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 4) = 'FLO' 
 	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 4) = 'ASC' 
 	        THEN mbrFllows
@@ -736,8 +735,8 @@
 	        AND (SELECT PROMO_OD_TYP_CD FROM TBL_DA_PROMO_MGMT_S WHERE PROMO_SQ = 4) = 'DES' 
 	        THEN mbrCmts
 	        END DESC
-	    LIMIT
-	    	10
+	LIMIT
+	    	10;
 	</select>
 	
 	<select id="mainPopularExhibit" resultType="hashMap">

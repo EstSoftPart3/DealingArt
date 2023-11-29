@@ -239,7 +239,11 @@
 					if (result.length > i) {
 						strHtml += '	<li>';
 						strHtml += '		<div class="following_pic" onclick="openOtherPage('+result[i].mbrSq+')">';
-						strHtml += '			<div class="pic"><img src="'+result[i].mbrProfileImgUrl+'" alt="">';
+						if(result[i].mbrProfileImgUrl != null && result[i].mbrProfileImgUrl != ""){
+							strHtml += '			<div class="pic"><img src="'+result[i].mbrProfileImgUrl+'" alt="">';
+						}else{
+							strHtml += '			<div class="pic"><img src="/resources/img/img_new/ico_dauser.png" alt="">';
+						}
 						strHtml += '			</div>';
 						strHtml += '			<div class="header">';
 						strHtml += '				<ul class="user_picname">';

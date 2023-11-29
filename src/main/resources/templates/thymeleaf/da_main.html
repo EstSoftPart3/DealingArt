@@ -686,9 +686,13 @@
             var mbrIntro = mbr.mbrIntro ? mbr.mbrIntro : ' ';
     		
 	        strHtml += '<li class="swiper-slide">';
-	        strHtml += '   <a href="javascript:void(0);" onclick="artstDetail('+mbr.mbrSq+')">';
+	        strHtml += '   <a href="/otherPage/main?mbrSq='+mbr.mbrSq+'">';
 	        strHtml += '	    <div class="cns-box3">';
-	        strHtml += '		   <img src="'+mbr.mbrProfileImgUrl+'" alt="" />';
+	        if(mbr.mbrProfileImgUrl != null && mbr.mbrProfileImgUrl != ""){
+	        	strHtml += '		   <img src="'+mbr.mbrProfileImgUrl+'"/>';
+	        }else{
+	        	strHtml += '		   <img src="/resources/img/mypage/ico_dauser.png"/>';
+	        }
 	        strHtml += '   	   <h4 style="text-align:center; padding-top:10px;">'+mbr.mbrNcknm+'</h4>';
 	        strHtml += '        <div class="text" style="text-align:center; padding-top:10px;">'+ mbrIntro +'</div>';
 		   	strHtml += '	    </div>';
@@ -698,9 +702,7 @@
     	
     	$("#popularMbrBox").prepend(strHtml);
 
-  	   
     }
-    
     
     // 전시 소개/후기 셋팅
     function setPopularExhibit(list){

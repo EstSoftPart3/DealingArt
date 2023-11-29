@@ -2213,13 +2213,13 @@ function setComment(comtSq, commTypeCd) {
 				strHtml += '<div class="comments_box">';
 				strHtml += '    <div class="user_wrap">';
 				strHtml += '        <div class="user_img">';
-
+				strHtml += '			<a href="/otherPage/main?mbrSq='+ comment.mbrSq +'">';
 				if (null != comment.mbrProfileImgUrl) {
 					strHtml += '            <img src="'+ comment.mbrProfileImgUrl +'" alt="">';
 				} else {
 					strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
 				}
-
+				strHtml += '			</a>';
 				strHtml += '        </div>';
 				strHtml += '        <div class="user">';
 				strHtml += '            <ul>';
@@ -2229,9 +2229,9 @@ function setComment(comtSq, commTypeCd) {
 				strHtml += '                        <li>'+ (comment.dateDiff >= 24 ? comment.cmtRegDt.substring(0, comment.cmtRegDt.length-3) : setTimeFormat(comment.cmtRegDt)) +'</li>';
 				
 				if(sMbrSqVal) {
-					strHtml += '                    <li><a href="#">♡ 좋아요</a></li>';
+					//strHtml += '                    <li><a href="#">♡ 좋아요</a></li>';
 					strHtml += '                    <li><a href="javascript:void(0);" onclick="openReplyAndModForm('+ comment.cmtSq +', '+ comtSq +', this)">답글달기</a></li>';
-					strHtml += '                    <li><a href="#">신고</a></li>';
+					//strHtml += '                    <li><a href="#">신고</a></li>';
 				}
 				
 				// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
@@ -2259,13 +2259,13 @@ function setComment(comtSq, commTypeCd) {
 						strHtml += '            <img src="/resources/img/mypage/ico_answer_comments.png" alt="">';
 						strHtml += '        </div>';
 						strHtml += '        <div class="user_img">';
-
+						strHtml += '			<a href="/otherPage/main?mbrSq='+ reply.mbrSq +'">';
 						if (null != reply.mbrProfileImgUrl) {
 							strHtml += '            <img src="'+ reply.mbrProfileImgUrl +'" alt="">';
 						} else {
 							strHtml += '            <img src="/resources/img/mypage/ico_dauser.png" alt="">';
 						}
-
+						strHtml += '			</a>';
 						strHtml += '        </div>';
 						strHtml += '        <div class="user">';
 						strHtml += '            <ul>';
@@ -2275,8 +2275,8 @@ function setComment(comtSq, commTypeCd) {
 						strHtml += '                        <li>'+ (reply.dateDiff >= 24 ? reply.replyRegDt.substring(0, reply.replyRegDt.length-3) : setTimeFormat(reply.replyRegDt)) +'</li>';
 						
 						if(sMbrSqVal) {
-							strHtml += '                        <li>   <a href="#">♡ 좋아요</a></li>';
-							strHtml += '                        <li><a href="#">신고</a></li>';
+							//strHtml += '                        <li><a href="#">♡ 좋아요</a></li>';
+							//strHtml += '                        <li><a href="#">신고</a></li>';
 						}
 						
 						// 로그인한 유저가 댓글쓴 유저와 같으면 수정 삭제 기능 활성화
@@ -2609,26 +2609,25 @@ function followCheck(fwMbrSq) {
  * 예)
  ---------------------------------------------*/
 function setOtherComtHtml(mbrNcknm, otherComt, words) {
-	if(!otherComt) {
+	if(otherComt.length > 0) {
+		var html = '';
+		html += '<div class="contents conbg">';
+		html += '	<div class="cont-title2 max-1500">';
+		html += '		<h3>'+ mbrNcknm +'님의 다른 '+ words +' 보기</h3>';
+		html += '	</div>';
+		html += '	<div class="swi-box1 max-1500">';
+		html += '		<div class="swiper mySwiper2">';
+		html += '			<div class="swiper-wrapper" id="swiper_workList"></div>';
+		html += '			<div class="swiper-pagination swpa-2 pc-no"></div>';
+		html += '		</div>';
+		html += '		<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>';
+		html += '		<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>';
+		html += '	</div>';
+		html += '</div>';
+		return html;
+	}else{
 		return '';
 	}
-	
-	var html = '';
-	html += '<div class="contents conbg">';
-	html += '	<div class="cont-title2 max-1500">';
-	html += '		<h3>'+ mbrNcknm +'님의 다른 '+ words +' 보기</h3>';
-	html += '	</div>';
-	html += '	<div class="swi-box1 max-1500">';
-	html += '		<div class="swiper mySwiper2">';
-	html += '			<div class="swiper-wrapper" id="swiper_workList"></div>';
-	html += '			<div class="swiper-pagination swpa-2 pc-no"></div>';
-	html += '		</div>';
-	html += '		<div class="swiper-button-next sbn ta-no"><span><img src="/resources/img/arr-r.jpg"></span></div>';
-	html += '		<div class="swiper-button-prev sbp ta-no"><span><img src="/resources/img/arr-l.jpg"></span></div>';
-	html += '	</div>';
-	html += '</div>';
-	
-	return html;
 }
 
 /* ---------------------------------------------
@@ -2637,8 +2636,8 @@ function setOtherComtHtml(mbrNcknm, otherComt, words) {
  * 예)
  ---------------------------------------------*/
 function otherComtWorkList(otherComt, url) {
+	$("#swiper_workList").empty();
 	if(otherComt.length > 0){
-		$("#swiper_workList").empty();
 		var html = '';
 		
 		for(var i=0; i<otherComt.length; i++){

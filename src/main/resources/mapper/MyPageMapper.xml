@@ -7,7 +7,10 @@
 		/*마이페이지 메인 나의 정보 조회*/
 		SELECT 
 				MBR.MBR_SQ AS mbrSq /*회원_순번*/
-				, IFNULL(MBR.MBR_PROFILE_IMG_URL, ARTST.ARTST_PROFILE_IMG_URL) AS mbrProfileImgUrl /*회원_프로필사진_URL*/
+				, (CASE 
+			        	WHEN MBR.MBR_PROFILE_IMG_URL IS NOT NULL AND MBR.MBR_PROFILE_IMG_URL != '' THEN MBR.MBR_PROFILE_IMG_URL
+			        	ELSE ARTST.ARTST_PROFILE_IMG_URL
+			       END) AS mbrProfileImgUrl /*회원_프로필사진_URL*/
 				, MBR.MBR_NCKNM AS mbrNcknm /*회원_닉네임*/
 				, MBR.MBR_ID AS mbrId /*회원_아이디*/
 				, (CASE
@@ -311,9 +314,9 @@
 		/*마이페이지 팔로잉 조회*/
 		SELECT 
 				(CASE 
-					WHEN MBR.MBR_PROFILE_IMG_URL != NULL AND '' THEN MBR.MBR_PROFILE_IMG_URL
-					ELSE ARTST.ARTST_PROFILE_IMG_URL
-				END) AS mbrProfileImgUrl /*회원_프로필_이미지_URL*/
+		        	WHEN MBR.MBR_PROFILE_IMG_URL IS NOT NULL AND MBR.MBR_PROFILE_IMG_URL != '' THEN MBR.MBR_PROFILE_IMG_URL
+		        	ELSE ARTST.ARTST_PROFILE_IMG_URL
+		        END) AS mbrProfileImgUrl
 				, MBR.MBR_NCKNM AS mbrNckNm /*회원_닉네임*/
 				, MBR.MBR_INTRO AS mbrIntro /*회원_자기소개*/
 				, FOLLOW.FOLLOWING_SQ AS mbrSq /*회원_순번*/

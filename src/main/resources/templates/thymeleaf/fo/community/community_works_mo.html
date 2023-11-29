@@ -126,10 +126,10 @@
                     <div class="sel_form">
                         <select name="comtWorkShpCd" id="comtWorkShpCd">
                             <option value="">형태</option>
-                            <option value="">평면</option>
-                            <option value="">입체</option>
-                            <option value="">고미술</option>
-                            <option value="">공예</option>
+                            <option value="PLN">평면</option>
+                            <option value="SLD">입체</option>
+                            <option value="ACT">고미술</option>
+                            <option value="CRF">공예</option>
                         </select>
                     </div>
                 </div>
@@ -175,6 +175,7 @@
    		
    		// 형태 값 선택시 데이터 검색
    		$("#comtWorkShpCd").on("change", function(){
+   			debugger;
    			comtWorkShpCd = $(this).val();
    			offset = 0;
    			communityWorksList();

@@ -264,7 +264,7 @@ public class CommunityController {
 			mv.addObject("message", "존재하지 않는 게시물입니다.");
 			return mv;
 		}else{
-			communityService.updateComtViews(param); //커뮤니티 조회수 증가
+			communityService.updateComtViews(param.get("SqNumber").toString()); //커뮤니티 조회수 증가
 			//Map<String, Object> exhibit = communityService.communityExhKnoDetail(param);
 			Map<String, Object> exhibit = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
 			mv.addObject("exhibit", exhibit);
@@ -301,7 +301,7 @@ public class CommunityController {
 			
 			return mv;
 		}else{
-			communityService.updateComtViews(param); //커뮤니티 조회수 증가
+			communityService.updateComtViews(param.get("SqNumber").toString()); //커뮤니티 조회수 증가
 			Map<String, Object> issue = communityService.communityExhKnoDetail(String.valueOf(param.get("SqNumber")));
 			mv.addObject("issue", issue);
 
@@ -370,11 +370,12 @@ public class CommunityController {
 		String commTypeCd = "";
 				
 		// 커뮤니티 권한 정보 가져오기
-		if(!StringUtils.isBlank(commTypeCd)){
+		if(param.get("commTypeCd") != null){
 			commTypeCd = param.get("commTypeCd").toString();
 		}else {
 			commTypeCd = "";
 		}
+		
 		List<Map<String, Object>> boardAuth = communityService.selectBoardAuth(commTypeCd);
 		
 		mv.addObject("comments", comments);

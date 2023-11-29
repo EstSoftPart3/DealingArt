@@ -261,7 +261,7 @@
 	        strHtml += '                    <div class="user">';
 	        strHtml += '                        <ul>';
 	        
-	        if(null != exhibit.mbrProfileImgUrl){
+	        if(exhibit.mbrProfileImgUrl != null && exhibit.mbrProfileImgUrl != ""){
 		        strHtml += '                            <li class="pt5"><img src="'+ exhibit.mbrProfileImgUrl +'" alt=""></li>';
 	        } else {
 	        	strHtml += '                            <li class="pt5"><img src="/resources/img/img_new/ico_dauser.png" alt=""></li>';

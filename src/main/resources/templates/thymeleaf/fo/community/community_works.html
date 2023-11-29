@@ -134,8 +134,8 @@
                             <option value="">형태</option>
                             <option value="PLN">평면</option>
                             <option value="SLD">입체</option>
-                            <option value="">고미술</option>
-                            <option value="">공예</option>
+                            <option value="ACT">고미술</option>
+                            <option value="CRF">공예</option>
                         </select>
                     </div>
                 </div>
@@ -263,7 +263,7 @@
    	            strHtml += '    		<div class="works_pic">';
    	            strHtml += '        		<div class="header">';
    	            
-   	            if(null != work.mbrProfileImgUrl){
+   	            if(work.mbrProfileImgUrl != null && work.mbrProfileImgUrl != ""){
    	            	strHtml += '            	<div class="user_img"><img src="'+ work.mbrProfileImgUrl +'" alt=""></div>';
    	            } else {
    		            strHtml += '            	<div class="user_img"><img src="/resources/img/mypage/ico_dauser.png" alt=""></div>';

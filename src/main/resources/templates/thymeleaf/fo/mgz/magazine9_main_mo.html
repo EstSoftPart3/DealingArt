@@ -107,6 +107,26 @@
 </head>
 <body>
     <th:block th:replace="thymeleaf/header :: headerFragment"></th:block>
+    <script>
+		$(document).ready(function () {
+			if (isMobile == true) {
+				$("#lp_mgz9Dtl_insight").css("font-size", "2.0em");
+				$(".text-huge").css("font-size", "1.2em");
+				
+			}	
+			//전시 nav 삭제로 css 조정
+			$(".magazine9_wrap #nav ul li").css("width", "25%");
+		});	
+		//매거진 브라우저 체크
+		function mgzMobileBrowserChk2(){
+			 if(!isMobile){
+				 window.location.href = "/mgz9/magazine9_main";
+			 }else{
+				 window.location.href = "/mgz9/magazine9_mainMobile";
+			 }
+			 
+	  	 }
+	</script>
     <div id="container">
         <div class="magazine9_wrap">
             <div id="nav">
@@ -233,11 +253,7 @@
 			
 			<!-- 상세내용 font-size: 15px !important;-->
 			<div style="display: flex;justify-content: center" class="box_pt20 box_con1">
-				<div id="lp_mgz9Dtl_insight_cntnt"
-					style="max-width: 900px; padding-left: 20px; padding-right: 20px;"
-					class=" ck-blurred ck ck-content ck-rounded-corners post-body no-drag"
-					lang="en" dir="ltr" role="textbox"
-					aria-label="Rich Text Editor, main" contenteditable="false">
+				<div id="lp_mgz9Dtl_insight_cntnt" style="max-width: 900px; padding-left: 20px; padding-right: 20px;" class="ck-blurred ck ck-content ck-rounded-corners post-body no-drag" lang="en" dir="ltr" role="textbox" aria-label="Rich Text Editor, main" contenteditable="false">
 				</div>
 			</div>
 		</div>
@@ -356,8 +372,8 @@
                	var appDevice =	$("#appDevice").val();
                	if(appDevice == "MOBILE") {
                  	$("#editor > div").css('font-size', '11px');
-        				$("#editor > div").css('padding-left', '0px');
-        			    $("#editor > div").css('padding-right', '0px');
+        			$("#editor > div").css('padding-left', '0px');
+        			$("#editor > div").css('padding-right', '0px');
         		}
                	$("body").css("overflow", "hidden");
                	$('#lp_mgz9Dtl_insight').modal({backdrop: 'static', keyboard: false})  

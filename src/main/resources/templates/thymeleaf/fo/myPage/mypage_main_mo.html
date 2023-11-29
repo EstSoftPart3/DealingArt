@@ -460,13 +460,21 @@
                 	html += '<li class="pic_more">';
                     html += '  	<a href="/otherPage/main?mbrSq='+data[i].mbrSq+'">';
                     html += '		<span>+ '+total+'</span>';
-                    html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+                    if(data[i].mbrProfileImgUrl != null && data[i].mbrProfileImgUrl != ""){
+                    	html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+                    }else{
+                    	html += '		<img src="/resources/img/img_new/ico_dauser.png">';
+                    }
                     html += '	</a>';
                     html += '</li>';
                 }else if(i == 0){
                 	html += '<li>';
                     html += '	<a href="/otherPage/main?mbrSq='+data[i].mbrSq+'">';
-                    html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+                    if(data[i].mbrProfileImgUrl != null && data[i].mbrProfileImgUrl != ""){
+                    	html += '		<img src="'+data[i].mbrProfileImgUrl+'">';
+                    }else{
+                    	html += '		<img src="/resources/img/img_new/ico_dauser.png">';
+                    }
                     html += '	</a>';
                     html += '</li>';
                 }

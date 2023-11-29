@@ -166,6 +166,7 @@
 		var list;
 		var deal;
 		var work;
+		var boardAuth;
     	
     	var objName = {
 			work: "work",
@@ -184,6 +185,9 @@
     
     	$(document).ready(function() {
     		searchShowOffDtlList();
+    		
+    		// 컴포넌트 권한 및 사용 유무
+    		fn_chkComponetUseYn(boardAuth);
     	});
     	
     	// 자랑하기 상세 정보 조회
@@ -202,9 +206,9 @@
     				deal = data.result.deal;
     	    		work = data.result.work;
     	    		list = deal || work;
-
+    	    		boardAuth = data.result.showOffList.boardAuth;
+    	    			
     	    		setShowOffDtlInfoHtml();
-    	    		fn_chkComponetUseYn(data.result.showOffList.boardAuth);
     				setWorkInfoHtml();
     				
     				if(list.artistInfo) {
@@ -267,7 +271,7 @@
     		userWrapHtml += '</div>';
     		userWrapHtml += '<div class="icon_box">';
     		userWrapHtml += '	<ul>';
-    		userWrapHtml += '		<li class="time">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
+    		userWrapHtml += '		<li class="day">'+ (showOff.dateDiff >= 24 ? showOff.regDt.substring(0, showOff.regDt-3) : setTimeFormat(showOff.regDt)) +'</li>';
     		userWrapHtml += '		<li class="like" onclick="likeCheckYn(' + comtSq + ')" style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>';
     		/* userWrapHtml += '		<li style="cursor: pointer;"><p class="ico_good"></p><span>'+ showOff.comtLikes +'</span></li>'; */
     		userWrapHtml += '		<li class="scrap" onclick="scrapCheck('+comtSq+');" style="cursor: pointer;"><p class="ico_scrap"></p><span>'+ showOff.comtScraps +'</span></lreplyRegi>';
@@ -280,6 +284,7 @@
     		
     		var comtContentHtml = showOff.comtContent;
     		comtContent.append(comtContentHtml).trigger("create");
+    		
     	}
     	
     	// 작품 정보 html 생성
@@ -663,6 +668,7 @@
     		var container = $("#container");
 			var cmtHtml = '<div class="comments_box_wrap max-1500" id="commentBox"></div>';
 			container.append(cmtHtml).trigger("create");
+			
     	}
     	
     	// 거래 상세 페이지 이동
@@ -1749,15 +1755,19 @@
 				// 댓글 사용 여부
 				if(data[0].cmtYn == "Y"){
 					$(".cmt").css("display","block");
+					$("#comments_tit").attr("disabled",false);
+					$(".cmt_reg_btn ba-btn1").attr("disabled",false);
 				}else if(data[0].cmtYn == "N"){
 					$(".cmt").css("display","none");
+					$("#comments_tit").attr("disabled",true);
+					$(".cmt_reg_btn ba-btn1").css("disabled",true);
 				}
 				
 				// 등록 시간 표시 여부
-				if(data[0].cmMgRegDtYn == "Y"){
-					$(".time").css("display","block");
-				}else if(data[0].cmtYn == "N"){
-					$(".time").css("display","none");
+				if(data[0].regDtYn == "Y"){
+					$(".day").css("display","block");
+				}else if(data[0].regDtYn == "N"){
+					$(".day").css("display","none");
 				}
 			}
 		}

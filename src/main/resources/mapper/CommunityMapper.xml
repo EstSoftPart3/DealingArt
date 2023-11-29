@@ -352,7 +352,10 @@
 	   		   )								AS rprtCnt,		 	-- 신고 수
 		   	   CM.COMT_SALES_YN 				AS comtSalesYn,		-- 커뮤니티 판매제안 여부
 			   MM.MBR_NCKNM 					AS mbrNcknm,		-- 회원 닉네임
-			   MM.MBR_PROFILE_IMG_URL 			AS mbrProfileImgUrl,-- 회원 프로필 이미지 URL
+			   (CASE 
+			   		WHEN MM.MBR_PROFILE_IMG_URL IS NOT NULL AND MM.MBR_PROFILE_IMG_URL != '' THEN MM.MBR_PROFILE_IMG_URL
+			   		ELSE AM.ARTST_PROFILE_IMG_URL
+			   END) 							AS mbrProfileImgUrl,-- 회원 프로필 이미지 URL
 			   MM.MBR_SQ						AS mbrSq,			-- 회원 순번
 			   CKR.COMT_KEYWRD					AS comtKeywrd,		-- 커뮤니티 키워드
 			   AM.ARTST_SQ						AS artstSq			-- 작가 순번
@@ -571,7 +574,10 @@
 				, DATE_FORMAT(COMT.REG_DT, '%Y-%m-%d %T') AS comtRegDt
 				, TIMESTAMPDIFF(HOUR, COMT.REG_DT, NOW()) AS dateDiff
 				, MBR.MBR_SQ AS mbrSq
-				, MBR.MBR_PROFILE_IMG_URL AS mbrProfileImgUrl
+				, (CASE 
+			   		WHEN MBR.MBR_PROFILE_IMG_URL IS NOT NULL AND MBR.MBR_PROFILE_IMG_URL != '' THEN MBR.MBR_PROFILE_IMG_URL
+			   		ELSE ARTST.ARTST_PROFILE_IMG_URL
+			   	  END) AS mbrProfileImgUrl 
 				, MBR.MBR_NCKNM AS mbrNcknm
 				, COUNT(RPRT.COMT_SQ) AS rpptCount
 				, KEYWRDS.COMT_KEYWRD AS comtKeywrd
@@ -905,11 +911,11 @@
 				COMT_SQ = #{comtSq}
 	</update>
 	
-	<select id="selectBoardAuth" resultType="hashMap">
+	<select id="selectBoardAuth" resultType="hashMap" parameterType="String">
     /* 게시판 관리 상세 조건 조회 */
     SELECT CASE WHEN CM_MG_OD_DIV_CD = 'LIK' THEN 'COMT_LIKES'
                 WHEN CM_MG_OD_DIV_CD = 'VIW' THEN 'COMT_VIEWS'
-                WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_CMTS'				
+                WHEN CM_MG_OD_DIV_CD = 'CMT' THEN 'COMT_CMTS'				
                 WHEN CM_MG_OD_DIV_CD = 'SCP' THEN 'COMT_SCRAPS'
                 WHEN CM_MG_OD_DIV_CD = 'SNS' THEN 4 -- 이건 아직 모르겠음
                 WHEN CM_MG_OD_DIV_CD = 'REG' THEN 'REG_DT'
